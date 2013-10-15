@@ -1,0 +1,6 @@
+language: ruby
+rvm:
+  - 2.0.0
+before_script:
+  - "ruby lib/initial_setup.rb ../.travis_setup"
+  - "bundle exec rake db:migrate"
