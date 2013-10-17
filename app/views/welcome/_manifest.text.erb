@@ -1,0 +1,1 @@
+<%= Dir.glob('app/assets/images/*.png').collect{|f| asset_path(f.split('/').last)}.join("\n\r") %>

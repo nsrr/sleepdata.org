@@ -2,3 +2,4 @@
 
 - Initial prototype of the National Sleep Research Resource splash page
 - Skeleton files to initialize Rails application with testing framework and continuous integration
+- Added the We Care Dataset to prototype bulk file downloads

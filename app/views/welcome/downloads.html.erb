@@ -1,0 +1,52 @@
+<div class="jumbotron">
+  <h1>We Care Dataset</h1>
+  <p class="lead">Downloads</p>
+</div>
+
+
+<div class="bs-callout bs-callout-info">
+  <h4>Bulk Download Using WGET</h4>
+
+  <p>
+    To download the entire <strong>We Care Dataset</strong>, use the following command:
+  </p>
+
+  <p>
+    <code>
+      wget -P wecare -c -i <%= SITE_URL.split('//').first %>//<%= SITE_URL.split('//').last.split('/').first %><%= manifest_path %>
+    </code>
+  </p>
+</div>
+
+<div class="bs-callout bs-callout-danger">
+  <h4>Don't have WGET?</h4>
+
+  <p>
+    <ul>
+      <li><%= link_to 'wget-1.8.1b.zip', 'http://www.physionet.org/physiotools/utilities/wget/wget-1.8.1b.zip' %> &middot; Windows</li>
+
+      <li><%= link_to 'wget-1.8.2.tar.gz', 'http://www.physionet.org/physiotools/utilities/wget/wget-1.8.2.tar.gz' %> &middot; Linux/Mac</li>
+    </ul>
+  </p>
+</div>
+
+<% file_array = Dir.glob('app/assets/images/*.png').collect{|f| [f.split('/').last, f]} %>
+
+<% name_max_width = [file_array.collect{|n,f| n.size}.max, 32].min %>
+<% padding = 4 %>
+<% margin = 2 %>
+<% time_length = 19 %>
+<% size_length = 7 %>
+<% total_file_size = 0 %>
+
+<pre>
+  <%= ' '*margin %>Name<%= ' '*([name_max_width - 4, 0].max) %><%= ' '*padding %>Last Modified<%= ' '*([time_length - 13, 0].max) %><%= ' '*padding %>Size<%= ' '*([size_length - 4, 0].max) %><%= ' '*margin %>
+  <%= '-'*(margin + name_max_width + padding + time_length + padding + size_length + margin) %>
+  <% file_array.each do |name, file| %>
+    <% file_size = File.size(file) %>
+    <% total_file_size += file_size %>
+    <%= link_to name.truncate(name_max_width), asset_path(name) %><%= ' '*([name_max_width - name.size, 0].max) %><%= ' '*padding %><%= File.mtime(file).strftime("%Y-%m-%d %H:%M:%S") %><%= ' '*padding %><%= number_to_human_size(file_size) %><%= ' '*margin %>
+  <% end %>
+  <%= '-'*(margin + name_max_width + padding + time_length + padding + size_length + margin) %>
+  <%= ' ' * margin %>Total<%= ' '*([name_max_width - 5, 0].max) %><%= ' ' * padding %><%= pluralize(file_array.size, 'file') %><%= ' '*([time_length - pluralize(file_array.size, 'file').size, 0].max) %><%= ' ' * padding %><%= number_to_human_size(total_file_size) %><%= ' ' * margin %>
+</pre>

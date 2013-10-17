@@ -6,6 +6,8 @@ WwwSleepdataOrg::Application.routes.draw do
 
   get 'welcome/index'
   get '/about' => "welcome#about", as: :about
+  get '/downloads' => "welcome#downloads", as: :downloads
+  get '/downloads/manifest' => "welcome#manifest", as: :manifest
 
   root to: 'welcome#index'
 
