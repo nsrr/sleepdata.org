@@ -3,7 +3,6 @@ class DeviseCreateUsers < ActiveRecord::Migration
     create_table(:users) do |t|
       t.string :first_name
       t.string :last_name
-      t.string :status, null: false, default: "pending"
       t.boolean :deleted, null: false, default: false
       t.boolean :system_admin, null: false, default: false
 
