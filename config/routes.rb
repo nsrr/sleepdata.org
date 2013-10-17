@@ -5,6 +5,7 @@ WwwSleepdataOrg::Application.routes.draw do
   resources :users
 
   get 'welcome/index'
+  get '/about' => "welcome#about", as: :about
 
   root to: 'welcome#index'
 
