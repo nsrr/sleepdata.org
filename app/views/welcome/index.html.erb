@@ -1,7 +1,9 @@
   <div class="jumbotron">
     <h1>National Sleep Research Resource</h1>
     <p class="lead">Explore the largest collection of sleep research databases in the world.</p>
-    <p><a class="btn btn-lg btn-success" href="#">Get started today</a></p>
+    <p>
+      <%= link_to 'Get started today', 'https://sleepepi.partners.org/slice/survey/nsrr-sleepdata', target: '_blank', class: 'btn btn-lg btn-success' %>
+    </p>
   </div>
 
     <div class="marketing">
@@ -11,24 +13,26 @@
           <%= image_tag 'shhs_logo.png', size: '140x140', alt: 'SHHS' %>
           <h2>Sleep Heart Health Study</h2>
           <p>Download and explore the dataset that started it all. The quintessential SHHS dataset follows the sleep patterns of 6,000 individuals over three visits.</p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-        </div><!-- /.col-lg-4 -->
+          <p>
+            <%= link_to 'View details &raquo;'.html_safe, '#', data: { object: 'suppress-click' }, class: 'btn btn-default' %>
+          </p>
+        </div>
         <div class="col-lg-4">
           <%= image_tag 'chat_logo.png', size: '140x140', alt: 'SHHS' %>
           <h2>CHAT</h2>
           <p>The most comprehensive dataset of children with sleep apnea. Leading sleep researchers in the field regard the Childhood Adenotonsillectomy Study as the gold standard for understanding sleep apnea present in children.</p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-        </div><!-- /.col-lg-4 -->
+          <p>
+            <%= link_to 'View details &raquo;'.html_safe, '#', data: { object: 'suppress-click' }, class: 'btn btn-default' %></p>
+        </div>
         <div class="col-lg-4">
           <%= image_tag 'bestair_logo.png', size: '140x140', alt: 'SHHS' %>
           <h2>BestAIR</h2>
           <p>Cutting edge data and results will soon be available on www.sleepdata.org from the BestAIR study. Novel device setups, montage tweaks, and immaculate manuals of procedures are included in this dataset.</p>
-          <p><a class="btn btn-default" href="#">View details &raquo;</a></p>
-        </div><!-- /.col-lg-4 -->
-      </div><!-- /.row -->
-
-
-      <!-- START THE FEATURETTES -->
+          <p>
+            <%= link_to 'View details &raquo;'.html_safe, '#', data: { object: 'suppress-click' }, class: 'btn btn-default' %>
+          </p>
+        </div>
+      </div>
 
       <hr class="soften">
 
@@ -70,6 +74,12 @@
 
       <!-- FOOTER -->
       <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2013 NSRR &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+        <p class="pull-right">
+          <%= link_to 'Back to top', root_url %>
+        </p>
+        <p>
+          &copy; 2013 NSRR
+          &middot; <%= link_to 'Privacy', '#', data: { object: 'suppress-click' } %>
+          &middot; <%= link_to 'Terms', '#', data: { object: 'suppress-click' } %>
+        </p>
       </footer>

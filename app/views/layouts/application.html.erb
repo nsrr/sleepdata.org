@@ -19,12 +19,12 @@
   <div class="container" style="margin-top:0px">
       <div class="masthead">
         <ul class="nav nav-justified">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="#">Datasets</a></li>
-          <li><a href="#">Tools</a></li>
-          <li><a href="#">Downloads</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
+          <li class="active"><%= link_to 'Home', root_url %></li>
+          <li><%= link_to 'Datasets', '#', data: { object: 'suppress-click' } %></li>
+          <li><%= link_to 'Tools', '#', data: { object: 'suppress-click' } %></li>
+          <li><%= link_to 'Downloads', '#', data: { object: 'suppress-click' } %></li>
+          <li><%= link_to 'About', '#', data: { object: 'suppress-click' } %></li>
+          <li><%= link_to 'Contact', '#', data: { object: 'suppress-click' } %></li>
         </ul>
       </div>
 
