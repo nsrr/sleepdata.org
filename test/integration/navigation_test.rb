@@ -7,7 +7,6 @@ class NavigationTest < ActionDispatch::IntegrationTest
 
   def setup
     @valid = users(:valid)
-    @pending = users(:pending)
     @deleted = users(:deleted)
   end
 
