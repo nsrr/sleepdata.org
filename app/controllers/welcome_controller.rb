@@ -3,7 +3,7 @@ class WelcomeController < ApplicationController
   end
 
   def manifest
-    render partial: 'manifest.text.erb'
+    render text: Dir.glob('app/assets/images/*.png').collect{|f| SITE_URL + ActionController::Base.helpers.asset_path(f.split('/').last)}.join("\n\r")
   end
 
   def wget

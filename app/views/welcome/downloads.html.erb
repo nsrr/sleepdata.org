@@ -13,7 +13,7 @@
 
   <p>
     <code>
-      wget<%= '.exe' if windows? %> -P wecare -c -i <%= site_prefix %><%= manifest_path %>
+      wget -P wecare -c -i <%= site_prefix %><%= manifest_path( format: 'txt' ) %>
     </code>
   </p>
 </div>
