@@ -10,6 +10,23 @@
   Download <%= link_to wget_file, "http://ftp.gnu.org/gnu/wget/#{wget_file}" %>.
 </li>
 <li>
+  Open a Linux <code>Shell</code> or the Mac OS X <code>Terminal</code>.
+  <div class="bs-callout bs-callout-info">
+    <p>
+      On Mac OS X, type <code>&#8984; + &lt;Space&gt;</code>, then type <code>Terminal</code>, and click <code>Enter</code> to open the Terminal.
+    </p>
+  </div>
+</li>
+<li>
+  Change directory to the directory where you downloaded <code><%= wget_file %></code>.
+  <pre class="code">cd ~/Downloads</pre>
+  <div class="bs-callout bs-callout-danger">
+    <p>
+      <strong>Important!</strong> This step is only an example, you may have downloaded the file elsewhere.
+    </p>
+  </div>
+</li>
+<li>
   Compile and install GNU Wget.
 <pre class='code'>
 tar xvzf <%= wget_file %>
