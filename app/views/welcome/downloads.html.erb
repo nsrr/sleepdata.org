@@ -5,7 +5,7 @@
 
 
 <div class="bs-callout bs-callout-info">
-  <h4>Bulk Download Using WGET</h4>
+  <h4>Bulk Download Using GNU Wget</h4>
 
   <p>
     To download the entire <strong>We Care Dataset</strong>, use the following command:
@@ -13,20 +13,16 @@
 
   <p>
     <code>
-      wget -P wecare -c -i <%= SITE_URL.split('//').first %>//<%= SITE_URL.split('//').last.split('/').first %><%= manifest_path %>
+      wget<%= '.exe' if windows? %> -P wecare -c -i <%= SITE_URL.split('//').first %>//<%= SITE_URL.split('//').last.split('/').first %><%= manifest_path %>
     </code>
   </p>
 </div>
 
 <div class="bs-callout bs-callout-danger">
-  <h4>Don't have WGET?</h4>
+  <h4>Don't have GNU Wget?</h4>
 
   <p>
-    <ul>
-      <li><%= link_to 'wget-1.8.1b.zip', 'http://www.physionet.org/physiotools/utilities/wget/wget-1.8.1b.zip' %> &middot; Windows</li>
-
-      <li><%= link_to 'wget-1.8.2.tar.gz', 'http://www.physionet.org/physiotools/utilities/wget/wget-1.8.2.tar.gz' %> &middot; Linux/Mac</li>
-    </ul>
+    Install using our <%= link_to 'GNU Wget installation instructions', wget_path %>.
   </p>
 </div>
 

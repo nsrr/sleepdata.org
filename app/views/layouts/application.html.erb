@@ -21,7 +21,7 @@
         <ul class="nav nav-justified">
           <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to 'Home', root_path %></li>
           <li><%= link_to 'Datasets', '#', data: { object: 'suppress-click' } %></li>
-          <li><%= link_to 'Tools', '#', data: { object: 'suppress-click' } %></li>
+          <li class="<%= 'active' if current_page?(wget_path(choose: '1')) or current_page?(wget_src_path) or current_page?(wget_windows_path) %>"><%= link_to 'Tools', wget_path(choose: '1') %></li>
           <li class="<%= 'active' if current_page?(downloads_path) %>"><%= link_to 'Downloads', downloads_path %></li>
           <li class="<%= 'active' if current_page?(about_path) %>"><%= link_to 'About', about_path %></li>
           <li><%= link_to 'Contact', '#', data: { object: 'suppress-click' } %></li>

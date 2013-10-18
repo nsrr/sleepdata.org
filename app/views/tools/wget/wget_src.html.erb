@@ -1,0 +1,30 @@
+<div class="page-header">
+  <h1>Install GNU Wget from Source</h1>
+  <%= link_to 'Looking for a different operating system?', wget_path(choose: '1') %>
+</div>
+
+<% wget_file = 'wget-1.14.tar.gz' %>
+
+<ol>
+<li>
+  Download <%= link_to wget_file, "http://ftp.gnu.org/gnu/wget/#{wget_file}" %>.
+</li>
+<li>
+  Compile and install GNU Wget.
+<pre class='code'>
+tar xvzf <%= wget_file %>
+cd <%= wget_file.split('.tar.gz').first %>
+./configure
+make
+sudo make install
+</pre>
+<li>
+  Verify GNU Wget installation.
+  <pre class='code'>which wget
+
+  <span class="code text-muted">/usr/local/bin/wget</span></pre>
+  <pre class='code'>wget --version
+
+  <span class="text-muted">GNU Wget <%= wget_file.split('.tar.gz').first.split('wget-').last %></span></pre>
+</li>
+</ol>

@@ -88,3 +88,7 @@
     padding-right: 0;
   }
 }
+
+pre.code {
+  margin: 10px 0px;
+}
