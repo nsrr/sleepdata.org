@@ -11,30 +11,30 @@
   </p>
 </div>
 
-
-<% wget_file = 'wget-1.11.4-1-bin.zip' %>
+<% wget_file = 'wget-1.11.4-1-setup.exe' %>
 
 <ol>
 <li>
   Download <%= link_to wget_file, "http://downloads.sourceforge.net/gnuwin32/#{wget_file}" %>.
 </li>
 <li>
-  Extract <code><%= wget_file %></code>.
-</li>
-<li>
-  Copy <code>wget.exe</code> in <code><%= wget_file %>\bin\</code> to<code>C:\Windows\</code>
+  Double click <code><%= wget_file %></code> and follow installation instructions.
 </li>
 <li>
   Click the Windows Start Button.
 </li>
 <li>
-  Click the <b>search bar</b> or <b>Run...</b> and type <code>command</code> and click <code>Enter</code>.
+  Click the <b>search bar</b>, type <code>Command Prompt</code>, right click <code>Command Prompt</code>, and select <b>Run as Administrator</b>.
+</li>
+<li>
+  Add the installation directory to the user PATH environment variable.
+  <pre class='code'>setx PATH "C:\Program Files (x86)\GnuWin32\bin"</pre>
 </li>
 <li>
   Verify GNU Wget installation in the Command Prompt.
   <pre class='code'>wget --version
 
-  <span class="text-muted">GNU Wget <%= wget_file.split('wget-').last.split('-').first %></span></pre>
+  <span class="text-muted">GNU Wget <%= wget_file.split('-setup.exe').first.split('wget-').last %></span></pre>
 </li>
 </ol>
 
