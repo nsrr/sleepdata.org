@@ -11,8 +11,10 @@ class WelcomeController < ApplicationController
       render 'tools/wget'
     elsif mac? or linux?
       redirect_to wget_src_path
-    else
+    elsif windows?
       redirect_to wget_windows_path
+    else
+      render 'tools/wget'
     end
   end
 
