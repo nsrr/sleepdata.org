@@ -3,6 +3,7 @@
   <p class="lead">Downloads</p>
 </div>
 
+<% dataset_name = 'wecare' %>
 
 <div class="bs-callout bs-callout-info">
   <h4>Bulk Download Using GNU Wget</h4>
@@ -12,9 +13,7 @@
   </p>
 
   <p>
-    <code>
-      wget -P wecare -c -i <%= site_prefix %><%= manifest_path( format: 'txt' ) %>
-    </code>
+    <pre class="code"><% if windows? %>wget -P <%= dataset_name %> <%= site_prefix %><%= manifest_path( format: 'txt' ) %> &amp; wget -P <%= dataset_name %> -c -i <%= dataset_name %>/manifest.txt<% else %>wget -P <%= dataset_name %> -c -i <%= site_prefix %><%= manifest_path( format: 'txt' ) %><% end %></pre>
   </p>
 </div>
 
