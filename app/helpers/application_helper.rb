@@ -16,4 +16,7 @@ module ApplicationHelper
       request.env['HTTP_USER_AGENT']
     end
 
+    def site_prefix
+      "#{SITE_URL.split('//').first}//#{SITE_URL.split('//').last.split('/').first}"
+    end
 end

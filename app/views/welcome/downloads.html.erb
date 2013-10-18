@@ -13,7 +13,7 @@
 
   <p>
     <code>
-      wget<%= '.exe' if windows? %> -P wecare -c -i <%= SITE_URL.split('//').first %>//<%= SITE_URL.split('//').last.split('/').first %><%= manifest_path %>
+      wget<%= '.exe' if windows? %> -P wecare -c -i <%= site_prefix %><%= manifest_path %>
     </code>
   </p>
 </div>
