@@ -31,7 +31,7 @@
 <pre class='code'>
 tar xvzf <%= wget_file %>
 cd <%= wget_file.split('.tar.gz').first %>
-./configure
+./configure --with-ssl=openssl
 make
 sudo make install
 </pre>
