@@ -3,38 +3,53 @@
   <%= link_to 'Looking for a different operating system?', wget_path(choose: '1') %>
 </div>
 
-<div class="bs-callout bs-callout-danger">
-  <h4>Important</h4>
-
-  <p>
-    Requires Administrator Privileges!
-  </p>
-</div>
-
 <% wget_file = 'wget-1.11.4-1-setup.exe' %>
 
 <ol>
 <li>
-  Download <%= link_to wget_file, "http://downloads.sourceforge.net/gnuwin32/#{wget_file}" %>.
+  Download <%= link_to wget_file, "http://downloads.sourceforge.net/gnuwin32/#{wget_file}", target: '_blank' %>.
 </li>
 <li>
   Double click <code><%= wget_file %></code> and follow installation instructions.
+  <div class="bs-callout bs-callout-info">
+    <p>
+      If prompted during the installation process, select <b>Full Install</b>. Also, you DO NOT need to check <b>Download Source</b>.
+    </p>
+  </div>
 </li>
 <li>
-  Click the Windows Start Button.
-</li>
-<li>
-  Click the <b>search bar</b>, type <code>Command Prompt</code>, right click <code>Command Prompt</code>, and select <b>Run as Administrator</b>.
+  Click the Windows Start Button, type <code>Command Prompt</code>, right click <code>Command Prompt</code>, and select <b>Run as Administrator</b>.
+  <div class="bs-callout bs-callout-danger">
+    <p>
+      <strong>Important!</strong> Step 4 needs to be run with Administrator privileges.
+    </p>
+  </div>
 </li>
 <li>
   Add the installation directory to the user PATH environment variable.
   <pre class='code'>setx PATH "C:\Program Files (x86)\GnuWin32\bin"</pre>
 </li>
 <li>
-  Verify GNU Wget installation in the Command Prompt.
+  Close the Command Prompt to reload the environment variables.
+  <div class="bs-callout bs-callout-danger">
+    <p>
+      <strong>Important!</strong> You will need to close and reopen any existing Command Prompt windows before wget is a recognized command.
+    </p>
+  </div>
+</li>
+<li>
+  Click the Windows Start Button, type <code>Command Prompt</code>, and click <code>Enter</code>.
+  <div class="bs-callout bs-callout-info">
+    <p>
+      This step no longer requires administrator privileges.
+    </p>
+  </div>
+</li>
+<li>
+  Verify GNU Wget installation.
   <pre class='code'>wget --version
 
-  <span class="text-muted">GNU Wget <%= wget_file.split('-setup.exe').first.split('wget-').last %></span></pre>
+  <span class="text-muted">GNU Wget <%= wget_file.split('wget-').last.split('-').first %></span></pre>
 </li>
 </ol>
 
