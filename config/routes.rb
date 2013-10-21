@@ -14,6 +14,8 @@ WwwSleepdataOrg::Application.routes.draw do
   get '/tools/wget/windows' => 'welcome#wget_windows', as: :wget_windows
   get '/tools/wget/src' => 'welcome#wget_src', as: :wget_src
 
+  get 'welcome/file'
+
   root to: 'welcome#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

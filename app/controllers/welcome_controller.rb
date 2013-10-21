@@ -1,4 +1,10 @@
 class WelcomeController < ApplicationController
+  before_action :authenticate_user!, only: 'file'
+
+  def file
+    send_file 'app/assets/images/nsrr_logo_256.png'
+  end
+
   def index
   end
 
