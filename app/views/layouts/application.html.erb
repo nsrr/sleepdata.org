@@ -17,16 +17,27 @@
   <body data-spy="scroll" data-target=".bs-sidebar">
 
   <div class="container" style="margin-top:0px">
-      <div class="masthead">
-        <ul class="nav nav-justified">
-          <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to 'Home', root_path %></li>
-          <li><%= link_to 'Datasets', '#', data: { object: 'suppress-click' } %></li>
-          <li class="<%= 'active' if current_page?(wget_path(choose: '1')) or current_page?(wget_src_path) or current_page?(wget_windows_path) %>"><%= link_to 'Tools', wget_path(choose: '1') %></li>
-          <li class="<%= 'active' if current_page?(downloads_path) %>"><%= link_to 'Downloads', downloads_path %></li>
-          <li class="<%= 'active' if current_page?(about_path) %>"><%= link_to 'About', about_path %></li>
-          <li><%= link_to 'Contact', '#', data: { object: 'suppress-click' } %></li>
-        </ul>
-      </div>
+    <div class="pull-right" style="font-weight:300;font-size:1.5em;margin-top:-50px;">
+    <% if current_user %>
+
+        <%= current_user.name %>
+        <%= link_to destroy_user_session_path, class: 'btn btn-danger-inverse', rel: 'tooltip', title: 'Logout' do %>
+          <span class="glyphicon glyphicon-log-out" style="font-size:0.9em"></span>
+        <% end %>
+    <% else %>
+      <%= link_to 'Sign in', new_user_session_path, class: 'btn btn-default' %>
+    <% end %>
+    </div>
+    <div class="masthead">
+      <ul class="nav nav-justified">
+        <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to 'Home', root_path %></li>
+        <li><%= link_to 'Datasets', '#', data: { object: 'suppress-click' } %></li>
+        <li class="<%= 'active' if current_page?(wget_path(choose: '1')) or current_page?(wget_src_path) or current_page?(wget_windows_path) %>"><%= link_to 'Tools', wget_path(choose: '1') %></li>
+        <li class="<%= 'active' if current_page?(downloads_path) %>"><%= link_to 'Downloads', downloads_path %></li>
+        <li class="<%= 'active' if current_page?(about_path) %>"><%= link_to 'About', about_path %></li>
+        <li><%= link_to 'Contact', '#', data: { object: 'suppress-click' } %></li>
+      </ul>
+    </div>
 
 
       <%= yield %>
