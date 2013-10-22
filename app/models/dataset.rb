@@ -22,7 +22,7 @@ class Dataset < ActiveRecord::Base
   end
 
   def files
-    Dir.glob("carrierwave/datasets/files/#{self.id}/*").collect{|f| [f.split('/').last, f]}
+    Dir.glob("carrierwave/datasets/files/#{self.id}/*").collect{|f| [f.split('/').last, f]}.sort{|a,b| a[0] <=> b[0]}
   end
 
   def editable_by?(current_user)
