@@ -1,5 +1,15 @@
 WwwSleepdataOrg::Application.routes.draw do
 
+  resources :datasets do
+    member do
+      get :logo
+      get "(/a/:auth_token)/manifest", action: 'manifest', as: :manifest
+      get "files(/a/:auth_token)/:basename.:extension", action: 'files', as: :files
+    end
+  end
+
+  # match "/uploads/:id/:basename.:extension", :controller => "redocuments", :action => "download", :conditions => { :method => :get }
+
   devise_for :users, controllers: { registrations: 'contour/registrations', sessions: 'contour/sessions', passwords: 'contour/passwords', confirmations: 'contour/confirmations', unlocks: 'contour/unlocks' }, path_names: { sign_up: 'register', sign_in: 'login' }
 
   resources :users
@@ -8,6 +18,7 @@ WwwSleepdataOrg::Application.routes.draw do
   get '/about' => 'welcome#about', as: :about
   get '/downloads' => 'welcome#downloads', as: :downloads
   get '/downloads/manifest' => 'welcome#manifest', as: :manifest
+  get '/contact' => 'welcome#contact', as: :contact
 
   get '/tools' => 'welcome#wget', as: :tools
   get '/tools/wget' => 'welcome#wget', as: :wget

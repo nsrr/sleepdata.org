@@ -4,8 +4,24 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
 
+  # Callbacks
+  before_save :ensure_authentication_token
+
   # Concerns
   include Contourable, Deletable
+
+  # Model Relationships
+  has_many :datasets, -> { where deleted: false }
+
+  # User Methods
+
+  def all_datasets
+    Dataset.current.where( user_id: self.id )
+  end
+
+  def all_viewable_datasets
+    Dataset.current.where( "public = ? or user_id = ?", true, self.id )
+  end
 
   def avatar_url(size = 80, default = 'mm')
     gravatar_id = Digest::MD5.hexdigest(self.email.to_s.downcase)

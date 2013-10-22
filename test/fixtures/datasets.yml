@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: We Care
+  description: The We Care Clinical Trial dataset
+  slug: wecare
+  logo: MyString
+  user: admin
+  public: true
+  deleted: false
+
+two:
+  name: In the Works
+  description: Currently being constructed and not yet public.
+  slug: intheworks
+  logo: MyString
+  user: admin
+  public: false
+  deleted: false

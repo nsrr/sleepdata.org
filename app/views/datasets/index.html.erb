@@ -1,0 +1,20 @@
+<% @title = 'Datasets' %>
+<div class="page-header">
+  <h1>
+    <%= @title %>
+    <% if current_user and current_user.system_admin? %>
+      <%= link_to "Create Dataset", new_dataset_path, class: 'btn btn-xs btn-primary' %>
+    <% end %>
+  </h1>
+</div>
+
+<%= form_tag datasets_path, method: :get, remote: true, id: "datasets_search", class: 'form-inline', data: { object: 'form-load' } do %>
+  <%= hidden_field_tag :order, params[:order] %>
+  <%= hidden_field_tag :page, params[:page] %>
+  <% if false %>
+    <%= text_field_tag 'search', params[:search], class: 'form-control' %>
+    <%= submit_tag 'Search', class: 'btn btn-primary' %>
+  <% end %>
+<% end %>
+
+<div id="datasets"><div class="center"><%= image_tag "contour/ajax-loader.gif" %></div></div>

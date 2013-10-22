@@ -30,6 +30,9 @@
 /public/stylesheets/cache/*
 /public/javascripts/cache/*
 
+# CarrierWave
+/carrierwave/**/*
+
 # Other Files
 
 /Gemfile.lock
