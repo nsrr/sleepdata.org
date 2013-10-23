@@ -2,7 +2,6 @@
 
 <div class="jumbotron" style="margin-bottom:0px">
   <h1><%= @dataset.name %> Dataset</h1>
-  <p class="lead" style="margin-bottom:0px">Downloads</p>
   <% if current_user and current_user.system_admin? and @dataset.editable_by?(current_user) %>
     <p>
       <%= link_to "Edit Dataset", edit_dataset_path(@dataset), class: 'btn btn-xs btn-default' %>
@@ -11,45 +10,51 @@
   <% end %>
 </div>
 
-<% dataset_name = 'wecare' %>
+<%= simple_markdown @dataset.description %>
 
-<div class="bs-callout bs-callout-info" style="margin-top:0px">
-  <h4>Bulk Download Using GNU Wget</h4>
+<% if @dataset.files.size > 0 %>
+  <div class="page-header">
+    <h2>Downloads</h2>
+  </div>
 
-  <p>
-    To download the entire <strong><%= @dataset.name %></strong> dataset, use the following command:
-  </p>
+  <div class="bs-callout bs-callout-info" style="margin-top:0px">
+    <h4>Bulk Download Using GNU Wget</h4>
 
-  <p>
-    <pre class="code"><% if windows? %>wget -P <%= @dataset.slug %> -c <%= site_prefix %><%= manifest_dataset_path( @dataset, format: 'txt', auth_token: (current_user ? current_user.authentication_token : nil ) ) %> &amp; wget -P <%= @dataset.slug %> -c -i <%= @dataset.slug %>/manifest.txt<% else %>wget -P <%= @dataset.slug %> -c -i <%= site_prefix %><%= manifest_dataset_path( @dataset, format: 'txt', auth_token: (current_user ? current_user.authentication_token : nil ) ) %><% end %></pre>
-  </p>
-</div>
+    <p>
+      To download the entire <strong><%= @dataset.name %></strong> dataset, use the following command:
+    </p>
 
-<div class="bs-callout bs-callout-danger">
-  <h4>Don't have GNU Wget?</h4>
+    <p>
+      <pre class="code"><% if windows? %>wget -P <%= @dataset.slug %> -c <%= site_prefix %><%= manifest_dataset_path( @dataset, format: 'txt', auth_token: (current_user ? current_user.authentication_token : nil ) ) %> &amp; wget -P <%= @dataset.slug %> -c -i <%= @dataset.slug %>/manifest.txt<% else %>wget -P <%= @dataset.slug %> -c -i <%= site_prefix %><%= manifest_dataset_path( @dataset, format: 'txt', auth_token: (current_user ? current_user.authentication_token : nil ) ) %><% end %></pre>
+    </p>
+  </div>
 
-  <p>
-    Install using our <%= link_to 'GNU Wget installation instructions', wget_path %>.
-  </p>
-</div>
+  <div class="bs-callout bs-callout-danger">
+    <h4>Don't have GNU Wget?</h4>
 
-<% file_array = @dataset.files %>
+    <p>
+      Install using our <%= link_to 'GNU Wget installation instructions', wget_path %>.
+    </p>
+  </div>
 
-<% name_max_width = [file_array.collect{|n,f| n.size}.max || 0, 32].min %>
-<% padding = 4 %>
-<% margin = 2 %>
-<% time_length = 19 %>
-<% size_length = 7 %>
-<% total_file_size = 0 %>
+  <% file_array = @dataset.files %>
 
-<pre>
-  <%= ' '*margin %>Name<%= ' '*([name_max_width - 4, 0].max) %><%= ' '*padding %>Last Modified<%= ' '*([time_length - 13, 0].max) %><%= ' '*padding %>Size<%= ' '*([size_length - 4, 0].max) %><%= ' '*margin %>
-  <%= '-'*(margin + name_max_width + padding + time_length + padding + size_length + margin) %>
-  <% file_array.each do |name, file| %>
-    <% file_size = File.size(file) %>
-    <% total_file_size += file_size %>
-    <%= link_to name.truncate(name_max_width), files_dataset_path(@dataset, basename: name.split('.')[0..-2].join('.'), extension: name.split('.').last) %><%= ' '*([name_max_width - name.size, 0].max) %><%= ' '*padding %><%= File.mtime(file).strftime("%Y-%m-%d %H:%M:%S") %><%= ' '*padding %><%= number_to_human_size(file_size) %><%= ' '*margin %>
-  <% end %>
-  <%= '-'*(margin + name_max_width + padding + time_length + padding + size_length + margin) %>
-  <%= ' ' * margin %>Total<%= ' '*([name_max_width - 5, 0].max) %><%= ' ' * padding %><%= pluralize(file_array.size, 'file') %><%= ' '*([time_length - pluralize(file_array.size, 'file').size, 0].max) %><%= ' ' * padding %><%= number_to_human_size(total_file_size) %><%= ' ' * margin %>
-</pre>
+  <% name_max_width = [file_array.collect{|n,f| n.size}.max || 0, 32].min %>
+  <% padding = 4 %>
+  <% margin = 2 %>
+  <% time_length = 19 %>
+  <% size_length = 7 %>
+  <% total_file_size = 0 %>
+
+  <pre>
+    <%= ' '*margin %>Name<%= ' '*([name_max_width - 4, 0].max) %><%= ' '*padding %>Last Modified<%= ' '*([time_length - 13, 0].max) %><%= ' '*padding %>Size<%= ' '*([size_length - 4, 0].max) %><%= ' '*margin %>
+    <%= '-'*(margin + name_max_width + padding + time_length + padding + size_length + margin) %>
+    <% file_array.each do |name, file| %>
+      <% file_size = File.size(file) %>
+      <% total_file_size += file_size %>
+      <%= link_to name.truncate(name_max_width), files_dataset_path(@dataset, basename: name.split('.')[0..-2].join('.'), extension: name.split('.').last) %><%= ' '*([name_max_width - name.size, 0].max) %><%= ' '*padding %><%= File.mtime(file).strftime("%Y-%m-%d %H:%M:%S") %><%= ' '*padding %><%= number_to_human_size(file_size) %><%= ' '*margin %>
+    <% end %>
+    <%= '-'*(margin + name_max_width + padding + time_length + padding + size_length + margin) %>
+    <%= ' ' * margin %>Total<%= ' '*([name_max_width - 5, 0].max) %><%= ' ' * padding %><%= pluralize(file_array.size, 'file') %><%= ' '*([time_length - pluralize(file_array.size, 'file').size, 0].max) %><%= ' ' * padding %><%= number_to_human_size(total_file_size) %><%= ' ' * margin %>
+  </pre>
+<% end %>

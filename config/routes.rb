@@ -16,16 +16,12 @@ WwwSleepdataOrg::Application.routes.draw do
 
   get 'welcome/index'
   get '/about' => 'welcome#about', as: :about
-  get '/downloads' => 'welcome#downloads', as: :downloads
-  get '/downloads/manifest' => 'welcome#manifest', as: :manifest
   get '/contact' => 'welcome#contact', as: :contact
 
   get '/tools' => 'welcome#wget', as: :tools
   get '/tools/wget' => 'welcome#wget', as: :wget
   get '/tools/wget/windows' => 'welcome#wget_windows', as: :wget_windows
   get '/tools/wget/src' => 'welcome#wget_src', as: :wget_src
-
-  get 'welcome/file'
 
   root to: 'welcome#index'
 

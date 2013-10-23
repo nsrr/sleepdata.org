@@ -1,15 +1,5 @@
 class WelcomeController < ApplicationController
-  before_action :authenticate_user!, only: 'file'
-
-  def file
-    send_file 'app/assets/images/nsrr_logo_256.png'
-  end
-
   def index
-  end
-
-  def manifest
-    render text: Dir.glob('app/assets/images/*.png').collect{|f| SITE_URL + ActionController::Base.helpers.asset_path(f.split('/').last)}.join("\n\r")
   end
 
   def wget
