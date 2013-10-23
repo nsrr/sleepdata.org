@@ -21,7 +21,7 @@
 
     <div class="container" style="margin-top:0px">
       <div class="pull-left" style="font-size:1.5em;margin-top:-50px;">
-        <%= image_tag 'nsrr_logo_64.png', size: '32x32', alt: 'NSRR' %>
+        <%= link_to image_tag('nsrr_logo_64.png', size: '32x32', alt: 'NSRR'), root_path %>
       </div>
       <div class="pull-right" style="font-weight:300;font-size:1.5em;margin-top:-50px;">
       <% if current_user %>
@@ -38,7 +38,7 @@
 
         <ul class="nav nav-justified">
           <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to 'Home', root_path %></li>
-          <li class="<%= 'active' if current_page?(datasets_path) %>"><%= link_to 'Datasets', datasets_path %></li>
+          <li class="<%= 'active' if params[:controller] == 'datasets' %>"><%= link_to 'Datasets', datasets_path %></li>
           <li class="<%= 'active' if current_page?(wget_path(choose: '1')) or current_page?(wget_src_path) or current_page?(wget_windows_path) %>"><%= link_to 'Tools', wget_path(choose: '1') %></li>
           <li class="<%= 'active' if current_page?(about_path) %>"><%= link_to 'About', about_path %></li>
         </ul>
