@@ -25,4 +25,6 @@ jQuery ->
   $('.file-list-container').scroll( () ->
     setScrollShadow(this)
   )
-  setScrollShadow($('.file-list-container'))
+  $('.file-list-container').each( (index, element) ->
+    setScrollShadow($(element))
+  )
