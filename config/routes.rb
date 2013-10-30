@@ -4,7 +4,8 @@ WwwSleepdataOrg::Application.routes.draw do
     member do
       get :logo
       get "(/a/:auth_token)/manifest", action: 'manifest', as: :manifest
-      get "files(/a/:auth_token)/:basename.:extension", action: 'files', as: :files
+      get "files((/a/:auth_token)/*path)", action: 'files', as: :files, format: false
+      get "pages(/*path)", action: 'pages', as: :pages, format: false
     end
   end
 

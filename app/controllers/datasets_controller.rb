@@ -1,13 +1,13 @@
 class DatasetsController < ApplicationController
   before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy ]
   before_action :check_system_admin,        only: [ :new, :edit, :create, :update, :destroy ]
-  before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :files ]
+  before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :files, :pages ]
   before_action :set_editable_dataset,      only: [ :edit, :update, :destroy ]
-  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :files, :edit, :update, :destroy ]
+  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :files, :pages, :edit, :update, :destroy ]
 
   # GET /datasets/1/manifest.txt
   def manifest
-     render text: @dataset.files.collect{|name, f| site_prefix + files_dataset_path(@dataset, basename: name.split('.')[0..-2].join('.'), extension: name.split('.').last, auth_token: (current_user ? current_user.authentication_token : nil ))}.join("\n\r")
+    render text: @dataset.files.select{|name, f| File.file?(f)}.collect{|name, f| site_prefix + files_dataset_path(@dataset, path: name, auth_token: (current_user ? current_user.authentication_token : nil ))}.join("\n\r")
   end
 
   def logo
@@ -15,14 +15,19 @@ class DatasetsController < ApplicationController
   end
 
   def files
-    # current_user ? current_user.usage += file.size
-    filename = "#{params[:basename].to_s.strip}.#{params[:extension].to_s.strip}".gsub(/[^\w\-\.]/, '')
-    file = File.join( Rails.root, 'carrierwave', 'datasets', 'files', @dataset.id.to_s, filename )
-    if File.exists?(file)
+    file = @dataset.find_file( params[:path] )
+    if file and File.file?(file)
+      # current_user ? current_user.usage += file.size
       send_file file
+    elsif file and File.directory?(file)
+      render 'files'
     else
       render nothing: true
     end
+  end
+
+  # GET /datasets/1/pages
+  def pages
   end
 
   # GET /datasets
