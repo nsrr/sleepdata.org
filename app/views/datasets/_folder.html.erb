@@ -21,7 +21,7 @@
       <% total_file_size += file_size %>
       <tr>
         <td><span class="glyphicon glyphicon-<%= is_file ? 'file' : 'folder-close' %>"></span></td>
-        <td><%= link_to file_name, url, rel: 'tooltip', data: { title: 'filename' } %></td>
+        <td><%= link_to file_name, url %></td>
         <td><%= File.mtime(file).strftime("%Y-%m-%d %H:%M:%S") if is_file %></td>
         <td style="text-align:right"><%= number_to_human_size(file_size) if is_file %></td>
       </tr>
