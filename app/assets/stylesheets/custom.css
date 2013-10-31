@@ -129,7 +129,6 @@ pre.code {
 .file-display {
   position: relative;
   padding: 30px 15px 15px 15px;
-  word-break: break-all;
   word-wrap: break-word;
   border: 1px solid #cccccc;
   border-radius: 4px;
@@ -157,7 +156,6 @@ pre.code {
   margin: 0 0 10px;
   font-size: 13px;
   line-height: 1.428571429;
-  word-break: break-all;
   word-wrap: break-word;
   border: 1px solid #cccccc;
   border-radius: 4px;
