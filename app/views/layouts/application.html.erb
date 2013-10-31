@@ -27,7 +27,7 @@
       <% if current_user %>
 
           <%= current_user.name %>
-          <%= link_to destroy_user_session_path, class: 'btn btn-danger-inverse', rel: 'tooltip', title: 'Logout' do %>
+          <%= link_to destroy_user_session_path, class: 'btn btn-danger-inverse' do %>
             <span class="glyphicon glyphicon-log-out" style="font-size:0.9em"></span>
           <% end %>
       <% else %>
