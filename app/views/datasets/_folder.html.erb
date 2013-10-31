@@ -17,7 +17,7 @@
     <% files.each do |file_name, file| %>
       <% is_file = File.file?(file) %>
       <% folder = @dataset.file_path(file) %>
-      <% url = files_dataset_path( @dataset ) + '/' + folder %>
+      <% url = files_dataset_path( @dataset ) + "#{'/m/browser' if is_file}" + '/' + folder %>
       <% file_size = File.size(file) %>
       <% total_file_size += file_size %>
       <tr>

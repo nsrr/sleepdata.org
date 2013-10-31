@@ -13,5 +13,8 @@
     <li class="<%= 'active' if ['show', 'files'].include?(params[:action]) %>"><%= link_to 'Downloads', files_dataset_path(@dataset) %></li>
   <% end %>
   <li class="<%= 'active' if not show_files or ['pages'].include?(params[:action]) %>"><%= link_to 'Documentation', pages_dataset_path(@dataset) %></li>
+  <% if current_user and current_user.system_admin? and @dataset.editable_by?(current_user) %>
+    <li class="<%= 'active' if ['audits'].include?(params[:action]) %>"><%= link_to 'Audits', audits_dataset_path(@dataset) %></li>
+  <% end %>
   <% if false %><li><a href="#dataset-community">Community</a></li><% end %>
 </ul>

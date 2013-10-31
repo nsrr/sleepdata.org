@@ -1,0 +1,8 @@
+<% pagination_size_hash = { 'large' => 'lg', 'small' => 'sm' } %>
+<ul class="pagination pull-right <%= "pagination-#{pagination_size_hash[pagination_size]}" if defined?(pagination_size) and ['large', 'small'].include?(pagination_size) %>">
+  <li class="disabled"><span>Per Page</span></li>
+  <li class="active per_page"><%= link_to (defined?(per_page) && per_page ? [per_page, object_count].min : [20, object_count].min), "#", data: { object: 'suppress-click' } %></li>
+  <% if defined?(object_count) and object_count %><li class="disabled"><span>out of <%= object_count %></span></li><% end %>
+</ul>
+
+<div class="clear">&nbsp;</div>

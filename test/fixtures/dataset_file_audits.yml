@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dataset_id: 1
+  user_id: 1
+  file_path: MyText
+  file_size: 1
+  medium: MyString
+
+two:
+  dataset_id: 1
+  user_id: 1
+  file_path: MyText
+  file_size: 1
+  medium: MyString

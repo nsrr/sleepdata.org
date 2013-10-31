@@ -1,13 +1,21 @@
 class DatasetsController < ApplicationController
-  before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy ]
-  before_action :check_system_admin,        only: [ :new, :edit, :create, :update, :destroy ]
+  before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits ]
+  before_action :check_system_admin,        only: [ :new, :edit, :create, :update, :destroy, :audits ]
   before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :files, :pages ]
-  before_action :set_editable_dataset,      only: [ :edit, :update, :destroy ]
-  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :files, :pages, :edit, :update, :destroy ]
+  before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits ]
+  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :files, :pages, :edit, :update, :destroy, :audits ]
+
+  # GET /datasets/1/file_audits
+  def audits
+    audit_scope = @dataset.dataset_file_audits.order( created_at: :desc )
+    audit_scope = audit_scope.where( user_id: params[:user_id].blank? ? nil : params[:user_id] ) if params.has_key?(:user_id)
+    audit_scope = audit_scope.where( medium: params[:medium].blank? ? nil : params[:medium] ) if params.has_key?(:medium)
+    @audits = audit_scope
+  end
 
   # GET /datasets/1/manifest.txt
   def manifest
-    render text: @dataset.files.select{|name, f| File.file?(f)}.collect{|name, f| site_prefix + files_dataset_path(@dataset, path: name, auth_token: (current_user ? current_user.authentication_token : nil ))}.join("\n\r")
+    render text: @dataset.files.select{|name, f| File.file?(f)}.collect{|name, f| site_prefix + files_dataset_path(@dataset, path: name, auth_token: (current_user ? current_user.authentication_token : nil ), medium: 'wget')}.join("\n\r")
   end
 
   def logo
@@ -17,7 +25,7 @@ class DatasetsController < ApplicationController
   def files
     file = @dataset.find_file( params[:path] )
     if file and File.file?(file)
-      # current_user ? current_user.usage += file.size
+      @dataset.dataset_file_audits.create( user_id: (current_user ? current_user.id : nil), file_path: @dataset.file_path(file), medium: params[:medium], file_size: File.size(file) )
       send_file file
     elsif file and File.directory?(file)
       render 'files'

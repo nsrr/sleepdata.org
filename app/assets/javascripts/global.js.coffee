@@ -17,6 +17,7 @@
     setScrollShadow(this)
   )
   setScrollShadow($('.file-list-container'))
+  $("[rel=tooltip]").tooltip( trigger: 'hover' )
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

@@ -15,6 +15,7 @@ class Dataset < ActiveRecord::Base
 
   # Model Relationships
   belongs_to :user
+  has_many :dataset_file_audits
 
   def to_param
     slug

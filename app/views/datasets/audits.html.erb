@@ -1,0 +1,69 @@
+<%= render partial: 'datasets/header', locals: { show_files: true } %>
+
+<%= render partial: 'layouts/per_page', locals: { per_page: 100, object_count: @audits.count } %>
+
+<div class="table-responsive">
+<table class="table">
+  <thead>
+    <tr>
+      <th>File Path</th>
+      <th>File Size</th>
+      <th>User</th>
+      <th>Medium</th>
+      <th>Downloaded At</th>
+    </tr>
+    <tr class="success">
+      <th>Total</th>
+      <th><%= number_to_human_size @audits.sum( :file_size ) %></th>
+      <th>
+        <% if params.has_key?(:user_id) %>
+          <span class="glyphicon glyphicon-filter"></span> <% user = User.find_by_id(params[:user_id]) %><%= user ? user.name : 'Anonymous' %>
+        <% else %>
+          <span class="text-muted">-</span>
+        <% end %>
+      </th>
+      <th>
+        <% if params.has_key?(:medium) %>
+          <span class="glyphicon glyphicon-filter"></span> <%= params[:medium].blank? ? 'blank' : params[:medium] %>
+        <% else %>
+          <span class="text-muted">-</span>
+        <% end %>
+      </th>
+      <th></th>
+    </tr>
+
+  </thead>
+
+  <% paginated_audits = @audits.page(params[:page]).per( 100 ) %>
+
+  <% paginated_audits.each do |audit| %>
+    <tr>
+      <td><%= audit.file_path %></td>
+      <td><%= number_to_human_size audit.file_size %></td>
+      <td>
+        <% if audit.user_id.to_s == params[:user_id] %>
+          <%= link_to '<span class="glyphicon glyphicon-remove"></span>'.html_safe, audits_dataset_path(@dataset, medium: params[:medium]), rel: 'tooltip', data: { title: "Remove Filter", placement: 'left' } %>
+        <% else %>
+          <%= link_to '<span class="glyphicon glyphicon-filter"></span>'.html_safe, audits_dataset_path(@dataset, medium: params[:medium], user_id: audit.user_id.to_s), rel: 'tooltip', data: { title: "Filter by #{ audit.user ? audit.user.name : 'Anonymous' }", placement: 'left' } %>
+        <% end %>
+        <% if audit.user %>
+          <%= audit.user.name if audit.user %>
+        <% else %>
+          <span class="text-muted">Anonymous</span>
+        <% end %>
+      </td>
+      <td>
+        <% if audit.medium.to_s == params[:medium] %>
+          <%= link_to '<span class="glyphicon glyphicon-remove"></span>'.html_safe, audits_dataset_path(@dataset, user_id: params[:user_id]), rel: 'tooltip', data: { title: "Remove Filter", placement: 'left' } %>
+        <% else %>
+          <%= link_to '<span class="glyphicon glyphicon-filter"></span>'.html_safe, audits_dataset_path(@dataset, medium: audit.medium.to_s, user_id: params[:user_id]), rel: 'tooltip', data: { title: "Filter by #{audit.medium}", placement: 'left' } %>
+        <% end %>
+        <%= audit.medium %>
+      </td>
+      <td><%= audit.created_at.strftime("%b %d, %Y &middot; %I:%M %p").html_safe %></td>
+    </tr>
+  <% end %>
+</table>
+</div>
+
+<div class="center"><%= paginate paginated_audits, theme: "contour" %></div>

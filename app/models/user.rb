@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
 
   # Model Relationships
   has_many :datasets, -> { where deleted: false }
+  has_many :dataset_file_audits
 
   # User Methods
 
