@@ -17,7 +17,7 @@
   <%= render partial: 'datasets/render_page', locals: { page_path: page_path, path: path } %>
 <% elsif page_path and File.directory?(page_path) %>
   <div class="file-list-container">
-    <table class="table table-condensed"><col width="1px" />
+    <table class="table table-condensed table-hover"><col width="1px" />
       <% @dataset.pages(path).each do |page_name, page| %>
         <% is_file = File.file?(page) %>
         <% folder = @dataset.page_path(page) %>

@@ -13,7 +13,7 @@
 <% total_file_size = 0 %>
 <% files = @dataset.files(path) %>
 <div class="file-list-container">
-  <table class="table table-condensed" style="margin-bottom:0px"><col width="1px" />
+  <table class="table table-condensed table-hover" style="margin-bottom:0px"><col width="1px" />
     <% files.each do |file_name, file| %>
       <% is_file = File.file?(file) %>
       <% folder = @dataset.file_path(file) %>
