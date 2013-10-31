@@ -168,7 +168,7 @@ pre.code {
 }
 
 .file-list-container {
-  max-height:350px;
+  max-height:360px;
   overflow:scroll;
   overflow-y:scroll;
 }
