@@ -1,3 +1,5 @@
-<div class="page-border">
-  <%= render partial: 'datasets/folder', locals: { path: params[:path] } %>
-</div>
+<% show_files = (@dataset.files.size > 0) %>
+
+<%= render partial: 'datasets/header', locals: { show_files: show_files } %>
+
+<%= render partial: 'datasets/folder', locals: { path: params[:path] } %>

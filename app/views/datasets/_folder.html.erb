@@ -1,5 +1,5 @@
 <ol class="breadcrumb">
-  <li><%= link_to @dataset.slug, @dataset %></li>
+  <li><%= link_to @dataset.slug, files_dataset_path(@dataset) %></li>
   <li class="<%= 'active' unless path.blank? %>"><%= link_to_if !path.blank?, 'files', files_dataset_path(@dataset) %></li>
   <% unless path.blank? %>
     <% path.to_s.split('/')[0..-2].each_with_index do |folder, index| %>
@@ -11,9 +11,10 @@
 </ol>
 
 <% total_file_size = 0 %>
+<% files = @dataset.files(path) %>
 <div class="file-list-container">
   <table class="table table-condensed" style="margin-bottom:0px"><col width="1px" />
-    <% @dataset.files(path).each do |file_name, file| %>
+    <% files.each do |file_name, file| %>
       <% is_file = File.file?(file) %>
       <% folder = @dataset.file_path(file) %>
       <% url = files_dataset_path( @dataset ) + '/' + folder %>
@@ -28,6 +29,8 @@
     <% end %>
   </table>
 </div>
+
+<%= render partial: 'datasets/nofiles' if files.size == 0 %>
 
 <h3>Bulk Download</h3>
 <p>

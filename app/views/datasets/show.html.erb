@@ -1,37 +1,29 @@
 <% @title = @dataset.name %>
 
-<div class="jumbotron" style="margin-bottom:0px">
-  <h1><%= @dataset.name %> Dataset</h1>
-  <% if current_user and current_user.system_admin? and @dataset.editable_by?(current_user) %>
-    <p>
-      <%= link_to "Edit Dataset", edit_dataset_path(@dataset), class: 'btn btn-xs btn-default' %>
-      <%= link_to "Delete Dataset", @dataset, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Dataset #{@dataset.name}?" } %>
-    </p>
-  <% end %>
-</div>
-
 <% show_files = (@dataset.files.size > 0) %>
 
-<ul class="nav nav-tabs" id="dataset-tabs">
-  <% if show_files %>
-    <li class="active"><a href="#dataset-downloads">Downloads</a></li>
-  <% end %>
-  <li class="<%= 'active' unless show_files %>"><a href="#dataset-home">Documentation</a></li>
-  <% if false %><li><a href="#dataset-community">Community</a></li><% end %>
-</ul>
+<%= render partial: 'datasets/header', locals: { show_files: show_files } %>
 
-<div class="tab-content">
-  <% if show_files %>
-  <div class="tab-pane active" id="dataset-downloads">
-    <%= render partial: 'datasets/folder', locals: { path: nil } %>
-  </div>
-  <% end %>
-  <div class="tab-pane <%= 'active' unless show_files %>" id="dataset-home">
-    <%= render partial: 'datasets/page', locals: { path: nil } %>
-  </div>
-  <% if false %>
-    <div class="tab-pane" id="dataset-community">
-      <%= render partial: 'datasets/community' %>
+<% if show_files %>
+  <%= render partial: 'datasets/folder', locals: { path: nil } %>
+<% else %>
+  <%= render partial: 'datasets/page', locals: { path: nil } %>
+<% end %>
+
+<% if false %>
+  <div class="tab-content">
+    <% if show_files %>
+    <div class="tab-pane active" id="dataset-downloads">
+      <%= render partial: 'datasets/folder', locals: { path: nil } %>
     </div>
-  <% end %>
-</div>
+    <% end %>
+    <div class="tab-pane <%= 'active' unless show_files %>" id="dataset-home">
+      <%= render partial: 'datasets/page', locals: { path: nil } %>
+    </div>
+    <% if false %>
+      <div class="tab-pane" id="dataset-community">
+        <%= render partial: 'datasets/community' %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

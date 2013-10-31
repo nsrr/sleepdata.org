@@ -2,7 +2,7 @@
 <% path = (page_path ? page_path.gsub(@dataset.pages_folder + '/', '') : nil) %>
 
 <ol class="breadcrumb">
-  <li><%= link_to @dataset.slug, @dataset %></li>
+  <li><%= link_to @dataset.slug, pages_dataset_path(@dataset) %></li>
   <li class="<%= 'active' unless path.blank? %>"><%= link_to_if !path.blank?, 'pages', pages_dataset_path(@dataset) %></li>
   <% unless path.blank? %>
     <% path.to_s.split('/')[0..-2].each_with_index do |folder, index| %>
@@ -34,5 +34,9 @@
   <% elsif @dataset.pages(path).select{|name, f| File.file?(f)}.size > 0 %>
     <% first_page = @dataset.pages(path).select{|name, f| File.file?(f)}.first %>
     <%= render partial: 'datasets/render_page', locals: { page_path: first_page[1], path: first_page[0] } %>
+  <% else %>
+    <%= render partial: 'datasets/nodoc' %>
   <% end %>
+<% else %>
+  <%= render partial: 'datasets/nodoc' %>
 <% end %>
