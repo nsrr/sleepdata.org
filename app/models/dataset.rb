@@ -5,6 +5,9 @@ class Dataset < ActiveRecord::Base
   # Concerns
   include Deletable
 
+  # Named Scopes
+  scope :highlighted, -> { current.where( public: true, slug: ['shhs', 'chat', 'bestair'] ) }
+
   # Model Validation
   validates_presence_of :name, :slug, :user_id
   validates_uniqueness_of :slug, scope: [ :deleted ]

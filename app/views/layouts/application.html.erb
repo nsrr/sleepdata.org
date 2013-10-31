@@ -42,7 +42,7 @@
         <li class="<%= 'active' if current_page?(about_path) %>"><%= link_to 'About', about_path %></li>
       </ul>
 
-      <div class="collapse navbar-collapse">
+      <div class="collapse navbar-collapse" style="margin-right: -15px;margin-left: -15px;">
         <ul class="nav nav-justified">
           <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to 'Home', root_path %></li>
           <li class="<%= 'active' if params[:controller] == 'datasets' %>"><%= link_to 'Datasets', datasets_path %></li>
