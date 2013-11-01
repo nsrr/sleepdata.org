@@ -1,9 +1,14 @@
 WwwSleepdataOrg::Application.routes.draw do
 
+  # resources :dataset_users
+
   resources :datasets do
     member do
       get :logo
       get :audits
+      get :request_access
+      get :requests
+      get :set_access
       get "(/a/:auth_token)/manifest", action: 'manifest', as: :manifest
       get "files((/a/:auth_token)(/m/:medium)/*path)", action: 'files', as: :files, format: false
       get "pages(/*path)", action: 'pages', as: :pages, format: false

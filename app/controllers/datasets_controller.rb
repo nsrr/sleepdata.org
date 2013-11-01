@@ -1,9 +1,25 @@
 class DatasetsController < ApplicationController
-  before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits ]
-  before_action :check_system_admin,        only: [ :new, :edit, :create, :update, :destroy, :audits ]
-  before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :files, :pages ]
-  before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits ]
-  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :files, :pages, :edit, :update, :destroy, :audits ]
+  before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access ]
+  before_action :check_system_admin,        only: [ :new, :create, :destroy ]
+  before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :files, :pages, :request_access ]
+  before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access ]
+  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :files, :pages, :edit, :update, :destroy, :audits, :requests, :request_access, :set_access ]
+
+  def request_access
+    if dataset_user = @dataset.dataset_users.where( user_id: current_user.id ).first
+      # Dataset access has already been requested
+    else
+      @dataset.dataset_users.create( user_id: current_user.id, editor: false, approved: nil )
+    end
+    redirect_to @dataset
+  end
+
+  def set_access
+    if dataset_user = @dataset.dataset_users.find_by_id(params[:dataset_user_id])
+      dataset_user.update( editor: params[:editor], approved: params[:approved] )
+    end
+    redirect_to requests_dataset_path(@dataset)
+  end
 
   # GET /datasets/1/file_audits
   def audits
@@ -25,7 +41,7 @@ class DatasetsController < ApplicationController
 
   def files
     file = @dataset.find_file( params[:path] )
-    if file and File.file?(file)
+    if file and File.file?(file) and @dataset.grants_file_access_to?(current_user)
       @dataset.dataset_file_audits.create( user_id: (current_user ? current_user.id : nil), file_path: @dataset.file_path(file), medium: params[:medium], file_size: File.size(file), remote_ip: request.remote_ip )
       send_file file
     elsif file and File.directory?(file)
@@ -124,7 +140,7 @@ class DatasetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def dataset_params
-      params.require(:dataset).permit(:name, :description, :slug, :logo, :logo_cache, :public)
+      params.require(:dataset).permit(:name, :description, :slug, :logo, :logo_cache, :public, :public_files)
     end
 
     def site_prefix

@@ -7,3 +7,5 @@
 - Datasets can be added and shared publicly or privately
 - Datasets can be documented using markdown across multiple pages
 - File downloads are now audited and can be reviewed by dataset creators
+- Users can now request access to file downloads for datasets
+- Dataset editors can approve/deny user file access requests

@@ -9,21 +9,3 @@
 <% else %>
   <%= render partial: 'datasets/page', locals: { path: nil } %>
 <% end %>
-
-<% if false %>
-  <div class="tab-content">
-    <% if show_files %>
-    <div class="tab-pane active" id="dataset-downloads">
-      <%= render partial: 'datasets/folder', locals: { path: nil } %>
-    </div>
-    <% end %>
-    <div class="tab-pane <%= 'active' unless show_files %>" id="dataset-home">
-      <%= render partial: 'datasets/page', locals: { path: nil } %>
-    </div>
-    <% if false %>
-      <div class="tab-pane" id="dataset-community">
-        <%= render partial: 'datasets/community' %>
-      </div>
-    <% end %>
-  </div>
-<% end %>

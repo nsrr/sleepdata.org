@@ -16,6 +16,20 @@ class Dataset < ActiveRecord::Base
   # Model Relationships
   belongs_to :user
   has_many :dataset_file_audits
+  has_many :dataset_users
+
+  # Currently only the owner of the dataset
+  def viewers
+    User.where( id: [self.user_id] + self.dataset_users.where( approved: true ).pluck(:user_id) )
+  end
+
+  def editors
+    User.where( id: [self.user_id] + self.dataset_users.where( approved: true, editor: true ).pluck(:user_id) )
+  end
+
+  def grants_file_access_to?(current_user)
+    self.public_files? || ( current_user && self.viewers.pluck(:id).include?(current_user.id) )
+  end
 
   def to_param
     slug
@@ -76,7 +90,7 @@ class Dataset < ActiveRecord::Base
 
   def editable_by?(current_user)
     @editable_by ||= begin
-      current_user.all_datasets.where(id: self.id).count == 1
+      self.editors.pluck( :id ).include?(current_user.id)
     end
   end
 

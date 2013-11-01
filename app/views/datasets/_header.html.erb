@@ -1,10 +1,28 @@
 <div class="jumbotron" style="margin-bottom:0px">
   <h1><%= @dataset.name %> Dataset</h1>
-  <% if current_user and current_user.system_admin? and @dataset.editable_by?(current_user) %>
+  <% if current_user and @dataset.editable_by?(current_user) %>
     <p>
       <%= link_to "Edit Dataset", edit_dataset_path(@dataset), class: 'btn btn-xs btn-default' %>
-      <%= link_to "Delete Dataset", @dataset, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Dataset #{@dataset.name}?" } %>
+      <%= link_to "Delete Dataset", @dataset, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Dataset #{@dataset.name}?" } if current_user.system_admin? %>
     </p>
+  <% else %>
+    <% if @dataset.grants_file_access_to?(current_user) %>
+      <span class="label label-success">Access Granted</span>
+    <% else %>
+      <% if current_user %>
+        <% if dataset_user = @dataset.dataset_users.where( user_id: current_user.id ).first %>
+          <% if dataset_user.approved == nil %>
+            <span class="label label-default">Access Requested</span>
+          <% else %>
+            <span class="label label-danger">Access Denied</span>
+          <% end %>
+        <% else %>
+          <%= link_to 'Request Access', request_access_dataset_path(@dataset), class: 'btn btn-xs btn-success' %>
+        <% end %>
+      <% else %>
+        <%= link_to 'Sign In to Request Access', new_user_session_path, class: 'btn btn-xs btn-success' %>
+      <% end %>
+    <% end %>
   <% end %>
 </div>
 
@@ -12,9 +30,9 @@
   <% if show_files %>
     <li class="<%= 'active' if ['show', 'files'].include?(params[:action]) %>"><%= link_to 'Downloads', files_dataset_path(@dataset) %></li>
   <% end %>
-  <li class="<%= 'active' if not show_files or ['pages'].include?(params[:action]) %>"><%= link_to 'Documentation', pages_dataset_path(@dataset) %></li>
-  <% if current_user and current_user.system_admin? and @dataset.editable_by?(current_user) %>
+  <li class="<%= 'active' if (not show_files and params[:action] == 'show') or ['pages'].include?(params[:action]) %>"><%= link_to 'Documentation', pages_dataset_path(@dataset) %></li>
+  <% if current_user and @dataset.editable_by?(current_user) %>
     <li class="<%= 'active' if ['audits'].include?(params[:action]) %>"><%= link_to 'Audits', audits_dataset_path(@dataset) %></li>
+    <li class="<%= 'active' if ['requests'].include?(params[:action]) %>"><%= link_to 'Requests', requests_dataset_path(@dataset) %></li>
   <% end %>
-  <% if false %><li><a href="#dataset-community">Community</a></li><% end %>
 </ul>

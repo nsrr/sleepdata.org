@@ -3,6 +3,24 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  after_filter :store_location
+
+  def store_location
+    if (params[:action] != 'logo' &&
+        params[:action] != 'files' &&
+        request.fullpath != "#{request.script_name}/users/login" &&
+        request.fullpath != "#{request.script_name}/users/register" &&
+        request.fullpath != "#{request.script_name}/users/password" &&
+        !request.fullpath.match("#{request.script_name}/auth/") &&
+        !request.xhr?) # don't store ajax calls
+      session[:previous_url] = request.fullpath
+    end
+  end
+
+  def after_sign_in_path_for(resource)
+    session[:previous_url] || root_path
+  end
+
   protected
 
   def check_system_admin
