@@ -9,6 +9,7 @@
       <th>File Path</th>
       <th>File Size</th>
       <th>User</th>
+      <th>Remote IP</th>
       <th>Medium</th>
       <th>Downloaded At</th>
     </tr>
@@ -18,6 +19,13 @@
       <th>
         <% if params.has_key?(:user_id) %>
           <span class="glyphicon glyphicon-filter"></span> <% user = User.find_by_id(params[:user_id]) %><%= user ? user.name : 'Anonymous' %>
+        <% else %>
+          <span class="text-muted">-</span>
+        <% end %>
+      </th>
+      <th>
+        <% if params.has_key?(:remote_ip) %>
+          <span class="glyphicon glyphicon-filter"></span> <%= params[:remote_ip].blank? ? 'blank' : params[:remote_ip] %>
         <% else %>
           <span class="text-muted">-</span>
         <% end %>
@@ -42,9 +50,9 @@
       <td><%= number_to_human_size audit.file_size %></td>
       <td>
         <% if audit.user_id.to_s == params[:user_id] %>
-          <%= link_to '<span class="glyphicon glyphicon-remove"></span>'.html_safe, audits_dataset_path(@dataset, medium: params[:medium]), rel: 'tooltip', data: { title: "Remove Filter", placement: 'left' } %>
+          <%= link_to '<span class="glyphicon glyphicon-remove"></span>'.html_safe, audits_dataset_path(@dataset, medium: params[:medium], remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: "Remove Filter", placement: 'left' } %>
         <% else %>
-          <%= link_to '<span class="glyphicon glyphicon-filter"></span>'.html_safe, audits_dataset_path(@dataset, medium: params[:medium], user_id: audit.user_id.to_s), rel: 'tooltip', data: { title: "Filter by #{ audit.user ? audit.user.name : 'Anonymous' }", placement: 'left' } %>
+          <%= link_to '<span class="glyphicon glyphicon-filter"></span>'.html_safe, audits_dataset_path(@dataset, medium: params[:medium], user_id: audit.user_id.to_s, remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: "Filter by #{ audit.user ? audit.user.name : 'Anonymous' }", placement: 'left' } %>
         <% end %>
         <% if audit.user %>
           <%= audit.user.name if audit.user %>
@@ -53,10 +61,18 @@
         <% end %>
       </td>
       <td>
-        <% if audit.medium.to_s == params[:medium] %>
-          <%= link_to '<span class="glyphicon glyphicon-remove"></span>'.html_safe, audits_dataset_path(@dataset, user_id: params[:user_id]), rel: 'tooltip', data: { title: "Remove Filter", placement: 'left' } %>
+        <% if audit.remote_ip.to_s == params[:remote_ip] %>
+          <%= link_to '<span class="glyphicon glyphicon-remove"></span>'.html_safe, audits_dataset_path(@dataset, user_id: params[:user_id], medium: params[:medium]), rel: 'tooltip', data: { title: "Remove Filter", placement: 'left' } %>
         <% else %>
-          <%= link_to '<span class="glyphicon glyphicon-filter"></span>'.html_safe, audits_dataset_path(@dataset, medium: audit.medium.to_s, user_id: params[:user_id]), rel: 'tooltip', data: { title: "Filter by #{audit.medium}", placement: 'left' } %>
+          <%= link_to '<span class="glyphicon glyphicon-filter"></span>'.html_safe, audits_dataset_path(@dataset, remote_ip: audit.remote_ip.to_s, user_id: params[:user_id], medium: params[:medium]), rel: 'tooltip', data: { title: "Filter by #{audit.remote_ip}", placement: 'left' } %>
+        <% end %>
+        <%= audit.remote_ip %>
+      </td>
+      <td>
+        <% if audit.medium.to_s == params[:medium] %>
+          <%= link_to '<span class="glyphicon glyphicon-remove"></span>'.html_safe, audits_dataset_path(@dataset, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: "Remove Filter", placement: 'left' } %>
+        <% else %>
+          <%= link_to '<span class="glyphicon glyphicon-filter"></span>'.html_safe, audits_dataset_path(@dataset, medium: audit.medium.to_s, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: "Filter by #{audit.medium}", placement: 'left' } %>
         <% end %>
         <%= audit.medium %>
       </td>

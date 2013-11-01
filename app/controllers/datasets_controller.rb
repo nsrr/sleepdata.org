@@ -10,6 +10,7 @@ class DatasetsController < ApplicationController
     audit_scope = @dataset.dataset_file_audits.order( created_at: :desc )
     audit_scope = audit_scope.where( user_id: params[:user_id].blank? ? nil : params[:user_id] ) if params.has_key?(:user_id)
     audit_scope = audit_scope.where( medium: params[:medium].blank? ? nil : params[:medium] ) if params.has_key?(:medium)
+    audit_scope = audit_scope.where( remote_ip: params[:remote_ip].blank? ? nil : params[:remote_ip] ) if params.has_key?(:remote_ip)
     @audits = audit_scope
   end
 
@@ -25,7 +26,7 @@ class DatasetsController < ApplicationController
   def files
     file = @dataset.find_file( params[:path] )
     if file and File.file?(file)
-      @dataset.dataset_file_audits.create( user_id: (current_user ? current_user.id : nil), file_path: @dataset.file_path(file), medium: params[:medium], file_size: File.size(file) )
+      @dataset.dataset_file_audits.create( user_id: (current_user ? current_user.id : nil), file_path: @dataset.file_path(file), medium: params[:medium], file_size: File.size(file), remote_ip: request.remote_ip )
       send_file file
     elsif file and File.directory?(file)
       render 'files'
