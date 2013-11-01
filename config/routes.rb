@@ -19,6 +19,7 @@ WwwSleepdataOrg::Application.routes.draw do
   get 'welcome/index'
   get '/about' => 'welcome#about', as: :about
   get '/contact' => 'welcome#contact', as: :contact
+  get '/whatsmyip' => 'welcome#whatsmyip', as: :whatsmyip
 
   get '/tools' => 'welcome#wget', as: :tools
   get '/tools/wget' => 'welcome#wget', as: :wget

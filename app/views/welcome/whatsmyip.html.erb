@@ -1,0 +1,20 @@
+<div class="page-border">
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th>request.remote_ip</th>
+        <th>request.ip</th>
+        <th>request.env['REMOTE_ADDR']</th>
+        <th>request.env['HTTP_X_FORWARDED_FOR']</th>
+        <th>request.env['HTTP_CLIENT_IP']</th>
+      </tr>
+    </thead>
+    <tr>
+      <td><%= request.remote_ip %></td>
+      <td><%= request.ip %></td>
+      <td><%= request.env['REMOTE_ADDR'] %></td>
+      <td><%= request.env['HTTP_X_FORWARDED_FOR'] %></td>
+      <td><%= request.env['HTTP_CLIENT_IP'] %></td>
+    </tr>
+  </table>
+</div>

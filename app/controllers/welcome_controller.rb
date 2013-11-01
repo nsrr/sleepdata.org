@@ -1,4 +1,11 @@
 class WelcomeController < ApplicationController
+  before_action :authenticate_user!,        only: [ :whatsmyip ]
+  before_action :check_system_admin,        only: [ :whatsmyip ]
+
+  def whatsmyip
+  end
+
+
   def index
   end
 
