@@ -7,6 +7,7 @@
         <th>request.env['REMOTE_ADDR']</th>
         <th>request.env['HTTP_X_FORWARDED_FOR']</th>
         <th>request.env['HTTP_CLIENT_IP']</th>
+        <th>request.env['HTTP_X_FORWARDED_HOST']</th>
       </tr>
     </thead>
     <tr>
@@ -15,6 +16,9 @@
       <td><%= request.env['REMOTE_ADDR'] %></td>
       <td><%= request.env['HTTP_X_FORWARDED_FOR'] %></td>
       <td><%= request.env['HTTP_CLIENT_IP'] %></td>
+      <td><%= request.env['HTTP_X_FORWARDED_HOST'] %></td>
     </tr>
   </table>
 </div>
+
+<div class="mono-display"><div class="file-display-after">request.env</div><%= request.env %></div>
