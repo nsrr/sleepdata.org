@@ -1,6 +1,4 @@
-<% show_files = (@dataset.files.size > 0) %>
-
-<%= render partial: 'datasets/header', locals: { show_files: show_files } %>
+<%= render partial: 'datasets/header' %>
 
 <%= render partial: 'layouts/per_page', locals: { per_page: 100, object_count: @audits.count } %>
 

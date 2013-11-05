@@ -1,5 +1,5 @@
 <div class="jumbotron" style="margin-bottom:0px">
-  <h1><%= @dataset.name %> Dataset</h1>
+  <h1><%= @dataset.name %></h1>
   <% if current_user and @dataset.editable_by?(current_user) %>
     <p>
       <%= link_to "Edit Dataset", edit_dataset_path(@dataset), class: 'btn btn-xs btn-default' %>
@@ -27,12 +27,12 @@
 </div>
 
 <ul class="nav nav-tabs">
-  <% if show_files %>
-    <li class="<%= 'active' if ['show', 'files'].include?(params[:action]) %>"><%= link_to 'Downloads', files_dataset_path(@dataset) %></li>
+  <li class="<%= 'active' if ['show', 'pages'].include?(params[:action]) %>"><%= link_to 'Documentation', pages_dataset_path(@dataset) %></li>
+  <% if @dataset.files.size > 0 %>
+    <li class="<%= 'active' if params[:action] == 'files' %>"><%= link_to 'Downloads', files_dataset_path(@dataset) %></li>
   <% end %>
-  <li class="<%= 'active' if (not show_files and params[:action] == 'show') or ['pages'].include?(params[:action]) %>"><%= link_to 'Documentation', pages_dataset_path(@dataset) %></li>
   <% if current_user and @dataset.editable_by?(current_user) %>
-    <li class="<%= 'active' if ['audits'].include?(params[:action]) %>"><%= link_to 'Audits', audits_dataset_path(@dataset) %></li>
-    <li class="<%= 'active' if ['requests'].include?(params[:action]) %>"><%= link_to 'Requests', requests_dataset_path(@dataset) %></li>
+    <li class="<%= 'active' if params[:action] == 'audits' %>"><%= link_to 'Audits', audits_dataset_path(@dataset) %></li>
+    <li class="<%= 'active' if params[:action] == 'requests' %>"><%= link_to 'Requests', requests_dataset_path(@dataset) %></li>
   <% end %>
 </ul>

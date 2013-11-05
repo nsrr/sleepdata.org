@@ -1,11 +1,5 @@
 <% @title = @dataset.name %>
 
-<% show_files = (@dataset.files.size > 0) %>
+<%= render partial: 'datasets/header' %>
 
-<%= render partial: 'datasets/header', locals: { show_files: show_files } %>
-
-<% if show_files %>
-  <%= render partial: 'datasets/folder', locals: { path: nil } %>
-<% else %>
-  <%= render partial: 'datasets/page', locals: { path: nil } %>
-<% end %>
+<%= render partial: 'datasets/page', locals: { path: nil } %>

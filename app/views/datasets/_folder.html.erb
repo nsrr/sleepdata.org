@@ -1,3 +1,33 @@
+<% per_page = 100 %>
+<% page = [params[:page].to_i - 1, 0].max %>
+<% all_files = @dataset.files(path) %>
+<% page = 0 if all_files.size < per_page %>
+<% files = all_files[page*per_page..(page*per_page+per_page - 1)] || [] %>
+
+<% if all_files.size > per_page %>
+<div class="pull-right">
+  <ul class="pagination pagination-sm" style="margin-top:3px;margin-bottom:0px;margin-right:3px">
+    <% if page > 0 %>
+      <li><%= link_to '&laquo;'.html_safe, files_dataset_path( @dataset ) + '/' + path.to_s + "#{page > 1 ? "?page=#{page}" : ""}"  %></li>
+    <% else %>
+      <li class="disabled"><span>&laquo;</span></li>
+    <% end %>
+    <li>
+      <span>
+        <b style="font-size:0.95em"><%= number_with_delimiter page*per_page %> to <%= number_with_delimiter [(page*per_page+per_page - 1), all_files.size].min %></b>
+        of <%= number_with_delimiter all_files.size %>
+      </span>
+    </li>
+    <% if (page*per_page+per_page - 1) < all_files.size %>
+      <li><%= link_to '&raquo;'.html_safe, files_dataset_path( @dataset ) + '/' + path.to_s + "?page=#{page+2}"  %></li>
+    <% else %>
+      <li class="disabled"><span>&raquo;</span></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+
 <ol class="breadcrumb">
   <li><%= link_to @dataset.slug, files_dataset_path(@dataset) %></li>
   <li class="<%= 'active' unless path.blank? %>"><%= link_to_if !path.blank?, 'files', files_dataset_path(@dataset) %></li>
@@ -10,8 +40,6 @@
   <% end %>
 </ol>
 
-<% total_file_size = 0 %>
-<% files = @dataset.files(path) %>
 <div class="file-list-container">
   <table class="table table-condensed table-hover" style="margin-bottom:0px"><col width="1px" />
     <% files.each do |file_name, file| %>
@@ -19,7 +47,6 @@
       <% folder = @dataset.file_path(file) %>
       <% url = files_dataset_path( @dataset ) + "#{'/m/browser' if is_file}" + '/' + folder %>
       <% file_size = File.size(file) %>
-      <% total_file_size += file_size %>
       <tr>
         <td><span class="glyphicon glyphicon-<%= is_file ? 'file' : 'folder-close' %>"></span></td>
         <td><%= link_to_if (!is_file || @dataset.grants_file_access_to?(current_user)), file_name, url %></td>
