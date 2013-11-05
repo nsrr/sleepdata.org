@@ -34,6 +34,8 @@
   <% elsif @dataset.pages(path).select{|name, f| File.file?(f)}.size > 0 %>
     <% first_page = @dataset.pages(path).select{|name, f| File.file?(f)}.first %>
     <%= render partial: 'datasets/render_page', locals: { page_path: first_page[1], path: first_page[0] } %>
+  <% elsif @dataset.pages(path).size == 0 %>
+    <%= render partial: 'datasets/nodoc' %>
   <% end %>
 <% else %>
   <%= render partial: 'datasets/nodoc' %>
