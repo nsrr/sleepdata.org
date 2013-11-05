@@ -169,6 +169,7 @@ pre.code {
   max-height:360px;
   overflow:scroll;
   overflow-y:scroll;
+  margin-bottom: 20px;
 }
 
 .shadow-inset-bottom {
