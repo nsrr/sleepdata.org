@@ -17,11 +17,11 @@ class User < ActiveRecord::Base
   # User Methods
 
   def all_datasets
-    Dataset.current.where( user_id: self.id )
+    Dataset.current.with_editor( self.id )
   end
 
   def all_viewable_datasets
-    Dataset.current.where( "public = ? or user_id = ?", true, self.id )
+    Dataset.current.with_viewer( self.id )
   end
 
   def avatar_url(size = 80, default = 'mm')
