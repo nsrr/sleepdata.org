@@ -14,11 +14,11 @@
     <% end %>
     <li>
       <span>
-        <b style="font-size:0.95em"><%= number_with_delimiter page*per_page %> to <%= number_with_delimiter [(page*per_page+per_page - 1), all_files.size].min %></b>
+        <b style="font-size:0.95em"><%= number_with_delimiter( page*per_page + 1 ) %> to <%= number_with_delimiter [(page*per_page+per_page - 1 + 1), all_files.size].min %></b>
         of <%= number_with_delimiter all_files.size %>
       </span>
     </li>
-    <% if (page*per_page+per_page - 1) < all_files.size %>
+    <% if (page*per_page+per_page - 1 + 1) < all_files.size %>
       <li><%= link_to '&raquo;'.html_safe, files_dataset_path( @dataset ) + '/' + path.to_s + "?page=#{page+2}"  %></li>
     <% else %>
       <li class="disabled"><span>&raquo;</span></li>
