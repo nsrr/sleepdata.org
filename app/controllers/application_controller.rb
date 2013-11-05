@@ -8,9 +8,9 @@ class ApplicationController < ActionController::Base
   def store_location
     if (params[:action] != 'logo' &&
         params[:action] != 'files' &&
-        request.fullpath != "#{request.script_name}/users/login" &&
-        request.fullpath != "#{request.script_name}/users/register" &&
-        request.fullpath != "#{request.script_name}/users/password" &&
+        !request.fullpath.match("#{request.script_name}/users/login") &&
+        !request.fullpath.match("#{request.script_name}/users/register") &&
+        !request.fullpath.match("#{request.script_name}/users/password") &&
         !request.fullpath.match("#{request.script_name}/auth/") &&
         !request.xhr?) # don't store ajax calls
       session[:previous_url] = request.fullpath

@@ -1,28 +1,10 @@
-<div class="jumbotron" style="margin-bottom:0px">
+<div class="page-header">
   <h1><%= @dataset.name %></h1>
   <% if current_user and @dataset.editable_by?(current_user) %>
     <p>
       <%= link_to "Edit Dataset", edit_dataset_path(@dataset), class: 'btn btn-xs btn-default' %>
       <%= link_to "Delete Dataset", @dataset, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Dataset #{@dataset.name}?" } if current_user.system_admin? %>
     </p>
-  <% else %>
-    <% if @dataset.grants_file_access_to?(current_user) %>
-      <span class="label label-success">Access Granted</span>
-    <% else %>
-      <% if current_user %>
-        <% if dataset_user = @dataset.dataset_users.where( user_id: current_user.id ).first %>
-          <% if dataset_user.approved == nil %>
-            <span class="label label-default">Access Requested</span>
-          <% else %>
-            <span class="label label-danger">Access Denied</span>
-          <% end %>
-        <% else %>
-          <%= link_to 'Request Access', request_access_dataset_path(@dataset), class: 'btn btn-xs btn-success' %>
-        <% end %>
-      <% else %>
-        <%= link_to 'Sign In to Request Access', new_user_session_path, class: 'btn btn-xs btn-success' %>
-      <% end %>
-    <% end %>
   <% end %>
 </div>
 
@@ -34,5 +16,39 @@
   <% if current_user and @dataset.editable_by?(current_user) %>
     <li class="<%= 'active' if params[:action] == 'audits' %>"><%= link_to 'Audits', audits_dataset_path(@dataset) %></li>
     <li class="<%= 'active' if params[:action] == 'requests' %>"><%= link_to 'Requests', requests_dataset_path(@dataset) %></li>
+  <% end %>
+
+  <% if current_user and @dataset.editable_by?(current_user) %>
+    <li class="pull-right success">
+      <%= link_to '<span class="glyphicon glyphicon-thumbs-up"></span> Access Granted'.html_safe, '#', data: { object: 'suppress-click' } %>
+    </li>
+  <% else %>
+    <% if @dataset.grants_file_access_to?(current_user) %>
+      <li class="pull-right success">
+        <%= link_to '<span class="glyphicon glyphicon-thumbs-up"></span> Access Granted'.html_safe, '#', data: { object: 'suppress-click' } %>
+      </li>
+    <% else %>
+      <% if current_user %>
+        <% if dataset_user = @dataset.dataset_users.where( user_id: current_user.id ).first %>
+          <% if dataset_user.approved == nil %>
+            <li class="pull-right info">
+            <%= link_to '<span class="glyphicon glyphicon-transfer"></span> Access Requested'.html_safe, '#', data: { object: 'suppress-click' } %>
+            </li>
+          <% else %>
+            <li class="pull-right danger">
+            <%= link_to '<span class="glyphicon glyphicon-thumbs-down"></span> Access Denied'.html_safe, '#', data: { object: 'suppress-click' } %>
+            </li>
+          <% end %>
+        <% else %>
+          <li class="pull-right info">
+            <%= link_to '<span class="glyphicon glyphicon-lock"></span> Request Access'.html_safe, request_access_dataset_path(@dataset), style: 'cursor:pointer' %>
+          </li>
+        <% end %>
+      <% else %>
+        <li class="pull-right info">
+          <%= link_to '<span class="glyphicon glyphicon-lock"></span> Sign In to Request Access'.html_safe, new_user_session_path, style: 'cursor:pointer' %>
+        </li>
+      <% end %>
+    <% end %>
   <% end %>
 </ul>
