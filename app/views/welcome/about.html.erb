@@ -1,15 +1,98 @@
 <div class="jumbotron">
   <h1>National Sleep Research Resource</h1>
   <p class="lead">Explore the largest collection of sleep research databases in the world.</p>
+</div>
+
+
+<div class="center">
+  <p class="lead">
+    The National Sleep Research Resource (NSRR) is funded by the NIH National Heart, Lung, and Blood Institute.
+  </p>
+  <p class="lead">
+    An interdisciplinary group, including sleep physicians, informaticians, mathematicians, and other research staff are working to build the NSRR. This group includes:
+  </p>
+</div>
+
+<div class="row" style="margin-top:100px">
+  <div class="col-xs-4 leadership">
+    <h3>Ary Goldberger, MD</h3>
+    Co-PI &middot; BIDMC
+  </div>
+  <div class="col-xs-4 leadership">
+    <h3>Susan Redline, MD</h3>
+    Co-PI &middot; BWH
+  </div>
+  <div class="col-xs-4 leadership">
+    <h3>GQ Zhang, PhD</h3>
+    Co-PI &middot; CWRU
+  </div>
+</div>
+
+<div class="page-header center" style="margin-top:100px">
+  <h3>Beth Israel Deaconess Medical Center</h3>
+</div>
+
+<div class="row">
+  <div class="col-xs-4 leadership">
+  </div>
+  <div class="col-xs-4 leadership">
+    <h4>Madalena Costa, PhD</h4>
+  </div>
+  <div class="col-xs-4 leadership">
+  </div>
+</div>
+
+<div class="page-header center" style="margin-top:40px">
+  <h3>Brigham and Women’s Hospital</h3>
+</div>
+
+<div class="row">
+  <div class="col-xs-4 leadership">
+    <h4><%= link_to 'Dennis Dean', 'https://github.com/dennisdean', target: '_blank'%>, PhD</h4>
+    <span class="text-muted leadership-description">EDF Tools Developer</span>
+  </div>
+  <div class="col-xs-4 leadership">
+    <h4><%= link_to 'Kevin Gleason', 'https://github.com/kevgleas', target: '_blank'%></h4>
+    <span class="text-muted leadership-description">IS Programmer / Analyst</span>
+  </div>
+  <div class="col-xs-4 leadership">
+    <h4>Matthew Kim, MD</h4>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-4 leadership">
+    <h4>Dan Mobley</h4>
+  </div>
+  <div class="col-xs-4 leadership">
+    <h4><%= link_to 'Remo Mueller', 'https://github.com/remomueller', target: '_blank'%>, PhD</h4>
+    <span class="text-muted leadership-description">Senior Open Source Developer</span>
+  </div>
+  <div class="col-xs-4 leadership">
+    <h4>Michael Rueschman, MPH</h4>
+  </div>
+</div>
+
+
+<div class="page-header center" style="margin-top:40px">
+  <h3>Case Western Reserve University</h3>
+</div>
+
+<div class="row">
+  <div class="col-xs-4 leadership">
+    <h4>Licong Cui</h4>
+  </div>
+  <div class="col-xs-4 leadership">
+    <h4>Catherine Jayapandian</h4>
+  </div>
+  <div class="col-xs-4 leadership">
+    <h4>Satya Sahoo, PhD</h4>
+    <span class="text-muted leadership-description">Lead Ontologist</span>
+  </div>
+</div>
+
+<div class="center" style="margin-top:60px">
   <%= image_tag 'nsrr_logo_256.png', size: '256x256', alt: 'NSRR' %>
 </div>
 
-<div class="panel panel-info">
-  <div class="panel-heading">
-    <h3 class="panel-title">Contact Us</h3>
-  </div>
-  <div class="panel-body">
-    <p>If you are interested in being notified when our first dataset is available, fill out our survey here:</p>
-    <p><%= link_to 'sleepepi.partners.org/slice/survey/nsrr-sleepdata', 'https://sleepepi.partners.org/slice/survey/nsrr-sleepdata', class: 'btn btn-default', target: '_blank' %></p>
-  </div>
-</div>
+<%= render partial: 'layouts/footer' %>

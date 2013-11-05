@@ -221,3 +221,13 @@ pre.code {
   margin-left: 2px;
   margin-right: 0px;
 }
+
+.leadership {
+  text-align: center;
+  min-height: 100px;
+}
+
+.leadership-description {
+  font-weight:300;
+  font-size:12px;
+}
