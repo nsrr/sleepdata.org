@@ -1,9 +1,9 @@
 class DatasetsController < ApplicationController
-  before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access ]
+  before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :edit_page, :update_page ]
   before_action :check_system_admin,        only: [ :new, :create, :destroy ]
   before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :files, :pages, :request_access ]
-  before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access ]
-  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :files, :pages, :edit, :update, :destroy, :audits, :requests, :request_access, :set_access ]
+  before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :edit_page, :update_page ]
+  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :files, :pages, :edit, :update, :destroy, :audits, :requests, :request_access, :set_access, :edit_page, :update_page ]
 
   def request_access
     if dataset_user = @dataset.dataset_users.where( user_id: current_user.id ).first
@@ -49,6 +49,24 @@ class DatasetsController < ApplicationController
     else
       render nothing: true
     end
+  end
+
+  # GET /datasets/1/edit_page
+  def edit_page
+  end
+
+  # PATCH /datasets/1/update_page
+  def update_page
+    page_path = @dataset.find_page(params[:path])
+    path = (page_path ? page_path.gsub(@dataset.pages_folder + '/', '') : nil)
+
+    if page_path and File.file?(page_path) and params.has_key?(:page_contents)
+      File.open(page_path, 'w') do |outfile|
+        outfile.write params[:page_contents].to_s
+      end
+    end
+
+    redirect_to pages_dataset_path( @dataset ) + '/' + path
   end
 
   # GET /datasets/1/pages

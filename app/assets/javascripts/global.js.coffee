@@ -20,4 +20,9 @@
   $("[rel=tooltip]").tooltip( trigger: 'hover' )
 
 $(document).ready(ready)
-$(document).on('page:load', ready)
+$(document)
+  .on('page:load', ready)
+  .on('click', '[data-object~="submit"]', () ->
+    $($(this).data('target')).submit()
+    false
+  )

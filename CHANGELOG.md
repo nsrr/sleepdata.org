@@ -9,3 +9,4 @@
 - File downloads are now audited and can be reviewed by dataset creators
 - Users can now request access to file downloads for datasets
 - Dataset editors can approve/deny user file access requests
+- Dataset editors can edit and update documentation pages

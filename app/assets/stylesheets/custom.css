@@ -147,6 +147,7 @@ pre.code {
   -webkit-border-radius: 4px 0 4px 0;
   -moz-border-radius: 4px 0 4px 0;
   border-radius: 4px 0 4px 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .mono-display {

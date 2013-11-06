@@ -1,6 +1,14 @@
 <% page_path = @dataset.find_page(path) %>
 <% path = (page_path ? page_path.gsub(@dataset.pages_folder + '/', '') : nil) %>
 
+<% if current_user and @dataset.editable_by?(current_user) and File.file?(page_path) %>
+  <div class="pull-right">
+    <ul class="pagination pagination-sm" style="margin-top:3px;margin-bottom:0px;margin-right:3px">
+      <li><%= link_to 'Edit', edit_page_dataset_path(@dataset, path: path) %></li>
+    </ul>
+  </div>
+<% end %>
+
 <ol class="breadcrumb">
   <li><%= link_to @dataset.slug, pages_dataset_path(@dataset) %></li>
   <li class="<%= 'active' unless path.blank? %>"><%= link_to_if !path.blank?, 'pages', pages_dataset_path(@dataset) %></li>
