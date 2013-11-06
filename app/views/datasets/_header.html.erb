@@ -9,7 +9,7 @@
 </div>
 
 <ul class="nav nav-tabs">
-  <li class="<%= 'active' if ['show', 'pages'].include?(params[:action]) %>"><%= link_to 'Documentation', pages_dataset_path(@dataset) %></li>
+  <li class="<%= 'active' if ['show', 'pages', 'edit_page'].include?(params[:action]) %>"><%= link_to 'Documentation', pages_dataset_path(@dataset) %></li>
   <% if @dataset.files.size > 0 %>
     <li class="<%= 'active' if params[:action] == 'files' %>"><%= link_to 'Downloads', files_dataset_path(@dataset) %></li>
   <% end %>
