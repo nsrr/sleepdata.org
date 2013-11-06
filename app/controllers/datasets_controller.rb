@@ -1,9 +1,9 @@
 class DatasetsController < ApplicationController
   before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :edit_page, :update_page ]
   before_action :check_system_admin,        only: [ :new, :create, :destroy ]
-  before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :files, :pages, :request_access ]
+  before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :files, :pages, :request_access, :search ]
   before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :edit_page, :update_page ]
-  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :files, :pages, :edit, :update, :destroy, :audits, :requests, :request_access, :set_access, :edit_page, :update_page ]
+  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :files, :pages, :edit, :update, :destroy, :audits, :requests, :request_access, :set_access, :edit_page, :update_page, :search ]
 
   def request_access
     if dataset_user = @dataset.dataset_users.where( user_id: current_user.id ).first
@@ -28,6 +28,13 @@ class DatasetsController < ApplicationController
     audit_scope = audit_scope.where( medium: params[:medium].blank? ? nil : params[:medium] ) if params.has_key?(:medium)
     audit_scope = audit_scope.where( remote_ip: params[:remote_ip].blank? ? nil : params[:remote_ip] ) if params.has_key?(:remote_ip)
     @audits = audit_scope
+  end
+
+  # GET /datasets/1/search
+  def search
+    @term = params[:s].to_s.gsub(/[^\w]/, '')
+    @results = []
+    @results = `grep -i -R #{@term} #{@dataset.pages_folder}`.split("\n") unless @term.blank?
   end
 
   # GET /datasets/1/manifest.txt
@@ -71,6 +78,7 @@ class DatasetsController < ApplicationController
 
   # GET /datasets/1/pages
   def pages
+    @term = params[:s].to_s.gsub(/[^\w]/, '')
   end
 
   # GET /datasets

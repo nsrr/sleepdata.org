@@ -10,3 +10,4 @@
 - Users can now request access to file downloads for datasets
 - Dataset editors can approve/deny user file access requests
 - Dataset editors can edit and update documentation pages
+- Dataset documentation is now searchable

@@ -1,8 +1,8 @@
 <% if ['.md','.markdown'].include?(File.extname(page_path)) %>
   <div class="file-display">
     <div class="file-display-after"><%= path.to_s.split('/').last %></div>
-    <%= simple_markdown( File.read(page_path), false, 'table table-striped table-hover' ) %>
+    <%= highlight(simple_markdown( File.read(page_path), false, 'table table-striped table-hover' ), @term, sanitize: false) %>
   </div>
 <% else %>
-  <div class="mono-display"><div class="file-display-after"><%= path.to_s.split('/').last %></div><%= File.read(page_path) %></div>
+  <div class="mono-display"><div class="file-display-after"><%= path.to_s.split('/').last %></div><%= highlight(File.read(page_path), @term, sanitize: false) %></div>
 <% end %>
