@@ -224,6 +224,21 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should show public page in subfolder to anonymous user" do
+    assert_difference('DatasetPageAudit.count') do
+      get :pages, id: @dataset, path: 'subfolder/MORE_INFO.txt'
+    end
+    assert_response :success
+  end
+
+  test "should show public page in subfolder to logged in user" do
+    login(users(:valid))
+    assert_difference('DatasetPageAudit.count') do
+      get :pages, id: @dataset, path: 'subfolder/MORE_INFO.txt'
+    end
+    assert_response :success
+  end
+
   test "should search public dataset documentation as anonymous user" do
     get :search, id: @dataset, s: 'view ?/\\'
     assert_equal 'view', assigns(:term)
