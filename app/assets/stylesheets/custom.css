@@ -134,6 +134,18 @@ pre.code {
   border-radius: 4px;
 }
 
+.file-display .table th[align=left] {
+  text-align: left;
+}
+
+.file-display .table th[align=right] {
+  text-align: right;
+}
+
+.file-display .table th[align=center] {
+  text-align: center;
+}
+
 .file-display-after {
   position: absolute;
   top: -1px;
@@ -168,7 +180,6 @@ pre.code {
 
 .file-list-container {
   max-height:360px;
-  overflow:scroll;
   overflow-y:scroll;
   margin-bottom: 20px;
 }

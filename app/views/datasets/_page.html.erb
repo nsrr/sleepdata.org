@@ -1,33 +1,30 @@
-<% page_path = @dataset.find_page(path) %>
-<% path = (page_path ? page_path.gsub(@dataset.pages_folder + '/', '') : nil) %>
-
-<% if current_user and @dataset.editable_by?(current_user) and File.file?(page_path) %>
+<% if current_user and @dataset.editable_by?(current_user) and File.file?(@page_path) %>
   <div class="pull-right">
     <ul class="pagination pagination-sm" style="margin-top:3px;margin-bottom:0px;margin-right:3px">
-      <li><%= link_to 'Edit', edit_page_dataset_path(@dataset, path: path) %></li>
+      <li><%= link_to 'Edit', edit_page_dataset_path(@dataset, path: @path) %></li>
     </ul>
   </div>
 <% end %>
 
 <ol class="breadcrumb">
   <li><%= link_to @dataset.slug, pages_dataset_path(@dataset) %></li>
-  <li class="<%= 'active' unless path.blank? %>"><%= link_to_if !path.blank?, 'pages', pages_dataset_path(@dataset) %></li>
-  <% unless path.blank? %>
-    <% path.to_s.split('/')[0..-2].each_with_index do |folder, index| %>
-      <% url = pages_dataset_path( @dataset ) + '/' + path.to_s.split('/')[0..index].join('/') %>
+  <li class="<%= 'active' unless @path.blank? %>"><%= link_to_if !@path.blank?, 'pages', pages_dataset_path(@dataset) %></li>
+  <% unless @path.blank? %>
+    <% @path.to_s.split('/')[0..-2].each_with_index do |folder, index| %>
+      <% url = pages_dataset_path( @dataset ) + '/' + @path.to_s.split('/')[0..index].join('/') %>
       <li><%= link_to folder, url %></li>
     <% end %>
-    <li class="active"><%= path.to_s.split('/').last %></li>
+    <li class="active"><%= @path.to_s.split('/').last %></li>
   <% end %>
 </ol>
 
-<% if page_path and File.file?(page_path) and File.size(page_path) < 1.megabyte %>
-  <%= render partial: 'datasets/render_page', locals: { page_path: page_path, path: path } %>
-<% elsif page_path and File.directory?(page_path) %>
+<% if @page_path and File.file?(@page_path) and File.size(@page_path) < 1.megabyte %>
+  <%= render partial: 'datasets/render_page', locals: { page_path: @page_path, path: @path } %>
+<% elsif @page_path and File.directory?(@page_path) %>
   <div class="file-list-container">
     <table class="table table-condensed table-hover" style="margin-bottom:0px"><col width="1px" />
       <% page = [params[:page].to_i, 0].max %>
-      <% @dataset.pages(path)[0..(page*100+100 - 1)].each do |page_name, page| %>
+      <% @dataset.pages(@path)[0..(page*100+100 - 1)].each do |page_name, page| %>
         <% is_file = File.file?(page) %>
         <% folder = @dataset.page_path(page) %>
         <% url = pages_dataset_path( @dataset ) + '/' + folder %>
@@ -38,12 +35,12 @@
     </table>
   </div>
 
-  <% if File.exists?(File.join(page_path, 'README.md')) %>
-    <%= render partial: 'datasets/render_page', locals: { page_path: File.join(page_path, 'README.md'), path: 'README.md' } %>
-  <% elsif @dataset.pages(path).select{|name, f| File.file?(f)}.size > 0 %>
-    <% first_page = @dataset.pages(path).select{|name, f| File.file?(f)}.first %>
+  <% if File.exists?(File.join(@page_path, 'README.md')) %>
+    <%= render partial: 'datasets/render_page', locals: { page_path: File.join(@page_path, 'README.md'), path: 'README.md' } %>
+  <% elsif @dataset.pages(@path).select{|name, f| File.file?(f)}.size > 0 %>
+    <% first_page = @dataset.pages(@path).select{|name, f| File.file?(f)}.first %>
     <%= render partial: 'datasets/render_page', locals: { page_path: first_page[1], path: first_page[0] } %>
-  <% elsif @dataset.pages(path).size == 0 %>
+  <% elsif @dataset.pages(@path).size == 0 %>
     <%= render partial: 'datasets/nodoc' %>
   <% end %>
 <% else %>

@@ -11,3 +11,4 @@
 - Dataset editors can approve/deny user file access requests
 - Dataset editors can edit and update documentation pages
 - Dataset documentation is now searchable
+- Dataset documentation page views are now audited

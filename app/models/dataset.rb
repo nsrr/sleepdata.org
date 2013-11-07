@@ -18,6 +18,7 @@ class Dataset < ActiveRecord::Base
   # Model Relationships
   belongs_to :user
   has_many :dataset_file_audits
+  has_many :dataset_page_audits
   has_many :dataset_users
 
   # Currently only the owner of the dataset

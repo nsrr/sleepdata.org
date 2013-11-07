@@ -4,6 +4,7 @@ class DatasetsController < ApplicationController
   before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :files, :pages, :request_access, :search ]
   before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :edit_page, :update_page ]
   before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :files, :pages, :edit, :update, :destroy, :audits, :requests, :request_access, :set_access, :edit_page, :update_page, :search ]
+  before_action :set_page_path,             only: [ :pages, :edit_page, :show ]
 
   def request_access
     if dataset_user = @dataset.dataset_users.where( user_id: current_user.id ).first
@@ -60,6 +61,9 @@ class DatasetsController < ApplicationController
 
   # GET /datasets/1/edit_page
   def edit_page
+    unless @page_path and File.file?(@page_path) and File.size(@page_path) < 1.megabyte
+      redirect_to pages_dataset_path(@dataset, params[:path])
+    end
   end
 
   # PATCH /datasets/1/update_page
@@ -79,6 +83,7 @@ class DatasetsController < ApplicationController
   # GET /datasets/1/pages
   def pages
     @term = params[:s].to_s.gsub(/[^\w]/, '')
+    @dataset.dataset_page_audits.create( user_id: (current_user ? current_user.id : nil), page_path: @path, remote_ip: request.remote_ip ) if File.file?(@page_path)
   end
 
   # GET /datasets
@@ -162,6 +167,11 @@ class DatasetsController < ApplicationController
 
     def redirect_without_dataset
       empty_response_or_root_path( datasets_path ) unless @dataset
+    end
+
+    def set_page_path
+      @page_path = @dataset.find_page(params[:path])
+      @path = (@page_path ? @page_path.gsub(@dataset.pages_folder + '/', '') : nil)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
