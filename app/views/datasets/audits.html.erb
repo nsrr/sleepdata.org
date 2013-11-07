@@ -84,22 +84,23 @@
 
 <div class="center"><%= paginate paginated_audits, theme: "contour" %></div>
 
+<% @page_views = @dataset.dataset_page_audits.group_by(&:page_path).collect{|page_path, audits| [page_path, audits.count]}.sort{|a,b| b[1] <=> a[1]} %>
 <table class="table table-striped">
   <thead>
     <tr>
       <th>Page Path</th>
       <th>Page Views</th>
     </tr>
+    <tr class="success">
+      <th>Total</th>
+      <th><%= number_with_delimiter( @page_views.sum{|p| p[1]} ) %></th>
+    </tr>
   </thead>
 
-  <% @dataset.dataset_page_audits.group_by(&:page_path).collect{|page_path, audits| [page_path, audits.count]}.sort{|a,b| b[1] <=> a[1]}.each do |page_path, page_view_count| %>
+  <% @page_views.each do |page_path, page_view_count| %>
     <tr>
       <td><%= page_path %></td>
-      <td><%= page_view_count %></td>
+      <td><%= number_with_delimiter( page_view_count ) %></td>
     </tr>
   <% end %>
 </table>
-
-
-
-
