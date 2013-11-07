@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  dataset_id: 1
-  user_id: 1
-  editor: false
-  approved: false
+editor_public_access:
+  dataset: public
+  user: editor
+  editor: true
+  approved: true
 
-two:
-  dataset_id: 1
-  user_id: 1
+pending_public_access:
+  dataset: public
+  user: two
   editor: false
-  approved: false
+  # approved:

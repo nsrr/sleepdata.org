@@ -32,6 +32,8 @@
 
 # CarrierWave
 /carrierwave/**/*
+/test/support/uploads/*
+/test/support/dataset_logo/new_dataset/*
 
 # Other Files
 

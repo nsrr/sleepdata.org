@@ -32,3 +32,10 @@ deleted:
   system_admin: false
   email: deleted@example.com
   encrypted_password: ""
+
+# An editor on the admin public project
+editor:
+  first_name: EditorFirst
+  last_name: EditorLast
+  email: editor@example.com
+  encrypted_password: ""

@@ -4,20 +4,20 @@ class DatasetsController < ApplicationController
   before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :files, :pages, :request_access, :search ]
   before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :edit_page, :update_page ]
   before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :files, :pages, :edit, :update, :destroy, :audits, :requests, :request_access, :set_access, :edit_page, :update_page, :search ]
-  before_action :set_page_path,             only: [ :pages, :edit_page, :show ]
+  before_action :set_page_path,             only: [ :pages, :edit_page, :update_page, :show ]
 
   def request_access
-    if dataset_user = @dataset.dataset_users.where( user_id: current_user.id ).first
+    if @dataset_user = @dataset.dataset_users.where( user_id: current_user.id ).first
       # Dataset access has already been requested
     else
-      @dataset.dataset_users.create( user_id: current_user.id, editor: false, approved: nil )
+      @dataset_user = @dataset.dataset_users.create( user_id: current_user.id, editor: false, approved: nil )
     end
     redirect_to @dataset
   end
 
   def set_access
-    if dataset_user = @dataset.dataset_users.find_by_id(params[:dataset_user_id])
-      dataset_user.update( editor: params[:editor], approved: params[:approved] )
+    if @dataset_user = @dataset.dataset_users.find_by_id(params[:dataset_user_id])
+      @dataset_user.update( editor: params[:editor], approved: params[:approved] )
     end
     redirect_to requests_dataset_path(@dataset)
   end
@@ -44,7 +44,7 @@ class DatasetsController < ApplicationController
   end
 
   def logo
-    send_file File.join( Rails.root, 'carrierwave', @dataset.logo.url )
+    send_file File.join( CarrierWave::Uploader::Base.root, @dataset.logo.url )
   end
 
   def files
@@ -62,22 +62,19 @@ class DatasetsController < ApplicationController
   # GET /datasets/1/edit_page
   def edit_page
     unless @page_path and File.file?(@page_path) and File.size(@page_path) < 1.megabyte
-      redirect_to pages_dataset_path(@dataset, params[:path])
+      redirect_to pages_dataset_path(@dataset, path: @path)
     end
   end
 
   # PATCH /datasets/1/update_page
   def update_page
-    page_path = @dataset.find_page(params[:path])
-    path = (page_path ? page_path.gsub(@dataset.pages_folder + '/', '') : nil)
-
-    if page_path and File.file?(page_path) and params.has_key?(:page_contents)
-      File.open(page_path, 'w') do |outfile|
+    if @page_path and File.file?(@page_path) and params.has_key?(:page_contents)
+      File.open(@page_path, 'w') do |outfile|
         outfile.write params[:page_contents].to_s
       end
     end
 
-    redirect_to pages_dataset_path( @dataset ) + '/' + path
+    redirect_to pages_dataset_path( @dataset, path: @path )
   end
 
   # GET /datasets/1/pages

@@ -43,7 +43,7 @@ class Dataset < ActiveRecord::Base
   end
 
   def root_folder
-    File.join('carrierwave', 'datasets', 'files', self.id.to_s)
+    File.join(CarrierWave::Uploader::Base.root, 'datasets', (Rails.env.test? ? self.slug : self.id.to_s))
   end
 
   def files_folder

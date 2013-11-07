@@ -8,7 +8,7 @@ WwwSleepdataOrg::Application.routes.draw do
       get :audits
       get :request_access
       get :requests
-      get :set_access
+      patch :set_access
       get "(/a/:auth_token)/manifest", action: 'manifest', as: :manifest
       get "files((/a/:auth_token)(/m/:medium)/*path)", action: 'files', as: :files, format: false
       get "pages(/*path)", action: 'pages', as: :pages, format: false

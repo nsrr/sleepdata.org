@@ -25,10 +25,10 @@
           <% end %>
         </td>
         <td>
-          <%= link_to 'Approve',     set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: true, editor: dataset_user.editor ),   class: 'btn btn-default btn-xs' %>
-          <%= link_to 'Deny',        set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: false, editor: dataset_user.editor ),  class: 'btn btn-default btn-xs' %>
-          <%= link_to 'Make Viewer', set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: dataset_user.approved, editor: false ),    class: 'btn btn-default btn-xs' %>
-          <%= link_to 'Make Editor', set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: dataset_user.approved, editor: true ),     class: 'btn btn-default btn-xs' %>
+          <%= link_to 'Approve',     set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: true, editor: dataset_user.editor ), method: :patch,   class: 'btn btn-default btn-xs' %>
+          <%= link_to 'Deny',        set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: false, editor: dataset_user.editor ), method: :patch,  class: 'btn btn-default btn-xs' %>
+          <%= link_to 'Make Viewer', set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: dataset_user.approved, editor: false ), method: :patch,    class: 'btn btn-default btn-xs' %>
+          <%= link_to 'Make Editor', set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: dataset_user.approved, editor: true ), method: :patch,     class: 'btn btn-default btn-xs' %>
         </td>
       </tr>
     <% end %>
