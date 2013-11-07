@@ -243,3 +243,12 @@ pre.code {
   font-weight:300;
   font-size:12px;
 }
+
+.leadership-fade {
+  opacity: 0.20;
+  filter:alpha(opacity=20);
+}
+
+.leadership-highlight {
+
+}

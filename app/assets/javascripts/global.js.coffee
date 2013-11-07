@@ -26,3 +26,11 @@ $(document)
     $($(this).data('target')).submit()
     false
   )
+  .on('mouseover', '[data-object~="hover-highlight"]', () ->
+    $($(this).data('targetfade')).addClass('leadership-fade')
+    $($(this).data('targethighlight')).addClass('leadership-highlight')
+  )
+  .on('mouseout', '[data-object~="hover-highlight"]', () ->
+    $($(this).data('targetfade')).removeClass('leadership-fade')
+    $($(this).data('targethighlight')).removeClass('leadership-highlight')
+  )

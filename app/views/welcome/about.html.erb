@@ -1,96 +1,79 @@
-<div class="jumbotron">
+<div class="jumbotron" style="margin-bottom:0px">
   <h1>National Sleep Research Resource</h1>
   <p class="lead">Explore the largest collection of sleep research databases in the world.</p>
 </div>
 
+<div class="row">
+  <div class="col-xs-4 leadership">
+    <h3>Ary Goldberger, MD</h3>
+    Co-PI &middot; <%= link_to 'BIDMC', '#', rel: 'tooltip', data: { object: 'hover-highlight suppress-click', targethighlight: '.bidmc', targetfade: '.bwh, .cwru', title: 'Beth Israel Deaconess Medical Center', placement: 'bottom' } %>
+  </div>
+  <div class="col-xs-4 leadership">
+    <h3>Susan Redline, MD</h3>
+    Co-PI &middot; <%= link_to 'BWH', '#', rel: 'tooltip', data: { object: 'hover-highlight suppress-click', targethighlight: '.bwh', targetfade: '.bidmc, .cwru', title: "Brigham and Women's Hospital", placement: 'bottom' } %>
+  </div>
+  <div class="col-xs-4 leadership">
+    <h3>GQ Zhang, PhD</h3>
+    Co-PI &middot; <%= link_to 'CWRU', '#', rel: 'tooltip', data: { object: 'hover-highlight suppress-click', targethighlight: '.cwru', targetfade: '.bidmc, .bwh', title: 'Case Western Reserve University', placement: 'bottom' } %>
+  </div>
+</div>
+
+<hr class="soften" />
+
+<div class="row">
+  <div class="col-xs-6 leadership bidmc">
+    <h4>Madalena Costa, PhD</h4>
+  </div>
+  <div class="col-xs-6 leadership cwru">
+    <h4><%= link_to 'Licong Cui', 'http://cci.case.edu/cci/index.php/Lxc248', target: '_blank' %></h4>
+    <span class="text-muted leadership-description">Sleep Port Member</span>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-4 leadership bwh">
+    <h4><%= link_to 'Dennis A. Dean, II', 'http://www.linkedin.com/pub/dennis-dean/b/7b1/4b9', target: '_blank'%>, PhD</h4>
+    <span class="text-muted leadership-description">Sleep Tools Member</span>
+  </div>
+  <div class="col-xs-4 leadership bwh">
+    <h4><%= link_to 'Kevin Gleason', 'https://github.com/kevgleas', target: '_blank'%></h4>
+    <span class="text-muted leadership-description">IS Programmer / Analyst</span>
+  </div>
+  <div class="col-xs-4 leadership cwru">
+    <h4>Catherine Jayapandian</h4>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-4 leadership bwh">
+    <h4>Matthew Kim, MD</h4>
+  </div>
+  <div class="col-xs-4 leadership bwh">
+    <h4>Dan Mobley</h4>
+  </div>
+  <div class="col-xs-4 leadership bwh">
+    <h4><%= link_to 'Remo Mueller', 'https://github.com/remomueller', target: '_blank'%>, PhD</h4>
+    <span class="text-muted leadership-description">Senior Open Source Developer</span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-6 leadership bwh">
+    <h4><%= link_to 'Michael Rueschman', 'https://github.com/mrueschman', target: '_blank' %>, MPH</h4>
+    <span class="text-muted leadership-description">IS Programmer / Analyst</span>
+  </div>
+  <div class="col-xs-6 leadership cwru">
+    <h4>Satya Sahoo, PhD</h4>
+  </div>
+</div>
+
+<hr class="soften" />
 
 <div class="center">
   <p class="lead">
     The National Sleep Research Resource (NSRR) is funded by the NIH National Heart, Lung, and Blood Institute.
   </p>
   <p class="lead">
-    An interdisciplinary group, including sleep physicians, informaticians, mathematicians, and other research staff are working to build the NSRR. This group includes:
+    An interdisciplinary group, including sleep physicians, informaticians, mathematicians, and other research staff are working to build the NSRR.
   </p>
-</div>
-
-<div class="row" style="margin-top:100px">
-  <div class="col-xs-4 leadership">
-    <h3>Ary Goldberger, MD</h3>
-    Co-PI &middot; BIDMC
-  </div>
-  <div class="col-xs-4 leadership">
-    <h3>Susan Redline, MD</h3>
-    Co-PI &middot; BWH
-  </div>
-  <div class="col-xs-4 leadership">
-    <h3>GQ Zhang, PhD</h3>
-    Co-PI &middot; CWRU
-  </div>
-</div>
-
-<div class="page-header center" style="margin-top:100px">
-  <h3>Beth Israel Deaconess Medical Center</h3>
-</div>
-
-<div class="row">
-  <div class="col-xs-4 leadership">
-  </div>
-  <div class="col-xs-4 leadership">
-    <h4>Madalena Costa, PhD</h4>
-  </div>
-  <div class="col-xs-4 leadership">
-  </div>
-</div>
-
-<div class="page-header center" style="margin-top:40px">
-  <h3>Brigham and Women’s Hospital</h3>
-</div>
-
-<div class="row">
-  <div class="col-xs-4 leadership">
-    <h4><%= link_to 'Dennis A. Dean, II', 'http://www.linkedin.com/pub/dennis-dean/b/7b1/4b9', target: '_blank'%>, PhD</h4>
-    <span class="text-muted leadership-description">Sleep Tools Member</span>
-  </div>
-  <div class="col-xs-4 leadership">
-    <h4><%= link_to 'Kevin Gleason', 'https://github.com/kevgleas', target: '_blank'%></h4>
-    <span class="text-muted leadership-description">IS Programmer / Analyst</span>
-  </div>
-  <div class="col-xs-4 leadership">
-    <h4>Matthew Kim, MD</h4>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-xs-4 leadership">
-    <h4>Dan Mobley</h4>
-  </div>
-  <div class="col-xs-4 leadership">
-    <h4><%= link_to 'Remo Mueller', 'https://github.com/remomueller', target: '_blank'%>, PhD</h4>
-    <span class="text-muted leadership-description">Senior Open Source Developer</span>
-  </div>
-  <div class="col-xs-4 leadership">
-    <h4><%= link_to 'Michael Rueschman', 'https://github.com/mrueschman', target: '_blank' %>, MPH</h4>
-    <span class="text-muted leadership-description">IS Programmer / Analyst</span>
-  </div>
-</div>
-
-
-<div class="page-header center" style="margin-top:40px">
-  <h3>Case Western Reserve University</h3>
-</div>
-
-<div class="row">
-  <div class="col-xs-4 leadership">
-    <h4><%= link_to 'Licong Cui', 'http://cci.case.edu/cci/index.php/Lxc248', target: '_blank' %></h4>
-    <span class="text-muted leadership-description">Sleep Port Member</span>
-  </div>
-  <div class="col-xs-4 leadership">
-    <h4>Catherine Jayapandian</h4>
-  </div>
-  <div class="col-xs-4 leadership">
-    <h4>Satya Sahoo, PhD</h4>
-    <span class="text-muted leadership-description">Lead Ontologist</span>
-  </div>
 </div>
 
 <div class="center" style="margin-top:60px">
