@@ -228,7 +228,7 @@ class DatasetsControllerTest < ActionController::TestCase
     get :search, id: @dataset, s: 'view ?/\\'
     assert_equal 'view', assigns(:term)
     assert_equal 1, assigns(:results).count
-    assert_equal 'VIEW_ME.md', assigns(:results).first.to_s.split(':').last
+    assert_equal '# VIEW_ME.md', assigns(:results).first.to_s.split(':').last
     assert_template :search
     assert_response :success
   end

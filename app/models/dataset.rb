@@ -21,7 +21,6 @@ class Dataset < ActiveRecord::Base
   has_many :dataset_page_audits
   has_many :dataset_users
 
-  # Currently only the owner of the dataset
   def viewers
     User.where( id: [self.user_id] + self.dataset_users.where( approved: true ).pluck(:user_id) )
   end
@@ -95,10 +94,6 @@ class Dataset < ActiveRecord::Base
     @editable_by ||= begin
       self.editors.pluck( :id ).include?(current_user.id)
     end
-  end
-
-  def readme(path)
-    File.join(pages_folder, path.to_s)
   end
 
   # Path can refer to a folder or a file
