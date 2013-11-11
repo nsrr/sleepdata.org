@@ -34,6 +34,8 @@
 /carrierwave/**/*
 /test/support/uploads/*
 /test/support/dataset_logo/new_dataset/*
+/test/support/datasets/wecare/files/.sleepdata.index
+/test/support/datasets/wecare/files/subfolder/.sleepdata.index
 
 # Other Files
 

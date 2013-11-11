@@ -1,5 +1,7 @@
 class Dataset < ActiveRecord::Base
 
+  FILES_PER_PAGE = 100
+
   mount_uploader :logo, ImageUploader
 
   # Concerns
@@ -49,8 +51,60 @@ class Dataset < ActiveRecord::Base
     File.join( root_folder, 'files' )
   end
 
-  def files(location = nil)
-    Dir.glob(File.join(files_folder, location.to_s, '*')).collect{|f| [f.split('/').last, f]}.sort{|a,b| [File.file?(a[1]).to_s, a[0]] <=> [File.file?(b[1]).to_s, b[0]]}
+  def file_array(f)
+    folder = f.gsub(self.files_folder + '/', '')
+    file_name = f.split('/').last
+    is_file = File.file?(f)
+    file_size = File.size(f)
+    file_time = File.mtime(f).strftime("%Y-%m-%d %H:%M:%S")
+
+    [folder, file_name, is_file, file_size, file_time]
+  end
+
+  def create_folder_index(location = nil)
+    FileUtils.mkpath(File.join(files_folder, location.to_s))
+    index_file = File.join(files_folder, location.to_s, '.sleepdata.index')
+    files = Dir.glob(File.join(files_folder, location.to_s, '*')).sort{|a,b| [File.file?(a).to_s, a.split('/').last] <=> [File.file?(b).to_s, b.split('/').last]}.collect{|f| file_array(f)}
+    File.open(index_file, 'w') do |outfile|
+      outfile.puts files.size
+      files.in_groups_of(FILES_PER_PAGE, false).each do |file_group|
+        outfile.puts file_group.to_json
+      end
+    end
+  end
+
+  def reset_folder_indexes
+    Dir.glob(File.join(files_folder, '**/.sleepdata.index')).each do |f|
+      File.delete(f) if File.exists?(f) and File.file?(f)
+    end
+  end
+
+  # Returns [[folder, name, is_file, file_size], [...], ... ]
+  # index -1 is all files
+  # index 0 is the file count
+  # index 1 is the first page
+  def indexed_files(location = nil, page = 1)
+    files = []
+    index_file = File.join(files_folder, location.to_s, '.sleepdata.index')
+
+    create_folder_index(location) if not File.exists?(index_file) or Rails.env.test?
+
+    index = 0
+    IO.foreach( index_file ) do |line|
+      if index == page
+        files = if index == 0
+          line.to_i
+        else
+          JSON.parse(line.strip)
+        end
+        break
+      elsif page == -1 and index != 0
+        files += JSON.parse(line.strip)
+      end
+      index += 1
+    end
+
+    return files
   end
 
   def file_path(file)
@@ -59,12 +113,12 @@ class Dataset < ActiveRecord::Base
 
   def find_file(path)
     folders = path.to_s.split('/')[0..-2].collect{|folder| folder.strip}
-    file_name = path.to_s.split('/').last.to_s.strip
+    name = path.to_s.split('/').last.to_s.strip
     clean_folder_path = nil
 
     # Navigate to relative folder
     folders.each do |folder|
-      current_folders = self.files(clean_folder_path).select{|folder_name, f| File.directory?(f)}.collect{|folder_name, f| folder_name}
+      current_folders = self.indexed_files(clean_folder_path, -1).select{|folder, file_name, is_file, file_size, file_time| !is_file}.collect{|folder, file_name, is_file, file_size, file_time| file_name}
       if current_folders.index(folder)
         clean_folder_path = [clean_folder_path, current_folders[current_folders.index(folder)]].compact.join('/')
       else
@@ -73,7 +127,7 @@ class Dataset < ActiveRecord::Base
       end
     end
 
-    clean_file_name = self.files(clean_folder_path).select{|name, f| File.file?(f) and file_name == name}.collect{|name, f| name}.first
+    clean_file_name = self.indexed_files(clean_folder_path, -1).select{|folder, file_name, is_file, file_size, file_time| is_file and file_name == name}.collect{|folder, file_name, is_file, file_size, file_time| file_name}.first
 
     File.join( files_folder, clean_folder_path.to_s, clean_file_name.to_s )
   end

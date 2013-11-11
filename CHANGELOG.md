@@ -12,3 +12,4 @@
 - Dataset editors can edit and update documentation pages
 - Dataset documentation is now searchable
 - Dataset documentation page views are now audited
+- Dataset files are indexed to improve viewing folders with 1,000 or more files
