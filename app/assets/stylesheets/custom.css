@@ -244,6 +244,10 @@ pre.code {
   font-size:12px;
 }
 
+.leadership-list {
+  margin-bottom: 20px;
+}
+
 .leadership-fade {
   opacity: 0.20;
   filter:alpha(opacity=20);
