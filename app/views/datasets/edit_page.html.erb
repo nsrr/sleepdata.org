@@ -1,3 +1,5 @@
+<% @title = "Edit #{@path.to_s.split('/').last} - #{@dataset.name}" %>
+
 <%= render partial: 'datasets/header' %>
 
 <%= form_tag update_page_dataset_path(@dataset, path: @path), method: :patch, id: 'edit_page_form', class: 'form-horizontal' do %>
