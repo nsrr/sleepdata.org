@@ -34,3 +34,14 @@ $(document)
     $($(this).data('targetfade')).removeClass('leadership-fade')
     $($(this).data('targethighlight')).removeClass('leadership-highlight')
   )
+  .on('click', '[data-object~="toggle-about-view"]', () ->
+    if $('#about-list-view').is(':visible')
+      $('#about-list-view').hide()
+      $('#about-block-view').show()
+      $(this).html('<span class="glyphicon glyphicon-list"></span>')
+    else
+      $('#about-block-view').hide()
+      $('#about-list-view').show()
+      $(this).html('<span class="glyphicon glyphicon-th"></span>')
+    false
+  )
