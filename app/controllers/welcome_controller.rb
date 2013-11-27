@@ -5,6 +5,14 @@ class WelcomeController < ApplicationController
   def whatsmyip
   end
 
+  def collection
+    dataset_scope = if current_user
+      current_user.all_viewable_datasets
+    else
+      Dataset.current.where( public: true )
+    end
+    @datasets = dataset_scope
+  end
 
   def index
   end

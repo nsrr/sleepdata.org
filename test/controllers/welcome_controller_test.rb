@@ -3,6 +3,19 @@ require 'test_helper'
 SimpleCov.command_name "test:controllers"
 
 class WelcomeControllerTest < ActionController::TestCase
+  test "should get collection" do
+    get :collection
+    assert_not_nil assigns(:datasets)
+    assert_response :success
+  end
+
+  test "should get collection for logged in user" do
+    login(users(:valid))
+    get :collection
+    assert_not_nil assigns(:datasets)
+    assert_response :success
+  end
+
   test "should get index" do
     get :index
     assert_response :success

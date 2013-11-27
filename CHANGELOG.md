@@ -13,3 +13,6 @@
 - Dataset documentation is now searchable
 - Dataset documentation page views are now audited
 - Dataset files are indexed to improve viewing folders with 1,000 or more files
+- Users can search across multiple datasets that have an associated data dictionary
+  - [Spout](https://github.com/sleepepi/spout) helps format and maintain JSON data dictionaries
+  - An example data dictionary is the [We Care Data Dictionary](https://github.com/sleepepi/wecare-data-dictionary)

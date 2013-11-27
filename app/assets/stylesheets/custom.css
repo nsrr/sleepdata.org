@@ -256,3 +256,16 @@ pre.code {
 .leadership-highlight {
 
 }
+
+.hover-link:hover {
+  background-color: #ededed;
+  cursor: pointer;
+}
+
+.panel-hover:hover {
+  border: 1px solid #3e3e3e;
+  cursor: pointer;
+  -webkit-box-shadow: -10px 10px 10px rgba(0,0,0,.05);
+     -moz-box-shadow: -10px 10px 10px rgba(0,0,0,.05);
+          box-shadow: -10px 10px 10px rgba(0,0,0,.05);
+}

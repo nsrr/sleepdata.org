@@ -1,0 +1,140 @@
+<% labels = params[:s].to_s.split(/\s/).collect{|l| l.to_s.gsub(/[^\w\d%]/, '')} %>
+<% search = labels.first %>
+<% search = 'a' if search.blank? %>
+
+<div class="page-header">
+  <ul class="pagination pagination-sm pull-right">
+    <% ('a'..'z').each do |letter| %>
+      <li class="<%= 'active' if letter == search %>"><%= link_to letter, collection_path( s: letter ) %></li>
+    <% end %>
+  </ul>
+  <h1>
+    Collection
+    <form action="<%= collection_path %>" method="get" id="collection_form" class="form-inline" >
+      <%#= hidden_field_tag :p, params[:p] %>
+      <%= text_field_tag 's', params[:s], class: 'form-control' %>
+      <%= link_to 'Search', '#', class: 'btn btn-primary', data: { object: 'submit', target: '#collection_form' } %>
+    </form>
+  </h1>
+</div>
+
+<% dataset_color = {} %>
+<% @datasets.order(:id).each_with_index do |d, index| %>
+  <% dataset_color[d.slug] = colors(index) %>
+<% end %>
+
+<% search_empty = nil %>
+
+<% labels = (labels + [search]).uniq.select{|l| l.size > 1} %>
+
+<% variable_files = Dir.glob("{#{@datasets.collect{|d| d.root_folder}.join(',')}}/dd/variables/**/#{search_empty}*.json", File::FNM_CASEFOLD) %>
+
+<% variable_files.select! do |variable_file| %>
+  <% if json = JSON.parse(File.read(variable_file)) rescue false %>
+    <% (((([json['display_name'], json['units'].to_s] + (json['labels'] || [])).join(',') =~ /\b#{labels.join('|')}/i) != nil and not labels.empty?) or (json['id'] =~ /^#{search}/i) != nil) %>
+  <% end %>
+<% end %>
+
+<% objects = variable_files.collect do |variable_file| %>
+  <% json = JSON.parse(File.read(variable_file)) rescue json = nil %>
+  <% d = Dataset.find_by_id(variable_file.split('/dd/')[0].to_s.split('/').last) %>
+  <% path = variable_file.split('/dd/')[1..-1].join('/').gsub(/\.json$/, '.md') %>
+  <% location = (d ? pages_dataset_path(d, path: path ) : nil) if File.exists?(File.join(d.pages_folder, path)) %>
+
+  <% score = 0 %>
+  <% labels.each do |l| %>
+    <% score += 1 if (((([json['display_name'], json['units'].to_s] + (json['labels'] || [])).join(',') =~ /\b#{l}/i) != nil ) or (json['id'] =~ /^#{l}/i) != nil) %>
+  <% end %>
+
+  <% [ File.basename(variable_file).gsub(/\.json$/, ''), d.slug, json, location, score ] %>
+<% end %>
+
+<% objects.select!{|o| not o[2].blank?} %>
+<% objects.sort!{|a,b| [b[4], a[0]] <=> [a[4], b[0]]} %> <%# Sort by score followed by variable name %>
+
+<% if false %>
+  <div class="pull-right">
+    <ul class="pagination pagination-sm" style="margin-top:3px;margin-bottom:0px;margin-right:3px">
+      <% page = 0 %>
+      <% objects_per_page = 100 %>
+      <% upto_file_number = objects.count %>
+      <% if page > 0 %>
+        <li><%= link_to '&laquo;'.html_safe, '#', data: { object: 'suppress-click' } %></li>
+      <% else %>
+        <li class="disabled"><span>&laquo;</span></li>
+      <% end %>
+      <li>
+        <span>
+          <b style="font-size:0.95em"><%= number_with_delimiter( page*objects_per_page + 1 ) %> to <%= number_with_delimiter [upto_file_number, objects.count].min %></b>
+          of <%= number_with_delimiter objects.count %>
+        </span>
+      </li>
+      <% if upto_file_number < objects.count %>
+        <li><%= link_to '&raquo;'.html_safe, '#', data: { object: 'suppress-click' } %></li>
+      <% else %>
+        <li class="disabled"><span>&raquo;</span></li>
+      <% end %>
+    </ul>
+  </div>
+<% else %>
+<div class="pull-right">
+  <div class="alert alert-info"><%= pluralize objects.size, 'search result' %></div>
+  <table>
+  <% objects.group_by{|o| o[1]}.sort{|a,b| a[0] <=> b[0]}.each do |slug, slug_objects| %>
+    <tr>
+      <td><span class="label" style="background-color:<%= dataset_color[slug] %>"><%= slug %></span></td>
+      <td><%= pluralize slug_objects.size, 'result' %></td>
+    </tr>
+  <% end %>
+  </table>
+  </ul>
+</div>
+<% end %>
+
+<div class="row">
+  <div class="col-xs-10">
+    <div class="row">
+      <div class="col-xs-1 hover-link" style="height:200px">
+      </div>
+      <div class="col-xs-10">
+        <div class="row">
+          <% objects.each do |basename, slug, json, location, score| %>
+            <% commonly_used = (json['hybrid'] && json['hybrid']['commonly_used']) %>
+            <div class="col-xs-12 col-sm-6 col-md-3">
+              <div class="panel <%= commonly_used ? 'panel-info' : 'panel-default' %> panel-hover" style="overflow:hidden" <% unless location.blank? %>data-link="<%= location %>" target="_blank"<% end %>>
+                <div class="panel-heading">
+                  <span class="label pull-right" style="background-color:<%= dataset_color[slug] %>"><%= slug %></span>
+                  <div style="overflow:hidden;white-space:nowrap"><%#= score %> <%= basename %></div>
+                </div>
+                <div class="panel-body" style="height:150px;overflow:hidden">
+                  <center><%= image_tag (rand(2) == 1 ? 'slp-line-chart.png' : 'piechart.png'), style: 'max-width: 100%;max-height:50px;display:block' %></center>
+                  <div style="font-size:0.8em;margin-top:10px"><%= json['display_name'] %></div>
+
+                </div>
+                <div class="panel-footer" style="height:43px;overflow:hidden;white-space:nowrap"><% unless json['units'].blank? %><code class="pull-left"><%= json['units'] %></code><% end %></div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-xs-1 hover-link" style="height:200px">
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-2">
+    <% if false %>
+    <% variable_files.shuffle.first(5).each do |variable_file| %>
+      <div class="panel panel-default">
+        <% d = Dataset.find_by_id(variable_file.split('/dd/')[0].to_s.split('/').last) %>
+        <div class="panel-body">
+          <% if d %><code class="pull-right"><%= d.slug %></code><% end %>
+          <div style="overflow:hidden"><%= File.basename(variable_file).gsub(/\.json$/, '') %></div>
+        </div>
+      </div>
+    <% end %>
+    <% end %>
+  </div>
+
+</div>
