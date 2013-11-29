@@ -1,9 +1,9 @@
 class DatasetsController < ApplicationController
   before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :edit_page, :update_page ]
   before_action :check_system_admin,        only: [ :new, :create, :destroy ]
-  before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :files, :pages, :request_access, :search ]
+  before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :variable_chart, :files, :pages, :request_access, :search ]
   before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :edit_page, :update_page ]
-  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :files, :pages, :edit, :update, :destroy, :audits, :requests, :request_access, :set_access, :edit_page, :update_page, :search ]
+  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :variable_chart, :files, :pages, :edit, :update, :destroy, :audits, :requests, :request_access, :set_access, :edit_page, :update_page, :search ]
   before_action :set_page_path,             only: [ :pages, :edit_page, :update_page, :show ]
 
   def request_access
@@ -45,6 +45,18 @@ class DatasetsController < ApplicationController
 
   def logo
     send_file File.join( CarrierWave::Uploader::Base.root, @dataset.logo.url )
+  end
+
+  def variable_chart
+    name = params[:name].to_s.gsub(/[^\w\d]/, '')
+
+    chart_file = File.join( @dataset.root_folder, "dd", "pngs", "#{name}.png")
+
+    if File.file?(chart_file)
+      send_file chart_file
+    else
+      send_file File.join( 'app', 'assets', 'images', 'piechart.png' )
+    end
   end
 
   def files

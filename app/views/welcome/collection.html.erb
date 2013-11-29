@@ -107,7 +107,12 @@
                   <div style="overflow:hidden;white-space:nowrap"><%#= score %> <%= basename %></div>
                 </div>
                 <div class="panel-body" style="height:150px;overflow:hidden">
-                  <center><%= image_tag (rand(2) == 1 ? 'slp-line-chart.png' : 'piechart.png'), style: 'max-width: 100%;max-height:50px;display:block' %></center>
+                  <center>
+                    <%#= image_tag (rand(2) == 1 ? 'slp-line-chart.png' : 'piechart.png'), style: 'max-width: 100%;max-height:50px;display:block' %>
+                    <% if d = Dataset.find_by_slug(slug) and File.file?( File.join( d.root_folder, "dd", "pngs", "#{basename}.png") ) %>
+                      <%= image_tag variable_chart_dataset_path(d, name: basename), style: 'max-width: 100%;max-height:50px;display:block' %>
+                    <% end %>
+                  </center>
                   <div style="font-size:0.8em;margin-top:10px"><%= json['display_name'] %></div>
 
                 </div>

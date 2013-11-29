@@ -5,6 +5,7 @@ WwwSleepdataOrg::Application.routes.draw do
   resources :datasets do
     member do
       get :logo
+      get :variable_chart
       get :audits
       get :request_access
       get :requests
