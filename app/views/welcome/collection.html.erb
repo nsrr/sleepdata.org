@@ -19,17 +19,20 @@
 </div>
 
 <% search_empty = nil %>
+<% search_empty = search if search.length == 1 and labels.size == 1 %>
 
 <% labels = (labels + [search]).uniq.select{|l| l.size > 1} %>
 
 <% variable_files = Dir.glob("{#{@datasets.collect{|d| d.root_folder}.join(',')}}/dd/variables/**/#{search_empty}*.json", File::FNM_CASEFOLD) %>
 
-<% variable_files.select! do |variable_file| %>
-  <% if json = JSON.parse(File.read(variable_file)) rescue false %>
-    <% json_file_contains_labels = ((([json['display_name'], json['units'].to_s] + (json['labels'] || [])).join(',') =~ /\b#{labels.join('|')}/i) != nil and not labels.empty?) %>
-    <% file_id_matches_beginning = (json['id'] =~ /^#{search}/i) != nil %>
-    <% variable_folder_exact_match = (params[:s].to_s == variable_file.split('/dd/variables/')[1].split('/').first) %>
-    <% (json_file_contains_labels or file_id_matches_beginning or variable_folder_exact_match) %>
+<% unless search.length == 1 and labels.size == 1 %>
+  <% variable_files.select! do |variable_file| %>
+    <% if json = JSON.parse(File.read(variable_file)) rescue false %>
+      <% json_file_contains_labels = ((([json['display_name'], json['units'].to_s] + (json['labels'] || [])).join(',') =~ /\b#{labels.join('|')}/i) != nil and not labels.empty?) %>
+      <% file_id_matches_beginning = (json['id'] =~ /^#{search}/i) != nil %>
+      <% variable_folder_exact_match = (params[:s].to_s == variable_file.split('/dd/variables/')[1].split('/').first) %>
+      <% (json_file_contains_labels or file_id_matches_beginning or variable_folder_exact_match) %>
+    <% end %>
   <% end %>
 <% end %>
 
