@@ -12,10 +12,26 @@
         <%= image_tag variable_chart_dataset_path(@dataset, name: "#{@basename}-lg"), style: 'max-width: 100%;max-height:400px;display:block' %>
       </center>
       <% end %>
-      <p><%= @json['description'] %></p>
+      <%= simple_markdown @json['description'] %>
+      <% unless @json['calculation'].blank? %>
+        <div class="mono-display"><div class="file-display-after">Calculation</div><u><%= @json['id'] %></u> = <%= @json['calculation'] %></div>
+      <% end %>
     </div>
     <div class="modal-footer">
-      <div class="pull-left"><%= md_path.split('variables/').last.to_s.split('/').first %></div>
+      <div class="pull-left" style="text-align:left">
+        <ol class="breadcrumb">
+          <li><%= link_to @dataset.slug, pages_dataset_path(@dataset), target: '_blank' %></li>
+          <li><%= link_to 'pages', pages_dataset_path(@dataset), target: '_blank' %></li>
+          <% unless md_path.blank? %>
+            <% md_path.to_s.split('/')[0..-2].each_with_index do |folder, index| %>
+              <% url = pages_dataset_path( @dataset ) + '/' + md_path.to_s.split('/')[0..index].join('/') %>
+              <li><%= link_to folder, url, target: '_blank' %></li>
+            <% end %>
+            <li class="active"><%= @json['id'] %>.md</li>
+          <% end %>
+        </ol>
+      </div>
+
       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
     </div>
   </div>

@@ -61,7 +61,7 @@ $(document)
     else
       window.location = $(this).data("link")
   )
-  .on('click', "[data-link-modal]", (e) ->
+  .on('click', "[data-basename]", () ->
     $.get(root_url + 'collection_modal', { "basename": $(this).data('basename'), slug: $(this).data('slug') }, null, "script")
     return false
   )

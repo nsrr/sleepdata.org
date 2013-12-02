@@ -107,13 +107,12 @@
             <% d = Dataset.find_by_slug(slug) %>
             <div class="col-xs-12 col-sm-6 col-md-3">
               <div class="panel <%= commonly_used ? 'panel-info' : 'panel-default' %> panel-hover" style="overflow:hidden">
-                <div class="panel-heading" <% unless location.blank? %>data-link-modal="<%= location %>" target="_blank" data-basename="<%= basename %>" data-slug="<%= slug %>"<% end %>>
+                <div class="panel-heading" data-basename="<%= basename %>" data-slug="<%= slug %>">
                   <span class="label pull-right" style="background-color:<%= d.color if d %>"><%= slug %></span>
                   <div style="overflow:hidden;white-space:nowrap"><%#= score %> <%= basename %></div>
                 </div>
-                <div class="panel-body" style="height:150px;overflow:hidden" <% unless location.blank? %>data-link-modal="<%= location %>" target="_blank" data-basename="<%= basename %>" data-slug="<%= slug %>"<% end %>>
+                <div class="panel-body" style="height:150px;overflow:hidden" data-basename="<%= basename %>" data-slug="<%= slug %>">
                   <center>
-                    <%#= image_tag (rand(2) == 1 ? 'slp-line-chart.png' : 'piechart.png'), style: 'max-width: 100%;max-height:50px;display:block' %>
                     <% if d and File.file?( File.join( d.root_folder, "dd", "pngs", "#{basename}.png") ) %>
                       <%= image_tag variable_chart_dataset_path(d, name: basename), style: 'max-width: 100%;max-height:50px;display:block' %>
                     <% end %>
