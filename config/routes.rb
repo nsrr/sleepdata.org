@@ -30,6 +30,7 @@ WwwSleepdataOrg::Application.routes.draw do
   get '/contact' => 'welcome#contact', as: :contact
   get '/whatsmyip' => 'welcome#whatsmyip', as: :whatsmyip
   get '/collection' => 'welcome#collection', as: :collection
+  get '/collection_modal' => 'welcome#collection_modal', as: :collection_modal
 
   get '/tools' => 'welcome#wget', as: :tools
   get '/tools/wget' => 'welcome#wget', as: :wget

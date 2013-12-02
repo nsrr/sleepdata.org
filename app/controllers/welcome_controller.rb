@@ -14,6 +14,18 @@ class WelcomeController < ApplicationController
     @datasets = dataset_scope
   end
 
+  def collection_modal
+    dataset_scope = if current_user
+      current_user.all_viewable_datasets
+    else
+      Dataset.current.where( public: true )
+    end
+    @dataset = dataset_scope.find_by_slug(params[:slug])
+    @basename = params[:basename].to_s.gsub(/[^\w\d]/, '')
+    @variable_file = Dir.glob("#{@dataset.root_folder}/dd/variables/**/#{@basename}.json", File::FNM_CASEFOLD).first
+    @json = JSON.parse(File.read(@variable_file)) rescue @json = nil
+  end
+
   def index
   end
 

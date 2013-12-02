@@ -1,0 +1,22 @@
+<% md_path = @variable_file.split('/dd/')[1..-1].join('/').gsub(/\.json$/, '.md') %>
+<% location = (@dataset ? pages_dataset_path(@dataset, path: md_path ) : nil) if File.exists?(File.join(@dataset.pages_folder, md_path)) %>
+<div class="modal-dialog modal-wide-width">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title"><%= link_to_if location, @json['id'], location, target: '_blank' %> &middot; <%= @json['display_name'] %> <span class="label" style="background-color:<%= @dataset.color %>"><%= @dataset.slug %></span></h4>
+    </div>
+    <div class="modal-body">
+      <% if File.file?( File.join( @dataset.root_folder, "dd", "pngs", "#{@basename}-lg.png") ) %>
+      <center>
+        <%= image_tag variable_chart_dataset_path(@dataset, name: "#{@basename}-lg"), style: 'max-width: 100%;max-height:400px;display:block' %>
+      </center>
+      <% end %>
+      <p><%= @json['description'] %></p>
+    </div>
+    <div class="modal-footer">
+      <div class="pull-left"><%= md_path.split('variables/').last.to_s.split('/').first %></div>
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+</div>

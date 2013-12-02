@@ -1,0 +1,4 @@
+<% if @dataset and @variable_file and @json %>
+  $('#modal-container').html("<%= escape_javascript(render partial: 'collection_modal' ) %>");
+  $('#modal-container').modal('show');
+<% end %>

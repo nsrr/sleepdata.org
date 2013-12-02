@@ -48,7 +48,7 @@ class DatasetsController < ApplicationController
   end
 
   def variable_chart
-    name = params[:name].to_s.gsub(/[^\w\d]/, '')
+    name = params[:name].to_s.gsub(/[^\w\d-]/, '')
 
     chart_file = File.join( @dataset.root_folder, "dd", "pngs", "#{name}.png")
 
