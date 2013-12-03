@@ -211,7 +211,7 @@ class Dataset < ActiveRecord::Base
           variable_type: json['type'],
           units: json['units'],
           calculation: json['calculation'],
-          commonly_used: (json['commonly_used'] == '1'),
+          commonly_used: (json['commonly_used'] == true),
           domain_id: (domain ? domain.id : nil),
           version: version,
           search_terms: search_terms.select{|a| a.to_s.strip.size > 1}.collect{|b| b.downcase.strip}.uniq.sort.join(' ')
