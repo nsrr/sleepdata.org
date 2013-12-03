@@ -22,6 +22,8 @@ class Dataset < ActiveRecord::Base
   has_many :dataset_file_audits
   has_many :dataset_page_audits
   has_many :dataset_users
+  has_many :domains
+  has_many :variables
 
   def viewers
     User.where( id: [self.user_id] + self.dataset_users.where( approved: true ).pluck(:user_id) )
@@ -171,10 +173,51 @@ class Dataset < ActiveRecord::Base
     File.join( pages_folder, clean_folder_path.to_s, clean_file_name.to_s )
   end
 
-
-
   def color
     colors(Dataset.order(:id).pluck(:id).index(self.id))
+  end
+
+  def load_data_dictionary!
+    version = File.open("#{self.root_folder}/dd/VERSION", &:readline).strip rescue version = nil
+    domain_files = Dir.glob("#{self.root_folder}/dd/domains/**/*.json", File::FNM_CASEFOLD)
+    variable_files = Dir.glob("#{self.root_folder}/dd/variables/**/*.json", File::FNM_CASEFOLD)
+    self.variables.delete_all
+    self.domains.delete_all
+    domain_files.each do |json_file|
+      if json = JSON.parse(File.read(json_file)) rescue false
+        path = json_file.gsub("#{self.root_folder}/dd/domains/", '')
+        name = path.split('/')[-1].to_s.gsub(/\.json$/, '')
+        folder = path.split('/')[0..-2].join('/')
+        self.domains.create( folder: folder, name: name, options: json, version: version )
+      end
+    end
+    variable_files.each do |json_file|
+      if json = JSON.parse(File.read(json_file)) rescue false
+        path = json_file.gsub("#{self.root_folder}/dd/variables/", '')
+        name = path.split('/')[-1].to_s.gsub(/\.json$/, '')
+        folder = path.split('/')[0..-2].join('/')
+        domain = self.domains.find_by_name(json['domain'])
+        search_terms = [name.downcase] + folder.split('/')
+        search_terms += (json['labels'] || [])
+        [json['display_name'], json['units'], json['calculation'], json['description']].each do |json_string|
+          search_terms += json_string.to_s.split(/[^\w\d%]/)
+        end
+
+        self.variables.create(
+          folder: folder,
+          name: name,
+          display_name: json['display_name'],
+          description: json['description'],
+          variable_type: json['type'],
+          units: json['units'],
+          calculation: json['calculation'],
+          commonly_used: (json['commonly_used'] == '1'),
+          domain_id: (domain ? domain.id : nil),
+          version: version,
+          search_terms: search_terms.select{|a| a.to_s.strip.size > 1}.collect{|b| b.downcase.strip}.uniq.sort.join(' ')
+        )
+      end
+    end
   end
 
   private

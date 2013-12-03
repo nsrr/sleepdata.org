@@ -1,20 +1,20 @@
-<% md_path = @variable_file.split('/dd/')[1..-1].join('/').gsub(/\.json$/, '.md') %>
-<% location = (@dataset ? pages_dataset_path(@dataset, path: md_path ) : nil) if File.exists?(File.join(@dataset.pages_folder, md_path)) %>
+<% md_path = File.join('variables', @variable.folder, "#{@variable.name}.md") %>
+<% location = ( pages_dataset_path(@dataset, path: md_path ) ) if File.exists?(File.join(@dataset.pages_folder, md_path)) %>
 <div class="modal-dialog modal-wide-width">
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <h4 class="modal-title"><%= link_to_if location, @json['id'], location, target: '_blank' %> &middot; <%= @json['display_name'] %> <span class="label" style="background-color:<%= @dataset.color %>"><%= @dataset.slug %></span></h4>
+      <h4 class="modal-title"><%= link_to_if location, @variable.name, location, target: '_blank' %> &middot; <%= @variable.display_name %> <span class="label" style="background-color:<%= @dataset.color %>"><%= @dataset.slug %></span></h4>
     </div>
     <div class="modal-body">
-      <% if File.file?( File.join( @dataset.root_folder, "dd", "pngs", "#{@basename}-lg.png") ) %>
+      <% if File.file?( File.join( @dataset.root_folder, "dd", "pngs", "#{@variable.name}-lg.png") ) %>
       <center>
-        <%= image_tag variable_chart_dataset_path(@dataset, name: "#{@basename}-lg"), style: 'max-width: 100%;max-height:400px;display:block' %>
+        <%= image_tag variable_chart_dataset_path(@dataset, name: "#{@variable.name}-lg"), style: 'max-width: 100%;max-height:400px;display:block' %>
       </center>
       <% end %>
-      <%= simple_markdown @json['description'] %>
-      <% unless @json['calculation'].blank? %>
-        <div class="mono-display"><div class="file-display-after">Calculation</div><u><%= @json['id'] %></u> = <%= @json['calculation'] %></div>
+      <%= simple_markdown @variable.description %>
+      <% unless @variable.calculation.blank? %>
+        <div class="mono-display"><div class="file-display-after">Calculation</div><u><%= @variable.name %></u> = <%= @variable.calculation %></div>
       <% end %>
     </div>
     <div class="modal-footer">
@@ -27,7 +27,7 @@
               <% url = pages_dataset_path( @dataset ) + '/' + md_path.to_s.split('/')[0..index].join('/') %>
               <li><%= link_to folder, url, target: '_blank' %></li>
             <% end %>
-            <li class="active"><%= @json['id'] %>.md</li>
+            <li class="active"><%= @variable.name %>.md</li>
           <% end %>
         </ol>
       </div>

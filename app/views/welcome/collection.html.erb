@@ -1,62 +1,17 @@
-<% labels = params[:s].to_s.split(/\s/).collect{|l| l.to_s.gsub(/[^\w\d%]/, '')} %>
-<% search = labels.first %>
-<% search = 'a' if search.blank? %>
-
 <div class="page-header">
   <ul class="pagination pagination-sm pull-right">
     <% ('a'..'z').each do |letter| %>
-      <li class="<%= 'active' if letter == search %>"><%= link_to letter, collection_path( s: letter ) %></li>
+      <li class="<%= 'active' if letter == @search %>"><%= link_to letter, collection_path( s: letter ) %></li>
     <% end %>
   </ul>
   <h1>
     Collection
     <form action="<%= collection_path %>" method="get" id="collection_form" class="form-inline" >
-      <%#= hidden_field_tag :p, params[:p] %>
       <%= text_field_tag 's', params[:s], class: 'form-control' %>
       <%= link_to 'Search', '#', class: 'btn btn-primary', data: { object: 'submit', target: '#collection_form' } %>
     </form>
   </h1>
 </div>
-
-<% search_empty = nil %>
-<% search_empty = search if search.length == 1 and labels.size == 1 %>
-
-<% labels = (labels + [search]).uniq.select{|l| l.size > 1} %>
-
-<% variable_files = Dir.glob("{#{@datasets.collect{|d| d.root_folder}.join(',')}}/dd/variables/**/#{search_empty}*.json", File::FNM_CASEFOLD) %>
-
-<% unless search.length == 1 and labels.size == 1 %>
-  <% variable_files.select! do |variable_file| %>
-    <% if json = JSON.parse(File.read(variable_file)) rescue false %>
-      <% json_file_contains_labels = ((([json['display_name'], json['units'].to_s] + (json['labels'] || [])).join(',') =~ /\b#{labels.join('|')}/i) != nil and not labels.empty?) %>
-      <% file_id_matches_beginning = (json['id'] =~ /^#{search}/i) != nil %>
-      <% variable_folder_exact_match = (params[:s].to_s == variable_file.split('/dd/variables/')[1].split('/').first) %>
-      <% (json_file_contains_labels or file_id_matches_beginning or variable_folder_exact_match) %>
-    <% end %>
-  <% end %>
-<% end %>
-
-<% objects = variable_files.collect do |variable_file| %>
-  <% json = JSON.parse(File.read(variable_file)) rescue json = nil %>
-  <% d = Dataset.find_by_id(variable_file.split('/dd/')[0].to_s.split('/').last) %>
-  <% path = variable_file.split('/dd/')[1..-1].join('/').gsub(/\.json$/, '.md') %>
-  <% location = (d ? pages_dataset_path(d, path: path ) : nil) if File.exists?(File.join(d.pages_folder, path)) %>
-
-  <% score = 0 %>
-
-  <% labels.each do |l| %>
-    <% json_file_contains_labels = ((([json['display_name'], json['units'].to_s] + (json['labels'] || [])).join(',') =~ /\b#{l}/i) != nil ) %>
-    <% file_id_matches_beginning = ((json['id'] =~ /^#{l}/i) != nil) %>
-    <% variable_folder_exact_match = (params[:s].to_s == variable_file.split('/dd/variables/')[1].split('/').first) %>
-
-    <% score += 1 if (json_file_contains_labels or file_id_matches_beginning or variable_folder_exact_match) %>
-  <% end %>
-
-  <% [ File.basename(variable_file).gsub(/\.json$/, ''), d.slug, json, location, score, path ] %>
-<% end %>
-
-<% objects.select!{|o| not o[2].blank?} %>
-<% objects.sort!{|a,b| [b[4], a[0]] <=> [a[4], b[0]]} %> <%# Sort by score followed by variable name %>
 
 <% if false %>
   <div class="pull-right">
@@ -84,15 +39,14 @@
   </div>
 <% else %>
 <div class="pull-right">
-  <div class="alert alert-info"><%= pluralize objects.size, 'search result' %></div>
+  <div class="alert alert-info"><%= pluralize @variables.size, 'search result' %></div>
   <table>
-  <% objects.group_by{|o| o[1]}.sort{|a,b| a[0] <=> b[0]}.each do |slug, slug_objects| %>
-    <% d = Dataset.find_by_slug(slug) %>
-    <tr>
-      <td><span class="label" style="background-color:<%= d.color if d %>"><%= slug %></span></td>
-      <td><%= pluralize slug_objects.size, 'result' %></td>
-    </tr>
-  <% end %>
+    <% @variables.group_by{|v| v.dataset}.sort.each do |dataset, dataset_variables| %>
+      <tr>
+        <td><span class="label" style="background-color:<%= dataset.color %>"><%= dataset.slug %></span></td>
+        <td><%= pluralize dataset_variables.count, 'result' %></td>
+      </tr>
+    <% end %>
   </table>
   </ul>
 </div>
@@ -105,26 +59,25 @@
       </div>
       <div class="col-xs-10">
         <div class="row">
-          <% objects.each do |basename, slug, json, location, score, path| %>
-            <% commonly_used = (json['hybrid'] && json['hybrid']['commonly_used']) %>
-            <% d = Dataset.find_by_slug(slug) %>
+          <% @variables.each do |variable| %>
+            <% commonly_used = variable.commonly_used %>
             <div class="col-xs-12 col-sm-6 col-md-3">
               <div class="panel <%= commonly_used ? 'panel-info' : 'panel-default' %> panel-hover" style="overflow:hidden">
-                <div class="panel-heading" data-basename="<%= basename %>" data-slug="<%= slug %>">
-                  <span class="label pull-right" style="background-color:<%= d.color if d %>"><%= slug %></span>
-                  <div style="overflow:hidden;white-space:nowrap"><%#= score %> <%= basename %></div>
+                <div class="panel-heading" data-basename="<%= variable.name %>" data-slug="<%= variable.dataset.slug %>">
+                  <span class="label pull-right" style="background-color:<%= variable.dataset.color %>"><%= variable.dataset.slug %></span>
+                  <div style="overflow:hidden;white-space:nowrap"><%#= variable.score(@labels) %><%= variable.name %></div>
                 </div>
-                <div class="panel-body" style="height:150px;overflow:hidden" data-basename="<%= basename %>" data-slug="<%= slug %>">
+                <div class="panel-body" style="height:150px;overflow:hidden" data-basename="<%= variable.name %>" data-slug="<%= variable.dataset.slug %>">
                   <center>
-                    <% if d and File.file?( File.join( d.root_folder, "dd", "pngs", "#{basename}.png") ) %>
-                      <%= image_tag variable_chart_dataset_path(d, name: basename), style: 'max-width: 100%;max-height:50px;display:block' %>
+                    <% if File.file?( File.join( variable.dataset.root_folder, "dd", "pngs", "#{variable.name}.png") ) %>
+                      <%= image_tag variable_chart_dataset_path(variable.dataset, name: variable.name), style: 'max-width: 100%;max-height:50px;display:block' %>
                     <% end %>
                   </center>
-                  <div style="font-size:0.8em;margin-top:10px"><%= json['display_name'] %> <% unless json['units'].blank? %><code><%= json['units'] %></code><% end %></div>
+                  <div style="font-size:0.8em;margin-top:10px"><%= variable.display_name %> <% unless variable.units.blank? %><code><%= variable.units %></code><% end %></div>
 
                 </div>
                 <div class="panel-footer" style="font-size:0.8em;height:36px;overflow:hidden;white-space:nowrap">
-                  <% variable_folder = path.to_s.gsub(/^variables\//, '').split('/').first %>
+                  <% variable_folder = variable.folder.to_s.split('/').first %>
                   <%= link_to variable_folder, collection_path( s: variable_folder ) %>
                 </div>
               </div>

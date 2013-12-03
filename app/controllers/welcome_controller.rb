@@ -12,6 +12,20 @@ class WelcomeController < ApplicationController
       Dataset.current.where( public: true )
     end
     @datasets = dataset_scope
+
+    @labels = params[:s].to_s.split(/\s/).collect{|l| l.to_s.gsub(/[^\w\d%]/, '')}
+    @search = @labels.first
+    @search = 'a' if @search.blank?
+    search_empty = nil
+    search_empty = @search if @search.length == 1 and @labels.size <= 1
+    @labels = (@labels + [@search]).uniq.select{|l| l.size > 1}
+
+    if search_empty
+      @variables = Variable.where( dataset_id: @datasets.pluck(:id) ).where("name LIKE ?", "#{search_empty}%").order(:name)
+    else
+      @variables = Variable.where( dataset_id: @datasets.pluck(:id) ).where("search_terms ~* ?", @labels.collect{|l| "(\\m#{l})"}.join("|"))
+      @variables.sort!{|a,b| [b.score(@labels), a.name] <=> [a.score(@labels), b.name]}
+    end
   end
 
   def collection_modal
@@ -20,10 +34,9 @@ class WelcomeController < ApplicationController
     else
       Dataset.current.where( public: true )
     end
+
     @dataset = dataset_scope.find_by_slug(params[:slug])
-    @basename = params[:basename].to_s.gsub(/[^\w\d]/, '')
-    @variable_file = Dir.glob("#{@dataset.root_folder}/dd/variables/**/#{@basename}.json", File::FNM_CASEFOLD).first
-    @json = JSON.parse(File.read(@variable_file)) rescue @json = nil
+    @variable = @dataset.variables.find_by_name(params[:basename]) if @dataset
   end
 
   def index
