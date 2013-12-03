@@ -12,7 +12,7 @@ class Variable < ActiveRecord::Base
 
   def score(labels)
     return labels.count + 1 if labels.include?(self.name)
-    result = 0
+    result = (self.commonly_used? ? 0.5 : 0)
     labels.each do |label|
       result += 1 if (self.search_terms =~ /\b#{label}/i) != nil
     end
