@@ -1,5 +1,7 @@
 <% md_path = File.join('variables', @variable.folder, "#{@variable.name}.md") %>
-<% location = ( pages_dataset_path(@dataset, path: md_path ) ) if File.exists?(File.join(@dataset.pages_folder, md_path)) %>
+<% location = pages_dataset_path(@dataset, path: md_path ) if File.exists?(File.join(@dataset.pages_folder, md_path)) %>
+<% domain_md_path = File.join('domains', @variable.domain.folder, "#{@variable.domain.name}.md") if @variable.domain %>
+<% domain_location = pages_dataset_path(@dataset, path: domain_md_path ) if @variable.domain and File.exists?(File.join(@dataset.pages_folder, domain_md_path)) %>
 <div class="modal-dialog modal-wide-width">
   <div class="modal-content">
     <div class="modal-header">
@@ -8,14 +10,40 @@
     </div>
     <div class="modal-body">
       <% if File.file?( File.join( @dataset.root_folder, "dd", "pngs", "#{@variable.name}-lg.png") ) %>
-      <center>
-        <%= image_tag variable_chart_dataset_path(@dataset, name: "#{@variable.name}-lg"), style: 'max-width: 100%;max-height:400px;display:block' %>
-      </center>
+        <center>
+          <%= image_tag variable_chart_dataset_path(@dataset, name: "#{@variable.name}-lg"), style: 'max-width: 100%;max-height:400px;display:block' %>
+        </center>
       <% end %>
-      <%= simple_markdown @variable.description %>
-      <% unless @variable.calculation.blank? %>
-        <div class="mono-display"><div class="file-display-after">Calculation</div><u><%= @variable.name %></u> = <%= @variable.calculation %></div>
-      <% end %>
+      <div class="row">
+        <% if @variable.domain %>
+          <div class="col-sm-6">
+            <table class="table table-bordered table-condensed table-striped">
+              <thead>
+                <tr>
+                  <th>Value</th>
+                  <th>Display Name</th>
+                </tr>
+              </thead>
+              <tfoot>
+                <tr>
+                  <th colspan="2" style="font-weight:300;text-align:center"><%= link_to_if domain_location, @variable.domain.name, domain_location, target: '_blank' %></th>
+                </tr>
+              </tfoot>
+              <% @variable.domain.options.each do |option| %>
+                <tr><td><%= option['value'] %></td><td><%= option['display_name'] %></td></tr>
+              <% end %>
+            </table>
+          </div>
+        <% end %>
+
+        <div class="col-sm-<%= @variable.domain ? 6 : 12 %>">
+          <%= simple_markdown @variable.description %>
+          <% unless @variable.calculation.blank? %>
+            <div class="mono-display"><div class="file-display-after">Calculation</div><u><%= @variable.name %></u> = <%= @variable.calculation %></div>
+          <% end %>
+        </div>
+
+      </div>
     </div>
     <div class="modal-footer">
       <div class="pull-left" style="text-align:left">
