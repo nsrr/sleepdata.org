@@ -16,17 +16,15 @@
   $(element_id).focus().val('').val(val)
 
 @ready = () ->
-  $('[data-object~="form-load"]').submit()
+  contourReady()
+  $(document).off("click", ".pagination a, .page a, .next a, .prev a")
+  $(document).off("click", ".per_page a")
   $('.file-list-container').scroll( () ->
     setScrollShadow(this)
   )
   setScrollShadow($('.file-list-container'))
   $("[rel=tooltip]").tooltip( trigger: 'hover' )
-
   setFocusToField("#collection_form #s")
-
-@nonStandardClick = (event) ->
-  event.which > 1 or event.metaKey or event.ctrlKey or event.shiftKey or event.altKey
 
 $(document).ready(ready)
 $(document)
@@ -53,13 +51,6 @@ $(document)
       $('#about-list-view').show()
       $(this).html('<span class="glyphicon glyphicon-th"></span>')
     false
-  )
-  .on('click', "[data-link]", (e) ->
-    if nonStandardClick(e) or $(this).attr('target') == '_blank'
-      window.open($(this).data("link"))
-      return false
-    else
-      window.location = $(this).data("link")
   )
   .on('click', "[data-basename]", () ->
     $.get(root_url + 'collection_modal', { "basename": $(this).data('basename'), slug: $(this).data('slug') }, null, "script")
