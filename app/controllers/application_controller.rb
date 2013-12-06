@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
         !request.fullpath.match("#{request.script_name}/users/login") &&
         !request.fullpath.match("#{request.script_name}/users/register") &&
         !request.fullpath.match("#{request.script_name}/users/password") &&
+        !request.fullpath.match("#{request.script_name}/users/sign_out") &&
         !request.fullpath.match("#{request.script_name}/auth/") &&
         !request.xhr?) # don't store ajax calls
       session[:previous_url] = request.fullpath
@@ -19,10 +20,25 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
+    add_list_to_user
+    session[:previous_url] || root_path
+  end
+
+  def after_sign_out_path_for(resource_or_scope)
+    cookies.delete(:list_id)
     session[:previous_url] || root_path
   end
 
   protected
+
+  def add_list_to_user
+    list = List.find_by_id( cookies.signed[:list_id] )
+    if list
+      list.update_attributes user_id: current_user.id
+    elsif current_user.lists.count > 0
+      cookies.signed[:list_id] = current_user.lists.last.id
+    end
+  end
 
   def check_system_admin
     redirect_to root_path, alert: "You do not have sufficient privileges to access that page." unless current_user.system_admin?

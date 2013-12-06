@@ -8,10 +8,10 @@ class DatasetsController < ApplicationController
 
   def add_variable_to_list
     if variable = @dataset.variables.find_by_id( params[:variable_id] )
-      @list = List.where( id: cookies.signed[:list_id] ).first_or_create
+      @list = List.where( id: cookies.signed[:list_id] ).first_or_create( user_id: current_user ? current_user.id : nil )
       cookies.signed[:list_id] = @list.id
-      unless @list.variable_ids.include?(variable.id)
-        @list.variable_ids << variable.id
+      unless @list.variable_ids.include?([variable.dataset_id, variable.name])
+        @list.variable_ids << [variable.dataset_id, variable.name]
         @list.save
       end
     end
@@ -19,7 +19,7 @@ class DatasetsController < ApplicationController
 
   def remove_variable_from_list
     if variable = @dataset.variables.find_by_id( params[:variable_id] ) and @list = List.find_by_id( cookies.signed[:list_id] )
-      @list.variable_ids.delete( variable.id )
+      @list.variable_ids.delete( [variable.dataset_id, variable.name] )
       @list.save
     end
     render 'add_variable_to_list'
