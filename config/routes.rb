@@ -16,6 +16,8 @@ WwwSleepdataOrg::Application.routes.draw do
       get "edit_page/*path", action: 'edit_page', as: :edit_page, format: false
       patch "update_page/*path", action: 'update_page', as: :update_page, format: false
       get "search", action: 'search', as: :search
+      post :add_variable_to_list
+      post :remove_variable_from_list
     end
   end
 

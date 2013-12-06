@@ -25,6 +25,7 @@
   setScrollShadow($('.file-list-container'))
   $("[rel=tooltip]").tooltip( trigger: 'hover' )
   setFocusToField("#collection_form #s")
+  $("img.lazy").lazyload( effect : "fadeIn" )
 
 $(document).ready(ready)
 $(document)

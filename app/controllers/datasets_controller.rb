@@ -1,10 +1,29 @@
 class DatasetsController < ApplicationController
   before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :edit_page, :update_page ]
   before_action :check_system_admin,        only: [ :new, :create, :destroy ]
-  before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :variable_chart, :files, :pages, :request_access, :search ]
+  before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :variable_chart, :files, :pages, :request_access, :search, :add_variable_to_list, :remove_variable_from_list ]
   before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :edit_page, :update_page ]
-  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :variable_chart, :files, :pages, :edit, :update, :destroy, :audits, :requests, :request_access, :set_access, :edit_page, :update_page, :search ]
+  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :variable_chart, :files, :pages, :edit, :update, :destroy, :audits, :requests, :request_access, :set_access, :edit_page, :update_page, :search, :add_variable_to_list, :remove_variable_from_list ]
   before_action :set_page_path,             only: [ :pages, :edit_page, :update_page, :show ]
+
+  def add_variable_to_list
+    if variable = @dataset.variables.find_by_id( params[:variable_id] )
+      @list = List.where( id: cookies.signed[:list_id] ).first_or_create
+      cookies.signed[:list_id] = @list.id
+      unless @list.variable_ids.include?(variable.id)
+        @list.variable_ids << variable.id
+        @list.save
+      end
+    end
+  end
+
+  def remove_variable_from_list
+    if variable = @dataset.variables.find_by_id( params[:variable_id] ) and @list = List.find_by_id( cookies.signed[:list_id] )
+      @list.variable_ids.delete( variable.id )
+      @list.save
+    end
+    render 'add_variable_to_list'
+  end
 
   def request_access
     if @dataset_user = @dataset.dataset_users.where( user_id: current_user.id ).first

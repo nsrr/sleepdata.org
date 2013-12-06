@@ -20,12 +20,16 @@ class WelcomeController < ApplicationController
     search_empty = @search if @search.length == 1 and @labels.size <= 1
     @labels = (@labels + [@search]).uniq.select{|l| l.size > 1}
 
+    variable_scope = Variable.where( dataset_id: @datasets.pluck(:id) )
+
     if search_empty
-      @variables = Variable.where( dataset_id: @datasets.pluck(:id) ).where("name LIKE ?", "#{search_empty}%").order(:name)
+      @variables = variable_scope.where("name LIKE ?", "#{search_empty}%").order(:name)
     else
-      @variables = Variable.where( dataset_id: @datasets.pluck(:id) ).where("search_terms ~* ?", @labels.collect{|l| "(\\m#{l})"}.join("|"))
+      @variables = variable_scope.where("search_terms ~* ?", @labels.collect{|l| "(\\m#{l})"}.join("|"))
       @variables.sort!{|a,b| [b.score(@labels), a.name] <=> [a.score(@labels), b.name]}
     end
+
+    @list = List.find_by_id( cookies.signed[:list_id] )
   end
 
   def collection_modal

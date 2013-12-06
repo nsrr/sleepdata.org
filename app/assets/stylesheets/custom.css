@@ -262,6 +262,20 @@ pre.code {
   cursor: pointer;
 }
 
+.panel-gold {
+  border-color: #FFD700;
+}
+
+.panel-gold > .panel-heading {
+  color: #333333;
+  background-color: #FFF4B6;
+  border-color: #FFD700;
+}
+
+.panel-gold > .panel-footer {
+  border-color: #FFD700;
+}
+
 .panel-hover.panel-default:hover {
   border: 1px solid #3e3e3e;
   cursor: pointer;
@@ -276,4 +290,12 @@ pre.code {
   -webkit-box-shadow: -10px 10px 10px rgba(217,237,247,.5);
      -moz-box-shadow: -10px 10px 10px rgba(217,237,247,.5);
           box-shadow: -10px 10px 10px rgba(217,237,247,.5);
+}
+
+.panel-hover.panel-gold:hover {
+  border: 1px solid #DAA520;
+  cursor: pointer;
+  -webkit-box-shadow: -10px 10px 10px rgba(255, 244, 182,.5);
+     -moz-box-shadow: -10px 10px 10px rgba(255, 244, 182,.5);
+          box-shadow: -10px 10px 10px rgba(255, 244, 182,.5);
 }
