@@ -8,9 +8,9 @@
         <div class="panel-body">
           <div style="text-align:center;background-color:white;padding-bottom:5px;height:145px;line-height:145px">
             <% if dataset.logo.size > 0 %>
-              <%= link_to image_tag( logo_dataset_path(dataset), style: 'max-width:100%;' ), dataset %>
+              <%= link_to image_tag( logo_dataset_path(dataset), style: 'max-width:100%;max-height:140px' ), dataset %>
             <% else %>
-              <%= link_to image_tag( 'project-default-logo.png', style: 'max-width:100%;' ), dataset %>
+              <%= link_to image_tag( 'project-default-logo.png', style: 'max-width:100%;max-height:140px' ), dataset %>
             <% end %>
           </div>
         </div>
