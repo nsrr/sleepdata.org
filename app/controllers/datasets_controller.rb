@@ -1,10 +1,10 @@
 class DatasetsController < ApplicationController
-  before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :edit_page, :update_page ]
+  before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :new_page, :create_page, :edit_page, :update_page ]
   before_action :check_system_admin,        only: [ :new, :create, :destroy ]
   before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :variable_chart, :files, :pages, :request_access, :search, :add_variable_to_list, :remove_variable_from_list ]
-  before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :edit_page, :update_page ]
-  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :variable_chart, :files, :pages, :edit, :update, :destroy, :audits, :requests, :request_access, :set_access, :edit_page, :update_page, :search, :add_variable_to_list, :remove_variable_from_list ]
-  before_action :set_page_path,             only: [ :pages, :edit_page, :update_page, :show ]
+  before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :new_page, :create_page, :edit_page, :update_page ]
+  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :variable_chart, :files, :pages, :edit, :update, :destroy, :audits, :requests, :request_access, :set_access, :new_page, :create_page, :edit_page, :update_page, :search, :add_variable_to_list, :remove_variable_from_list ]
+  before_action :set_page_path,             only: [ :pages, :new_page, :create_page, :edit_page, :update_page, :show ]
 
   def add_variable_to_list
     if variable = @dataset.variables.find_by_id( params[:variable_id] )
@@ -87,6 +87,29 @@ class DatasetsController < ApplicationController
       render 'files'
     else
       render nothing: true
+    end
+  end
+
+  # GET /datasets/1/new_page
+  def new_page
+
+  end
+
+  def create_page
+    page_name = params[:page_name].to_s.gsub(/[^\w\.]/, '').gsub(/^[\.]*/, '')
+    @folder_path = @dataset.find_page_folder(params[:path])
+    @page_path = File.join(@dataset.pages_folder, @folder_path.to_s, page_name.to_s)
+    if not File.exists?(@page_path) and not page_name.blank?
+      FileUtils.mkdir_p( File.join(@dataset.pages_folder, @folder_path.to_s) )
+      File.open(@page_path, 'w') do |outfile|
+        outfile.write params[:page_contents].to_s
+      end
+      @path = @page_path.gsub(@dataset.pages_folder + '/', '')
+      redirect_to pages_dataset_path( @dataset, path: @path )
+    else
+      @errors = {}
+      @errors[:page_name] = page_name.blank? ? "Page name can't be blank" : "A page with that name already exists"
+      render 'new_page'
     end
   end
 

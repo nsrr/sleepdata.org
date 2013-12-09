@@ -5,11 +5,11 @@
 - Added the We Care Dataset to prototype bulk file downloads
 - Added Windows and Mac OS X/Linux instructions for installing GNU Wget
 - Datasets can be added and shared publicly or privately
-- Datasets can be documented using markdown across multiple pages
+- Datasets can be documented using markdown or plain text across multiple pages
 - File downloads are now audited and can be reviewed by dataset creators
 - Users can now request access to file downloads for datasets
 - Dataset editors can approve/deny user file access requests
-- Dataset editors can edit and update documentation pages
+- Dataset editors can create, edit, and update documentation pages
 - Dataset documentation is now searchable
 - Dataset documentation page views are now audited
 - Dataset files are indexed to improve viewing folders with 1,000 or more files

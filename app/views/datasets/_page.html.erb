@@ -1,7 +1,11 @@
-<% if current_user and @dataset.editable_by?(current_user) and File.file?(@page_path) %>
+<% if current_user and @dataset.editable_by?(current_user) %>
   <div class="pull-right">
     <ul class="pagination pagination-sm" style="margin-top:3px;margin-bottom:0px;margin-right:3px">
-      <li><%= link_to 'Edit', edit_page_dataset_path(@dataset, path: @path) %></li>
+      <% if File.file?(@page_path) %>
+        <li><%= link_to 'Edit Page', edit_page_dataset_path(@dataset, path: @path) %></li>
+      <% else %>
+        <li><%= link_to 'New Page', new_page_dataset_path(@dataset, path: @path) %></li>
+      <% end %>
     </ul>
   </div>
 <% end %>

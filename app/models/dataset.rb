@@ -152,21 +152,28 @@ class Dataset < ActiveRecord::Base
     end
   end
 
-  # Path can refer to a folder or a file
-  def find_page(path)
-    folders = path.to_s.split('/')[0..-2].collect{|folder| folder.strip}
-    file_name = path.to_s.split('/').last.to_s.strip
+  def find_page_folder(path)
+    folders = path.to_s.split('/').collect{|folder| folder.strip}
     clean_folder_path = nil
 
-    # Navigate to relative folder
     folders.each do |folder|
       current_folders = self.pages(clean_folder_path).select{|folder_name, f| File.directory?(f)}.collect{|folder_name, f| folder_name}
       if current_folders.index(folder)
         clean_folder_path = [clean_folder_path, current_folders[current_folders.index(folder)]].compact.join('/')
       else
-        return nil
+        break
       end
     end
+
+    return clean_folder_path
+  end
+
+  # Path can refer to a folder or a file
+  def find_page(path)
+    folders = path.to_s.split('/')[0..-2].collect{|folder| folder.strip}
+    file_name = path.to_s.split('/').last.to_s.strip
+
+    clean_folder_path = self.find_page_folder(folders.join('/'))
 
     clean_file_name = self.pages(clean_folder_path).select{|name, f| file_name == name}.collect{|name, f| name}.first
 

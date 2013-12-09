@@ -14,6 +14,8 @@ WwwSleepdataOrg::Application.routes.draw do
       get "files((/a/:auth_token)(/m/:medium)/*path)", action: 'files', as: :files, format: false
       get "pages(/*path)", action: 'pages', as: :pages, format: false
       get "edit_page/*path", action: 'edit_page', as: :edit_page, format: false
+      get "new_page(/*path)", action: 'new_page', as: :new_page, format: false
+      post "create_page(/*path)", action: 'create_page', as: :create_page, format: false
       patch "update_page/*path", action: 'update_page', as: :update_page, format: false
       get "search", action: 'search', as: :search
       post :add_variable_to_list
