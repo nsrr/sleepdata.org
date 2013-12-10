@@ -96,7 +96,7 @@ class DatasetsController < ApplicationController
   end
 
   def create_page
-    page_name = params[:page_name].to_s.gsub(/[^\w\.]/, '').gsub(/^[\.]*/, '')
+    page_name = params[:page_name].to_s.gsub(/[^\w\.\-]/, '').gsub(/^[\.]*/, '')
     @folder_path = @dataset.find_page_folder(params[:path])
     @page_path = File.join(@dataset.pages_folder, @folder_path.to_s, page_name.to_s)
     if not File.exists?(@page_path) and not page_name.blank?
