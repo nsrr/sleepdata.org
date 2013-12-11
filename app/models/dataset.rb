@@ -114,6 +114,10 @@ class Dataset < ActiveRecord::Base
     return files
   end
 
+  def folder_has_files?(location)
+    self.indexed_files(location, -1).select{|folder, file_name, is_file, file_size, file_time| is_file}.count > 0
+  end
+
   def file_path(file)
     file.gsub(files_folder + '/', '')
   end
