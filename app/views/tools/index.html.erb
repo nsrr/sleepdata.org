@@ -1,0 +1,20 @@
+<% @title = 'Tools' %>
+<div class="page-header">
+  <h1>
+    <%= @title %>
+    <% if current_user and current_user.system_admin? %>
+      <%= link_to "Create Tool", new_tool_path, class: 'btn btn-xs btn-primary' %>
+    <% end %>
+  </h1>
+</div>
+
+<%= form_tag tools_path, method: :get, remote: true, id: "tools_search", class: 'form-inline', data: { object: 'form-load' } do %>
+  <%= hidden_field_tag :order %>
+  <%= hidden_field_tag :page, params[:page] %>
+  <% if false %>
+    <%= text_field_tag 'search', params[:search], class: 'form-control' %>
+    <%= submit_tag 'Search', class: 'btn btn-primary' %>
+  <% end %>
+<% end %>
+
+<div id="tools"><div class="center"><%= image_tag "contour/ajax-loader.gif" %></div></div>

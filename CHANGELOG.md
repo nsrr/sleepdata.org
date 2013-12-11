@@ -19,3 +19,4 @@
   - Variables with pre-computed charts now display the chart in the collection viewer
   - Users can create lists of variables on the collection viewer
   - Variable charts are loaded when the image is placed in the web browser viewport
+- Tools can be added and documented
