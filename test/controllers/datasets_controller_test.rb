@@ -109,7 +109,7 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_not_nil response
 
     assert_kind_of String, response.body
-    assert_equal '', response.body.strip
+    assert_match /^<!DOCTYPE html>/, response.body.strip
     assert_response :success
   end
 

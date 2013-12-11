@@ -59,7 +59,8 @@ class DatasetsController < ApplicationController
 
   # GET /datasets/1/manifest.txt
   def manifest
-    render text: @dataset.indexed_files(nil, -1).select{|folder, file_name, is_file, file_size, file_time| is_file}.collect{|folder, file_name, is_file, file_size, file_time| site_prefix + files_dataset_path(@dataset, path: folder, auth_token: (current_user ? current_user.authentication_token : nil ), medium: 'wget')}.join("\n\r")
+    @folder_path = @dataset.find_file_folder(params[:path])
+    render text: @dataset.indexed_files(@folder_path, -1).select{|folder, file_name, is_file, file_size, file_time| is_file}.collect{|folder, file_name, is_file, file_size, file_time| site_prefix + files_dataset_path(@dataset, path: folder, auth_token: (current_user ? current_user.authentication_token : nil ), medium: 'wget')}.join("\n\r")
   end
 
   def logo

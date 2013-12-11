@@ -89,6 +89,11 @@ class Dataset < ActiveRecord::Base
     files = []
     index_file = File.join(files_folder, location.to_s, '.sleepdata.index')
 
+    # Return if the folder does not exist
+    unless File.directory?(File.join(files_folder, location.to_s))
+      return (page == 0 ? 0 : files)
+    end
+
     create_folder_index(location) if not File.exists?(index_file) or Rails.env.test?
 
     index = 0
@@ -113,9 +118,8 @@ class Dataset < ActiveRecord::Base
     file.gsub(files_folder + '/', '')
   end
 
-  def find_file(path)
-    folders = path.to_s.split('/')[0..-2].collect{|folder| folder.strip}
-    name = path.to_s.split('/').last.to_s.strip
+  def find_file_folder(path)
+    folders = path.to_s.split('/').collect{|folder| folder.strip}
     clean_folder_path = nil
 
     # Navigate to relative folder
@@ -124,10 +128,18 @@ class Dataset < ActiveRecord::Base
       if current_folders.index(folder)
         clean_folder_path = [clean_folder_path, current_folders[current_folders.index(folder)]].compact.join('/')
       else
-        # "User Input Folder: #{folder} not in allowed folder list: #{current_folders}"
-        return nil
+        break
       end
     end
+
+    return clean_folder_path
+  end
+
+  def find_file(path)
+    folders = path.to_s.split('/')[0..-2].collect{|folder| folder.strip}
+    name = path.to_s.split('/').last.to_s.strip
+
+    clean_folder_path = self.find_file_folder(folders.join('/'))
 
     clean_file_name = self.indexed_files(clean_folder_path, -1).select{|folder, file_name, is_file, file_size, file_time| is_file and file_name == name}.collect{|folder, file_name, is_file, file_size, file_time| file_name}.first
 
