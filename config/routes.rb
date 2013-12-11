@@ -3,6 +3,7 @@ WwwSleepdataOrg::Application.routes.draw do
   resources :datasets do
     member do
       get :logo
+      get "images/*path", action: 'images', as: :images, format: false
       get :variable_chart
       get :audits
       get :request_access

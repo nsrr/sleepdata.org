@@ -12,6 +12,7 @@
 - Dataset editors can create, edit, and update documentation pages
 - Dataset documentation is now searchable
 - Dataset documentation page views are now audited
+- Documentation pages can now embed images from the dataset images folder
 - Dataset files are indexed to improve viewing folders with 1,000 or more files
 - Users can search across multiple datasets that have an associated data dictionary
   - [Spout](https://github.com/sleepepi/spout) helps format and maintain JSON data dictionaries

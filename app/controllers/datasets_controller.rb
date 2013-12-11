@@ -1,9 +1,9 @@
 class DatasetsController < ApplicationController
   before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :new_page, :create_page, :edit_page, :update_page ]
   before_action :check_system_admin,        only: [ :new, :create, :destroy ]
-  before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :variable_chart, :files, :pages, :request_access, :search, :add_variable_to_list, :remove_variable_from_list ]
+  before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :images, :variable_chart, :files, :pages, :request_access, :search, :add_variable_to_list, :remove_variable_from_list ]
   before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :new_page, :create_page, :edit_page, :update_page ]
-  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :variable_chart, :files, :pages, :edit, :update, :destroy, :audits, :requests, :request_access, :set_access, :new_page, :create_page, :edit_page, :update_page, :search, :add_variable_to_list, :remove_variable_from_list ]
+  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :images, :variable_chart, :files, :pages, :edit, :update, :destroy, :audits, :requests, :request_access, :set_access, :new_page, :create_page, :edit_page, :update_page, :search, :add_variable_to_list, :remove_variable_from_list ]
   before_action :set_page_path,             only: [ :pages, :new_page, :create_page, :edit_page, :update_page, :show ]
 
   def add_variable_to_list
@@ -65,6 +65,17 @@ class DatasetsController < ApplicationController
 
   def logo
     send_file File.join( CarrierWave::Uploader::Base.root, @dataset.logo.url )
+  end
+
+  def images
+    valid_files = Dir.glob(File.join(@dataset.root_folder, 'images', '**', '*.{jpg,png}')).collect{|i| i.gsub(File.join(@dataset.root_folder, 'images') + '/', '')}
+
+    image_file = valid_files.select{|i| i == params[:path] }.first
+    if image_file
+      send_file File.join( @dataset.root_folder, 'images', image_file )
+    else
+      render nothing: true
+    end
   end
 
   def variable_chart

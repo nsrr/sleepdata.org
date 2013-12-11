@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
     if (params[:action] != 'logo' &&
         params[:action] != 'files' &&
         params[:action] != 'variable_chart' &&
+        params[:action] != 'images' &&
         !request.fullpath.match("#{request.script_name}/users/login") &&
         !request.fullpath.match("#{request.script_name}/users/register") &&
         !request.fullpath.match("#{request.script_name}/users/password") &&

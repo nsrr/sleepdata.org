@@ -162,6 +162,10 @@ pre.code {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.file-display img {
+  max-width: 100%;
+}
+
 .mono-display {
   position: relative;
   display: block;
