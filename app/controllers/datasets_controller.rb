@@ -70,10 +70,10 @@ class DatasetsController < ApplicationController
   def images
     valid_files = Dir.glob(File.join(@dataset.root_folder, 'images', '**', '*.{jpg,png}')).collect{|i| i.gsub(File.join(@dataset.root_folder, 'images') + '/', '')}
 
-    image_file = valid_files.select{|i| i == params[:path] }.first
-    if image_file
-      send_file File.join( @dataset.root_folder, 'images', image_file )
-    else
+    @image_file = valid_files.select{|i| i == params[:path] }.first
+    if @image_file and params[:inline] != '1'
+      send_file File.join( @dataset.root_folder, 'images', @image_file )
+    elsif not @image_file
       render nothing: true
     end
   end

@@ -6,6 +6,7 @@
 - Added Windows and Mac OS X/Linux instructions for installing GNU Wget
 - Datasets can be added and shared publicly or privately
 - Datasets can be documented using markdown or plain text across multiple pages
+  - `:datasets_path:` and `:tools_path:` can now be referenced in documentation
 - File downloads are now audited and can be reviewed by dataset creators
 - Users can now request access to file downloads for datasets
 - Dataset editors can approve/deny user file access requests
@@ -13,6 +14,7 @@
 - Dataset documentation is now searchable
 - Dataset documentation page views are now audited
 - Documentation pages can now embed images from the dataset images folder
+  - Images can be viewed inline
 - Dataset files are indexed to improve viewing folders with 1,000 or more files
 - Users can search across multiple datasets that have an associated data dictionary
   - [Spout](https://github.com/sleepepi/spout) helps format and maintain JSON data dictionaries

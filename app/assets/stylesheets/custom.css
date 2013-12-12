@@ -303,3 +303,9 @@ pre.code {
      -moz-box-shadow: -10px 10px 10px rgba(255, 244, 182,.5);
           box-shadow: -10px 10px 10px rgba(255, 244, 182,.5);
 }
+
+h2.markdown-header {
+  padding-bottom: 9px;
+  margin: 20px 0 20px;
+  border-bottom: 1px solid #eeeeee;
+}

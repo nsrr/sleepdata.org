@@ -25,10 +25,24 @@ module ApplicationHelper
     markdown = Redcarpet::Markdown.new( Redcarpet::Render::HTML, no_intra_emphasis: true, fenced_code_blocks: true, autolink: true, strikethrough: true, superscript: true, tables: true )
     result = markdown.render(replace_numbers_with_ascii(text.to_s))
     result = add_table_class(result, table_class) unless table_class.blank?
+    result = expand_relative_paths(result)
+    result = page_headers(result)
     target_blank ? target_link_as_blank(result) : result.html_safe
   end
 
   private
+
+    # :pages_path => 'http://SITEURL/datasets/slug/pages/'
+    def expand_relative_paths(text)
+      result = text.to_s.gsub(/<a href="(?:\:datasets\_path\:)(.*?)">/, '<a href="' + request.script_name + '/datasets\1">')
+      result = result.gsub(/<img src="(?:\:datasets\_path\:)(.*?)">/, '<img src="' + request.script_name + '/datasets\1">')
+      result = result.gsub(/<a href="(?:\:tools\_path\:)(.*?)">/, '<a href="' + request.script_name + '/tools\1">').html_safe
+      result.gsub(/<img src="(?:\:tools\_path\:)(.*?)">/, '<img src="' + request.script_name + '/tools\1">').html_safe
+    end
+
+    def page_headers(text)
+      text.to_s.gsub(/<h2>/, '<h2 class="markdown-header">').html_safe
+    end
 
     def target_link_as_blank(text)
       text.to_s.gsub(/<a(.*?)>/, '<a\1 target="_blank">').html_safe
