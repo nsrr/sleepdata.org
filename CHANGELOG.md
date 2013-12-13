@@ -7,6 +7,10 @@
 - Datasets can be added and shared publicly or privately
 - Datasets can be documented using markdown or plain text across multiple pages
   - `:datasets_path:` and `:tools_path:` can now be referenced in documentation
+  - Dataset specific paths can now be referenced:
+    - `:pages_path:` => `/datasets/SLUG/pages`
+    - `:images_path:` => `/datasets/SLUG/images`
+    - `:files_path:` => `/datasets/SLUG/files`
 - File downloads are now audited and can be reviewed by dataset creators
 - Users can now request access to file downloads for datasets
 - Dataset editors can approve/deny user file access requests
