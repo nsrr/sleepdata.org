@@ -19,6 +19,8 @@
     <li class="<%= 'active' if params[:action] == 'requests' %>"><%= link_to 'Requests', requests_dataset_path(@dataset) %></li>
   <% end %>
 
+  <li class="<%= 'active' if params[:action] == 'search' %>"><%= link_to 'Search', search_dataset_path(@dataset, s: params[:s]) %></li>
+
   <% if current_user and @dataset.editable_by?(current_user) %>
     <li class="pull-right success">
       <%= link_to '<span class="glyphicon glyphicon-thumbs-up"></span> Access Granted'.html_safe, '#', data: { object: 'suppress-click' } %>

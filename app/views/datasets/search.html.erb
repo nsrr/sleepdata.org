@@ -1,7 +1,12 @@
 <% @title = @dataset.name %>
 
+<%= render partial: 'datasets/header' %>
+
 <div class="page-header">
-  <h1>Search</h1>
+  <form action="<%= search_dataset_path(@dataset) %>" method="get" id="search_form" class="form-inline" >
+      <%= text_field_tag 's', params[:s], class: 'form-control' %>
+      <%= link_to 'Search', '#', class: 'btn btn-primary', data: { object: 'submit', target: '#search_form' } %>
+  </form>
 </div>
 
 <% if @results.blank? %>
