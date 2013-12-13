@@ -55,6 +55,6 @@ $(document)
     false
   )
   .on('click', "[data-basename]", () ->
-    $.get(root_url + 'collection_modal', { "basename": $(this).data('basename'), slug: $(this).data('slug') }, null, "script")
+    $.get(root_url + 'collection_modal', { "basename": $(this).data('basename'), slug: $(this).data('slug'), d: $(this).data('d') }, null, "script")
     return false
   )

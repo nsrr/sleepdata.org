@@ -2,7 +2,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <h4 class="modal-title"><%= link_to @variable.name, collection_path( s: @variable.name ) %> &middot; <%= @variable.display_name %> <span class="label" style="background-color:<%= @dataset.color %>"><%= @dataset.slug %></span></h4>
+      <h4 class="modal-title"><%= link_to @variable.name, collection_path( s: @variable.name, d: params[:d] ) %> &middot; <%= @variable.display_name %> <span class="label" style="background-color:<%= @dataset.color %>"><%= @dataset.slug %></span></h4>
     </div>
     <div class="modal-body">
       <% if File.file?( File.join( @dataset.root_folder, "dd", "pngs", "#{@variable.name}-lg.png") ) %>
@@ -46,7 +46,7 @@
         <div class="pull-left" style="text-align:left">
           <ol class="breadcrumb">
             <% @variable.folder.to_s.split('/').each_with_index do |folder, index| %>
-              <li><%= link_to folder, collection_path( s: folder ) %></li>
+              <li><%= link_to folder, collection_path( s: folder, d: params[:d] ) %></li>
             <% end %>
             <li class="active"><%= @variable.name %></li>
           </ol>

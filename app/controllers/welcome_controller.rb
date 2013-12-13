@@ -11,7 +11,12 @@ class WelcomeController < ApplicationController
     else
       Dataset.current.where( public: true )
     end
+
+    dataset_scope = dataset_scope.where( slug: params[:d].split(/\s/) ) unless params[:d].blank?
+
     @datasets = dataset_scope
+
+    @dataset = @datasets.first if @datasets.count == 1
 
     @labels = params[:s].to_s.split(/\s/).collect{|l| l.to_s.gsub(/[^\w\d%]/, '')}
     @search = @labels.first
