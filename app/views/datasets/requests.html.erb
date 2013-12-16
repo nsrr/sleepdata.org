@@ -2,37 +2,45 @@
 
 <%= render partial: 'datasets/header' %>
 
-<div class="table-responsive">
-  <table class="table table-striped" style="table-layout:fixed">
-    <thead>
-      <tr>
-        <th>User</th>
-        <th>Role</th>
-        <th>Status</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
+<div class="row">
+  <div class="col-sm-9" style="margin-bottom:20px">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Role</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
 
-    <% @dataset.dataset_users.each do |dataset_user| %>
-      <tr>
-        <td><%= dataset_user.user.name %></td>
-        <td><%= dataset_user.editor? ? 'Editor' : 'Viewer' %></td>
-        <td>
-          <% if dataset_user.approved == nil %>
-            <span class="text-muted">Requested</span>
-          <% elsif dataset_user.approved == true %>
-            <span class="text-success">Approved</span>
-          <% else %>
-            <span class="text-danger">Denied</span>
-          <% end %>
-        </td>
-        <td>
-          <%= link_to 'Approve',     set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: true, editor: dataset_user.editor ), method: :patch,   class: 'btn btn-default btn-xs' %>
-          <%= link_to 'Deny',        set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: false, editor: dataset_user.editor ), method: :patch,  class: 'btn btn-default btn-xs' %>
-          <%= link_to 'Make Viewer', set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: dataset_user.approved, editor: false ), method: :patch,    class: 'btn btn-default btn-xs' %>
-          <%= link_to 'Make Editor', set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: dataset_user.approved, editor: true ), method: :patch,     class: 'btn btn-default btn-xs' %>
-        </td>
-      </tr>
-    <% end %>
-  </table>
+        <% @dataset.dataset_users.order(:id).each do |dataset_user| %>
+          <tr>
+            <td><%= dataset_user.user.name %></td>
+            <td><%= dataset_user.editor? ? 'Editor' : 'Viewer' %></td>
+            <td>
+              <% if dataset_user.approved == nil %>
+                <span class="text-muted">Requested</span>
+              <% elsif dataset_user.approved == true %>
+                <span class="text-success">Approved</span>
+              <% else %>
+                <span class="text-danger">Denied</span>
+              <% end %>
+            </td>
+            <td style="white-space:nowrap">
+              <%= link_to 'Approve',     set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: true, editor: dataset_user.editor ), method: :patch,   class: 'btn btn-default btn-xs' %>
+              <%= link_to 'Deny',        set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: false, editor: dataset_user.editor ), method: :patch,  class: 'btn btn-default btn-xs' %>
+              <%= link_to 'Make Viewer', set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: dataset_user.approved, editor: false ), method: :patch,    class: 'btn btn-default btn-xs' %>
+              <%= link_to 'Make Editor', set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: dataset_user.approved, editor: true ), method: :patch,     class: 'btn btn-default btn-xs' %>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-sm-3">
+    <%= render partial: 'logo_and_admin' %>
+  </div>
 </div>

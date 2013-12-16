@@ -182,8 +182,14 @@ pre.code {
   font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
 }
 
+.page-list-container {
+  /*max-height:360px;*/
+  overflow-y:scroll;
+  margin-bottom: 20px;
+}
+
 .file-list-container {
-  max-height:360px;
+  max-height: 740px;
   overflow-y:scroll;
   margin-bottom: 20px;
 }

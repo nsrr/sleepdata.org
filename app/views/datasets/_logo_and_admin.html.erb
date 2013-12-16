@@ -1,0 +1,11 @@
+<% if @dataset.logo.size > 0 %>
+  <hr class="soften" style="margin-top: 20px;margin-bottom: 20px;"/>
+  <div class="center"><%= image_tag( logo_dataset_path(@dataset), style: 'max-width:100%' ) %></div>
+<% end %>
+<% if current_user and @dataset.editable_by?(current_user) %>
+  <hr class="soften" style="margin-top: 20px;margin-bottom: 20px;"/>
+  <div class="center">
+    <%= link_to "Edit Dataset", edit_dataset_path(@dataset), class: 'btn btn-xs btn-default' %>
+    <%= link_to "Delete Dataset", @dataset, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Dataset #{@dataset.name}?" } if current_user.system_admin? %>
+  </div>
+<% end %>
