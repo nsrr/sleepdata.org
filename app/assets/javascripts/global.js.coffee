@@ -26,7 +26,7 @@
   $("[rel=tooltip]").tooltip( trigger: 'hover' )
   setFocusToField("#collection_form #s, #page_name, #search_form #s")
   $("img.lazy").lazyload( effect : "fadeIn" )
-  # Turbolinks.allowLinkExtensions('md')
+  Turbolinks.allowLinkExtensions('md')
 
 $(document).ready(ready)
 $(document)
