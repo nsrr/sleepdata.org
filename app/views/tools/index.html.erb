@@ -8,7 +8,7 @@
   </h1>
 </div>
 
-<%= form_tag tools_path, method: :get, remote: true, id: "tools_search", class: 'form-inline', data: { object: 'form-load' } do %>
+<%= form_tag tools_path, method: :get, id: "tools_search", class: 'form-inline' do %>
   <%= hidden_field_tag :order %>
   <%= hidden_field_tag :page, params[:page] %>
   <% if false %>
@@ -17,4 +17,6 @@
   <% end %>
 <% end %>
 
-<div id="tools"><div class="center"><%= image_tag "contour/ajax-loader.gif" %></div></div>
+<div id="tools">
+  <%= render partial: 'tools/tools' %>
+</div>
