@@ -12,7 +12,7 @@ one:
   # version:
   # calculation:
   commonly_used: true
-  # search_terms:
+  search_terms: gender demographics
 
 two:
   folder: Folder

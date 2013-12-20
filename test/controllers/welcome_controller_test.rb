@@ -9,10 +9,32 @@ class WelcomeControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get collection with search term" do
+    get :collection, s: 'gender'
+    assert_not_nil assigns(:datasets)
+    assert assigns(:variables).count > 0
+    assert_response :success
+  end
+
   test "should get collection for logged in user" do
     login(users(:valid))
     get :collection
     assert_not_nil assigns(:datasets)
+    assert_response :success
+  end
+
+  test "should get collection modal" do
+    get :collection_modal, slug: 'wecare', basename: 'gender', format: 'js'
+    assert_not_nil assigns(:dataset)
+    assert assigns(:variable)
+    assert_response :success
+  end
+
+  test "should get collection modal for logged in user" do
+    login(users(:valid))
+    get :collection_modal, slug: 'wecare', basename: 'gender', format: 'js'
+    assert_not_nil assigns(:dataset)
+    assert assigns(:variable)
     assert_response :success
   end
 
