@@ -25,5 +25,5 @@ two:
   # units:
   # version:
   # calculation:
-  commonly_used: true
-  # search_terms:
+  commonly_used: false
+  search_terms: variable two
