@@ -4,7 +4,7 @@ one:
   name: MyString
   description: MyString
   slug: one
-  logo: MyString
+  logo: rails.png
   user: admin
   deleted: false
 
