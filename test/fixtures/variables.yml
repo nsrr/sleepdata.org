@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  folder: Folder
-  name: public_variable
-  display_name: Public Variable
+  folder: Demographics
+  name: gender
+  display_name: Gender
   # description:
   # variable_type:
   dataset: public

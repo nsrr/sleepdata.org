@@ -60,6 +60,17 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get variable chart for public dataset" do
+    get :variable_chart, id: @dataset, name: 'gender'
+    assert_kind_of String, response.body
+    assert_equal File.binread( File.join(assigns(:dataset).root_folder, 'dd', 'pngs', 'gender.png') ), response.body
+  end
+
+  test "should not get non-existent variable chart for public dataset" do
+    get :variable_chart, id: @dataset, name: 'where-is-gender'
+    assert_response :success
+  end
+
   test "should get folder from public dataset as anonymous user" do
     get :files, id: @dataset, path: 'subfolder'
 
@@ -161,11 +172,7 @@ class DatasetsControllerTest < ActionController::TestCase
   test "should not get non-existant file from public dataset as anonymous user" do
     get :files, id: @dataset, path: 'subfolder/subsubfolder/3.txt'
 
-    assert_not_nil response
-
-    assert_kind_of String, response.body
-    assert_match /^<!DOCTYPE html>/, response.body.strip
-    assert_response :success
+    assert_redirected_to files_dataset_path( assigns(:dataset), path: 'subfolder' )
   end
 
   test "should get index" do
@@ -292,6 +299,17 @@ class DatasetsControllerTest < ActionController::TestCase
       get :pages, id: @dataset, path: 'subfolder/MORE_INFO.txt'
     end
     assert_response :success
+  end
+
+  test "should show directory of pages in subfolder" do
+    get :pages, id: @dataset, path: 'subfolder'
+    assert_template 'pages'
+    assert_response :success
+  end
+
+  test "should not get non-existant page from public dataset as anonymous user" do
+    get :pages, id: @dataset, path: 'subfolder/subsubfolder/3.md'
+    assert_redirected_to pages_dataset_path( assigns(:dataset), path: 'subfolder' )
   end
 
   test "should search public dataset documentation as anonymous user" do

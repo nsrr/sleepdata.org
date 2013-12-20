@@ -86,19 +86,33 @@ class DatasetsController < ApplicationController
     if File.file?(chart_file)
       send_file chart_file
     else
-      send_file File.join( 'app', 'assets', 'images', 'piechart.png' )
+      render nothing: true
     end
   end
 
   def files
     file = @dataset.find_file( params[:path] )
-    if file and File.file?(file) and @dataset.grants_file_access_to?(current_user)
+    if file and File.file?(file) and [@dataset.find_file_folder(params[:path]), File.basename(file)].compact.join('/') == params[:path] and @dataset.grants_file_access_to?(current_user)
       @dataset.dataset_file_audits.create( user_id: (current_user ? current_user.id : nil), file_path: @dataset.file_path(file), medium: params[:medium], file_size: File.size(file), remote_ip: request.remote_ip )
       send_file file
-    elsif file and File.directory?(file)
+    elsif file and File.directory?(file) and @dataset.find_file_folder(params[:path]) == params[:path]
       render 'files'
     else
-      render nothing: true
+      redirect_to files_dataset_path(@dataset, path: @dataset.find_file_folder(params[:path]))
+    end
+  end
+
+  # GET /datasets/1/pages
+  def pages
+    @term = params[:s].to_s.gsub(/[^\w]/, '')
+    if @page_path and File.file?(@page_path) and [@dataset.find_page_folder(params[:path]), File.basename(@page_path)].compact.join('/') == params[:path]
+      # render text: @dataset.find_page_folder(params[:path])
+      @dataset.dataset_page_audits.create( user_id: (current_user ? current_user.id : nil), page_path: @path, remote_ip: request.remote_ip )
+      render 'pages'
+    elsif @page_path and File.directory?(@page_path) and @dataset.find_page_folder(params[:path]) == params[:path]
+      render 'pages'
+    else
+      redirect_to pages_dataset_path(@dataset, path: @dataset.find_page_folder(params[:path]))
     end
   end
 
@@ -141,12 +155,6 @@ class DatasetsController < ApplicationController
     end
 
     redirect_to pages_dataset_path( @dataset, path: @path )
-  end
-
-  # GET /datasets/1/pages
-  def pages
-    @term = params[:s].to_s.gsub(/[^\w]/, '')
-    @dataset.dataset_page_audits.create( user_id: (current_user ? current_user.id : nil), page_path: @path, remote_ip: request.remote_ip ) if File.file?(@page_path)
   end
 
   # GET /datasets
