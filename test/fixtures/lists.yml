@@ -1,7 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+--- !map:HashWithIndifferentAccess
 
 one:
-  variable_ids: []
+  variable_ids: [ [<%= ActiveRecord::FixtureSet.identify(:public) %>, 'public_variable_two'] ]
 
 two:
   variable_ids: []

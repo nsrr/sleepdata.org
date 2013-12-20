@@ -5,6 +5,61 @@ class DatasetsControllerTest < ActionController::TestCase
     @dataset = datasets(:public)
   end
 
+  test "should add variable to list" do
+    assert_difference('List.count') do
+      post :add_variable_to_list, id: @dataset, variable_id: variables(:one).id, format: 'js'
+    end
+
+    assert_not_nil cookies.signed[:list_id]
+    assert_not_nil assigns(:list)
+    assert_equal 1, assigns(:list).variables(nil).size
+
+    assert_template 'add_variable_to_list'
+  end
+
+  test "should add variable to existing list" do
+    cookies.signed[:list_id] = lists(:one).id
+    assert_difference('List.count', 0) do
+      post :add_variable_to_list, id: @dataset, variable_id: variables(:one).id, format: 'js'
+    end
+
+    assert_not_nil cookies.signed[:list_id]
+    assert_not_nil assigns(:list)
+    assert_equal 2, assigns(:list).variables(nil).size
+
+    assert_template 'add_variable_to_list'
+  end
+
+  test "should remove variable from list" do
+    cookies.signed[:list_id] = lists(:one).id
+    post :remove_variable_from_list, id: @dataset, variable_id: variables(:two).id, format: 'js'
+
+    assert_not_nil cookies.signed[:list_id]
+    assert_not_nil assigns(:list)
+    assert_equal 0, assigns(:list).variables(nil).size
+
+    assert_template 'add_variable_to_list'
+  end
+
+  test "should get inline image for public dataset" do
+    get :images, id: @dataset, path: 'rails.png', inline: '1'
+    assert_not_nil assigns(:image_file)
+    assert_template 'images'
+  end
+
+  test "should download image for public dataset" do
+    get :images, id: @dataset, path: 'rails.png'
+    assert_not_nil assigns(:image_file)
+    assert_kind_of String, response.body
+    assert_equal File.binread( File.join(assigns(:dataset).root_folder, 'images', 'rails.png') ), response.body
+  end
+
+  test "should not download non-existent image for public dataset" do
+    get :images, id: @dataset, path: 'where-is-rails.png'
+    assert_nil assigns(:image_file)
+    assert_response :success
+  end
+
   test "should get folder from public dataset as anonymous user" do
     get :files, id: @dataset, path: 'subfolder'
 
@@ -135,7 +190,7 @@ class DatasetsControllerTest < ActionController::TestCase
   test "should create dataset" do
     login(users(:admin))
     assert_difference('Dataset.count') do
-      post :create, dataset: { name: 'New Dataset', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/rails.png'), public: true, slug: 'new_dataset' }
+      post :create, dataset: { name: 'New Dataset', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), public: true, slug: 'new_dataset' }
     end
 
     assert_redirected_to dataset_path(assigns(:dataset))
@@ -143,7 +198,7 @@ class DatasetsControllerTest < ActionController::TestCase
 
   test "should not create dataset as anonymous user" do
     assert_difference('Dataset.count', 0) do
-      post :create, dataset: { name: 'New Dataset', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/rails.png'), public: true, slug: 'new_dataset' }
+      post :create, dataset: { name: 'New Dataset', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), public: true, slug: 'new_dataset' }
     end
 
     assert_redirected_to new_user_session_path
@@ -152,7 +207,7 @@ class DatasetsControllerTest < ActionController::TestCase
   test "should not create dataset as regular user" do
     login(users(:valid))
     assert_difference('Dataset.count', 0) do
-      post :create, dataset: { name: 'New Dataset', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/rails.png'), public: true, slug: 'new_dataset' }
+      post :create, dataset: { name: 'New Dataset', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), public: true, slug: 'new_dataset' }
     end
 
     assert_redirected_to root_path
@@ -161,7 +216,7 @@ class DatasetsControllerTest < ActionController::TestCase
   test "should not create dataset with blank name" do
     login(users(:admin))
     assert_difference('Dataset.count', 0) do
-      post :create, dataset: { name: '', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/rails.png'), public: true, slug: 'new_dataset' }
+      post :create, dataset: { name: '', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), public: true, slug: 'new_dataset' }
     end
 
     assert assigns(:dataset).errors.size > 0
@@ -173,7 +228,7 @@ class DatasetsControllerTest < ActionController::TestCase
   test "should not create dataset existing slug" do
     login(users(:admin))
     assert_difference('Dataset.count', 0) do
-      post :create, dataset: { name: 'We Care Imposter', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/rails.png'), public: true, slug: 'wecare' }
+      post :create, dataset: { name: 'We Care Imposter', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), public: true, slug: 'wecare' }
     end
 
     assert assigns(:dataset).errors.size > 0
