@@ -1,0 +1,6 @@
+{
+  "id": "esstotal",
+  "display_name": "ESS Score",
+  "description": "",
+  "type": "integer"
+}

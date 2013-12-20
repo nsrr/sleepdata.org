@@ -1,0 +1,7 @@
+{
+  "id": "minsao2",
+  "display_name": "Min SaO2 %",
+  "description": "",
+  "type": "numeric",
+  "units": "%"
+}
