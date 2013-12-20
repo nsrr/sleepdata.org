@@ -327,6 +327,37 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should create page as editor" do
+    login(users(:editor))
+    post :create_page, id: @dataset, page_name: 'CREATE_ME.md', page_contents: "# CREATE ME\nThis is the `CREATE_ME.md`."
+
+    assert_redirected_to pages_dataset_path(assigns(:dataset), path: assigns(:path))
+
+    # Clean up file so tests can be rerun
+    file_path = File.join('test', 'support', 'datasets', 'wecare', 'pages', 'CREATE_ME.md')
+    File.delete(file_path) if File.exists?(file_path)
+  end
+
+  test "should not create page without a name as editor" do
+    login(users(:editor))
+    post :create_page, id: @dataset, page_name: '', page_contents: "Oh no, no name!"
+
+    assert assigns(:errors).size > 0
+    assert_equal "Page name can't be blank", assigns(:errors)[:page_name]
+
+    assert_template 'new_page'
+  end
+
+  test "should not create already existing page as editor" do
+    login(users(:editor))
+    post :create_page, id: @dataset, page_name: 'VIEW_ME.md', page_contents: "Oh no, it already exists!"
+
+    assert assigns(:errors).size > 0
+    assert_equal "A page with that name already exists", assigns(:errors)[:page_name]
+
+    assert_template 'new_page'
+  end
+
   test "should get edit_page as editor" do
     login(users(:editor))
     get :edit_page, id: @dataset, path: 'EDIT_ME.md'
