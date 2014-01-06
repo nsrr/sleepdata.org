@@ -9,4 +9,4 @@ The application that runs www.sleepdata.org. Using Rails 4.0+ and Ruby 2.1.0+.
 
 ## Copyright [![Creative Commons 3.0](http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png)](http://creativecommons.org/licenses/by-nc-sa/3.0)
 
-Copyright (c) 2013 NSRR. See [LICENSE](https://github.com/nsrr/www.sleepdata.org/blob/master/LICENSE) for further details.
+Copyright (c) 2014 NSRR. See [LICENSE](https://github.com/nsrr/www.sleepdata.org/blob/master/LICENSE) for further details.
