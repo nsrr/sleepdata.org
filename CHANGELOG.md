@@ -4,6 +4,7 @@
 - Use of Ruby 2.1.0 is now recommended
 - **Gem Changes**
   - Updated to pg 0.17.1
+  - Updated to jbuilder 2.0
 
 ## 0.1.0 (December 20, 2013)
 
