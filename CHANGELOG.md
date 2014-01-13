@@ -1,5 +1,8 @@
 ## 0.3.0
 
+### Enhancements
+- Home page is now more dynamic and includes direct links to available documentation, data, and tools
+
 ## 0.2.0 (January 13, 2013)
 
 ### Enhancements

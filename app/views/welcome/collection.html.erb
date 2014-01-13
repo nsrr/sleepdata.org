@@ -71,27 +71,7 @@
         <div class="row">
           <% @variables.each do |variable| %>
             <div class="col-xs-12 col-sm-6 col-md-3">
-              <div class="panel <%= variable.commonly_used ? 'panel-gold' : 'panel-default' %> panel-hover" style="overflow:hidden">
-                <div class="panel-heading" data-basename="<%= variable.name %>" data-slug="<%= variable.dataset.slug %>" data-d="<%= params[:d] %>">
-                  <span class="label pull-right" style="background-color:<%= variable.dataset.color %>"><%= variable.dataset.slug %></span>
-                  <div style="overflow:hidden;white-space:nowrap;<%= 'font-weight:bold' if variable.commonly_used? %>"><%#= variable.score(@labels) %><%= variable.name %></div>
-                </div>
-                <div class="panel-body" style="height:150px;overflow:hidden" data-basename="<%= variable.name %>" data-slug="<%= variable.dataset.slug %>" data-d="<%= params[:d] %>">
-                  <center>
-                    <% if File.file?( File.join( variable.dataset.root_folder, "dd", "pngs", "#{variable.name}.png") ) %>
-                      <img class="lazy" data-original="<%= variable_chart_dataset_path(variable.dataset, name: variable.name) %>" width="75" height="50" style="max-width: 100%;max-height:50px;display:block">
-                      <%#= image_tag variable_chart_dataset_path(variable.dataset, name: variable.name), style: 'max-width: 100%;max-height:50px;display:block' %>
-                    <% end %>
-                  </center>
-                  <div style="font-size:0.8em;margin-top:10px"><%= variable.display_name %> <% unless variable.units.blank? %><code><%= variable.units %></code><% end %></div>
-
-                </div>
-                <div class="panel-footer" style="font-size:0.8em;height:36px;overflow:hidden;white-space:nowrap">
-                  <% variable_folder = variable.folder.to_s.split('/').first %>
-                  <%= link_to variable_folder, collection_path( s: variable_folder, d: params[:d] ) %>
-                  <%= link_to 'add', add_variable_to_list_dataset_path( variable.dataset, variable_id: variable.id ), method: :post, remote: true, class: 'pull-right' %>
-                </div>
-              </div>
+              <%= render partial: 'welcome/variable_panel', locals: { variable: variable, collection: true } %>
             </div>
           <% end %>
         </div>

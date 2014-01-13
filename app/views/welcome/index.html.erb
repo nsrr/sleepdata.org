@@ -6,72 +6,116 @@
   </p>
 </div>
 
-<div class="marketing">
 
-  <div class="row">
+<div class="welcome-box welcome-even">
+  <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
+    <h1 style="margin-top:10px">Explore studies.</h1>
+    <p class="lead">Learn more about the individual studies by reading easily navigatable online documentation.</p>
+  </div>
+
+  <div class="row" style="margin-top:40px">
     <% Dataset.highlighted.order( name: :desc ).limit(3).each do |dataset| %>
-      <div class="col-sm-4">
-        <% if dataset.logo.size > 0 %>
-          <%= link_to image_tag( logo_dataset_path(dataset), size: '140x140', alt: dataset.slug ), dataset %>
-        <% else %>
-          <%= link_to image_tag( 'project-default-logo.png', size: '140x140', alt: dataset.slug ), dataset %>
-        <% end %>
-        <h2><%= dataset.name %></h2>
-        <p><%= dataset.description %></p>
-        <p>
-          <%= link_to 'View details &raquo;'.html_safe, dataset, class: 'btn btn-default' %>
-        </p>
+      <div class="col-xs-12 col-sm-6 col-md-4 ">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><%= link_to dataset.name, dataset %></h3>
+          </div>
+          <div class="panel-body">
+            <div style="text-align:center;background-color:white;padding-bottom:5px;height:145px;line-height:145px">
+              <% if dataset.logo.size > 0 %>
+                <%= link_to image_tag( logo_dataset_path(dataset), style: 'max-width:100%;max-height:140px' ), dataset %>
+              <% else %>
+                <%= link_to image_tag( 'project-default-logo.png', style: 'max-width:100%;max-height:140px' ), dataset %>
+              <% end %>
+            </div>
+            <p style="text-align:center">
+              <%= dataset.description.truncate(170) %>
+            </p>
+            <p style="text-align:center">
+            <%= link_to dataset do %>
+              <span class="glyphicon glyphicon-book"></span> Read more (<%= pluralize dataset.pages('**').count, 'page' %>) &raquo;
+            <% end %>
+            </p>
+
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="welcome-box welcome-odd">
+
+  <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
+    <h1 style="margin-top:10px">Download the data.</h1>
+    <p class="lead">Explore over <%= pluralize( number_with_delimiter(Variable.count), 'covariate' ) %> across <%= pluralize Dataset.highlighted.count, 'public dataset' %>.</p>
+  </div>
+
+  <div class="row" style="margin-top:40px">
+    <% @variables = Variable.where( dataset_id: Dataset.highlighted.pluck(:id), commonly_used: true ).order("RANDOM()").limit(6) %>
+    <% @variables.each do |variable| %>
+      <div class="col-xs-6 col-sm-4 col-md-2">
+        <%= render partial: 'welcome/variable_panel', locals: { variable: variable, collection: false } %>
       </div>
     <% end %>
   </div>
 
-  <hr class="soften">
+</div>
 
-  <div class="row featurette">
-    <div class="col-md-7">
-      <h2 class="featurette-heading">Download the data. <span class="text-muted">Begin analysis.</span></h2>
-      <p class="lead">And remember to cite the National Sleep Research Resource in your next paper or presentation.</p>
-    </div>
-    <div class="col-md-5">
-      <%= image_tag 'charts.png', size: '500x500', alt: 'Charts', class: 'featurette-image img-responsive' %>
-    </div>
+<div class="welcome-box welcome-even">
+
+  <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
+    <h1 style="margin-top:10px">Begin Analysis.</h1>
+    <p class="lead">Analyze and manipulate data using a variety of available tools.</p>
   </div>
 
-  <hr class="soften">
-
-  <div class="row featurette">
-    <div class="col-md-5">
-      <%= image_tag 'reports.png', size: '500x500', alt: 'Reports', class: 'featurette-image img-responsive' %>
-    </div>
-    <div class="col-md-7">
-      <h2 class="featurette-heading">Share your findings. <span class="text-muted">See for yourself.</span></h2>
-      <p class="lead">With an intuitive web interface, you will not require fancy SAS coding knowledge to generate reports that will wow your colleauges.</p>
-    </div>
+  <div class="row" style="margin-top:40px">
+    <% tools = Tool.where( "slug != 'wget'" ).current %>
+    <% tools.each do |tool| %>
+      <div class="col-xs-12 col-sm-6 col-md-4 ">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><%= link_to tool.name, tool %></h3>
+          </div>
+          <div class="panel-body">
+            <div style="text-align:center;background-color:white;padding-bottom:5px;height:145px;line-height:145px">
+              <% if tool.logo.size > 0 %>
+                <%= link_to image_tag( logo_tool_path(tool), style: 'max-width:100%;max-height:140px' ), tool %>
+              <% else %>
+                <%= link_to image_tag( 'project-default-logo.png', style: 'max-width:100%;max-height:140px' ), tool %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% if tools.count < 3 %>
+      <div class="col-xs-12 col-sm-6 col-md-4" style="margin:80px 0px 20px">
+        <p style="text-align:center"><%= link_to "More Tools &raquo;".html_safe, tools_path, class: 'btn btn-lg btn-primary' %></p>
+      </div>
+    <% end %>
   </div>
 
-  <hr class="soften">
+</div>
 
-  <div class="row featurette">
-    <div class="col-md-7">
-      <h2 class="featurette-heading">Follow the data. <span class="text-muted">Stay ahead of the curve. </span></h2>
-      <p class="lead">Track the progress of your favorite datasets, and get notified when they are updated.</p>
-    </div>
-    <div class="col-md-5">
-      <%= image_tag 'spectro_gram.png', size: '500x500', alt: 'Track', class: 'featurette-image img-responsive' %>
-    </div>
+<div class="welcome-box welcome-odd">
+
+  <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
+    <h1 style="margin-top:10px">Contact Us.</h1>
+    <p class="lead">Interested in learning more? Fill out our survey here.</p>
   </div>
 
-  <hr class="soften">
+  <p style="text-align:center">
+    <%= link_to 'https://sleepepi.partners.org/slice/survey/nsrr-sleepdata', target: '_blank', class: 'btn btn-lg btn-default' do %>
+      <%= 'https://sleepepi.partners.org/slice/survey/nsrr-sleepdata' %>
+      <span class="glyphicon glyphicon-new-window"></span>
+    <% end %>
+  </p>
 
-  <div class="panel panel-info" style="margin-top:60px">
-    <div class="panel-heading">
-      <h3 class="panel-title">Contact Us</h3>
-    </div>
-    <div class="panel-body">
-      <p>If you are interested in being notified when our first dataset is available, fill out our survey here: <%= link_to 'https://sleepepi.partners.org/slice/survey/nsrr-sleepdata', 'https://sleepepi.partners.org/slice/survey/nsrr-sleepdata', target: '_blank' %></p>
-    </div>
-  </div>
+</div>
 
+
+<div class="modal" id="modal-container">
 </div>
 
 <hr class="soften">
