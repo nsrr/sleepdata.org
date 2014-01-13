@@ -9,7 +9,7 @@
 <div class="marketing">
 
   <div class="row">
-    <% Dataset.highlighted.limit(3).shuffle.each do |dataset| %>
+    <% Dataset.highlighted.order( name: :desc ).limit(3).each do |dataset| %>
       <div class="col-sm-4">
         <% if dataset.logo.size > 0 %>
           <%= link_to image_tag( logo_dataset_path(dataset), size: '140x140', alt: dataset.slug ), dataset %>
@@ -22,31 +22,6 @@
           <%= link_to 'View details &raquo;'.html_safe, dataset, class: 'btn btn-default' %>
         </p>
       </div>
-    <% end %>
-    <% if false %>
-    <div class="col-sm-4">
-      <%= image_tag 'shhs_logo.png', size: '140x140', alt: 'SHHS' %>
-      <h2>Sleep Heart Health Study</h2>
-      <p>Download and explore the dataset that started it all. The quintessential SHHS dataset follows the sleep patterns of 6,000 individuals over three visits.</p>
-      <p>
-        <%= link_to 'View details &raquo;'.html_safe, 'datasets/shhs', class: 'btn btn-default' %>
-      </p>
-    </div>
-    <div class="col-sm-4">
-      <%= image_tag 'chat_logo.png', size: '140x140', alt: 'SHHS' %>
-      <h2>CHAT</h2>
-      <p>The most comprehensive dataset of children with sleep apnea. Leading sleep researchers in the field regard the Childhood Adenotonsillectomy Study as the gold standard for understanding sleep apnea present in children.</p>
-      <p>
-        <%= link_to 'View details &raquo;'.html_safe, '#', data: { object: 'suppress-click' }, class: 'btn btn-default' %></p>
-    </div>
-    <div class="col-sm-4">
-      <%= image_tag 'bestair_logo.png', size: '140x140', alt: 'SHHS' %>
-      <h2>BestAIR</h2>
-      <p>Cutting edge data and results will soon be available on www.sleepdata.org from the BestAIR study. Novel device setups, montage tweaks, and immaculate manuals of procedures are included in this dataset.</p>
-      <p>
-        <%= link_to 'View details &raquo;'.html_safe, '#', data: { object: 'suppress-click' }, class: 'btn btn-default' %>
-      </p>
-    </div>
     <% end %>
   </div>
 
