@@ -2,6 +2,7 @@
 
 ### Enhancements
 - Home page is now more dynamic and includes direct links to available documentation, data, and tools
+- Covariate datasets can now be requested and downloaded if the user has been granted access to the dataset
 
 ## 0.2.0 (January 13, 2013)
 

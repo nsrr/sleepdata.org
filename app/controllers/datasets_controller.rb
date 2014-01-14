@@ -1,10 +1,50 @@
 class DatasetsController < ApplicationController
-  before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :new_page, :create_page, :edit_page, :update_page ]
+  before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :new_page, :create_page, :edit_page, :update_page, :download_covariates ]
   before_action :check_system_admin,        only: [ :new, :create, :destroy ]
-  before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :images, :variable_chart, :files, :pages, :request_access, :search, :add_variable_to_list, :remove_variable_from_list ]
+  before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :images, :variable_chart, :files, :pages, :request_access, :search, :add_variable_to_list, :remove_variable_from_list, :download_covariates ]
   before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :new_page, :create_page, :edit_page, :update_page ]
-  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :images, :variable_chart, :files, :pages, :edit, :update, :destroy, :audits, :requests, :request_access, :set_access, :new_page, :create_page, :edit_page, :update_page, :search, :add_variable_to_list, :remove_variable_from_list ]
+  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :images, :variable_chart, :files, :pages, :edit, :update, :destroy, :audits, :requests, :request_access, :set_access, :new_page, :create_page, :edit_page, :update_page, :search, :add_variable_to_list, :remove_variable_from_list, :download_covariates ]
   before_action :set_page_path,             only: [ :pages, :new_page, :create_page, :edit_page, :update_page, :show ]
+
+  def download_covariates
+    filename = @dataset.slug + '_dataset'
+    zipfile_name = File.join('tmp', 'files', "#{filename}_#{Digest::SHA1.hexdigest(Time.now.usec.to_s)[0..8]}.zip")
+    files = Dir.glob(File.join(@dataset.root_folder, 'data', '**', '*'))
+    if files.size > 0
+      Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
+        files.each do |input_file|
+          location = input_file.gsub(File.join(@dataset.root_folder, 'data') + '/', '')
+          # Two arguments:
+          # - The name of the file as it will appear in the archive
+          # - The original file, including the path to find it
+          zipfile.add(location, input_file) if File.exists?(input_file) and File.size(input_file) > 0
+        end
+        if list = current_user.lists.last
+          tempfile = File.join('tmp', 'files', filename+"_variables_#{Digest::SHA1.hexdigest(Time.now.usec.to_s)[0..8]}.csv")
+          CSV.open(tempfile, "wb") do |csv|
+            csv << %w(folder id display_name description type units domain calculation commonly_used)
+            list.variables(current_user).where( dataset_id: @dataset.id ).each do |variable|
+              csv << [ variable.folder,
+                       variable.name,
+                       variable.display_name,
+                       variable.description,
+                       variable.variable_type,
+                       variable.units,
+                       (variable.domain ? variable.domain.name : nil),
+                       variable.calculation,
+                       variable.commonly_used
+                     ]
+            end
+          end
+          zipfile.add('dd/variables.csv', tempfile)
+        end
+      end
+      send_file zipfile_name, filename: filename + '.zip'
+    else
+      redirect_to @dataset
+    end
+
+  end
 
   def add_variable_to_list
     if variable = @dataset.variables.find_by_id( params[:variable_id] )

@@ -1,8 +1,10 @@
 <% if @list %>
   <div class="page-header">
-    <h6>My Wishlist #<%= @list.id %></h6>
+    <h6>My Favorites</h6>
   </div>
-  <% @list.variables(current_user).each do |variable| %>
+  <% all_variables = @list.variables(current_user) %>
+  <% all_variables = all_variables.where( dataset_id: @dataset.id ) if @dataset %>
+  <% all_variables.each do |variable| %>
     <div class="panel <%= variable.commonly_used ? 'panel-gold' : 'panel-default' %> panel-hover">
       <div class="panel-body" data-basename="<%= variable.name %>" data-slug="<%= variable.dataset.slug %>">
         <div style="overflow:hidden">
@@ -19,18 +21,13 @@
       </div>
     </div>
   <% end %>
-<% end %>
 
-
-<% if false %>
-<% variable_files.shuffle.first(5).each do |variable_file| %>
-  <div class="panel panel-default">
-    <% d = Dataset.find_by_id(variable_file.split('/dd/')[0].to_s.split('/').last) %>
-    <div class="panel-body">
-      <% if d %><code class="pull-right"><%= d.slug %></code><% end %>
-      <div style="overflow:hidden"><%= File.basename(variable_file).gsub(/\.json$/, '') %></div>
-    </div>
-  </div>
-<% end %>
+  <% if @dataset and @dataset.grants_file_access_to?(current_user) and Dir.glob(File.join(@dataset.root_folder, 'data', '**', '*')).count > 0 %>
+    <p class="center">
+      <%= link_to download_covariates_dataset_path(@dataset), class: 'btn btn-success' do %>
+        <span class="glyphicon glyphicon-link"></span> Download Data
+      <% end %>
+    </p>
+  <% end %>
 
 <% end %>

@@ -19,6 +19,7 @@ WwwSleepdataOrg::Application.routes.draw do
       get "search", action: 'search', as: :search
       post :add_variable_to_list
       post :remove_variable_from_list
+      get :download_covariates
     end
   end
 
