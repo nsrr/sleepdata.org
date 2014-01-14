@@ -27,7 +27,7 @@
   setFocusToField("#collection_form #s, #page_name, #search_form #s")
   $("img.lazy").lazyload( effect : "fadeIn" )
   Turbolinks.allowLinkExtensions('md')
-  Turbolinks.enableTransitionCache()
+  # Turbolinks.enableTransitionCache()
 
 $(document).ready(ready)
 $(document)
