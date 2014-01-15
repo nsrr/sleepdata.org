@@ -1,0 +1,135 @@
+<div class="page-header">
+  <h1>Data Use Agreement <%= link_to '&raquo;'.html_safe, dua_submitted_path %></h1>
+</div>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-4 col-lg-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="text-align:center">1. Download <span class="glyphicon glyphicon-save"></span></h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-4 col-lg-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="text-align:center">2. Fill Out <span class="glyphicon glyphicon-edit"></span></h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-4 col-lg-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="text-align:center">3. Sign <span class="glyphicon glyphicon-exclamation-sign"></span></h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-4 col-lg-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="text-align:center">4. Save as PDF <span class="glyphicon glyphicon-floppy-disk"></span></h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-4 col-lg-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="text-align:center">5. Upload <span class="glyphicon glyphicon-open"></span></h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-4 col-lg-2">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="text-align:center">6. Submitted <span class="glyphicon glyphicon-calendar"></span></h3>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+
+<div class="page-header">
+  <h2>1. Download Agreement</h2>
+</div>
+
+<div class="bs-callout">
+  <p>
+    <% dua_name = 'DUA for Access to BWH National Sleep Research Resource.docx' %>
+    <%= link_to root_path + dua_name, class: 'btn btn-success' do %>
+      <span class="glyphicon glyphicon-save"></span>
+      NSRR Data Use Agreement
+    <% end %>
+    <%= number_to_human_size File.size?(File.join('public', 'DUA for Access to BWH National Sleep Research Resource.docx')) %>
+  </p>
+</div>
+
+<div class="page-header">
+  <h2>2. Fill Out Agreement</h2>
+</div>
+
+<div class="bs-callout">
+  <p>
+    You must complete all <mark>highlighted</mark> sections of the NSRR Data Use Agreement.
+  </p>
+</div>
+
+<div class="page-header">
+  <h2>3. Sign Agreement</h2>
+</div>
+
+<div class="bs-callout bs-callout-warning">
+  <p>
+    <strong>Important!</strong>
+    We can not grant you data access without a signature, please remember to <strong>sign the form</strong>.
+  </p>
+</div>
+
+
+
+<div class="page-header">
+  <h2>4. Save Agreement as PDF</h2>
+</div>
+
+<div class="bs-callout">
+  <p>
+    Use the <strong>Save As...</strong> option to save the Word Document as a PDF.
+  </p>
+</div>
+
+<div class="page-header">
+  <h2>5. Upload Agreement</h2>
+</div>
+
+<div class="bs-callout">
+  <p>
+    Select your completed and signed Data Use Agreement PDF below and click <strong>Submit</strong>.
+  </p>
+</div>
+
+<%= form_tag upload_dua_path, method: :post, class: 'form-horizontal' do |f| %>
+  <% if @errors %>
+    <div id="error_explanation" class="bs-callout bs-callout-danger">
+      <h4>1 error prohibited this Data Use Agreement from being submitted</h4>
+
+      <ul>
+        <li>Please attach a signed Data Use Agreement in PDF format.</li>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label :dua, 'pdf', 'Attach Signed DUA (PDF)', class: 'col-md-2 control-label' %>
+    <div class="col-md-10">
+      <%= file_field_tag :dua_pdf, class: 'form-control' %>
+      <%= hidden_field_tag :dua_pdf_cache %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <%= submit_tag 'Submit Data Use Agreement', class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>

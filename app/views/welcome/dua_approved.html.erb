@@ -1,0 +1,122 @@
+<div class="page-header">
+  <h1>Data Use Agreement <%= link_to '&laquo;'.html_safe, dua_submitted_path %></h1>
+</div>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-4">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="text-align:center">6. Submitted <span class="glyphicon glyphicon-check"></span></h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-4">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="text-align:center">7. Approved <span class="glyphicon glyphicon-check"></span></h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-4">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="text-align:center">8. Download Data <span class="glyphicon glyphicon-save"></span></h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<blockquote>
+You now have access to download data from the datasets listed below. Certain datasets may provide a direct link to download a curated dataset of covariates. This full dataset will include CSVs of the covariates. Additionally, datasets may provide large individual files (such as participant signal files), that can be browsed and downloaded individually in the dataset downloads tab.
+</blockquote>
+
+
+  <div class="row">
+    <% @datasets = Dataset.highlighted %>
+    <% @datasets.each do |dataset| %>
+      <div class="col-xs-12 col-sm-6 col-md-4 ">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><%= link_to dataset.name, dataset %></h3>
+          </div>
+          <div class="panel-body">
+            <div style="text-align:center;background-color:white;padding-bottom:5px;height:145px;line-height:145px">
+              <% if dataset.logo.size > 0 %>
+                <%= link_to image_tag( logo_dataset_path(dataset), style: 'max-width:100%;max-height:140px' ), dataset %>
+              <% else %>
+                <%= link_to image_tag( 'project-default-logo.png', style: 'max-width:100%;max-height:140px' ), dataset %>
+              <% end %>
+            </div>
+          </div>
+          <div class="panel-footer">
+            <div class="row">
+              <div class="col-xs-6">
+                <%= link_to pluralize(dataset.total_file_count, 'File'), files_dataset_path(dataset), class: 'btn btn-xs btn-link' %>
+              </div>
+              <div class="col-xs-6" style="text-align:right">
+                <% if dataset.grants_file_access_to?(current_user) and Dir.glob(File.join(dataset.root_folder, 'data', '**', '*')).count > 0 %>
+                  <%= link_to '<span class="glyphicon glyphicon-save"></span> Full Dataset'.html_safe, download_covariates_dataset_path(dataset), class: 'btn btn-xs btn-success' %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <% end %>
+  </div>
+
+<div class="bs-callout bs-callout-info">
+  <h4>What is a Full Dataset?</h4>
+
+  <p>
+    A Full Dataset includes one or more CSVs containing covariate level data for all participants in the study.
+  </p>
+  <p>
+    A browseable list of available covariates is listed on the <strong>Collection</strong> tab on the dataset's main page.
+  </p>
+</div>
+
+<div class="bs-callout bs-callout-info">
+  <h4>Are the '# Files' included in the Full Dataset?</h4>
+
+  <p>
+    No, these are supplementary files of varying sizes that contain individual participant level signals, such as polysomnograms, and other binary data format files. These files can be downloaded individually or on a folder-by-folder basis using <%= link_to 'GNU Wget', tool_path('wget') %>.
+  </p>
+</div>
+
+<div class="bs-callout bs-callout-info">
+  <h4>How do I use the data that I download?</h4>
+
+  <p>
+    Each dataset has thorough documentation on the covariates and files it provides, so the first place to start is in the dataset's main page that links to it's documentation. We also recommend looking through the <%= link_to 'Tools', tools_path %> for a variety of online and offline that can be used to help in analysis.
+  </p>
+</div>
+
+
+
+<div class="page-header">
+  <h2>Request History</h2>
+</div>
+
+<pre>
+
+<%= (Time.now - 2.days + 7.hours).strftime("%Y-%m-%d %I:%M %p") %> - Data Access Granted for:  BestAIR
+
+<%= (Time.now - 2.days + 7.hours).strftime("%Y-%m-%d %I:%M %p") %> - Data Access Granted for:  CHAT
+
+<%= (Time.now - 2.days + 7.hours).strftime("%Y-%m-%d %I:%M %p") %> - Data Access Granted for:  SHHS
+
+---------
+
+<%= (Time.now - 2.days - 3.hours).strftime("%Y-%m-%d %I:%M %p") %> - Data Use Agreement approved.
+
+---------
+
+<%= (Time.now - 3.days - 3.hours).strftime("%Y-%m-%d %I:%M %p") %> - Data Use Agreement resubmitted.
+
+<%= (Time.now - 5.days + 4.hours).strftime("%Y-%m-%d %I:%M %p") %> - Data Use Agreement sent back for resubmission.
+
+<%= (Time.now - 6.days).strftime("%Y-%m-%d %I:%M %p") %> - Data Use Agreement submitted.
+</pre>

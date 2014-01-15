@@ -43,6 +43,11 @@ WwwSleepdataOrg::Application.routes.draw do
   get '/tools/wget/windows' => 'welcome#wget_windows', as: :wget_windows
   get '/tools/wget/src' => 'welcome#wget_src', as: :wget_src
 
+  get '/dua' => 'welcome#dua', as: :dua
+  post '/dua' => 'welcome#upload_dua', as: :upload_dua
+  get '/request/submitted' => 'welcome#dua_submitted', as: :dua_submitted
+  get '/request/approved' => 'welcome#dua_approved', as: :dua_approved
+
   root to: 'welcome#index'
 
 end

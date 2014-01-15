@@ -114,6 +114,10 @@ class Dataset < ActiveRecord::Base
     return files
   end
 
+  def total_file_count
+    Dir.glob(File.join(files_folder, '**', '*')).select { |file| File.file?(file) }.count
+  end
+
   def folder_has_files?(location)
     self.indexed_files(location, -1).select{|folder, file_name, is_file, file_size, file_time| is_file}.count > 0
   end
