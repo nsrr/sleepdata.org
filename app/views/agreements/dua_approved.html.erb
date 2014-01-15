@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1>Data Use Agreement <%= link_to '&laquo;'.html_safe, dua_submitted_path %></h1>
+  <h1>Data Use Agreement</h1>
 </div>
 
 <div class="row">
@@ -28,7 +28,9 @@
 
 
 <blockquote>
-You now have access to download data from the datasets listed below. Certain datasets may provide a direct link to download a curated dataset of covariates. This full dataset will include CSVs of the covariates. Additionally, datasets may provide large individual files (such as participant signal files), that can be browsed and downloaded individually in the dataset downloads tab.
+  You now have access to download data from the datasets listed below.
+  Certain datasets may provide a direct link to download a curated dataset of covariates. This full dataset will include CSVs of the covariates.
+  Additionally, datasets may provide large individual files (such as participant signal files), that can be browsed and downloaded individually in the dataset downloads tab.
 </blockquote>
 
 
@@ -52,7 +54,8 @@ You now have access to download data from the datasets listed below. Certain dat
           <div class="panel-footer">
             <div class="row">
               <div class="col-xs-6">
-                <%= link_to pluralize( number_with_delimiter(dataset.total_file_count), 'File' ), files_dataset_path(dataset), class: 'btn btn-xs btn-link' %>
+                <%#= link_to pluralize( number_with_delimiter(dataset.total_file_count), 'File' ), files_dataset_path(dataset), class: 'btn btn-xs btn-link' %>
+                <%= link_to 'Browse Files', files_dataset_path(dataset), class: 'btn btn-xs btn-link' %>
               </div>
               <div class="col-xs-6" style="text-align:right">
                 <% if dataset.grants_file_access_to?(current_user) and Dir.glob(File.join(dataset.root_folder, 'data', '**', '*')).count > 0 %>
@@ -79,10 +82,11 @@ You now have access to download data from the datasets listed below. Certain dat
 </div>
 
 <div class="bs-callout bs-callout-info">
-  <h4>Are the '# Files' included in the Full Dataset?</h4>
+  <h4>Are the files listed under 'Browse Files' included in the Full Dataset?</h4>
 
   <p>
-    No, these are supplementary files of varying sizes that contain individual participant level signals, such as polysomnograms, and other binary data format files. These files can be downloaded individually or on a folder-by-folder basis using <%= link_to 'GNU Wget', tool_path('wget') %>.
+    No, these are supplementary files of varying sizes that contain individual participant-level signals, such as polysomnograms, and other binary data format files.
+    These files can be downloaded individually or on a folder-by-folder basis using <%= link_to 'GNU Wget', tool_path('wget') %>.
   </p>
 </div>
 
@@ -90,33 +94,10 @@ You now have access to download data from the datasets listed below. Certain dat
   <h4>How do I use the data that I download?</h4>
 
   <p>
-    Each dataset has thorough documentation on the covariates and files it provides, so the first place to start is in the dataset's main page that links to it's documentation. We also recommend looking through the <%= link_to 'Tools', tools_path %> for a variety of online and offline that can be used to help in analysis.
+    Each dataset has thorough documentation on the covariates and files it provides, so the first place to start is in the dataset's main page that links to it's documentation.
+    We also recommend looking through the <%= link_to 'Tools', tools_path %> for a variety of online and offline that can be used to help in analysis.
   </p>
 </div>
 
 
-
-<div class="page-header">
-  <h2>Request History</h2>
-</div>
-
-<pre>
-
-<%= (Time.now - 2.days + 7.hours).strftime("%Y-%m-%d %I:%M %p") %> - Data Access Granted for:  BestAIR
-
-<%= (Time.now - 2.days + 7.hours).strftime("%Y-%m-%d %I:%M %p") %> - Data Access Granted for:  CHAT
-
-<%= (Time.now - 2.days + 7.hours).strftime("%Y-%m-%d %I:%M %p") %> - Data Access Granted for:  SHHS
-
----------
-
-<%= (Time.now - 2.days - 3.hours).strftime("%Y-%m-%d %I:%M %p") %> - Data Use Agreement approved.
-
----------
-
-<%= (Time.now - 3.days - 3.hours).strftime("%Y-%m-%d %I:%M %p") %> - Data Use Agreement resubmitted.
-
-<%= (Time.now - 5.days + 4.hours).strftime("%Y-%m-%d %I:%M %p") %> - Data Use Agreement sent back for resubmission.
-
-<%= (Time.now - 6.days).strftime("%Y-%m-%d %I:%M %p") %> - Data Use Agreement submitted.
-</pre>
+<%= render partial: 'agreements/history' %>

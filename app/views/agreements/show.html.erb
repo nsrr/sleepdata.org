@@ -1,0 +1,31 @@
+<% @title = @agreement.name %>
+<div class="page-header">
+  <h1>
+    <%= link_to "Agreements", agreements_path %> &middot; <%= @title %>
+  </h1>
+  <%= link_to 'Approve',     set_approval_agreement_path( @agreement, approved: '1' ), method: :patch,  class: 'btn btn-default btn-xs' %>
+  <%= link_to 'Deny',        set_approval_agreement_path( @agreement, approved: '0' ), method: :patch,  class: 'btn btn-default btn-xs' %>
+  <%= link_to "Edit Agreement", edit_agreement_path(@agreement), class: 'btn btn-xs btn-default' %>
+  <%= link_to "Delete Agreement", @agreement, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Agreement #{@agreement.name}?" } %>
+</div>
+
+<dl class="dl-horizontal">
+  <dt>User</dt>
+  <dd><%= link_to @agreement.user.name, @agreement.user if @agreement.user %></dd>
+
+  <dt>Dua</dt>
+  <dd><%= @agreement.dua %></dd>
+
+  <dt>Status</dt>
+  <dd><%= @agreement.status %></dd>
+
+  <dt>History</dt>
+  <dd><%= @agreement.history %></dd>
+
+  <dt>Approval Date</dt>
+  <dd><%= @agreement.approval_date %></dd>
+
+  <dt>Expiration Date</dt>
+  <dd><%= @agreement.expiration_date %></dd>
+
+</dl>

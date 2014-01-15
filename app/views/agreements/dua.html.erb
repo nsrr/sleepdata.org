@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1>Data Use Agreement <%= link_to '&raquo;'.html_safe, dua_submitted_path %></h1>
+  <h1>Data Use Agreement</h1>
 </div>
 
 <div class="row">
@@ -108,8 +108,8 @@
   </p>
 </div>
 
-<%= form_tag upload_dua_path, method: :post, class: 'form-horizontal' do |f| %>
-  <% if @errors %>
+<%= form_tag upload_dua_path, method: :post, multipart: true, class: 'form-horizontal' do |f| %>
+  <% if @agreement and @agreement.errors.any? %>
     <div id="error_explanation" class="bs-callout bs-callout-danger">
       <h4>1 error prohibited this Data Use Agreement from being submitted</h4>
 
@@ -120,15 +120,14 @@
   <% end %>
 
   <div class="form-group">
-    <%= label :dua, 'pdf', 'Attach Signed DUA (PDF)', class: 'col-md-2 control-label' %>
-    <div class="col-md-10">
-      <%= file_field_tag :dua_pdf, class: 'form-control' %>
-      <%= hidden_field_tag :dua_pdf_cache %>
+    <%= label :agreement, 'dua', 'Attach Signed DUA (PDF)', class: 'col-md-3 control-label' %>
+    <div class="col-md-9">
+      <%= file_field_tag 'agreement[dua]', class: 'form-control' %>
     </div>
   </div>
 
   <div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
+    <div class="col-md-offset-3 col-md-9">
       <%= submit_tag 'Submit Data Use Agreement', class: 'btn btn-primary' %>
     </div>
   </div>

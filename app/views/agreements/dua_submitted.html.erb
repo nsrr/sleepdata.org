@@ -1,0 +1,43 @@
+<div class="page-header">
+  <h1>Data Use Agreement</h1>
+</div>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-4">
+    <div class="panel panel-success">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="text-align:center">6. Submitted <span class="glyphicon glyphicon-check"></span></h3>
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-sm-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="text-align:center">7.
+          <% if @agreement.resubmission_required? %>
+            Resubmit <span class="glyphicon glyphicon-warning-sign"></span>
+          <% else %>
+            Review in Process <span class="glyphicon glyphicon-time"></span>
+          <% end %>
+        </h3>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-sm-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title" style="text-align:center">8. Download Data <span class="glyphicon glyphicon-save"></span></h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="well">
+  Congratulations, your Data Use Agreement has been submitted successfully! We will review your data access request and inform you by email when your request is approved.
+
+  You can check this page to see the process the status of your request.
+</div>
+
+
+<%= render partial: 'agreements/history' %>

@@ -1,0 +1,18 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+--- !map:HashWithIndifferentAccess
+
+one:
+  # user: valid
+  dua: blank.pdf
+  status: approved
+  history: [{ event_at: "2014-01-15 16:52:26 -0500", user_id: nil, message: Data Use Agreement submitted. }]
+  approval_date: 2014-01-16
+  expiration_date: 2017-01-16
+
+two:
+  # user: two
+  dua: blank.pdf
+  status: submitted
+  history: [{ event_at: "2014-01-15 16:52:26 -0500", user_id: nil, message: Data Use Agreement submitted. }]
+  # approval_date: 2014-01-15
+  # expiration_date: 2014-01-15

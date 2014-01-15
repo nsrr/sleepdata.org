@@ -1,0 +1,30 @@
+<%= render partial: 'contour/layouts/per_page', locals: { type: 'agreements', per_page: 20, object_count: @agreements.total_count } %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th style="white-space:nowrap">DUA</th>
+      <th style="white-space:nowrap">Status</th>
+      <th style="white-space:nowrap">User</th>
+      <th style="white-space:nowrap">Approval Date</th>
+      <th style="white-space:nowrap">Expiration Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <% @agreements.each do |agreement| %>
+    <tr>
+      <td><%= link_to agreement.name, agreement %></td>
+      <td><%= agreement.status %></td>
+      <td><%= link_to agreement.user.name, agreement.user if agreement.user %></td>
+      <td><%= agreement.approval_date %></td>
+      <td><%= agreement.expiration_date %></td>
+      <td>
+        <%= link_to 'Edit', edit_agreement_path(agreement), class: 'btn btn-xs btn-default' %>
+        <%= link_to 'Delete', agreement, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Agreement #{agreement.name}?" } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<div class="center"><%= paginate @agreements, theme: 'contour' %></div>

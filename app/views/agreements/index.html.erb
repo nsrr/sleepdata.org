@@ -1,0 +1,20 @@
+<% @title = 'Agreements' %>
+<div class="page-header">
+  <h1>
+    <%= @title %>
+    <%= link_to "Create Agreement", new_agreement_path, class: 'btn btn-xs btn-primary' %>
+  </h1>
+</div>
+
+<%= form_tag agreements_path, method: :get, id: "agreements_search", class: 'form-inline' do %>
+  <%= hidden_field_tag :order %>
+  <%= hidden_field_tag :page, params[:page] %>
+  <% if false %>
+    <%= text_field_tag 'search', params[:search], class: 'form-control' %>
+    <%= submit_tag 'Search', class: 'btn btn-primary' %>
+  <% end %>
+<% end %>
+
+<div id="agreements">
+  <%= render partial: 'agreements/agreements' %>
+</div>

@@ -2,22 +2,6 @@ class WelcomeController < ApplicationController
   before_action :authenticate_user!,        only: [ :whatsmyip ]
   before_action :check_system_admin,        only: [ :whatsmyip ]
 
-  def dua_submitted
-
-  end
-
-  def dua_approved
-  end
-
-  def upload_dua
-    if params[:dua_pdf]
-      redirect_to dua_submitted_path
-    else
-      @errors = 'Attach the form.'
-      render 'dua'
-    end
-  end
-
   def whatsmyip
   end
 
