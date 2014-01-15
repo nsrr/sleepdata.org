@@ -52,7 +52,7 @@ You now have access to download data from the datasets listed below. Certain dat
           <div class="panel-footer">
             <div class="row">
               <div class="col-xs-6">
-                <%= link_to pluralize(dataset.total_file_count, 'File'), files_dataset_path(dataset), class: 'btn btn-xs btn-link' %>
+                <%= link_to pluralize( number_with_delimiter(dataset.total_file_count), 'File' ), files_dataset_path(dataset), class: 'btn btn-xs btn-link' %>
               </div>
               <div class="col-xs-6" style="text-align:right">
                 <% if dataset.grants_file_access_to?(current_user) and Dir.glob(File.join(dataset.root_folder, 'data', '**', '*')).count > 0 %>

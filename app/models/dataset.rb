@@ -114,8 +114,22 @@ class Dataset < ActiveRecord::Base
     return files
   end
 
-  def total_file_count
-    Dir.glob(File.join(files_folder, '**', '*')).select { |file| File.file?(file) }.count
+  def total_file_count(location = nil)
+    # Dir.glob(File.join(files_folder, '**', '*')).select { |file| File.file?(file) }.count
+    file_count = 0
+
+    index_files = Dir.glob(File.join(files_folder, location.to_s, '**', '.sleepdata.index'))
+
+    return 0 if index_files.count == 0
+
+    index_files.each do |index_file|
+      IO.foreach( index_file ) do |line|
+        file_count += line.to_i
+        break
+      end
+    end
+
+    file_count - (index_files.count - 1)
   end
 
   def folder_has_files?(location)
