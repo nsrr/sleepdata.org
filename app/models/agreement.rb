@@ -10,7 +10,7 @@ class Agreement < ActiveRecord::Base
   include Deletable
 
   # Model Validation
-  validates_presence_of :dua #, :user_id
+  validates_presence_of :dua, :user_id
 
   # Model Relationships
   belongs_to :user
@@ -29,8 +29,9 @@ class Agreement < ActiveRecord::Base
     self.status == 'resubmit'
   end
 
-  def add_event!(message, current_user)
-    self.history << { message: message, user_id: (current_user ? current_user.id : nil), event_at: Time.now }
+  def add_event!(message, current_user, status)
+    self.history << { message: message, user_id: current_user.id, event_at: Time.now, status: status }
+    self.status = status
     self.save
   end
 

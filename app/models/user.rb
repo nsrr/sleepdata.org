@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   include Contourable, Deletable
 
   # Model Relationships
+  has_many :agreements, -> { where deleted: false }
   has_many :datasets, -> { where deleted: false }
   has_many :dataset_file_audits
   has_many :lists

@@ -1,19 +1,27 @@
-<div class="page-header">
-  <h2>Request History</h2>
+<div class="panel panel-primary">
+  <div class="panel-heading">Request History</div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Event</th>
+        <th></th>
+      </tr>
+    </thead>
+    <% @agreement.history.reverse.each do |event| %>
+      <tr class="<%= 'success' if event[:status] == 'approved' %>">
+        <td><%= event[:event_at].strftime("%Y-%m-%d %I:%M %p") %></td>
+        <td><%= event[:message] %></td>
+        <td></td>
+      </tr>
+    <% end %>
+  </table>
 </div>
 
-<pre><% @agreement.history.reverse.each do |event| %>
-<%= event[:event_at].strftime("%Y-%m-%d %I:%M %p") %> - <%= event[:message] %>
-<% end %></pre>
 
 
-
-
-
-
-
-
-
+<% if false %>
 <div class="page-header">
   <h2>Request History</h2>
 </div>
@@ -38,3 +46,4 @@
 
 <%= (Time.now - 6.days).strftime("%Y-%m-%d %I:%M %p") %> - Data Use Agreement submitted.
 </pre>
+<% end %>

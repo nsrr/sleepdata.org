@@ -20,7 +20,6 @@
       <td><%= agreement.approval_date %></td>
       <td><%= agreement.expiration_date %></td>
       <td>
-        <%= link_to 'Edit', edit_agreement_path(agreement), class: 'btn btn-xs btn-default' %>
         <%= link_to 'Delete', agreement, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Agreement #{agreement.name}?" } %>
       </td>
     </tr>

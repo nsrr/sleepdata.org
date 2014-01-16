@@ -2,17 +2,27 @@
 --- !map:HashWithIndifferentAccess
 
 one:
-  # user: valid
+  user: valid
   dua: blank.pdf
   status: approved
-  history: [{ event_at: "2014-01-15 16:52:26 -0500", user_id: nil, message: Data Use Agreement submitted. }]
-  approval_date: 2014-01-16
-  expiration_date: 2017-01-16
+  history: [{ event_at: 2014-01-15, user_id: <%= ActiveRecord::FixtureSet.identify(:valid) %>, message: 'Data Use Agreement submitted.', status: 'submitted' },
+            { event_at: 2014-01-17, user_id: <%= ActiveRecord::FixtureSet.identify(:admin) %>, message: 'Data Use Agreement approved.', status: 'approved' }]
+  approval_date: 2014-01-17
+  expiration_date: 2017-01-17
 
 two:
-  # user: two
+  user: two
   dua: blank.pdf
   status: submitted
-  history: [{ event_at: "2014-01-15 16:52:26 -0500", user_id: nil, message: Data Use Agreement submitted. }]
+  history: [{ event_at: 2014-01-15, user_id: <%= ActiveRecord::FixtureSet.identify(:valid) %>, message: 'Data Use Agreement submitted.', status: 'submitted' }]
+  # approval_date: 2014-01-15
+  # expiration_date: 2014-01-15
+
+resubmit:
+  user: admin
+  dua: blank.pdf
+  status: resubmit
+  history: [{ event_at: 2014-01-15, user_id: <%= ActiveRecord::FixtureSet.identify(:valid) %>, message: 'Data Use Agreement submitted.', status: 'submitted' },
+            { event_at: 2014-01-17, user_id: <%= ActiveRecord::FixtureSet.identify(:admin) %>, message: 'Data Use Agreement sent back for resubmission.', status: 'resubmit' }]
   # approval_date: 2014-01-15
   # expiration_date: 2014-01-15

@@ -11,7 +11,7 @@
     </div>
   </div>
   <div class="col-xs-12 col-sm-4">
-    <div class="panel panel-default">
+    <div class="panel panel-<% if @agreement.resubmission_required? %>warning<% else %>default<% end %>">
       <div class="panel-heading">
         <h3 class="panel-title" style="text-align:center">7.
           <% if @agreement.resubmission_required? %>
@@ -33,11 +33,45 @@
   </div>
 </div>
 
-<div class="well">
+
+<% if @agreement.resubmission_required? %>
+  <div class="well">
+  Please resubmit your updated Data Use Agreement. Please fill in any missing fields, and remember to sign the DUA.
+  </div>
+
+  <%= form_tag reupload_dua_path, method: :patch, multipart: true, class: 'form-horizontal' do |f| %>
+    <% if @agreement and @agreement.errors.any? %>
+      <div id="error_explanation" class="bs-callout bs-callout-danger">
+        <h4>1 error prohibited this Data Use Agreement from being submitted</h4>
+
+        <ul>
+          <li>Please attach a signed Data Use Agreement in PDF format.</li>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= label :agreement, 'dua', 'Attach Signed DUA (PDF)', class: 'col-md-3 control-label' %>
+      <div class="col-md-9">
+        <%= file_field_tag 'agreement[dua]', class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-md-offset-3 col-md-9">
+        <%= submit_tag 'Resubmit Data Use Agreement', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  <% end %>
+
+<% else %>
+  <div class="well">
   Congratulations, your Data Use Agreement has been submitted successfully! We will review your data access request and inform you by email when your request is approved.
 
   You can check this page to see the process the status of your request.
-</div>
+  </div>
+<% end %>
 
+<hr class="soften" />
 
 <%= render partial: 'agreements/history' %>
