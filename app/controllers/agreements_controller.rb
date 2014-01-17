@@ -40,7 +40,7 @@ class AgreementsController < ApplicationController
   # end
 
   def download
-    send_file File.join( CarrierWave::Uploader::Base.root, @agreement.dua.url )
+    send_file File.join( CarrierWave::Uploader::Base.root, @agreement.dua.url ), disposition: 'inline'
   end
 
   # POST /agreements
