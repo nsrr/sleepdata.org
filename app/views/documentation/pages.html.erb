@@ -1,0 +1,9 @@
+<% @title = @object.name %>
+
+<% if @object.class == Dataset %>
+  <%= render partial: 'datasets/header' %>
+<% else %>
+  <%= render partial: 'tools/header' %>
+<% end %>
+
+<%= render partial: 'documentation/page' %>

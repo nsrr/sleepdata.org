@@ -1,12 +1,5 @@
 <% @title = @tool.name %>
-<div class="page-header">
-  <h1>
-    <%= @title %>
-  </h1>
-  <% if current_user and @tool.editable_by?(current_user) %>
-    <%= link_to "Edit Tool", edit_tool_path(@tool), class: 'btn btn-xs btn-default' %>
-    <%= link_to "Delete Tool", @tool, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Tool #{@tool.name}?" } if current_user.system_admin? %>
-  <% end %>
-</div>
 
-<%= simple_markdown @tool.description %>
+<%= render partial: 'tools/header' %>
+
+<%= render partial: 'documentation/page', locals: { object: @tool } %>

@@ -81,4 +81,82 @@ class ToolsControllerTest < ActionController::TestCase
     assert_kind_of String, response.body
     assert_equal File.binread( File.join(CarrierWave::Uploader::Base.root, assigns(:tool).logo.url) ), response.body
   end
+
+
+  test "should show public page in subfolder to anonymous user" do
+    # assert_difference('ToolPageAudit.count') do
+      get :pages, id: @tool, path: 'subfolder/MORE_INFO.txt'
+    # end
+    assert_response :success
+  end
+
+  test "should show public page in subfolder to logged in user" do
+    login(users(:valid))
+    # assert_difference('ToolPageAudit.count') do
+      get :pages, id: @tool, path: 'subfolder/MORE_INFO.txt'
+    # end
+    assert_response :success
+  end
+
+  test "should show directory of pages in subfolder" do
+    get :pages, id: @tool, path: 'subfolder'
+    assert_template 'pages'
+    assert_response :success
+  end
+
+  test "should not get non-existant page from public tool as anonymous user" do
+    get :pages, id: @tool, path: 'subfolder/subsubfolder/3.md'
+    assert_redirected_to pages_tool_path( assigns(:tool), path: 'subfolder' )
+  end
+
+  test "should create page as editor" do
+    login(users(:admin)) # Should be :editor
+    post :create_page, id: @tool, page_name: 'CREATE_ME.md', page_contents: "# CREATE ME\nThis is the `CREATE_ME.md`."
+
+    assert_redirected_to pages_tool_path(assigns(:tool), path: assigns(:path))
+
+    # Clean up file so tests can be rerun
+    file_path = File.join('test', 'support', 'tools', 'demo', 'pages', 'CREATE_ME.md')
+    File.delete(file_path) if File.exists?(file_path)
+  end
+
+  test "should not create page without a name as editor" do
+    login(users(:admin)) # Should be :editor
+    post :create_page, id: @tool, page_name: '', page_contents: "Oh no, no name!"
+
+    assert assigns(:errors).size > 0
+    assert_equal "Page name can't be blank", assigns(:errors)[:page_name]
+
+    assert_template 'new_page'
+  end
+
+  test "should not create already existing page as editor" do
+    login(users(:admin)) # Should be :editor
+    post :create_page, id: @tool, page_name: 'VIEW_ME.md', page_contents: "Oh no, it already exists!"
+
+    assert assigns(:errors).size > 0
+    assert_equal "A page with that name already exists", assigns(:errors)[:page_name]
+
+    assert_template 'new_page'
+  end
+
+  test "should get edit_page as editor" do
+    login(users(:admin)) # Should be :editor
+    get :edit_page, id: @tool, path: 'EDIT_ME.md'
+    assert_response :success
+  end
+
+  test "should update_page as editor" do
+    login(users(:admin)) # Should be :editor
+    patch :update_page, id: @tool, path: 'EDIT_ME.md', page_contents: "# NEW TITLE\nThis is describing the tool using documentation.\n"
+    assert_equal File.read(assigns(:tool).find_page('EDIT_ME.md')), "# NEW TITLE\nThis is describing the tool using documentation.\n"
+    assert_redirected_to pages_tool_path(assigns(:tool), path: assigns(:path))
+  end
+
+  test "should not get edit_page as editor of invalid page" do
+    login(users(:admin)) # Should be :editor
+    get :edit_page, id: @tool, path: 'wrongfolder/1.txt'
+    assert_redirected_to pages_tool_path(assigns(:tool), path: assigns(:path))
+  end
+
 end

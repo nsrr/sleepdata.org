@@ -1,9 +1,12 @@
 class ToolsController < ApplicationController
-  before_action :authenticate_user!,        only: [ :new, :create, :edit, :update, :destroy ]
+  before_action :authenticate_user!,        only: [ :new, :create, :edit, :update, :destroy, :new_page, :create_page, :edit_page, :update_page ]
   before_action :check_system_admin,        only: [ :new, :create, :destroy ]
-  before_action :set_viewable_tool,         only: [ :show, :logo ]
-  before_action :set_editable_tool,         only: [ :edit, :update, :destroy ]
-  before_action :redirect_without_tool,     only: [ :show, :logo, :edit, :update, :destroy ]
+  before_action :set_viewable_tool,         only: [ :show, :logo, :images, :pages ]
+  before_action :set_editable_tool,         only: [ :edit, :update, :destroy, :new_page, :create_page, :edit_page, :update_page ]
+  before_action :redirect_without_tool,     only: [ :show, :logo, :images, :pages, :edit, :update, :destroy, :new_page, :create_page, :edit_page, :update_page ]
+
+  # Concerns
+  include Pageable
 
   # GET /tools
   # GET /tools.json

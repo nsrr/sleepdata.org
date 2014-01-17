@@ -1,0 +1,18 @@
+<% if @object.class == Dataset %>
+  <% images_path = images_dataset_path(@object, path: @image_file) %>
+<% else %>
+  <% images_path = images_tool_path(@object, path: @image_file) %>
+<% end %>
+
+<div class="page-header">
+  <h1>
+    <%= link_to @object.name, @object %>
+    <%= link_to images_path, class: 'btn btn-success' do %>
+      <span class="glyphicon glyphicon-link"></span>
+      <%= File.basename(@image_file) %>
+    <% end %>
+  </h1>
+
+</div>
+
+<%= image_tag images_path, style: 'max-width:100%' %>

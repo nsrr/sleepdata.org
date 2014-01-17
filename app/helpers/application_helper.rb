@@ -37,13 +37,15 @@ module ApplicationHelper
       result = text.to_s.gsub(/<a href="(?:\:datasets\_path\:)(.*?)">/, '<a href="' + request.script_name + '/datasets\1">')
       result = result.gsub(/<img src="(?:\:datasets\_path\:)(.*?)">/, '<img src="' + request.script_name + '/datasets\1">')
 
-      if @dataset
-        result = result.gsub(/<a href="(?:\:pages\_path\:)(.*?)">/, "<a href=\"#{request.script_name}/datasets/#{@dataset.slug}/pages" + '\1">')
-        result = result.gsub(/<img src="(?:\:pages\_path\:)(.*?)">/, "<img src=\"#{request.script_name}/datasets/#{@dataset.slug}/pages" + '\1">')
-        result = result.gsub(/<a href="(?:\:files\_path\:)(.*?)">/, "<a href=\"#{request.script_name}/datasets/#{@dataset.slug}/files" + '\1">')
-        result = result.gsub(/<img src="(?:\:files\_path\:)(.*?)">/, "<img src=\"#{request.script_name}/datasets/#{@dataset.slug}/files" + '\1">')
-        result = result.gsub(/<a href="(?:\:images\_path\:)(.*?)">/, "<a href=\"#{request.script_name}/datasets/#{@dataset.slug}/images" + '\1">')
-        result = result.gsub(/<img src="(?:\:images\_path\:)(.*?)">/, "<img src=\"#{request.script_name}/datasets/#{@dataset.slug}/images" + '\1">')
+      @object = @dataset || @tool
+
+      if @object
+        result = result.gsub(/<a href="(?:\:pages\_path\:)(.*?)">/, "<a href=\"#{request.script_name}/#{@object.class.name.pluralize.downcase}/#{@object.slug}/pages" + '\1">')
+        result = result.gsub(/<img src="(?:\:pages\_path\:)(.*?)">/, "<img src=\"#{request.script_name}/#{@object.class.name.pluralize.downcase}/#{@object.slug}/pages" + '\1">')
+        result = result.gsub(/<a href="(?:\:files\_path\:)(.*?)">/, "<a href=\"#{request.script_name}/#{@object.class.name.pluralize.downcase}/#{@object.slug}/files" + '\1">')
+        result = result.gsub(/<img src="(?:\:files\_path\:)(.*?)">/, "<img src=\"#{request.script_name}/#{@object.class.name.pluralize.downcase}/#{@object.slug}/files" + '\1">')
+        result = result.gsub(/<a href="(?:\:images\_path\:)(.*?)">/, "<a href=\"#{request.script_name}/#{@object.class.name.pluralize.downcase}/#{@object.slug}/images" + '\1">')
+        result = result.gsub(/<img src="(?:\:images\_path\:)(.*?)">/, "<img src=\"#{request.script_name}/#{@object.class.name.pluralize.downcase}/#{@object.slug}/images" + '\1">')
       end
 
       result = result.gsub(/<a href="(?:\:tools\_path\:)(.*?)">/, '<a href="' + request.script_name + '/tools\1">')

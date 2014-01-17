@@ -4,6 +4,11 @@
 - Home page is now more dynamic and includes direct links to available documentation, data, and tools
 - Covariate datasets can now be requested and downloaded if the user has been granted access to the dataset
 - Added prototype of data use agreement request process
+- **Tool Changes**
+  - Tools can now have multiple pages of documentation identical to datasets
+  - Tool specific paths can now be referenced:
+    - `:pages_path:` => `/tools/SLUG/pages`
+    - `:images_path:` => `/tools/SLUG/images`
 
 ## 0.2.0 (January 13, 2013)
 

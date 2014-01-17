@@ -1,22 +1,31 @@
-<% @title = "New Page - #{@dataset.name}" %>
+<% @title = "New Page - #{@object.name}" %>
 
-<%= render partial: 'datasets/header' %>
+<% if @object.class == Dataset %>
+  <%= render partial: 'datasets/header' %>
+  <% create_page_path = create_page_dataset_path( @object, path: @path ) %>
+  <% pages_path       =       pages_dataset_path( @object ) %>
+<% else %>
+  <%= render partial: 'tools/header' %>
+  <% create_page_path = create_page_tool_path( @object, path: @path ) %>
+  <% pages_path       =       pages_tool_path( @object ) %>
+<% end %>
 
-<%= form_tag create_page_dataset_path(@dataset, path: @path), method: :post, id: 'create_page_form', class: 'form-horizontal' do %>
+
+<%= form_tag create_page_path, method: :post, id: 'create_page_form', class: 'form-horizontal' do %>
 
   <div class="pull-right">
     <ul class="pagination pagination-sm" style="margin-top:3px;margin-bottom:0px;margin-right:3px">
       <li><%= link_to 'Create Page', '#', data: { object: 'submit', target: '#create_page_form' } %></li>
-      <li><%= link_to 'Cancel', pages_dataset_path( @dataset ) + '/' + @path, class: 'btn-danger-inverse', style: 'color: #d43f3a;' %></li>
+      <li><%= link_to 'Cancel', pages_path + '/' + @path, class: 'btn-danger-inverse', style: 'color: #d43f3a;' %></li>
     </ul>
   </div>
 
   <ol class="breadcrumb">
-    <li><%= link_to @dataset.slug, pages_dataset_path(@dataset) %></li>
-    <li class="<%= 'active' unless @path.blank? %>"><%= link_to_if !@path.blank?, 'pages', pages_dataset_path(@dataset) %></li>
+    <li><%= link_to @object.slug, pages_path %></li>
+    <li class="<%= 'active' unless @path.blank? %>"><%= link_to_if !@path.blank?, 'pages', pages_path %></li>
     <% unless @path.blank? %>
       <% @path.to_s.split('/')[0..-2].each_with_index do |folder, index| %>
-        <% url = pages_dataset_path( @dataset ) + '/' + @path.to_s.split('/')[0..index].join('/') %>
+        <% url = pages_path + '/' + @path.to_s.split('/')[0..index].join('/') %>
         <li><%= link_to folder, url %></li>
       <% end %>
       <li class="active"><%= @path.to_s.split('/').last %></li>

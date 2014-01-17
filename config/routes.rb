@@ -10,7 +10,6 @@ WwwSleepdataOrg::Application.routes.draw do
   resources :datasets do
     member do
       get :logo
-      get "images/*path", action: 'images', as: :images, format: false
       get :variable_chart
       get :audits
       get :request_access
@@ -18,21 +17,30 @@ WwwSleepdataOrg::Application.routes.draw do
       patch :set_access
       get "(/a/:auth_token)/manifest(/*path)", action: 'manifest', as: :manifest, format: false
       get "files((/a/:auth_token)(/m/:medium)/*path)", action: 'files', as: :files, format: false
+      get "search", action: 'search', as: :search
+      post :add_variable_to_list
+      post :remove_variable_from_list
+      get :download_covariates
+
+      get "images/*path", action: 'images', as: :images, format: false
       get "pages(/*path)", action: 'pages', as: :pages, format: false
       get "edit_page/*path", action: 'edit_page', as: :edit_page, format: false
       get "new_page(/*path)", action: 'new_page', as: :new_page, format: false
       post "create_page(/*path)", action: 'create_page', as: :create_page, format: false
       patch "update_page/*path", action: 'update_page', as: :update_page, format: false
-      get "search", action: 'search', as: :search
-      post :add_variable_to_list
-      post :remove_variable_from_list
-      get :download_covariates
     end
   end
 
   resources :tools do
     member do
       get :logo
+
+      get "images/*path", action: 'images', as: :images, format: false
+      get "pages(/*path)", action: 'pages', as: :pages, format: false
+      get "edit_page/*path", action: 'edit_page', as: :edit_page, format: false
+      get "new_page(/*path)", action: 'new_page', as: :new_page, format: false
+      post "create_page(/*path)", action: 'create_page', as: :create_page, format: false
+      patch "update_page/*path", action: 'update_page', as: :update_page, format: false
     end
   end
 

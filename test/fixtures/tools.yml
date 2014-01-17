@@ -1,17 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  description: MyString
-  slug: one
+  name: Demo
+  description: Demo Tool that does demos
+  slug: demo
   logo: rails.png
   user: admin
   deleted: false
 
 two:
-  name: MyString
-  description: MyString
+  name: Tool Two
+  description: Tool two does something as well
   slug: two
-  logo: MyString
+  logo: rails.png
   user: admin
   deleted: false

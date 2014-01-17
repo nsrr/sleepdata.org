@@ -1,10 +1,12 @@
 class DatasetsController < ApplicationController
-  before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :new_page, :create_page, :edit_page, :update_page, :download_covariates ]
+  before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :download_covariates, :new_page, :create_page, :edit_page, :update_page ]
   before_action :check_system_admin,        only: [ :new, :create, :destroy ]
   before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :images, :variable_chart, :files, :pages, :request_access, :search, :add_variable_to_list, :remove_variable_from_list, :download_covariates ]
   before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :new_page, :create_page, :edit_page, :update_page ]
-  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :images, :variable_chart, :files, :pages, :edit, :update, :destroy, :audits, :requests, :request_access, :set_access, :new_page, :create_page, :edit_page, :update_page, :search, :add_variable_to_list, :remove_variable_from_list, :download_covariates ]
-  before_action :set_page_path,             only: [ :pages, :new_page, :create_page, :edit_page, :update_page, :show ]
+  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :images, :variable_chart, :files, :pages, :request_access, :search, :add_variable_to_list, :remove_variable_from_list, :download_covariates, :edit, :update, :destroy, :audits, :requests, :set_access, :new_page, :create_page, :edit_page, :update_page ]
+
+  # Concerns
+  include Pageable
 
   def download_covariates
     filename = @dataset.slug + '_dataset'
@@ -107,17 +109,6 @@ class DatasetsController < ApplicationController
     send_file File.join( CarrierWave::Uploader::Base.root, @dataset.logo.url )
   end
 
-  def images
-    valid_files = Dir.glob(File.join(@dataset.root_folder, 'images', '**', '*.{jpg,png}')).collect{|i| i.gsub(File.join(@dataset.root_folder, 'images') + '/', '')}
-
-    @image_file = valid_files.select{|i| i == params[:path] }.first
-    if @image_file and params[:inline] != '1'
-      send_file File.join( @dataset.root_folder, 'images', @image_file )
-    elsif not @image_file
-      render nothing: true
-    end
-  end
-
   def variable_chart
     name = params[:name].to_s.gsub(/[^\w\d-]/, '')
 
@@ -140,61 +131,6 @@ class DatasetsController < ApplicationController
     else
       redirect_to files_dataset_path(@dataset, path: @dataset.find_file_folder(params[:path]))
     end
-  end
-
-  # GET /datasets/1/pages
-  def pages
-    @term = params[:s].to_s.gsub(/[^\w]/, '')
-    if @page_path and File.file?(@page_path) and [@dataset.find_page_folder(params[:path]), File.basename(@page_path)].compact.join('/') == params[:path]
-      # render text: @dataset.find_page_folder(params[:path])
-      @dataset.dataset_page_audits.create( user_id: (current_user ? current_user.id : nil), page_path: @path, remote_ip: request.remote_ip )
-      render 'pages'
-    elsif @page_path and File.directory?(@page_path) and @dataset.find_page_folder(params[:path]) == params[:path]
-      render 'pages'
-    else
-      redirect_to pages_dataset_path(@dataset, path: @dataset.find_page_folder(params[:path]))
-    end
-  end
-
-  # GET /datasets/1/new_page
-  def new_page
-
-  end
-
-  def create_page
-    page_name = params[:page_name].to_s.gsub(/[^\w\.\-]/, '').gsub(/^[\.]*/, '')
-    @folder_path = @dataset.find_page_folder(params[:path])
-    @page_path = File.join(@dataset.pages_folder, @folder_path.to_s, page_name.to_s)
-    if not File.exists?(@page_path) and not page_name.blank?
-      FileUtils.mkdir_p( File.join(@dataset.pages_folder, @folder_path.to_s) )
-      File.open(@page_path, 'w') do |outfile|
-        outfile.write params[:page_contents].to_s
-      end
-      @path = @page_path.gsub(@dataset.pages_folder + '/', '')
-      redirect_to pages_dataset_path( @dataset, path: @path )
-    else
-      @errors = {}
-      @errors[:page_name] = page_name.blank? ? "Page name can't be blank" : "A page with that name already exists"
-      render 'new_page'
-    end
-  end
-
-  # GET /datasets/1/edit_page
-  def edit_page
-    unless @page_path and File.file?(@page_path) and File.size(@page_path) < 1.megabyte
-      redirect_to pages_dataset_path(@dataset, path: @path)
-    end
-  end
-
-  # PATCH /datasets/1/update_page
-  def update_page
-    if @page_path and File.file?(@page_path) and params.has_key?(:page_contents)
-      File.open(@page_path, 'w') do |outfile|
-        outfile.write params[:page_contents].to_s
-      end
-    end
-
-    redirect_to pages_dataset_path( @dataset, path: @path )
   end
 
   # GET /datasets
@@ -278,11 +214,6 @@ class DatasetsController < ApplicationController
 
     def redirect_without_dataset
       empty_response_or_root_path( datasets_path ) unless @dataset
-    end
-
-    def set_page_path
-      @page_path = @dataset.find_page(params[:path])
-      @path = (@page_path ? @page_path.gsub(@dataset.pages_folder + '/', '') : nil)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

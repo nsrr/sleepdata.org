@@ -3,7 +3,7 @@ class Tool < ActiveRecord::Base
   mount_uploader :logo, ImageUploader
 
   # Concerns
-  include Deletable
+  include Deletable, Documentable
 
   # Named Scopes
   scope :with_editor, lambda { |arg| where( user_id: arg ) }
@@ -30,14 +30,12 @@ class Tool < ActiveRecord::Base
     User.where( id: self.user_id )
   end
 
-  def editable_by?(current_user)
-    @editable_by ||= begin
-      self.editors.pluck( :id ).include?(current_user.id)
-    end
-  end
-
   def root_folder
     File.join(CarrierWave::Uploader::Base.root, 'tools', (Rails.env.test? ? self.slug : self.id.to_s))
+  end
+
+  def create_page_audit!(current_user, page_path, remote_ip )
+    # self.tool_page_audits.create( user_id: (current_user ? current_user.id : nil), page_path: page_path, remote_ip: remote_ip )
   end
 
 end

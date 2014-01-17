@@ -1,15 +1,3 @@
-<% if false %>
-<div class="page-header">
-  <h1><%= @dataset.name %></h1>
-  <% if current_user and @dataset.editable_by?(current_user) %>
-    <p>
-      <%= link_to "Edit Dataset", edit_dataset_path(@dataset), class: 'btn btn-xs btn-default' %>
-      <%= link_to "Delete Dataset", @dataset, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Dataset #{@dataset.name}?" } if current_user.system_admin? %>
-    </p>
-  <% end %>
-</div>
-<% end %>
-
 <ul class="nav nav-tabs" style="margin-top:20px">
   <li class="<%= 'active' if ['show', 'pages', 'edit_page', 'new_page', 'create_page'].include?(params[:action]) %>">
     <%= link_to @dataset.name, @dataset %>
