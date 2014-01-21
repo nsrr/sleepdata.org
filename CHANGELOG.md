@@ -7,6 +7,7 @@
 
 ### Bug Fix
 - Fixed a bug preventing dataset owners from viewing dataset access requests
+- Fixed `add` button floating lower than intended in some browsers
 
 ## 0.3.0 (January 17, 2014)
 

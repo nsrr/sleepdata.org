@@ -15,8 +15,9 @@
 
   </div>
   <div class="panel-footer" style="font-size:0.8em;height:36px;overflow:hidden;white-space:nowrap">
+    <%= link_to 'add', add_variable_to_list_dataset_path( variable.dataset, variable_id: variable.id ), method: :post, remote: true, class: 'pull-right' if collection %>
+
     <% variable_folder = variable.folder.to_s.split('/').first %>
     <%= link_to variable_folder, collection_path( s: variable_folder, d: dataset_ids ) %>
-    <%= link_to 'add', add_variable_to_list_dataset_path( variable.dataset, variable_id: variable.id ), method: :post, remote: true, class: 'pull-right' if collection %>
   </div>
 </div>
