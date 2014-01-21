@@ -6,13 +6,15 @@
   <% if file_count > 0 %>
     <li class="<%= 'active' if params[:action] == 'files' %>"><%= link_to 'Downloads', files_dataset_path(@dataset) %></li>
   <% end %>
-  <% if current_user and @dataset.editable_by?(current_user) %>
+  <% if current_user and @dataset.editable_by?(current_user) and false %>
     <li class="<%= 'active' if params[:action] == 'audits' %>"><%= link_to 'Audits', audits_dataset_path(@dataset) %></li>
     <li class="<%= 'active' if params[:action] == 'requests' %>"><%= link_to 'Requests', requests_dataset_path(@dataset) %></li>
   <% end %>
 
   <li class="<%= 'active' if params[:action] == 'search' %>"><%= link_to 'Search', search_dataset_path(@dataset, s: params[:s]) %></li>
   <li class="<%= 'active' if params[:action] == 'collection' %>"><%= link_to 'Collection', collection_path(d: @dataset.slug, s: params[:s]) %></li>
+
+<% if false %>
 
   <% if current_user and @dataset.editable_by?(current_user) %>
     <li class="pull-right success">
@@ -47,4 +49,6 @@
       <% end %>
     <% end %>
   <% end %>
+
+<% end %>
 </ul>

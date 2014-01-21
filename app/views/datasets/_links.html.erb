@@ -1,0 +1,6 @@
+<% if current_user and @dataset.editable_by?(current_user) %>
+  <div class="center" style="margin-top:20px">
+    <%= link_to 'Audits', audits_dataset_path(@dataset), class: 'btn btn-xs btn-default' %>
+    <%= link_to 'Requests', requests_dataset_path(@dataset), class: 'btn btn-xs btn-default' %>
+  </div>
+<% end %>
