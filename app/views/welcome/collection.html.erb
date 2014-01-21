@@ -22,57 +22,22 @@
   </h1>
 </div>
 
-<% if false %>
-  <div class="pull-right">
-    <ul class="pagination pagination-sm" style="margin-top:3px;margin-bottom:0px;margin-right:3px">
-      <% page = 0 %>
-      <% objects_per_page = 100 %>
-      <% upto_file_number = objects.count %>
-      <% if page > 0 %>
-        <li><%= link_to '&laquo;'.html_safe, '#', data: { object: 'suppress-click' } %></li>
-      <% else %>
-        <li class="disabled"><span>&laquo;</span></li>
-      <% end %>
-      <li>
-        <span>
-          <b style="font-size:0.95em"><%= number_with_delimiter( page*objects_per_page + 1 ) %> to <%= number_with_delimiter [upto_file_number, objects.count].min %></b>
-          of <%= number_with_delimiter objects.count %>
-        </span>
-      </li>
-      <% if upto_file_number < objects.count %>
-        <li><%= link_to '&raquo;'.html_safe, '#', data: { object: 'suppress-click' } %></li>
-      <% else %>
-        <li class="disabled"><span>&raquo;</span></li>
-      <% end %>
-    </ul>
-  </div>
-<% else %>
-<div class="pull-right">
-  <div class="alert alert-info"><%= pluralize @variables.size, 'search result' %></div>
-  <table>
-    <% @variables.group_by{|v| v.dataset}.sort.each do |dataset, dataset_variables| %>
-      <tr>
-        <td><span class="label" style="background-color:<%= dataset.color %>"><%= dataset.slug %></span></td>
-        <td><%= link_to pluralize( dataset_variables.count, 'result' ), collection_path( s: params[:s], d: dataset.slug ) %></td>
-      </tr>
-    <% end %>
-  </table>
-  <%= link_to 'Show All Datasets', collection_path( s: params[:s] ), class: 'btn btn-xs btn-default' unless params[:d].blank? %>
-  </ul>
-</div>
-<% end %>
-
 <div class="row">
   <div class="col-xs-10" style="min-height:300px">
     <div class="row">
       <div class="col-xs-1">
       </div>
       <div class="col-xs-10">
+
         <div class="row">
-          <% @variables.each do |variable| %>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-              <%= render partial: 'welcome/variable_panel', locals: { variable: variable, collection: true } %>
-            </div>
+          <% if @variables.count > 0 %>
+            <% @variables.each do |variable| %>
+              <div class="col-xs-12 col-sm-6 col-md-3">
+                <%= render partial: 'welcome/variable_panel', locals: { variable: variable, collection: true } %>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="jumbotron">No Variables Found</div>
           <% end %>
         </div>
       </div>
@@ -83,6 +48,27 @@
   </div>
 
   <div class="col-xs-2">
+
+    <div class="panel panel-gold panel-hover">
+      <div class="panel-heading">
+        Commonly Used
+      </div>
+      <div class="panel-body">
+        <div style="font-size:0.8em;">Variables with a gold border are commonly used and recommended over variables with gray borders.</div>
+      </div>
+    </div>
+
+    <div class="alert alert-info"><%= pluralize @variables.size, 'search result' %></div>
+    <table>
+      <% @variables.group_by{|v| v.dataset}.sort.each do |dataset, dataset_variables| %>
+        <tr>
+          <td><span class="label" style="background-color:<%= dataset.color %>"><%= dataset.slug %></span></td>
+          <td><%= link_to pluralize( dataset_variables.count, 'result' ), collection_path( s: params[:s], d: dataset.slug ) %></td>
+        </tr>
+      <% end %>
+    </table>
+    <%= link_to 'Show All Datasets', collection_path( s: params[:s] ), class: 'btn btn-xs btn-default' unless params[:d].blank? %>
+
     <div id="variable_list">
       <%= render partial: 'datasets/variable_list' %>
     </div>
