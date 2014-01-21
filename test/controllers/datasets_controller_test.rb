@@ -5,6 +5,12 @@ class DatasetsControllerTest < ActionController::TestCase
     @dataset = datasets(:public)
   end
 
+  test "should show requests to editor" do
+    login(users(:editor))
+    get :requests, id: @dataset
+    assert_response :success
+  end
+
   test "should add variable to list" do
     assert_difference('List.count') do
       post :add_variable_to_list, id: @dataset, variable_id: variables(:one).id, format: 'js'

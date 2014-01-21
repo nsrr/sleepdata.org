@@ -1,5 +1,8 @@
 ## 0.4.0
 
+### Bug Fix
+- Fixed a bug preventing dataset owners from viewing dataset access requests
+
 ## 0.3.0 (January 17, 2014)
 
 ### Enhancements
