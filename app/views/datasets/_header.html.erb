@@ -11,8 +11,8 @@
     <li class="<%= 'active' if params[:action] == 'requests' %>"><%= link_to 'Requests', requests_dataset_path(@dataset) %></li>
   <% end %>
 
-  <li class="<%= 'active' if params[:action] == 'search' %>"><%= link_to 'Search', search_dataset_path(@dataset, s: params[:s]) %></li>
-  <li class="<%= 'active' if params[:action] == 'collection' %>"><%= link_to 'Collection', collection_path(d: @dataset.slug, s: params[:s]) %></li>
+  <li class="<%= 'active' if params[:action] == 'collection' %>"><%= link_to 'Variables', collection_path(d: @dataset.slug, s: params[:s]) %></li>
+  <% if false %>  <li class="<%= 'active' if params[:action] == 'search' %>"><%= link_to 'Search', search_dataset_path(@dataset, s: params[:s]) %></li><% end %>
 
 <% if false %>
 

@@ -11,7 +11,7 @@
 
 <% if @results.blank? %>
   <div class="jumbotron">
-    To search across the documentation, type your search term in the box above. If you are searching for variables, you will want to view the <%= link_to 'Collection', collection_path(d: @dataset.slug, s: params[:s]) %> instead.
+    To search across the documentation, type your search term in the box above. If you are searching for variables, you will want to view the <%= link_to 'Variables', collection_path(d: @dataset.slug, s: params[:s]) %> instead.
   </div>
 <% else %>
   <table class="table table-striped">

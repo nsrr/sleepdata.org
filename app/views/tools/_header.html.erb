@@ -2,20 +2,4 @@
   <li class="<%= 'active' if ['show', 'pages', 'edit_page', 'new_page', 'create_page'].include?(params[:action]) %>">
     <%= link_to @tool.name, @tool %>
   </li>
-  <% if false %>
-    <% file_count = @tool.indexed_files(nil, 0) %>
-    <% if file_count > 0 %>
-      <li class="<%= 'active' if params[:action] == 'files' %>"><%= link_to 'Downloads', files_tool_path(@tool) %></li>
-    <% end %>
-    <% if current_user and @tool.editable_by?(current_user) %>
-      <li class="<%= 'active' if params[:action] == 'audits' %>"><%= link_to 'Audits', audits_tool_path(@tool) %></li>
-      <li class="<%= 'active' if params[:action] == 'requests' %>"><%= link_to 'Requests', requests_tool_path(@tool) %></li>
-    <% end %>
-  <% end %>
-
-<% if false %>
-  <li class="<%= 'active' if params[:action] == 'search' %>"><%= link_to 'Search', search_tool_path(@tool, s: params[:s]) %></li>
-  <li class="<%= 'active' if params[:action] == 'collection' %>"><%= link_to 'Collection', collection_path(d: @tool.slug, s: params[:s]) %></li>
-<% end %>
-
 </ul>
