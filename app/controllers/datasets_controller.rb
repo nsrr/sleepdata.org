@@ -127,6 +127,7 @@ class DatasetsController < ApplicationController
       @dataset.dataset_file_audits.create( user_id: (current_user ? current_user.id : nil), file_path: @dataset.file_path(file), medium: params[:medium], file_size: File.size(file), remote_ip: request.remote_ip )
       send_file file
     elsif file and File.directory?(file) and @dataset.find_file_folder(params[:path]) == params[:path]
+      store_location_in_session
       render 'files'
     else
       redirect_to files_dataset_path(@dataset, path: @dataset.find_file_folder(params[:path]))

@@ -1,5 +1,9 @@
 ## 0.4.0
 
+### Enhancements
+- Signing in and signing out on the datasets files page now forwards back to the last folder location
+  - This was disabled in previous versions so that file downloads wouldn't trigger after sign in or sign out
+
 ### Bug Fix
 - Fixed a bug preventing dataset owners from viewing dataset access requests
 

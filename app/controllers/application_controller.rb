@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
         !request.fullpath.match("#{request.script_name}/users/sign_out") &&
         !request.fullpath.match("#{request.script_name}/auth/") &&
         !request.xhr?) # don't store ajax calls
-      session[:previous_url] = request.fullpath
+      store_location_in_session
     end
   end
 
@@ -31,6 +31,10 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def store_location_in_session
+    session[:previous_url] = request.fullpath
+  end
 
   def add_list_to_user
     list = List.find_by_id( cookies.signed[:list_id] )
