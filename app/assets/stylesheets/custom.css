@@ -26,8 +26,8 @@
   border: 1px solid #ccc;
 }
 .nav-justified > li > a {
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   color: #777;
   font-weight: bold;
   text-align: center;
@@ -57,6 +57,10 @@
   border-radius: 0 0 5px 5px;
 }
 
+.nav-justified > li > a {
+  margin-bottom: 0px;
+}
+
 @media (min-width: 768px) {
   .nav-justified {
     max-height: 52px;
@@ -64,6 +68,8 @@
   .nav-justified > li > a {
     border-left: 1px solid #fff;
     border-right: 1px solid #d5d5d5;
+    padding-top: 15px;
+    padding-bottom: 15px;
   }
   .nav-justified > li:first-child > a {
     border-left: 0;
