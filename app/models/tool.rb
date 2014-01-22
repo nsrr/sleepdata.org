@@ -10,8 +10,8 @@ class Tool < ActiveRecord::Base
 
   # Model Validation
   validates_presence_of :name, :slug, :user_id
-  validates_uniqueness_of :slug, scope: [ :deleted ]
-  validates_format_of :slug, with: /\A[a-z]\w*\Z/i
+  validates_uniqueness_of :slug, case_sensitive: false, scope: [ :deleted ]
+  validates_format_of :slug, with: /\A[a-z][\w\-]*\Z/i
 
   # Model Relationships
   belongs_to :user
