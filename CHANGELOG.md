@@ -5,6 +5,7 @@
   - This was disabled in previous versions so that file downloads wouldn't trigger after sign in or sign out
 - Datasets header tabs now display `Variables` instead of `Collection` and `Search` has been removed
 - `Variables` section, formerly the `Collection` now displays a note on why certain variables have gold borders
+- Added more descriptive links for datasets and tools
 
 ### Bug Fix
 - Fixed a bug preventing dataset owners from viewing dataset access requests

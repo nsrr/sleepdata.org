@@ -9,8 +9,8 @@
 
 <div class="welcome-box welcome-even">
   <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
-    <h1 style="margin-top:10px">Explore studies.</h1>
-    <p class="lead">Learn more about the individual studies by reading easily navigatable online documentation.</p>
+    <h1 style="margin-top:10px">Explore datasets.</h1>
+    <p class="lead">Learn more about the <%= link_to 'individual datasets', datasets_path %> by reading easily navigatable online documentation.</p>
   </div>
 
   <div class="row" style="margin-top:40px">
@@ -48,7 +48,7 @@
 
   <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
     <h1 style="margin-top:10px">Download the data.</h1>
-    <p class="lead">Explore over <%= pluralize( number_with_delimiter(Variable.count), 'covariate' ) %> across <%= pluralize Dataset.highlighted.count, 'public dataset' %>.</p>
+    <p class="lead">Explore over <%= pluralize( number_with_delimiter(Variable.count), 'covariate' ) %> across <%= link_to pluralize( Dataset.highlighted.count, 'public dataset' ), datasets_path %>.</p>
   </div>
 
   <div class="row" style="margin-top:40px">
@@ -65,8 +65,8 @@
 <div class="welcome-box welcome-even">
 
   <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
-    <h1 style="margin-top:10px">Begin Analysis.</h1>
-    <p class="lead">Analyze and manipulate data using a variety of available tools.</p>
+    <h1 style="margin-top:10px">Begin analysis.</h1>
+    <p class="lead">Analyze and manipulate data using a variety of <%= link_to 'available tools', tools_path %>.</p>
   </div>
 
   <div class="row" style="margin-top:40px">
@@ -101,7 +101,7 @@
 <div class="welcome-box welcome-odd">
 
   <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
-    <h1 style="margin-top:10px">Contact Us.</h1>
+    <h1 style="margin-top:10px">Contact us.</h1>
     <p class="lead">Interested in learning more? Fill out our <%= link_to 'survey here', 'https://sleepepi.partners.org/slice/survey/nsrr-sleepdata', target: '_blank' %>.</p>
   </div>
 
@@ -117,7 +117,5 @@
 
 <div class="modal" id="modal-container">
 </div>
-
-<hr class="soften">
 
 <%= render partial: 'layouts/footer' %>

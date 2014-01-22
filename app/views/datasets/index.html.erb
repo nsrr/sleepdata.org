@@ -20,3 +20,69 @@
 <div id="datasets">
   <%= render partial: 'datasets/datasets' %>
 </div>
+
+<div class="welcome-box welcome-even">
+  <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
+    <h1 style="margin-top:10px">Explore datasets.</h1>
+    <p class="lead">Dive into a dataset's documentation, file downloads, and variable charts and statistics!</p>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title" style="text-align:center">
+            <%= link_to '#', data: { object: 'show-info', target: '#doc-info' } do %>
+              1. Read Documentation <span class="glyphicon glyphicon-book"></span>
+            <% end %>
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title" style="text-align:center">
+            <%= link_to '#', data: { object: 'show-info', target: '#file-info' } do %>
+              2. Download Files <span class="glyphicon glyphicon-save"></span>
+            <% end %>
+          </h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title" style="text-align:center">
+            <%= link_to '#', data: { object: 'show-info', target: '#var-info' } do %>
+              3. Browse Variables <span class="glyphicon glyphicon-stats"></span>
+            <% end %>
+          </h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="doc-info" data-object="info-box" class="welcome-box welcome-odd" style="display:none">
+    <div class="jumbotron" style="margin-bottom:0px;padding:0px 0px 0px 0px">
+      <p>Each dataset provides detailed documentation ranging from an overview, data collection methods, and equipment settings.</p>
+      <%= image_tag( 'project-default-logo.png', style: 'max-width:100%;max-height:140px' ) %>
+    </div>
+  </div>
+
+  <div id="file-info" data-object="info-box" class="welcome-box welcome-odd" style="display:none">
+    <div class="jumbotron" style="margin-bottom:0px;padding:0px 0px 0px 0px">
+      <p>Interested in doing further analysis on existing datasets? Datasets provide a list of data files that can be downloaded to run further analysis using existing <%= link_to 'tools', tools_path %>.</p>
+      <%= image_tag( 'project-default-logo.png', style: 'max-width:100%;max-height:140px' ) %>
+    </div>
+  </div>
+
+  <div id="var-info" data-object="info-box" class="welcome-box welcome-odd" style="display:none">
+    <div class="jumbotron" style="margin-bottom:0px;padding:0px 0px 0px 0px">
+      <p>Browse through variable graphs and statistics. Select variables and download the corresponding covariate dataset and data dictionary.</p>
+      <%= image_tag( 'project-default-logo.png', style: 'max-width:100%;max-height:140px' ) %>
+    </div>
+  </div>
+
+
+</div>
