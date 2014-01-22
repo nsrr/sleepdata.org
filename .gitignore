@@ -33,10 +33,10 @@
 # CarrierWave
 /carrierwave/**/*
 /test/support/uploads/*
-/test/support/datasets/new_dataset/*
+/test/support/datasets/new-dataset/*
 /test/support/datasets/wecare/files/.sleepdata.index
 /test/support/datasets/wecare/files/subfolder/.sleepdata.index
-/test/support/tools/new_tool/*
+/test/support/tools/new-tool/*
 /test/support/agreements/*
 
 # Other Files

@@ -20,7 +20,7 @@ class ToolsControllerTest < ActionController::TestCase
   test "should create tool" do
     login(users(:admin))
     assert_difference('Tool.count') do
-      post :create, tool: { logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), name: @tool.name, slug: 'new_tool', description: @tool.description }
+      post :create, tool: { logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), name: @tool.name, slug: 'new-tool', description: @tool.description }
     end
 
     assert_redirected_to tool_path(assigns(:tool))
@@ -29,7 +29,7 @@ class ToolsControllerTest < ActionController::TestCase
   test "should not create tool with blank name" do
     login(users(:admin))
     assert_difference('Tool.count', 0) do
-      post :create, tool: { logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), name: '', slug: 'new_tool', description: @tool.description }
+      post :create, tool: { logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), name: '', slug: 'new-tool', description: @tool.description }
     end
 
     assert assigns(:tool).errors.size > 0
