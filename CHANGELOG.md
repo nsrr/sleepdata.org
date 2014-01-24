@@ -7,6 +7,7 @@
 - `Variables` section, formerly the `Collection` now displays a note on why certain variables have gold borders
 - Added more descriptive links for datasets and tools
 - Reduced the size of the header bar on smaller screen sizes
+- External links now have different styling from internal links
 - **Gem Changes**
   - Updated to kaminari 0.15.1
 
