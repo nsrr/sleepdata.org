@@ -342,17 +342,17 @@ h2.markdown-header {
 }
 
 
-a[href ^= "http"]:not([href*="sleepdata.org"]) {
+a[href ^= "http"]:not([href*="//sleepdata.org"]) {
   color: #f0ad4e;
   border-color: #eea236;
 }
 
-a[href ^= "http"]:not([href*="sleepdata.org"]):hover {
+a[href ^= "http"]:not([href*="//sleepdata.org"]):hover {
   color: #ed9c28;
   border-color: #d58512;
 }
 
 
-a[href ^= "http"]:not([href*="sleepdata.org"]):after {
+a[href ^= "http"]:not([href*="//sleepdata.org"]):after {
   content: ' »';
 }
