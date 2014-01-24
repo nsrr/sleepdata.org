@@ -68,5 +68,12 @@
     </div>
   </div>
 <% else %>
-  <%= render partial: 'documentation/nodoc' %>
+  <div class="row">
+    <div class="col-sm-9" style="margin-bottom:20px">
+      <%= render partial: 'documentation/nodoc' %>
+    </div>
+    <div class="col-sm-3">
+      <%= render partial: 'documentation/logo_and_admin' %>
+    </div>
+  </div>
 <% end %>

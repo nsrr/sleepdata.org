@@ -1,0 +1,19 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <% unless tool.tool_type.blank? %>
+      <div class="pull-right">
+        <span class="label label-default" style="background-color:<%= Tool.background_color(tool.tool_type) %>;color:<%#= Tool.font_color(tool.tool_type) %>"><%= link_to tool.type_name, tools_path( type: tool.tool_type ) %></span>
+      </div>
+    <% end %>
+    <h3 class="panel-title"><%= link_to tool.name, tool %></h3>
+  </div>
+  <div class="panel-body">
+    <div style="text-align:center;background-color:white;padding-bottom:5px;height:145px;line-height:145px">
+      <% if tool.logo.size > 0 %>
+        <%= link_to image_tag( logo_tool_path(tool), style: 'max-width:100%;max-height:140px' ), tool %>
+      <% else %>
+        <%= link_to image_tag( 'project-default-logo.png', style: 'max-width:100%;max-height:140px' ), tool %>
+      <% end %>
+    </div>
+  </div>
+</div>

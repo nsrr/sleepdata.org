@@ -1,20 +1,7 @@
 <div class="row">
   <% @tools.each do |tool| %>
     <div class="col-xs-12 col-sm-6 col-md-4 ">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          <h3 class="panel-title"><%= link_to tool.name, tool %></h3>
-        </div>
-        <div class="panel-body">
-          <div style="text-align:center;background-color:white;padding-bottom:5px;height:145px;line-height:145px">
-            <% if tool.logo.size > 0 %>
-              <%= link_to image_tag( logo_tool_path(tool), style: 'max-width:100%;max-height:140px' ), tool %>
-            <% else %>
-              <%= link_to image_tag( 'project-default-logo.png', style: 'max-width:100%;max-height:140px' ), tool %>
-            <% end %>
-          </div>
-        </div>
-      </div>
+      <%= render partial: 'tools/panel', locals: { tool: tool } %>
     </div>
   <% end %>
 </div>

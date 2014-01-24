@@ -53,6 +53,13 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :tool_type, nil, class: 'col-md-2 control-label' %>
+    <div class="col-md-10">
+      <%= f.select :tool_type, [['---', nil]] + Tool::TYPE, {}, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
       <%= f.submit nil, class: 'btn btn-primary' %>
       <%= cancel %>

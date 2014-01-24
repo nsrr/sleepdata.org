@@ -8,6 +8,12 @@
 - Added more descriptive links for datasets and tools
 - Reduced the size of the header bar on smaller screen sizes
 - External links now have different styling from internal links
+- **Tool Changes**
+  - Tools can now specify one of the following tool types:
+    - Matlab
+    - R Language
+    - Utility
+    - Web
 - **Gem Changes**
   - Updated to kaminari 0.15.1
 
