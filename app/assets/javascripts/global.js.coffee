@@ -28,6 +28,7 @@
   $("img.lazy").lazyload( effect : "fadeIn" )
   Turbolinks.allowLinkExtensions('md')
   # Turbolinks.enableTransitionCache()
+  prettyPrint()
 
 $(document).ready(ready)
 $(document)
