@@ -12,11 +12,11 @@
   }
 
   .com {
-    color: #800;
+    color: #999; /* Modified #800; */
   }
 
   .typ {
-    color: #4f9fcf; /* #006699; */ /* Modified #606; */
+    color: #4f9fcf; /* Modified #606; */
   }
 
   .lit {
