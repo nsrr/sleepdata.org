@@ -23,7 +23,7 @@ module ApplicationHelper
   def simple_markdown(text, target_blank = true, table_class = '')
     result = ''
     markdown = Redcarpet::Markdown.new( Redcarpet::Render::HTML, no_intra_emphasis: true, fenced_code_blocks: true, autolink: true, strikethrough: true, superscript: true, tables: true )
-    result = markdown.render(replace_numbers_with_ascii(text.to_s))
+    result = markdown.render(text.to_s)
     result = add_table_class(result, table_class) unless table_class.blank?
     result = expand_relative_paths(result)
     result = page_headers(result)
@@ -62,14 +62,6 @@ module ApplicationHelper
 
     def add_table_class(text, table_class)
       text.to_s.gsub(/<table>/, "<table class=\"#{table_class}\">").html_safe
-    end
-
-    def replace_numbers_with_ascii(text)
-      text.gsub(/^[ \t]*(\d)/){|m| ascii_number($1)}
-    end
-
-    def ascii_number(number)
-      "&##{(number.to_i + 48).to_s};"
     end
 
 end

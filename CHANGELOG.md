@@ -8,6 +8,7 @@
 - Added more descriptive links for datasets and tools
 - Reduced the size of the header bar on smaller screen sizes
 - External links now have different styling from internal links
+- Markdown no longer escapes numbers to their ASCII representation re-enabling ordered lists in Markdown
 - **Tool Changes**
   - Tools can now specify one of the following tool types:
     - Matlab
