@@ -47,6 +47,8 @@ class Tool < ActiveRecord::Base
       '#FDC7A1'
     when 'r'
       '#FC9FA1'
+    when 'java'
+      '#FFFFA1'
     when 'utility'
       '#FFFFFF'
     end
