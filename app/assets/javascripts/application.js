@@ -12,4 +12,5 @@
 //
 //= require contour
 //= require turbolinks
+//= require external/prettify
 //= require_tree .
