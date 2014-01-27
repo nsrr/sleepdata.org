@@ -15,6 +15,7 @@
     - Matlab
     - R Language
     - Utility
+    - Java
     - Web
 - **Gem Changes**
   - Updated to kaminari 0.15.1

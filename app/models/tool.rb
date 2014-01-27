@@ -2,7 +2,7 @@ class Tool < ActiveRecord::Base
 
   mount_uploader :logo, ImageUploader
 
-  TYPE = [['Web', 'web'], ['Matlab', 'matlab'], ['R Language', 'r'], ['Utility', 'utility']].sort
+  TYPE = [['Web', 'web'], ['Matlab', 'matlab'], ['R Language', 'r'], ['Java', 'java'], ['Utility', 'utility']].sort
 
   # Concerns
   include Deletable, Documentable
