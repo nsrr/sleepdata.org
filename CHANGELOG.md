@@ -9,6 +9,7 @@
 - Reduced the size of the header bar on smaller screen sizes
 - External links now have different styling from internal links
 - Markdown no longer escapes numbers to their ASCII representation re-enabling ordered lists in Markdown
+- Documentation code fences can now be prettified using `<!--?prettify?-->` immediately before the code fence
 - **Tool Changes**
   - Tools can now specify one of the following tool types:
     - Matlab
