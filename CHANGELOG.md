@@ -17,6 +17,7 @@
     - Utility
     - Java
     - Web
+  - Authors can now be specified for tools
 - **Gem Changes**
   - Updated to kaminari 0.15.1
 
