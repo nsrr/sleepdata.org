@@ -17,14 +17,12 @@
 
 @ready = () ->
   contourReady()
-  $(document).off("click", ".pagination a, .page a, .next a, .prev a")
-  $(document).off("click", ".per_page a")
   $('.file-list-container').scroll( () ->
     setScrollShadow(this)
   )
   setScrollShadow($('.file-list-container'))
   $("[rel=tooltip]").tooltip( trigger: 'hover' )
-  setFocusToField("#collection_form #s, #page_name, #search_form #s")
+  setFocusToField("#collection_form #s, #page_name, #search_form #s, #search")
   $("img.lazy").lazyload( effect : "fadeIn" )
   Turbolinks.allowLinkExtensions('md')
   # Turbolinks.enableTransitionCache()

@@ -8,6 +8,7 @@ valid:
   system_admin: false
   email: valid@example.com
   encrypted_password: ""
+  authentication_token: 36a474715ba310edad629
 
 two:
   first_name: MyString
@@ -24,6 +25,7 @@ admin:
   system_admin: true
   email: admin@example.com
   encrypted_password: ""
+  authentication_token: f84017f13698c6d82459b
 
 deleted:
   first_name: MyString

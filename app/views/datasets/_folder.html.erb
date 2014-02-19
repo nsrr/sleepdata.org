@@ -79,7 +79,7 @@
     </p>
 
     <p>
-      <pre class="code">mkdir<%= mkdir_flags %> <%= mkdir_path %><%= end_statement %> wget -O <%= @local_folder %>/manifest.txt <%= site_prefix %><%= manifest_dataset_path( @dataset, auth_token: (current_user ? current_user.authentication_token : nil ), path: @current_folder ) %><%= end_statement %> wget -P <%= @local_folder %> -c -i <%= @local_folder %>/manifest.txt</pre>
+      <pre class="code">mkdir<%= mkdir_flags %> <%= mkdir_path %><%= end_statement %> wget -O <%= @local_folder %>/manifest.txt <%= site_prefix %><%= manifest_dataset_path( @dataset, auth_token: (current_user ? current_user.id_and_auth_token : nil ), path: @current_folder ) %><%= end_statement %> wget -P <%= @local_folder %> -c -i <%= @local_folder %>/manifest.txt</pre>
     </p>
 
     <div class="alert alert-info"><strong>Don't have GNU Wget?</strong> Install using our <%= link_to 'GNU Wget installation instructions', tool_path( 'wget' ), class: 'alert-link' %>.</div>

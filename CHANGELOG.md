@@ -21,6 +21,7 @@
 - **Gem Changes**
   - Updated to rails 4.0.3
   - Updated to kaminari 0.15.1
+  - Updated to contour 2.4.0.beta3
 
 ### Bug Fix
 - Fixed a bug preventing dataset owners from viewing dataset access requests

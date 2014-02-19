@@ -36,6 +36,7 @@
 /test/support/datasets/new-dataset/*
 /test/support/datasets/wecare/files/.sleepdata.index
 /test/support/datasets/wecare/files/subfolder/.sleepdata.index
+/test/support/datasets/private/files/.sleepdata.index
 /test/support/tools/new-tool/*
 /test/support/agreements/*
 

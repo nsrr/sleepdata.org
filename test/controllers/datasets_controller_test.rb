@@ -143,6 +143,16 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_redirected_to datasets_path
   end
 
+  test "should get files from private dataset as approved user using auth token" do
+    get :files, id: datasets(:private), path: 'HIDDEN_FILE.txt', auth_token: users(:admin).id_and_auth_token
+
+    assert_not_nil response
+    assert_not_nil assigns(:dataset)
+
+    assert_kind_of String, response.body
+    assert_equal File.read(assigns(:dataset).find_file('HIDDEN_FILE.txt')), response.body
+  end
+
   test "should get logo from public dataset as anonymous user" do
     get :logo, id: @dataset
 
@@ -253,6 +263,17 @@ class DatasetsControllerTest < ActionController::TestCase
   test "should get manifest" do
     get :manifest, id: @dataset
     assert_response :success
+  end
+
+  test "should get manifest using auth token" do
+    get :manifest, id: @dataset, auth_token: users(:valid).id_and_auth_token
+    assert_match /#{users(:valid).authentication_token}/, response.body
+    assert_response :success
+  end
+
+  test "should not get private manifest for unapproved user using auth token" do
+    get :manifest, id: datasets(:private), auth_token: users(:valid).id_and_auth_token
+    assert_redirected_to datasets_path
   end
 
   test "should show public dataset to anonymous user" do
@@ -402,7 +423,7 @@ class DatasetsControllerTest < ActionController::TestCase
 
   test "should not update dataset with existing slug" do
     login(users(:editor))
-    patch :update, id: @dataset, dataset: { name: '', description: @dataset.description, public: @dataset.public, slug: 'intheworks' }
+    patch :update, id: @dataset, dataset: { name: '', description: @dataset.description, public: @dataset.public, slug: 'private' }
 
     assert assigns(:dataset).errors.size > 0
     assert_equal ["has already been taken"], assigns(:dataset).errors[:slug]

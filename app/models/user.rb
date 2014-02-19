@@ -2,13 +2,13 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable and :omniauthable
   devise :database_authenticatable, :registerable, :timeoutable,
-         :recoverable, :rememberable, :trackable, :validatable, :token_authenticatable
+         :recoverable, :rememberable, :trackable, :validatable
+
+  # Concerns
+  include Contourable, Deletable, TokenAuthenticatable
 
   # Callbacks
   before_save :ensure_authentication_token
-
-  # Concerns
-  include Contourable, Deletable
 
   # Model Relationships
   has_many :agreements, -> { where deleted: false }
@@ -42,6 +42,10 @@ class User < ActiveRecord::Base
 
   def reverse_name
     "#{last_name}, #{first_name}"
+  end
+
+  def id_and_auth_token
+    "#{self.id}-#{self.authentication_token}"
   end
 
   # Overriding Devise built-in active_for_authentication? method

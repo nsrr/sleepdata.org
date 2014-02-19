@@ -22,7 +22,7 @@ class AgreementsController < ApplicationController
   # GET /agreements
   # GET /agreements.json
   def index
-    @agreements = Agreement.current.order('id').page(params[:page]).per( 20 )
+    @agreements = Agreement.current.order('id').page(params[:page]).per( 40 )
   end
 
   # GET /agreements/1

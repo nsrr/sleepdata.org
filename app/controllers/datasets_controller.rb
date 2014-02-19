@@ -1,4 +1,5 @@
 class DatasetsController < ApplicationController
+  before_action :authenticate_user_from_token!, only: [ :manifest, :files ]
   before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :download_covariates, :new_page, :create_page, :edit_page, :update_page ]
   before_action :check_system_admin,        only: [ :new, :create, :destroy ]
   before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :images, :variable_chart, :files, :pages, :request_access, :search, :add_variable_to_list, :remove_variable_from_list, :download_covariates ]
@@ -102,7 +103,7 @@ class DatasetsController < ApplicationController
   # GET /datasets/1/manifest.txt
   def manifest
     @folder_path = @dataset.find_file_folder(params[:path])
-    render text: @dataset.indexed_files(@folder_path, -1).select{|folder, file_name, is_file, file_size, file_time| is_file}.collect{|folder, file_name, is_file, file_size, file_time| site_prefix + files_dataset_path(@dataset, path: folder, auth_token: (current_user ? current_user.authentication_token : nil ), medium: 'wget')}.join("\n\r")
+    render text: @dataset.indexed_files(@folder_path, -1).select{|folder, file_name, is_file, file_size, file_time| is_file}.collect{|folder, file_name, is_file, file_size, file_time| site_prefix + files_dataset_path(@dataset, path: folder, auth_token: (current_user ? current_user.id_and_auth_token : nil ), medium: 'wget')}.join("\n\r")
   end
 
   def logo
