@@ -19,6 +19,7 @@
     - Web
   - Authors can now be specified for tools
 - **Gem Changes**
+  - Updated to rails 4.0.3
   - Updated to kaminari 0.15.1
 
 ### Bug Fix
