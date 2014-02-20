@@ -1,4 +1,4 @@
-## 0.4.0
+## 0.4.0 (February 20, 2014)
 
 ### Enhancements
 - Signing in and signing out on the datasets files page now forwards back to the last folder location
