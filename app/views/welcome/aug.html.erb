@@ -1,0 +1,16 @@
+<div class="page-header">
+  <h1>Academic User Group Members</h1>
+  <form action="<%= aug_path %>" method="get" id="aug_form" class="form-inline" >
+    <%= text_field_tag 's', params[:s], class: 'form-control' %>
+    <%= link_to 'Search', '#', class: 'btn btn-primary', data: { object: 'submit', target: '#aug_form' } %>
+  </form>
+</div>
+
+<div class="row">
+  <% @users.each do |user| %>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+      <%= render partial: 'user_panel', locals: { user: user } %>
+    </div>
+  <% end %>
+</div>
+<div class="center"><%= paginate @users, theme: "contour" %></div>

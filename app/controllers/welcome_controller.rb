@@ -4,6 +4,25 @@ class WelcomeController < ApplicationController
 
   def whatsmyip
   end
+  
+  def aug
+    unless params[:s].blank?
+      @tokens = params[:s].to_s.gsub(',', ' ').split(/\s+/).collect{|l| l.to_s.gsub(/[^\w\d%]/, '')}
+      if @tokens.size == 1
+        s = params[:s] = @tokens.first
+        user_scope = User.current.where("first_name ~* ? or last_name ~* ?", "(\\m#{s})", "(\\m#{s})")
+      elsif @tokens.size == 2
+        s1 = @tokens[0]
+        s2 = @tokens[1]
+        user_scope = User.where("(first_name ~* ? and last_name ~* ?) or (last_name ~* ? and first_name ~* ?)", "(\\m#{s1})", "(\\m#{s2})", "(\\m#{s1})", "(\\m#{s2})")
+      else 
+        user_scope = User.where('false')
+      end 
+    else
+      user_scope = User.current
+    end
+    @users = user_scope.order(:last_name).page(params[:page]).per( 20 )
+  end
 
   def collection
     dataset_scope = if current_user
