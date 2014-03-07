@@ -3,7 +3,7 @@
 ### Enhancements
 - Use of Ruby 2.1.1 is now recommended
 - **Gem Changes**
-  - Updated to contour 2.4.0.rc
+  - Updated to contour 2.4.0.rc2
 
 ## 0.4.0 (February 20, 2014)
 
