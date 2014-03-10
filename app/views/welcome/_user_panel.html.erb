@@ -1,19 +1,9 @@
 <div style="height:190px;overflow:hidden;margin:10px;">
   <p>
     <%= image_tag user.avatar_url(80, ''), class: 'img-rounded', style: 'float:left;margin-right:15px;' %>
-    <%= link_to user.name, user.webpage.blank? ? '#' : user.webpage, target: '_blank' %><br>
-    <% unless user.title.blank? %>
-      <%= user.title %><br>
-    <% end %>
-    <% unless user.institution.blank? %>
-      <%= user.institution %><br>
-    <% end %>
-
-    <!-- <a class="btn btn-default" href="#">More details here »</a> -->
-  </p>
-  <div style="clear:both;padding-top:10px;">
+    <span style="font-size:16px;color:#428BCA;"><%= user.name %></span>
     <%= simple_markdown user.research_summary %>
-  </div>
+  </p>
 </div>
 
 
