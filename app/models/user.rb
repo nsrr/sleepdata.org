@@ -9,6 +9,13 @@ class User < ActiveRecord::Base
 
   # Callbacks
   before_save :ensure_authentication_token
+  after_create :notify_system_admins
+
+  # Named Scopes
+  scope :system_admins, -> { where( system_admin: true, deleted: false ) }
+
+  # Model Validation
+  validates_presence_of :first_name, :last_name
 
   # Model Relationships
   has_many :agreements, -> { where deleted: false }
@@ -64,6 +71,14 @@ class User < ActiveRecord::Base
       self.last_name = omniauth['info']['last_name'] if last_name.blank?
     end
     super
+  end
+
+  private
+
+  def notify_system_admins
+    User.system_admins.each do |system_admin|
+      UserMailer.notify_system_admin(system_admin, self).deliver if Rails.env.production?
+    end
   end
 
 end

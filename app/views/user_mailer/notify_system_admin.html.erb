@@ -1,0 +1,9 @@
+Hello <%= @system_admin.first_name %>,<br />
+<br />
+<%= @user.name %> [<%= @user.email %>] has signed up for an account.<br />
+<br />
+You can review the user account here: <%= link_to "#{SITE_URL}/users/#{@user.id}", "#{SITE_URL}/users/#{@user.id}" %><br />
+<br />
+Thank you!<br />
+<br />
+<%= DEFAULT_APP_NAME %>

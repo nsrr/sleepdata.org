@@ -20,6 +20,10 @@ module ApplicationHelper
     "#{SITE_URL.split('//').first}//#{SITE_URL.split('//').last.split('/').first}"
   end
 
+  def simple_check(checked)
+    checked ? '<span class="glyphicon glyphicon-ok"></span>'.html_safe : ''
+  end
+
   def simple_markdown(text, target_blank = true, table_class = '')
     result = ''
     markdown = Redcarpet::Markdown.new( Redcarpet::Render::HTML, no_intra_emphasis: true, fenced_code_blocks: true, autolink: true, strikethrough: true, superscript: true, tables: true )
