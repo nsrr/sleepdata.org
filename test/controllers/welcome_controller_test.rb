@@ -3,12 +3,14 @@ require 'test_helper'
 SimpleCov.command_name "test:controllers"
 
 class WelcomeControllerTest < ActionController::TestCase
+
   test "should get aug" do
     get :aug
     assert_not_nil assigns(:users)
+    assert_equal 1, assigns(:users).count
     assert_response :success
   end
-  
+
   test "should get collection" do
     get :collection
     assert_not_nil assigns(:datasets)

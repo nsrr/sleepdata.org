@@ -12,7 +12,8 @@ class User < ActiveRecord::Base
   after_create :notify_system_admins
 
   # Named Scopes
-  scope :system_admins, -> { where( system_admin: true, deleted: false ) }
+  scope :aug_members, -> { current.where( aug_member: true ) }
+  scope :system_admins, -> { current.where( system_admin: true ) }
 
   # Model Validation
   validates_presence_of :first_name, :last_name

@@ -6,6 +6,7 @@
       <th style="white-space:nowrap">Name</th>
       <th style="white-space:nowrap">Email</th>
       <th style="white-space:nowrap">Recent Activity</th>
+      <th style="white-space:nowrap">AUG Member</th>
       <% if current_user.system_admin? %>
         <th style="white-space:nowrap">System Admin</th>
         <th></th>
@@ -15,9 +16,10 @@
 
   <% @users.each do |user| %>
     <tr>
-      <td><%= image_tag user.avatar_url(18), style: 'vertical-align:text-bottom' %> <%= link_to user.name, user %></td>
+      <td><%= image_tag user.avatar_url(18), style: 'vertical-align:text-bottom;min-width:18px' %> <%= link_to user.name, user %></td>
       <td><%= user.email %></td>
       <td><% if user.current_sign_in_at %><%= time_ago_in_words(user.current_sign_in_at) %> ago<% end %></td>
+      <td style="text-align:center"><%= simple_check user.aug_member? %></td>
       <% if current_user.system_admin? %>
         <td style="text-align:center"><%= simple_check user.system_admin? %></td>
         <td>

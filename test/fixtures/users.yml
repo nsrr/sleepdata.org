@@ -41,13 +41,13 @@ editor:
   last_name: EditorLast
   email: editor@example.com
   encrypted_password: ""
-  
-# An AUG member  
+
+# An AUG member
 aug:
-  first_name: MyString
-  last_name: MyString
+  first_name: AUG
+  last_name: Member
   deleted: false
+  aug_member: true
   system_admin: false
   email: aug@example.com
   encrypted_password: ""
-  aug_member: true

@@ -13,6 +13,12 @@
   <dt>Email</dt>
   <dd><%= @user.email %></dd>
 
+  <dt>AUG Member</dt>
+  <dd><%= simple_check @user.aug_member? %></dd>
+
+  <dt>Research Summary</dt>
+  <dd><%= simple_markdown @user.research_summary %></dd>
+
   <% if current_user.system_admin? %>
     <dt>System Admin</dt>
     <dd><%= simple_check @user.system_admin? %></dd>
