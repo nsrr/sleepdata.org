@@ -6,7 +6,7 @@
   </div>
   <div class="panel-body" style="height:150px;overflow:hidden" data-basename="<%= variable.name %>" data-slug="<%= variable.dataset.slug %>" data-d="<%= dataset_ids %>">
     <center>
-      <% if File.file?( File.join( variable.dataset.root_folder, "dd", "pngs", "#{variable.name}.png") ) %>
+      <% if File.file?( File.join( variable.dataset.root_folder, 'dd', 'graphs', "#{variable.name}.png") ) %>
         <img class="lazy" data-original="<%= variable_chart_dataset_path(variable.dataset, name: variable.name) %>" width="75" height="50" style="max-width: 100%;max-height:50px;display:block">
         <%#= image_tag variable_chart_dataset_path(variable.dataset, name: variable.name), style: 'max-width: 100%;max-height:50px;display:block' %>
       <% end %>

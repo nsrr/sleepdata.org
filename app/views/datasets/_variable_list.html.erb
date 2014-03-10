@@ -14,7 +14,7 @@
           <% if false %>
             <span class="label" style="background-color:<%= variable.dataset.color %>"><%= variable.dataset.slug %></span>
           <% end %>
-          <% if File.file?( File.join( variable.dataset.root_folder, "dd", "pngs", "#{variable.name}.png") ) %>
+          <% if File.file?( File.join( variable.dataset.root_folder, 'dd', 'graphs', "#{variable.name}.png") ) %>
             <%= image_tag variable_chart_dataset_path(variable.dataset, name: variable.name), style: 'max-width: 100%;max-height:25px' %>
           <% end %>
         </div>
