@@ -1,0 +1,12 @@
+<div class="page-header">
+  <h1>Academic User Group Members</h1>
+</div>
+
+<div class="row">
+  <% @users.each do |user| %>
+    <div class="col-xs-12 col-sm-6 col-md-6">
+      <%= render partial: 'user_panel', locals: { user: user } %>
+    </div>
+  <% end %>
+</div>
+<div class="center"><%= paginate @users, theme: "contour" %></div>

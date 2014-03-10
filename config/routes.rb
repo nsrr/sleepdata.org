@@ -50,6 +50,7 @@ WwwSleepdataOrg::Application.routes.draw do
 
   get 'welcome/index'
   get '/about' => 'welcome#about', as: :about
+  get '/about/aug' => 'welcome#aug', as: :aug
   get '/contact' => 'welcome#contact', as: :contact
   get '/whatsmyip' => 'welcome#whatsmyip', as: :whatsmyip
   get '/collection' => 'welcome#collection', as: :collection
