@@ -1,5 +1,4 @@
 <div class="page-header">
-
   <h1>About the National Sleep Research Resource <%= link_to '<span class="glyphicon glyphicon-th"></span>'.html_safe, '#', data: { object: 'toggle-about-view' }, class: 'btn btn-sm btn-default' %></h1>
 </div>
 
@@ -147,6 +146,25 @@
   </div>
 </div>
 
+<% @users = User.where( last_name: %w(Mobley Dean Zhang Kim Jayapandian Cui Kaffashi Rueschman Surovec Mueller Sahoo Gleason Costa Goldberger Redline) ).order( :last_name, :first_name ) %>
+
+<% first_half = @users.collect.with_index{|u, i| [u, i]}.select{|u, i| i < (@users.size + 1) / 2 }.collect{|u, i| u} %>
+<% second_half = @users.collect.with_index{|u, i| [u, i]}.select{|u, i| i >= (@users.size + 1) / 2 }.collect{|u, i| u} %>
+
+<div class="row">
+  <div class="col-xs-12 col-sm-6">
+    <% first_half.each do |user| %>
+      <%= render partial: 'user_panel', locals: { user: user } %>
+    <% end %>
+  </div>
+
+  <div class="col-xs-12 col-sm-6">
+    <% second_half.each do |user| %>
+      <%= render partial: 'user_panel', locals: { user: user } %>
+    <% end %>
+  </div>
+</div>
+
 <hr class="soften" />
 
 <div class="center">
@@ -154,7 +172,7 @@
     The National Sleep Research Resource (NSRR) is funded by the NIH National Heart, Lung, and Blood Institute.
   </p>
   <p class="lead">
-    An interdisciplinary group, including sleep physicians, informaticians, mathematicians, and other research staff are working to build the NSRR.
+    An interdisciplinary group, including sleep physicians, informaticians, mathematicians, and other research staff are working to build the NSRR, alongside a highly talented <%= link_to 'Academic User Group', aug_path %>.
   </p>
 </div>
 

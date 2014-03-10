@@ -19,7 +19,6 @@
     <%= javascript_tag "var root_url='#{request.script_name + '/'}';var auth_token='#{form_authenticity_token}';" %>
   </head>
   <body data-spy="scroll" data-target=".bs-sidebar">
-
     <div class="container" style="margin-top:0px">
       <div class="pull-left" style="font-size:1.5em;margin-top:-50px;">
         <%= link_to image_tag('nsrr_logo_64.png', size: '32x32', alt: 'NSRR'), root_path %>
@@ -40,7 +39,7 @@
         <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to 'Home', root_path %></li>
         <li class="<%= 'active' if params[:controller] == 'datasets' or params[:action] == 'collection' %>"><%= link_to 'Datasets', datasets_path %></li>
         <li class="<%= 'active' if params[:controller] == 'tools' %>"><%= link_to 'Tools', tools_path %></li>
-        <li class="<%= 'active' if current_page?(about_path) %>"><%= link_to 'About', about_path %></li>
+        <li class="<%= 'active' if current_page?(about_path) or current_page?(aug_path) %>"><%= link_to 'About', about_path %></li>
       </ul>
 
       <div class="collapse navbar-collapse" style="margin-right: -15px;margin-left: -15px;">
@@ -48,7 +47,7 @@
           <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to 'Home', root_path %></li>
           <li class="<%= 'active' if params[:controller] == 'datasets' or params[:action] == 'collection' %>"><%= link_to 'Datasets', datasets_path %></li>
           <li class="<%= 'active' if params[:controller] == 'tools' %>"><%= link_to 'Tools', tools_path %></li>
-          <li class="<%= 'active' if current_page?(about_path) %>"><%= link_to 'About', about_path %></li>
+          <li class="<%= 'active' if current_page?(about_path) or current_page?(aug_path) %>"><%= link_to 'About', about_path %></li>
         </ul>
       </div>
 
