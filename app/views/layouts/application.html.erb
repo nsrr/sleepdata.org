@@ -23,7 +23,7 @@
     <div class="container" style="margin-top:0px">
       <div class="pull-left" style="font-size:1.5em;margin-top:-50px;">
         <%= link_to image_tag('nsrr_logo_64.png', size: '32x32', alt: 'NSRR'), root_path %>
-        <% if current_user %><%= image_tag(current_user.avatar_url(26, "blank"), class: 'img-thumbnail') %><% end %>
+        <% if current_user %><%= image_tag(current_user.avatar_url(26, "identicon"), class: 'img-thumbnail') %><% end %>
       </div>
       <div class="pull-right" style="font-weight:300;font-size:1.5em;margin-top:-50px;">
       <% if current_user %>
