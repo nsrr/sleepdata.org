@@ -4,6 +4,10 @@ class WelcomeController < ApplicationController
 
   def whatsmyip
   end
+  
+  def aug
+    @users = User.current.where( aug_member: true).order(:last_name).page(params[:page]).per( 40 )
+  end
 
   def collection
     dataset_scope = if current_user

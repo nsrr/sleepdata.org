@@ -1,0 +1,11 @@
+<div style="height:190px;overflow:hidden;margin:10px;">
+  <p>
+    <%= image_tag user.avatar_url(80, ''), class: 'img-rounded', style: 'float:left;margin-right:15px;' %>
+    <span style="font-size:16px;color:#428BCA;"><%= user.name %></span>
+    <%= simple_markdown user.research_summary %>
+  </p>
+</div>
+
+
+
+
