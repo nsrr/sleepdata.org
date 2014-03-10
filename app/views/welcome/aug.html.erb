@@ -19,4 +19,19 @@
   </div>
 </div>
 
-<div class="center"><%= paginate @users, theme: "contour" %></div>
+<hr class="soften" />
+
+<div class="center">
+  <p class="lead">
+    The National Sleep Research Resource (NSRR) is funded by the NIH National Heart, Lung, and Blood Institute.
+  </p>
+  <p class="lead">
+    A list of core NSRR team members can be seen here: <%= link_to 'About NSRR', about_path %>
+  </p>
+</div>
+
+<div class="center" style="margin-top:60px">
+  <%= image_tag 'nsrr_logo_256.png', size: '256x256', alt: 'NSRR' %>
+</div>
+
+<%= render partial: 'layouts/footer' %>

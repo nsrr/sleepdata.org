@@ -6,7 +6,7 @@ class WelcomeController < ApplicationController
   end
 
   def aug
-    @users = User.aug_members.order(:last_name, :first_name).page(params[:page]).per( 40 )
+    @users = User.aug_members.order(:last_name, :first_name)
   end
 
   def collection
