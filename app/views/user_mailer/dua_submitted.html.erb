@@ -1,0 +1,9 @@
+Hello <%= @system_admin.first_name %>,<br />
+<br />
+<%= @agreement.user.name %> [<%= @agreement.user.email %>] has submitted a Data Use Agreement.<br />
+<br />
+You can review the Data Use Agreement here: <%= link_to "#{SITE_URL}/agreements/#{@agreement.id}", "#{SITE_URL}/agreements/#{@agreement.id}" %><br />
+<br />
+Thank you!<br />
+<br />
+<%= DEFAULT_APP_NAME %>

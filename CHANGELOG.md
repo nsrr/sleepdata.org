@@ -2,6 +2,7 @@
 
 ### Enhancements
 - New sign ups can now be reviewed by system administrators
+- Emails are sent to system administrators when DUAs are submitted
 - Added Academic User Group page and added research summary for AUG Members
 - Use of Ruby 2.1.1 is now recommended
 - **Gem Changes**

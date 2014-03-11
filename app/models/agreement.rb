@@ -9,6 +9,9 @@ class Agreement < ActiveRecord::Base
   # Concerns
   include Deletable
 
+  # Callbacks
+  after_create :dua_submitted
+
   # Model Validation
   validates_presence_of :dua, :user_id
 
@@ -33,6 +36,14 @@ class Agreement < ActiveRecord::Base
     self.history << { message: message, user_id: current_user.id, event_at: Time.now, status: status }
     self.status = status
     self.save
+  end
+
+  private
+
+  def dua_submitted
+    User.system_admins.each do |system_admin|
+      UserMailer.dua_submitted(system_admin, self).deliver if Rails.env.production?
+    end
   end
 
 end
