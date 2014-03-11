@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   scope :aug_members, -> { current.where( aug_member: true ) }
   scope :core_members, -> { current.where( core_member: true ) }
   scope :system_admins, -> { current.where( system_admin: true ) }
+  scope :search, lambda { |arg| where( 'LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ) }
 
   # Model Validation
   validates_presence_of :first_name, :last_name

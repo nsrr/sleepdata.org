@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_action :redirect_without_user, only: [ :show, :edit, :update, :destroy ]
 
   def index
-    @users = User.current.order(current_sign_in_at: :desc).page(params[:page]).per( 40 )
+    @users = User.current.search(params[:search]).order(current_sign_in_at: :desc).page(params[:page]).per( 40 )
   end
 
   def edit
