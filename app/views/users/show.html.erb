@@ -13,6 +13,9 @@
   <dt>Email</dt>
   <dd><%= @user.email %></dd>
 
+  <dt>Core Team Member</dt>
+  <dd><%= simple_check @user.core_member? %></dd>
+
   <dt>AUG Member</dt>
   <dd><%= simple_check @user.aug_member? %></dd>
 

@@ -2,6 +2,7 @@
   <h1>About the National Sleep Research Resource <%= link_to '<span class="glyphicon glyphicon-th"></span>'.html_safe, '#', data: { object: 'toggle-about-view' }, class: 'btn btn-sm btn-default' %></h1>
 </div>
 
+<% if false %>
 <div id="about-list-view">
 
   <div class="page-header">
@@ -146,7 +147,9 @@
   </div>
 </div>
 
-<% @users = User.where( last_name: %w(Mobley Dean Zhang Kim Jayapandian Cui Kaffashi Rueschman Surovec Mueller Sahoo Gleason Costa Goldberger Redline) ).order( :last_name, :first_name ) %>
+<% end %>
+
+<% @users = User.core_members.order( :last_name, :first_name ) %>
 
 <% first_half = @users.collect.with_index{|u, i| [u, i]}.select{|u, i| i < (@users.size + 1) / 2 }.collect{|u, i| u} %>
 <% second_half = @users.collect.with_index{|u, i| [u, i]}.select{|u, i| i >= (@users.size + 1) / 2 }.collect{|u, i| u} %>

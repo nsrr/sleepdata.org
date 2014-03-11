@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
 
   # Named Scopes
   scope :aug_members, -> { current.where( aug_member: true ) }
+  scope :core_members, -> { current.where( core_member: true ) }
   scope :system_admins, -> { current.where( system_admin: true ) }
 
   # Model Validation
