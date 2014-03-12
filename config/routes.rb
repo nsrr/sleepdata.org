@@ -35,6 +35,7 @@ WwwSleepdataOrg::Application.routes.draw do
 
   resources :tools do
     member do
+      get :sync
       get :logo
 
       get "images/*path", action: 'images', as: :images, format: false
