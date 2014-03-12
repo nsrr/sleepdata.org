@@ -8,7 +8,7 @@ module Gitable
   def retrieve_commit_number(reference)
     command = "git #{working_tree} rev-parse #{reference}"
     status, stdout, stderr =  systemu command
-    commit = (stdout.match(/[0-9a-f]{40}/)[0] rescue nil)
+    commit = (stdout.match(/[0-9a-f]{40}/)[0] rescue '')
   end
 
   def local_commit
@@ -23,7 +23,7 @@ module Gitable
   def remote_commit
     remote = "git #{working_tree} ls-remote #{remote_url} HEAD"
     status, stdout, stderr =  systemu remote
-    commit = (stdout.match(/[0-9a-f]{40}/)[0] rescue nil)
+    commit = (stdout.match(/[0-9a-f]{40}/)[0] rescue '')
   end
 
   def requires_update?
