@@ -18,20 +18,21 @@
 
 <% end %>
 
+<% local_commit = @object.local_commit %>
+<% remote_commit = @object.remote_commit %>
+<% remote_url = @object.remote_url %>
 
-<% if @object.requires_update? %>
+<% if local_commit != remote_commit %>
   <div class="panel panel-warning" style="margin-top:20px">
     <div class="panel-heading">
       <h3 class="panel-title">Not up-to-date.</h3>
     </div>
     <div class="panel-body">
-      <%= systemu('whoami')[1] %><br />
-      <% compare_string = "#{@object.local_commit[0..5]}...#{@object.remote_commit[0..5]}" %>
-      <%= link_to "#{compare_string}" , @object.remote_url.gsub(/\.git$/, '') + "/compare/#{compare_string}", target: '_blank', class: 'btn btn-xs btn-default' %>
+      <% compare_string = "#{local_commit[0..5]}...#{remote_commit[0..5]}" %>
+      <%= link_to "#{compare_string}" , remote_url.gsub(/\.git$/, '') + "/compare/#{compare_string}", target: '_blank', class: 'btn btn-xs btn-default' %>
       <%= link_to "Sync Repository", pull_changes_path, method: :post, class: 'btn btn-success btn-xs' %>
       <br /><br />
-      <pre><%= @object.working_tree %></pre>
-      <pre><%= @object.remote_url %></pre>
+      <pre><%= remote_url %></pre>
     </div>
   </div>
 <% else %>
@@ -40,12 +41,11 @@
       <h3 class="panel-title">Already up-to-date.</h3>
     </div>
     <div class="panel-body">
-      <% compare_string = "#{@object.local_commit[0..5]}...master" %>
-      <%= link_to "#{compare_string}" , @object.remote_url.gsub(/\.git$/, '') + "/compare/#{compare_string}", target: '_blank', class: 'btn btn-xs btn-default' %>
+      <% compare_string = "#{local_commit[0..5]}...master" %>
+      <%= link_to "#{compare_string}" , remote_url.gsub(/\.git$/, '') + "/compare/#{compare_string}", target: '_blank', class: 'btn btn-xs btn-default' %>
       <%= link_to "Sync Repository", pull_changes_path, method: :post, class: 'btn btn-success btn-xs' %>
       <br /><br />
-      <pre><%= @object.working_tree %></pre>
-      <pre><%= @object.remote_url %></pre>
+      <pre><%= remote_url %></pre>
     </div>
   </div>
 <% end %>
