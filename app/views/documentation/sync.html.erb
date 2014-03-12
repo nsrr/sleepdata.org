@@ -3,36 +3,22 @@
 <%= render partial: 'datasets/header' %>
 
 <% if @object.class == Dataset %>
-
-  <% logo_path = logo_dataset_path(@object) %>
-  <% edit_path = edit_dataset_path(@object) %>
-  <% author_path = datasets_path( author: @object.try(:author) ) %>
   <% pull_changes_path = pull_changes_dataset_path(@object) %>
-
 <% else %>
-
-  <% logo_path = logo_tool_path(@object) %>
-  <% edit_path = edit_tool_path(@object) %>
-  <% author_path = tools_path( author: @object.author ) %>
   <% pull_changes_path = pull_changes_tool_path(@object) %>
-
 <% end %>
 
-<% local_commit = @object.local_commit %>
-<% remote_commit = @object.remote_commit %>
-<% remote_url = @object.remote_url %>
-
-<% if local_commit != remote_commit %>
+<% if @local_commit != @remote_commit %>
   <div class="panel panel-warning" style="margin-top:20px">
     <div class="panel-heading">
       <h3 class="panel-title">Not up-to-date.</h3>
     </div>
     <div class="panel-body">
-      <% compare_string = "#{local_commit[0..5]}...#{remote_commit[0..5]}" %>
-      <%= link_to "#{compare_string}" , remote_url.gsub(/\.git$/, '') + "/compare/#{compare_string}", target: '_blank', class: 'btn btn-xs btn-default' %>
+      <% compare_string = "#{@local_commit[0..5]}...#{@remote_commit[0..5]}" %>
+      <%= link_to "#{compare_string}" , @remote_url.gsub(/\.git$/, '') + "/compare/#{compare_string}", target: '_blank', class: 'btn btn-xs btn-default' %>
       <%= link_to "Sync Repository", pull_changes_path, method: :post, class: 'btn btn-success btn-xs' %>
       <br /><br />
-      <pre><%= remote_url %></pre>
+      <pre><%= @remote_url %></pre>
     </div>
   </div>
 <% else %>
@@ -41,11 +27,11 @@
       <h3 class="panel-title">Already up-to-date.</h3>
     </div>
     <div class="panel-body">
-      <% compare_string = "#{local_commit[0..5]}...master" %>
-      <%= link_to "#{compare_string}" , remote_url.gsub(/\.git$/, '') + "/compare/#{compare_string}", target: '_blank', class: 'btn btn-xs btn-default' %>
+      <% compare_string = "#{@local_commit[0..5]}...master" %>
+      <%= link_to "#{compare_string}" , @remote_url.gsub(/\.git$/, '') + "/compare/#{compare_string}", target: '_blank', class: 'btn btn-xs btn-default' %>
       <%= link_to "Sync Repository", pull_changes_path, method: :post, class: 'btn btn-success btn-xs' %>
       <br /><br />
-      <pre><%= remote_url %></pre>
+      <pre><%= @remote_url %></pre>
     </div>
   </div>
 <% end %>
