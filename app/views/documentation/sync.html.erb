@@ -1,10 +1,10 @@
 <% @title = @dataset.name %>
 
-<%= render partial: 'datasets/header' %>
-
 <% if @object.class == Dataset %>
+  <%= render partial: 'datasets/header' %>
   <% pull_changes_path = pull_changes_dataset_path(@object) %>
 <% else %>
+  <%= render partial: 'tools/header' %>
   <% pull_changes_path = pull_changes_tool_path(@object) %>
 <% end %>
 
