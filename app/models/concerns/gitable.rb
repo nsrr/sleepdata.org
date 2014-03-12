@@ -15,7 +15,9 @@ module Gitable
 
   def remote_commit
     FileUtils.cd(root_folder)
-    stdout = `git ls-remote #{remote_url} HEAD` rescue stdout = ''
+    command = "git ls-remote #{remote_url} HEAD"
+    Rails.logger.info command
+    stdout = `#{command}` rescue stdout = ''
     commit = (stdout.match(/[0-9a-f]{40}/)[0] rescue '')
   end
 
