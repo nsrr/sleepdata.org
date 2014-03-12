@@ -17,7 +17,7 @@ module Gitable
 
   def remote_url
     status, stdout, stderr =  systemu "git #{working_tree} ls-remote --get-url"
-    stdout.gsub('git@github.com:', 'https://github.com/')
+    stdout.gsub('git@github.com:', 'https://github.com/').strip
   end
 
   def remote_commit
