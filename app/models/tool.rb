@@ -5,7 +5,7 @@ class Tool < ActiveRecord::Base
   TYPE = [['Web', 'web'], ['Matlab', 'matlab'], ['R Language', 'r'], ['Java', 'java'], ['Utility', 'utility']].sort
 
   # Concerns
-  include Deletable, Documentable
+  include Deletable, Documentable, Gitable
 
   # Named Scopes
   scope :with_editor, lambda { |arg| where( user_id: arg ) }

@@ -2,8 +2,8 @@ module Pageable
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_object,                only: [ :new_page, :create_page, :edit_page, :update_page, :show, :pages, :images, :requests ]
-    before_action :redirect_without_object,   only: [ :new_page, :create_page, :edit_page, :update_page, :show, :pages, :images, :requests ]
+    before_action :set_object,                only: [ :new_page, :create_page, :edit_page, :update_page, :show, :pages, :images, :requests, :pull_changes ]
+    before_action :redirect_without_object,   only: [ :new_page, :create_page, :edit_page, :update_page, :show, :pages, :images, :requests, :pull_changes ]
     before_action :set_page_path,             only: [ :new_page, :create_page, :edit_page, :update_page, :show, :pages ]
   end
 
@@ -78,6 +78,11 @@ module Pageable
     else
       render nothing: true
     end
+  end
+
+  def pull_changes
+    @object.pull_latest!
+    redirect_to @object
   end
 
   private

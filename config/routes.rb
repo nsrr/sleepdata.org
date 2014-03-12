@@ -28,6 +28,7 @@ WwwSleepdataOrg::Application.routes.draw do
       get "new_page(/*path)", action: 'new_page', as: :new_page, format: false
       post "create_page(/*path)", action: 'create_page', as: :create_page, format: false
       patch "update_page/*path", action: 'update_page', as: :update_page, format: false
+      post :pull_changes
     end
   end
 
@@ -41,6 +42,7 @@ WwwSleepdataOrg::Application.routes.draw do
       get "new_page(/*path)", action: 'new_page', as: :new_page, format: false
       post "create_page(/*path)", action: 'create_page', as: :create_page, format: false
       patch "update_page/*path", action: 'update_page', as: :update_page, format: false
+      post :pull_changes
     end
   end
 

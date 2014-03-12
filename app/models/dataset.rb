@@ -5,7 +5,7 @@ class Dataset < ActiveRecord::Base
   mount_uploader :logo, ImageUploader
 
   # Concerns
-  include Deletable, Documentable
+  include Deletable, Documentable, Gitable
 
   # Named Scopes
   scope :highlighted, -> { current.where( public: true, slug: ['shhs', 'chat', 'bestair'] ) }
