@@ -90,6 +90,8 @@ module Pageable
     @remote_commit = @object.remote_commit
     @remote_url = @object.remote_url
 
+    sleep(5)
+
     render 'documentation/sync'
   end
 
