@@ -37,17 +37,17 @@ class Agreement < ActiveRecord::Base
 
   def add_event!(message, current_user, status)
     self.history << { message: message, user_id: current_user.id, event_at: Time.now, status: status }
-    self.status = status if status
+    self.status = status
     self.save
   end
 
   def dua_approved_email(current_user)
-    self.add_event!('Data Use Agreement approved.', current_user, nil)
+    self.add_event!('Data Use Agreement approved.', current_user, 'approved')
     UserMailer.dua_approved(self, current_user).deliver if Rails.env.production?
   end
 
   def sent_back_for_resubmission_email(current_user)
-    self.add_event!('Data Use Agreement sent back for resubmission.', current_user, nil)
+    self.add_event!('Data Use Agreement sent back for resubmission.', current_user, 'resubmit')
     UserMailer.sent_back_for_resubmission(self, current_user).deliver if Rails.env.production?
   end
 
