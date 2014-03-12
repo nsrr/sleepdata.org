@@ -9,6 +9,7 @@ WwwSleepdataOrg::Application.routes.draw do
 
   resources :datasets do
     member do
+      get :sync
       get :logo
       get :variable_chart
       get :audits

@@ -1,10 +1,10 @@
 class DatasetsController < ApplicationController
   before_action :authenticate_user_from_token!, only: [ :manifest, :files ]
-  before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :download_covariates, :new_page, :create_page, :edit_page, :update_page, :pull_changes ]
-  before_action :check_system_admin,        only: [ :new, :create, :destroy, :pull_changes ]
+  before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :download_covariates, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
+  before_action :check_system_admin,        only: [ :new, :create, :destroy, :pull_changes, :sync ]
   before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :images, :variable_chart, :files, :pages, :request_access, :search, :add_variable_to_list, :remove_variable_from_list, :download_covariates ]
-  before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes ]
-  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :images, :variable_chart, :files, :pages, :request_access, :search, :add_variable_to_list, :remove_variable_from_list, :download_covariates, :edit, :update, :destroy, :audits, :requests, :set_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes ]
+  before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
+  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :images, :variable_chart, :files, :pages, :request_access, :search, :add_variable_to_list, :remove_variable_from_list, :download_covariates, :edit, :update, :destroy, :audits, :requests, :set_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
 
   # Concerns
   include Pageable

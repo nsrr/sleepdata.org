@@ -1,9 +1,9 @@
 class ToolsController < ApplicationController
-  before_action :authenticate_user!,        only: [ :new, :create, :edit, :update, :destroy, :new_page, :create_page, :edit_page, :update_page, :pull_changes ]
-  before_action :check_system_admin,        only: [ :new, :create, :destroy, :pull_changes ]
+  before_action :authenticate_user!,        only: [ :new, :create, :edit, :update, :destroy, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
+  before_action :check_system_admin,        only: [ :new, :create, :destroy, :pull_changes, :sync ]
   before_action :set_viewable_tool,         only: [ :show, :logo, :images, :pages ]
-  before_action :set_editable_tool,         only: [ :edit, :update, :destroy, :new_page, :create_page, :edit_page, :update_page, :pull_changes ]
-  before_action :redirect_without_tool,     only: [ :show, :logo, :images, :pages, :edit, :update, :destroy, :new_page, :create_page, :edit_page, :update_page, :pull_changes ]
+  before_action :set_editable_tool,         only: [ :edit, :update, :destroy, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
+  before_action :redirect_without_tool,     only: [ :show, :logo, :images, :pages, :edit, :update, :destroy, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
 
   # Concerns
   include Pageable

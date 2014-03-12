@@ -1,8 +1,12 @@
 module Gitable
   extend ActiveSupport::Concern
 
+  def working_tree
+    "--git-dir #{root_folder}/.git/ --work-tree #{root_folder}"
+  end
+
   def retrieve_commit_number(reference)
-    command = "git -C #{root_folder} rev-parse #{reference}"
+    command = "git #{working_tree} rev-parse #{reference}"
     status, stdout, stderr =  systemu command
     commit = (stdout.match(/[0-9a-f]{40}/)[0] rescue nil)
   end
@@ -12,12 +16,12 @@ module Gitable
   end
 
   def remote_url
-    status, stdout, stderr =  systemu "git -C #{root_folder} ls-remote --get-url"
+    status, stdout, stderr =  systemu "git #{working_tree} ls-remote --get-url"
     stdout.gsub('git@github.com:', 'https://github.com/')
   end
 
   def remote_commit
-    remote = "git -C #{root_folder} ls-remote #{remote_url} HEAD"
+    remote = "git #{working_tree} ls-remote #{remote_url} HEAD"
     status, stdout, stderr =  systemu remote
     commit = (stdout.match(/[0-9a-f]{40}/)[0] rescue nil)
   end
@@ -27,7 +31,7 @@ module Gitable
   end
 
   def pull_latest!
-    command = "git -C #{root_folder} pull"
+    command = "git #{working_tree} pull"
     status, stdout, stderr = systemu command
     Rails.logger.debug command
     Rails.logger.debug status
