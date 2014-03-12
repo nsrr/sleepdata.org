@@ -12,7 +12,6 @@ gem 'carrierwave',          '~> 0.9.0'
 gem 'ruby-ntlm-namespace',  '~> 0.0.1'
 gem 'redcarpet',            '~> 3.0.0'
 gem 'rubyzip',              '~> 1.1.0'
-gem 'systemu',              '~> 2.6.0'
 
 # Rails Defaults
 gem 'coffee-rails',         '~> 4.0.1'
