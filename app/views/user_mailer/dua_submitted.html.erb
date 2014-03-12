@@ -2,7 +2,7 @@ Hello <%= @system_admin.first_name %>,<br />
 <br />
 <%= @agreement.user.name %> [<%= @agreement.user.email %>] has submitted a Data Use Agreement.<br />
 <br />
-You can review the Data Use Agreement here: <%= link_to "#{SITE_URL}/agreements/#{@agreement.id}", "#{SITE_URL}/agreements/#{@agreement.id}" %><br />
+You can review the Data Use Agreement here: <%= link_to "#{SITE_URL}/agreements/#{@agreement.id}/review", "#{SITE_URL}/agreements/#{@agreement.id}/review" %><br />
 <br />
 Thank you!<br />
 <br />
