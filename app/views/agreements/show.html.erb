@@ -3,15 +3,12 @@
   <h1>
     <%= link_to "Agreements", agreements_path %> &middot; <%= @title %>
   </h1>
-  <%= link_to 'Approve',     set_approval_agreement_path( @agreement, approved: '1' ), method: :patch,  class: 'btn btn-default btn-xs' %>
-  <%= link_to 'Deny',        set_approval_agreement_path( @agreement, approved: '0' ), method: :patch,  class: 'btn btn-default btn-xs' %>
+  <%= link_to 'Review', review_agreement_path(@agreement), class: 'btn btn-default btn-xs' %>
   <%= link_to "Delete Agreement", @agreement, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Agreement #{@agreement.name}?" } %>
+
 </div>
 
 <dl class="dl-horizontal">
-  <dt>User</dt>
-  <dd><%= link_to @agreement.user.name, @agreement.user if @agreement.user %></dd>
-
   <dt>DUA PDF</dt>
   <dd>
     <% if @agreement.dua.url %>
@@ -20,11 +17,24 @@
     <% end %>
   </dd>
 
-  <dt>Status</dt>
-  <dd><%= @agreement.status %></dd>
+  <dt>Executed DUA PDF</dt>
+  <dd>
+    <% if @agreement.executed_dua.url %>
+      <%= link_to @agreement.executed_dua.url.split('/').last, download_agreement_path(@agreement, executed: '1'), target: '_blank', class: 'btn btn-xs btn-default' %>
+      <%= number_to_human_size(@agreement.executed_dua.size) %>
+    <% end %>
+  </dd>
 
-  <dt>History</dt>
-  <dd><%= render partial: 'agreements/history' %></dd>
+  <dt>Status</dt>
+  <dd><%= status_helper(@agreement) %></dd>
+
+  <dt>Evidence of IRB or Ethics Committee Review</dt>
+  <dd style="min-height:75px"><%= simple_check @agreement.evidence_of_irb_review? %></dd>
+
+  <% if @agreement.status == 'resubmit' or (@agreement.status == 'submitted' and not @agreement.comments.blank?) %>
+    <dt>Emailed Comments</dt>
+    <dd><blockquote><%= @agreement.comments %></blockquote></dd>
+  <% end %>
 
   <dt>Approval Date</dt>
   <dd><%= @agreement.approval_date %></dd>
@@ -33,3 +43,5 @@
   <dd><%= @agreement.expiration_date %></dd>
 
 </dl>
+
+<%= render partial: 'agreements/history' %>

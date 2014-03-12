@@ -1,0 +1,78 @@
+<%= form_for @agreement, html: { class: 'form-horizontal' } do |f| %>
+  <% if @agreement.errors.any? %>
+    <div id="error_explanation" class="bs-callout bs-callout-danger">
+      <h4><%= pluralize(@agreement.errors.count, "error") %> prohibited this agreement from being saved</h4>
+
+      <ul>
+      <% @agreement.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= f.label :executed_dua, 'Executed DUA (PDF)', class: 'col-md-2 control-label' %>
+    <div class="col-md-10">
+      <%= f.file_field :executed_dua, class: 'form-control' %>
+      <%= f.hidden_field :executed_dua_cache %>
+      <div class="bs-callout bs-callout-info">
+        <h4>Executed DUA</h4>
+
+        <p>Please download the submitted DUA above, review, and <strong>sign</strong>.</p>
+        <p>This file is <strong>required</strong> if the agreement status is set to <strong>Approved</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <div class="well">
+      <div class="checkbox">
+        <label>
+          <%= f.check_box :evidence_of_irb_review %> Did the submitted PDF include evidence of IRB or Ethics Committee review?
+        </label>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :status, 'Status', class: 'col-md-2 control-label' %>
+    <div class="col-md-10">
+      <div data-toggle="buttons">
+        <label class="btn btn-default <%= 'active' if @agreement.status == 'submitted' %>" data-object="hide-target" data-target="#email-comments-container">
+          <%= f.radio_button :status, 'submitted' %> Submitted
+        </label>
+        <label class="btn btn-success-inverse <%= 'active' if @agreement.status == 'approved' %>" data-object="hide-target" data-target="#email-comments-container">
+          <%= f.radio_button :status, 'approved' %> Approved
+        </label>
+        <label class="btn btn-danger-inverse <%= 'active' if @agreement.status == 'resubmit' %>" data-object="show-target" data-target="#email-comments-container">
+          <%= f.radio_button :status, 'resubmit' %> Sent Back for Resubmission
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group" id="email-comments-container" style="<%= 'display:none' unless @agreement.status == 'resubmit' %>">
+    <%= f.label :comments, nil, class: 'col-md-2 control-label' %>
+    <div class="col-md-10">
+      <%= f.text_area :comments, rows: 7, class: 'form-control' %>
+      <div class="bs-callout bs-callout-warning">
+        <h4>Comments are emailed to user</h4>
+
+        <p>Please specify why the DUA needs to be resubmitted.</p>
+        <p>Comments are <strong>required</strong> if the agreement is <strong>Sent Back for Resubmission</strong>.
+      </div>
+    </div>
+  </div>
+
+  <hr class="soften" style="margin-top: 20px;margin-bottom: 20px;"/>
+
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <%= f.submit nil, class: 'btn btn-primary' %>
+      <%= cancel %>
+    </div>
+  </div>
+<% end %>

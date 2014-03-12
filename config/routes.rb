@@ -2,8 +2,8 @@ WwwSleepdataOrg::Application.routes.draw do
 
   resources :agreements do
     member do
-      patch :set_approval
       get :download
+      get :review
     end
   end
 
@@ -60,8 +60,8 @@ WwwSleepdataOrg::Application.routes.draw do
   get '/tools/wget/src' => 'welcome#wget_src', as: :wget_src
 
   get '/dua' => 'agreements#dua', as: :dua
-  post '/dua' => 'agreements#create', as: :upload_dua
-  patch '/dua' => 'agreements#update', as: :reupload_dua
+  post '/dua' => 'agreements#submit', as: :upload_dua
+  patch '/dua' => 'agreements#resubmit', as: :reupload_dua
 
   root to: 'welcome#index'
 

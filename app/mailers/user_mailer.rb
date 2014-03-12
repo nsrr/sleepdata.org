@@ -19,6 +19,22 @@ class UserMailer < ActionMailer::Base
          subject: "#{agreement.user.name} Submitted a Data Use Agreement")
   end
 
+  def dua_approved(agreement, admin)
+    setup_email
+    @agreement = agreement
+    mail(to: agreement.user.email,
+         subject: "Your DUA Submission has been Approved",
+         reply_to: admin.email)
+  end
+
+  def sent_back_for_resubmission(agreement, admin)
+    setup_email
+    @agreement = agreement
+    mail(to: agreement.user.email,
+         subject: "Please Resubmit your DUA",
+         reply_to: admin.email)
+  end
+
   protected
 
   def setup_email

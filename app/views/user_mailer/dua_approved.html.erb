@@ -1,0 +1,11 @@
+Hello <%= @agreement.user.first_name %>,<br />
+<br />
+Your Data Use Agreement submission has been approved.<br />
+<br />
+You can now start exploring available data here: <%= link_to "#{SITE_URL}/dua", "#{SITE_URL}/dua" %><br />
+<br />
+You can reply directly to this email if you have any questions.<br />
+<br />
+Thank you!<br />
+<br />
+<%= DEFAULT_APP_NAME %>

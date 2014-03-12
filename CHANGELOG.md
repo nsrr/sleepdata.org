@@ -2,7 +2,10 @@
 
 ### Enhancements
 - New sign ups can now be reviewed by system administrators
-- Emails are sent to system administrators when DUAs are submitted
+- DUA review process put into place for system administrators
+  - Emails are sent to system administrators when DUAs are submitted
+  - Users are notified when their DUAs are approved or sent back for resubmission
+  - Executed DUAs can now be uploaded alongside the originally submitted DUAs
 - Added Academic User Group page and added research summary for AUG Members
 - Use of Ruby 2.1.1 is now recommended
 - **Gem Changes**

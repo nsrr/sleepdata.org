@@ -47,3 +47,9 @@ $(document)
     $.get(root_url + 'collection_modal', { "basename": $(this).data('basename'), slug: $(this).data('slug'), d: $(this).data('d') }, null, "script")
     return false
   )
+  .on('click', '[data-object~="hide-target"]', () ->
+    $($(this).data('target')).hide()
+  )
+  .on('click', '[data-object~="show-target"]', () ->
+    $($(this).data('target')).show()
+  )

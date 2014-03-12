@@ -39,6 +39,11 @@
   Please resubmit your updated Data Use Agreement. Please fill in any missing fields, and remember to sign the DUA.
   </div>
 
+  <div class="bs-callout bs-callout-warning">
+    <h4>Note from Reviewer</h4>
+    <p><%= @agreement.comments %></p>
+  </div>
+
   <%= form_tag reupload_dua_path, method: :patch, multipart: true, class: 'form-horizontal' do |f| %>
     <% if @agreement and @agreement.errors.any? %>
       <div id="error_explanation" class="bs-callout bs-callout-danger">

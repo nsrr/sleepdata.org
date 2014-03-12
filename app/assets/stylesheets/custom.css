@@ -375,3 +375,20 @@ a[href ^= "http"]:not([href*="//sleepdata.org"]):after {
   margin-top: 0px;
   margin-bottom: 20px;
 }
+
+.btn-success-inverse {
+  color: #4cae4c;
+  border-color: #4cae4c;
+  background-color: white;
+}
+
+.btn-success-inverse:hover,
+.btn-success-inverse:focus,
+.btn-success-inverse:active,
+.btn-success-inverse.active,
+.btn-success-inverse.disabled,
+.btn-success-inverse[disabled] {
+  color: #fff;
+  background-color: #47a447;
+  border-color: #398439;
+}
