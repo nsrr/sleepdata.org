@@ -16,7 +16,7 @@
 
   <% @agreements.each do |agreement| %>
     <tr>
-      <td><%= link_to agreement.name, agreement %></td>
+      <td><%= image_tag agreement.user.avatar_url(18), style: 'vertical-align:text-bottom;width:18px' %> <%= link_to agreement.name, agreement %></td>
       <td><%= status_helper(agreement) %></td>
       <td style="text-align:center"><%= simple_check agreement.evidence_of_irb_review? %></td>
       <td>
