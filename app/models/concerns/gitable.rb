@@ -11,10 +11,14 @@ module Gitable
 
   def remote_repository_url
     Rails.logger.info self.inspect
+    Rails.logger.info root_folder
     FileUtils.cd(root_folder)
-    stdout = `git ls-remote --get-url`
-    Rails.logger.info "REMOTE_REPOSITORY_URL (stdout): #{stdout}"
-    repository = stdout.gsub('git@github.com:', 'https://github.com/').strip
+    Rails.logger.info Dir.pwd
+    result = `git ls-remote --get-url`
+    version = `git --version`
+    Rails.logger.info "VERSION: #{version}"
+    Rails.logger.info "REMOTE_REPOSITORY_URL (result): #{result}"
+    repository = result.gsub('git@github.com:', 'https://github.com/').strip
     Rails.logger.info "REMOTE_REPOSITORY_URL: #{repository}"
     repository
   end
