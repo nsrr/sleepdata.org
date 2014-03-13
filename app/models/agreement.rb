@@ -10,6 +10,9 @@ class Agreement < ActiveRecord::Base
   # Concerns
   include Deletable
 
+  # Named Scopes
+  scope :search, lambda { |arg| where( 'agreements.user_id in (select users.id from users where LOWER(users.first_name) LIKE ? or LOWER(users.last_name) LIKE ? or LOWER(users.email) LIKE ? )', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ).references(:users) }
+
   # Model Validation
   validates_presence_of :dua, :user_id
   validates_presence_of :executed_dua, if: :approved?
