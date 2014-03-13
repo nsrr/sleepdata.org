@@ -2,13 +2,11 @@
 
   <% logo_path = logo_dataset_path(@object) %>
   <% edit_path = edit_dataset_path(@object) %>
-  <% author_path = datasets_path( author: @object.try(:author) ) %>
 
 <% else %>
 
   <% logo_path = logo_tool_path(@object) %>
   <% edit_path = edit_tool_path(@object) %>
-  <% author_path = tools_path( author: @object.author ) %>
 
 <% end %>
 
@@ -16,7 +14,6 @@
 <% if @object.logo.size > 0 %>
   <hr class="soften" style="margin-top: 20px;margin-bottom: 20px;"/>
   <div class="center"><%= image_tag( logo_path, style: 'max-width:100%' ) %></div>
-  <% if @object.try(:author) %><div class="center" style="margin-top:20px">by <span class="text-muted"><%= link_to @object.author, author_path %></span></div><% end %>
 
   <% if @object.contributors.size > 0 %>
     <% size = 24 %>

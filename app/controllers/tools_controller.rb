@@ -13,7 +13,6 @@ class ToolsController < ApplicationController
   def index
     tool_scope = Tool.current
     tool_scope = tool_scope.where( tool_type: params[:type] ) unless params[:type].blank?
-    tool_scope = tool_scope.where( author: params[:author] ) unless params[:author].blank?
     @tools = tool_scope.order(:tool_type, :name).page(params[:page]).per( 12 )
   end
 
@@ -90,6 +89,6 @@ class ToolsController < ApplicationController
     end
 
     def tool_params
-      params.require(:tool).permit( :name, :author, :description, :slug, :logo, :logo_cache, :tool_type, :git_repository )
+      params.require(:tool).permit( :name, :description, :slug, :logo, :logo_cache, :tool_type, :git_repository )
     end
 end
