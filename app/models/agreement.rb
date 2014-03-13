@@ -10,9 +10,6 @@ class Agreement < ActiveRecord::Base
   # Concerns
   include Deletable
 
-  # Callbacks
-  after_create :dua_submitted
-
   # Model Validation
   validates_presence_of :dua, :user_id
   validates_presence_of :executed_dua, if: :approved?
@@ -50,8 +47,6 @@ class Agreement < ActiveRecord::Base
     self.add_event!('Data Use Agreement sent back for resubmission.', current_user, 'resubmit')
     UserMailer.sent_back_for_resubmission(self, current_user).deliver if Rails.env.production?
   end
-
-  private
 
   def dua_submitted
     User.system_admins.each do |system_admin|
