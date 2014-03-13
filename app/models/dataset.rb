@@ -24,6 +24,8 @@ class Dataset < ActiveRecord::Base
   has_many :dataset_users
   has_many :domains
   has_many :variables
+  has_many :dataset_contributors
+  has_many :contributors, -> { where deleted: false }, through: :dataset_contributors, source: :user
 
   def viewers
     User.where( id: [self.user_id] + self.dataset_users.where( approved: true ).pluck(:user_id) )

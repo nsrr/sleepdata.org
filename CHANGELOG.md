@@ -8,6 +8,7 @@
   - Executed DUAs can now be uploaded alongside the originally submitted DUAs
 - Added Academic User Group page and added research summary for AUG Members
 - Documentation for repositories can now be synced by system adminstrators directly on the tool or dataset page
+- Datasets and tools now display a list of the contributors
 - Use of Ruby 2.1.1 is now recommended
 - **Gem Changes**
   - Updated to contour 2.4.0
