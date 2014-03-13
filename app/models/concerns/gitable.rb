@@ -21,6 +21,7 @@ module Gitable
     repository = result.gsub('git@github.com:', 'https://github.com/').strip
     Rails.logger.info "REMOTE_REPOSITORY_URL: #{repository}"
     repository
+    "https://github.com/nsrr/shhs-documentation.git"
   end
 
   def remote_commit
