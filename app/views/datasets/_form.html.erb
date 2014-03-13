@@ -53,6 +53,18 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :git_repository, nil, class: 'col-md-2 control-label' %>
+    <div class="col-md-10">
+      <%= f.text_field :git_repository, class: 'form-control' %>
+      <div class="bs-callout bs-callout-info">
+        <h4>Repository must be Public</h4>
+        <ul><li>The repository must be publicly accessible.</li></ul>
+        Ex: <code>https://github.com/&lt;repository-name&gt;.git</code>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
       <div class="checkbox">
         <label>

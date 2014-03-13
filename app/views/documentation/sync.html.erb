@@ -15,10 +15,10 @@
     </div>
     <div class="panel-body">
       <% compare_string = "#{@local_commit[0..5]}...#{@remote_commit[0..5]}" %>
-      <%= link_to "#{compare_string}" , @remote_repository_url.gsub(/\.git$/, '') + "/compare/#{compare_string}", target: '_blank', class: 'btn btn-xs btn-default' %>
+      <%= link_to "#{compare_string}" , @object.git_repository.to_s.gsub(/\.git$/, '') + "/compare/#{compare_string}", target: '_blank', class: 'btn btn-xs btn-default' %>
       <%= link_to "Sync Repository", pull_changes_path, method: :post, class: 'btn btn-success btn-xs' %>
       <br /><br />
-      <pre><%= @remote_repository_url %></pre>
+      <pre><%= @object.git_repository %></pre>
     </div>
   </div>
 <% else %>
@@ -28,10 +28,10 @@
     </div>
     <div class="panel-body">
       <% compare_string = "#{@local_commit[0..5]}...master" %>
-      <%= link_to "#{compare_string}" , @remote_repository_url.gsub(/\.git$/, '') + "/compare/#{compare_string}", target: '_blank', class: 'btn btn-xs btn-success-inverse' %>
+      <%= link_to "#{compare_string}" , @object.git_repository.to_s.gsub(/\.git$/, '') + "/compare/#{compare_string}", target: '_blank', class: 'btn btn-xs btn-success-inverse' %>
       <%= link_to "Sync Repository", pull_changes_path, method: :post, class: 'btn btn-success btn-xs' %>
       <br /><br />
-      <pre><%= @remote_repository_url %></pre>
+      <pre><%= @object.git_repository %></pre>
     </div>
   </div>
 <% end %>

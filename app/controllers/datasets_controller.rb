@@ -220,7 +220,7 @@ class DatasetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def dataset_params
-      params.require(:dataset).permit(:name, :description, :slug, :logo, :logo_cache, :public, :public_files)
+      params.require(:dataset).permit( :name, :description, :slug, :logo, :logo_cache, :public, :public_files, :git_repository )
     end
 
     def site_prefix

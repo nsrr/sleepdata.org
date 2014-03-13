@@ -86,7 +86,6 @@ module Pageable
   end
 
   def sync
-    @remote_repository_url = @object.remote_repository_url
     @remote_commit = @object.remote_commit
     @local_commit = @object.local_commit
 
