@@ -10,8 +10,10 @@ module Gitable
   end
 
   def remote_repository_url
+    Rails.logger.info self.inspect
     FileUtils.cd(root_folder)
     stdout = `git ls-remote --get-url`
+    Rails.logger.info "REMOTE_REPOSITORY_URL (stdout): #{stdout}"
     repository = stdout.gsub('git@github.com:', 'https://github.com/').strip
     Rails.logger.info "REMOTE_REPOSITORY_URL: #{repository}"
     repository
