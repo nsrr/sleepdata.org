@@ -1,6 +1,6 @@
 class WelcomeController < ApplicationController
-  before_action :authenticate_user!,        only: [ :whatsmyip ]
-  before_action :check_system_admin,        only: [ :whatsmyip ]
+  before_action :authenticate_user!,        only: [ :whatsmyip, :sync ]
+  before_action :check_system_admin,        only: [ :whatsmyip, :sync ]
 
   def whatsmyip
   end

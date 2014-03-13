@@ -57,6 +57,7 @@ WwwSleepdataOrg::Application.routes.draw do
   get '/about/aug' => 'welcome#aug', as: :aug
   get '/contact' => 'welcome#contact', as: :contact
   get '/whatsmyip' => 'welcome#whatsmyip', as: :whatsmyip
+  get '/sync' => 'welcome#sync', as: :sync
   get '/collection' => 'welcome#collection', as: :collection
   get '/collection_modal' => 'welcome#collection_modal', as: :collection_modal
 
