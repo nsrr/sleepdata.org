@@ -50,7 +50,7 @@
     </div>
     <div class="col-sm-3">
       <div class="page-list-container">
-        <table class="table table-condensed table-hover" style="margin-bottom:0px"><col width="1px" />
+        <table class="table table-condensed table-hover" style="table-layout:fixed;margin-bottom:0px"><col width="24px" />
           <% page = [params[:page].to_i, 0].max %>
           <% @object.pages(@path)[0..(page*100+100 - 1)].each do |page_name, page| %>
             <% is_file = File.file?(page) %>
