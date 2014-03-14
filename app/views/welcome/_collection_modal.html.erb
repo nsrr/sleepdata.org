@@ -56,7 +56,7 @@
               <div class="panel-body">
                 <ul>
                   <% @variable.forms.each do |form| %>
-                    <li><%= link_to form.display_name, files_dataset_path(@dataset) + "/forms/#{form.folder}?f=#{form.code_book}" %> <%= link_to 'All Variables on this Form', collection_path( s: form.name, d: params[:d] ), class: 'btn btn-xs btn-default' %></li>
+                    <li><%= link_to form.display_name, files_dataset_path(@dataset) + "/forms/#{form.folder}?f=#{CGI::escape form.code_book.to_s}" %> <%= link_to 'All Variables on this Form', collection_path( s: form.name, d: params[:d] ), class: 'btn btn-xs btn-default' %></li>
                   <% end %>
                 </ul>
               </div>
