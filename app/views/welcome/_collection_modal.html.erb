@@ -33,17 +33,20 @@
         <% end %>
 
         <div class="col-sm-<%= @variable.domain ? 6 : 12 %>">
-          <div class="panel panel-primary">
-            <div class="panel-heading">
-              <h3 class="panel-title">Description</h3>
+          <% unless @variable.description.blank? %>
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title">Description</h3>
+              </div>
+              <div class="panel-body">
+                <%= simple_markdown @variable.description %>
+              </div>
             </div>
-            <div class="panel-body">
-              <%= simple_markdown @variable.description %>
-              <% unless @variable.calculation.blank? %>
-                <div class="mono-display"><div class="file-display-after">Calculation</div><u><%= @variable.name %></u> = <%= @variable.calculation %></div>
-              <% end %>
-            </div>
-          </div>
+          <% end %>
+
+          <% unless @variable.calculation.blank? %>
+            <div class="mono-display"><div class="file-display-after">Calculation</div><u><%= @variable.name %></u> = <%= @variable.calculation %></div>
+          <% end %>
 
           <% if @variable.forms.size > 0 %>
             <div class="panel panel-primary">
@@ -53,7 +56,7 @@
               <div class="panel-body">
                 <ul>
                   <% @variable.forms.each do |form| %>
-                    <li><%= link_to form.display_name, files_dataset_path(@dataset) + "/forms/#{form.folder}?f=#{form.code_book}" %></li>
+                    <li><%= link_to form.display_name, files_dataset_path(@dataset) + "/forms/#{form.folder}?f=#{form.code_book}" %> <%= link_to 'All Variables on this Form', collection_path( s: form.name, d: params[:d] ), class: 'btn btn-xs btn-default' %></li>
                   <% end %>
                 </ul>
               </div>

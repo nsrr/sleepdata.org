@@ -211,6 +211,7 @@ class Dataset < ActiveRecord::Base
         domain = self.domains.find_by_name(json['domain'])
         search_terms = [name.downcase] + folder.split('/')
         search_terms += (json['labels'] || [])
+        search_terms += (json['forms'] || [])
         [json['display_name'], json['units'], json['calculation'], json['description']].each do |json_string|
           search_terms += json_string.to_s.split(/[^\w\d%]/)
         end
