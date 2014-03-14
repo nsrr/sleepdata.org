@@ -9,6 +9,8 @@ class Variable < ActiveRecord::Base
   # Model Relationships
   belongs_to :dataset
   belongs_to :domain
+  has_many :variable_forms
+  has_many :forms
 
   def score(labels)
     return labels.count + 1 if labels.include?(self.name)

@@ -23,7 +23,9 @@ class Dataset < ActiveRecord::Base
   has_many :dataset_page_audits
   has_many :dataset_users
   has_many :domains
+  has_many :forms
   has_many :variables
+  has_many :variable_forms
   has_many :dataset_contributors
   has_many :contributors, -> { where deleted: false }, through: :dataset_contributors, source: :user
 
@@ -176,10 +178,23 @@ class Dataset < ActiveRecord::Base
 
   def load_data_dictionary!
     version = File.open("#{self.root_folder}/dd/VERSION", &:readline).strip rescue version = nil
+    form_files = Dir.glob("#{self.root_folder}/dd/forms/**/*.json", File::FNM_CASEFOLD)
     domain_files = Dir.glob("#{self.root_folder}/dd/domains/**/*.json", File::FNM_CASEFOLD)
     variable_files = Dir.glob("#{self.root_folder}/dd/variables/**/*.json", File::FNM_CASEFOLD)
     self.variables.delete_all
+    self.forms.delete_all
+    self.variable_forms.delete_all
     self.domains.delete_all
+    form_files.each do |json_file|
+      if json = JSON.parse(File.read(json_file)) rescue false
+        path = json_file.gsub("#{self.root_folder}/dd/forms/", '')
+        name = path.split('/')[-1].to_s.gsub(/\.json$/, '')
+        folder = path.split('/')[0..-2].join('/')
+        display_name = self.domains.find_by_name(json['display_name'])
+        code_book = self.domains.find_by_name(json['code_book'])
+        self.forms.create( folder: folder, name: name, display_name: display_name, code_book: code_book, version: version )
+      end
+    end
     domain_files.each do |json_file|
       if json = JSON.parse(File.read(json_file)) rescue false
         path = json_file.gsub("#{self.root_folder}/dd/domains/", '')
@@ -200,7 +215,7 @@ class Dataset < ActiveRecord::Base
           search_terms += json_string.to_s.split(/[^\w\d%]/)
         end
 
-        self.variables.create(
+        v = self.variables.create(
           folder: folder,
           name: name,
           display_name: json['display_name'],
@@ -213,6 +228,7 @@ class Dataset < ActiveRecord::Base
           version: version,
           search_terms: search_terms.select{|a| a.to_s.strip.size > 1}.collect{|b| b.downcase.strip}.uniq.sort.join(' ')
         )
+        v.forms << self.forms.where( name: (json['forms'] || []) ) unless v.new_record?
       end
     end
   end

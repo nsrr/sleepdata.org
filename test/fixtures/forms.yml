@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  folder: MyText
+  name: MyString
+  display_name: MyString
+  code_book: MyString
+  dataset_id: 1
+
+two:
+  folder: MyText
+  name: MyString
+  display_name: MyString
+  code_book: MyString
+  dataset_id: 1
