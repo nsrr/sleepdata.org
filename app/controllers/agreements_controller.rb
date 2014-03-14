@@ -32,7 +32,7 @@ class AgreementsController < ApplicationController
 
     respond_to do |format|
       if @agreement.save
-        @agreement.add_event!('Data Use Agreement submitted.', current_user, 'submitted')
+        @agreement.add_event!('Data Access and Use Agreement submitted.', current_user, 'submitted')
         @agreement.dua_submitted
         format.html { redirect_to dua_path, notice: 'Agreement was successfully created.' }
         format.json { render action: 'show', status: :created, location: @agreement }
@@ -50,7 +50,7 @@ class AgreementsController < ApplicationController
 
     respond_to do |format|
       if @agreement.update(dua_submission_params)
-        @agreement.add_event!('Data Use Agreement resubmitted.', current_user, 'submitted')
+        @agreement.add_event!('Data Access and Use Agreement resubmitted.', current_user, 'submitted')
         @agreement.dua_submitted
         format.html { redirect_to dua_path, notice: 'Agreement was successfully updated.' }
         format.json { head :no_content }

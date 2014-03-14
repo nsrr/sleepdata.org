@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1>Data Use Agreement</h1>
+  <h1>Data Access and Use Agreement</h1>
 </div>
 
 <div class="row">
@@ -54,16 +54,7 @@
   <h2>1. Download Agreement</h2>
 </div>
 
-<div class="bs-callout">
-  <p>
-    <% dua_name = 'DUA-for-Access-to-BWH-National-Sleep-Research-Resource-20140314.docx' %>
-    <%= link_to root_path + dua_name, class: 'btn btn-success' do %>
-      <span class="glyphicon glyphicon-save"></span>
-      NSRR Data Use Agreement
-    <% end %>
-    <%= number_to_human_size File.size?(File.join('public', dua_name)) %>
-  </p>
-</div>
+<%= render partial: 'agreements/dua_template' %>
 
 <div class="page-header">
   <h2>2. Print and Fill Out Agreement</h2>
@@ -71,7 +62,7 @@
 
 <div class="bs-callout">
   <p>
-    You must complete all <mark>highlighted</mark> sections of the NSRR Data Use Agreement.
+    You must complete all <mark>highlighted</mark> sections of the NSRR Data Access and Use Agreement.
   </p>
 </div>
 
@@ -89,15 +80,15 @@
 
 
 <div class="page-header">
-  <h2>4. Append IRB Approval to Signed DUA</h2>
+  <h2>4. Append IRB Approval to Signed DAUA</h2>
 </div>
 
 <div class="bs-callout">
   <p>
-    Scan in as a <strong>single PDF</strong> the Signed DUA and your IRB approval.
+    Scan in as a <strong>single PDF</strong> the Signed DAUA and your IRB approval.
   </p>
   <p>
-    This step is most easily accomplished by printing out your IRB approval letter, and then scanning all pages from the DUA which has already been printed, along with the IRB together as a single PDF.
+    This step is most easily accomplished by printing out your IRB approval letter, and then scanning all pages from the DAUA which has already been printed, along with the IRB together as a single PDF.
   </p>
   <p>
     You may also opt to collate two separate PDFs using a PDF program like Adobe Acrobat, if you choose not to print out your IRB approval.
@@ -110,23 +101,23 @@
 
 <div class="bs-callout">
   <p>
-    Select your completed and signed Data Use Agreement and IRB approval PDF below and click <strong>Submit</strong>.
+    Select your completed and signed Data Access and Use Agreement and IRB approval PDF below and click <strong>Submit</strong>.
   </p>
 </div>
 
 <%= form_tag upload_dua_path, method: :post, multipart: true, class: 'form-horizontal' do |f| %>
   <% if @agreement and @agreement.errors.any? %>
     <div id="error_explanation" class="bs-callout bs-callout-danger">
-      <h4>1 error prohibited this Data Use Agreement from being submitted</h4>
+      <h4>1 error prohibited this Data Access and Use Agreement from being submitted</h4>
 
       <ul>
-        <li>Please attach a signed Data Use Agreement in PDF format.</li>
+        <li>Please attach a signed Data Access and Use Agreement in PDF format.</li>
       </ul>
     </div>
   <% end %>
 
   <div class="form-group">
-    <%= label :agreement, 'dua', 'Attach Signed DUA (PDF)', class: 'col-md-3 control-label' %>
+    <%= label :agreement, 'dua', 'Attach Signed DAUA (PDF)', class: 'col-md-3 control-label' %>
     <div class="col-md-9">
       <%= file_field_tag 'agreement[dua]', class: 'form-control' %>
     </div>
@@ -134,7 +125,7 @@
 
   <div class="form-group">
     <div class="col-md-offset-3 col-md-9">
-      <%= submit_tag 'Submit Data Use Agreement', class: 'btn btn-primary' %>
+      <%= submit_tag 'Submit Data Access and Use Agreement', class: 'btn btn-primary' %>
     </div>
   </div>
 <% end %>

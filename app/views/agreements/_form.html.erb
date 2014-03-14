@@ -12,14 +12,14 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :executed_dua, 'Executed DUA (PDF)', class: 'col-md-2 control-label' %>
+    <%= f.label :executed_dua, 'Executed DAUA (PDF)', class: 'col-md-2 control-label' %>
     <div class="col-md-10">
       <%= f.file_field :executed_dua, class: 'form-control' %>
       <%= f.hidden_field :executed_dua_cache %>
       <div class="bs-callout bs-callout-info">
-        <h4>Executed DUA</h4>
+        <h4>Executed DAUA</h4>
 
-        <p>Please download the submitted DUA above, review, and <strong>sign</strong>.</p>
+        <p>Please download the submitted DAUA above, review, and <strong>sign</strong>.</p>
         <p>This file is <strong>required</strong> if the agreement status is set to <strong>Approved</strong>.</p>
       </div>
     </div>
@@ -61,7 +61,7 @@
       <div class="bs-callout bs-callout-warning">
         <h4>Comments are emailed to user</h4>
 
-        <p>Please specify why the DUA needs to be resubmitted.</p>
+        <p>Please specify why the DAUA needs to be resubmitted.</p>
         <p>Comments are <strong>required</strong> if the agreement is <strong>Sent Back for Resubmission</strong>.
       </div>
     </div>

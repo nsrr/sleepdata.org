@@ -1,5 +1,5 @@
 <div class="page-header">
-  <h1>Data Use Agreement</h1>
+  <h1>Data Access and Use Agreement</h1>
 </div>
 
 <div class="row">
@@ -36,8 +36,10 @@
 
 <% if @agreement.resubmission_required? %>
   <div class="well">
-  Please resubmit your updated Data Use Agreement. Please fill in any missing fields, and remember to sign the DUA.
+    Please resubmit your updated Data Access and Use Agreement. Please fill in any missing fields, and remember to sign the DAUA.
   </div>
+
+  <%= render partial: 'agreements/dua_template' %>
 
   <div class="bs-callout bs-callout-warning">
     <h4>Note from Reviewer</h4>
@@ -47,16 +49,16 @@
   <%= form_tag reupload_dua_path, method: :patch, multipart: true, class: 'form-horizontal' do |f| %>
     <% if @agreement and @agreement.errors.any? %>
       <div id="error_explanation" class="bs-callout bs-callout-danger">
-        <h4>1 error prohibited this Data Use Agreement from being submitted</h4>
+        <h4>1 error prohibited this Data Access and Use Agreement from being submitted</h4>
 
         <ul>
-          <li>Please attach a signed Data Use Agreement in PDF format.</li>
+          <li>Please attach a signed Data Access and Use Agreement in PDF format.</li>
         </ul>
       </div>
     <% end %>
 
     <div class="form-group">
-      <%= label :agreement, 'dua', 'Attach Signed DUA (PDF)', class: 'col-md-3 control-label' %>
+      <%= label :agreement, 'dua', 'Attach Signed DAUA (PDF)', class: 'col-md-3 control-label' %>
       <div class="col-md-9">
         <%= file_field_tag 'agreement[dua]', class: 'form-control' %>
       </div>
@@ -64,14 +66,14 @@
 
     <div class="form-group">
       <div class="col-md-offset-3 col-md-9">
-        <%= submit_tag 'Resubmit Data Use Agreement', class: 'btn btn-primary' %>
+        <%= submit_tag 'Resubmit Data Access and Use Agreement', class: 'btn btn-primary' %>
       </div>
     </div>
   <% end %>
 
 <% else %>
   <div class="well">
-  Congratulations, your Data Use Agreement has been submitted successfully! We will review your data access request and inform you by email when your request is approved.
+  Congratulations, your Data Access and Use Agreement has been submitted successfully! We will review your data access request and inform you by email when your request is approved.
 
   You can check this page to see the process the status of your request.
   </div>

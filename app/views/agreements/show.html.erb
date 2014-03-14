@@ -9,7 +9,7 @@
 </div>
 
 <dl class="dl-horizontal">
-  <dt>DUA PDF</dt>
+  <dt>DAUA PDF</dt>
   <dd>
     <% if @agreement.dua.url %>
       <%= link_to @agreement.dua.url.split('/').last, download_agreement_path(@agreement), target: '_blank', class: 'btn btn-xs btn-default' %>
@@ -17,7 +17,7 @@
     <% end %>
   </dd>
 
-  <dt>Executed DUA PDF</dt>
+  <dt>Executed DAUA PDF</dt>
   <dd>
     <% if @agreement.executed_dua.url %>
       <%= link_to @agreement.executed_dua.url.split('/').last, download_agreement_path(@agreement, executed: '1'), target: '_blank', class: 'btn btn-xs btn-default' %>

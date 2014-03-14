@@ -2,10 +2,10 @@
 
 ### Enhancements
 - New sign ups can now be reviewed by system administrators
-- DUA review process put into place for system administrators
-  - Emails are sent to system administrators when DUAs are submitted
-  - Users are notified when their DUAs are approved or sent back for resubmission
-  - Executed DUAs can now be uploaded alongside the originally submitted DUAs
+- DAUA review process put into place for system administrators
+  - Emails are sent to system administrators when DAUAs are submitted
+  - Users are notified when their DAUAs are approved or sent back for resubmission
+  - Executed DAUAs can now be uploaded alongside the originally submitted DAUAs
 - Added Academic User Group page and added research summary for AUG Members
 - Documentation for repositories can now be synced by system adminstrators directly on the tool or dataset page
 - Datasets and tools now display a list of the contributors

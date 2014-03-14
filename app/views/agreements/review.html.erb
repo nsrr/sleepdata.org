@@ -9,7 +9,7 @@
 <div class="jumbotron" style="margin-bottom:0px">
   <% if @agreement.dua.url %>
     <p><%= link_to @agreement.dua.url.split('/').last, download_agreement_path(@agreement), target: '_blank', class: 'btn btn-lg btn-success' %></p>
-    <p>Submitted DUA &middot; <%= number_to_human_size(@agreement.dua.size) %></p>
+    <p>Submitted DAUA &middot; <%= number_to_human_size(@agreement.dua.size) %></p>
   <% end %>
 </div>
 
