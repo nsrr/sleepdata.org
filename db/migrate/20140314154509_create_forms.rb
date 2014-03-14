@@ -6,6 +6,7 @@ class CreateForms < ActiveRecord::Migration
       t.string :display_name
       t.string :code_book
       t.integer :dataset_id
+      t.string :version
 
       t.timestamps
     end

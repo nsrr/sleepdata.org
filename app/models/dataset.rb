@@ -190,8 +190,8 @@ class Dataset < ActiveRecord::Base
         path = json_file.gsub("#{self.root_folder}/dd/forms/", '')
         name = path.split('/')[-1].to_s.gsub(/\.json$/, '')
         folder = path.split('/')[0..-2].join('/')
-        display_name = self.domains.find_by_name(json['display_name'])
-        code_book = self.domains.find_by_name(json['code_book'])
+        display_name = json['display_name']
+        code_book = json['code_book']
         self.forms.create( folder: folder, name: name, display_name: display_name, code_book: code_book, version: version )
       end
     end
@@ -228,7 +228,11 @@ class Dataset < ActiveRecord::Base
           version: version,
           search_terms: search_terms.select{|a| a.to_s.strip.size > 1}.collect{|b| b.downcase.strip}.uniq.sort.join(' ')
         )
-        v.forms << self.forms.where( name: (json['forms'] || []) ) unless v.new_record?
+        unless v.new_record?
+          self.forms.where( name: (json['forms'] || []) ).each do |form|
+            v.forms << form
+          end
+        end
       end
     end
   end

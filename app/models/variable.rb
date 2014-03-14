@@ -10,7 +10,7 @@ class Variable < ActiveRecord::Base
   belongs_to :dataset
   belongs_to :domain
   has_many :variable_forms
-  has_many :forms
+  has_many :forms, through: :variable_forms
 
   def score(labels)
     return labels.count + 1 if labels.include?(self.name)
