@@ -26,6 +26,6 @@ gem 'turbolinks',           '>= 2.2.0'
 group :test do
   # Pretty printed test output
   gem 'win32console',                             platforms: [ :mswin, :mingw ]
-  gem 'turn',               '~> 0.9.6'
+  gem 'turn',               '~> 0.9.7'
   gem 'simplecov',          '~> 0.8.2',           require: false
 end

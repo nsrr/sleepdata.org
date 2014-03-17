@@ -5,6 +5,7 @@
   - Updated to rails 4.0.4
   - Updated to carrierwave 0.10.0
   - Updated to redcarpet 3.1.1
+  - Updated to turn 0.9.7
 
 ## 0.5.0 (March 17, 2014)
 
