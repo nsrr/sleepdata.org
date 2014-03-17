@@ -1,18 +1,22 @@
 ## 0.5.0
 
 ### Enhancements
-- New sign ups can now be reviewed by system administrators
-- DAUA review process put into place for system administrators
-  - Emails are sent to system administrators when DAUAs are submitted
-  - Users are notified when their DAUAs are approved or sent back for resubmission
-  - Executed DAUAs can now be uploaded alongside the originally submitted DAUAs
-- Added Academic User Group page and added research summary for AUG Members
-- Documentation for repositories can now be synced by system adminstrators directly on the tool or dataset page
-- Datasets and tools now display a list of the contributors
-- Variables now reference the forms on which they were collected
-- Use of Ruby 2.1.1 is now recommended
+- **Administrative Changes**
+  - New sign ups can now be reviewed by system administrators
+  - DAUA review process put into place for system administrators
+    - Emails are sent to system administrators when DAUAs are submitted
+    - Users are notified when their DAUAs are approved or sent back for resubmission
+    - Executed DAUAs can now be uploaded alongside the originally submitted DAUAs
+  - Added Academic User Group page and added research summary for AUG Members
+  - Documentation for repositories can now be synced by system adminstrators
+- **Dataset Changes**
+  - Datasets now display a list of the contributors
+  - Variables now reference the forms on which they were collected
+- **Tool Changes**
+  - Tools now display a list of the contributors
 - **Gem Changes**
   - Updated to contour 2.4.0
+- Use of Ruby 2.1.1 is now recommended
 
 ## 0.4.0 (February 20, 2014)
 
