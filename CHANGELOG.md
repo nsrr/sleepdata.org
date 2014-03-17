@@ -1,4 +1,4 @@
-## 0.5.0
+## 0.5.0 (March 17, 2014)
 
 ### Enhancements
 - **Administrative Changes**
