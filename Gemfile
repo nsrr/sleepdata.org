@@ -8,7 +8,7 @@ gem 'pg',                   '0.17.1'
 # Gems used by project
 gem 'contour',              '~> 2.4.0'
 gem 'kaminari',             '~> 0.15.1'
-gem 'carrierwave',          '~> 0.9.0'
+gem 'carrierwave',          '~> 0.10.0'
 gem 'ruby-ntlm-namespace',  '~> 0.0.1'
 gem 'redcarpet',            '~> 3.0.0'
 gem 'rubyzip',              '~> 1.1.0'
