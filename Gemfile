@@ -10,7 +10,7 @@ gem 'contour',              '~> 2.4.0'
 gem 'kaminari',             '~> 0.15.1'
 gem 'carrierwave',          '~> 0.10.0'
 gem 'ruby-ntlm-namespace',  '~> 0.0.1'
-gem 'redcarpet',            '~> 3.0.0'
+gem 'redcarpet',            '~> 3.1.1'
 gem 'rubyzip',              '~> 1.1.0'
 
 # Rails Defaults
