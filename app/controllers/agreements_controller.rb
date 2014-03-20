@@ -1,61 +1,65 @@
 class AgreementsController < ApplicationController
-  before_action :authenticate_user!,          except: [ :dua ]
-  before_action :check_system_admin,          except: [ :dua, :submit, :resubmit ]
+  before_action :authenticate_user!,          except: [ :daua, :dua ]
+  before_action :check_system_admin,          except: [ :daua, :dua, :submit, :resubmit ]
   before_action :set_agreement,               only: [ :show, :destroy, :download, :review, :update ]
   before_action :redirect_without_agreement,  only: [ :show, :destroy, :download, :review, :update ]
 
-  # GET /dua
   def dua
+    redirect_to daua_path
+  end
+
+  # GET /daua
+  def daua
     if current_user
       @agreement = Agreement.current.where( user_id: current_user.id ).first
       if @agreement and @agreement.approved?
-        render 'dua_approved'
+        render 'daua_approved'
       elsif @agreement
-        render 'dua_submitted'
+        render 'daua_submitted'
       else
-        render 'dua'
+        render 'daua'
       end
     else
-      render 'dua_sign_in'
+      render 'daua_sign_in'
     end
   end
 
-  # POST /dua
-  # POST /dua.json
+  # POST /daua
+  # POST /daua.json
   def submit
-    @agreement = current_user.agreements.new(dua_submission_params)
+    @agreement = current_user.agreements.new(daua_submission_params)
 
     if current_user.agreements.count > 0
-      redirect_to dua_path
+      redirect_to daua_path
       return
     end
 
     respond_to do |format|
       if @agreement.save
         @agreement.add_event!('Data Access and Use Agreement submitted.', current_user, 'submitted')
-        @agreement.dua_submitted
-        format.html { redirect_to dua_path, notice: 'Agreement was successfully created.' }
+        @agreement.daua_submitted
+        format.html { redirect_to daua_path, notice: 'Agreement was successfully created.' }
         format.json { render action: 'show', status: :created, location: @agreement }
       else
-        format.html { render action: 'dua' }
+        format.html { render action: 'daua' }
         format.json { render json: @agreement.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH /dua
-  # PATCH /dua.json
+  # PATCH /daua
+  # PATCH /daua.json
   def resubmit
     @agreement = Agreement.current.where( user_id: current_user.id ).first
 
     respond_to do |format|
-      if @agreement.update(dua_submission_params)
+      if @agreement.update(daua_submission_params)
         @agreement.add_event!('Data Access and Use Agreement resubmitted.', current_user, 'submitted')
-        @agreement.dua_submitted
-        format.html { redirect_to dua_path, notice: 'Agreement was successfully updated.' }
+        @agreement.daua_submitted
+        format.html { redirect_to daua_path, notice: 'Agreement was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: 'dua_submitted' }
+        format.html { render action: 'daua_submitted' }
         format.json { render json: @agreement.errors, status: :unprocessable_entity }
       end
     end
@@ -94,7 +98,7 @@ class AgreementsController < ApplicationController
       if @agreement.update(agreement_review_params)
         if original_status != 'approved' and @agreement.status == 'approved'
           @agreement.update( approval_date: Date.today, expiration_date: Date.today + 3.years )
-          @agreement.dua_approved_email(current_user)
+          @agreement.daua_approved_email(current_user)
         elsif original_status != 'resubmit' and @agreement.status == 'resubmit'
           @agreement.sent_back_for_resubmission_email(current_user)
         end
@@ -129,14 +133,14 @@ class AgreementsController < ApplicationController
     end
 
     def redirect_without_agreement
-      empty_response_or_root_path( current_user && current_user.system_admin? ? agreements_path : dua_path ) unless @agreement
+      empty_response_or_root_path( current_user && current_user.system_admin? ? agreements_path : daua_path ) unless @agreement
     end
 
     def agreement_review_params
       params.require(:agreement).permit(:executed_dua, :executed_dua_cache, :evidence_of_irb_review, :status, :comments)
     end
 
-    def dua_submission_params
+    def daua_submission_params
       params[:agreement] ||= { dua: '', remove_dua: '1' }
       params.require(:agreement).permit(:dua, :remove_dua)
     end

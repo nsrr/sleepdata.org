@@ -64,9 +64,10 @@ WwwSleepdataOrg::Application.routes.draw do
   get '/tools/wget/windows' => 'welcome#wget_windows', as: :wget_windows
   get '/tools/wget/src' => 'welcome#wget_src', as: :wget_src
 
-  get '/dua' => 'agreements#dua', as: :dua
-  post '/dua' => 'agreements#submit', as: :upload_dua
-  patch '/dua' => 'agreements#resubmit', as: :reupload_dua
+  get '/dua' => 'agreements#dua'
+  get '/daua' => 'agreements#daua', as: :daua
+  post '/daua' => 'agreements#submit', as: :upload_daua
+  patch '/daua' => 'agreements#resubmit', as: :reupload_daua
 
   root to: 'welcome#index'
 

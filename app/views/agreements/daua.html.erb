@@ -2,27 +2,23 @@
   <h1>Data Access and Use Agreement</h1>
 </div>
 
-<%= render partial: 'agreements/dua_steps' %>
+<%= render partial: 'agreements/daua_steps' %>
 
 
 <div class="page-header">
-  <h2>1. Download Agreement</h2>
+  <h2>1. Download DAUA Template</h2>
 </div>
 
-<%= render partial: 'agreements/dua_template' %>
+<%= render partial: 'agreements/daua_template' %>
 
 <div class="page-header">
-  <h2>2. Print and Fill Out Agreement</h2>
+  <h2>2. Print and Fill Out DAUA</h2>
 </div>
 
-<div class="bs-callout">
-  <p>
-    You must complete all <mark>highlighted</mark> sections of the NSRR Data Access and Use Agreement.
-  </p>
-</div>
+<%= render partial: 'agreements/daua_required_fields' %>
 
 <div class="page-header">
-  <h2>3. Sign Agreement</h2>
+  <h2>3. Sign DAUA</h2>
 </div>
 
 <div class="bs-callout bs-callout-warning">
@@ -51,7 +47,7 @@
 </div>
 
 <div class="page-header">
-  <h2>5. Upload Agreement and IRB approval</h2>
+  <h2>5. Upload DAUA and IRB approval</h2>
 </div>
 
 <div class="bs-callout">
@@ -60,7 +56,7 @@
   </p>
 </div>
 
-<%= form_tag upload_dua_path, method: :post, multipart: true, class: 'form-horizontal' do |f| %>
+<%= form_tag upload_daua_path, method: :post, multipart: true, class: 'form-horizontal' do |f| %>
   <% if @agreement and @agreement.errors.any? %>
     <div id="error_explanation" class="bs-callout bs-callout-danger">
       <h4>1 error prohibited this Data Access and Use Agreement from being submitted</h4>

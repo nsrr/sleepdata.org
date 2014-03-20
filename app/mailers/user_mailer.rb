@@ -11,7 +11,7 @@ class UserMailer < ActionMailer::Base
          reply_to: user.email)
   end
 
-  def dua_submitted(system_admin, agreement)
+  def daua_submitted(system_admin, agreement)
     setup_email
     @system_admin = system_admin
     @agreement = agreement
@@ -19,7 +19,7 @@ class UserMailer < ActionMailer::Base
          subject: "#{agreement.user.name} Submitted a Data Access and Use Agreement")
   end
 
-  def dua_approved(agreement, admin)
+  def daua_approved(agreement, admin)
     setup_email
     @agreement = agreement
     mail(to: agreement.user.email,

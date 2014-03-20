@@ -39,14 +39,16 @@
     Please resubmit your updated Data Access and Use Agreement. Please fill in any missing fields, and remember to sign the DAUA.
   </div>
 
-  <%= render partial: 'agreements/dua_template' %>
+  <%= render partial: 'agreements/daua_template' %>
+
+  <%= render partial: 'agreements/daua_required_fields' %>
 
   <div class="bs-callout bs-callout-warning">
     <h4>Note from Reviewer</h4>
     <p><%= @agreement.comments %></p>
   </div>
 
-  <%= form_tag reupload_dua_path, method: :patch, multipart: true, class: 'form-horizontal' do |f| %>
+  <%= form_tag reupload_daua_path, method: :patch, multipart: true, class: 'form-horizontal' do |f| %>
     <% if @agreement and @agreement.errors.any? %>
       <div id="error_explanation" class="bs-callout bs-callout-danger">
         <h4>1 error prohibited this Data Access and Use Agreement from being submitted</h4>

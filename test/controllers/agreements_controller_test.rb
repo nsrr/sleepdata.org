@@ -6,38 +6,38 @@ class AgreementsControllerTest < ActionController::TestCase
 
   end
 
-  test "should get sign in for dua" do
-    get :dua
+  test "should get sign in for daua" do
+    get :daua
     assert_response :success
-    assert_template 'dua_sign_in'
+    assert_template 'daua_sign_in'
   end
 
-  test "should get new dua" do
+  test "should get new daua" do
     login(users(:editor))
-    get :dua
+    get :daua
     assert_response :success
-    assert_template 'dua'
+    assert_template 'daua'
   end
 
-  test "should get submitted dua" do
+  test "should get submitted daua" do
     login(users(:two))
-    get :dua
+    get :daua
     assert_response :success
-    assert_template 'dua_submitted'
+    assert_template 'daua_submitted'
   end
 
-  test "should get resubmit dua" do
+  test "should get resubmit daua" do
     login(users(:admin))
-    get :dua
+    get :daua
     assert_response :success
-    assert_template 'dua_submitted'
+    assert_template 'daua_submitted'
   end
 
-  test "should get approved dua" do
+  test "should get approved daua" do
     login(users(:valid))
-    get :dua
+    get :daua
     assert_response :success
-    assert_template 'dua_approved'
+    assert_template 'daua_approved'
   end
 
   test "should submit agreement" do
@@ -46,7 +46,7 @@ class AgreementsControllerTest < ActionController::TestCase
       post :submit, agreement: { dua: fixture_file_upload('../../test/support/agreements/blank.pdf') }
     end
 
-    assert_redirected_to dua_path # agreement_path(assigns(:agreement))
+    assert_redirected_to daua_path # agreement_path(assigns(:agreement))
   end
 
   test "should not submit agreement if one already exists" do
@@ -55,13 +55,13 @@ class AgreementsControllerTest < ActionController::TestCase
       post :submit, agreement: { dua: fixture_file_upload('../../test/support/agreements/blank.pdf') }
     end
 
-    assert_redirected_to dua_path # agreement_path(assigns(:agreement))
+    assert_redirected_to daua_path # agreement_path(assigns(:agreement))
   end
 
   test "should resubmit agreement" do
     login(users(:admin))
     patch :resubmit, agreement: { dua: fixture_file_upload('../../test/support/agreements/blank.pdf') }
-    assert_redirected_to dua_path # agreement_path(assigns(:agreement))
+    assert_redirected_to daua_path # agreement_path(assigns(:agreement))
   end
 
   test "should get index" do

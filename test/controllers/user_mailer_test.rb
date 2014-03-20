@@ -16,12 +16,12 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match(/#{valid.name} \[#{valid.email}\] has signed up for an account\./, email.encoded)
   end
 
-  test "dua submitted email" do
+  test "daua submitted email" do
     agreement = agreements(:one)
     admin = users(:admin)
 
     # Send the email, then test that it got queued
-    email = UserMailer.dua_submitted(admin, agreement).deliver
+    email = UserMailer.daua_submitted(admin, agreement).deliver
     assert !ActionMailer::Base.deliveries.empty?
 
     # Test the body of the sent email contains what we expect it to
@@ -30,12 +30,12 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match(/#{agreement.user.name} \[#{agreement.user.email}\] has submitted a Data Access and Use Agreement\./, email.encoded)
   end
 
-  test "dua approved email" do
+  test "daua approved email" do
     agreement = agreements(:one)
     admin = users(:admin)
 
     # Send the email, then test that it got queued
-    email = UserMailer.dua_approved(agreement, admin).deliver
+    email = UserMailer.daua_approved(agreement, admin).deliver
     assert !ActionMailer::Base.deliveries.empty?
 
     # Test the body of the sent email contains what we expect it to
@@ -44,7 +44,7 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match(/Your Data Access and Use Agreement submission has been approved\./, email.encoded)
   end
 
-  test "dua sent back for resubmission email" do
+  test "daua sent back for resubmission email" do
     agreement = agreements(:one)
     admin = users(:admin)
 

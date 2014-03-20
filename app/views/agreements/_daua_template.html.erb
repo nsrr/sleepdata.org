@@ -1,0 +1,10 @@
+<div class="bs-callout">
+  <p>
+    <% daua_name = 'DAUA-for-Access-to-BWH-National-Sleep-Research-Resource-20140314.docx' %>
+    <%= link_to root_path + daua_name, class: 'btn btn-success' do %>
+      <span class="glyphicon glyphicon-save"></span>
+      NSRR Data Access and Use Agreement Template
+    <% end %>
+    <%= number_to_human_size File.size?(File.join('public', daua_name)) %>
+  </p>
+</div>
