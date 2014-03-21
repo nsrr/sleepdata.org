@@ -484,6 +484,34 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_equal false, assigns(:dataset_user).editor
     assert_equal users(:two), assigns(:dataset_user).user
 
-    assert_redirected_to requests_dataset_path(assigns(:dataset))
+    assert_redirected_to requests_dataset_path(assigns(:dataset), dataset_user_id: assigns(:dataset_user).id)
+  end
+
+  test "should create access request to dataset" do
+    login(users(:editor))
+    assert_difference('DatasetUser.count') do
+      post :create_access, id: @dataset, user_id: users(:aug).id
+    end
+
+    assert_not_nil assigns(:dataset_user)
+    assert_equal nil, assigns(:dataset_user).approved
+    assert_equal false, assigns(:dataset_user).editor
+    assert_equal users(:aug), assigns(:dataset_user).user
+
+    assert_redirected_to requests_dataset_path(assigns(:dataset), dataset_user_id: assigns(:dataset_user).id)
+  end
+
+  test "should find existing access when creating access request to dataset" do
+    login(users(:editor))
+    assert_difference('DatasetUser.count', 0) do
+      post :create_access, id: @dataset, user_id: users(:two).id
+    end
+
+    assert_not_nil assigns(:dataset_user)
+    assert_equal nil, assigns(:dataset_user).approved
+    assert_equal false, assigns(:dataset_user).editor
+    assert_equal users(:two), assigns(:dataset_user).user
+
+    assert_redirected_to requests_dataset_path(assigns(:dataset), dataset_user_id: assigns(:dataset_user).id)
   end
 end

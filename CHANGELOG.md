@@ -1,6 +1,7 @@
 ## 0.6.0
 
 ### Enhancements
+- Dataset editors can now approve user access to datasets based on DAUA criteria
 - **Gem Changes**
   - Updated to rails 4.0.4
   - Updated to carrierwave 0.10.0

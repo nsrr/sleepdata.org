@@ -8,6 +8,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
+            <th>DAUA</th>
             <th>User</th>
             <th>Role</th>
             <th>Status</th>
@@ -15,9 +16,16 @@
           </tr>
         </thead>
 
-        <% @dataset.dataset_users.order(:id).each do |dataset_user| %>
-          <tr>
-            <td><%= dataset_user.user.name %></td>
+        <% @dataset.dataset_users.order(:id).sort{|a,b| [b.editor.to_s, b.approved.to_s, a.user.last_name, a.user.first_name] <=> [a.editor.to_s, a.approved.to_s, b.user.last_name, b.user.first_name]}.each do |dataset_user| %>
+          <tr class="<%= 'warning' if params[:dataset_user_id].to_i == dataset_user.id %>">
+            <td>
+              <% agreement = dataset_user.user.agreements.first %>
+              <% if agreement %>
+                <%= status_helper(agreement) %>
+                <%= link_to '<span class="glyphicon glyphicon-share-alt"></span>'.html_safe, agreement if current_user.system_admin? %>
+              <% end %>
+            </td>
+            <td><%= image_tag dataset_user.user.avatar_url(18), style: 'vertical-align:text-bottom;min-width:18px' %> <%= dataset_user.user.name %></td>
             <td><%= dataset_user.editor? ? 'Editor' : 'Viewer' %></td>
             <td>
               <% if dataset_user.approved == nil %>
@@ -36,11 +44,28 @@
             </td>
           </tr>
         <% end %>
+        <tr><td colspan="5"></td></tr>
+        <% User.current.where.not( id: @dataset.dataset_users.pluck(:user_id) ).order( :last_name, :first_name ).each do |user| %>
+          <tr>
+            <td>
+              <% agreement = user.agreements.first %>
+              <% if agreement %>
+                <%= status_helper(agreement) %>
+                <%= link_to '<span class="glyphicon glyphicon-share-alt"></span>'.html_safe, agreement if current_user.system_admin? %>
+              <% end %>
+            </td>
+            <td><%= image_tag user.avatar_url(18), style: 'vertical-align:text-bottom;min-width:18px' %> <%= user.name %></td>
+            <td></td>
+            <td></td>
+            <td style="white-space:nowrap"><%= link_to 'Create',  create_access_dataset_path( @dataset, user_id: user.id ), method: :post, class: 'btn btn-default btn-xs' %></td>
+          </tr>
+        <% end %>
       </table>
     </div>
   </div>
 
   <div class="col-sm-3">
     <%= render partial: 'documentation/logo_and_admin' %>
+    <%= render partial: 'datasets/links' %>
   </div>
 </div>
