@@ -48,7 +48,7 @@
 
   <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
     <h1 style="margin-top:10px">Download the data.</h1>
-    <p class="lead">Explore over <%= pluralize( number_with_delimiter(Variable.where.not( dataset_id: nil ).count), 'covariate' ) %> across <%= link_to pluralize( Dataset.highlighted.count, 'public dataset' ), datasets_path %>.</p>
+    <p class="lead">Explore over <%= pluralize( number_with_delimiter(Variable.where( dataset_id: Dataset.highlighted.pluck(:id) ).count), 'covariate' ) %> across <%= link_to pluralize( Dataset.highlighted.count, 'public dataset' ), datasets_path %>.</p>
   </div>
 
   <div class="row" style="margin-top:40px">
