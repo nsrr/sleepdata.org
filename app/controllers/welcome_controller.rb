@@ -38,7 +38,6 @@ class WelcomeController < ApplicationController
       @variables.sort!{|a,b| [b.score(@labels), a.name] <=> [a.score(@labels), b.name]}
     end
 
-    @list = List.find_by_id( cookies.signed[:list_id] )
   end
 
   def collection_modal

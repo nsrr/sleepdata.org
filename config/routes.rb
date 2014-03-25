@@ -20,9 +20,6 @@ WwwSleepdataOrg::Application.routes.draw do
       get "(/a/:auth_token)/manifest(/*path)", action: 'manifest', as: :manifest, format: false
       get "files((/a/:auth_token)(/m/:medium)/*path)", action: 'files', as: :files, format: false
       get "search", action: 'search', as: :search
-      post :add_variable_to_list
-      post :remove_variable_from_list
-      get :download_covariates
 
       get "images/*path", action: 'images', as: :images, format: false
       get "pages(/*path)", action: 'pages', as: :pages, format: false

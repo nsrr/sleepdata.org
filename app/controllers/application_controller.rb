@@ -21,12 +21,10 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    add_list_to_user
     session[:previous_url] || root_path
   end
 
   def after_sign_out_path_for(resource_or_scope)
-    cookies.delete(:list_id)
     session[:previous_url] || root_path
   end
 
@@ -34,15 +32,6 @@ class ApplicationController < ActionController::Base
 
   def store_location_in_session
     session[:previous_url] = request.fullpath
-  end
-
-  def add_list_to_user
-    list = List.find_by_id( cookies.signed[:list_id] )
-    if list
-      list.update_attributes user_id: current_user.id
-    elsif current_user.lists.count > 0
-      cookies.signed[:list_id] = current_user.lists.last.id
-    end
   end
 
   def check_system_admin

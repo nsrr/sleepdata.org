@@ -8,15 +8,12 @@
     <center>
       <% if File.file?( File.join( variable.dataset.root_folder, 'dd', 'graphs', "#{variable.name}.png") ) %>
         <img class="lazy" data-original="<%= variable_chart_dataset_path(variable.dataset, name: variable.name) %>" width="75" height="50" style="max-width: 100%;max-height:50px;display:block">
-        <%#= image_tag variable_chart_dataset_path(variable.dataset, name: variable.name), style: 'max-width: 100%;max-height:50px;display:block' %>
       <% end %>
     </center>
     <div style="font-size:0.8em;margin-top:10px"><%= variable.display_name %> <% unless variable.units.blank? %><code><%= variable.units %></code><% end %></div>
 
   </div>
   <div class="panel-footer" style="font-size:0.8em;height:36px;overflow:hidden;white-space:nowrap">
-    <%= link_to 'add', add_variable_to_list_dataset_path( variable.dataset, variable_id: variable.id ), method: :post, remote: true, class: 'pull-right' if collection %>
-
     <% variable_folder = variable.folder.to_s.split('/').first %>
     <%= link_to variable_folder, collection_path( s: variable_folder, d: dataset_ids ) %>
   </div>

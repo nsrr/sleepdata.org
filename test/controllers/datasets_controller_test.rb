@@ -11,42 +11,6 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should add variable to list" do
-    assert_difference('List.count') do
-      post :add_variable_to_list, id: @dataset, variable_id: variables(:one).id, format: 'js'
-    end
-
-    assert_not_nil cookies.signed[:list_id]
-    assert_not_nil assigns(:list)
-    assert_equal 1, assigns(:list).variables(nil).size
-
-    assert_template 'add_variable_to_list'
-  end
-
-  test "should add variable to existing list" do
-    cookies.signed[:list_id] = lists(:one).id
-    assert_difference('List.count', 0) do
-      post :add_variable_to_list, id: @dataset, variable_id: variables(:one).id, format: 'js'
-    end
-
-    assert_not_nil cookies.signed[:list_id]
-    assert_not_nil assigns(:list)
-    assert_equal 2, assigns(:list).variables(nil).size
-
-    assert_template 'add_variable_to_list'
-  end
-
-  test "should remove variable from list" do
-    cookies.signed[:list_id] = lists(:one).id
-    post :remove_variable_from_list, id: @dataset, variable_id: variables(:two).id, format: 'js'
-
-    assert_not_nil cookies.signed[:list_id]
-    assert_not_nil assigns(:list)
-    assert_equal 0, assigns(:list).variables(nil).size
-
-    assert_template 'add_variable_to_list'
-  end
-
   test "should get inline image for public dataset" do
     get :images, id: @dataset, path: 'rails.png', inline: '1'
     assert_not_nil assigns(:image_file)

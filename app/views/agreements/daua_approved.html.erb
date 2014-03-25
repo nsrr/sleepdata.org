@@ -58,8 +58,8 @@
                 <%= link_to 'Browse Files', files_dataset_path(dataset), class: 'btn btn-xs btn-link' %>
               </div>
               <div class="col-xs-6" style="text-align:right">
-                <% if dataset.grants_file_access_to?(current_user) and Dir.glob(File.join(dataset.root_folder, 'data', '**', '*')).count > 0 %>
-                  <%= link_to '<span class="glyphicon glyphicon-save"></span> Full Dataset'.html_safe, download_covariates_dataset_path(dataset), class: 'btn btn-xs btn-success' %>
+                <% if dataset.grants_file_access_to?(current_user) and Dir.glob(File.join(dataset.file_folder, 'datasets', '*.csv')).count > 0 %>
+                  <%= link_to '<span class="glyphicon glyphicon-save"></span> Full Dataset'.html_safe, files_dataset_path(dataset, 'datasets'), class: 'btn btn-xs btn-success' %>
                 <% end %>
               </div>
             </div>

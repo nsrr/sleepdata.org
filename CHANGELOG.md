@@ -2,6 +2,8 @@
 
 ### Enhancements
 - Dataset editors can now approve user access to datasets based on DAUA criteria
+- Removed variable lists to clean up interface
+  - Variables are now downloaded via the dataset CSV download from the files area
 - **Gem Changes**
   - Updated to rails 4.0.4
   - Updated to carrierwave 0.10.0
