@@ -9,7 +9,6 @@
   - Updated to carrierwave 0.10.0
   - Updated to redcarpet 3.1.1
   - Updated to turn 0.9.7
-  - Updated to rubyzip 1.1.1
 
 ## 0.5.0 (March 17, 2014)
 
