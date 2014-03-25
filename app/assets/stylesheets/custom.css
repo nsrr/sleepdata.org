@@ -250,34 +250,6 @@ pre.code {
   margin-right: 0px;
 }
 
-.leadership {
-  text-align: center;
-  min-height: 100px;
-}
-
-.leadership-description {
-  font-weight:300;
-  font-size:12px;
-}
-
-.leadership-list {
-  margin-bottom: 20px;
-}
-
-.leadership-fade {
-  opacity: 0.20;
-  filter:alpha(opacity=20);
-}
-
-.leadership-highlight {
-
-}
-
-.hover-link:hover {
-  background-color: #ededed;
-  cursor: pointer;
-}
-
 .panel-gold {
   border-color: #FFD700;
 }
