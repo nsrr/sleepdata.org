@@ -15,7 +15,7 @@ class DatasetsController < ApplicationController
     else
       @dataset_user = @dataset.dataset_users.create( user_id: current_user.id, editor: false, approved: nil )
     end
-    redirect_to @dataset
+    redirect_to daua_path
   end
 
   def set_access
@@ -166,7 +166,9 @@ class DatasetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def dataset_params
-      params.require(:dataset).permit( :name, :description, :slug, :logo, :logo_cache, :public, :public_files, :git_repository )
+      params[:dataset] ||= {}
+      params[:dataset][:release_date] = parse_date(params[:dataset][:release_date])
+      params.require(:dataset).permit( :name, :description, :slug, :logo, :logo_cache, :public, :public_files, :git_repository, :release_date )
     end
 
     def site_prefix

@@ -12,43 +12,4 @@
   <% end %>
 
   <li class="<%= 'active' if params[:action] == 'collection' %>"><%= link_to 'Variables', collection_path(d: @dataset.slug, s: params[:s]) %></li>
-  <% if false %>  <li class="<%= 'active' if params[:action] == 'search' %>"><%= link_to 'Search', search_dataset_path(@dataset, s: params[:s]) %></li><% end %>
-
-<% if false %>
-
-  <% if current_user and @dataset.editable_by?(current_user) %>
-    <li class="pull-right success">
-      <%= link_to '<span class="glyphicon glyphicon-thumbs-up"></span> Access Granted'.html_safe, '#', data: { object: 'suppress-click' } %>
-    </li>
-  <% else %>
-    <% if @dataset.grants_file_access_to?(current_user) %>
-      <li class="pull-right success">
-        <%= link_to '<span class="glyphicon glyphicon-thumbs-up"></span> Access Granted'.html_safe, '#', data: { object: 'suppress-click' } %>
-      </li>
-    <% else %>
-      <% if current_user %>
-        <% if dataset_user = @dataset.dataset_users.where( user_id: current_user.id ).first %>
-          <% if dataset_user.approved == nil %>
-            <li class="pull-right info">
-            <%= link_to '<span class="glyphicon glyphicon-transfer"></span> Access Requested'.html_safe, '#', data: { object: 'suppress-click' } %>
-            </li>
-          <% else %>
-            <li class="pull-right danger">
-            <%= link_to '<span class="glyphicon glyphicon-thumbs-down"></span> Access Denied'.html_safe, '#', data: { object: 'suppress-click' } %>
-            </li>
-          <% end %>
-        <% else %>
-          <li class="pull-right info">
-            <%= link_to '<span class="glyphicon glyphicon-lock"></span> Request Access'.html_safe, request_access_dataset_path(@dataset), style: 'cursor:pointer' %>
-          </li>
-        <% end %>
-      <% else %>
-        <li class="pull-right info">
-          <%= link_to '<span class="glyphicon glyphicon-lock"></span> Sign In to Request Access'.html_safe, new_user_session_path, style: 'cursor:pointer' %>
-        </li>
-      <% end %>
-    <% end %>
-  <% end %>
-
-<% end %>
 </ul>

@@ -85,6 +85,13 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :release_date, class: 'col-md-2 control-label' %>
+    <div class="col-md-10">
+      <%= f.text_field :release_date, class: 'datepicker form-control', value: @dataset.release_date ? @dataset.release_date.strftime('%m/%d/%Y') : '' %>
+    </div>
+  </div>
+
+  <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
       <%= f.submit nil, class: 'btn btn-primary' %>
       <%= cancel %>

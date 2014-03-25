@@ -9,6 +9,7 @@ public:
   public: true
   public_files: true
   deleted: false
+  release_date: 2014-03-25
 
 private:
   name: In the Works
@@ -19,3 +20,4 @@ private:
   public: false
   public_files: false
   deleted: false
+  release_date: 2145-01-01

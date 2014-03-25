@@ -177,7 +177,7 @@ class DatasetsControllerTest < ActionController::TestCase
   test "should create dataset" do
     login(users(:admin))
     assert_difference('Dataset.count') do
-      post :create, dataset: { name: 'New Dataset', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), public: true, slug: 'new-dataset' }
+      post :create, dataset: { name: 'New Dataset', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), public: true, slug: 'new-dataset', release_date: '2014-06-23' }
     end
 
     assert_redirected_to dataset_path(assigns(:dataset))
@@ -185,7 +185,7 @@ class DatasetsControllerTest < ActionController::TestCase
 
   test "should not create dataset as anonymous user" do
     assert_difference('Dataset.count', 0) do
-      post :create, dataset: { name: 'New Dataset', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), public: true, slug: 'new-dataset' }
+      post :create, dataset: { name: 'New Dataset', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), public: true, slug: 'new-dataset', release_date: '2014-06-23' }
     end
 
     assert_redirected_to new_user_session_path
@@ -194,7 +194,7 @@ class DatasetsControllerTest < ActionController::TestCase
   test "should not create dataset as regular user" do
     login(users(:valid))
     assert_difference('Dataset.count', 0) do
-      post :create, dataset: { name: 'New Dataset', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), public: true, slug: 'new-dataset' }
+      post :create, dataset: { name: 'New Dataset', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), public: true, slug: 'new-dataset', release_date: '2014-06-23' }
     end
 
     assert_redirected_to root_path
@@ -203,7 +203,7 @@ class DatasetsControllerTest < ActionController::TestCase
   test "should not create dataset with blank name" do
     login(users(:admin))
     assert_difference('Dataset.count', 0) do
-      post :create, dataset: { name: '', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), public: true, slug: 'new-dataset' }
+      post :create, dataset: { name: '', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), public: true, slug: 'new-dataset', release_date: '2014-06-23' }
     end
 
     assert assigns(:dataset).errors.size > 0
@@ -422,7 +422,7 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_equal false, assigns(:dataset_user).editor
     assert_equal users(:valid), assigns(:dataset_user).user
 
-    assert_redirected_to dataset_path(assigns(:dataset))
+    assert_redirected_to daua_path
   end
 
   test "should not create additional requests with existing request" do
@@ -436,7 +436,7 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_equal false, assigns(:dataset_user).editor
     assert_equal users(:two), assigns(:dataset_user).user
 
-    assert_redirected_to dataset_path(assigns(:dataset))
+    assert_redirected_to daua_path
   end
 
   test "should approve access request to dataset" do

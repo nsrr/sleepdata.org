@@ -38,6 +38,10 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, alert: "You do not have sufficient privileges to access that page." unless current_user.system_admin?
   end
 
+  def parse_date(date_string, default_date = '')
+    date_string.to_s.split('/').last.size == 2 ? Date.strptime(date_string, "%m/%d/%y") : Date.strptime(date_string, "%m/%d/%Y") rescue default_date
+  end
+
   def empty_response_or_root_path(path = root_path)
     respond_to do |format|
       format.html { redirect_to path }

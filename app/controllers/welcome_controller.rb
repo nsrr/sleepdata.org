@@ -52,6 +52,7 @@ class WelcomeController < ApplicationController
   end
 
   def index
+    @datasets = Dataset.release_scheduled
   end
 
   def wget_src

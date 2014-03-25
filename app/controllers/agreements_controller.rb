@@ -13,6 +13,7 @@ class AgreementsController < ApplicationController
     if current_user
       @agreement = Agreement.current.where( user_id: current_user.id ).first
       if @agreement and @agreement.approved?
+        @datasets = Dataset.release_scheduled
         render 'daua_approved'
       elsif @agreement
         render 'daua_submitted'

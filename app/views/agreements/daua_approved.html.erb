@@ -35,12 +35,12 @@
 
 
   <div class="row">
-    <% @datasets = Dataset.highlighted %>
-    <% @datasets.each do |dataset| %>
+    <% @datasets.order( :release_date ).each do |dataset| %>
+      <% dataset_user = dataset.dataset_users.where( user_id: current_user.id ).first %>
       <div class="col-xs-12 col-sm-6 col-md-4 ">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title"><%= link_to dataset.name, dataset %></h3>
+            <h3 class="panel-title" style="white-space:nowrap;overflow:hidden"><%= link_to dataset.name, dataset %></h3>
           </div>
           <div class="panel-body">
             <div style="text-align:center;background-color:white;padding-bottom:5px;height:145px;line-height:145px">
@@ -55,18 +55,38 @@
             <div class="row">
               <div class="col-xs-6">
                 <%#= link_to pluralize( number_with_delimiter(dataset.total_file_count), 'File' ), files_dataset_path(dataset), class: 'btn btn-xs btn-link' %>
-                <%= link_to 'Browse Files', files_dataset_path(dataset), class: 'btn btn-xs btn-link' %>
+                <% if dataset.release_date and dataset.release_date <= Date.today %>
+                  <% if dataset_user and dataset_user.approved %>
+                    <%= link_to 'Browse Files', files_dataset_path(dataset) %>
+                  <% else %>
+                    Files Available
+                  <% end %>
+                <% elsif dataset.release_date %>
+                  Coming <%= dataset.release_date.strftime("%b %e, %Y") %>
+                <% end %>
               </div>
               <div class="col-xs-6" style="text-align:right">
-                <% if dataset.grants_file_access_to?(current_user) and Dir.glob(File.join(dataset.file_folder, 'datasets', '*.csv')).count > 0 %>
-                  <%= link_to '<span class="glyphicon glyphicon-save"></span> Full Dataset'.html_safe, files_dataset_path(dataset, 'datasets'), class: 'btn btn-xs btn-success' %>
+
+                <% if dataset_user %>
+                  <% if dataset_user.approved == nil %>
+                    <%= link_to '<span class="glyphicon glyphicon-transfer"></span> Access Requested'.html_safe, '#', data: { object: 'suppress-click' }, class: 'btn btn-xs btn-info' %>
+                  <% elsif dataset_user.approved %>
+                    <% if dataset.release_date and dataset.release_date <= Date.today and Dir.glob(File.join(dataset.files_folder, 'datasets', '*.csv')).count > 0 %>
+                      <%= link_to '<span class="glyphicon glyphicon-save"></span> Full Dataset'.html_safe, files_dataset_path(dataset, path: 'datasets'), class: 'btn btn-xs btn-success' %>
+                    <% else %>
+                      <%= link_to '<span class="glyphicon glyphicon-thumbs-up"></span> Access Approved'.html_safe, '#', data: { object: 'suppress-click' }, class: 'btn btn-xs btn-success' %>
+                    <% end %>
+                  <% else %>
+                    <%= link_to '<span class="glyphicon glyphicon-thumbs-down"></span> Access Denied'.html_safe, '#', data: { object: 'suppress-click' }, class: 'btn btn-xs btn-danger' %>
+                  <% end %>
+                <% else %>
+                  <%= link_to '<span class="glyphicon glyphicon-lock"></span> Request Access'.html_safe, request_access_dataset_path(dataset), style: 'cursor:pointer', class: 'btn btn-xs btn-info' %>
                 <% end %>
               </div>
             </div>
           </div>
         </div>
       </div>
-
     <% end %>
   </div>
 

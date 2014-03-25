@@ -9,6 +9,7 @@ class Dataset < ActiveRecord::Base
 
   # Named Scopes
   scope :highlighted, -> { current.where( public: true, slug: ['shhs', 'chat', 'bestair'] ) }
+  scope :release_scheduled, -> { current.where( public: true ).where.not( release_date: nil )}
   scope :with_editor, lambda { |arg| where('datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.editor = ? and dataset_users.approved = ?)', arg, arg, true, true ).references(:dataset_users) }
   scope :with_viewer, lambda { |arg| where('datasets.user_id IN (?) or datasets.public = ? or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.approved = ?)', arg, true, arg, true ).references(:dataset_users) }
 
