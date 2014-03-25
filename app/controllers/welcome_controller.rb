@@ -1,8 +1,9 @@
 class WelcomeController < ApplicationController
-  before_action :authenticate_user!,        only: [ :whatsmyip, :sync ]
-  before_action :check_system_admin,        only: [ :whatsmyip, :sync ]
+  before_action :authenticate_user!,        only: [ :sync ]
+  before_action :check_system_admin,        only: [ :sync ]
 
-  def whatsmyip
+  def about
+    @users = User.core_members.order( :last_name, :first_name )
   end
 
   def aug

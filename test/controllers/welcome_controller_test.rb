@@ -4,6 +4,12 @@ SimpleCov.command_name "test:controllers"
 
 class WelcomeControllerTest < ActionController::TestCase
 
+  test "should get about" do
+    get :about
+    assert_not_nil assigns(:users)
+    assert_response :success
+  end
+
   test "should get aug" do
     get :aug
     assert_not_nil assigns(:users)
