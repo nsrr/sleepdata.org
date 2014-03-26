@@ -40,6 +40,10 @@ class User < ActiveRecord::Base
     Tool.current.with_editor( self.id )
   end
 
+  def all_viewable_tools
+    Tool.current.with_viewer( self.id )
+  end
+
   def avatar_url(size = 80, default = 'mm')
     gravatar_id = Digest::MD5.hexdigest(self.email.to_s.downcase)
     "//gravatar.com/avatar/#{gravatar_id}.png?&s=#{size}&r=pg&d=#{default}"

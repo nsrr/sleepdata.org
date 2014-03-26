@@ -11,7 +11,11 @@ class ToolsController < ApplicationController
   # GET /tools
   # GET /tools.json
   def index
-    tool_scope = Tool.current
+    tool_scope = if current_user
+      current_user.all_viewable_tools
+    else
+      Tool.current.where( public: true )
+    end
     tool_scope = tool_scope.where( tool_type: params[:type] ) unless params[:type].blank?
     @tools = tool_scope.order(:tool_type, :name).page(params[:page]).per( 12 )
   end
@@ -89,6 +93,6 @@ class ToolsController < ApplicationController
     end
 
     def tool_params
-      params.require(:tool).permit( :name, :description, :slug, :logo, :logo_cache, :tool_type, :git_repository )
+      params.require(:tool).permit( :name, :description, :slug, :logo, :logo_cache, :public, :tool_type, :git_repository )
     end
 end

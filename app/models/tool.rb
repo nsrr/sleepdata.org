@@ -9,6 +9,8 @@ class Tool < ActiveRecord::Base
 
   # Named Scopes
   scope :with_editor, lambda { |arg| where( user_id: arg ) }
+  scope :with_viewer, lambda { |arg| where('tools.user_id IN (?) or tools.public = ?', arg, true ) }
+
 
   # Model Validation
   validates_presence_of :name, :slug, :user_id

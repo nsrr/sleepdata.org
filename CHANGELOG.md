@@ -5,6 +5,7 @@
 - Removed variable lists to clean up interface
   - Variables are now downloaded via the dataset CSV download from the files area
 - Datasets can now specify release dates to allow users to see when those datasets will have files available
+- Tools can be marked as private to allow editors to work on them while they are a work in progress
 - **Gem Changes**
   - Updated to rails 4.0.4
   - Updated to carrierwave 0.10.0
