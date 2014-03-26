@@ -364,3 +364,25 @@ a[href ^= "http"]:not([href*="//sleepdata.org"]):after {
   background-color: #47a447 !important;
   border-color: #398439 !important;
 }
+
+.tool-web {
+  background-color: #D8FFB1 !important;
+}
+.tool-matlab {
+  background-color: #FDC7A1 !important;
+}
+.tool-r {
+  background-color: #FC9FA1 !important;
+}
+.tool-java {
+  background-color: #FFFFA1 !important;
+}
+.tool-utility {
+  background-color: #FFFFFF !important;
+}
+.tool-ruby {
+  background-color: #CC342D !important;
+}
+.tool-ruby a {
+  color: #FFFFFF;
+}

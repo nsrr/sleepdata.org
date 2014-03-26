@@ -2,7 +2,7 @@ class Tool < ActiveRecord::Base
 
   mount_uploader :logo, ImageUploader
 
-  TYPE = [['Web', 'web'], ['Matlab', 'matlab'], ['R Language', 'r'], ['Java', 'java'], ['Utility', 'utility']].sort
+  TYPE = [['Web', 'web'], ['Matlab', 'matlab'], ['R Language', 'r'], ['Java', 'java'], ['Utility', 'utility'], ['Ruby', 'ruby']].sort
 
   # Concerns
   include Deletable, Documentable, Gitable
@@ -42,20 +42,6 @@ class Tool < ActiveRecord::Base
 
   def create_page_audit!(current_user, page_path, remote_ip )
     # self.tool_page_audits.create( user_id: (current_user ? current_user.id : nil), page_path: page_path, remote_ip: remote_ip )
-  end
-
-  def self.background_color(type)
-    case type when 'web'
-      '#D8FFB1'
-    when 'matlab'
-      '#FDC7A1'
-    when 'r'
-      '#FC9FA1'
-    when 'java'
-      '#FFFFA1'
-    when 'utility'
-      '#FFFFFF'
-    end
   end
 
   def type_name
