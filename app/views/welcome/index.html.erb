@@ -48,11 +48,11 @@
 
   <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
     <h1 style="margin-top:10px">Download the data.</h1>
-    <p class="lead">Explore over <%= pluralize( number_with_delimiter(Variable.where( dataset_id: Dataset.highlighted.pluck(:id) ).count), 'covariate' ) %> across <%= link_to pluralize( Dataset.highlighted.count, 'public dataset' ), datasets_path %>.</p>
+    <p class="lead">Explore over <%= pluralize( number_with_delimiter(Variable.where( dataset_id: Dataset.current.where( public: true ).pluck(:id) ).count), 'covariate' ) %> across <%= link_to pluralize( Dataset.current.where( public: true ).count, 'public dataset' ), datasets_path %>.</p>
   </div>
 
   <div class="row" style="margin-top:40px">
-    <% @variables = Variable.where( dataset_id: Dataset.highlighted.pluck(:id), commonly_used: true ).order("RANDOM()").limit(6) %>
+    <% @variables = Variable.where( dataset_id: Dataset.current.where( public: true ).pluck(:id), commonly_used: true ).order("RANDOM()").limit(6) %>
     <% @variables.each do |variable| %>
       <div class="col-xs-6 col-sm-4 col-md-2">
         <%= render partial: 'welcome/variable_panel', locals: { variable: variable, collection: false } %>
