@@ -5,6 +5,80 @@ class ToolsControllerTest < ActionController::TestCase
     @tool = tools(:one)
   end
 
+  test "should show requests to editor" do
+    login(users(:editor))
+    get :requests, id: @tool
+    assert_response :success
+  end
+
+  test "should request access to public tool" do
+    login(users(:valid))
+    assert_difference('ToolUser.count') do
+      get :request_access, id: @tool
+    end
+
+    assert_not_nil assigns(:tool_user)
+    assert_equal nil, assigns(:tool_user).approved
+    assert_equal false, assigns(:tool_user).editor
+    assert_equal users(:valid), assigns(:tool_user).user
+
+    assert_redirected_to daua_path
+  end
+
+  test "should not create additional requests with existing request" do
+    login(users(:two))
+    assert_difference('ToolUser.count', 0) do
+      get :request_access, id: @tool
+    end
+
+    assert_not_nil assigns(:tool_user)
+    assert_equal nil, assigns(:tool_user).approved
+    assert_equal false, assigns(:tool_user).editor
+    assert_equal users(:two), assigns(:tool_user).user
+
+    assert_redirected_to daua_path
+  end
+
+  test "should approve access request to tool" do
+    login(users(:editor))
+    patch :set_access, id: @tool, tool_user_id: tool_users(:pending_public_access).id, approved: true, editor: false
+
+    assert_not_nil assigns(:tool_user)
+    assert_equal true, assigns(:tool_user).approved
+    assert_equal false, assigns(:tool_user).editor
+    assert_equal users(:two), assigns(:tool_user).user
+
+    assert_redirected_to requests_tool_path(assigns(:tool), tool_user_id: assigns(:tool_user).id)
+  end
+
+  test "should create access request to tool" do
+    login(users(:editor))
+    assert_difference('ToolUser.count') do
+      post :create_access, id: @tool, user_id: users(:aug).id
+    end
+
+    assert_not_nil assigns(:tool_user)
+    assert_equal nil, assigns(:tool_user).approved
+    assert_equal false, assigns(:tool_user).editor
+    assert_equal users(:aug), assigns(:tool_user).user
+
+    assert_redirected_to requests_tool_path(assigns(:tool), tool_user_id: assigns(:tool_user).id)
+  end
+
+  test "should find existing access when creating access request to tool" do
+    login(users(:editor))
+    assert_difference('ToolUser.count', 0) do
+      post :create_access, id: @tool, user_id: users(:two).id
+    end
+
+    assert_not_nil assigns(:tool_user)
+    assert_equal nil, assigns(:tool_user).approved
+    assert_equal false, assigns(:tool_user).editor
+    assert_equal users(:two), assigns(:tool_user).user
+
+    assert_redirected_to requests_tool_path(assigns(:tool), tool_user_id: assigns(:tool_user).id)
+  end
+
   test "should get index" do
     get :index
     assert_response :success

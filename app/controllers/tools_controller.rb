@@ -1,12 +1,33 @@
 class ToolsController < ApplicationController
-  before_action :authenticate_user!,        only: [ :new, :create, :edit, :update, :destroy, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
+  before_action :authenticate_user!,        only: [ :new, :create, :edit, :update, :destroy, :requests, :request_access, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
   before_action :check_system_admin,        only: [ :new, :create, :destroy, :pull_changes, :sync ]
-  before_action :set_viewable_tool,         only: [ :show, :logo, :images, :pages ]
-  before_action :set_editable_tool,         only: [ :edit, :update, :destroy, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
-  before_action :redirect_without_tool,     only: [ :show, :logo, :images, :pages, :edit, :update, :destroy, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
+  before_action :set_viewable_tool,         only: [ :show, :logo, :images, :pages, :request_access ]
+  before_action :set_editable_tool,         only: [ :edit, :update, :destroy, :requests, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
+  before_action :redirect_without_tool,     only: [ :show, :logo, :images, :pages, :requests, :request_access, :set_access, :create_access, :edit, :update, :destroy, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
 
   # Concerns
   include Pageable
+
+  def request_access
+    if @tool_user = @tool.tool_users.where( user_id: current_user.id ).first
+      # tool access has already been requested
+    else
+      @tool_user = @tool.tool_users.create( user_id: current_user.id, editor: false, approved: nil )
+    end
+    redirect_to daua_path
+  end
+
+  def set_access
+    if @tool_user = @tool.tool_users.find_by_id(params[:tool_user_id])
+      @tool_user.update( editor: params[:editor], approved: params[:approved] )
+    end
+    redirect_to requests_tool_path(@tool, tool_user_id: @tool_user ? @tool_user.id : nil)
+  end
+
+  def create_access
+    @tool_user = @tool.tool_users.where( user_id: params[:user_id] ).first_or_create
+    redirect_to requests_tool_path(@tool, tool_user_id: @tool_user ? @tool_user.id : nil)
+  end
 
   # GET /tools
   # GET /tools.json

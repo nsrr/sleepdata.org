@@ -36,6 +36,11 @@ WwwSleepdataOrg::Application.routes.draw do
       get :sync
       get :logo
 
+      get :requests
+      get :request_access
+      post :create_access
+      patch :set_access
+
       get "images/*path", action: 'images', as: :images, format: false
       get "pages(/*path)", action: 'pages', as: :pages, format: false
       get "edit_page/*path", action: 'edit_page', as: :edit_page, format: false

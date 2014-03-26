@@ -6,6 +6,7 @@ one:
   slug: demo
   logo: rails.png
   user: admin
+  public: true
   deleted: false
 
 two:
@@ -14,4 +15,5 @@ two:
   slug: two
   logo: rails.png
   user: admin
+  public: true
   deleted: false

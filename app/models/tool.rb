@@ -8,9 +8,8 @@ class Tool < ActiveRecord::Base
   include Deletable, Documentable, Gitable
 
   # Named Scopes
-  scope :with_editor, lambda { |arg| where( user_id: arg ) }
-  scope :with_viewer, lambda { |arg| where('tools.user_id IN (?) or tools.public = ?', arg, true ) }
-
+  scope :with_editor, lambda { |arg| where('tools.user_id IN (?) or tools.id in (select tool_users.tool_id from tool_users where tool_users.user_id = ? and tool_users.editor = ? and tool_users.approved = ?)', arg, arg, true, true ).references(:tool_users) }
+  scope :with_viewer, lambda { |arg| where('tools.user_id IN (?) or tools.public = ? or tools.id in (select tool_users.tool_id from tool_users where tool_users.user_id = ? and tool_users.approved = ?)', arg, true, arg, true ).references(:tool_users) }
 
   # Model Validation
   validates_presence_of :name, :slug, :user_id
@@ -19,6 +18,7 @@ class Tool < ActiveRecord::Base
 
   # Model Relationships
   belongs_to :user
+  has_many :tool_users
   has_many :tool_contributors
   has_many :contributors, -> { where deleted: false }, through: :tool_contributors, source: :user
 
