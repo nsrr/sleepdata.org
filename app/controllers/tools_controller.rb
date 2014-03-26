@@ -102,7 +102,12 @@ class ToolsController < ApplicationController
 
   private
     def set_viewable_tool
-      @tool = Tool.current.find_by_slug( params[:id] )
+      viewable_tools = if current_user
+        current_user.all_viewable_tools
+      else
+        Tool.current.where( public: true )
+      end
+      @tool = viewable_tools.find_by_slug(params[:id])
     end
 
     def set_editable_tool
