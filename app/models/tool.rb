@@ -32,8 +32,12 @@ class Tool < ActiveRecord::Base
     find_by_slug(input)
   end
 
+  def viewers
+    User.where( id: [self.user_id] + self.tool_users.where( approved: true ).pluck(:user_id) )
+  end
+
   def editors
-    User.where( id: self.user_id )
+    User.where( id: [self.user_id] + self.tool_users.where( approved: true, editor: true ).pluck(:user_id) )
   end
 
   def root_folder
