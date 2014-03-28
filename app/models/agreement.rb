@@ -5,7 +5,7 @@ class Agreement < ActiveRecord::Base
   mount_uploader :dua, PDFUploader
   mount_uploader :executed_dua, PDFUploader
 
-  STATUS = ["submitted", "approved", "resubmit"].collect{|i| [i,i]}
+  STATUS = ["submitted", "approved", "resubmit", "expired"].collect{|i| [i,i]}
 
   # Concerns
   include Deletable
@@ -32,7 +32,7 @@ class Agreement < ActiveRecord::Base
   end
 
   def resubmission_required?
-    self.status == 'resubmit'
+    self.status == 'resubmit' or self.status == 'expired'
   end
 
   def add_event!(message, current_user, status)

@@ -4,6 +4,7 @@ module AgreementsHelper
     status_hash = { 'approved' => 'success',
                     'resubmit' => 'danger',
                     'submitted' => 'warning',
+                    'expired' => 'default',
                     '' => 'default'
                   }
     content_tag(

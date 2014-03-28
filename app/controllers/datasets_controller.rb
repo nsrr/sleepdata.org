@@ -15,7 +15,11 @@ class DatasetsController < ApplicationController
     else
       @dataset_user = @dataset.dataset_users.create( user_id: current_user.id, editor: false, approved: nil )
     end
-    redirect_to daua_path
+    if params[:path]
+      redirect_to files_dataset_path(@dataset, path: params[:path])
+    else
+      redirect_to daua_path
+    end
   end
 
   def set_access

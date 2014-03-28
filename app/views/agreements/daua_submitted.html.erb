@@ -43,10 +43,16 @@
 
   <%= render partial: 'agreements/daua_required_fields' %>
 
-  <div class="bs-callout bs-callout-warning">
-    <h4>Note from Reviewer</h4>
-    <p><%= @agreement.comments %></p>
-  </div>
+  <% if @agreement.status == 'expired' %>
+    <div class="bs-callout bs-callout-warning">
+      <p>Your DAUA <b>expired <%= @agreement.expiration_date.strftime("on %b %e, %Y") if @agreement.expiration_date %></b> and will need to be resubmitted.</p>
+    </div>
+  <% else %>
+    <div class="bs-callout bs-callout-warning">
+      <h4>Note from Reviewer</h4>
+      <p><%= @agreement.comments %></p>
+    </div>
+  <% end %>
 
   <%= form_tag reupload_daua_path, method: :patch, multipart: true, class: 'form-horizontal' do |f| %>
     <% if @agreement and @agreement.errors.any? %>

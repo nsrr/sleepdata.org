@@ -72,16 +72,48 @@
       <% mkdir_flags = ' -p' %>
       <% mkdir_path = @local_folder %>
     <% end %>
+    <div class="welcome-box welcome-even" style="margin-top:0px">
+      <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
+        <p class="lead" style="text-align:left">
+          Download all files in this folder using the following command:
+        </p>
 
-    <h3>Folder Download</h3>
-    <p>
-      Download files in this folder using the following command:
-    </p>
+        <p>
+          <pre class="code" style="text-align:left">mkdir<%= mkdir_flags %> <%= mkdir_path %><%= end_statement %> wget -O <%= @local_folder %>/manifest.txt <%= site_prefix %><%= manifest_dataset_path( @dataset, auth_token: (current_user ? current_user.id_and_auth_token : nil ), path: @current_folder ) %><%= end_statement %> wget -P <%= @local_folder %> -c -i <%= @local_folder %>/manifest.txt</pre>
+        </p>
 
-    <p>
-      <pre class="code">mkdir<%= mkdir_flags %> <%= mkdir_path %><%= end_statement %> wget -O <%= @local_folder %>/manifest.txt <%= site_prefix %><%= manifest_dataset_path( @dataset, auth_token: (current_user ? current_user.id_and_auth_token : nil ), path: @current_folder ) %><%= end_statement %> wget -P <%= @local_folder %> -c -i <%= @local_folder %>/manifest.txt</pre>
-    </p>
+        <div class="alert alert-info"><strong>Don't have GNU Wget?</strong> Install using our <%= link_to 'GNU Wget installation instructions', tool_path( 'wget' ), class: 'alert-link' %>.</div>
 
-    <div class="alert alert-info"><strong>Don't have GNU Wget?</strong> Install using our <%= link_to 'GNU Wget installation instructions', tool_path( 'wget' ), class: 'alert-link' %>.</div>
+      </div>
+    </div>
   <% end %>
+<% else %>
+  <div class="welcome-box welcome-even" style="margin-top:0px">
+    <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
+      <% agreement = current_user.agreements.first if current_user %>
+      <% dataset_user = @dataset.dataset_users.where( user_id: current_user.id ).first if current_user %>
+      <% if agreement == nil %>
+        <p class="lead">In order for us to provide you direct downloads to files, you will need to <%= link_to 'Fill out a Data Access and Use Agreement', daua_path, class: 'btn btn-lg btn-success' %>.</p>
+      <% elsif agreement and agreement.status == 'submitted' %>
+        <p class="lead">We are currently reviewing your <%= status_helper(agreement) %> DAUA.</p>
+        <p class="lead">Please contact us directly at <%= link_to 'support@sleepdata.org', 'mailto:support@sleepdata.org' %> with any questions.</p>
+      <% elsif agreement and agreement.status == 'resubmit' %>
+        <p class="lead">You are required to <%= status_helper(agreement) %> your DAUA.</p>
+        <p class="lead">Please make the changes requested by the reviewer and <%= link_to 'resubmit your DAUA', daua_path %>.</p>
+      <% elsif agreement and agreement.status == 'expired' %>
+        <p class="lead">Your DAUA is <%= status_helper(agreement) %>.</p>
+        <p class="lead">You will need to <%= link_to 'renew your DAUA', daua_path %> to continue downloading files.</p>
+      <% elsif dataset_user == nil %>
+        <p class="lead">
+          Please <%= link_to '<span class="glyphicon glyphicon-lock"></span> Request Access'.html_safe, request_access_dataset_path(@dataset, path: params[:path].to_s), style: 'cursor:pointer', class: 'btn btn-lg btn-info' %> if you would like to download files from this dataset.
+        </p>
+      <% elsif dataset_user and dataset_user.approved == nil %>
+        <p class="lead">Your have <span class="label label-info"><span class="glyphicon glyphicon-transfer"></span> requested access</span> and your request is being reviewed.</p>
+        <p class="lead">Please contact us directly at <%= link_to 'support@sleepdata.org', 'mailto:support@sleepdata.org' %> with any questions.</p>
+      <% elsif dataset_user and dataset_user.approved == false %>
+        <p class="lead">Your access request to this dataset has been <span class="label label-danger"><span class="glyphicon glyphicon-thumbs-down"></span> denied</span>.</p>
+        <p class="lead">Please contact us directly at <%= link_to 'support@sleepdata.org', 'mailto:support@sleepdata.org' %> with any questions.</p>
+      <% end %>
+    </div>
+  </div>
 <% end %>
