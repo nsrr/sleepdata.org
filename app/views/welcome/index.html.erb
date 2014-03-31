@@ -38,7 +38,7 @@
             <% if dataset.release_date and dataset.release_date <= Date.today %>
               <%= link_to 'Data Available Now!', dataset %>
             <% elsif dataset.release_date %>
-              Coming <%= dataset.release_date.strftime("%b %e, %Y") %>
+              <%= link_to "Coming #{dataset.release_date.strftime("%b %e, %Y")}", dataset %>
             <% end %>
           </div>
         </div>
