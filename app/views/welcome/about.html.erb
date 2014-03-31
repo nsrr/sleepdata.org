@@ -2,6 +2,31 @@
   <h1>About the National Sleep Research Resource</h1>
 </div>
 
+<div>
+  <p class="lead">
+    The <%= link_to 'National Sleep Research Resource', root_path %> offers free web access to large collections of de-identified physiological signals and clinical data elements collected in well-characterized research cohorts and clinical trials. The initial data resource is from the <%= link_to 'Sleep Heart Health Study', dataset_path('shhs') %>. Over time, <%= link_to 'many more studies', datasets_path %> will be added.
+  </p>
+  <p class="lead">
+    Using the <%= link_to 'tools provided', tools_path %>, the researcher can search across 1,000's of data elements, identify those data of most relevant for given needs, explore the statistical distributions of each, and download the <%= link_to 'data as CSV files', files_dataset_path('shhs', path: 'datasets') %>. Data include demographic, physiological, clinical, and other data types collected by each study.
+  </p>
+  <p class="lead">
+    Physiologic signals from overnight polysomnograms (sleep studies) are available by downloading EDF <%= link_to '(European Data Format)', 'http://www.edfplus.info/' %> files. The researcher can load summary measures of <%= link_to 'standardly scored sleep data', 'http://www.ncbi.nlm.nih.gov/pubmed/11300121' %>. Specific scored annotations can be accessed by downloading <%= link_to 'XML files', files_dataset_path('shhs') %> and can be viewed offline using the <%= link_to 'EDF Viewer', tool_path('edf-viewer') %>.
+  </p>
+  <p class="lead">
+    Signal processing tools and data exploration tools are available at <%= link_to "#{SITE_URL}/tools", tools_path %> and on the <%= link_to 'PhysioNet website', 'http://physionet.org/' %>.
+  </p>
+  <p class="lead">
+    The NSRR encourages interested researchers, educators, and trainees to <%= link_to 'join its user community as members', new_user_registration_path %>. Members can contribute their own data and tools for sharing, provide information and feedback on ways to improve sleep and physiological signal data exchange and analysis, and offer ideas on how to make NSRR and other resources work best for the scientific community.
+  </p>
+</div>
+
+<div class="welcome-box welcome-even" style="margin-top:0px">
+  <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
+    <h1 style="margin-top:10px">Who We Are</h1>
+    <p class="lead">An interdisciplinary group, including sleep physicians, informaticians, mathematicians, and other research staff are working to build the NSRR, alongside a highly-talented <%= link_to 'Academic User Group', aug_path %>.</p>
+  </div>
+</div>
+
 <% first_half = @users.collect.with_index{|u, i| [u, i]}.select{|u, i| i < (@users.size + 1) / 2 }.collect{|u, i| u} %>
 <% second_half = @users.collect.with_index{|u, i| [u, i]}.select{|u, i| i >= (@users.size + 1) / 2 }.collect{|u, i| u} %>
 
@@ -33,13 +58,33 @@
   <p class="lead">
     The National Sleep Research Resource (NSRR) is funded by the NIH National Heart, Lung, and Blood Institute.
   </p>
-  <p class="lead">
-    An interdisciplinary group, including sleep physicians, informaticians, mathematicians, and other research staff are working to build the NSRR, alongside a highly talented <%= link_to 'Academic User Group', aug_path %>.
-  </p>
 </div>
 
 <div class="center" style="margin-top:60px">
   <%= image_tag 'nsrr_logo_256.png', size: '256x256', alt: 'NSRR' %>
 </div>
+
+
+<div class="welcome-box welcome-even">
+  <h3>National Sleep Research Resource At A Glance</h3>
+  <p>
+  Since 1994, NIH has supported the standardized collection of polysomnography (PSG) studies as part of landmark multi-center studies which have used well-defined methods for data collection and quality assurance. Across studies, information on disease risk factors and outcomes, cardiovascular and neurocognitive function, and genetic and biochemical marker data, are available for children and adults representing diverse backgrounds. These data could serve as an invaluable national resource, providing opportunities to engage the scientific community, including trainees, in efforts to discover predictive bio-physiological signals for disease incidence and progression and to address critical questions regarding disease susceptibility and subgroup differences not possible using data from single cohorts. Improved access to those data would add value to already funded projects, ensuring maximal and enduring impact. Optimal use of such data requires the systematic organization and structuring of these data and access to procedures and computational tools for easy but secure access and curation of well-defined data subsets. The NHLBI National Sleep Research Resource (NSRR) will meet these compelling needs, thus leveraging the NIH’s investments in the collection of sleep data in well characterized cohort studies and clinical trials to create a unique national resource of reliably-scored, well-annotated research PSGs from at least 15 major NHLBI cohorts or clinical trials (~ 50,000 sleep studies). The NSRR also will include: a) a database of quantitative metrics of heart rate, breathing, oxygenation, and brain neurophysiological signals derived from each study; b) linked data on clinical, physiological and biochemical parameters; c) a tool set to allow the user to search and access de-identified research data using a secure, cloud platform; d) an open-source suite of tools for offline analyses for signal processing, file structure editing, data harmonization and statistic generation; and e) user support for resource usage. NSRR will be a scalable and expandable resource constructed by capitalizing on major advances in informatics, developed with leading-edge agile software engineering methodology, user-centered interface design and an ontology-driven architecture.
+  </p>
+</div>
+
+<img alt="A1430bb27ab123f550ea55148bdd371e" class="img-thumbnail" src="//gravatar.com/avatar/a1430bb27ab123f550ea55148bdd371e.png?&amp;s=80&amp;r=pg&amp;d=identicon" style="min-height:90px;min-width:90px;float:right;margin-left:10px;margin-top:10px">
+<blockquote>The project represents efforts to use big data in powerful and cost-effective ways, leveraging prior investments in research data collection, with a goal of enhancing clinical and translational work in human sleep medicine and physiology. The resource will provide opportunities for investigators to address critical questions regarding subgroup susceptibility to sleep disorders; the impact of sleep disorders on important clinical outcomes; the role of sleep disorders as mediators in the pathogenesis of cardiopulmonary diseases; and genetic susceptibility to sleep disorders.
+
+  <small style="margin-top:10px">Susan Redline, MD, MPH, Principal Investigator on the NSSR project.</small>
+</blockquote>
+
+<img alt="6864e31a84d33cca40ac8056f178e9a8" class="img-thumbnail" src="//gravatar.com/avatar/6864e31a84d33cca40ac8056f178e9a8.png?&amp;s=80&amp;r=pg&amp;d=identicon" style="min-height:90px;min-width:90px;float:right;margin-left:10px;margin-top:10px">
+<blockquote>We want to disseminate these rich data sets as widely as possible. It can be seen as a part of an open science and open data initiative. But 'open' is different from 'public'. <%= link_to 'Read Press Release', 'http://www.cleveland.com/healthfit/index.ssf/2013/10/cwru_researcher_helping_to_est.html' %>
+
+  <small style="margin-top:10px">GQ Zhang, PhD, Principal Investigator on the NSRR project.</small>
+</blockquote>
+
+
+
 
 <%= render partial: 'layouts/footer' %>

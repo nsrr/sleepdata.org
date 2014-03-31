@@ -1,5 +1,8 @@
-<div class="page-header">
-  <h1>Academic User Group</h1>
+<div class="welcome-box welcome-even" style="margin-top:40px">
+  <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
+    <h1 style="margin-top:10px">Academic User Group</h1>
+    <p class="lead">The <%= link_to 'NSRR team', about_path %> is thrilled to have the support and guidance of the diverse Acaedmic User Group.</p>
+  </div>
 </div>
 
 <% first_half = @users.collect.with_index{|u, i| [u, i]}.select{|u, i| i < (@users.size + 1) / 2 }.collect{|u, i| u} %>
@@ -24,9 +27,6 @@
 <div class="center">
   <p class="lead">
     The National Sleep Research Resource (NSRR) is funded by the NIH National Heart, Lung, and Blood Institute.
-  </p>
-  <p class="lead">
-    A list of core NSRR team members can be seen here: <%= link_to 'About NSRR', about_path %>
   </p>
 </div>
 
