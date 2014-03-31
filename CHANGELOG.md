@@ -1,13 +1,15 @@
 ## 0.6.0
 
 ### Enhancements
-- Dataset editors can now approve user access to datasets based on DAUA criteria
-- Removed variable lists to clean up interface
-  - Variables are now downloaded via the dataset CSV download from the files area
-- Datasets can now specify release dates to allow users to see when those datasets will have files available
-  - Datasets are highlighted when they have data available for download
-- Tools can be marked as private to allow editors to work on them while they are a work in progress
-- Dataset file downloads display steps the user needs to take to access the file download
+- **Dataset Changes**
+  - Dataset editors can now approve user access to datasets based on DAUA criteria
+  - Removed variable lists to clean up interface
+    - Variables are now downloaded via the dataset CSV download from the files area
+  - Datasets can now specify release dates to allow users to see when those datasets will have files available
+    - Datasets are highlighted when they have data available for download
+  - Dataset file downloads display steps the user needs to take to access the file download
+- **Tool Changes**
+  - Tools can be marked as private to allow editors to work on them while they are a work in progress
 - **Gem Changes**
   - Updated to rails 4.0.4
   - Updated to carrierwave 0.10.0
