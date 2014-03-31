@@ -12,7 +12,7 @@
   <div class="row" style="margin-top:40px">
     <% @datasets.order( :release_date ).limit(3).each do |dataset| %>
       <div class="col-xs-12 col-sm-6 col-md-4 ">
-        <div class="panel panel-default">
+        <div class="panel panel-<%= dataset.release_date && dataset.release_date <= Date.today ? 'primary' : 'default' %>">
           <div class="panel-heading">
             <h3 class="panel-title" style="white-space:nowrap;overflow:hidden"><%= link_to dataset.name, dataset %></h3>
           </div>
@@ -33,6 +33,13 @@
             <% end %>
             </p>
 
+          </div>
+          <div class="panel-footer" style="text-align:center">
+            <% if dataset.release_date and dataset.release_date <= Date.today %>
+              <%= link_to 'Data Available Now!', dataset %>
+            <% elsif dataset.release_date %>
+              Coming <%= dataset.release_date.strftime("%b %e, %Y") %>
+            <% end %>
           </div>
         </div>
       </div>

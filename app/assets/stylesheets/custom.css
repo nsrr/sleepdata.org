@@ -386,3 +386,19 @@ a[href ^= "http"]:not([href*="//sleepdata.org"]):after {
 .tool-ruby a {
   color: #FFFFFF;
 }
+
+.panel-success > .panel-footer {
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+}
+
+.panel-primary > .panel-footer {
+  color: #fff;
+  background-color: #428bca;
+  border-color: #428bca;
+}
+
+.panel-footer > a {
+  color: inherit;
+}
