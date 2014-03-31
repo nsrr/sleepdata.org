@@ -1,4 +1,4 @@
-## 0.6.0
+## 0.6.0 (March 31, 2014)
 
 ### Enhancements
 - **Dataset Changes**
