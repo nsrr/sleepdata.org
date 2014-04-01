@@ -1,4 +1,4 @@
-## 0.6.1
+## 0.6.1 (April 1, 2014)
 
 ### Bug Fix
 - Fixed a typo on about page
