@@ -14,11 +14,11 @@
             <% end %>
           </div>
         </div>
-        <div class="panel-footer" style="text-align:center">
+        <div class="panel-footer" style="text-align:center;white-space:nowrap;overflow:hidden">
           <% if dataset.release_date and dataset.release_date <= Date.today %>
             <%= link_to 'Data Available Now!', dataset %>
           <% elsif dataset.release_date %>
-            <%= link_to "Coming #{dataset.release_date.strftime("%b %e, %Y")}", dataset %>
+            <%= link_to "Coming #{dataset.release_date.strftime("%B %e, %Y")}", dataset %>
           <% else %>
             <%= link_to 'Preview', dataset %>
           <% end %>
