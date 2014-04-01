@@ -1,5 +1,8 @@
 ## 0.7.0
 
+### Enhancements
+- Minor wording changes on About page and Home page
+
 ## 0.6.1 (April 1, 2014)
 
 ### Bug Fix
