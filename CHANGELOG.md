@@ -1,5 +1,8 @@
 ## 0.6.1
 
+### Bug Fix
+- Fixed a typo on about page
+
 ## 0.6.0 (March 31, 2014)
 
 ### Enhancements
