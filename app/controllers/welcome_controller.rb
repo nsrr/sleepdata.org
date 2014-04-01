@@ -35,8 +35,8 @@ class WelcomeController < ApplicationController
     if search_empty
       @variables = variable_scope.where("name LIKE ?", "#{search_empty}%").order(:name)
     else
-      @variables = variable_scope.where("search_terms ~* ?", @labels.collect{|l| "(\\m#{l})"}.join("|"))
-      @variables.sort!{|a,b| [b.score(@labels), a.name] <=> [a.score(@labels), b.name]}
+      variable_scope = variable_scope.where("search_terms ~* ?", @labels.collect{|l| "(\\m#{l})"}.join("|"))
+      @variables = variable_scope.sort{|a,b| [b.score(@labels), a.name] <=> [a.score(@labels), b.name]}
     end
 
   end

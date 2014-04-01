@@ -38,7 +38,7 @@ class WelcomeControllerTest < ActionController::TestCase
   end
 
   test "should get collection modal" do
-    get :collection_modal, slug: 'wecare', basename: 'gender', format: 'js'
+    xhr :get, :collection_modal, slug: 'wecare', basename: 'gender', format: 'js'
     assert_not_nil assigns(:dataset)
     assert assigns(:variable)
     assert_response :success
@@ -46,7 +46,7 @@ class WelcomeControllerTest < ActionController::TestCase
 
   test "should get collection modal for logged in user" do
     login(users(:valid))
-    get :collection_modal, slug: 'wecare', basename: 'gender', format: 'js'
+    xhr :get, :collection_modal, slug: 'wecare', basename: 'gender', format: 'js'
     assert_not_nil assigns(:dataset)
     assert assigns(:variable)
     assert_response :success

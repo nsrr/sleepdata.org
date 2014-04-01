@@ -2,6 +2,10 @@
 
 ### Enhancements
 - Minor wording changes on About page and Home page
+- **Gem Changes**
+  - Updated to rails 4.1.0.rc2
+  - Updated to contour 2.5.0.beta1
+  - Removed turn, and replaced with minitest and minitest-reporters
 
 ## 0.6.1 (April 1, 2014)
 
