@@ -35,6 +35,16 @@ class UserMailer < ActionMailer::Base
          reply_to: admin.email)
   end
 
+  def dataset_access_requested(dataset_user, editor)
+    setup_email
+    attachments.inline['nsrr-logo.png'] = File.read('app/assets/images/nsrr_logo_64.png')
+    @dataset_user = dataset_user
+    @editor = editor
+    @email_to = editor.email
+    mail(to: @email_to,
+         subject: "#{dataset_user.user.name} Has Requested Dataset File Access on #{dataset_user.dataset.name}")
+  end
+
   protected
 
   def setup_email

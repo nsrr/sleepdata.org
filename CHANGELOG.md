@@ -1,6 +1,8 @@
 ## 0.7.0
 
 ### Enhancements
+- Dataset owners are notified when users make new dataset file access requests
+  - Updated email styling template
 - Minor wording changes on About page and Home page
 - **Gem Changes**
   - Updated to rails 4.1.0.rc2

@@ -58,5 +58,18 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match(/Your Data Access and Use Agreement submission was missing required information\./, email.encoded)
   end
 
+  test "dataset file access requested email" do
+    dataset_user = dataset_users(:editor_public_access)
+    editor = users(:editor)
+
+    # Send the email, then test that it got queued
+    email = UserMailer.dataset_access_requested(dataset_user, editor).deliver
+    assert !ActionMailer::Base.deliveries.empty?
+
+    # Test the body of the sent email contains what we expect it to
+    assert_equal [editor.email], email.to
+    assert_equal "#{dataset_user.user.name} Has Requested Dataset File Access on #{dataset_user.dataset.name}", email.subject
+    assert_match(/#{dataset_user.user.name} \[#{dataset_user.user.email}\] has requested file access on #{dataset_user.dataset.name}\./, email.encoded)
+  end
 
 end

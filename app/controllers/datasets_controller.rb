@@ -14,6 +14,9 @@ class DatasetsController < ApplicationController
       # Dataset access has already been requested
     else
       @dataset_user = @dataset.dataset_users.create( user_id: current_user.id, editor: false, approved: nil )
+      @dataset.editors.each do |editor|
+        UserMailer.dataset_access_requested(@dataset_user, editor).deliver if Rails.env.production?
+      end
     end
     if params[:path]
       redirect_to files_dataset_path(@dataset, path: params[:path])
