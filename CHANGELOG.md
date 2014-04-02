@@ -1,4 +1,4 @@
-## 0.6.2
+## 0.6.2 (April 2, 2014)
 
 ### Enhancements
 - Added updated Data Access and Use Agreement PDF
