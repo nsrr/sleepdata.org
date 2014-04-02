@@ -7,6 +7,11 @@
   - Updated to contour 2.5.0.beta1
   - Removed turn, and replaced with minitest and minitest-reporters
 
+## 0.6.2 (April 2, 2014)
+
+### Enhancements
+- Added updated Data Access and Use Agreement PDF
+
 ## 0.6.1 (April 1, 2014)
 
 ### Bug Fix
