@@ -1,5 +1,8 @@
 ## 0.6.2
 
+### Enhancements
+- Added updated Data Access and Use Agreement PDF
+
 ## 0.6.1 (April 1, 2014)
 
 ### Bug Fix
