@@ -1,0 +1,21 @@
+Dear <%= @admin.first_name %>,
+
+<% case @agreement.status when 'approved' %>
+<%= @agreement.user.name %>'s DAUA has been approved by <%= @last_user.name if @last_user %>.
+<% when 'resubmit' %>
+<%= @agreement.user.name %> has been asked to resubmit the DAUA by <%= @last_user.name if @last_user %>.
+
+    <%= @agreement.comments %>
+<% else %>
+<%= @agreement.user.name %>'s DAUA status has been changed to <%= @agreement.status %> by <%= @last_user.name if @last_user %>.
+<% end %>
+
+You can review the DAUA here:
+
+
+    <%= "#{SITE_URL}/agreements/#{@agreement.id}" %>
+
+
+Thank you!
+
+<%= DEFAULT_APP_NAME %>

@@ -58,6 +58,20 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match(/Your Data Access and Use Agreement submission was missing required information\./, email.encoded)
   end
 
+  test "daua progress notification email" do
+    agreement = agreements(:one)
+    admin = users(:admin)
+
+    # Send the email, then test that it got queued
+    email = UserMailer.daua_progress_notification(agreement, admin).deliver
+    assert !ActionMailer::Base.deliveries.empty?
+
+    # Test the body of the sent email contains what we expect it to
+    assert_equal [admin.email], email.to
+    assert_equal "#{agreement.name}'s DAUA Status Changed to #{agreement.status.titleize}", email.subject
+    assert_match(/#{agreement.user.name}'s DAUA has been approved by FirstAdmin LastAdmin\./, email.encoded)
+  end
+
   test "dataset file access requested email" do
     dataset_user = dataset_users(:editor_public_access)
     editor = users(:editor)

@@ -27,6 +27,19 @@ class UserMailer < ActionMailer::Base
          reply_to: admin.email)
   end
 
+  def daua_progress_notification(agreement, admin)
+    setup_email
+    attachments.inline['nsrr-logo.png'] = File.read('app/assets/images/nsrr_logo_64.png')
+    @agreement = agreement
+    @admin = admin
+    @email_to = admin.email
+    @last_event = @agreement.history.last
+    @last_user = User.find_by_id(@last_event[:user_id])
+
+    mail(to: @email_to,
+         subject: "#{@agreement.name}'s DAUA Status Changed to #{@agreement.status.titleize}")
+  end
+
   def sent_back_for_resubmission(agreement, admin)
     setup_email
     @agreement = agreement

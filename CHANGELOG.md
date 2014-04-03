@@ -3,6 +3,7 @@
 ### Enhancements
 - Dataset owners are notified when users make new dataset file access requests
   - Updated email styling template
+- Site admins are notified by email when an admin approves or asks a user to resubmit a DAUA
 - Minor wording changes on About page and Home page
 - **Gem Changes**
   - Updated to rails 4.1.0.rc2

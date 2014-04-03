@@ -97,14 +97,25 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should update agreement" do
+  test "should update agreement and set as approved" do
     login(users(:admin))
-    patch :update, id: @agreement, agreement: { executed_dua: fixture_file_upload('../../test/support/agreements/blank.pdf'), evidence_of_irb_review: true, status: 'approved' }
+    patch :update, id: agreements(:two), agreement: { executed_dua: fixture_file_upload('../../test/support/agreements/blank.pdf'), evidence_of_irb_review: true, status: 'approved' }
 
     assert_not_nil assigns(:agreement)
     assert_equal true, assigns(:agreement).evidence_of_irb_review
     assert_equal 'approved', assigns(:agreement).status
     assert_equal 'blank.pdf', assigns(:agreement).executed_dua.file.identifier
+
+    assert_redirected_to agreement_path(assigns(:agreement))
+  end
+
+  test "should update agreement and ask user to resubmit" do
+    login(users(:admin))
+    patch :update, id: @agreement, agreement: { status: 'resubmit', comments: 'Please Resubmit' }
+
+    assert_not_nil assigns(:agreement)
+    assert_equal 'resubmit', assigns(:agreement).status
+    assert_equal 'Please Resubmit', assigns(:agreement).comments
 
     assert_redirected_to agreement_path(assigns(:agreement))
   end
@@ -117,6 +128,18 @@ class AgreementsControllerTest < ActionController::TestCase
 
     assert assigns(:agreement).errors.size > 0
     assert_equal ["can't be blank"], assigns(:agreement).errors[:executed_dua]
+
+    assert_template 'review'
+  end
+
+  test "should not update agreement and ask user to resubmit without comments" do
+    login(users(:admin))
+    patch :update, id: @agreement, agreement: { status: 'resubmit', comments: '' }
+
+    assert_not_nil assigns(:agreement)
+
+    assert assigns(:agreement).errors.size > 0
+    assert_equal ["can't be blank"], assigns(:agreement).errors[:comments]
 
     assert_template 'review'
   end

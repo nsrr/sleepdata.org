@@ -19,13 +19,21 @@ two:
   encrypted_password: ""
 
 admin:
-  first_name: MyString
-  last_name: MyString
+  first_name: FirstAdmin
+  last_name: LastAdmin
   deleted: false
   system_admin: true
   email: admin@example.com
   encrypted_password: ""
   authentication_token: f84017f13698c6d82459b
+
+admin_two:
+  first_name: FirstAdminTwo
+  last_name: LastAdminTwo
+  deleted: false
+  system_admin: true
+  email: admin_two@example.com
+  encrypted_password: ""
 
 deleted:
   first_name: MyString
