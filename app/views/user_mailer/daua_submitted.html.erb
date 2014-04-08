@@ -1,9 +1,11 @@
-Hello <%= @system_admin.first_name %>,<br />
+<%= render partial: 'email_header' %>
+
+<b>Dear <%= @system_admin.first_name %>,</b><br />
 <br />
-<%= @agreement.user.name %> [<%= @agreement.user.email %>] has submitted a Data Access and Use Agreement.<br />
+<%= @agreement.user.name %> [<%= @agreement.user.email %>] <span style="padding:5px;background-color:#f0ad4e;color:white">submitted</span> a Data Access and Use Agreement.<br />
 <br />
-You can review the Data Access and Use Agreement here: <%= link_to "#{SITE_URL}/agreements/#{@agreement.id}/review", "#{SITE_URL}/agreements/#{@agreement.id}/review" %><br />
+You can review the Data Access and Use Agreement here:<br />
 <br />
-Thank you!<br />
-<br />
-<%= DEFAULT_APP_NAME %>
+<center><%= link_to "#{SITE_URL}/agreements/#{@agreement.id}/review", "#{SITE_URL}/agreements/#{@agreement.id}/review", style: "color: #428bca" %></center><br />
+
+<%= render partial: 'email_footer' %>

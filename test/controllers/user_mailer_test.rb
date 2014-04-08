@@ -13,7 +13,7 @@ class UserMailerTest < ActionMailer::TestCase
     # Test the body of the sent email contains what we expect it to
     assert_equal [admin.email], email.to
     assert_equal "#{valid.name} Signed Up", email.subject
-    assert_match(/#{valid.name} \[#{valid.email}\] has signed up for an account\./, email.encoded)
+    assert_match(/#{valid.name} \[#{valid.email}\] signed up for an account\./, email.encoded)
   end
 
   test "daua submitted email" do
@@ -27,7 +27,7 @@ class UserMailerTest < ActionMailer::TestCase
     # Test the body of the sent email contains what we expect it to
     assert_equal [admin.email], email.to
     assert_equal "#{agreement.user.name} Submitted a Data Access and Use Agreement", email.subject
-    assert_match(/#{agreement.user.name} \[#{agreement.user.email}\] has submitted a Data Access and Use Agreement\./, email.encoded)
+    assert_match(/#{agreement.user.name} \[#{agreement.user.email}\] submitted a Data Access and Use Agreement\./, email.encoded)
   end
 
   test "daua approved email" do
@@ -82,8 +82,8 @@ class UserMailerTest < ActionMailer::TestCase
 
     # Test the body of the sent email contains what we expect it to
     assert_equal [editor.email], email.to
-    assert_equal "#{dataset_user.user.name} Has Requested Dataset File Access on #{dataset_user.dataset.name}", email.subject
-    assert_match(/#{dataset_user.user.name} \[#{dataset_user.user.email}\] has requested file access on #{dataset_user.dataset.name}\./, email.encoded)
+    assert_equal "#{dataset_user.user.name} Requested Dataset File Access on #{dataset_user.dataset.name}", email.subject
+    assert_match(/#{dataset_user.user.name} \[#{dataset_user.user.email}\] requested file access on #{dataset_user.dataset.name}\./, email.encoded)
   end
 
 end

@@ -1,13 +1,15 @@
-Hello <%= @agreement.user.first_name %>,<br />
+<%= render partial: 'email_header' %>
+
+<b>Dear <%= @agreement.user.first_name %>,</b><br />
 <br />
 Your Data Access and Use Agreement submission was missing required information.<br />
 <br />
-Please review the following comments, make the appropriate changes, and resubmit your DAUA here: <%= link_to "#{SITE_URL}/daua", "#{SITE_URL}/daua" %><br />
-<br />
 <blockquote><%= @agreement.comments %></blockquote>
 <br />
-You can reply directly to this email if you have any questions.<br />
+Please review the above comments, make the appropriate changes, and resubmit your DAUA here:
+
+<center><%= link_to "#{SITE_URL}/daua", "#{SITE_URL}/daua", style: "color: #428bca" %></center><br />
 <br />
-Thank you,<br />
-<br />
-<%= DEFAULT_APP_NAME %>
+You can reply directly to this email if you have any questions.
+
+<%= render partial: 'email_footer' %>

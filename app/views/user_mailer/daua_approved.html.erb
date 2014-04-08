@@ -1,11 +1,13 @@
-Hello <%= @agreement.user.first_name %>,<br />
+<%= render partial: 'email_header' %>
+
+<b>Dear <%= @agreement.user.first_name %>,</b><br />
 <br />
-Your Data Access and Use Agreement submission has been approved.<br />
+Your Data Access and Use Agreement submission has been <span style="padding:5px;background-color:#5cb85c;color:white">approved</span>.<br />
 <br />
-You can now start exploring available data here: <%= link_to "#{SITE_URL}/daua", "#{SITE_URL}/daua" %><br />
+You can now start exploring available data here:<br />
+<br />
+<center><%= link_to "#{SITE_URL}/daua", "#{SITE_URL}/daua", style: "color: #428bca" %></center><br />
 <br />
 You can reply directly to this email if you have any questions.<br />
-<br />
-Thank you!<br />
-<br />
-<%= DEFAULT_APP_NAME %>
+
+<%= render partial: 'email_footer' %>

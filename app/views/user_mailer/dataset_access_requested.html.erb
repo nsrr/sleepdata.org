@@ -2,7 +2,7 @@
 
 <b>Dear <%= @editor.first_name %>,</b><br />
 <br />
-<%= @dataset_user.user.name %> [<%= mail_to @dataset_user.user.email, @dataset_user.user.email, style: "color: #428bca;" %>] has requested file access on <%= @dataset_user.dataset.name %>.<br />
+<%= @dataset_user.user.name %> [<%= mail_to @dataset_user.user.email, @dataset_user.user.email, style: "color: #428bca;" %>] <span style="padding:5px;background-color:#f0ad4e;color:white">requested</span> file access on <%= @dataset_user.dataset.name %>.<br />
 <br />
 You can review the Data File Access request here:<br />
 <br />
