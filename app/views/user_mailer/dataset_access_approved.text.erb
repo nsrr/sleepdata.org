@@ -1,0 +1,13 @@
+Dear <%= @dataset_user.user.first_name %>,
+
+<%= @editor.name %> approved your file access request on <%= @dataset_user.dataset.name %>.
+
+You can now start exploring available data here:
+
+
+    <%= "#{SITE_URL}/datasets/#{@dataset_user.dataset.to_param}/files" %>
+
+
+Thank you!
+
+<%= DEFAULT_APP_NAME %>

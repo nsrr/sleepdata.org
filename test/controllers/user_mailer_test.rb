@@ -86,4 +86,18 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match(/#{dataset_user.user.name} \[#{dataset_user.user.email}\] requested file access on #{dataset_user.dataset.name}\./, email.encoded)
   end
 
+  test "dataset file access approved email" do
+    dataset_user = dataset_users(:editor_public_access)
+    editor = users(:editor)
+
+    # Send the email, then test that it got queued
+    email = UserMailer.dataset_access_approved(dataset_user, editor).deliver
+    assert !ActionMailer::Base.deliveries.empty?
+
+    # Test the body of the sent email contains what we expect it to
+    assert_equal [dataset_user.user.email], email.to
+    assert_equal "Your #{dataset_user.dataset.name} File Access Request Has Been Approved By #{editor.name}", email.subject
+    assert_match(/#{editor.name} approved your file access request on #{dataset_user.dataset.name}\./, email.encoded)
+  end
+
 end

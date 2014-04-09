@@ -28,6 +28,10 @@ class DatasetsController < ApplicationController
   def set_access
     if @dataset_user = @dataset.dataset_users.find_by_id(params[:dataset_user_id])
       @dataset_user.update( editor: params[:editor], approved: params[:approved] )
+      if @dataset_user.approved? and not @dataset_user.email_sent?
+        UserMailer.dataset_access_approved(@dataset_user, current_user).deliver if Rails.env.production?
+        @dataset_user.update email_sent: true
+      end
     end
     redirect_to requests_dataset_path(@dataset, dataset_user_id: @dataset_user ? @dataset_user.id : nil)
   end

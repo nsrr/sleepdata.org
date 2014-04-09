@@ -60,6 +60,16 @@ class UserMailer < ActionMailer::Base
          subject: "#{dataset_user.user.name} Requested Dataset File Access on #{dataset_user.dataset.name}")
   end
 
+  def dataset_access_approved(dataset_user, editor)
+    setup_email
+    @dataset_user = dataset_user
+    @editor = editor
+    @email_to = dataset_user.user.email
+    mail(to: @email_to,
+         subject: "Your #{dataset_user.dataset.name} File Access Request Has Been Approved By #{@editor.name}",
+         reply_to: editor.email)
+  end
+
   protected
 
   def setup_email
