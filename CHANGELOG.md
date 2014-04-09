@@ -1,4 +1,4 @@
-## 0.7.0
+## 0.7.0 (April 9, 2014)
 
 ### Enhancements
 - **Administrative Changes**
