@@ -1,0 +1,84 @@
+<% @title = 'Stats' %>
+<div class="page-header">
+  <h1>
+    <%= @title %>
+  </h1>
+</div>
+
+<% regular_member_ids = User.current.where( aug_member: false, core_member: false ).pluck(:id) %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th style="text-align:center">Regular member signups</th>
+      <th style="text-align:center">AUG member signups</th>
+      <th style="text-align:center">Core Team member signups</th>
+      <th style="text-align:center">Total Signups</th>
+    </tr>
+  </thead>
+  <tr>
+    <td style="text-align:center"><%= User.current.where( core_member: false, aug_member: false ).count %></td>
+    <td style="text-align:center"><%= User.current.where( aug_member: true ).count %></td>
+    <td style="text-align:center"><%= User.current.where( core_member: true ).count %></td>
+    <td style="text-align:center"><%= User.current.count %></td>
+  </tr>
+</table>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th style="text-align:center">Regular member signups</th>
+      <th style="text-align:center">Regular member DAUAs submitted</th>
+      <th style="text-align:center">Regular member DAUAs approved</th>
+    </tr>
+  </thead>
+  <tr>
+    <td style="text-align:center"><%= User.current.where( core_member: false, aug_member: false ).count %></td>
+    <td style="text-align:center"><%= Agreement.current.where( user_id: regular_member_ids ).count %></td>
+    <td style="text-align:center"><%= Agreement.current.where( user_id: regular_member_ids, status: 'approved' ).count %></td>
+  </tr>
+</table>
+
+<table class="table table-striped"><col width="1%"/>
+  <thead>
+    <tr>
+      <th></th>
+      <th style="text-align:center" colspan="2">Regular Members</th>
+      <th style="text-align:center" colspan="2">AUG + Core Members</th>
+      <th style="text-align:center" colspan="2">Total</th>
+    </tr>
+    <tr>
+      <th>Dataset</th>
+      <th style="text-align:center" colspan="2">Files Downloaded</th>
+      <th style="text-align:center" colspan="2">Files Downloaded</th>
+      <th style="text-align:center" colspan="2">Files Downloaded</th>
+    </tr>
+  </thead>
+  <% Dataset.current.order(:release_date, :name).each do |dataset| %>
+    <tr>
+      <td style="white-space:nowrap"><%= link_to dataset.name, audits_dataset_path(dataset) %></td>
+      <td style="text-align:center"><%= pluralize dataset.dataset_file_audits.where( user_id: regular_member_ids ).count, 'file' %></td>
+      <td style="text-align:center"><%= number_to_human_size dataset.dataset_file_audits.where( user_id: regular_member_ids ).sum( :file_size ) %></td>
+      <td style="text-align:center"><%= pluralize dataset.dataset_file_audits.where.not( user_id: regular_member_ids ).count, 'file' %></td>
+      <td style="text-align:center"><%= number_to_human_size dataset.dataset_file_audits.where.not( user_id: regular_member_ids ).sum( :file_size ) %></td>
+      <td style="text-align:center"><%= pluralize dataset.dataset_file_audits.count, 'file' %></td>
+      <td style="text-align:center"><%= number_to_human_size dataset.dataset_file_audits.sum( :file_size ) %></td>
+    </tr>
+  <% end %>
+  <tfoot>
+    <tr>
+      <th>Total</th>
+      <th style="text-align:center"><%= pluralize DatasetFileAudit.where( user_id: regular_member_ids ).count, 'file' %></th>
+      <th style="text-align:center" class="success"><%= number_to_human_size DatasetFileAudit.where( user_id: regular_member_ids ).sum( :file_size ) %></th>
+      <th style="text-align:center"><%= pluralize DatasetFileAudit.where.not( user_id: regular_member_ids ).count, 'file' %></th>
+      <th style="text-align:center"><%= number_to_human_size DatasetFileAudit.where.not( user_id: regular_member_ids ).sum( :file_size ) %></th>
+      <th style="text-align:center"><%= pluralize DatasetFileAudit.count, 'file' %></th>
+      <th style="text-align:center"><%= number_to_human_size DatasetFileAudit.sum( :file_size ) %></th>
+    </tr>
+  </tfoot>
+</table>
+
+<h2>Regular Member IP Addresses</h2>
+<pre>
+<%= User.current.where( core_member: false, aug_member: false ).pluck(:current_sign_in_ip).join(', ') %>
+</pre>

@@ -1,6 +1,6 @@
 class WelcomeController < ApplicationController
-  before_action :authenticate_user!,        only: [ :sync ]
-  before_action :check_system_admin,        only: [ :sync ]
+  before_action :authenticate_user!,        only: [ :sync, :stats ]
+  before_action :check_system_admin,        only: [ :sync, :stats ]
 
   def about
     @users = User.core_members.order( :last_name, :first_name )

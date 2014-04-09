@@ -3,6 +3,7 @@
 ### Enhancements
 - **Administrative Changes**
   - Site admins are notified by email when an admin approves or asks a user to resubmit a DAUA
+  - Added stats overview for system admins to track signups, DAUA submissions, and file downloads
 - **Dataset Changes**
   - Dataset owners are notified when users make new dataset file access requests
   - Variable popups are now hidden when the `Esc` key is pressed
