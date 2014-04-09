@@ -1,13 +1,16 @@
 ## 0.7.0
 
 ### Enhancements
-- Dataset owners are notified when users make new dataset file access requests
-- Updated email styling template
-- Site admins are notified by email when an admin approves or asks a user to resubmit a DAUA
-- Minor wording changes on About page and Home page
-- Documentation pages for tools and datasets now include the filename as part of the title
-- Variable popups are now hidden when the `Esc` key is pressed
-- Users are notified by email when a dataset editor approves their file access request
+- **Administrative Changes**
+  - Site admins are notified by email when an admin approves or asks a user to resubmit a DAUA
+- **Dataset Changes**
+  - Dataset owners are notified when users make new dataset file access requests
+  - Variable popups are now hidden when the `Esc` key is pressed
+  - Users are notified by email when a dataset editor approves their file access request
+- **General Changes**
+  - Updated email styling template
+  - Minor wording changes on About page and Home page
+  - Documentation pages for tools and datasets now include the filename as part of the title
 - **Gem Changes**
   - Updated to rails 4.1.0
   - Updated to contour 2.5.0.beta1
