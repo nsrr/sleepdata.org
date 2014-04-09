@@ -6,7 +6,7 @@
 - Site admins are notified by email when an admin approves or asks a user to resubmit a DAUA
 - Minor wording changes on About page and Home page
 - **Gem Changes**
-  - Updated to rails 4.1.0.rc2
+  - Updated to rails 4.1.0
   - Updated to contour 2.5.0.beta1
   - Removed turn, and replaced with minitest and minitest-reporters
 
