@@ -6,6 +6,7 @@
 - Site admins are notified by email when an admin approves or asks a user to resubmit a DAUA
 - Minor wording changes on About page and Home page
 - Documentation pages for tools and datasets now include the filename as part of the title
+- Variable popups are now hidden when the `Esc` key is pressed
 - **Gem Changes**
   - Updated to rails 4.1.0
   - Updated to contour 2.5.0.beta1
