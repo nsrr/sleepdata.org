@@ -5,6 +5,8 @@
   - Large numbers on statistics page now include commas
 - **Dataset Changes**
   - Windows wget commands now include `--no-check-certificate`
+- **General Changes**
+  - `mailto` links in email now use the same color as `href` links
 
 ## 0.7.0 (April 9, 2014)
 

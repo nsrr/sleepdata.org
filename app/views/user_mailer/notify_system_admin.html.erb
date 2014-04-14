@@ -2,7 +2,7 @@
 
 <b>Dear <%= @system_admin.first_name %>,</b><br />
 <br />
-<%= @user.name %> [<%= @user.email %>] <span style="padding:5px;background-color:#f0ad4e;color:white">signed up</span> for an account.<br />
+<%= @user.name %> [<%= mail_to @user.email, @user.email, style: "color: #428bca;" %>] <span style="padding:5px;background-color:#f0ad4e;color:white">signed up</span> for an account.<br />
 <br />
 Click the following link to view the registration:<br />
 <br />
