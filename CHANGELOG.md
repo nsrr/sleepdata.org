@@ -1,7 +1,10 @@
 ## 0.7.1
 
 ### Enhancements
-- Windows wget commands now include `--no-check-certificate`
+- **Administrative Changes**
+  - Large numbers on statistics page now include commas
+- **Dataset Changes**
+  - Windows wget commands now include `--no-check-certificate`
 
 ## 0.7.0 (April 9, 2014)
 
