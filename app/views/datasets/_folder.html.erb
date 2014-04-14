@@ -65,10 +65,12 @@
   <% if @dataset.folder_has_files?(@current_folder) %>
     <% if windows? %>
       <% end_statement = ' &' %>
+      <% extra_flags = ' --no-check-certificate' %>
       <% mkdir_flags = '' %>
       <% mkdir_path = @local_folder.gsub('/', '\\') %>
     <% else %>
       <% end_statement = ';' %>
+      <% extra_flags = '' %>
       <% mkdir_flags = ' -p' %>
       <% mkdir_path = @local_folder %>
     <% end %>
@@ -79,7 +81,7 @@
         </p>
 
         <p>
-          <pre class="code" style="text-align:left">mkdir<%= mkdir_flags %> <%= mkdir_path %><%= end_statement %> wget -O <%= @local_folder %>/manifest.txt <%= site_prefix %><%= manifest_dataset_path( @dataset, auth_token: (current_user ? current_user.id_and_auth_token : nil ), path: @current_folder ) %><%= end_statement %> wget -P <%= @local_folder %> -c -i <%= @local_folder %>/manifest.txt</pre>
+          <pre class="code" style="text-align:left">mkdir<%= mkdir_flags %> <%= mkdir_path %><%= end_statement %> wget -O <%= @local_folder %>/manifest.txt <%= site_prefix %><%= manifest_dataset_path( @dataset, auth_token: (current_user ? current_user.id_and_auth_token : nil ), path: @current_folder ) %><%= extra_flags %><%= end_statement %> wget -P <%= @local_folder %> -c -i <%= @local_folder %>/manifest.txt<%= extra_flags %></pre>
         </p>
 
         <div class="alert alert-info"><strong>Don't have GNU Wget?</strong> Install using our <%= link_to 'GNU Wget installation instructions', tool_path( 'wget' ), class: 'alert-link' %>.</div>
