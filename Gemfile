@@ -11,6 +11,7 @@ gem 'kaminari',             '~> 0.15.1'
 gem 'carrierwave',          '~> 0.10.0'
 gem 'ruby-ntlm-namespace',  '~> 0.0.1'
 gem 'redcarpet',            '~> 3.1.1'
+gem 'geocoder',             '~> 1.1.9'
 
 # Rails Defaults
 gem 'coffee-rails',         '~> 4.0.1'

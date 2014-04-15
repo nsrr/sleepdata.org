@@ -1,5 +1,8 @@
 ## 0.7.2
 
+- **Administrative Changes**
+  - Added tables of regular member registrations by country and state for reporting purposes
+
 ## 0.7.1 (April 14, 2014)
 
 ### Enhancements

@@ -3,6 +3,7 @@
   <h1>
     <%= @title %>
   </h1>
+  <%= link_to 'Location', location_path, class: 'btn btn-xs btn-default' %>
 </div>
 
 <% regular_member_ids = User.current.where( aug_member: false, core_member: false ).pluck(:id) %>
@@ -77,8 +78,3 @@
     </tr>
   </tfoot>
 </table>
-
-<h2>Regular Member IP Addresses</h2>
-<pre>
-<%= User.current.where( core_member: false, aug_member: false ).pluck(:current_sign_in_ip).join(', ') %>
-</pre>

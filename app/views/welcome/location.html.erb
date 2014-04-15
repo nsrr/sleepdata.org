@@ -1,0 +1,56 @@
+<% @title = 'Location' %>
+<div class="page-header">
+  <h1>
+    <%= @title %>
+  </h1>
+  <%= link_to 'Stats', stats_path, class: 'btn btn-xs btn-default' %>
+</div>
+
+<h2>Regular Member Sign Ups by Country</h2>
+
+<% ip_addresses = User.current.where( core_member: false, aug_member: false ).pluck(:current_sign_in_ip) %>
+
+<% location_array = [] %>
+<% ip_addresses.each do |ip_address| %>
+  <% results = Geocoder.search(ip_address) %>
+  <% result = results.first %>
+  <% location_array << [result.country, result.state] if result %>
+<% end %>
+
+<% country_count = location_array.group_by{|item| item[0]}.collect{|key, values| [key, values.count]}.sort{|a,b| b[1] <=> a[1]} %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Country</th>
+      <th>Regular Member Sign Ups</th>
+    </tr>
+  </thead>
+  <% country_count.each do |country, count| %>
+    <tr>
+      <td><%= country %></td>
+      <td><%= pluralize(number_with_delimiter(count), 'user') %></td>
+    </tr>
+  <% end %>
+</table>
+
+<hr class="soften" />
+
+<h2>Regular Member Sign Ups by State in the United States</h2>
+
+<% state_count = location_array.select{|item| item[0] == 'United States'}.group_by{|item| item[1]}.collect{|key, values| [key, values.count]}.sort{|a,b| b[1] <=> a[1]} %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>State</th>
+      <th>Regular Member Sign Ups</th>
+    </tr>
+  </thead>
+  <% state_count.each do |state, count| %>
+    <tr>
+      <td><%= state %></td>
+      <td><%= pluralize(number_with_delimiter(count), 'user') %></td>
+    </tr>
+  <% end %>
+</table>

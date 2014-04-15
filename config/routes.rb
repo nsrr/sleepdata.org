@@ -61,6 +61,7 @@ WwwSleepdataOrg::Application.routes.draw do
   get '/contact' => 'welcome#contact', as: :contact
   get '/sync' => 'welcome#sync', as: :sync
   get '/stats' => 'welcome#stats', as: :stats
+  get '/location' => 'welcome#location', as: :location
   get '/collection' => 'welcome#collection', as: :collection
   get '/collection_modal' => 'welcome#collection_modal', as: :collection_modal
 
