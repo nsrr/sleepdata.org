@@ -1,5 +1,9 @@
 ## 0.7.3
 
+### Enhancements
+- **Gem Changes**
+  - Updated to rails 4.1.1
+
 ## 0.7.2 (April 15, 2014)
 
 - **Administrative Changes**
