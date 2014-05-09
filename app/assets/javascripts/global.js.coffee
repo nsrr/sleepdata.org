@@ -45,3 +45,11 @@ $(document)
   .on('click', '[data-object~="show-target"]', () ->
     $($(this).data('target')).show()
   )
+
+$(window).scroll( () ->
+  $('.si').each( () ->
+    imagePos = $(this).offset().top
+    bottomOfWindow = $(window).scrollTop() + $(window).height()
+    $(this).addClass("slideUp") if imagePos < bottomOfWindow - 200
+  )
+)

@@ -1,6 +1,8 @@
 ## 0.8.0
 
 ### Enhancements
+- **General Changes**
+  - Prototype of the `rdi3p` infographic
 - **Gem Changes**
   - Updated to contour 2.5.0
 

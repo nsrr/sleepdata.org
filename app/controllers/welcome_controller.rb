@@ -2,6 +2,17 @@ class WelcomeController < ApplicationController
   before_action :authenticate_user!,        only: [ :sync, :stats, :location ]
   before_action :check_system_admin,        only: [ :sync, :stats, :location ]
 
+  def rdi3p
+    @dataset = Dataset.find_by_slug 'shhs'
+    @variable = @dataset.variables.find_by_name('rdi3p') if @dataset
+
+    unless @variable
+      render nothing: true
+    else
+      render layout: 'nonavigation'
+    end
+  end
+
   def about
     @users = User.core_members.order( :last_name, :first_name )
   end
