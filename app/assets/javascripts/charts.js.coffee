@@ -191,7 +191,7 @@
 $(document)
   .on('click', "[data-chart]", () ->
     toggleButtonClasses()
-    $("[data-object~='chart-button'][data-chart~='#{$(this).data('chart')}'").addClass('btn-primary')
+    $("[data-object~='chart-button'][data-chart~='#{$(this).data('chart')}']").addClass('btn-primary')
     if $(this).data('chart') == 'stats'
       $('#container').hide()
       $('#container-stats').show()
