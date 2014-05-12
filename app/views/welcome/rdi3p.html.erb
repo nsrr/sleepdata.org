@@ -3,17 +3,9 @@
   <p class="lead">Respiratory Disturbance Index at 3% Oxygen Desaturation</p>
 </div>
 
-
-
 <div class="row">
   <div class="col-md-6">
-    <p class="lead">
-      <% if File.file?( File.join( @dataset.root_folder, 'dd', 'graphs', "#{@variable.name}-lg.png") ) %>
-        <center>
-          <%= image_tag variable_chart_dataset_path(@dataset, name: "#{@variable.name}-lg"), style: 'max-width: 100%;max-height:400px;display:block' %>
-        </center>
-      <% end %>
-    </p>
+    <div id="main-container" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
   </div>
   <div class="col-md-6">
     <div class="hidden-sm hidden-xs" style="height:122px"></div>
@@ -27,361 +19,109 @@
 </div>
 
 
-<div class="mono-display"><div class="file-display-after">Calculation</div><u>rdi3p</u> = 60 * ( <%= link_to 'hrembp3', collection_path( d: @dataset.slug, s: 'hrembp3' ) %> + hrop3 + hnrbp3 + hnrop3 + carbp3 + carop3 + canbp3 + canop3 + oarbp3 + oarop3 + oanbp3 + oanop3 ) / <%= link_to 'slpprdp', collection_path( d: @dataset.slug, s: 'slpprdp' ) %></div>
+<div class="mono-display"><div class="file-display-after">Calculation</div><u>rdi3p</u> = 60 * ( <%= link_to 'hrembp3', collection_path( d: @dataset.slug, s: 'hrembp3' ) %> + <%= link_to 'hrop3', collection_path( d: @dataset.slug, s: 'hrop3' ) %> + <%= link_to 'hnrbp3', collection_path( d: @dataset.slug, s: 'hnrbp3' ) %> + <%= link_to 'hnrop3', collection_path( d: @dataset.slug, s: 'hnrop3' ) %> + <%= link_to 'carbp3', collection_path( d: @dataset.slug, s: 'carbp3' ) %> + <%= link_to 'carop3', collection_path( d: @dataset.slug, s: 'carop3' ) %> + <%= link_to 'canbp3', collection_path( d: @dataset.slug, s: 'canbp3' ) %> + <%= link_to 'canop3', collection_path( d: @dataset.slug, s: 'canop3' ) %> + <%= link_to 'oarbp3', collection_path( d: @dataset.slug, s: 'oarbp3' ) %> + <%= link_to 'oarop3', collection_path( d: @dataset.slug, s: 'oarop3' ) %> + <%= link_to 'oanbp3', collection_path( d: @dataset.slug, s: 'oanbp3' ) %> + <%= link_to 'oanop3', collection_path( d: @dataset.slug, s: 'oanop3' ) %> ) / <%= link_to 'slpprdp', collection_path( d: @dataset.slug, s: 'slpprdp' ) %></div>
 
 <center><%= image_tag 'nsrr-pencil.png', style: 'max-width:100%' %></center>
 
 <div class="welcome-box" style="padding-top:20px;padding-bottom:20px">
-  <center><%= image_tag 'nsrr-rdi3p-age-gender.png', style: 'max-width:100%' %></center>
+  <div class="btn-group btn-group-justified hidden-sm hidden-xs" style="padding-bottom:20px">
+    <%= link_to 'Overall', '#', class: 'btn btn-primary btn-lg', data: { object: 'chart-button', chart: 'overall' } %>
+    <%= link_to 'Age', '#', class: 'btn btn-default btn-lg', data: { object: 'chart-button', chart: 'age' } %>
+    <%= link_to 'Gender', '#', class: 'btn btn-default btn-lg', data: { object: 'chart-button', chart: 'gender' } %>
+    <%= link_to 'Race', '#', class: 'btn btn-default btn-lg', data: { object: 'chart-button', chart: 'race' } %>
+    <%= link_to 'Stats', '#', class: 'btn btn-default btn-lg', data: { object: 'chart-button', chart: 'stats' } %>
+  </div>
+  <div class="btn-group btn-group-justified hidden-md hidden-lg" style="padding-bottom:20px">
+    <%= link_to 'Overall', '#', class: 'btn btn-primary btn-sm', data: { object: 'chart-button', chart: 'overall' } %>
+    <%= link_to 'Age', '#', class: 'btn btn-default btn-sm', data: { object: 'chart-button', chart: 'age' } %>
+    <%= link_to 'Gender', '#', class: 'btn btn-default btn-sm', data: { object: 'chart-button', chart: 'gender' } %>
+    <%= link_to 'Race', '#', class: 'btn btn-default btn-sm', data: { object: 'chart-button', chart: 'race' } %>
+    <%= link_to 'Stats', '#', class: 'btn btn-default btn-sm', data: { object: 'chart-button', chart: 'stats' } %>
+  </div>
+  <div id="container" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+  <div id="container-stats" style="display:none">
+    <%= render partial: 'rdi3p_stats' %>
+  </div>
 </div>
 
 <div class="row">
   <div class="col-md-6">
     <div class="hidden-sm hidden-xs" style="height:37px"></div>
     <div class="jumbotron" style="margin-bottom: 20px;margin-top: 10px;background-color: #333;color: white;padding-top: 20px;padding-bottom: 10px;">
-      <p class="lead">"...difference in <%= link_to 'men versus women', @dataset %>..."</p>
+      <p class="lead">"...difference in <%= link_to 'men versus women', '#', data: { chart: 'gender' } %>..."</p>
     </div>
   </div>
   <div class="col-md-6">
-    <img alt="A1430bb27ab123f550ea55148bdd371e" class="img-thumbnail" src="//gravatar.com/avatar/a1430bb27ab123f550ea55148bdd371e.png?&amp;s=80&amp;r=pg&amp;d=identicon" style="min-height:90px;min-width:90px;float:right;margin-left:10px;margin-top:10px">
-    <blockquote>RDI3p is of particular importance to demonstrate the feasibility of studies. The difference in <%= link_to 'men vs women' %> seen in the graph tells us a deal about the effects of aging on the otherwise unknown covariate lettering of the variable.
+    <img class="img-thumbnail" src="//gravatar.com/avatar/a1430bb27ab123f550ea55148bdd371e.png?&amp;s=80&amp;r=pg&amp;d=identicon" style="min-height:90px;min-width:90px;float:right;margin-left:10px;margin-top:10px">
+    <blockquote>In the charts above, we can see a significant difference of <code>rdi3p</code> in <%= link_to 'men vs women', '#', data: { chart: 'gender' } %>. You may also notice an interesting correlation between the respiratory disturbance index and <%= link_to 'age', '#', data: { chart: 'age' } %>.
 
       <small style="margin-top:10px">Susan Redline</small>
     </blockquote>
   </div>
 </div>
 
-<div id="report">
-<h3 style="text-align:center;margin:0px">Gender vs RDI3P</h3>
-<h5 style="text-align:center;margin:0px;padding-bottom:8px">Sleep Heart Health Study</h5>
-
-<div class="table-responsive-always">
-<table class="table table-hover"><colgroup><col width="1px">
-  </colgroup><thead>
-    <tr>
-      <th></th>
-        <th>
-            Gender
-        </th>
-        <th>
-            <span class="count-rot315 " rel="tooltip" title="" data-original-title="N">N</span>
-        </th>
-        <th>
-            <span class="count-rot315 " rel="tooltip" title="" data-original-title="Mean">Mean</span>
-        </th>
-        <th>
-            <span class="count-rot315 " rel="tooltip" title="" data-original-title="StdDev">StdDev</span>
-        </th>
-        <th>
-            <span class="count-rot315 " rel="tooltip" title="" data-original-title="Median">Median</span>
-        </th>
-        <th>
-            <span class="count-rot315 " rel="tooltip" title="" data-original-title="Min">Min</span>
-        </th>
-        <th>
-            <span class="count-rot315 " rel="tooltip" title="" data-original-title="Max">Max</span>
-        </th>
-        <th>
-            <span class="count-rot315 " rel="tooltip" title="" data-original-title="Total">Total</span>
-        </th>
-    </tr>
-  </thead>
-
-  <tfoot>
-    <tr style="font-weight:bold">
-
-      <td><span data-object="sparkline" data-type="box" data-values="[45.92,27.78,21.6,20.78,30.61,25.51,38.89,38.22,22.71,32.03,34.72,24.22,35.56,31.14,34.18,6.67,44.32,40.82,27.34,20.76,29.41,28.06,20.0,44.44,0.0,44.44,0.0,0.0]" data-min="0.0" data-max="45.92" style=""><canvas width="56" height="17" style="display: inline-block; vertical-align: top; width: 56px; height: 17px;"></canvas></span></td>
-          <td colspan="1">
-            Total
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="N">
-              <span class="rounded-borders" style="background-color: transparent">
-
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=%3Aany&amp;f%5B%5D%5Bvariable_id%5D=29&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">25</a></span>
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="Mean">
-              <span class="rounded-borders" style="background-color: transparent">
-
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=%3Aany&amp;f%5B%5D%5Bvariable_id%5D=29&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">30.81</a></span>
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="StdDev">
-              <span class="rounded-borders" style="background-color: transparent">
-                ±
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=%3Aany&amp;f%5B%5D%5Bvariable_id%5D=29&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">9.59</a></span>
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="Median">
-              <span class="rounded-borders" style="background-color: transparent">
-
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=%3Aany&amp;f%5B%5D%5Bvariable_id%5D=29&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">30.61</a></span>
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="Min">
-              <span class="rounded-borders" style="background-color: transparent">
-
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=%3Aany&amp;f%5B%5D%5Bvariable_id%5D=29&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">6.67</a></span>
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="Max">
-              <span class="rounded-borders" style="background-color: transparent">
-
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=%3Aany&amp;f%5B%5D%5Bvariable_id%5D=29&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">45.92</a></span>
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="Total">
-              <span class="rounded-borders" style="background-color: transparent">
-
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=%3Aany&amp;f%5B%5D%5Bvariable_id%5D=29&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=%3Aany&amp;f%5B%5D%5Bvariable_id%5D=42&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">25</a></span>
-            </span>
-          </td>
-
-    </tr>
-  </tfoot>
-
-  <tbody>
-      <tr>
-        <td><span data-object="sparkline" data-type="box" data-values="[45.92,21.6,30.61,38.22,32.03,24.22,35.56,31.14,6.67,44.32,20.76,29.41,44.44,44.44,0.0]" data-min="0.0" data-max="45.92" style=""><canvas width="56" height="16" style="display: inline-block; vertical-align: top; width: 56px; height: 16px;"></canvas></span></td>
-          <td>
-            <span class="text-muted" rel="tooltip" title="" data-placement="right" data-original-title="">
-              <span class="rounded-borders " style="background-color: transparent">
-
-                Male</span>
-
-
-
-
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="N">
-              <span class="rounded-borders " style="background-color: transparent">
-
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=1&amp;f%5B%5D%5Bvariable_id%5D=29&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">14</a></span>
-
-
-
-
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="Mean">
-              <span class="rounded-borders " style="background-color: transparent">
-
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=1&amp;f%5B%5D%5Bvariable_id%5D=29&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">32.10</a></span>
-
-
-
-
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="StdDev">
-              <span class="rounded-borders " style="background-color: transparent">
-                ±
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=1&amp;f%5B%5D%5Bvariable_id%5D=29&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">11.27</a></span>
-
-
-
-
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="Median">
-              <span class="rounded-borders " style="background-color: transparent">
-
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=1&amp;f%5B%5D%5Bvariable_id%5D=29&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">31.59</a></span>
-
-
-
-
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="Min">
-              <span class="rounded-borders " style="background-color: transparent">
-
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=1&amp;f%5B%5D%5Bvariable_id%5D=29&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">6.67</a></span>
-
-
-
-
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="Max">
-              <span class="rounded-borders " style="background-color: transparent">
-
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=1&amp;f%5B%5D%5Bvariable_id%5D=29&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">45.92</a></span>
-
-
-
-
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="Total">
-              <span class="rounded-borders " style="background-color: transparent">
-
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=1&amp;f%5B%5D%5Bvariable_id%5D=29&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=%3Aany&amp;f%5B%5D%5Bvariable_id%5D=42&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">14</a></span>
-
-
-
-
-            </span>
-          </td>
-      </tr>
-      <tr>
-        <td><span data-object="sparkline" data-type="box" data-values="[27.78,20.78,25.51,38.89,22.71,34.72,34.18,40.82,27.34,28.06,20.0,0.0,0.0]" data-min="0.0" data-max="45.92" style=""><canvas width="56" height="16" style="display: inline-block; vertical-align: top; width: 56px; height: 16px;"></canvas></span></td>
-          <td>
-            <span class="text-muted" rel="tooltip" title="" data-placement="right" data-original-title="">
-              <span class="rounded-borders " style="background-color: transparent">
-
-                Female</span>
-
-
-
-
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="N">
-              <span class="rounded-borders " style="background-color: transparent">
-
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=2&amp;f%5B%5D%5Bvariable_id%5D=29&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">11</a></span>
-
-
-
-
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="Mean">
-              <span class="rounded-borders " style="background-color: transparent">
-
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=2&amp;f%5B%5D%5Bvariable_id%5D=29&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">29.16</a></span>
-
-
-
-
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="StdDev">
-              <span class="rounded-borders " style="background-color: transparent">
-                ±
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=2&amp;f%5B%5D%5Bvariable_id%5D=29&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">7.09</a></span>
-
-
-
-
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="Median">
-              <span class="rounded-borders " style="background-color: transparent">
-
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=2&amp;f%5B%5D%5Bvariable_id%5D=29&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">27.78</a></span>
-
-
-
-
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="Min">
-              <span class="rounded-borders " style="background-color: transparent">
-
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=2&amp;f%5B%5D%5Bvariable_id%5D=29&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">20.00</a></span>
-
-
-
-
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="Max">
-              <span class="rounded-borders " style="background-color: transparent">
-
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=2&amp;f%5B%5D%5Bvariable_id%5D=29&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">40.82</a></span>
-
-
-
-
-            </span>
-          </td>
-          <td>
-            <span class="" rel="tooltip" title="" data-placement="right" data-original-title="Total">
-              <span class="rounded-borders " style="background-color: transparent">
-
-                <a href="/projects/1/sheets?design_id=1&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=2&amp;f%5B%5D%5Bvariable_id%5D=29&amp;f%5B%5D%5Bend_date%5D=&amp;f%5B%5D%5Bstart_date%5D=&amp;f%5B%5D%5Bvalue%5D=%3Aany&amp;f%5B%5D%5Bvariable_id%5D=42&amp;filter=all&amp;statuses%5B%5D=&amp;statuses%5B%5D=valid" target="_blank">11</a></span>
-
-
-
-
-            </span>
-          </td>
-      </tr>
-  </tbody>
-</table>
-</div>
-
-
-</div>
-
-<center><%= link_to 'Download Full Dataset', files_dataset_path(@dataset, f: 'shhs-0.2.0.csv' ), class: 'btn btn-success btn-lg', style: 'font-size: 2em' %></center>
-
 <div style="margin-top:20px">
 
+<% dataset_file_url = files_dataset_path(@dataset, path: 'datasets', f: 'shhs-0.2.0.csv' ) %>
+
 <div class="row">
-<div class="col-md-6">
+<div class="col-md-7">
 <!--?prettify lang=ruby?-->
-<pre># Tutorial 01 - Load EDF and Signals
+<pre># Load RDI3P from CSV in Ruby
 #
-#   gem install edfize
+#   ruby load_rdi3p.rb
 #
-#   ruby tutorial_01_load_edf_and_signals.rb
+# The CSV exists at:
 #
-# The EDF exists at:
+#    https://sleepdata.org/datasets/shhs/files/datasets?f=shhs-0.2.0.csv
 #
-#    https://sleepdata.org/datasets/shhs/files/edfs/shhs1?f=shhs1-200001.edf
-#
+require 'csv'
+csv_file = 'shhs-0.2.0.csv'
 
-require 'rubygems'
-require 'edfize'
+class Subject
+  attr_accessor :race, :gender, :rdi3p, :visitnumber, :age
 
-# Loads the file and reads the EDF Header
-edf = Edfize::Edf.new('shhs1-200001.edf')
-
-# Loads the data section of the EDF into Signal objects
-edf.load_signals
-
-# Print out information on the signals
-puts "EDF #{edf.filename} contains the following #{edf.signals.count} signal#{'s' unless edf.signals.count == 1}:\n\n"
-
-edf.signals.each do |signal|
-  puts "Signal"
-  puts "  Label                    : #{signal.label}"
-  puts "  Samples Per Data Record  : #{signal.samples_per_data_record}"
-  puts "  First 10 Physical Values : #{(signal.physical_values[0..10] + ['...']).inspect}\n\n"
+  def self.create(&amp;block)
+    subject = self.new
+    yield subject if block_given?
+    subject
+  end
 end
+
+subjects = []
+
+CSV.parse( File.open(csv_file, 'r:iso-8859-1:utf-8'){|f| f.read}, headers: true ) do |line|
+  row = line.to_hash
+  subjects &lt;&lt; Subject.create do |t|
+    t.race         = row['race'].to_s.strip
+    t.gender       = row['gender'].to_s.strip
+    t.rdi3p        = row['rdi3p'].to_f
+    t.visitnumber  = row['visitnumber'].to_s.strip
+    t.age          = (t.visitnumber == '1' ? row['age_s1'].to_i : row['age_s2'].to_i)
+  end
+end
+
+# Display the first subject (row) from the CSV
+subjects.first
+# => #&lt;Subject @race="1", @gender="M", @rdi3p=4.15, ...&gt;
+
+# Display the first 10 instances of rdi3p
+subjects.collect{|s| s.rdi3p}.first(10)
+# => [4.15, 30.99, 8.87, 2.59, 6.16, 5.43, 14.62, 2.15, 31.4, 1.3]
 </pre>
 </div>
-  <div class="col-md-6 hidden-sm hidden-xs">
-    <div style="height:208px"></div>
+  <div class="col-md-5 hidden-sm hidden-xs">
+    <center><%= link_to 'Download Full Dataset', dataset_file_url, class: 'btn btn-success btn-lg btn-block', style: 'font-size: 2em' %></center>
+    <div style="height:331px"></div>
     <div class="jumbotron" style="margin-bottom: 20px;margin-top: 10px;background-color: #333;color: white;padding-top: 20px;padding-bottom: 10px;">
-      <p class="lead">"...load <code>rdi3p</code> here..."</p>
+      <p class="lead">"...load <code>rdi3p</code> from a CSV..."</p>
     </div>
     <%= image_tag 'nsrr-plant01.png', style: 'max-width:100%;', class: 'pull-right' %>
   </div>
+</div>
+
+<div class="hidden-lg hidden-md">
+  <center><%= link_to 'Download Full Dataset', dataset_file_url, class: 'btn btn-success btn-lg btn-block', style: 'font-size: 2em' %></center>
 </div>
 
 </div>
@@ -392,134 +132,16 @@ end
 
   <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
     <h1 style="margin-top:10px"><code>rdi3p</code> is related to...</h1>
-    <p class="lead">...over 4,870 covariates across <a href="/datasets">3 public datasets</a>.</p>
   </div>
 
   <div class="row" style="margin-top:40px">
+    <% variables = @dataset.variables.where(name: @variable.calculation.to_s.split(/[^\w]/).uniq ).limit(6) %>
+
+    <% variables.each do |variable| %>
       <div class="col-xs-6 col-sm-4 col-md-2 si">
-        <div class="panel panel-gold panel-hover" style="overflow:hidden">
-  <div class="panel-heading" data-basename="lipid1" data-slug="shhs" data-d="shhs">
-    <span class="label pull-right" style="background-color:#9a9cff">shhs</span>
-    <div style="overflow:hidden;white-space:nowrap;font-weight:bold">lipid1</div>
-  </div>
-  <div class="panel-body" style="height:150px;overflow:hidden" data-basename="lipid1" data-slug="shhs" data-d="shhs">
-    <center>
-    <% if File.file?( File.join( @dataset.root_folder, 'dd', 'graphs', "lipid1.png") ) %>
-        <img class="lazy" data-original="<%= variable_chart_dataset_path(@dataset, name: 'lipid1') %>" width="75" height="50" style="max-width: 100%;max-height:50px;display:block">
+        <%= render partial: 'variable_panel', locals: { variable: variable, collection: false } %>
+      </div>
     <% end %>
-    </center>
-    <div style="font-size:0.8em;margin-top:10px">Any Lipid-Lowering Medication (SHHS1) </div>
-
-  </div>
-  <div class="panel-footer" style="font-size:0.8em;height:36px;overflow:hidden;white-space:nowrap">
-    <a href="/collection?d=shhs&amp;s=Medications">Medications</a>
-  </div>
-</div>
-
-      </div>
-      <div class="col-xs-6 col-sm-4 col-md-2 si">
-        <div class="panel panel-gold panel-hover" style="overflow:hidden">
-  <div class="panel-heading" data-basename="cai0p" data-slug="shhs" data-d="shhs">
-    <span class="label pull-right" style="background-color:#9a9cff">shhs</span>
-    <div style="overflow:hidden;white-space:nowrap;font-weight:bold">cai0p</div>
-  </div>
-  <div class="panel-body" style="height:150px;overflow:hidden" data-basename="cai0p" data-slug="shhs" data-d="shhs">
-    <center>
-    <% if File.file?( File.join( @dataset.root_folder, 'dd', 'graphs', "cai0p.png") ) %>
-        <img class="lazy" data-original="<%= variable_chart_dataset_path(@dataset, name: 'cai0p') %>" width="75" height="50" style="max-width: 100%;max-height:50px;display:block">
-    <% end %>
-    </center>
-    <div style="font-size:0.8em;margin-top:10px">Central Apnea Index all oxygen desaturations <code>events per hour</code></div>
-
-  </div>
-  <div class="panel-footer" style="font-size:0.8em;height:36px;overflow:hidden;white-space:nowrap">
-    <a href="/collection?d=shhs&amp;s=Measurements">Measurements</a>
-  </div>
-</div>
-
-      </div>
-      <div class="col-xs-6 col-sm-4 col-md-2 si">
-        <div class="panel panel-gold panel-hover" style="overflow:hidden">
-  <div class="panel-heading" data-basename="ntg1" data-slug="shhs" data-d="shhs">
-    <span class="label pull-right" style="background-color:#9a9cff">shhs</span>
-    <div style="overflow:hidden;white-space:nowrap;font-weight:bold">ntg1</div>
-  </div>
-  <div class="panel-body" style="height:150px;overflow:hidden" data-basename="ntg1" data-slug="shhs" data-d="shhs">
-    <center>
-    <% if File.file?( File.join( @dataset.root_folder, 'dd', 'graphs', "ntg1.png") ) %>
-        <img class="lazy" data-original="<%= variable_chart_dataset_path(@dataset, name: 'ntg1') %>" width="75" height="50" style="max-width: 100%;max-height:50px;display:block">
-    <% end %>
-    </center>
-    <div style="font-size:0.8em;margin-top:10px">Nitrates (SHHS1) </div>
-
-  </div>
-  <div class="panel-footer" style="font-size:0.8em;height:36px;overflow:hidden;white-space:nowrap">
-    <a href="/collection?d=shhs&amp;s=Medications">Medications</a>
-  </div>
-</div>
-
-      </div>
-      <div class="col-xs-6 col-sm-4 col-md-2 si">
-        <div class="panel panel-gold panel-hover" style="overflow:hidden">
-  <div class="panel-heading" data-basename="istrd2" data-slug="shhs" data-d="shhs">
-    <span class="label pull-right" style="background-color:#9a9cff">shhs</span>
-    <div style="overflow:hidden;white-space:nowrap;font-weight:bold">istrd2</div>
-  </div>
-  <div class="panel-body" style="height:150px;overflow:hidden" data-basename="istrd2" data-slug="shhs" data-d="shhs">
-    <center>
-    <% if File.file?( File.join( @dataset.root_folder, 'dd', 'graphs', "istrd2.png") ) %>
-        <img class="lazy" data-original="<%= variable_chart_dataset_path(@dataset, name: 'istrd2') %>" width="75" height="50" style="max-width: 100%;max-height:50px;display:block">
-    <% end %>
-    </center>
-    <div style="font-size:0.8em;margin-top:10px">Inhaled Steroids For Asthma (SHHS2) </div>
-
-  </div>
-  <div class="panel-footer" style="font-size:0.8em;height:36px;overflow:hidden;white-space:nowrap">
-    <a href="/collection?d=shhs&amp;s=Medications">Medications</a>
-  </div>
-</div>
-
-      </div>
-      <div class="col-xs-6 col-sm-4 col-md-2 si">
-        <div class="panel panel-gold panel-hover" style="overflow:hidden">
-  <div class="panel-heading" data-basename="slp_time_shhs2" data-slug="shhs" data-d="shhs">
-    <span class="label pull-right" style="background-color:#9a9cff">shhs</span>
-    <div style="overflow:hidden;white-space:nowrap;font-weight:bold">slp_time_shhs2</div>
-  </div>
-  <div class="panel-body" style="height:150px;overflow:hidden" data-basename="slp_time_shhs2" data-slug="shhs" data-d="shhs">
-    <center>
-    <% if File.file?( File.join( @dataset.root_folder, 'dd', 'graphs', "slp_time_shhs2.png") ) %>
-        <img class="lazy" data-original="<%= variable_chart_dataset_path(@dataset, name: 'slp_time_shhs2') %>" width="75" height="50" style="max-width: 100%;max-height:50px;display:block">
-    <% end %>
-    </center>
-    <div style="font-size:0.8em;margin-top:10px">Total Sleep Time <code>minute</code></div>
-
-  </div>
-  <div class="panel-footer" style="font-size:0.8em;height:36px;overflow:hidden;white-space:nowrap">
-    <a href="/collection?d=shhs&amp;s=Measurements">Measurements</a>
-  </div>
-</div>
-
-      </div>
-      <div class="col-xs-6 col-sm-4 col-md-2 si">
-        <div class="panel panel-gold panel-hover" style="overflow:hidden">
-  <div class="panel-heading" data-basename="minsat" data-slug="shhs" data-d="shhs">
-    <span class="label pull-right" style="background-color:#9a9cff">shhs</span>
-    <div style="overflow:hidden;white-space:nowrap;font-weight:bold">minsat</div>
-  </div>
-  <div class="panel-body" style="height:150px;overflow:hidden" data-basename="minsat" data-slug="shhs" data-d="shhs">
-    <center>
-        <img class="lazy" data-original="/edge/sleepdata/datasets/shhs/variable_chart?name=minsat" width="75" height="50" style="max-width: 100%; max-height: 50px; display: block;" src="/edge/sleepdata/datasets/shhs/variable_chart?name=minsat">
-    </center>
-    <div style="font-size:0.8em;margin-top:10px">Minimum SaO2 in sleep <code>percent</code></div>
-
-  </div>
-  <div class="panel-footer" style="font-size:0.8em;height:36px;overflow:hidden;white-space:nowrap">
-    <a href="/collection?d=shhs&amp;s=Measurements">Measurements</a>
-  </div>
-</div>
-
-      </div>
   </div>
 
 </div>
