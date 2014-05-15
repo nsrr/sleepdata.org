@@ -43,7 +43,7 @@
   $("[data-object~='variable-chart-button'][data-chart-type~='#{$(element).data('chart-type')}']").addClass('btn-primary')
 
 @variablesReady = () ->
-  drawChart('histogram')
+  drawChart($('#chart_type').val() || 'histogram')
 
 $(document)
   .on('click', "[data-chart-type]", () ->

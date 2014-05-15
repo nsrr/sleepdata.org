@@ -29,6 +29,10 @@ class Dataset < ActiveRecord::Base
   has_many :dataset_contributors
   has_many :contributors, -> { where deleted: false }, through: :dataset_contributors, source: :user
 
+  def chartable_variables
+    self.variables.where(variable_type: ['integer', 'numeric']).order(:folder, :name)
+  end
+
   def viewers
     User.where( id: [self.user_id] + self.dataset_users.where( approved: true ).pluck(:user_id) )
   end

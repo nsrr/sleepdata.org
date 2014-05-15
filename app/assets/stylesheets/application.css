@@ -11,5 +11,6 @@
  *= require_self
  *= require contour
  *= require custom
+ *= require external_links
  *= require prettify
  */

@@ -4,7 +4,7 @@
 </div>
 
 <ul>
-  <% @dataset.variables.where(variable_type: ['integer', 'numeric']).order(:folder, :name).each do |variable| %>
+  <% @dataset.chartable_variables.each do |variable| %>
     <li><%= link_to "#{variable.folder}/#{variable.name}", [@dataset, variable] %></li>
   <% end %>
 </ul>
