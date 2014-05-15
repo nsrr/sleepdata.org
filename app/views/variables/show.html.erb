@@ -1,0 +1,76 @@
+<div class="jumbotron" style="margin-bottom: 20px;margin-top: 10px;background-color: #333;color: white;padding-top: 5px;padding-bottom: 20px;">
+  <h1><%= @variable.name %></h1>
+  <p class="lead"><%= @variable.description %></p>
+</div>
+
+<% json_location = File.join(@dataset.root_folder, 'dd', 'charts', "#{@variable.name}.json") %>
+<% json = JSON.parse(File.read(json_location)) rescue json = nil %>
+<div id="charts-info" data-charts="<%= json.to_json %>" style="display:hidden"></div>
+
+<div class="welcome-box" style="padding-top:20px;padding-bottom:20px">
+  <div class="btn-group btn-group-justified hidden-sm hidden-xs" style="padding-bottom:20px">
+    <%= link_to 'Histogram',      '#', class: 'btn btn-primary btn-lg', data: { object: 'variable-chart-button', chart_type: 'histogram' } %>
+    <%= link_to 'Overall',    '#', class: 'btn btn-default btn-lg', data: { object: 'variable-chart-button', chart_type: 'overall' } %>
+    <%= link_to 'Age',        '#', class: 'btn btn-default btn-lg', data: { object: 'variable-chart-button', chart_type: 'age' } %>
+    <%= link_to 'Gender',     '#', class: 'btn btn-default btn-lg', data: { object: 'variable-chart-button', chart_type: 'gender' } %>
+    <%= link_to 'Race',       '#', class: 'btn btn-default btn-lg', data: { object: 'variable-chart-button', chart_type: 'race' } %>
+  </div>
+  <div class="btn-group btn-group-justified hidden-md hidden-lg" style="padding-bottom:20px">
+    <%= link_to 'Histogram',      '#', class: 'btn btn-primary btn-sm', data: { object: 'variable-chart-button', chart_type: 'histogram' } %>
+    <%= link_to 'Overall',    '#', class: 'btn btn-default btn-sm', data: { object: 'variable-chart-button', chart_type: 'overall' } %>
+    <%= link_to 'Age',        '#', class: 'btn btn-default btn-sm', data: { object: 'variable-chart-button', chart_type: 'age' } %>
+    <%= link_to 'Gender',     '#', class: 'btn btn-default btn-sm', data: { object: 'variable-chart-button', chart_type: 'gender' } %>
+    <%= link_to 'Race',       '#', class: 'btn btn-default btn-sm', data: { object: 'variable-chart-button', chart_type: 'race' } %>
+  </div>
+  <div id="chart-container" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+</div>
+
+<div class="jumbotron" style="margin-bottom: 20px;margin-top: 10px;background-color: #333;color: white;padding-top: 20px;padding-bottom: 10px;">
+  <p class="lead"><%= link_to @dataset.name, @dataset %></p>
+</div>
+
+<%= render partial: 'calculation' unless @variable.calculation.blank? %>
+
+<% if json and json['stats'] %>
+  <div>
+    <h3 style="text-align:center;margin:0px">Race &amp; Gender vs <code><%= @variable.name %></code></h3>
+    <h5 style="text-align:center;margin:0px;padding-bottom:8px"><%= @dataset.name %> &middot; Visit 1</h5>
+
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <% (json['stats']['headers'] || []).each do |headers| %>
+            <tr>
+              <% headers.each do |cell| %>
+                <%= render partial: 'variables/table_cell', locals: { cell: cell, type: :th } %>
+              <% end %>
+            </tr>
+          <% end %>
+        </thead>
+        <tfoot>
+          <% (json['stats']['footers'] || []).each do |footers| %>
+            <tr>
+              <% footers.each do |cell| %>
+                <%= render partial: 'variables/table_cell', locals: { cell: cell, type: :td } %>
+              <% end %>
+            </tr>
+          <% end %>
+        </tfoot>
+        <tbody>
+          <% (json['stats']['rows'] || []).each do |rows| %>
+            <tr>
+              <% rows.each do |cell| %>
+                <%= render partial: 'variables/table_cell', locals: { cell: cell, type: :td } %>
+              <% end %>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+<% end %>
+
+<div class="center" style="margin-top:60px">
+  <%= image_tag 'nsrr_logo_256.png', size: '256x256', alt: 'NSRR' %>
+</div>
+

@@ -1,0 +1,10 @@
+<div class="jumbotron" style="margin-bottom: 20px;margin-top: 10px;background-color: #333;color: white;padding-top: 5px;padding-bottom: 20px;">
+  <h1>variables</h1>
+  <p class="lead"><%= @dataset.name %></p>
+</div>
+
+<ul>
+  <% @dataset.variables.where(variable_type: ['integer', 'numeric']).order(:folder, :name).each do |variable| %>
+    <li><%= link_to "#{variable.folder}/#{variable.name}", [@dataset, variable] %></li>
+  <% end %>
+</ul>

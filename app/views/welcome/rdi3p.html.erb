@@ -97,7 +97,7 @@ CSV.parse( File.open(csv_file, 'r:iso-8859-1:utf-8'){|f| f.read}, headers: true 
   subjects &lt;&lt; Subject.create do |t|
     t.race         = row['race'].to_s.strip
     t.gender       = row['gender'].to_s.strip
-    t.rdi3p        = row['rdi3p'].to_f
+    t.rdi3p        = (row['rdi3p'].to_s.strip == '' ? nil : row['rdi3p'].to_f)
     t.visitnumber  = row['visitnumber'].to_s.strip
     t.age          = (t.visitnumber == '1' ? row['age_s1'].to_i : row['age_s2'].to_i)
   end

@@ -63,4 +63,22 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def set_viewable_dataset(id = :dataset_id)
+    viewable_datasets = if current_user
+      current_user.all_viewable_datasets
+    else
+      Dataset.current.where( public: true )
+    end
+    @dataset = viewable_datasets.find_by_slug(params[id])
+  end
+
+  def set_editable_dataset(id = :dataset_id)
+    @dataset = current_user.all_datasets.find_by_slug(params[id]) if current_user
+  end
+
+  def redirect_without_dataset
+    empty_response_or_root_path( datasets_path ) unless @dataset
+  end
+
+
 end

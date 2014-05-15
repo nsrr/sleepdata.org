@@ -27,6 +27,7 @@
   Turbolinks.allowLinkExtensions('md')
   # Turbolinks.enableTransitionCache()
   prettyPrint()
+  variablesReady() if (typeof variablesReady == 'function')
 
 $(document).ready(ready)
 $(document)

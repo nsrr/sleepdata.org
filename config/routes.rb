@@ -28,7 +28,10 @@ WwwSleepdataOrg::Application.routes.draw do
       post "create_page(/*path)", action: 'create_page', as: :create_page, format: false
       patch "update_page/*path", action: 'update_page', as: :update_page, format: false
       post :pull_changes
+
     end
+
+    resources :variables
   end
 
   resources :tools do

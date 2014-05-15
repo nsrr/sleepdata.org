@@ -27,3 +27,17 @@ two:
   # calculation:
   commonly_used: false
   search_terms: variable two
+
+private:
+  folder: Restricted
+  name: classified_red_tape
+  display_name: Top Secret
+  # description:
+  # variable_type:
+  dataset: private
+  # domain:
+  # units:
+  # version:
+  # calculation:
+  commonly_used: false
+  search_terms: classified_red_tape top secret restricted

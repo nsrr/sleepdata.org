@@ -3,6 +3,8 @@
 ### Enhancements
 - **General Changes**
   - Prototype of the `rdi3p` infographic
+- **Dataset Changes**
+  - Added the ability to view variables on their own unique pages
 - **Gem Changes**
   - Updated to contour 2.5.0
 
