@@ -22,7 +22,7 @@
           text: json['units']
       tooltip:
         headerFormat: '<span style="font-size:10px">{point.key}</span><table>'
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' + "<td style=\"padding:0\"><b>{point.y:.1f} #{json['units']}</b></td></tr>"
+        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' + "<td style=\"padding:0\"><b>{point.y}</b> #{(if json['stacking'] then '({point.percentage:.0f}%)' else json['units'])}</td></tr>"
         footerFormat: '</table>'
         shared: true,
         useHTML: true
@@ -31,8 +31,9 @@
           pointPadding: 0.2
           borderWidth: 0
           dataLabels:
-            enabled: true
+            enabled: (if json['stacking'] then false else true)
           # enableMouseTracking: false
+          stacking: json['stacking'] #'percent'
       series: json['series']
     )
   else
