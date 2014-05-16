@@ -2,8 +2,8 @@
   <% if @dataset.chartable_variables.pluck(:id).index(@variable.id) %>
     <% previous_variable = @dataset.variables.find_by_id(@dataset.chartable_variables[@dataset.chartable_variables.pluck(:id).index(@variable.id) - 1]) unless @dataset.chartable_variables.pluck(:id).index(@variable.id) == 0 %>
     <% next_variable = @dataset.variables.find_by_id(@dataset.chartable_variables[@dataset.chartable_variables.pluck(:id).index(@variable.id) + 1]) %>
-    <%= link_to '&laquo;'.html_safe, dataset_variable_path(@dataset, previous_variable, g: params[:g]), class: 'btn btn-large btn-default pull-left', style: 'margin-top:67px' if previous_variable %>
-    <%= link_to '&raquo;'.html_safe, dataset_variable_path(@dataset, next_variable, g: params[:g]), class: 'btn btn-large btn-default pull-right', style: 'margin-top:67px' if next_variable %>
+    <%= link_to '&laquo;'.html_safe, dataset_variable_path(@dataset, previous_variable, g: params[:g]), class: 'btn btn-large btn-default pull-left', style: 'margin-top:67px', id: 'previous-variable' if previous_variable %>
+    <%= link_to '&raquo;'.html_safe, dataset_variable_path(@dataset, next_variable, g: params[:g]), class: 'btn btn-large btn-default pull-right', style: 'margin-top:67px', id: 'next-variable' if next_variable %>
   <% end %>
   <h1><%= @variable.name %></h1>
   <p class="lead"><%= @variable.description %></p>
@@ -15,21 +15,19 @@
 <% json = JSON.parse(File.read(json_location)) rescue json = nil %>
 <div id="charts-info" data-charts="<%= json.to_json %>" style="display:hidden"></div>
 
+<% charts = [] %>
+<% charts = json.keys.reject{|k| k == 'stats'}.collect{|k| [k.titleize, k]} if json and json.kind_of?(Hash) %>
+
 <div class="welcome-box" style="padding-top:20px;padding-bottom:20px">
-  <div class="btn-group btn-group-justified hidden-sm hidden-xs" style="padding-bottom:20px">
-    <%= link_to 'Histogram',  '#', class: "btn btn-#{['histogram', ''].include?(params[:g].to_s) ? 'primary' : 'default'} btn-lg", data: { object: 'variable-chart-button', chart_type: 'histogram' } %>
-    <%= link_to 'Overall',    '#', class: "btn btn-#{params[:g] == 'overall' ? 'primary' : 'default' } btn-lg", data: { object: 'variable-chart-button', chart_type: 'overall' } %>
-    <%= link_to 'Age',        '#', class: "btn btn-#{params[:g] == 'age' ? 'primary' : 'default' } btn-lg", data: { object: 'variable-chart-button', chart_type: 'age' } %>
-    <%= link_to 'Gender',     '#', class: "btn btn-#{params[:g] == 'gender' ? 'primary' : 'default' } btn-lg", data: { object: 'variable-chart-button', chart_type: 'gender' } %>
-    <%= link_to 'Race',       '#', class: "btn btn-#{params[:g] == 'race' ? 'primary' : 'default' } btn-lg", data: { object: 'variable-chart-button', chart_type: 'race' } %>
-  </div>
-  <div class="btn-group btn-group-justified hidden-md hidden-lg" style="padding-bottom:20px">
-    <%= link_to 'Histogram',      '#', class: "btn btn-#{['histogram', ''].include?(params[:g].to_s) ? 'primary' : 'default'} btn-sm", data: { object: 'variable-chart-button', chart_type: 'histogram' } %>
-    <%= link_to 'Overall',    '#', class: "btn btn-#{params[:g] == 'overall' ? 'primary' : 'default' } btn-sm", data: { object: 'variable-chart-button', chart_type: 'overall' } %>
-    <%= link_to 'Age',        '#', class: "btn btn-#{params[:g] == 'age' ? 'primary' : 'default' } btn-sm", data: { object: 'variable-chart-button', chart_type: 'age' } %>
-    <%= link_to 'Gender',     '#', class: "btn btn-#{params[:g] == 'gender' ? 'primary' : 'default' } btn-sm", data: { object: 'variable-chart-button', chart_type: 'gender' } %>
-    <%= link_to 'Race',       '#', class: "btn btn-#{params[:g] == 'race' ? 'primary' : 'default' } btn-sm", data: { object: 'variable-chart-button', chart_type: 'race' } %>
-  </div>
+  <% if charts.size > 0 %>
+    <% [['hidden-sm hidden-xs', 'btn-lg'], ['hidden-md hidden-lg', 'btn-sm']].each do |hidden_classes, btn_size_class| %>
+      <div class="btn-group btn-group-justified <%= hidden_classes %>" style="padding-bottom:20px">
+        <% charts.each do |chart_name, chart_value| %>
+          <%= link_to chart_name, '#', class: "btn btn-#{chart_value == params[:g].to_s || (chart_value == 'histogram' && params[:g].blank?) ? 'primary' : 'default'} #{btn_size_class}", data: { object: 'variable-chart-button', chart_type: chart_value } %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
   <div id="chart-container" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
 </div>
 

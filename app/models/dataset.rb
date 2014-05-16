@@ -30,7 +30,7 @@ class Dataset < ActiveRecord::Base
   has_many :contributors, -> { where deleted: false }, through: :dataset_contributors, source: :user
 
   def chartable_variables
-    self.variables.where(variable_type: ['integer', 'numeric']).order(:folder, :name)
+    self.variables.where(variable_type: ['integer', 'numeric', 'choices']).order(:folder, :name)
   end
 
   def viewers
