@@ -7,6 +7,7 @@
   - Added the ability to view variables on their own unique pages
 - **Gem Changes**
   - Updated to contour 2.5.0
+- Use of Ruby 2.1.2 is now recommended
 
 ## 0.7.3 (May 8, 2014)
 
