@@ -16,7 +16,7 @@
 <div id="charts-info" data-charts="<%= json.to_json %>" style="display:hidden"></div>
 
 <% charts = [] %>
-<% charts = json.keys.reject{|k| k == 'stats'}.collect{|k| [k.titleize, k]} if json and json.kind_of?(Hash) %>
+<% charts = json['charts'].keys.collect{|k| [k.titleize, k]} if json and json.kind_of?(Hash) and json['charts'].kind_of?(Hash) %>
 
 <div class="welcome-box" style="padding-top:20px;padding-bottom:20px">
   <% if charts.size > 0 %>
@@ -32,15 +32,55 @@
 </div>
 
 <div class="jumbotron" style="margin-bottom: 20px;margin-top: 10px;background-color: #333;color: white;padding-top: 20px;padding-bottom: 10px;">
-  <p class="lead"><%= link_to @dataset.name, dataset_variables_path(@dataset) %></p>
+  <p class="lead"><%= link_to @dataset.name, dataset_variables_path(@dataset) %> / <%= @variable.folder.gsub('/', ' / ') %></p>
 </div>
 
-<%= render partial: 'calculation' unless @variable.calculation.blank? %>
+<% if json and json['tables'] %>
+  <% (json['tables'] || []).each do |key, table| %>
+    <% if table.kind_of?(Hash) %>
+      <div data-chart-name="<%= key %>" style="display:none">
+        <h3 style="text-align:center;margin:0px"><%= table['title'] %></h3>
+        <h5 style="text-align:center;margin:0px;padding-bottom:8px"><%= table['subtitle'] %></h5>
 
-<% if json and json['stats'] %>
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <% (table['headers'] || []).each do |headers| %>
+                <tr>
+                  <% headers.each do |cell| %>
+                    <%= render partial: 'variables/table_cell', locals: { cell: cell, type: :th } %>
+                  <% end %>
+                </tr>
+              <% end %>
+            </thead>
+            <tfoot>
+              <% (table['footers'] || []).each do |footers| %>
+                <tr>
+                  <% footers.each do |cell| %>
+                    <%= render partial: 'variables/table_cell', locals: { cell: cell, type: :td } %>
+                  <% end %>
+                </tr>
+              <% end %>
+            </tfoot>
+            <tbody>
+              <% (table['rows'] || []).each do |rows| %>
+                <tr>
+                  <% rows.each do |cell| %>
+                    <%= render partial: 'variables/table_cell', locals: { cell: cell, type: :td } %>
+                  <% end %>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+<% if false %>
   <div>
-    <h3 style="text-align:center;margin:0px">Race &amp; Gender vs <code><%= @variable.name %></code></h3>
-    <h5 style="text-align:center;margin:0px;padding-bottom:8px"><%= @dataset.name %> &middot; Visit 1</h5>
+    <h3 style="text-align:center;margin:0px"><%= json['stats']['title'] %></h3>
+    <h5 style="text-align:center;margin:0px;padding-bottom:8px"><%= json['stats']['subtitle'] %></h5>
 
     <div class="table-responsive">
       <table class="table table-hover">
@@ -75,8 +115,34 @@
     </div>
   </div>
 <% end %>
+<% end %>
+
+<%= render partial: 'calculation' unless @variable.calculation.blank? %>
+
+<% if @variable.forms.size > 0 %>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title">Forms</h3>
+        </div>
+        <div class="panel-body">
+          <ul class="list-unstyled">
+            <% @variable.forms.each do |form| %>
+              <li><span class="glyphicon glyphicon-book"></span> <%= link_to form.display_name, files_dataset_path(@dataset) + "/forms/#{form.folder}?f=#{CGI::escape form.code_book.to_s}" %> <%#= link_to 'All Variables on this Form', collection_path( s: form.name, d: params[:d] ), class: 'btn btn-xs btn-default' %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+
+    </div>
+  </div>
+<% end %>
 
 <div class="center" style="margin-top:60px">
   <%= image_tag 'nsrr_logo_256.png', size: '256x256', alt: 'NSRR' %>
 </div>
+
 

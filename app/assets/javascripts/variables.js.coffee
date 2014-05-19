@@ -3,7 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 @drawChart = (chartName) ->
-  json = $("#charts-info").data('charts')[chartName] if $("#charts-info").data('charts')
+  json = $("#charts-info").data('charts')['charts'][chartName] if $("#charts-info").data('charts') and $("#charts-info").data('charts')['charts']
   if json
     $('#chart-container').highcharts(
       credits:
@@ -44,11 +44,16 @@
   $("[data-object~='variable-chart-button'][data-chart-type~='#{$(element).data('chart-type')}']").addClass('btn-primary')
 
 @variablesReady = () ->
-  drawChart($('#chart_type').val() || 'histogram')
+  chart_type = $('#chart_type').val() || 'histogram'
+  drawChart(chart_type)
+  $("[data-chart-name~='#{chart_type}']").show()
 
 $(document)
   .on('click', "[data-chart-type]", () ->
     toggleVariableButtonClasses(this)
-    drawChart($(this).data('chart-type'))
+    chart_type = $(this).data('chart-type')
+    drawChart(chart_type)
+    $("[data-chart-name]").hide()
+    $("[data-chart-name~='#{chart_type}']").show()
     false
   )
