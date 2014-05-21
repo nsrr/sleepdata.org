@@ -51,49 +51,50 @@
   </div>
 <% end %>
 
-<hr />
-<% if json and json['tables'] %>
-  <% (json['tables'] || []).each do |key, table| %>
-    <% if table.kind_of?(Hash) %>
-      <div data-chart-name="<%= key %>" style="display:none">
-        <h3 style="text-align:center;margin:0px"><%= table['title'] %></h3>
-        <h5 style="text-align:center;margin:0px;padding-bottom:8px"><%= table['subtitle'] %></h5>
+<div style="margin-top:20px">
+  <% if json and json['tables'] %>
+    <% (json['tables'] || []).each do |key, table| %>
+      <% if table.kind_of?(Hash) %>
+        <div data-chart-name="<%= key %>" style="display:none">
+          <h3 style="text-align:center;margin:0px"><%= table['title'] %></h3>
+          <h5 style="text-align:center;margin:0px;padding-bottom:8px"><%= table['subtitle'] %></h5>
 
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <% (table['headers'] || []).each do |headers| %>
-                <tr>
-                  <% headers.each do |cell| %>
-                    <%= render partial: 'variables/table_cell', locals: { cell: cell, type: :th } %>
-                  <% end %>
-                </tr>
-              <% end %>
-            </thead>
-            <tfoot>
-              <% (table['footers'] || []).each do |footers| %>
-                <tr>
-                  <% footers.each do |cell| %>
-                    <%= render partial: 'variables/table_cell', locals: { cell: cell, type: :td } %>
-                  <% end %>
-                </tr>
-              <% end %>
-            </tfoot>
-            <tbody>
-              <% (table['rows'] || []).each do |rows| %>
-                <tr>
-                  <% rows.each do |cell| %>
-                    <%= render partial: 'variables/table_cell', locals: { cell: cell, type: :td } %>
-                  <% end %>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead>
+                <% (table['headers'] || []).each do |headers| %>
+                  <tr>
+                    <% headers.each do |cell| %>
+                      <%= render partial: 'variables/table_cell', locals: { cell: cell, type: :th } %>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </thead>
+              <tfoot>
+                <% (table['footers'] || []).each do |footers| %>
+                  <tr>
+                    <% footers.each do |cell| %>
+                      <%= render partial: 'variables/table_cell', locals: { cell: cell, type: :td } %>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </tfoot>
+              <tbody>
+                <% (table['rows'] || []).each do |rows| %>
+                  <tr>
+                    <% rows.each do |cell| %>
+                      <%= render partial: 'variables/table_cell', locals: { cell: cell, type: :td } %>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   <% end %>
-<% end %>
+</div>
 
 <%= render partial: 'calculation' unless @variable.calculation.blank? %>
 
