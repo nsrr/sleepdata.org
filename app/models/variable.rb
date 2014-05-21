@@ -1,5 +1,8 @@
 class Variable < ActiveRecord::Base
 
+  # Named Scopes
+  scope :with_folder, lambda { |arg| where( "folder ~* ?", "(^#{arg})" ) }
+
   # Model Validation
   validates_presence_of :name, :display_name, :variable_type, :dataset_id
   validates_format_of :name, with: /\A[a-z]\w*\Z/i

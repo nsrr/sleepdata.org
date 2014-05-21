@@ -11,5 +11,5 @@
     <li class="<%= 'active' if params[:action] == 'requests' %>"><%= link_to 'Requests', requests_dataset_path(@dataset) %></li>
   <% end %>
 
-  <li class="<%= 'active' if params[:action] == 'collection' %>"><%= link_to 'Variables', collection_path(d: @dataset.slug, s: params[:s]) %></li>
+  <li class="<%= 'active' if params[:action] == 'collection' %>"><%= link_to 'Variables', dataset_variables_path(@dataset) %></li>
 </ul>

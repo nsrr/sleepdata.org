@@ -51,10 +51,7 @@
   </div>
 <% end %>
 
-<div class="jumbotron" style="margin-bottom: 20px;margin-top: 10px;background-color: #333;color: white;padding-top: 20px;padding-bottom: 10px;">
-  <p class="lead"><%= link_to @dataset.name, dataset_variables_path(@dataset) %> / <%= @variable.folder.gsub('/', ' / ') %></p>
-</div>
-
+<hr />
 <% if json and json['tables'] %>
   <% (json['tables'] || []).each do |key, table| %>
     <% if table.kind_of?(Hash) %>
@@ -100,6 +97,8 @@
 
 <%= render partial: 'calculation' unless @variable.calculation.blank? %>
 
+<%= render partial: 'variables/folder', locals: { folder: @variable.folder, show_dataset: true } %>
+
 <% variables = @variable.related_variables %>
 <% if variables.size > 0 %>
   <div style="background-color:#ededed">
@@ -112,7 +111,7 @@
       <div class="row" style="margin-top:40px">
         <% variables.each do |variable| %>
           <div class="col-xs-6 col-sm-4 col-md-2 si">
-            <%= render partial: 'variables/panel', locals: { variable: variable, collection: false } %>
+            <%= render partial: 'variables/panel', locals: { variable: variable } %>
           </div>
         <% end %>
       </div>

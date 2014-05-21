@@ -1,35 +1,48 @@
-<div class="jumbotron" style="margin-bottom: 20px;margin-top: 10px;background-color: #333;color: white;padding-top: 5px;padding-bottom: 20px;">
-  <h1>variables</h1>
-  <p class="lead"><%= @dataset.name %></p>
+<div class="jumbotron" style="position:relative;margin-bottom: 20px;margin-top: 10px;background-color: #333;color: white;padding-top: 5px;padding-bottom: 20px;">
+  <div class="jumbotron-pagination">
+    <%= render partial: 'variables/per_page', locals: { per_page: 50, object_count: @variables.total_count } %>
+  </div>
+
+  <h1>Variables</h1>
+  <p class="lead"><%= link_to @dataset.name, @dataset %></p>
 </div>
 
-<%= render partial: 'contour/layouts/per_page', locals: { per_page: 100, object_count: @variables.total_count } %>
-
-<table class="table table-striped table-hover"><col width="1px"/>
-  <thead>
-    <tr>
-      <th>Folder</th>
-      <th>Name</th>
-      <th>Calculation</th>
-      <th>Forms</th>
-    </tr>
-  </thead>
-
-  <% @variables.each do |variable| %>
-    <tr>
-      <td style="white-space:nowrap"><%= variable.folder %></td>
-      <td><%= link_to variable.name, [@dataset, variable] %></td>
-      <td>
-        <% unless variable.calculation.blank? %>
-          <span class="glyphicon glyphicon-ok"></span> Calculated
+<% [['hidden-sm hidden-xs', ''], ['hidden-md hidden-lg', 'btn-sm']].each do |hidden_classes, btn_size_class| %>
+  <div class="btn-toolbar <%= hidden_classes %>" role="toolbar">
+    <div class="btn-group" style="padding-bottom:10px">
+    <% if params[:folder].blank? %>
+      <%= link_to '/', dataset_variables_path(@dataset), class: "btn #{btn_size_class} btn-primary" %>
+    <% else %>
+      <%= link_to '..', dataset_variables_path(@dataset, folder: params[:folder].split('/')[0..-2].join('/')).gsub("%2F","/"), class: "btn #{btn_size_class} btn-primary" %>
+      <% unless params[:folder].blank? %>
+        <% params[:folder].to_s.split('/').each_with_index do |partial_folder, index| %>
+          <% full_folder = params[:folder].to_s.split('/')[0..index].join('/') %>
+          <%= link_to partial_folder, dataset_variables_path(@dataset, folder: full_folder).gsub("%2F","/"), class: "btn #{btn_size_class} btn-primary" %>
         <% end %>
-      </td>
-      <td>
-        <% form_count = variable.forms.count %>
-        <% if form_count > 0 %><span class="badge"><%= form_count %> <span class="glyphicon glyphicon-book"></span></span><% end %>
-      </td>
-    </tr>
+      <% end %>
+    <% end %>
+    </div>
+      <% @folders.each do |folder| %>
+        <% full_folder = [params[:folder].blank? ? nil : params[:folder], folder].compact.join('/') %>
+        <%= link_to folder, dataset_variables_path(@dataset, folder: full_folder).gsub("%2F","/"), class: "btn #{btn_size_class} btn-default", style: "margin-bottom:10px" %>
+      <% end %>
+  </div>
+<% end %>
+
+<% if @variables.count > 0 %>
+  <% @variables.group_by{|v| v.folder}.sort.each do |folder, folder_variables| %>
+    <%= render partial: 'variables/folder', locals: { folder: folder, show_dataset: false } %>
+    <div class="row">
+      <% folder_variables.each do |variable| %>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+          <%= render partial: 'variables/panel', locals: { variable: variable } %>
+        </div>
+      <% end %>
+    </div>
   <% end %>
-</table>
+<% else %>
+  <div class="jumbotron">No Variables Found</div>
+<% end %>
+
 
 <div class="center"><%= paginate @variables, theme: "contour" %></div>

@@ -12,7 +12,10 @@ class VariablesController < ApplicationController
 
 
   def index
-    @variables = @dataset.chartable_variables.page(params[:page]).per( 100 )
+    variable_scope = @dataset.chartable_variables.with_folder(params[:folder])
+
+    @folders = variable_scope.pluck(:folder).uniq.collect{ |f| f.gsub(/^#{params[:folder]}(\/)?/, '').split('/').first }.uniq.compact
+    @variables = variable_scope.page(params[:page]).per( 50 )
     render layout: 'nonavigation'
   end
 

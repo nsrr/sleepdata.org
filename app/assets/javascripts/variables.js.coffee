@@ -57,3 +57,12 @@ $(document)
     $("[data-chart-name~='#{chart_type}']").show()
     false
   )
+  .on('click', "[data-link]", (e) ->
+    if $(e.target).is('a')
+      # Do nothing, propagate standard behavior
+    else if nonStandardClick(e)
+      window.open($(this).data("link"))
+      return false
+    else
+      Turbolinks.visit($(this).data("link"))
+  )
