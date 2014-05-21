@@ -1,6 +1,12 @@
 <div class="jumbotron" style="position:relative;margin-bottom: 20px;margin-top: 10px;background-color: #333;color: white;padding-top: 5px;padding-bottom: 20px;">
+  <div class="jumbotron-left-after">
+    <span class="glyphicon glyphicon-home"></span>
+    <%= link_to "#{@dataset.slug} variables", dataset_variables_path(@dataset) %>
+  </div>
   <div class="jumbotron-right-after">
-    <span class="glyphicon glyphicon-save"></span> <%= link_to "v#{@variable.version}", files_dataset_path(@dataset, path: 'datasets', f: "#{@dataset.slug}-#{@variable.version}.csv"), target: '_blank' %></div>
+    <span class="glyphicon glyphicon-save"></span>
+    <%= link_to "v#{@variable.version}", files_dataset_path(@dataset, path: 'datasets', f: "#{@dataset.slug}-#{@variable.version}.csv"), target: '_blank' %>
+  </div>
   <% if @variable.forms.size > 0 %>
     <div class="jumbotron-right-bottom-after">
       <% @variable.forms.each do |form| %>

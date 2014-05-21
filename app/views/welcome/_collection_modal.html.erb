@@ -2,7 +2,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <h4 class="modal-title"><%= link_to @variable.name, collection_path( s: @variable.name, d: params[:d] ) %> &middot; <%= @variable.display_name %> <span class="label" style="background-color:<%= @dataset.color %>"><%= @dataset.slug %></span></h4>
+      <h4 class="modal-title"><%= link_to @variable.name, dataset_variable_path(@dataset, @variable) %> &middot; <%= @variable.display_name %> <span class="label" style="background-color:<%= @dataset.color %>"><%= @dataset.slug %></span></h4>
     </div>
     <div class="modal-body">
       <% if File.file?( File.join( @dataset.root_folder, 'dd', 'graphs', "#{@variable.name}-lg.png") ) %>
