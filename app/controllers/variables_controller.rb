@@ -12,7 +12,7 @@ class VariablesController < ApplicationController
 
 
   def index
-    variable_scope = @dataset.chartable_variables.with_folder(params[:folder])
+    variable_scope = @dataset.variables.search(params[:s]).with_folder(params[:folder])
 
     @folders = variable_scope.pluck(:folder).uniq.collect{ |f| f.gsub(/^#{params[:folder]}(\/)?/, '').split('/').first }.uniq.compact
     @variables = variable_scope.page(params[:page]).per( 50 )

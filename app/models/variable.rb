@@ -2,6 +2,7 @@ class Variable < ActiveRecord::Base
 
   # Named Scopes
   scope :with_folder, lambda { |arg| where( "folder ~* ?", "(^#{arg})" ) }
+  scope :search, lambda { |arg| where("search_terms ~* ?", arg.to_s.split(/\s/).collect{|l| l.to_s.gsub(/[^\w\d%]/, '')}.collect{|l| "(\\m#{l})"}.join("|")) }
 
   # Model Validation
   validates_presence_of :name, :display_name, :variable_type, :dataset_id
