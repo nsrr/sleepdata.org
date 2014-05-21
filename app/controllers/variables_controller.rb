@@ -12,6 +12,7 @@ class VariablesController < ApplicationController
 
 
   def index
+    @variables = @dataset.chartable_variables.page(params[:page]).per( 100 )
     render layout: 'nonavigation'
   end
 

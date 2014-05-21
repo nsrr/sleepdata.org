@@ -29,4 +29,8 @@ class Variable < ActiveRecord::Base
     find_by_name(input)
   end
 
+  def related_variables
+    self.dataset.variables.where("(search_terms ~* ? or name in (?)) and id != ?", "(\\m#{self.name}\\M)", self.search_terms.split(' '), self.id).order(:folder, :name)
+  end
+
 end

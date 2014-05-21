@@ -1,5 +1,16 @@
 <div class="jumbotron" style="position:relative;margin-bottom: 20px;margin-top: 10px;background-color: #333;color: white;padding-top: 5px;padding-bottom: 20px;">
-  <div class="jumbotron-right-after"><%= link_to "<span class=\"glyphicon glyphicon-save\"></span> v#{@variable.version}".html_safe, files_dataset_path(@dataset, path: 'datasets', f: "#{@dataset.slug}-#{@variable.version}.csv"), target: '_blank' %></div>
+  <div class="jumbotron-right-after">
+    <span class="glyphicon glyphicon-save"></span> <%= link_to "v#{@variable.version}", files_dataset_path(@dataset, path: 'datasets', f: "#{@dataset.slug}-#{@variable.version}.csv"), target: '_blank' %></div>
+  <% if @variable.forms.size > 0 %>
+    <div class="jumbotron-right-bottom-after">
+      <% @variable.forms.each do |form| %>
+        <span class="glyphicon glyphicon-book"></span> <%= link_to form.display_name, files_dataset_path(@dataset) + "/forms/#{form.folder}?f=#{CGI::escape form.code_book.to_s}" %>
+      <% end %>
+    </div>
+  <% end %>
+
+
+
   <% if @dataset.chartable_variables.pluck(:id).index(@variable.id) %>
     <% previous_variable = @dataset.variables.find_by_id(@dataset.chartable_variables[@dataset.chartable_variables.pluck(:id).index(@variable.id) - 1]) unless @dataset.chartable_variables.pluck(:id).index(@variable.id) == 0 %>
     <% next_variable = @dataset.variables.find_by_id(@dataset.chartable_variables[@dataset.chartable_variables.pluck(:id).index(@variable.id) + 1]) %>
@@ -85,66 +96,26 @@
       </div>
     <% end %>
   <% end %>
-
-<% if false %>
-  <div>
-    <h3 style="text-align:center;margin:0px"><%= json['stats']['title'] %></h3>
-    <h5 style="text-align:center;margin:0px;padding-bottom:8px"><%= json['stats']['subtitle'] %></h5>
-
-    <div class="table-responsive">
-      <table class="table table-hover">
-        <thead>
-          <% (json['stats']['headers'] || []).each do |headers| %>
-            <tr>
-              <% headers.each do |cell| %>
-                <%= render partial: 'variables/table_cell', locals: { cell: cell, type: :th } %>
-              <% end %>
-            </tr>
-          <% end %>
-        </thead>
-        <tfoot>
-          <% (json['stats']['footers'] || []).each do |footers| %>
-            <tr>
-              <% footers.each do |cell| %>
-                <%= render partial: 'variables/table_cell', locals: { cell: cell, type: :td } %>
-              <% end %>
-            </tr>
-          <% end %>
-        </tfoot>
-        <tbody>
-          <% (json['stats']['rows'] || []).each do |rows| %>
-            <tr>
-              <% rows.each do |cell| %>
-                <%= render partial: 'variables/table_cell', locals: { cell: cell, type: :td } %>
-              <% end %>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-  </div>
-<% end %>
 <% end %>
 
 <%= render partial: 'calculation' unless @variable.calculation.blank? %>
 
-<% if @variable.forms.size > 0 %>
-  <div class="row">
-    <div class="col-md-6">
-      <div class="panel panel-primary">
-        <div class="panel-heading">
-          <h3 class="panel-title">Forms</h3>
-        </div>
-        <div class="panel-body">
-          <ul class="list-unstyled">
-            <% @variable.forms.each do |form| %>
-              <li><span class="glyphicon glyphicon-book"></span> <%= link_to form.display_name, files_dataset_path(@dataset) + "/forms/#{form.folder}?f=#{CGI::escape form.code_book.to_s}" %> <%#= link_to 'All Variables on this Form', collection_path( s: form.name, d: params[:d] ), class: 'btn btn-xs btn-default' %></li>
-            <% end %>
-          </ul>
-        </div>
+<% variables = @variable.related_variables %>
+<% if variables.size > 0 %>
+  <div style="background-color:#ededed">
+    <div class="welcome-box welcome-odd">
+
+      <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
+        <h1 style="margin-top:10px"><code><%= @variable.name %></code> is related to...</h1>
       </div>
-    </div>
-    <div class="col-md-6">
+
+      <div class="row" style="margin-top:40px">
+        <% variables.each do |variable| %>
+          <div class="col-xs-6 col-sm-4 col-md-2 si">
+            <%= render partial: 'variables/panel', locals: { variable: variable, collection: false } %>
+          </div>
+        <% end %>
+      </div>
 
     </div>
   </div>

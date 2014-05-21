@@ -3,8 +3,33 @@
   <p class="lead"><%= @dataset.name %></p>
 </div>
 
-<ul>
-  <% @dataset.chartable_variables.each do |variable| %>
-    <li><%= link_to "#{variable.folder}/#{variable.name}", [@dataset, variable] %></li>
+<%= render partial: 'contour/layouts/per_page', locals: { per_page: 100, object_count: @variables.total_count } %>
+
+<table class="table table-striped table-hover"><col width="1px"/>
+  <thead>
+    <tr>
+      <th>Folder</th>
+      <th>Name</th>
+      <th>Calculation</th>
+      <th>Forms</th>
+    </tr>
+  </thead>
+
+  <% @variables.each do |variable| %>
+    <tr>
+      <td style="white-space:nowrap"><%= variable.folder %></td>
+      <td><%= link_to variable.name, [@dataset, variable] %></td>
+      <td>
+        <% unless variable.calculation.blank? %>
+          <span class="glyphicon glyphicon-ok"></span> Calculated
+        <% end %>
+      </td>
+      <td>
+        <% form_count = variable.forms.count %>
+        <% if form_count > 0 %><span class="badge"><%= form_count %> <span class="glyphicon glyphicon-book"></span></span><% end %>
+      </td>
+    </tr>
   <% end %>
-</ul>
+</table>
+
+<div class="center"><%= paginate @variables, theme: "contour" %></div>
