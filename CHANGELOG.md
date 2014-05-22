@@ -7,6 +7,7 @@
   - Each variable now includes interactive charts
 - **Gem Changes**
   - Updated to contour 2.5.0
+  - Updated to geocoder 1.2.1
 - Use of Ruby 2.1.2 is now recommended
 
 ## 0.7.3 (May 8, 2014)
