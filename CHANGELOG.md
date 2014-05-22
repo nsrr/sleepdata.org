@@ -1,11 +1,10 @@
 ## 0.8.0
 
 ### Enhancements
-- **General Changes**
-  - Prototype of the `rdi3p` infographic
 - **Dataset Changes**
+  - The variable index has been changed for better variable navigation
   - Added the ability to view variables on their own unique pages
-  - The variable index has been changed to for better variable navigation
+  - Each variable now includes interactive charts
 - **Gem Changes**
   - Updated to contour 2.5.0
 - Use of Ruby 2.1.2 is now recommended
