@@ -59,4 +59,16 @@ class VariablesControllerTest < ActionController::TestCase
     assert_redirected_to datasets_path
   end
 
+  test "should get variable chart for public dataset" do
+    get :image, id: 'gender', dataset_id: @dataset
+    assert_kind_of String, response.body
+    assert_equal File.binread( File.join(assigns(:dataset).root_folder, 'dd', 'images', '0.1.0', 'gender.png') ), response.body
+  end
+
+  test "should not get non-existent variable chart for public dataset" do
+    get :image, id: 'where-is-gender', dataset_id: @dataset
+    assert_response :success
+  end
+
+
 end

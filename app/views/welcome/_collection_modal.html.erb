@@ -5,9 +5,9 @@
       <h4 class="modal-title"><%= link_to @variable.name, dataset_variable_path(@dataset, @variable) %> &middot; <%= @variable.display_name %> <span class="label" style="background-color:<%= @dataset.color %>"><%= @dataset.slug %></span></h4>
     </div>
     <div class="modal-body">
-      <% if File.file?( File.join( @dataset.root_folder, 'dd', 'graphs', "#{@variable.name}-lg.png") ) %>
+      <% if File.file?( File.join( @dataset.root_folder, 'dd', 'images', @variable.version.to_s, "#{@variable.name}-lg.png") ) %>
         <center>
-          <%= image_tag variable_chart_dataset_path(@dataset, name: "#{@variable.name}-lg"), style: 'max-width: 100%;max-height:400px;display:block' %>
+          <%= image_tag image_dataset_variable_path(@variable.dataset, @variable, size: 'lg'), style: 'max-width: 100%;max-height:400px;display:block' %>
         </center>
       <% end %>
       <div class="row">

@@ -30,17 +30,6 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get variable chart for public dataset" do
-    get :variable_chart, id: @dataset, name: 'gender'
-    assert_kind_of String, response.body
-    assert_equal File.binread( File.join(assigns(:dataset).root_folder, 'dd', 'graphs', 'gender.png') ), response.body
-  end
-
-  test "should not get non-existent variable chart for public dataset" do
-    get :variable_chart, id: @dataset, name: 'where-is-gender'
-    assert_response :success
-  end
-
   test "should get folder from public dataset as anonymous user" do
     get :files, id: @dataset, path: 'subfolder'
 

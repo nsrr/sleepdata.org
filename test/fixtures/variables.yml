@@ -9,7 +9,7 @@ one:
   dataset: public
   # domain:
   # units:
-  # version:
+  version: 0.1.0
   # calculation:
   commonly_used: true
   search_terms: gender demographics

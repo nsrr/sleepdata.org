@@ -1,5 +1,10 @@
 ## 0.8.1
 
+### Enhancement
+- **General Changes**
+  - Changed the file organization of variable images and graphs
+    - The new file structure now includes the data dictionary version of the variable
+
 ## 0.8.0 (May 22, 2014)
 
 ### Enhancements

@@ -11,7 +11,6 @@ WwwSleepdataOrg::Application.routes.draw do
     member do
       get :sync
       get :logo
-      get :variable_chart
       get :audits
       get :request_access
       get :requests
@@ -31,7 +30,11 @@ WwwSleepdataOrg::Application.routes.draw do
 
     end
 
-    resources :variables
+    resources :variables do
+      member do
+        get :image
+      end
+    end
   end
 
   resources :tools do
