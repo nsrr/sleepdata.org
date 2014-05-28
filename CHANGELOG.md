@@ -1,4 +1,4 @@
-## 0.8.1
+## 0.8.1 (May 28, 2014)
 
 ### Enhancement
 - **General Changes**
