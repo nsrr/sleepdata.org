@@ -1,0 +1,11 @@
+<% if user.core_member %>
+  <% background_color = '#428bca' %>
+  <% border_color = '#357ebd' %>
+<% elsif user.aug_member? %>
+  <% background_color = '#5cb85c' %>
+  <% border_color = '#4cae4c' %>
+<% else %>
+  <% background_color = '' %>
+  <% border_color = '' %>
+<% end %>
+<%= image_tag user.avatar_url(50, icon), size: '50x50', class: 'img-thumbnail', style: "min-height:55px;min-width:55px;border-color:#{border_color};background-color:#{background_color}" %>

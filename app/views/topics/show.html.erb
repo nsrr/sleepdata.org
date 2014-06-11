@@ -26,21 +26,12 @@
   <% current_index = (params[:page].to_i * 50) + index + 1 %>
   <div class="row">
     <div class="col-xs-1">
-      <% if comment.deleted? %>
-        <%= image_tag User.new( email: 'nouser').avatar_url(50, 'mm'), size: '50x50', class: 'img-thumbnail', style: 'min-height:55px;min-width:55px;' %>
-      <% else %>
-        <% if comment.user.core_member %>
-          <% background_color = '#428bca' %>
-          <% border_color = '#357ebd' %>
-        <% elsif comment.user.aug_member? %>
-          <% background_color = '#5cb85c' %>
-          <% border_color = '#4cae4c' %>
-        <% else %>
-          <% background_color = '' %>
-          <% border_color = '' %>
-        <% end %>
-        <%= image_tag comment.user.avatar_url(50, 'identicon'), size: '50x50', class: 'img-thumbnail', style: "min-height:55px;min-width:55px;border-color:#{border_color};background-color:#{background_color}" %>
-      <% end %>
+    <% if comment.deleted? %>
+      <%= render partial: 'topics/forum_gravatar', locals: { user: User.new(email: 'nouser'), icon: 'mm' } %>
+    <% else %>
+      <%= render partial: 'topics/forum_gravatar', locals: { user: comment.user, icon: 'identicon' } %>
+    <% end %>
+
     </div>
 
     <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
@@ -90,7 +81,7 @@
 
       <div class="form-group">
         <div class="col-xs-1">
-          <%= image_tag current_user.avatar_url(50, 'identicon'), size: '50x50', class: 'img-thumbnail', style: 'min-height:55px;min-width:55px;' %>
+          <%= render partial: 'topics/forum_gravatar', locals: { user: current_user, icon: 'identicon' } %>
         </div>
 
         <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
