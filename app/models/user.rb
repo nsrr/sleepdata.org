@@ -39,6 +39,15 @@ class User < ActiveRecord::Base
     end
   end
 
+  def all_comments
+    if self.system_admin?
+      Comment.current
+    else
+      self.comments
+    end
+  end
+
+
   def all_datasets
     Dataset.current.with_editor( self.id )
   end

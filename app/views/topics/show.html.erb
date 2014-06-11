@@ -45,7 +45,12 @@
     <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
 
       <div class="file-display" style="margin-bottom:20px; <%= 'background-color:#efefef;' if comment.deleted? %>">
-        <div class="file-display-right-after" style="<%= 'text-decoration:line-through' if comment.deleted? %>">#<%= current_index %></div>
+        <div class="file-display-right-after" style="<%= 'text-decoration:line-through' if comment.deleted? %>">
+          <% if current_user and comment.editable_by?(current_user) %>
+            <%= link_to 'edit <span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_topic_comment_path(@topic, comment), remote: true, method: :get %>
+          <% end %>
+          #<%= current_index %>
+        </div>
         <% unless comment.deleted? %>
           <% if comment.user.core_member? %>
             <div class="file-display-right-right-bottom-after" style="background-color:#428bca;color:white">Core Member</div>
@@ -58,7 +63,9 @@
         <% if comment.deleted? %>
           <p class="text-muted"><i>Comment Deleted</i></p>
         <% else %>
-          <%= render partial: 'comments/formatted', locals: { comment: comment } %>
+          <div id="comment_<%= comment.id %>_container">
+            <%= render partial: 'comments/formatted', locals: { comment: comment } %>
+          </div>
         <% end %>
       </div>
     </div>

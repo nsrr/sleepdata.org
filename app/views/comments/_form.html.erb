@@ -1,0 +1,24 @@
+<%= form_for [@topic, @comment], html: { class: 'form-horizontal', style: 'margin-top:-31px;margin-left:-1px' } do |f| %>
+  <div class="form-group" style="margin-top">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#write" data-toggle="tab">Write</a></li>
+      <li><a href="#preview" data-toggle="tab" data-topic-id="<%= @topic.to_param %>" data-object="preview-comment">Preview</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="write" style="padding-top:23px">
+        <%= f.text_area :description, rows: 7, class: 'form-control' %>
+      </div>
+      <div class="tab-pane" id="preview" style="min-height:177px;padding: 30px 15px 15px 15px;">
+
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <% button_text = @comment.new_record? ? 'Comment' : 'Update' %>
+      <%= f.submit button_text, class: 'btn btn-primary pull-right' %>
+    </div>
+  </div>
+<% end %>

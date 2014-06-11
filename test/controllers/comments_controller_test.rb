@@ -45,21 +45,72 @@ class CommentsControllerTest < ActionController::TestCase
     assert_redirected_to topics_path
   end
 
-
   # test "should show comment" do
   #   get :show, id: @comment
   #   assert_response :success
   # end
 
-  # test "should get edit" do
-  #   get :edit, id: @comment
-  #   assert_response :success
-  # end
+  test "should get edit" do
+    login(users(:valid))
+    xhr :get, :edit, topic_id: @comment.topic_id, id: @comment, format: 'js'
 
-  # test "should update comment" do
-  #   patch :update, id: @comment, comment: { deleted: @comment.deleted, description: @comment.description, topic_id: @comment.topic_id, user_id: @comment.user_id }
-  #   assert_redirected_to comment_path(assigns(:comment))
-  # end
+    assert_not_nil assigns(:topic)
+    assert_not_nil assigns(:comment)
+
+    assert_template 'edit'
+    assert_response :success
+  end
+
+  test "should not get edit for comment on locked topic" do
+    login(users(:valid))
+    xhr :get, :edit, topic_id: topics(:locked), id: comments(:three), format: 'js'
+
+    assert_nil assigns(:topic)
+    assert_nil assigns(:comment)
+
+    assert_response :success
+  end
+
+  test "should not get edit as another user" do
+    login(users(:two))
+    xhr :get, :edit, topic_id: @comment.topic_id, id: @comment, format: 'js'
+
+    assert_not_nil assigns(:topic)
+    assert_nil assigns(:comment)
+
+    assert_response :success
+  end
+
+  test "should update comment" do
+    login(users(:valid))
+    patch :update, topic_id: @comment.topic_id, id: @comment, comment: { description: "Updated Description" }
+
+    assert_not_nil assigns(:topic)
+    assert_not_nil assigns(:comment)
+    assert_equal "Updated Description", assigns(:comment).description
+
+    assert_redirected_to topic_path(assigns(:topic))
+  end
+
+  test "should not update comment on locked topic" do
+    login(users(:valid))
+    patch :update, topic_id: topics(:locked), id: comments(:three), comment: { description: "Updated Description on Locked" }
+
+    assert_nil assigns(:topic)
+    assert_nil assigns(:comment)
+
+    assert_redirected_to topics_path
+  end
+
+  test "should not update as another user" do
+    login(users(:two))
+    patch :update, topic_id: @comment.topic_id, id: @comment, comment: { description: "Updated Description" }
+
+    assert_not_nil assigns(:topic)
+    assert_nil assigns(:comment)
+
+    assert_redirected_to topics_path
+  end
 
   # test "should destroy comment" do
   #   assert_difference('Comment.count', -1) do
