@@ -46,7 +46,7 @@
 
       <div class="file-display" style="margin-bottom:20px; <%= 'background-color:#efefef;' if comment.deleted? %>">
         <div class="file-display-right-after" style="<%= 'text-decoration:line-through' if comment.deleted? %>">
-          <% if current_user and comment.editable_by?(current_user) %>
+          <% if not comment.deleted? and current_user and comment.editable_by?(current_user) %>
             <%= link_to 'edit <span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_topic_comment_path(@topic, comment), remote: true, method: :get %>
           <% end %>
           #<%= current_index %>
