@@ -36,7 +36,7 @@
 
     <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
 
-      <div class="file-display" style="margin-bottom:20px; <%= 'background-color:#efefef;' if comment.deleted? %>; max-height: 200px; overflow: scroll;">
+      <div class="file-display" style="margin-bottom:20px; <%= 'background-color:#efefef;' if comment.deleted? %>">
         <div class="file-display-right-after" style="<%= 'text-decoration:line-through' if comment.deleted? %>">#<%= current_index %></div>
         <% unless comment.deleted? %>
           <% if comment.user.core_member? %>
