@@ -29,7 +29,17 @@
       <% if comment.deleted? %>
         <%= image_tag User.new( email: 'nouser').avatar_url(50, 'mm'), size: '50x50', class: 'img-thumbnail', style: 'min-height:55px;min-width:55px;' %>
       <% else %>
-        <%= image_tag comment.user.avatar_url(50, 'identicon'), size: '50x50', class: 'img-thumbnail', style: 'min-height:55px;min-width:55px;' %>
+        <% if comment.user.core_member %>
+          <% background_color = '#428bca' %>
+          <% border_color = '#357ebd' %>
+        <% elsif comment.user.aug_member? %>
+          <% background_color = '#5cb85c' %>
+          <% border_color = '#4cae4c' %>
+        <% else %>
+          <% background_color = '' %>
+          <% border_color = '' %>
+        <% end %>
+        <%= image_tag comment.user.avatar_url(50, 'identicon'), size: '50x50', class: 'img-thumbnail', style: "min-height:55px;min-width:55px;border-color:#{border_color};background-color:#{background_color}" %>
       <% end %>
     </div>
 
@@ -37,6 +47,14 @@
 
       <div class="file-display" style="margin-bottom:20px; <%= 'background-color:#efefef;' if comment.deleted? %>; max-height: 200px; overflow: scroll;">
         <div class="file-display-right-after" style="<%= 'text-decoration:line-through' if comment.deleted? %>">#<%= current_index %></div>
+        <% unless comment.deleted? %>
+          <% if comment.user.core_member? %>
+            <div class="file-display-right-right-bottom-after" style="background-color:#428bca;color:white">Core Member</div>
+          <% elsif comment.user.aug_member? %>
+            <div class="file-display-right-right-bottom-after" style="background-color:#5cb85c;color:white">AUG Member</div>
+          <% end %>
+        <% end %>
+
 
         <% if comment.deleted? %>
           <p class="text-muted"><i>Comment Deleted</i></p>
@@ -50,39 +68,44 @@
 
 <hr class="soften" />
 
-<% if current_user %>
-  <%= form_for [@topic, @comment], html: { class: 'form-horizontal' } do |f| %>
-    <% if @comment.errors.any? %>
-      <div id="error_explanation" class="bs-callout bs-callout-danger">
-        <h4><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved</h4>
+<% if @topic.locked? %>
 
-        <ul>
-        <% @comment.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-        </ul>
+  <div class="text-muted center">This topic is locked <span class="glyphicon glyphicon-lock"></span></div>
+
+<% else %>
+  <% if current_user %>
+
+    <%= form_for [@topic, @comment], html: { class: 'form-horizontal' } do |f| %>
+      <% if @comment.errors.any? %>
+        <div id="error_explanation" class="bs-callout bs-callout-danger">
+          <h4><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved</h4>
+
+          <ul>
+          <% @comment.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <div class="form-group">
+        <div class="col-xs-1">
+          <%= image_tag current_user.avatar_url(50, 'identicon'), size: '50x50', class: 'img-thumbnail', style: 'min-height:55px;min-width:55px;' %>
+        </div>
+
+        <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
+          <%= f.text_area :description, rows: 7, class: 'form-control' %>
+        </div>
+      </div>
+
+      <div class="form-group">
+
+        <div class="col-md-offset-2 col-md-10">
+          <%= f.submit "Comment", class: 'btn btn-primary pull-right' %>
+        </div>
       </div>
     <% end %>
-
-    <div class="form-group">
-      <div class="col-xs-1">
-        <%= image_tag current_user.avatar_url(50, 'identicon'), size: '50x50', class: 'img-thumbnail', style: 'min-height:55px;min-width:55px;' %>
-      </div>
-
-      <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
-        <%= f.text_area :description, rows: 7, class: 'form-control' %>
-      </div>
-    </div>
-
-    <div class="form-group">
-
-      <div class="col-md-offset-2 col-md-10">
-        <%= f.submit "Comment", class: 'btn btn-primary pull-right' %>
-      </div>
-    </div>
+  <% else %>
+    <%= link_to 'Sign in to Join the Discussion', new_user_session_path, class: 'btn btn-lg btn-success pull-right' %>
   <% end %>
-<% else %>
-
-  <%= link_to 'Sign in to Join the Discussion', new_user_session_path, class: 'btn btn-lg btn-success pull-right' %>
-
 <% end %>

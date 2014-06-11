@@ -15,3 +15,11 @@ two:
   locked: false
   deleted: false
   created_at: 2014-06-10 12:24:25
+
+locked:
+  name: This thread is locked
+  user: admin
+  stickied: false
+  locked: true
+  deleted: false
+  created_at: 2014-06-10 12:24:25

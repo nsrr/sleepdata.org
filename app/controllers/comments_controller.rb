@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy ]
   before_action :set_comment, only: [ :show, :edit, :update, :destroy ]
-  before_action :set_topic, only: [ :create ]
+  before_action :set_commentable_topic, only: [ :create ]
   before_action :redirect_without_topic, only: [ :create ]
 
 
@@ -65,6 +65,10 @@ class CommentsController < ApplicationController
   private
     def set_topic
       @topic = Topic.current.find_by_id(params[:topic_id])
+    end
+
+    def set_commentable_topic
+      @topic = Topic.current.where( locked: false ).find_by_id(params[:topic_id])
     end
 
     def redirect_without_topic

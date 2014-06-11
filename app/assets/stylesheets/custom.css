@@ -152,7 +152,7 @@ pre.code {
   text-align: center;
 }
 
-.file-display-after, .file-display-right-after {
+.file-display-after, .file-display-right-after, .file-display-right-right-bottom-after {
   position: absolute;
   padding: 3px 7px;
   font-size: 12px;
@@ -164,16 +164,28 @@ pre.code {
 }
 
 .file-display-after {
-  top: -1px;
   left: -1px;
+}
+
+.file-display-after, .file-display-right-after {
+  top: -1px;
+}
+
+.file-display-right-right-bottom-after {
+  bottom: -1px;
+}
+
+.file-display-right-after, .file-display-right-right-bottom-after {
+  right: -1px;
+}
+
+.file-display-after, .file-display-right-right-bottom-after {
   -webkit-border-radius: 4px 0 4px 0;
   -moz-border-radius: 4px 0 4px 0;
   border-radius: 4px 0 4px 0;
 }
 
 .file-display-right-after {
-  top: -1px;
-  right: -1px;
   -webkit-border-radius: 0 4px 0 4px;
   -moz-border-radius: 0 4px 0 4px;
   border-radius: 0 4px 0 4px;

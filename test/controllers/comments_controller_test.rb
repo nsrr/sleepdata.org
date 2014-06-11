@@ -36,6 +36,16 @@ class CommentsControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_path
   end
 
+  test "should not create comment on locked topic" do
+    login(users(:valid))
+    assert_difference('Comment.count', 0) do
+      post :create, topic_id: topics(:locked), comment: { description: "Adding a comment to a locked topic." }
+    end
+
+    assert_redirected_to topics_path
+  end
+
+
   # test "should show comment" do
   #   get :show, id: @comment
   #   assert_response :success

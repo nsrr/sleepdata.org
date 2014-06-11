@@ -11,3 +11,9 @@ two:
   description: I would like to get some feedback on how to select a variable for my paper.
   user: one
   deleted: false
+
+three:
+  topic: locked
+  description: This is the only comment on the locked thread.
+  user: admin
+  deleted: false
