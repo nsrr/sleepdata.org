@@ -1,7 +1,11 @@
 WwwSleepdataOrg::Application.routes.draw do
 
   resources :topics, path: "forum" do
-    resources :comments
+    resources :comments do
+      collection do
+        post :preview
+      end
+    end
   end
 
 

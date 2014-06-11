@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
-  before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy ]
+  before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy, :preview ]
   before_action :set_comment, only: [ :show, :edit, :update, :destroy ]
-  before_action :set_commentable_topic, only: [ :create ]
-  before_action :redirect_without_topic, only: [ :create ]
+  before_action :set_commentable_topic, only: [ :create, :preview ]
+  before_action :redirect_without_topic, only: [ :create, :preview ]
 
 
   # # GET /comments
@@ -35,6 +35,10 @@ class CommentsController < ApplicationController
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def preview
+    @comment = @topic.comments.new(comment_params)
   end
 
   # # PUT /comments/1

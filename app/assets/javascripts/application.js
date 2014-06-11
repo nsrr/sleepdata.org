@@ -16,6 +16,7 @@
 
 //= require global
 //= require datasets
+//= require comments
 //= require external/jquery.lazyload.js
 //= require external/lang-matlab
 //= require external/lang-r
