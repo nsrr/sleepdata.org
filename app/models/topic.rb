@@ -25,7 +25,7 @@ class Topic < ActiveRecord::Base
   end
 
   def editable_by?(current_user)
-    self.user == current_user or current_user.system_admin?
+    not self.locked? and (self.user == current_user or current_user.system_admin?)
   end
 
   private
