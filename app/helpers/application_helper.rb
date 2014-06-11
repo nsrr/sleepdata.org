@@ -24,13 +24,14 @@ module ApplicationHelper
     checked ? '<span class="glyphicon glyphicon-ok"></span>'.html_safe : '<span class="glyphicon glyphicon-unchecked"></span>'.html_safe
   end
 
-  def simple_markdown(text, target_blank = true, table_class = '')
+  def simple_markdown(text, target_blank = true, table_class = '', allow_links = true)
     result = ''
     markdown = Redcarpet::Markdown.new( Redcarpet::Render::HTML, no_intra_emphasis: true, fenced_code_blocks: true, autolink: true, strikethrough: true, superscript: true, tables: true )
     result = markdown.render(text.to_s)
     result = add_table_class(result, table_class) unless table_class.blank?
     result = expand_relative_paths(result)
     result = page_headers(result)
+    result = remove_links(result) unless allow_links
     target_blank ? target_link_as_blank(result) : result.html_safe
   end
 
@@ -62,6 +63,10 @@ module ApplicationHelper
 
     def target_link_as_blank(text)
       text.to_s.gsub(/<a(.*?)>/, '<a\1 target="_blank">').html_safe
+    end
+
+    def remove_links(text)
+      text.to_s.gsub(/<a href="(.*?)">(.*?)<\/a>/, '\1')
     end
 
     def add_table_class(text, table_class)

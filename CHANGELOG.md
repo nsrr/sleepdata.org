@@ -1,5 +1,8 @@
 ## 0.9.0
 
+- **Forum Added**
+  - Added the ability for registered users to create topics on the forum and to post comments on other topics
+
 ## 0.8.1 (May 28, 2014)
 
 ### Enhancement

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: My First Topic
+  user: valid
+  stickied: false
+  locked: false
+  deleted: false
+  created_at: 2014-06-09 12:24:25
+
+two:
+  name: How do I choose a variable?
+  user: valid
+  stickied: false
+  locked: false
+  deleted: false
+  created_at: 2014-06-10 12:24:25

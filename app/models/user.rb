@@ -16,15 +16,18 @@ class User < ActiveRecord::Base
   scope :core_members, -> { current.where( core_member: true ) }
   scope :system_admins, -> { current.where( system_admin: true ) }
   scope :search, lambda { |arg| where( 'LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ) }
+  scope :with_name, lambda { |arg| where("(users.first_name || ' ' || users.last_name) IN (?)", arg) }
 
   # Model Validation
   validates_presence_of :first_name, :last_name
 
   # Model Relationships
   has_many :agreements, -> { where deleted: false }
+  has_many :comments, -> { where deleted: false }
   has_many :datasets, -> { where deleted: false }
   has_many :dataset_file_audits
   has_many :tools
+  has_many :topics, -> { where deleted: false }
 
   # User Methods
 
@@ -47,6 +50,22 @@ class User < ActiveRecord::Base
   def avatar_url(size = 80, default = 'mm')
     gravatar_id = Digest::MD5.hexdigest(self.email.to_s.downcase)
     "//gravatar.com/avatar/#{gravatar_id}.png?&s=#{size}&r=pg&d=#{default}"
+  end
+
+  def can_post_links?
+    aug_member? or core_member? or system_admin?
+  end
+
+  def topics_created_in_last_day
+    self.topics.where( "created_at >= ?", Date.today - 1.day )
+  end
+
+  def max_topics
+    if aug_member? or core_member? or system_admin?
+      10
+    else
+      2
+    end
   end
 
   def name

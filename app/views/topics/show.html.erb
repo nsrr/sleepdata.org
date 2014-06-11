@@ -1,0 +1,88 @@
+<% @title = @topic.name %>
+<% if false %>
+  <div class="page-header">
+    <h1>
+      <%= link_to "Forum", topics_path %> &middot; <%= @title %>
+    </h1>
+    <%= link_to "Edit Topic", edit_topic_path(@topic), class: 'btn btn-xs btn-default' %>
+    <%= link_to "Delete Topic", @topic, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Topic #{@topic.name}?" } %>
+  </div>
+<% end %>
+
+<div class="jumbotron" style="position:relative;margin-bottom: 20px;margin-top: 10px;background-color: #333;color: white;padding-top: 5px;padding-bottom: 20px;">
+  <div class="jumbotron-left-after">
+    <span class="glyphicon glyphicon-home"></span>
+    <%= link_to "Back to Forum", topics_path %>
+  </div>
+  <div class="jumbotron-pagination">
+    <%= render partial: 'variables/per_page', locals: { per_page: 50, object_count: @comments.total_count } %>
+  </div>
+
+  <h1><%= @title %></h1>
+  <p class="lead">Topic by <%= link_to @topic.user.name, topics_path(a: @topic.user.name) %></p>
+</div>
+
+<% @comments.each_with_index do |comment, index| %>
+  <% current_index = (params[:page].to_i * 50) + index + 1 %>
+  <div class="row">
+    <div class="col-xs-1">
+      <% if comment.deleted? %>
+        <%= image_tag User.new( email: 'nouser').avatar_url(50, 'mm'), size: '50x50', class: 'img-thumbnail', style: 'min-height:55px;min-width:55px;' %>
+      <% else %>
+        <%= image_tag comment.user.avatar_url(50, 'identicon'), size: '50x50', class: 'img-thumbnail', style: 'min-height:55px;min-width:55px;' %>
+      <% end %>
+    </div>
+
+    <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
+
+      <div class="file-display" style="margin-bottom:20px; <%= 'background-color:#efefef;' if comment.deleted? %>; max-height: 200px; overflow: scroll;">
+        <div class="file-display-right-after" style="<%= 'text-decoration:line-through' if comment.deleted? %>">#<%= current_index %></div>
+
+        <% if comment.deleted? %>
+          <p class="text-muted"><i>Comment Deleted</i></p>
+        <% else %>
+          <%= simple_markdown(comment.description, true, '', comment.user.can_post_links?) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<hr class="soften" />
+
+<% if current_user %>
+  <%= form_for [@topic, @comment], html: { class: 'form-horizontal' } do |f| %>
+    <% if @comment.errors.any? %>
+      <div id="error_explanation" class="bs-callout bs-callout-danger">
+        <h4><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved</h4>
+
+        <ul>
+        <% @comment.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <div class="col-xs-1">
+        <%= image_tag current_user.avatar_url(50, 'identicon'), size: '50x50', class: 'img-thumbnail', style: 'min-height:55px;min-width:55px;' %>
+      </div>
+
+      <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
+        <%= f.text_area :description, rows: 7, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+
+      <div class="col-md-offset-2 col-md-10">
+        <%= f.submit "Comment", class: 'btn btn-primary pull-right' %>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+
+  <%= link_to 'Sign in to Join the Discussion', new_user_session_path, class: 'btn btn-lg btn-success pull-right' %>
+
+<% end %>

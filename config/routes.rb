@@ -1,5 +1,10 @@
 WwwSleepdataOrg::Application.routes.draw do
 
+  resources :topics, path: "forum" do
+    resources :comments
+  end
+
+
   resources :agreements do
     member do
       get :download
