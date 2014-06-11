@@ -50,7 +50,7 @@
         <% if comment.deleted? %>
           <p class="text-muted"><i>Comment Deleted</i></p>
         <% else %>
-          <%= simple_markdown(comment.description, true, '', comment.user.can_post_links?) %>
+          <%= simple_markdown(sanitize(comment.description), true, '', comment.user.can_post_links?) %>
         <% end %>
       </div>
     </div>
