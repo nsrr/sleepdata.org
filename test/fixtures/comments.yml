@@ -14,6 +14,12 @@ two:
 
 three:
   topic: locked
-  description: This is the only comment on the locked thread.
+  description: I made the first comment on this topic.
+  user: valid
+  deleted: false
+
+four:
+  topic: locked
+  description: This is the last comment on the locked topic.
   user: admin
   deleted: false

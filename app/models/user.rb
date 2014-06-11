@@ -31,6 +31,14 @@ class User < ActiveRecord::Base
 
   # User Methods
 
+  def all_topics
+    if self.system_admin?
+      Topic.current
+    else
+      self.topics
+    end
+  end
+
   def all_datasets
     Dataset.current.with_editor( self.id )
   end

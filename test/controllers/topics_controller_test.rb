@@ -82,14 +82,35 @@ class TopicsControllerTest < ActionController::TestCase
     get :edit, id: @topic
 
     assert_nil assigns(:topic)
+    assert_redirected_to topics_path
+  end
+
+  test "should not get edit for locked topic" do
+    login(users(:valid))
+    get :edit, id: topics(:locked)
+
+    assert_nil assigns(:topic)
 
     assert_redirected_to topics_path
   end
 
   test "should update topic" do
     login(users(:valid))
-    patch :update, id: @topic, topic: { name: "Updated Topic Name", description: "Updating an Existing Topic" }
+    patch :update, id: @topic, topic: { name: "Updated Topic Name" }
+
+    assert_not_nil assigns(:topic)
+    assert_equal "Updated Topic Name", assigns(:topic).name
+
     assert_redirected_to topic_path(assigns(:topic))
+  end
+
+  test "should not update topic as another user" do
+    login(users(:two))
+    patch :update, id: @topic, topic: { name: "Updated Topic Name" }
+
+    assert_nil assigns(:topic)
+
+    assert_redirected_to topics_path
   end
 
   test "should not destroy topic as user" do

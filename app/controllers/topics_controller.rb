@@ -78,7 +78,7 @@ class TopicsController < ApplicationController
     end
 
     def set_editable_topic
-      @topic = current_user.topics.find_by_id(params[:id])
+      @topic = current_user.all_topics.where( locked: false ).find_by_id(params[:id])
     end
 
     def check_max_topics_per_day_reached
