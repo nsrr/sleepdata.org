@@ -14,6 +14,7 @@ class Topic < ActiveRecord::Base
 
   # Model Validation
   validates_presence_of :name, :user_id
+  validates_length_of :name, maximum: 40
   validates_presence_of :description, if: :new_record?
 
   # Model Relationships
