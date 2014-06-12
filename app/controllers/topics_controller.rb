@@ -1,13 +1,19 @@
 class TopicsController < ApplicationController
-  before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy ]
-  before_action :check_system_admin, only: [ :destroy ]
+  before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy, :admin ]
+  before_action :check_system_admin, only: [ :destroy, :admin ]
   before_action :check_max_topics_per_day_reached, only: [ :create ]
-  before_action :set_viewable_topic, only: [ :show, :destroy ]
+  before_action :set_viewable_topic, only: [ :show, :destroy, :admin ]
   before_action :set_editable_topic, only: [ :edit, :update ]
   before_action :redirect_without_topic, only: [ :show, :edit, :update, :destroy ]
 
-  # GET /topics
-  # GET /topics.json
+  # POST /forum/1-my-first-topic/admin
+  def admin
+    @topic.update(topic_admin_params)
+    redirect_to topics_path
+  end
+
+  # GET /forum
+  # GET /forum.json
   def index
     topic_scope = Topic.current.search(params[:s])
     user_ids = User.current.with_name(params[:a].to_s.split(','))
@@ -15,24 +21,24 @@ class TopicsController < ApplicationController
     @topics = topic_scope.order(stickied: :desc, id: :desc).page(params[:page]).per( 50 )
   end
 
-  # GET /topics/1
-  # GET /topics/1.json
+  # GET /forum/1-my-first-topic
+  # GET /forum/1-my-first-topic.json
   def show
     @comment = @topic.comments.new
     @comments = @topic.comments.order(:id).page(params[:page]).per( 50 )
   end
 
-  # GET /topics/new
+  # GET /forum/new
   def new
     @topic = Topic.new
   end
 
-  # GET /topics/1/edit
+  # GET /forum/1-my-first-topic/edit
   def edit
   end
 
-  # POST /topics
-  # POST /topics.json
+  # POST /forum
+  # POST /forum.json
   def create
     @topic = current_user.topics.new(topic_params)
 
@@ -47,8 +53,8 @@ class TopicsController < ApplicationController
     end
   end
 
-  # PUT /topics/1
-  # PUT /topics/1.json
+  # PUT /forum/1-my-first-topic
+  # PUT /forum/1-my-first-topic.json
   def update
     respond_to do |format|
       if @topic.update(topic_params)
@@ -61,8 +67,8 @@ class TopicsController < ApplicationController
     end
   end
 
-  # DELETE /topics/1
-  # DELETE /topics/1.json
+  # DELETE /forum/1-my-first-topic
+  # DELETE /forum/1-my-first-topic.json
   def destroy
     @topic.destroy
 
@@ -90,6 +96,10 @@ class TopicsController < ApplicationController
 
     def topic_params
       params.require(:topic).permit(:name, :description)
+    end
+
+    def topic_admin_params
+      params.require(:topic).permit(:locked, :stickied)
     end
 
     def redirect_without_topic

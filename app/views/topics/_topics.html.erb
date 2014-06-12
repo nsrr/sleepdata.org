@@ -1,9 +1,12 @@
-<table class="table table-striped"><col width="1px"/>
+<table class="table table-striped"><col width="30px"/>
   <thead>
     <tr>
       <th></th>
       <th>Topic</th>
       <th>Author</th>
+      <% if current_user and current_user.system_admin? %>
+        <th style="text-align:right">Actions</th>
+      <% end %>
     </tr>
   </thead>
 
@@ -16,8 +19,26 @@
           <span class="glyphicon glyphicon-lock"></span>
         <% end %>
       </td>
-      <td><%= link_to topic.name, topic %></td>
+      <td>
+        <%= image_tag topic.user.avatar_url(18), size: '18x18', style: 'vertical-align:text-bottom;min-width:18px', rel: 'tooltip', title: topic.user.name, data: { container: 'body', placement: 'left' } %>
+        <%= link_to topic.name, topic %>
+      </td>
       <td><%= topic.user.name %></td>
+      <% if current_user and current_user.system_admin? %>
+        <td style="text-align:right">
+          <% if topic.locked? %>
+            <%= link_to '<span class="glyphicon glyphicon-lock"></span>'.html_safe, admin_topic_path(topic, topic: { locked: '0' }), method: :post, data: { confirm: "Are you sure you want to unlock this topic?"}, class: 'btn btn-xs btn-default' %>
+          <% else %>
+            <%= link_to '<span class="glyphicon glyphicon-lock"></span>'.html_safe, admin_topic_path(topic, topic: { locked: '1' }), method: :post, data: { confirm: "Are you sure you want to lock this topic?"}, class: 'btn btn-xs btn-primary' %>
+          <% end %>
+          <% if topic.stickied? %>
+            <%= link_to '<span class="glyphicon glyphicon-pushpin"></span>'.html_safe, admin_topic_path(topic, topic: { stickied: '0' }), method: :post, data: { confirm: "Are you sure you want to unpin this topic?"}, class: 'btn btn-xs btn-default' %>
+          <% else %>
+            <%= link_to '<span class="glyphicon glyphicon-pushpin"></span>'.html_safe, admin_topic_path(topic, topic: { stickied: '1' }), method: :post, data: { confirm: "Are you sure you want to pin this topic?"}, class: 'btn btn-xs btn-primary' %>
+          <% end %>
+          <%= link_to 'Delete', topic, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Topic #{topic.name}?" } %>
+        </td>
+      <% end %>
     </tr>
   <% end %>
 </table>

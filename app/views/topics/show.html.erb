@@ -47,7 +47,7 @@
       <div class="file-display" style="margin-bottom:20px; <%= 'background-color:#efefef;' if comment.deleted? %>">
         <div class="file-display-right-after" style="<%= 'text-decoration:line-through' if comment.deleted? %>">
           <% if not comment.deleted? and current_user and comment.editable_by?(current_user) %>
-            <%= link_to 'edit <span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_topic_comment_path(@topic, comment), remote: true, method: :get %>
+            <%= link_to 'Edit <span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_topic_comment_path(@topic, comment), remote: true, method: :get %>
           <% end %>
           #<%= current_index %>
         </div>
@@ -100,15 +100,15 @@
 
         <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
           <ul class="nav nav-tabs">
-            <li class="active"><a href="#write" data-toggle="tab">Write</a></li>
-            <li><a href="#preview" data-toggle="tab" data-topic-id="<%= @topic.to_param %>" data-object="preview-comment">Preview</a></li>
+            <li class="active"><a href="#write-new" data-toggle="tab">Write</a></li>
+            <li><a href="#preview-new" data-toggle="tab" data-topic-id="<%= @topic.to_param %>" data-object="preview-comment" data-comment-id="new">Preview</a></li>
           </ul>
 
           <div class="tab-content">
-            <div class="tab-pane active" id="write" style="padding-top:23px">
-              <%= f.text_area :description, rows: 7, class: 'form-control' %>
+            <div class="tab-pane active" id="write-new" style="padding-top:23px">
+              <%= f.text_area :description, rows: 7, class: 'form-control', id: 'comment_description_new' %>
             </div>
-            <div class="tab-pane" id="preview" style="min-height:177px;padding: 30px 15px 15px 15px;">
+            <div class="tab-pane" id="preview-new" style="min-height:177px;padding: 30px 15px 15px 15px;">
 
             </div>
           </div>

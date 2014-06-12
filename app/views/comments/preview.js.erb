@@ -1,1 +1,1 @@
-$("#preview").html("<%= escape_javascript(render partial: "comments/formatted", locals: { comment: @comment }) %>");
+$("#preview-<%= params[:comment_id] %>").html("<%= escape_javascript(render partial: "comments/formatted", locals: { comment: @comment }) %>");

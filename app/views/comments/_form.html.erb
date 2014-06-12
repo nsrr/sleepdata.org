@@ -1,15 +1,15 @@
 <%= form_for [@topic, @comment], html: { class: 'form-horizontal', style: 'margin-top:-31px;margin-left:-1px' } do |f| %>
   <div class="form-group" style="margin-top">
     <ul class="nav nav-tabs">
-      <li class="active"><a href="#write" data-toggle="tab">Write</a></li>
-      <li><a href="#preview" data-toggle="tab" data-topic-id="<%= @topic.to_param %>" data-object="preview-comment">Preview</a></li>
+      <li class="active"><a href="#edit-<%= @comment.id %>" data-toggle="tab">Edit</a></li>
+      <li><a href="#preview-<%= @comment.id %>" data-toggle="tab" data-topic-id="<%= @topic.to_param %>" data-object="preview-comment" data-comment-id="<%= @comment.id %>">Preview</a></li>
     </ul>
 
     <div class="tab-content">
-      <div class="tab-pane active" id="write" style="padding-top:23px">
-        <%= f.text_area :description, rows: 7, class: 'form-control' %>
+      <div class="tab-pane active" id="edit-<%= @comment.id %>" style="padding-top:23px;padding-left:20px;padding-right:20px">
+        <%= f.text_area :description, rows: 7, class: 'form-control', id: "comment_description_#{@comment.id}" %>
       </div>
-      <div class="tab-pane" id="preview" style="min-height:177px;padding: 30px 15px 15px 15px;">
+      <div class="tab-pane" id="preview-<%= @comment.id %>" style="min-height:177px;padding: 30px 15px 15px 15px;">
 
       </div>
     </div>

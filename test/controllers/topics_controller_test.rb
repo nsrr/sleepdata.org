@@ -113,6 +113,57 @@ class TopicsControllerTest < ActionController::TestCase
     assert_redirected_to topics_path
   end
 
+  test "should lock topic as a system admin" do
+    login(users(:admin))
+    post :admin, id: @topic, topic: { locked: '1' }
+
+    assert_not_nil assigns(:topic)
+    assert_equal true, assigns(:topic).locked
+
+    assert_redirected_to topics_path
+  end
+
+  test "should not lock topic as a regular user" do
+    login(users(:valid))
+    post :admin, id: @topic, topic: { locked: '1' }
+
+    assert_nil assigns(:topic)
+
+    assert_redirected_to root_path
+  end
+
+  test "should not lock topic as an anonymous user" do
+    post :admin, id: @topic, topic: { locked: '1' }
+
+    assert_nil assigns(:topic)
+    assert_redirected_to new_user_session_path
+  end
+
+  test "should sticky a topic as a system admin" do
+    login(users(:admin))
+    post :admin, id: @topic, topic: { stickied: '1' }
+
+    assert_not_nil assigns(:topic)
+    assert_equal true, assigns(:topic).stickied
+
+    assert_redirected_to topics_path
+  end
+
+  test "should not sticky a topic as a regular user" do
+    login(users(:valid))
+    post :admin, id: @topic, topic: { stickied: '1' }
+
+    assert_nil assigns(:topic)
+    assert_redirected_to root_path
+  end
+
+  test "should not sticky topic as an anonymous user" do
+    post :admin, id: @topic, topic: { stickied: '1' }
+
+    assert_nil assigns(:topic)
+    assert_redirected_to new_user_session_path
+  end
+
   test "should not destroy topic as user" do
     login(users(:valid))
     assert_difference('Topic.current.count', 0) do
