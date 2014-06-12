@@ -3,7 +3,7 @@
     <tr>
       <th></th>
       <th>Topic</th>
-      <th>Author</th>
+      <th>Info</th>
       <% if current_user and current_user.system_admin? %>
         <th style="text-align:right">Actions</th>
       <% end %>
@@ -23,7 +23,9 @@
         <%= image_tag topic.user.avatar_url(18), size: '18x18', style: 'vertical-align:text-bottom;min-width:18px', rel: 'tooltip', title: topic.user.name, data: { container: 'body', placement: 'left' } %>
         <%= link_to topic.name, topic %>
       </td>
-      <td><%= topic.user.name %></td>
+      <td>
+        <span class="badge"><%= topic.comments.count %></span>
+      </td>
       <% if current_user and current_user.system_admin? %>
         <td style="text-align:right">
           <% if topic.locked? %>

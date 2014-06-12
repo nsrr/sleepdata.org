@@ -17,4 +17,8 @@ class Comment < ActiveRecord::Base
     not self.topic.locked? and (self.user == current_user or current_user.system_admin?)
   end
 
+  def deletable_by?(current_user)
+    self.user == current_user or current_user.system_admin?
+  end
+
 end

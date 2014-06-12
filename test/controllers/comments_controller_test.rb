@@ -112,11 +112,43 @@ class CommentsControllerTest < ActionController::TestCase
     assert_redirected_to topics_path
   end
 
-  # test "should destroy comment" do
-  #   assert_difference('Comment.count', -1) do
-  #     delete :destroy, id: @comment
-  #   end
+  test "should destroy comment as system admin" do
+    login(users(:admin))
+    assert_difference('Comment.current.count', -1) do
+      delete :destroy, topic_id: @comment.topic, id: @comment
+    end
 
-  #   assert_redirected_to comments_path
-  # end
+    assert_not_nil assigns(:topic)
+
+    assert_redirected_to assigns(:topic)
+  end
+
+  test "should destroy comment as comment author" do
+    login(users(:valid))
+    assert_difference('Comment.current.count', -1) do
+      delete :destroy, topic_id: @comment.topic, id: @comment
+    end
+
+    assert_not_nil assigns(:topic)
+
+    assert_redirected_to assigns(:topic)
+  end
+
+  test "should not destroy comment as another user" do
+    login(users(:two))
+    assert_difference('Comment.current.count', 0) do
+      delete :destroy, topic_id: @comment.topic, id: @comment
+    end
+
+    assert_redirected_to topics_path
+  end
+
+  test "should not destroy comment as anonymous user" do
+    assert_difference('Comment.current.count', 0) do
+      delete :destroy, topic_id: @comment.topic, id: @comment
+    end
+
+    assert_redirected_to new_user_session_path
+  end
+
 end

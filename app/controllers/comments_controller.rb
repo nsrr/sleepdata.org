@@ -1,11 +1,13 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy, :preview ]
+  before_action :set_topic, only: [ :destroy ]
   before_action :set_commentable_topic, only: [ :create, :edit, :update, :preview ]
-  before_action :redirect_without_topic, only: [ :create, :edit, :update, :preview ]
+  before_action :redirect_without_topic, only: [ :create, :edit, :update, :preview, :destroy ]
 
-  before_action :set_comment, only: [ :show, :destroy ]
+  before_action :set_comment, only: [ :show ]
   before_action :set_editable_comment, only: [ :edit, :update ]
-  before_action :redirect_without_comment, only: [ :edit, :update ]
+  before_action :set_deletable_comment, only: [ :destroy ]
+  before_action :redirect_without_comment, only: [ :edit, :update, :destroy ]
 
 
   # # GET /comments
@@ -58,16 +60,16 @@ class CommentsController < ApplicationController
     end
   end
 
-  # # DELETE /comments/1
-  # # DELETE /comments/1.json
-  # def destroy
-  #   @comment.destroy
+  # DELETE /comments/1
+  # DELETE /comments/1.json
+  def destroy
+    @comment.destroy
 
-  #   respond_to do |format|
-  #     format.html { redirect_to comments_path }
-  #     format.json { head :no_content }
-  #   end
-  # end
+    respond_to do |format|
+      format.html { redirect_to @topic }
+      format.json { head :no_content }
+    end
+  end
 
   private
     def set_topic
@@ -88,6 +90,10 @@ class CommentsController < ApplicationController
 
     def set_editable_comment
       @comment = current_user.all_comments.with_unlocked_topic.find_by_id(params[:id])
+    end
+
+    def set_deletable_comment
+      @comment = current_user.all_comments.find_by_id(params[:id])
     end
 
     def redirect_without_comment

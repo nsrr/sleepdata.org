@@ -50,6 +50,9 @@
             <%= link_to 'Edit <span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_topic_comment_path(@topic, comment), remote: true, method: :get %>
           <% end %>
           #<%= current_index %>
+          <% if not comment.deleted? and current_user and comment.deletable_by?(current_user) %>
+            <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, [@topic, comment], method: :delete, data: { confirm: "Are you sure you want to delete Comment ##{current_index}"}, class: 'btn btn-xs btn-danger-inverse' %>
+          <% end %>
         </div>
         <% unless comment.deleted? %>
           <% if comment.user.core_member? %>
