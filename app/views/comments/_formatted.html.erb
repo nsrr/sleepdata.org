@@ -1,1 +1,3 @@
-<%= simple_markdown(strip_tags(comment.description), true, 'table table-striped', comment.user.can_post_links?) %>
+<div class="lead">
+  <%= simple_markdown(strip_tags(comment.description), true, 'table table-striped', comment.user.can_post_links?) %>
+</div>
