@@ -54,3 +54,34 @@ $(window).scroll( () ->
     $(this).addClass("slideUp") if imagePos < bottomOfWindow - 200
   )
 )
+
+
+$(document)
+  .on('touchstart', (e) ->
+    window.$xDown = e.originalEvent.touches[0].pageX
+    window.$yDown = e.originalEvent.touches[0].pageY
+  )
+  .on('touchmove', (e) ->
+    return if ! window.$xDown || ! window.$yDown
+
+    xUp = e.originalEvent.touches[0].pageX
+    yUp = e.originalEvent.touches[0].pageY
+
+    xDiff = window.$xDown - xUp
+    yDiff = window.$yDown - yUp
+
+    if ( Math.abs( xDiff ) > Math.abs( yDiff ) ) # most significant
+      if ( xDiff > 0 )
+        # Left Swipe
+        $('#next-variable')[0].click() if $('#next-variable')[0]
+      else
+        # Right Swipe
+        $('#previous-variable')[0].click() if $('#previous-variable')[0]
+    else
+      if ( yDiff > 0 )
+        # up swipe
+      else
+        # down swipe
+    window.$xDown = null
+    window.$yDown = null
+  )

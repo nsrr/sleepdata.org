@@ -8,6 +8,8 @@
   - System admins can ban users from posting on the forum
   - Users may not post consecutive comments on the forum
     - This is currently enabled to discourage topic "bumping", multi-comment spam, and to encourage clear dialogue between users
+- **Variable Changes**
+  - Swiping left or right now navigates to next or previous variable on mobile devices
 
 ## 0.8.1 (May 28, 2014)
 
