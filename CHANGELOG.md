@@ -6,6 +6,8 @@
   - Comments can be previewed before being posted to the forum topic
   - System admins can lock, pin, and delete topics
   - System admins can ban users from posting on the forum
+  - Users may not post consecutive comments on the forum
+    - This is currently enabled to discourage topic "bumping", multi-comment spam, and to encourage clear dialogue between users
 
 ## 0.8.1 (May 28, 2014)
 

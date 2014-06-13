@@ -18,12 +18,24 @@ class CommentsControllerTest < ActionController::TestCase
   # end
 
   test "should create comment" do
-    login(users(:valid))
+    login(users(:two))
     assert_difference('Comment.count') do
       post :create, topic_id: @topic, comment: { description: "This is my contribution to the discussion." }
     end
 
     assert_equal "This is my contribution to the discussion.", assigns(:topic).comments.last.description
+
+    assert_redirected_to topic_path(assigns(:topic))
+  end
+
+  test "should not create comment if the last comment in the topic is by the same user" do
+    login(users(:valid))
+    assert_difference('Comment.count', 0) do
+      post :create, topic_id: @topic, comment: { description: "This is my second comment on my own topic." }
+    end
+
+    assert_not_nil assigns(:topic)
+    assert_nil assigns(:comment)
 
     assert_redirected_to topic_path(assigns(:topic))
   end

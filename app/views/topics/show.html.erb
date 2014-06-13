@@ -83,7 +83,11 @@
 
 <% else %>
   <% if current_user and not current_user.banned? %>
-    <%= form_for [@topic, @comment], html: { class: 'form-horizontal' } do |f| %>
+    <% if @topic.user_commented_recently?(current_user) %>
+      <div class="text-muted center">You may not post consecutive comments. You may edit your last comment or wait for another response.</div>
+    <% else %>
+      <% @comment = @topic.comments.new %>
+      <%= form_for [@topic, @comment], html: { class: 'form-horizontal' } do |f| %>
       <% if @comment.errors.any? %>
         <div id="error_explanation" class="bs-callout bs-callout-danger">
           <h4><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved</h4>
@@ -125,6 +129,7 @@
           <%= f.submit "Comment", class: 'btn btn-primary pull-right' %>
         </div>
       </div>
+      <% end %>
     <% end %>
   <% elsif current_user %>
     <div class="text-muted center">You have been <span class="label label-banned">banned</span> from commenting on this forum.</div>

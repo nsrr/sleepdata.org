@@ -30,6 +30,10 @@ class Topic < ActiveRecord::Base
     not self.locked? and not self.user.banned? and (self.user == current_user or current_user.system_admin?)
   end
 
+  def user_commented_recently?(current_user)
+    self.comments.current.last and self.comments.current.last.user == current_user
+  end
+
   private
 
   def create_first_comment

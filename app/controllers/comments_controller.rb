@@ -5,6 +5,7 @@ class CommentsController < ApplicationController
   before_action :redirect_without_topic, only: [ :create, :edit, :update, :preview, :destroy ]
 
   before_action :check_banned, only: [ :create, :edit, :update ]
+  before_action :check_last_comment_by, only: [ :create ]
   before_action :set_comment, only: [ :show ]
   before_action :set_editable_comment, only: [ :edit, :update ]
   before_action :set_deletable_comment, only: [ :destroy ]
@@ -99,6 +100,10 @@ class CommentsController < ApplicationController
 
     def redirect_without_comment
       empty_response_or_root_path( topics_path ) unless @comment
+    end
+
+    def check_last_comment_by
+      empty_response_or_root_path( @topic ) if @topic.user_commented_recently?(current_user)
     end
 
     def comment_params
