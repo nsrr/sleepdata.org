@@ -108,7 +108,7 @@
     - Users are notified when their DAUAs are approved or sent back for resubmission
     - Executed DAUAs can now be uploaded alongside the originally submitted DAUAs
   - Added Academic User Group page and added research summary for AUG Members
-  - Documentation for repositories can now be synced by system adminstrators
+  - Documentation for repositories can now be synced by system administrators
 - **Dataset Changes**
   - Datasets now display a list of the contributors
   - Variables now reference the forms on which they were collected
