@@ -34,7 +34,7 @@
   <% current_index = (params[:page].to_i * 50) + index + 1 %>
   <div class="row">
     <div class="col-xs-1">
-    <% if comment.deleted? %>
+    <% if comment.banned_or_deleted? %>
       <%= render partial: 'topics/forum_gravatar', locals: { user: User.new(email: 'nouser'), icon: 'mm' } %>
     <% else %>
       <%= render partial: 'topics/forum_gravatar', locals: { user: comment.user, icon: 'identicon' } %>
@@ -44,17 +44,17 @@
 
     <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
 
-      <div class="file-display" style="margin-bottom:20px; <%= 'background-color:#efefef;' if comment.deleted? %>">
-        <div class="file-display-right-after" style="<%= 'text-decoration:line-through' if comment.deleted? %>">
-          <% if not comment.deleted? and current_user and comment.editable_by?(current_user) %>
+      <div class="file-display" style="margin-bottom:20px; <%= 'background-color:#efefef;' if comment.banned_or_deleted? %>">
+        <div class="file-display-right-after" style="<%= 'text-decoration:line-through' if comment.banned_or_deleted? %>">
+          <% if not comment.banned_or_deleted? and current_user and comment.editable_by?(current_user) %>
             <%= link_to 'Edit <span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_topic_comment_path(@topic, comment), remote: true, method: :get %>
           <% end %>
           #<%= current_index %>
-          <% if not comment.deleted? and current_user and comment.deletable_by?(current_user) %>
+          <% if not comment.banned_or_deleted? and current_user and comment.deletable_by?(current_user) %>
             <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, [@topic, comment], method: :delete, data: { confirm: "Are you sure you want to delete Comment ##{current_index}"}, class: 'btn btn-xs btn-danger-inverse' %>
           <% end %>
         </div>
-        <% unless comment.deleted? %>
+        <% unless comment.banned_or_deleted? %>
           <% if comment.user.core_member? %>
             <div class="file-display-right-right-bottom-after" style="background-color:#428bca;color:white">Core Member</div>
           <% elsif comment.user.aug_member? %>
@@ -63,7 +63,7 @@
         <% end %>
 
 
-        <% if comment.deleted? %>
+        <% if comment.banned_or_deleted? %>
           <p class="text-muted"><i>Comment Deleted</i></p>
         <% else %>
           <div id="comment_<%= comment.id %>_container">
@@ -82,7 +82,7 @@
   <div class="text-muted center">This topic is locked <span class="glyphicon glyphicon-lock"></span></div>
 
 <% else %>
-  <% if current_user %>
+  <% if current_user and not current_user.banned? %>
     <%= form_for [@topic, @comment], html: { class: 'form-horizontal' } do |f| %>
       <% if @comment.errors.any? %>
         <div id="error_explanation" class="bs-callout bs-callout-danger">
@@ -126,6 +126,8 @@
         </div>
       </div>
     <% end %>
+  <% elsif current_user %>
+    <div class="text-muted center">You have been <span class="label label-banned">banned</span> from commenting on this forum.</div>
   <% else %>
     <%= link_to 'Sign in to Join the Discussion', new_user_session_path, class: 'btn btn-lg btn-success pull-right' %>
   <% end %>

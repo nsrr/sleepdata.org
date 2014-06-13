@@ -23,3 +23,11 @@ locked:
   locked: true
   deleted: false
   created_at: 2014-06-10 12:24:25
+
+banned:
+  name: I was banned for this Topic
+  user: banned
+  stickied: false
+  locked: false
+  deleted: false
+  created_at: 2014-06-12 04:35:33

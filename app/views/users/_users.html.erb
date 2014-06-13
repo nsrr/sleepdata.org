@@ -16,7 +16,7 @@
   </thead>
 
   <% @users.each do |user| %>
-    <tr>
+    <tr class="<%= 'banned' if current_user.system_admin? and user.banned? %>">
       <td><%= image_tag user.avatar_url(18), style: 'vertical-align:text-bottom;min-width:18px' %> <%= link_to user.name, user %></td>
       <td><%= user.email %></td>
       <td><% if user.current_sign_in_at %><%= time_ago_in_words(user.current_sign_in_at) %> ago<% end %></td>

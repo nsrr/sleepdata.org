@@ -1,6 +1,7 @@
 class TopicsController < ApplicationController
   before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy, :admin ]
   before_action :check_system_admin, only: [ :destroy, :admin ]
+  before_action :check_banned, only: [ :create, :edit, :update ]
   before_action :check_max_topics_per_day_reached, only: [ :create ]
   before_action :set_viewable_topic, only: [ :show, :destroy, :admin ]
   before_action :set_editable_topic, only: [ :edit, :update ]
@@ -15,7 +16,7 @@ class TopicsController < ApplicationController
   # GET /forum
   # GET /forum.json
   def index
-    topic_scope = Topic.current.search(params[:s])
+    topic_scope = Topic.current.not_banned.search(params[:s])
     user_ids = User.current.with_name(params[:a].to_s.split(','))
     topic_scope = topic_scope.where( user_id: user_ids ) unless params[:a].blank?
     @topics = topic_scope.order(stickied: :desc, id: :desc).page(params[:page]).per( 50 )
@@ -80,11 +81,11 @@ class TopicsController < ApplicationController
 
   private
     def set_viewable_topic
-      @topic = Topic.current.find_by_id(params[:id])
+      @topic = Topic.current.not_banned.find_by_id(params[:id])
     end
 
     def set_editable_topic
-      @topic = current_user.all_topics.where( locked: false ).find_by_id(params[:id])
+      @topic = current_user.all_topics.not_banned.where( locked: false ).find_by_id(params[:id])
     end
 
     def check_max_topics_per_day_reached

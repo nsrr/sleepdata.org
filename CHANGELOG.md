@@ -5,6 +5,7 @@
   - Core and AUG members are now highlighted as such on their forum posts
   - Comments can be previewed before being posted to the forum topic
   - System admins can lock, pin, and delete topics
+  - System admins can ban users from posting on the forum
 
 ## 0.8.1 (May 28, 2014)
 

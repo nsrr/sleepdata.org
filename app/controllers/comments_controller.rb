@@ -4,6 +4,7 @@ class CommentsController < ApplicationController
   before_action :set_commentable_topic, only: [ :create, :edit, :update, :preview ]
   before_action :redirect_without_topic, only: [ :create, :edit, :update, :preview, :destroy ]
 
+  before_action :check_banned, only: [ :create, :edit, :update ]
   before_action :set_comment, only: [ :show ]
   before_action :set_editable_comment, only: [ :edit, :update ]
   before_action :set_deletable_comment, only: [ :destroy ]

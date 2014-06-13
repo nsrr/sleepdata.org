@@ -11,6 +11,7 @@ class Topic < ActiveRecord::Base
   # Named Scopes
   scope :search, lambda { |arg| where("name ~* ?", arg.to_s.split(/\s/).collect{|l| l.to_s.gsub(/[^\w\d%]/, '')}.collect{|l| "(\\m#{l})"}.join("|")) }
   scope :with_author, lambda { |arg| where("name ~* ?", arg.to_s.split(/\s/).collect{|l| l.to_s.gsub(/[^\w\d%]/, '')}.collect{|l| "(\\m#{l})"}.join("|")) }
+  scope :not_banned, -> { where( "topics.user_id IN ( select users.id from users where users.banned = ?)", false ).references(:users) }
 
   # Model Validation
   validates_presence_of :name, :user_id
@@ -26,7 +27,7 @@ class Topic < ActiveRecord::Base
   end
 
   def editable_by?(current_user)
-    not self.locked? and (self.user == current_user or current_user.system_admin?)
+    not self.locked? and not self.user.banned? and (self.user == current_user or current_user.system_admin?)
   end
 
   private

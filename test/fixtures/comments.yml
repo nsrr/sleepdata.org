@@ -23,3 +23,9 @@ four:
   description: This is the last comment on the locked topic.
   user: admin
   deleted: false
+
+banned:
+  topic: one
+  description: This comment got me banned.
+  user: banned
+  deleted: false

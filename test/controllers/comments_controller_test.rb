@@ -36,6 +36,18 @@ class CommentsControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_path
   end
 
+  test "should not create comment as banned user" do
+    login(users(:banned))
+    assert_difference('Comment.count', 0) do
+      post :create, topic_id: @topic, comment: { description: "I'm banned from creating comments." }
+    end
+
+    assert_not_nil assigns(:topic)
+    assert_nil assigns(:comment)
+
+    assert_redirected_to assigns(:topic)
+  end
+
   test "should not create comment on locked topic" do
     login(users(:valid))
     assert_difference('Comment.count', 0) do
@@ -81,6 +93,16 @@ class CommentsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should not get edit as banned user" do
+    login(users(:banned))
+    xhr :get, :edit, topic_id: comments(:banned).topic, id: comments(:banned), format: 'js'
+
+    assert_not_nil assigns(:topic)
+    assert_nil assigns(:comment)
+
+    assert_response :success
+  end
+
   test "should update comment" do
     login(users(:valid))
     patch :update, topic_id: @comment.topic_id, id: @comment, comment: { description: "Updated Description" }
@@ -100,6 +122,16 @@ class CommentsControllerTest < ActionController::TestCase
     assert_nil assigns(:comment)
 
     assert_redirected_to topics_path
+  end
+
+  test "should not update comment as banned user" do
+    login(users(:banned))
+    patch :update, topic_id: comments(:banned).topic, id: comments(:banned), comment: { description: "I was banned so I'm changing my comment" }
+
+    assert_not_nil assigns(:topic)
+    assert_nil assigns(:comment)
+
+    assert_redirected_to assigns(:topic)
   end
 
   test "should not update as another user" do

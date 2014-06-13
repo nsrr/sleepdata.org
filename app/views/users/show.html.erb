@@ -28,6 +28,12 @@
   <% if current_user.system_admin? %>
     <dt>System Admin</dt>
     <dd><%= simple_check @user.system_admin? %></dd>
+
+    <dt>Banned</dt>
+    <dd>
+      <%= simple_check @user.banned? %>
+      <% if @user.banned? %><span class="label" style="background-color:#333;">Banned from Forum</span><% end %>
+    </dd>
   <% end %>
 
   <dt>User Avatar</dt>

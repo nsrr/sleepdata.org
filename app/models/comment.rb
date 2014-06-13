@@ -14,11 +14,15 @@ class Comment < ActiveRecord::Base
   belongs_to :user
 
   def editable_by?(current_user)
-    not self.topic.locked? and (self.user == current_user or current_user.system_admin?)
+    not self.topic.locked? and not self.user.banned? and (self.user == current_user or current_user.system_admin?)
   end
 
   def deletable_by?(current_user)
     self.user == current_user or current_user.system_admin?
+  end
+
+  def banned_or_deleted?
+    self.user.banned? or self.deleted?
   end
 
 end

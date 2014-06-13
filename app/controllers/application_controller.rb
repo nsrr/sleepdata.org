@@ -38,6 +38,14 @@ class ApplicationController < ActionController::Base
     redirect_to root_path, alert: "You do not have sufficient privileges to access that page." unless current_user.system_admin?
   end
 
+
+  def check_banned
+    if current_user.banned?
+      flash[:warning] = "You do not have permission to post on the forum."
+      empty_response_or_root_path(@topic || topics_path)
+    end
+  end
+
   def parse_date(date_string, default_date = '')
     date_string.to_s.split('/').last.size == 2 ? Date.strptime(date_string, "%m/%d/%y") : Date.strptime(date_string, "%m/%d/%Y") rescue default_date
   end

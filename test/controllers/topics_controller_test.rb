@@ -66,9 +66,30 @@ class TopicsControllerTest < ActionController::TestCase
     assert_redirected_to topics_path
   end
 
+  test "should not create topic as banned user" do
+    login(users(:banned))
+    assert_difference('Comment.count', 0) do
+      assert_difference('Topic.count', 0) do
+        post :create, topic: { name: "I'm trying to post a topic", description: "Visit my site with advertisements." }
+      end
+    end
+
+    assert_nil assigns(:topic)
+    assert_equal "You do not have permission to post on the forum.", flash[:warning]
+
+    assert_redirected_to topics_path
+  end
+
   test "should show topic" do
     get :show, id: @topic
     assert_response :success
+  end
+
+  test "should not show topic from banned user" do
+    get :show, id: topics(:banned)
+
+    assert_nil assigns(:topic)
+    assert_redirected_to topics_path
   end
 
   test "should get edit" do
@@ -94,6 +115,15 @@ class TopicsControllerTest < ActionController::TestCase
     assert_redirected_to topics_path
   end
 
+  test "should not get edit for banned user" do
+    login(users(:banned))
+    get :edit, id: topics(:banned)
+
+    assert_nil assigns(:topic)
+
+    assert_redirected_to topics_path
+  end
+
   test "should update topic" do
     login(users(:valid))
     patch :update, id: @topic, topic: { name: "Updated Topic Name" }
@@ -107,6 +137,15 @@ class TopicsControllerTest < ActionController::TestCase
   test "should not update topic as another user" do
     login(users(:two))
     patch :update, id: @topic, topic: { name: "Updated Topic Name" }
+
+    assert_nil assigns(:topic)
+
+    assert_redirected_to topics_path
+  end
+
+  test "should not update topic as banned user" do
+    login(users(:banned))
+    patch :update, id: topics(:banned), topic: { name: "Updated Banned Topic Name" }
 
     assert_nil assigns(:topic)
 
