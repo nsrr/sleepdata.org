@@ -64,7 +64,9 @@
 
 
         <% if comment.banned_or_deleted? %>
-          <p class="text-muted"><i>Comment Deleted</i></p>
+          <div class="lead">
+            <p class="text-muted"><i>Comment Deleted</i></p>
+          </div>
         <% else %>
           <div id="comment_<%= comment.id %>_container">
             <%= render partial: 'comments/formatted', locals: { comment: comment } %>

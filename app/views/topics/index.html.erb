@@ -24,13 +24,11 @@
   </div>
   <div class="col-sm-4 col-lg-3" style="position:relative">
     <%= form_tag topics_path, method: :get, class: 'form-inline' do %>
-      <%#= hidden_field_tag :order, params[:order] %>
       <div class="input-group">
         <%= text_field_tag 's', params[:s], class: 'form-control' %>
         <span class="input-group-btn">
           <%= submit_tag 'Search', class: 'btn btn-primary', name: nil %>
         </span>
-        <%#= link_to 'Reset', topics_path, class: 'btn btn-default' %>
       </div>
     <% end %>
   </div>

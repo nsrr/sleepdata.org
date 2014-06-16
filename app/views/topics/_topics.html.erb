@@ -1,12 +1,10 @@
-<table class="table table-striped"><col width="30px"/>
+<table class="table table-striped"><col width="30px"/><col /><col /><col width="40px" />
   <thead>
     <tr>
       <th></th>
       <th>Topic</th>
-      <th>Info</th>
-      <% if current_user and current_user.system_admin? %>
-        <th style="text-align:right">Actions</th>
-      <% end %>
+      <th>Category</th>
+      <th style="text-align:right"></th>
     </tr>
   </thead>
 
@@ -24,10 +22,19 @@
         <%= link_to topic.name, topic %>
       </td>
       <td>
-        <span class="badge"><%= topic.comments.count %></span>
+        <% if topic.name =~ /meeting/i %>
+          <span class="label label-primary">Meeting</span>
+        <% elsif topic.name =~ /release/i %>
+          <span class="label label-success">New Release</span>
+        <% end %>
       </td>
-      <% if current_user and current_user.system_admin? %>
-        <td style="text-align:right">
+      <td style="text-align:right;white-space:nowrap">
+        <% (topic.comments.collect{|c| c.user} - [topic.user]).uniq.each do |user| %>
+          <%= image_tag user.avatar_url(18), size: '18x18', style: 'vertical-align:text-bottom;min-width:18px', rel: 'tooltip', title: user.name, data: { container: 'body', placement: 'top' } %>
+        <% end %>
+
+        <span class="badge"><%= topic.comments.count %></span>
+        <% if current_user and current_user.system_admin? %>
           <% if topic.locked? %>
             <%= link_to '<span class="glyphicon glyphicon-lock"></span>'.html_safe, admin_topic_path(topic, topic: { locked: '0' }), method: :post, data: { confirm: "Are you sure you want to unlock this topic?"}, class: 'btn btn-xs btn-default' %>
           <% else %>
@@ -38,9 +45,9 @@
           <% else %>
             <%= link_to '<span class="glyphicon glyphicon-pushpin"></span>'.html_safe, admin_topic_path(topic, topic: { stickied: '1' }), method: :post, data: { confirm: "Are you sure you want to pin this topic?"}, class: 'btn btn-xs btn-primary' %>
           <% end %>
-          <%= link_to 'Delete', topic, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Topic #{topic.name}?" } %>
-        </td>
-      <% end %>
+          <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, topic, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Topic #{topic.name}?" } %>
+        <% end %>
+      </td>
     </tr>
   <% end %>
 </table>
