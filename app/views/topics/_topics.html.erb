@@ -29,7 +29,7 @@
         <% end %>
       </td>
       <td style="text-align:right;white-space:nowrap">
-        <% (topic.comments.collect{|c| c.user} - [topic.user]).uniq.each do |user| %>
+        <% (topic.comments.collect{|c| c.user} - [topic.user]).uniq.compact.each do |user| %>
           <%= image_tag user.avatar_url(18), size: '18x18', style: 'vertical-align:text-bottom;min-width:18px', rel: 'tooltip', title: user.name, data: { container: 'body', placement: 'top' } %>
         <% end %>
 
