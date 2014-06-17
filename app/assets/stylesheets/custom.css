@@ -152,7 +152,7 @@ pre.code {
   text-align: center;
 }
 
-.file-display-after, .file-display-right-after, .file-display-right-right-bottom-after {
+.file-display-after, .file-display-right-after, .file-display-right-bottom-after, .file-display-right-middle-after {
   position: absolute;
   padding: 3px 7px;
   font-size: 12px;
@@ -167,19 +167,19 @@ pre.code {
   left: -1px;
 }
 
-.file-display-after, .file-display-right-after {
+.file-display-after, .file-display-right-after, .file-display-right-middle-after {
   top: -1px;
 }
 
-.file-display-right-right-bottom-after {
+.file-display-right-bottom-after {
   bottom: -1px;
 }
 
-.file-display-right-after, .file-display-right-right-bottom-after {
+.file-display-right-after, .file-display-right-bottom-after, .file-display-right-middle-after {
   right: -1px;
 }
 
-.file-display-after, .file-display-right-right-bottom-after {
+.file-display-after, .file-display-right-bottom-after {
   -webkit-border-radius: 4px 0 4px 0;
   -moz-border-radius: 4px 0 4px 0;
   border-radius: 4px 0 4px 0;
@@ -189,6 +189,12 @@ pre.code {
   -webkit-border-radius: 0 4px 0 4px;
   -moz-border-radius: 0 4px 0 4px;
   border-radius: 0 4px 0 4px;
+}
+
+.file-display-right-middle-after {
+  -webkit-border-radius: 0 4px 4px 0;
+  -moz-border-radius: 0 4px 4px 0;
+  border-radius: 0 4px 4px 0;
 }
 
 .file-display img {

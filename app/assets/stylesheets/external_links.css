@@ -10,5 +10,5 @@ a[href ^= "http"]:not([href*="//sleepdata.org"]):hover {
 
 
 a[href ^= "http"]:not([href*="//sleepdata.org"]):after {
-  content: ' »';
+  /*content: ' »';*/
 }

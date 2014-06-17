@@ -32,48 +32,59 @@
 
 <% @comments.each_with_index do |comment, index| %>
   <% current_index = (params[:page].to_i * 50) + index + 1 %>
-  <div class="row">
-    <div class="col-xs-1">
+  <div class="row" id="c<%= current_index %>">
     <% if comment.banned_or_deleted? %>
-      <%= render partial: 'topics/forum_gravatar', locals: { user: User.new(email: 'nouser'), icon: 'mm' } %>
-    <% else %>
-      <%= render partial: 'topics/forum_gravatar', locals: { user: comment.user, icon: 'identicon' } %>
-    <% end %>
-
-    </div>
-
-    <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
-
-      <div class="file-display" style="margin-bottom:20px; <%= 'background-color:#efefef;' if comment.banned_or_deleted? %>">
-        <div class="file-display-right-after" style="<%= 'text-decoration:line-through' if comment.banned_or_deleted? %>">
-          <% if not comment.banned_or_deleted? and current_user and comment.editable_by?(current_user) %>
-            <%= link_to 'Edit <span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_topic_comment_path(@topic, comment), remote: true, method: :get %>
-          <% end %>
-          #<%= current_index %>
-          <% if not comment.banned_or_deleted? and current_user and comment.deletable_by?(current_user) %>
-            <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, [@topic, comment], method: :delete, data: { confirm: "Are you sure you want to delete Comment ##{current_index}"}, class: 'btn btn-xs btn-danger-inverse' %>
-          <% end %>
+      <div class="col-xs-1">
+      </div>
+      <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
+        <div class="file-display" style="margin-bottom:20px;background-color:#efefef; padding: 2px 15px 4px 15px;height:25px;font-weight: 200;">
+          <div class="file-display-right-middle-after" style="<%= 'text-decoration:line-through' if comment.banned_or_deleted? %>;">
+            #<%= current_index %>
+          </div>
+          <i>Comment Deleted</i>
         </div>
-        <% unless comment.banned_or_deleted? %>
-          <% if comment.user.core_member? %>
-            <div class="file-display-right-right-bottom-after" style="background-color:#428bca;color:white">Core Member</div>
-          <% elsif comment.user.aug_member? %>
-            <div class="file-display-right-right-bottom-after" style="background-color:#5cb85c;color:white">AUG Member</div>
-          <% end %>
-        <% end %>
-
-
+      </div>
+    <% else %>
+      <div class="col-xs-1">
         <% if comment.banned_or_deleted? %>
-          <div class="lead">
-            <p class="text-muted"><i>Comment Deleted</i></p>
-          </div>
+          <%= render partial: 'topics/forum_gravatar', locals: { user: User.new(email: 'nouser'), icon: 'mm' } %>
         <% else %>
-          <div id="comment_<%= comment.id %>_container">
-            <%= render partial: 'comments/formatted', locals: { comment: comment } %>
-          </div>
+          <%= render partial: 'topics/forum_gravatar', locals: { user: comment.user, icon: 'identicon' } %>
         <% end %>
       </div>
-    </div>
+
+      <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
+        <div class="file-display" style="margin-bottom:20px; <%= 'background-color:#efefef;' if comment.banned_or_deleted? %>">
+          <div class="file-display-right-after" style="<%= 'text-decoration:line-through' if comment.banned_or_deleted? %>">
+            <% if not comment.banned_or_deleted? and current_user and comment.editable_by?(current_user) %>
+              <%= link_to 'Edit <span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_topic_comment_path(@topic, comment), remote: true, method: :get %>
+            <% end %>
+            <a href="#c<%= current_index %>">#<%= current_index %></a>
+            <% if not comment.banned_or_deleted? and current_user and comment.deletable_by?(current_user) %>
+              <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, [@topic, comment], method: :delete, data: { confirm: "Are you sure you want to delete Comment ##{current_index}"}, class: 'btn btn-xs btn-danger-inverse' %>
+            <% end %>
+          </div>
+          <% unless comment.banned_or_deleted? %>
+            <% if comment.user.core_member? %>
+              <div class="file-display-right-bottom-after" style="background-color:#428bca;color:white">Core Member</div>
+            <% elsif comment.user.aug_member? %>
+              <div class="file-display-right-bottom-after" style="background-color:#5cb85c;color:white">AUG Member</div>
+            <% end %>
+          <% end %>
+
+
+          <% if comment.banned_or_deleted? %>
+            <div class="lead">
+              <p class="text-muted"><i>Comment Deleted</i></p>
+            </div>
+          <% else %>
+            <div id="comment_<%= comment.id %>_container">
+              <%= render partial: 'comments/formatted', locals: { comment: comment } %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
   </div>
 <% end %>
 
