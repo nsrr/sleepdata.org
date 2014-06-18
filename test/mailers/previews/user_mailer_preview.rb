@@ -1,5 +1,10 @@
 class UserMailerPreview < ActionMailer::Preview
 
+  def forum_digest
+    user = User.first
+    UserMailer.forum_digest(user)
+  end
+
   def daua_approved
     agreement = Agreement.first
     admin = User.first

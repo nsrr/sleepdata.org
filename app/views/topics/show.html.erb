@@ -23,7 +23,7 @@
   <% end %>
 
   <div class="jumbotron-pagination">
-    <%= render partial: 'variables/per_page', locals: { per_page: 50, object_count: @comments.total_count } %>
+    <%= render partial: 'variables/per_page', locals: { per_page: Comment::COMMENTS_PER_PAGE, object_count: @comments.total_count } %>
   </div>
 
   <h1><%= @title %></h1>
@@ -31,7 +31,8 @@
 </div>
 
 <% @comments.each_with_index do |comment, index| %>
-  <% current_index = (params[:page].to_i * 50) + index + 1 %>
+  <% current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1) %>
+  <% current_index = ((current_page - 1) * Comment::COMMENTS_PER_PAGE) + index + 1 %>
   <div class="row" id="c<%= current_index %>">
     <% if comment.banned_or_deleted? %>
       <div class="col-xs-1">

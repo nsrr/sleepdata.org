@@ -2,6 +2,13 @@ class UserMailer < ActionMailer::Base
   default from: "#{DEFAULT_APP_NAME} <#{ActionMailer::Base.smtp_settings[:email]}>"
   add_template_helper(ApplicationHelper)
 
+  def forum_digest(user)
+    setup_email
+    @user = user
+    @email_to = user.email
+    mail(to: user.email, subject: "Forum Digest for #{Date.today.strftime('%a %d %b %Y')}")
+  end
+
   def notify_system_admin(system_admin, user)
     setup_email
     @system_admin = system_admin

@@ -1,5 +1,7 @@
 class Comment < ActiveRecord::Base
 
+  COMMENTS_PER_PAGE = 20
+
   # Concerns
   include Deletable
 
@@ -8,6 +10,7 @@ class Comment < ActiveRecord::Base
 
   # Named Scopes
   scope :with_unlocked_topic, -> { where("comments.topic_id in (select topics.id from topics where topics.locked = ?)", false).references(:topics) }
+  scope :digest_visible, -> { current.where("comments.topic_id in (select topics.id from topics where topics.deleted = ?) and comments.user_id in (select users.id from users where users.banned = ?)", false, false).references(:topics, :users) }
 
   # Model Relationships
   belongs_to :topic
@@ -23,6 +26,10 @@ class Comment < ActiveRecord::Base
 
   def banned_or_deleted?
     self.user.banned? or self.deleted?
+  end
+
+  def number
+    self.topic.comments.order(:id).pluck(:id).index(self.id) + 1 rescue 0
   end
 
 end

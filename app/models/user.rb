@@ -47,6 +47,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  def subscribed_topics
+    Topic.current
+  end
+
+  def digest_comments
+    Comment.digest_visible.where( topic_id: self.subscribed_topics.pluck(:id) )
+  end
 
   def all_datasets
     Dataset.current.with_editor( self.id )

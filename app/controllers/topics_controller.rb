@@ -25,7 +25,7 @@ class TopicsController < ApplicationController
   # GET /forum/1-my-first-topic
   # GET /forum/1-my-first-topic.json
   def show
-    @comments = @topic.comments.order(:id).page(params[:page]).per( 50 )
+    @comments = @topic.comments.order(:id).page(params[:page]).per( Comment::COMMENTS_PER_PAGE )
   end
 
   # GET /forum/new
