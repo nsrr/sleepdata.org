@@ -27,7 +27,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_equal false, assigns(:topic).subscribed?(users(:two))
 
-    assert_redirected_to topic_path(assigns(:topic))
+    assert_redirected_to topic_path(assigns(:topic)) + "#c4"
   end
 
   test "should create comment and add subscription" do
@@ -40,7 +40,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_equal true, assigns(:topic).subscribed?(users(:admin))
 
-    assert_redirected_to topic_path(assigns(:topic))
+    assert_redirected_to topic_path(assigns(:topic)) + "#c4"
   end
 
   test "should not create comment if the last comment in the topic is by the same user" do
@@ -140,7 +140,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_equal true, assigns(:topic).subscribed?(users(:valid))
 
-    assert_redirected_to topic_path(assigns(:topic))
+    assert_redirected_to topic_path(assigns(:topic)) + "#c1"
   end
 
   test "should update comment but not reset subscription" do
@@ -153,7 +153,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_equal false, assigns(:topic).subscribed?(users(:two))
 
-    assert_redirected_to topic_path(assigns(:topic))
+    assert_redirected_to topic_path(assigns(:topic)) + "#c1"
   end
 
   test "should not update comment on locked topic" do
@@ -194,7 +194,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_not_nil assigns(:topic)
 
-    assert_redirected_to assigns(:topic)
+    assert_redirected_to topic_path(assigns(:topic)) + "#c1"
   end
 
   test "should destroy comment as comment author" do
@@ -205,7 +205,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_not_nil assigns(:topic)
 
-    assert_redirected_to assigns(:topic)
+    assert_redirected_to topic_path(assigns(:topic)) + "#c1"
   end
 
   test "should not destroy comment as another user" do

@@ -36,7 +36,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save
         @topic.get_or_create_subscription(current_user)
-        format.html { redirect_to @topic, notice: 'Comment was successfully created.' }
+        format.html { redirect_to topic_path(@topic) + "#c#{@comment.number}", notice: 'Comment was successfully created.' }
         format.json { render action: 'show', status: :created, location: @comment }
       else
         format.html { redirect_to topic_path(@topic, error: @errors) }
@@ -54,10 +54,10 @@ class CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to @topic, notice: 'Comment was successfully updated.' }
+        format.html { redirect_to topic_path(@topic) + "#c#{@comment.number}", notice: 'Comment was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { redirect_to @topic, warning: 'Comment can\'t be blank.' }
+        format.html { redirect_to topic_path(@topic) + "#c#{@comment.number}", warning: 'Comment can\'t be blank.' }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
@@ -69,7 +69,7 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to @topic }
+      format.html { redirect_to topic_path(@topic) + "#c#{@comment.number}" }
       format.json { head :no_content }
     end
   end

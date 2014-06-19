@@ -1,31 +1,43 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  id: 1
   topic: one
   description: I thought I'd make my first topic to get some dialogue started.
   user: valid
   deleted: false
 
 two:
+  id: 2
   topic: two
   description: I would like to get some feedback on how to select a variable for my paper.
   user: two
   deleted: false
 
 three:
+  id: 3
   topic: locked
   description: I made the first comment on this topic.
   user: valid
   deleted: false
 
 four:
+  id: 4
   topic: locked
   description: This is the last comment on the locked topic.
   user: admin
   deleted: false
 
 banned:
+  id: 5
   topic: one
   description: This comment got me banned.
   user: banned
+  deleted: false
+
+six:
+  id: 6
+  topic: one
+  description: Removed the comment above.
+  user: valid
   deleted: false
