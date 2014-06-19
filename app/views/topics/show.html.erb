@@ -137,6 +137,8 @@
     <div class="text-muted center">You have been <span class="label label-banned">banned</span> from commenting on this forum.</div>
     <%= render partial: 'topics/subscribe_unsubscribe', locals: { topic: @topic } %>
   <% else %>
-    <%= link_to 'Sign in to Join the Discussion', new_user_session_path, class: 'btn btn-lg btn-success pull-right' %>
+  <div class="well" style="text-align:center">
+    You may <%= link_to 'sign in'.html_safe, new_user_session_path, class: 'btn btn-xs btn-success' %> to join the discussion.
+  </div>
   <% end %>
 <% end %>
