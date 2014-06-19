@@ -6,7 +6,7 @@
   - Comments can be previewed before being posted to the forum topic
   - System admins can lock, pin, and delete topics
   - System admins can ban users from posting on the forum
-  - System admins now receive daily forum updates
+  - Users who have commented on now receive daily forum updates to topics where they are subscribed
   - Users may not post consecutive comments on the forum
     - This is currently enabled to discourage topic "bumping", multi-comment spam, and to encourage clear dialogue between users
 - **Variable Changes**

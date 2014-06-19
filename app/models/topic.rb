@@ -21,6 +21,7 @@ class Topic < ActiveRecord::Base
   # Model Relationships
   has_many :comments
   belongs_to :user
+  has_many :subscriptions
 
   def to_param
     "#{id}-#{name.parameterize}"
@@ -34,10 +35,26 @@ class Topic < ActiveRecord::Base
     self.comments.current.last and self.comments.current.last.user == current_user
   end
 
+  # Placeholder
+
+  def get_or_create_subscription(current_user)
+    current_user.subscriptions.where( topic_id: self.id ).first_or_create
+  end
+
+  def set_subscription!(notify, current_user)
+    get_or_create_subscription(current_user).update subscribed: notify
+  end
+
+  def subscribed?(current_user)
+    subscription = current_user.subscriptions.where( topic_id: self.id ).first
+    subscription && subscription.subscribed? ? true : false
+  end
+
   private
 
   def create_first_comment
     self.comments.create( description: self.description, user_id: self.user_id )
+    self.get_or_create_subscription( self.user )
   end
 
 end

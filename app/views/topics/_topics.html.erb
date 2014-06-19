@@ -3,7 +3,7 @@
     <tr>
       <th></th>
       <th>Topic</th>
-      <th>Category</th>
+      <th class="hidden-xs">Category</th>
       <th style="text-align:right"></th>
     </tr>
   </thead>
@@ -21,7 +21,7 @@
         <%= image_tag topic.user.avatar_url(18), size: '18x18', style: 'vertical-align:text-bottom;min-width:18px', rel: 'tooltip', title: topic.user.name, data: { container: 'body', placement: 'left' } %>
         <%= link_to topic.name, topic %>
       </td>
-      <td>
+      <td class="hidden-xs">
         <% if topic.name =~ /meeting/i %>
           <span class="label label-primary">Meeting</span>
         <% elsif topic.name =~ /release/i %>
@@ -29,9 +29,11 @@
         <% end %>
       </td>
       <td style="text-align:right;white-space:nowrap">
-        <% (topic.comments.collect{|c| c.user} - [topic.user]).uniq.compact.each do |user| %>
-          <%= image_tag user.avatar_url(18), size: '18x18', style: 'vertical-align:text-bottom;min-width:18px', rel: 'tooltip', title: user.name, data: { container: 'body', placement: 'top' } %>
-        <% end %>
+        <span class="hidden-xs">
+          <% (topic.comments.collect{|c| c.user} - [topic.user]).uniq.compact.each do |user| %>
+            <%= image_tag user.avatar_url(18), size: '18x18', style: 'vertical-align:text-bottom;min-width:18px', rel: 'tooltip', title: user.name, data: { container: 'body', placement: 'top' } %>
+          <% end %>
+        </span>
 
         <span class="badge"><%= topic.comments.count %></span>
         <% if current_user and current_user.system_admin? %>

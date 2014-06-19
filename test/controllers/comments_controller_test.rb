@@ -17,13 +17,28 @@ class CommentsControllerTest < ActionController::TestCase
   #   assert_response :success
   # end
 
-  test "should create comment" do
+  test "should create comment and not update existing subscription" do
     login(users(:two))
     assert_difference('Comment.count') do
       post :create, topic_id: @topic, comment: { description: "This is my contribution to the discussion." }
     end
 
     assert_equal "This is my contribution to the discussion.", assigns(:topic).comments.last.description
+
+    assert_equal false, assigns(:topic).subscribed?(users(:two))
+
+    assert_redirected_to topic_path(assigns(:topic))
+  end
+
+  test "should create comment and add subscription" do
+    login(users(:admin))
+    assert_difference('Comment.count') do
+      post :create, topic_id: @topic, comment: { description: "With this comment I'm subscribing to the discussion." }
+    end
+
+    assert_equal "With this comment I'm subscribing to the discussion.", assigns(:topic).comments.last.description
+
+    assert_equal true, assigns(:topic).subscribed?(users(:admin))
 
     assert_redirected_to topic_path(assigns(:topic))
   end
@@ -122,6 +137,21 @@ class CommentsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:topic)
     assert_not_nil assigns(:comment)
     assert_equal "Updated Description", assigns(:comment).description
+
+    assert_equal true, assigns(:topic).subscribed?(users(:valid))
+
+    assert_redirected_to topic_path(assigns(:topic))
+  end
+
+  test "should update comment but not reset subscription" do
+    login(users(:two))
+    patch :update, topic_id: comments(:two).topic_id, id: comments(:two), comment: { description: "Updated Description" }
+
+    assert_not_nil assigns(:topic)
+    assert_not_nil assigns(:comment)
+    assert_equal "Updated Description", assigns(:comment).description
+
+    assert_equal false, assigns(:topic).subscribed?(users(:two))
 
     assert_redirected_to topic_path(assigns(:topic))
   end

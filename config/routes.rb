@@ -3,6 +3,7 @@ WwwSleepdataOrg::Application.routes.draw do
   resources :topics, path: "forum" do
     member do
       post :admin
+      post :subscription
     end
     resources :comments do
       collection do

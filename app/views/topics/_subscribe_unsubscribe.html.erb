@@ -1,0 +1,9 @@
+<hr class="soften" />
+
+<div class="well" style="text-align:center">
+  <% if topic.subscribed?(current_user) %>
+    You are subscribed to this topic. You may <%= link_to '<span class="glyphicon glyphicon-volume-off"></span> unsubscribe'.html_safe, subscription_topic_path(topic, notify: '0'), method: :post, class: 'btn btn-xs btn-danger-inverse' %> to stop receiving updates to this topic.
+  <% else %>
+    You may <%= link_to '<span class="glyphicon glyphicon-envelope"></span> subscribe'.html_safe, subscription_topic_path(topic, notify: '1'), method: :post, class: 'btn btn-xs btn-primary' %> to receive updates to this topic.
+  <% end %>
+</div>

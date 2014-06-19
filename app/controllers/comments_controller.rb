@@ -35,6 +35,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
+        @topic.get_or_create_subscription(current_user)
         format.html { redirect_to @topic, notice: 'Comment was successfully created.' }
         format.json { render action: 'show', status: :created, location: @comment }
       else

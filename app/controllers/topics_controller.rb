@@ -1,11 +1,16 @@
 class TopicsController < ApplicationController
-  before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy, :admin ]
+  before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy, :admin, :subscription ]
   before_action :check_system_admin, only: [ :destroy, :admin ]
   before_action :check_banned, only: [ :create, :edit, :update ]
   before_action :check_max_topics_per_day_reached, only: [ :create ]
-  before_action :set_viewable_topic, only: [ :show, :destroy, :admin ]
+  before_action :set_viewable_topic, only: [ :show, :destroy, :admin, :subscription ]
   before_action :set_editable_topic, only: [ :edit, :update ]
-  before_action :redirect_without_topic, only: [ :show, :edit, :update, :destroy ]
+  before_action :redirect_without_topic, only: [ :show, :edit, :update, :destroy, :subscription ]
+
+  def subscription
+    @topic.set_subscription!(params[:notify].to_s == '1', current_user)
+    redirect_to @topic
+  end
 
   # POST /forum/1-my-first-topic/admin
   def admin

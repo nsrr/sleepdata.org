@@ -5,6 +5,34 @@ class TopicsControllerTest < ActionController::TestCase
     @topic = topics(:one)
   end
 
+  test "should subscribe to notifications" do
+    login(users(:valid))
+    get :subscription, id: @topic, notify: '1'
+
+    assert_not_nil assigns(:topic)
+    assert_equal true, assigns(:topic).subscribed?(users(:valid))
+
+    assert_redirected_to assigns(:topic)
+  end
+
+  test "should unsubscribe from notifications" do
+    login(users(:valid))
+    get :subscription, id: @topic, notify: '0'
+
+    assert_not_nil assigns(:topic)
+    assert_equal false, assigns(:topic).subscribed?(users(:valid))
+
+    assert_redirected_to assigns(:topic)
+  end
+
+  test "should not subscribe for anonymous user" do
+    get :subscription, id: @topic, notify: '1'
+
+    assert_nil assigns(:topic)
+
+    assert_redirected_to new_user_session_path
+  end
+
   test "should get index" do
     get :index
     assert_response :success
@@ -30,6 +58,8 @@ class TopicsControllerTest < ActionController::TestCase
     assert_equal users(:valid), assigns(:topic).user
     assert_equal "First Comment on New Topic", assigns(:topic).comments.first.description
     assert_equal users(:valid), assigns(:topic).comments.first.user
+
+    assert_equal true, assigns(:topic).subscribed?(users(:valid))
 
     assert_redirected_to topic_path(assigns(:topic))
   end
