@@ -24,7 +24,7 @@ class CommentsControllerTest < ActionController::TestCase
     end
 
     assert_equal "This is my contribution to the discussion.", assigns(:topic).comments.last.description
-
+    assert_not_nil assigns(:topic).last_comment_at
     assert_equal false, assigns(:topic).subscribed?(users(:two))
 
     assert_redirected_to topic_path(assigns(:topic)) + "#c4"
@@ -37,7 +37,7 @@ class CommentsControllerTest < ActionController::TestCase
     end
 
     assert_equal "With this comment I'm subscribing to the discussion.", assigns(:topic).comments.last.description
-
+    assert_not_nil assigns(:topic).last_comment_at
     assert_equal true, assigns(:topic).subscribed?(users(:admin))
 
     assert_redirected_to topic_path(assigns(:topic)) + "#c4"

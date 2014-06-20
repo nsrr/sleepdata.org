@@ -5,6 +5,9 @@ class Comment < ActiveRecord::Base
   # Concerns
   include Deletable
 
+  # Callbacks
+  after_create :touch_topic
+
   # Model Validation
   validates_presence_of :topic_id, :description, :user_id
 
@@ -13,7 +16,7 @@ class Comment < ActiveRecord::Base
   scope :digest_visible, -> { current.where("comments.topic_id in (select topics.id from topics where topics.deleted = ?) and comments.user_id in (select users.id from users where users.banned = ?)", false, false).references(:topics, :users) }
 
   # Model Relationships
-  belongs_to :topic, touch: true
+  belongs_to :topic
   belongs_to :user
 
   def editable_by?(current_user)
@@ -30,6 +33,12 @@ class Comment < ActiveRecord::Base
 
   def number
     self.topic.comments.order(:id).pluck(:id).index(self.id) + 1 rescue 0
+  end
+
+  private
+
+  def touch_topic
+    self.topic.update last_comment_at: Time.now
   end
 
 end

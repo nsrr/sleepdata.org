@@ -7,6 +7,7 @@ one:
   locked: false
   deleted: false
   created_at: 2014-06-08 12:24:25
+  last_comment_at: 2014-06-08 12:24:25
 
 two:
   name: How do I choose a variable?
@@ -15,6 +16,7 @@ two:
   locked: false
   deleted: false
   created_at: 2014-06-09 12:24:25
+  last_comment_at: 2014-06-09 12:24:25
 
 locked:
   name: This thread is locked
@@ -23,6 +25,7 @@ locked:
   locked: true
   deleted: false
   created_at: 2014-06-10 12:24:25
+  last_comment_at: 2014-06-10 12:24:25
 
 banned:
   name: I was banned for this Topic
@@ -31,3 +34,4 @@ banned:
   locked: false
   deleted: false
   created_at: 2014-06-12 04:35:33
+  last_comment_at: 2014-06-12 04:35:33

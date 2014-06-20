@@ -58,6 +58,7 @@ class TopicsControllerTest < ActionController::TestCase
     assert_equal users(:valid), assigns(:topic).user
     assert_equal "First Comment on New Topic", assigns(:topic).comments.first.description
     assert_equal users(:valid), assigns(:topic).comments.first.user
+    assert_not_nil assigns(:topic).last_comment_at
 
     assert_equal true, assigns(:topic).subscribed?(users(:valid))
 
