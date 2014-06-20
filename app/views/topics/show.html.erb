@@ -76,6 +76,8 @@
   </div>
 <% end %>
 
+<div class="center"><%= paginate @comments, theme: 'contour' %></div>
+
 <hr class="soften" />
 
 <% if @topic.locked? %>
