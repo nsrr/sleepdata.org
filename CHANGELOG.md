@@ -14,6 +14,9 @@
 - **Administrative Changes**
   - Syncing dataset and tool documentation is now more robust
 
+### Bug Fix
+- Fixed an issue where navigating to dataset downloads for a dataset with no files could cause a redirect loop
+
 ## 0.8.1 (May 28, 2014)
 
 ### Enhancement

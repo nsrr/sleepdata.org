@@ -64,6 +64,13 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_equal File.read(assigns(:dataset).find_file('DOWNLOAD_ME.txt')), response.body
   end
 
+  test "should redirect to dataset if no files folder exists" do
+    get :files, id: datasets(:public_with_no_files_folder)
+
+    assert_not_nil assigns(:dataset)
+    assert_redirected_to assigns(:dataset)
+  end
+
   test "should get files from subfolder from public dataset as anonymous user" do
     get :files, id: @dataset, path: 'subfolder/1.txt'
 

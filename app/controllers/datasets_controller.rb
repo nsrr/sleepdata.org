@@ -75,6 +75,8 @@ class DatasetsController < ApplicationController
     elsif file and File.directory?(file) and @dataset.find_file_folder(params[:path]) == params[:path]
       store_location_in_session
       render 'files'
+    elsif not File.directory?(@dataset.files_folder)
+      redirect_to @dataset
     else
       redirect_to files_dataset_path(@dataset, path: @dataset.find_file_folder(params[:path]))
     end

@@ -21,3 +21,14 @@ private:
   public_files: false
   deleted: false
   release_date: 2145-01-01
+
+public_with_no_files_folder:
+  name: No Files
+  description: No Files Folder testing for graceful redirect
+  slug: nofiles
+  logo: rails.png
+  user: admin
+  public: true
+  public_files: true
+  deleted: false
+  release_date: 2014-06-20
