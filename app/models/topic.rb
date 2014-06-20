@@ -9,7 +9,7 @@ class Topic < ActiveRecord::Base
   after_create :create_first_comment
 
   # Named Scopes
-  scope :search, lambda { |arg| where("name ~* ?", arg.to_s.split(/\s/).collect{|l| l.to_s.gsub(/[^\w\d%]/, '')}.collect{|l| "(\\m#{l})"}.join("|")) }
+  scope :search, lambda { |arg| where("name ~* ? or id in (select comments.topic_id from comments where comments.description ~* ? and comments.deleted = ?)", arg.to_s.split(/\s/).collect{|l| l.to_s.gsub(/[^\w\d%]/, '')}.collect{|l| "(\\m#{l})"}.join("|"), arg.to_s.split(/\s/).collect{|l| l.to_s.gsub(/[^\w\d%]/, '')}.collect{|l| "(\\m#{l})"}.join("|"), false) }
   scope :with_author, lambda { |arg| where("name ~* ?", arg.to_s.split(/\s/).collect{|l| l.to_s.gsub(/[^\w\d%]/, '')}.collect{|l| "(\\m#{l})"}.join("|")) }
   scope :not_banned, -> { where( "topics.user_id IN ( select users.id from users where users.banned = ?)", false ).references(:users) }
 
