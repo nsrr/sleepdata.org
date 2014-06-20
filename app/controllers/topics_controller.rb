@@ -24,7 +24,7 @@ class TopicsController < ApplicationController
     topic_scope = Topic.current.not_banned.search(params[:s])
     user_ids = User.current.with_name(params[:a].to_s.split(','))
     topic_scope = topic_scope.where( user_id: user_ids ) unless params[:a].blank?
-    @topics = topic_scope.order(stickied: :desc, id: :desc).page(params[:page]).per( 50 )
+    @topics = topic_scope.order(stickied: :desc, updated_at: :desc).page(params[:page]).per( 50 )
   end
 
   # GET /forum/1-my-first-topic

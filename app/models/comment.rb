@@ -13,7 +13,7 @@ class Comment < ActiveRecord::Base
   scope :digest_visible, -> { current.where("comments.topic_id in (select topics.id from topics where topics.deleted = ?) and comments.user_id in (select users.id from users where users.banned = ?)", false, false).references(:topics, :users) }
 
   # Model Relationships
-  belongs_to :topic
+  belongs_to :topic, touch: true
   belongs_to :user
 
   def editable_by?(current_user)
