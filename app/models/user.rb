@@ -81,7 +81,7 @@ class User < ActiveRecord::Base
   end
 
   def can_post_links?
-    aug_member? or core_member? or system_admin?
+    aug_member? or core_member?
   end
 
   def topics_created_in_last_day
@@ -89,7 +89,7 @@ class User < ActiveRecord::Base
   end
 
   def max_topics
-    if aug_member? or core_member? or system_admin?
+    if aug_member? or core_member?
       10
     else
       2
