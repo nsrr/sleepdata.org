@@ -32,7 +32,7 @@ class Topic < ActiveRecord::Base
   end
 
   def user_commented_recently?(current_user)
-    self.comments.current.last and self.comments.current.last.user == current_user
+    self.comments.last and self.comments.last.user == current_user
   end
 
   # Placeholder
