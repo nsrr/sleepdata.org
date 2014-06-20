@@ -1,5 +1,7 @@
 ## 0.9.0 (June 20, 2014)
 
+### Enhancements
+
 - **Forum Added**
   - Added the ability for registered users to create topics on the forum and to post comments on other topics
   - Core and AUG members are now highlighted as such on their forum posts
