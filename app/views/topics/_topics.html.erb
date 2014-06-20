@@ -22,10 +22,12 @@
         <%= link_to topic.name, topic %>
       </td>
       <td class="hidden-xs">
-        <% if topic.name =~ /meeting/i %>
-          <span class="label label-primary">Meeting</span>
-        <% elsif topic.name =~ /release/i %>
-          <span class="label label-success">New Release</span>
+        <% if topic.user.core_member? or topic.user.aug_member? %>
+          <% if topic.name =~ /meeting/i %>
+            <span class="label label-primary">Meeting</span>
+          <% elsif topic.name =~ /release/i %>
+            <span class="label label-success">New Release</span>
+          <% end %>
         <% end %>
       </td>
       <td style="text-align:right;white-space:nowrap">
