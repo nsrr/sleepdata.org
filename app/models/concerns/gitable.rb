@@ -18,7 +18,7 @@ module Gitable
 
   def pull_latest!
     FileUtils.cd(root_folder) rescue return ''
-    stdout = `git pull`
+    stdout = `git fetch --all; git reset --hard origin/master`
     stdout
   end
 end
