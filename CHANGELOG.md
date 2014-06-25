@@ -5,6 +5,8 @@
   - Added grant number to the About page
 - **Forum Changes**
   - Forum uses identicons for users who do not have a gravatar set
+- **Variable Changes**
+  - Dataset variables index now displays 100 variables per page, up from 50
 
 ## 0.9.0 (June 20, 2014)
 

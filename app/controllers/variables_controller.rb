@@ -15,7 +15,7 @@ class VariablesController < ApplicationController
     variable_scope = @dataset.variables.search(params[:s]).with_folder(params[:folder]).order( :folder, :name )
 
     @folders = variable_scope.pluck(:folder).uniq.collect{ |f| f.gsub(/^#{params[:folder]}(\/)?/, '').split('/').first }.uniq.compact.sort
-    @variables = variable_scope.page(params[:page]).per( 50 )
+    @variables = variable_scope.page(params[:page]).per( 100 )
     render layout: 'nonavigation'
   end
 
