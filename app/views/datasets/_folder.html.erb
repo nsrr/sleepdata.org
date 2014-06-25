@@ -30,13 +30,13 @@
 
 <ol class="breadcrumb">
   <li><%= link_to @dataset.slug, files_dataset_path(@dataset) %></li>
-  <li class="<%= 'active' unless path.blank? %>"><%= link_to_if !path.blank?, 'files', files_dataset_path(@dataset) %></li>
+  <li><%= link_to_if !path.blank?, 'files', files_dataset_path(@dataset) %></li>
   <% unless path.blank? %>
     <% path.to_s.split('/')[0..-2].each_with_index do |folder, index| %>
       <% url = files_dataset_path( @dataset ) + '/' + path.to_s.split('/')[0..index].join('/') %>
       <li><%= link_to folder, url %></li>
     <% end %>
-    <li class="active"><%= path.to_s.split('/').last %></li>
+    <li><%= path.to_s.split('/').last %></li>
   <% end %>
 </ol>
 
