@@ -3,6 +3,8 @@
 ### Enhancements
 - **General Changes**
   - Added grant number to the About page
+- **Forum Changes**
+  - Forum uses identicons for users who do not have a gravatar set
 
 ## 0.9.0 (June 20, 2014)
 

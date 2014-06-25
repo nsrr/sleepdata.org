@@ -18,7 +18,7 @@
         <% end %>
       </td>
       <td>
-        <%= image_tag topic.user.avatar_url(18), size: '18x18', style: 'vertical-align:text-bottom;min-width:18px', rel: 'tooltip', title: topic.user.name, data: { container: 'body', placement: 'left' } %>
+        <%= image_tag topic.user.avatar_url(18, 'identicon'), size: '18x18', style: 'vertical-align:text-bottom;min-width:18px', rel: 'tooltip', title: topic.user.name, data: { container: 'body', placement: 'left' } %>
         <%= link_to topic.name, topic %>
       </td>
       <td class="hidden-xs">
@@ -33,7 +33,7 @@
       <td style="text-align:right;white-space:nowrap">
         <span class="hidden-xs">
           <% (topic.comments.collect{|c| c.user} - [topic.user]).uniq.compact.each do |user| %>
-            <%= image_tag user.avatar_url(18), size: '18x18', style: 'vertical-align:text-bottom;min-width:18px', rel: 'tooltip', title: user.name, data: { container: 'body', placement: 'top' } %>
+            <%= image_tag user.avatar_url(18, 'identicon'), size: '18x18', style: 'vertical-align:text-bottom;min-width:18px', rel: 'tooltip', title: user.name, data: { container: 'body', placement: 'top' } %>
           <% end %>
         </span>
 
