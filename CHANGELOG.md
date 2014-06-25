@@ -1,5 +1,9 @@
 ## 0.9.1
 
+### Enhancements
+- **General Changes**
+  - Added grant number to the About page
+
 ## 0.9.0 (June 20, 2014)
 
 ### Enhancements
