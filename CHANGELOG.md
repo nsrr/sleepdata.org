@@ -3,6 +3,8 @@
 ### Enhancements
 - **Variable Changes**
   - Histograms for graphs now include units on the x-axis where appropriate
+- **Gem Changes**
+  - Updated to rails 4.1.2
 
 ## 0.9.1 (June 25, 2014)
 
