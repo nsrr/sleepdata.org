@@ -1,4 +1,4 @@
-## 0.9.2
+## 0.9.2 (June 27, 2014)
 
 ### Enhancements
 - **Variable Changes**
