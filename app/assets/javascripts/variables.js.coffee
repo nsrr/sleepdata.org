@@ -16,6 +16,8 @@
         text: json['subtitle']
       xAxis:
         categories: json['categories']
+        title:
+          text: json['x_axis_title']
       yAxis:
         # min: 0
         title:

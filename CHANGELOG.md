@@ -1,5 +1,9 @@
 ## 0.9.2
 
+### Enhancements
+- **Variable Changes**
+  - Histograms for graphs now include units on the x-axis where appropriate
+
 ## 0.9.1 (June 25, 2014)
 
 ### Enhancements
