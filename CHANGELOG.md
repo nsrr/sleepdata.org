@@ -1,5 +1,7 @@
 ## 0.9.3
 
+- **Dataset Changes**
+  - Files can be individually marked as publicly available
 - **Gem Changes**
   - Updated to rails 4.1.4
 

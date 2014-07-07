@@ -28,6 +28,11 @@ class Dataset < ActiveRecord::Base
   has_many :variable_forms
   has_many :dataset_contributors
   has_many :contributors, -> { where deleted: false }, through: :dataset_contributors, source: :user
+  has_many :public_files, source: :dataset
+
+  def public_file?(path)
+    self.public_files.where( file_path: self.file_path(path) ).count > 0
+  end
 
   def chartable_variables
     self.variables.where(variable_type: ['integer', 'numeric', 'choices']).order(:folder, :name)

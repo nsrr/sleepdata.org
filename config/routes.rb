@@ -41,6 +41,7 @@ WwwSleepdataOrg::Application.routes.draw do
       patch "update_page/*path", action: 'update_page', as: :update_page, format: false
       post :pull_changes
 
+      post :set_public_file
     end
 
     resources :variables do

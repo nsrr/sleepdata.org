@@ -1,13 +1,26 @@
 class DatasetsController < ApplicationController
   before_action :authenticate_user_from_token!, only: [ :manifest, :files ]
-  before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
+  before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file ]
   before_action :check_system_admin,        only: [ :new, :create, :destroy, :pull_changes, :sync ]
   before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :images, :files, :pages, :request_access, :search ]
-  before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
-  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :images, :files, :pages, :request_access, :set_access, :create_access, :search, :edit, :update, :destroy, :audits, :requests, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
+  before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file ]
+  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :images, :files, :pages, :request_access, :set_access, :create_access, :search, :edit, :update, :destroy, :audits, :requests, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file ]
 
   # Concerns
   include Pageable
+
+  def set_public_file
+    file = @dataset.find_file( params[:path] )
+    if file
+      if params[:public] == '1'
+        @dataset.public_files.where( file_path: @dataset.file_path(file) ).first_or_create( user_id: current_user.id )
+      else
+        @dataset.public_files.where( file_path: @dataset.file_path(file) ).destroy_all
+      end
+    end
+
+    redirect_to files_dataset_path(@dataset, path: @dataset.find_file_folder(params[:path]))
+  end
 
   def request_access
     if @dataset_user = @dataset.dataset_users.where( user_id: current_user.id ).first
@@ -69,7 +82,7 @@ class DatasetsController < ApplicationController
 
   def files
     file = @dataset.find_file( params[:path] )
-    if file and File.file?(file) and [@dataset.find_file_folder(params[:path]), File.basename(file)].compact.join('/') == params[:path] and @dataset.grants_file_access_to?(current_user)
+    if file and File.file?(file) and [@dataset.find_file_folder(params[:path]), File.basename(file)].compact.join('/') == params[:path] and (@dataset.public_file?(params[:path]) or @dataset.grants_file_access_to?(current_user))
       @dataset.dataset_file_audits.create( user_id: (current_user ? current_user.id : nil), file_path: @dataset.file_path(file), medium: params[:medium], file_size: File.size(file), remote_ip: request.remote_ip )
       send_file file
     elsif file and File.directory?(file) and @dataset.find_file_folder(params[:path]) == params[:path]

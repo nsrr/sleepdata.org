@@ -43,15 +43,25 @@
 <div class="file-list-container">
   <table class="table table-condensed table-hover" style="margin-bottom:0px"><col width="1px" />
     <% indexed_files.each do |folder, file_name, is_file, file_size, file_time| %>
-      <%# is_file = File.file?(file) %>
-      <%# folder = @dataset.file_path(file) %>
+      <% is_public = @dataset.public_file?(folder) %>
       <% url = files_dataset_path( @dataset ) + "#{'/m/browser' if is_file}" + '/' + folder %>
-      <%# file_size = File.size(file) %>
       <tr class="<%= 'warning' if file_name == params[:f] %>">
         <td><span class="glyphicon glyphicon-<%= is_file ? 'file' : 'folder-close' %>"></span></td>
-        <td><%= link_to_if (!is_file || @dataset.grants_file_access_to?(current_user)), file_name, url %></td>
+        <td><%= link_to_if (!is_file || is_public || @dataset.grants_file_access_to?(current_user)), file_name, url %></td>
         <td><%= file_time if is_file %></td>
-        <td style="text-align:right"><%= number_to_human_size(file_size) if is_file %></td>
+        <td style="text-align:right">
+          <%= number_to_human_size(file_size) if is_file %>
+          <% if is_file %>
+            <% if is_public %>
+              <span class="glyphicon glyphicon-globe"></span>
+            <% end %>
+
+            <% if current_user and @dataset.editors.pluck(:id).include?(current_user.id) %>
+              <%= link_to '<span class="glyphicon glyphicon-globe"></span>'.html_safe, set_public_file_dataset_path(@dataset, public: '1', path: folder ), method: :post unless is_public %>
+              <%= link_to '<span class="glyphicon glyphicon-eye-close"></span>'.html_safe, set_public_file_dataset_path(@dataset, public: '0', path: folder ), method: :post if is_public %>
+            <% end %>
+          <% end %>
+        </td>
       </tr>
     <% end %>
   </table>
