@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails',                '4.1.2'
+gem 'rails',                '4.1.4'
 
 # Database Adapter
 gem 'pg',                   '0.17.1'
@@ -15,7 +15,7 @@ gem 'geocoder',             '~> 1.2.1'
 
 # Rails Defaults
 gem 'coffee-rails',         '~> 4.0.1'
-gem 'sass-rails',           '~> 4.0.2'
+gem 'sass-rails',           '~> 4.0.3'
 gem 'uglifier',             '>= 1.3.0'
 
 gem 'jbuilder',             '~> 2.0'
