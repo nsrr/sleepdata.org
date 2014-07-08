@@ -1,4 +1,4 @@
-## 0.9.3
+## 0.9.3 (July 8, 2014)
 
 - **Dataset Changes**
   - Files can be individually marked as publicly available
