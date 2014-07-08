@@ -67,3 +67,10 @@ banned:
   banned: true
   email: banned@example.com
   encrypted_password: ""
+
+# An editor on the admin mixed project
+editor_mixed:
+  first_name: Editor
+  last_name: Mixed
+  email: editor_mixed@example.com
+  encrypted_password: ""

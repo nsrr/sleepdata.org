@@ -32,3 +32,15 @@ public_with_no_files_folder:
   public_files: true
   deleted: false
   release_date: 2014-06-20
+
+mixed:
+  name: Mixed
+  description: A Public dataset with some public and some private files
+  slug: mixed
+  logo: rails.png
+  user: admin
+  public: true
+  public_files: false
+  deleted: false
+  release_date: 2014-07-08
+

@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  dataset_id: 1
-  user_id: 1
-  file_path: MyText
+  dataset: mixed
+  user: admin
+  file_path: PUBLIC_FILE.txt
 
 two:
-  dataset_id: 1
-  user_id: 1
-  file_path: MyText
+  dataset: mixed
+  user: admin
+  file_path: subfolder/IN_SUBFOLDER_PUBLIC_FILE.txt

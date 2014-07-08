@@ -11,3 +11,15 @@ pending_public_access:
   user: two
   editor: false
   # approved:
+
+editor_mixed_access:
+  dataset: mixed
+  user: editor_mixed
+  editor: true
+  approved: true
+
+viewer_mixed_access:
+  dataset: mixed
+  user: valid
+  editor: false
+  approved: true

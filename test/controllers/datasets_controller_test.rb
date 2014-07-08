@@ -5,6 +5,78 @@ class DatasetsControllerTest < ActionController::TestCase
     @dataset = datasets(:public)
   end
 
+  test "should set file as public as editor" do
+    login(users(:editor_mixed))
+    assert_difference('PublicFile.count') do
+      post :set_public_file, id: datasets(:mixed), path: 'NOT_PUBLIC_YET.txt', public: '1'
+    end
+
+    assert_redirected_to files_dataset_path(assigns(:dataset), path: '')
+  end
+
+  test "should set file as private as editor" do
+    login(users(:editor_mixed))
+    assert_difference('PublicFile.count', -1) do
+      post :set_public_file, id: datasets(:mixed), path: 'PUBLIC_FILE.txt', public: '0'
+    end
+
+    assert_redirected_to files_dataset_path(assigns(:dataset), path: '')
+  end
+
+  test "should set file in subfolder as public as editor" do
+    login(users(:editor_mixed))
+    assert_difference('PublicFile.count') do
+      post :set_public_file, id: datasets(:mixed), path: 'subfolder/IN_SUBFOLDER_NOT_PUBLIC_YET.txt', public: '1'
+    end
+
+    assert_redirected_to files_dataset_path(assigns(:dataset), path: 'subfolder')
+  end
+
+  test "should set file in subfolder as private as editor" do
+    login(users(:editor_mixed))
+    assert_difference('PublicFile.count', -1) do
+      post :set_public_file, id: datasets(:mixed), path: 'subfolder/IN_SUBFOLDER_PUBLIC_FILE.txt', public: '0'
+    end
+
+    assert_redirected_to files_dataset_path(assigns(:dataset), path: 'subfolder')
+  end
+
+  test "should not set file as public as viewer" do
+    login(users(:valid))
+    assert_difference('PublicFile.count', 0) do
+      post :set_public_file, id: datasets(:mixed), path: 'NOT_PUBLIC_YET.txt', public: '1'
+    end
+
+    assert_redirected_to datasets_path
+  end
+
+  test "should not set file as public as anonymous" do
+    assert_difference('PublicFile.count', 0) do
+      post :set_public_file, id: datasets(:mixed), path: 'NOT_PUBLIC_YET.txt', public: '1'
+    end
+
+    assert_redirected_to new_user_session_path
+  end
+
+  test "should get public file from mixed dataset as viewer" do
+    login(users(:valid))
+    get :files, id: datasets(:mixed), path: 'PUBLIC_FILE.txt'
+
+    assert_not_nil response
+
+    assert_kind_of String, response.body
+    assert_equal File.read(assigns(:dataset).find_file('PUBLIC_FILE.txt')), response.body
+  end
+
+  test "should get public file from mixed dataset as anonymous user" do
+    get :files, id: datasets(:mixed), path: 'PUBLIC_FILE.txt'
+
+    assert_not_nil response
+
+    assert_kind_of String, response.body
+    assert_equal File.read(assigns(:dataset).find_file('PUBLIC_FILE.txt')), response.body
+  end
+
   test "should show requests to editor" do
     login(users(:editor))
     get :requests, id: @dataset
