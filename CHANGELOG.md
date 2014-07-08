@@ -1,5 +1,6 @@
 ## 0.9.3 (July 8, 2014)
 
+### Enhancements
 - **Dataset Changes**
   - Files can be individually marked as publicly available
 - **Gem Changes**
