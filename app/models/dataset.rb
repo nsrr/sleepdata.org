@@ -47,7 +47,7 @@ class Dataset < ActiveRecord::Base
   end
 
   def grants_file_access_to?(current_user)
-    self.public_files? || ( current_user && self.viewers.pluck(:id).include?(current_user.id) )
+    self.all_files_public? || ( current_user && self.viewers.pluck(:id).include?(current_user.id) )
   end
 
   def to_param

@@ -173,7 +173,7 @@ class DatasetsController < ApplicationController
     def dataset_params
       params[:dataset] ||= {}
       params[:dataset][:release_date] = parse_date(params[:dataset][:release_date])
-      params.require(:dataset).permit( :name, :description, :slug, :logo, :logo_cache, :public, :public_files, :git_repository, :release_date )
+      params.require(:dataset).permit( :name, :description, :slug, :logo, :logo_cache, :public, :all_files_public, :git_repository, :release_date )
     end
 
     def site_prefix
