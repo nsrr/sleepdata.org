@@ -1,5 +1,8 @@
 ## 0.9.4
 
+### Bug Fix
+- Fixed an issue that prevented certain file indexes from being generated properly
+
 ## 0.9.3 (July 8, 2014)
 
 ### Enhancements

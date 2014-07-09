@@ -67,7 +67,7 @@ class Dataset < ActiveRecord::Base
   end
 
   def file_array(f)
-    folder = f.gsub(self.files_folder + '/', '')
+    folder = f.gsub(/^#{self.files_folder}\//, '')
     file_name = f.split('/').last
     is_file = File.file?(f)
     file_size = File.size(f)
