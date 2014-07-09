@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "#{DEFAULT_APP_NAME} <#{ActionMailer::Base.smtp_settings[:email]}>"
+  default from: "NSRR Sleep Data <#{ActionMailer::Base.smtp_settings[:email]}>"
   add_template_helper(ApplicationHelper)
 
   def forum_digest(user)

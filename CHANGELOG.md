@@ -3,6 +3,8 @@
 ### Enhancements
 - **Dataset Changes**
   - Highlighted files are now downloaded automatically when a user navigates to the downloads section
+- **Gem Changes**
+  - Removed dependency on ruby-ntlm gem
 
 ## 0.9.4 (July 9, 2014)
 
