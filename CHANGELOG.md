@@ -1,4 +1,4 @@
-## 0.9.4
+## 0.9.4 (July 9, 2014)
 
 ### Bug Fix
 - Fixed an issue that prevented certain file indexes from being generated properly
