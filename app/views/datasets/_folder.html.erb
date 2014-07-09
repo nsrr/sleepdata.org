@@ -47,7 +47,7 @@
       <% url = files_dataset_path( @dataset ) + "#{'/m/browser' if is_file}" + '/' + folder %>
       <tr class="<%= 'warning' if file_name == params[:f] %>">
         <td><span class="glyphicon glyphicon-<%= is_file ? 'file' : 'folder-close' %>"></span></td>
-        <td><%= link_to_if (!is_file || is_public || @dataset.grants_file_access_to?(current_user)), file_name, url %></td>
+        <td><%= link_to_if (!is_file || is_public || @dataset.grants_file_access_to?(current_user)), file_name, url, data: { object: "#{'autodownload' if file_name == params[:f]}" } %></td>
         <td><%= file_time if is_file %></td>
         <td style="text-align:right">
           <%= number_to_human_size(file_size) if is_file %>

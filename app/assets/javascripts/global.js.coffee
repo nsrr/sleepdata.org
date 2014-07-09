@@ -28,6 +28,7 @@
   # Turbolinks.enableTransitionCache()
   prettyPrint()
   variablesReady() if (typeof variablesReady == 'function')
+  datasetsReady()
 
 $(document).ready(ready)
 $(document)
