@@ -1,0 +1,49 @@
+<% if @variables.count > 0 %>
+
+  <% if params[:view] == 'list' %>
+    <div class="table-responsive">
+    <table class="table table-condensed table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th style="white-space:nowrap">Name</th>
+          <th style="white-space:nowrap">Display Name</th>
+          <th style="white-space:nowrap">Folder</th>
+        </tr>
+      </thead>
+
+      <% @variables.each do |variable| %>
+        <tr class="<%= 'row-gold' if variable.commonly_used? %>">
+          <td>
+            <% if File.file?( File.join( variable.dataset.root_folder, 'dd', 'images', variable.version.to_s, "#{variable.name}.png") ) %>
+              <img class="lazy" data-original="<%= image_dataset_variable_path(variable.dataset, variable) %>" width="27" height="18" style="max-width: 100%;min-width:27px;max-height:18px;display:block;vertical-align:text-bottom">
+            <% end %>
+          </td><%#= image_tag user.avatar_url(18), style: 'vertical-align:text-bottom;min-width:18px' %>
+          <td><%= link_to variable.name, [variable.dataset, variable] %></td>
+          <td><%= variable.display_name %></td>
+          <td><%= variable.folder %></td>
+        </tr>
+      <% end %>
+    </table>
+    </div>
+  <% else %>
+    <% @variables.group_by{|v| v.folder}.sort.each do |folder, folder_variables| %>
+      <%= render partial: 'variables/folder', locals: { folder: folder, show_dataset: false } %>
+      <div class="row">
+        <% folder_variables.each do |variable| %>
+          <div class="col-xs-12 col-sm-6 col-md-3">
+            <%= render partial: 'variables/panel', locals: { variable: variable } %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+<% else %>
+  <div class="jumbotron" style="margin-top:30px">
+    <h1>No variables found matching <code><%= params[:s] %></code></h1>
+    <p class="lead">Please contact us directly at <%= link_to 'support@sleepdata.org', 'mailto:support@sleepdata.org' %> with any questions.</p>
+  </div>
+<% end %>
+
+
+<div class="center"><%= paginate @variables, theme: "contour" %></div>

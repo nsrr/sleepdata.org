@@ -289,6 +289,10 @@ pre.code {
   border-color: #FFD700;
 }
 
+.row-gold, .row-gold td {
+  background-color: #FFF4B6 !important;
+}
+
 .panel-gold > .panel-footer {
   border-color: #FFD700;
 }

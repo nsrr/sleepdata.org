@@ -37,6 +37,16 @@ $(document)
     $($(this).data('target')).submit()
     false
   )
+  .on('click', '[data-object~="list-submit"]', () ->
+    $('#view').val('list')
+    $($(this).data('target')).submit()
+    false
+  )
+  .on('click', '[data-object~="grid-submit"]', () ->
+    $('#view').val('')
+    $($(this).data('target')).submit()
+    false
+  )
   .on('click', "[data-basename]", () ->
     $.get(root_url + 'collection_modal', { "basename": $(this).data('basename'), slug: $(this).data('slug'), d: $(this).data('d') }, null, "script")
     return false
