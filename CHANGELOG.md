@@ -5,6 +5,8 @@
   - Increased the number of datasets to 18 to allow all scheduled datasets to be shown on a single page
 - **Variable Changes**
   - The index page can now be viewed as a list or a grid
+- **Gem Changes**
+  - Updated to kaminari 0.16.1
 
 ### Bug Fix
 - Fixed a bug that prevented certain dataset variables from including navigation to neighboring variables
