@@ -19,7 +19,7 @@
               <img class="lazy" data-original="<%= image_dataset_variable_path(variable.dataset, variable) %>" width="27" height="18" style="max-width: 100%;min-width:27px;max-height:18px;display:block;vertical-align:text-bottom">
             <% end %>
           </td><%#= image_tag user.avatar_url(18), style: 'vertical-align:text-bottom;min-width:18px' %>
-          <td><%= link_to variable.name, [variable.dataset, variable] %></td>
+          <td><%= link_to variable.name, dataset_variable_path(variable.dataset, variable, view: 'list') %></td>
           <td><%= variable.display_name %></td>
           <td><%= variable.folder %></td>
         </tr>

@@ -1,7 +1,7 @@
 <div class="jumbotron" style="position:relative;margin-bottom: 20px;margin-top: 10px;background-color: #333;color: white;padding-top: 5px;padding-bottom: 20px;">
   <div class="jumbotron-left-after">
     <span class="glyphicon glyphicon-home"></span>
-    <%= link_to "#{@dataset.slug} variables", dataset_variables_path(@dataset) %>
+    <%= link_to "#{@dataset.slug} variables", dataset_variables_path(@dataset, view: params[:view]) %>
   </div>
   <div class="jumbotron-right-after">
     <span class="glyphicon glyphicon-save"></span>
