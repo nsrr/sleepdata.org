@@ -3,6 +3,7 @@
 ### Enhancements
 - **Dataset Changes**
   - Increased the number of datasets to 18 to allow all scheduled datasets to be shown on a single page
+  - Dataset navigation only shows the variables tab if the dataset has variables
 - **Variable Changes**
   - The index page can now be viewed as a list or a grid
 - **Gem Changes**
