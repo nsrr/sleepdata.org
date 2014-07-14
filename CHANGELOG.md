@@ -1,4 +1,4 @@
-## 0.9.6
+## 0.9.6 (July 14, 2014)
 
 ### Enhancements
 - **Dataset Changes**
