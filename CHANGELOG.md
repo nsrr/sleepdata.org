@@ -1,5 +1,9 @@
 ## 0.9.6
 
+### Enhancements
+- **Dataset Changes**
+  - Increased the number of datasets to 18 to allow all scheduled datasets to be shown on a single page
+
 ## 0.9.5 (July 9, 2014)
 
 ### Enhancements
