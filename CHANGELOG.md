@@ -4,6 +4,9 @@
 - **Dataset Changes**
   - Increased the number of datasets to 18 to allow all scheduled datasets to be shown on a single page
 
+### Bug Fix
+- Fixed a bug that prevented certain dataset variables from including navigation to neighboring variables
+
 ## 0.9.5 (July 9, 2014)
 
 ### Enhancements

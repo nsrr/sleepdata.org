@@ -35,7 +35,7 @@ class Dataset < ActiveRecord::Base
   end
 
   def chartable_variables
-    self.variables.where(variable_type: ['integer', 'numeric', 'choices']).order(:folder, :name)
+    self.variables.order(:folder, :name)
   end
 
   def viewers
