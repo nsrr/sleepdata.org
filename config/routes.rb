@@ -29,6 +29,7 @@ WwwSleepdataOrg::Application.routes.draw do
       get :requests
       post :create_access
       patch :set_access
+      get "(/a/:auth_token)/json_manifest(/*path)", action: 'json_manifest', as: :json_manifest, format: false
       get "(/a/:auth_token)/manifest(/*path)", action: 'manifest', as: :manifest, format: false
       get "files((/a/:auth_token)(/m/:medium)/*path)", action: 'files', as: :files, format: false
       get "search", action: 'search', as: :search
@@ -85,6 +86,7 @@ WwwSleepdataOrg::Application.routes.draw do
   get '/location' => 'welcome#location', as: :location
   get '/collection' => 'welcome#collection', as: :collection
   get '/collection_modal' => 'welcome#collection_modal', as: :collection_modal
+  get '/token' => 'welcome#token', as: :token
 
   get '/tools/wget/windows' => 'welcome#wget_windows', as: :wget_windows
   get '/tools/wget/src' => 'welcome#wget_src', as: :wget_src

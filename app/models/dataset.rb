@@ -72,8 +72,15 @@ class Dataset < ActiveRecord::Base
     is_file = File.file?(f)
     file_size = File.size(f)
     file_time = File.mtime(f).strftime("%Y-%m-%d %H:%M:%S")
+    file_digest = if is_file
+      Rails.logger.info "Computing MD5 Digest for #{file_name} of size #{file_size} bytes"
+      require 'digest/md5'
+      Digest::MD5.file(f).hexdigest
+    else
+      nil
+    end
 
-    [folder, file_name, is_file, file_size, file_time]
+    [folder, file_name, is_file, file_size, file_time, file_digest]
   end
 
   def create_folder_index(location = nil)
@@ -92,6 +99,16 @@ class Dataset < ActiveRecord::Base
     Dir.glob(File.join(files_folder, '**/.sleepdata.index')).each do |f|
       File.delete(f) if File.exists?(f) and File.file?(f)
     end
+  end
+
+  # Returns [[folder, name, is_file, file_size, md5_checksum], [...], ... ]
+  # index -1 is all files
+  # index 0 is the file count
+  # index 1 is the first page
+  def indexed_files_with_md5(location = nil, page = 1)
+    require 'digest/md5'
+    digest = Digest::MD5.hexdigest("Hello World\n")
+    self.indexed_files(location, page).collect{|a| a + [a[2] ? digest : nil]}
   end
 
   # Returns [[folder, name, is_file, file_size], [...], ... ]

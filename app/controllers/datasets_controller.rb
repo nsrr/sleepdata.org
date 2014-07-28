@@ -1,10 +1,10 @@
 class DatasetsController < ApplicationController
-  before_action :authenticate_user_from_token!, only: [ :manifest, :files ]
+  before_action :authenticate_user_from_token!, only: [ :json_manifest, :manifest, :files ]
   before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file ]
   before_action :check_system_admin,        only: [ :new, :create, :destroy, :pull_changes, :sync ]
-  before_action :set_viewable_dataset,      only: [ :show, :manifest, :logo, :images, :files, :pages, :request_access, :search ]
+  before_action :set_viewable_dataset,      only: [ :show, :json_manifest, :manifest, :logo, :images, :files, :pages, :request_access, :search ]
   before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file ]
-  before_action :redirect_without_dataset,  only: [ :show, :manifest, :logo, :images, :files, :pages, :request_access, :set_access, :create_access, :search, :edit, :update, :destroy, :audits, :requests, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file ]
+  before_action :redirect_without_dataset,  only: [ :show, :json_manifest, :manifest, :logo, :images, :files, :pages, :request_access, :set_access, :create_access, :search, :edit, :update, :destroy, :audits, :requests, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file ]
 
   # Concerns
   include Pageable
@@ -68,6 +68,12 @@ class DatasetsController < ApplicationController
     @term = params[:s].to_s.gsub(/[^\w]/, '')
     @results = []
     @results = `grep -i -R #{@term} #{@dataset.pages_folder}`.split("\n") unless @term.blank?
+  end
+
+  # GET /datasets/1/json_manifest
+  def json_manifest
+    @folder_path = @dataset.find_file_folder(params[:path])
+    render json: @dataset.indexed_files_with_md5(@folder_path, -1).collect{ |folder, file_name, is_file, file_size, file_time, file_checksum| { file_name: file_name, checksum: file_checksum, is_file: is_file, file_size: file_size, dataset: @dataset.slug, file_path: folder } }
   end
 
   # GET /datasets/1/manifest.txt
