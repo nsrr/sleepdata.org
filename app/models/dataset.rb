@@ -124,7 +124,11 @@ class Dataset < ActiveRecord::Base
       return (page == 0 ? 0 : files)
     end
 
-    create_folder_index(location) if not File.exists?(index_file) or Rails.env.test?
+    if Rails.env.test?
+      create_folder_index(location)
+    elsif not File.exist?(index_file)
+      return (page == 0 ? 0 : files)
+    end
 
     index = 0
     IO.foreach( index_file ) do |line|
