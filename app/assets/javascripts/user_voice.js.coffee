@@ -24,6 +24,6 @@ showuservoice = ->
   UserVoice.push ['autoprompt', {}]
 
 $ ->
-  $.getScript "//widget.uservoice.com/Tzs6afFRyv54dMJ18t1zg.js", showuservoice
+  $.getScript "//widget.uservoice.com/MiPFKEx8KFMEkeJZzwWQ.js", showuservoice
 
 $(document).on 'page:change', showuservoice
