@@ -18,7 +18,7 @@
     <%= javascript_include_tag "infographic", "data-turbolinks-track" => true %>
     <%= javascript_tag "var root_url='#{request.script_name + '/'}';var auth_token='#{form_authenticity_token}';" %>
   </head>
-  <body data-spy="scroll" data-target=".bs-sidebar" style="padding-top:0px">
+  <body data-spy="scroll" data-target=".bs-sidebar" style="padding-top:0px" data-email="<%= current_user.email if current_user %>" data-fullname="<%= current_user.name if current_user %>">
     <div class="container" style="margin-top:0px">
       <%= yield %>
     </div>
