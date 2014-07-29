@@ -20,3 +20,4 @@
 //= require external/jquery.lazyload.js
 //= require external/lang-matlab
 //= require external/lang-r
+//= require user_voice

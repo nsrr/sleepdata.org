@@ -4,6 +4,7 @@
 - **General Changes**
   - The official NSRR ruby gem is now supported, https://rubygems.org/gems/nsrr
     - More information here: https://github.com/nsrr/nsrr-gem
+  - Added UserVoice integration to collect better feedback on the NSRR website
 - **Dataset Changes**
   - Download folders now provide customizable commands using the NSRR gem
 
