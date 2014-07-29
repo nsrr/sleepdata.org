@@ -70,35 +70,7 @@
 <%= render partial: 'datasets/nofiles' if indexed_files.size == 0 %>
 
 <% if @dataset.grants_file_access_to?(current_user) %>
-  <% @current_folder = @dataset.find_file_folder(params[:path]) %>
-  <% @local_folder = [@dataset.slug, @current_folder].compact.join('/') %>
-  <% if @dataset.folder_has_files?(@current_folder) %>
-    <% if windows? %>
-      <% end_statement = ' &' %>
-      <% extra_flags = ' --no-check-certificate' %>
-      <% mkdir_flags = '' %>
-      <% mkdir_path = @local_folder.gsub('/', '\\') %>
-    <% else %>
-      <% end_statement = ';' %>
-      <% extra_flags = '' %>
-      <% mkdir_flags = ' -p' %>
-      <% mkdir_path = @local_folder %>
-    <% end %>
-    <div class="welcome-box welcome-even" style="margin-top:0px">
-      <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
-        <p class="lead" style="text-align:left">
-          Download all files in this folder using the following command:
-        </p>
-
-        <p>
-          <pre class="code" style="text-align:left">mkdir<%= mkdir_flags %> <%= mkdir_path %><%= end_statement %> wget -O <%= @local_folder %>/manifest.txt <%= site_prefix %><%= manifest_dataset_path( @dataset, auth_token: (current_user ? current_user.id_and_auth_token : nil ), path: @current_folder ) %><%= extra_flags %><%= end_statement %> wget -P <%= @local_folder %> -c -i <%= @local_folder %>/manifest.txt<%= extra_flags %></pre>
-        </p>
-
-        <div class="alert alert-info"><strong>Don't have GNU Wget?</strong> Install using our <%= link_to 'GNU Wget installation instructions', tool_path( 'wget' ), class: 'alert-link' %>.</div>
-
-      </div>
-    </div>
-  <% end %>
+  <%= render partial: 'datasets/download_command' %>
 <% else %>
   <div class="welcome-box welcome-even" style="margin-top:0px">
     <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">

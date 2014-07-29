@@ -16,3 +16,15 @@ $(document)
     $($(this).data("target")).show()
     false
   )
+  .on('click', "[data-object~='set-flag']", () ->
+    $("[data-flag~='#{$(this).data('flag')}']").removeClass('active')
+    $("[data-flag~='#{$(this).data('flag')}']").removeClass('btn-primary')
+    $("[data-flag~='#{$(this).data('flag')}']").addClass('btn-default')
+    $("[data-flag-type~='#{$(this).data('flag')}']").hide()
+
+    $("##{$(this).data('flag')}-flag").html($(this).data('value'))
+    $(this).addClass('active')
+    $(this).addClass('btn-primary')
+    $("[data-flag-type='#{$(this).data('flag')}'][data-flag-value='#{$(this).data('value')}']").show()
+    false
+  )

@@ -484,3 +484,40 @@ tr.banned td, .label-banned {
   background-color:#333 !important;
   color:#fff;
 }
+
+.code-container {
+  padding: 24px 0px;
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .code-container {
+    padding: 48px 0px;
+  }
+}
+
+.code-command {
+  font-family: Monaco, Menlo, Consolas, 'Courier New', monospace;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+  color: #333;
+  font-weight: 200;
+  line-height: 2;
+  font-size: 16px;
+  border: 1px solid #dedede;
+  padding: 3px 5px;
+  white-space: normal;
+}
+
+@media (min-width: 768px) {
+  .code-command {
+    font-size: 21px;
+  }
+}
+
+.code-command::before {
+  content: '$';
+  color: #dedede;
+}
+
