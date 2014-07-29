@@ -73,7 +73,11 @@ class DatasetsController < ApplicationController
   # GET /datasets/1/json_manifest
   def json_manifest
     @folder_path = @dataset.find_file_folder(params[:path])
-    render json: @dataset.indexed_files_with_md5(@folder_path, -1).collect{ |folder, file_name, is_file, file_size, file_time, file_checksum| { file_name: file_name, checksum: file_checksum, is_file: is_file, file_size: file_size, dataset: @dataset.slug, file_path: folder } }
+    if @folder_path == params[:path]
+      render json: @dataset.indexed_files_with_md5(@folder_path, -1).collect{ |folder, file_name, is_file, file_size, file_time, file_checksum| { file_name: file_name, checksum: file_checksum, is_file: is_file, file_size: file_size, dataset: @dataset.slug, file_path: folder } }
+    else
+      render json: []
+    end
   end
 
   # GET /datasets/1/manifest.txt
