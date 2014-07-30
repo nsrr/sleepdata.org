@@ -7,6 +7,8 @@
   - Added UserVoice integration to collect better feedback on the NSRR website
 - **Dataset Changes**
   - Download folders now provide customizable commands using the NSRR gem
+- **Variable Changes**
+  - Commonly used variables can now be filtered on the variables index
 
 ## 0.9.6 (July 14, 2014)
 

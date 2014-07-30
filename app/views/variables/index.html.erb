@@ -14,20 +14,20 @@
     <div class="btn-group" style="padding-bottom:10px">
     <% s = (params[:s].blank? ? nil : params[:s]) %>
     <% if params[:folder].blank? %>
-      <%= link_to '/', dataset_variables_path(@dataset, view: params[:view]), class: "btn #{btn_size_class} btn-primary" %>
+      <%= link_to '/', dataset_variables_path(@dataset, view: params[:view], common: params[:common]), class: "btn #{btn_size_class} btn-primary" %>
     <% else %>
-      <%= link_to '..', dataset_variables_path(@dataset, s: s, folder: params[:folder].split('/')[0..-2].join('/'), view: params[:view]).gsub("%2F","/"), class: "btn #{btn_size_class} btn-primary" %>
+      <%= link_to '..', dataset_variables_path(@dataset, s: s, folder: params[:folder].split('/')[0..-2].join('/'), view: params[:view], common: params[:common]).gsub("%2F","/"), class: "btn #{btn_size_class} btn-primary" %>
       <% unless params[:folder].blank? %>
         <% params[:folder].to_s.split('/').each_with_index do |partial_folder, index| %>
           <% full_folder = params[:folder].to_s.split('/')[0..index].join('/') %>
-          <%= link_to partial_folder, dataset_variables_path(@dataset, s: s, folder: full_folder, view: params[:view]).gsub("%2F","/"), class: "btn #{btn_size_class} btn-primary" %>
+          <%= link_to partial_folder, dataset_variables_path(@dataset, s: s, folder: full_folder, view: params[:view], common: params[:common]).gsub("%2F","/"), class: "btn #{btn_size_class} btn-primary" %>
         <% end %>
       <% end %>
     <% end %>
     </div>
       <% @folders.each do |folder| %>
         <% full_folder = [params[:folder].blank? ? nil : params[:folder], folder].compact.join('/') %>
-        <%= link_to folder, dataset_variables_path(@dataset, s: s, folder: full_folder, view: params[:view]).gsub("%2F","/"), class: "btn #{btn_size_class} btn-default", style: "margin-bottom:10px" %>
+        <%= link_to folder, dataset_variables_path(@dataset, s: s, folder: full_folder, view: params[:view], common: params[:common]).gsub("%2F","/"), class: "btn #{btn_size_class} btn-default", style: "margin-bottom:10px" %>
       <% end %>
   </div>
 <% end %>
@@ -36,6 +36,7 @@
     <form action="<%= dataset_variables_path(@dataset) %>" method="get" id="collection_form" class="form-inline">
       <%#= hidden_field_tag 'folder', params[:folder] unless params[:folder].blank? %>
       <%= hidden_field_tag 'view', params[:view] %>
+      <%= hidden_field_tag 'common', params[:common] %>
       <div class="input-group">
         <%= text_field_tag 's', params[:s], class: 'form-control', style: 'width:100%' %>
         <span class="input-group-btn">
@@ -44,6 +45,11 @@
             <%= link_to '<span class="glyphicon glyphicon-th"></span>'.html_safe, '#', class: 'btn btn-primary', data: { object: 'grid-submit', target: '#collection_form' } %>
           <% else %>
             <%= link_to '<span class="glyphicon glyphicon-list"></span>'.html_safe, '#', class: 'btn btn-primary', data: { object: 'list-submit', target: '#collection_form' } %>
+          <% end %>
+          <% if params[:common] == '1' %>
+            <%= link_to '<span class="glyphicon glyphicon-star"></span>'.html_safe, '#', class: 'btn btn-warning', data: { object: 'commonly-used-submit', value: '0', target: '#collection_form' } %>
+          <% else %>
+            <%= link_to '<span class="glyphicon glyphicon-star-empty"></span>'.html_safe, '#', class: 'btn btn-default', data: { object: 'commonly-used-submit', value: '1', target: '#collection_form' } %>
           <% end %>
         </span>
       </div>
