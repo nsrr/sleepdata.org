@@ -10,6 +10,9 @@
 - **Variable Changes**
   - Commonly used variables can now be filtered on the variables index
 
+### Bug Fix
+- Fixed a bug authenticating some users via their token
+
 ## 0.9.6 (July 14, 2014)
 
 ### Enhancements
