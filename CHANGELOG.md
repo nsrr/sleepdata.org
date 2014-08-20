@@ -9,6 +9,9 @@
   - Download folders now provide customizable commands using the NSRR gem
 - **Variable Changes**
   - Commonly used variables can now be filtered on the variables index
+- **Gem Changes**
+  - Updated to rails 4.1.5
+  - Updated to simplecov 0.9.0
 
 ### Bug Fix
 - Fixed a bug authenticating some users via their token
