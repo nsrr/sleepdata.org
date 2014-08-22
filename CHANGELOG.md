@@ -9,6 +9,8 @@
   - Download folders now provide customizable commands using the NSRR gem
 - **Variable Changes**
   - Commonly used variables can now be filtered on the variables index
+  - Older variable graphs can now be viewed by passing the older version on the show page
+    - Ex: https://sleepdata.org/datasets/shhs/variables/rdi3p?v=0.2.0
 - **Gem Changes**
   - Updated to rails 4.2.0.beta1
   - Updated to contour 2.6.0.beta4
