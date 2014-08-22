@@ -10,7 +10,8 @@
 - **Variable Changes**
   - Commonly used variables can now be filtered on the variables index
 - **Gem Changes**
-  - Updated to rails 4.1.5
+  - Updated to rails 4.2.0.beta1
+  - Updated to contour 2.6.0.beta4
   - Updated to simplecov 0.9.0
 
 ### Bug Fix
