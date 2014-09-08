@@ -39,6 +39,7 @@
         <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to 'Home', root_path %></li>
         <li class="<%= 'active' if params[:controller] == 'datasets' or params[:action] == 'collection' %>"><%= link_to 'Datasets', datasets_path %></li>
         <li class="<%= 'active' if params[:controller] == 'tools' %>"><%= link_to 'Tools', tools_path %></li>
+        <li class="<%= 'active' if params[:controller] == 'topics' %>"><%= link_to 'Forum', topics_path %></li>
         <li class="<%= 'active' if current_page?(about_path) or current_page?(aug_path) %>"><%= link_to 'About', about_path %></li>
       </ul>
 
@@ -47,6 +48,7 @@
           <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to 'Home', root_path %></li>
           <li class="<%= 'active' if params[:controller] == 'datasets' or params[:action] == 'collection' %>"><%= link_to 'Datasets', datasets_path %></li>
           <li class="<%= 'active' if params[:controller] == 'tools' %>"><%= link_to 'Tools', tools_path %></li>
+          <li class="<%= 'active' if params[:controller] == 'topics' %>"><%= link_to 'Forum', topics_path %></li>
           <li class="<%= 'active' if current_page?(about_path) or current_page?(aug_path) %>"><%= link_to 'About', about_path %></li>
         </ul>
       </div>
