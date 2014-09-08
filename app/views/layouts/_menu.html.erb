@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+
+    <%= link_to 'NSRR', root_path, class: 'navbar-brand' %>
+  </div>
+
+  <div class="collapse navbar-collapse navbar-ex1-collapse">
+    <ul class="nav navbar-nav">
+      <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to "<span class='glyphicon glyphicon-home'></span> Home".html_safe, root_path %></li>
+      <li class="<%= 'active' if params[:controller] == 'datasets' or params[:action] == 'collection' %>"><%= link_to "<span class='glyphicon glyphicon-cloud'></span> Datasets".html_safe, datasets_path %></li>
+      <li class="<%= 'active' if params[:controller] == 'tools' %>"><%= link_to "<span class='glyphicon glyphicon-wrench'></span> Tools".html_safe, tools_path %></li>
+      <li class="<%= 'active' if params[:controller] == 'topics' %>"><%= link_to "<span class='glyphicon glyphicon-pushpin'></span> Forum <span class='label label-success'>New</span>".html_safe, topics_path %></li>
+      <li class="<%= 'active' if current_page?(about_path) or current_page?(aug_path) %>"><%= link_to "<span class='glyphicon glyphicon-leaf'></span> About".html_safe, about_path %></li>
+    </ul>
+
+    <ul class="nav navbar-nav navbar-right">
+      <% if current_user %>
+        <li><%= image_tag(current_user.avatar_url(26, "identicon"), style: 'line-height: 20px;padding-top: 11.5px;') %></li>
+        <li><%= link_to current_user.name, '#', data: { object: 'suppress-click' } %></li>
+        <li>
+          <%= link_to "Sign Out <span class='glyphicon glyphicon-log-out'></span>".html_safe, destroy_user_session_path, class: 'logout-button' %>
+        </li>
+      <% else %>
+        <li><%= link_to 'Sign in', new_user_session_path %></li>
+      <% end %>
+    </ul>
+
+  </div>
+</div>

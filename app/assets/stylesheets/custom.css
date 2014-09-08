@@ -1,3 +1,13 @@
+body {
+  padding-top: 51px;
+  padding-bottom: 0px;
+}
+
+.navbar-nav > .active > a, .navbar-nav > .active > a:hover {
+  color: #3c763d !important;
+  background-color: #dff0d8 !important;
+}
+
 .jumbotron {
   text-align: center;
   background-color: transparent;

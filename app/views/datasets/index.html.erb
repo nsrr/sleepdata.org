@@ -1,11 +1,15 @@
 <% @title = 'Datasets' %>
-<div class="page-header">
-  <h1>
-    <%= @title %>
-    <% if current_user and current_user.system_admin? %>
-      <%= link_to "Create Dataset", new_dataset_path, class: 'btn btn-xs btn-primary' %>
-    <% end %>
-  </h1>
+
+<div class="horizontal-fade" style="position:relative;">
+  <div class="jumbotron vertical-fade-subtle" style="margin-bottom:0px;border-radius: 0px;">
+    <h1 style="text-align:left">
+      <%= @title %>
+      <% if current_user and current_user.system_admin? %>
+        <%= link_to "Create Dataset", new_dataset_path, class: 'btn btn-xs btn-primary' %>
+      <% end %>
+    </h1>
+    <div style="background-image:url(<%= asset_path('datasets-header.jpg') %>);background-repeat: no-repeat;z-index:-2;top:0;right:0;bottom:0;left:0;position:absolute"></div>
+  </div>
 </div>
 
 <%= form_tag datasets_path, method: :get, id: "datasets_search", class: 'form-inline' do %>
@@ -80,6 +84,4 @@
       <p>Browse through variable graphs and statistics. Select variables and download the corresponding covariate dataset and data dictionary.</p>
     </div>
   </div>
-
-
 </div>
