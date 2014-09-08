@@ -478,7 +478,7 @@ tr.banned td, .label-banned {
   white-space: normal;
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .code-command {
     font-size: 21px;
   }
@@ -489,3 +489,15 @@ tr.banned td, .label-banned {
   color: #dedede;
 }
 
+.lead-paragraph {
+  font-size: 16px;
+  margin: 0px 20px 20px 20px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+@media screen and (min-width: 768px) {
+  .lead-paragraph {
+    font-size: 21px;
+  }
+}
