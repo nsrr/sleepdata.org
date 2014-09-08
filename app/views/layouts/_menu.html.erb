@@ -21,7 +21,7 @@
 
     <ul class="nav navbar-nav navbar-right">
       <% if current_user %>
-        <li><%= image_tag(current_user.avatar_url(26, "identicon"), style: 'line-height: 20px;padding-top: 11.5px;') %></li>
+        <li><%= image_tag(current_user.avatar_url(26, "identicon"), class: 'img-rounded', style: 'margin-top: 11.5px;') %></li>
         <li><%= link_to current_user.name, '#', data: { object: 'suppress-click' } %></li>
         <li>
           <%= link_to "Sign Out <span class='glyphicon glyphicon-log-out'></span>".html_safe, destroy_user_session_path, class: 'logout-button' %>
