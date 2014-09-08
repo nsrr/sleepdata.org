@@ -1,22 +1,14 @@
 class VariablesController < ApplicationController
-
-  # before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy ]
-  # before_action :check_system_admin,        only: [ :new, :create, :destroy ]
-
   before_action :set_viewable_dataset,      only: [ :show, :index, :image ]
-  # before_action :set_editable_dataset,      only: [ :edit, :update, :destroy ]
-  before_action :redirect_without_dataset,  only: [ :show, :index, :image ]  # [ :show, :edit, :update, :destroy ]
-
+  before_action :redirect_without_dataset,  only: [ :show, :index, :image ]
   before_action :set_viewable_variable,     only: [ :show, :image ]
   before_action :redirect_without_variable, only: [ :show ]
-
 
   def index
     variable_scope = @dataset.variables.search(params[:s]).with_folder(params[:folder]).order( :folder, :name )
     variable_scope = variable_scope.where( commonly_used: true ) if params[:common] == '1'
     @folders = variable_scope.pluck(:folder).uniq.collect{ |f| f.gsub(/^#{params[:folder]}(\/)?/, '').split('/').first }.uniq.compact.sort
     @variables = variable_scope.page(params[:page]).per( 100 )
-    render layout: 'nonavigation'
   end
 
   def show
@@ -27,8 +19,6 @@ class VariablesController < ApplicationController
       []
     end
     @version = (valid_folders.include?(params[:v].to_s.strip) ? valid_folders.select{|f| f == params[:v].to_s.strip}.first : @variable.version.to_s)
-
-    render layout: 'nonavigation'
   end
 
   def image

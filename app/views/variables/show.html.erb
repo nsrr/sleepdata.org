@@ -1,8 +1,8 @@
+<%= render partial: 'datasets/header' %>
+
+<%= render partial: 'variables/folder_breadcrumb', locals: { folder: @variable.folder } %>
+
 <div class="jumbotron" style="position:relative;margin-bottom: 20px;margin-top: 10px;background-color: #333;color: white;padding-top: 5px;padding-bottom: 20px;">
-  <div class="jumbotron-left-after">
-    <span class="glyphicon glyphicon-home"></span>
-    <%= link_to "#{@dataset.slug} variables", dataset_variables_path(@dataset, view: params[:view]) %>
-  </div>
   <div class="jumbotron-right-after">
     <span class="glyphicon glyphicon-save"></span>
     <%= link_to "v#{@version}", files_dataset_path(@dataset, path: 'datasets', f: "#{@dataset.slug}-#{@version}.csv"), target: '_blank' %>
@@ -63,10 +63,11 @@
 <% end %>
 
 <% unless @variable.description.blank? %>
-  <div class="file-display">
-    <div class="file-display-after">Description</div>
-    <%= @variable.description %>
+<div class="welcome-box welcome-even">
+  <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
+    <p class="lead-paragraph" style="text-align:left"><%= @variable.description %></p>
   </div>
+</div>
 <% end %>
 
 <div style="margin-top:20px">
@@ -118,31 +119,30 @@
 
 <%= render partial: 'calculation' unless @variable.calculation.blank? %>
 
-<%= render partial: 'variables/folder', locals: { folder: @variable.folder, show_dataset: true } %>
+<div class="welcome-box welcome-even">
+  <div class="jumbotron" style="padding:20px 0px 0px 0px">
+    <h1 style="margin-top:10px">Ready to begin your analysis?</h1>
+    <p class="lead">Email us at <%= link_to 'support@sleepdata.org', 'mailto:support@sleepdata.org' %> if you have any questions or <%= link_to 'visit our forum', topics_path %>!</p>
+    <%= link_to 'Download Dataset', files_dataset_path(@dataset, path: 'datasets'), class: 'btn btn-lg btn-success' %>
+    <% @variable.forms.each do |form| %>
+      <%= link_to "<span class='glyphicon glyphicon-book'></span> #{form.display_name}".html_safe, files_dataset_path(@dataset) + "/forms/#{form.folder}?f=#{CGI::escape form.code_book.to_s}", class: 'btn btn-lg btn-primary' %>
+    <% end %>
+  </div>
+</div>
 
 <% variables = @variable.related_variables %>
 <% if variables.size > 0 %>
-  <div style="background-color:#ededed">
-    <div class="welcome-box welcome-odd">
+  <div class="welcome-box welcome-odd">
+    <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
+      <h1 style="margin-top:10px"><code><%= @variable.name %></code> is related to...</h1>
+    </div>
 
-      <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
-        <h1 style="margin-top:10px"><code><%= @variable.name %></code> is related to...</h1>
-      </div>
-
-      <div class="row" style="margin-top:40px">
-        <% variables.each do |variable| %>
-          <div class="col-xs-6 col-sm-4 col-md-2 si">
-            <%= render partial: 'variables/panel', locals: { variable: variable } %>
-          </div>
-        <% end %>
-      </div>
-
+    <div class="row" style="margin-top:40px">
+      <% variables.each do |variable| %>
+        <div class="col-xs-6 col-sm-4 col-md-2">
+          <%= render partial: 'variables/panel', locals: { variable: variable } %>
+        </div>
+      <% end %>
     </div>
   </div>
 <% end %>
-
-<div class="center" style="margin-top:60px">
-  <%= image_tag 'nsrr_logo_256.png', size: '256x256', alt: 'NSRR' %>
-</div>
-
-

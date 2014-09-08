@@ -13,6 +13,7 @@
   - Commonly used variables can now be filtered on the variables index
   - Older variable graphs can now be viewed by passing the older version on the show page
     - Ex: https://sleepdata.org/datasets/shhs/variables/rdi3p?v=0.2.0
+  - Variables index and show page styling updated to be more consistent with the rest of the NSRR website
 - **Forum Changes**
   - The forum is now linked in the main menu
 - **Gem Changes**

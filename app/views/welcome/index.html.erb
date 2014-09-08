@@ -58,7 +58,7 @@
     <% @variables = Variable.where( dataset_id: Dataset.current.where( public: true ).pluck(:id), commonly_used: true ).order("RANDOM()").limit(6) %>
     <% @variables.each do |variable| %>
       <div class="col-xs-6 col-sm-4 col-md-2">
-        <%= render partial: 'welcome/variable_panel', locals: { variable: variable, collection: false } %>
+        <%= render partial: 'variables/panel', locals: { variable: variable } %>
       </div>
     <% end %>
   </div>

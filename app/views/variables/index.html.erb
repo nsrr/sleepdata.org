@@ -1,11 +1,14 @@
-<div class="jumbotron" style="position:relative;margin-bottom: 20px;margin-top: 10px;background-color: #333;color: white;padding-top: 5px;padding-bottom: 20px;">
-  <div class="jumbotron-pagination">
-    <%= render partial: 'variables/per_page', locals: { per_page: 100, object_count: @variables.total_count } %>
-  </div>
+<%= render partial: 'datasets/header' %>
 
-  <h1>Variables</h1>
-  <p class="lead"><%= link_to @dataset.name, @dataset %></p>
-</div>
+<% if @object.class == Dataset %>
+  <% edit_page_path = edit_page_dataset_path( @object, path: @path ) %>
+  <% new_page_path  =  new_page_dataset_path( @object, path: @path ) %>
+  <% pages_path     =     pages_dataset_path( @object) %>
+<% end %>
+
+<%= render partial: 'variables/per_page', locals: { per_page: 100, object_count: @variables.total_count } %>
+
+<%= render partial: 'variables/folder_breadcrumb', locals: { folder: params[:folder] } %>
 
 <div class="row">
   <div class="col-sm-8 col-lg-9">

@@ -1,6 +1,5 @@
 <div class="panel <%= variable.commonly_used ? 'panel-gold' : 'panel-default' %> panel-hover" style="overflow:hidden" data-link="<%= dataset_variable_path(variable.dataset, variable) %>">
   <div class="panel-heading">
-    <span class="label label-primary pull-right"><%= variable.dataset.slug %></span>
     <div style="overflow:hidden;white-space:nowrap;<%= 'font-weight:bold' if variable.commonly_used? %>"><%= variable.name %></div>
   </div>
   <div class="panel-body" style="height:150px;overflow:hidden">

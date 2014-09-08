@@ -63,15 +63,6 @@ $(document)
     $($(this).data('target')).show()
   )
 
-$(window).scroll( () ->
-  $('.si').each( () ->
-    imagePos = $(this).offset().top
-    bottomOfWindow = $(window).scrollTop() + $(window).height()
-    $(this).addClass("slideUp") if imagePos < bottomOfWindow - 200
-  )
-)
-
-
 $(document)
   .on('touchstart', (e) ->
     window.$xDown = e.originalEvent.touches[0].pageX
