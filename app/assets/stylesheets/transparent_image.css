@@ -1,4 +1,5 @@
 .horizontal-fade {
+  background-color: white;
   background: -webkit-linear-gradient(left, white, rgba(255,255,255,0), white);
   background:      -o-linear-gradient(right, white, rgba(255,255,255,0), white);
   background:    -moz-linear-gradient(right, white, rgba(255,255,255,0), white);
@@ -6,6 +7,7 @@
 }
 
 .vertical-fade {
+  background-color: white;
   background: -webkit-linear-gradient(rgba(255,255,255,0), white, white, white);
   background:      -o-linear-gradient(rgba(255,255,255,0), white, white, white);
   background:    -moz-linear-gradient(rgba(255,255,255,0), white, white, white);
@@ -13,6 +15,7 @@
 }
 
 .vertical-fade-subtle {
+  background-color: white;
   background: -webkit-linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0), rgba(255,255,255,0.90), white);
   background:      -o-linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0), rgba(255,255,255,0.90), white);
   background:    -moz-linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0), rgba(255,255,255,0.90), white);
@@ -20,6 +23,7 @@
 }
 
 .vertical-fade-up {
+  background-color: white;
   background: -webkit-linear-gradient(white, rgba(255,255,255,0.75), rgba(255,255,255,0), rgba(255,255,255,0));
   background:      -o-linear-gradient(white, rgba(255,255,255,0.75), rgba(255,255,255,0), rgba(255,255,255,0));
   background:    -moz-linear-gradient(white, rgba(255,255,255,0.75), rgba(255,255,255,0), rgba(255,255,255,0));
