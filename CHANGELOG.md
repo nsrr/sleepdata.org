@@ -4,6 +4,8 @@
 - **General Changes**
   - The official NSRR ruby gem is now supported, https://rubygems.org/gems/nsrr
     - More information here: https://github.com/nsrr/nsrr-gem
+  - The wget download option has been hidden in favor of the NSRR gem command
+    - Add `?wget=1` to the download url bar to see the `wget` download command syntax
   - Added UserVoice integration to collect better feedback on the NSRR website
 - **Dataset Changes**
   - Download folders now provide customizable commands using the NSRR gem

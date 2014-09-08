@@ -2,66 +2,24 @@
 <% @local_folder = [@dataset.slug, @current_folder].compact.join('/') %>
 
 
-
-
-
-<ul class="nav nav-tabs" role="tablist" id="myTab">
-  <li class="active"><a href="#nsrr-gem" role="tab" data-toggle="tab">Download using NSRR Gem</a></li>
+<% if params[:wget].to_s == '1' %>
   <% if @dataset.folder_has_files?(@current_folder) %>
-    <li><a href="#wget" role="tab" data-toggle="tab">GNU Wget</a></li>
+    <%= render partial: 'datasets/wget_downloader' %>
+  <% else %>
+    <div class="alert alert-warning">
+      <strong>No Files in Current Directory</strong>
+      There are no files in the current directory for GNU Wget to download. <%= link_to 'Click here to download folders in this directory with the NSRR gem.', files_dataset_path(@dataset, path: params[:path]) %>.
+    </div>
   <% end %>
-</ul>
-
-<div class="tab-content">
-  <div class="tab-pane active" id="nsrr-gem">
-
-    <div class="code-container">
-      <span class="code-command">
-        nsrr download <%= [@dataset.slug, @current_folder].compact.join('/') %> <span id="depth-flag" style="white-space:nowrap"></span> <span id="filecheck-flag" style="white-space:nowrap"></span>
-      </span>
-    </div>
-
-    <div class="file-display"><div class="file-display-after"><span class="glyphicon glyphicon-cog"></span> Configure</div>
-
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="btn-group btn-group-justified">
-            <%= link_to 'Recursive', '#', data: { object: 'set-flag', flag: 'depth', value: '' }, class: 'btn btn-primary active' %>
-            <%= link_to 'Shallow', '#', data: { object: 'set-flag', flag: 'depth', value: '--shallow' }, class: 'btn btn-default' %>
-          </div>
-          <div class="bs-callout bs-callout-info">
-            <span data-flag-type="depth" data-flag-value="">
-              Download current folder and subfolders
-            </span>
-            <span data-flag-type="depth" data-flag-value="--shallow" style="display:none">
-              Only download files in this folder, ignore subfolders.
-            </span>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="btn-group btn-group-justified">
-            <%= link_to 'MD5', '#', data: { object: 'set-flag', flag: 'filecheck', value: '' }, class: 'btn btn-primary active' %>
-            <%= link_to 'Fast', '#', data: { object: 'set-flag', flag: 'filecheck', value: '--fast' }, class: 'btn btn-default' %>
-            <%= link_to 'Fresh', '#', data: { object: 'set-flag', flag: 'filecheck', value: '--fresh' }, class: 'btn btn-default' %>
-          </div>
-          <div class="bs-callout bs-callout-info">
-            <span data-flag-type="filecheck" data-flag-value="">
-              Check downloaded files with MD5 file comparison.<br />Slow, highly accurate, file check.
-            </span>
-            <span data-flag-type="filecheck" data-flag-value="--fast" style="display:none">
-              Check downloaded files by comparing file sizes.<br />Fast, but less accurate, file check.
-            </span>
-            <span data-flag-type="filecheck" data-flag-value="--fresh" style="display:none">
-              Redownload all files.<br />No file check.
-            </span>
-          </div>
-        </div>
-      </div>
-
-        <div class="alert alert-info"><strong>Don't have the NSRR gem?</strong> Install using our <%= link_to 'NSRR Gem installation instructions', 'https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites', target: '_blank', class: 'alert-link' %>.</div>
-    </div>
+<% else %>
+  <div class="code-container">
+    <span class="code-command">
+      nsrr download <%= [@dataset.slug, @current_folder].compact.join('/') %> <span id="depth-flag" style="white-space:nowrap"></span> <span id="filecheck-flag" style="white-space:nowrap"></span>
+    </span>
   </div>
-  <% if @dataset.folder_has_files?(@current_folder) %>
-  <div class="tab-pane" id="wget"><%= render partial: 'datasets/wget_downloader' %></div>
-  <% end %>
-</div>
+
+  <div class="alert alert-info">
+    <strong>Don't have the NSRR gem?</strong>
+    Install using our <%= link_to 'NSRR Gem installation instructions', 'https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites', target: '_blank', class: 'alert-link' %>.
+  </div>
+<% end %>

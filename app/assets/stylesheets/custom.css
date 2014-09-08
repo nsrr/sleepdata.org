@@ -454,13 +454,13 @@ tr.banned td, .label-banned {
 }
 
 .code-container {
-  padding: 24px 0px;
+  margin: 24px 0px;
   text-align: center;
 }
 
 @media screen and (min-width: 768px) {
   .code-container {
-    padding: 48px 0px;
+    margin: 48px 0px;
   }
 }
 
