@@ -1,4 +1,4 @@
-WwwSleepdataOrg::Application.routes.draw do
+Rails.application.routes.draw do
 
   resources :topics, path: "forum" do
     member do
