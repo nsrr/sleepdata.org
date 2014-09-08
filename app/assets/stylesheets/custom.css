@@ -3,23 +3,6 @@
   background-color: transparent;
 }
 
-.marketing .col-sm-4 {
-  text-align: center;
-}
-
-.featurette-heading {
-  font-size: 50px;
-  /*font-weight: 300;*/
-  line-height: 1;
-  letter-spacing: -1px;
-}
-
-@media (min-width: 992px) {
-  .featurette-heading {
-    margin-top: 120px;
-  }
-}
-
 .nav-justified {
   background-color: #eee;
   border-radius: 5px;
@@ -81,17 +64,6 @@
   }
 }
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  /* Remove the padding we set earlier */
-  .masthead,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-
 pre.code {
   margin: 10px 0px;
 }
@@ -122,10 +94,6 @@ pre.code {
   height: auto;
   margin-bottom: 15px;
   padding: 7px 9px;
-}
-
-.page-border {
-  margin-top: 40px;
 }
 
 .breadcrumb {
