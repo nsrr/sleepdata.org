@@ -76,7 +76,6 @@ Rails.application.routes.draw do
 
   resources :users
 
-  # get '/rdi3p' => 'welcome#rdi3p', as: :rdi3p
   get 'welcome/index'
   get '/about' => 'welcome#about', as: :about
   get '/about/aug' => 'welcome#aug', as: :aug

@@ -68,3 +68,9 @@ $(document)
     else
       Turbolinks.visit($(this).data("link"))
   )
+  .keydown( (e) ->
+    if e.which == 39 and not $("input, textarea, select, a").is(":focus")
+      $('#next-variable')[0].click() if $('#next-variable')[0]
+    else if e.which == 37 and not $("input, textarea, select, a").is(":focus")
+      $('#previous-variable')[0].click() if $('#previous-variable')[0]
+  )

@@ -22,5 +22,4 @@
 //= require user_voice
 
 //= require external/highcharts-4.0.1.src.js
-//= require charts
 //= require variables
