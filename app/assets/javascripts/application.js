@@ -14,7 +14,12 @@
 //= require turbolinks
 //= require external/prettify
 
+//= require external/json2.min.js
+//= require flashcanvas.js
+//= require jquery.signaturepad.min.js
+
 //= require global
+//= require agreements
 //= require datasets
 //= require comments
 //= require external/jquery.lazyload.js

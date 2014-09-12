@@ -94,6 +94,10 @@ Rails.application.routes.draw do
   get '/daua' => 'agreements#daua', as: :daua
   post '/daua' => 'agreements#submit', as: :upload_daua
   patch '/daua' => 'agreements#resubmit', as: :reupload_daua
+  get '/triage' => 'agreements#triage', as: :triage
+  get '/triage_student' => 'agreements#triage_student', as: :triage_student
+  get '/triage_researcher' => 'agreements#triage_researcher', as: :triage_researcher
+  get '/triage_company' => 'agreements#triage_company', as: :triage_company
 
   root to: 'welcome#index'
 

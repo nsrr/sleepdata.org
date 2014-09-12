@@ -8,6 +8,7 @@
     - Add `?wget=1` to the download url bar to see the `wget` download command syntax
   - Added UserVoice integration to collect better feedback on the NSRR website
   - Restructured the menu bar to provide more space for page content
+  - Prototyping a new online DAUA application process
 - **Dataset Changes**
   - Download folders now provide customizable commands using the NSRR gem
 - **Variable Changes**

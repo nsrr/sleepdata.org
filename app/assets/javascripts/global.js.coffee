@@ -29,6 +29,7 @@
   prettyPrint()
   variablesReady() if (typeof variablesReady == 'function')
   datasetsReady()
+  agreementsReady()
 
 $(document).ready(ready)
 $(document)
