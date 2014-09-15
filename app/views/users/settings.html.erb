@@ -1,0 +1,85 @@
+<% @title = 'My Settings' %>
+<div class="page-header">
+  <h1><%= @title %></h1>
+</div>
+
+<%= render partial: 'layouts/flash_messages' %>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <span class="glyphicon glyphicon-cog"></span> My Settings
+      </div>
+      <div class="panel-body">
+        <%= form_for current_user, url: update_settings_path, html: { class: 'form-horizontal' } do |f| %>
+          <% if current_user.errors.any? %>
+            <div id="error_explanation" class="bs-callout bs-callout-danger">
+              <h4><%= pluralize(current_user.errors.count, "error") %> prohibited settings from being saved</h4>
+
+              <ul>
+              <% current_user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+              <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+          <div class="form-group">
+            <%= f.label :first_name, nil, class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_field :first_name, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :last_name, nil, class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_field :last_name, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :email, nil, class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_field :email, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-3 control-label">Forum</label>
+            <div class="col-md-9">
+              <div class="checkbox">
+                <label>
+                  <%= f.check_box :auto_subscribe %>
+                  Auto-subscribe to new posts
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+              <%= submit_tag 'Save Changes', class: 'btn btn-primary' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        <span class="glyphicon glyphicon-user"></span> My Forum Avatar
+      </div>
+      <div class="panel-body">
+
+        <%= image_tag current_user.avatar_url(80, 'identicon'), class: 'img-rounded' %>
+
+        You can change your avatar at <%= link_to 'gravatar.com', 'http://gravatar.com', target: '_blank' %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<% @footer_img = 'settings-footer.jpg' %>

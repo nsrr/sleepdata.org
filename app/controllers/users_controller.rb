@@ -1,8 +1,16 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_system_admin
+  before_action :check_system_admin, except: [ :settings, :update_settings ]
   before_action :set_user, only: [ :show, :edit, :update, :destroy ]
   before_action :redirect_without_user, only: [ :show, :edit, :update, :destroy ]
+
+  def update_settings
+    if current_user.update(user_params)
+      redirect_to settings_path, notice: 'Settings successfully updated.'
+    else
+      render action: 'settings'
+    end
+  end
 
   def index
     @users = User.current.search(params[:search]).order(current_sign_in_at: :desc).page(params[:page]).per( 40 )
@@ -39,11 +47,11 @@ class UsersController < ApplicationController
 
       if current_user.system_admin?
         params.require(:user).permit(
-          :first_name, :last_name, :email, :research_summary, :degree, :aug_member, :core_member, :system_admin, :banned
+          :first_name, :last_name, :email, :research_summary, :degree, :aug_member, :core_member, :system_admin, :banned, :auto_subscribe
         )
       else
         params.require(:user).permit(
-          :first_name, :last_name, :email, :research_summary
+          :first_name, :last_name, :email, :research_summary, :auto_subscribe
         )
       end
     end

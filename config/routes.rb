@@ -100,7 +100,8 @@ Rails.application.routes.draw do
   get '/triage_company' => 'agreements#triage_company', as: :triage_company
   get '/daua/step/*step' => 'agreements#step', as: :daua_step
   get '/daua/irb_assistance_template' => 'agreements#irb_assistance_template', as: :irb_assistance_template
-
+  get '/settings' => 'users#settings', as: :settings
+  patch '/settings' => 'users#update_settings', as: :update_settings
 
   root to: 'welcome#index'
 

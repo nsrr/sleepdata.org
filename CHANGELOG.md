@@ -18,6 +18,8 @@
   - Variables index and show page styling updated to be more consistent with the rest of the NSRR website
 - **Forum Changes**
   - The forum is now linked in the main menu
+  - Users are now subscribed to new posts by default
+    - Users can opt out of this setting under their user settings.
 - **Gem Changes**
   - Updated to rails 4.2.0.beta1
   - Updated to contour 2.6.0.beta6
