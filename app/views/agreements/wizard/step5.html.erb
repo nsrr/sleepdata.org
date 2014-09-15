@@ -1,8 +1,51 @@
 <%= render partial: 'agreements/wizard/progress' %>
 
-<div class="page-header">
-  <h1>Step <%= @step %></h1>
+<h2 style="text-align:center">DATA ACCESS AND USE AGREEMENT</h2>
+
+<hr class="divider-md" />
+
+<%= form_tag upload_daua_path, method: :post, class: 'form-horizontal' do |f| %>
+  <p class="lead-paragraph">
+    14. This DAUA shall become effective upon the date of BWH's release of Data / Datasets to Data User (<strong>"Effective Date"</strong>) and shall expire upon the earlier of (i) three (3) years after the Effective Date or (ii) Data User's cessation or completion of the Specific Purpose (as applicable, the <strong>"Initial Term"</strong>).  If Data User continues to desire access to the Data / Datasets for the Specific Purpose beyond the Initial Term, Data User may submit a request for continued access and an extension of this DAUA to BWH.  BWH may terminate the DAUA and Data User's access to Data / Datasets hereunder at any time during the Initial Term or any subsequent term, and for any reason, upon written notice to the Data User.
+  </p>
+
+  <p class="lead-paragraph">
+    15. To the extent Data User is permitted under the terms of this DAUA to retain any portion of the Data / Dataset, or any copies thereof, upon the expiration or termination of the DAUA, the Data User's obligations under the DAUA with respect to such Data / Datasets shall survive such expiration or termination for as long as Data User retains the Data / Datasets.
+  </p>
+
+  <p class="lead-paragraph">
+    16. This DAUA may be modified or amended only in a writing signed by duly authorized representatives of both the Data User (where Data User is an organization) and BWH.  This DAUA shall be governed by and construed in accordance with the laws of the Commonwealth of Massachusetts.  Any claim or action brought under this DAUA shall be brought in the federal or state courts of Massachusetts.
+  </p>
+
+  <p class="lead-paragraph">
+    17. All notices required by this DAUA shall be provided to the signatory for each party at the address identified below.
+  </p>
+
+  <p class="lead-paragraph">
+    18. In all publications and other citations that use resources made available through the sleepdata.org site, User agrees to acknowledge the appropriate grants and references for individual cohort data downloaded as indicated in the citation section on the relevant NSRR web page, along with the following:
+  </p>
+
+  <p class="lead" style="text-align:center">
+    NSRR R24 HL114473: NHLBI National Sleep Research Resource.
+  </p>
+
+  <p class="lead-paragraph">
+    19. Sections 3 through 13 and Sections 15, 16, 17, and 18 of this DAUA shall survive its expiration or termination.
+  </p>
+
+  <br /><br />
+  <div style="text-align:center"><strong>Required Signatures begin on the next page</strong></div>
+<% end %>
+
+<hr class="divider-md" />
+
+<div class="row">
+  <div class="col-xs-6">
+    <%= link_to "<span class='glyphicon glyphicon-chevron-left'></span> Back to Previous Step".html_safe, daua_step_path(step: @step-1), class: 'btn btn-lg btn-default btn-block' %>
+  </div>
+  <div class="col-xs-6">
+    <%= link_to "<span class='glyphicon glyphicon-floppy-disk'></span> Save and Continue".html_safe, daua_step_path(step: @step+1), class: 'btn btn-lg btn-primary btn-block' %>
+  </div>
 </div>
 
-
-<%= link_to "Proceed to Step #{@step+1}", daua_step_path(step: @step+1) %>
+<% @footer_img = 'footer.jpg' %>

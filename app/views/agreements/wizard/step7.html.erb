@@ -1,8 +1,60 @@
 <%= render partial: 'agreements/wizard/progress' %>
 
-<div class="page-header">
-  <h1>Step <%= @step %></h1>
+<h2 style="text-align:center">EVIDENCE OF IRB REVIEW</h2>
+
+<hr class="divider-md" />
+
+<%= form_tag upload_daua_path, method: :post, multipart: true, class: 'form-horizontal' do |f| %>
+  <p class="lead-paragraph">
+    Please attach evidence of IRB review.
+    It is expected the document attached shows the IRB has either a) performed a review of the project and issued an approval, or b) declared that the research project is exempt from review.
+  </p>
+
+  <p class="lead-paragraph">
+    In addition to completing and executing the NSRR Data Access and Use Agreement for the research project/specific purpose identified in your request, you will also need to submit evidence of  IRB/Ethics Committee review of your project to ensure the data will be used for appropriate research purposes and to ensure data security and appropriate handling of the data at the users site. This IRB review can be obtained locally and submitted with the DAUA, or by completion of the on-line request form if you would like to apply for NSRR IRB review of your project.
+  </p>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="panel panel-info panel-hover">
+        <div class="panel-heading">
+          Option 1 (Faster)
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <%= label :agreement, 'irb_evidence', 'Evidence of IRB review (PDF)', class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= file_field_tag 'agreement[irb_evidence]', class: 'form-control' %>
+              <%= link_to "<span class='glyphicon glyphicon-link'></span> IRB Assistance Template for Evidence of IRB Review".html_safe, irb_assistance_template_path, target: '_blank' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="panel panel-info panel-hover">
+        <div class="panel-heading">
+          Option 2 (Slower)
+        </div>
+        <div class="panel-body">
+          I don't have IRB Review, check to have your request reviewed by our IRB. <strong>Please allow 3 to 4 weeks for review.</strong>
+
+          Select this to fill out the on-line request form if you would like to apply for NSRR IRB review of your project.
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<hr class="divider-md" />
+
+<div class="row">
+  <div class="col-xs-6">
+    <%= link_to "<span class='glyphicon glyphicon-chevron-left'></span> Back to Previous Step".html_safe, daua_step_path(step: @step-1), class: 'btn btn-lg btn-default btn-block' %>
+  </div>
+  <div class="col-xs-6">
+    <%= link_to "<span class='glyphicon glyphicon-floppy-disk'></span> Save and Continue".html_safe, daua_step_path(step: @step+1), class: 'btn btn-lg btn-primary btn-block' %>
+  </div>
 </div>
 
-
-<%= link_to "Proceed to Step #{@step+1}", daua_step_path(step: @step+1) %>
+<% @footer_img = 'footer.jpg' %>

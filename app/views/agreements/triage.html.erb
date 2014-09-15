@@ -1,4 +1,4 @@
-<%= link_to 'Proceed to Step 0', daua_step_path(step: 0) %>
+<%= link_to 'Proceed to Step 1', daua_step_path(step: 1), class: 'btn btn-lg btn-primary btn-block', style: 'margin-top:20px' %>
 
 <div class="page-header" style="text-align:center">
   <h1>Brigham and Women's Hospital <br />National Sleep Research Resource (NSRR)</h1>
@@ -350,12 +350,13 @@ DATA USER
     </div>
   </div>
 
-
-  <div class="form-group">
-    <div class="col-md-offset-3 col-md-9">
-      <%= submit_tag 'Submit Data Access and Use Agreement', class: 'btn btn-primary' %>
+  <% if false %>
+    <div class="form-group">
+      <div class="col-md-offset-3 col-md-9">
+        <%= submit_tag 'Submit Data Access and Use Agreement', class: 'btn btn-primary' %>
+      </div>
     </div>
-  </div>
+  <% end %>
 
 <% end %>
 
@@ -363,56 +364,57 @@ DATA USER
 
 
 
+<% @footer_img = 'footer.jpg' %>
 
 
 
 
 
+<% if false %>
+  <p class="lead">We want to make this process as simple as possible for you.</p>
+  <p class="lead">First step, click one of the three items below so we can streamline your data access and use agreement process!</p>
 
-
-<p class="lead">We want to make this process as simple as possible for you.</p>
-<p class="lead">First step, click one of the three items below so we can streamline your data access and use agreement process!</p>
-
-<div class="row">
-  <div class="col-sm-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Students</h3>
+  <div class="row">
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Students</h3>
+        </div>
+        <div class="panel-body">
+          <%= link_to 'Click here!', triage_student_path %>
+        </div>
+        <div class="panel-footer" style="text-align:center;white-space:nowrap;overflow:hidden">
+          Footer
+        </div>
       </div>
-      <div class="panel-body">
-        <%= link_to 'Click here!', triage_student_path %>
+    </div>
+
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Researchers</h3>
+        </div>
+        <div class="panel-body">
+          Part of an academic institution and familiar with obtaining IRB approval? <%= link_to 'Click here!', triage_researcher_path %>
+        </div>
+        <div class="panel-footer" style="text-align:center;white-space:nowrap;overflow:hidden">
+          Footer
+        </div>
       </div>
-      <div class="panel-footer" style="text-align:center;white-space:nowrap;overflow:hidden">
-        Footer
+    </div>
+
+    <div class="col-sm-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Company</h3>
+        </div>
+        <div class="panel-body">
+          Working at a for-profit company? You may need an external review board! <%= link_to 'Click here!', triage_company_path %>
+        </div>
+        <div class="panel-footer" style="text-align:center;white-space:nowrap;overflow:hidden">
+          Footer
+        </div>
       </div>
     </div>
   </div>
-
-  <div class="col-sm-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Researchers</h3>
-      </div>
-      <div class="panel-body">
-        Part of an academic institution and familiar with obtaining IRB approval? <%= link_to 'Click here!', triage_researcher_path %>
-      </div>
-      <div class="panel-footer" style="text-align:center;white-space:nowrap;overflow:hidden">
-        Footer
-      </div>
-    </div>
-  </div>
-
-  <div class="col-sm-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h3 class="panel-title">Company</h3>
-      </div>
-      <div class="panel-body">
-        Working at a for-profit company? You may need an external review board! <%= link_to 'Click here!', triage_company_path %>
-      </div>
-      <div class="panel-footer" style="text-align:center;white-space:nowrap;overflow:hidden">
-        Footer
-      </div>
-    </div>
-  </div>
-</div>
+<% end %>

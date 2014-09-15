@@ -5,7 +5,7 @@ class AgreementsController < ApplicationController
   before_action :redirect_without_agreement,  only: [ :show, :destroy, :download, :review, :update ]
 
   def step
-    if params[:step].to_i > 0 and params[:step].to_i < 8
+    if params[:step].to_i > 0 and params[:step].to_i < 10
       @step = params[:step].to_i
       render "agreements/wizard/step#{@step}"
     else

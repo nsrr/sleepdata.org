@@ -1,8 +1,50 @@
 <%= render partial: 'agreements/wizard/progress' %>
 
-<div class="page-header">
-  <h1>Step <%= @step %></h1>
+<h2 style="text-align:center">POSTING PERMISSION</h2>
+
+<hr class="divider-md" />
+
+<%= form_tag upload_daua_path, method: :post, class: 'form-horizontal' do |f| %>
+  <p class="lead-paragraph">
+    13. Data User agrees not to use the name or logo of BWH or any of its affiliates or any of their respective trustees, directors, officers, staff members, employees, students or agents for any purpose without BWH's prior written approval; provided, however, that Data User will acknowledge the NSRR as the resource through which the Data / Datasets were obtained in any publication or presentation arising from the Specific Purpose.
+
+    At Data User's option, BWH may post a summary of Data User's Specific Purpose and/or Data User's name on https://sleepdata.org for the purpose of providing information about the projects and users of the NSRR.  (check one)
+  </p>
+
+  <div class="form-group has-success">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="radio">
+        <label>
+          <input type="radio" name="optionsRadios" id="radiosSuccess1" value="option1">
+          Data User gives BWH permission to post <strong>Data User's name</strong> and a summary of <strong>Data User's Specific Purpose</strong> on https://sleepdata.org
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="optionsRadios" id="radiosSuccess2" value="option2">
+          Data User gives BWH permission to post <strong>Data User's name</strong> on https://sleepdata.org
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="optionsRadios" id="radiosSuccess3" value="option3">
+          Data User <strong>does not give permission</strong> to post Data User's name or a summary of Data User's Specific Purpose on https://sleepdata.org
+        </label>
+      </div>
+    </div>
+  </div>
+
+<% end %>
+
+<hr class="divider-md" />
+
+<div class="row">
+  <div class="col-xs-6">
+    <%= link_to "<span class='glyphicon glyphicon-chevron-left'></span> Back to Previous Step".html_safe, daua_step_path(step: @step-1), class: 'btn btn-lg btn-default btn-block' %>
+  </div>
+  <div class="col-xs-6">
+    <%= link_to "<span class='glyphicon glyphicon-floppy-disk'></span> Save and Continue".html_safe, daua_step_path(step: @step+1), class: 'btn btn-lg btn-primary btn-block' %>
+  </div>
 </div>
 
-
-<%= link_to "Proceed to Step #{@step+1}", daua_step_path(step: @step+1) %>
+<% @footer_img = 'footer.jpg' %>

@@ -1,4 +1,4 @@
-<% steps = [["Data User Name", "save"], ["Specific Purpose", "edit"], ["Sign", "exclamation-sign"], ["IRB Review", "floppy-disk"], ["Upload PDF", "open"], ["Submitted", "calendar"]] %>
+<% steps = [["Data User Name", "edit"], ["Specific Purpose", "edit"], ["Stipulations", "exclamation-sign"], ["Posting Permission", "check"], ["Stipulations", "exclamation-sign"], ["Signature", "pencil"], ["Evidence of IRB Review", "file"], ["Application for Access", "edit"]] %>
 
 <div class="page-header" style="text-align:center">
   <h1>Brigham and Women's Hospital <br />National Sleep Research Resource (NSRR)</h1>
@@ -8,10 +8,10 @@
   <% steps.each_with_index do |(label, icon), index| %>
     <div class="col-xs-12 col-sm-4 col-lg-2">
       <div class="panel <%= @step <= index+1 ? (@step == index+1 ? 'panel-info' : 'panel-default') : 'panel-primary' %>">
-        <div class="panel-heading">
-          <h3 class="panel-title" style="text-align:center">
-            <%= link_to daua_step_path(step: index+1) do %>
-              <%= index+1 %>. <%= label %> <span class="glyphicon glyphicon-<%= icon %>"></span>
+        <div class="panel-heading" style="overflow-x:hidden">
+          <h3 class="panel-title" style="text-align:center;white-space:nowrap">
+            <%= link_to daua_step_path(step: index+1), rel: 'tooltip', title: label, data: { container: 'body', placement: 'bottom' } do %>
+              <span class="glyphicon glyphicon-<%= icon %>"></span> <%= label %>
             <% end %>
           </h3>
         </div>

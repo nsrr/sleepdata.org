@@ -529,3 +529,25 @@ hr.divider-md {
     margin-bottom: 40px;
   }
 }
+
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 236px;
+}
+.sticky-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 236px;
+}
+
+.sticky-footer .text-muted {
+  margin: 20px 0;
+}
+

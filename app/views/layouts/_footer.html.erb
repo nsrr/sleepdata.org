@@ -1,15 +1,5 @@
-<!-- FOOTER -->
-<% unless defined?(no_links) and no_links %>
-  <footer>
-    <p style="text-align:center">
-      &copy; 2014 NSRR &middot; <%= link_to "v#{WwwSleepdataOrg::VERSION::STRING}", "https://github.com/nsrr/www.sleepdata.org" %>
-    </p>
-  </footer>
-<% end %>
-
-<div class="horizontal-fade" style="position:relative;">
-  <div class="jumbotron vertical-fade-up" style="margin-bottom:0px;border-radius: 0px;">
-  <div style="background-image:url(<%= asset_path('footer.jpg') %>);background-repeat: no-repeat;z-index:-2;top:0;right:0;bottom:0;left:0;position:absolute"></div>
-    <div style="height:140px"></div>
-  </div>
-</div>
+<footer>
+  <p style="text-align:center">
+    &copy; 2014 NSRR &middot; <%= link_to "v#{WwwSleepdataOrg::VERSION::STRING}", "https://github.com/nsrr/www.sleepdata.org" %>
+  </p>
+</footer>
