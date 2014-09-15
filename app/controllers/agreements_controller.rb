@@ -1,6 +1,6 @@
 class AgreementsController < ApplicationController
-  before_action :authenticate_user!,          except: [ :daua, :dua, :triage, :triage_student, :triage_researcher, :triage_company ]
-  before_action :check_system_admin,          except: [ :daua, :dua, :triage, :triage_student, :triage_researcher, :triage_company, :submit, :resubmit ]
+  before_action :authenticate_user!,          except: [ :daua, :dua, :triage_student, :triage_researcher, :triage_company ] #  :triage
+  before_action :check_system_admin,          except: [ :daua, :dua, :triage_student, :triage_researcher, :triage_company, :submit, :resubmit ] #  :triage
   before_action :set_agreement,               only: [ :show, :destroy, :download, :review, :update ]
   before_action :redirect_without_agreement,  only: [ :show, :destroy, :download, :review, :update ]
 
