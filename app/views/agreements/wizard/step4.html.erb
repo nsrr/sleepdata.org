@@ -1,0 +1,8 @@
+<%= render partial: 'agreements/wizard/progress' %>
+
+<div class="page-header">
+  <h1>Step <%= @step %></h1>
+</div>
+
+
+<%= link_to "Proceed to Step #{@step+1}", daua_step_path(step: @step+1) %>

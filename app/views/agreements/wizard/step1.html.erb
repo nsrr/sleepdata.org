@@ -1,0 +1,162 @@
+<%= render partial: 'agreements/wizard/progress' %>
+
+<h2 style="text-align:center">DATA ACCESS AND USE AGREEMENT</h2>
+
+<hr class="divider-md" />
+
+<%= form_tag upload_daua_path, method: :post, class: 'form-horizontal' do |f| %>
+
+  <p class="lead-paragraph">
+    This Data Access and Use Agreement (the <strong>"DAUA"</strong>) is made by and between The Brigham and Women's Hospital, Inc., through its Division of Sleep Medicine (<strong>"BWH"</strong>) and
+  </p>
+
+  <div class="form-group has-success" style="margin-top: 20px;margin-bottom: 20px;">
+    <div class="col-md-10 col-md-offset-1">
+      <div class="input-group">
+        <input type="text" class="form-control" id="data_user" placeholder="Full Name">
+        <div class="input-group-addon">(<strong>"Data User"</strong>).</div>
+      </div>
+    </div>
+  </div>
+
+  <p class="lead-paragraph">
+    <strong>WHEREAS</strong>, BWH is receiving support from the National Heart, Lung, and Blood Institute (<strong>"NHLBI"</strong>) to establish and operate a web-based collection of existing de-identified sleep study and related covariate data originating from past NHLBI-funded research studies (the <strong>"Data"</strong>), such collection known as the National Sleep Research Resource (<strong>"NSRR"</strong>); and
+  </p>
+
+  <p class="lead-paragraph">
+    <strong>WHEREAS</strong>, the purpose of the NSRR is to facilitate access to and use of the Data by third-party researchers to conduct sleep research in accordance with NHLBI and BWH policies and procedures (the <strong>"Purpose"</strong>); and
+  </p>
+
+  <p class="lead-paragraph">
+    <strong>WHEREAS</strong>, to the extent permitted by its Institutional Review Board and institutional policies, BWH wishes to make the Data, in the form of one or more <strong>"Datasets,"</strong> available to Data User, and Data User wishes to receive the Datasets, for this Purpose under the terms and conditions of access set forth herein;
+  </p>
+
+  <p class="lead-paragraph">
+    <strong>NOW, THEREFORE</strong>, in consideration of the mutual promises and covenants set forth below, the parties hereby agree as follows:
+  </p>
+
+  <hr class="divider-md" />
+
+
+  <p class="lead-paragraph">
+    1. Data User is either (check one):
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-info panel-hover">
+          <div class="panel-heading">
+            Individual
+          </div>
+          <div class="panel-body">
+            <div class="form-group has-success">
+              <div class="col-md-10 col-md-offset-1">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="dateUserTypes" id="radioDataUserType1" value="option1">
+                    an individual, requesting Data/Datasets under this DAUA on behalf of himself/herself as follows:
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= label :professional_title, 'Professional Title', class: 'col-md-3 control-label' %>
+              <div class="col-md-9">
+                <input type="text" name="professional_title" id="professional_title" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= label :telephone, 'Telephone', class: 'col-md-3 control-label' %>
+              <div class="col-md-9">
+                <input type="text" name="telephone" id="telephone" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= label :fax, 'Fax', class: 'col-md-3 control-label' %>
+              <div class="col-md-9">
+                <input type="text" name="fax" id="fax" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= label :email, 'Email', class: 'col-md-3 control-label' %>
+              <div class="col-md-9">
+                <input type="email" name="email" id="email" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="panel panel-info panel-hover">
+          <div class="panel-heading">
+            Organization / Corporation
+          </div>
+          <div class="panel-body">
+            <div class="form-group has-success">
+              <div class="col-md-10 col-md-offset-1">
+                <div class="radio">
+                  <label>
+                    <input type="radio" name="dateUserTypes" id="radioDataUserType1" value="option1">
+                    an organization / corporation, requesting Data/Datasets under this DAUA on behalf of itself and its employees, with a principal place of business and primary business contact as follows:
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= label :place_of_business, 'Principal Place of Business', class: 'col-md-3 control-label' %>
+              <div class="col-md-9">
+                <input type="text" name="place_of_business" id="place_of_business" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= label :name_title, 'Contact Name/Title', class: 'col-md-3 control-label' %>
+              <div class="col-md-9">
+                <input type="text" name="name_title" id="name_title" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= label :telephone, 'Telephone', class: 'col-md-3 control-label' %>
+              <div class="col-md-9">
+                <input type="text" name="telephone" id="telephone" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= label :fax, 'Fax', class: 'col-md-3 control-label' %>
+              <div class="col-md-9">
+                <input type="text" name="fax" id="fax" class="form-control">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <%= label :email, 'Email', class: 'col-md-3 control-label' %>
+              <div class="col-md-9">
+                <input type="email" name="email" id="email" class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </p>
+<% end %>
+
+<hr class="divider-md" />
+
+<div class="row">
+  <div class="col-xs-6">
+    <%= link_to "Back to Overview", triage_path, class: 'btn btn-lg btn-default btn-block' %>
+  </div>
+  <div class="col-xs-6">
+    <%= link_to "Proceed to Step #{@step+1}", daua_step_path(step: @step+1), class: 'btn btn-lg btn-primary btn-block' %>
+  </div>
+</div>
+
+<%= render partial: 'layouts/footer', locals: { no_links: true } %>

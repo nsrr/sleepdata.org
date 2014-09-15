@@ -98,6 +98,9 @@ Rails.application.routes.draw do
   get '/triage_student' => 'agreements#triage_student', as: :triage_student
   get '/triage_researcher' => 'agreements#triage_researcher', as: :triage_researcher
   get '/triage_company' => 'agreements#triage_company', as: :triage_company
+  get '/daua/step/*step' => 'agreements#step', as: :daua_step
+  get '/daua/irb_assistance_template' => 'agreements#irb_assistance_template', as: :irb_assistance_template
+
 
   root to: 'welcome#index'
 

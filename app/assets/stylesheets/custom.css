@@ -513,10 +513,14 @@ tr.banned td, .label-banned {
 }
 
 hr.divider-md {
+  height: 1px;
   margin-top: 20px;
   margin-bottom: 20px;
+  background-image: -webkit-linear-gradient(left, transparent, rgba(0, 0, 0, 0.1), transparent);
+  background-image: -moz-linear-gradient(left, transparent, rgba(0, 0, 0, 0.1), transparent);
+  background-image: -ms-linear-gradient(left, transparent, rgba(0, 0, 0, 0.1), transparent);
+  background-image: -o-linear-gradient(left, transparent, rgba(0, 0, 0, 0.1), transparent);
   border: 0;
-  border-top: 1px solid #fff;
 }
 
 @media screen and (min-width: 768px) {

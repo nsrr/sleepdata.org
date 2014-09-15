@@ -4,6 +4,15 @@ class AgreementsController < ApplicationController
   before_action :set_agreement,               only: [ :show, :destroy, :download, :review, :update ]
   before_action :redirect_without_agreement,  only: [ :show, :destroy, :download, :review, :update ]
 
+  def step
+    if params[:step].to_i > 0 and params[:step].to_i < 8
+      @step = params[:step].to_i
+      render "agreements/wizard/step#{@step}"
+    else
+      redirect_to daua_step_path(step: 1)
+    end
+  end
+
   def dua
     redirect_to daua_path
   end

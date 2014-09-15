@@ -1,3 +1,5 @@
+<%= link_to 'Proceed to Step 0', daua_step_path(step: 0) %>
+
 <div class="page-header" style="text-align:center">
   <h1>Brigham and Women's Hospital <br />National Sleep Research Resource (NSRR)</h1>
 </div>
@@ -35,90 +37,94 @@ This Data Access and Use Agreement (the <strong>"DAUA"</strong>) is made by and 
 <p>
   1. Data User is either (check one):
 
-  <div class="form-group has-success">
-    <div class="col-md-10 col-md-offset-1">
-      <div class="radio">
-        <label>
-          <input type="radio" name="dateUserTypes" id="radioDataUserType1" value="option1">
-          an individual, requesting Data/Datasets under this DAUA on behalf of himself/herself as follows:
-        </label>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group has-success">
+        <div class="col-md-10 col-md-offset-1">
+          <div class="radio">
+            <label>
+              <input type="radio" name="dateUserTypes" id="radioDataUserType1" value="option1">
+              an individual, requesting Data/Datasets under this DAUA on behalf of himself/herself as follows:
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= label :professional_title, 'Professional Title', class: 'col-md-3 control-label' %>
+        <div class="col-md-9">
+          <input type="text" name="professional_title" id="professional_title" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= label :telephone, 'Telephone', class: 'col-md-3 control-label' %>
+        <div class="col-md-9">
+          <input type="text" name="telephone" id="telephone" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= label :fax, 'Fax', class: 'col-md-3 control-label' %>
+        <div class="col-md-9">
+          <input type="text" name="fax" id="fax" class="form-control">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= label :email, 'Email', class: 'col-md-3 control-label' %>
+        <div class="col-md-9">
+          <input type="email" name="email" id="email" class="form-control">
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="form-group">
-    <%= label :professional_title, 'Professional Title', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <input type="text" name="professional_title" id="professional_title" class="form-control">
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= label :telephone, 'Telephone', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <input type="text" name="telephone" id="telephone" class="form-control">
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= label :fax, 'Fax', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <input type="text" name="fax" id="fax" class="form-control">
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= label :email, 'Email', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <input type="email" name="email" id="email" class="form-control">
-    </div>
-  </div>
-
-  <div style="text-align:center"><strong>OR</strong></div>
-
-  <div class="form-group has-success">
-    <div class="col-md-10 col-md-offset-1">
-      <div class="radio">
-        <label>
-          <input type="radio" name="dateUserTypes" id="radioDataUserType1" value="option1">
-          an organization / corporation, requesting Data/Datasets under this DAUA on behalf of itself and its employees, with a principal place of business and primary business contact as follows:
-        </label>
+    <div class="col-md-6">
+      <div class="form-group has-success">
+        <div class="col-md-10 col-md-offset-1">
+          <div class="radio">
+            <label>
+              <input type="radio" name="dateUserTypes" id="radioDataUserType1" value="option1">
+              an organization / corporation, requesting Data/Datasets under this DAUA on behalf of itself and its employees, with a principal place of business and primary business contact as follows:
+            </label>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="form-group">
-    <%= label :place_of_business, 'Principal Place of Business', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <input type="text" name="place_of_business" id="place_of_business" class="form-control">
-    </div>
-  </div>
+      <div class="form-group">
+        <%= label :place_of_business, 'Principal Place of Business', class: 'col-md-3 control-label' %>
+        <div class="col-md-9">
+          <input type="text" name="place_of_business" id="place_of_business" class="form-control">
+        </div>
+      </div>
 
-  <div class="form-group">
-    <%= label :name_title, 'Contact Name/Title', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <input type="text" name="name_title" id="name_title" class="form-control">
-    </div>
-  </div>
+      <div class="form-group">
+        <%= label :name_title, 'Contact Name/Title', class: 'col-md-3 control-label' %>
+        <div class="col-md-9">
+          <input type="text" name="name_title" id="name_title" class="form-control">
+        </div>
+      </div>
 
-  <div class="form-group">
-    <%= label :telephone, 'Telephone', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <input type="text" name="telephone" id="telephone" class="form-control">
-    </div>
-  </div>
+      <div class="form-group">
+        <%= label :telephone, 'Telephone', class: 'col-md-3 control-label' %>
+        <div class="col-md-9">
+          <input type="text" name="telephone" id="telephone" class="form-control">
+        </div>
+      </div>
 
-  <div class="form-group">
-    <%= label :fax, 'Fax', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <input type="text" name="fax" id="fax" class="form-control">
-    </div>
-  </div>
+      <div class="form-group">
+        <%= label :fax, 'Fax', class: 'col-md-3 control-label' %>
+        <div class="col-md-9">
+          <input type="text" name="fax" id="fax" class="form-control">
+        </div>
+      </div>
 
-  <div class="form-group">
-    <%= label :email, 'Email', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <input type="email" name="email" id="email" class="form-control">
+      <div class="form-group">
+        <%= label :email, 'Email', class: 'col-md-3 control-label' %>
+        <div class="col-md-9">
+          <input type="email" name="email" id="email" class="form-control">
+        </div>
+      </div>
     </div>
   </div>
 </p>
@@ -302,13 +308,45 @@ DATA USER
     </div>
   </div>
 
-Please attach evidence of IRB review.
-It is expected the document attached shows the IRB has either a) performed a review of the project and issued an approval, or b) declared that the research project is exempt from review.
+<hr class="soften" />
 
-  <div class="form-group">
-    <%= label :agreement, 'dua', 'Attach Signed DAUA (PDF)', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <%= file_field_tag 'agreement[dua]', class: 'form-control' %>
+<p class="lead">
+  Please attach evidence of IRB review.
+  It is expected the document attached shows the IRB has either a) performed a review of the project and issued an approval, or b) declared that the research project is exempt from review.
+</p>
+
+<p class="lead">
+  In addition to completing and executing the NSRR Data Access and Use Agreement for the research project/specific purpose identified in your request, you will also need to submit evidence of  IRB/Ethics Committee review of your project to ensure the data will be used for appropriate research purposes and to ensure data security and appropriate handling of the data at the users site. This IRB review can be obtained locally and submitted with the DAUA, or by completion of the on-line request form if you would like to apply for NSRR IRB review of your project.
+</p>
+
+  <div class="row">
+    <div class="col-sm-6">
+      <div class="panel panel-info panel-hover">
+        <div class="panel-heading">
+          Option 1 (Faster)
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <%= label :agreement, 'irb_evidence', 'Evidence of IRB review (PDF)', class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= file_field_tag 'agreement[irb_evidence]', class: 'form-control' %>
+              <%= link_to "<span class='glyphicon glyphicon-link'></span> IRB Assistance Template for Evidence of IRB Review".html_safe, irb_assistance_template_path, target: '_blank' %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="panel panel-info panel-hover">
+        <div class="panel-heading">
+          Option 2 (Slower)
+        </div>
+        <div class="panel-body">
+          I don't have IRB Review, check to have your request reviewed by our IRB. <strong>Please allow 3 to 4 weeks for review.</strong>
+
+          Select this to fill out the on-line request form if you would like to apply for NSRR IRB review of your project.
+        </div>
+      </div>
     </div>
   </div>
 
