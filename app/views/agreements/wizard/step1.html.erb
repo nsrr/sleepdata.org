@@ -4,16 +4,32 @@
 
 <hr class="divider-md" />
 
-<%= form_tag upload_daua_path, method: :post, class: 'form-horizontal' do |f| %>
+<% url = @agreement.new_record? ? create_step_agreements_path : update_step_agreement_path(@agreement) %>
+<% method = @agreement.new_record? ? :post : :patch %>
+<%= form_for @agreement, url: url, method: method, html: { class: 'form-horizontal', id: 'create_step_form' } do |f| %>
+  <% if @agreement.errors.any? %>
+    <div id="error_explanation" class="bs-callout bs-callout-danger">
+      <h4><%= pluralize(@agreement.errors.count, "error") %> prohibited this step from being saved</h4>
+
+      <ul>
+      <% @agreement.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= hidden_field_tag "step", @step %>
+  <%= hidden_field_tag "agreement[current_step]", @step %>
 
   <p class="lead-paragraph">
     This Data Access and Use Agreement (the <strong>"DAUA"</strong>) is made by and between The Brigham and Women's Hospital, Inc., through its Division of Sleep Medicine (<strong>"BWH"</strong>) and
   </p>
 
-  <div class="form-group has-success" style="margin-top: 20px;margin-bottom: 20px;">
+  <div class="form-group" style="margin-top: 20px;margin-bottom: 20px;">
     <div class="col-md-10 col-md-offset-1">
       <div class="input-group">
-        <input type="text" class="form-control" id="data_user" placeholder="Full Name">
+        <%= f.text_field :data_user, class: 'form-control', placeholder: "Full Name" %>
         <div class="input-group-addon">(<strong>"Data User"</strong>).</div>
       </div>
     </div>
@@ -40,123 +56,167 @@
 
   <p class="lead-paragraph">
     1. Data User is either (check one):
+  </p>
 
-    <div class="row">
-      <div class="col-md-6">
-        <div class="panel panel-info panel-hover">
-          <div class="panel-heading">
-            Individual
-          </div>
-          <div class="panel-body">
-            <div class="form-group has-success">
-              <div class="col-md-10 col-md-offset-1">
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="dateUserTypes" id="radioDataUserType1" value="option1">
-                    an individual, requesting Data/Datasets under this DAUA on behalf of himself/herself as follows:
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <%= label :professional_title, 'Professional Title', class: 'col-md-3 control-label' %>
-              <div class="col-md-9">
-                <input type="text" name="professional_title" id="professional_title" class="form-control">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <%= label :telephone, 'Telephone', class: 'col-md-3 control-label' %>
-              <div class="col-md-9">
-                <input type="text" name="telephone" id="telephone" class="form-control">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <%= label :fax, 'Fax', class: 'col-md-3 control-label' %>
-              <div class="col-md-9">
-                <input type="text" name="fax" id="fax" class="form-control">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <%= label :email, 'Email', class: 'col-md-3 control-label' %>
-              <div class="col-md-9">
-                <input type="email" name="email" id="email" class="form-control">
-              </div>
-            </div>
-          </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-info panel-hover" data-object="select_radio_button" data-target="#agreement_data_user_type_individual">
+        <div class="panel-heading">
+          Individual
         </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="panel panel-info panel-hover">
-          <div class="panel-heading">
-            Organization / Corporation
-          </div>
-          <div class="panel-body">
-            <div class="form-group has-success">
-              <div class="col-md-10 col-md-offset-1">
-                <div class="radio">
-                  <label>
-                    <input type="radio" name="dateUserTypes" id="radioDataUserType1" value="option1">
-                    an organization / corporation, requesting Data/Datasets under this DAUA on behalf of itself and its employees, with a principal place of business and primary business contact as follows:
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <%= label :place_of_business, 'Principal Place of Business', class: 'col-md-3 control-label' %>
-              <div class="col-md-9">
-                <input type="text" name="place_of_business" id="place_of_business" class="form-control">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <%= label :name_title, 'Contact Name/Title', class: 'col-md-3 control-label' %>
-              <div class="col-md-9">
-                <input type="text" name="name_title" id="name_title" class="form-control">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <%= label :telephone, 'Telephone', class: 'col-md-3 control-label' %>
-              <div class="col-md-9">
-                <input type="text" name="telephone" id="telephone" class="form-control">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <%= label :fax, 'Fax', class: 'col-md-3 control-label' %>
-              <div class="col-md-9">
-                <input type="text" name="fax" id="fax" class="form-control">
-              </div>
-            </div>
-
-            <div class="form-group">
-              <%= label :email, 'Email', class: 'col-md-3 control-label' %>
-              <div class="col-md-9">
-                <input type="email" name="email" id="email" class="form-control">
+        <div class="panel-body">
+          <div class="form-group" style="height:90px">
+            <div class="col-md-9 col-md-offset-3">
+              <div class="radio">
+                <label>
+                  <%= f.radio_button :data_user_type, 'individual' %>
+                  An individual, requesting Data/Datasets under this DAUA on behalf of himself/herself as follows:
+                </label>
               </div>
             </div>
           </div>
+
+          <div class="form-group">
+            <%= f.label :individual_institution_name, "Institution", class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_field :individual_institution_name, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= label :individual_name, 'Full Name', class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <input type="text" name="individual_name" id="individual_name" class="form-control" disabled="disabled" value="<%= current_user.name %>">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :individual_title, "Professional Title", class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_field :individual_title, class: 'form-control' %>
+              Ex: Titles can be...
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :individual_telephone, "Telephone", class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_field :individual_telephone, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :individual_fax, "Fax", class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_field :individual_fax, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= label :individual_email, "Email", class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <input type="email" name="individual_email" id="individual_email" class="form-control" disabled="disabled" value="<%= current_user.email %>">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :individual_address, "Address", class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_area :individual_address, rows: 5, class: 'form-control' %>
+            </div>
+          </div>
+
+
         </div>
       </div>
     </div>
-  </p>
+
+    <div class="col-md-6">
+      <div class="panel panel-info panel-hover" data-object="select_radio_button" data-target="#agreement_data_user_type_organization">
+        <div class="panel-heading">
+          Organization / Corporation
+        </div>
+
+        <div class="panel-body">
+
+          <div class="form-group" style="height:90px">
+            <div class="col-md-9 col-md-offset-3">
+              <div class="radio">
+                <label>
+                  <%= f.radio_button :data_user_type, 'organization' %>
+                  An organization / corporation, requesting Data/Datasets under this DAUA on behalf of itself and its employees, with a principal place of business and primary business contact as follows:
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :organization_business_name, "Organization", class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_field :organization_business_name, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :organization_contact_name, "Contact Name", class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_field :organization_contact_name, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :organization_contact_title, "Contact Title", class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_field :organization_contact_title, class: 'form-control' %>
+              Ex: Titles can be...
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :organization_contact_telephone, "Contact Tel", class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_field :organization_contact_telephone, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :organization_contact_fax, "Contact Fax", class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_field :organization_contact_fax, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :organization_contact_email, "Contact Email", class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.email_field :organization_contact_email, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :organization_address, "Organization Address", class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_area :organization_address, rows: 5, class: 'form-control' %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider-md" />
+
+  <div class="row">
+    <div class="col-xs-6">
+      <%= link_to "<span class='glyphicon glyphicon-chevron-left'></span> Back to Overview".html_safe, triage_path, class: 'btn btn-lg btn-default btn-block' %>
+    </div>
+    <div class="col-xs-6">
+      <%= link_to "<span class='glyphicon glyphicon-floppy-disk'></span> Save and Continue".html_safe, '#', data: { object: 'submit', target: '#create_step_form' }, class: 'btn btn-lg btn-primary btn-block' %>
+    </div>
+  </div>
 <% end %>
 
-<hr class="divider-md" />
 
-<div class="row">
-  <div class="col-xs-6">
-    <%= link_to "<span class='glyphicon glyphicon-chevron-left'></span> Back to Overview".html_safe, triage_path, class: 'btn btn-lg btn-default btn-block' %>
-  </div>
-  <div class="col-xs-6">
-    <%= link_to "<span class='glyphicon glyphicon-floppy-disk'></span> Save and Continue".html_safe, daua_step_path(step: @step+1), class: 'btn btn-lg btn-primary btn-block' %>
-  </div>
-</div>
 
 <% @footer_img = 'footer.jpg' %>

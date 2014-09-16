@@ -14,9 +14,15 @@ Rails.application.routes.draw do
 
 
   resources :agreements do
+    collection do
+      get :new_step
+      post :create_step
+    end
     member do
       get :download
       get :review
+      get :step
+      patch :update_step
     end
   end
 

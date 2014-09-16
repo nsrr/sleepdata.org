@@ -4,7 +4,22 @@
 
 <hr class="divider-md" />
 
-<%= form_tag upload_daua_path, method: :post, class: 'form-horizontal' do |f| %>
+<%= form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, html: { class: 'form-horizontal', id: 'update_step_form' } do |f| %>
+  <% if @agreement.errors.any? %>
+    <div id="error_explanation" class="bs-callout bs-callout-danger">
+      <h4><%= pluralize(@agreement.errors.count, "error") %> prohibited this step from being saved</h4>
+
+      <ul>
+      <% @agreement.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= hidden_field_tag "step", @step %>
+  <%= hidden_field_tag "agreement[current_step]", @step %>
+
   <p class="lead-paragraph">
     3. Any Data/Datasets provided to Data User under this DAUA will be De-Identified within the meaning of the Health Insurance Portability and Accountability Act of 1996 privacy regulations (<strong>"HIPAA"</strong>).  Data User agrees that Data User will not attempt to identify or re-identify any individual patient/research subject or group of patients/research subjects from the Data / Datasets.
   </p>
@@ -44,17 +59,27 @@
   <p class="lead-paragraph">
     12. Data User shall maintain insurance sufficient to meet its obligations under Section 11 of this DAUA.
   </p>
+
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <div class="checkbox">
+        <label>
+          <%= f.check_box :has_read_step3 %> I have read and fully understand and accept the above terms and conditions.
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider-md" />
+
+  <div class="row">
+    <div class="col-xs-6">
+      <%= link_to "<span class='glyphicon glyphicon-chevron-left'></span> Back to Previous Step".html_safe, step_agreement_path(@agreement, step: @step-1), class: 'btn btn-lg btn-default btn-block' %>
+    </div>
+    <div class="col-xs-6">
+      <%= link_to "<span class='glyphicon glyphicon-floppy-disk'></span> Save and Continue".html_safe, '#', data: { object: 'submit', target: '#update_step_form' }, class: 'btn btn-lg btn-primary btn-block' %>
+    </div>
+  </div>
 <% end %>
-
-<hr class="divider-md" />
-
-<div class="row">
-  <div class="col-xs-6">
-    <%= link_to "<span class='glyphicon glyphicon-chevron-left'></span> Back to Previous Step".html_safe, daua_step_path(step: @step-1), class: 'btn btn-lg btn-default btn-block' %>
-  </div>
-  <div class="col-xs-6">
-    <%= link_to "<span class='glyphicon glyphicon-floppy-disk'></span> Save and Continue".html_safe, daua_step_path(step: @step+1), class: 'btn btn-lg btn-primary btn-block' %>
-  </div>
-</div>
 
 <% @footer_img = 'footer.jpg' %>

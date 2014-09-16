@@ -4,84 +4,59 @@
 
 <hr class="divider-md" />
 
-<%= form_tag upload_daua_path, method: :post, class: 'form-horizontal', data: { object: 'signature' } do |f| %>
-  <p class="lead-paragraph">
-  Agreed to by:
+<%= form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, html: { class: 'form-horizontal', id: 'update_step_form', data: { object: 'signature' } } do |f| %>
+  <% if @agreement.errors.any? %>
+    <div id="error_explanation" class="bs-callout bs-callout-danger">
+      <h4><%= pluralize(@agreement.errors.count, "error") %> prohibited this step from being saved</h4>
 
-  DATA USER
-  </p>
+      <ul>
+      <% @agreement.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= hidden_field_tag "step", @step %>
+  <%= hidden_field_tag "agreement[current_step]", @step %>
+
+  <p class="lead-paragraph">Agreed to by: DATA USER</p>
+
   <div class="form-group">
-    <%= label :signature, 'Signature', class: 'col-md-3 control-label' %>
+    <%= f.label :signature, nil, class: 'col-md-3 control-label' %>
     <div class="col-md-9" style="position:relative">
       <%#= hidden_field_tag :signature, '[{"lx":32,"ly":11,"mx":32,"my":10},{"lx":32,"ly":12,"mx":32,"my":11},{"lx":32,"ly":15,"mx":32,"my":12},{"lx":32,"ly":16,"mx":32,"my":15},{"lx":32,"ly":18,"mx":32,"my":16},{"lx":32,"ly":21,"mx":32,"my":18},{"lx":32,"ly":25,"mx":32,"my":21},{"lx":32,"ly":27,"mx":32,"my":25},{"lx":32,"ly":29,"mx":32,"my":27},{"lx":32,"ly":30,"mx":32,"my":29},{"lx":32,"ly":31,"mx":32,"my":30},{"lx":34,"ly":32,"mx":32,"my":31},{"lx":36,"ly":32,"mx":34,"my":32},{"lx":42,"ly":30,"mx":36,"my":32},{"lx":49,"ly":26,"mx":42,"my":30},{"lx":58,"ly":20,"mx":49,"my":26},{"lx":70,"ly":14,"mx":58,"my":20},{"lx":74,"ly":12,"mx":70,"my":14},{"lx":73,"ly":16,"mx":74,"my":12},{"lx":70,"ly":23,"mx":73,"my":16},{"lx":69,"ly":30,"mx":70,"my":23},{"lx":69,"ly":33,"mx":69,"my":30},{"lx":71,"ly":35,"mx":69,"my":33},{"lx":77,"ly":36,"mx":71,"my":35},{"lx":90,"ly":36,"mx":77,"my":36},{"lx":111,"ly":32,"mx":90,"my":36},{"lx":126,"ly":25,"mx":111,"my":32},{"lx":131,"ly":22,"mx":126,"my":25},{"lx":131,"ly":21,"mx":131,"my":22},{"lx":131,"ly":22,"mx":131,"my":21},{"lx":128,"ly":27,"mx":131,"my":22},{"lx":128,"ly":30,"mx":128,"my":27},{"lx":136,"ly":37,"mx":128,"my":30},{"lx":154,"ly":43,"mx":136,"my":37},{"lx":171,"ly":45,"mx":154,"my":43},{"lx":194,"ly":43,"mx":171,"my":45},{"lx":207,"ly":39,"mx":194,"my":43},{"lx":211,"ly":36,"mx":207,"my":39},{"lx":212,"ly":35,"mx":211,"my":36}]', class: 'output' %>
-      <%= hidden_field_tag :signature, nil, class: 'output' %>
+      <%= f.hidden_field :signature, class: 'output' %>
       <canvas class="pad" width="300" height="55"></canvas>
       <span class="clearButton" style="position: absolute; margin-top: 12.5px; margin-left: 10px;"><%= link_to 'Clear', '#clear', class: 'btn btn-default', tabindex: '-1' %></span>
-      <p class="lead">
-      Signature of Data User (or Data User's Duly Authorized Representative, if an organization)
-      </p>
+      <p class="lead">Signature of Data User (or Data User's Duly Authorized Representative, if an organization)</p>
     </div>
   </div>
 
   <div class="form-group">
-    <%= label :printed_name, 'By (print name)', class: 'col-md-3 control-label' %>
+    <%= f.label :signature_print, 'By (print name)', class: 'col-md-3 control-label' %>
     <div class="col-md-9">
-      <input type="text" name="printed_name" id="printed_name" class="form-control">
+      <%= f.text_field :signature_print, class: 'form-control' %>
     </div>
   </div>
 
   <div class="form-group">
-    <%= label :title, 'Title', class: 'col-md-3 control-label' %>
+    <%= f.label :signature_date, 'Date Signed', class: 'col-md-3 control-label' %>
     <div class="col-md-9">
-      <input type="text" name="title" id="title" class="form-control">
+      <%= f.text_field :signature_date, class: 'datepicker form-control', value: @agreement.signature_date ? @agreement.signature_date.strftime('%m/%d/%Y') : '' %>
     </div>
   </div>
 
-  <div class="form-group">
-    <%= label :address, 'Address', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <input type="text" name="address" id="address" class="form-control">
-    </div>
-  </div>
+  <hr class="divider-md" />
 
-  <div class="form-group">
-    <%= label :email, 'Email', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <input type="email" name="email" id="email" class="form-control">
+  <div class="row">
+    <div class="col-xs-6">
+      <%= link_to "<span class='glyphicon glyphicon-chevron-left'></span> Back to Previous Step".html_safe, step_agreement_path(@agreement, step: @step-1), class: 'btn btn-lg btn-default btn-block' %>
     </div>
-  </div>
-
-  <div class="form-group">
-    <%= label :telephone, 'Telephone', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <input type="text" name="telephone" id="telephone" class="form-control">
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= label :fax, 'Fax', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <input type="text" name="fax" id="fax" class="form-control">
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= label :date_signed, 'Date Signed', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <%= text_field_tag :date_signed, '', class: 'datepicker form-control' %>
+    <div class="col-xs-6">
+      <%= link_to "<span class='glyphicon glyphicon-floppy-disk'></span> Save and Continue".html_safe, '#', data: { object: 'submit', target: '#update_step_form' }, class: 'btn btn-lg btn-primary btn-block' %>
     </div>
   </div>
 <% end %>
-
-<hr class="divider-md" />
-
-<div class="row">
-  <div class="col-xs-6">
-    <%= link_to "<span class='glyphicon glyphicon-chevron-left'></span> Back to Previous Step".html_safe, daua_step_path(step: @step-1), class: 'btn btn-lg btn-default btn-block' %>
-  </div>
-  <div class="col-xs-6">
-    <%= link_to "<span class='glyphicon glyphicon-floppy-disk'></span> Save and Continue".html_safe, daua_step_path(step: @step+1), class: 'btn btn-lg btn-primary btn-block' %>
-  </div>
-</div>
 
 <% @footer_img = 'footer.jpg' %>

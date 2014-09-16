@@ -10,7 +10,8 @@
       <div class="panel <%= @step <= index+1 ? (@step == index+1 ? 'panel-info' : 'panel-default') : 'panel-primary' %>">
         <div class="panel-heading" style="overflow-x:hidden">
           <h3 class="panel-title" style="text-align:center;white-space:nowrap">
-            <%= link_to daua_step_path(step: index+1), rel: 'tooltip', title: label, data: { container: 'body', placement: 'bottom' } do %>
+            <% url = @agreement.new_record? ? '#' : step_agreement_path(@agreement, step: index+1) %>
+            <%= link_to url, rel: 'tooltip', title: label, data: { object: "#{'suppress-click' if @agreement.new_record?}", container: 'body', placement: 'bottom' } do %>
               <span class="glyphicon glyphicon-<%= icon %>"></span> <%= label %>
             <% end %>
           </h3>

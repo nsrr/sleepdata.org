@@ -1,8 +1,9 @@
 class AgreementsController < ApplicationController
-  before_action :authenticate_user!,          except: [ :daua, :dua, :triage_student, :triage_researcher, :triage_company ] #  :triage
-  before_action :check_system_admin,          except: [ :daua, :dua, :triage_student, :triage_researcher, :triage_company, :submit, :resubmit ] #  :triage
-  before_action :set_agreement,               only: [ :show, :destroy, :download, :review, :update ]
-  before_action :redirect_without_agreement,  only: [ :show, :destroy, :download, :review, :update ]
+  before_action :authenticate_user!,          except: [ :daua, :dua ]
+  before_action :check_system_admin,          except: [ :daua, :dua, :submit, :resubmit, :step, :update_step ]
+  before_action :set_step,                    only: [ :new_step, :create_step, :step, :update_step ]
+  before_action :set_agreement,               only: [ :show, :destroy, :download, :review, :step, :update, :update_step ]
+  before_action :redirect_without_agreement,  only: [ :show, :destroy, :download, :review, :step, :update, :update_step ]
 
   def step
     if params[:step].to_i > 0 and params[:step].to_i < 10
@@ -10,6 +11,35 @@ class AgreementsController < ApplicationController
       render "agreements/wizard/step#{@step}"
     else
       redirect_to daua_step_path(step: 1)
+    end
+  end
+
+  def new_step
+    @agreement = current_user.agreements.new
+    render "agreements/wizard/step#{@step}"
+  end
+
+  # POST /agreements
+  def create_step
+    @agreement = current_user.agreements.new(step_params)
+
+    if @agreement.save
+      # @agreement.add_event!('Data Access and Use Agreement submitted.', current_user, 'submitted')
+      # @agreement.daua_submitted
+      # redirect_to daua_path, notice: 'Agreement was successfully created.'
+      redirect_to step_agreement_path(@agreement, step: 2)
+    else
+      render "agreements/wizard/step#{@step}"
+    end
+
+  end
+
+
+  def update_step
+    if @agreement.update(step_params)
+      redirect_to step_agreement_path(@agreement, step: @agreement.current_step+1)
+    else
+      render "agreements/wizard/step#{@step}"
     end
   end
 
@@ -153,6 +183,41 @@ class AgreementsController < ApplicationController
     def daua_submission_params
       params[:agreement] ||= { dua: '', remove_dua: '1' }
       params.require(:agreement).permit(:dua, :remove_dua)
+    end
+
+    def set_step
+      if params[:step].to_i > 0 and params[:step].to_i < 10
+        @step = params[:step].to_i
+      else
+        @step = 1
+      end
+    end
+
+    def step_params
+      params[:agreement] ||= {}
+      params[:agreement][:signature_date] = parse_date(params[:agreement][:signature_date]) if params[:agreement].key?(:signature_date)
+
+      params.require(:agreement).permit(
+        :current_step,
+        # Step One
+          :data_user, :data_user_type,
+        #   Individual
+          :individual_institution_name, :individual_title, :individual_telephone, :individual_fax, :individual_address,
+        #   Organization
+          :organization_business_name, :organization_contact_name, :organization_contact_title, :organization_contact_telephone, :organization_contact_fax, :organization_contact_email, :organization_address,
+        # Step Two
+          :specific_purpose,
+        # Step Three
+          :has_read_step3,
+        # Step Four
+          :posting_permission,
+        # Step Five
+          :has_read_step5,
+        # Step Six
+          :signature, :signature_print, :signature_date,
+        # Step Seven
+          :irb_evidence_type, :irb
+      )
     end
 
 end

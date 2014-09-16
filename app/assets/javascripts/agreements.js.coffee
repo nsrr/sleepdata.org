@@ -1,6 +1,12 @@
 
 @agreementsReady = () ->
-  sig = $('#signature').val() if $('#signature').val()
+  sig = $('#agreement_signature').val() if $('#agreement_signature').val()
   if $("[data-object~='signature']").length > 0
-    $("[data-object~='signature']").signaturePad( drawOnly: true, lineWidth: 0 ).regenerate(sig)
+    $("[data-object~='signature']").signaturePad( drawOnly: true, lineWidth: 0, validateFields: false ).regenerate(sig)
   false
+
+$(document)
+  .on('click', "[data-object~='select_radio_button']", () ->
+    $($(this).data('target')).prop('checked', true)
+    # false
+  )
