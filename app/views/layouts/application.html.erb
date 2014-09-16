@@ -24,6 +24,10 @@
     </nav>
 
     <div class="container">
+      <% if flash.present? %>
+        <% flash.each do |type, message| %><% message %><% end %>
+      <% end %>
+
       <%= yield %>
     </div>
 
