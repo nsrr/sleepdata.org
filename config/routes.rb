@@ -12,11 +12,11 @@ Rails.application.routes.draw do
     end
   end
 
-
   resources :agreements do
     collection do
       get :new_step
       post :create_step
+      get :submissions
     end
     member do
       get :download
@@ -100,14 +100,14 @@ Rails.application.routes.draw do
   get '/daua' => 'agreements#daua', as: :daua
   post '/daua' => 'agreements#submit', as: :upload_daua
   patch '/daua' => 'agreements#resubmit', as: :reupload_daua
-  get '/triage' => 'agreements#triage', as: :triage
-  get '/triage_student' => 'agreements#triage_student', as: :triage_student
-  get '/triage_researcher' => 'agreements#triage_researcher', as: :triage_researcher
-  get '/triage_company' => 'agreements#triage_company', as: :triage_company
-  get '/daua/step/*step' => 'agreements#step', as: :daua_step
-  get '/daua/irb_assistance_template' => 'agreements#irb_assistance_template', as: :irb_assistance_template
   get '/settings' => 'users#settings', as: :settings
   patch '/settings' => 'users#update_settings', as: :update_settings
+
+  get '/daua/irb_assistance_template' => 'agreements#irb_assistance_template', as: :irb_assistance_template
+
+  get '/submissions' => 'agreements#submissions', as: :submissions
+  get '/submissions/welcome' => 'agreements#welcome', as: :submissions_welcome
+  get '/submissions/start' => 'agreements#new_step', as: :submissions_start
 
   root to: 'welcome#index'
 

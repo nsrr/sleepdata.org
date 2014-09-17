@@ -1,4 +1,4 @@
-<%= render partial: 'agreements/wizard/progress' %>
+<%= render partial: 'agreements/wizard/daua_progress' %>
 
 <h2 style="text-align:center">DATA ACCESS AND USE AGREEMENT</h2>
 
@@ -208,11 +208,14 @@
   <hr class="divider-md" />
 
   <div class="row">
-    <div class="col-xs-6">
-      <%= link_to "<span class='glyphicon glyphicon-chevron-left'></span> Back to Overview".html_safe, triage_path, class: 'btn btn-lg btn-default btn-block' %>
+    <div class="col-xs-4">
+      <%= link_to "<span class='glyphicon glyphicon-chevron-left'></span> Back to my Submissions".html_safe, submissions_path, class: 'btn btn-lg btn-default btn-block' %>
     </div>
-    <div class="col-xs-6">
-      <%= link_to "<span class='glyphicon glyphicon-floppy-disk'></span> Save and Continue".html_safe, '#', data: { object: 'submit', target: '#create_step_form' }, class: 'btn btn-lg btn-primary btn-block' %>
+    <div class="col-xs-4">
+      <%= link_to "<span class='glyphicon glyphicon-floppy-disk'></span> Save Draft".html_safe, '#', data: { object: 'submit-draft', target: '#create_step_form' }, class: 'btn btn-lg btn-warning btn-block' %>
+    </div>
+    <div class="col-xs-4">
+      <%= link_to "Save and Continue <span class='glyphicon glyphicon-arrow-right'></span>".html_safe, '#', data: { object: 'submit', target: '#create_step_form' }, class: 'btn btn-lg btn-primary btn-block' %>
     </div>
   </div>
 <% end %>

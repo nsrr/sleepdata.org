@@ -1,21 +1,27 @@
 class AgreementsController < ApplicationController
   before_action :authenticate_user!,          except: [ :daua, :dua ]
-  before_action :check_system_admin,          except: [ :daua, :dua, :submit, :resubmit, :step, :update_step ]
-  before_action :set_step,                    only: [ :new_step, :create_step, :step, :update_step ]
-  before_action :set_agreement,               only: [ :show, :destroy, :download, :review, :step, :update, :update_step ]
+  before_action :check_system_admin,          except: [ :daua, :dua, :submit, :resubmit, :step, :update_step, :submissions, :welcome ]
+  before_action :set_submission,              only: [ :step, :update_step ]
+  before_action :set_agreement,               only: [ :show, :destroy, :download, :review, :update ]
   before_action :redirect_without_agreement,  only: [ :show, :destroy, :download, :review, :step, :update, :update_step ]
+  before_action :set_step,                    only: [ :create_step, :step, :update_step ]
+
+  def submissions
+    @agreements = current_user.agreements.page(params[:page]).per( 40 )
+    redirect_to submissions_welcome_path if @agreements.count == 0
+  end
 
   def step
-    if params[:step].to_i > 0 and params[:step].to_i < 10
-      @step = params[:step].to_i
+    if @step and @step > 0 and @step < 10
       render "agreements/wizard/step#{@step}"
     else
-      redirect_to daua_step_path(step: 1)
+      redirect_to step_agreement_path(@agreement, step: 1)
     end
   end
 
   def new_step
-    @agreement = current_user.agreements.new
+    @step = 1
+    @agreement = current_user.agreements.new( data_user: current_user.name )
     render "agreements/wizard/step#{@step}"
   end
 
@@ -38,8 +44,10 @@ class AgreementsController < ApplicationController
   def update_step
     if @agreement.update(step_params)
       redirect_to step_agreement_path(@agreement, step: @agreement.current_step+1)
-    else
+    elsif @step
       render "agreements/wizard/step#{@step}"
+    else
+      redirect_to submissions_path
     end
   end
 
@@ -172,6 +180,10 @@ class AgreementsController < ApplicationController
       @agreement = Agreement.current.find_by_id(params[:id])
     end
 
+    def set_submission
+      @agreement = current_user.agreements.find_by_id(params[:id])
+    end
+
     def redirect_without_agreement
       empty_response_or_root_path( current_user && current_user.system_admin? ? agreements_path : daua_path ) unless @agreement
     end
@@ -186,11 +198,7 @@ class AgreementsController < ApplicationController
     end
 
     def set_step
-      if params[:step].to_i > 0 and params[:step].to_i < 10
-        @step = params[:step].to_i
-      else
-        @step = 1
-      end
+      @step = params[:step].to_i if params[:step].to_i > 0 and params[:step].to_i < 10
     end
 
     def step_params

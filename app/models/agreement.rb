@@ -125,6 +125,12 @@ class Agreement < ActiveRecord::Base
     end
   end
 
+  def step_valid?(step)
+    dup_agreement = self.dup
+    dup_agreement.current_step = step
+    dup_agreement.valid?
+  end
+
   protected
 
   def step1?

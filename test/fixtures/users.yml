@@ -74,3 +74,10 @@ editor_mixed:
   last_name: Mixed
   email: editor_mixed@example.com
   encrypted_password: ""
+
+# A valid user with no submissions in place
+valid_with_no_submissions:
+  first_name: Valid
+  last_name: Submissionless
+  email: valid_submissionless@example.com
+  encrypted_password: ""

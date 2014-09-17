@@ -1,0 +1,22 @@
+<% steps = [["DAUA", "edit"], ["Evidence of IRB Review", "file"], ["Application for Access", "edit"]] %>
+
+<div class="page-header" style="text-align:center">
+  <h1>Brigham and Women's Hospital <br />National Sleep Research Resource (NSRR)</h1>
+</div>
+
+<div class="row" style="margin-top: 20px;">
+  <% steps.each_with_index do |(label, icon), index| %>
+    <div class="col-xs-12 col-sm-4 col-lg-4">
+      <div class="panel <%= @step <= index+6 ? (@step == index+6 ? 'panel-info' : 'panel-default') : 'panel-primary' %>">
+        <div class="panel-heading" style="overflow-x:hidden">
+          <h3 class="panel-title" style="text-align:center;white-space:nowrap">
+            <% url = @agreement.new_record? ? '#' : step_agreement_path(@agreement, step: index+6) %>
+            <%= link_to url, rel: 'tooltip', title: label, data: { object: "#{'suppress-click' if @agreement.new_record?}", container: 'body', placement: 'bottom' } do %>
+              <span class="glyphicon glyphicon-<%= icon %>"></span> <%= label %>
+            <% end %>
+          </h3>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

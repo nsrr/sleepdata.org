@@ -3,8 +3,118 @@ require 'test_helper'
 class AgreementsControllerTest < ActionController::TestCase
   setup do
     @agreement = agreements(:one)
-
   end
+
+  test "should get submissions for valid user" do
+    login(users(:valid))
+    get :submissions
+
+    assert_not_nil assigns(:agreements)
+    assert_response :success
+  end
+
+  test "should get step1 when no step is given" do
+    login(users(:valid))
+    get :step, id: @agreement
+    assert_not_nil assigns(:agreement)
+    assert_redirected_to step_agreement_path(assigns(:agreement), step: 1)
+  end
+
+  test "should get step1 of agreement" do
+    login(users(:valid))
+    get :step, id: @agreement, step: 1
+    assert_not_nil assigns(:agreement)
+    assert_template 'wizard/step1'
+    assert_response :success
+  end
+
+  test "should get step2 of agreement" do
+    login(users(:valid))
+    get :step, id: @agreement, step: 2
+    assert_not_nil assigns(:agreement)
+    assert_template 'wizard/step2'
+    assert_response :success
+  end
+
+  test "should get step3 of agreement" do
+    login(users(:valid))
+    get :step, id: @agreement, step: 3
+    assert_not_nil assigns(:agreement)
+    assert_template 'wizard/step3'
+    assert_response :success
+  end
+
+  test "should get step4 of agreement" do
+    login(users(:valid))
+    get :step, id: @agreement, step: 4
+    assert_not_nil assigns(:agreement)
+    assert_template 'wizard/step4'
+    assert_response :success
+  end
+
+
+  test "should get step5 of agreement" do
+    login(users(:valid))
+    get :step, id: @agreement, step: 5
+    assert_not_nil assigns(:agreement)
+    assert_template 'wizard/step5'
+    assert_response :success
+  end
+
+  test "should get step6 of agreement" do
+    login(users(:valid))
+    get :step, id: @agreement, step: 6
+    assert_not_nil assigns(:agreement)
+    assert_template 'wizard/step6'
+    assert_response :success
+  end
+  test "should get step7 of agreement" do
+    login(users(:valid))
+    get :step, id: @agreement, step: 7
+    assert_not_nil assigns(:agreement)
+    assert_template 'wizard/step7'
+    assert_response :success
+  end
+  test "should get step8 of agreement" do
+    login(users(:valid))
+    get :step, id: @agreement, step: 8
+    assert_not_nil assigns(:agreement)
+    assert_template 'wizard/step8'
+    assert_response :success
+  end
+  test "should get step9 of agreement" do
+    login(users(:valid))
+    get :step, id: @agreement, step: 9
+    assert_not_nil assigns(:agreement)
+    assert_template 'wizard/step9'
+    assert_response :success
+  end
+
+
+  test "should not get submissions for anonymous user" do
+    get :submissions
+    assert_nil assigns(:agreements)
+    assert_redirected_to new_user_session_path
+  end
+
+  test "should redirect a user with no submissions to the submissions welcome splash page" do
+    login(users(:valid_with_no_submissions))
+
+    get :submissions
+
+    assert_not_nil assigns(:agreements)
+    assert_equal 0, assigns(:agreements).count
+
+    assert_redirected_to submissions_welcome_path
+  end
+
+  test "should get submissions welcome for valid user" do
+    login(users(:valid))
+    get :welcome
+    assert_response :success
+  end
+
+  # Older Agreements
 
   test "should get sign in for daua" do
     get :daua

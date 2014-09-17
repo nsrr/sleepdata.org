@@ -1,4 +1,4 @@
-<%= render partial: 'agreements/wizard/progress' %>
+<%= render partial: 'agreements/wizard/daua_progress' %>
 
 <h2 style="text-align:center">SIGNATURE</h2>
 
@@ -19,8 +19,6 @@
 
   <%= hidden_field_tag "step", @step %>
   <%= hidden_field_tag "agreement[current_step]", @step %>
-
-  <p class="lead-paragraph">Agreed to by: DATA USER</p>
 
   <div class="form-group">
     <%= f.label :signature, nil, class: 'col-md-3 control-label' %>

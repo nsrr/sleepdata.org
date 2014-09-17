@@ -1,0 +1,40 @@
+<div class="page-header">
+  <h1>My Submissions</h1>
+  <%= link_to 'Start A New Submission', submissions_welcome_path, class: 'btn btn-primary' %>
+</div>
+
+
+<%= render partial: 'contour/layouts/per_page', locals: { per_page: 40, object_count: @agreements.total_count } %>
+
+<div style="clear:both">&nbsp;</div>
+
+<% @agreements.order( id: :desc ).each do |agreement| %>
+  <div class="jumbotron welcome-<%= cycle 'odd-color', 'even' %>" style="position:relative;border: 0px solid black">
+    <div class="jumbotron-left-after">
+      Agreement #<%= current_user.agreements.order( :id ).pluck(:id).index(agreement.id)+1 %><%= status_helper(agreement) %>
+    </div>
+
+    <div class="jumbotron-right-bottom-after">
+      <%= link_to "<span class='glyphicon glyphicon-print'></span> Print Copy of Agreement".html_safe, '#', data: { object: 'suppress-click' } %>
+    </div>
+
+    Steps:
+    <% (1..11).each do |step| %>
+      <%= link_to step, step_agreement_path(agreement, step: step), class: "btn btn-xs btn-#{step_helper(agreement, step, agreement.current_step)}" %>
+    <% end %>
+
+    <%= link_to 'Resume', step_agreement_path(agreement, step: 1), class: 'btn btn-lg btn-primary' %>
+
+    <% if false %>
+      <div class="lead-paragraph">
+        Approval Date: <%= agreement.approval_date %>
+        Expiration Date: <%= agreement.expiration_date %>
+      </div>
+      <%= link_to 'Delete', agreement, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Agreement #{agreement.name}?" } %>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="center"><%= paginate @agreements, theme: 'contour' %></div>
+
+
