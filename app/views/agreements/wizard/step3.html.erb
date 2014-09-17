@@ -2,6 +2,8 @@
 
 <h2 style="text-align:center">DATA ACCESS AND USE AGREEMENT</h2>
 
+<%= link_to '<span class="glyphicon glyphicon-arrow-left"></span> Back to my Submissions'.html_safe, submissions_path, class: 'btn btn-default' %>
+
 <hr class="divider-md" />
 
 <%= form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, html: { class: 'form-horizontal', id: 'update_step_form' } do |f| %>
@@ -17,6 +19,7 @@
     </div>
   <% end %>
 
+  <%= hidden_field_tag "agreement[draft_mode]", nil %>
   <%= hidden_field_tag "step", @step %>
   <%= hidden_field_tag "agreement[current_step]", @step %>
 
@@ -73,10 +76,13 @@
   <hr class="divider-md" />
 
   <div class="row">
-    <div class="col-xs-6">
-      <%= link_to "<span class='glyphicon glyphicon-chevron-left'></span> Back to Previous Step".html_safe, step_agreement_path(@agreement, step: @step-1), class: 'btn btn-lg btn-default btn-block' %>
+    <div class="col-xs-4">
+      <%= link_to "<span class='glyphicon glyphicon-arrow-left'></span> Back to Previous Step".html_safe, step_agreement_path(@agreement, step: @step-1), class: 'btn btn-lg btn-default btn-block' %>
     </div>
-    <div class="col-xs-6">
+    <div class="col-xs-4">
+      <%= link_to "<span class='glyphicon glyphicon-floppy-disk'></span> Save Draft".html_safe, '#', data: { object: 'submit-draft', target: '#update_step_form' }, class: 'btn btn-lg btn-warning btn-block' %>
+    </div>
+    <div class="col-xs-4">
       <%= link_to "<span class='glyphicon glyphicon-floppy-disk'></span> Save and Continue".html_safe, '#', data: { object: 'submit', target: '#update_step_form' }, class: 'btn btn-lg btn-primary btn-block' %>
     </div>
   </div>

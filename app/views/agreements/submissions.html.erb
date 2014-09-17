@@ -19,11 +19,23 @@
     </div>
 
     Steps:
-    <% (1..11).each do |step| %>
-      <%= link_to step, step_agreement_path(agreement, step: step), class: "btn btn-xs btn-#{step_helper(agreement, step, agreement.current_step)}" %>
+    <% (1..8).each do |step| %>
+      <% if step != 1 and step > agreement.current_step %>
+        <a href="#" class="btn btn-xs btn-default" disabled="disabled" data-object="suppress-click"><%= step %></a>
+      <% else %>
+        <%= link_to step, step_agreement_path(agreement, step: step), class: "btn btn-xs btn-#{step_helper(agreement, step, agreement.current_step)}" %>
+      <% end %>
     <% end %>
 
     <%= link_to 'Resume', step_agreement_path(agreement, step: 1), class: 'btn btn-lg btn-primary' %>
+
+
+    <div class="jumbotron-right-after">
+    Datasets:
+    <% Dataset.release_scheduled.each do |dataset| %>
+      <%= link_to dataset.slug, dataset, class: 'btn btn-default btn-xs' %>
+    <% end %>
+    </div>
 
     <% if false %>
       <div class="lead-paragraph">

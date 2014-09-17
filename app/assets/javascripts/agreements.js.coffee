@@ -9,8 +9,7 @@ $(document)
     $($(this).data('target')).prop('checked', true)
   )
   .on('click', '[data-object~="submit-draft"]', () ->
-    $("#step").val('0')
-    $("#agreement_step").val('0')
+    $("#agreement_draft_mode").val('1')
     $($(this).data('target')).submit()
     false
   )

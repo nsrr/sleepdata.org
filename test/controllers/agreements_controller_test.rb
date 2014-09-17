@@ -68,6 +68,7 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_template 'wizard/step6'
     assert_response :success
   end
+
   test "should get step7 of agreement" do
     login(users(:valid))
     get :step, id: @agreement, step: 7
@@ -75,6 +76,7 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_template 'wizard/step7'
     assert_response :success
   end
+
   test "should get step8 of agreement" do
     login(users(:valid))
     get :step, id: @agreement, step: 8
@@ -82,12 +84,19 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_template 'wizard/step8'
     assert_response :success
   end
+
   test "should get step9 of agreement" do
     login(users(:valid))
     get :step, id: @agreement, step: 9
     assert_not_nil assigns(:agreement)
     assert_template 'wizard/step9'
     assert_response :success
+  end
+
+  test "should get submissions when saving as draft" do
+    login(users(:valid))
+    patch :update_step, id: @agreement, agreement: { draft_mode: '1' }
+    assert_redirected_to submissions_path
   end
 
 

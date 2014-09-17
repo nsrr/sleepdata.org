@@ -33,7 +33,11 @@ class AgreementsController < ApplicationController
       # @agreement.add_event!('Data Access and Use Agreement submitted.', current_user, 'submitted')
       # @agreement.daua_submitted
       # redirect_to daua_path, notice: 'Agreement was successfully created.'
-      redirect_to step_agreement_path(@agreement, step: 2)
+      if @agreement.draft_mode?
+        redirect_to submissions_path
+      else
+        redirect_to step_agreement_path(@agreement, step: 2)
+      end
     else
       render "agreements/wizard/step#{@step}"
     end
@@ -43,7 +47,11 @@ class AgreementsController < ApplicationController
 
   def update_step
     if @agreement.update(step_params)
-      redirect_to step_agreement_path(@agreement, step: @agreement.current_step+1)
+      if @agreement.draft_mode?
+        redirect_to submissions_path
+      else
+        redirect_to step_agreement_path(@agreement, step: @agreement.current_step+1)
+      end
     elsif @step
       render "agreements/wizard/step#{@step}"
     else
@@ -206,7 +214,7 @@ class AgreementsController < ApplicationController
       params[:agreement][:signature_date] = parse_date(params[:agreement][:signature_date]) if params[:agreement].key?(:signature_date)
 
       params.require(:agreement).permit(
-        :current_step,
+        :current_step, :draft_mode,
         # Step One
           :data_user, :data_user_type,
         #   Individual
