@@ -8,7 +8,7 @@
 <div class="row" style="margin-top: 20px;">
   <% steps.each_with_index do |(label, icon), index| %>
     <div class="col-xs-12 col-sm-4 col-lg-4">
-      <div class="panel <%= @step <= index+6 ? (@step == index+6 ? 'panel-info' : 'panel-default') : 'panel-primary' %>">
+      <div class="panel panel-<%= step_helper(@agreement, index+6, @step) %>">
         <div class="panel-heading" style="overflow-x:hidden">
           <h3 class="panel-title" style="text-align:center;white-space:nowrap">
             <% url = @agreement.new_record? ? '#' : step_agreement_path(@agreement, step: index+6) %>

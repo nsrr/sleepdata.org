@@ -18,16 +18,19 @@
       <%= link_to "<span class='glyphicon glyphicon-print'></span> Print Copy of Agreement".html_safe, '#', data: { object: 'suppress-click' } %>
     </div>
 
+    <% last_step = 1 %>
     Steps:
     <% (1..8).each do |step| %>
-      <% if step != 1 and step > agreement.current_step %>
+      <% current_step = (step == 1 ? 2 : agreement.current_step) %>
+      <% if step > current_step %>
         <a href="#" class="btn btn-xs btn-default" disabled="disabled" data-object="suppress-click"><%= step %></a>
       <% else %>
-        <%= link_to step, step_agreement_path(agreement, step: step), class: "btn btn-xs btn-#{step_helper(agreement, step, agreement.current_step)}" %>
+        <% last_step = step %>
+        <%= link_to step, step_agreement_path(agreement, step: step), class: "btn btn-xs btn-#{step_helper(agreement, step, current_step)}" %>
       <% end %>
     <% end %>
 
-    <%= link_to 'Resume', step_agreement_path(agreement, step: 1), class: 'btn btn-lg btn-primary' %>
+    <%= link_to 'Resume', step_agreement_path(agreement, step: last_step), class: 'btn btn-lg btn-primary' %>
 
 
     <div class="jumbotron-right-after">

@@ -4,7 +4,7 @@
 
 <hr class="divider-md" />
 
-<%= form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, multipart: true, html: { class: 'form-horizontal', id: 'update_step_form' } do |f| %>
+<%= form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, multipart: true, html: { class: 'form-vertical', id: 'update_step_form' } do |f| %>
   <% if @agreement.errors.any? %>
     <div id="error_explanation" class="bs-callout bs-callout-danger">
       <h4><%= pluralize(@agreement.errors.count, "error") %> prohibited this step from being saved</h4>
@@ -27,7 +27,7 @@
   </p>
 
   <p class="lead-paragraph">
-    In addition to completing and executing the NSRR Data Access and Use Agreement for the research project/specific purpose identified in your request, you will also need to submit evidence of  IRB/Ethics Committee review of your project to ensure the data will be used for appropriate research purposes and to ensure data security and appropriate handling of the data at the users site. This IRB review can be obtained locally and submitted with the DAUA, or by completion of the on-line request form if you would like to apply for NSRR IRB review of your project.
+    In addition to completing and executing the NSRR Data Access and Use Agreement for the research project/specific purpose identified in your request, you will also need to submit evidence of  IRB/Ethics Committee review of your project to ensure the data will be used for appropriate research purposes and to ensure data security and appropriate handling of the data at the users site. This IRB review can be obtained locally and submitted with the DAUA, or by completion of the online request form if you would like to apply for NSRR IRB review of your project.
   </p>
 
   <div class="row">
@@ -38,27 +38,23 @@
         </div>
         <div class="panel-body">
 
-          <div class="form-group" style="height:90px">
-            <div class="col-md-9 col-md-offset-3">
-              <div class="radio">
-                <label>
-                  <%= f.radio_button :irb_evidence_type, 'has_evidence' %>
-                  HAS EVIDENCE
-                </label>
-              </div>
+          <div class="form-group">
+            <div class="radio">
+              <label>
+                <%= f.radio_button :irb_evidence_type, 'has_evidence' %>
+                I have IRB approval from my own IRB.
+              </label>
             </div>
           </div>
 
           <div class="form-group">
-            <%= f.label :irb, 'Evidence of IRB review (PDF)', class: 'col-md-3 control-label' %>
-            <div class="col-md-9">
-              <%= f.file_field :irb, class: 'form-control' %>
-              <%#= f.hidden_field :irb_cache %>
-              <div class="bs-callout bs-callout-info">
-                <h4>IRB Template</h4>
+            <%= f.label :irb, 'Evidence of IRB review (PDF)', class: 'control-label' %>
+            <%= f.file_field :irb, class: 'form-control' %>
+            <%#= f.hidden_field :irb_cache %>
+            <div class="bs-callout bs-callout-info">
+              <h4>IRB Template</h4>
 
-                <p><%= link_to "<span class='glyphicon glyphicon-link'></span> IRB Assistance Template for Evidence of IRB Review".html_safe, irb_assistance_template_path, target: '_blank' %></p>
-              </div>
+              <p><%= link_to "<span class='glyphicon glyphicon-link'></span> IRB Assistance Template for Evidence of IRB Review".html_safe, irb_assistance_template_path, target: '_blank' %></p>
             </div>
           </div>
 
@@ -71,22 +67,15 @@
           Option 2 (Slower)
         </div>
         <div class="panel-body">
-
-
-          <div class="form-group" style="height:90px">
-            <div class="col-md-9 col-md-offset-3">
-              <div class="radio">
-                <label>
-                  <%= f.radio_button :irb_evidence_type, 'no_evidence' %>
-                  NO EVIDENCE
-                </label>
-              </div>
+          <div class="form-group">
+            <div class="radio">
+              <label>
+                <%= f.radio_button :irb_evidence_type, 'no_evidence' %>
+                I don't have IRB Review, and would like the NSRR IRB to conduct the IRB review. <strong>Please allow 3 to 4 weeks for review.</strong>
+                Select this to fill out the online request form if you would like to apply for NSRR IRB review of your project.
+              </label>
             </div>
           </div>
-
-          I don't have IRB Review, check to have your request reviewed by our IRB. <strong>Please allow 3 to 4 weeks for review.</strong>
-
-          Select this to fill out the on-line request form if you would like to apply for NSRR IRB review of your project.
         </div>
       </div>
     </div>
