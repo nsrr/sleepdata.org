@@ -2,8 +2,6 @@
 
 <h2 style="text-align:center">EVIDENCE OF IRB REVIEW</h2>
 
-<%= link_to '<span class="glyphicon glyphicon-arrow-left"></span> Back to my Submissions'.html_safe, submissions_path, class: 'btn btn-default' %>
-
 <hr class="divider-md" />
 
 <%= form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, multipart: true, html: { class: 'form-horizontal', id: 'update_step_form' } do |f| %>
