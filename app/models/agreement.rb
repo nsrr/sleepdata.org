@@ -39,7 +39,7 @@ class Agreement < ActiveRecord::Base
 
   STATUS = ["submitted", "approved", "resubmit", "expired"].collect{|i| [i,i]}
 
-  attr_accessor :draft_mode
+  attr_accessor :draft_mode, :full_mode
 
   # Concerns
   include Deletable
@@ -69,7 +69,7 @@ class Agreement < ActiveRecord::Base
   validates_presence_of :has_read_step5, if: :step5?
 
   validates_presence_of :signature, :signature_print, :signature_date, if: :step6?
-  validates :signature, length: { minimum: 30, tokenizer: lambda { |str| (JSON.parse(str) rescue []) }, too_short: "can't be blank" }, if: :step6?
+  validates :signature, length: { minimum: 20, tokenizer: lambda { |str| (JSON.parse(str) rescue []) }, too_short: "can't be blank" }, if: :step6?
 
   validates_presence_of :irb_evidence_type, if: :step7?
   validates :irb_evidence_type, inclusion: { in: %w(has_evidence no_evidence), message: "\"%{value}\" is not a valid evidence type" }, if: :step7?
@@ -80,10 +80,6 @@ class Agreement < ActiveRecord::Base
   belongs_to :user
 
   # Agreement Methods
-
-  def signature_valid_length?
-    # eval($("#signature").val()).length > 20
-  end
 
   def name
     self.user ? self.user.name : "##{self.id}"
@@ -138,6 +134,15 @@ class Agreement < ActiveRecord::Base
     self.draft_mode.to_s == '1'
   end
 
+  def full_mode?
+    self.full_mode.to_s == '1'
+  end
+
+  def fully_filled_out?
+    self.full_mode = '1'
+    self.valid?
+  end
+
   protected
 
   def save_mode?
@@ -145,43 +150,43 @@ class Agreement < ActiveRecord::Base
   end
 
   def step1?
-    self.current_step == 1 and self.save_mode?
+    self.full_mode? or (self.current_step == 1 and self.save_mode?)
   end
 
   def step1_and_individual?
-    self.step1? and self.data_user_type == 'individual' and self.save_mode?
+    self.data_user_type == 'individual' and (self.full_mode? or (self.step1? and self.save_mode?))
   end
 
   def step1_and_organization?
-    self.step1? and self.data_user_type == 'organization' and self.save_mode?
+    self.data_user_type == 'organization' and (self.full_mode? or (self.step1? and self.save_mode?))
   end
 
   def step2?
-    self.current_step == 2 and self.draft_mode.to_s != '1' and self.save_mode?
+    self.full_mode? or (self.current_step == 2 and self.save_mode?)
   end
 
   def step3?
-    self.current_step == 3 and self.draft_mode.to_s != '1' and self.save_mode?
+    self.full_mode? or (self.current_step == 3 and self.save_mode?)
   end
 
   def step4?
-    self.current_step == 4 and self.save_mode?
+    self.full_mode? or (self.current_step == 4 and self.save_mode?)
   end
 
   def step5?
-    self.current_step == 5 and self.save_mode?
+    self.full_mode? or (self.current_step == 5 and self.save_mode?)
   end
 
   def step6?
-    self.current_step == 6 and self.save_mode?
+    self.full_mode? or (self.current_step == 6 and self.save_mode?)
   end
 
   def step7?
-    self.current_step == 7 and self.save_mode?
+    self.full_mode? or (self.current_step == 7 and self.save_mode?)
   end
 
   def step7_and_has_evidence?
-    self.step7? and self.irb_evidence_type == 'has_evidence' and self.save_mode?
+    self.irb_evidence_type == 'has_evidence' and (self.full_mode? or (self.step7? and self.save_mode?))
   end
 
 end

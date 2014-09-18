@@ -99,6 +99,13 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_redirected_to submissions_path
   end
 
+  test "should get proof when saving a filled out application" do
+    login(users(:valid))
+    patch :update_step, id: agreements(:filled_out_application_with_attached_irb_file), step: '7', agreement: { current_step: '7' }
+
+    assert_not_nil assigns(:agreement)
+    assert_redirected_to proof_agreement_path(assigns(:agreement))
+  end
 
   test "should not get submissions for anonymous user" do
     get :submissions
@@ -153,6 +160,7 @@ class AgreementsControllerTest < ActionController::TestCase
   end
 
   test "should get approved daua" do
+    skip
     login(users(:valid))
     get :daua
     assert_response :success

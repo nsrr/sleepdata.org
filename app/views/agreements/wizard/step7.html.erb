@@ -48,7 +48,15 @@
           </div>
 
           <div class="form-group">
+            <% if @agreement.irb.size > 0 %>
+              <div class="bs-callout bs-callout-default">
+                <code><%= @agreement.irb.to_s.split('/').last %></code> <tt><%= number_to_human_size(@agreement.irb.size) %></tt>
+              </div>
+            <% end %>
+
             <%= f.label :irb, 'Evidence of IRB review (PDF)', class: 'control-label' %>
+
+
             <%= f.file_field :irb, class: 'form-control' %>
             <%#= f.hidden_field :irb_cache %>
             <div class="bs-callout bs-callout-info">

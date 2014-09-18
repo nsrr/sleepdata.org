@@ -1,9 +1,9 @@
 class AgreementsController < ApplicationController
   before_action :authenticate_user!,          except: [ :daua, :dua ]
   before_action :check_system_admin,          except: [ :daua, :dua, :submit, :resubmit, :step, :update_step, :submissions, :welcome ]
-  before_action :set_submission,              only: [ :step, :update_step ]
+  before_action :set_submission,              only: [ :step, :update_step, :proof, :final_submission ]
   before_action :set_agreement,               only: [ :show, :destroy, :download, :review, :update ]
-  before_action :redirect_without_agreement,  only: [ :show, :destroy, :download, :review, :step, :update, :update_step ]
+  before_action :redirect_without_agreement,  only: [ :show, :destroy, :download, :review, :step, :update, :update_step, :proof, :final_submission ]
   before_action :set_step,                    only: [ :create_step, :step, :update_step ]
 
   def submissions
@@ -44,16 +44,30 @@ class AgreementsController < ApplicationController
 
   end
 
-
   def update_step
     if @agreement.update(step_params)
       if @agreement.draft_mode?
         redirect_to submissions_path
+      elsif @agreement.fully_filled_out?
+        redirect_to proof_agreement_path(@agreement)
       else
         redirect_to step_agreement_path(@agreement, step: @agreement.current_step+1)
       end
     elsif @step
       render "agreements/wizard/step#{@step}"
+    else
+      redirect_to submissions_path
+    end
+  end
+
+  def proof
+  end
+
+  def final_submission
+    if @agreement.update( { status: 'submitted' } )
+      @agreement.add_event!('Data Access and Use Agreement submitted.', current_user, 'submitted')
+      @agreement.daua_submitted
+      redirect_to step_agreement_path(@agreement, step: 9)
     else
       redirect_to submissions_path
     end

@@ -2,6 +2,8 @@
   sig = $('#agreement_signature').val() if $('#agreement_signature').val()
   if $("[data-object~='signature']").length > 0
     $("[data-object~='signature']").signaturePad( drawOnly: true, lineWidth: 0, validateFields: false ).regenerate(sig)
+  if $("[data-object~='signature-display']").length > 0
+    $("[data-object~='signature-display']").signaturePad( displayOnly: true ).regenerate(sig)
   false
 
 $(document)

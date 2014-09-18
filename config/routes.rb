@@ -23,6 +23,8 @@ Rails.application.routes.draw do
       get :review
       get :step
       patch :update_step
+      get :proof
+      patch :final_submission
     end
   end
 
