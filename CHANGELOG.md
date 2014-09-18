@@ -1,3 +1,12 @@
+## 0.11.0
+
+### Enhancements
+- **General Changes**
+  - Prototyping a new online DAUA application process
+- **Forum Changes**
+  - Users are now subscribed to new posts by default
+    - Users can opt out of this setting under their user settings.
+
 ## 0.10.0 (September 8, 2014)
 
 ### Enhancements
@@ -8,7 +17,6 @@
     - Add `?wget=1` to the download url bar to see the `wget` download command syntax
   - Added UserVoice integration to collect better feedback on the NSRR website
   - Restructured the menu bar to provide more space for page content
-  - Prototyping a new online DAUA application process
 - **Dataset Changes**
   - Download folders now provide customizable commands using the NSRR gem
 - **Variable Changes**
@@ -18,8 +26,6 @@
   - Variables index and show page styling updated to be more consistent with the rest of the NSRR website
 - **Forum Changes**
   - The forum is now linked in the main menu
-  - Users are now subscribed to new posts by default
-    - Users can opt out of this setting under their user settings.
 - **Gem Changes**
   - Updated to rails 4.2.0.beta1
   - Updated to contour 2.6.0.beta6
