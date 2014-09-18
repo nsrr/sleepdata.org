@@ -69,7 +69,7 @@ class Agreement < ActiveRecord::Base
   validates_presence_of :has_read_step5, if: :step5?
 
   validates_presence_of :signature, :signature_print, :signature_date, if: :step6?
-  # validates_length_of :signature,
+  validates :signature, length: { minimum: 30, tokenizer: lambda { |str| (JSON.parse(str) rescue []) }, too_short: "can't be blank" }
 
   validates_presence_of :irb_evidence_type, if: :step7?
   validates :irb_evidence_type, inclusion: { in: %w(has_evidence no_evidence), message: "\"%{value}\" is not a valid evidence type" }, if: :step7?
