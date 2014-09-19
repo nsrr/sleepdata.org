@@ -6,6 +6,7 @@
 - **Forum Changes**
   - Users are now subscribed to new posts by default
     - Users can opt out of this setting under their user settings.
+- Use of Ruby 2.1.3 is now recommended
 
 ## 0.10.0 (September 8, 2014)
 
