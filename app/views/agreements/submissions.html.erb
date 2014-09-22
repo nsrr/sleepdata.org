@@ -11,45 +11,68 @@
 <% @agreements.order( id: :desc ).each do |agreement| %>
   <div class="jumbotron welcome-<%= cycle 'odd-color', 'even' %>" style="position:relative;border: 0px solid black">
     <div class="jumbotron-left-after">
-      Agreement #<%= current_user.agreements.order( :id ).pluck(:id).index(agreement.id)+1 %><%= status_helper(agreement) %>
+      Agreement #<%= current_user.agreements.order( :id ).pluck(:id).index(agreement.id)+1 %>
     </div>
+
+    <% if agreement.under_review? %>
+      <p class="lead">
+        This submission is currently under review.
+      </p>
+    <% elsif agreement.approved? %>
+
+
+        <p class="lead">
+          Your data access request was <b>approved</b> <%= agreement.approval_date.strftime("on %-d %B %Y") if agreement.approval_date %>.
+        </p>
+
+        <p class="lead">
+          <% if agreement.expiration_date %>
+          This agreement expires <%= agreement.expiration_date.strftime("on %-d %B %Y") %>.
+          <% end %>
+        </p>
+
+    <% else  %>
+
+      Steps:
+      <% (1..7).each do |step| %>
+        <% current_step = (step == 1 ? 2 : agreement.current_step) %>
+        <%= link_to step, step_agreement_path(agreement, step: step), class: "btn btn-xs btn-#{step_helper(agreement, step, current_step)}" %>
+      <% end %>
+      <% if agreement.no_irb_evidence? %>
+        <%= link_to 8, step_agreement_path(agreement, step: 8), class: "btn btn-xs btn-#{step_helper(agreement, 8, agreement.current_step)}" %>
+      <% end %>
+
+      <% if agreement.fully_filled_out? %>
+        <%= link_to 'Continue', proof_agreement_path(agreement), class: 'btn btn-lg btn-primary' %>
+      <% else %>
+        <%= link_to 'Continue', step_agreement_path(agreement, step: agreement.current_step), class: 'btn btn-lg btn-primary' %>
+      <% end %>
+
+    <% end %>
+    <% if agreement.datasets.count > 0 %>
+      <div class="jumbotron-right-after">
+        Datasets:
+        <% agreement.datasets.order( :release_date ).each do |dataset| %>
+          <%= link_to dataset.slug, dataset, class: 'btn btn-default btn-xs' %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if agreement.under_review? or agreement.approved? %>
+      <div class="jumbotron-left-bottom-after">
+        <% if agreement.resubmitted_at %>
+          Resubmitted: <%= agreement.resubmitted_at.strftime("%-d %B %Y, %-l:%M %p (%H:%M)") %>
+        <% elsif agreement.submitted_at %>
+          Submitted: <%= agreement.submitted_at.strftime("%-d %B %Y, %-l:%M %p (%H:%M)") %>
+        <% end %>
+      </div>
+    <% end %>
 
     <div class="jumbotron-right-bottom-after">
       <%= link_to "<span class='glyphicon glyphicon-print'></span> Print Copy of Agreement".html_safe, '#', data: { object: 'suppress-click' } %>
     </div>
 
-    <% last_step = 1 %>
-    Steps:
-    <% (1..8).each do |step| %>
-      <% current_step = (step == 1 ? 2 : agreement.current_step) %>
-      <% if step > current_step %>
-        <a href="#" class="btn btn-xs btn-default" disabled="disabled" data-object="suppress-click"><%= step %></a>
-      <% else %>
-        <% last_step = step %>
-        <%= link_to step, step_agreement_path(agreement, step: step), class: "btn btn-xs btn-#{step_helper(agreement, step, current_step)}" %>
-      <% end %>
-    <% end %>
-
-    <%= link_to 'Resume', step_agreement_path(agreement, step: last_step), class: 'btn btn-lg btn-primary' %>
-
-
-    <div class="jumbotron-right-after">
-    Datasets:
-    <% Dataset.release_scheduled.each do |dataset| %>
-      <%= link_to dataset.slug, dataset, class: 'btn btn-default btn-xs' %>
-    <% end %>
-    </div>
-
-    <% if false %>
-      <div class="lead-paragraph">
-        Approval Date: <%= agreement.approval_date %>
-        Expiration Date: <%= agreement.expiration_date %>
-      </div>
-      <%= link_to 'Delete', agreement, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Agreement #{agreement.name}?" } %>
-    <% end %>
   </div>
 <% end %>
 
 <div class="center"><%= paginate @agreements, theme: 'contour' %></div>
-
-

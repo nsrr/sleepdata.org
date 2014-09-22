@@ -29,6 +29,9 @@ class Dataset < ActiveRecord::Base
   has_many :dataset_contributors
   has_many :contributors, -> { where deleted: false }, through: :dataset_contributors, source: :user
   has_many :public_files, source: :dataset
+  has_many :requests
+  has_many :agreements, through: :requests
+
 
   def public_file?(path)
     self.public_files.where( file_path: self.file_path(path) ).count > 0

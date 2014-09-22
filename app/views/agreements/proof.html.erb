@@ -11,11 +11,8 @@
   Please proof read your application and then click "Submit" to complete Data Access Request.
 </p>
 
-<div class="jumbotron" style="border: 1px solid #ededed;text-align:left">
-
-  <h2>Step 1</h2>
-
-  <%= link_to 'Edit Step 1', step_agreement_path(@agreement, step: 1), class: 'btn btn-xs btn-primary' %>
+<div class="step step-<%= (@agreement.step_valid?(1) ? 'success' : 'warning') %>">
+  <h2>Step 1 <%= link_to 'Edit Step 1', step_agreement_path(@agreement, step: 1), class: 'btn btn-xs btn-primary' %></h2>
 
   <dl class="dl-horizontal">
     <dt>Data User</dt>
@@ -45,18 +42,26 @@
   </dl>
 </div>
 
-<div class="jumbotron" style="border: 1px solid #ededed;text-align:left">
-  <h2>Step 2</h2>
-  <%= link_to 'Edit Step 2', step_agreement_path(@agreement, step: 2), class: 'btn btn-xs btn-primary' %>
+<div class="step step-<%= (@agreement.step_valid?(2) ? 'success' : 'warning') %>">
+  <h2>Step 2 <%= link_to 'Edit Step 2', step_agreement_path(@agreement, step: 2), class: 'btn btn-xs btn-primary' %></h2>
 
   <dl class="dl-horizontal">
     <dt>Specific Purpose</dt><dd><%= @agreement.specific_purpose %></dd>
   </dl>
 </div>
 
-<div class="jumbotron" style="border: 1px solid #ededed;text-align:left">
-  <h2>Step 4</h2>
-  <%= link_to 'Edit Step 4', step_agreement_path(@agreement, step: 4), class: 'btn btn-xs btn-primary' %>
+<div class="step step-<%= (@agreement.step_valid?(3) ? 'success' : 'warning') %>">
+  <h2>Step 3 <%= link_to 'Edit Step 3', step_agreement_path(@agreement, step: 3), class: 'btn btn-xs btn-primary' %></h2>
+
+  <% if @agreement.has_read_step3? %>
+    <p class="lead">Has read and accepted the Step 3 terms and conditions.</p>
+  <% else %>
+    <p class="lead">Has not read or accepted the Step 3 terms and conditions.</p>
+  <% end %>
+</div>
+
+<div class="step step-<%= (@agreement.step_valid?(4) ? 'success' : 'warning') %>">
+  <h2>Step 4 <%= link_to 'Edit Step 4', step_agreement_path(@agreement, step: 4), class: 'btn btn-xs btn-primary' %></h2>
 
   <dl class="dl-horizontal">
     <dt>Posting Permission</dt>
@@ -72,9 +77,18 @@
   </dl>
 </div>
 
-<div class="jumbotron" style="border: 1px solid #ededed;text-align:left">
-  <h2>Step 6</h2>
-  <%= link_to 'Edit Step 6', step_agreement_path(@agreement, step: 6), class: 'btn btn-xs btn-primary' %>
+<div class="step step-<%= (@agreement.step_valid?(5) ? 'success' : 'warning') %>">
+  <h2>Step 5 <%= link_to 'Edit Step 5', step_agreement_path(@agreement, step: 5), class: 'btn btn-xs btn-primary' %></h2>
+
+  <% if @agreement.has_read_step5? %>
+    <p class="lead">Has read and accepted the Step 5 terms and conditions.</p>
+  <% else %>
+    <p class="lead">Has not read or accepted the Step 5 terms and conditions.</p>
+  <% end %>
+</div>
+
+<div class="step step-<%= (@agreement.step_valid?(6) ? 'success' : 'warning') %>">
+  <h2>Step 6 <%= link_to 'Edit Step 6', step_agreement_path(@agreement, step: 6), class: 'btn btn-xs btn-primary' %></h2>
 
   <dl class="dl-horizontal">
     <dt>Signature</dt><dd data-object="signature-display"><%= hidden_field_tag 'agreement_signature', @agreement.signature, class: 'output' %>
@@ -84,33 +98,47 @@
   </dl>
 </div>
 
-<div class="jumbotron" style="border: 1px solid #ededed;text-align:left">
-  <h2>Step 7</h2>
-  <%= link_to 'Edit Step 7', step_agreement_path(@agreement, step: 7), class: 'btn btn-xs btn-primary' %>
+<div class="step step-<%= (@agreement.step_valid?(7) ? 'success' : 'warning') %>">
+  <h2>Step 7 <%= link_to 'Edit Step 7', step_agreement_path(@agreement, step: 7), class: 'btn btn-xs btn-primary' %></h2>
 
-  <dl class="dl-horizontal">
-    <% if @agreement.irb_evidence_type == 'has_evidence' %>
+
+  <% if @agreement.irb_evidence_type == 'has_evidence' %>
+    <dl class="dl-horizontal">
       <dt>IRB Evidence</dt>
       <dd>
         <% if @agreement.irb.size > 0 %>
           <code><%= @agreement.irb.to_s.split('/').last %></code> <tt><%= number_to_human_size(@agreement.irb.size) %></tt>
         <% end %>
       </dd>
-    <% else %>
-      <dt>Additional IRB things</dt><dd>More here</dd>
-    <% end %>
-  </dl>
+    </dl>
+  <% else %>
+    <p class="lead">Has requested the NSRR IRB to conduct the IRB review.</p>
+  <% end %>
+
 </div>
+
+<% if @agreement.no_irb_evidence? %>
+  <div class="step step-<%= (@agreement.step_valid?(8) ? 'success' : 'warning') %>">
+    <h2>Step 8 <%= link_to 'Edit Step 8', step_agreement_path(@agreement, step: 8), class: 'btn btn-xs btn-primary' %></h2>
+
+    <dl class="dl-horizontal">
+    </dl>
+  </div>
+<% end %>
 
 <hr class="divider-md" />
 
 <%= form_for @agreement, url: final_submission_agreement_path(@agreement), method: :patch, html: { class: 'form-horizontal', id: 'final_submission_form' } do |f| %>
   <div class="row">
-    <div class="col-xs-6">
+    <div class="col-sm-6">
       <%= link_to "<span class='glyphicon glyphicon-arrow-left'></span> Back to Submissions".html_safe, submissions_path, class: 'btn btn-lg btn-default btn-block' %>
     </div>
-    <div class="col-xs-6">
-      <%= link_to "<span class='glyphicon glyphicon-cloud-upload''></span> Submit Application".html_safe, '#', data: { object: 'submit', target: '#final_submission_form' }, class: 'btn btn-lg btn-primary btn-block' %>
+    <div class="col-sm-6">
+      <% if @agreement.fully_filled_out? %>
+        <%= link_to "<span class='glyphicon glyphicon-cloud-upload'></span> Submit Application".html_safe, '#', data: { object: 'submit', target: '#final_submission_form' }, class: 'btn btn-lg btn-primary btn-block' %>
+      <% else %>
+        <%= link_to "<span class='glyphicon glyphicon-warning-sign'></span> Complete All Steps Before Submitting".html_safe, '#', data: { object: 'suppress-click' }, class: 'btn btn-lg btn-warning btn-block', disabled: true %>
+      <% end %>
     </div>
   </div>
 <% end %>

@@ -14,19 +14,13 @@ module AgreementsHelper
   end
 
   def step_helper(agreement, step, selected_step)
-
     if step == selected_step
-      return 'primary'
-    elsif step > selected_step
-      return 'default'
-    end
-
-    if agreement.step_valid?(step)
+      'primary'
+    elsif agreement.step_valid?(step)
       'success'
     else
       'warning'
     end
-
   end
 
 end

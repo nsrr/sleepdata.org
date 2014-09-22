@@ -22,78 +22,40 @@
   <%= hidden_field_tag "agreement[current_step]", @step %>
 
   <div class="form-group">
-    <%= label :date_irb_application, 'Date', class: 'col-md-3 control-label' %>
+    <%= f.label :title_of_project, 'Title Of Project', class: 'col-md-3 control-label' %>
     <div class="col-md-9">
-      <%= text_field_tag :date_irb_application, '', class: 'datepicker form-control' %>
+      <%= f.text_field :title_of_project, class: 'form-control' %>
     </div>
   </div>
 
   <div class="form-group">
-    <%= label :title_of_project, 'Title Of Project', class: 'col-md-3 control-label' %>
+    <%= f.label :intended_use_of_data, 'Intended Use Of Data', class: 'col-md-3 control-label' %>
     <div class="col-md-9">
-      <input type="text" name="title_of_project" id="title_of_project" class="form-control">
+      <%= f.text_field :intended_use_of_data, class: 'form-control' %>
+      <div class="bs-callout bs-callout-info">
+        <h4>Example Uses</h4>
+        Publication; thesis work; other education; algorithm for commercial use; preliminary data for a grant
+      </div>
     </div>
   </div>
 
   <div class="form-group">
-    <%= label :investigator_applicant, 'Investigator / Applicant', class: 'col-md-3 control-label' %>
+    <%= f.label :data_secured_location, 'Where Data Will Be Secured And Security In Place', class: 'col-md-3 control-label' %>
     <div class="col-md-9">
-      <input type="text" name="investigator_applicant" id="investigator_applicant" class="form-control">
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= label :name_title, 'Name / Title', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <input type="text" name="name_title" id="name_title" class="form-control">
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= label :institution_affiliation, 'Institution / Affiliation', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <input type="text" name="institution_affiliation" id="institution_affiliation" class="form-control">
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= label :intended_use_of_data, 'Intended Use Of Data', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <input type="text" name="intended_use_of_data" id="intended_use_of_data" class="form-control">
-      <p class="lead">(Publication; thesis work; other education; algorithm for commercial use; preliminary data for a grant)</p>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= label :data_secured_location, 'Where Data Will Be Secured And Security In Place', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <%= text_area_tag :data_secured_location, "", class: 'form-control', rows: '5', placeholder: '' %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <%= label :aim_of_research_and_data_needed, 'Brief Description Of Aim Of Research And A List Of Data Needed', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <%= text_area_tag :aim_of_research_and_data_needed, "", class: 'form-control', rows: '5', placeholder: '' %>
+      <%= f.text_area :data_secured_location, class: 'form-control', rows: '5' %>
     </div>
   </div>
 
   <p class="lead-paragraph">
-    Certain changes to the research project may affect this determination.  Contact the NSRR Internal Review Committee if your project changes and you have questions regarding the need for IRB oversight.
+    Certain changes to the research project may affect this determination.  Contact the <%= mail_to 'support@sleepdata.org', 'NSRR Internal Review Committee', subject: 'Regarding NSRR Internal Review' %> if your project changes and you have questions regarding the need for IRB oversight.
   </p>
 
   <p class="lead-paragraph">
-    If your project involves the collection, use, or disclosure of Protected Health Information (PHI), you must comply with all applicable requirements under HIPAA.  See the HIPAA and Research website and the Information Privacy and Security website for more information.
+    If your project involves the collection, use, or disclosure of Protected Health Information (PHI), you must comply with all applicable requirements under HIPAA.  See the <%= link_to 'HIPAA and Research website', 'http://www.hhs.gov/ocr/privacy/' %> and the <%= link_to 'Information Privacy and Security website', 'http://www.hhs.gov/ocr/privacy/hipaa/understanding/special/research/' %> for more information.
   </p>
 
   <p class="lead-paragraph">
     This Committee has the authority to terminate your access to the site if you are not in compliance with the terms as stated in the DAUA agreement which you signed.  You are responsible for ensuring that this project is conducted in compliance with all applicable federal, state and local laws and regulations, and institutional policies.
-  </p>
-
-
-  <p class="lead-paragraph">
-    Thank you for your submission.  Please retain this as proof of review.
-    The NSRR is supported by Grant Number HL114473 from the National Heart, Lung, and Blood Institute, NIH
   </p>
 
   <hr class="divider-md" />
@@ -106,7 +68,7 @@
       <%= link_to "<span class='glyphicon glyphicon-floppy-disk'></span> Save Draft".html_safe, '#', data: { object: 'submit-draft', target: '#update_step_form' }, class: 'btn btn-lg btn-warning btn-block' %>
     </div>
     <div class="col-xs-4">
-      <%= link_to "<span class='glyphicon glyphicon-cloud-upload''></span> Submit Application".html_safe, '#', data: { object: 'submit', target: '#update_step_form' }, class: 'btn btn-lg btn-primary btn-block' %>
+      <%= link_to "<span class='glyphicon glyphicon-floppy-disk'></span> Save and Continue".html_safe, '#', data: { object: 'submit', target: '#update_step_form' }, class: 'btn btn-lg btn-primary btn-block' %>
     </div>
   </div>
 

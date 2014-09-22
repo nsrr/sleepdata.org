@@ -283,6 +283,14 @@ pre.code {
           box-shadow: -10px 10px 10px rgba(0,0,0,.05);
 }
 
+.panel-hover.panel-success:hover {
+  border: 1px solid #5cb85c;
+  cursor: pointer;
+  -webkit-box-shadow: -10px 10px 10px rgba(0,0,0,.05);
+     -moz-box-shadow: -10px 10px 10px rgba(0,0,0,.05);
+          box-shadow: -10px 10px 10px rgba(0,0,0,.05);
+}
+
 .panel-hover.panel-info:hover {
   border: 1px solid #5bc0de;
   cursor: pointer;
@@ -556,4 +564,3 @@ body {
 .sticky-footer .text-muted {
   margin: 20px 0;
 }
-

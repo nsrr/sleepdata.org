@@ -15,30 +15,240 @@ class AgreementsControllerTest < ActionController::TestCase
 
   test "should get step1 when no step is given" do
     login(users(:valid))
-    get :step, id: @agreement
+    get :step, id: agreements(:step1_saved_as_draft)
     assert_not_nil assigns(:agreement)
     assert_redirected_to step_agreement_path(assigns(:agreement), step: 1)
   end
 
   test "should get step1 of agreement" do
     login(users(:valid))
-    get :step, id: @agreement, step: 1
+    get :step, id: agreements(:step1_saved_as_draft), step: 1
     assert_not_nil assigns(:agreement)
     assert_template 'wizard/step1'
     assert_response :success
   end
 
+  test "should not get step1 for submitted agreement" do
+    login(users(:two))
+    get :step, id: agreements(:submitted_application), step: 1
+    assert_nil assigns(:agreement)
+    assert_redirected_to submissions_path
+  end
+
+  test "should create step 1 of agreement as individual" do
+    login(users(:valid))
+    assert_difference('Agreement.count') do
+      post :create_step, step: '1', agreement: { current_step: '1', data_user: 'Valid User', data_user_type: 'individual', individual_institution_name: 'Institution', individual_title: 'Title', individual_telephone: '012-123-2345', individual_fax: '123-123-1234', individual_address: "123 Abc Road\nCity, State 12345\nUSA", organization_business_name: '', organization_contact_name: '', organization_contact_title: '', organization_contact_telephone: '', organization_contact_fax: '', organization_contact_email: '', organization_address: '' }
+    end
+
+    assert_equal 1, assigns(:step)
+    assert_not_nil assigns(:agreement)
+    assert_equal 1, assigns(:agreement).current_step
+
+    assert_equal 'individual', assigns(:agreement).data_user_type
+    assert_equal 'Institution', assigns(:agreement).individual_institution_name
+    assert_equal 'Title', assigns(:agreement).individual_title
+    assert_equal '012-123-2345', assigns(:agreement).individual_telephone
+    assert_equal '123-123-1234', assigns(:agreement).individual_fax
+    assert_equal "123 Abc Road\nCity, State 12345\nUSA", assigns(:agreement).individual_address
+
+    assert_redirected_to step_agreement_path(assigns(:agreement), step: 2)
+  end
+
+  test "should create step 1 of agreement as organization" do
+    login(users(:valid))
+    assert_difference('Agreement.count') do
+      post :create_step, step: '1', agreement: { current_step: '1', data_user: 'Valid User', data_user_type: 'individual', individual_institution_name: 'Institution', individual_title: 'Title', individual_telephone: '012-123-2345', individual_fax: '123-123-1234', individual_address: "123 Abc Road\nCity, State 12345\nUSA", organization_business_name: '', organization_contact_name: '', organization_contact_title: '', organization_contact_telephone: '', organization_contact_fax: '', organization_contact_email: '', organization_address: '' }
+    end
+
+    assert_equal 1, assigns(:step)
+    assert_not_nil assigns(:agreement)
+    assert_equal 1, assigns(:agreement).current_step
+
+    assert_equal 'individual', assigns(:agreement).data_user_type
+    assert_equal 'Institution', assigns(:agreement).individual_institution_name
+    assert_equal 'Title', assigns(:agreement).individual_title
+    assert_equal '012-123-2345', assigns(:agreement).individual_telephone
+    assert_equal '123-123-1234', assigns(:agreement).individual_fax
+    assert_equal "123 Abc Road\nCity, State 12345\nUSA", assigns(:agreement).individual_address
+
+    assert_redirected_to step_agreement_path(assigns(:agreement), step: 2)
+  end
+
+  test "should create step 1 of agreement and save draft as individual" do
+    login(users(:valid))
+    assert_difference('Agreement.count') do
+      post :create_step, step: '1', agreement: { draft_mode: '1', current_step: '1', data_user: 'Valid User', data_user_type: 'individual', individual_institution_name: 'Institution', individual_title: '', individual_telephone: '', individual_fax: '', individual_address: "", organization_business_name: '', organization_contact_name: '', organization_contact_title: '', organization_contact_telephone: '', organization_contact_fax: '', organization_contact_email: '', organization_address: '' }
+    end
+
+    assert_equal 1, assigns(:step)
+    assert_not_nil assigns(:agreement)
+    assert_equal 1, assigns(:agreement).current_step
+    assert_equal 'individual', assigns(:agreement).data_user_type
+    assert_equal 'Institution', assigns(:agreement).individual_institution_name
+
+    assert_redirected_to submissions_path
+  end
+
+  test "should create step 1 of agreement and save draft as organization" do
+    login(users(:valid))
+    assert_difference('Agreement.count') do
+      post :create_step, step: '1', agreement: { draft_mode: '1', current_step: '1', data_user: 'Valid User', data_user_type: 'organization', individual_institution_name: '', individual_title: '', individual_telephone: '', individual_fax: '', individual_address: "", organization_business_name: 'The Company', organization_contact_name: '', organization_contact_title: '', organization_contact_telephone: '', organization_contact_fax: '', organization_contact_email: '', organization_address: '' }
+    end
+
+    assert_equal 1, assigns(:step)
+    assert_not_nil assigns(:agreement)
+    assert_equal 1, assigns(:agreement).current_step
+    assert_equal 'organization', assigns(:agreement).data_user_type
+    assert_equal 'The Company', assigns(:agreement).organization_business_name
+
+    assert_redirected_to submissions_path
+  end
+
+  test "should update step 1 of agreement as individual" do
+    login(users(:valid))
+    patch :update_step, id: agreements(:step1_saved_as_draft), step: '1', agreement: { current_step: '1', data_user: 'Valid User', data_user_type: 'individual', individual_institution_name: 'Institution', individual_title: 'Title', individual_telephone: '012-123-2345', individual_fax: '123-123-1234', individual_address: "123 Abc Road\nCity, State 12345\nUSA", organization_business_name: '', organization_contact_name: '', organization_contact_title: '', organization_contact_telephone: '', organization_contact_fax: '', organization_contact_email: '', organization_address: '' }
+
+    assert_equal 1, assigns(:step)
+    assert_not_nil assigns(:agreement)
+    assert_equal 1, assigns(:agreement).current_step
+
+    assert_equal 'individual', assigns(:agreement).data_user_type
+    assert_equal 'Institution', assigns(:agreement).individual_institution_name
+    assert_equal 'Title', assigns(:agreement).individual_title
+    assert_equal '012-123-2345', assigns(:agreement).individual_telephone
+    assert_equal '123-123-1234', assigns(:agreement).individual_fax
+    assert_equal "123 Abc Road\nCity, State 12345\nUSA", assigns(:agreement).individual_address
+
+    assert_redirected_to step_agreement_path(assigns(:agreement), step: 2)
+  end
+
+  test "should update step 1 of agreement as organization" do
+    login(users(:valid))
+    patch :update_step, id: agreements(:step1_saved_as_draft), step: '1', agreement: { current_step: '1', data_user: 'Valid User', data_user_type: 'organization', individual_institution_name: '', individual_title: '', individual_telephone: '', individual_fax: '', individual_address: "", organization_business_name: 'The Company', organization_contact_name: 'The Lawyer', organization_contact_title: 'Mr. Lawyer', organization_contact_telephone: '098-765-4321', organization_contact_fax: '009-876-4321', organization_contact_email: 'lawyer@example.com', organization_address: "Company Name\n123 Company Way\nCityville, Ohmastate, 12345" }
+
+    assert_equal 1, assigns(:step)
+    assert_not_nil assigns(:agreement)
+    assert_equal 1, assigns(:agreement).current_step
+
+    assert_equal 'The Company', assigns(:agreement).organization_business_name
+    assert_equal 'The Lawyer', assigns(:agreement).organization_contact_name
+    assert_equal 'Mr. Lawyer', assigns(:agreement).organization_contact_title
+    assert_equal '098-765-4321', assigns(:agreement).organization_contact_telephone
+    assert_equal '009-876-4321', assigns(:agreement).organization_contact_fax
+    assert_equal 'lawyer@example.com', assigns(:agreement).organization_contact_email
+    assert_equal "Company Name\n123 Company Way\nCityville, Ohmastate, 12345", assigns(:agreement).organization_address
+
+    assert_redirected_to step_agreement_path(assigns(:agreement), step: 2)
+  end
+
+  test "should update step 1 of agreement and save draft as individual" do
+    login(users(:valid))
+    patch :update_step, id: agreements(:step1_saved_as_draft), step: '1', agreement: { draft_mode: '1', current_step: '1', data_user: 'Valid User', data_user_type: 'individual', individual_institution_name: 'Institution', individual_title: '', individual_telephone: '', individual_fax: '', individual_address: "", organization_business_name: '', organization_contact_name: '', organization_contact_title: '', organization_contact_telephone: '', organization_contact_fax: '', organization_contact_email: '', organization_address: '' }
+
+    assert_equal 1, assigns(:step)
+    assert_not_nil assigns(:agreement)
+    assert_equal 1, assigns(:agreement).current_step
+    assert_equal 'individual', assigns(:agreement).data_user_type
+    assert_equal 'Institution', assigns(:agreement).individual_institution_name
+
+    assert_redirected_to submissions_path
+  end
+
+  test "should update step 1 of agreement and save draft as organization" do
+    login(users(:valid))
+    patch :update_step, id: agreements(:step1_saved_as_draft), step: '1', agreement: { draft_mode: '1', current_step: '1', data_user: 'Valid User', data_user_type: 'organization', individual_institution_name: '', individual_title: '', individual_telephone: '', individual_fax: '', individual_address: "", organization_business_name: 'The Company', organization_contact_name: '', organization_contact_title: '', organization_contact_telephone: '', organization_contact_fax: '', organization_contact_email: '', organization_address: '' }
+
+    assert_equal 1, assigns(:step)
+    assert_not_nil assigns(:agreement)
+    assert_equal 1, assigns(:agreement).current_step
+    assert_equal 'organization', assigns(:agreement).data_user_type
+    assert_equal 'The Company', assigns(:agreement).organization_business_name
+
+    assert_redirected_to submissions_path
+  end
+
+  test "should not update and continue if step 1 is partial as individual" do
+    login(users(:valid))
+    patch :update_step, id: agreements(:step1_saved_as_draft), step: '1', agreement: { current_step: '1', data_user: 'Valid User', data_user_type: 'individual', individual_institution_name: '', individual_title: '', individual_telephone: '', individual_fax: '', individual_address: '', organization_business_name: '', organization_contact_name: '', organization_contact_title: '', organization_contact_telephone: '', organization_contact_fax: '', organization_contact_email: '', organization_address: '' }
+
+    assert_equal 1, assigns(:step)
+    assert_not_nil assigns(:agreement)
+    assert_equal 1, assigns(:agreement).current_step
+    assert_equal 'individual', assigns(:agreement).data_user_type
+    assert assigns(:agreement).errors.size > 0
+
+    assert_equal ["can't be blank"], assigns(:agreement).errors[:individual_institution_name]
+    assert_equal ["can't be blank"], assigns(:agreement).errors[:individual_title]
+    assert_equal ["can't be blank"], assigns(:agreement).errors[:individual_telephone]
+    assert_equal ["can't be blank"], assigns(:agreement).errors[:individual_fax]
+    assert_equal ["can't be blank"], assigns(:agreement).errors[:individual_address]
+
+    assert_template 'agreements/wizard/step1'
+    assert_response :success
+  end
+
+  test "should not update and continue if step1 is partial as organization" do
+    login(users(:valid))
+    patch :update_step, id: agreements(:step1_saved_as_draft), step: '1', agreement: { current_step: '1', data_user: 'Valid User', data_user_type: 'organization', individual_institution_name: '', individual_title: '', individual_telephone: '', individual_fax: '', individual_address: '', organization_business_name: '', organization_contact_name: '', organization_contact_title: '', organization_contact_telephone: '', organization_contact_fax: '', organization_contact_email: '', organization_address: '' }
+
+    assert_equal 1, assigns(:step)
+    assert_not_nil assigns(:agreement)
+    assert_equal 1, assigns(:agreement).current_step
+    assert_equal 'organization', assigns(:agreement).data_user_type
+
+    assert assigns(:agreement).errors.size > 0
+    assert_equal ["can't be blank"], assigns(:agreement).errors[:organization_business_name]
+    assert_equal ["can't be blank"], assigns(:agreement).errors[:organization_contact_name]
+    assert_equal ["can't be blank"], assigns(:agreement).errors[:organization_contact_title]
+    assert_equal ["can't be blank"], assigns(:agreement).errors[:organization_contact_telephone]
+    assert_equal ["can't be blank"], assigns(:agreement).errors[:organization_contact_fax]
+    assert_equal ["can't be blank"], assigns(:agreement).errors[:organization_contact_email]
+    assert_equal ["can't be blank"], assigns(:agreement).errors[:organization_address]
+
+    assert_template 'agreements/wizard/step1'
+    assert_response :success
+  end
+
   test "should get step2 of agreement" do
     login(users(:valid))
-    get :step, id: @agreement, step: 2
+    get :step, id: agreements(:step1_saved_as_draft), step: 2
     assert_not_nil assigns(:agreement)
     assert_template 'wizard/step2'
     assert_response :success
   end
 
+  test "should update step 2 of agreement and continue" do
+    login(users(:valid))
+    assert_difference('Request.count') do
+      patch :update_step, id: agreements(:step1_saved_as_draft), step: '2', agreement: { current_step: '2', specific_purpose: 'My Specific Purpose', dataset_ids: [0, ActiveRecord::FixtureSet.identify(:public)] }
+    end
+
+    assert_equal 2, assigns(:step)
+    assert_not_nil assigns(:agreement)
+    assert_equal 2, assigns(:agreement).current_step
+    assert_equal 'My Specific Purpose', assigns(:agreement).specific_purpose
+    assert_equal [datasets(:public).id], assigns(:agreement).datasets.pluck(:id)
+
+    assert_redirected_to step_agreement_path(assigns(:agreement), step: 3)
+  end
+
+  test "should update step 2 of agreement save draft" do
+    login(users(:valid))
+    patch :update_step, id: agreements(:step1_saved_as_draft), step: '2', agreement: { draft_mode: '1', current_step: '2', specific_purpose: '', dataset_ids: [0] }
+
+    assert_equal 2, assigns(:step)
+    assert_not_nil assigns(:agreement)
+    assert_equal 2, assigns(:agreement).current_step
+    assert_equal '', assigns(:agreement).specific_purpose
+    assert_equal [], assigns(:agreement).datasets.pluck(:id)
+
+    assert_redirected_to submissions_path
+  end
+
   test "should get step3 of agreement" do
     login(users(:valid))
-    get :step, id: @agreement, step: 3
+    get :step, id: agreements(:step1_saved_as_draft), step: 3
     assert_not_nil assigns(:agreement)
     assert_template 'wizard/step3'
     assert_response :success
@@ -46,16 +256,15 @@ class AgreementsControllerTest < ActionController::TestCase
 
   test "should get step4 of agreement" do
     login(users(:valid))
-    get :step, id: @agreement, step: 4
+    get :step, id: agreements(:step1_saved_as_draft), step: 4
     assert_not_nil assigns(:agreement)
     assert_template 'wizard/step4'
     assert_response :success
   end
 
-
   test "should get step5 of agreement" do
     login(users(:valid))
-    get :step, id: @agreement, step: 5
+    get :step, id: agreements(:step1_saved_as_draft), step: 5
     assert_not_nil assigns(:agreement)
     assert_template 'wizard/step5'
     assert_response :success
@@ -63,7 +272,7 @@ class AgreementsControllerTest < ActionController::TestCase
 
   test "should get step6 of agreement" do
     login(users(:valid))
-    get :step, id: @agreement, step: 6
+    get :step, id: agreements(:step1_saved_as_draft), step: 6
     assert_not_nil assigns(:agreement)
     assert_template 'wizard/step6'
     assert_response :success
@@ -71,7 +280,7 @@ class AgreementsControllerTest < ActionController::TestCase
 
   test "should get step7 of agreement" do
     login(users(:valid))
-    get :step, id: @agreement, step: 7
+    get :step, id: agreements(:step1_saved_as_draft), step: 7
     assert_not_nil assigns(:agreement)
     assert_template 'wizard/step7'
     assert_response :success
@@ -79,17 +288,9 @@ class AgreementsControllerTest < ActionController::TestCase
 
   test "should get step8 of agreement" do
     login(users(:valid))
-    get :step, id: @agreement, step: 8
+    get :step, id: agreements(:step1_saved_as_draft), step: 8
     assert_not_nil assigns(:agreement)
     assert_template 'wizard/step8'
-    assert_response :success
-  end
-
-  test "should get step9 of agreement" do
-    login(users(:valid))
-    get :step, id: @agreement, step: 9
-    assert_not_nil assigns(:agreement)
-    assert_template 'wizard/step9'
     assert_response :success
   end
 
@@ -105,6 +306,18 @@ class AgreementsControllerTest < ActionController::TestCase
 
     assert_not_nil assigns(:agreement)
     assert_redirected_to proof_agreement_path(assigns(:agreement))
+  end
+
+  test "should submit final submission for filled out application" do
+    login(users(:valid))
+    patch :final_submission, id: agreements(:filled_out_application_with_attached_irb_file)
+
+    assert_not_nil assigns(:agreement)
+    assert_equal [], assigns(:agreement).errors.full_messages
+    assert_equal 'submitted', assigns(:agreement).status
+    assert_equal Date.today, assigns(:agreement).submitted_at.to_date
+
+    assert_redirected_to complete_agreement_path(assigns(:agreement))
   end
 
   test "should not get submissions for anonymous user" do

@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       patch :update_step
       get :proof
       patch :final_submission
+      get :complete
     end
   end
 
@@ -110,6 +111,11 @@ Rails.application.routes.draw do
   get '/submissions' => 'agreements#submissions', as: :submissions
   get '/submissions/welcome' => 'agreements#welcome', as: :submissions_welcome
   get '/submissions/start' => 'agreements#new_step', as: :submissions_start
+
+  # In case "failed submission steps are reloaded using get request"
+  get '/agreements/:id/final_submission' => 'agreements#proof'
+  get '/agreements/:id/update_step' => 'agreements#step'
+
 
   root to: 'welcome#index'
 

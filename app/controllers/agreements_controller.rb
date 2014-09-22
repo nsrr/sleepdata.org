@@ -1,10 +1,15 @@
 class AgreementsController < ApplicationController
   before_action :authenticate_user!,          except: [ :daua, :dua ]
-  before_action :check_system_admin,          except: [ :daua, :dua, :submit, :resubmit, :step, :update_step, :submissions, :welcome ]
-  before_action :set_submission,              only: [ :step, :update_step, :proof, :final_submission ]
-  before_action :set_agreement,               only: [ :show, :destroy, :download, :review, :update ]
-  before_action :redirect_without_agreement,  only: [ :show, :destroy, :download, :review, :step, :update, :update_step, :proof, :final_submission ]
+  before_action :check_system_admin,          except: [ :daua, :dua, :submit, :resubmit, :create_step, :step, :update_step, :proof, :final_submission, :submissions, :welcome ]
+
+  before_action :set_viewable_submission,     only: [ :submitted ]
+  before_action :set_editable_submission,     only: [ :step, :update_step, :proof, :final_submission ]
+  before_action :redirect_without_submission, only: [ :step, :update_step, :proof, :final_submission, :submitted ]
   before_action :set_step,                    only: [ :create_step, :step, :update_step ]
+
+  before_action :set_agreement,               only: [ :show, :destroy, :download, :review, :update ]
+  before_action :redirect_without_agreement,  only: [ :show, :destroy, :download, :review, :update ]
+
 
   def submissions
     @agreements = current_user.agreements.page(params[:page]).per( 40 )
@@ -48,10 +53,10 @@ class AgreementsController < ApplicationController
     if @agreement.update(step_params)
       if @agreement.draft_mode?
         redirect_to submissions_path
-      elsif @agreement.fully_filled_out?
+      elsif @agreement.fully_filled_out? or (@agreement.current_step == 7 and @agreement.has_irb_evidence?) or @agreement.current_step == 8
         redirect_to proof_agreement_path(@agreement)
       else
-        redirect_to step_agreement_path(@agreement, step: @agreement.current_step+1)
+        redirect_to step_agreement_path(@agreement, step: @agreement.current_step + 1)
       end
     elsif @step
       render "agreements/wizard/step#{@step}"
@@ -64,10 +69,14 @@ class AgreementsController < ApplicationController
   end
 
   def final_submission
-    if @agreement.update( { status: 'submitted' } )
+    hash = (@agreement.status == 'resubmit'  ? { status: 'submitted', resubmitted_at: Time.now } : { status: 'submitted', submitted_at: Time.now } )
+
+    if not @agreement.fully_filled_out?
+      render 'proof'
+    elsif @agreement.update( hash )
       @agreement.add_event!('Data Access and Use Agreement submitted.', current_user, 'submitted')
       @agreement.daua_submitted
-      redirect_to step_agreement_path(@agreement, step: 9)
+      redirect_to complete_agreement_path(@agreement)
     else
       redirect_to submissions_path
     end
@@ -202,8 +211,16 @@ class AgreementsController < ApplicationController
       @agreement = Agreement.current.find_by_id(params[:id])
     end
 
-    def set_submission
+    def set_viewable_submission
       @agreement = current_user.agreements.find_by_id(params[:id])
+    end
+
+    def set_editable_submission
+      @agreement = current_user.agreements.where( status: [nil, '', 'started', 'resubmit'] ).find_by_id(params[:id])
+    end
+
+    def redirect_without_submission
+      empty_response_or_root_path( submissions_path ) unless @agreement
     end
 
     def redirect_without_agreement
@@ -220,7 +237,7 @@ class AgreementsController < ApplicationController
     end
 
     def set_step
-      @step = params[:step].to_i if params[:step].to_i > 0 and params[:step].to_i < 10
+      @step = params[:step].to_i if params[:step].to_i > 0 and params[:step].to_i < 9
     end
 
     def step_params
@@ -236,7 +253,7 @@ class AgreementsController < ApplicationController
         #   Organization
           :organization_business_name, :organization_contact_name, :organization_contact_title, :organization_contact_telephone, :organization_contact_fax, :organization_contact_email, :organization_address,
         # Step Two
-          :specific_purpose,
+          :specific_purpose, { dataset_ids: [] },
         # Step Three
           :has_read_step3,
         # Step Four
@@ -246,7 +263,9 @@ class AgreementsController < ApplicationController
         # Step Six
           :signature, :signature_print, :signature_date,
         # Step Seven
-          :irb_evidence_type, :irb
+          :irb_evidence_type, :irb,
+        # Step Eight
+          :title_of_project, :intended_use_of_data, :data_secured_location
       )
     end
 

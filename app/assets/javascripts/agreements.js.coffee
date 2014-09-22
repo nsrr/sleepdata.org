@@ -10,6 +10,16 @@ $(document)
   .on('click', "[data-object~='select_radio_button']", () ->
     $($(this).data('target')).prop('checked', true)
   )
+  .on('click', "[data-object~='select_checkbox_panel']", (evt) ->
+    if $($(this).data('target')).prop('checked')
+      $($(this).data('target')).prop('checked', false)
+      $(this).closest(".panel").removeClass('panel-success')
+      $(this).closest(".panel").addClass('panel-default')
+    else
+      $($(this).data('target')).prop('checked', true)
+      $(this).closest(".panel").removeClass('panel-default')
+      $(this).closest(".panel").addClass('panel-success')
+  )
   .on('click', '[data-object~="submit-draft"]', () ->
     $("#agreement_draft_mode").val('1')
     $($(this).data('target')).submit()

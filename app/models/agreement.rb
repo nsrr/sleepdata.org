@@ -60,6 +60,7 @@ class Agreement < ActiveRecord::Base
   validates_presence_of :organization_business_name, :organization_contact_name, :organization_contact_title, :organization_contact_telephone, :organization_contact_fax, :organization_contact_email, :organization_address, if: :step1_and_organization?
 
   validates_presence_of :specific_purpose, if: :step2?
+  validates_presence_of :datasets, if: :step2?
 
   validates_presence_of :has_read_step3, if: :step3?
 
@@ -76,10 +77,18 @@ class Agreement < ActiveRecord::Base
 
   validates_presence_of :irb, if: :step7_and_has_evidence?
 
+  validates_presence_of :title_of_project, :intended_use_of_data, :data_secured_location, if: :step8?
+
   # Model Relationships
   belongs_to :user
+  has_many :requests
+  has_many :datasets, -> { where deleted: false }, through: :requests
 
   # Agreement Methods
+
+  def dataset_ids=(ids)
+    self.datasets = Dataset.release_scheduled.where( id: ids )
+  end
 
   def name
     self.user ? self.user.name : "##{self.id}"
@@ -87,6 +96,10 @@ class Agreement < ActiveRecord::Base
 
   def approved?
     self.status == 'approved'
+  end
+
+  def under_review?
+    ['submitted'].include?(self.status)
   end
 
   def resubmission_required?
@@ -127,7 +140,16 @@ class Agreement < ActiveRecord::Base
   def step_valid?(step)
     dup_agreement = self.dup
     dup_agreement.current_step = step
+    dup_agreement.irb = self.irb
     dup_agreement.valid?
+  end
+
+  def has_irb_evidence?
+    self.irb_evidence_type == 'has_evidence' and self.irb.size > 0
+  end
+
+  def no_irb_evidence?
+    self.irb_evidence_type == 'no_evidence'
   end
 
   def draft_mode?
@@ -149,44 +171,52 @@ class Agreement < ActiveRecord::Base
     not draft_mode?
   end
 
+  def validate_step?(step)
+    self.full_mode? or (self.current_step == step and self.save_mode?)
+  end
+
   def step1?
-    self.full_mode? or (self.current_step == 1 and self.save_mode?)
+    self.validate_step?(1)
   end
 
   def step1_and_individual?
-    self.data_user_type == 'individual' and (self.full_mode? or (self.step1? and self.save_mode?))
+    self.data_user_type == 'individual' and self.step1?
   end
 
   def step1_and_organization?
-    self.data_user_type == 'organization' and (self.full_mode? or (self.step1? and self.save_mode?))
+    self.data_user_type == 'organization' and self.step1?
   end
 
   def step2?
-    self.full_mode? or (self.current_step == 2 and self.save_mode?)
+    self.validate_step?(2)
   end
 
   def step3?
-    self.full_mode? or (self.current_step == 3 and self.save_mode?)
+    self.validate_step?(3)
   end
 
   def step4?
-    self.full_mode? or (self.current_step == 4 and self.save_mode?)
+    self.validate_step?(4)
   end
 
   def step5?
-    self.full_mode? or (self.current_step == 5 and self.save_mode?)
+    self.validate_step?(5)
   end
 
   def step6?
-    self.full_mode? or (self.current_step == 6 and self.save_mode?)
+    self.validate_step?(6)
   end
 
   def step7?
-    self.full_mode? or (self.current_step == 7 and self.save_mode?)
+    self.validate_step?(7)
   end
 
   def step7_and_has_evidence?
-    self.irb_evidence_type == 'has_evidence' and (self.full_mode? or (self.step7? and self.save_mode?))
+    self.irb_evidence_type == 'has_evidence' and self.step7?
+  end
+
+  def step8?
+    self.irb_evidence_type == 'no_evidence' and self.validate_step?(8)
   end
 
 end
