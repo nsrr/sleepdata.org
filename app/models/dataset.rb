@@ -30,7 +30,7 @@ class Dataset < ActiveRecord::Base
   has_many :contributors, -> { where deleted: false }, through: :dataset_contributors, source: :user
   has_many :public_files, source: :dataset
   has_many :requests
-  has_many :agreements, through: :requests
+  has_many :agreements, -> { where deleted: false }, through: :requests
 
 
   def public_file?(path)
