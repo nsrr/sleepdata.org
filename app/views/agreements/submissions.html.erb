@@ -9,14 +9,14 @@
 <div style="clear:both">&nbsp;</div>
 
 <% @agreements.order( id: :desc ).each do |agreement| %>
-  <div class="jumbotron welcome-<%= cycle 'odd-color', 'even' %>" style="position:relative;border: 0px solid black">
+  <div class="jumbotron <%= agreement.approved? ? 'step-success' : ( agreement.under_review? ? 'step-info' : 'step-warning') %>" style="position:relative;border: 2px solid transparent;">
     <div class="jumbotron-left-after">
       Agreement #<%= current_user.agreements.order( :id ).pluck(:id).index(agreement.id)+1 %>
     </div>
 
     <% if agreement.under_review? %>
       <p class="lead">
-        This submission is currently under review.
+        This submission is currently <strong>under review</strong>.
       </p>
     <% elsif agreement.approved? %>
 
@@ -36,17 +36,19 @@
       Steps:
       <% (1..7).each do |step| %>
         <% current_step = (step == 1 ? 2 : agreement.current_step) %>
-        <%= link_to step, step_agreement_path(agreement, step: step), class: "btn btn-xs btn-#{step_helper(agreement, step, current_step)}" %>
+        <%= link_to step, step_agreement_path(agreement, step: step), class: "btn btn-#{step_helper(agreement, step, current_step)}" %>
       <% end %>
       <% if agreement.no_irb_evidence? %>
-        <%= link_to 8, step_agreement_path(agreement, step: 8), class: "btn btn-xs btn-#{step_helper(agreement, 8, agreement.current_step)}" %>
+        <%= link_to 8, step_agreement_path(agreement, step: 8), class: "btn btn-#{step_helper(agreement, 8, agreement.current_step)}" %>
       <% end %>
 
-      <% if agreement.fully_filled_out? %>
-        <%= link_to 'Continue', proof_agreement_path(agreement), class: 'btn btn-lg btn-primary' %>
-      <% else %>
-        <%= link_to 'Continue', step_agreement_path(agreement, step: agreement.current_step), class: 'btn btn-lg btn-primary' %>
-      <% end %>
+      <div class="jumbotron-right-bottom-after">
+        <% if agreement.fully_filled_out? %>
+          <%= link_to "Continue <span class='glyphicon glyphicon-arrow-right'></span>".html_safe, proof_agreement_path(agreement) %>
+        <% else %>
+          <%= link_to "Continue <span class='glyphicon glyphicon-arrow-right'></span>".html_safe, step_agreement_path(agreement, step: agreement.current_step) %>
+        <% end %>
+      </div>
 
     <% end %>
     <% if agreement.datasets.count > 0 %>
@@ -66,11 +68,11 @@
           Submitted: <%= agreement.submitted_at.strftime("%-d %B %Y, %-l:%M %p (%H:%M)") %>
         <% end %>
       </div>
-    <% end %>
 
-    <div class="jumbotron-right-bottom-after">
-      <%= link_to "<span class='glyphicon glyphicon-print'></span> Print Copy of Agreement".html_safe, '#', data: { object: 'suppress-click' } %>
-    </div>
+      <div class="jumbotron-right-bottom-after">
+        <%= link_to "<span class='glyphicon glyphicon-print'></span> Print Copy of Agreement".html_safe, '#', data: { object: 'suppress-click' } %>
+      </div>
+    <% end %>
 
   </div>
 <% end %>
