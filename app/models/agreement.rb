@@ -141,6 +141,7 @@ class Agreement < ActiveRecord::Base
     dup_agreement = self.dup
     dup_agreement.current_step = step
     dup_agreement.irb = self.irb
+    dup_agreement.datasets = self.datasets
     dup_agreement.valid?
   end
 

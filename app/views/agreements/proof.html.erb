@@ -47,6 +47,16 @@
 
   <dl class="dl-horizontal">
     <dt>Specific Purpose</dt><dd><%= @agreement.specific_purpose %></dd>
+    <dt>Datasets</dt>
+    <dd>
+      <ul class="list-unstyled">
+        <% @agreement.datasets.each do |dataset| %>
+          <li>
+            <%= dataset.name %>
+          </li>
+        <% end %>
+      </ul>
+    </dd>
   </dl>
 </div>
 
@@ -122,6 +132,12 @@
     <h2>Step 8 <%= link_to 'Edit Step 8', step_agreement_path(@agreement, step: 8), class: 'btn btn-xs btn-primary' %></h2>
 
     <dl class="dl-horizontal">
+      <dt>Title of Project</dt>
+      <dd><%= @agreement.title_of_project %></dd>
+      <dt>Intended Use of Data</dt>
+      <dd><%= @agreement.intended_use_of_data %></dd>
+      <dt>Where Data Will Be Secured And Security In Place</dt>
+      <dd><%= @agreement.data_secured_location %></dd>
     </dl>
   </div>
 <% end %>
