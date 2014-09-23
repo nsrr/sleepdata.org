@@ -2,7 +2,7 @@
 
 ### Enhancements
 - **General Changes**
-  - Prototyping a new online DAUA application process
+  - Added a new online DAUA application process
     - DAUA can be filled out by an individual or an organization
     - Multiple submissions can be created for different datasets
     - Completed submissions can be printed
