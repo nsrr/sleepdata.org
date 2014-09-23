@@ -9,6 +9,45 @@
 </div>
 
 <dl class="dl-horizontal">
+  <dt>Status</dt>
+  <dd><%= status_helper(@agreement) %></dd>
+
+  <dt>Approval Date</dt>
+  <dd><%= @agreement.approval_date %></dd>
+
+  <dt>Expiration Date</dt>
+  <dd><%= @agreement.expiration_date %></dd>
+
+  <dt>Specific Purpose</dt>
+  <dd><%= @agreement.specific_purpose %></dd>
+
+  <dt>Datasets</dt>
+  <dd>
+    <ul class="list-unstyled">
+    <% @agreement.datasets.each do |dataset| %>
+      <li><%= link_to dataset.name, dataset %></li>
+    <% end %>
+    </ul>
+  </dd>
+
+  <% if @agreement.irb_evidence_type == 'has_evidence' %>
+    <dt>IRB Evidence</dt>
+    <dd><%= render partial: 'agreements/proof/irb_file_download' %></dd>
+  <% elsif @agreement.irb_evidence_type == 'no_evidence' %>
+    <dt>Title of Project</dt>
+    <dd><%= @agreement.title_of_project %></dd>
+    <dt>Intended Use of Data</dt>
+    <dd><%= @agreement.intended_use_of_data %></dd>
+  <% end %>
+</dl>
+
+<%= render partial: 'agreements/history' %>
+
+<hr class="divider-md" />
+
+<h2>Older DAUAs</h2>
+
+<dl class="dl-horizontal">
   <dt>DAUA PDF</dt>
   <dd>
     <% if @agreement.dua.url %>
@@ -25,9 +64,6 @@
     <% end %>
   </dd>
 
-  <dt>Status</dt>
-  <dd><%= status_helper(@agreement) %></dd>
-
   <dt>Evidence of IRB or Ethics Committee Review</dt>
   <dd style="min-height:75px"><%= simple_check @agreement.evidence_of_irb_review? %></dd>
 
@@ -36,12 +72,6 @@
     <dd><blockquote><%= @agreement.comments %></blockquote></dd>
   <% end %>
 
-  <dt>Approval Date</dt>
-  <dd><%= @agreement.approval_date %></dd>
-
-  <dt>Expiration Date</dt>
-  <dd><%= @agreement.expiration_date %></dd>
 
 </dl>
 
-<%= render partial: 'agreements/history' %>

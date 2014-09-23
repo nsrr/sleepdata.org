@@ -2,8 +2,31 @@
 
 <%= render partial: 'datasets/header' %>
 
+
+
 <div class="row">
   <div class="col-sm-9" style="margin-bottom:20px">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>DAUA</th>
+            <th>User</th>
+            <th>Role</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <% @dataset.agreements.each do |agreement| %>
+          <tr>
+            <td><%= link_to "View ##{agreement.id}", agreement %></td>
+            <td><%= image_tag agreement.user.avatar_url(18), style: 'vertical-align:text-bottom;min-width:18px' %> <%= agreement.user.name %></td>
+            <td>Viewer</td>
+            <td><%= status_helper(agreement) %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+
     <div class="table-responsive">
       <table class="table table-striped">
         <thead>
