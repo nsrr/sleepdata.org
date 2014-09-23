@@ -11,14 +11,15 @@ $(document)
     $($(this).data('target')).prop('checked', true)
   )
   .on('click', "[data-object~='select_checkbox_panel']", (evt) ->
+    if event.target.tagName and event.target.tagName.toLowerCase() != 'input'
+      $($(this).data('target')).prop('checked', !$($(this).data('target')).prop('checked'))
+
     if $($(this).data('target')).prop('checked')
-      $($(this).data('target')).prop('checked', false)
-      $(this).closest(".panel").removeClass('panel-success')
-      $(this).closest(".panel").addClass('panel-default')
-    else
-      $($(this).data('target')).prop('checked', true)
       $(this).closest(".panel").removeClass('panel-default')
       $(this).closest(".panel").addClass('panel-success')
+    else
+      $(this).closest(".panel").removeClass('panel-success')
+      $(this).closest(".panel").addClass('panel-default')
   )
   .on('click', '[data-object~="submit-draft"]', () ->
     window.$isDirty = false
