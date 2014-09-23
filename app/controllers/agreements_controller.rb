@@ -195,7 +195,7 @@ class AgreementsController < ApplicationController
         params[:agreement][date] = parse_date(params[:agreement][date]) if params[:agreement].key?(date)
       end
 
-      params.require(:agreement).permit(:status, :comments, :approval_date, :expiration_date, :reviewer_signature)
+      params.require(:agreement).permit(:current_step, :status, :comments, :approval_date, :expiration_date, :reviewer_signature)
     end
 
     def daua_submission_params

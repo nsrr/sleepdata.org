@@ -11,6 +11,8 @@
     </div>
   <% end %>
 
+  <%= hidden_field_tag "agreement[current_step]", 0 %>
+
   <div class="form-group">
     <%= f.label :reviewer_signature, nil, class: 'col-md-3 control-label' %>
     <div class="col-md-9" style="position:relative">
