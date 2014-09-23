@@ -5,9 +5,9 @@
     <tr>
       <th style="white-space:nowrap">DAUA</th>
       <th style="white-space:nowrap">Status</th>
-      <th style="white-space:nowrap;text-align:center">IRB/Ethics approval</th>
       <th>Submitted DAUA</th>
       <th>Executed DAUA</th>
+      <th style="white-space:nowrap">Submittion Date</th>
       <th style="white-space:nowrap">Approval Date</th>
       <th style="white-space:nowrap">Expiration Date</th>
       <th>Actions</th>
@@ -18,7 +18,6 @@
     <tr>
       <td style="white-space:nowrap"><%= image_tag agreement.user.avatar_url(18), style: 'vertical-align:text-bottom;width:18px' %> <%= link_to agreement.name, agreement %></td>
       <td><%= status_helper(agreement) %></td>
-      <td style="text-align:center"><%= simple_check agreement.evidence_of_irb_review? %></td>
       <td>
         <% if agreement.dua.url %>
           <%= link_to agreement.dua.url.split('/').last, download_agreement_path(agreement), target: '_blank', class: 'btn btn-xs btn-default' %>
@@ -27,6 +26,13 @@
       <td>
         <% if agreement.executed_dua.url %>
           <%= link_to agreement.executed_dua.url.split('/').last, download_agreement_path(agreement, executed: '1'), target: '_blank', class: 'btn btn-xs btn-default' %>
+        <% end %>
+      </td>
+      <td>
+        <% if agreement.resubmitted_at %>
+          Resubmitted: <%= agreement.resubmitted_at.strftime("%m/%d/%Y") %>
+        <% elsif agreement.submitted_at %>
+          <%= agreement.submitted_at.strftime("%m/%d/%Y") %>
         <% end %>
       </td>
       <td><%= agreement.approval_date %></td>

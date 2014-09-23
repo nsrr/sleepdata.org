@@ -3,9 +3,9 @@ module AgreementsHelper
   def status_helper(agreement)
     status_hash = { 'approved' => 'success',
                     'resubmit' => 'danger',
-                    'submitted' => 'warning',
+                    'submitted' => 'primary',
                     'expired' => 'default',
-                    '' => 'default'
+                    '' => 'warning'
                   }
     content_tag(
       :span, agreement.status || 'started',
