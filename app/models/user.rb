@@ -48,6 +48,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def all_agreements
+    if self.system_admin?
+      Agreement.current
+    else
+      self.agreements
+    end
+  end
+
   def subscribed_topics
     Topic.current.not_banned.where( id: self.subscriptions.where( subscribed: true ).pluck( :topic_id ) )
   end

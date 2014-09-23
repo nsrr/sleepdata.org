@@ -343,66 +343,79 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  # Older Agreements
-
-  test "should get sign in for daua" do
-    get :daua
+  test "should download irb pdf for system admin" do
+    login(users(:admin))
+    get :download_irb, id: agreements(:filled_out_application_with_attached_irb_file)
+    assert_not_nil assigns(:agreement)
+    assert_kind_of String, response.body
+    assert_equal File.binread( File.join('test', 'support', 'agreements', 'blank.pdf') ), response.body
     assert_response :success
-    assert_template 'daua_sign_in'
   end
 
-  test "should get new daua" do
-    login(users(:editor))
-    get :daua
+  test "should download irb pdf for agreement user" do
+    login(users(:valid))
+    get :download_irb, id: agreements(:filled_out_application_with_attached_irb_file)
+    assert_not_nil assigns(:agreement)
+    assert_kind_of String, response.body
+    assert_equal File.binread( File.join('test', 'support', 'agreements', 'blank.pdf') ), response.body
     assert_response :success
-    assert_template 'daua'
   end
 
-  test "should get submitted daua" do
+  test "should not download irb pdf for non agreement user" do
     login(users(:two))
-    get :daua
-    assert_response :success
-    assert_template 'daua_submitted'
+    get :download_irb, id: agreements(:filled_out_application_with_attached_irb_file)
+    assert_nil assigns(:agreement)
+    assert_redirected_to submissions_path
   end
 
-  test "should get resubmit daua" do
-    login(users(:admin))
-    get :daua
-    assert_response :success
-    assert_template 'daua_submitted'
-  end
-
-  test "should get approved daua" do
-    skip
+  test "should get proof agreement for agreement user" do
     login(users(:valid))
-    get :daua
+    get :proof, id: agreements(:filled_out_application_with_attached_irb_file)
+    assert_not_nil assigns(:agreement)
     assert_response :success
-    assert_template 'daua_approved'
   end
 
-  test "should submit agreement" do
-    login(users(:editor))
-    assert_difference('Agreement.count') do
-      post :submit, agreement: { dua: fixture_file_upload('../../test/support/agreements/blank.pdf') }
+  test "should not get proof agreement for non agreement user" do
+    login(users(:two))
+    get :proof, id: agreements(:filled_out_application_with_attached_irb_file)
+    assert_nil assigns(:agreement)
+    assert_redirected_to submissions_path
+  end
+
+  test "should get complete agreement for agreement user" do
+    login(users(:valid))
+    get :complete, id: agreements(:filled_out_application_with_attached_irb_file)
+    assert_not_nil assigns(:agreement)
+    assert_response :success
+  end
+
+  test "should not get complete agreement for non agreement user" do
+    login(users(:two))
+    get :complete, id: agreements(:filled_out_application_with_attached_irb_file)
+    assert_nil assigns(:agreement)
+    assert_redirected_to submissions_path
+  end
+
+  test "should destroy submission for agreement user for agreements with started or resubmit status" do
+    login(users(:valid))
+    assert_difference('Agreement.current.count', -1) do
+      delete :destroy_submission, id: agreements(:filled_out_application_with_attached_irb_file)
+    end
+    assert_not_nil assigns(:agreement)
+    assert_redirected_to submissions_path
+  end
+
+  test "should not destroy submission for non-agreement user for agreements with started or resubmit status" do
+    login(users(:two))
+    assert_difference('Agreement.current.count', 0) do
+      delete :destroy_submission, id: agreements(:filled_out_application_with_attached_irb_file)
     end
 
-    assert_redirected_to daua_path # agreement_path(assigns(:agreement))
+    assert_nil assigns(:agreement)
+    assert_redirected_to submissions_path
   end
 
-  test "should not submit agreement if one already exists" do
-    login(users(:valid))
-    assert_difference('Agreement.count', 0) do
-      post :submit, agreement: { dua: fixture_file_upload('../../test/support/agreements/blank.pdf') }
-    end
-
-    assert_redirected_to daua_path # agreement_path(assigns(:agreement))
-  end
-
-  test "should resubmit agreement" do
-    login(users(:admin))
-    patch :resubmit, agreement: { dua: fixture_file_upload('../../test/support/agreements/blank.pdf') }
-    assert_redirected_to daua_path # agreement_path(assigns(:agreement))
-  end
+  # Older Agreements
 
   test "should get index" do
     login(users(:admin))
@@ -439,12 +452,13 @@ class AgreementsControllerTest < ActionController::TestCase
 
   test "should update agreement and set as approved" do
     login(users(:admin))
-    patch :update, id: agreements(:two), agreement: { executed_dua: fixture_file_upload('../../test/support/agreements/blank.pdf'), evidence_of_irb_review: true, status: 'approved' }
+    patch :update, id: agreements(:two), agreement: { approval_date: '09/20/2014', expiration_date: '09/20/2017', reviewer_signature: agreements(:filled_out_application_with_attached_irb_file).signature, status: 'approved' }
 
     assert_not_nil assigns(:agreement)
-    assert_equal true, assigns(:agreement).evidence_of_irb_review
+    assert_equal "09/20/2014", assigns(:agreement).approval_date.strftime("%m/%d/%Y")
+    assert_equal "09/20/2017", assigns(:agreement).expiration_date.strftime("%m/%d/%Y")
+    assert_not_nil assigns(:agreement).reviewer_signature
     assert_equal 'approved', assigns(:agreement).status
-    assert_equal 'blank.pdf', assigns(:agreement).executed_dua.file.identifier
 
     assert_redirected_to agreement_path(assigns(:agreement))
   end
@@ -460,15 +474,16 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_redirected_to agreement_path(assigns(:agreement))
   end
 
-  test "should not approve agreement without executed dua" do
-    skip
+  test "should not approve agreement without required fields" do
     login(users(:admin))
-    patch :update, id: @agreement, agreement: { executed_dua: '', evidence_of_irb_review: true, status: 'approved' }
+    patch :update, id: @agreement, agreement: { approval_date: '', expiration_date: '', reviewer_signature: '[]', status: 'approved' }
 
     assert_not_nil assigns(:agreement)
 
     assert assigns(:agreement).errors.size > 0
-    assert_equal ["can't be blank"], assigns(:agreement).errors[:executed_dua]
+    assert_equal ["can't be blank"], assigns(:agreement).errors[:approval_date]
+    assert_equal ["can't be blank"], assigns(:agreement).errors[:expiration_date]
+    assert_equal ["can't be blank"], assigns(:agreement).errors[:reviewer_signature]
 
     assert_template 'review'
   end

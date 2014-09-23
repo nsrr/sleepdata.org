@@ -1,9 +1,12 @@
 @agreementsReady = () ->
-  sig = $('#agreement_signature').val() if $('#agreement_signature').val()
-  if $("[data-object~='signature']").length > 0
-    $("[data-object~='signature']").signaturePad( drawOnly: true, lineWidth: 0, validateFields: false ).regenerate(sig)
-  if $("[data-object~='signature-display']").length > 0
-    $("[data-object~='signature-display']").signaturePad( displayOnly: true ).regenerate(sig)
+  $("[data-object~='signature']").each( (index, element) ->
+    sig = $($(this).data('signature-target')).val() if $($(this).data('signature-target')).val()
+    $(this).signaturePad( drawOnly: true, lineWidth: 0, validateFields: false, output: $(this).data('signature-target') ).regenerate(sig)
+  )
+  $("[data-object~='signature-display']").each( (index, element) ->
+    sig = $($(this).data('signature-target')).val() if $($(this).data('signature-target')).val()
+    $(this).signaturePad( displayOnly: true, output: $(this).data('signature-target') ).regenerate(sig)
+  )
   false
 
 $(document)

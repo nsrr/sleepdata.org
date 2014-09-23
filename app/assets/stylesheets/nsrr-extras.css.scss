@@ -24,3 +24,13 @@
   border-color: $alert-info-border !important;
   background-color: $alert-info-bg !important;
 }
+
+.step-danger {
+  border-color: $alert-danger-border !important;
+  background-color: $alert-danger-bg !important;
+}
+
+.step-default {
+  border-color: $btn-default-border !important;
+  background-color: $btn-default-bg !important;
+}

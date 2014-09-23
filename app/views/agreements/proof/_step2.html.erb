@@ -1,0 +1,13 @@
+<dl class="dl-horizontal">
+  <dt>Specific Purpose</dt><dd><%= @agreement.specific_purpose %></dd>
+  <dt>Datasets</dt>
+  <dd>
+    <ul class="list-unstyled">
+      <% @agreement.datasets.each do |dataset| %>
+        <li>
+          <%= dataset.name %>
+        </li>
+      <% end %>
+    </ul>
+  </dd>
+</dl>

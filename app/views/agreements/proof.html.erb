@@ -11,135 +11,14 @@
   Please proof read your application and then click "Submit" to complete Data Access Request.
 </p>
 
-<div class="step step-<%= (@agreement.step_valid?(1) ? 'success' : 'warning') %>">
-  <h2>Step 1 <%= link_to 'Edit Step 1', step_agreement_path(@agreement, step: 1), class: 'btn btn-xs btn-primary' %></h2>
+<% steps = (@agreement.no_irb_evidence? ? (1..8) : (1..7)) %>
 
-  <dl class="dl-horizontal">
-    <dt>Data User</dt>
-    <dd><%= @agreement.data_user %></dd>
+<% steps.each do |step| %>
+<div class="step step-<%= (@agreement.step_valid?(step) ? 'success' : 'warning') %>">
+  <h2>Step <%= step %> <%= link_to "Edit Step #{step}", step_agreement_path(@agreement, step: step), class: 'btn btn-xs btn-primary' %></h2>
 
-    <% if @agreement.data_user_type == 'individual' %>
-      <dt>Application Type</dt>
-      <dd>An individual, requesting Data/Datasets under this DAUA on behalf of himself/herself as follows:</dd>
-
-      <dt>Institution</dt><dd><%= @agreement.individual_institution_name %></dd>
-      <dt>Full Name</dt><dd><%= @agreement.user.name %></dd>
-      <dt>Professional Title</dt><dd><%= @agreement.individual_title %></dd>
-      <dt>Telephone</dt><dd><%= @agreement.individual_telephone %></dd>
-      <dt>Fax</dt><dd><%= @agreement.individual_fax %></dd>
-      <dt>Address</dt><dd><%= @agreement.individual_address %></dd>
-    <% elsif @agreement.data_user_type == 'organization' %>
-      <dt>Application Type</dt>
-      <dd>An organization / corporation, requesting Data/Datasets under this DAUA on behalf of itself and its employees, with a principal place of business and primary business contact as follows:</dd>
-      <dt>Organization</dt><dd><%= @agreement.organization_business_name %></dd>
-      <dt>Contact Name</dt><dd><%= @agreement.organization_contact_name %></dd>
-      <dt>Contact Title</dt><dd><%= @agreement.organization_contact_title %></dd>
-      <dt>Contact Telephone</dt><dd><%= @agreement.organization_contact_telephone %></dd>
-      <dt>Contact Fax</dt><dd><%= @agreement.organization_contact_fax %></dd>
-      <dt>Contact Email</dt><dd><%= @agreement.organization_contact_email %></dd>
-      <dt>Organization Address</dt><dd><%= @agreement.organization_address %></dd>
-    <% end %>
-  </dl>
+  <%= render partial: "agreements/proof/step#{step}" %>
 </div>
-
-<div class="step step-<%= (@agreement.step_valid?(2) ? 'success' : 'warning') %>">
-  <h2>Step 2 <%= link_to 'Edit Step 2', step_agreement_path(@agreement, step: 2), class: 'btn btn-xs btn-primary' %></h2>
-
-  <dl class="dl-horizontal">
-    <dt>Specific Purpose</dt><dd><%= @agreement.specific_purpose %></dd>
-    <dt>Datasets</dt>
-    <dd>
-      <ul class="list-unstyled">
-        <% @agreement.datasets.each do |dataset| %>
-          <li>
-            <%= dataset.name %>
-          </li>
-        <% end %>
-      </ul>
-    </dd>
-  </dl>
-</div>
-
-<div class="step step-<%= (@agreement.step_valid?(3) ? 'success' : 'warning') %>">
-  <h2>Step 3 <%= link_to 'Edit Step 3', step_agreement_path(@agreement, step: 3), class: 'btn btn-xs btn-primary' %></h2>
-
-  <% if @agreement.has_read_step3? %>
-    <p class="lead">Has read and accepted the Step 3 terms and conditions.</p>
-  <% else %>
-    <p class="lead">Has not read or accepted the Step 3 terms and conditions.</p>
-  <% end %>
-</div>
-
-<div class="step step-<%= (@agreement.step_valid?(4) ? 'success' : 'warning') %>">
-  <h2>Step 4 <%= link_to 'Edit Step 4', step_agreement_path(@agreement, step: 4), class: 'btn btn-xs btn-primary' %></h2>
-
-  <dl class="dl-horizontal">
-    <dt>Posting Permission</dt>
-    <dd>
-      <% case @agreement.posting_permission when 'all' %>
-        Data User gives BWH permission to post <strong>Data User's name</strong> and a summary of <strong>Data User's Specific Purpose</strong> on https://sleepdata.org
-      <% when 'name_only' %>
-        Data User gives BWH permission to post <strong>Data User's name</strong> on https://sleepdata.org
-      <% when 'none' %>
-        Data User <strong>does not give permission</strong> to post Data User's name or a summary of Data User's Specific Purpose on https://sleepdata.org
-      <% end %>
-    </dd>
-  </dl>
-</div>
-
-<div class="step step-<%= (@agreement.step_valid?(5) ? 'success' : 'warning') %>">
-  <h2>Step 5 <%= link_to 'Edit Step 5', step_agreement_path(@agreement, step: 5), class: 'btn btn-xs btn-primary' %></h2>
-
-  <% if @agreement.has_read_step5? %>
-    <p class="lead">Has read and accepted the Step 5 terms and conditions.</p>
-  <% else %>
-    <p class="lead">Has not read or accepted the Step 5 terms and conditions.</p>
-  <% end %>
-</div>
-
-<div class="step step-<%= (@agreement.step_valid?(6) ? 'success' : 'warning') %>">
-  <h2>Step 6 <%= link_to 'Edit Step 6', step_agreement_path(@agreement, step: 6), class: 'btn btn-xs btn-primary' %></h2>
-
-  <dl class="dl-horizontal">
-    <dt>Signature</dt><dd data-object="signature-display"><%= hidden_field_tag 'agreement_signature', @agreement.signature, class: 'output' %>
-        <canvas class="pad-display" width="300" height="55"></canvas></dd>
-    <dt>By (print name)</dt><dd><%= @agreement.signature_print %></dd>
-    <dt>Date Signed</dt><dd><%= @agreement.signature_date ? @agreement.signature_date.strftime("%-d %B %Y") : "" %></dd>
-  </dl>
-</div>
-
-<div class="step step-<%= (@agreement.step_valid?(7) ? 'success' : 'warning') %>">
-  <h2>Step 7 <%= link_to 'Edit Step 7', step_agreement_path(@agreement, step: 7), class: 'btn btn-xs btn-primary' %></h2>
-
-
-  <% if @agreement.irb_evidence_type == 'has_evidence' %>
-    <dl class="dl-horizontal">
-      <dt>IRB Evidence</dt>
-      <dd>
-        <% if @agreement.irb.size > 0 %>
-          <code><%= @agreement.irb.to_s.split('/').last %></code> <tt><%= number_to_human_size(@agreement.irb.size) %></tt>
-        <% end %>
-      </dd>
-    </dl>
-  <% else %>
-    <p class="lead">Has requested the NSRR IRB to conduct the IRB review.</p>
-  <% end %>
-
-</div>
-
-<% if @agreement.no_irb_evidence? %>
-  <div class="step step-<%= (@agreement.step_valid?(8) ? 'success' : 'warning') %>">
-    <h2>Step 8 <%= link_to 'Edit Step 8', step_agreement_path(@agreement, step: 8), class: 'btn btn-xs btn-primary' %></h2>
-
-    <dl class="dl-horizontal">
-      <dt>Title of Project</dt>
-      <dd><%= @agreement.title_of_project %></dd>
-      <dt>Intended Use of Data</dt>
-      <dd><%= @agreement.intended_use_of_data %></dd>
-      <dt>Where Data Will Be Secured And Security In Place</dt>
-      <dd><%= @agreement.data_secured_location %></dd>
-    </dl>
-  </div>
 <% end %>
 
 <hr class="divider-md" />

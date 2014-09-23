@@ -4,7 +4,7 @@
 
 <hr class="divider-md" />
 
-<%= form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, html: { class: 'form-horizontal', id: 'update_step_form', data: { object: 'signature' } } do |f| %>
+<%= form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, html: { class: 'form-horizontal', id: 'update_step_form', data: { object: 'signature', signature_target: '.output-write' } } do |f| %>
   <% if @agreement.errors.any? %>
     <div id="error_explanation" class="bs-callout bs-callout-danger">
       <h4><%= pluralize(@agreement.errors.count, "error") %> prohibited this step from being saved</h4>
@@ -24,10 +24,10 @@
   <div class="form-group">
     <%= f.label :signature, nil, class: 'col-md-3 control-label' %>
     <div class="col-md-9" style="position:relative">
-      <%= f.hidden_field :signature, class: 'output' %>
+      <%= f.hidden_field :signature, class: 'output-write' %>
       <canvas class="pad" width="300" height="55"></canvas>
       <span class="clearButton" style="position: absolute; margin-top: 12.5px; margin-left: 10px;"><%= link_to 'Clear', '#clear', class: 'btn btn-default', tabindex: '-1' %></span>
-      <p class="lead">Signature of Data User</p>
+      <p class="lead">Signature of Data User (or Data User's Duly Authorized Representative, if an organization)</p>
     </div>
   </div>
 
@@ -44,6 +44,20 @@
       <%= f.text_field :signature_date, class: 'datepicker form-control', value: @agreement.signature_date ? @agreement.signature_date.strftime('%m/%d/%Y') : '' %>
     </div>
   </div>
+
+  <% if @agreement.data_user_type == 'organization' %>
+    <div class="form-group">
+      <%= f.label :organization_emails, 'Approved Organization Member Emails', class: 'col-md-3 control-label' %>
+      <div class="col-md-9">
+        <%= f.text_area :organization_emails, class: 'form-control', rows: '5' %>
+        <div class="bs-callout bs-callout-danger">
+          <h4>Attention</h4>
+          <p>If you are the <strong>Duly Authorized Representative</strong>, you must provide a list of email addresses for members of your organization who will be covered by this agreement. Once approved, users who have registered with one of the email addresses provided on this list will be granted access to download files for the selected datasets.</p>
+          <p><strong>Users may not be added to this list after the submission is approved.</strong></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
 
   <hr class="divider-md" />
 

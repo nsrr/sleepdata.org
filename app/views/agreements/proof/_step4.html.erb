@@ -1,0 +1,12 @@
+<dl class="dl-horizontal">
+  <dt>Posting Permission</dt>
+  <dd>
+    <% case @agreement.posting_permission when 'all' %>
+      Data User gives BWH permission to post <strong>Data User's name</strong> and a summary of <strong>Data User's Specific Purpose</strong> on https://sleepdata.org
+    <% when 'name_only' %>
+      Data User gives BWH permission to post <strong>Data User's name</strong> on https://sleepdata.org
+    <% when 'none' %>
+      Data User <strong>does not give permission</strong> to post Data User's name or a summary of Data User's Specific Purpose on https://sleepdata.org
+    <% end %>
+  </dd>
+</dl>

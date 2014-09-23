@@ -26,6 +26,10 @@ Rails.application.routes.draw do
       get :proof
       patch :final_submission
       get :complete
+      get :renew
+      get :download_irb
+      get :print
+      delete :destroy_submission
     end
   end
 
@@ -99,10 +103,9 @@ Rails.application.routes.draw do
   get '/tools/wget/windows' => 'welcome#wget_windows', as: :wget_windows
   get '/tools/wget/src' => 'welcome#wget_src', as: :wget_src
 
-  get '/dua' => 'agreements#dua'
-  get '/daua' => 'agreements#daua', as: :daua
-  post '/daua' => 'agreements#submit', as: :upload_daua
-  patch '/daua' => 'agreements#resubmit', as: :reupload_daua
+  get '/dua' => 'agreements#submissions'
+  get '/daua' => 'agreements#submissions'
+
   get '/settings' => 'users#settings', as: :settings
   patch '/settings' => 'users#update_settings', as: :update_settings
 

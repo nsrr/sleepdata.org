@@ -5,12 +5,23 @@
   </h1>
 </div>
 
+<% steps = (@agreement.no_irb_evidence? ? (1..8) : (1..7)) %>
 
-<div class="jumbotron" style="margin-bottom:0px">
-  <% if @agreement.dua.url %>
-    <p><%= link_to @agreement.dua.url.split('/').last, download_agreement_path(@agreement), target: '_blank', class: 'btn btn-lg btn-success' %></p>
-    <p>Submitted DAUA &middot; <%= number_to_human_size(@agreement.dua.size) %></p>
-  <% end %>
+<% steps.each do |step| %>
+<div class="step step-<%= (@agreement.step_valid?(step) ? 'success' : 'warning') %>">
+  <h2>Step <%= step %></h2>
+
+  <%= render partial: "agreements/proof/step#{step}" %>
 </div>
+<% end %>
+
+<% if false %>
+  <% if @agreement.irb.url %>
+    <div class="jumbotron" style="margin-bottom:0px">
+      <p><%= link_to @agreement.irb.url.split('/').last, download_irb_agreement_path(@agreement), target: '_blank', class: 'btn btn-lg btn-success' %></p>
+      <p>Submitted DAUA &middot; <%= number_to_human_size(@agreement.irb.size) %></p>
+    </div>
+  <% end %>
+<% end %>
 
 <%= render partial: 'agreements/form' %>

@@ -1,0 +1,13 @@
+<% if @agreement.irb_evidence_type == 'has_evidence' %>
+  <dl class="dl-horizontal">
+    <dt>IRB Evidence</dt>
+    <dd>
+      <% if @agreement.irb.size > 0 %>
+        <%= link_to "<span class='glyphicon glyphicon-file'></span> #{@agreement.irb.to_s.split('/').last}".html_safe, download_irb_agreement_path(@agreement), target: '_blank' %>
+        <tt><%= number_to_human_size(@agreement.irb.size) %></tt>
+      <% end %>
+    </dd>
+  </dl>
+<% else %>
+  <p class="lead">Has requested the NSRR IRB to conduct the IRB review.</p>
+<% end %>

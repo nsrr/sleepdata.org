@@ -45,7 +45,8 @@
           <div class="form-group">
             <% if @agreement.irb.size > 0 %>
               <div class="bs-callout bs-callout-default">
-                <code><%= @agreement.irb.to_s.split('/').last %></code> <tt><%= number_to_human_size(@agreement.irb.size) %></tt>
+                <%= link_to "<span class='glyphicon glyphicon-file'></span> #{@agreement.irb.to_s.split('/').last}".html_safe, download_irb_agreement_path(@agreement), target: '_blank' %>
+                <tt><%= number_to_human_size(@agreement.irb.size) %></tt>
               </div>
             <% end %>
 

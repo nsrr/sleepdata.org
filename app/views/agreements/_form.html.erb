@@ -1,4 +1,4 @@
-<%= form_for @agreement, html: { class: 'form-horizontal' } do |f| %>
+<%= form_for @agreement, html: { class: 'form-horizontal', data: { object: 'signature', signature_target: '.output-write' } } do |f| %>
   <% if @agreement.errors.any? %>
     <div id="error_explanation" class="bs-callout bs-callout-danger">
       <h4><%= pluralize(@agreement.errors.count, "error") %> prohibited this agreement from being saved</h4>
@@ -12,34 +12,33 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :executed_dua, 'Executed DAUA (PDF)', class: 'col-md-2 control-label' %>
-    <div class="col-md-10">
-      <%= f.file_field :executed_dua, class: 'form-control' %>
-      <%= f.hidden_field :executed_dua_cache %>
-      <div class="bs-callout bs-callout-info">
-        <h4>Executed DAUA</h4>
-
-        <p>Please download the submitted DAUA above, review, and <strong>sign</strong>.</p>
-        <p>This file is <strong>required</strong> if the agreement status is set to <strong>Approved</strong>.</p>
-      </div>
+    <%= f.label :reviewer_signature, nil, class: 'col-md-3 control-label' %>
+    <div class="col-md-9" style="position:relative">
+      <%= f.hidden_field :reviewer_signature, class: 'output-write' %>
+      <canvas class="pad" width="300" height="55"></canvas>
+      <span class="clearButton" style="position: absolute; margin-top: 12.5px; margin-left: 10px;"><%= link_to 'Clear', '#clear', class: 'btn btn-default', tabindex: '-1' %></span>
+      <p class="lead">Signature of Reviewer</p>
     </div>
   </div>
 
   <div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
-      <div class="well">
-      <div class="checkbox">
-        <label>
-          <%= f.check_box :evidence_of_irb_review %> Submitted PDF included evidence of IRB or Ethics Committee review or document as to exemption.
-        </label>
-      </div>
-      </div>
+    <%= f.label :approval_date, 'Approval Date', class: 'col-md-3 control-label' %>
+    <div class="col-md-9">
+      <%= f.text_field :approval_date, class: 'datepicker form-control', value: @agreement.approval_date ? @agreement.approval_date.strftime('%m/%d/%Y') : Date.today.strftime('%m/%d/%Y') %>
     </div>
   </div>
 
   <div class="form-group">
-    <%= f.label :status, 'Status', class: 'col-md-2 control-label' %>
-    <div class="col-md-10">
+    <%= f.label :expiration_date, 'Expiration Date', class: 'col-md-3 control-label' %>
+    <div class="col-md-9">
+      <%= f.text_field :expiration_date, class: 'datepicker form-control', value: @agreement.expiration_date ? @agreement.expiration_date.strftime('%m/%d/%Y') : (Date.today + 3.years).strftime('%m/%d/%Y') %>
+    </div>
+  </div>
+
+
+  <div class="form-group">
+    <%= f.label :status, 'Status', class: 'col-md-3 control-label' %>
+    <div class="col-md-9">
       <div data-toggle="buttons">
         <label class="btn btn-default <%= 'active' if @agreement.status == 'submitted' %>" data-object="hide-target" data-target="#email-comments-container">
           <%= f.radio_button :status, 'submitted' %> Submitted
@@ -50,13 +49,16 @@
         <label class="btn btn-danger-inverse <%= 'active' if @agreement.status == 'resubmit' %>" data-object="show-target" data-target="#email-comments-container">
           <%= f.radio_button :status, 'resubmit' %> Sent Back for Resubmission
         </label>
+        <label class="btn btn-default <%= 'active' if @agreement.status == 'expired' %>" data-object="hide-target" data-target="#email-comments-container">
+          <%= f.radio_button :status, 'expired' %> Set as Expired
+        </label>
       </div>
     </div>
   </div>
 
   <div class="form-group" id="email-comments-container" style="<%= 'display:none' unless @agreement.status == 'resubmit' %>">
-    <%= f.label :comments, nil, class: 'col-md-2 control-label' %>
-    <div class="col-md-10">
+    <%= f.label :comments, nil, class: 'col-md-3 control-label' %>
+    <div class="col-md-9">
       <%= f.text_area :comments, rows: 7, class: 'form-control' %>
       <div class="bs-callout bs-callout-warning">
         <h4>Comments are emailed to user</h4>
@@ -70,7 +72,7 @@
   <hr class="soften" style="margin-top: 20px;margin-bottom: 20px;"/>
 
   <div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
+    <div class="col-md-offset-3 col-md-9">
       <%= f.submit nil, class: 'btn btn-primary' %>
       <%= cancel %>
     </div>

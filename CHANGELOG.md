@@ -3,6 +3,11 @@
 ### Enhancements
 - **General Changes**
   - Prototyping a new online DAUA application process
+    - DAUA can be filled out by an individual or an organization
+    - Multiple submissions can be created for different datasets
+    - Completed submissions can be printed
+    - In progress submissions can be deleted
+    - Expired submissions can be renewed
 - **Forum Changes**
   - Users are now subscribed to new posts by default
     - Users can opt out of this setting under their user settings.

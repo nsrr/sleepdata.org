@@ -51,6 +51,10 @@ class Agreement < ActiveRecord::Base
   validates_presence_of :user_id
   # validates_presence_of :dua
   # validates_presence_of :executed_dua, if: :approved?
+
+  validates_presence_of :reviewer_signature, :approval_date, :expiration_date, if: :approved?
+  validates :reviewer_signature, length: { minimum: 20, tokenizer: lambda { |str| (JSON.parse(str) rescue []) }, too_short: "can't be blank" }, if: :approved?
+
   validates_presence_of :comments, if: :resubmission_required?
 
   validates_presence_of :data_user, if: :step1?
@@ -86,6 +90,10 @@ class Agreement < ActiveRecord::Base
 
   # Agreement Methods
 
+  def copyable_attributes
+    self.attributes.reject{|key, val| ['id', 'deleted', 'created_at', 'updated_at', 'reviewer_signature', 'approval_date', 'expiration_date', 'comments', 'has_read_step3', 'has_read_step5', 'current_step', 'dua', 'executed_dua'].include?(key.to_s)}
+  end
+
   def dataset_ids=(ids)
     self.datasets = Dataset.release_scheduled.where( id: ids )
   end
@@ -103,7 +111,7 @@ class Agreement < ActiveRecord::Base
   end
 
   def resubmission_required?
-    self.status == 'resubmit' or self.status == 'expired'
+    self.status == 'resubmit'
   end
 
   def add_event!(message, current_user, status)

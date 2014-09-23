@@ -1,0 +1,12 @@
+<dl class="dl-horizontal">
+  <dt>Signature</dt><dd data-object="signature-display" data-signature-target=".output-read">
+    <%= hidden_field_tag 'agreement_signature', @agreement.signature, class: 'output-read' %>
+    <canvas class="pad-display" width="300" height="55"></canvas>
+  </dd>
+  <dt>By (print name)</dt><dd><%= @agreement.signature_print %></dd>
+  <dt>Date Signed</dt><dd><%= @agreement.signature_date ? @agreement.signature_date.strftime("%-d %B %Y") : "" %></dd>
+  <% if @agreement.data_user_type == 'organization' %>
+    <dt>Approved Organization Member Emails</dt>
+    <dd><%= @agreement.organization_emails %></dd>
+  <% end %>
+</dl>
