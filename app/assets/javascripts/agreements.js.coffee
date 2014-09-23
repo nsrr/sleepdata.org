@@ -21,8 +21,12 @@ $(document)
       $(this).closest(".panel").addClass('panel-success')
   )
   .on('click', '[data-object~="submit-draft"]', () ->
+    window.$isDirty = false
     $("#agreement_draft_mode").val('1')
     $($(this).data('target')).submit()
     false
   )
-
+  .on('change', ':input', () ->
+    if $("#isdirty").val() == '1'
+      window.$isDirty = true
+  )
