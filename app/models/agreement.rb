@@ -81,7 +81,7 @@ class Agreement < ActiveRecord::Base
 
   validates_presence_of :irb, if: :step7_and_has_evidence?
 
-  validates_presence_of :title_of_project, :intended_use_of_data, :data_secured_location, if: :step8?
+  validates_presence_of :title_of_project, :intended_use_of_data, :data_secured_location, :secured_device, if: :step8?
 
   # Model Relationships
   belongs_to :user

@@ -79,16 +79,16 @@
       <% agreement = current_user.agreements.first if current_user %>
       <% dataset_user = @dataset.dataset_users.where( user_id: current_user.id ).first if current_user %>
       <% if agreement == nil %>
-        <p class="lead">In order for us to provide you direct downloads to files, you will need to <%= link_to 'Fill out a Data Access and Use Agreement', daua_path, class: 'btn btn-lg btn-success' %>.</p>
+        <p class="lead">In order for us to provide you direct downloads to files, you will need to <%= link_to 'Fill out a Data Access and Use Agreement', submissions_path, class: 'btn btn-lg btn-success' %>.</p>
       <% elsif agreement and agreement.status == 'submitted' %>
         <p class="lead">We are currently reviewing your <%= status_helper(agreement) %> DAUA.</p>
         <p class="lead">Please contact us directly at <%= link_to 'support@sleepdata.org', 'mailto:support@sleepdata.org' %> with any questions.</p>
       <% elsif agreement and agreement.status == 'resubmit' %>
         <p class="lead">You are required to <%= status_helper(agreement) %> your DAUA.</p>
-        <p class="lead">Please make the changes requested by the reviewer and <%= link_to 'resubmit your DAUA', daua_path %>.</p>
+        <p class="lead">Please make the changes requested by the reviewer and <%= link_to 'resubmit your DAUA', submissions_path %>.</p>
       <% elsif agreement and agreement.status == 'expired' %>
         <p class="lead">Your DAUA is <%= status_helper(agreement) %>.</p>
-        <p class="lead">You will need to <%= link_to 'renew your DAUA', daua_path %> to continue downloading files.</p>
+        <p class="lead">You will need to <%= link_to 'renew your DAUA', submissions_path %> to continue downloading files.</p>
       <% elsif dataset_user == nil %>
         <p class="lead">
           Please <%= link_to '<span class="glyphicon glyphicon-lock"></span> Request Access'.html_safe, request_access_dataset_path(@dataset, path: params[:path].to_s), style: 'cursor:pointer', class: 'btn btn-lg btn-info' %> if you would like to download files from this dataset.

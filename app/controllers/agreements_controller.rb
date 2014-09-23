@@ -44,7 +44,7 @@ class AgreementsController < ApplicationController
     if @agreement.save
       # @agreement.add_event!('Data Access and Use Agreement submitted.', current_user, 'submitted')
       # @agreement.daua_submitted
-      # redirect_to daua_path, notice: 'Agreement was successfully created.'
+      # redirect_to submissions_path, notice: 'Agreement was successfully created.'
       if @agreement.draft_mode?
         redirect_to submissions_path
       else
@@ -232,7 +232,7 @@ class AgreementsController < ApplicationController
         # Step Seven
           :irb_evidence_type, :irb,
         # Step Eight
-          :title_of_project, :intended_use_of_data, :data_secured_location
+          :title_of_project, :intended_use_of_data, :data_secured_location, :secured_device
       )
     end
 

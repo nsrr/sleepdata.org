@@ -22,7 +22,7 @@ class ToolsControllerTest < ActionController::TestCase
     assert_equal false, assigns(:tool_user).editor
     assert_equal users(:valid), assigns(:tool_user).user
 
-    assert_redirected_to daua_path
+    assert_redirected_to submissions_path
   end
 
   test "should not create additional requests with existing request" do
@@ -36,7 +36,7 @@ class ToolsControllerTest < ActionController::TestCase
     assert_equal false, assigns(:tool_user).editor
     assert_equal users(:two), assigns(:tool_user).user
 
-    assert_redirected_to daua_path
+    assert_redirected_to submissions_path
   end
 
   test "should approve access request to tool" do

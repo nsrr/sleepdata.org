@@ -34,7 +34,7 @@ class DatasetsController < ApplicationController
     if params[:path]
       redirect_to files_dataset_path(@dataset, path: params[:path])
     else
-      redirect_to daua_path
+      redirect_to submissions_path
     end
   end
 

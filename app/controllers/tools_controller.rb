@@ -14,7 +14,7 @@ class ToolsController < ApplicationController
     else
       @tool_user = @tool.tool_users.create( user_id: current_user.id, editor: false, approved: nil )
     end
-    redirect_to daua_path
+    redirect_to submissions_path
   end
 
   def set_access

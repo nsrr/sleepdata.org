@@ -3,6 +3,13 @@
   <dd><%= @agreement.title_of_project %></dd>
   <dt>Intended Use of Data</dt>
   <dd><%= @agreement.intended_use_of_data %></dd>
-  <dt>Where Data Will Be Secured And Security In Place</dt>
+  <dt>Please describe where data will be stored and secured</dt>
   <dd><%= @agreement.data_secured_location %></dd>
 </dl>
+
+<% if @agreement.secured_device? %>
+  <p class="lead">Has attested that data will be stored on a secure password protected device.</p>
+<% else %>
+  <p class="lead text-danger">Has NOT attested that data will be stored on a secure password protected device.</p>
+<% end %>
+
