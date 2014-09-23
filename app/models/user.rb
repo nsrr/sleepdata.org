@@ -56,8 +56,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  # If a user has auto-subscribe enabled, then the user receives notifications on topics they have not explicity squelched.
+  # If a user has auto-subscribe disabled, then the user receives notifications on topics to which they have explicitely subscribed.
   def subscribed_topics
-    Topic.current.not_banned.where( id: self.subscriptions.where( subscribed: true ).pluck( :topic_id ) )
+    @subscribed_topics ||= begin
+      if self.auto_subscribe?
+        Topic.current.not_banned.where.not( id: self.subscriptions.where( subscribed: false ).pluck( :topic_id ) )
+      else
+        Topic.current.not_banned.where( id: self.subscriptions.where( subscribed: true ).pluck( :topic_id ) )
+      end
+    end
   end
 
   # All comments created in the last day, or over the weekend if it is Monday

@@ -50,6 +50,19 @@ class Topic < ActiveRecord::Base
     subscription && subscription.subscribed? ? true : false
   end
 
+  def subscription_type(current_user)
+    subscription = current_user.subscriptions.where( topic_id: self.id ).first
+    if subscription and subscription.subscribed == true
+      'subscribed'
+    elsif subscription and subscription.subscribed == false
+      'muted'
+    elsif current_user.auto_subscribe?
+      'auto-subscribed'
+    else
+      'auto-muted'
+    end
+  end
+
   private
 
   def create_first_comment
