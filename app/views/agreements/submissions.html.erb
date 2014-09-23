@@ -33,14 +33,16 @@
 
     <% else  %>
 
-      Steps:
-      <% (1..7).each do |step| %>
-        <% current_step = (step == 1 ? 2 : agreement.current_step) %>
-        <%= link_to step, step_agreement_path(agreement, step: step), class: "btn btn-#{step_helper(agreement, step, current_step)}" %>
-      <% end %>
-      <% if agreement.no_irb_evidence? %>
-        <%= link_to 8, step_agreement_path(agreement, step: 8), class: "btn btn-#{step_helper(agreement, 8, agreement.current_step)}" %>
-      <% end %>
+      <p class="lead">
+        Steps:
+        <% (1..7).each do |step| %>
+          <% current_step = (step == 1 ? 2 : agreement.current_step) %>
+          <%= link_to step, step_agreement_path(agreement, step: step), class: "btn btn-#{step_helper(agreement, step, current_step)}" %>
+        <% end %>
+        <% if agreement.no_irb_evidence? %>
+          <%= link_to 8, step_agreement_path(agreement, step: 8), class: "btn btn-#{step_helper(agreement, 8, agreement.current_step)}" %>
+        <% end %>
+      </p>
 
       <div class="jumbotron-right-bottom-after">
         <% if agreement.fully_filled_out? %>
@@ -72,6 +74,13 @@
       <div class="jumbotron-right-bottom-after">
         <%= link_to "<span class='glyphicon glyphicon-print'></span> Print Copy of Agreement".html_safe, '#', data: { object: 'suppress-click' } %>
       </div>
+    <% end %>
+
+    <% unless agreement.specific_purpose.blank? %>
+      <hr class="divider-sm" />
+      <p class="lead-paragraph text-muted">
+        <%= agreement.specific_purpose %>
+      </p>
     <% end %>
 
   </div>
