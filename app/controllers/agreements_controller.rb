@@ -147,7 +147,7 @@ class AgreementsController < ApplicationController
   # GET /agreements
   # GET /agreements.json
   def index
-    @agreements = Agreement.current.search(params[:search]).order(expiration_date: :desc).page(params[:page]).per( 40 )
+    @agreements = Agreement.current.search(params[:search]).order([expiration_date: :desc, id: :desc]).page(params[:page]).per( 40 )
   end
 
   # GET /agreements/1
