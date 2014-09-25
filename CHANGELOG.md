@@ -1,5 +1,9 @@
 ## 0.12.0
 
+### Enhancements
+- **Administrative Changes**
+  - Fixed a minor typo
+
 ## 0.11.1 (September 24, 2014)
 
 ### Bug Fix
