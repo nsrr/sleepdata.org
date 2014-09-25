@@ -1,4 +1,4 @@
-## 0.11.1
+## 0.11.1 (September 24, 2014)
 
 ### Bug Fix
 - Fixed a bug that prevented non-admin users from starting a new DAUA submission process
