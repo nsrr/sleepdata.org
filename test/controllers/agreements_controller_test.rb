@@ -13,6 +13,15 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get submission start for valid user" do
+    login(users(:valid))
+    get :new_step
+
+    assert_not_nil assigns(:agreement)
+    assert_template 'wizard/step1'
+    assert_response :success
+  end
+
   test "should get step1 when no step is given" do
     login(users(:valid))
     get :step, id: agreements(:step1_saved_as_draft)
