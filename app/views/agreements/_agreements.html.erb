@@ -3,13 +3,21 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th style="white-space:nowrap">DAUA</th>
-      <th style="white-space:nowrap">Status</th>
-      <th>Submitted DAUA</th>
-      <th>Executed DAUA</th>
-      <th style="white-space:nowrap">Submission Date</th>
-      <th style="white-space:nowrap">Approval Date</th>
-      <th style="white-space:nowrap">Expiration Date</th>
+      <th style="white-space:nowrap">
+        DAUA
+      </th>
+      <th style="white-space:nowrap">
+        <%= link_to 'Status', agreements_path( order: (params[:order] == 'agreements.status DESC' ? 'agreements.status' : 'agreements.status DESC') ) %>
+      </th>
+      <th style="white-space:nowrap">
+        <%= link_to 'Submission Date', agreements_path( order: (params[:order] == 'agreements.submitted_at DESC' ? 'agreements.submitted_at' : 'agreements.submitted_at DESC') ) %>
+      </th>
+      <th style="white-space:nowrap">
+        <%= link_to 'Approval Date', agreements_path( order: (params[:order] == 'agreements.approval_date DESC' ? 'agreements.approval_date' : 'agreements.approval_date DESC') ) %>
+      </th>
+      <th style="white-space:nowrap">
+        <%= link_to 'Expiration Date', agreements_path( order: (params[:order] == 'agreements.expiration_date DESC' ? 'agreements.expiration_date' : 'agreements.expiration_date DESC') ) %>
+      </th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -18,16 +26,6 @@
     <tr>
       <td style="white-space:nowrap"><%= image_tag agreement.user.avatar_url(18), style: 'vertical-align:text-bottom;width:18px' %> <%= link_to agreement.name, agreement %></td>
       <td><%= status_helper(agreement) %></td>
-      <td>
-        <% if agreement.dua.url %>
-          <%= link_to agreement.dua.url.split('/').last, download_agreement_path(agreement), target: '_blank', class: 'btn btn-xs btn-default' %>
-        <% end %>
-      </td>
-      <td>
-        <% if agreement.executed_dua.url %>
-          <%= link_to agreement.executed_dua.url.split('/').last, download_agreement_path(agreement, executed: '1'), target: '_blank', class: 'btn btn-xs btn-default' %>
-        <% end %>
-      </td>
       <td>
         <% if agreement.resubmitted_at %>
           Resubmitted: <%= agreement.resubmitted_at.strftime("%m/%d/%Y") %>
