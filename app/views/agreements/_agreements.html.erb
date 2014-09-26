@@ -9,6 +9,7 @@
       <th style="white-space:nowrap">
         <%= link_to 'Status', agreements_path( order: (params[:order] == 'agreements.status DESC' ? 'agreements.status' : 'agreements.status DESC') ) %>
       </th>
+      <th>Datasets</th>
       <th style="white-space:nowrap">
         <%= link_to 'Submission Date', agreements_path( order: (params[:order] == 'agreements.submitted_at DESC' ? 'agreements.submitted_at' : 'agreements.submitted_at DESC') ) %>
       </th>
@@ -26,6 +27,11 @@
     <tr>
       <td style="white-space:nowrap"><%= image_tag agreement.user.avatar_url(18), style: 'vertical-align:text-bottom;width:18px' %> <%= link_to agreement.name, agreement %></td>
       <td><%= status_helper(agreement) %></td>
+      <td>
+        <% agreement.datasets.order(:release_date, :name).each do |dataset| %>
+          <%= render partial: 'datasets/mini', locals: { dataset: dataset } %>
+        <% end %>
+      </td>
       <td>
         <% if agreement.resubmitted_at %>
           Resubmitted: <%= agreement.resubmitted_at.strftime("%m/%d/%Y") %>
