@@ -46,6 +46,8 @@ class Agreement < ActiveRecord::Base
 
   # Named Scopes
   scope :search, lambda { |arg| where( 'agreements.user_id in (select users.id from users where LOWER(users.first_name) LIKE ? or LOWER(users.last_name) LIKE ? or LOWER(users.email) LIKE ? )', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ).references(:users) }
+  scope :expired, -> { where("agreements.expiration_date IS NOT NULL and agreements.expiration_date < ?", Date.today) }
+  scope :not_expired, -> { where("agreements.expiration_date IS NULL or agreements.expiration_date >= ?", Date.today) }
 
   # Model Validation
   validates_presence_of :user_id

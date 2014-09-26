@@ -3,6 +3,8 @@
 ### Enhancements
 - **Administrative Changes**
   - Fixed a minor typo
+- **Dataset Changes**
+  - Dataset file access is now controlled by the new DAUA process
 
 ## 0.11.2 (September 26, 2014)
 

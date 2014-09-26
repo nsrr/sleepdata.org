@@ -17,6 +17,7 @@ two:
   system_admin: false
   email: two@example.com
   encrypted_password: ""
+  authentication_token: 52586a63dada3e145523c
 
 admin:
   first_name: FirstAdmin

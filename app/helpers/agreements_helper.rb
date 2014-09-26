@@ -8,7 +8,7 @@ module AgreementsHelper
                     '' => 'warning'
                   }
     content_tag(
-      :span, agreement.status || 'started',
+      :span, agreement.status.blank? ? 'started' : agreement.status,
       class: "label label-#{status_hash[agreement.status.to_s]}"
     )
   end

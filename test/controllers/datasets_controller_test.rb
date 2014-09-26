@@ -176,7 +176,7 @@ class DatasetsControllerTest < ActionController::TestCase
   end
 
   test "should get files from private dataset as approved user using auth token" do
-    get :files, id: datasets(:private), path: 'HIDDEN_FILE.txt', auth_token: users(:admin).id_and_auth_token
+    get :files, id: datasets(:private), path: 'HIDDEN_FILE.txt', auth_token: users(:two).id_and_auth_token
 
     assert_not_nil response
     assert_not_nil assigns(:dataset)

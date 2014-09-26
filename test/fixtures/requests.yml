@@ -7,3 +7,7 @@ one:
 two:
   agreement: submitted_application
   dataset: public
+
+three:
+  agreement: approved_application_for_private_dataset
+  dataset: private
