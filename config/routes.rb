@@ -109,6 +109,10 @@ Rails.application.routes.draw do
   get '/settings' => 'users#settings', as: :settings
   patch '/settings' => 'users#update_settings', as: :update_settings
 
+
+  get '/admin' => 'admin#dashboard'
+  get '/admin/dashboard' => 'admin#dashboard', as: :admin_dashboard
+
   get '/daua/irb_assistance_template' => 'agreements#irb_assistance_template', as: :irb_assistance_template
 
   get '/submissions' => 'agreements#submissions', as: :submissions
