@@ -80,7 +80,7 @@ class UserMailer < ActionMailer::Base
   protected
 
   def setup_email
-    attachments.inline['nsrr-logo.png'] = File.read('app/assets/images/nsrr_logo_64.png')
+    attachments.inline['nsrr-logo.png'] = File.read('app/assets/images/nsrr_logo_64.png') rescue nil
   end
 
 end

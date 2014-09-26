@@ -1,5 +1,8 @@
 ## 0.11.2
 
+### Bug Fix
+- Fixed a bug that prevented emails from being delivered if the logo file was unavailable
+
 ## 0.11.1 (September 24, 2014)
 
 ### Bug Fix
