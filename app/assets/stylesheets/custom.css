@@ -228,9 +228,13 @@ pre.code {
                       inset 0 -10px 10px -10px rgba(0,0,0,0.4);
 }
 
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+  cursor: pointer;
+}
+
 .nav-tabs > li.success > a, .nav-tabs > li.success > a:hover, .nav-tabs > li.success > a:focus {
   color: #468847;
-  cursor: default;
+  cursor: pointer;
   background-color: #dff0d8;
   border: 1px solid #d6e9c6;
   border-bottom-color: transparent;
@@ -238,7 +242,7 @@ pre.code {
 
 .nav-tabs > li.danger > a, .nav-tabs > li.danger > a:hover, .nav-tabs > li.danger > a:focus {
   color: #b94a48;
-  cursor: default;
+  cursor: pointer;
   background-color: #f2dede;
   border: 1px solid #ebccd1;
   border-bottom-color: transparent;
@@ -246,7 +250,7 @@ pre.code {
 
 .nav-tabs > li.info > a, .nav-tabs > li.info > a:hover, .nav-tabs > li.info > a:focus {
   color: #3a87ad;
-  cursor: default;
+  cursor: pointer;
   background-color: #d9edf7;
   border: 1px solid #bce8f1;
   border-bottom-color: transparent;
