@@ -5,6 +5,8 @@
   - Added an administrative dashboard and a link in the dropdown menu for system admins
 - **Dataset Changes**
   - Dataset file access is now controlled by the new DAUA process
+- **Gem Changes**
+  - Updated to rails 4.2.0.beta2
 
 ## 0.11.2 (September 26, 2014)
 

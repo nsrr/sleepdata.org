@@ -28,7 +28,7 @@ class DatasetsController < ApplicationController
     else
       @dataset_user = @dataset.dataset_users.create( user_id: current_user.id, editor: false, approved: nil )
       @dataset.editors.each do |editor|
-        UserMailer.dataset_access_requested(@dataset_user, editor).deliver if Rails.env.production?
+        UserMailer.dataset_access_requested(@dataset_user, editor).deliver_later if Rails.env.production?
       end
     end
     if params[:path]
@@ -42,7 +42,7 @@ class DatasetsController < ApplicationController
     if @dataset_user = @dataset.dataset_users.find_by_id(params[:dataset_user_id])
       @dataset_user.update( editor: params[:editor], approved: params[:approved] )
       if @dataset_user.approved? and not @dataset_user.email_sent?
-        UserMailer.dataset_access_approved(@dataset_user, current_user).deliver if Rails.env.production?
+        UserMailer.dataset_access_approved(@dataset_user, current_user).deliver_later if Rails.env.production?
         @dataset_user.update email_sent: true
       end
     end

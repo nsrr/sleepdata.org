@@ -124,26 +124,26 @@ class Agreement < ActiveRecord::Base
 
   def daua_approved_email(current_user)
     self.add_event!('Data Access and Use Agreement approved.', current_user, 'approved')
-    UserMailer.daua_approved(self, current_user).deliver if Rails.env.production?
+    UserMailer.daua_approved(self, current_user).deliver_later if Rails.env.production?
     notify_admins_on_daua_progress(current_user)
   end
 
   def sent_back_for_resubmission_email(current_user)
     self.add_event!('Data Access and Use Agreement sent back for resubmission.', current_user, 'resubmit')
-    UserMailer.sent_back_for_resubmission(self, current_user).deliver if Rails.env.production?
+    UserMailer.sent_back_for_resubmission(self, current_user).deliver_later if Rails.env.production?
     notify_admins_on_daua_progress(current_user)
   end
 
   def notify_admins_on_daua_progress(current_user)
     other_admins = User.system_admins.where.not( id: current_user.id )
     other_admins.each do |admin|
-      UserMailer.daua_progress_notification(self, admin).deliver if Rails.env.production?
+      UserMailer.daua_progress_notification(self, admin).deliver_later if Rails.env.production?
     end
   end
 
   def daua_submitted
     User.system_admins.each do |system_admin|
-      UserMailer.daua_submitted(system_admin, self).deliver if Rails.env.production?
+      UserMailer.daua_submitted(system_admin, self).deliver_later if Rails.env.production?
     end
   end
 

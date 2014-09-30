@@ -5,7 +5,7 @@ class UserMailerTest < ActionMailer::TestCase
   test "forum digest email" do
     valid = users(:valid)
 
-    email = UserMailer.forum_digest(valid).deliver
+    email = UserMailer.forum_digest(valid).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     assert_equal [valid.email], email.to
@@ -18,7 +18,7 @@ class UserMailerTest < ActionMailer::TestCase
     admin = users(:admin)
 
     # Send the email, then test that it got queued
-    email = UserMailer.notify_system_admin(admin, valid).deliver
+    email = UserMailer.notify_system_admin(admin, valid).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     # Test the body of the sent email contains what we expect it to
@@ -32,7 +32,7 @@ class UserMailerTest < ActionMailer::TestCase
     admin = users(:admin)
 
     # Send the email, then test that it got queued
-    email = UserMailer.daua_submitted(admin, agreement).deliver
+    email = UserMailer.daua_submitted(admin, agreement).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     # Test the body of the sent email contains what we expect it to
@@ -46,7 +46,7 @@ class UserMailerTest < ActionMailer::TestCase
     admin = users(:admin)
 
     # Send the email, then test that it got queued
-    email = UserMailer.daua_approved(agreement, admin).deliver
+    email = UserMailer.daua_approved(agreement, admin).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     # Test the body of the sent email contains what we expect it to
@@ -60,7 +60,7 @@ class UserMailerTest < ActionMailer::TestCase
     admin = users(:admin)
 
     # Send the email, then test that it got queued
-    email = UserMailer.sent_back_for_resubmission(agreement, admin).deliver
+    email = UserMailer.sent_back_for_resubmission(agreement, admin).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     # Test the body of the sent email contains what we expect it to
@@ -74,7 +74,7 @@ class UserMailerTest < ActionMailer::TestCase
     admin = users(:admin)
 
     # Send the email, then test that it got queued
-    email = UserMailer.daua_progress_notification(agreement, admin).deliver
+    email = UserMailer.daua_progress_notification(agreement, admin).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     # Test the body of the sent email contains what we expect it to
@@ -88,7 +88,7 @@ class UserMailerTest < ActionMailer::TestCase
     editor = users(:editor)
 
     # Send the email, then test that it got queued
-    email = UserMailer.dataset_access_requested(dataset_user, editor).deliver
+    email = UserMailer.dataset_access_requested(dataset_user, editor).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     # Test the body of the sent email contains what we expect it to
@@ -102,7 +102,7 @@ class UserMailerTest < ActionMailer::TestCase
     editor = users(:editor)
 
     # Send the email, then test that it got queued
-    email = UserMailer.dataset_access_approved(dataset_user, editor).deliver
+    email = UserMailer.dataset_access_approved(dataset_user, editor).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     # Test the body of the sent email contains what we expect it to
