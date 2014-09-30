@@ -44,3 +44,38 @@ mixed:
   deleted: false
   release_date: 2014-07-08
 
+
+# The following datasets all have files that are only accessible via valid agreements
+
+public_documentation:
+  name: (A) Public Documentation with Private Files
+  description: Publicly viewable documentation with only private files
+  slug: public_documentation
+  logo: rails.png
+  user: admin
+  public: true
+  all_files_public: false
+  deleted: false
+  release_date: 2014-09-30
+
+private_documentation:
+  name: (B) Private Documentation with Private Files
+  description: Privately viewable documentation and private files
+  slug: private_documentation
+  logo: rails.png
+  user: admin
+  public: false
+  all_files_public: false
+  deleted: false
+  release_date: 2014-09-30
+
+public_documentation_no_access:
+  name: (C) Public Documentation With No File Access
+  description: This repository has private files but has not given anyone access to them
+  slug: public_documentation_no_access
+  logo: rails.png
+  user: admin
+  public: true
+  all_files_public: false
+  deleted: false
+  release_date: 2014-09-30

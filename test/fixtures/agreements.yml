@@ -8,7 +8,7 @@ one:
   history: [{ event_at: 2014-01-15, user_id: <%= ActiveRecord::FixtureSet.identify(:valid) %>, message: 'Data Access and Use Agreement submitted.', status: 'submitted' },
             { event_at: 2014-01-17, user_id: <%= ActiveRecord::FixtureSet.identify(:admin) %>, message: 'Data Access and Use Agreement approved.', status: 'approved' }]
   approval_date: 2014-01-17
-  expiration_date: 2017-01-17
+  expiration_date: <%= (Date.today + 5.years).strftime("%Y-%m-%d") %>
 
 two:
   user: two
@@ -137,3 +137,36 @@ approved_application_for_private_dataset:
   signature_date: 2014-09-20
   irb_evidence_type: has_evidence
   irb: blank.pdf
+
+# The following agreements test a variety of scenarios for file downloading and documentation viewing
+
+approved_for_a_b_not_c:
+  user: has_approved_agreement_for_a_b_not_c
+  status: approved
+  deleted: false
+
+approved_but_expired_for_a_b_not_c:
+  user: has_approved_but_expired_agreement_for_a_b_not_c
+  status: approved
+  expiration_date: 2000-01-28
+  deleted: false
+
+submitted_for_a_b_not_c:
+  user: has_submitted_agreement_for_a_b_not_c
+  status: submitted
+  deleted: false
+
+started_for_a_b_not_c:
+  user: has_started_agreement_for_a_b_not_c
+  # status:
+  deleted: false
+
+resubmit_for_a_b_not_c:
+  user: has_resubmit_agreement_for_a_b_not_c
+  status: resubmit
+  deleted: false
+
+approved_but_deleted_for_a_b_not_c:
+  user: has_approved_but_deleted_agreement_for_a_b_not_c
+  status: approved
+  deleted: true
