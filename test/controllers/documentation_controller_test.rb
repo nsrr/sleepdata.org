@@ -157,4 +157,22 @@ class DocumentationControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should view documentation on public documentation dataset as anonymous user" do
+    get :pages, id: datasets(:public_documentation), path: 'PUBLICLY_VIEWABLE.md'
+    assert_not_nil assigns(:dataset)
+    assert_response :success
+  end
+
+  test "should not view documentation on private documentation dataset as anonymous user" do
+    get :pages, id: datasets(:private_documentation), path: 'ACCESS_REQUIRED.md'
+    assert_nil assigns(:dataset)
+    assert_redirected_to datasets_path
+  end
+
+  test "should view documentation on no access dataset as anonymous user" do
+    get :pages, id: datasets(:public_documentation_no_access), path: 'PUBLICLY_VIEWABLE.md'
+    assert_not_nil assigns(:dataset)
+    assert_response :success
+  end
+
 end

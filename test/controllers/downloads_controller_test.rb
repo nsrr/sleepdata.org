@@ -159,4 +159,24 @@ class DownloadsControllerTest < ActionController::TestCase
     assert_redirected_to files_dataset_path(assigns(:dataset))
   end
 
+  test "should list private files on public documentation dataset as anonymous user" do
+    get :files, id: datasets(:public_documentation)
+    assert_not_nil assigns(:dataset)
+    assert_template partial: '_folder'
+    assert_response :success
+  end
+
+  test "should not list private files on private documentation dataset as anonymous user" do
+    get :files, id: datasets(:private_documentation)
+    assert_nil assigns(:dataset)
+    assert_redirected_to datasets_path
+  end
+
+  test "should list private files on no access dataset as anonymous user" do
+    get :files, id: datasets(:public_documentation_no_access)
+    assert_not_nil assigns(:dataset)
+    assert_template partial: '_folder'
+    assert_response :success
+  end
+
 end
