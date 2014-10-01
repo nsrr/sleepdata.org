@@ -191,7 +191,7 @@ class ToolsControllerTest < ActionController::TestCase
 
     # Clean up file so tests can be rerun
     file_path = File.join('test', 'support', 'tools', 'demo', 'pages', 'CREATE_ME.md')
-    File.delete(file_path) if File.exists?(file_path)
+    File.delete(file_path) if File.exist?(file_path)
   end
 
   test "should not create page without a name as editor" do

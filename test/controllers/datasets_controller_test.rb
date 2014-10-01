@@ -5,6 +5,26 @@ class DatasetsControllerTest < ActionController::TestCase
     @dataset = datasets(:public)
   end
 
+  test "should reset index as editor" do
+    login(users(:editor_mixed))
+    post :reset_index, id: datasets(:mixed), path: nil
+
+    assert_redirected_to files_dataset_path(assigns(:dataset), path: '')
+  end
+
+  test "should not reset index as viewer" do
+    login(users(:valid))
+    post :reset_index, id: datasets(:mixed), path: nil
+
+    assert_redirected_to datasets_path
+  end
+
+  test "should not reset index as anonymous" do
+    post :reset_index, id: datasets(:mixed), path: nil
+    assert_redirected_to new_user_session_path
+  end
+
+
   test "should set file as public as editor" do
     login(users(:editor_mixed))
     assert_difference('PublicFile.count') do
@@ -394,7 +414,7 @@ class DatasetsControllerTest < ActionController::TestCase
 
     # Clean up file so tests can be rerun
     file_path = File.join('test', 'support', 'datasets', 'wecare', 'pages', 'CREATE_ME.md')
-    File.delete(file_path) if File.exists?(file_path)
+    File.delete(file_path) if File.exist?(file_path)
   end
 
   test "should not create page without a name as editor" do

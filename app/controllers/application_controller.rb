@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
         params[:action] != 'variable_chart' &&
         params[:action] != 'images' &&
         params[:action] != 'image' &&
+        params[:action] != 'reset_index' &&
         !request.fullpath.match("#{request.script_name}/users/login") &&
         !request.fullpath.match("#{request.script_name}/users/register") &&
         !request.fullpath.match("#{request.script_name}/users/password") &&

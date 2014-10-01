@@ -1,3 +1,10 @@
 <div class="jumbotron">
-  No Files
+  <p>No Files</p>
 </div>
+
+<% if current_user and @dataset.editors.pluck(:id).include?(current_user.id) and @dataset.current_folder_locked?(path) %>
+  <% lock_file = File.join(@dataset.files_folder, path.to_s, '.sleepdata.md5inprogress') %>
+  <% if File.exist?(lock_file) and File.file?(lock_file) %>
+    <div class="mono-display"><div class="file-display-after">MD5 Log</div><% File.readlines(lock_file).reverse.each do |line| %><%= line %><% end %></div>
+  <% end %>
+<% end %>

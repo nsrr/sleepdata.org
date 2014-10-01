@@ -33,7 +33,7 @@ module Pageable
     page_name = params[:page_name].to_s.gsub(/[^\w\.\-]/, '').gsub(/^[\.]*/, '')
     @folder_path = @object.find_page_folder(params[:path])
     @page_path = File.join(@object.pages_folder, @folder_path.to_s, page_name.to_s)
-    if not File.exists?(@page_path) and not page_name.blank?
+    if not File.exist?(@page_path) and not page_name.blank?
       FileUtils.mkdir_p( File.join(@object.pages_folder, @folder_path.to_s) )
       File.open(@page_path, 'w') do |outfile|
         outfile.write params[:page_contents].to_s

@@ -74,15 +74,16 @@ class Dataset < ActiveRecord::Base
     File.join( root_folder, 'files' )
   end
 
-  def file_array(f)
+  def file_array(f, lock_file)
     folder = f.gsub(/^#{self.files_folder}\//, '')
     file_name = f.split('/').last
     is_file = File.file?(f)
     file_size = File.size(f)
     file_time = File.mtime(f).strftime("%Y-%m-%d %H:%M:%S")
     file_digest = if is_file
-      Rails.logger.info "Computing MD5 Digest for #{file_name} of size #{file_size} bytes"
-      require 'digest/md5'
+      message = "Computing MD5 Digest for #{file_name} of size #{file_size} bytes"
+      Rails.logger.info message
+      File.open(lock_file, 'a') { |f| f.write "#{Time.now}: #{message}\n" } if file_size > 10.megabytes
       Digest::MD5.file(f).hexdigest
     else
       nil
@@ -91,35 +92,42 @@ class Dataset < ActiveRecord::Base
     [folder, file_name, is_file, file_size, file_time, file_digest]
   end
 
+  def lock_folder!(location = nil)
+    lock_file = File.join(files_folder, location.to_s, '.sleepdata.md5inprogress')
+    File.write(lock_file, "")
+  end
+
   def create_folder_index(location = nil)
-    FileUtils.mkpath(File.join(files_folder, location.to_s))
     index_file = File.join(files_folder, location.to_s, '.sleepdata.index')
-    files = Dir.glob(File.join(files_folder, location.to_s, '*')).sort{|a,b| [File.file?(a).to_s, a.split('/').last] <=> [File.file?(b).to_s, b.split('/').last]}.collect{|f| file_array(f)}
-    File.open(index_file, 'w') do |outfile|
-      outfile.puts files.size
-      files.in_groups_of(FILES_PER_PAGE, false).each do |file_group|
-        outfile.puts file_group.to_json
+    lock_file = File.join(files_folder, location.to_s, '.sleepdata.md5inprogress')
+    begin
+      File.delete(index_file) if File.exist?(index_file) and File.file?(index_file)
+      FileUtils.mkpath(File.join(files_folder, location.to_s))
+      File.write(lock_file, "#{Time.now}: Refresh started\n")
+      files = Dir.glob(File.join(files_folder, location.to_s, '*')).sort{|a,b| [File.file?(a).to_s, a.split('/').last] <=> [File.file?(b).to_s, b.split('/').last]}.collect{|f| file_array(f, lock_file)}
+      File.open(index_file, 'w') do |outfile|
+        outfile.puts files.size
+        files.in_groups_of(FILES_PER_PAGE, false).each do |file_group|
+          outfile.puts file_group.to_json
+        end
       end
+    ensure
+      File.delete(lock_file) if File.exist?(lock_file) and File.file?(lock_file)
     end
   end
 
   def reset_folder_indexes
     Dir.glob(File.join(files_folder, '**/.sleepdata.index')).each do |f|
-      File.delete(f) if File.exists?(f) and File.file?(f)
+      File.delete(f) if File.exist?(f) and File.file?(f)
     end
   end
 
-  # Returns [[folder, name, is_file, file_size, md5_checksum], [...], ... ]
-  # index -1 is all files
-  # index 0 is the file count
-  # index 1 is the first page
-  def indexed_files_with_md5(location = nil, page = 1)
-    require 'digest/md5'
-    digest = Digest::MD5.hexdigest("Hello World\n")
-    self.indexed_files(location, page).collect{|a| a + [a[2] ? digest : nil]}
+  def current_folder_locked?(location)
+    lock_file = File.join(files_folder, location.to_s, '.sleepdata.md5inprogress')
+    File.exist?(lock_file)
   end
 
-  # Returns [[folder, name, is_file, file_size], [...], ... ]
+  # Returns [[folder, file_name, is_file, file_size, file_time, file_digest], [...], ... ]
   # index -1 is all files
   # index 0 is the file count
   # index 1 is the first page
