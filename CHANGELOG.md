@@ -1,4 +1,4 @@
-## 0.12.0
+## 0.12.0 (October 1, 2014)
 
 ### Enhancements
 - **Administrative Changes**
