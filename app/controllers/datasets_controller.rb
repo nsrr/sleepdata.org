@@ -2,9 +2,9 @@ class DatasetsController < ApplicationController
   before_action :authenticate_user_from_token!, only: [ :json_manifest, :manifest, :files ]
   before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file, :reset_index ]
   before_action :check_system_admin,        only: [ :new, :create, :destroy, :pull_changes, :sync ]
-  before_action :set_viewable_dataset,      only: [ :show, :json_manifest, :manifest, :logo, :images, :files, :pages, :request_access, :search ]
+  before_action :set_viewable_dataset,      only: [ :show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :request_access, :search ]
   before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file, :reset_index ]
-  before_action :redirect_without_dataset,  only: [ :show, :json_manifest, :manifest, :logo, :images, :files, :pages, :request_access, :set_access, :create_access, :search, :edit, :update, :destroy, :audits, :requests, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file, :reset_index ]
+  before_action :redirect_without_dataset,  only: [ :show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :request_access, :set_access, :create_access, :search, :edit, :update, :destroy, :audits, :requests, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file, :reset_index ]
 
   # Concerns
   include Pageable
@@ -102,6 +102,16 @@ class DatasetsController < ApplicationController
       redirect_to @dataset
     else
       redirect_to files_dataset_path(@dataset, path: @dataset.find_file_folder(params[:path]))
+    end
+  end
+
+  # Get /datasets/access/*path
+  def access
+    file = @dataset.find_file( params[:path] )
+    if file and File.file?(file) and [@dataset.find_file_folder(params[:path]), File.basename(file)].compact.join('/') == params[:path] and (@dataset.public_file?(params[:path]) or @dataset.grants_file_access_to?(current_user))
+      render json: { dataset_id: @dataset.id, result: true, path: [@dataset.find_file_folder(params[:path]), File.basename(file)].compact.join('/') }
+    else
+      render json: { dataset_id: @dataset.id, result: false, path: [@dataset.find_file_folder(params[:path]), File.basename(file)].compact.join('/') }
     end
   end
 

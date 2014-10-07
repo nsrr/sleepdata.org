@@ -1,5 +1,8 @@
 ## 0.13.0
 
+### Enhancements
+- **Dataset Changes**
+  - EDFs can now be previewed in the Altamira online EDF browser
 - **Gem Changes**
   - Updated to contour 2.6.0.beta7
 

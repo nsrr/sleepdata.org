@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       get "(/a/:auth_token)/json_manifest(/*path)", action: 'json_manifest', as: :json_manifest, format: false
       get "(/a/:auth_token)/manifest(/*path)", action: 'manifest', as: :manifest, format: false
       get "files((/a/:auth_token)(/m/:medium)/*path)", action: 'files', as: :files, format: false
+      get "access(/*path)", action: 'access', as: :access, format: false
       post "reset_index(/*path)", action: 'reset_index', as: :reset_index, format: false
       get "reset_index(/*path)", to: redirect{|path_params, req| "datasets/#{path_params[:id]}/files/#{path_params[:path]}" }, format: false
       get "search", action: 'search', as: :search
