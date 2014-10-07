@@ -76,11 +76,12 @@ class AgreementsController < ApplicationController
   end
 
   def final_submission
+    current_time = Time.now
     if @agreement.status == 'resubmit'
-      hash = { status: 'submitted', resubmitted_at: Time.now }
+      hash = { status: 'submitted', resubmitted_at: current_time, last_submitted_at: current_time }
       msg = "Data Access and Use Agreement resubmitted."
     else
-      hash = { status: 'submitted', submitted_at: Time.now }
+      hash = { status: 'submitted', submitted_at: current_time, last_submitted_at: current_time }
       msg = "Data Access and Use Agreement submitted."
     end
 

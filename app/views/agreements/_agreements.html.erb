@@ -11,7 +11,7 @@
       </th>
       <th>Datasets</th>
       <th style="white-space:nowrap">
-        <%= link_to 'Submission Date', agreements_path( order: (params[:order] == 'agreements.submitted_at DESC' ? 'agreements.submitted_at' : 'agreements.submitted_at DESC') ) %>
+        <%= link_to 'Submission Date', agreements_path( order: (params[:order] == 'agreements.last_submitted_at DESC' ? 'agreements.last_submitted_at' : 'agreements.last_submitted_at DESC') ) %>
       </th>
       <th style="white-space:nowrap">
         <%= link_to 'Approval Date', agreements_path( order: (params[:order] == 'agreements.approval_date DESC' ? 'agreements.approval_date' : 'agreements.approval_date DESC') ) %>
@@ -34,9 +34,9 @@
       </td>
       <td>
         <% if agreement.resubmitted_at %>
-          Resubmitted: <%= agreement.resubmitted_at.strftime("%m/%d/%Y") %>
+          <%= agreement.resubmitted_at.strftime("%Y-%m-%d") %> <%= link_to '<span class="glyphicon glyphicon-info-sign"></span>'.html_safe, '#', rel: 'tooltip', title: 'Resubmitted', data: { object: 'suppress-click', container: 'body', placement: 'right' } %>
         <% elsif agreement.submitted_at %>
-          <%= agreement.submitted_at.strftime("%m/%d/%Y") %>
+          <%= agreement.submitted_at.strftime("%Y-%m-%d") %>
         <% end %>
       </td>
       <td><%= agreement.approval_date %></td>
