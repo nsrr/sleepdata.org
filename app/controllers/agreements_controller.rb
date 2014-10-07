@@ -99,7 +99,8 @@ class AgreementsController < ApplicationController
   # GET /agreements
   # GET /agreements.json
   def index
-    @order = scrub_order(Agreement, params[:order], [expiration_date: :desc, id: :desc])
+    params[:order] = "agreements.last_submitted_at DESC" if params[:order].blank?
+    @order = scrub_order(Agreement, params[:order], [:id])
     agreement_scope = Agreement.current.search(params[:search]).order(@order)
     @agreements = agreement_scope.page(params[:page]).per( 40 )
   end

@@ -11,7 +11,7 @@
       </th>
       <th>Datasets</th>
       <th style="white-space:nowrap">
-        <%= link_to 'Submission Date', agreements_path( order: (params[:order] == 'agreements.last_submitted_at DESC' ? 'agreements.last_submitted_at' : 'agreements.last_submitted_at DESC') ) %>
+        <%= link_to 'Submission Date', agreements_path( order: (params[:order] == 'agreements.last_submitted_at DESC' ? 'agreements.last_submitted_at' : nil) ) %>
       </th>
       <th style="white-space:nowrap">
         <%= link_to 'Approval Date', agreements_path( order: (params[:order] == 'agreements.approval_date DESC' ? 'agreements.approval_date' : 'agreements.approval_date DESC') ) %>
