@@ -3,6 +3,7 @@
 ### Enhancements
 - **Administrative Changes**
   - Last submitted at column added to allow better sorting on the administrator agreement view
+  - Minor layout improvements for reviewing submitted agreements
 - **Dataset Changes**
   - EDFs can now be previewed in the Altamira online EDF browser
 - **Gem Changes**

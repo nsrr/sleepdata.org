@@ -4,12 +4,13 @@
   <dt>Intended Use of Data</dt>
   <dd><%= @agreement.intended_use_of_data %></dd>
   <dt>Please describe where data will be stored and secured</dt>
-  <dd><%= @agreement.data_secured_location %></dd>
+  <dd><%= simple_format @agreement.data_secured_location %></dd>
+  <dt>Secure Password Protected Device</dt>
+  <dd>
+    <% if @agreement.secured_device? %>
+      <span class="text-success"><span class="glyphicon glyphicon-ok"></span> Has attested that data will be stored on a secure password protected device.</span>
+    <% else %>
+      <span class="text-danger"><span class="glyphicon glyphicon-remove"></span> Has NOT attested that data will be stored on a secure password protected device.</span>
+    <% end %>
+  </dd>
 </dl>
-
-<% if @agreement.secured_device? %>
-  <p class="lead">Has attested that data will be stored on a secure password protected device.</p>
-<% else %>
-  <p class="lead text-danger">Has NOT attested that data will be stored on a secure password protected device.</p>
-<% end %>
-

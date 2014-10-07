@@ -66,6 +66,22 @@ $(document)
   .on('click', '[data-object~="show-target"]', () ->
     $($(this).data('target')).show()
   )
+  .on('click', '[data-object~="disable-target"]', () ->
+    $($(this).data('input-target')).prop('disabled', true);
+  )
+  .on('click', '[data-object~="enable-target"]', () ->
+    $($(this).data('input-target')).prop('disabled', false);
+  )
+  .on('click', '[data-object~="agreement-update"]', () ->
+    $("#email-comments-container").hide()
+    $("#approval-date-container, #expiration-date-container").show()
+    $("#agreement_approval_date, #agreement_expiration_date").prop('disabled', false);
+  )
+  .on('click', '[data-object~="agreement-resubmit"]', () ->
+    $("#email-comments-container").show()
+    $("#approval-date-container, #expiration-date-container").hide()
+    $("#agreement_approval_date, #agreement_expiration_date").prop('disabled', true);
+  )
 
 $(document)
   .on('touchstart', (e) ->

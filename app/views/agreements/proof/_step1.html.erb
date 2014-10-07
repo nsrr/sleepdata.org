@@ -4,23 +4,24 @@
 
   <% if @agreement.data_user_type == 'individual' %>
     <dt>Application Type</dt>
-    <dd>An individual, requesting Data/Datasets under this DAUA on behalf of himself/herself as follows:</dd>
+    <dd>An <strong>individual</strong>, requesting Data/Datasets under this DAUA on behalf of himself/herself as follows:</dd>
 
     <dt>Institution</dt><dd><%= @agreement.individual_institution_name %></dd>
     <dt>Full Name</dt><dd><%= @agreement.user.name %></dd>
     <dt>Professional Title</dt><dd><%= @agreement.individual_title %></dd>
     <dt>Telephone</dt><dd><%= @agreement.individual_telephone %></dd>
     <dt>Fax</dt><dd><%= @agreement.individual_fax %></dd>
-    <dt>Address</dt><dd><%= @agreement.individual_address %></dd>
+    <dt>Contact Email</dt><dd><%= @agreement.user.email %></dd>
+    <dt>Address</dt><dd><%= simple_format @agreement.individual_address %></dd>
   <% elsif @agreement.data_user_type == 'organization' %>
     <dt>Application Type</dt>
-    <dd>An organization / corporation, requesting Data/Datasets under this DAUA on behalf of itself and its employees, with a principal place of business and primary business contact as follows:</dd>
+    <dd>An <strong>organization / corporation</strong>, requesting Data/Datasets under this DAUA on behalf of itself and its employees, with a principal place of business and primary business contact as follows:</dd>
     <dt>Organization</dt><dd><%= @agreement.organization_business_name %></dd>
     <dt>Contact Name</dt><dd><%= @agreement.organization_contact_name %></dd>
     <dt>Contact Title</dt><dd><%= @agreement.organization_contact_title %></dd>
     <dt>Contact Telephone</dt><dd><%= @agreement.organization_contact_telephone %></dd>
     <dt>Contact Fax</dt><dd><%= @agreement.organization_contact_fax %></dd>
     <dt>Contact Email</dt><dd><%= @agreement.organization_contact_email %></dd>
-    <dt>Organization Address</dt><dd><%= @agreement.organization_address %></dd>
+    <dt>Organization Address</dt><dd><%= simple_format @agreement.organization_address %></dd>
   <% end %>
 </dl>

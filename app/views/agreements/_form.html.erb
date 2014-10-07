@@ -24,37 +24,36 @@
   </div>
 
   <div class="form-group">
+    <%= f.label :status, 'Status', class: 'col-md-3 control-label' %>
+    <div class="col-md-9">
+      <div data-toggle="buttons">
+        <label class="btn btn-default <%= 'active' if @agreement.status == 'submitted' %>" data-object="agreement-update" data-target="#email-comments-container" data-input-target="#agreement_approval_date, #agreement_expiration_date">
+          <%= f.radio_button :status, 'submitted' %> Submitted
+        </label>
+        <label class="btn btn-success-inverse <%= 'active' if @agreement.status == 'approved' %>" data-object="agreement-update" data-target="#email-comments-container" data-input-target="#agreement_approval_date, #agreement_expiration_date">
+          <%= f.radio_button :status, 'approved' %> Approved
+        </label>
+        <label class="btn btn-danger-inverse <%= 'active' if @agreement.status == 'resubmit' %>" data-object="agreement-resubmit" data-target="#email-comments-container" data-input-target="#agreement_approval_date, #agreement_expiration_date">
+          <%= f.radio_button :status, 'resubmit' %> Sent Back for Resubmission
+        </label>
+        <label class="btn btn-default <%= 'active' if @agreement.status == 'expired' %>" data-object="agreement-update" data-target="#email-comments-container" data-input-target="#agreement_approval_date, #agreement_expiration_date">
+          <%= f.radio_button :status, 'expired' %> Set as Expired
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group" id="approval-date-container">
     <%= f.label :approval_date, 'Approval Date', class: 'col-md-3 control-label' %>
     <div class="col-md-9">
       <%= f.text_field :approval_date, class: 'datepicker form-control', value: @agreement.approval_date ? @agreement.approval_date.strftime('%m/%d/%Y') : Date.today.strftime('%m/%d/%Y') %>
     </div>
   </div>
 
-  <div class="form-group">
+  <div class="form-group" id="expiration-date-container">
     <%= f.label :expiration_date, 'Expiration Date', class: 'col-md-3 control-label' %>
     <div class="col-md-9">
       <%= f.text_field :expiration_date, class: 'datepicker form-control', value: @agreement.expiration_date ? @agreement.expiration_date.strftime('%m/%d/%Y') : (Date.today + 3.years).strftime('%m/%d/%Y') %>
-    </div>
-  </div>
-
-
-  <div class="form-group">
-    <%= f.label :status, 'Status', class: 'col-md-3 control-label' %>
-    <div class="col-md-9">
-      <div data-toggle="buttons">
-        <label class="btn btn-default <%= 'active' if @agreement.status == 'submitted' %>" data-object="hide-target" data-target="#email-comments-container">
-          <%= f.radio_button :status, 'submitted' %> Submitted
-        </label>
-        <label class="btn btn-success-inverse <%= 'active' if @agreement.status == 'approved' %>" data-object="hide-target" data-target="#email-comments-container">
-          <%= f.radio_button :status, 'approved' %> Approved
-        </label>
-        <label class="btn btn-danger-inverse <%= 'active' if @agreement.status == 'resubmit' %>" data-object="show-target" data-target="#email-comments-container">
-          <%= f.radio_button :status, 'resubmit' %> Sent Back for Resubmission
-        </label>
-        <label class="btn btn-default <%= 'active' if @agreement.status == 'expired' %>" data-object="hide-target" data-target="#email-comments-container">
-          <%= f.radio_button :status, 'expired' %> Set as Expired
-        </label>
-      </div>
     </div>
   </div>
 

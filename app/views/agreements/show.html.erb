@@ -12,6 +12,11 @@
   <dt>Status</dt>
   <dd><%= status_helper(@agreement) %></dd>
 
+  <% if @agreement.status == 'resubmit' or (@agreement.status == 'submitted' and not @agreement.comments.blank?) %>
+    <dt>Emailed Comments</dt>
+    <dd><%= @agreement.comments %></dd>
+  <% end %>
+
   <dt>Approval Date</dt>
   <dd><%= @agreement.approval_date %></dd>
 
@@ -19,7 +24,7 @@
   <dd><%= @agreement.expiration_date %></dd>
 
   <dt>Specific Purpose</dt>
-  <dd><%= @agreement.specific_purpose %></dd>
+  <dd><%= simple_format @agreement.specific_purpose %></dd>
 
   <dt>Datasets</dt>
   <dd>
@@ -66,12 +71,6 @@
 
   <dt>Evidence of IRB or Ethics Committee Review</dt>
   <dd style="min-height:75px"><%= simple_check @agreement.evidence_of_irb_review? %></dd>
-
-  <% if @agreement.status == 'resubmit' or (@agreement.status == 'submitted' and not @agreement.comments.blank?) %>
-    <dt>Emailed Comments</dt>
-    <dd><blockquote><%= @agreement.comments %></blockquote></dd>
-  <% end %>
-
 
 </dl>
 

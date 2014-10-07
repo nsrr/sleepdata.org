@@ -1,5 +1,10 @@
-<% if @agreement.has_read_step3? %>
-  <p class="lead">Has read and accepted the Step 3 terms and conditions.</p>
-<% else %>
-  <p class="lead text-danger">Has NOT read or accepted the Step 3 terms and conditions.</p>
-<% end %>
+<dl class="dl-horizontal">
+  <dt>Terms and Conditions</dt>
+  <dd>
+    <% if @agreement.has_read_step3? %>
+      <span class="text-success"><span class="glyphicon glyphicon-ok"></span> Has read and accepted the Step 3 terms and conditions.</span>
+    <% else %>
+      <span class="text-danger"><span class="glyphicon glyphicon-remove"></span> Has NOT read and accepted the Step 3 terms and conditions.</span>
+    <% end %>
+  </dd>
+</dl>
