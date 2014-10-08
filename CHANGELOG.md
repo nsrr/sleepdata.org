@@ -9,6 +9,9 @@
 - **Gem Changes**
   - Updated to contour 2.6.0.beta7
 
+### Bug Fixes
+- Fixed an issue that caused topics to render markdown comments incorrectly
+
 ## 0.12.0 (October 1, 2014)
 
 ### Enhancements
