@@ -4,6 +4,8 @@
 - **Administrative Changes**
   - Last submitted at column added to allow better sorting on the administrator agreement view
   - Minor layout improvements for reviewing submitted agreements
+- **Agreement Changes**
+  - PDFs of submitted and approved agreements can now be downloaded and printed
 - **Dataset Changes**
   - EDFs can now be previewed in the Altamira online EDF browser
 - **Gem Changes**

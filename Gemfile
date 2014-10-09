@@ -11,6 +11,7 @@ gem 'kaminari',             '~> 0.16.1'
 gem 'carrierwave',          '~> 0.10.0'
 gem 'redcarpet',            '~> 3.1.1'
 gem 'geocoder',             '~> 1.2.1'
+gem 'chunky_png',           '~> 1.3.1'
 
 # Rails Defaults
 gem 'coffee-rails',         '~> 4.0.1'

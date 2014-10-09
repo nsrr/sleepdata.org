@@ -23,8 +23,7 @@
 
   <div class="jumbotron <%= agreement_status_class %>" style="position:relative;border: 2px solid transparent;">
     <div class="jumbotron-left-after">
-      <% agreement_id = Agreement.where( user_id: current_user.id ).order( :id ).pluck(:id).index(agreement.id)+1%>
-      Agreement #<%= agreement_id %>
+      Agreement #<%= agreement.agreement_number %>
     </div>
 
     <% if agreement.under_review? %>
@@ -76,7 +75,7 @@
       </div>
 
       <div class="jumbotron-left-bottom-after">
-        <%= link_to "<span class='glyphicon glyphicon-trash'></span> Delete".html_safe, destroy_submission_agreement_path(agreement), class: 'text-danger', method: :delete, data: { confirm: "Are you sure you want to delete Agreement ##{agreement_id}?" } %>
+        <%= link_to "<span class='glyphicon glyphicon-trash'></span> Delete".html_safe, destroy_submission_agreement_path(agreement), class: 'text-danger', method: :delete, data: { confirm: "Are you sure you want to delete Agreement ##{agreement.agreement_number}?" } %>
       </div>
 
     <% end %>

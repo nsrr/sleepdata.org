@@ -42,7 +42,7 @@ class Agreement < ActiveRecord::Base
   attr_accessor :draft_mode, :full_mode
 
   # Concerns
-  include Deletable
+  include Deletable, Latexable
 
   # Named Scopes
   scope :search, lambda { |arg| where( 'agreements.user_id in (select users.id from users where LOWER(users.first_name) LIKE ? or LOWER(users.last_name) LIKE ? or LOWER(users.email) LIKE ? )', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ).references(:users) }
@@ -102,6 +102,10 @@ class Agreement < ActiveRecord::Base
 
   def name
     self.user ? self.user.name : "##{self.id}"
+  end
+
+  def agreement_number
+    Agreement.where(user_id: self.user_id).order(:id).pluck(:id).index(self.id) + 1
   end
 
   def approved?
@@ -176,6 +180,45 @@ class Agreement < ActiveRecord::Base
     self.valid?
   end
 
+  def self.latex_partial(partial)
+    File.read(File.join('app', 'views', 'agreements', 'latex', "_#{partial}.tex.erb"))
+  end
+
+  def self.latex_file_location(agreements, current_user)
+    jobname = (agreements.size == 1 ? "agreement_#{agreements.first.id}" : "agreements_#{Time.now.strftime("%Y%m%d_%H%M%S")}")
+    output_folder = File.join('tmp', 'files', 'tex')
+    file_tex = File.join('tmp', 'files', 'tex', jobname + '.tex')
+
+    File.open(file_tex, 'w') do |file|
+      file.syswrite(ERB.new(latex_partial('header')).result(binding))
+      agreements.each do |agreement|
+        agreement.create_signature_pngs
+        @agreement = agreement # Needed by Binding
+        file.syswrite(ERB.new(latex_partial('body')).result(binding))
+      end
+      file.syswrite(ERB.new(latex_partial('footer')).result(binding))
+    end
+
+    generate_pdf(jobname, output_folder, file_tex)
+  end
+
+  def create_signature_pngs
+    folder = File.join( Rails.root, 'tmp', 'files', 'agreements', "#{self.id}" )
+    FileUtils.mkpath folder
+    Agreement.create_signature_png(self.signature, File.join(folder, "signature.png"))
+    Agreement.create_signature_png(self.reviewer_signature, File.join(folder, "reviewer_signature.png"))
+  end
+
+  def self.create_signature_png(signature, filename)
+    canvas = ChunkyPNG::Canvas.new(300, 55)
+
+    (JSON.parse(signature) rescue []).each do |hash|
+      canvas.line( hash['mx'],  hash['my'], hash['lx'], hash['ly'], ChunkyPNG::Color.parse("#145394"))
+    end
+    png = canvas.to_image
+    png.save(filename)
+  end
+
   protected
 
   def save_mode?
@@ -228,6 +271,10 @@ class Agreement < ActiveRecord::Base
 
   def step8?
     self.irb_evidence_type == 'no_evidence' and self.validate_step?(8)
+  end
+
+  def self.latex_safe(mystring)
+    self.new.latex_safe(mystring)
   end
 
 end
