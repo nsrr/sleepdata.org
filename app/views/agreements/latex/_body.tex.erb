@@ -41,39 +41,39 @@ set forth below, the parties hereby agree as follows: \\
   An individual, requesting Data/Datasets under this DAUA on behalf of
   himself/herself as follows: \\
 
-  \begin{addmargin}[1em]{0em}
+  \begin{addmargin}[1em]{1em}
     \textbf{Institution}
-    \begin{addmargin}[1em]{0em}
+    \begin{addmargin}[1em]{1em}
       \hl{<%= latex_safe @agreement.individual_institution_name %>} \\
     \end{addmargin}
 
     \textbf{Full Name}
-    \begin{addmargin}[1em]{0em}
+    \begin{addmargin}[1em]{1em}
       \hl{<%= latex_safe @agreement.user.name %>} \\
     \end{addmargin}
 
     \textbf{Professional Title}
-    \begin{addmargin}[1em]{0em}
+    \begin{addmargin}[1em]{1em}
       \hl{<%= latex_safe @agreement.individual_title %>} \\
     \end{addmargin}
 
     \textbf{Telephone}
-    \begin{addmargin}[1em]{0em}
+    \begin{addmargin}[1em]{1em}
       \hl{<%= latex_safe @agreement.individual_telephone %>} \\
     \end{addmargin}
 
     \textbf{Fax}
-    \begin{addmargin}[1em]{0em}
+    \begin{addmargin}[1em]{1em}
       \hl{<%= latex_safe @agreement.individual_fax %>} \\
     \end{addmargin}
 
     \textbf{Contact Email}
-    \begin{addmargin}[1em]{0em}
+    \begin{addmargin}[1em]{1em}
       \hl{<%= latex_safe @agreement.user.email %>} \\
     \end{addmargin}
 
     \textbf{Address}
-    \begin{addmargin}[1em]{0em}
+    \begin{addmargin}[1em]{1em}
        \hl{<%= latex_safe @agreement.individual_address %>} \\
     \end{addmargin}
 
@@ -83,39 +83,39 @@ set forth below, the parties hereby agree as follows: \\
   behalf of itself and its employees, with a principal place of business and
   primary business contact as follows: \\
 
-  \begin{addmargin}[1em]{0em}
+  \begin{addmargin}[1em]{1em}
     \textbf{Organization}
-    \begin{addmargin}[1em]{0em}
+    \begin{addmargin}[1em]{1em}
       \hl{<%= latex_safe @agreement.organization_business_name %>} \\
     \end{addmargin}
 
     \textbf{Contact Name}
-    \begin{addmargin}[1em]{0em}
+    \begin{addmargin}[1em]{1em}
       \hl{<%= latex_safe @agreement.organization_contact_name %>} \\
     \end{addmargin}
 
     \textbf{Contact Title}
-    \begin{addmargin}[1em]{0em}
+    \begin{addmargin}[1em]{1em}
       \hl{<%= latex_safe @agreement.organization_contact_title %>} \\
     \end{addmargin}
 
     \textbf{Contact Telephone}
-    \begin{addmargin}[1em]{0em}
+    \begin{addmargin}[1em]{1em}
       \hl{<%= latex_safe @agreement.organization_contact_telephone %>} \\
     \end{addmargin}
 
     \textbf{Contact Fax}
-    \begin{addmargin}[1em]{0em}
+    \begin{addmargin}[1em]{1em}
       \hl{<%= latex_safe @agreement.organization_contact_fax %>} \\
     \end{addmargin}
 
     \textbf{Contact Email}
-    \begin{addmargin}[1em]{0em}
+    \begin{addmargin}[1em]{1em}
       \hl{<%= latex_safe @agreement.organization_contact_email %>} \\
     \end{addmargin}
 
     \textbf{Organization Address}
-    \begin{addmargin}[1em]{0em}
+    \begin{addmargin}[1em]{1em}
       \hl{<%= latex_safe @agreement.organization_address %>} \\
     \end{addmargin}
   \end{addmargin}
@@ -128,7 +128,7 @@ set forth below, the parties hereby agree as follows: \\
   the Data / Datasets proposed by Data User (the \textbf{``Specific Purpose''}).
   The Specific Purpose as described in the online application process is: \\
 
-  \begin{addmargin}[1em]{0em}
+  \begin{addmargin}[1em]{1em}
     \hl{<%= latex_safe @agreement.specific_purpose %>} \\
 
     \begin{itemize}
@@ -253,7 +253,7 @@ post a summary of Data User's Specific Purpose and/or Data User's name on
 https://sleepdata.org for the purpose of providing information about the
 projects and users of the NSRR. \\
 
-\begin{addmargin}[1em]{0em}
+\begin{addmargin}[1em]{1em}
   <% case @agreement.posting_permission when 'all' %>
     \hl{Data User gives BWH permission to post \textbf{Data User's name} and a
     summary of \textbf{Data User's Specific Purpose} on
@@ -313,8 +313,8 @@ Agreed to by: \\
 \\
 DATA USER \\
 
-\begin{addmargin}[1em]{0em}
-  \begin{addmargin}[1em]{0em}
+\begin{addmargin}[1em]{1em}
+  \begin{addmargin}[1em]{1em}
     \begin{figure}[!htpb]
       \includegraphics{<%= "#{Rails.root}/tmp/files/agreements/#{@agreement.id}/signature.png" %>}
     \end{figure}
@@ -322,18 +322,18 @@ DATA USER \\
   \end{addmargin}
 
   \textbf{By (print name)}
-  \begin{addmargin}[1em]{0em}
+  \begin{addmargin}[1em]{1em}
     \hl{<%= latex_safe @agreement.signature_print %>} \\
   \end{addmargin}
 
   \textbf{Date Signed}
-  \begin{addmargin}[1em]{0em}
+  \begin{addmargin}[1em]{1em}
     \hl{<%= latex_safe @agreement.signature_date ? @agreement.signature_date.strftime("%-d %B %Y") : "" %>} \\<% unless @agreement.data_user_type == 'organization' and @agreement.organization_emails.present? %>[2.0cm]<% end %>
   \end{addmargin}
 
   <% if @agreement.data_user_type == 'organization' and @agreement.organization_emails.present? %>
     \textbf{Approved Organization Member Emails}
-    \begin{addmargin}[1em]{0em}
+    \begin{addmargin}[1em]{1em}
       \hl{<%= latex_safe @agreement.organization_emails %>} \\[2.0cm]
     \end{addmargin}
   <% end %>
@@ -342,16 +342,16 @@ DATA USER \\
 
 THE BRIGHAM AND WOMEN'S HOSPITAL, INC. \\
 
-\begin{addmargin}[1em]{0em}
+\begin{addmargin}[1em]{1em}
   \textbf{Signature}
-  \begin{addmargin}[1em]{0em}
+  \begin{addmargin}[1em]{1em}
     \begin{figure}[!htpb]
       \includegraphics{<%= "#{Rails.root}/tmp/files/agreements/#{@agreement.id}/reviewer_signature.png" %>}
     \end{figure}
   \end{addmargin}
 
   \textbf{Approval Date}
-  \begin{addmargin}[1em]{0em}
+  \begin{addmargin}[1em]{1em}
     \hl{<%= latex_safe @agreement.approval_date ? @agreement.approval_date.strftime("%-d %B %Y") : "" %>} \\
   \end{addmargin}
 \end{addmargin}
