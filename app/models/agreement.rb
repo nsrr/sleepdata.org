@@ -36,6 +36,7 @@ class Agreement < ActiveRecord::Base
   mount_uploader :dua, PDFUploader
   mount_uploader :executed_dua, PDFUploader
   mount_uploader :irb, PDFUploader
+  mount_uploader :printed_file, PDFUploader
 
   STATUS = ["submitted", "approved", "resubmit", "expired"].collect{|i| [i,i]}
 
@@ -180,26 +181,29 @@ class Agreement < ActiveRecord::Base
     self.valid?
   end
 
-  def self.latex_partial(partial)
+  def latex_partial(partial)
     File.read(File.join('app', 'views', 'agreements', 'latex', "_#{partial}.tex.erb"))
   end
 
-  def self.latex_file_location(agreements, current_user)
-    jobname = (agreements.size == 1 ? "agreement_#{agreements.first.id}" : "agreements_#{Time.now.strftime("%Y%m%d_%H%M%S")}")
+  def generate_printed_pdf!
+    jobname = "agreement_#{self.id}"
     output_folder = File.join('tmp', 'files', 'tex')
     file_tex = File.join('tmp', 'files', 'tex', jobname + '.tex')
 
+    create_signature_pngs
+    @agreement = self # Needed by Binding
+
     File.open(file_tex, 'w') do |file|
       file.syswrite(ERB.new(latex_partial('header')).result(binding))
-      agreements.each do |agreement|
-        agreement.create_signature_pngs
-        @agreement = agreement # Needed by Binding
-        file.syswrite(ERB.new(latex_partial('body')).result(binding))
-      end
+      file.syswrite(ERB.new(latex_partial('body')).result(binding))
       file.syswrite(ERB.new(latex_partial('footer')).result(binding))
     end
 
-    generate_pdf(jobname, output_folder, file_tex)
+    file_name = Agreement.generate_pdf(jobname, output_folder, file_tex)
+    if File.exist?(file_name)
+      self.printed_file = File.open(file_name)
+      self.save(validate: false)
+    end
   end
 
   def create_signature_pngs

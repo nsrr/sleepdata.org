@@ -4,6 +4,7 @@
     <%= link_to "Agreements", agreements_path %> &middot; <%= @title %>
   </h1>
   <%= link_to 'Review', review_agreement_path(@agreement), class: 'btn btn-default btn-xs' %>
+  <%= link_to 'Print', print_agreement_path(@agreement), class: 'btn btn-default btn-xs' %>
   <%= link_to "Delete Agreement", @agreement, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Agreement #{@agreement.name}?" } %>
 
 </div>
