@@ -7,7 +7,7 @@
 
     <div class="tab-content">
       <div class="tab-pane active" id="edit-<%= @comment.id %>" style="padding-top:23px;padding-left:20px;padding-right:20px">
-        <%= f.text_area :description, rows: 7, class: 'form-control', id: "comment_description_#{@comment.id}" %>
+        <%= f.text_area :description, rows: 7, class: 'form-control', id: "comment_description_#{@comment.id}", data: { object: 'text-area-autocomplete', mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort } %>
       </div>
       <div class="tab-pane" id="preview-<%= @comment.id %>" style="min-height:177px;padding: 30px 15px 15px 15px;">
 

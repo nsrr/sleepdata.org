@@ -3,9 +3,9 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
 @commentsReady = () ->
-  $('#comment_description_new, #topic_description').textcomplete(
+  $('[data-object~="text-area-autocomplete"]').textcomplete(
     [
-      mentions: $('#comment_description_new, #topic_description').data('mentions')
+      mentions: $('[data-object~="text-area-autocomplete"]').data('mentions')
       match: /\B@(\w*)$/i
       search: (term, callback) ->
         callback($.map(this.mentions, (mention) ->
