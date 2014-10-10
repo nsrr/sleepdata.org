@@ -40,7 +40,7 @@
           <%= link_to "Sign Out <span class='glyphicon glyphicon-log-out'></span>".html_safe, destroy_user_session_path, class: 'logout-button' %>
         </li>
       <% else %>
-        <li><%= link_to 'Sign in', new_user_session_path %></li>
+        <li class="<%= 'active' if current_page?(new_user_session_path) %>"><%= link_to 'Sign in', new_user_session_path %></li>
       <% end %>
     </ul>
 
