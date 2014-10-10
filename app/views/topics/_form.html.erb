@@ -29,7 +29,7 @@
     <div class="form-group">
       <%= f.label :description, nil, class: 'col-md-2 control-label' %>
       <div class="col-md-10">
-        <%= f.text_area :description, rows: 7, class: 'form-control' %>
+        <%= f.text_area :description, rows: 7, class: 'form-control', data: { mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort } %>
       </div>
     </div>
   <% else %>

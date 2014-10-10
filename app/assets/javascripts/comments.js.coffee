@@ -2,6 +2,24 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+@commentsReady = () ->
+  $('#comment_description_new, #topic_description').textcomplete(
+    [
+      mentions: $('#comment_description_new, #topic_description').data('mentions')
+      match: /\B@(\w*)$/i
+      search: (term, callback) ->
+        callback($.map(this.mentions, (mention) ->
+          if mention.toLowerCase().indexOf(term.toLowerCase()) == 0
+            return mention
+          else
+            return null
+        ))
+      index: 1
+      replace: (mention) ->
+        return '@' + mention + ' '
+    ], { appendTo: 'body' }
+  )
+
 $(document)
   .on('click', '[data-object~="preview-comment"]', () ->
     $.post(root_url + 'forum/' + $(this).data('topic-id') + '/comments/preview', $("#comment_description_#{$(this).data('comment-id')}").serialize() + "&comment_id=" + $(this).data('comment-id'), null, "script")

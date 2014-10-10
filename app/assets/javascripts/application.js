@@ -29,3 +29,5 @@
 
 //= require external/highcharts-4.0.1.src.js
 //= require variables
+
+//= require external/jquery.textcomplete

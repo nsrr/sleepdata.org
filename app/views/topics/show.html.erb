@@ -116,7 +116,7 @@
 
           <div class="tab-content">
             <div class="tab-pane active" id="write-new" style="padding-top:23px">
-              <%= f.text_area :description, rows: 7, class: 'form-control', id: 'comment_description_new' %>
+              <%= f.text_area :description, rows: 7, class: 'form-control', id: 'comment_description_new', data: { mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort } %>
             </div>
             <div class="tab-pane" id="preview-new" style="min-height:177px;padding: 30px 15px 15px 15px;">
 

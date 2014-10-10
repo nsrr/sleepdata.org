@@ -30,6 +30,7 @@
   variablesReady() if (typeof variablesReady == 'function')
   datasetsReady()
   agreementsReady()
+  commentsReady()
 
 $(window).onbeforeunload = () -> return "You haven't saved your changes." if window.$isDirty
 $(document).ready(ready)
