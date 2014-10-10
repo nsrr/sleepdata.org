@@ -57,7 +57,7 @@
           <td>
             <%= link_to_if (!is_file || is_public || @dataset.grants_file_access_to?(current_user)), file_name, url, data: { object: "#{'autodownload' if is_file and file_name == params[:f]}" } %>
             <% if defined?(ALTAMIRA_URL) and /\.edf$/i =~ file_name and is_file and (is_public or @dataset.grants_file_access_to?(current_user)) %>
-              <%= link_to '<span class="glyphicon glyphicon-eye-open"></span> Preview Online'.html_safe, "#{ALTAMIRA_URL}?slug=#{@dataset.slug}&path=#{[path, file_name].join('/')}", class: "btn btn-xs btn-default" %>
+              <%= link_to '<span class="glyphicon glyphicon-eye-open"></span> Preview Online'.html_safe, "#{ALTAMIRA_URL}?slug=#{@dataset.slug}&path=#{[path, file_name].join('/')}&auto=.", class: "btn btn-xs btn-default" %>
             <% end %>
           </td>
           <td><%= file_time if is_file %></td>
