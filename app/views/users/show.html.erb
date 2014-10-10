@@ -13,6 +13,9 @@
   <dt>Email</dt>
   <dd><%= @user.email %></dd>
 
+  <dt>Forum Username</dt>
+  <dd><%= link_to @user.username, topics_path(a: @user.username) if @user.username.present? %></dd>
+
   <dt>Degree</dt>
   <dd><%= @user.degree %></dd>
 

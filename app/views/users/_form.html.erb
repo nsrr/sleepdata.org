@@ -36,6 +36,13 @@
     </div>
   </div>
 
+  <div class="form-group">
+    <%= f.label :username, "Forum Username", class: 'col-md-2 control-label' %>
+    <div class="col-md-10">
+      <%= f.text_field :username, class: 'form-control' %>
+    </div>
+  </div>
+
   <% if current_user.system_admin? %>
     <div class="form-group">
       <%= f.label :degree, nil, class: 'col-md-2 control-label' %>
