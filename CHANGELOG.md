@@ -8,6 +8,12 @@
   - PDFs of submitted and approved agreements can now be downloaded and printed
 - **Dataset Changes**
   - EDFs can now be previewed in the Altamira online EDF browser
+- **Forum Changes**
+  - Users can now mention other users by username in forum posts
+    - Ex: "Please look at this topic @remomueller."
+  - Users can set their forum username under their settings
+  - Users get notified by email when they are mentioned in a comment
+  - Users can turn off receiving mention emails in their settings
 - **Gem Changes**
   - Updated to contour 2.6.0.beta7
 

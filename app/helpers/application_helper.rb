@@ -32,7 +32,9 @@ module ApplicationHelper
     result = expand_relative_paths(result)
     result = page_headers(result)
     result = remove_links(result) unless allow_links
-    target_blank ? target_link_as_blank(result) : result.html_safe
+    result = target_link_as_blank(result) if target_blank
+    result = link_usernames(result)
+    result.html_safe
   end
 
   private
@@ -57,6 +59,16 @@ module ApplicationHelper
 
       result = result.gsub(/<a href="(?:\:tools\_path\:)(.*?)">/, '<a href="' + full_path + '/tools\1">')
       result = result.gsub(/<img src="(?:\:tools\_path\:)(.*?)">/, '<img src="' + full_path + '/tools\1">').html_safe
+    end
+
+    def link_usernames(text)
+      full_path = (request ? request.script_name : SITE_URL)
+      usernames = User.current.pluck(:username).reject(&:blank?).uniq.sort
+      result = text.to_s
+      usernames.each do |username|
+        result = result.gsub(/@#{username}\b/i, "<a href=\"#{full_path}/forum?a=#{username}\">@#{username}</a>")
+      end
+      result.html_safe
     end
 
     def page_headers(text)

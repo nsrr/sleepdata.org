@@ -59,6 +59,25 @@
           </div>
 
           <div class="form-group">
+            <%= f.label :username, 'Forum Username', class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_field :username, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-3 control-label">Forum Mention Emails</label>
+            <div class="col-md-9">
+              <div class="checkbox">
+                <label>
+                  <%= f.check_box :email_me_when_mentioned %>
+                  Notify me by email when someone mentions me in a comment on the forum.
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
             <div class="col-md-offset-3 col-md-9">
               <%= submit_tag 'Save Changes', class: 'btn btn-primary' %>
             </div>

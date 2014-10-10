@@ -16,10 +16,12 @@ class User < ActiveRecord::Base
   scope :core_members, -> { current.where( core_member: true ) }
   scope :system_admins, -> { current.where( system_admin: true ) }
   scope :search, lambda { |arg| where( 'LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ) }
-  scope :with_name, lambda { |arg| where("(users.first_name || ' ' || users.last_name) IN (?)", arg) }
+  scope :with_name, lambda { |arg| where("(users.first_name || ' ' || users.last_name) IN (?) or users.username IN (?)", arg, arg) }
 
   # Model Validation
   validates_presence_of :first_name, :last_name
+  validates_uniqueness_of :username, allow_blank: true, case_sensitive: false
+  validates_format_of :username, with: /\A[a-z]\w*\Z/i, allow_blank: true
 
   # Model Relationships
   has_many :agreements, -> { where deleted: false }
@@ -122,6 +124,10 @@ class User < ActiveRecord::Base
 
   def id_and_auth_token
     "#{self.id}-#{self.authentication_token}"
+  end
+
+  def forum_name
+    self.username.blank? ? self.name : self.username
   end
 
   # Overriding Devise built-in active_for_authentication? method

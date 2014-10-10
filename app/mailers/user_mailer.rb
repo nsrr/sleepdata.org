@@ -77,6 +77,15 @@ class UserMailer < ActionMailer::Base
          reply_to: editor.email)
   end
 
+  def mentioned_in_comment(comment, user)
+    setup_email
+    @user = user
+    @comment = comment
+    @email_to = user.email
+    mail(to: @email_to,
+      subject: "#{comment.user.forum_name} Mentioned You on the Forum")
+  end
+
   protected
 
   def setup_email

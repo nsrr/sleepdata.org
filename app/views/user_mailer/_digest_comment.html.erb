@@ -2,4 +2,4 @@
   <%= link_to "##{@comment.number}", "#{SITE_URL}/forum/#{@comment.topic.to_param}?page=#{((@comment.number - 1) / Comment::COMMENTS_PER_PAGE)+1}#c#{@comment.number}", style: "color: #428bca;" %>
 </td>
 <td style="padding-right:10px;vertical-align:top"><%= strip_tags(simple_markdown @comment.description).truncate(100, separator: ' ').html_safe %></td>
-<td style="padding-right:10px;white-space:nowrap;text-align:right;vertical-align:top"><%= @comment.user.first_name %> <%= @comment.user.last_name.first %> <%= image_tag('http:'+@comment.user.avatar_url(16, "identicon"), size: '16x16', alt: '', style: 'vertical-align: middle;margin-top:-1px;margin-bottom:-1px') %></td>
+<td style="padding-right:10px;white-space:nowrap;text-align:right;vertical-align:top"><%= @comment.user.forum_name %> <%= image_tag('http:'+@comment.user.avatar_url(16, "identicon"), size: '16x16', alt: '', style: 'vertical-align: middle;margin-top:-1px;margin-bottom:-1px') %></td>

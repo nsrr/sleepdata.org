@@ -26,7 +26,7 @@
   </div>
 
   <h1><%= @title %></h1>
-  <p class="lead">Topic by <%= link_to @topic.user.name, topics_path(a: @topic.user.name) %></p>
+  <p class="lead">Topic by <%= link_to @topic.user.forum_name, topics_path(a: @topic.user.forum_name) %></p>
 </div>
 
 <% @comments.each_with_index do |comment, index| %>

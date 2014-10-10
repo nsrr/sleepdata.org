@@ -51,4 +51,10 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.sent_back_for_resubmission(agreement, admin)
   end
 
+  def mentioned_in_comment
+    user = User.first
+    comment = Comment.first
+    UserMailer.mentioned_in_comment(comment, user)
+  end
+
 end

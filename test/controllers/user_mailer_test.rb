@@ -111,4 +111,18 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match(/#{editor.name} approved your file access request on #{dataset_user.dataset.name}\./, email.encoded)
   end
 
+  test "mentioned in comment email" do
+    valid = users(:valid)
+    comment = comments(:one)
+
+    # Send the email, then test that it got queued
+    email = UserMailer.mentioned_in_comment(comment, valid).deliver_now
+    assert !ActionMailer::Base.deliveries.empty?
+
+    # Test the body of the sent email contains what we expect it to
+    assert_equal [valid.email], email.to
+    assert_equal "#{comment.user.forum_name} Mentioned You on the Forum", email.subject
+    assert_match(/#{comment.user.forum_name} mentioned you in a comment on the forum\./, email.encoded)
+  end
+
 end

@@ -6,7 +6,7 @@ class Comment < ActiveRecord::Base
   include Deletable
 
   # Callbacks
-  after_create :touch_topic
+  after_create :touch_topic, :email_mentioned_users
 
   # Model Validation
   validates_presence_of :topic_id, :description, :user_id
@@ -39,6 +39,13 @@ class Comment < ActiveRecord::Base
 
   def touch_topic
     self.topic.update last_comment_at: Time.now
+  end
+
+  def email_mentioned_users
+    users = User.current.where(email_me_when_mentioned: true).reject{|u| u.username.blank?}.uniq.sort
+    users.each do |user|
+      UserMailer.mentioned_in_comment(self, user).deliver_later if Rails.env.production? and self.description.match(/@#{user.username}\b/i)
+    end
   end
 
 end
