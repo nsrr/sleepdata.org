@@ -22,6 +22,9 @@ class Topic < ActiveRecord::Base
   has_many :comments
   belongs_to :user
   has_many :subscriptions
+  has_many :topic_tags
+  has_many :tags, -> { where(deleted: false).order(:name) }, through: :topic_tags
+
 
   def to_param
     "#{id}-#{name.parameterize}"

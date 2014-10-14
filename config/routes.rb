@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :tags
+
   resources :topics, path: "forum" do
     member do
       post :admin

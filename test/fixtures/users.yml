@@ -61,6 +61,16 @@ aug:
   email: aug@example.com
   encrypted_password: ""
 
+# A Core member
+core:
+  first_name: Core
+  last_name: Member
+  deleted: false
+  core_member: true
+  system_admin: false
+  email: core@example.com
+  encrypted_password: ""
+
 # A user banned from posting on the forum
 banned:
   first_name: Banned

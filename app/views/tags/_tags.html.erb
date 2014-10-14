@@ -1,0 +1,32 @@
+<%= render partial: 'contour/layouts/per_page', locals: { per_page: 40, object_count: @tags.total_count } %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th style="white-space:nowrap">
+        <%= link_to 'Name', tags_path( order: (params[:order] == 'tags.name DESC' ? nil : 'tags.name DESC') ) %>
+      </th>
+      <th style="white-space:nowrap">
+        <%= link_to 'Color', tags_path( order: (params[:order] == 'tags.color DESC' ? 'tags.color' : 'tags.color DESC') ) %>
+      </th>
+      <th style="white-space:nowrap">
+        <%= link_to 'Creator', tags_path( order: (params[:order] == 'tags.user_id DESC' ? 'tags.user_id' : 'tags.user_id DESC') ) %>
+      </th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+
+  <% @tags.each do |tag| %>
+    <tr>
+      <td><%= link_to tag.name, tag %></td>
+      <td><span class="label" style="background-color: <%= tag.color %>"><%= tag.color %></span></td>
+      <td><%= link_to tag.user.name, tag.user if tag.user %></td>
+      <td>
+        <%= link_to 'Edit', edit_tag_path(tag), class: 'btn btn-xs btn-default' %>
+        <%= link_to 'Delete', tag, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Tag #{tag.name}?" } %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<div class="center"><%= paginate @tags, theme: 'contour' %></div>

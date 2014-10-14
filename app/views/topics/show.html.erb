@@ -21,6 +21,14 @@
     </div>
   <% end %>
 
+  <% if @topic.tags.count > 0 %>
+    <div class="jumbotron-left-bottom-after">
+      <% @topic.tags.each do |tag| %>
+        <span class="label label-default" style="background-color:<%= tag.color %>"><%= tag.name %></span>
+      <% end %>
+    </div>
+  <% end %>
+
   <div class="jumbotron-pagination">
     <%= render partial: 'variables/per_page', locals: { per_page: Comment::COMMENTS_PER_PAGE, object_count: @comments.total_count } %>
   </div>

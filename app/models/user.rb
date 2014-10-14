@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   has_many :comments, -> { where deleted: false }
   has_many :datasets, -> { where deleted: false }
   has_many :dataset_file_audits
+  has_many :tags, -> { where deleted: false }
   has_many :tools
   has_many :topics, -> { where deleted: false }
   has_many :subscriptions

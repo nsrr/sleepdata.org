@@ -49,7 +49,7 @@ class TopicsControllerTest < ActionController::TestCase
     login(users(:valid))
     assert_difference('Comment.count') do
       assert_difference('Topic.count') do
-        post :create, topic: { name: "New Topic Name", description: "First Comment on New Topic" }
+        post :create, topic: { name: "New Topic Name", description: "First Comment on New Topic", tag_ids: [ ActiveRecord::FixtureSet.identify(:meeting) ] }
       end
     end
 
@@ -59,8 +59,33 @@ class TopicsControllerTest < ActionController::TestCase
     assert_equal "First Comment on New Topic", assigns(:topic).comments.first.description
     assert_equal users(:valid), assigns(:topic).comments.first.user
     assert_not_nil assigns(:topic).last_comment_at
+    assert_equal [], assigns(:topic).tags
 
     assert_equal true, assigns(:topic).subscribed?(users(:valid))
+
+    assert_redirected_to topic_path(assigns(:topic))
+  end
+
+  test "should create topic with tags as core member" do
+    login(users(:core))
+    assert_difference('Topic.count') do
+      post :create, topic: { name: "Core Member Topic with Tags", description: "First Comment on New Topic", tag_ids: [ ActiveRecord::FixtureSet.identify(:meeting) ] }
+    end
+
+    assert_not_nil assigns(:topic)
+    assert_equal [tags(:meeting)], assigns(:topic).tags
+
+    assert_redirected_to topic_path(assigns(:topic))
+  end
+
+  test "should create topic with tags as AUG member" do
+    login(users(:aug))
+    assert_difference('Topic.count') do
+      post :create, topic: { name: "AUG Member Topic with Tags", description: "First Comment on New Topic", tag_ids: [ ActiveRecord::FixtureSet.identify(:meeting) ] }
+    end
+
+    assert_not_nil assigns(:topic)
+    assert_equal [tags(:meeting)], assigns(:topic).tags
 
     assert_redirected_to topic_path(assigns(:topic))
   end

@@ -100,7 +100,11 @@ class TopicsController < ApplicationController
     end
 
     def topic_params
-      params.require(:topic).permit(:name, :description)
+      if current_user.aug_member? or current_user.core_member?
+        params.require(:topic).permit(:name, :description, { :tag_ids => [] })
+      else
+        params.require(:topic).permit(:name, :description)
+      end
     end
 
     def topic_admin_params

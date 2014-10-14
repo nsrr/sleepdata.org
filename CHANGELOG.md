@@ -15,6 +15,7 @@
   - Users get notified by email when they are mentioned in a comment
   - Users can turn off receiving mention emails in their settings
   - Typing '@' will allow users to autocomplete usernames while creating new topics and posts
+  - Core and AUG members can now add tags to topics
 - **Gem Changes**
   - Updated to contour 2.6.0.beta7
 

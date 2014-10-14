@@ -4,7 +4,7 @@
       <% if current_user %><th><%= link_to "<span class='glyphicon #{current_user.auto_subscribe? ? 'glyphicon-volume-off' : 'glyphicon-volume-up'}'></span>".html_safe, settings_path, rel: 'tooltip', title: "Turn #{current_user.auto_subscribe? ? 'off' : 'on'} Auto-Subscribe", data: { container: 'body', placement: 'right' } %></th><% end %>
       <th></th>
       <th>Topic</th>
-      <th class="hidden-xs">Category</th>
+      <th class="hidden-xs">Tags</th>
       <th style="text-align:right"></th>
     </tr>
   </thead>
@@ -31,12 +31,8 @@
         <%= link_to topic.name, topic %>
       </td>
       <td class="hidden-xs">
-        <% if topic.user.core_member? or topic.user.aug_member? %>
-          <% if topic.name =~ /meeting/i %>
-            <span class="label label-primary">Meeting</span>
-          <% elsif topic.name =~ /release/i %>
-            <span class="label label-success">New Release</span>
-          <% end %>
+        <% topic.tags.each do |tag| %>
+          <span class="label label-default" style="background-color:<%= tag.color %>"><%= tag.name %></span>
         <% end %>
       </td>
       <td style="text-align:right;white-space:nowrap">

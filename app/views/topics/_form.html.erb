@@ -36,6 +36,28 @@
     <%= f.hidden_field :description, value: @topic.comments.first.description %>
   <% end %>
 
+<% if (current_user.aug_member? or current_user.core_member?) and Tag.current.count > 0 %>
+  <div class="form-group">
+    <%= label :topic, :tag_ids, 'Tags', class: 'col-md-2 control-label' %>
+    <div class="col-md-10">
+      <div class="row">
+        <%= hidden_field_tag 'topic[tag_ids][]', nil %>
+        <% Tag.current.order( :name ).each do |tag| %>
+          <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+            <label class="checkbox tag-checkbox <%= 'tag-selected' if @topic.tags.include?(tag) %>" style="margin-bottom: 10px;background-color: <%= tag.color %>">
+              <%= check_box_tag "topic[tag_ids][]", tag.id, @topic.tags.include?(tag) %>
+              <div class="tag-name" style="overflow:hidden;white-space:nowrap">
+                <%= tag.name %>
+              </div>
+            </label>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+
   <div class="form-group">
     <div class="col-md-offset-2 col-md-10">
       <%= f.submit nil, class: 'btn btn-primary' %>

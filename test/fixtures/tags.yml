@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+new_release:
+  name: New Release
+  color: '#ff00ff'
+  user: admin
+  deleted: false
+
+meeting:
+  name: Meeting
+  color: '#00ffff'
+  user: admin
+  deleted: false
