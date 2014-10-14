@@ -6,7 +6,7 @@
 <% current_page_max = page*per_page %>
 
 <div class="pull-right">
-  <ul class="pagination pagination-sm" style="margin-top:3px;margin-bottom:0px;margin-right:3px">
+  <ul class="pagination pagination-sm" style="margin-bottom:-5px">
     <% if current_page_min > 1 %>
       <li><%= link_to '&laquo;'.html_safe, url_for( params.merge( page: page - 1 )  ).gsub("%2F","/") %></li>
     <% else %>
