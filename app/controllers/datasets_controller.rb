@@ -1,15 +1,33 @@
 class DatasetsController < ApplicationController
-  before_action :authenticate_user_from_token!, only: [ :json_manifest, :manifest, :files, :upload_graph ]
+  before_action :authenticate_user_from_token!, only: [ :json_manifest, :manifest, :files, :upload_graph, :refresh_dictionary, :upload_dataset_csv ]
   before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file, :reset_index ]
   before_action :check_system_admin,        only: [ :new, :create, :destroy, :pull_changes, :sync ]
   before_action :set_viewable_dataset,      only: [ :show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :request_access, :search ]
-  before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file, :reset_index, :upload_graph ]
-  before_action :redirect_without_dataset,  only: [ :show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :request_access, :set_access, :create_access, :search, :edit, :update, :destroy, :audits, :requests, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file, :reset_index, :upload_graph ]
+  before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file, :reset_index, :upload_graph, :refresh_dictionary, :upload_dataset_csv ]
+  before_action :redirect_without_dataset,  only: [ :show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :request_access, :set_access, :create_access, :search, :edit, :update, :destroy, :audits, :requests, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file, :reset_index, :upload_graph, :refresh_dictionary, :upload_dataset_csv ]
 
-  skip_before_action :verify_authenticity_token, only: [ :upload_graph ]
+  skip_before_action :verify_authenticity_token, only: [ :upload_graph, :upload_dataset_csv ]
 
   # Concerns
   include Pageable
+
+  def refresh_dictionary
+    version = params[:version].to_s.gsub(/[^a-z\.\d]/, '')
+    @dataset.pull_new_data_dictionary!(version)
+    @dataset.load_data_dictionary!
+    @dataset.create_folder_index('datasets')
+    render json: { refresh: 'success' }
+  end
+
+  def upload_dataset_csv
+    upload = 'success'
+    dataset_csv_folder = File.join(@dataset.files_folder, 'datasets')
+    FileUtils.mkpath dataset_csv_folder
+    if params[:file]
+      FileUtils.cp params[:file].tempfile, File.join(dataset_csv_folder, params[:file].original_filename) rescue upload = "failed"
+    end
+    render json: { upload: upload }
+  end
 
   def upload_graph
     upload = 'success'

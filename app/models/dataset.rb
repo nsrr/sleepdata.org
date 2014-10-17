@@ -226,6 +226,11 @@ class Dataset < ActiveRecord::Base
     colors(Dataset.order(:id).pluck(:id).index(self.id))
   end
 
+  def pull_new_data_dictionary!(version)
+    FileUtils.cd(self.data_dictionary_folder) rescue return ''
+    stdout = `git checkout master; git fetch --all; git reset --hard origin/master; git branch -D #{version}; git checkout v#{version} -b #{version}`
+  end
+
   def load_data_dictionary!
     version = File.open("#{self.data_dictionary_folder}/VERSION", &:readline).strip rescue version = nil
     form_files = Dir.glob("#{self.data_dictionary_folder}/forms/**/*.json", File::FNM_CASEFOLD)
