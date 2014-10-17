@@ -61,6 +61,7 @@ Rails.application.routes.draw do
       post :pull_changes
 
       post :set_public_file
+      post :upload_graph
     end
 
     resources :variables do

@@ -1,13 +1,27 @@
 class DatasetsController < ApplicationController
-  before_action :authenticate_user_from_token!, only: [ :json_manifest, :manifest, :files ]
+  before_action :authenticate_user_from_token!, only: [ :json_manifest, :manifest, :files, :upload_graph ]
   before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :request_access, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file, :reset_index ]
   before_action :check_system_admin,        only: [ :new, :create, :destroy, :pull_changes, :sync ]
   before_action :set_viewable_dataset,      only: [ :show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :request_access, :search ]
-  before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file, :reset_index ]
-  before_action :redirect_without_dataset,  only: [ :show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :request_access, :set_access, :create_access, :search, :edit, :update, :destroy, :audits, :requests, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file, :reset_index ]
+  before_action :set_editable_dataset,      only: [ :edit, :update, :destroy, :audits, :requests, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file, :reset_index, :upload_graph ]
+  before_action :redirect_without_dataset,  only: [ :show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :request_access, :set_access, :create_access, :search, :edit, :update, :destroy, :audits, :requests, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file, :reset_index, :upload_graph ]
+
+  skip_before_action :verify_authenticity_token, only: [ :upload_graph ]
 
   # Concerns
   include Pageable
+
+  def upload_graph
+    upload = 'success'
+    version = params[:version].to_s.gsub(/[^a-z\.\d]/, '')
+    type = params[:type] == 'images' ? 'images' : 'graphs'
+    version_folder = File.join(@dataset.data_dictionary_folder, type, version)
+    FileUtils.mkpath version_folder
+    if params[:file]
+      FileUtils.cp params[:file].tempfile, File.join(version_folder, params[:file].original_filename) rescue upload = "failed"
+    end
+    render json: { upload: upload }
+  end
 
   def set_public_file
     file = @dataset.find_file( params[:path] )

@@ -70,8 +70,12 @@ class Dataset < ActiveRecord::Base
     File.join(CarrierWave::Uploader::Base.root, 'datasets', (Rails.env.test? ? self.slug : self.id.to_s))
   end
 
+  def data_dictionary_folder
+    File.join(root_folder, 'dd')
+  end
+
   def files_folder
-    File.join( root_folder, 'files' )
+    File.join(root_folder, 'files')
   end
 
   def file_array(f, lock_file)
@@ -223,17 +227,17 @@ class Dataset < ActiveRecord::Base
   end
 
   def load_data_dictionary!
-    version = File.open("#{self.root_folder}/dd/VERSION", &:readline).strip rescue version = nil
-    form_files = Dir.glob("#{self.root_folder}/dd/forms/**/*.json", File::FNM_CASEFOLD)
-    domain_files = Dir.glob("#{self.root_folder}/dd/domains/**/*.json", File::FNM_CASEFOLD)
-    variable_files = Dir.glob("#{self.root_folder}/dd/variables/**/*.json", File::FNM_CASEFOLD)
+    version = File.open("#{self.data_dictionary_folder}/VERSION", &:readline).strip rescue version = nil
+    form_files = Dir.glob("#{self.data_dictionary_folder}/forms/**/*.json", File::FNM_CASEFOLD)
+    domain_files = Dir.glob("#{self.data_dictionary_folder}/domains/**/*.json", File::FNM_CASEFOLD)
+    variable_files = Dir.glob("#{self.data_dictionary_folder}/variables/**/*.json", File::FNM_CASEFOLD)
     self.variables.delete_all
     self.forms.delete_all
     self.variable_forms.delete_all
     self.domains.delete_all
     form_files.each do |json_file|
       if json = JSON.parse(File.read(json_file)) rescue false
-        path = json_file.gsub("#{self.root_folder}/dd/forms/", '')
+        path = json_file.gsub("#{self.data_dictionary_folder}/forms/", '')
         name = path.split('/')[-1].to_s.gsub(/\.json$/, '')
         folder = path.split('/')[0..-2].join('/')
         display_name = json['display_name']
@@ -243,7 +247,7 @@ class Dataset < ActiveRecord::Base
     end
     domain_files.each do |json_file|
       if json = JSON.parse(File.read(json_file)) rescue false
-        path = json_file.gsub("#{self.root_folder}/dd/domains/", '')
+        path = json_file.gsub("#{self.data_dictionary_folder}/domains/", '')
         name = path.split('/')[-1].to_s.gsub(/\.json$/, '')
         folder = path.split('/')[0..-2].join('/')
         self.domains.create( folder: folder, name: name, options: json, version: version )
@@ -251,7 +255,7 @@ class Dataset < ActiveRecord::Base
     end
     variable_files.each do |json_file|
       if json = JSON.parse(File.read(json_file)) rescue false
-        path = json_file.gsub("#{self.root_folder}/dd/variables/", '')
+        path = json_file.gsub("#{self.data_dictionary_folder}/variables/", '')
         name = path.split('/')[-1].to_s.gsub(/\.json$/, '')
         folder = path.split('/')[0..-2].join('/')
         domain = self.domains.find_by_name(json['domain'])

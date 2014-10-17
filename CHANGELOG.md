@@ -1,5 +1,10 @@
 ## 0.14.0
 
+### Enhancements
+- **Dataset Changes**
+  - New dataset releases can now be deployed using the Spout data dictionary management gem
+    - Spout, https://github.com/sleepepi/spout, tests and manages data dictionaries and datasets
+
 ## 0.13.0 (October 14, 2014)
 
 ### Enhancements
