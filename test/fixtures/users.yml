@@ -50,6 +50,7 @@ editor:
   last_name: EditorLast
   email: editor@example.com
   encrypted_password: ""
+  authentication_token: D-FCa_ZUqLc2Mtaqp_9k
 
 # An AUG member
 aug:

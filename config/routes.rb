@@ -64,6 +64,7 @@ Rails.application.routes.draw do
       post :upload_graph
       post :upload_dataset_csv
       get "/a/:auth_token/refresh_dictionary", action: 'refresh_dictionary', as: :refresh_dictionary
+      get "/a/:auth_token/editor", action: 'editor', as: :editor
     end
 
     resources :variables do

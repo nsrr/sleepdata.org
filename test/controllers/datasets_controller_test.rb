@@ -5,6 +5,30 @@ class DatasetsControllerTest < ActionController::TestCase
     @dataset = datasets(:public)
   end
 
+  test "should get editor status as editor" do
+    get :editor, id: datasets(:public), auth_token: users(:editor).id_and_auth_token, format: 'json'
+
+    assert_not_nil response
+    assert_equal "{\"editor\":true,\"user_id\":#{users(:editor).id}}", response.body
+    assert_response :success
+  end
+
+  test "should get non-editor status as viewer" do
+    get :editor, id: datasets(:mixed), auth_token: users(:valid).id_and_auth_token, format: 'json'
+
+    assert_not_nil response
+    assert_equal "{\"editor\":false,\"user_id\":#{users(:valid).id}}", response.body
+    assert_response :success
+  end
+
+  test "should get non-editor status as anonymous" do
+    get :editor, id: datasets(:public), auth_token: "", format: 'json'
+
+    assert_not_nil response
+    assert_equal "{\"editor\":false,\"user_id\":null}", response.body
+    assert_response :success
+  end
+
   test "should reset index as editor" do
     login(users(:editor_mixed))
     post :reset_index, id: datasets(:mixed), path: nil
