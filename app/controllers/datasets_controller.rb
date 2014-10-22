@@ -19,10 +19,14 @@ class DatasetsController < ApplicationController
 
   def refresh_dictionary
     version = params[:version].to_s.gsub(/[^a-z\.\d]/, '')
-    @dataset.pull_new_data_dictionary!(version)
-    @dataset.load_data_dictionary!
-    @dataset.create_folder_index('datasets')
-    render json: { refresh: 'success' }
+    stdout = @dataset.pull_new_data_dictionary!(version)
+    if stdout.match(/Switched to a new branch '#{version}'/)
+      @dataset.load_data_dictionary!
+      @dataset.create_folder_index('datasets')
+      render json: { refresh: 'success' }
+    else
+      render json: { refresh: 'notagfound'}
+    end
   end
 
   def upload_dataset_csv

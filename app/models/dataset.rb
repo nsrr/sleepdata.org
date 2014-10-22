@@ -228,7 +228,9 @@ class Dataset < ActiveRecord::Base
 
   def pull_new_data_dictionary!(version)
     FileUtils.cd(self.data_dictionary_folder) rescue return ''
-    stdout = `git checkout master; git fetch --all; git reset --hard origin/master; git branch -D #{version}; git checkout v#{version} -b #{version}`
+    `git checkout master; git fetch --all; git reset --hard origin/master; git branch -D #{version};`
+    stdout = `git checkout v#{version} -b #{version} 2>&1;`
+    stdout
   end
 
   def load_data_dictionary!
