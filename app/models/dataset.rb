@@ -226,10 +226,20 @@ class Dataset < ActiveRecord::Base
     colors(Dataset.order(:id).pluck(:id).index(self.id))
   end
 
+  def does_git_repo_for_data_dictionary_exist?
+    FileUtils.cd(self.data_dictionary_folder) rescue return false
+    stdout = `git rev-parse --show-toplevel`.to_s.strip
+    self.data_dictionary_folder == stdout
+  end
+
   def pull_new_data_dictionary!(version)
-    FileUtils.cd(self.data_dictionary_folder) rescue return ''
-    `git checkout master; git fetch --all; git reset --hard origin/master; git branch -D #{version};`
-    stdout = `git checkout v#{version} -b #{version} 2>&1;`
+    stdout = ''
+    if does_git_repo_for_data_dictionary_exist?
+      `git checkout master; git fetch --all; git reset --hard origin/master; git branch -D #{version};`
+      stdout = `git checkout v#{version} -b #{version} 2>&1;`.to_s
+    else
+      stdout = 'DD Git Repository Does Not Exist'
+    end
     stdout
   end
 

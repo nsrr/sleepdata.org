@@ -24,6 +24,8 @@ class DatasetsController < ApplicationController
       @dataset.load_data_dictionary!
       @dataset.create_folder_index('datasets')
       render json: { refresh: 'success' }
+    elsif stdout.match(/DD Git Repository Does Not Exist/)
+      render json: { refresh: 'gitrepodoesnotexist' }
     else
       render json: { refresh: 'notagfound'}
     end
