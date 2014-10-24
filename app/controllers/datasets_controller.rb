@@ -35,9 +35,19 @@ class DatasetsController < ApplicationController
     upload = 'success'
     dataset_csv_folder = File.join(@dataset.files_folder, 'datasets')
     FileUtils.mkpath dataset_csv_folder
-    if params[:file]
-      FileUtils.cp params[:file].tempfile, File.join(dataset_csv_folder, params[:file].original_filename) rescue upload = "failed"
+    new_file_location = ''
+    begin
+      if params[:file]
+        new_file_location = File.join(dataset_csv_folder, params[:file].original_filename)
+        FileUtils.cp params[:file].tempfile, new_file_location
+      end
+    rescue
     end
+
+    if not File.exist?(new_file_location) or (File.exist?(new_file_location) and File.size(new_file_location) == 0)
+      upload = 'failed'
+    end
+
     render json: { upload: upload }
   end
 
@@ -47,9 +57,20 @@ class DatasetsController < ApplicationController
     type = params[:type] == 'images' ? 'images' : 'graphs'
     version_folder = File.join(@dataset.data_dictionary_folder, type, version)
     FileUtils.mkpath version_folder
-    if params[:file]
-      FileUtils.cp params[:file].tempfile, File.join(version_folder, params[:file].original_filename) rescue upload = "failed"
+
+    new_file_location = ''
+    begin
+      if params[:file]
+        new_file_location = File.join(version_folder, params[:file].original_filename)
+        FileUtils.cp params[:file].tempfile, new_file_location
+      end
+    rescue
     end
+
+    if not File.exist?(new_file_location) or (File.exist?(new_file_location) and File.size(new_file_location) == 0)
+      upload = 'failed'
+    end
+
     render json: { upload: upload }
   end
 
