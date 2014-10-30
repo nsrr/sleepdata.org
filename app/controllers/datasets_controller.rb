@@ -22,6 +22,7 @@ class DatasetsController < ApplicationController
     stdout = @dataset.pull_new_data_dictionary!(version)
     if stdout.match(/Switched to a new branch '#{version}'/)
       @dataset.load_data_dictionary!
+      @dataset.create_folder_index() # Root
       @dataset.create_folder_index('datasets')
       render json: { refresh: 'success' }
     elsif stdout.match(/DD Git Repository Does Not Exist/)
