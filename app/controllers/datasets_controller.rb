@@ -21,9 +21,8 @@ class DatasetsController < ApplicationController
     version = params[:version].to_s.gsub(/[^a-z\.\d]/, '')
     stdout = @dataset.pull_new_data_dictionary!(version)
     if stdout.match(/Switched to a new branch '#{version}'/)
-      @dataset.load_data_dictionary!
-      @dataset.create_folder_index() # Root
-      @dataset.create_folder_index('datasets')
+      rake_task = "#{File.join(Rails.root, 'bin', 'rake')} refresh_dictionary DATASET_ID=#{@dataset.id} &"
+      systemu rake_task unless Rails.env.test?
       render json: { refresh: 'success' }
     elsif stdout.match(/DD Git Repository Does Not Exist/)
       render json: { refresh: 'gitrepodoesnotexist' }
@@ -185,8 +184,8 @@ class DatasetsController < ApplicationController
     file = @dataset.find_file( params[:path] )
     folder = @dataset.find_file_folder(params[:path])
     if file and File.directory?(file) and not @dataset.current_folder_locked?(folder)
-      @dataset.lock_folder!(folder)
-      GenerateIndexJob.perform_later(@dataset, folder)
+      rake_task = "#{File.join(Rails.root, 'bin', 'rake')} reset_folder_index DATASET_ID=#{@dataset.id} FOLDER=#{folder} &"
+      systemu rake_task unless Rails.env.test?
     end
     redirect_to files_dataset_path(@dataset, path: @dataset.find_file_folder(params[:path]))
   end
