@@ -4,6 +4,8 @@
 - **Dataset Changes**
   - New dataset releases can now be deployed using the Spout data dictionary management gem
     - Spout, https://github.com/sleepepi/spout, tests and manages data dictionaries and datasets
+- **Gem Changes**
+  - Updated to rails 4.2.0.beta4
 - Use of Ruby 2.1.4 is now recommended
 
 ## 0.13.0 (October 14, 2014)
