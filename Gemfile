@@ -6,7 +6,7 @@ gem 'rails',                '4.2.0.beta4'
 gem 'pg',                   '0.17.1'
 
 # Gems used by project
-gem 'contour',              '~> 2.6.0.beta7'
+gem 'contour',              '~> 2.6.0.beta8'
 gem 'kaminari',             '~> 0.16.1'
 gem 'carrierwave',          '~> 0.10.0'
 gem 'redcarpet',            '~> 3.1.1'
@@ -15,7 +15,7 @@ gem 'chunky_png',           '~> 1.3.1'
 gem 'systemu',              '~> 2.6.4'
 
 # Rails Defaults
-gem 'coffee-rails',         '~> 4.0.1'
+gem 'coffee-rails',         '~> 4.1.0'
 gem 'sass-rails',           '~> 5.0.0.beta1'
 gem 'uglifier',             '>= 1.3.0'
 

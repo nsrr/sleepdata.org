@@ -8,6 +8,8 @@
     - Spout, https://github.com/sleepepi/spout, tests and manages data dictionaries and datasets
 - **Gem Changes**
   - Updated to rails 4.2.0.beta4
+  - Updated to contour 2.6.0.beta8
+  - Updated to coffee-rails 4.1.0
 - Use of Ruby 2.1.4 is now recommended
 
 ## 0.13.0 (October 14, 2014)
