@@ -11,6 +11,7 @@
   - Updated to contour 2.6.0.beta8
   - Updated to coffee-rails 4.1.0
   - Updated to redcarpet 3.2.0
+  - Updated to simplecov 0.9.1
 - Use of Ruby 2.1.4 is now recommended
 
 ## 0.13.0 (October 14, 2014)
