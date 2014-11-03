@@ -1,6 +1,8 @@
 ## 0.14.0
 
 ### Enhancements
+- **Agreement Changes**
+  - Step 8, Intended Use of Data, now requests more specific information to help the NSRR Review Committee
 - **Dataset Changes**
   - New dataset releases can now be deployed using the Spout data dictionary management gem
     - Spout, https://github.com/sleepepi/spout, tests and manages data dictionaries and datasets

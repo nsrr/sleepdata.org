@@ -43,7 +43,7 @@
     <dt>Title of Project</dt>
     <dd><%= @agreement.title_of_project %></dd>
     <dt>Intended Use of Data</dt>
-    <dd><%= @agreement.intended_use_of_data %></dd>
+    <dd><%= simple_format @agreement.intended_use_of_data %></dd>
   <% end %>
 </dl>
 

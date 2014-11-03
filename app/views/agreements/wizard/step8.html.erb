@@ -31,10 +31,12 @@
   <div class="form-group">
     <%= f.label :intended_use_of_data, 'Intended Use Of Data', class: 'col-md-3 control-label' %>
     <div class="col-md-9">
-      <%= f.text_field :intended_use_of_data, class: 'form-control' %>
+      <%= f.text_area :intended_use_of_data, class: 'form-control', rows: '5' %>
       <div class="bs-callout bs-callout-info">
         <h4>Example Uses</h4>
-        Publication; thesis work; other education; algorithm for commercial use; preliminary data for a grant
+        <p>Publication; thesis work; other education; algorithm for commercial use; preliminary data for a grant.</p>
+
+        <p><strong>Please describe subject characteristics (children or adults, with or without criteria), types of signals, and other covariates needed to address scientific goals or hypotheses.</strong></p>
       </div>
     </div>
   </div>

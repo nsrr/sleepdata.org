@@ -2,7 +2,7 @@
   <dt>Title of Project</dt>
   <dd><%= @agreement.title_of_project %></dd>
   <dt>Intended Use of Data</dt>
-  <dd><%= @agreement.intended_use_of_data %></dd>
+  <dd><%= simple_format @agreement.intended_use_of_data %></dd>
   <dt>Please describe where data will be stored and secured</dt>
   <dd><%= simple_format @agreement.data_secured_location %></dd>
   <dt>Secure Password Protected Device</dt>
