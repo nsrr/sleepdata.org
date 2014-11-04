@@ -1,5 +1,9 @@
 ## 0.14.1
 
+### Enhancements
+- **Dataset Changes**
+  - Download audits and page view reports are now indexed to load more quickly
+
 ### Bug Fix
 - Dataset background tasks are now launched using the proper environment
 
