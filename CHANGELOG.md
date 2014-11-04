@@ -1,5 +1,8 @@
 ## 0.15.0
 
+### Bug Fixes
+- Fixed styling of individual users' download statistics
+
 ## 0.14.1 (November 4, 2014)
 
 ### Enhancements

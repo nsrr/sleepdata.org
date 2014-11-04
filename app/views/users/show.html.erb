@@ -68,19 +68,19 @@
           <th style="text-align:center" colspan="2">Files Downloaded</th>
         </tr>
       </thead>
-      <tr>
-        <% Dataset.current.order(:release_date, :name).each do |dataset| %>
-          <% download_size = dataset.dataset_file_audits.where( user_id: @user.id ).sum( :file_size ) %>
-          <% download_count = dataset.dataset_file_audits.where( user_id: @user.id ).count %>
-          <% if download_size > 0 %>
-            <% download_sizes << download_size %>
-            <% download_counts << download_count %>
+      <% Dataset.current.order(:release_date, :name).each do |dataset| %>
+        <% download_size = dataset.dataset_file_audits.where( user_id: @user.id ).sum( :file_size ) %>
+        <% download_count = dataset.dataset_file_audits.where( user_id: @user.id ).count %>
+        <% if download_size > 0 %>
+          <% download_sizes << download_size %>
+          <% download_counts << download_count %>
+          <tr>
             <td><%= dataset.name %></td>
             <td><%= pluralize number_with_delimiter(download_count), 'file' %></td>
             <td><%= number_to_human_size download_size %></td>
-          <% end %>
+          </tr>
         <% end %>
-      </tr>
+      <% end %>
       <tfoot>
         <th>Total</th>
         <th><%= pluralize number_with_delimiter(download_counts.sum), 'file' %></th>
