@@ -104,6 +104,7 @@ Rails.application.routes.draw do
   get '/contact' => 'welcome#contact', as: :contact
   get '/sync' => 'welcome#sync', as: :sync
   get '/stats' => 'welcome#stats', as: :stats
+  get '/downloads_by_month' => 'welcome#downloads_by_month', as: :downloads_by_month
   get '/location' => 'welcome#location', as: :location
   get '/collection' => 'welcome#collection', as: :collection
   get '/collection_modal' => 'welcome#collection_modal', as: :collection_modal

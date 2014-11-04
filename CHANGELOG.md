@@ -1,5 +1,19 @@
 ## 0.15.0
 
+## 0.14.1 (November 4, 2014)
+
+### Enhancements
+- **Administrative Changes**
+  - Agreements are now filterable by status
+  - Agreements are now numbered to help identify them more quickly
+  - Download statistics now available on user pages
+  - Yearly download chart added to visually see downloads by month, dataset, and user type
+- **Dataset Changes**
+  - Download audits and page view reports are now indexed to load more quickly
+
+### Bug Fix
+- Dataset background tasks are now launched using the proper environment
+
 ## 0.14.0 (November 3, 2014)
 
 ### Enhancements

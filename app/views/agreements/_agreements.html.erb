@@ -25,7 +25,7 @@
 
   <% @agreements.each do |agreement| %>
     <tr>
-      <td style="white-space:nowrap"><%= image_tag agreement.user.avatar_url(18), style: 'vertical-align:text-bottom;width:18px' %> <%= link_to agreement.name, agreement %></td>
+      <td style="white-space:nowrap"><%= image_tag agreement.user.avatar_url(18), style: 'vertical-align:text-bottom;width:18px' %> <%= link_to "##{agreement.id} - #{agreement.name}", agreement %></td>
       <td><%= status_helper(agreement) %></td>
       <td>
         <% agreement.datasets.order(:release_date, :name).each do |dataset| %>

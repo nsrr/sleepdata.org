@@ -102,6 +102,11 @@ class AgreementsController < ApplicationController
     params[:order] = "agreements.last_submitted_at DESC" if params[:order].blank?
     @order = scrub_order(Agreement, params[:order], [:id])
     agreement_scope = Agreement.current.search(params[:search]).order(@order)
+    agreement_scope = agreement_scope.where( status: params[:status] ) if params[:status].present?
+    if params[:user_type] == 'regular'
+      regular_member_ids = User.current.where( aug_member: false, core_member: false ).pluck(:id)
+      agreement_scope = agreement_scope.where( user_id: regular_member_ids )
+    end
     @agreements = agreement_scope.page(params[:page]).per( 40 )
   end
 
