@@ -1,6 +1,8 @@
 ## 0.14.1
 
 ### Enhancements
+- **Administrative Changes**
+  - Agreements are now filterable by status
 - **Dataset Changes**
   - Download audits and page view reports are now indexed to load more quickly
 

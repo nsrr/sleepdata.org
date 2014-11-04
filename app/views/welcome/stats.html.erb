@@ -29,14 +29,14 @@
   <thead>
     <tr>
       <th style="text-align:center">Regular member signups</th>
-      <th style="text-align:center"><%= link_to 'Regular member DAUAs submitted', agreements_path %></th>
-      <th style="text-align:center">Regular member DAUAs approved</th>
+      <th style="text-align:center"><%= link_to 'Regular member DAUAs submitted', agreements_path( status: ['submitted', 'approved', 'resubmit', 'expired'], user_type: 'regular' ) %></th>
+      <th style="text-align:center"><%= link_to 'Regular member DAUAs approved', agreements_path( status: ['approved', 'expired'], user_type: 'regular' ) %></th>
     </tr>
   </thead>
   <tr>
     <td style="text-align:center"><%= User.current.where( core_member: false, aug_member: false ).count %></td>
-    <td style="text-align:center"><%= Agreement.current.where( user_id: regular_member_ids ).count %></td>
-    <td style="text-align:center"><%= Agreement.current.where( user_id: regular_member_ids, status: 'approved' ).count %></td>
+    <td style="text-align:center"><%= Agreement.current.where( status: ['submitted', 'approved', 'resubmit', 'expired'], user_id: regular_member_ids ).count %></td>
+    <td style="text-align:center"><%= Agreement.current.where( user_id: regular_member_ids, status: ['approved', 'expired'] ).count %></td>
   </tr>
 </table>
 

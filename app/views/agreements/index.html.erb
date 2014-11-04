@@ -8,7 +8,13 @@
 <%= form_tag agreements_path, method: :get, class: 'form-inline' do %>
   <%= text_field_tag 'search', params[:search], class: 'form-control' %>
   <%= submit_tag 'Search', class: 'btn btn-primary', name: nil %>
+  <div class="form-group">
+    <%= label :status, 'Status' %>
+    <%= select_tag :status, options_for_select([['---', nil]] + Agreement::STATUS, params[:status].kind_of?(Array) ? nil : params[:status]), class: 'form-control' %>
+  </div>
+
   <%= link_to 'Reset', agreements_path, class: 'btn btn-default' %>
+
 <% end %>
 
 <%= render partial: 'agreements/agreements' %>
