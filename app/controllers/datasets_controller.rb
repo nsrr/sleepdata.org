@@ -22,7 +22,7 @@ class DatasetsController < ApplicationController
     stdout = @dataset.pull_new_data_dictionary!(version)
     if stdout.match(/Switched to a new branch '#{version}'/)
       rake_task = "#{RAKE_PATH} refresh_dictionary DATASET_ID=#{@dataset.id} RAILS_ENV=#{Rails.env} &"
-      Rails.logger.debug "\n\n#{rake_task}\n\n"
+      Rails.logger.info "\n\n#{rake_task}\n\n"
       systemu rake_task unless Rails.env.test?
       render json: { refresh: 'success' }
     elsif stdout.match(/DD Git Repository Does Not Exist/)
@@ -186,7 +186,7 @@ class DatasetsController < ApplicationController
     folder = @dataset.find_file_folder(params[:path])
     if file and File.directory?(file) and not @dataset.current_folder_locked?(folder)
       rake_task = "#{RAKE_PATH} reset_folder_index DATASET_ID=#{@dataset.id} FOLDER=#{folder} RAILS_ENV=#{Rails.env} &"
-      Rails.logger.debug "\n\n#{rake_task}\n\n"
+      Rails.logger.info "\n\n#{rake_task}\n\n"
       systemu rake_task unless Rails.env.test?
     end
     redirect_to files_dataset_path(@dataset, path: @dataset.find_file_folder(params[:path]))
