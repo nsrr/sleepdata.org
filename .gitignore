@@ -26,6 +26,7 @@
 /config/initializers/latex.rb
 /config/initializers/omniauth.rb
 /config/initializers/secret_token.rb
+/config/initializers/rake_path.rb
 
 /public/cache/*
 /public/stylesheets/cache/*

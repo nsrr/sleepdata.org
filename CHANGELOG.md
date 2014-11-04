@@ -1,5 +1,8 @@
 ## 0.14.1
 
+### Bug Fix
+- Dataset background tasks are now launched using the proper environment
+
 ## 0.14.0 (November 3, 2014)
 
 ### Enhancements
