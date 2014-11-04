@@ -29,17 +29,12 @@
         labels:
           formatter: () -> return bytes(this.value, true, 0)
       tooltip:
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>'
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' + "<td style=\"padding:0\"><b>{point.y}</b></td></tr>"
         formatter: () -> return bytes(this.y, true, 1)
-        footerFormat: '</table>'
-        shared: true,
-        useHTML: true
       plotOptions:
         column:
           pointPadding: 0.2
           borderWidth: 0
-          stacking: true
+          stacking: 'normal'
       series: $('#downloads-chart-container').data('series')
     )
 

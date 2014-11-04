@@ -2,6 +2,7 @@
 
 ### Bug Fixes
 - Fixed styling of individual users' download statistics
+- Fixed hover effect information on yearly download chart
 
 ## 0.14.1 (November 4, 2014)
 
