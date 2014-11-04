@@ -32,6 +32,7 @@
 
 //= require external/highcharts-4.0.1.src.js
 //= require variables
+//= require download_graphs
 
 //= require external/jquery.textcomplete
 //= require external/colorpicker

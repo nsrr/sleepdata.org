@@ -29,17 +29,6 @@
   <div class="col-sm-6 col-md-4">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <h3 class="panel-title"><span class="glyphicon glyphicon-stats"></span> Website Statistics</h3>
-      </div>
-      <div class="panel-body">
-        <%= link_to 'Go To Stats', stats_path %>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-sm-6 col-md-4">
-    <div class="panel panel-default">
-      <div class="panel-heading">
         <h3 class="panel-title"><span class="glyphicon glyphicon-globe"></span> Where is Everyone From?</h3>
       </div>
       <div class="panel-body">
@@ -66,6 +55,20 @@
       </div>
       <div class="panel-body">
         <%= link_to 'Forum Tags', tags_path %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><span class="glyphicon glyphicon-stats"></span> Website Statistics</h3>
+      </div>
+      <div class="panel-body">
+        <ul class="list-unstyled">
+          <li><%= link_to 'Go To Stats', stats_path %></li>
+          <li><%= link_to 'Downloads By Month', downloads_by_month_path( user_type: 'regular' ) %></li>
+        </ul>
       </div>
     </div>
   </div>
