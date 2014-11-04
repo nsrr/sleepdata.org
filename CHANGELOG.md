@@ -3,6 +3,7 @@
 ### Enhancements
 - **Administrative Changes**
   - Agreements are now filterable by status
+  - Agreements are now numbered to help identify them more quickly
   - Download statistics now available on user pages
 - **Dataset Changes**
   - Download audits and page view reports are now indexed to load more quickly
