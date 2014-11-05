@@ -98,10 +98,4 @@ class ApplicationController < ActionController::Base
     empty_response_or_root_path( datasets_path ) unless @dataset
   end
 
-  def launch_rake_task(task_string)
-    rake_task = "#{RAKE_PATH} #{task_string} RAILS_ENV=#{Rails.env} --trace >> #{Rails.root}/log/rake.log &"
-    Rails.logger.info "\n\n#{rake_task}\n\n"
-    system rake_task unless Rails.env.test?
-  end
-
 end
