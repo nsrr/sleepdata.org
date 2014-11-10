@@ -1,4 +1,4 @@
-## 0.14.2
+## 0.14.2 (November 10, 2014)
 
 ### Bug Fixes
 - Fixed styling of individual users' download statistics
