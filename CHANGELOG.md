@@ -1,4 +1,4 @@
-## 0.15.0
+## 0.14.2
 
 ### Bug Fixes
 - Fixed styling of individual users' download statistics
