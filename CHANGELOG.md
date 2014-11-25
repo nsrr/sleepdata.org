@@ -1,5 +1,8 @@
 ## 0.15.0
 
+### Enhancements
+- Updated Google Omniauth to no longer write to disk
+
 ## 0.14.2 (November 10, 2014)
 
 ### Bug Fixes
