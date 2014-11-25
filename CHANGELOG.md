@@ -2,6 +2,7 @@
 
 ### Enhancements
 - Updated Google Omniauth to no longer write to disk
+- Use of Ruby 2.1.5 is now recommended
 
 ## 0.14.2 (November 10, 2014)
 
