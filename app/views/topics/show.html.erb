@@ -46,7 +46,7 @@
       </div>
       <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
         <div class="file-display" style="margin-bottom:20px;background-color:#efefef; padding: 2px 15px 4px 15px;height:25px;font-weight: 200;">
-          <div class="file-display-right-middle-after" style="<%= 'text-decoration:line-through' if comment.banned_or_deleted? %>;">
+          <div class="file-display-right-middle-after" style="text-decoration:line-through">
             #<%= current_index %>
           </div>
           <i class="text-muted">Comment Deleted</i>
@@ -58,8 +58,8 @@
       </div>
 
       <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
-        <div class="file-display" style="margin-bottom:20px; <%= 'background-color:#efefef;' if comment.banned_or_deleted? %>">
-          <div class="file-display-right-after" style="<%= 'text-decoration:line-through' if comment.banned_or_deleted? %>">
+        <div class="file-display" style="margin-bottom:20px">
+          <div class="file-display-right-after">
             <% if current_user and comment.editable_by?(current_user) %>
               <%= link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_topic_comment_path(@topic, comment), remote: true, method: :get, class: 'btn btn-xs btn-default', rel: 'tooltip', title: 'Edit Comment' %>
             <% end %>
