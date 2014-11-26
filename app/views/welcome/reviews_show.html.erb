@@ -1,0 +1,136 @@
+<% @agreement = Agreement.first %>
+
+<% @title = @agreement.name %>
+<div class="page-header">
+  <h1>
+    <%= link_to "Reviews", reviews_path %> &middot; <%= @title %>
+  </h1>
+
+</div>
+
+
+<% steps = (@agreement.no_irb_evidence? ? (1..8).to_a : (1..7).to_a) %>
+
+<% steps.delete(3) %>
+<% steps.delete(4) %>
+<% steps.delete(5) %>
+
+<% steps.each do |step| %>
+<div class="step step-<%= (@agreement.step_valid?(step) ? 'success' : 'warning') %>">
+  <h2>Step <%= step %></h2>
+
+  <%= render partial: "agreements/proof/step#{step}" %>
+</div>
+<% end %>
+
+<h2>History</h2>
+
+<hr class="divider-sm" />
+
+<% @comments = Comment.limit(200) %>
+
+<% @comments.each_with_index do |comment, index| %>
+
+  <% case rand(9) when 0 %>
+    <% review_comment_type = :user_submitted %>
+  <% when 1 %>
+    <% review_comment_type = :reviewer_approved %>
+  <% when 2 %>
+    <% review_comment_type = :reviewer_rejected %>
+  <% when 3 %>
+    <% review_comment_type = :commented %>
+  <% when 4 %>
+    <% review_comment_type = :reviewer_changed_from_rejected_to_approved %>
+  <% when 5 %>
+    <% review_comment_type = :reviewer_changed_from_approved_to_rejected %>
+  <% when 6 %>
+    <% review_comment_type = :user_resubmitted %>
+  <% when 7 %>
+    <% review_comment_type = :principal_reviewer_required_resubmission %>
+  <% when 8 %>
+    <% review_comment_type = :principal_reviewer_approved %>
+  <% end %>
+
+  <% current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1) %>
+  <% current_index = ((current_page - 1) * Comment::COMMENTS_PER_PAGE) + index + 1 %>
+  <div class="row" id="c<%= current_index %>">
+    <% if rand(2) == 0 %>
+      <div class="col-xs-1">
+      </div>
+      <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
+        <div class="file-display" style="margin-bottom:20px;background-color:#efefef; padding: 1px 34px 3px 3px;font-weight: 200;">
+          <div class="file-display-right-middle-after" style="text-decoration:line-through;bottom:-1px">
+            #<%= current_index %>
+          </div>
+          <i class="text-muted">Comment Deleted</i>
+        </div>
+      </div>
+    <% elsif review_comment_type == :commented %>
+      <div class="col-xs-1">
+        <%= render partial: 'topics/forum_gravatar', locals: { user: comment.user, icon: 'identicon' } %>
+      </div>
+
+      <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
+        <div class="file-display" style="margin-bottom:20px">
+          <div class="file-display-right-after">
+            <% if current_user and comment.editable_by?(current_user) %>
+              <%= link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_topic_comment_path(comment.topic, comment), remote: true, method: :get, class: 'btn btn-xs btn-default', rel: 'tooltip', title: 'Edit Comment' %>
+            <% end %>
+            <% if current_user and comment.deletable_by?(current_user) %>
+              <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, [comment.topic, comment], method: :delete, data: { confirm: "Are you sure you want to delete Comment ##{current_index}"}, class: 'btn btn-xs btn-danger-inverse' %>
+            <% end %>
+            <a href="#c<%= current_index %>">#<%= current_index %></a>
+          </div>
+
+          <% if comment.user.core_member? %>
+            <div class="file-display-right-bottom-after" style="background-color:#428bca;color:white">Core Member</div>
+          <% elsif comment.user.aug_member? %>
+            <div class="file-display-right-bottom-after" style="background-color:#5cb85c;color:white">AUG Member</div>
+          <% end %>
+
+          <div id="comment_<%= comment.id %>_container">
+            <%= render partial: 'comments/formatted', locals: { comment: comment } %>
+          </div>
+        </div>
+      </div>
+    <% elsif [:principal_reviewer_approved, :principal_reviewer_required_resubmission].include?(review_comment_type) %>
+      <% user = User.first %>
+      <div class="col-xs-1">
+      <% if user.core_member %>
+        <% background_color = '#428bca' %>
+        <% border_color = '#357ebd' %>
+      <% elsif user.aug_member? %>
+        <% background_color = '#5cb85c' %>
+        <% border_color = '#4cae4c' %>
+      <% else %>
+        <% background_color = '' %>
+        <% border_color = '' %>
+      <% end %>
+        <%= image_tag user.avatar_url(50, 'identicon'), size: '50x50', class: 'img-thumbnail', style: "min-height:55px;min-width:55px;border-color:#{border_color};background-color:#{background_color}", rel: 'tooltip', title: user.name, data: { container: 'body', placement: 'bottom' } %>
+      </div>
+      <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
+        <div class="file-display" style="margin-bottom:20px">
+          <div class="file-display-right-after">
+            <a href="#c<%= current_index %>">#<%= current_index %></a>
+          </div>
+
+          <div id="comment_<%= comment.id %>_container">
+            <div class="lead">
+              <%= render partial: "welcome/history/#{review_comment_type}", locals: { current_index: current_index, user: User.first } %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <div class="col-xs-1"></div>
+      <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
+        <div class="file-display" style="margin-bottom:20px;padding: 1px 34px 3px 3px;font-weight: 200;">
+          <div class="file-display-right-middle-after" style="bottom:-1px">
+            #<%= current_index %>
+          </div>
+          <%= render partial: "welcome/history/#{review_comment_type}", locals: { current_index: current_index, user: User.first } %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

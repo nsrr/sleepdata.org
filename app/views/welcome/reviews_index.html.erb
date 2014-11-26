@@ -1,0 +1,67 @@
+<% @title = "Reviews" %>
+<div class="page-header">
+  <h1>
+    <%= @title %>
+  </h1>
+</div>
+
+<% @agreements = Agreement.all #.where( status: ['submitted', 'resubmitted'] ) %>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Agreement</th>
+      <th>Submission Date</th>
+      <th>Reviewers</th>
+      <th>Datasets</th>
+    </tr>
+  </thead>
+
+  <% @agreements.each do |agreement| %>
+    <tr>
+      <td>
+        <%= image_tag agreement.user.avatar_url(18), style: 'vertical-align:text-bottom;width:18px' %> <%= link_to "##{agreement.id} - #{agreement.name}", reviews_show_path %>
+      </td>
+      <td>
+        <% if agreement.resubmitted_at %>
+          <%= agreement.resubmitted_at.strftime("%Y-%m-%d") %> <%= link_to '<span class="glyphicon glyphicon-info-sign"></span>'.html_safe, '#', rel: 'tooltip', title: 'Resubmitted', data: { object: 'suppress-click', container: 'body', placement: 'right' } %>
+        <% elsif agreement.submitted_at %>
+          <%= agreement.submitted_at.strftime("%Y-%m-%d") %>
+        <% end %>
+      </td>
+      <td>
+        <% ['SS','SR','MR','RM','EK'].sort.each do |initials| %>
+          <% case rand(3) when 0 %>
+            <% approved = true %>
+          <% when 1 %>
+            <% approved = false %>
+          <% else %>
+            <% approved = nil %>
+          <% end %>
+
+          <% case approved when true %>
+            <% glyphicon = 'ok' %>
+            <% label = 'success' %>
+          <% when false %>
+            <% glyphicon = 'remove' %>
+            <% label = 'danger' %>
+          <% else %>
+            <% glyphicon = 'question-sign' %>
+            <% label = 'default' %>
+          <% end %>
+          <span class="label label-<%= label %>">
+            <%= initials %>
+            <span class="glyphicon glyphicon-<%= glyphicon %>"></span>
+          </span>
+          &nbsp;
+        <% end %>
+      </td>
+      <td>
+        <% agreement.datasets.order(:release_date, :name).each do |dataset| %>
+          <%= render partial: 'datasets/mini', locals: { dataset: dataset } %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+
+</table>

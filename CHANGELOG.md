@@ -1,6 +1,8 @@
 ## 0.15.0
 
 ### Enhancements
+- **Administrative Changes**
+  - Started prototyping new review process for agreements
 - Updated Google Omniauth to no longer write to disk
 - Use of Ruby 2.1.5 is now recommended
 
