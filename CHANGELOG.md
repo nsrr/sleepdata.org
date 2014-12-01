@@ -5,6 +5,7 @@
   - Started prototyping new review process for agreements
 - **General Changes**
   - Enabled turbolinks progress bar on page changes
+  - Email notifications now provide a link to the user settings page to allow users to update their email preferences
 - Updated Google Omniauth to no longer write to disk
 - Use of Ruby 2.1.5 is now recommended
 - **Gem Changes**

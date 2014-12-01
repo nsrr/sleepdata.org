@@ -47,21 +47,24 @@
           </div>
 
           <div class="form-group">
-            <label class="col-md-3 control-label">Forum</label>
+            <%= f.label :username, 'Forum Username', class: 'col-md-3 control-label' %>
+            <div class="col-md-9">
+              <%= f.text_field :username, class: 'form-control' %>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-md-3 control-label">Forum Digest Emails</label>
             <div class="col-md-9">
               <div class="checkbox">
                 <label>
                   <%= f.check_box :auto_subscribe %>
                   Auto-subscribe to new posts
                 </label>
+                <div class="bs-callout bs-callout-info">
+                  <strong>Note:</strong> You will still receive emails if you manually subscribe to a forum topic. Topics you receive notifications on are denoted by the <span class="glyphicon glyphicon-volume-up"></span> icon on the <%= link_to 'forum', topics_path %>.
+                </div>
               </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <%= f.label :username, 'Forum Username', class: 'col-md-3 control-label' %>
-            <div class="col-md-9">
-              <%= f.text_field :username, class: 'form-control' %>
             </div>
           </div>
 
