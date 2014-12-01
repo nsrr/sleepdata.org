@@ -3,6 +3,8 @@
 ### Enhancements
 - **Administrative Changes**
   - Started prototyping new review process for agreements
+- **General Changes**
+  - Enabled turbolinks progress bar on page changes
 - Updated Google Omniauth to no longer write to disk
 - Use of Ruby 2.1.5 is now recommended
 - **Gem Changes**

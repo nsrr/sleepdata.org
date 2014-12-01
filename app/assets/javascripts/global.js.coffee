@@ -25,6 +25,7 @@
   setFocusToField("#collection_form #s, #page_name, #search_form #s, #search, #collection_form #s, #s")
   $("img.lazy").lazyload( effect : "fadeIn" )
   Turbolinks.allowLinkExtensions('md')
+  Turbolinks.enableProgressBar()
   window.$isDirty = false
   prettyPrint()
   variablesReady() if (typeof variablesReady == 'function')
