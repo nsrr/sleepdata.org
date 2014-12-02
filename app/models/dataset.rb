@@ -42,17 +42,17 @@ class Dataset < ActiveRecord::Base
     self.variables.order(:folder, :name)
   end
 
-  def viewers
-    User.where( id: [self.user_id] + self.dataset_users.where( role: 'viewer' ).pluck(:user_id) )
-  end
-
   def editors
     User.where( id: [self.user_id] + self.dataset_users.where( role: 'editor' ).pluck(:user_id) )
   end
 
-  # def grants_file_access_to?(current_user)
-  #   self.all_files_public? || ( current_user && self.viewers.pluck(:id).include?(current_user.id) )
-  # end
+  def reviewers
+    User.where( id: self.dataset_users.where( role: 'reviewer' ).pluck(:user_id) )
+  end
+
+  def viewers
+    User.where( id: [self.user_id] + self.dataset_users.where( role: 'viewer' ).pluck(:user_id) )
+  end
 
   def grants_file_access_to?(current_user)
     self.all_files_public? || ( self.agreements.where( status: 'approved', user_id: (current_user ? current_user.id : nil) ).not_expired.count > 0 )

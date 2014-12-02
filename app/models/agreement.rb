@@ -158,6 +158,13 @@ class Agreement < ActiveRecord::Base
     end
   end
 
+  def add_reviewers!
+    reviewers = User.current.where( id: self.datasets.collect{|d| d.reviewers.pluck(:id)}.uniq.compact )
+    reviewers.each do |reviewer|
+      self.reviews.where(user_id: reviewer.id).first_or_create
+    end
+  end
+
   def step_valid?(step)
     dup_agreement = self.dup
     dup_agreement.current_step = step

@@ -89,6 +89,7 @@ class AgreementsController < ApplicationController
       render 'proof'
     elsif @agreement.update( hash )
       @agreement.add_event!(msg, current_user, 'submitted')
+      @agreement.add_reviewers!
       @agreement.daua_submitted
       redirect_to complete_agreement_path(@agreement)
     else
