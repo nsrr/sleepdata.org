@@ -1,1 +1,0 @@
-<%= image_tag user.avatar_url(18), style: 'vertical-align:text-middle;width:18px' %> <%= user.name %> <span class="label label-primary">resubmitted</span> agreement <%= time_ago_in_words(@agreement.resubmitted_at || Time.now - 7.days) %> ago

@@ -90,6 +90,8 @@ class Agreement < ActiveRecord::Base
   belongs_to :user
   has_many :requests
   has_many :datasets, -> { where deleted: false }, through: :requests
+  has_many :reviews, -> { joins(:user).order('left(users.first_name,1), left(users.last_name,1)') }
+  has_many :agreement_events, -> { order( :event_at ) }
 
   # Agreement Methods
 
@@ -103,6 +105,10 @@ class Agreement < ActiveRecord::Base
 
   def name
     self.user ? self.user.name : "##{self.id}"
+  end
+
+  def to_param
+    "#{id}" + (self.user ? "-#{self.user.name.parameterize}" : '')
   end
 
   def agreement_number

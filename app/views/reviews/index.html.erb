@@ -5,8 +5,6 @@
   </h1>
 </div>
 
-<% @agreements = Agreement.all #.where( status: ['submitted', 'resubmitted'] ) %>
-
 <table class="table table-striped">
   <thead>
     <tr>
@@ -20,7 +18,7 @@
   <% @agreements.each do |agreement| %>
     <tr>
       <td>
-        <%= image_tag agreement.user.avatar_url(18), style: 'vertical-align:text-bottom;width:18px' %> <%= link_to "##{agreement.id} - #{agreement.name}", reviews_show_path %>
+        <%= image_tag agreement.user.avatar_url(18), style: 'vertical-align:text-bottom;width:18px' %> <%= link_to "##{agreement.id} - #{agreement.name}", review_path(agreement) %>
       </td>
       <td>
         <% if agreement.resubmitted_at %>
@@ -30,27 +28,19 @@
         <% end %>
       </td>
       <td>
-        <% ['SS','SR','MR','RM','EK'].sort.each do |initials| %>
-          <% case rand(3) when 0 %>
-            <% approved = true %>
-          <% when 1 %>
-            <% approved = false %>
-          <% else %>
-            <% approved = nil %>
-          <% end %>
-
-          <% case approved when true %>
-            <% glyphicon = 'ok' %>
+        <% agreement.reviews.each do |review| %>
+          <% case review.approved when true %>
+            <% glyphicon = 'thumbs-up' %>
             <% label = 'success' %>
           <% when false %>
-            <% glyphicon = 'remove' %>
+            <% glyphicon = 'thumbs-down' %>
             <% label = 'danger' %>
           <% else %>
-            <% glyphicon = 'question-sign' %>
+            <% glyphicon = 'flash' %>
             <% label = 'default' %>
           <% end %>
           <span class="label label-<%= label %>">
-            <%= initials %>
+            <%= review.user.initials %>
             <span class="glyphicon glyphicon-<%= glyphicon %>"></span>
           </span>
           &nbsp;

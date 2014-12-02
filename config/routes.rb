@@ -35,6 +35,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :reviews
+
   resources :datasets do
     member do
       get :sync
@@ -128,8 +130,6 @@ Rails.application.routes.draw do
   get '/submissions' => 'agreements#submissions', as: :submissions
   get '/submissions/welcome' => 'agreements#welcome', as: :submissions_welcome
   get '/submissions/start' => 'agreements#new_step', as: :submissions_start
-  get '/reviews' => 'welcome#reviews_index', as: :reviews
-  get '/reviews/1-remo-mueller' => 'welcome#reviews_show', as: :reviews_show
 
   # In case "failed submission steps are reloaded using get request"
   get '/agreements/:id/final_submission' => 'agreements#proof'

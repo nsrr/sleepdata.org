@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   has_many :comments, -> { where deleted: false }
   has_many :datasets, -> { where deleted: false }
   has_many :dataset_file_audits
+  has_many :reviews
   has_many :tags, -> { where deleted: false }
   has_many :tools
   has_many :topics, -> { where deleted: false }
@@ -59,6 +60,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def reviewable_agreements
+    Agreement.current.where( "agreements.id IN (select requests.agreement_id from requests where requests.dataset_id IN (?))", self.all_reviewable_datasets.pluck(:id) )
+  end
+
   # If a user has auto-subscribe enabled, then the user receives notifications on topics they have not explicity squelched.
   # If a user has auto-subscribe disabled, then the user receives notifications on topics to which they have explicitely subscribed.
   def subscribed_topics
@@ -80,6 +85,11 @@ class User < ActiveRecord::Base
 
   def all_datasets
     Dataset.current.with_editor( self.id )
+  end
+
+  def all_reviewable_datasets
+    # Dataset.current.with_reviewer( self.id )
+    self.all_datasets
   end
 
   def all_viewable_datasets
@@ -121,6 +131,10 @@ class User < ActiveRecord::Base
 
   def reverse_name
     "#{last_name}, #{first_name}"
+  end
+
+  def initials
+    "#{first_name.first.upcase}#{last_name.first.upcase}"
   end
 
   def id_and_auth_token
