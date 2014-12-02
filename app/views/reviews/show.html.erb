@@ -127,7 +127,7 @@
       <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
         <div class="file-display" style="margin-bottom:20px;padding: 1px 34px 3px 15px;font-weight: 200;border: 1px solid transparent;">
           <div class="file-display-right-middle-after" style="border-radius: 4px;">
-            #<%= current_index %>
+            <a href="#c<%= current_index %>">#<%= current_index %></a>
           </div>
           <%= render partial: "reviews/events/#{agreement_event.event_type}", locals: { agreement_event: agreement_event, current_index: current_index } %>
         </div>
