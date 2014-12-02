@@ -135,12 +135,14 @@ class Agreement < ActiveRecord::Base
 
   def daua_approved_email(current_user)
     self.add_event!('Data Access and Use Agreement approved.', current_user, 'approved')
+    self.agreement_events.create event_type: 'principal_reviewer_approved', user_id: current_user.id, event_at: Time.now
     UserMailer.daua_approved(self, current_user).deliver_later if Rails.env.production?
     notify_admins_on_daua_progress(current_user)
   end
 
   def sent_back_for_resubmission_email(current_user)
     self.add_event!('Data Access and Use Agreement sent back for resubmission.', current_user, 'resubmit')
+    self.agreement_events.create event_type: 'principal_reviewer_required_resubmission', user_id: current_user.id, event_at: Time.now
     UserMailer.sent_back_for_resubmission(self, current_user).deliver_later if Rails.env.production?
     notify_admins_on_daua_progress(current_user)
   end

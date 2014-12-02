@@ -80,15 +80,18 @@ class AgreementsController < ApplicationController
     if @agreement.status == 'resubmit'
       hash = { status: 'submitted', resubmitted_at: current_time, last_submitted_at: current_time }
       msg = "Data Access and Use Agreement resubmitted."
+      event_type = 'user_resubmitted'
     else
       hash = { status: 'submitted', submitted_at: current_time, last_submitted_at: current_time }
       msg = "Data Access and Use Agreement submitted."
+      event_type = 'user_submitted'
     end
 
     if not @agreement.fully_filled_out?
       render 'proof'
     elsif @agreement.update( hash )
       @agreement.add_event!(msg, current_user, 'submitted')
+      @agreement.agreement_events.create event_type: event_type, user_id: current_user.id, event_at: current_time
       @agreement.add_reviewers!
       @agreement.daua_submitted
       redirect_to complete_agreement_path(@agreement)
