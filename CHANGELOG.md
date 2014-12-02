@@ -6,6 +6,9 @@
 - **General Changes**
   - Enabled turbolinks progress bar on page changes
   - Email notifications now provide a link to the user settings page to allow users to update their email preferences
+- **Dataset Changes**
+  - Dataset owners and editors can now add users as `editors`, `reviewers`, and `viewers`
+  - Reviewers will be able to make comments, approve, and reject DAUAs that request access to the dataset the reviewer is on
 - Updated Google Omniauth to no longer write to disk
 - Use of Ruby 2.1.5 is now recommended
 - **Gem Changes**

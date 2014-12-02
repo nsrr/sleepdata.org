@@ -3,23 +3,24 @@
 editor_public_access:
   dataset: public
   user: editor
-  editor: true
-  approved: true
-
-pending_public_access:
-  dataset: public
-  user: two
-  editor: false
-  # approved:
+  role: 'editor'
 
 editor_mixed_access:
   dataset: mixed
   user: editor_mixed
-  editor: true
-  approved: true
+  role: 'editor'
 
 viewer_mixed_access:
   dataset: mixed
   user: valid
-  editor: false
-  approved: true
+  role: 'viewer'
+
+viewer_of_private_dataset:
+  dataset: private_documentation
+  user: has_approved_agreement_for_a_b_not_c
+  role: 'viewer'
+
+viewer_of_private_dataset_two:
+  dataset: private
+  user: two
+  role: 'viewer'

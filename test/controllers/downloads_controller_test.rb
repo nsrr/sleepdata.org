@@ -13,6 +13,7 @@ class DownloadsControllerTest < ActionController::TestCase
   test "should access private files on public documentation dataset with approved agreement" do
     login(users(:has_approved_agreement_for_a_b_not_c))
     get :files, id: datasets(:public_documentation), path: 'ACCESS_REQUIRED.txt'
+    assert_not_nil assigns(:dataset)
     assert_not_nil response
     assert_kind_of String, response.body
     assert_equal File.read(assigns(:dataset).find_file('ACCESS_REQUIRED.txt')), response.body
@@ -21,6 +22,7 @@ class DownloadsControllerTest < ActionController::TestCase
   test "should access private files on private documentation dataset with approved agreement" do
     login(users(:has_approved_agreement_for_a_b_not_c))
     get :files, id: datasets(:private_documentation), path: 'ACCESS_REQUIRED.txt'
+    assert_not_nil assigns(:dataset)
     assert_not_nil response
     assert_kind_of String, response.body
     assert_equal File.read(assigns(:dataset).find_file('ACCESS_REQUIRED.txt')), response.body

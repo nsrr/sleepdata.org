@@ -88,8 +88,7 @@ class User < ActiveRecord::Base
   end
 
   def all_reviewable_datasets
-    # Dataset.current.with_reviewer( self.id )
-    self.all_datasets
+    Dataset.current.with_reviewer( self.id )
   end
 
   def all_viewable_datasets
@@ -131,6 +130,10 @@ class User < ActiveRecord::Base
 
   def reverse_name
     "#{last_name}, #{first_name}"
+  end
+
+  def reverse_name_and_email
+    "#{last_name}, #{first_name} - #{email}"
   end
 
   def initials

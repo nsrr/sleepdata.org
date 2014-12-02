@@ -31,60 +31,44 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <th>DAUA</th>
             <th>User</th>
             <th>Role</th>
-            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
 
-        <% @dataset.dataset_users.order(:id).sort{|a,b| [b.editor.to_s, b.approved.to_s, a.user.last_name, a.user.first_name] <=> [a.editor.to_s, a.approved.to_s, b.user.last_name, b.user.first_name]}.each do |dataset_user| %>
+        <% @dataset.dataset_users.order(:id).sort{|a,b| [a.role.to_s, a.user.last_name, a.user.first_name] <=> [b.role.to_s, b.user.last_name, b.user.first_name]}.each do |dataset_user| %>
           <tr class="<%= 'warning' if params[:dataset_user_id].to_i == dataset_user.id %>">
-            <td>
-              <% agreement = dataset_user.user.agreements.first %>
-              <% if agreement %>
-                <%= status_helper(agreement) %>
-                <%= link_to '<span class="glyphicon glyphicon-share-alt"></span>'.html_safe, agreement if current_user.system_admin? %>
-              <% end %>
-            </td>
             <td><%= image_tag dataset_user.user.avatar_url(18), style: 'vertical-align:text-bottom;min-width:18px' %> <%= dataset_user.user.name %></td>
-            <td><%= dataset_user.editor? ? 'Editor' : 'Viewer' %></td>
             <td>
-              <% if dataset_user.approved == nil %>
-                <span class="text-muted">Requested</span>
-              <% elsif dataset_user.approved == true %>
-                <span class="text-success">Approved</span>
+              <% case dataset_user.role when 'editor' %>
+                Editor
+              <% when 'viewer' %>
+                Viewer
+              <% when 'reviewer' %>
+                Reviewer
               <% else %>
-                <span class="text-danger">Denied</span>
+                <span class="text-muted">No Role</span>
               <% end %>
             </td>
             <td style="white-space:nowrap">
-              <%= link_to 'Approve',     set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: true, editor: dataset_user.editor ), method: :patch,   class: 'btn btn-default btn-xs' %>
-              <%= link_to 'Deny',        set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: false, editor: dataset_user.editor ), method: :patch,  class: 'btn btn-default btn-xs' %>
-              <%= link_to 'Make Viewer', set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: dataset_user.approved, editor: false ), method: :patch,    class: 'btn btn-default btn-xs' %>
-              <%= link_to 'Make Editor', set_access_dataset_path( @dataset, dataset_user_id: dataset_user.id, approved: dataset_user.approved, editor: true ), method: :patch,     class: 'btn btn-default btn-xs' %>
+              <%= link_to 'Delete', remove_access_dataset_path( @dataset, dataset_user_id: dataset_user.id ), method: :post, class: 'btn btn-danger-inverse btn-xs' %>
             </td>
-          </tr>
-        <% end %>
-        <tr><td colspan="5"></td></tr>
-        <% User.current.where.not( id: @dataset.dataset_users.pluck(:user_id) ).order( :last_name, :first_name ).each do |user| %>
-          <tr>
-            <td>
-              <% agreement = user.agreements.first %>
-              <% if agreement %>
-                <%= status_helper(agreement) %>
-                <%= link_to '<span class="glyphicon glyphicon-share-alt"></span>'.html_safe, agreement if current_user.system_admin? %>
-              <% end %>
-            </td>
-            <td><%= image_tag user.avatar_url(18), style: 'vertical-align:text-bottom;min-width:18px' %> <%= user.name %></td>
-            <td></td>
-            <td></td>
-            <td style="white-space:nowrap"><%= link_to 'Create',  create_access_dataset_path( @dataset, user_id: user.id ), method: :post, class: 'btn btn-default btn-xs' %></td>
           </tr>
         <% end %>
       </table>
     </div>
+    <%= form_tag create_access_dataset_path(@dataset), method: :post, class: 'form-inline' do %>
+      <div class="form-group">
+        <%= label :user_id, 'User' %>
+        <%= select_tag :user_id, options_for_select([['---', nil]] + User.current.order('last_name, first_name').collect{|u| [u.reverse_name_and_email, u.id]}), class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <%= label :role, 'Role' %>
+        <%= select_tag :role, options_for_select([['---', nil]] + DatasetUser::ROLES), class: 'form-control' %>
+      </div>
+      <%= submit_tag 'Set User', class: 'btn btn-primary', name: nil %>
+    <% end %>
   </div>
 
   <div class="col-sm-3">

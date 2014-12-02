@@ -45,6 +45,7 @@ Rails.application.routes.draw do
       get :request_access
       get :requests
       post :create_access
+      post :remove_access
       patch :set_access
       get "(/a/:auth_token)/json_manifest(/*path)", action: 'json_manifest', as: :json_manifest, format: false
       get "(/a/:auth_token)/manifest(/*path)", action: 'manifest', as: :manifest, format: false

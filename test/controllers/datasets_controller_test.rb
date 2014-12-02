@@ -555,55 +555,14 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should request access to public dataset" do
-    login(users(:valid))
-    assert_difference('DatasetUser.count') do
-      get :request_access, id: @dataset
-    end
-
-    assert_not_nil assigns(:dataset_user)
-    assert_equal nil, assigns(:dataset_user).approved
-    assert_equal false, assigns(:dataset_user).editor
-    assert_equal users(:valid), assigns(:dataset_user).user
-
-    assert_redirected_to submissions_path
-  end
-
-  test "should not create additional requests with existing request" do
-    login(users(:two))
-    assert_difference('DatasetUser.count', 0) do
-      get :request_access, id: @dataset
-    end
-
-    assert_not_nil assigns(:dataset_user)
-    assert_equal nil, assigns(:dataset_user).approved
-    assert_equal false, assigns(:dataset_user).editor
-    assert_equal users(:two), assigns(:dataset_user).user
-
-    assert_redirected_to submissions_path
-  end
-
-  test "should approve access request to dataset" do
-    login(users(:editor))
-    patch :set_access, id: @dataset, dataset_user_id: dataset_users(:pending_public_access).id, approved: true, editor: false
-
-    assert_not_nil assigns(:dataset_user)
-    assert_equal true, assigns(:dataset_user).approved
-    assert_equal false, assigns(:dataset_user).editor
-    assert_equal users(:two), assigns(:dataset_user).user
-
-    assert_redirected_to requests_dataset_path(assigns(:dataset), dataset_user_id: assigns(:dataset_user).id)
-  end
-
-  test "should create access request to dataset" do
+  test "should create access role to dataset" do
     login(users(:editor))
     assert_difference('DatasetUser.count') do
-      post :create_access, id: @dataset, user_id: users(:aug).id
+      post :create_access, id: @dataset, user_id: users(:aug).id, role: 'editor'
     end
 
     assert_not_nil assigns(:dataset_user)
-    assert_equal nil, assigns(:dataset_user).approved
-    assert_equal false, assigns(:dataset_user).editor
+    assert_equal 'editor', assigns(:dataset_user).role
     assert_equal users(:aug), assigns(:dataset_user).user
 
     assert_redirected_to requests_dataset_path(assigns(:dataset), dataset_user_id: assigns(:dataset_user).id)

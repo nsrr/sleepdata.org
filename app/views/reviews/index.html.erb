@@ -12,6 +12,7 @@
       <th>Submission Date</th>
       <th>Reviewers</th>
       <th>Datasets</th>
+      <th>Status</th>
     </tr>
   </thead>
 
@@ -51,6 +52,7 @@
           <%= render partial: 'datasets/mini', locals: { dataset: dataset } %>
         <% end %>
       </td>
+      <td><%= status_helper(agreement) %></td>
     </tr>
   <% end %>
 
