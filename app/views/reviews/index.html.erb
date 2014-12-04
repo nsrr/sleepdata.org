@@ -5,6 +5,20 @@
   </h1>
 </div>
 
+<%= form_tag reviews_path, method: :get, class: 'form-inline' do %>
+  <%= text_field_tag 'search', params[:search], class: 'form-control' %>
+  <%= submit_tag 'Search', class: 'btn btn-primary', name: nil %>
+  <div class="form-group">
+    <%= label :status, 'Status' %>
+    <%= select_tag :status, options_for_select([['---', nil]] + Agreement::STATUS, params[:status].kind_of?(Array) ? nil : params[:status]), class: 'form-control' %>
+  </div>
+
+  <%= link_to 'Reset', reviews_path, class: 'btn btn-default' %>
+
+<% end %>
+
+<%= render partial: 'contour/layouts/per_page', locals: { per_page: 40, object_count: @agreements.total_count } %>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -16,6 +30,8 @@
       <th>Datasets</th>
       <th style="white-space:nowrap">
         <%= link_to 'Status', reviews_path( order: (params[:order] == 'agreements.status DESC' ? 'agreements.status' : 'agreements.status DESC') ) %>
+      </th>
+      <th>Events
       </th>
     </tr>
   </thead>
@@ -57,7 +73,10 @@
         <% end %>
       </td>
       <td><%= status_helper(agreement) %></td>
+      <td><span class="badge"><%= agreement.agreement_events.count %></span></td>
     </tr>
   <% end %>
 
 </table>
+
+<div class="center"><%= paginate @agreements, theme: 'contour' %></div>
