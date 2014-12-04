@@ -1,0 +1,1 @@
+$("#preview-<%= params[:review_id] %>").html("<%= escape_javascript(render partial: "reviews/formatted_review", locals: { agreement_event: @agreement_event }) %>");

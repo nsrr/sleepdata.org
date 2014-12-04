@@ -1,0 +1,29 @@
+<%= form_tag update_comment_review_path(@agreement, agreement_event_id: @agreement_event.id), method: :post, class: 'form-horizontal', style: 'margin-top:-31px;margin-left:-1px' do %>
+  <div class="form-group">
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#edit-<%= @agreement_event.id %>" data-toggle="tab">Edit</a></li>
+      <li><a href="#preview-<%= @agreement_event.id %>" data-toggle="tab" data-agreement-id="<%= @agreement.to_param %>" data-object="preview-review" data-review-id="<%= @agreement_event.id %>">Preview</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div class="tab-pane active" id="edit-<%= @agreement_event.id %>" style="padding-top:23px;padding-left:20px;padding-right:20px">
+        <%= text_area_tag "agreement_event[comment]", @agreement_event.comment, rows: 7, class: 'form-control', id: "agreement_event_comment_#{@agreement_event.id}", data: { object: 'text-area-autocomplete', mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort } %>
+      </div>
+      <div class="tab-pane" id="preview-<%= @agreement_event.id %>" style="min-height:177px;padding: 30px 15px 15px 15px;">
+
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+      <div class="pull-right">
+        <% button_text = @agreement_event.new_record? ? 'Comment' : 'Update' %>
+        <%= submit_tag button_text, class: 'btn btn-primary' %>
+        <%= link_to 'Cancel', show_comment_review_path(@agreement, agreement_event_id: @agreement_event.id), remote: true, method: :post, class: 'btn btn-default' %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+

@@ -91,13 +91,11 @@
       <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
         <div class="file-display" style="margin-bottom:20px">
           <div class="file-display-right-after">
-            <% if false %>
-              <% if current_user and comment.editable_by?(current_user) %>
-                <%= link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_topic_comment_path(comment.topic, comment), remote: true, method: :get, class: 'btn btn-xs btn-default', rel: 'tooltip', title: 'Edit Comment' %>
-              <% end %>
-              <% if current_user and comment.deletable_by?(current_user) %>
-                <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, [comment.topic, comment], method: :delete, data: { confirm: "Are you sure you want to delete Comment ##{current_index}"}, class: 'btn btn-xs btn-danger-inverse' %>
-              <% end %>
+            <% if current_user and agreement_event.editable_by?(current_user) %>
+              <%= link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_comment_review_path(@agreement, agreement_event_id: agreement_event.id), remote: true, method: :get, class: 'btn btn-xs btn-default', rel: 'tooltip', title: 'Edit Comment' %>
+            <% end %>
+            <% if current_user and agreement_event.deletable_by?(current_user) %>
+              <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, destroy_comment_review_path(@agreement, agreement_event_id: agreement_event.id), method: :post, data: { confirm: "Are you sure you want to delete Comment ##{current_index}"}, class: 'btn btn-xs btn-danger-inverse' %>
             <% end %>
             <a href="#c<%= current_index %>">#<%= current_index %></a>
           </div>
@@ -108,10 +106,8 @@
             <div class="file-display-right-bottom-after" style="background-color:#5cb85c;color:white">AUG Member</div>
           <% end %>
 
-          <div id="comment_<%= agreement_event.id %>_container">
-            <div class="lead">
-              <%= simple_markdown(sanitize(agreement_event.comment), true, 'table table-striped', true) %>
-            </div>
+          <div id="agreement_event_<%= agreement_event.id %>_container">
+            <%= render partial: 'reviews/formatted_review', locals: { agreement_event: agreement_event } %>
           </div>
         </div>
       </div>
@@ -149,9 +145,44 @@
           <div class="file-display-right-middle-after" style="border-radius: 4px;">
             <a href="#c<%= current_index %>">#<%= current_index %></a>
           </div>
-          <%= render partial: "reviews/events/#{agreement_event.event_type}", locals: { agreement_event: agreement_event, current_index: current_index } %>
+          <%= render partial: "reviews/events/#{agreement_event.event_type}", locals: { agreement_event: agreement_event, current_index: current_index } rescue "<span class='text-danger'>#{agreement_event.event_type}</span>".html_safe %>
         </div>
       </div>
     <% end %>
+  </div>
+<% end %>
+
+
+<% @agreement_event = @agreement.agreement_events.new %>
+<%= form_tag create_comment_review_path(@agreement), method: :post, class: 'form-horizontal' do %>
+
+  <div class="form-group">
+    <div class="col-xs-1">
+      <%= render partial: 'topics/forum_gravatar', locals: { user: current_user, icon: 'identicon' } %>
+    </div>
+
+    <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#write-new" data-toggle="tab">Write</a></li>
+        <li><a href="#preview-new" data-toggle="tab" data-agreement-id="<%= @agreement.to_param %>" data-object="preview-review" data-review-id="new">Preview</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane active" id="write-new" style="padding-top:23px">
+          <%= text_area_tag "agreement_event[comment]", '', rows: 7, class: 'form-control', id: 'agreement_event_comment_new', data: { object: 'text-area-autocomplete', mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort } %>
+        </div>
+        <div class="tab-pane" id="preview-new" style="min-height:177px;padding: 30px 15px 15px 15px;">
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="form-group">
+
+    <div class="col-md-offset-2 col-md-10">
+      <%= submit_tag "Comment", class: 'btn btn-primary pull-right' %>
+    </div>
   </div>
 <% end %>

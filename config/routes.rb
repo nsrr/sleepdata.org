@@ -35,7 +35,16 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :reviews
+  resources :reviews do
+    member do
+      post :create_comment
+      post :preview
+      post :show_comment
+      get :edit_comment
+      post :update_comment
+      post :destroy_comment
+    end
+  end
 
   resources :datasets do
     member do

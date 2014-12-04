@@ -24,6 +24,7 @@
 //= require agreements
 //= require datasets
 //= require comments
+//= require reviews
 //= require tags
 //= require external/jquery.lazyload.js
 //= require external/lang-matlab

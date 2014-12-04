@@ -1,5 +1,5 @@
 <%= form_for [@topic, @comment], html: { class: 'form-horizontal', style: 'margin-top:-31px;margin-left:-1px' } do |f| %>
-  <div class="form-group" style="margin-top">
+  <div class="form-group">
     <ul class="nav nav-tabs">
       <li class="active"><a href="#edit-<%= @comment.id %>" data-toggle="tab">Edit</a></li>
       <li><a href="#preview-<%= @comment.id %>" data-toggle="tab" data-topic-id="<%= @topic.to_param %>" data-object="preview-comment" data-comment-id="<%= @comment.id %>">Preview</a></li>
