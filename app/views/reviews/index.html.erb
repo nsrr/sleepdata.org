@@ -9,10 +9,14 @@
   <thead>
     <tr>
       <th>Agreement</th>
-      <th>Submission Date</th>
+      <th style="white-space:nowrap">
+        <%= link_to 'Submission Date', reviews_path( order: (params[:order] == 'agreements.last_submitted_at DESC' ? 'agreements.last_submitted_at' : nil) ) %>
+      </th>
       <th>Reviewers</th>
       <th>Datasets</th>
-      <th>Status</th>
+      <th style="white-space:nowrap">
+        <%= link_to 'Status', reviews_path( order: (params[:order] == 'agreements.status DESC' ? 'agreements.status' : 'agreements.status DESC') ) %>
+      </th>
     </tr>
   </thead>
 

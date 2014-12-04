@@ -7,7 +7,11 @@ class ReviewsController < ApplicationController
   before_action :redirect_without_agreement_event,  only: [ :show_comment, :edit_comment, :update_comment, :destroy_comment ]
 
   def index
-    @agreements = current_user.reviewable_agreements # .where( status: ['submitted', 'resubmitted'] )
+    params[:order] = "agreements.last_submitted_at DESC" if params[:order].blank?
+    @order = scrub_order(Agreement, params[:order], [:id])
+    agreement_scope = current_user.reviewable_agreements.search(params[:search]).order(@order)
+    agreement_scope = agreement_scope.where( status: params[:status] ) if params[:status].present?
+    @agreements = agreement_scope.page(params[:page]).per( 40 )
   end
 
   def show
