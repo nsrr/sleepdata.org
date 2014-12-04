@@ -58,7 +58,7 @@ class ReviewsController < ApplicationController
         format.html { redirect_to review_path(@agreement) + "#c#{@agreement_event.number}", notice: 'Review was successfully created.' }
         format.json { render action: 'show', status: :created, location: @agreement_event }
       else
-        format.html { render action: 'new' }
+        format.html { redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.count}" }
         format.json { render json: @agreement_event.errors, status: :unprocessable_entity }
       end
     end
