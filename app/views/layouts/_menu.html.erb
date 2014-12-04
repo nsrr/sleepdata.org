@@ -15,7 +15,7 @@
       <li class="<%= 'active' if current_page?(root_path) %>"><%= link_to "<span class='glyphicon glyphicon-home'></span> Home".html_safe, root_path %></li>
       <li class="<%= 'active' if params[:controller] == 'datasets' or params[:action] == 'collection' %>"><%= link_to "<span class='glyphicon glyphicon-cloud'></span> Datasets".html_safe, datasets_path %></li>
       <li class="<%= 'active' if params[:controller] == 'tools' %>"><%= link_to "<span class='glyphicon glyphicon-wrench'></span> Tools".html_safe, tools_path %></li>
-      <li class="<%= 'active' if params[:controller] == 'topics' %>"><%= link_to "<span class='glyphicon glyphicon-pushpin'></span> Forum <span class='label label-success'>New</span>".html_safe, topics_path %></li>
+      <li class="<%= 'active' if params[:controller] == 'topics' %>"><%= link_to "<span class='glyphicon glyphicon-pushpin'></span> Forum".html_safe, topics_path %></li>
       <li class="<%= 'active' if current_page?(about_path) or current_page?(aug_path) %>"><%= link_to "<span class='glyphicon glyphicon-leaf'></span> About".html_safe, about_path %></li>
     </ul>
 
