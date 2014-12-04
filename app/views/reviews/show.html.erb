@@ -153,36 +153,4 @@
 <% end %>
 
 
-<% @agreement_event = @agreement.agreement_events.new %>
-<%= form_tag create_comment_review_path(@agreement), method: :post, class: 'form-horizontal' do %>
-
-  <div class="form-group">
-    <div class="col-xs-1">
-      <%= render partial: 'topics/forum_gravatar', locals: { user: current_user, icon: 'identicon' } %>
-    </div>
-
-    <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
-      <ul class="nav nav-tabs">
-        <li class="active"><a href="#write-new" data-toggle="tab">Write</a></li>
-        <li><a href="#preview-new" data-toggle="tab" data-agreement-id="<%= @agreement.to_param %>" data-object="preview-review" data-review-id="new">Preview</a></li>
-      </ul>
-
-      <div class="tab-content">
-        <div class="tab-pane active" id="write-new" style="padding-top:23px">
-          <%= text_area_tag "agreement_event[comment]", '', rows: 7, class: 'form-control', id: 'agreement_event_comment_new', data: { object: 'text-area-autocomplete', mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort } %>
-        </div>
-        <div class="tab-pane" id="preview-new" style="min-height:177px;padding: 30px 15px 15px 15px;">
-
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="form-group">
-
-    <div class="col-md-offset-2 col-md-10">
-      <%= submit_tag "Comment", class: 'btn btn-primary pull-right' %>
-    </div>
-  </div>
-<% end %>
+<%= @agreement_event = @agreement.agreement_events.new; render partial: 'reviews/form' %>

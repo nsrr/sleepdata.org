@@ -1,18 +1,80 @@
-<%= form_tag update_comment_review_path(@agreement, agreement_event_id: @agreement_event.id), method: :post, class: 'form-horizontal', style: 'margin-top:-31px;margin-left:-1px' do %>
+<% agreement_event_id = (@agreement_event.new_record? ? 'new' : @agreement_event.id) %>
+<% url = @agreement_event.new_record? ? create_comment_review_path(@agreement) : update_comment_review_path(@agreement, agreement_event_id: @agreement_event.id) %>
+<%= form_tag url, method: :post, class: 'form-horizontal', style: (@agreement.new_record? ? '' : 'margin-top:-31px;margin-left:-1px') do %>
   <div class="form-group">
+
+    <% if @agreement_event.new_record? %>
+      <div class="col-xs-1">
+        <%= render partial: 'topics/forum_gravatar', locals: { user: current_user, icon: 'identicon' } %>
+      </div>
+
+      <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
+    <% end %>
+
     <ul class="nav nav-tabs">
-      <li class="active"><a href="#edit-<%= @agreement_event.id %>" data-toggle="tab">Edit</a></li>
-      <li><a href="#preview-<%= @agreement_event.id %>" data-toggle="tab" data-agreement-id="<%= @agreement.to_param %>" data-object="preview-review" data-review-id="<%= @agreement_event.id %>">Preview</a></li>
+      <li class="active"><a href="#edit-<%= agreement_event_id %>" data-toggle="tab"><%= @agreement_event.new_record? ? 'Write' : 'Edit' %></a></li>
+      <li><a href="#preview-<%= agreement_event_id %>" data-toggle="tab" data-agreement-id="<%= @agreement.to_param %>" data-object="preview-review" data-review-id="<%= agreement_event_id %>">Preview</a></li>
+      <% if @agreement_event.new_record? %>
+        <li><%= link_to 'Vote', "#vote-#{agreement_event_id}", data: { toggle: 'tab' } %>
+      <% end %>
     </ul>
 
     <div class="tab-content">
-      <div class="tab-pane active" id="edit-<%= @agreement_event.id %>" style="padding-top:23px;padding-left:20px;padding-right:20px">
-        <%= text_area_tag "agreement_event[comment]", @agreement_event.comment, rows: 7, class: 'form-control', id: "agreement_event_comment_#{@agreement_event.id}", data: { object: 'text-area-autocomplete', mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort } %>
+      <div class="tab-pane active" id="edit-<%= agreement_event_id %>" style="padding-top:23px;padding-left:20px;padding-right:20px">
+        <%= text_area_tag "agreement_event[comment]", @agreement_event.comment, rows: 7, class: 'form-control', id: "agreement_event_comment_#{agreement_event_id}", data: { object: 'text-area-autocomplete', mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort } %>
       </div>
-      <div class="tab-pane" id="preview-<%= @agreement_event.id %>" style="min-height:177px;padding: 30px 15px 15px 15px;">
+      <div class="tab-pane" id="preview-<%= agreement_event_id %>" style="min-height:177px;padding: 30px 15px 15px 15px;">
 
       </div>
+
+      <% if @agreement_event.new_record? %>
+        <div class="tab-pane" id="vote-<%= agreement_event_id %>" style="min-height:177px;padding: 30px 15px 15px 15px;">
+          <div class="row">
+            <div class="col-sm-6">
+              <h3 style="margin-top:0px">My Vote</h3>
+              <% @review = @agreement.reviews.where( user_id: current_user.id ).first %>
+              <% if @review and @review.approved == true %>
+                <%= link_to 'Change My Vote to Rejected', vote_review_path(@agreement, approved: '0'), data: { confirm: "Are you sure you want to change your vote to REJECTED for Agreement #{@agreement.name}?" }, method: :post, class: 'btn btn-danger' %>
+              <% elsif @review and @review.approved == false %>
+                <%= link_to 'Change My Vote to Approved', vote_review_path(@agreement, approved: '1'), data: { confirm: "Are you sure you want to chagne your vote to APPROVED for Agreement #{@agreement.name}?" }, method: :post, class: 'btn btn-success' %>
+              <% else %>
+                <%= link_to 'Reject', vote_review_path(@agreement, approved: '0'), data: { confirm: "Are you sure you want to REJECT Agreement #{@agreement.name}?" }, method: :post, class: 'btn btn-danger' %>
+                <%= link_to 'Approve', vote_review_path(@agreement, approved: '1'), data: { confirm: "Are you sure you want to APPROVE Agreement #{@agreement.name}?" }, method: :post, class: 'btn btn-success' %>
+              <% end %>
+              <div class="bs-callout bs-callout-info">
+                Consider commenting when approving or rejecting an agreement to provide additional information for other reviewers. Reviewer comments are not emailed to the DAUA submitter.
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <h3 style="margin-top:0px">Current Votes</h3>
+              <% @agreement.reviews.each do |review| %>
+                <% case review.approved when true %>
+                  <% glyphicon = 'thumbs-up' %>
+                  <% label = 'success' %>
+                <% when false %>
+                  <% glyphicon = 'thumbs-down' %>
+                  <% label = 'danger' %>
+                <% else %>
+                  <% glyphicon = 'flash' %>
+                  <% label = 'default' %>
+                <% end %>
+                  <span class="label label-<%= label %>">
+                    <%= review.user.initials %>
+                    <span class="glyphicon glyphicon-<%= glyphicon %>"></span>
+                  </span>
+                  &nbsp;
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
     </div>
+
+    <% if @agreement_event.new_record? %>
+      </div>
+    <% end %>
+
   </div>
 
   <div class="form-group">
@@ -20,10 +82,8 @@
       <div class="pull-right">
         <% button_text = @agreement_event.new_record? ? 'Comment' : 'Update' %>
         <%= submit_tag button_text, class: 'btn btn-primary' %>
-        <%= link_to 'Cancel', show_comment_review_path(@agreement, agreement_event_id: @agreement_event.id), remote: true, method: :post, class: 'btn btn-default' %>
+        <%= link_to 'Cancel', show_comment_review_path(@agreement, agreement_event_id: @agreement_event.id), remote: true, method: :post, class: 'btn btn-default' unless @agreement.new_record? %>
       </div>
     </div>
   </div>
 <% end %>
-
-

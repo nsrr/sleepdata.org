@@ -43,6 +43,7 @@ Rails.application.routes.draw do
       get :edit_comment
       post :update_comment
       post :destroy_comment
+      post :vote
     end
   end
 

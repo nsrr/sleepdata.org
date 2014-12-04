@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_agreement,                  only: [ :show, :create_comment, :preview, :show_comment, :edit_comment, :update_comment, :destroy_comment ]
-  before_action :redirect_without_agreement,     only: [ :show, :create_comment, :preview, :show_comment, :edit_comment, :update_comment, :destroy_comment ]
+  before_action :set_agreement,                  only: [ :show, :vote, :create_comment, :preview, :show_comment, :edit_comment, :update_comment, :destroy_comment ]
+  before_action :redirect_without_agreement,     only: [ :show, :vote, :create_comment, :preview, :show_comment, :edit_comment, :update_comment, :destroy_comment ]
 
   before_action :set_editable_agreement_event,      only: [ :show_comment, :edit_comment, :update_comment, :destroy_comment ]
   before_action :redirect_without_agreement_event,  only: [ :show_comment, :edit_comment, :update_comment, :destroy_comment ]
@@ -15,6 +15,28 @@ class ReviewsController < ApplicationController
   end
 
   def show
+  end
+
+  def vote
+    @review = @agreement.reviews.where( user_id: current_user.id ).first_or_create
+    original_approval = @review.approved
+    @review.update approved: (params[:approved].to_s == '1') if ['0','1'].include?(params[:approved].to_s)
+
+    event_type = if @review.approved == original_approval
+      ''
+    elsif @review.approved == true and original_approval == false
+      'reviewer_changed_from_rejected_to_approved'
+    elsif @review.approved == false and original_approval == true
+      'reviewer_changed_from_approved_to_rejected'
+    elsif @review.approved == true
+      'reviewer_approved'
+    elsif @review.approved == false
+      'reviewer_rejected'
+    end
+
+    @agreement.agreement_events.create event_type: event_type, user_id: current_user.id, event_at: Time.now if event_type.present?
+
+    redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.count}", notice: 'Review was successfully created.'
   end
 
   # def new
