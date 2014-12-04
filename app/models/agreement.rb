@@ -142,7 +142,7 @@ class Agreement < ActiveRecord::Base
 
   def sent_back_for_resubmission_email(current_user)
     self.add_event!('Data Access and Use Agreement sent back for resubmission.', current_user, 'resubmit')
-    self.agreement_events.create event_type: 'principal_reviewer_required_resubmission', user_id: current_user.id, event_at: Time.now
+    self.agreement_events.create event_type: 'principal_reviewer_required_resubmission', user_id: current_user.id, event_at: Time.now, comment: self.comments
     UserMailer.sent_back_for_resubmission(self, current_user).deliver_later if Rails.env.production?
     notify_admins_on_daua_progress(current_user)
   end
