@@ -68,89 +68,94 @@
 
 <hr class="divider-sm" />
 
-<% @agreement.agreement_events.each_with_index do |agreement_event, index| %>
-  <% current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1) %>
-  <% current_index = ((current_page - 1) * Comment::COMMENTS_PER_PAGE) + index + 1 %>
-  <div class="row" id="c<%= current_index %>">
-    <% if agreement_event.deleted? %>
-      <div class="col-xs-1">
-      </div>
-      <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
-        <div class="file-display" style="margin-bottom:20px;background-color:#efefef; padding: 1px 34px 3px 3px;font-weight: 200;">
-          <div class="file-display-right-middle-after" style="text-decoration:line-through;bottom:-1px">
-            #<%= current_index %>
-          </div>
-          <i class="text-muted">Comment Deleted</i>
+<% if @agreement.agreement_events.count == 0 %>
+
+<div class="center lead text-muted">This Agreement Has No Events</div>
+
+<% else %>
+  <% @agreement.agreement_events.each_with_index do |agreement_event, index| %>
+    <% current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1) %>
+    <% current_index = ((current_page - 1) * Comment::COMMENTS_PER_PAGE) + index + 1 %>
+    <div class="row" id="c<%= current_index %>">
+      <% if agreement_event.deleted? %>
+        <div class="col-xs-1">
         </div>
-      </div>
-    <% elsif agreement_event.event_type == 'commented' %>
-      <div class="col-xs-1">
-        <%= render partial: 'topics/forum_gravatar', locals: { user: agreement_event.user, icon: 'identicon' } %>
-      </div>
-
-      <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
-        <div class="file-display" style="margin-bottom:20px">
-          <div class="file-display-right-after">
-            <% if current_user and agreement_event.editable_by?(current_user) %>
-              <%= link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_comment_review_path(@agreement, agreement_event_id: agreement_event.id), remote: true, method: :get, class: 'btn btn-xs btn-default', rel: 'tooltip', title: 'Edit Comment' %>
-            <% end %>
-            <% if current_user and agreement_event.deletable_by?(current_user) %>
-              <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, destroy_comment_review_path(@agreement, agreement_event_id: agreement_event.id), method: :post, data: { confirm: "Are you sure you want to delete Comment ##{current_index}"}, class: 'btn btn-xs btn-danger-inverse' %>
-            <% end %>
-            <a href="#c<%= current_index %>">#<%= current_index %></a>
-          </div>
-
-          <% if agreement_event.user.core_member? %>
-            <div class="file-display-right-bottom-after" style="background-color:#428bca;color:white">Core Member</div>
-          <% elsif agreement_event.user.aug_member? %>
-            <div class="file-display-right-bottom-after" style="background-color:#5cb85c;color:white">AUG Member</div>
-          <% end %>
-
-          <div id="agreement_event_<%= agreement_event.id %>_container">
-            <%= render partial: 'reviews/formatted_review', locals: { agreement_event: agreement_event } %>
+        <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
+          <div class="file-display" style="margin-bottom:20px;background-color:#efefef; padding: 1px 34px 3px 3px;font-weight: 200;">
+            <div class="file-display-right-middle-after" style="text-decoration:line-through;bottom:-1px">
+              #<%= current_index %>
+            </div>
+            <i class="text-muted">Comment Deleted</i>
           </div>
         </div>
-      </div>
-    <% elsif ['principal_reviewer_approved', 'principal_reviewer_required_resubmission'].include?(agreement_event.event_type) %>
-      <div class="col-xs-1">
-      <% if agreement_event.user.core_member %>
-        <% background_color = '#428bca' %>
-        <% border_color = '#357ebd' %>
-      <% elsif agreement_event.user.aug_member? %>
-        <% background_color = '#5cb85c' %>
-        <% border_color = '#4cae4c' %>
-      <% else %>
-        <% background_color = '' %>
-        <% border_color = '' %>
-      <% end %>
-        <%= image_tag agreement_event.user.avatar_url(50, 'identicon'), size: '50x50', class: 'img-thumbnail', style: "min-height:55px;min-width:55px;border-color:#{border_color};background-color:#{background_color}", rel: 'tooltip', title: agreement_event.user.name, data: { container: 'body', placement: 'bottom' } %>
-      </div>
-      <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
-        <div class="file-display" style="margin-bottom:20px">
-          <div class="file-display-right-after">
-            <a href="#c<%= current_index %>">#<%= current_index %></a>
-          </div>
+      <% elsif agreement_event.event_type == 'commented' %>
+        <div class="col-xs-1">
+          <%= render partial: 'topics/forum_gravatar', locals: { user: agreement_event.user, icon: 'identicon' } %>
+        </div>
 
-          <div id="comment_<%= agreement_event.id %>_container">
-            <div class="lead">
-              <%= render partial: "reviews/events/#{agreement_event.event_type}", locals: { agreement_event: agreement_event, current_index: current_index } %>
+        <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
+          <div class="file-display" style="margin-bottom:20px">
+            <div class="file-display-right-after">
+              <% if current_user and agreement_event.editable_by?(current_user) %>
+                <%= link_to '<span class="glyphicon glyphicon-edit"></span>'.html_safe, edit_comment_review_path(@agreement, agreement_event_id: agreement_event.id), remote: true, method: :get, class: 'btn btn-xs btn-default', rel: 'tooltip', title: 'Edit Comment' %>
+              <% end %>
+              <% if current_user and agreement_event.deletable_by?(current_user) %>
+                <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, destroy_comment_review_path(@agreement, agreement_event_id: agreement_event.id), method: :post, data: { confirm: "Are you sure you want to delete Comment ##{current_index}"}, class: 'btn btn-xs btn-danger-inverse' %>
+              <% end %>
+              <a href="#c<%= current_index %>">#<%= current_index %></a>
+            </div>
+
+            <% if agreement_event.user.core_member? %>
+              <div class="file-display-right-bottom-after" style="background-color:#428bca;color:white">Core Member</div>
+            <% elsif agreement_event.user.aug_member? %>
+              <div class="file-display-right-bottom-after" style="background-color:#5cb85c;color:white">AUG Member</div>
+            <% end %>
+
+            <div id="agreement_event_<%= agreement_event.id %>_container">
+              <%= render partial: 'reviews/formatted_review', locals: { agreement_event: agreement_event } %>
             </div>
           </div>
         </div>
-      </div>
-    <% else %>
-      <div class="col-xs-1"></div>
-      <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
-        <div class="file-display" style="margin-bottom:20px;padding: 1px 34px 3px 15px;font-weight: 200;border: 1px solid transparent;">
-          <div class="file-display-right-middle-after" style="border-radius: 4px;">
-            <a href="#c<%= current_index %>">#<%= current_index %></a>
-          </div>
-          <%= render partial: "reviews/events/#{agreement_event.event_type}", locals: { agreement_event: agreement_event, current_index: current_index } rescue "<span class='text-danger'>#{agreement_event.event_type}</span>".html_safe %>
+      <% elsif ['principal_reviewer_approved', 'principal_reviewer_required_resubmission'].include?(agreement_event.event_type) %>
+        <div class="col-xs-1">
+        <% if agreement_event.user.core_member %>
+          <% background_color = '#428bca' %>
+          <% border_color = '#357ebd' %>
+        <% elsif agreement_event.user.aug_member? %>
+          <% background_color = '#5cb85c' %>
+          <% border_color = '#4cae4c' %>
+        <% else %>
+          <% background_color = '' %>
+          <% border_color = '' %>
+        <% end %>
+          <%= image_tag agreement_event.user.avatar_url(50, 'identicon'), size: '50x50', class: 'img-thumbnail', style: "min-height:55px;min-width:55px;border-color:#{border_color};background-color:#{background_color}", rel: 'tooltip', title: agreement_event.user.name, data: { container: 'body', placement: 'bottom' } %>
         </div>
-      </div>
-    <% end %>
-  </div>
-<% end %>
+        <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
+          <div class="file-display" style="margin-bottom:20px">
+            <div class="file-display-right-after">
+              <a href="#c<%= current_index %>">#<%= current_index %></a>
+            </div>
 
+            <div id="comment_<%= agreement_event.id %>_container">
+              <div class="lead">
+                <%= render partial: "reviews/events/#{agreement_event.event_type}", locals: { agreement_event: agreement_event, current_index: current_index } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% else %>
+        <div class="col-xs-1"></div>
+        <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
+          <div class="file-display" style="margin-bottom:20px;padding: 1px 34px 3px 15px;font-weight: 200;border: 1px solid transparent;">
+            <div class="file-display-right-middle-after" style="border-radius: 4px;">
+              <a href="#c<%= current_index %>">#<%= current_index %></a>
+            </div>
+            <%= render partial: "reviews/events/#{agreement_event.event_type}", locals: { agreement_event: agreement_event, current_index: current_index } rescue "<span class='text-danger'>#{agreement_event.event_type}</span>".html_safe %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>
 
 <%= @agreement_event = @agreement.agreement_events.new; render partial: 'reviews/form' %>

@@ -1,6 +1,6 @@
 <% agreement_event_id = (@agreement_event.new_record? ? 'new' : @agreement_event.id) %>
 <% url = @agreement_event.new_record? ? create_comment_review_path(@agreement) : update_comment_review_path(@agreement, agreement_event_id: @agreement_event.id) %>
-<%= form_tag url, method: :post, class: 'form-horizontal', style: (@agreement.new_record? ? '' : 'margin-top:-31px;margin-left:-1px') do %>
+<%= form_tag url, method: :post, class: 'form-horizontal', style: (@agreement_event.new_record? ? '' : 'margin-top:-31px;margin-left:-1px') do %>
   <div class="form-group">
 
     <% if @agreement_event.new_record? %>
@@ -20,7 +20,7 @@
     </ul>
 
     <div class="tab-content">
-      <div class="tab-pane active" id="edit-<%= agreement_event_id %>" style="padding-top:23px;padding-left:20px;padding-right:20px">
+      <div class="tab-pane active" id="edit-<%= agreement_event_id %>" style="padding-top:23px<%= ';padding-left:20px;padding-right:20px' unless @agreement_event.new_record? %>">
         <%= text_area_tag "agreement_event[comment]", @agreement_event.comment, rows: 7, class: 'form-control', id: "agreement_event_comment_#{agreement_event_id}", data: { object: 'text-area-autocomplete', mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort } %>
       </div>
       <div class="tab-pane" id="preview-<%= agreement_event_id %>" style="min-height:177px;padding: 30px 15px 15px 15px;">
@@ -82,7 +82,7 @@
       <div class="pull-right">
         <% button_text = @agreement_event.new_record? ? 'Comment' : 'Update' %>
         <%= submit_tag button_text, class: 'btn btn-primary' %>
-        <%= link_to 'Cancel', show_comment_review_path(@agreement, agreement_event_id: @agreement_event.id), remote: true, method: :post, class: 'btn btn-default' unless @agreement.new_record? %>
+        <%= link_to 'Cancel', show_comment_review_path(@agreement, agreement_event_id: @agreement_event.id), remote: true, method: :post, class: 'btn btn-default' unless @agreement_event.new_record? %>
       </div>
     </div>
   </div>
