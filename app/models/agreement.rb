@@ -107,6 +107,10 @@ class Agreement < ActiveRecord::Base
     self.user ? self.user.name : "##{self.id}"
   end
 
+  def name_with_id
+    self.user ? "##{self.id} - #{self.user.name}" : "##{self.id}"
+  end
+
   def to_param
     "#{id}" + (self.user ? "-#{self.user.name.parameterize}" : '')
   end

@@ -3,6 +3,7 @@
 ### Enhancements
 - **Administrative Changes**
   - Started prototyping new review process for agreements
+  - Reviewers are sent weekly digests of agreements they have not yet reviewed
 - **General Changes**
   - Enabled turbolinks progress bar on page changes
   - Email notifications now provide a link to the user settings page to allow users to update their email preferences

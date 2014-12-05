@@ -1,0 +1,24 @@
+Dear <%= @user.first_name %>,
+
+The following agreements are awaiting your review. Please click on each and then approve or reject the agreement.
+
+<% if @user.digest_reviews.size > 0 %>
+Agreements
+
+<% @user.digest_reviews.each_with_index do |review, index| %>
+----------------------------
+
+<%= review.agreement.name_with_id %> - <%= "#{SITE_URL}/reviews/#{review.agreement.to_param}" %>
+
+<% if false %>
+  <% comments.sort_by(&:id).each do |comment| %>
+  <%= @comment = comment; render partial: 'digest_comment' %>
+  <% end %>
+<% end %>
+
+<% end %>
+<% end %>
+
+<%= "#{SITE_URL}/reviews" %>
+
+<%= @footer_txt %>

@@ -133,6 +133,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def digest_reviews
+    self.reviews.where( approved: nil ).joins(:agreement).where( "agreements.deleted = ? and agreements.status = ?", false, 'submitted' ).order( "agreements.last_submitted_at DESC" )
+  end
+
   def name
     "#{first_name} #{last_name}"
   end

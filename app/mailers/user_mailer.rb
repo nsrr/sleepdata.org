@@ -9,6 +9,13 @@ class UserMailer < ActionMailer::Base
     mail(to: user.email, subject: "Forum Digest for #{Date.today.strftime('%a %d %b %Y')}")
   end
 
+  def reviewer_digest(user)
+    setup_email
+    @user = user
+    @email_to = user.email
+    mail(to: user.email, subject: "Reviewer Digest for #{Date.today.strftime('%a %d %b %Y')}")
+  end
+
   def notify_system_admin(system_admin, user)
     setup_email
     @system_admin = system_admin

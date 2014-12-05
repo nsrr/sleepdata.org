@@ -13,6 +13,17 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match(/Dear #{valid.first_name},/, email.encoded)
   end
 
+  test "reviewer digest email" do
+    valid = users(:valid)
+
+    email = UserMailer.reviewer_digest(valid).deliver_now
+    assert !ActionMailer::Base.deliveries.empty?
+
+    assert_equal [valid.email], email.to
+    assert_equal "Reviewer Digest for #{Date.today.strftime('%a %d %b %Y')}", email.subject
+    assert_match(/Dear #{valid.first_name},/, email.encoded)
+  end
+
   test "notify system admin email" do
     valid = users(:valid)
     admin = users(:admin)
