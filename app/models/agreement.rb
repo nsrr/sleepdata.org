@@ -136,6 +136,7 @@ class Agreement < ActiveRecord::Base
   def daua_approved_email(current_user)
     self.add_event!('Data Access and Use Agreement approved.', current_user, 'approved')
     self.agreement_events.create event_type: 'principal_reviewer_approved', user_id: current_user.id, event_at: Time.now
+    self.reviews.where( approved: nil ).destroy_all
     UserMailer.daua_approved(self, current_user).deliver_later if Rails.env.production?
     notify_admins_on_daua_progress(current_user)
   end
