@@ -166,7 +166,7 @@ class Agreement < ActiveRecord::Base
   end
 
   def add_reviewers!
-    reviewers = User.current.where( id: self.datasets.collect{|d| d.reviewers.pluck(:id)}.uniq.compact )
+    reviewers = User.current.where( id: self.datasets.collect{|d| d.reviewers.pluck(:id)}.flatten.uniq.compact )
     reviewers.each do |reviewer|
       self.reviews.where(user_id: reviewer.id).first_or_create
     end
