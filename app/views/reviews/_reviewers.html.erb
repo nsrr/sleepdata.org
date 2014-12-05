@@ -1,0 +1,17 @@
+<% agreement.reviews.each do |review| %>
+  <% case review.approved when true %>
+    <% glyphicon = 'thumbs-up' %>
+    <% label = 'success' %>
+  <% when false %>
+    <% glyphicon = 'thumbs-down' %>
+    <% label = 'danger' %>
+  <% else %>
+    <% glyphicon = 'flash' %>
+    <% label = 'default' %>
+  <% end %>
+  <span class="label label-<%= label %>">
+    <%= review.user.initials %>
+    <span class="glyphicon glyphicon-<%= glyphicon %>"></span>
+  </span>
+  &nbsp;
+<% end %>

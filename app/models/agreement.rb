@@ -90,7 +90,7 @@ class Agreement < ActiveRecord::Base
   belongs_to :user
   has_many :requests
   has_many :datasets, -> { where deleted: false }, through: :requests
-  has_many :reviews, -> { joins(:user).order('substring(users.first_name from 0 for 1), substring(users.last_name from 0 for 1)') }
+  has_many :reviews, -> { joins(:user).order('lower(substring(users.first_name from 1 for 1)), lower(substring(users.last_name from 1 for 1))') }
   has_many :agreement_events, -> { order( :event_at ) }
 
   # Agreement Methods

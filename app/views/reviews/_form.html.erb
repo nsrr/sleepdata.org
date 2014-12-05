@@ -47,23 +47,7 @@
             </div>
             <div class="col-sm-6">
               <h3 style="margin-top:0px">Current Votes</h3>
-              <% @agreement.reviews.each do |review| %>
-                <% case review.approved when true %>
-                  <% glyphicon = 'thumbs-up' %>
-                  <% label = 'success' %>
-                <% when false %>
-                  <% glyphicon = 'thumbs-down' %>
-                  <% label = 'danger' %>
-                <% else %>
-                  <% glyphicon = 'flash' %>
-                  <% label = 'default' %>
-                <% end %>
-                  <span class="label label-<%= label %>">
-                    <%= review.user.initials %>
-                    <span class="glyphicon glyphicon-<%= glyphicon %>"></span>
-                  </span>
-                  &nbsp;
-              <% end %>
+              <%= render partial: 'reviews/reviewers', locals: { agreement: @agreement } %>
             </div>
           </div>
         </div>
