@@ -40,14 +40,14 @@ class UserMailerTest < ActionMailer::TestCase
 
   test "daua submitted email" do
     agreement = agreements(:one)
-    admin = users(:admin)
+    valid = users(:valid)
 
     # Send the email, then test that it got queued
-    email = UserMailer.daua_submitted(admin, agreement).deliver_now
+    email = UserMailer.daua_submitted(valid, agreement).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     # Test the body of the sent email contains what we expect it to
-    assert_equal [admin.email], email.to
+    assert_equal [valid.email], email.to
     assert_equal "#{agreement.user.name} Submitted a Data Access and Use Agreement", email.subject
     assert_match(/#{agreement.user.name} \[#{agreement.user.email}\] submitted a Data Access and Use Agreement\./, email.encoded)
   end

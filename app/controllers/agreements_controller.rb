@@ -92,7 +92,6 @@ class AgreementsController < ApplicationController
     elsif @agreement.update( hash )
       @agreement.add_event!(msg, current_user, 'submitted')
       @agreement.agreement_events.create event_type: event_type, user_id: current_user.id, event_at: current_time
-      @agreement.add_reviewers!
       @agreement.daua_submitted
       redirect_to complete_agreement_path(@agreement)
     else

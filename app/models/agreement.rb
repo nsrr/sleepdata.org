@@ -160,8 +160,9 @@ class Agreement < ActiveRecord::Base
   end
 
   def daua_submitted
-    User.system_admins.each do |system_admin|
-      UserMailer.daua_submitted(system_admin, self).deliver_later if Rails.env.production?
+    self.add_reviewers!
+    self.reviews.each do |review|
+      UserMailer.daua_submitted(review.user, self).deliver_later if Rails.env.production?
     end
   end
 

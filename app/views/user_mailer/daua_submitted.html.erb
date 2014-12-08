@@ -1,11 +1,11 @@
 <%= render partial: 'email_header' %>
 
-<b>Dear <%= @system_admin.first_name %>,</b><br />
+<b>Dear <%= @reviewer.first_name %>,</b><br />
 <br />
 <%= @agreement.user.name %> [<%= mail_to @agreement.user.email, @agreement.user.email, style: "color: #428bca;" %>] <span style="padding:5px;background-color:#428bca;color:white">submitted</span> a Data Access and Use Agreement.<br />
 <br />
 You can review the Data Access and Use Agreement here:<br />
 <br />
-<center><%= link_to "#{SITE_URL}/agreements/#{@agreement.id}/review", "#{SITE_URL}/agreements/#{@agreement.id}/review", style: "color: #428bca" %></center><br />
+<center><%= link_to "#{SITE_URL}/reviews/#{@agreement.id}", "#{SITE_URL}/reviews/#{@agreement.id}", style: "color: #428bca" %></center><br />
 
 <%= render partial: 'email_footer' %>

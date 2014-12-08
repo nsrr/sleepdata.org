@@ -4,6 +4,7 @@
 - **Administrative Changes**
   - Started prototyping new review process for agreements
   - Reviewers are sent weekly digests of agreements they have not yet reviewed
+  - Reviewers are now notified in place of system admins when a DAUA is submitted
 - **General Changes**
   - Enabled turbolinks progress bar on page changes
   - Email notifications now provide a link to the user settings page to allow users to update their email preferences
