@@ -14,7 +14,7 @@
 - Updated Google Omniauth to no longer write to disk
 - Use of Ruby 2.1.5 is now recommended
 - **Gem Changes**
-  - Updated to rails 4.2.0.rc1
+  - Updated to rails 4.2.0.rc2
 
 ## 0.14.2 (November 10, 2014)
 
