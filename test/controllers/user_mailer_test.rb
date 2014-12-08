@@ -136,4 +136,18 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match(/#{comment.user.forum_name} mentioned you in a comment on the forum\./, email.encoded)
   end
 
+  test "mentioned during review of agreement email" do
+    valid = users(:valid)
+    agreement_event = agreement_events(:one)
+
+    # Send the email, then test that it got queued
+    email = UserMailer.mentioned_in_agreement_comment(agreement_event, valid).deliver_now
+    assert !ActionMailer::Base.deliveries.empty?
+
+    # Test the body of the sent email contains what we expect it to
+    assert_equal [valid.email], email.to
+    assert_equal "#{agreement_event.user.name} Mentioned You While Reviewing an Agreement", email.subject
+    assert_match(/#{agreement_event.user.name} mentioned you while reviewing an agreement\./, email.encoded)
+  end
+
 end

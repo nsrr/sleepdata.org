@@ -93,6 +93,15 @@ class UserMailer < ActionMailer::Base
       subject: "#{comment.user.forum_name} Mentioned You on the Forum")
   end
 
+  def mentioned_in_agreement_comment(agreement_event, user)
+    setup_email
+    @user = user
+    @agreement_event = agreement_event
+    @email_to = user.email
+    mail(to: @email_to,
+      subject: "#{agreement_event.user.name} Mentioned You While Reviewing an Agreement")
+  end
+
   protected
 
   def setup_email

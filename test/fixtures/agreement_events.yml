@@ -1,17 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  agreement_id: 1
-  user_id: 1
+  agreement: one
+  user: valid
   comment: MyText
-  event_type: MyString
+  event_type: commented
   event_at: 2014-12-01 13:19:56
-  deleted: false
 
 two:
-  agreement_id: 1
-  user_id: 1
+  agreement: one
+  user: two
   comment: MyText
-  event_type: MyString
+  event_type: commented
   event_at: 2014-12-01 13:19:56
-  deleted: false

@@ -62,4 +62,11 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.mentioned_in_comment(comment, user)
   end
 
+  def mentioned_in_agreement_comment
+    user = User.first
+    agreement_event = AgreementEvent.where( event_type: 'commented' ).first
+    UserMailer.mentioned_in_agreement_comment(agreement_event, user)
+  end
+
+
 end

@@ -3,6 +3,9 @@ class AgreementEvent < ActiveRecord::Base
   # Concerns
   include Deletable
 
+  # Callbacks
+  after_create :email_mentioned_users
+
   # Model Validation
   validates_presence_of :agreement_id, :user_id, :event_type, :event_at
   validates_presence_of :comment, if: :is_comment?
@@ -29,6 +32,13 @@ class AgreementEvent < ActiveRecord::Base
 
   def is_comment?
     self.event_type == 'commented'
+  end
+
+  def email_mentioned_users
+    users = User.current.where(email_me_when_mentioned: true).reject{|u| u.username.blank?}.uniq.sort
+    users.each do |user|
+      UserMailer.mentioned_in_agreement_comment(self, user).deliver_later if Rails.env.production? and self.event_type == 'commented' and self.comment.to_s.match(/@#{user.username}\b/i)
+    end
   end
 
 end
