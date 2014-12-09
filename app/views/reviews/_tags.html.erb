@@ -1,0 +1,7 @@
+<% if @agreement.tags.count == 0 %>
+  <div class="text-muted">
+    No Tags
+  </div>
+<% else %>
+  <%= @agreement.tags.pluck(:name).join(', ') %>
+<% end %>

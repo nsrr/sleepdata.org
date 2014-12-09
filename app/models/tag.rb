@@ -8,6 +8,7 @@ class Tag < ActiveRecord::Base
   # Named Scopes
   scope :search, lambda { |arg| where("LOWER(name) LIKE ?", arg.to_s.downcase.gsub(/^| |$/, '%')) }
   scope :forum_tags, -> { current.where(tag_type: 'topic') }
+  scope :review_tags, -> { current.where(tag_type: 'agreement') }
 
   # Model Validation
   validates_presence_of :name, :color, :user_id, :tag_type
@@ -20,6 +21,8 @@ class Tag < ActiveRecord::Base
 
   has_many :agreement_tags
   has_many :agreements, -> { where deleted: false }, through: :agreement_tags
+
+  has_many :agreement_events, -> { where deleted: false }
 
   def type_name
     types = TYPE.select{|name, value| value == self.tag_type}

@@ -1,3 +1,11 @@
-<div class="lead">
+<div class="lead" style="min-height:172px;padding: 30px 13px 13px 13px;">
   <%= simple_markdown(sanitize(agreement_event.comment), true, 'table table-striped', true) %>
 </div>
+
+<% if false %>
+<div>
+  <% button_text = agreement_event.new_record? ? 'Comment' : 'Update' %>
+  <%= submit_tag button_text, class: 'btn btn-primary' %>
+  <%= link_to 'Cancel', show_comment_review_path(@agreement, agreement_event_id: agreement_event.id), remote: true, method: :post, class: 'btn btn-default' unless agreement_event.new_record? %>
+</div>
+<% end %>

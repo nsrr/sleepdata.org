@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       post :update_comment
       post :destroy_comment
       post :vote
+      post :update_tags
     end
   end
 

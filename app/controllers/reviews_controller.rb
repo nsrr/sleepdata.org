@@ -1,7 +1,7 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_agreement,                  only: [ :show, :vote, :create_comment, :preview, :show_comment, :edit_comment, :update_comment, :destroy_comment ]
-  before_action :redirect_without_agreement,     only: [ :show, :vote, :create_comment, :preview, :show_comment, :edit_comment, :update_comment, :destroy_comment ]
+  before_action :set_agreement,                  only: [ :show, :vote, :create_comment, :preview, :show_comment, :edit_comment, :update_comment, :destroy_comment, :update_tags ]
+  before_action :redirect_without_agreement,     only: [ :show, :vote, :create_comment, :preview, :show_comment, :edit_comment, :update_comment, :destroy_comment, :update_tags ]
 
   before_action :set_editable_agreement_event,      only: [ :show_comment, :edit_comment, :update_comment, :destroy_comment ]
   before_action :redirect_without_agreement_event,  only: [ :show_comment, :edit_comment, :update_comment, :destroy_comment ]
@@ -89,6 +89,28 @@ class ReviewsController < ApplicationController
       format.html { redirect_to review_path(@agreement) + "#c#{@agreement_event.number}" }
       format.json { head :no_content }
     end
+  end
+
+  def update_tags
+    submitted_tags = Tag.review_tags.where(id: params[:agreement][:tag_ids])
+    added_tag_ids = []
+    removed_tag_ids = []
+    Tag.review_tags.each do |tag|
+      if submitted_tags.include?(tag) and not @agreement.tags.include?(tag)
+        added_tag_ids << tag.id
+      elsif not submitted_tags.include?(tag) and @agreement.tags.include?(tag)
+        removed_tag_ids << tag.id
+      else
+        # Skip, no changes
+      end
+    end
+
+    if added_tag_ids.count + removed_tag_ids.count > 0
+      @agreement.update tags: submitted_tags
+      @agreement.agreement_events.create event_type: 'tags_updated', user_id: current_user.id, event_at: Time.now, added_tag_ids: added_tag_ids, removed_tag_ids: removed_tag_ids
+    end
+
+    redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.count}"
   end
 
   # def create

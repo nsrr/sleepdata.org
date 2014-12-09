@@ -1,9 +1,13 @@
 <% @title = @agreement.name %>
 <div class="page-header">
-  <h1>
-    <%= link_to "Reviews", reviews_path %> &middot; <%= @title %>
+  <div class="pull-right" style="line-height:1.4em">
+    <% @agreement.tags.each do |tag| %>
+      <span class="label label-default" style="background-color:<%= tag.color %>"><%= tag.name %></span>
+    <% end %>
+  </div>
+  <h1 style="text-align:left">
+    <%= link_to "Reviews", reviews_path %> <span style="white-space:nowrap">&middot; <%= @title %></span>
   </h1>
-
 </div>
 
 
@@ -19,29 +23,6 @@
 
   <%= render partial: "agreements/proof/step#{step}" %>
 </div>
-<% end %>
-
-
-<% if false %>
-  <% case rand(9) when 0 %>
-    <% review_comment_type = :user_submitted %>
-  <% when 1 %>
-    <% review_comment_type = :reviewer_approved %>
-  <% when 2 %>
-    <% review_comment_type = :reviewer_rejected %>
-  <% when 3 %>
-    <% review_comment_type = :commented %>
-  <% when 4 %>
-    <% review_comment_type = :reviewer_changed_from_rejected_to_approved %>
-  <% when 5 %>
-    <% review_comment_type = :reviewer_changed_from_approved_to_rejected %>
-  <% when 6 %>
-    <% review_comment_type = :user_resubmitted %>
-  <% when 7 %>
-    <% review_comment_type = :principal_reviewer_required_resubmission %>
-  <% when 8 %>
-    <% review_comment_type = :principal_reviewer_approved %>
-  <% end %>
 <% end %>
 
 <div class="lead pull-right">
