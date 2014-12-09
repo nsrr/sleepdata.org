@@ -14,6 +14,9 @@
   <dt>Color</dt>
   <dd><span class="label" style="line-height:20px;background-color: <%= @tag.color %>"><%= @tag.color %></span></dd>
 
+  <dt>Type</dt>
+  <dd><%= @tag.type_name %></dd>
+
   <dt>Creator</dt>
   <dd><%= link_to @tag.user.name, @tag.user if @tag.user %></dd>
 

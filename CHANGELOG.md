@@ -6,6 +6,7 @@
   - Reviewers are sent weekly digests of agreements they have not yet reviewed
   - Reviewers are now notified in place of system admins when a DAUA is submitted
   - Reviewers now receive a notification email when another reviewer mentions them on an agreement
+  - Agreements can now be annotated using specific tags
 - **General Changes**
   - Enabled turbolinks progress bar on page changes
   - Email notifications now provide a link to the user settings page to allow users to update their email preferences

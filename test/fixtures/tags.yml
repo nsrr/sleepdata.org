@@ -3,11 +3,13 @@
 new_release:
   name: New Release
   color: '#ff00ff'
+  tag_type: topic
   user: admin
   deleted: false
 
 meeting:
   name: Meeting
   color: '#00ffff'
+  tag_type: topic
   user: admin
   deleted: false

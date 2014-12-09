@@ -10,6 +10,9 @@
         <%= link_to 'Color', tags_path( order: (params[:order] == 'tags.color DESC' ? 'tags.color' : 'tags.color DESC') ) %>
       </th>
       <th style="white-space:nowrap">
+        <%= link_to 'Type', tags_path( order: (params[:order] == 'tags.tag_type DESC' ? 'tags.tag_type' : 'tags.tag_type DESC') ) %>
+      </th>
+      <th style="white-space:nowrap">
         <%= link_to 'Creator', tags_path( order: (params[:order] == 'tags.user_id DESC' ? 'tags.user_id' : 'tags.user_id DESC') ) %>
       </th>
       <th>Actions</th>
@@ -20,6 +23,7 @@
     <tr>
       <td><%= link_to tag.name, tag %></td>
       <td><span class="label" style="background-color: <%= tag.color %>"><%= tag.color %></span></td>
+      <td><%= tag.type_name %></td>
       <td><%= link_to tag.user.name, tag.user if tag.user %></td>
       <td>
         <%= link_to 'Edit', edit_tag_path(tag), class: 'btn btn-xs btn-default' %>

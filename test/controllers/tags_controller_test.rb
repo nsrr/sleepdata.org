@@ -19,7 +19,7 @@ class TagsControllerTest < ActionController::TestCase
 
   test "should create tag" do
     assert_difference('Tag.count') do
-      post :create, tag: { name: "Blog", color: @tag.color }
+      post :create, tag: { name: "Blog", color: @tag.color, tag_type: 'topic' }
     end
 
     assert_redirected_to tag_path(assigns(:tag))
@@ -27,7 +27,7 @@ class TagsControllerTest < ActionController::TestCase
 
   test "should not create tag with non-unique name" do
     assert_difference('Tag.count', 0) do
-      post :create, tag: { name: "Meeting", color: @tag.color }
+      post :create, tag: { name: "Meeting", color: @tag.color, tag_type: 'topic' }
     end
 
     assert_not_nil assigns(:tag)
@@ -48,12 +48,12 @@ class TagsControllerTest < ActionController::TestCase
   end
 
   test "should update tag" do
-    patch :update, id: @tag, tag: { name: "Meetings", color: @tag.color }
+    patch :update, id: @tag, tag: { name: "Meetings", color: @tag.color, tag_type: 'topic' }
     assert_redirected_to tag_path(assigns(:tag))
   end
 
   test "should not update tag with blank name" do
-    patch :update, id: @tag, tag: { name: "", color: @tag.color }
+    patch :update, id: @tag, tag: { name: "", color: @tag.color, tag_type: 'topic' }
 
     assert_not_nil assigns(:tag)
     assert assigns(:tag).errors.size > 0

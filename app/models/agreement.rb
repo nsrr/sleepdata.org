@@ -92,6 +92,8 @@ class Agreement < ActiveRecord::Base
   has_many :datasets, -> { where deleted: false }, through: :requests
   has_many :reviews, -> { joins(:user).order('lower(substring(users.first_name from 1 for 1)), lower(substring(users.last_name from 1 for 1))') }
   has_many :agreement_events, -> { order( :event_at ) }
+  has_many :agreement_tags
+  has_many :tags, -> { where(deleted: false).order(:name) }, through: :agreement_tags
 
   # Agreement Methods
 
