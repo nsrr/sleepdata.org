@@ -50,6 +50,7 @@ class Agreement < ActiveRecord::Base
   scope :expired, -> { where("agreements.expiration_date IS NOT NULL and agreements.expiration_date < ?", Date.today) }
   scope :not_expired, -> { where("agreements.expiration_date IS NULL or agreements.expiration_date >= ?", Date.today) }
   scope :with_tag, lambda { |arg| where('agreements.id in (select agreement_tags.agreement_id from agreement_tags where agreement_tags.tag_id = ?)', arg).references(:agreement_tags) }
+  scope :regular_members, -> { where("agreements.user_id in (select users.id from users where users.deleted = ? and users.aug_member = ? and users.core_member = ?)", false, false, false).references(:users) }
 
   # Model Validation
   validates_presence_of :user_id

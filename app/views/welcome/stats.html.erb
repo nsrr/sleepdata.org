@@ -6,8 +6,6 @@
   <%= link_to 'Location', location_path, class: 'btn btn-xs btn-default' %>
 </div>
 
-<% regular_member_ids = User.current.where( aug_member: false, core_member: false ).pluck(:id) %>
-
 <table class="table table-striped">
   <thead>
     <tr>
@@ -35,8 +33,8 @@
   </thead>
   <tr>
     <td style="text-align:center"><%= User.current.where( core_member: false, aug_member: false ).count %></td>
-    <td style="text-align:center"><%= Agreement.current.where( status: ['submitted', 'approved', 'resubmit', 'expired'], user_id: regular_member_ids ).count %></td>
-    <td style="text-align:center"><%= Agreement.current.where( user_id: regular_member_ids, status: ['approved', 'expired'] ).count %></td>
+    <td style="text-align:center"><%= Agreement.current.regular_members.where( status: ['submitted', 'approved', 'resubmit', 'expired'] ).count %></td>
+    <td style="text-align:center"><%= Agreement.current.regular_members.where( status: ['approved', 'expired'] ).count %></td>
   </tr>
 </table>
 
@@ -58,10 +56,10 @@
   <% Dataset.current.order(:release_date, :name).each do |dataset| %>
     <tr>
       <td style="white-space:nowrap"><%= link_to dataset.name, audits_dataset_path(dataset) %></td>
-      <td style="text-align:center"><%= pluralize number_with_delimiter(dataset.dataset_file_audits.where( user_id: regular_member_ids ).count), 'file' %></td>
-      <td style="text-align:center"><%= number_to_human_size dataset.dataset_file_audits.where( user_id: regular_member_ids ).sum( :file_size ) %></td>
-      <td style="text-align:center"><%= pluralize number_with_delimiter(dataset.dataset_file_audits.where.not( user_id: regular_member_ids ).count), 'file' %></td>
-      <td style="text-align:center"><%= number_to_human_size dataset.dataset_file_audits.where.not( user_id: regular_member_ids ).sum( :file_size ) %></td>
+      <td style="text-align:center"><%= pluralize number_with_delimiter(dataset.dataset_file_audits.regular_members.count), 'file' %></td>
+      <td style="text-align:center"><%= number_to_human_size dataset.dataset_file_audits.regular_members.sum( :file_size ) %></td>
+      <td style="text-align:center"><%= pluralize number_with_delimiter(dataset.dataset_file_audits.aug_or_core_members.count), 'file' %></td>
+      <td style="text-align:center"><%= number_to_human_size dataset.dataset_file_audits.aug_or_core_members.sum( :file_size ) %></td>
       <td style="text-align:center"><%= pluralize number_with_delimiter(dataset.dataset_file_audits.count), 'file' %></td>
       <td style="text-align:center"><%= number_to_human_size dataset.dataset_file_audits.sum( :file_size ) %></td>
     </tr>
@@ -69,10 +67,10 @@
   <tfoot>
     <tr>
       <th>Total</th>
-      <th style="text-align:center"><%= pluralize number_with_delimiter(DatasetFileAudit.where( user_id: regular_member_ids ).count), 'file' %></th>
-      <th style="text-align:center" class="success"><%= number_to_human_size DatasetFileAudit.where( user_id: regular_member_ids ).sum( :file_size ) %></th>
-      <th style="text-align:center"><%= pluralize number_with_delimiter(DatasetFileAudit.where.not( user_id: regular_member_ids ).count), 'file' %></th>
-      <th style="text-align:center"><%= number_to_human_size DatasetFileAudit.where.not( user_id: regular_member_ids ).sum( :file_size ) %></th>
+      <th style="text-align:center"><%= pluralize number_with_delimiter(DatasetFileAudit.regular_members.count), 'file' %></th>
+      <th style="text-align:center" class="success"><%= number_to_human_size DatasetFileAudit.regular_members.sum( :file_size ) %></th>
+      <th style="text-align:center"><%= pluralize number_with_delimiter(DatasetFileAudit.aug_or_core_members.count), 'file' %></th>
+      <th style="text-align:center"><%= number_to_human_size DatasetFileAudit.aug_or_core_members.sum( :file_size ) %></th>
       <th style="text-align:center"><%= pluralize number_with_delimiter(DatasetFileAudit.count), 'file' %></th>
       <th style="text-align:center"><%= number_to_human_size DatasetFileAudit.sum( :file_size ) %></th>
     </tr>

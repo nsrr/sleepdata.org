@@ -10,6 +10,7 @@
   - Reviewers now receive a notification email when another reviewer mentions them on an agreement
   - Agreements can now be annotated using specific tags
   - Administrators can now see a breakdown of agreements by status and by tag
+  - Improved speed at which stats page is displayed for administrators
 - **General Changes**
   - Enabled turbolinks progress bar on page changes
   - Email notifications now provide a link to the user settings page to allow users to update their email preferences
