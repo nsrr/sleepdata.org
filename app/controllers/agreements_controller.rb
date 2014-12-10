@@ -105,7 +105,12 @@ class AgreementsController < ApplicationController
     params[:order] = "agreements.last_submitted_at DESC" if params[:order].blank?
     @order = scrub_order(Agreement, params[:order], [:id])
     agreement_scope = Agreement.current.search(params[:search]).order(@order)
-    agreement_scope = agreement_scope.where( status: params[:status] ) if params[:status].present?
+    agreement_scope = agreement_scope.with_tag(params[:tag_id]) if params[:tag_id].present?
+    if params[:status] == 'started'
+      agreement_scope = agreement_scope.where( status: nil )
+    elsif params[:status].present?
+      agreement_scope = agreement_scope.where( status: params[:status] )
+    end
     if params[:user_type] == 'regular'
       regular_member_ids = User.current.where( aug_member: false, core_member: false ).pluck(:id)
       agreement_scope = agreement_scope.where( user_id: regular_member_ids )

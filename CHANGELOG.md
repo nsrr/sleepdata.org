@@ -2,11 +2,14 @@
 
 ### Enhancements
 - **Administrative Changes**
-  - Started prototyping new review process for agreements
+  - New review process for agreements
+    - Reviewers can comment and approve or reject agreements
+    - Reviewers are specified per dataset and can only review agreements for their dataset
   - Reviewers are sent weekly digests of agreements they have not yet reviewed
   - Reviewers are now notified in place of system admins when a DAUA is submitted
   - Reviewers now receive a notification email when another reviewer mentions them on an agreement
   - Agreements can now be annotated using specific tags
+  - Administrators can now see a breakdown of agreements by status and by tag
 - **General Changes**
   - Enabled turbolinks progress bar on page changes
   - Email notifications now provide a link to the user settings page to allow users to update their email preferences

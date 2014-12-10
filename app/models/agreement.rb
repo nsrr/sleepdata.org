@@ -38,7 +38,7 @@ class Agreement < ActiveRecord::Base
   mount_uploader :irb, PDFUploader
   mount_uploader :printed_file, PDFUploader
 
-  STATUS = ["submitted", "approved", "resubmit", "expired"].collect{|i| [i,i]}
+  STATUS = ["submitted", "approved", "resubmit", "expired", "started"].collect{|i| [i,i]}
 
   attr_accessor :draft_mode, :full_mode
 
@@ -49,6 +49,7 @@ class Agreement < ActiveRecord::Base
   scope :search, lambda { |arg| where( 'agreements.user_id in (select users.id from users where LOWER(users.first_name) LIKE ? or LOWER(users.last_name) LIKE ? or LOWER(users.email) LIKE ? )', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ).references(:users) }
   scope :expired, -> { where("agreements.expiration_date IS NOT NULL and agreements.expiration_date < ?", Date.today) }
   scope :not_expired, -> { where("agreements.expiration_date IS NULL or agreements.expiration_date >= ?", Date.today) }
+  scope :with_tag, lambda { |arg| where('agreements.id in (select agreement_tags.agreement_id from agreement_tags where agreement_tags.tag_id = ?)', arg).references(:agreement_tags) }
 
   # Model Validation
   validates_presence_of :user_id

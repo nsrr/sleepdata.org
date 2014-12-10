@@ -7,17 +7,17 @@
         DAUA
       </th>
       <th style="white-space:nowrap">
-        <%= link_to 'Status', agreements_path( order: (params[:order] == 'agreements.status DESC' ? 'agreements.status' : 'agreements.status DESC') ) %>
+        <%= link_to 'Status', agreements_path( order: (params[:order] == 'agreements.status DESC' ? 'agreements.status' : 'agreements.status DESC'), status: params[:status], tag_id: params[:tag_id], search: params[:search] ) %>
       </th>
       <th>Datasets</th>
       <th style="white-space:nowrap">
-        <%= link_to 'Submission Date', agreements_path( order: (params[:order] == 'agreements.last_submitted_at DESC' ? 'agreements.last_submitted_at' : nil) ) %>
+        <%= link_to 'Submission Date', agreements_path( order: (params[:order] == 'agreements.last_submitted_at DESC' ? 'agreements.last_submitted_at' : nil), status: params[:status], tag_id: params[:tag_id], search: params[:search] ) %>
       </th>
       <th style="white-space:nowrap">
-        <%= link_to 'Approval Date', agreements_path( order: (params[:order] == 'agreements.approval_date DESC' ? 'agreements.approval_date' : 'agreements.approval_date DESC') ) %>
+        <%= link_to 'Approval Date', agreements_path( order: (params[:order] == 'agreements.approval_date DESC' ? 'agreements.approval_date' : 'agreements.approval_date DESC'), status: params[:status], tag_id: params[:tag_id], search: params[:search] ) %>
       </th>
       <th style="white-space:nowrap">
-        <%= link_to 'Expiration Date', agreements_path( order: (params[:order] == 'agreements.expiration_date DESC' ? 'agreements.expiration_date' : 'agreements.expiration_date DESC') ) %>
+        <%= link_to 'Expiration Date', agreements_path( order: (params[:order] == 'agreements.expiration_date DESC' ? 'agreements.expiration_date' : 'agreements.expiration_date DESC'), status: params[:status], tag_id: params[:tag_id], search: params[:search] ) %>
       </th>
       <th>Actions</th>
     </tr>

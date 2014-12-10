@@ -7,12 +7,17 @@
 
 <%= form_tag reviews_path, method: :get, class: 'form-inline' do %>
   <%= text_field_tag 'search', params[:search], class: 'form-control' %>
-  <%= submit_tag 'Search', class: 'btn btn-primary', name: nil %>
   <div class="form-group">
     <%= label :status, 'Status' %>
     <%= select_tag :status, options_for_select([['---', nil]] + Agreement::STATUS, params[:status].kind_of?(Array) ? nil : params[:status]), class: 'form-control' %>
   </div>
 
+  <div class="form-group">
+    <%= label :tag_id, 'Tag' %>
+    <%= select_tag :tag_id, options_for_select([['---', nil]] + Tag.review_tags.pluck(:name, :id), params[:tag_id].kind_of?(Array) ? nil : params[:tag_id]), class: 'form-control' %>
+  </div>
+
+  <%= submit_tag 'Search', class: 'btn btn-primary', name: nil %>
   <%= link_to 'Reset', reviews_path, class: 'btn btn-default' %>
 
 <% end %>
@@ -24,12 +29,12 @@
     <tr>
       <th>Agreement</th>
       <th style="white-space:nowrap">
-        <%= link_to 'Submission Date', reviews_path( order: (params[:order] == 'agreements.last_submitted_at DESC' ? 'agreements.last_submitted_at' : nil) ) %>
+        <%= link_to 'Submission Date', reviews_path( order: (params[:order] == 'agreements.last_submitted_at DESC' ? 'agreements.last_submitted_at' : nil), status: params[:status], tag_id: params[:tag_id], search: params[:search] ) %>
       </th>
       <th>Reviewers</th>
       <th>Datasets</th>
       <th style="white-space:nowrap">
-        <%= link_to 'Status', reviews_path( order: (params[:order] == 'agreements.status DESC' ? 'agreements.status' : 'agreements.status DESC') ) %>
+        <%= link_to 'Status', reviews_path( order: (params[:order] == 'agreements.status DESC' ? 'agreements.status' : 'agreements.status DESC'), status: params[:status], tag_id: params[:tag_id], search: params[:search] ) %>
       </th>
       <th>Events
       </th>

@@ -20,6 +20,9 @@ class AgreementEvent < ActiveRecord::Base
   # Callbacks
   after_create :email_mentioned_users
 
+  # Named Scopes
+  scope :with_current_agreement, -> { where( 'agreement_events.agreement_id in (select agreements.id from agreements where agreements.deleted = ?)', false ).references(:agreements) }
+
   # Model Validation
   validates_presence_of :agreement_id, :user_id, :event_type, :event_at
   validates_presence_of :comment, if: :is_comment?
