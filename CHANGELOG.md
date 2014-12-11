@@ -1,7 +1,15 @@
 ## 0.15.0
 
 ### Enhancements
-- **Administrative Changes**
+- **General Changes**
+  - Enabled turbolinks progress bar on page changes
+  - Email notifications now provide a link to the user settings page to allow users to update their email preferences
+  - Removed UserVoice, users tend to contact the NSRR via the support email address and the forum
+- **Dataset Changes**
+  - Dataset owners and editors can now add users as `editors`, `reviewers`, and `viewers`
+  - Reviewers can now make comments, approve, and reject DAUAs that request access to the dataset the reviewer is on
+  - Dataset editors can now sync documentation repositories
+- **Agreement Changes**
   - New review process for agreements
     - Reviewers can comment and approve or reject agreements
     - Reviewers are specified per dataset and can only review agreements for their dataset
@@ -9,16 +17,9 @@
   - Reviewers are now notified in place of system admins when a DAUA is submitted
   - Reviewers now receive a notification email when another reviewer mentions them on an agreement
   - Agreements can now be annotated using specific tags
+- **Administrative Changes**
   - Administrators can now see a breakdown of agreements by status and by tag
   - Improved speed at which stats page is displayed for administrators
-- **General Changes**
-  - Enabled turbolinks progress bar on page changes
-  - Email notifications now provide a link to the user settings page to allow users to update their email preferences
-  - Removed UserVoice, users tend to contact the NSRR via the support email address and the forum
-- **Dataset Changes**
-  - Dataset owners and editors can now add users as `editors`, `reviewers`, and `viewers`
-  - Reviewers will be able to make comments, approve, and reject DAUAs that request access to the dataset the reviewer is on
-  - Dataset editors can now sync documentation repositories
 - Updated Google Omniauth to no longer write to disk
 - Use of Ruby 2.1.5 is now recommended
 - **Gem Changes**
