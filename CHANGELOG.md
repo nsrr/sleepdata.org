@@ -18,6 +18,7 @@
 - **Dataset Changes**
   - Dataset owners and editors can now add users as `editors`, `reviewers`, and `viewers`
   - Reviewers will be able to make comments, approve, and reject DAUAs that request access to the dataset the reviewer is on
+  - Dataset editors can now sync documentation repositories
 - Updated Google Omniauth to no longer write to disk
 - Use of Ruby 2.1.5 is now recommended
 - **Gem Changes**
