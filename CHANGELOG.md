@@ -1,5 +1,8 @@
 ## 0.15.3
 
+### Bug Fix
+- Fixed a bug that would occasionally occur when resetting a dataset folder index on reading an uninitialized folder index
+
 ## 0.15.2 (January 6, 2015)
 
 ### Enhancements
