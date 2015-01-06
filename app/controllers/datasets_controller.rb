@@ -194,10 +194,12 @@ class DatasetsController < ApplicationController
           # In child
           Rails.logger.debug "Refresh Folder Index"
 
-          Rails.logger.debug "Locking Folder #{File.join('', folder)}"
+          folder_string = File.join('', folder.to_s)
+
+          Rails.logger.debug "Locking #{folder_string}"
           @dataset.lock_folder!(folder)
 
-          Rails.logger.debug "Generating Index for #{File.join('', folder)}"
+          Rails.logger.debug "Generating Index for #{folder_string}"
           @dataset.create_folder_index(folder)
 
           Rails.logger.debug "Refresh Dataset Folder Complete"

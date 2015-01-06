@@ -1,5 +1,8 @@
 ## 0.15.2
 
+### Bug Fix
+- Fixed a bug that prevented a dataset's root file index from being generated
+
 ## 0.15.1 (December 30, 2014)
 
 ### Enhancements
