@@ -1,5 +1,8 @@
 ## 0.15.2
 
+### Enhancements
+- Added timestamps to comments
+
 ### Bug Fix
 - Fixed a bug that prevented a dataset's root file index from being generated
 

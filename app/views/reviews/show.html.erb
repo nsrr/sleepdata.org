@@ -79,6 +79,9 @@
             <div id="agreement_event_<%= agreement_event.id %>_container">
               <%= render partial: 'reviews/formatted_review', locals: { agreement_event: agreement_event } %>
             </div>
+            <div class="small text-muted" style="font-weight: 300">
+              <abbr rel="tooltip" data-title="<%= agreement_event.event_at.strftime("%-d %B %Y, %-l:%M %p") %>" data-container="body" data-placement="right"><%= time_ago_in_words(agreement_event.event_at) %> ago</abbr>
+            </div>
           </div>
         </div>
       <% elsif ['principal_reviewer_approved', 'principal_reviewer_required_resubmission'].include?(agreement_event.event_type) %>

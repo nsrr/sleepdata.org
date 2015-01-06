@@ -78,6 +78,9 @@
           <div id="comment_<%= comment.id %>_container">
             <%= render partial: 'comments/formatted', locals: { comment: comment } %>
           </div>
+          <div class="small text-muted" style="font-weight: 300">
+            <abbr rel="tooltip" data-title="<%= comment.created_at.strftime("%-d %B %Y, %-l:%M %p") %>" data-container="body" data-placement="right"><%= time_ago_in_words(comment.created_at) %> ago</abbr>
+          </div>
         </div>
       </div>
     <% end %>
@@ -135,9 +138,9 @@
       </div>
 
       <div class="form-group">
-
-        <div class="col-md-offset-2 col-md-10">
-          <%= f.submit "Comment", class: 'btn btn-primary pull-right' %>
+        <div class="col-xs-1"></div>
+        <div class="col-md-11 col-xs-10 col-xs-offset-1 col-md-offset-0">
+          <%= f.submit "Comment", class: 'btn btn-primary' %>
         </div>
       </div>
       <% end %>

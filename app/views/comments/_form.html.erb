@@ -6,7 +6,7 @@
     </ul>
 
     <div class="tab-content">
-      <div class="tab-pane active" id="edit-<%= @comment.id %>" style="padding-top:23px;padding-left:20px;padding-right:20px">
+      <div class="tab-pane active" id="edit-<%= @comment.id %>" style="padding-top:23px;padding-left:15px;padding-right:15px">
         <%= f.text_area :description, rows: 7, class: 'form-control', id: "comment_description_#{@comment.id}", data: { object: 'text-area-autocomplete', mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort } %>
       </div>
       <div class="tab-pane" id="preview-<%= @comment.id %>" style="min-height:177px;padding: 30px 15px 15px 15px;">
@@ -16,9 +16,10 @@
   </div>
 
   <div class="form-group">
-    <div class="col-md-offset-2 col-md-10">
+    <div class="col-xs-12">
       <% button_text = @comment.new_record? ? 'Comment' : 'Update' %>
-      <%= f.submit button_text, class: 'btn btn-primary pull-right' %>
+      <%= f.submit button_text, class: 'btn btn-primary' %>
+      <%= link_to 'Cancel', topic_comment_path(@topic, @comment), remote: true, method: :get, class: 'btn btn-default' unless @comment.new_record? %>
     </div>
   </div>
 <% end %>

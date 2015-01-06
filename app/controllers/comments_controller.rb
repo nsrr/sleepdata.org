@@ -1,15 +1,15 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy, :preview ]
-  before_action :set_topic, only: [ :destroy ]
+  before_action :set_topic, only: [ :show, :destroy ]
   before_action :set_commentable_topic, only: [ :create, :edit, :update, :preview ]
-  before_action :redirect_without_topic, only: [ :create, :edit, :update, :preview, :destroy ]
+  before_action :redirect_without_topic, only: [ :show, :create, :edit, :update, :preview, :destroy ]
 
   before_action :check_banned, only: [ :create, :edit, :update ]
   before_action :check_last_comment_by, only: [ :create ]
   before_action :set_comment, only: [ :show ]
   before_action :set_editable_comment, only: [ :edit, :update ]
   before_action :set_deletable_comment, only: [ :destroy ]
-  before_action :redirect_without_comment, only: [ :edit, :update, :destroy ]
+  before_action :redirect_without_comment, only: [ :show, :edit, :update, :destroy ]
 
 
   # # GET /comments
@@ -47,6 +47,9 @@ class CommentsController < ApplicationController
 
   def preview
     @comment = @topic.comments.new(comment_params)
+  end
+
+  def show
   end
 
   # PUT /comments/1
