@@ -1,4 +1,4 @@
-## 0.15.2
+## 0.15.2 (January 6, 2015)
 
 ### Enhancements
 - **General Changes**
