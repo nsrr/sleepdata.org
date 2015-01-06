@@ -1,7 +1,10 @@
 ## 0.15.2
 
 ### Enhancements
-- Added timestamps to comments
+- **General Changes**
+  - Added timestamps to comments
+- **Administrative Changes**
+  - Reviews can now be ordered by the agreement number
 
 ### Bug Fix
 - Fixed a bug that prevented a dataset's root file index from being generated

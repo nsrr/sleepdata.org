@@ -27,7 +27,9 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Agreement</th>
+      <th>
+        <%= link_to 'Agreement', reviews_path( order: (params[:order] == 'agreements.id DESC' ? 'agreements.id' : 'agreements.id DESC'), status: params[:status], tag_id: params[:tag_id], search: params[:search] ) %>
+      </th>
       <th style="white-space:nowrap">
         <%= link_to 'Submission Date', reviews_path( order: (params[:order] == 'agreements.last_submitted_at DESC' ? 'agreements.last_submitted_at' : nil), status: params[:status], tag_id: params[:tag_id], search: params[:search] ) %>
       </th>
