@@ -6,6 +6,9 @@
 ### Bug Fix
 - Fixed a bug that prevented a dataset's root file index from being generated
 
+### Refactoring
+- Use `.scss` instead of `.css.scss` to stay consistent with Rails recommendations
+
 ## 0.15.1 (December 30, 2014)
 
 ### Enhancements
