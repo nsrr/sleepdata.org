@@ -5,6 +5,7 @@
   - Updated to pg 0.18.1
   - Updated to contour 2.6.0
   - Updated to kaminari 0.16.2
+  - Updated to jquery-rails 4.0.3
 
 ## 0.15.3 (January 6, 2015)
 
