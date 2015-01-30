@@ -1,5 +1,9 @@
 ## 0.16.0
 
+### Enhancements
+- **Gem Changes**
+  - Updated to pg 0.18.1
+
 ## 0.15.3 (January 6, 2015)
 
 ### Bug Fix
