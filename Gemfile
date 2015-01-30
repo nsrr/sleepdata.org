@@ -7,7 +7,7 @@ gem 'pg',                   '0.18.1'
 
 # Gems used by project
 gem 'contour',              '~> 2.6.0'
-gem 'kaminari',             '~> 0.16.1'
+gem 'kaminari',             '~> 0.16.2'
 gem 'carrierwave',          '~> 0.10.0'
 gem 'redcarpet',            '~> 3.2.0'
 gem 'geocoder',             '~> 1.2.1'
