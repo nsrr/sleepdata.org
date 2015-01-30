@@ -22,7 +22,7 @@
     Downloading files is
     %strong EASY
     with the NSRR downloader tool
-    = link_to('<sup>[1]</sup>'.html_safe, "#ruby") + "."
+    = link_to('<sup>[1]</sup>'.html_safe, "#1") + "."
 
   .demo-page-code-container
     %code.wow.bounceInLeft
@@ -91,7 +91,7 @@
         Datasets are stored in
         %strong CSVs
         described by Data Dictionaries
-        = link_to('<sup>[2]</sup>'.html_safe, "#spout") + "."
+        = link_to('<sup>[2]</sup>'.html_safe, "#2") + "."
 
   .demo-page-code-container
     %code.wow.bounceInLeft
@@ -223,7 +223,7 @@
 
   %h2.header-top{ style: 'margin-top:50vh'}
     Extract Signals from EDFs
-    = link_to('<sup>[3]</sup>'.html_safe, "#spout") + "."
+    = link_to('<sup>[3]</sup>'.html_safe, "#3") + "."
 
   .demo-page-code-container
     %code.wow.bounceInLeft
@@ -295,6 +295,7 @@
     References
   %ol
     %li
+      %a.anchor-top{ name: '1' }
       The NSRR downloader is built using
       = link_to 'Ruby', 'https://ruby-lang.org'
       and greatly simplifies downloading large amounts of files from the NSRR website.
@@ -302,8 +303,10 @@
       Instructions on installing Ruby on Windows and on Linux/Mac can be found here:
       = link_to 'https://github.com/nsrr/nsrr-gem', 'https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites'
     %li
+      %a.anchor-top{ name: '2' }
       Spout is the Data Dictionary management tool that is used by all datasets on the NSRR. Spout creates a simple framework to define variables, and allows for tight integration between the dataset and the data dictionary.
     %li
+      %a.anchor-top{ name: '3' }
       = link_to 'Edfize', 'https://github.com/sleepepi/edfize'
       is a Ruby Tool developed to access individual signals and epochs in EDF polysomnographs. Edfize is used by
       = link_to 'Altamira', ALTAMIRA_URL
