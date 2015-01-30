@@ -20,4 +20,4 @@ SHELL=/bin/bash
 
 ## Copyright [![Creative Commons 3.0](http://i.creativecommons.org/l/by-nc-sa/3.0/80x15.png)](http://creativecommons.org/licenses/by-nc-sa/3.0)
 
-Copyright (c) 2014 NSRR. See [LICENSE](https://github.com/nsrr/www.sleepdata.org/blob/master/LICENSE) for further details.
+Copyright (c) 2015 NSRR. See [LICENSE](https://github.com/nsrr/www.sleepdata.org/blob/master/LICENSE) for further details.
