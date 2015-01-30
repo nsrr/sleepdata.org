@@ -36,3 +36,5 @@
 
 //= require external/jquery.textcomplete
 //= require external/colorpicker
+
+//= require external/wow

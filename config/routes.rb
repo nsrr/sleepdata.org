@@ -88,6 +88,10 @@ Rails.application.routes.draw do
     end
   end
 
+  scope module: 'static' do
+    get :demo
+  end
+
   resources :tools do
     member do
       get :sync

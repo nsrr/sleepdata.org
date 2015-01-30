@@ -2,6 +2,10 @@
 
 ### Enhancements
 - **General Changes**
+  - A new demo page is now available that is aimed at getting new users started by:
+    - downloading data
+    - opening CSV datasets and accessing variable information
+    - extracting information from EDFs
   - Fixed a minor styling issue with pagination on dataset variable indexes
 - **Gem Changes**
   - Updated to pg 0.18.1
