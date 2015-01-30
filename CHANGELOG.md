@@ -1,6 +1,8 @@
 ## 0.16.0
 
 ### Enhancements
+- **General Changes**
+  - Fixed a minor styling issue with pagination on dataset variable indexes
 - **Gem Changes**
   - Updated to pg 0.18.1
   - Updated to contour 2.7.0.beta1
