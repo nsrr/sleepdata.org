@@ -12,6 +12,7 @@ gem 'carrierwave',          '~> 0.10.0'
 gem 'redcarpet',            '~> 3.2.0'
 gem 'geocoder',             '~> 1.2.1'
 gem 'chunky_png',           '~> 1.3.1'
+gem 'haml'
 
 # Rails Defaults
 gem 'coffee-rails',         '~> 4.1.0'
