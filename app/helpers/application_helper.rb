@@ -39,7 +39,7 @@ module ApplicationHelper
 
   private
 
-    # :pages_path => 'http://SITEURL/datasets/slug/pages/'
+    # :pages_path => 'http://ENV['website_url']/datasets/slug/pages/'
     def expand_relative_paths(text)
       full_path = (request ? request.script_name : ENV['website_url'])
 
