@@ -18,6 +18,6 @@
 <br />
 You can review the DAUA here:<br />
 <br />
-<center><%= link_to "#{SITE_URL}/agreements/#{@agreement.id}", "#{SITE_URL}/agreements/#{@agreement.id}", style: "color: #428bca;" %></center><br />
+<center><%= link_to "#{ENV['website_url']}/agreements/#{@agreement.id}", "#{ENV['website_url']}/agreements/#{@agreement.id}", style: "color: #428bca;" %></center><br />
 
 <%= render partial: 'email_footer' %>

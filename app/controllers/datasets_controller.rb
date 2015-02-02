@@ -296,7 +296,7 @@ class DatasetsController < ApplicationController
     end
 
     def site_prefix
-      "#{SITE_URL.split('//').first}//#{SITE_URL.split('//').last.split('/').first}"
+      "#{ENV['website_url'].split('//').first}//#{ENV['website_url'].split('//').last.split('/').first}"
     end
 
 end

@@ -5,9 +5,9 @@ Dear <%= @dataset_user.user.first_name %>,
 You can now start exploring available data here:
 
 
-    <%= "#{SITE_URL}/datasets/#{@dataset_user.dataset.to_param}/files" %>
+    <%= "#{ENV['website_url']}/datasets/#{@dataset_user.dataset.to_param}/files" %>
 
 
 Thank you!
 
-<%= DEFAULT_APP_NAME %>
+<%= ENV['website_name'] %>

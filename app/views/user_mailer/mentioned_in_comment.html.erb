@@ -9,7 +9,7 @@
       <tr><td colspan="3" style="border-top:1px solid #ddd;"></td></tr>
       <tr>
         <td colspan="3" style="text-align:left;padding-top:10px;padding-right:20px;padding-bottom:10px;">
-          <b><%= link_to @comment.topic.name, "#{SITE_URL}/forum/#{@comment.topic.to_param}", style: "color: #428bca;" %></b>
+          <b><%= link_to @comment.topic.name, "#{ENV['website_url']}/forum/#{@comment.topic.to_param}", style: "color: #428bca;" %></b>
         </td>
       </tr>
       <tr><%= render partial: 'digest_comment' %></tr>
@@ -19,8 +19,8 @@
   </table>
 
 <br />
-<center><%= link_to "#{SITE_URL}/forum/#{@comment.topic.to_param}", "#{SITE_URL}/forum/#{@comment.topic.to_param}?page=#{((@comment.number - 1) / Comment::COMMENTS_PER_PAGE)+1}#c#{@comment.number}", style: "color: #428bca" %></center><br />
+<center><%= link_to "#{ENV['website_url']}/forum/#{@comment.topic.to_param}", "#{ENV['website_url']}/forum/#{@comment.topic.to_param}?page=#{((@comment.number - 1) / Comment::COMMENTS_PER_PAGE)+1}#c#{@comment.number}", style: "color: #428bca" %></center><br />
 <br />
-<span style="font-size:11px;color:#777">You may <%= link_to "turn off", "#{SITE_URL}/settings", style: "color: #428bca" %> these email notifications in your settings.</span>
+<span style="font-size:11px;color:#777">You may <%= link_to "turn off", "#{ENV['website_url']}/settings", style: "color: #428bca" %> these email notifications in your settings.</span>
 
 <%= render partial: 'email_footer' %>

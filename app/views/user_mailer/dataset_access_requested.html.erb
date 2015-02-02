@@ -6,6 +6,6 @@
 <br />
 You can review the Data File Access request here:<br />
 <br />
-<center><%= link_to "#{SITE_URL}/datasets/#{@dataset_user.dataset.to_param}/requests?dataset_user_id=#{@dataset_user.id}", "#{SITE_URL}/datasets/#{@dataset_user.dataset.to_param}/requests?dataset_user_id=#{@dataset_user.id}", style: "color: #428bca;" %></center><br />
+<center><%= link_to "#{ENV['website_url']}/datasets/#{@dataset_user.dataset.to_param}/requests?dataset_user_id=#{@dataset_user.id}", "#{ENV['website_url']}/datasets/#{@dataset_user.dataset.to_param}/requests?dataset_user_id=#{@dataset_user.id}", style: "color: #428bca;" %></center><br />
 
 <%= render partial: 'email_footer' %>

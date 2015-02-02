@@ -8,7 +8,7 @@ Agreements
 <% @user.digest_reviews.each_with_index do |review, index| %>
 ----------------------------
 
-<%= review.agreement.name_with_id %> - <%= "#{SITE_URL}/reviews/#{review.agreement.to_param}" %>
+<%= review.agreement.name_with_id %> - <%= "#{ENV['website_url']}/reviews/#{review.agreement.to_param}" %>
 
 <% if false %>
   <% comments.sort_by(&:id).each do |comment| %>
@@ -19,6 +19,6 @@ Agreements
 <% end %>
 <% end %>
 
-<%= "#{SITE_URL}/reviews" %>
+<%= "#{ENV['website_url']}/reviews" %>
 
 <%= @footer_txt %>

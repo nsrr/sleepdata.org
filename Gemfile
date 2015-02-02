@@ -13,6 +13,7 @@ gem 'redcarpet',            '~> 3.2.0'
 gem 'geocoder',             '~> 1.2.1'
 gem 'chunky_png',           '~> 1.3.1'
 gem 'haml'
+gem 'figaro',               '~> 1.1.0'
 
 # Rails Defaults
 gem 'coffee-rails',         '~> 4.1.0'

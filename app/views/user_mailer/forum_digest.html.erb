@@ -19,7 +19,7 @@
         <tr><td colspan="3" style="border-top:1px solid #ddd;"></td></tr>
         <tr>
           <td colspan="3" style="text-align:left;padding-top:10px;padding-right:20px;padding-bottom:10px;">
-            <b><%= link_to topic.name, "#{SITE_URL}/forum/#{topic.to_param}", style: "color: #428bca;" %></b>
+            <b><%= link_to topic.name, "#{ENV['website_url']}/forum/#{topic.to_param}", style: "color: #428bca;" %></b>
           </td>
         </tr>
         <% comments.sort_by(&:id).each do |comment| %>
@@ -33,7 +33,7 @@
 <% end %>
 
 <br />
-<center><%= link_to "#{SITE_URL}/forum", "#{SITE_URL}/forum", style: "color: #428bca" %></center><br />
+<center><%= link_to "#{ENV['website_url']}/forum", "#{ENV['website_url']}/forum", style: "color: #428bca" %></center><br />
 
 
 <%= render partial: 'email_footer' %>

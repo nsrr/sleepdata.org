@@ -11,10 +11,10 @@ Your Data Access and Use Agreement submission was missing required information.
 
 Please review the above comments, make the appropriate changes, and resubmit your DAUA here:
 
-    <%= "#{SITE_URL}/daua" %>
+    <%= "#{ENV['website_url']}/daua" %>
 
 You can reply directly to this email if you have any questions.
 
 Thank you,
 
-<%= DEFAULT_APP_NAME %>
+<%= ENV['website_name'] %>

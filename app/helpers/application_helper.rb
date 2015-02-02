@@ -17,7 +17,7 @@ module ApplicationHelper
   end
 
   def site_prefix
-    "#{SITE_URL.split('//').first}//#{SITE_URL.split('//').last.split('/').first}"
+    "#{ENV['website_url'].split('//').first}//#{ENV['website_url'].split('//').last.split('/').first}"
   end
 
   def simple_check(checked)
@@ -41,7 +41,7 @@ module ApplicationHelper
 
     # :pages_path => 'http://SITEURL/datasets/slug/pages/'
     def expand_relative_paths(text)
-      full_path = (request ? request.script_name : SITE_URL)
+      full_path = (request ? request.script_name : ENV['website_url'])
 
       result = text.to_s.gsub(/<a href="(?:\:datasets\_path\:)(.*?)">/, '<a href="' + full_path + '/datasets\1">')
       result = result.gsub(/<img src="(?:\:datasets\_path\:)(.*?)">/, '<img src="' + full_path + '/datasets\1">')
@@ -62,7 +62,7 @@ module ApplicationHelper
     end
 
     def link_usernames(text)
-      full_path = (request ? request.script_name : SITE_URL)
+      full_path = (request ? request.script_name : ENV['website_url'])
       usernames = User.current.pluck(:username).reject(&:blank?).uniq.sort
       result = text.to_s
       usernames.each do |username|

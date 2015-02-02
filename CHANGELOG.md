@@ -13,6 +13,7 @@
   - Updated to kaminari 0.16.2
   - Updated to jquery-rails 4.0.3
   - Use Haml for new views
+  - Use Figaro to centralize application configuration
 
 ## 0.15.3 (January 6, 2015)
 

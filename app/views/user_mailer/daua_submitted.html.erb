@@ -6,6 +6,6 @@
 <br />
 You can review the Data Access and Use Agreement here:<br />
 <br />
-<center><%= link_to "#{SITE_URL}/reviews/#{@agreement.id}", "#{SITE_URL}/reviews/#{@agreement.id}", style: "color: #428bca" %></center><br />
+<center><%= link_to "#{ENV['website_url']}/reviews/#{@agreement.id}", "#{ENV['website_url']}/reviews/#{@agreement.id}", style: "color: #428bca" %></center><br />
 
 <%= render partial: 'email_footer' %>

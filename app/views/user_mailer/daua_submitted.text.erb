@@ -2,8 +2,8 @@ Dear <%= @reviewer.first_name %>,
 
 <%= @agreement.user.name %> [<%= @agreement.user.email %>] submitted a Data Access and Use Agreement.
 
-You can review the Data Access and Use Agreement here: <%= "#{SITE_URL}/reviews/#{@agreement.id}" %>
+You can review the Data Access and Use Agreement here: <%= "#{ENV['website_url']}/reviews/#{@agreement.id}" %>
 
 Thank you!
 
-<%= DEFAULT_APP_NAME %>
+<%= ENV['website_name'] %>

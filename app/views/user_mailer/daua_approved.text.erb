@@ -2,10 +2,10 @@ Dear <%= @agreement.user.first_name %>,
 
 Your Data Access and Use Agreement submission has been approved.
 
-You can now start exploring available data here: <%= "#{SITE_URL}/datasets" %>
+You can now start exploring available data here: <%= "#{ENV['website_url']}/datasets" %>
 
 You can reply directly to this email if you have any questions.
 
 Thank you!
 
-<%= DEFAULT_APP_NAME %>
+<%= ENV['website_name'] %>

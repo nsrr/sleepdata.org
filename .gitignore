@@ -19,14 +19,11 @@
 # These files contain application specific passwords that should NEVER be included in version control.
 # These files are generated when the user initially runs ruby initial_setup.rb from the <rails_root> directory.
 
+/config/application.yml
 /config/database.yml
-/config/initializers/00_site_name.rb
-/config/initializers/action_mailer.rb
 /config/initializers/devise.rb
-/config/initializers/latex.rb
 /config/initializers/omniauth.rb
 /config/initializers/secret_token.rb
-/config/initializers/rake_path.rb
 
 /public/cache/*
 /public/stylesheets/cache/*

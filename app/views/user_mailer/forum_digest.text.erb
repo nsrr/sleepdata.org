@@ -6,7 +6,7 @@ Forum Updates
 <% @user.digest_comments.group_by{|s| s.topic_id}.each do |topic_id, comments| %>
 ----------------------------
 
-<%= ((topic = Topic.find_by_id(topic_id)) ? "#{topic.name} #{SITE_URL}/forum/#{topic.to_param}" : 'No Topic') %>
+<%= ((topic = Topic.find_by_id(topic_id)) ? "#{topic.name} #{ENV['website_url']}/forum/#{topic.to_param}" : 'No Topic') %>
 
   <% comments.sort_by(&:id).each do |comment| %>
   <%= @comment = comment; render partial: 'digest_comment' %>
@@ -15,6 +15,6 @@ Forum Updates
 <% end %>
 <% end %>
 
-<%= "#{SITE_URL}/forum"%>
+<%= "#{ENV['website_url']}/forum"%>
 
 <%= @footer_txt %>

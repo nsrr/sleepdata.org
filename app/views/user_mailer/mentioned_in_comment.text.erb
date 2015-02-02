@@ -2,14 +2,14 @@ Dear <%= @user.first_name %>,
 
 <%= @comment.user.forum_name %> mentioned you in a comment on the forum.
 
-<%= "#{@comment.topic.name} #{SITE_URL}/forum/#{@comment.topic.to_param}" %>
+<%= "#{@comment.topic.name} #{ENV['website_url']}/forum/#{@comment.topic.to_param}" %>
 
   <%= render partial: 'digest_comment' %>
 
 
 Click the following link to view the comment:
 
-<%= "#{SITE_URL}/forum/#{@comment.topic.to_param}?page=#{((@comment.number - 1) / Comment::COMMENTS_PER_PAGE)+1}#c#{@comment.number}" %>
+<%= "#{ENV['website_url']}/forum/#{@comment.topic.to_param}?page=#{((@comment.number - 1) / Comment::COMMENTS_PER_PAGE)+1}#c#{@comment.number}" %>
 
 
-You may turn off these email notifications in your settings: <%= "#{SITE_URL}/settings" %>
+You may turn off these email notifications in your settings: <%= "#{ENV['website_url']}/settings" %>

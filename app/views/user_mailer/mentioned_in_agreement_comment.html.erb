@@ -9,7 +9,7 @@
       <tr><td colspan="3" style="border-top:1px solid #ddd;"></td></tr>
       <tr>
         <td colspan="3" style="text-align:left;padding-top:10px;padding-right:20px;padding-bottom:10px;">
-          <b><%= link_to @agreement_event.agreement.name_with_id, "#{SITE_URL}/reviews/#{@agreement_event.agreement.to_param}", style: "color: #428bca;" %></b>
+          <b><%= link_to @agreement_event.agreement.name_with_id, "#{ENV['website_url']}/reviews/#{@agreement_event.agreement.to_param}", style: "color: #428bca;" %></b>
         </td>
       </tr>
       <tr><%= render partial: 'digest_review_comment' %></tr>
@@ -19,6 +19,6 @@
   </table>
 
 <br />
-<center><%= link_to "#{SITE_URL}/reviews/#{@agreement_event.agreement.to_param}", "#{SITE_URL}/reviews/#{@agreement_event.agreement.to_param}#c#{@agreement_event.number}", style: "color: #428bca" %></center><br />
+<center><%= link_to "#{ENV['website_url']}/reviews/#{@agreement_event.agreement.to_param}", "#{ENV['website_url']}/reviews/#{@agreement_event.agreement.to_param}#c#{@agreement_event.number}", style: "color: #428bca" %></center><br />
 
 <%= render partial: 'email_footer' %>
