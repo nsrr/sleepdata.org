@@ -82,8 +82,8 @@
 .full-screen.black-texture
 
   .row
-    .col-md-6
-      = image_tag 'slp-line-chart.png', class: 'img-responsive'
+    .col-md-6.added-margin-bottom
+      = image_tag 'nsrr-rdi3p-age-gender.png', class: 'img-responsive img-faded-border'
     .col-md-6
       %h2.header-top
         Generate Statistics
@@ -144,7 +144,7 @@
     %code.wow.bounceInLeft
       open shhs/datasets/generate-statistics.rb
 
-  .demo-code-input.wow.bounceInLeft
+  .demo-code-input.code-smaller.wow.bounceInLeft
     %span.code-comment
       \# generate-statistics.rb
     %br
@@ -217,11 +217,11 @@
 
 
 %a.anchor-top{ name: 'extract-edf-signal' }
-.full-screen.white-texture
+.full-screen.white-texture.edf-separator
 
-  = image_tag 'settings-footer.jpg', style: 'position: absolute;left: 0px;top: 0px;right:0px;width:100%;height:50vh'
+  =# image_tag 'settings-footer.jpg', style: 'position: absolute;left: 0px;top: 0px;right:0px;width:100%;height:50vh'
 
-  %h2.header-top{ style: 'margin-top:50vh'}
+  %h2.header-top{ style: 'margin-top: 15vh'}
     Extract Signals from EDFs
     = link_to('<sup>[3]</sup>'.html_safe, "#3") + "."
 
@@ -229,7 +229,7 @@
     %code.wow.bounceInLeft
       gem install edfize --pre
 
-  .demo-code-input.wow.bounceInLeft
+  .demo-code-input.code-smaller.wow.bounceInLeft
     %span.code-function
       require
     %span.code-string
@@ -257,7 +257,7 @@
     puts
     %span.code-string "EDF
     %span.code-string-variable \#{edf.filename}
-    %span.code-string contains the following
+    %span.code-string contains
     %span.code-string-variable \#{edf.signals.count}
     %span.code-string signal
     %span.code-string-variable \#{'s' unless edf.signals.count == 1}
@@ -267,33 +267,39 @@
     edf.signals.each do |signal|
     %br
     &nbsp;&nbsp;puts
-    %span.code-string "Signal"
-    %br
-    &nbsp;&nbsp;puts
-    %span.code-string "  Label                    :
+    %span.code-string "Signal Label :
     %span.code-string-variable \#{signal.label}
     %span.code-string "
     %br
     &nbsp;&nbsp;puts
-    %span.code-string "  Samples Per Data Record  :
+    %span.code-string "Samples Per Data Record  :
     %span.code-string-variable \#{signal.samples_per_data_record}
     %span.code-string "
     %br
     &nbsp;&nbsp;puts
-    %span.code-string "  First 10 Physical Values :
+    %span.code-string "First 10 Physical Values :
     %span.code-string-variable \#{(signal.physical_values[0..10] + ['...']).inspect}
     %span.code-string \n\n"
     %br
     end
 
+  .demo-code-output.wow.bounceInRight
+    EDF shhs1-200001.edf contains 14 signals:
+    %br
+    Signal Label             : SaO2
+    %br
+    Samples Per Data Record  : 1
+    %br
+    First 10 Physical Values : [95.31242847333486, 95.31242847333486, 95.31242847333486, 95.31242847333486, 95.31242847333486, 95.31242847333486, 95.31242847333486, 95.31242847333486, 94.14053559166858, 94.14053559166858, 94.14053559166858, "..."]
+
   %p.screen-description-top
-    Output for this code can be found here:
+    Full output of this code snippet can be found here:
     = link_to 'https://github.com/sleepepi/edfize', 'https://github.com/sleepepi/edfize/blob/0.2.0/README.md#example-of-how-to-load-and-analyze-edfs-in-a-ruby-script'
 
-.full-screen.full-height
+.full-screen
   %h2.header-top
     References
-  %ol
+  %ol.large-list
     %li
       %a.anchor-top{ name: '1' }
       The NSRR downloader is built using
