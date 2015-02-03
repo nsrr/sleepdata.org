@@ -113,3 +113,13 @@
 .img-h3-inline {
   height: 24px;
 }
+
+.carousel-indicators li {
+  border-color: #333;
+}
+
+.carousel-indicators li.active {
+  border-color: #333;
+  background-color: #337ab7;
+}
+

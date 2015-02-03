@@ -1,5 +1,11 @@
 .panel
   .panel-body#carousel-showcase.carousel.slide.light-carousel{ 'data-ride' => 'carousel' }
+    %ol.carousel-indicators.hidden-sm.hidden-xs
+      %li.active{ data: { target: "#carousel-showcase", slide: { to: "0" } } }
+      %li{ data: { target: "#carousel-showcase", slide: { to: "1" } } }
+      %li{ data: { target: "#carousel-showcase", slide: { to: "2" } } }
+      %li{ data: { target: "#carousel-showcase", slide: { to: "3" } } }
+      %li{ data: { target: "#carousel-showcase", slide: { to: "4" } } }
     .carousel-inner{role: "listbox"}
       .item.active
         .row
