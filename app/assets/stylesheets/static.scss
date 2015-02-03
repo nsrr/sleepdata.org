@@ -25,6 +25,22 @@
   color: #333;
 }
 
+.green-texture {
+  background-color: #FFF;
+  background-image: asset-url('static/green_dust_scratch.png');
+  color: #333;
+}
+
+.math-texture {
+  background-color: #FFF;
+  background-image: asset-url('static/old_mathematics.png');
+  background-repeat: repeat;
+  color: #333;
+  background-position: initial;
+  background-size: initial;
+  -ms-behavior: initial;
+}
+
 .black-texture {
   background-image: asset-url('static/shattered-dark.png');
   background-size: 350px;

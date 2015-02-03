@@ -1,0 +1,115 @@
+
+#carousel-showcase {
+  clear: both;
+  position: relative;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+#carousel-showcase.light-carousel {
+  border: 1px solid #ededed;
+}
+
+#carousel-showcase.dark-carousel {
+  background-image: asset-url('static/footer_lodyas.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  -ms-behavior: asset-url('ie8/backgroundsize.min.htc');
+  background-color: rgb(15, 18, 27);
+  color: white;
+}
+
+#carousel-showcase .item {
+  min-height: 300px;
+}
+
+#carousel-showcase .item .row h5 {
+  margin-top:30px;
+  font-weight:300;
+}
+
+#showcase-list {
+  margin: 0px auto;
+  width: 100%;
+}
+
+#showcase-list li {
+  display:inline-block;
+  list-style-type:none;
+  width:14%;
+  max-width:200px;
+  height:auto;
+  margin-left:2.5%;
+  margin-right:2.5%;
+  cursor: pointer;
+}
+
+.showcase-item-picture {
+  max-width:100%;
+  // border-radius:100%;
+  border-radius: 2px;
+  border-color: #dedede;
+  border: 5px solid rgba(255, 255, 255, 0.4);
+  margin-right:20px;
+  background-color: white;
+}
+
+.showcase-item-picture-large {
+  max-width:100%;
+  height:auto;
+  // border-radius:100%;
+  border-radius: 2px;
+  border-color: #dedede;
+  border: 5px solid rgba(255, 255, 255, 0.4);
+  background-color: white;
+  height: 200px;
+}
+
+.showcase-item-picture-md {
+  max-width:70%;
+  height:auto;
+  // border-radius:100%;
+  border-radius: 2px;
+  border-color: #dedede;
+  border: 5px solid rgba(255, 255, 255, 0.4);
+  background-color: white;
+}
+
+.img-bw {
+  -webkit-filter: grayscale(100%); /* Chrome 19+ & Safari 6+ */
+  -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
+  -webkit-backface-visibility: hidden; /* Fix for transition flickering */
+}
+
+.img-bw-partial {
+  -webkit-filter: grayscale(50%); /* Chrome 19+ & Safari 6+ */
+  -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
+  -webkit-backface-visibility: hidden; /* Fix for transition flickering */
+}
+
+.img-color {
+  -webkit-filter: grayscale(0%); /* Chrome 19+ & Safari 6+ */
+  -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
+  -webkit-backface-visibility: hidden; /* Fix for transition flickering */
+}
+
+.img-centerer {
+  display:inline-block;
+  vertical-align:middle;
+  height:100%;
+}
+
+.showcase-footer.dark-carousel, .showcase-footer.light-carousel {
+  background-color: white;
+  border: 1px solid #ededed;
+  border-top: 0px solid white;
+}
+
+.img-h3-inline {
+  height: 14px;
+}
+
+.img-h3-inline {
+  height: 24px;
+}

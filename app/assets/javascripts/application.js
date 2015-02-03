@@ -26,6 +26,7 @@
 //= require comments
 //= require reviews
 //= require tags
+//= require showcase
 //= require external/jquery.lazyload.js
 //= require external/lang-matlab
 //= require external/lang-r

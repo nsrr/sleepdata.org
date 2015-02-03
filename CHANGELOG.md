@@ -2,6 +2,7 @@
 
 ### Enhancements
 - **General Changes**
+  - Added a new showcase carousel on the home page aimed at highlighting new items of interest
   - A new demo page is now available that is aimed at getting new users started by:
     - downloading data
     - opening CSV datasets and accessing variable information

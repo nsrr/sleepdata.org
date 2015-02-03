@@ -1,0 +1,51 @@
+.panel
+  .panel-body#carousel-showcase.carousel.slide.light-carousel{ 'data-ride' => 'carousel' }
+    .carousel-inner{role: "listbox"}
+      .item.active
+        .row
+          .col-md-5.col-xs-10.col-xs-offset-1
+            %h2=link_to 'Search the NSRR', showcase_path
+            %h3 NSRR Cross Dataset Query Interface
+          .col-md-3.col-md-offset-2.col-xs-12
+            = image_tag 'physiomimi_logo.png', class: 'showcase-item-picture-large'
+      .item
+        .row
+          .col-md-3.col-md-offset-2.col-xs-12
+            = image_tag 'shhs_logo.png', class: 'showcase-item-picture-large'
+          .col-md-5.col-xs-10.col-xs-offset-1
+            %h2=link_to 'Data Now Available', dataset_path('shhs')
+            %h3 Sleep Heart Health Study
+      .item
+        .row
+          .col-md-3.col-md-offset-2.col-xs-12
+            = image_tag 'chat_logo.png', class: 'showcase-item-picture-large'
+          .col-md-5.col-xs-10.col-xs-offset-1
+            %h2=link_to 'Data Now Available', dataset_path('chat')
+            %h3 Childhood Adenotonsillectomy Trial
+      .item
+        .row
+          .col-md-3.col-md-offset-2.col-xs-12
+            = image_tag 'heartbeat-logo.png', class: 'showcase-item-picture-large'
+          .col-md-5.col-xs-10.col-xs-offset-1
+            %h2=link_to 'Data Now Available', dataset_path('heartbeat')
+            %h3 Heart Biomarker Evaluation in Apnea Treatment
+      .item
+        .row
+          .col-md-5.col-xs-10.col-xs-offset-1
+            %h2=link_to 'Learn How to Download Data', demo_path
+            %h3
+              Download data, generate statistics, and open EDFs.
+          .col-md-3.col-md-offset-2.col-xs-12
+            = image_tag 'nsrr-rdi3p-age-gender.png', class: 'showcase-item-picture-large'
+  .panel-footer.showcase-footer.light-carousel
+    %ul#showcase-list
+      %li.active{ data: { target: "#carousel-showcase", slide: { to: "0" } } }
+        = image_tag 'physiomimi_logo.png', class: 'showcase-item-picture img-bw img-color'
+      %li{ data: { target: "#carousel-showcase", slide: { to: "1" } } }
+        = image_tag 'shhs_logo.png', class: 'showcase-item-picture img-bw'
+      %li{ data: { target: "#carousel-showcase", slide: { to: "2" } } }
+        = image_tag 'chat_logo.png', class: 'showcase-item-picture img-bw'
+      %li{ data: { target: "#carousel-showcase", slide: { to: "3" } } }
+        = image_tag 'heartbeat-logo.png', class: 'showcase-item-picture img-bw'
+      %li{ data: { target: "#carousel-showcase", slide: { to: "4" } } }
+        = image_tag 'nsrr-rdi3p-age-gender.png', class: 'showcase-item-picture img-bw'
