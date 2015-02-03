@@ -22,7 +22,8 @@
   <%= hidden_field_tag "agreement[current_step]", @step %>
 
   <p class="lead-paragraph">
-    13. Data User agrees not to use the name or logo of BWH or any of its affiliates or any of their respective trustees, directors, officers, staff members, employees, students or agents for any purpose without BWH's prior written approval; provided, however, that Data User will acknowledge the NSRR as the resource through which the Data / Datasets were obtained in any publication or presentation arising from the Specific Purpose.
+    <%= @agreement.commercial? ? '13' : '11' %>.
+    Data User agrees not to use the name or logo of BWH or any of its affiliates or any of their respective trustees, directors, officers, staff members, employees, students or agents for any purpose without BWH's prior written approval; provided, however, that Data User will acknowledge the NSRR as the resource through which the Data / Datasets were obtained in any publication or presentation arising from the Specific Purpose.
 
     At Data User's option, BWH may post a summary of Data User's Specific Purpose and/or Data User's name on https://sleepdata.org for the purpose of providing information about the projects and users of the NSRR.  (check one)
   </p>

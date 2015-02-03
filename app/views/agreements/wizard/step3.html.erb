@@ -53,13 +53,15 @@
     10. IN NO EVENT SHALL BWH OR ANY OF BWH'S RESPECTIVE TRUSTEES, DIRECTORS, OFFICERS, MEDICAL OR PROFESSIONAL STAFF, EMPLOYEES AND AGENTS BE LIABLE TO THE DATA USER FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, PUNITIVE OR CONSEQUENTIAL DAMAGES OF ANY KIND ARISING IN ANY WAY OUT OF THIS DAUA OR RIGHTS GRANTED HEREIN, HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, INCLUDING WITHOUT LIMITATION, ECONOMIC DAMAGES OR INJURY TO PROPERTY OR LOST PROFITS, REGARDLESS OF WHETHER BWH SHALL BE ADVISED, SHALL HAVE OTHER REASON TO KNOW, OR IN FACT SHALL KNOW OF THE POSSIBILITY OF THE FOREGOING.
   </p>
 
-  <p class="lead-paragraph">
-    11. Data User shall indemnify, defend and hold harmless BWH and its affiliates and their respective trustees, directors, officers, medical and professional staff, employees, and agents and their respective successors, heirs and assigns (the <strong>"Indemnities"</strong>), against any liability, damage, loss or expense (including reasonable attorneys' fees and expenses of litigation) incurred by or imposed upon the Indemnitees or any one of them in connection with any claims, suits, actions, demands or judgments arising out of any theory of product liability (including, but not limited to, actions in the form of contract, tort, warranty, or strict liability) concerning any product, tool, technology, process or service made, used, or sold or performed pursuant to any right granted under this DAUA.  Data User agrees, at its own expense, to provide attorneys reasonably acceptable to BWH to defend against any actions brought or filed against any party indemnified hereunder with respect to the subject of indemnity contained herein, whether or not such actions are rightfully brought; provided, however, that any Indemnitee shall have the right to retain its own counsel, at the expense of Data User, if representation of such Indemnitee by counsel retained by Data User would be inappropriate because of conflict of interests of such Indemnitee and any other party represented by such counsel.  Data User agrees to keep BWH informed of the progress in the defense and disposition of such claim and to consult with BWH prior to any proposed settlement.
-  </p>
+  <% if @agreement.commercial? %>
+    <p class="lead-paragraph">
+      11. Data User shall indemnify, defend and hold harmless BWH and its affiliates and their respective trustees, directors, officers, medical and professional staff, employees, and agents and their respective successors, heirs and assigns (the <strong>"Indemnities"</strong>), against any liability, damage, loss or expense (including reasonable attorneys' fees and expenses of litigation) incurred by or imposed upon the Indemnitees or any one of them in connection with any claims, suits, actions, demands or judgments arising out of any theory of product liability (including, but not limited to, actions in the form of contract, tort, warranty, or strict liability) concerning any product, tool, technology, process or service made, used, or sold or performed pursuant to any right granted under this DAUA.  Data User agrees, at its own expense, to provide attorneys reasonably acceptable to BWH to defend against any actions brought or filed against any party indemnified hereunder with respect to the subject of indemnity contained herein, whether or not such actions are rightfully brought; provided, however, that any Indemnitee shall have the right to retain its own counsel, at the expense of Data User, if representation of such Indemnitee by counsel retained by Data User would be inappropriate because of conflict of interests of such Indemnitee and any other party represented by such counsel.  Data User agrees to keep BWH informed of the progress in the defense and disposition of such claim and to consult with BWH prior to any proposed settlement.
+    </p>
 
-  <p class="lead-paragraph">
-    12. Data User shall maintain insurance sufficient to meet its obligations under Section 11 of this DAUA.
-  </p>
+    <p class="lead-paragraph">
+      12. Data User shall maintain insurance sufficient to meet its obligations under Section 11 of this DAUA.
+    </p>
+  <% end %>
 
   <div class="well">
     <div class="form-group">

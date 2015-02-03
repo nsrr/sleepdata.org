@@ -135,6 +135,14 @@ class Agreement < ActiveRecord::Base
     self.status == 'resubmit'
   end
 
+  def academic?
+    self.data_user_type == 'individual'
+  end
+
+  def commercial?
+    self.data_user_type == 'organization'
+  end
+
   def add_event!(message, current_user, status)
     self.history << { message: message, user_id: current_user.id, event_at: Time.now, status: status }
     self.status = status
