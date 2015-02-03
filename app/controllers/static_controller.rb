@@ -1,7 +1,11 @@
 class StaticController < ApplicationController
 
+  layout 'application-full'
+
   def demo
-    render layout: 'application-full'
+  end
+
+  def showcase
   end
 
 end

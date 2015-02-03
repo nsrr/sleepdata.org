@@ -1,0 +1,57 @@
+.full-screen.full-height
+
+  .header-middle-lead
+    Presenting the
+
+  %h2.header-middle
+    NSRR Cross Dataset Query Interface
+
+  .logo-middle
+    = image_tag 'physiomimi_logo.png', class: 'img-white-background'
+
+
+%a.anchor-top{ name: 'search-across-datasets' }
+.full-screen.white-texture
+
+  %h2.header-top
+    Search Across Datasets
+
+  %p.screen-description-top
+    Create powerful queries across datasets available on the NSRR.
+
+  = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-02-querybuilder-browse.png', class: 'img-responsive img-white-background'
+
+
+%a.anchor-top{ name: 'graphical-exploration' }
+.full-screen.black-texture
+
+  %h2.header-top
+    Dynamically Plot Variables
+
+  %p.screen-description-top
+    Take any two variables and plot them against each other to generate dynamic graphs.
+
+  = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-08-xy-dropdown.png', class: 'img-responsive img-white-background'
+
+  %div{ style: 'margin-top: 20px' }
+    = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-09-xy-plot.png', class: 'img-responsive img-white-background'
+
+
+%a.anchor-top{ name: 'get-started-now' }
+.full-screen.green-texture
+
+  %h2.header-top
+    Get Started!
+
+  = link_to 'Start a Query', 'https://searchsleepdata.case.edu/', class: 'btn btn-success-inverse btn-lg'
+
+  %p.screen-description
+    Not sure yet?
+    = link_to 'Learn more', tool_path('physiomimi')
+    about the NSRR Cross Dataset Query Interface.
+
+.full-screen.full-footer
+  %ul.list-unstyled
+    %li.btn.btn-lg= link_to 'Contact Us', 'mailto:support@sleepdata.org'
+    %li.btn.btn-lg= link_to 'Datasets', datasets_path
+    %li.btn.btn-lg= link_to 'About', about_path

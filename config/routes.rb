@@ -90,6 +90,7 @@ Rails.application.routes.draw do
 
   scope module: 'static' do
     get :demo
+    get :showcase
   end
 
   resources :tools do

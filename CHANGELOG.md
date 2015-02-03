@@ -6,6 +6,7 @@
     - downloading data
     - opening CSV datasets and accessing variable information
     - extracting information from EDFs
+  - A new page to showcase new tools and datasets on the NSRR website
   - Fixed a minor styling issue with pagination on dataset variable indexes
 - **Agreement Changes**
   - Academic agreements no longer include Indemnification Clause (11 and 12), and have been renumbered
