@@ -1,7 +1,12 @@
 @showcaseReady = () ->
-  $(".showcase-indicator-picture").hover ->
+  $(".showcase-indicator-picture.img-bw").hover ->
     $(this).toggleClass "img-bw"
     $(this).toggleClass "img-bw-partial"
+    return
+
+  $(".showcase-indicator-picture.img-op").hover ->
+    $(this).toggleClass "img-op"
+    $(this).toggleClass "img-op-partial"
     return
 
   $(".showcase-indicator-picture").click ->
