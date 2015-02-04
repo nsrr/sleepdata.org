@@ -13,6 +13,22 @@
   %p.screen-description-top
     Here are the answer you provided for this challenge. Please review them, and then either go back and edit, or submit your responses. You will no longer be able to edit your responses after submitting.
 
+  %div{ style: 'text-align:center;width:100%;margin-top:40px;' }
+    = image_tag 'challenges/flow-limitation-letters.png', class: 'img-thumbnail'
+
+
+
+  %p.screen-description-top{ style: 'margin-top:40px'}
+    = link_to 'A - Flow Limited?', flow_limitation_challenge_step1_path
+  %p.screen-description-top{ style: 'margin-left: 20px;'}
+    %strong Yes - very
+
+
+  %p.screen-description-top
+    = link_to 'B - Flow Limited?', flow_limitation_challenge_step2_path
+  %p.screen-description-top{ style: 'margin-left: 20px;'}
+    %strong Yes - a little
+
 
   %div{ style: 'text-align:center;margin-top:20px;' }
     = link_to 'I\'m Ready! Submit My Answers &raquo;'.html_safe, flow_limitation_challenge_submitted_path, class: 'btn btn-primary btn-lg'
