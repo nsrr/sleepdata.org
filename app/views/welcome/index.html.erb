@@ -15,7 +15,7 @@
   </div>
 
   <div class="row" style="margin-top:40px">
-    <% @datasets.order( :release_date ).limit(3).each do |dataset| %>
+    <% @datasets.order( release_date: :desc ).limit(3).each do |dataset| %>
       <div class="col-xs-12 col-sm-6 col-md-4 ">
         <div class="panel panel-<%= dataset.release_date && dataset.release_date <= Date.today ? 'primary' : 'default' %>">
           <div class="panel-heading">
