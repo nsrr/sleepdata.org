@@ -1,0 +1,29 @@
+.full-screen.full-height
+
+  %h2.header-bottom.wow.slideInRight Flow Limitation Challenge
+
+
+%a.anchor-top{ name: 'download-data' }
+.full-screen.math-texture
+
+  %h2.header-top
+    The Challenge
+
+  %p.screen-description-top
+    Identify flow limitation in the following images to help us create a new standard.
+
+  %p.screen-description-top
+    This challenge is only available to a few selected individuals. If you are interested in participating in the challenge, please contact us at:
+    = mail_to ENV['support_email']
+
+  %div{ style: 'text-align:center;width:100%;margin-top:40px;' }
+    = image_tag 'flow-limitation.png', class: 'img-thumbnail'
+
+  %div{ style: 'text-align:center;margin-top:20px;' }
+    = link_to 'Get Started Now &raquo;'.html_safe, flow_limitation_challenge_step1_path, class: 'btn btn-primary btn-lg'
+
+.full-screen.full-footer
+  %ul.list-unstyled
+    %li.btn.btn-lg= link_to 'Contact Us', 'mailto:support@sleepdata.org'
+    %li.btn.btn-lg= link_to 'Datasets', datasets_path
+    %li.btn.btn-lg= link_to 'About', about_path

@@ -94,6 +94,16 @@ Rails.application.routes.draw do
     get "showcase(/:slug)", action: 'showcase', as: :showcase
   end
 
+  get 'challenges' => "challenges#flow_limitation"
+
+  scope module: 'challenges' do
+    get "challenges/flow-limitation", action: 'flow_limitation', as: :flow_limitation_challenge
+    get "challenges/flow-limitation/step/1", action: 'step1', as: :flow_limitation_challenge_step1
+    get "challenges/flow-limitation/step/2", action: 'step2', as: :flow_limitation_challenge_step2
+    get "challenges/flow-limitation/review", action: 'review', as: :flow_limitation_challenge_review
+    get "challenges/flow-limitation/submitted", action: 'submitted', as: :flow_limitation_challenge_submitted
+  end
+
   resources :tools do
     member do
       get :sync

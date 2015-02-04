@@ -1,0 +1,24 @@
+.full-screen
+  %h2.header-top Flow Limitation Challenge
+  %p.screen-description-top.wow.flipInX
+    %span{ style: 'color: green;background-color:white;border-radius: 5px;padding-left:5px;padding-right:5px' }
+      Challenge Completed!
+
+%a.anchor-top{ name: 'download-data' }
+.full-screen.math-texture
+
+  %h2.header-top
+    All Done!
+
+  %p.screen-description-top
+    Thank you for completing the challenge!
+
+
+  %div{ style: 'text-align:center;margin-top:20px;' }
+    = link_to '&laquo; Restart Challenge'.html_safe, flow_limitation_challenge_path, class: 'btn btn-primary btn-lg'
+
+.full-screen.full-footer
+  %ul.list-unstyled
+    %li.btn.btn-lg= link_to 'Contact Us', 'mailto:support@sleepdata.org'
+    %li.btn.btn-lg= link_to 'Datasets', datasets_path
+    %li.btn.btn-lg= link_to 'About', about_path
