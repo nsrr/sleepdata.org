@@ -46,12 +46,13 @@
   background-size: 350px;
   background-repeat: repeat;
   color: white;
-  .screen-description-top {
-    border-left: 1px solid #777;
-    padding-left: 20px;
-    background-color: #dedede;
-    background-color: rgba(255,255,255,0.4);
-    color: #333;
+
+  a {
+    background-color: white;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
   }
 }
 
