@@ -90,7 +90,8 @@ Rails.application.routes.draw do
 
   scope module: 'static' do
     get :demo
-    get :showcase
+    # get :showcase
+    get "showcase(/:slug)", action: 'showcase', as: :showcase
   end
 
   resources :tools do
