@@ -19,7 +19,8 @@
   %p.screen-description-top
     Create powerful queries across datasets available on the NSRR.
 
-  = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-02-querybuilder-browse.png', class: 'img-responsive img-white-background'
+  %div{ style: 'text-align:center;max-width:1200px;margin:40px auto 0px auto;' }
+    = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-02-querybuilder-browse.png', class: 'img-responsive img-white-background'
 
 
 %a.anchor-top{ name: 'graphical-exploration' }
@@ -28,24 +29,43 @@
   %h2.header-top
     Dynamically Plot Variables
 
-  %p.screen-description-top
-    Take any two variables and plot them against each other to generate dynamic graphs.
+  .row
+    .col-md-6
+      %p.screen-description-top.hidden-xs.hidden-sm{ style: 'margin-top:20vh;text-align:right' }
+        Select two variables and click
+        %strong Graph Distribution.
+      %p.screen-description-top.visible-xs.visible-sm{ style: 'text-align:right' }
+        Select two variables and click
+        %strong Graph Distribution.
+    .col-md-6
+      = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-08-xy-dropdown.png', class: 'img-responsive img-white-background'
 
-  = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-08-xy-dropdown.png', class: 'img-responsive img-white-background'
+  .row{ style: 'margin-top: 20px' }
+    .col-md-6
+      %p.screen-description-top.visible-xs.visible-sm{ style: 'text-align:right' }
+        %strong Find interesting correlations?
+        Download complete datasets for offline analysis from the
+        = link_to 'NSRR website', ENV['website_url']
 
-  %div{ style: 'margin-top: 20px' }
-    = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-09-xy-plot.png', class: 'img-responsive img-white-background'
+      = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-09-xy-plot.png', class: 'img-responsive img-white-background hidden-xs hidden-sm'
+    .col-md-6
+      %p.screen-description-top.hidden-xs.hidden-sm{ style: 'margin-top:20vh' }
+        %strong Find interesting correlations?
+        Download complete datasets for offline analysis from the
+        = link_to 'NSRR website', ENV['website_url']
 
+      = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-09-xy-plot.png', class: 'img-responsive img-white-background visible-xs visible-sm'
 
 %a.anchor-top{ name: 'get-started-now' }
-.full-screen.white-texture
+.full-screen.call-to-action
 
-  %h2.header-top
-    Get Started!
+  %h2.header-top{ style: 'text-align: center' }
+    Start your cross dataset exploration now.
 
-  = link_to 'Start a Query', 'https://searchsleepdata.case.edu/', class: 'btn btn-success-inverse btn-lg'
+  %div{ style: 'text-align:center;margin-top:20px;margin-bottom:20px' }
+    = link_to 'Start a Query', 'https://searchsleepdata.case.edu/', class: 'btn btn-call-to-action btn-lg'
 
-  %p.screen-description
+  %p.screen-description{ style: 'text-align:center;margin-top:50px;'   }
     Not sure yet?
     = link_to 'Learn more', tool_path('physiomimi')
     about the NSRR Cross Dataset Query Interface.

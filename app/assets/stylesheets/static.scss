@@ -16,6 +16,8 @@
 }
 
 .full-height {
+  // 90 is intentional as it shows a portion of the next "slide" underneath
+  // the main title
   min-height:90vh;
 }
 
@@ -29,6 +31,35 @@
   background-color: #FFF;
   background-image: asset-url('static/green_dust_scratch.png');
   color: #333;
+}
+
+.call-to-action {
+  background-color: #4cae4c;
+  color: #FFF;
+  background-image: none;
+}
+
+.btn-call-to-action {
+  border-radius: 40px;
+  min-width: 200px;
+  max-width: 500px;
+  width: 100%;
+  color: #4cae4c !important;
+  border-color: #4cae4c !important;
+  background-color: white !important;
+  -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
+  -webkit-backface-visibility: hidden; /* Fix for transition flickering */
+}
+
+.btn-call-to-action:hover,
+.btn-call-to-action:focus,
+.btn-call-to-action:active,
+.btn-call-to-action.active,
+.btn-call-to-action.disabled,
+.btn-call-to-action[disabled] {
+  color: #fff !important;
+  background-color: rgb(255, 157, 107) !important; // #337ab7 !important; // #47a447 !important;
+  border-color: rgb(255, 133, 71) !important; // #398439 !important;
 }
 
 .math-texture {
