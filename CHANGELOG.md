@@ -9,6 +9,7 @@
     - extracting information from EDFs
   - A new page to showcase new tools and datasets on the NSRR website
   - Fixed a minor styling issue with pagination on dataset variable indexes
+  - Topic tags are now faded using grayscale instead of opacity to maintain contrast between text and tag color
 - **Challenges Added**
   - Started prototyping a flow limitation challenge
 - **Agreement Changes**
