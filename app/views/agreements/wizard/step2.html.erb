@@ -27,7 +27,14 @@
 
   <div class="form-group" style="margin-top: 20px;margin-bottom: 20px;">
     <div class="col-md-10 col-md-offset-1">
-      <%= f.text_area :specific_purpose, rows: '5', class: 'form-control', placeholder: "Explain Specific Purpose" %>
+      <div class="bs-callout bs-callout-info">
+        <h4>Instructions</h4>
+
+        <p>Please describe your research in detail, how it relates to the datasets you are requesting, which variables you will be looking at, and the goal of your research.</p>
+        <p><strong>This single response plays an important role in determing whether or not you will be granted access to the data.</strong></p>
+        <p>If you have <strong>NOT</strong> explored the variables for datasets on the NSRR, it is STRONGLY recommended you become familiar with them before requesting access. You can explore <%= link_to 'all the datasets here', datasets_path %>.</p>
+      </div>
+      <%= f.text_area :specific_purpose, rows: '5', class: 'form-control', placeholder: "Explain Specific Purpose: (More than 20 words required.)" %>
     </div>
   </div>
 
@@ -52,6 +59,15 @@
         </div>
       </div>
     <% end %>
+  </div>
+
+  <div id="too-many-datasets" style="<%= 'display:none' if @agreement.datasets.count < 2 %>">
+    <div class="alert alert-warning">
+      <p class="lead">
+        <strong>Heads Up!</strong> Make sure you have only selected the datasets appropriate for your <i>Specific Purpose</i>.
+        You will be asked to resubmit if you request too many datasets.
+      </p>
+    </div>
   </div>
 
   <p class="lead-paragraph">

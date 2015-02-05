@@ -12,6 +12,9 @@
 - **Challenges Added**
   - Started prototyping a flow limitation challenge
 - **Agreement Changes**
+  - Step 2 now has additional instructions to clarify the importance of describing the "Specific Purpose", and selecting an appropriate number of datasets
+  - The signature step now allows users to opt out of signing the agreement if they have institutional requirements forbidding signing of agreements
+  - Users opting for NSRR Committee review now need to attest that they have received Human Subjects Protections Training
   - Academic agreements no longer include Indemnification Clause (11 and 12), and have been renumbered
 - **Gem Changes**
   - Updated to pg 0.18.1

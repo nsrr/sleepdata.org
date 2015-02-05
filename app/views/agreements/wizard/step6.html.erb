@@ -32,6 +32,24 @@
   </div>
 
   <div class="form-group">
+    <div class="col-md-9 col-md-offset-3">
+      <div class="checkbox">
+        <label>
+          <%= f.check_box :unauthorized_to_sign %>
+          I am unauthorized to sign an agreement based on institutional requirements.
+        </label>
+      </div>
+      <div class="bs-callout bs-callout-info">
+        <strong>Heads Up</strong>
+        If you are not authorized to sign an agreement based on institutional requirements, check the above box, and type the institutions authorized user's name below.
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="form-group">
     <%= f.label :signature_print, 'By (print name)', class: 'col-md-3 control-label' %>
     <div class="col-md-9">
       <%= f.text_field :signature_print, class: 'form-control' %>

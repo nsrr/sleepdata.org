@@ -250,11 +250,11 @@ class AgreementsController < ApplicationController
         # Step Five
           :has_read_step5,
         # Step Six
-          :signature, :signature_print, :signature_date, :organization_emails,
+          :signature, :unauthorized_to_sign, :signature_print, :signature_date, :organization_emails,
         # Step Seven
           :irb_evidence_type, :irb,
         # Step Eight
-          :title_of_project, :intended_use_of_data, :data_secured_location, :secured_device
+          :title_of_project, :intended_use_of_data, :data_secured_location, :secured_device, :human_subjects_protections_trained
       )
     end
 

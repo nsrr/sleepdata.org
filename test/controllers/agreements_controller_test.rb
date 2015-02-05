@@ -230,13 +230,13 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should update step 2 of agreement and continue" do
     login(users(:valid))
     assert_difference('Request.count') do
-      patch :update_step, id: agreements(:step1_saved_as_draft), step: '2', agreement: { current_step: '2', specific_purpose: 'My Specific Purpose', dataset_ids: [0, ActiveRecord::FixtureSet.identify(:public)] }
+      patch :update_step, id: agreements(:step1_saved_as_draft), step: '2', agreement: { current_step: '2', specific_purpose: 'My Specific Purpose Needs to be More than 20 words in order to be sufficiently describe what I will do with the data.', dataset_ids: [0, ActiveRecord::FixtureSet.identify(:public)] }
     end
 
     assert_equal 2, assigns(:step)
     assert_not_nil assigns(:agreement)
     assert_equal 2, assigns(:agreement).current_step
-    assert_equal 'My Specific Purpose', assigns(:agreement).specific_purpose
+    assert_equal 'My Specific Purpose Needs to be More than 20 words in order to be sufficiently describe what I will do with the data.', assigns(:agreement).specific_purpose
     assert_equal [datasets(:public).id], assigns(:agreement).datasets.pluck(:id)
 
     assert_redirected_to step_agreement_path(assigns(:agreement), step: 3)

@@ -13,4 +13,12 @@
       <span class="text-danger"><span class="glyphicon glyphicon-remove"></span> Has NOT attested that data will be stored on a secure password protected device.</span>
     <% end %>
   </dd>
+  <dt>Human Subjects Protections Training</dt>
+  <dd>
+    <% if @agreement.human_subjects_protections_trained? %>
+      <span class="text-success"><span class="glyphicon glyphicon-ok"></span> Has attested to completing a Human Subjects Protections Training Course.</span>
+    <% else %>
+      <span class="text-danger"><span class="glyphicon glyphicon-remove"></span> Has NOT attested to completing a Human Subjects Protections Training Course.</span>
+    <% end %>
+  </dd>
 </dl>

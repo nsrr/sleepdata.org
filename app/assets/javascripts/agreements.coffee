@@ -23,6 +23,10 @@ $(document)
     else
       $(this).closest(".panel").removeClass('panel-success')
       $(this).closest(".panel").addClass('panel-default')
+    if $("[name='agreement[dataset_ids][]']:checked").length < 2
+      $('#too-many-datasets').hide()
+    else
+      $('#too-many-datasets').show()
   )
   .on('click', '[data-object~="submit-draft"]', () ->
     window.$isDirty = false
