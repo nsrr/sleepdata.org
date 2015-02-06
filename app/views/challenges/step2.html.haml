@@ -24,16 +24,16 @@
   %p.screen-description-top{ "data-toggle" => "buttons" }
     %label.btn.btn-default
       %input#option1{ autocomplete: "off", name: "options", type: "radio" }
-        Yes - very
+        Yes
     %label.btn.btn-default
       %input#option2{ autocomplete: "off", name: "options", type: "radio" }
-        Yes - a little
-    %label.btn.btn-default
-      %input#option3{ autocomplete: "off", name: "options", type: "radio" }
         No
     %label.btn.btn-default
       %input#option3{ autocomplete: "off", name: "options", type: "radio" }
         Maybe
+    %label.btn.btn-default
+      %input#option3{ autocomplete: "off", name: "options", type: "radio" }
+        Unsortable / Artifact
 
   %div{ style: 'text-align:center;margin-top:20px;' }
     = link_to 'Continue to Next Step &raquo;'.html_safe, flow_limitation_challenge_review_path, class: 'btn btn-primary btn-lg'
