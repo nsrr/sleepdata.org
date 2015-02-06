@@ -6,9 +6,6 @@
 %a.anchor-top{ name: 'download-data' }
 .full-screen.math-texture
 
-  %h2.header-top
-    Step 1
-
   %div{ style: 'text-align:center;width:100%;margin-top:40px;' }
     = image_tag 'challenges/flow-limitation-letters.png', class: 'img-thumbnail'
 
@@ -30,10 +27,10 @@
         No
     %label.btn.btn-default
       %input#option3{ autocomplete: "off", name: "options", type: "radio" }
-        Maybe
+        Intermediate
     %label.btn.btn-default
       %input#option3{ autocomplete: "off", name: "options", type: "radio" }
-        Unsortable / Artifact
+        Unscorable / Artifact
 
   %div{ style: 'text-align:center;margin-top:20px;' }
     = link_to 'Continue to Next Step &raquo;'.html_safe, flow_limitation_challenge_step2_path, class: 'btn btn-primary btn-lg'
