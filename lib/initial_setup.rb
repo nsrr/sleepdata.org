@@ -13,8 +13,6 @@ puts root_folder
 files = [
   ['config', 'application.yml'],
   ['config', 'database.yml'],
-  ['config/initializers', 'secret_token.rb'],
-  ['config/initializers', 'devise.rb'],
   ['config/initializers', 'omniauth.rb']]
 
 files.each do |folder_name, file_name|

@@ -13,3 +13,6 @@ smtp_password:        "<%= print "Enter SMTP Password [password]: "; s = gets.ch
 
 altamira_url:         "<%= print "Enter Altamira URL: "; gets.chomp.gsub(/(\/)*$/, '') %>"
 latex_location:       "<%= print "PDF LaTeX Location [/usr/bin/pdflatex]: "; s = gets.chomp; s == '' ? '/usr/bin/pdflatex' : s %>"
+
+devise_pepper:        "<%= SecureRandom.hex(64) %>"
+website_secret:       "<%= SecureRandom.hex(64) %>"
