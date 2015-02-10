@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Concerns
-  include Contourable, Deletable, TokenAuthenticatable
+  include Deletable, TokenAuthenticatable
 
   # Callbacks
   before_save :ensure_authentication_token
@@ -169,14 +169,6 @@ class User < ActiveRecord::Base
   def destroy
     super
     update_column :updated_at, Time.now
-  end
-
-  def apply_omniauth(omniauth)
-    unless omniauth['info'].blank?
-      self.first_name = omniauth['info']['first_name'] if first_name.blank?
-      self.last_name = omniauth['info']['last_name'] if last_name.blank?
-    end
-    super
   end
 
   private
