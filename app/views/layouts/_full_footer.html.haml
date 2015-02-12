@@ -1,0 +1,30 @@
+%footer
+  .container-fluid
+    .row
+      .col-sm-3.col-xs-6
+        %h4 Team
+        %ul.list-unstyled
+          %li= link_to 'About Us', about_path
+          %li= link_to 'Academic User Group', aug_path
+      .col-sm-3.col-xs-6
+        %h4 Learn
+        %ul.list-unstyled
+          %li= link_to 'Demo', demo_path
+          %li= link_to 'Showcase', showcase_path
+          %li= link_to 'Challenges', challenges_path
+      .col-sm-3.col-xs-6
+        %h4 Research
+        %ul.list-unstyled
+          %li= link_to 'Datasets', datasets_path
+          %li= link_to 'Tools', datasets_path
+      .col-sm-3.col-xs-6
+        %h4 Support
+        %ul.list-unstyled
+          %li= link_to 'Forum', topics_path
+          %li= link_to 'Contact Us', 'mailto:support@sleepdata.org'
+
+
+
+    =# "v#{WwwSleepdataOrg::VERSION::STRING}"
+
+    %h4{ style: 'text-align:center;margin-top:20px' } NSRR &copy; 2015

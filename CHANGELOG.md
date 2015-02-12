@@ -11,6 +11,7 @@
   - Fixed a minor styling issue with pagination on dataset variable indexes
   - Topic tags are now faded using grayscale instead of opacity to maintain contrast between text and tag color
   - Streamlined login system by removing alternate logins
+  - Updated the design of the NSRR footer
 - **Challenges Added**
   - Started prototyping a flow limitation challenge
 - **Agreement Changes**

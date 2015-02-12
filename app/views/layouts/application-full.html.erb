@@ -18,12 +18,14 @@
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <%= javascript_tag "var root_url='#{request.script_name + '/'}';var auth_token='#{form_authenticity_token}';" %>
   </head>
-  <body data-spy="scroll" data-target=".bs-sidebar" data-email="<%= current_user.email if current_user %>" data-fullname="<%= current_user.name if current_user %>" style="margin-bottom:0px">
+  <body class="has-sticky-footer math-texture">
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <%= render partial: 'layouts/menu' %>
     </nav>
 
     <%= yield %>
+
+    <%= render partial: 'layouts/full_footer' %>
 
   </body>
 </html>
