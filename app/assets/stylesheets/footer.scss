@@ -30,6 +30,20 @@ body.has-sticky-footer footer {
 body.has-sticky-footer footer h4 {
   margin-top:20px;
   padding-top:0px;
+  color: #999;
+}
+
+body.has-sticky-footer footer a {
+  color: #DDD;
+}
+
+body.has-sticky-footer footer a:hover,
+body.has-sticky-footer footer a:focus,
+body.has-sticky-footer footer a:active,
+body.has-sticky-footer footer a.active,
+body.has-sticky-footer footer a.disabled,
+body.has-sticky-footer footer a[disabled] {
+  color: rgb(255, 157, 107);
 }
 
 @media screen and (min-width: $screen-sm-min) {
