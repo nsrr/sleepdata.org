@@ -8,4 +8,7 @@ class StaticController < ApplicationController
   def showcase
   end
 
+  def version
+  end
+
 end
