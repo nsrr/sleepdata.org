@@ -56,6 +56,11 @@ class WelcomeController < ApplicationController
     @datasets = Dataset.release_scheduled
   end
 
+  def index2
+    @datasets = Dataset.release_scheduled
+    render layout: 'layouts/application-full'
+  end
+
   def wget_src
     render 'tools/wget/wget_src'
   end

@@ -1,3 +1,26 @@
+// Carousel Container Temporary
+.carousel-container{
+  margin: 0vw 8vw;
+}
+
+.carousel-container .showcase-footer {
+  margin-bottom: 0px;
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .carousel-container{
+    margin: 5vw 5vw 0vw 5vw;
+    padding: 20px;
+    background-color: #FFF;
+  }
+  .carousel-container #carousel-showcase {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+  }
+}
+// End Carousel Container Temporary Changes
+
+// Carousel CSS
 
 #carousel-showcase {
   clear: both;
@@ -15,7 +38,7 @@
     margin-right: 0px;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
-    background-color: transparent;
+    background-color: #FFF;
     border: 1px solid #ededed;
   }
 }

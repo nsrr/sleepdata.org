@@ -1,0 +1,83 @@
+.full-screen.tree-texture{ style: 'padding: 0vw;'}
+  .horizontal-fade
+    .vertical-fade{ style: 'padding: 0vw 5vw 0vw 5vw;' }
+      .jumbotron{ style: 'margin-bottom: 0px' }
+        %h1 National Sleep Research Resource
+        %p.lead
+          Explore a rich collection of sleep research data collected in children and adults across the U.S.
+
+-# The container should be removed when the new index2 is the default, and
+-# styling should be updated in showcase-carousel.scss
+.carousel-container
+  = render partial: 'showcase/carousel'
+
+.full-screen.math-texture
+
+  %h2.header-top
+    Explore datasets.
+
+  %p.screen-description-top
+    Learn more about the
+    = link_to 'individual datasets', datasets_path
+    by reading easily navigable online documentation.
+
+  .row{ style: "margin-top:40px" }
+    - @datasets.order( release_date: :desc ).limit(3).each do |dataset|
+      .col-xs-12.col-sm-6.col-md-4
+        .panel{ class: "panel-#{dataset.release_date && dataset.release_date <= Date.today ? 'primary' : 'default'}" }
+          .panel-heading
+            %h3.panel-title{ style: "white-space:nowrap;overflow:hidden" }= link_to dataset.name, dataset
+          .panel-body
+            %div{ style: "text-align:center;background-color:white;padding-bottom:5px;height:145px;line-height:145px" }
+              - if dataset.logo.size > 0
+                = link_to image_tag( logo_dataset_path(dataset), style: 'max-width:100%;max-height:140px' ), dataset
+              - else
+                = link_to image_tag( 'project-default-logo.png', style: 'max-width:100%;max-height:140px' ), dataset
+            %p{ style: "text-align:center;color:#333;" }
+              = dataset.description.truncate(170)
+            %p{ style: "text-align:center" }
+              = link_to dataset do
+                %span.glyphicon.glyphicon-book
+                Read more
+                = "(" + pluralize(dataset.pages('**').count, 'page') + ")"
+                &raquo;
+          .panel-footer{ style: "text-align:center;white-space:nowrap;overflow:hidden" }
+            - if dataset.release_date and dataset.release_date <= Date.today
+              = link_to 'Data Available Now!', dataset
+            - elsif dataset.release_date
+              = link_to "Coming #{dataset.release_date.strftime("%B %e, %Y")}", dataset
+
+.full-screen.black-texture
+
+  %h2.header-top
+    Download the data.
+
+  %p.screen-description-top
+    Explore over
+    = pluralize(number_with_delimiter(Variable.where(dataset_id: Dataset.current.where(public: true).pluck(:id)).count), 'covariate')
+    across
+    = link_to(pluralize(Dataset.current.where(public: true).count, 'public dataset'), datasets_path) + "."
+
+  .row{ style: "margin-top:40px" }
+    - @variables = Variable.where( dataset_id: Dataset.current.where( public: true ).pluck(:id), commonly_used: true ).order("RANDOM()").limit(6)
+    - @variables.each do |variable|
+      .col-xs-6.col-sm-4.col-md-2
+        = render partial: 'variables/panel', locals: { variable: variable }
+
+.full-screen.math-texture
+
+  %h2.header-top
+    Begin analysis.
+
+  %p.screen-description-top
+    Analyze and manipulate data using a variety of
+    = link_to('available tools', tools_path) + "."
+
+  .row{ style: "margin-top:40px" }
+    - tools = Tool.current.where(slug: ['physiomimi', 'edf-viewer', 'block-edf-loader']).order(:name)
+    - tools.each do |tool|
+      .col-xs-12.col-sm-6.col-md-4
+        = render partial: 'tools/panel', locals: { tool: tool }
+    - if tools.count < 3
+      .col-xs-12.col-sm-6.col-md-4{ style: "margin:80px 0px 20px" }
+        %p{ style: "text-align:center" }= link_to "More Tools &raquo;".html_safe, tools_path, class: 'btn btn-lg btn-primary'

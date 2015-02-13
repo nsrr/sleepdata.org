@@ -132,6 +132,7 @@ Rails.application.routes.draw do
   resources :users
 
   get 'welcome/index'
+  get '/index2' => 'welcome#index2'
   get '/about' => 'welcome#about', as: :about
   get '/about/aug' => 'welcome#aug', as: :aug
   get '/contact' => 'welcome#contact', as: :contact

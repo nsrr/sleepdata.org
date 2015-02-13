@@ -79,6 +79,11 @@ class WelcomeControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get index2" do
+    get :index
+    assert_response :success
+  end
+
   test "should get wget_src" do
     get :wget_src
     assert_template 'tools/wget/wget_src'
