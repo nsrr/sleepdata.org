@@ -21,7 +21,7 @@
   - Academic agreements no longer include Indemnification Clause (11 and 12), and have been renumbered
 - **Gem Changes**
   - Updated to pg 0.18.1
-  - Updated to contour 2.7.0
+  - Updated to contour 3.0.0.beta1
   - Updated to kaminari 0.16.2
   - Updated to jquery-rails 4.0.3
   - Use Haml for new views
