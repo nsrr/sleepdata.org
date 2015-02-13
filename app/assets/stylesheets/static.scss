@@ -23,7 +23,7 @@
 
 .white-texture {
   background-color: #FFF;
-  background-image: asset-url('static/witewall_3.png');
+  background-image: asset-url('static/shattered.png');
   color: #333;
 }
 
@@ -124,7 +124,8 @@
 
   }
   h2.header-top.faded-header {
-    color: #BBB;
+    // color: #BBB;
+    color: #777;
   }
   .header-middle-lead {
 
