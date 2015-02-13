@@ -33,4 +33,14 @@ class StaticControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get parallax" do
+    get :parallax
+    assert_response :success
+  end
+
+  test "should get parallax2" do
+    get :parallax2
+    assert_response :success
+  end
+
 end

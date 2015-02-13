@@ -12,6 +12,7 @@
   - Topic tags are now faded using grayscale instead of opacity to maintain contrast between text and tag color
   - Streamlined login system by removing alternate logins
   - Updated the design of the NSRR footer
+  - Started work on some parallax-enabled pages for future UI updates
 - **Challenges Added**
   - Started prototyping a flow limitation challenge
 - **Forum Changes**

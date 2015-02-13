@@ -1,0 +1,30 @@
+.parallax
+  #group1.parallax__group{ style: 'border:2px solid red' }
+    .parallax__layer.parallax__layer--base
+      %h1.is-parallax-title National Sleep Research Resource
+  #group2.parallax__group
+    .parallax__layer.parallax__layer--back
+
+    .parallax__layer.parallax__layer--base
+      .full-screen
+        %h2.header-top
+          Datasets
+        - @datasets = Dataset.current.where( public: true ).order(:release_date, :name).page(params[:page]).per( 18 )
+        = render partial: 'datasets/datasets'
+  #group3.parallax__group
+    .parallax__layer.parallax__layer--back
+    .parallax__layer.parallax__layer--base
+      .full-screen{ style: 'height:100vh' }
+        %h2.header-top
+          Tools
+        .row
+          - Tool.where( public: true ).each do |tool|
+            .col-xs-12.col-sm-6.col-md-4
+              = render partial: 'tools/panel', locals: { tool: tool }
+  #group4.parallax__group{ style: 'border:2px solid green' }
+    .parallax__layer.parallax__layer--back
+    .parallax__layer.parallax__layer--base
+
+  #group5.parallax__group
+    .parallax__layer.parallax__layer--base{ style: 'border:2px solid purple' }
+      .full-screen{ style: 'height: 100vh' }

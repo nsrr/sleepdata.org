@@ -8,6 +8,14 @@ class StaticController < ApplicationController
   def showcase
   end
 
+  def parallax
+    render layout: 'layouts/application-parallax'
+  end
+
+  def parallax2
+    render layout: 'layouts/application-parallax'
+  end
+
   def version
   end
 

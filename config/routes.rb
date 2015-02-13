@@ -90,6 +90,8 @@ Rails.application.routes.draw do
 
   scope module: 'static' do
     get :demo
+    get :parallax
+    get :parallax2
     # get :showcase
     get "showcase(/:slug)", action: 'showcase', as: :showcase
     get :version
