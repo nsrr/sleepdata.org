@@ -40,7 +40,8 @@
 <% @comments.each_with_index do |comment, index| %>
   <% current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1) %>
   <% current_index = ((current_page - 1) * Comment::COMMENTS_PER_PAGE) + index + 1 %>
-  <div class="row" id="c<%= current_index %>">
+  <a class="anchor-top" name="c<%= current_index %>"></a>
+  <div class="row">
     <% if comment.banned_or_deleted? %>
       <div class="col-xs-1">
       </div>
