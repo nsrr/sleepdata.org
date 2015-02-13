@@ -33,6 +33,19 @@
   color: #333;
 }
 
+.longwood-texture {
+  background-color: #FFF;
+  background-image: asset-url('bli_221.jpg');
+  color: #333;
+  min-height: 75px;
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .longwood-texture {
+    min-height: 150px;
+  }
+}
+
 .green-texture {
   background-color: #FFF;
   background-image: asset-url('static/green_dust_scratch.png');
@@ -78,6 +91,11 @@
   -ms-behavior: initial;
 }
 
+.transparent-texture {
+  background-color: transparent;
+  background-image: none;
+}
+
 .black-texture {
   background-image: asset-url('static/shattered-dark.png');
   background-size: 350px;
@@ -85,11 +103,15 @@
   color: white;
 
   a {
-    background-color: white;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 5px;
-    padding-left: 5px;
-    padding-right: 5px;
+    color: #4cae4c;
+  }
+  a:hover,
+  a:focus,
+  a:active,
+  a.active,
+  a.disabled,
+  a[disabled] {
+    color: rgb(255, 157, 107);
   }
 }
 
@@ -100,6 +122,9 @@
   }
   h2.header-top {
 
+  }
+  h2.header-top.faded-header {
+    color: #BBB;
   }
   .header-middle-lead {
 

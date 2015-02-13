@@ -1,0 +1,27 @@
+- @background_class = 'black-texture'
+.full-screen
+  %h2.header-top
+    Contact Us
+  %p.screen-description-top
+    National Sleep Research Resource
+
+.full-screen.longwood-texture
+
+.full-screen.transparent-texture
+  .row
+    .col-sm-6{ style: "margin-bottom:40px" }
+      %h2.header-top.faded-header
+        via email
+      %p.screen-description-top
+        = link_to "mailto:#{ENV['support_email']}" do
+          = ENV['support_email']
+
+    .col-sm-6
+      %h2.header-top.faded-header
+        our address
+      %p.screen-description-top
+        %strong Sleep and Circadian Disorders
+        %br
+        221 Longwood Avenue, BLI 225
+        %br
+        Boston, MA 02115

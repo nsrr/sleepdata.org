@@ -80,7 +80,12 @@ class WelcomeControllerTest < ActionController::TestCase
   end
 
   test "should get index2" do
-    get :index
+    get :index2
+    assert_response :success
+  end
+
+  test "should get contact" do
+    get :contact
     assert_response :success
   end
 

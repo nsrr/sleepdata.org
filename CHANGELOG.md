@@ -14,6 +14,7 @@
   - Updated the design of the NSRR footer
   - Started work on some parallax-enabled pages for future UI updates
   - Started work on a newer interface for the NSRR home page
+  - Added a new Contact Us page
 - **Challenges Added**
   - Started prototyping a flow limitation challenge
 - **Forum Changes**

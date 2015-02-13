@@ -18,7 +18,7 @@
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <%= javascript_tag "var root_url='#{request.script_name + '/'}';var auth_token='#{form_authenticity_token}';" %>
   </head>
-  <body class="has-sticky-footer math-texture">
+  <body class="has-sticky-footer <%= @background_class.present? ? @background_class : 'math-texture' %>">
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <%= render partial: 'layouts/menu' %>
     </nav>
