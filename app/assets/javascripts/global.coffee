@@ -22,7 +22,8 @@
   )
   setScrollShadow($('.file-list-container'))
   $("[rel=tooltip]").tooltip( trigger: 'hover' )
-  setFocusToField("#collection_form #s, #page_name, #search_form #s, #search, #collection_form #s, #s")
+  if $("#collection_form #s, #page_name, #search_form #s, #search, #collection_form #s, #s").val() != ''
+    setFocusToField("#collection_form #s, #page_name, #search_form #s, #search, #collection_form #s, #s")
   $("img.lazy").lazyload( effect : "fadeIn" )
   Turbolinks.allowLinkExtensions('md')
   Turbolinks.enableProgressBar()

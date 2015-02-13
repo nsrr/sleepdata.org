@@ -91,9 +91,13 @@
   -ms-behavior: initial;
 }
 
-.transparent-texture {
+.transparent-texture, .transparent-light-texture {
   background-color: transparent;
   background-image: none;
+}
+
+.transparent-light-texture {
+  color: #333;
 }
 
 .black-texture {

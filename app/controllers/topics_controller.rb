@@ -25,6 +25,7 @@ class TopicsController < ApplicationController
     user_ids = User.current.with_name(params[:a].to_s.split(','))
     topic_scope = topic_scope.where( user_id: user_ids ) unless params[:a].blank?
     @topics = topic_scope.order(stickied: :desc, last_comment_at: :desc).page(params[:page]).per( 50 )
+    render layout: 'layouts/application-full'
   end
 
   # GET /forum/1-my-first-topic
