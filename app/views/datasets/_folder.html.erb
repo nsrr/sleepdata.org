@@ -87,7 +87,14 @@
     <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
       <% agreements = (current_user ? @dataset.agreements.where( user_id: current_user.id ) : Agreement.none) %>
       <% if agreements.count == 0 %>
-        <p class="lead">In order for us to provide you direct downloads to files, you will need to <%= link_to 'Fill out a Data Access and Use Agreement', submissions_path, class: 'btn btn-lg btn-success' %>.</p>
+        <p class="lead">
+          In order for us to provide you direct downloads to files, you will need to
+          <% if current_user %>
+            <%= link_to 'Fill out a Data Access and Use Agreement', submissions_path, class: 'btn btn-lg btn-success' %>.
+          <% else %>
+            <%= link_to 'Register', new_user_registration_path, class: 'btn btn-lg btn-success' %> and then fill out a Data Access and Use Agreement.
+          <% end %>
+        </p>
       <% elsif agreement = agreements.where( status: 'submitted' ).first %>
         <p class="lead">We are currently reviewing your <%= status_helper(agreement) %> <%= link_to 'DAUA', submissions_path %>.</p>
         <p class="lead">Please contact us directly at <%= link_to 'support@sleepdata.org', 'mailto:support@sleepdata.org' %> with any questions.</p>
