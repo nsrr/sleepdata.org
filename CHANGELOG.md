@@ -15,7 +15,7 @@
   - Started work on some parallax-enabled pages for future UI updates
   - Redesigned the interface for the NSRR home page
   - Added a new Contact Us page
-  - Updated the user registration page
+  - Updated the user sign in and registration page
 - **Challenges Added**
   - Started prototyping a flow limitation challenge
 - **Forum Changes**

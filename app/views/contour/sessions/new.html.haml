@@ -1,0 +1,32 @@
+- @title = 'Sign in'
+/ .full-screen
+/   %h2.header-top
+/     = @title
+
+.full-screen.math-texture
+  .sign-up-form
+    .sign-up-form-title
+      Sign in
+
+    = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-vertical' }) do |f|
+      .form-group
+        = f.label :email, class: 'control-label'
+        = f.email_field :email, class: 'form-control'
+
+      .form-group
+        = f.label :password, class: 'control-label'
+        = link_to "(Forgot password?)", new_password_path(resource_name)
+        = f.password_field :password, class: 'form-control', autocomplete: 'off'
+        / .center{ style: "margin-bottom:20px" }
+
+
+
+      .form-group
+        = f.submit "Sign in", class: 'btn btn-success'
+
+
+- if devise_mapping.confirmable?
+  .center{ style: "margin-bottom:20px" }
+    = link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)
+
+.full-screen.math-texture.edf-separator
