@@ -18,10 +18,12 @@
   </div>
 <% end %>
 
+<% if false %>
 <% if devise_mapping.registerable? %>
   <div class="center" style="margin-bottom:20px">
     Don't have an account? <%= link_to "Sign up", new_registration_path(resource_name) %>
   </div>
+<% end %>
 <% end %>
 
 

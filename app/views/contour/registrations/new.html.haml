@@ -1,0 +1,51 @@
+- @title = 'Join the NSRR'
+.full-screen
+  %h2.header-top
+    = @title
+  %p.screen-description-top
+    Gain access to fully-curated sleep datasets.
+
+.full-screen.math-texture
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'form-horizontal', autocomplete: 'off' }) do |f|
+    - if resource.errors.any?
+      .row
+        .col-md-offset-2.col-md-10
+          #error_explanation.bs-callout.bs-callout-danger
+            %h4
+              = pluralize(resource.errors.count, "error")
+              prohibited this step from being saved
+
+            %ul
+              - resource.errors.full_messages.each do |msg|
+                %li= msg
+
+    - Contour.sign_up_fields.each do |field_hash|
+      .form-group
+        = f.label field_hash[:attribute], class: 'col-md-2 control-label'
+        .col-md-10
+          = f.send(field_hash[:type], field_hash[:attribute], class: 'form-control')
+
+    .form-group
+      = f.label :email, class: 'col-md-2 control-label'
+      .col-md-10
+        = f.email_field :email, class: 'form-control'
+
+    .form-group
+      = f.label :password, class: 'col-md-2 control-label'
+      .col-md-10
+        = f.password_field :password, class: 'form-control', autocomplete: 'off'
+
+    .form-group
+      = f.label :password_confirmation, class: 'col-md-2 control-label'
+      .col-md-10
+        = f.password_field :password_confirmation, class: 'form-control', autocomplete: 'off'
+
+    - Contour.spam_fields.each do |name|
+      .form-group.control-special
+        = label_tag "#{resource_name}[#{name}]", name, class: 'col-md-2 control-label'
+        .col-md-10
+          = text_field_tag "#{resource_name}[#{name}]", '', class: 'form-control'
+
+    .form-group
+      .col-md-offset-2.col-md-10
+        = f.submit "Create an Account", class: 'btn btn-success'

@@ -81,3 +81,22 @@
     - if tools.count < 3
       .col-xs-12.col-sm-6.col-md-4{ style: "margin:80px 0px 20px" }
         %p{ style: "text-align:center" }= link_to "More Tools &raquo;".html_safe, tools_path, class: 'btn btn-lg btn-primary'
+
+%a.anchor-top{ name: 'submit-responses' }
+.full-screen.call-to-action
+
+  %h2.header-top{ style: 'text-align: center' }
+    Start your research today!
+
+  - if current_user
+    %p.screen-description-top{ style: 'text-align: center' }
+      You will need a completed Data Access and Use Agreement to download data.
+
+    %div{ style: 'text-align:center;margin-top:20px;margin-bottom:20px' }
+      = link_to 'My DAUAs', submissions_path, class: 'btn btn-call-to-action btn-lg'
+  - else
+    %p.screen-description-top{ style: 'text-align: center' }
+      You will need an account and a completed Data Access and Use Agreement to download data.
+
+    %div{ style: 'text-align:center;margin-top:20px;margin-bottom:20px' }
+      = link_to 'Sign Up', new_user_registration_path, class: 'btn btn-call-to-action btn-lg'

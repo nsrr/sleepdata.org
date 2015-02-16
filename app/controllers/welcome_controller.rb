@@ -54,10 +54,6 @@ class WelcomeController < ApplicationController
 
   def index
     @datasets = Dataset.release_scheduled
-  end
-
-  def index2
-    @datasets = Dataset.release_scheduled
     render layout: 'layouts/application-full'
   end
 

@@ -127,12 +127,11 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users, controllers: { registrations: 'contour/registrations', sessions: 'contour/sessions', passwords: 'contour/passwords', confirmations: 'contour/confirmations', unlocks: 'contour/unlocks' }, path_names: { sign_up: 'register', sign_in: 'login' }
+  devise_for :users, controllers: { registrations: 'registrations', sessions: 'contour/sessions', passwords: 'contour/passwords', confirmations: 'contour/confirmations', unlocks: 'contour/unlocks' }, path_names: { sign_up: 'join', sign_in: 'login' }, path: ""
 
   resources :users
 
   get 'welcome/index'
-  get '/index2' => 'welcome#index2'
   get '/about' => 'welcome#about', as: :about
   get '/about/aug' => 'welcome#aug', as: :aug
   get '/contact' => 'welcome#contact', as: :contact
