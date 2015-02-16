@@ -1,6 +1,6 @@
 // Carousel Container Temporary
 .carousel-container{
-  margin: 0vw 8vw;
+  margin: 4vw 8vw 0vw 8vw;
 }
 
 .carousel-container .showcase-footer {
@@ -29,7 +29,8 @@
   margin-right: -15px;
   padding: 15px;
   border-bottom: 1px solid #ededed;
-  background-color: #F7FFEF;
+  // background-color: #F7FFEF;
+  background-color: #FFF;
 }
 
 @media screen and (min-width: $screen-sm-min) {
