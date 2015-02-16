@@ -12,11 +12,10 @@ class ApplicationController < ActionController::Base
         params[:action] != 'images' &&
         params[:action] != 'image' &&
         params[:action] != 'reset_index' &&
-        !request.fullpath.match("#{request.script_name}/users/login") &&
-        !request.fullpath.match("#{request.script_name}/users/register") &&
-        !request.fullpath.match("#{request.script_name}/users/password") &&
-        !request.fullpath.match("#{request.script_name}/users/sign_out") &&
-        !request.fullpath.match("#{request.script_name}/auth/") &&
+        !request.fullpath.match("#{request.script_name}/login") &&
+        !request.fullpath.match("#{request.script_name}/join") &&
+        !request.fullpath.match("#{request.script_name}/password") &&
+        !request.fullpath.match("#{request.script_name}/sign_out") &&
         !request.xhr?) # don't store ajax calls
       store_location_in_session
     end
