@@ -219,8 +219,6 @@
 %a.anchor-top{ name: 'extract-edf-signal' }
 .full-screen.math-texture
 
-  = image_tag 'pure-signal-t.png', style: 'position: absolute;left: 0px;top: 0px;right:0px;width:100%;', class: 'wow fadeIn'
-
   %h2.header-top
     Extract Signals from EDFs
     = link_to('<sup>[3]</sup>'.html_safe, "#3") + "."
@@ -319,3 +317,5 @@
       is a Ruby gem that provides access to signals and epochs in EDF polysomnographs. Edfize is used by
       = link_to 'Altamira Web EDF Viewer', ENV['altamira_url']
       to render EDFs in your web browser.
+
+  = image_tag 'pure-signal-t.png', style: 'position: absolute;left: 0px;bottom: 0px;right:0px;width:100%;', class: 'wow fadeIn'
