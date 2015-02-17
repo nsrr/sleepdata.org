@@ -229,6 +229,7 @@ class DatasetsController < ApplicationController
   # GET /datasets/1
   # GET /datasets/1.json
   def show
+    # render layout: 'layouts/application-full'
   end
 
   # GET /datasets/new

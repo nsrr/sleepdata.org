@@ -17,6 +17,7 @@
   - Added a new Contact Us page
   - Updated the user sign in and registration page
   - Removed wget documentation in favor of the NSRR Downloader Ruby Gem
+  - Added a map page to show NSRR membership
 - **Challenges Added**
   - Started prototyping a flow limitation challenge
 - **Forum Changes**

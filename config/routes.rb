@@ -92,6 +92,7 @@ Rails.application.routes.draw do
     get :demo
     get :parallax
     get :parallax2
+    get :map
     # get :showcase
     get "showcase(/:slug)", action: 'showcase', as: :showcase
     get :version
