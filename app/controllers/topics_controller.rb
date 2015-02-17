@@ -7,6 +7,8 @@ class TopicsController < ApplicationController
   before_action :set_editable_topic, only: [ :edit, :update ]
   before_action :redirect_without_topic, only: [ :show, :edit, :update, :destroy, :subscription ]
 
+  layout 'layouts/application-full'
+
   def subscription
     @topic.set_subscription!(params[:notify].to_s == '1', current_user)
     redirect_to @topic
@@ -25,14 +27,12 @@ class TopicsController < ApplicationController
     user_ids = User.current.with_name(params[:a].to_s.split(','))
     topic_scope = topic_scope.where( user_id: user_ids ) unless params[:a].blank?
     @topics = topic_scope.order(stickied: :desc, last_comment_at: :desc).page(params[:page]).per( 50 )
-    render layout: 'layouts/application-full'
   end
 
   # GET /forum/1-my-first-topic
   # GET /forum/1-my-first-topic.json
   def show
     @comments = @topic.comments.order(:id).page(params[:page]).per( Comment::COMMENTS_PER_PAGE )
-    render layout: 'layouts/application-full'
   end
 
   # GET /forum/new

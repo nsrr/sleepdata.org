@@ -18,7 +18,8 @@
   %div{ style: 'margin-bottom:20px;margin-top:-20px' }
     = render partial: 'variables/per_page', locals: { per_page: Comment::COMMENTS_PER_PAGE, object_count: @comments.total_count }
 
-.full-screen.math-texture
+- @background_class = 'white-texture'
+.full-screen.transparent-light-texture
   - @comments.each_with_index do |comment, index|
     - current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1)
     - current_index = ((current_page - 1) * Comment::COMMENTS_PER_PAGE) + index + 1

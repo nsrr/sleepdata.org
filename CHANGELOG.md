@@ -19,6 +19,7 @@
 - **Challenges Added**
   - Started prototyping a flow limitation challenge
 - **Forum Changes**
+  - The forum user interface has been updated
   - Forum post anchors now correctly offset based on the top navigation bar
   - Users can now post twice in a row on a forum topic
 - **Agreement Changes**
