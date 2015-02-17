@@ -28,7 +28,7 @@
     %code.wow.bounceInLeft
       gem install nsrr
 
-  .demo-code-output.wow.bounceInRight
+  .demo-code-output
     Fetching: nsrr-0.1.1.gem
     %br
     Successfully installed nsrr-0.1.1
@@ -39,7 +39,7 @@
     %code.wow.bounceInLeft
       nsrr download shhs/edfs
 
-  .demo-code-output.wow.bounceInRight
+  .demo-code-output
     Get Token:
     %span.code-link https://sleepdata.org/token
     %br
@@ -97,7 +97,7 @@
     %code.wow.bounceInLeft
       nsrr download shhs/datasets --shallow
 
-  .demo-code-output.wow.bounceInRight
+  .demo-code-output
     Get Token:
     %span.code-link https://sleepdata.org/token
     %br
@@ -144,7 +144,7 @@
     %code.wow.bounceInLeft
       open shhs/datasets/generate-statistics.rb
 
-  .demo-code-input.code-smaller.wow.bounceInLeft
+  .demo-code-input.code-smaller
     %span.code-comment
       \# generate-statistics.rb
     %br
@@ -206,7 +206,7 @@
     %code.wow.bounceInLeft
       ruby shhs/datasets/generate-statistics.rb
 
-  .demo-code-output.wow.bounceInRight
+  .demo-code-output
     There are 2765 male participants in SHHS 1.
     %br
     There are 3039 female participants in SHHS 1.
@@ -217,11 +217,11 @@
 
 
 %a.anchor-top{ name: 'extract-edf-signal' }
-.full-screen.math-texture.edf-separator
+.full-screen.math-texture
 
-  =# image_tag 'settings-footer.jpg', style: 'position: absolute;left: 0px;top: 0px;right:0px;width:100%;height:50vh'
+  = image_tag 'pure-signal-t.png', style: 'position: absolute;left: 0px;top: 0px;right:0px;width:100%;', class: 'wow fadeIn'
 
-  %h2.header-top{ style: 'margin-top: 15vh'}
+  %h2.header-top
     Extract Signals from EDFs
     = link_to('<sup>[3]</sup>'.html_safe, "#3") + "."
 
@@ -229,7 +229,7 @@
     %code.wow.bounceInLeft
       gem install edfize --pre
 
-  .demo-code-input.code-smaller.wow.bounceInLeft
+  .demo-code-input.code-smaller
     %span.code-function
       require
     %span.code-string
@@ -283,7 +283,7 @@
     %br
     end
 
-  .demo-code-output.wow.bounceInRight
+  .demo-code-output
     EDF shhs1-200001.edf contains 14 signals:
     %br
     Signal Label             : SaO2

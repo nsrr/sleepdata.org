@@ -153,18 +153,6 @@
   }
 }
 
-.edf-separator:before {
-  content: ' ';
-  display:block;
-  position:absolute;
-  left:0;
-  top:5vh;
-  width:100%; height: 100%;
-  opacity:1;
-  background-image: asset-url('pure-signal-t.png');
-  background-repeat: repeat-x;
-}
-
 @media screen and (min-width: 768px) {
   .full-screen {
     h2 {
