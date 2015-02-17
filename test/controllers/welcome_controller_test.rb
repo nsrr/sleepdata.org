@@ -84,16 +84,4 @@ class WelcomeControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get wget_src" do
-    get :wget_src
-    assert_template 'tools/wget/wget_src'
-    assert_response :success
-  end
-
-  test "should get wget_windows" do
-    get :wget_windows
-    assert_template 'tools/wget/wget_windows'
-    assert_response :success
-  end
-
 end

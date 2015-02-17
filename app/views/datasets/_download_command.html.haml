@@ -1,0 +1,12 @@
+- @current_folder = @dataset.find_file_folder(params[:path])
+- @local_folder = [@dataset.slug, @current_folder].compact.join('/')
+
+.code-container
+  %span.code-command
+    nsrr download
+    = @local_folder
+
+.alert.alert-info
+  %strong Don't have the NSRR gem?
+  Install using our
+  = link_to('NSRR Gem installation instructions', 'https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites', target: '_blank', class: 'alert-link') + "."

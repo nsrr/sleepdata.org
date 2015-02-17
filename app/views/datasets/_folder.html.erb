@@ -31,12 +31,11 @@
 <%= render partial: 'datasets/reset_folder_index', locals: { path: path } %>
 
 <ol class="breadcrumb">
-  <li><%= link_to @dataset.slug, files_dataset_path(@dataset, wget: (params[:wget].to_s == '1' ? '1' : nil)) %></li>
-  <li><%= link_to_if !path.blank?, 'files', files_dataset_path(@dataset, wget: (params[:wget].to_s == '1' ? '1' : nil)) %></li>
+  <li><%= link_to @dataset.slug, files_dataset_path(@dataset) %></li>
+  <li><%= link_to_if !path.blank?, 'files', files_dataset_path(@dataset) %></li>
   <% unless path.blank? %>
     <% path.to_s.split('/')[0..-2].each_with_index do |folder, index| %>
       <% url = files_dataset_path( @dataset ) + '/' + path.to_s.split('/')[0..index].join('/') %>
-      <% url += "?wget=1" if params[:wget].to_s == '1' %>
       <li><%= link_to folder, url %></li>
     <% end %>
     <li><%= path.to_s.split('/').last %></li>
@@ -51,7 +50,6 @@
       <% indexed_files.each do |folder, file_name, is_file, file_size, file_time| %>
         <% is_public = @dataset.public_file?(folder) %>
         <% url = files_dataset_path( @dataset ) + "#{'/m/browser' if is_file}" + '/' + folder %>
-        <% url += "?wget=1" if not is_file and params[:wget].to_s == '1' %>
         <tr class="<%= 'warning' if file_name == params[:f] %>">
           <td><span class="glyphicon glyphicon-<%= is_file ? 'file' : 'folder-close' %>"></span></td>
           <td>

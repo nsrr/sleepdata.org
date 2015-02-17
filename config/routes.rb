@@ -144,9 +144,6 @@ Rails.application.routes.draw do
   get '/collection_modal' => 'welcome#collection_modal', as: :collection_modal
   get '/token' => 'welcome#token', as: :token
 
-  get '/tools/wget/windows' => 'welcome#wget_windows', as: :wget_windows
-  get '/tools/wget/src' => 'welcome#wget_src', as: :wget_src
-
   get '/dua' => 'agreements#submissions'
   get '/daua' => 'agreements#submissions'
 

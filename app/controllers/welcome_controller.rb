@@ -61,12 +61,4 @@ class WelcomeController < ApplicationController
     render layout: 'layouts/application-full'
   end
 
-  def wget_src
-    render 'tools/wget/wget_src'
-  end
-
-  def wget_windows
-    render 'tools/wget/wget_windows'
-  end
-
 end
