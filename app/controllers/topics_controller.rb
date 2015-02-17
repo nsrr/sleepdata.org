@@ -32,6 +32,7 @@ class TopicsController < ApplicationController
   # GET /forum/1-my-first-topic.json
   def show
     @comments = @topic.comments.order(:id).page(params[:page]).per( Comment::COMMENTS_PER_PAGE )
+    render layout: 'layouts/application-full'
   end
 
   # GET /forum/new

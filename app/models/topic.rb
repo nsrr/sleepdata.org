@@ -34,10 +34,6 @@ class Topic < ActiveRecord::Base
     not self.locked? and not self.user.banned? and (self.user == current_user or current_user.system_admin?)
   end
 
-  def user_commented_recently?(current_user)
-    self.comments.last and self.comments.last.user == current_user
-  end
-
   # Placeholder
 
   def get_or_create_subscription(current_user)

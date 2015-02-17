@@ -5,7 +5,6 @@ class CommentsController < ApplicationController
   before_action :redirect_without_topic, only: [ :show, :create, :edit, :update, :preview, :destroy ]
 
   before_action :check_banned, only: [ :create, :edit, :update ]
-  before_action :check_last_comment_by, only: [ :create ]
   before_action :set_comment, only: [ :show ]
   before_action :set_editable_comment, only: [ :edit, :update ]
   before_action :set_deletable_comment, only: [ :destroy ]
@@ -36,7 +35,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save
         @topic.get_or_create_subscription(current_user)
-        format.html { redirect_to topic_path(@topic) + "#c#{@comment.number}", notice: 'Comment was successfully created.' }
+        format.html { redirect_to topic_comment_path(@topic, @comment), notice: 'Comment was successfully created.' }
         format.json { render action: 'show', status: :created, location: @comment }
       else
         format.html { redirect_to topic_path(@topic, error: @errors) }
@@ -50,17 +49,24 @@ class CommentsController < ApplicationController
   end
 
   def show
+    respond_to do |format|
+      format.html { redirect_to topic_path(@topic) + "?page=#{((@comment.number - 1) / Comment::COMMENTS_PER_PAGE)+1}#c#{@comment.number}" }
+      format.js
+    end
   end
+
+  # def show
+  # end
 
   # PUT /comments/1
   # PUT /comments/1.json
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        format.html { redirect_to topic_path(@topic) + "#c#{@comment.number}", notice: 'Comment was successfully updated.' }
+        format.html { redirect_to topic_comment_path(@topic, @comment), notice: 'Comment was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { redirect_to topic_path(@topic) + "#c#{@comment.number}", warning: 'Comment can\'t be blank.' }
+        format.html { redirect_to topic_comment_path(@topic, @comment), warning: 'Comment can\'t be blank.' }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
@@ -72,7 +78,7 @@ class CommentsController < ApplicationController
     @comment.destroy
 
     respond_to do |format|
-      format.html { redirect_to topic_path(@topic) + "#c#{@comment.number}" }
+      format.html { redirect_to topic_comment_path(@topic, @comment) }
       format.json { head :no_content }
     end
   end
@@ -104,10 +110,6 @@ class CommentsController < ApplicationController
 
     def redirect_without_comment
       empty_response_or_root_path( topics_path ) unless @comment
-    end
-
-    def check_last_comment_by
-      empty_response_or_root_path( @topic ) if @topic.user_commented_recently?(current_user)
     end
 
     def comment_params

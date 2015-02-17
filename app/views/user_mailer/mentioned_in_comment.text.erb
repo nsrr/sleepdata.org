@@ -9,7 +9,7 @@ Dear <%= @user.first_name %>,
 
 Click the following link to view the comment:
 
-<%= "#{ENV['website_url']}/forum/#{@comment.topic.to_param}?page=#{((@comment.number - 1) / Comment::COMMENTS_PER_PAGE)+1}#c#{@comment.number}" %>
+<%= "#{ENV['website_url']}/forum/#{@comment.topic.to_param}/comments/#{@comment.id}" %>
 
 
 You may turn off these email notifications in your settings: <%= "#{ENV['website_url']}/settings" %>

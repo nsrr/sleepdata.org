@@ -16,11 +16,11 @@
   <% end %>
 
   <div class="form-group">
-    <%= f.label :name, nil, class: 'col-md-2 control-label' %>
+    <%= f.label :name, 'Topic Title', class: 'col-md-2 control-label' %>
     <div class="col-md-10">
       <%= f.text_field :name, class: 'form-control', maxlength: 40, autocomplete: 'off' %>
       <div class="bs-callout bs-callout-info">
-        The maximum length for topic names is <strong>40 characters</strong>. Fill in additional details in the description.
+        The maximum length for the title is <strong>40 characters</strong>.<% if @topic.new_record? %> Fill in additional details in the description.<% end %>
       </div>
     </div>
   </div>

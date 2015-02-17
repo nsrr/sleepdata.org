@@ -27,7 +27,7 @@ class CommentsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:topic).last_comment_at
     assert_equal false, assigns(:topic).subscribed?(users(:two))
 
-    assert_redirected_to topic_path(assigns(:topic)) + "#c4"
+    assert_redirected_to topic_comment_path(assigns(:topic), assigns(:comment))
   end
 
   test "should create comment and add subscription" do
@@ -40,19 +40,7 @@ class CommentsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:topic).last_comment_at
     assert_equal true, assigns(:topic).subscribed?(users(:admin))
 
-    assert_redirected_to topic_path(assigns(:topic)) + "#c4"
-  end
-
-  test "should not create comment if the last comment in the topic is by the same user" do
-    login(users(:valid))
-    assert_difference('Comment.count', 0) do
-      post :create, topic_id: @topic, comment: { description: "This is my second comment on my own topic." }
-    end
-
-    assert_not_nil assigns(:topic)
-    assert_nil assigns(:comment)
-
-    assert_redirected_to topic_path(assigns(:topic))
+    assert_redirected_to topic_comment_path(assigns(:topic), assigns(:comment))
   end
 
   test "should not create comment as anonymous user" do
@@ -84,10 +72,15 @@ class CommentsControllerTest < ActionController::TestCase
     assert_redirected_to topics_path
   end
 
-  # test "should show comment" do
-  #   get :show, id: @comment
-  #   assert_response :success
-  # end
+  test "should get show and redirect to specific page and location on topic" do
+    login(users(:valid))
+    get :show, topic_id: @comment.topic, id: @comment
+
+    assert_not_nil assigns(:topic)
+    assert_not_nil assigns(:comment)
+
+    assert_redirected_to topic_path(assigns(:topic)) + "?page=1#c1"
+  end
 
   test "should get edit" do
     login(users(:valid))
@@ -140,7 +133,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_equal true, assigns(:topic).subscribed?(users(:valid))
 
-    assert_redirected_to topic_path(assigns(:topic)) + "#c1"
+    assert_redirected_to topic_comment_path(assigns(:topic), assigns(:comment))
   end
 
   test "should update comment but not reset subscription" do
@@ -153,7 +146,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_equal false, assigns(:topic).subscribed?(users(:two))
 
-    assert_redirected_to topic_path(assigns(:topic)) + "#c1"
+    assert_redirected_to topic_comment_path(assigns(:topic), assigns(:comment))
   end
 
   test "should not update comment on locked topic" do
@@ -194,7 +187,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_not_nil assigns(:topic)
 
-    assert_redirected_to topic_path(assigns(:topic)) + "#c1"
+    assert_redirected_to topic_comment_path(assigns(:topic), assigns(:comment))
   end
 
   test "should destroy comment as comment author" do
@@ -205,7 +198,7 @@ class CommentsControllerTest < ActionController::TestCase
 
     assert_not_nil assigns(:topic)
 
-    assert_redirected_to topic_path(assigns(:topic)) + "#c1"
+    assert_redirected_to topic_comment_path(assigns(:topic), assigns(:comment))
   end
 
   test "should not destroy comment as another user" do

@@ -1,0 +1,23 @@
+.well{ style: "text-align:center;margin-top:20px" }
+  - case topic.subscription_type(current_user) when 'subscribed'
+    You are subscribed to this topic. You may
+    = link_to subscription_topic_path(topic, notify: '0'), method: :post, class: 'btn btn-xs btn-danger-inverse' do
+      %span.glyphicon.glyphicon-volume-off
+      unsubscribe
+    to stop receiving updates for this topic.
+  - when 'muted', 'auto-muted'
+    You may
+    = link_to subscription_topic_path(topic, notify: '1'), method: :post, class: 'btn btn-xs btn-primary' do
+      %span.glyphicon.glyphicon-envelope
+      subscribe
+    to receive updates for this topic.
+  - else # 'auto-subscribed'
+    You are auto-subscribed to this topic. You may
+    = link_to subscription_topic_path(topic, notify: '0'), method: :post, class: 'btn btn-xs btn-danger-inverse' do
+      %span.glyphicon.glyphicon-volume-off
+      unsubscribe
+    to stop receiving updates for this topic or change your
+    = link_to settings_path, class: 'btn btn-xs btn-default' do
+      %span.glyphicon.glyphicon-volume-cog
+      settings
+    to disable auto-subscribing for all forum topics.
