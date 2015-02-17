@@ -1,0 +1,11 @@
+- @title = "Edit Topic: #{@topic.name}"
+
+.full-screen
+  %h2.header-top
+    Edit Topic
+
+  %p.screen-description-top
+    = link_to @topic.name, @topic
+
+= render 'form'
+
