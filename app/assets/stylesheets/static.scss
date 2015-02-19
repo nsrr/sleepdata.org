@@ -21,6 +21,12 @@
   min-height:90vh;
 }
 
+.pure-white-texture {
+  background-color: #FFF;
+  color: #333;
+  background-image: none;
+}
+
 .white-texture {
   background-color: #FFF;
   background-image: asset-url('static/shattered.png');
@@ -133,7 +139,7 @@
 
 .full-screen {
   padding: 5vw;
-  h2 {
+  h2.header-top, h2.header-middle, h2.header-bottom {
     margin-top: 0px;
   }
   h2.header-top {
@@ -167,7 +173,7 @@
 
 @media screen and (min-width: 768px) {
   .full-screen {
-    h2 {
+    h2.header-top, h2.header-middle, h2.header-bottom {
       font-size: 48px;
     }
     .header-middle-lead {
@@ -326,4 +332,16 @@ a.anchor-link::before {
   border-color: #FFF;
   border: 5px solid rgba(255, 255, 255, 0.4);
   padding: 40px;
+}
+
+@media screen and (min-width: $screen-md-min) {
+  .md-fixed-height {
+    height: 800px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .md-fixed-height {
+    height: 890px;
+  }
 }

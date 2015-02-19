@@ -170,7 +170,6 @@ class Dataset < ActiveRecord::Base
   end
 
   def total_file_count(location = nil)
-    # Dir.glob(File.join(files_folder, '**', '*')).select { |file| File.file?(file) }.count
     file_count = 0
 
     index_files = Dir.glob(File.join(files_folder, location.to_s, '**', '.sleepdata.index'))
@@ -186,6 +185,27 @@ class Dataset < ActiveRecord::Base
 
     file_count - (index_files.count - 1)
   end
+
+  def count_total_file_size
+    files = []
+
+    index_files = Dir.glob(File.join(files_folder, '**', '.sleepdata.index'))
+
+    return 0 if index_files.count == 0
+
+    index_files.each do |index_file|
+      index = 0
+      IO.foreach( index_file ) do |line|
+        if index != 0
+          files += JSON.parse(line.strip).select{|f| f[2]}.collect{|f| f[3]}
+        end
+        index += 1
+      end
+    end
+
+    files.sum
+  end
+
 
   def folder_has_files?(location)
     self.indexed_files(location, -1).select{|folder, file_name, is_file, file_size, file_time| is_file}.count > 0
