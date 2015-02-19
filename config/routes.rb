@@ -7,6 +7,9 @@ Rails.application.routes.draw do
       post :admin
       post :subscription
     end
+    collection do
+      get :markup
+    end
     resources :comments do
       collection do
         post :preview

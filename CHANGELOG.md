@@ -24,7 +24,7 @@
   - The forum user interface has been updated
   - Forum post anchors now correctly offset based on the top navigation bar
   - Users can now post twice in a row on a forum topic
-  - Forum markdown has been improved
+  - Forum markdown has been improved and examples are provided under the Markup tab
     - Blockquotes: `> This is quote`
     - Highlight: `==This is highlighted==`
     - Underline: `_This is underlined_`

@@ -1,0 +1,22 @@
+= form_for [@topic, @comment], html: { class: 'form-horizontal', style: 'margin-top:-31px;margin-left:-1px' } do |f|
+  .form-group
+    %ul.nav.nav-tabs
+      %li.active
+        = link_to 'Edit', "#edit-#{@comment.id}", data: { toggle: 'tab' }
+      %li
+        = link_to 'Preview', "#preview-#{@comment.id}", data: { toggle: 'tab', topic_id: @topic.to_param, object: "preview-comment", comment_id: @comment.id }
+      %li
+        = link_to 'Markup', "#markup-#{@comment.id}", data: { toggle: 'tab' }
+
+    .tab-content
+      .tab-pane.active{ id: "edit-#{@comment.id}", style: "padding-top:23px;padding-left:15px;padding-right:15px" }
+        = f.text_area :description, rows: 7, class: 'form-control', id: "comment_description_#{@comment.id}", data: { object: 'text-area-autocomplete', mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort }
+      .tab-pane{ id: "preview-#{@comment.id}", style: "min-height:177px;padding: 30px 15px 15px 15px;" }
+      .tab-pane{ id: "markup-#{@comment.id}", style: "min-height:177px;padding: 30px 15px 15px 15px;" }
+        = render partial: 'topics/markup'
+
+  .form-group
+    .col-xs-12
+      - button_text = @comment.new_record? ? 'Comment' : 'Update'
+      = f.submit button_text, class: 'btn btn-primary'
+      = link_to 'Cancel', topic_comment_path(@topic, @comment), remote: true, method: :get, class: 'btn btn-default' unless @comment.new_record?

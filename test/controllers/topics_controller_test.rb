@@ -5,6 +5,11 @@ class TopicsControllerTest < ActionController::TestCase
     @topic = topics(:one)
   end
 
+  test "should get markup" do
+    get :markup
+    assert_response :success
+  end
+
   test "should subscribe to notifications" do
     login(users(:valid))
     get :subscription, id: @topic, notify: '1'

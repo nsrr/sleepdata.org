@@ -81,11 +81,14 @@
               = link_to 'Write', '#write-new', data: { toggle: 'tab' }
             %li
               = link_to 'Preview', '#preview-new', data: { toggle: 'tab', topic_id: @topic.to_param, object: 'preview-comment', comment_id: 'new' }
+            %li
+              = link_to 'Markup', '#markup-new', data: { toggle: 'tab' }
           .tab-content
             #write-new.tab-pane.active{ style: "padding-top:23px" }
               = f.text_area :description, rows: 7, class: 'form-control', id: 'comment_description_new', data: { object: 'text-area-autocomplete', mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort }
             #preview-new.tab-pane{ style: "min-height:177px;padding: 30px 15px 15px 15px;background-color:#FFF" }
-
+            #markup-new.tab-pane{ style: "min-height:177px;padding: 30px 15px 15px 15px;background-color:#FFF" }
+              = render partial: 'topics/markup'
       .form-group
         .col-xs-1
         .col-md-11.col-xs-10.col-xs-offset-1.col-md-offset-0

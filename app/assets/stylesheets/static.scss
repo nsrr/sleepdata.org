@@ -293,6 +293,18 @@
   width:0;
 }
 
+a.anchor-link::before {
+  font-family: 'Glyphicons Halflings';
+  content: "\e144"; // glyphicon-link
+  font-size: 12px;
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  a.anchor-link::before {
+    font-size: 24px;
+  }
+}
+
 .img-faded-border {
   -webkit-border-radius: 15px;
      -moz-border-radius: 15px;
