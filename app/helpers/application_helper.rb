@@ -26,7 +26,7 @@ module ApplicationHelper
 
   def simple_markdown(text, target_blank = true, table_class = '', allow_links = true)
     result = ''
-    markdown = Redcarpet::Markdown.new( Redcarpet::Render::HTML, no_intra_emphasis: true, fenced_code_blocks: true, autolink: true, strikethrough: true, superscript: true, tables: true )
+    markdown = Redcarpet::Markdown.new( Redcarpet::Render::HTML, no_intra_emphasis: true, fenced_code_blocks: true, autolink: true, strikethrough: true, superscript: true, tables: true, lax_spacing: true, space_after_headers: true, underline: true, highlight: true, footnotes: true )
     result = markdown.render(text.to_s)
     result = add_table_class(result, table_class) unless table_class.blank?
     result = expand_relative_paths(result)

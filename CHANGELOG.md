@@ -24,6 +24,12 @@
   - The forum user interface has been updated
   - Forum post anchors now correctly offset based on the top navigation bar
   - Users can now post twice in a row on a forum topic
+  - Forum markdown has been improved
+    - Blockquotes: `> This is quote`
+    - Highlight: `==This is highlighted==`
+    - Underline: `_This is underlined_`
+    - Superscript: `This is the 2^(nd) time`
+    - Strikethrough: `This is ~~removed~~`
 - **Agreement Changes**
   - Step 2 now has additional instructions to clarify the importance of describing the "Specific Purpose", and selecting an appropriate number of datasets
   - The signature step now allows users to opt out of signing the agreement if they have institutional requirements forbidding signing of agreements
