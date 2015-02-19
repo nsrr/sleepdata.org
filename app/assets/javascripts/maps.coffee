@@ -72,7 +72,7 @@
         hover:
           color: '#BADA55'
       dataLabels:
-        enabled: true
+        enabled: false # true
         format: '{point.name}'
       tooltip:
         headerFormat: ''
