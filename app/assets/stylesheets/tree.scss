@@ -17,7 +17,21 @@
 @import 'topics';
 @import 'forms';
 
+// -----------
+
+// Everthing below this is new, everything above needs to be removed, cleaned,
+// refactored, or deprecated.
+
+// Element font size across xs, sm, md, lg screens.
 @import 'sizes';
-@import 'headers';
+
+// General container classes setting margin and padding across xs, sm, md, lg
+// screens.
+@import 'containers';
+
+// Background textures, background colors, font colors, and link colors
+// that can be applied to containers.
 @import 'textures';
+
+// Special Container class for Dataset and Tool Documentation pages
 @import 'documentation';

@@ -1,5 +1,5 @@
 .beta-container
-  .main-header.dark-texture
+  .main-container.dark-texture
     %h1.center
       = @dataset.name
     - if @dataset.logo.size > 0
@@ -11,9 +11,9 @@
     .container-fluid
       .row
         .col-md-6{ style: 'padding: 0px;' }
-          .slim-header.neutral-texture.md-fixed-height
+          .slim-container.neutral-texture.md-fixed-height
             %h2
-              = # .main-header instead of header-top
+              = # .main-container instead of header-top
               Downloads
             %p
               Explore
@@ -46,7 +46,7 @@
               = link_to 'covariate datasets', files_dataset_path(@dataset, path: 'datasets')
               if you do not intend on analyzing these large binary files.
         .col-md-6{ style: 'padding: 0px;' }
-          .slim-header.grid-texture.md-fixed-height
+          .slim-container.grid-texture.md-fixed-height
             %h2
               Variables
             - @variables = @dataset.variables.where( commonly_used: true ).order("RANDOM()").limit(6)
@@ -66,7 +66,7 @@
               %p
                 We're currently working on getting the dataset variables uploaded to the NSRR.
 
-  .slim-header.dark-texture
+  .slim-container.dark-texture
     %h2
       Documentation
     %p
