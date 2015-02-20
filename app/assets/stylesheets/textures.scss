@@ -61,3 +61,18 @@
   @include cover-texture;
   background-image: asset-url('datasets-header.jpg');
 }
+
+
+.longwood-texture {
+  @include cover-texture;
+  background-attachment: scroll;
+  background-image: asset-url('bli_221.jpg');
+  // color: #333;
+  min-height: 75px;
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .longwood-texture {
+    min-height: 150px;
+  }
+}

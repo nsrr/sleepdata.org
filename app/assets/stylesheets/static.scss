@@ -45,19 +45,6 @@
   color: #333;
 }
 
-.longwood-texture {
-  background-color: #FFF;
-  background-image: asset-url('bli_221.jpg');
-  color: #333;
-  min-height: 75px;
-}
-
-@media screen and (min-width: $screen-sm-min) {
-  .longwood-texture {
-    min-height: 150px;
-  }
-}
-
 .green-texture {
   background-color: #FFF;
   background-image: asset-url('static/green_dust_scratch.png');
