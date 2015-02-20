@@ -70,9 +70,11 @@ $(document)
   )
   .on('click', '[data-object~="hide-target"]', () ->
     $($(this).data('target')).hide()
+    false
   )
   .on('click', '[data-object~="show-target"]', () ->
     $($(this).data('target')).show()
+    false
   )
   .on('click', '[data-object~="disable-target"]', () ->
     $($(this).data('input-target')).prop('disabled', true);

@@ -45,3 +45,4 @@
 //= require external/colorpicker
 
 //= require external/wow
+//= require cookies

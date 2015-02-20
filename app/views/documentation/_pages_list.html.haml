@@ -1,0 +1,28 @@
+.page-list-container
+  = link_to 'Hide Bookmarks', '#', data: { object: 'set-cookie hide-target', cookie_key: 'hide_page_list', cookie_value: '1', target: '.page-list-container' }
+  %table.table.table-striped.table-hover{ style: "table-layout:fixed;margin-bottom:0px" }
+    %col{ width: "30px" }
+    - page = [params[:page].to_i, 0].max
+    %tr{ class: "#{"warning" if @path == params[:path]} " }
+      - if @path.blank?
+        %td{ style: 'border-top: 0px solid #FFF;' }
+        %td{ style: 'border-top: 0px solid #FFF;' }
+          = @object.slug
+      - else
+        %td{ style: 'border-top: 0px solid #FFF;' }
+          %span.glyphicon.glyphicon-level-up
+        %td{ style: 'border-top: 0px solid #FFF;' }
+          - @path.to_s.split('/')[-1..-1].each_with_index do |folder, index|
+            - url = pages_path + '/' + @path.to_s.split('/')[0..-2].join('/')
+            = link_to folder, url
+
+
+    - @object.pages(@path)[0..(page*100+100 - 1)].each do |page_name, page|
+      - is_file = File.file?(page)
+      - folder = @object.page_path(page)
+      - url = pages_path + '/' + folder
+      %tr{ class: "#{"warning" if folder == params[:path]} " }
+        %td
+          %span.glyphicon{ class: "glyphicon-#{is_file ? 'file' : 'folder-close'}" }
+        %td
+          = link_to page_name, url
