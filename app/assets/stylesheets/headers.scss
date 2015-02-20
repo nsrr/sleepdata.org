@@ -1,0 +1,63 @@
+// This file contains styling for different size header blocks
+
+@mixin remove-element-margins {
+  h1, h2, h3, h4, h5, h6, p, code, pre {
+    margin-top: 0px;
+    margin-bottom: 10px;
+  }
+  margin-bottom: -10px;
+
+  @media screen and (min-width: $screen-sm-min) {
+    h1, h2, h3, h4, h5, h6, p, code, pre {
+      margin-top: 0px;
+      margin-bottom: 20px;
+    }
+    margin-bottom: -20px;
+  }
+}
+
+.main-header {
+  @include remove-element-margins;
+  padding: 40px;
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .main-header {
+    padding: 50px;
+  }
+}
+
+@media screen and (min-width: $screen-md-min) {
+  .main-header {
+    padding: 60px;
+  }
+}
+
+@media screen and (min-width: $screen-lg-min) {
+  .main-header {
+    padding: 80px;
+  }
+}
+
+.slim-header {
+  @include remove-element-margins;
+  padding: 20px 40px;
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .slim-header {
+    padding: 25px 50px;
+  }
+}
+
+@media screen and (min-width: $screen-md-min) {
+  .slim-header {
+    padding: 30px 60px;
+  }
+}
+
+@media screen and (min-width: $screen-lg-min) {
+  .slim-header {
+    padding: 40px 80px;
+  }
+}

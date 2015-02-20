@@ -1,84 +1,85 @@
-.full-screen
-  - if false
-    = image_tag logo_dataset_path(@dataset), class: 'img-white-background' if @dataset.logo.size > 0
-    %h1
-      =# .main-header Should be main heading (h1) which scales
-      = @dataset.name
-  - else
-    %h2.header-middle
-      = @dataset.name
-    - if @dataset.logo.size > 0
-      .logo-middle
-        = image_tag logo_dataset_path(@dataset), class: 'img-white-background'
-
-- file_count = @dataset.indexed_files(nil, 0)
-- if file_count > 0 and @dataset.variables.count > 0
-  .container-fluid
-    .row
-      .col-md-6{ style: 'padding: 0px;' }
-        .full-screen.black-texture.md-fixed-height
-          %h2.header-top
-            = # .main-header instead of header-top
-            Downloads
-          %p.screen-description-top
-            Explore
-            = link_to 'available files', files_dataset_path(@dataset)
-            or download files using
-            = link_to('the NSRR gem', 'https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites') + "."
-          .code-container
-            %span.code-command{ style: 'background-color:#FFF' }
-              nsrr download
-              = @dataset.slug
-
-          - if @dataset.slug.in?(['shhs','chat'])
-            %p.screen-description-top
-              The total download size of
-              = @dataset.name
-              is
-              - case @dataset.slug when 'shhs'
-                %strong= number_to_human_size(376016176874) + '.'
-              - when 'chat'
-                %strong= number_to_human_size(528942742609) + '.'
-              - when 'heartbeat'
-                %strong= number_to_human_size(59578384904) + '.'
-              - when 'cfs'
-                %strong= number_to_human_size(160703589200) + '.'
-              - when 'sof'
-                %strong= number_to_human_size(57914196698) + '.'
-          %hr
-          %p.screen-description-top
-            Alternatively, you can start with the
-            = link_to 'covariate datasets', files_dataset_path(@dataset, path: 'datasets')
-            if you do not intend on analyzing these large binary files.
-      .col-md-6{ style: 'padding: 0px;' }
-        .full-screen.math-texture.md-fixed-height
-          %h2.header-top
-            = # .main-header instead of header-top
-            Variables
-          - @variables = @dataset.variables.where( commonly_used: true ).order("RANDOM()").limit(6)
-          - if @variables.count > 0
-            %p.screen-description-top
-              We've carefully selected some commonly used covariates to get you started!
-
-            .row{ style: "margin-top:40px" }
-              - @variables.each_with_index do |variable, index|
-                / .col-xs-6.col-sm-4.col-md-2
-                .col-xs-6.col-sm-4{ class: "#{'hidden-xs' if index > 3}" }
-                  = render partial: 'variables/panel', locals: { variable: variable }
-            %p.screen-description-top
-              You may browse
-              = link_to('all variables here', dataset_variables_path(@dataset)) + '.'
-          - else
-            %p.screen-description-top
-              We're currently working on getting the dataset variables uploaded to the NSRR.
-
+.beta-container
   .full-screen
-    %h2.header-top
-      = # .main-header instead of header-top
-      Documentation
-    %p.screen-description-top
-      Sit back and dig into the dataset documentation.
+    - if false
+      = image_tag logo_dataset_path(@dataset), class: 'img-white-background' if @dataset.logo.size > 0
+      %h1
+        =# .main-header Should be main heading (h1) which scales
+        = @dataset.name
+    - else
+      %h2.header-middle
+        = @dataset.name
+      - if @dataset.logo.size > 0
+        .logo-middle
+          = image_tag logo_dataset_path(@dataset), class: 'img-white-background'
 
-- @background_class = 'pure-white-texture'
-.full-screen.transparent-light-texture
-  = render partial: 'documentation/page', locals: { object: @dataset }
+  - file_count = @dataset.indexed_files(nil, 0)
+  - if file_count > 0 and @dataset.variables.count > 0
+    .container-fluid
+      .row
+        .col-md-6{ style: 'padding: 0px;' }
+          .full-screen.black-texture.md-fixed-height
+            %h2.header-top
+              = # .main-header instead of header-top
+              Downloads
+            %p.screen-description-top
+              Explore
+              = link_to 'available files', files_dataset_path(@dataset)
+              or download files using
+              = link_to('the NSRR gem', 'https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites') + "."
+            .code-container
+              %span.code-command{ style: 'background-color:#FFF' }
+                nsrr download
+                = @dataset.slug
+
+            - if @dataset.slug.in?(['shhs','chat'])
+              %p.screen-description-top
+                The total download size of
+                = @dataset.name
+                is
+                - case @dataset.slug when 'shhs'
+                  %strong= number_to_human_size(376016176874) + '.'
+                - when 'chat'
+                  %strong= number_to_human_size(528942742609) + '.'
+                - when 'heartbeat'
+                  %strong= number_to_human_size(59578384904) + '.'
+                - when 'cfs'
+                  %strong= number_to_human_size(160703589200) + '.'
+                - when 'sof'
+                  %strong= number_to_human_size(57914196698) + '.'
+            %hr
+            %p.screen-description-top
+              Alternatively, you can start with the
+              = link_to 'covariate datasets', files_dataset_path(@dataset, path: 'datasets')
+              if you do not intend on analyzing these large binary files.
+        .col-md-6{ style: 'padding: 0px;' }
+          .full-screen.math-texture.md-fixed-height
+            %h2.header-top
+              = # .main-header instead of header-top
+              Variables
+            - @variables = @dataset.variables.where( commonly_used: true ).order("RANDOM()").limit(6)
+            - if @variables.count > 0
+              %p.screen-description-top
+                We've carefully selected some commonly used covariates to get you started!
+
+              .row{ style: "margin-top:40px" }
+                - @variables.each_with_index do |variable, index|
+                  / .col-xs-6.col-sm-4.col-md-2
+                  .col-xs-6.col-sm-4{ class: "#{'hidden-xs' if index > 3}" }
+                    = render partial: 'variables/panel', locals: { variable: variable }
+              %p.screen-description-top
+                You may browse
+                = link_to('all variables here', dataset_variables_path(@dataset)) + '.'
+            - else
+              %p.screen-description-top
+                We're currently working on getting the dataset variables uploaded to the NSRR.
+
+    .full-screen
+      %h2.header-top
+        = # .main-header instead of header-top
+        Documentation
+      %p.screen-description-top
+        Sit back and dig into the dataset documentation.
+
+  - @background_class = 'pure-white-texture'
+  .full-screen.transparent-light-texture
+    = render partial: 'documentation/pagebeta', locals: { object: @dataset }

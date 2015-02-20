@@ -1,0 +1,51 @@
+// This file adds classes to apply background textures and appropriate font
+// colors to other containers
+
+// Mixin for textures that stretch
+@mixin cover-texture {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  -ms-behavior: asset-url('ie8/backgroundsize.min.htc');
+}
+
+// Mixin for textures that are tiled
+@mixin tile-texture {
+  background-repeat: repeat;
+}
+
+// Font color adjustment for darker textures
+@mixin light-fonts {
+  // Fallback background color
+  background-color: #333;
+  color: #FFF;
+  a {
+    color: #4cae4c;
+  }
+  a:hover,
+  a:focus,
+  a:active,
+  a.active,
+  a.disabled,
+  a[disabled] {
+    color: rgb(255, 157, 107);
+  }
+}
+
+// Primary Dark Texture
+.dark-texture {
+  @include cover-texture;
+  @include light-fonts;
+  background-image: asset-url('static/footer_lodyas.png');
+}
+
+// Primary Light Texture
+.light-texture {
+  @include cover-texture;
+  background-image: asset-url('static/shattered.png');
+}
+
+.grid-texture {
+  @include tile-texture;
+  background-image: asset-url('static/old_mathematics_no_border.png');
+}

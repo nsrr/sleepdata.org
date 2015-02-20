@@ -381,21 +381,21 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_equal 'datasets', manifest[0]['file_name']
     assert_equal nil, manifest[0]['checksum']
     assert_equal false, manifest[0]['is_file']
-    assert_equal 102, manifest[0]['file_size']
+    assert_not_nil manifest[0]['file_size']
     assert_equal 'wecare', manifest[0]['dataset']
     assert_equal 'datasets', manifest[0]['file_path']
 
     assert_equal 'subfolder', manifest[1]['file_name']
     assert_equal nil, manifest[1]['checksum']
     assert_equal false, manifest[1]['is_file']
-    assert_equal 170, manifest[1]['file_size']
+    assert_not_nil manifest[1]['file_size']
     assert_equal 'wecare', manifest[1]['dataset']
     assert_equal 'subfolder', manifest[1]['file_path']
 
     assert_equal 'DOWNLOAD_ME.txt', manifest[2]['file_name']
     assert_equal 'be3aad0b46648b4867534a1b10ec6ed1', manifest[2]['checksum']
     assert_equal true, manifest[2]['is_file']
-    assert_equal 16, manifest[2]['file_size']
+    assert_not_nil manifest[2]['file_size']
     assert_equal 'wecare', manifest[2]['dataset']
     assert_equal 'DOWNLOAD_ME.txt', manifest[2]['file_path']
 
@@ -461,7 +461,7 @@ class DatasetsControllerTest < ActionController::TestCase
 
   test "should show directory of pages in subfolder" do
     get :pages, id: @dataset, path: 'subfolder'
-    assert_template 'pages'
+    assert_template 'pagesbeta'
     assert_response :success
   end
 

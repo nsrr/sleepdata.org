@@ -1,0 +1,132 @@
+// This file contains default sizes for basic HTML elements
+
+.beta-container {
+  h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, td {
+    font-weight: 300;
+  }
+
+  h1 {
+    font-size: 34px;
+  }
+
+  h2 {
+    font-size: 30px;
+  }
+
+  h3 {
+    font-size: 26px;
+  }
+
+  h4 {
+    font-size: 22px;
+  }
+
+  h5 {
+    font-size: 20px;
+  }
+
+  h6 {
+    font-size: 18px;
+  }
+
+  p, ol, ul, li, pre, code, table, thead, tbody, tr, th, td {
+    font-size: 14px;
+  }
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .beta-container {
+    h1 {
+      font-size: 38px;
+    }
+
+    h2 {
+      font-size: 34px;
+    }
+
+    h3 {
+      font-size: 30px;
+    }
+
+    h4 {
+      font-size: 26px;
+    }
+
+    h5 {
+      font-size: 24px;
+    }
+
+    h6 {
+      font-size: 22px;
+    }
+
+    p, ol, ul, li, pre, code, table, thead, tbody, tr, th, td {
+      font-size: 18px;
+    }
+  }
+}
+
+
+@media screen and (min-width: $screen-md-min) {
+  .beta-container {
+    h1 {
+      font-size: 42px;
+    }
+
+    h2 {
+      font-size: 38px;
+    }
+
+    h3 {
+      font-size: 34px;
+    }
+
+    h4 {
+      font-size: 30px;
+    }
+
+    h5 {
+      font-size: 28px;
+    }
+
+    h6 {
+      font-size: 26px;
+    }
+
+    p, ol, ul, li, pre, code, table, thead, tbody, tr, th, td {
+      font-size: 22px;
+    }
+  }
+}
+
+@media screen and (min-width: $screen-lg-min) {
+  .beta-container {
+    h1 {
+      font-size: 48px;
+    }
+
+    h2 {
+      font-size: 44px;
+    }
+
+    h3 {
+      font-size: 40px;
+    }
+
+    h4 {
+      font-size: 36px;
+    }
+
+    h5 {
+      font-size: 32px;
+    }
+
+    h6 {
+      font-size: 28px;
+    }
+
+    p, ol, ul, li, pre, code, table, thead, tbody, tr, th, td {
+      font-size: 24px;
+    }
+  }
+}

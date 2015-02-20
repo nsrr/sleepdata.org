@@ -1,0 +1,69 @@
+.beta-container
+  .markdown-container
+    %h1 Header 1
+    %h2 Header 2
+    %h3 Header 3
+    %h4 Header 4
+    %h5 Header 5
+    %h6 Header 6
+    %p
+      Paragraph
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+      non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+    %ul
+      %li Item A
+      %li Item B
+      %li Item C
+
+    %ol
+      %li First Item
+      %li Second Item
+      %li Third Item
+
+    %pre
+      :preserve
+        def ruby(a,b,c)
+          awesome = true
+        end
+
+    %p
+      Would you like some
+      %code
+        code
+      in your paragraph?
+
+    %table.table
+      %thead
+        %tr
+          %th Header 1
+          %th Header 2
+          %th Header 3
+      %tbody
+        %tr
+          %td Column 1
+          %td Column 2
+          %td Column 3
+        %tr
+          %td Column 1
+          %td Column 2
+          %td Column 3
+
+  .main-header.dark-texture
+    %h1 Main Header with Dark Texture
+  .slim-header.light-texture
+    %h1 Slim Header with Light Texture
+  .slim-header.dark-texture
+    %h1 Slim Header with Dark Texture
+    %p
+      And extra text that describes something about the header and
+      = link_to('a link', root_path) + '.'
+  .main-header.light-texture
+    %h1 Main Header with Light Texture
+    %p
+      And extra text that describes something about the header and
+      = link_to('a link', root_path) + '.'

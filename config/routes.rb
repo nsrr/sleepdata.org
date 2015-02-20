@@ -99,6 +99,7 @@ Rails.application.routes.draw do
     # get :showcase
     get "showcase(/:slug)", action: 'showcase', as: :showcase
     get :version
+    get :sizes
   end
 
   get 'challenges' => "challenges#flow_limitation"

@@ -174,7 +174,7 @@ class ToolsControllerTest < ActionController::TestCase
 
   test "should show directory of pages in subfolder" do
     get :pages, id: @tool, path: 'subfolder'
-    assert_template 'pages'
+    assert_template 'pagesbeta'
     assert_response :success
   end
 
