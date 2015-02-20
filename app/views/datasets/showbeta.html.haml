@@ -1,27 +1,21 @@
 .beta-container
-  .full-screen
-    - if false
-      = image_tag logo_dataset_path(@dataset), class: 'img-white-background' if @dataset.logo.size > 0
-      %h1
-        =# .main-header Should be main heading (h1) which scales
-        = @dataset.name
-    - else
-      %h2.header-middle
-        = @dataset.name
-      - if @dataset.logo.size > 0
-        .logo-middle
-          = image_tag logo_dataset_path(@dataset), class: 'img-white-background'
+  .main-header.dark-texture
+    %h1.center
+      = @dataset.name
+    - if @dataset.logo.size > 0
+      .logo-middle
+        = image_tag logo_dataset_path(@dataset), class: 'img-white-background'
 
   - file_count = @dataset.indexed_files(nil, 0)
   - if file_count > 0 and @dataset.variables.count > 0
     .container-fluid
       .row
         .col-md-6{ style: 'padding: 0px;' }
-          .full-screen.black-texture.md-fixed-height
-            %h2.header-top
+          .slim-header.neutral-texture.md-fixed-height
+            %h2
               = # .main-header instead of header-top
               Downloads
-            %p.screen-description-top
+            %p
               Explore
               = link_to 'available files', files_dataset_path(@dataset)
               or download files using
@@ -32,7 +26,7 @@
                 = @dataset.slug
 
             - if @dataset.slug.in?(['shhs','chat'])
-              %p.screen-description-top
+              %p
                 The total download size of
                 = @dataset.name
                 is
@@ -47,18 +41,17 @@
                 - when 'sof'
                   %strong= number_to_human_size(57914196698) + '.'
             %hr
-            %p.screen-description-top
+            %p
               Alternatively, you can start with the
               = link_to 'covariate datasets', files_dataset_path(@dataset, path: 'datasets')
               if you do not intend on analyzing these large binary files.
         .col-md-6{ style: 'padding: 0px;' }
-          .full-screen.math-texture.md-fixed-height
-            %h2.header-top
-              = # .main-header instead of header-top
+          .slim-header.grid-texture.md-fixed-height
+            %h2
               Variables
             - @variables = @dataset.variables.where( commonly_used: true ).order("RANDOM()").limit(6)
             - if @variables.count > 0
-              %p.screen-description-top
+              %p
                 We've carefully selected some commonly used covariates to get you started!
 
               .row{ style: "margin-top:40px" }
@@ -66,20 +59,17 @@
                   / .col-xs-6.col-sm-4.col-md-2
                   .col-xs-6.col-sm-4{ class: "#{'hidden-xs' if index > 3}" }
                     = render partial: 'variables/panel', locals: { variable: variable }
-              %p.screen-description-top
+              %p
                 You may browse
                 = link_to('all variables here', dataset_variables_path(@dataset)) + '.'
             - else
-              %p.screen-description-top
+              %p
                 We're currently working on getting the dataset variables uploaded to the NSRR.
 
-    .full-screen
-      %h2.header-top
-        = # .main-header instead of header-top
-        Documentation
-      %p.screen-description-top
-        Sit back and dig into the dataset documentation.
+  .slim-header.dark-texture
+    %h2
+      Documentation
+    %p
+      Sit back and dig into the dataset documentation.
 
-  - @background_class = 'pure-white-texture'
-  .full-screen.transparent-light-texture
-    = render partial: 'documentation/pagebeta', locals: { object: @dataset }
+  = render partial: 'documentation/pagebeta', locals: { object: @dataset }

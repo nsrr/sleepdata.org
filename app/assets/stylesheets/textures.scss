@@ -39,6 +39,12 @@
   background-image: asset-url('static/footer_lodyas.png');
 }
 
+.neutral-texture {
+  @include cover-texture;
+  @include light-fonts;
+  background-image: asset-url('static/shattered-dark.png');
+}
+
 // Primary Light Texture
 .light-texture {
   @include cover-texture;
