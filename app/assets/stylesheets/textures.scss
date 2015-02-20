@@ -5,6 +5,7 @@
 @mixin cover-texture {
   background-repeat: no-repeat;
   background-position: center;
+  background-attachment: fixed;
   background-size: cover;
   -ms-behavior: asset-url('ie8/backgroundsize.min.htc');
 }
@@ -40,7 +41,7 @@
 }
 
 .neutral-texture {
-  @include cover-texture;
+  @include tile-texture;
   @include light-fonts;
   background-image: asset-url('static/shattered-dark.png');
 }

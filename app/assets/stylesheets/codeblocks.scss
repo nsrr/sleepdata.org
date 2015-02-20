@@ -1,0 +1,66 @@
+.codeblocks-container {
+  font-family: Monaco, Menlo, Consolas, 'Courier New', monospace;
+  -webkit-border-radius: 5px;
+     -moz-border-radius: 5px;
+          border-radius: 5px;
+  white-space: normal;
+  line-height: 2;
+  font-weight: 200;
+  margin-bottom: 20px;
+}
+
+.codeblocks-container code::before {
+   content: '$ ';
+   color: #dedede;
+}
+
+.code-input code, .code-input-file, .code-output {
+  border: 1px solid #dedede;
+  padding: 3px 7px;
+}
+
+.code-input code, .code-input-file {
+  background-color: #FFF;
+  color: #333;
+}
+
+.code-output {
+  background-color: #333;
+  color: #FFF;
+}
+
+
+@media screen and (min-width: 768px) {
+  .code-output {
+    margin-left: 30vw;
+  }
+}
+
+// Code Colors
+
+.code-green {
+  color: green;
+}
+
+.code-link {
+  color: #337ab7;
+  text-decoration: underline;
+}
+
+.code-comment {
+  color: #999988;
+  font-style: italic;
+}
+
+.code-function {
+  color: #990000;
+  font-weight: bold;
+}
+
+.code-string, .code-number {
+  color: #dd1144;
+}
+
+.code-symbol {
+  color: #0086b3;
+}

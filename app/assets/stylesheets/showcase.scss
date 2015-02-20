@@ -1,0 +1,18 @@
+.full-height {
+  // 90 is intentional as it shows a portion of the next "slide" underneath
+  // the main title
+  min-height: 90vh;
+}
+
+.header-bottom {
+  padding-top: 60vh;
+}
+
+.align-right {
+  text-align: right;
+}
+
+// This adds margins to the bottom of col-md-* elements
+.added-margin-bottom {
+  margin-bottom: 20px;
+}
