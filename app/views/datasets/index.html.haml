@@ -1,14 +1,15 @@
 - @title = 'Datasets'
-.full-screen.cloud-texture{ style: 'padding: 0vw;'}
-  .horizontal-fade
-    .vertical-fade{ style: 'padding: 0vw 5vw 0vw 5vw;' }
-      .full-screen.transparent-light-texture
-        %h2.header-top
-          = @title
-          - if current_user and current_user.system_admin?
-            = link_to "Create Dataset", new_dataset_path, class: 'btn btn-xs btn-primary'
-        %p.screen-description-top
-          Read documentation, download files, and view charts and statistics.
+.beta-container
+  .cloud-texture
+    .horizontal-fade
+      .vertical-fade{ style: 'padding: 0vw 5vw 0vw 5vw;' }
+        .main-container.full-screen.transparent-light-texture
+          %h1
+            = @title
+            - if current_user and current_user.system_admin?
+              = link_to "Create Dataset", new_dataset_path, class: 'btn btn-xs btn-primary'
+          %p
+            Read documentation, download files, and view charts and statistics.
 
-.full-screen.math-texture
-  = render partial: 'datasets/datasets'
+  .main-container.grid-texture
+    = render partial: 'datasets/datasets'

@@ -1,29 +1,30 @@
 - @title = 'Forum'
 
-.full-screen
-  %h2.header-top
-    = @title
-  %p.screen-description-top
-    A place to ask questions, seek advice, and help others.
-  -#.jumbotron-pagination
-    -#= render partial: 'variables/per_page', locals: { per_page: 50, object_count: @topics.total_count }
+.beta-container
+  .main-container.dark-texture
+    %h1
+      = @title
+    %p
+      A place to ask questions, seek advice, and help others.
+    -#.jumbotron-pagination
+      -#= render partial: 'variables/per_page', locals: { per_page: 50, object_count: @topics.total_count }
 
-- @background_class = 'white-texture'
-.full-screen.transparent-light-texture
-  .row{ style: 'margin-bottom:20px' }
-    .col-xs-6
-      - if current_user
-        - if current_user.topics_created_in_last_day.count >= current_user.max_topics
-          = link_to "#{current_user.max_topics} Topics Per Day Limit Reached", '#', data: { object: 'suppress-click' }, class: 'btn btn-success', disabled: "disabled"
+  - @background_class = 'white-texture'
+  .main-container
+    .row{ style: 'margin-bottom:20px' }
+      .col-xs-6
+        - if current_user
+          - if current_user.topics_created_in_last_day.count >= current_user.max_topics
+            = link_to "#{current_user.max_topics} Topics Per Day Limit Reached", '#', data: { object: 'suppress-click' }, class: 'btn btn-success', disabled: "disabled"
+          - else
+            = link_to 'Start a New Topic', new_topic_path, class: 'btn btn-success'
         - else
-          = link_to 'Start a New Topic', new_topic_path, class: 'btn btn-success'
-      - else
-        = link_to 'Join the Discussion', new_user_session_path, class: 'btn btn-success'
-    .col-xs-6
-      = form_tag topics_path, method: :get, class: 'form-inline pull-right' do
-        .input-group
-          = text_field_tag 's', params[:s], class: 'form-control', style: 'width:100%'
-          %span.input-group-btn
-            = submit_tag 'Search', class: 'btn btn-primary', name: nil
-  .topics-container
-    = render partial: 'topics/topics'
+          = link_to 'Join the Discussion', new_user_session_path, class: 'btn btn-success'
+      .col-xs-6
+        = form_tag topics_path, method: :get, class: 'form-inline pull-right' do
+          .input-group
+            = text_field_tag 's', params[:s], class: 'form-control', style: 'width:100%'
+            %span.input-group-btn
+              = submit_tag 'Search', class: 'btn btn-primary', name: nil
+    .topics-container
+      = render partial: 'topics/topics'

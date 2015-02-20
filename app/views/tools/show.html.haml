@@ -1,0 +1,11 @@
+- @title = @tool.name
+
+.beta-container
+  .main-container.dark-texture
+    %h1.center
+      = @tool.name
+    - if @tool.logo.size > 0
+      .logo-middle
+        = image_tag logo_tool_path(@tool), class: 'img-white-background'
+
+  = render partial: 'documentation/pagebeta', locals: { object: @tool }

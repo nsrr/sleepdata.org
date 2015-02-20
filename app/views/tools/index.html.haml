@@ -1,14 +1,15 @@
 - @title = 'Tools'
-.full-screen.bridge-texture{ style: 'padding: 0vw;'}
-  .horizontal-fade
-    .vertical-fade{ style: 'padding: 0vw 5vw 0vw 5vw;' }
-      .full-screen.transparent-light-texture
-        %h2.header-top
-          = @title
-          - if current_user and current_user.system_admin?
-            = link_to "Create Tool", new_tool_path, class: 'btn btn-xs btn-primary'
-        %p.screen-description-top
-          Tools to help jumpstart your research.
+.beta-container
+  .bridge-texture
+    .horizontal-fade
+      .vertical-fade{ style: 'padding: 0vw 5vw 0vw 5vw;' }
+        .main-container.full-screen.transparent-light-texture
+          %h1
+            = @title
+            - if current_user and current_user.system_admin?
+              = link_to "Create Tool", new_tool_path, class: 'btn btn-xs btn-primary'
+          %p
+            Tools to help jumpstart your research.
 
-.full-screen.math-texture
-  = render partial: 'tools/tools'
+  .main-container.grid-texture
+    = render partial: 'tools/tools'

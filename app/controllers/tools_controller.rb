@@ -45,6 +45,7 @@ class ToolsController < ApplicationController
   # GET /tools/1
   # GET /tools/1.json
   def show
+    render layout: 'layouts/application-full'
   end
 
   # GET /tools/new

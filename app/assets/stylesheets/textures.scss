@@ -56,3 +56,8 @@
   @include tile-texture;
   background-image: asset-url('static/old_mathematics_no_border.png');
 }
+
+.cloud-texture {
+  @include cover-texture;
+  background-image: asset-url('datasets-header.jpg');
+}
