@@ -149,12 +149,6 @@ class DatasetsController < ApplicationController
     end
   end
 
-  # GET /datasets/1/manifest.txt
-  def manifest
-    @folder_path = @dataset.find_file_folder(params[:path])
-    render text: @dataset.indexed_files(@folder_path, -1).select{|folder, file_name, is_file, file_size, file_time, file_checksum| is_file}.collect{|folder, file_name, is_file, file_size, file_time, file_checksum| site_prefix + files_dataset_path(@dataset, path: folder, auth_token: (current_user ? current_user.id_and_auth_token : nil ), medium: 'wget')}.join("\n\r")
-  end
-
   def logo
     send_file File.join( CarrierWave::Uploader::Base.root, @dataset.logo.url )
   end
@@ -297,10 +291,6 @@ class DatasetsController < ApplicationController
       params[:dataset] ||= {}
       params[:dataset][:release_date] = parse_date(params[:dataset][:release_date])
       params.require(:dataset).permit( :name, :description, :slug, :logo, :logo_cache, :public, :all_files_public, :git_repository, :release_date )
-    end
-
-    def site_prefix
-      "#{ENV['website_url'].split('//').first}//#{ENV['website_url'].split('//').last.split('/').first}"
     end
 
 end

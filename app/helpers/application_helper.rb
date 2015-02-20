@@ -1,27 +1,7 @@
 module ApplicationHelper
 
-  # def mac?
-  #   !!(ua =~ /Mac OS X/)
-  # end
-
-  # def linux?
-  #   !!(ua =~ /Linux/)
-  # end
-
-  def windows?
-    !!(ua =~ /Windows/)
-  end
-
-  def ua
-    request.env['HTTP_USER_AGENT']
-  end
-
-  def site_prefix
-    "#{ENV['website_url'].split('//').first}//#{ENV['website_url'].split('//').last.split('/').first}"
-  end
-
   def simple_check(checked)
-    checked ? '<span class="glyphicon glyphicon-ok"></span>'.html_safe : '<span class="glyphicon glyphicon-unchecked"></span>'.html_safe
+    content_tag(:span, '', class: "glyphicon #{checked ? 'glyphicon-ok' : 'glyphicon-unchecked'}")
   end
 
   def simple_markdown(text, target_blank = true, table_class = '', allow_links = true)

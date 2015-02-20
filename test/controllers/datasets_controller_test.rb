@@ -369,18 +369,41 @@ class DatasetsControllerTest < ActionController::TestCase
   end
 
   test "should get manifest" do
-    get :manifest, id: @dataset
+    get :json_manifest, id: @dataset
     assert_response :success
   end
 
   test "should get manifest using auth token" do
-    get :manifest, id: @dataset, auth_token: users(:valid).id_and_auth_token
-    assert_match /#{users(:valid).authentication_token}/, response.body
+    get :json_manifest, id: @dataset, auth_token: users(:valid).id_and_auth_token
+
+    manifest = JSON.parse(response.body)
+
+    assert_equal 'datasets', manifest[0]['file_name']
+    assert_equal nil, manifest[0]['checksum']
+    assert_equal false, manifest[0]['is_file']
+    assert_equal 102, manifest[0]['file_size']
+    assert_equal 'wecare', manifest[0]['dataset']
+    assert_equal 'datasets', manifest[0]['file_path']
+
+    assert_equal 'subfolder', manifest[1]['file_name']
+    assert_equal nil, manifest[1]['checksum']
+    assert_equal false, manifest[1]['is_file']
+    assert_equal 170, manifest[1]['file_size']
+    assert_equal 'wecare', manifest[1]['dataset']
+    assert_equal 'subfolder', manifest[1]['file_path']
+
+    assert_equal 'DOWNLOAD_ME.txt', manifest[2]['file_name']
+    assert_equal 'be3aad0b46648b4867534a1b10ec6ed1', manifest[2]['checksum']
+    assert_equal true, manifest[2]['is_file']
+    assert_equal 16, manifest[2]['file_size']
+    assert_equal 'wecare', manifest[2]['dataset']
+    assert_equal 'DOWNLOAD_ME.txt', manifest[2]['file_path']
+
     assert_response :success
   end
 
   test "should not get private manifest for unapproved user using auth token" do
-    get :manifest, id: datasets(:private), auth_token: users(:valid).id_and_auth_token
+    get :json_manifest, id: datasets(:private), auth_token: users(:valid).id_and_auth_token
     assert_redirected_to datasets_path
   end
 
