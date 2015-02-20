@@ -37,3 +37,8 @@
   padding: 20px 0px 20px 20px;
   box-shadow: 5px 5px 15px #888888;
 }
+
+#documentation-content, #sidebar-content, .page-list-container {
+  -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
+  -webkit-backface-visibility: hidden; /* Fix for transition flickering */
+}
