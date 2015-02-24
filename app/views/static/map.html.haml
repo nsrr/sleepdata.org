@@ -1,36 +1,37 @@
-.full-screen
-  %h2.header-top Sleep Researcher Community
-  %p.screen-description-top
-    NSRR World-Wide Membership
+.beta-container
+  .main-container.dark-texture
+    %h1 Sleep Researcher Community
+    %p
+      NSRR World-Wide Membership
 
-- @background_class = 'white-texture'
-.full-screen.transparent-light-texture
-  %h2.header-top
-    Across the world...
+  - @background_class = 'white-texture'
+  .main-container.transparent-texture
+    %h2
+      Across the world...
 
-  %div{ style: "height: 500px; min-width: 310px; max-width: 800px; margin: 0 auto", data: { object: 'draw-world-map', membership: Map.countries_for_map.to_json } }
+    %div{ style: "height: 500px; min-width: 310px; max-width: 800px; margin: 0 auto", data: { object: 'draw-world-map', membership: Map.countries_for_map.to_json } }
 
-  %h2.header-top
-    \...and in the US.
+    %h2
+      \...and in the US.
 
-  %div{ style: "height: 500px; min-width: 310px; max-width: 800px; margin: 0 auto", data: { object: 'draw-map', membership: Map.states_for_map.to_json } }
+    %div{ style: "height: 500px; min-width: 310px; max-width: 800px; margin: 0 auto", data: { object: 'draw-map', membership: Map.states_for_map.to_json } }
 
 
-.full-screen.call-to-action
+  .main-container.call-to-action
 
-  - if current_user
-    %h2.header-top{ style: 'text-align: center' }
-      Thank you for being part of our sleep community!
-    %p.screen-description-top{ style: 'text-align: center' }
-      Discuss more with your colleagues on our forum.
+    - if current_user
+      %h2.center
+        Thank you for being part of our sleep community!
+      %p.center
+        Discuss more with your colleagues on our forum.
 
-    %div{ style: 'text-align:center;margin-top:20px;margin-bottom:20px' }
-      = link_to 'Visit the Forum', topics_path, class: 'btn btn-call-to-action btn-lg'
-  - else
-    %h2.header-top{ style: 'text-align: center' }
-      Join today!
-    %p.screen-description-top{ style: 'text-align: center' }
-      Collaborate with an international community of sleep researchers.
+      .center{ style: 'margin-top:20px;margin-bottom:20px' }
+        = link_to 'Visit the Forum', topics_path, class: 'btn btn-call-to-action btn-lg'
+    - else
+      %h2.center
+        Join today!
+      %p.center
+        Collaborate with an international community of sleep researchers.
 
-    %div{ style: 'text-align:center;margin-top:20px;margin-bottom:20px' }
-      = link_to 'Sign Up', new_user_registration_path, class: 'btn btn-call-to-action btn-lg'
+      .center{ style: 'margin-top:20px;margin-bottom:20px' }
+        = link_to 'Sign Up', new_user_registration_path, class: 'btn btn-call-to-action btn-lg'
