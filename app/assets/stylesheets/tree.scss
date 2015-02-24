@@ -14,7 +14,6 @@
 @import 'showcase-carousel';
 @import 'footer';
 @import 'parallax';
-@import 'topics';
 @import 'forms';
 
 // -----------
@@ -33,14 +32,18 @@
 // that can be applied to containers.
 @import 'textures';
 
-// Special Container class for Dataset and Tool Documentation pages
+// Special Container class for Dataset and Tool Documentation pages.
 @import 'documentation';
 
-// Special container class for breadcrumbs
+// Special container class for breadcrumbs.
 @import 'breadcrumbs';
 
-// Styles for showcase elements, large panels, offset headers
+// Styles for showcase elements, large panels, offset headers.
 @import 'showcase';
 
-// Special container classes for code blocks
+// Special container classes for code blocks.
 @import 'codeblocks';
+
+// Special container class for topics, allows topics to extend to edge of screen
+// on mobile devices.
+@import 'topics';

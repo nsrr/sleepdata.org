@@ -65,9 +65,11 @@ class CommentsController < ApplicationController
       if @comment.update(comment_params)
         format.html { redirect_to topic_comment_path(@topic, @comment), notice: 'Comment was successfully updated.' }
         format.json { head :no_content }
+        format.js { render 'show' }
       else
         format.html { redirect_to topic_comment_path(@topic, @comment), warning: 'Comment can\'t be blank.' }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
+        format.js { render 'edit' }
       end
     end
   end
