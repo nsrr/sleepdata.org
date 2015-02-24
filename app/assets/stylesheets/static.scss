@@ -2,19 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.full-screen {
-  background-image: asset-url('static/footer_lodyas.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  -ms-behavior: asset-url('ie8/backgroundsize.min.htc');
-  background-color: rgb(15, 18, 27);
-  position:relative;
-  padding-bottom:100px;
-  color: white;
-  font-weight: 300;
-}
-
 .pure-white-texture {
   background-color: #FFF;
   color: #333;
