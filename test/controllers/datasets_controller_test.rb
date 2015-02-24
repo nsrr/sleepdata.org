@@ -378,6 +378,8 @@ class DatasetsControllerTest < ActionController::TestCase
 
     manifest = JSON.parse(response.body)
 
+    manifest.sort{|a,b| [b['is_file'],a['file_name']] <=> [b['is_file'],b['file_name']]}
+
     assert_equal 'datasets', manifest[0]['file_name']
     assert_equal nil, manifest[0]['checksum']
     assert_equal false, manifest[0]['is_file']
