@@ -59,7 +59,20 @@
 
 .cloud-texture {
   @include cover-texture;
+  background-attachment: scroll;
   background-image: asset-url('datasets-header.jpg');
+}
+
+.tree-texture {
+  @include cover-texture;
+  background-attachment: scroll;
+  background-image: asset-url('home.jpg');
+}
+
+.bridge-texture {
+  @include cover-texture;
+  background-attachment: scroll;
+  background-image: asset-url('tools-header.jpg');
 }
 
 
