@@ -48,6 +48,9 @@
   - Use Haml for new views
   - Use Figaro to centralize application configuration
 
+### Bug Fix
+- Fixed a bug that caused too much information to be logged to the log file
+
 ## 0.15.3 (January 6, 2015)
 
 ### Bug Fix
