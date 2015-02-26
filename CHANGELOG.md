@@ -40,6 +40,8 @@
   - The signature step now allows users to opt out of signing the agreement if they have institutional requirements forbidding signing of agreements
   - Users opting for NSRR Committee review now need to attest that they have received Human Subjects Protections Training
   - Academic agreements no longer include Indemnification Clause (11 and 12), and have been renumbered
+- **Email Changes**
+  - The password reset email and other emails have had their template updated
 - **Gem Changes**
   - Updated to pg 0.18.1
   - Updated to contour 3.0.0.beta1

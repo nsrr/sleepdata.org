@@ -1,6 +1,4 @@
-class UserMailer < ActionMailer::Base
-  default from: "NSRR Sleep Data <#{ActionMailer::Base.smtp_settings[:email]}>"
-  add_template_helper(ApplicationHelper)
+class UserMailer < ApplicationMailer
 
   def forum_digest(user)
     setup_email
@@ -100,12 +98,6 @@ class UserMailer < ActionMailer::Base
     @email_to = user.email
     mail(to: @email_to,
       subject: "#{agreement_event.user.name} Mentioned You While Reviewing an Agreement")
-  end
-
-  protected
-
-  def setup_email
-    attachments.inline['nsrr-logo.png'] = File.read('app/assets/images/nsrr_logo_64.png') rescue nil
   end
 
 end
