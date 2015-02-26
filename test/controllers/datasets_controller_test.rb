@@ -409,6 +409,21 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_redirected_to datasets_path
   end
 
+  test "should show public dataset to logged out user as json" do
+    get :show, id: @dataset, format: 'json'
+
+    dataset = JSON.parse(response.body)
+
+    assert_equal 'We Care',  dataset['name']
+    assert_equal 'The We Care Clinical Trial dataset', dataset['description']
+    assert_equal 'wecare', dataset['slug']
+    assert_equal true, dataset['public']
+    assert_not_nil dataset['created_at']
+    assert_not_nil dataset['updated_at']
+
+    assert_response :success
+  end
+
   test "should show public dataset to anonymous user" do
     get :show, id: @dataset
     assert_response :success

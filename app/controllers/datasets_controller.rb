@@ -223,9 +223,10 @@ class DatasetsController < ApplicationController
   # GET /datasets/1
   # GET /datasets/1.json
   def show
-    # if params[:beta] == '1'
-      render 'showbeta', layout: 'layouts/application-full'
-    # end
+    respond_to do |format|
+      format.html { render 'showbeta', layout: 'layouts/application-full' }
+      format.json
+    end
   end
 
   # GET /datasets/new
