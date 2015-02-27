@@ -374,7 +374,7 @@ class DatasetsControllerTest < ActionController::TestCase
   end
 
   test "should get manifest using auth token" do
-    get :json_manifest, id: @dataset, auth_token: users(:valid).id_and_auth_token
+    get :json_manifest, id: @dataset, path: 'subfolder', auth_token: users(:valid).id_and_auth_token
 
     manifest = JSON.parse(response.body)
 
@@ -382,26 +382,26 @@ class DatasetsControllerTest < ActionController::TestCase
 
     assert_equal 3, manifest.size
 
-    assert_equal 'datasets', manifest[0]['file_name']
+    assert_equal 'anotherfolder', manifest[0]['file_name']
     assert_equal nil, manifest[0]['checksum']
     assert_equal false, manifest[0]['is_file']
     assert_not_nil manifest[0]['file_size']
     assert_equal 'wecare', manifest[0]['dataset']
-    assert_equal 'datasets', manifest[0]['file_path']
+    assert_equal 'subfolder/anotherfolder', manifest[0]['file_path']
 
-    assert_equal 'subfolder', manifest[1]['file_name']
-    assert_equal nil, manifest[1]['checksum']
-    assert_equal false, manifest[1]['is_file']
+    assert_equal '1.txt', manifest[1]['file_name']
+    assert_equal '39061daa34ca3de20df03a88c52530ea', manifest[1]['checksum']
+    assert_equal true, manifest[1]['is_file']
     assert_not_nil manifest[1]['file_size']
     assert_equal 'wecare', manifest[1]['dataset']
-    assert_equal 'subfolder', manifest[1]['file_path']
+    assert_equal 'subfolder/1.txt', manifest[1]['file_path']
 
-    assert_equal 'DOWNLOAD_ME.txt', manifest[2]['file_name']
-    assert_equal 'be3aad0b46648b4867534a1b10ec6ed1', manifest[2]['checksum']
+    assert_equal '2.txt', manifest[2]['file_name']
+    assert_equal '85c8f17e86771eb8480a44349e13127b', manifest[2]['checksum']
     assert_equal true, manifest[2]['is_file']
     assert_not_nil manifest[2]['file_size']
     assert_equal 'wecare', manifest[2]['dataset']
-    assert_equal 'DOWNLOAD_ME.txt', manifest[2]['file_path']
+    assert_equal 'subfolder/2.txt', manifest[2]['file_path']
 
     assert_response :success
   end
