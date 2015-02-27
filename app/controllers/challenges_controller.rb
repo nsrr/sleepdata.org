@@ -1,6 +1,6 @@
 class ChallengesController < ApplicationController
   before_action :authenticate_user!,          except: [ :index, :show, :images ]
-  before_action :check_system_admin,          except: [ :index, :show, :images ]
+  before_action :check_system_admin,          only: [ :new, :create, :edit, :update, :destroy ]
 
   before_action :set_viewable_challenge,      only: [ :show, :images, :signal ]
   before_action :set_editable_challenge,      only: [ :edit, :update, :destroy ]
