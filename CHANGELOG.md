@@ -19,7 +19,7 @@
   - Removed wget documentation in favor of the NSRR Downloader Ruby Gem
   - Added a map page to show NSRR membership
 - **Challenges Added**
-  - Started prototyping a flow limitation challenge
+  - Started prototyping the flow limitation challenge
 - **Forum Changes**
   - The forum user interface has been updated
   - Forum post anchors now correctly offset based on the top navigation bar

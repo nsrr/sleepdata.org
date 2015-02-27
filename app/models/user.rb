@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   # Model Relationships
   has_many :agreements, -> { where deleted: false }
   has_many :agreement_events
+  has_many :challenges, -> { where deleted: false }
   has_many :comments, -> { where deleted: false }
   has_many :datasets, -> { where deleted: false }
   has_many :dataset_file_audits
@@ -102,6 +103,22 @@ class User < ActiveRecord::Base
 
   def all_viewable_datasets
     Dataset.current.with_viewer( self.id )
+  end
+
+  def all_viewable_challenges
+    if self.system_admin?
+      Challenge.current
+    else
+      Challenge.current.where(public: true)
+    end
+  end
+
+  def all_challenges
+    if self.system_admin?
+      Challenge.current
+    else
+      self.challenges
+    end
   end
 
   def all_tools

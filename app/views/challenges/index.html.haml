@@ -1,0 +1,25 @@
+- @title = 'Challenges'
+.beta-container
+  .main-container.dark-texture
+    %h1
+      = @title
+      - if current_user and current_user.system_admin?
+        = link_to "Create Challenge", new_challenge_path, class: 'btn btn-xs btn-primary'
+    %p
+      Participate in exciting challenges to test your mettle!
+
+  .main-container
+
+    %p
+      Our first challenge on the NSRR is Flow Limitation.
+
+    %p
+      Learn more about the
+      = link_to('Flow Limitation Challenge', challenge_path('flow-limitation')) + "!"
+
+
+    - if @challenges.size > 1
+      Other available challenges can be found here:
+      %ul
+        - @challenges.each do |challenge|
+          %li= link_to challenge.name, challenge

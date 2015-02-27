@@ -583,3 +583,18 @@ body {
 .sticky-footer .text-muted {
   margin: 20px 0;
 }
+
+.affix {
+  top: 51px;
+  /*max-height: 300px;*/
+  right: 0;
+  left: 0;
+}
+
+.affix-top .affix-add {
+  display: none;
+}
+
+.affix .affix-add {
+  display: block;
+}

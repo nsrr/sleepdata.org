@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: My First Challenge
+  slug: my-first-challenge
+  description: MyText
+  user: admin
+  public: true
+  deleted: false
+
+two:
+  name: My Second Challenge
+  slug: my-second-challenge
+  description: MyText
+  user: admin
+  public: true
+  deleted: false

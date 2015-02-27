@@ -1,0 +1,59 @@
+- if @challenge.slug == 'flow-limitation'
+  .beta-container
+    .main-container.dark-texture
+      %h1 Flow Limitation Challenge
+      %p.wow.flipInX
+        Signal
+        = @signal
+
+
+    #affix-container.grid-texture{ style: 'height:300px;width:100%;margin-bottom:40px' }
+      %div{ data: { object: "signal-affix" } }
+        .main-container.grid-texture{ style: 'padding-top:20px;padding-bottom:0px;' }
+          .center
+            = image_tag images_challenge_path(@challenge, path: "fl#{@signal}.png"), style: 'max-width: 100%;', id: "affix-img"
+          .center
+            %table.table{ style: 'table-layout:fixed' }
+              %thead
+                %tr
+                  %th.center Breath
+                  %th Is the breath flow limited?
+
+    .main-container.grid-texture
+
+      - array = (@signal_map[@signal - 1] ? @signal_map[@signal - 1].to_a : ('A'..'A').to_a)
+
+      %table.table{ style: 'table-layout:fixed' }
+        - array.each do |letter|
+          %tr
+            %td.center
+              = letter
+            %td
+              %p{ "data-toggle" => "buttons" }
+                %label.btn.btn-default
+                  %input#option1{ autocomplete: "off", name: "options", type: "radio" }
+                    Yes
+                %label.btn.btn-default
+                  %input#option2{ autocomplete: "off", name: "options", type: "radio" }
+                    No
+                %label.btn.btn-default
+                  %input#option3{ autocomplete: "off", name: "options", type: "radio" }
+                    Intermediate
+                %label.btn.btn-default
+                  %input#option3{ autocomplete: "off", name: "options", type: "radio" }
+                    Unscorable / Artifact
+
+    #bottom-navigation
+      - unless @signal == 30
+        .center{ style: 'margin-top:20px;' }
+          = link_to '&laquo; Previous Signal'.html_safe, signal_challenge_path(signal: @signal - 1), class: 'btn btn-default btn-lg' unless @signal == 1
+          = link_to 'Continue to Next Signal &raquo;'.html_safe, signal_challenge_path(signal: @signal + 1), class: 'btn btn-primary btn-lg'
+
+      - if @signal == 30
+        .main-container.call-to-action
+
+          %h2.center
+            Last signal, make sure to submit your answers!
+
+          .center{ style: 'margin-top:20px;margin-bottom:20px' }
+            = link_to 'Submit My Answers', flow_limitation_challenge_submitted_path, class: 'btn btn-call-to-action btn-lg'

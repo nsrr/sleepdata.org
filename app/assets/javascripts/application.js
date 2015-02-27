@@ -46,3 +46,5 @@
 
 //= require external/wow
 //= require cookies
+
+//= require challenges
