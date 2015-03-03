@@ -49,6 +49,7 @@
   - Updated to jquery-rails 4.0.3
   - Use Haml for new views
   - Use Figaro to centralize application configuration
+- Use of Ruby 2.2.1 is now recommended
 
 ### Bug Fix
 - Fixed a bug that caused too much information to be logged to the log file
