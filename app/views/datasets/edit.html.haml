@@ -1,0 +1,11 @@
+- @title = "Edit Dataset: #{@dataset.name}"
+
+.beta-container
+  .main-container.dark-texture
+    %h1
+      Edit Dataset
+    %p
+      = link_to @dataset.name, @dataset
+
+  = render 'form'
+

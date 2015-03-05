@@ -232,10 +232,12 @@ class DatasetsController < ApplicationController
   # GET /datasets/new
   def new
     @dataset = Dataset.new
+    render layout: 'layouts/application-full'
   end
 
   # GET /datasets/1/edit
   def edit
+    render layout: 'layouts/application-full'
   end
 
   # POST /datasets
@@ -291,7 +293,7 @@ class DatasetsController < ApplicationController
     def dataset_params
       params[:dataset] ||= {}
       params[:dataset][:release_date] = parse_date(params[:dataset][:release_date])
-      params.require(:dataset).permit( :name, :description, :slug, :logo, :logo_cache, :public, :all_files_public, :git_repository, :release_date )
+      params.require(:dataset).permit( :name, :description, :slug, :logo, :logo_cache, :public, :all_files_public, :git_repository, :release_date, :info_what, :info_who, :info_when, :info_funded_by, :info_citation, :info_size )
     end
 
 end

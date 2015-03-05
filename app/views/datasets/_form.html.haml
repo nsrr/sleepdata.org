@@ -1,0 +1,105 @@
+.main-container.grid-texture
+  = form_for @dataset, html: { class: 'form-horizontal' } do |f|
+    - if @dataset.errors.any?
+      .row
+        .col-md-offset-2.col-md-10
+          #error_explanation.bs-callout.bs-callout-danger
+            %h6
+              = pluralize(@dataset.errors.count, "error")
+              prohibited this dataset from being saved
+
+            %ul
+            - @dataset.errors.full_messages.each do |msg|
+              %li= msg
+
+    .form-group
+      = f.label :name, nil, class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_field :name, class: 'form-control'
+
+    .form-group
+      = f.label :description, nil, class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_area :description, rows: 7, class: 'form-control'
+
+    .form-group
+      = f.label :slug, nil, class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_field :slug, class: 'form-control'
+        .bs-callout.bs-callout-info
+          %h6 Naming convention
+
+          %ul
+            %li Must be a lowercase letter <code>a-z</code> followed by lowercase letters <code>a-z</code>, numbers<code>0-9</code>, or dashes<code>-</code>.
+          %p Ex: <code>abc123-trial</code>
+
+    .form-group
+      = f.label :logo, 'Logo (JPG, GIF, PNG)', class: 'col-md-2 control-label'
+      .col-md-10
+        = f.file_field :logo, class: 'form-control'
+        = f.hidden_field :logo_cache
+
+    .form-group
+      = f.label :info_what, 'One sentence summary of the study', class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_field :info_what, class: 'form-control'
+
+
+    .form-group
+      = f.label :info_who, 'Description of the study population', class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_area :info_who, rows: 7, class: 'form-control'
+
+    .form-group
+      = f.label :info_when, 'Study timeframe', class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_field :info_when, class: 'form-control'
+
+    .form-group
+      = f.label :info_funded_by, 'List of funders / grant numbers', class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_area :info_funded_by, rows: 7, class: 'form-control'
+
+    .form-group
+      = f.label :info_citation, 'Citation', class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_area :info_citation, rows: 7, class: 'form-control'
+
+    .form-group
+      = f.label :info_size, 'Total File Size (bytes)', class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_field :info_size, class: 'form-control'
+
+    .form-group
+      = f.label :git_repository, nil, class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_field :git_repository, class: 'form-control'
+        .bs-callout.bs-callout-info
+          %h6 Repository must be Public
+          %ul
+            %li The repository must be publicly accessible.
+          %p Ex: <code>https://github.com/&lt;repository-name&gt;.git</code>
+
+    .form-group
+      .col-md-offset-2.col-md-10
+        .checkbox
+          %label
+            = f.check_box :public
+            Public Documentation
+
+    .form-group
+      .col-md-offset-2.col-md-10
+        .checkbox
+          %label
+            = f.check_box :all_files_public
+            Set All Files Public
+
+    .form-group
+      = f.label :release_date, class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_field :release_date, class: 'datepicker form-control', value: @dataset.release_date ? @dataset.release_date.strftime('%m/%d/%Y') : ''
+
+    .form-group
+      .col-md-offset-2.col-md-10
+        = f.submit nil, class: 'btn btn-primary'
+        = cancel

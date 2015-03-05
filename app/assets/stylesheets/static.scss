@@ -130,6 +130,16 @@ a.anchor-link::before {
   padding: 40px;
 }
 
+.img-logo-navigation-bar {
+  margin-top: 40px;
+  margin-right: 20px;
+  text-align: center;
+}
+
+.img-logo-navigation-bar img {
+  max-width: 100%;
+}
+
 @media screen and (min-width: $screen-md-min) {
   .md-fixed-height {
     height: 800px;

@@ -1,0 +1,21 @@
+// documentation.scss
+// This file is used to style the header for datasets
+
+
+.info-container {
+  padding: 20px;
+  margin-bottom: 10px;
+
+  span.static {
+    font-size: 14px;
+    font-weight: 300;
+  }
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .info-container {
+    span.static {
+      font-size: 18px;
+    }
+  }
+}

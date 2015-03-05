@@ -2,9 +2,41 @@
   .main-container.dark-texture
     %h1.center
       = @dataset.name
-    - if @dataset.logo.size > 0
-      .logo-middle
-        = image_tag logo_dataset_path(@dataset), class: 'img-white-background'
+    - if @dataset.info_count > 0
+      .row
+        - if @dataset.info_what.present?
+          %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
+            .info-container
+              %h6
+                %span.glyphicon.glyphicon-education
+                What
+              %span.static
+                = @dataset.info_what
+        - if @dataset.info_who.present?
+          %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
+            .info-container
+              %h6
+                %span.glyphicon.glyphicon-user
+                Who
+              %span.static
+                = @dataset.info_who
+        - if @dataset.info_when.present?
+          %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
+            .info-container
+              %h6
+                %span.glyphicon.glyphicon-calendar
+                When
+              %span.static
+                = @dataset.info_when
+        - if @dataset.info_funded_by.present?
+          %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
+            .info-container
+              .info-title
+                %h6
+                  %span.glyphicon.glyphicon-piggy-bank
+                  Funded By
+              %span.static
+                = @dataset.info_funded_by
 
   - file_count = @dataset.indexed_files(nil, 0)
   - if file_count > 0 and @dataset.variables.count > 0
@@ -13,7 +45,6 @@
         .col-md-6{ style: 'padding: 0px;' }
           .slim-container.neutral-texture.md-fixed-height
             %h2
-              = # .main-container instead of header-top
               Downloads
             %p
               Explore
@@ -25,7 +56,13 @@
                 nsrr download
                 = @dataset.slug
 
-            - if @dataset.slug.in?(['shhs','chat'])
+            - if @dataset.info_size > 0
+              %p
+                The total download size of
+                = @dataset.name
+                is
+                %strong= number_to_human_size(@dataset.info_size) + '.'
+            - if @dataset.slug.in?(['shhs','chat']) and false
               %p
                 The total download size of
                 = @dataset.name

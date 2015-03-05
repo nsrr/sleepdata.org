@@ -17,6 +17,7 @@ class Dataset < ActiveRecord::Base
   validates_presence_of :name, :slug, :user_id
   validates_uniqueness_of :slug, scope: [ :deleted ]
   validates_format_of :slug, with: /\A[a-z][a-z0-9\-]*\Z/
+  validates_numericality_of :info_size, greater_than_or_equal_to: 0
 
   # Model Relationships
   belongs_to :user
@@ -328,6 +329,17 @@ class Dataset < ActiveRecord::Base
 
   def create_page_audit!(current_user, page_path, remote_ip )
     self.dataset_page_audits.create( user_id: (current_user ? current_user.id : nil), page_path: page_path, remote_ip: remote_ip )
+  end
+
+  def info_count
+    @info_count ||= begin
+      count = 0
+      count += 1 if self.info_what.present?
+      count += 1 if self.info_who.present?
+      count += 1 if self.info_when.present?
+      count += 1 if self.info_funded_by.present?
+      count
+    end
   end
 
   private
