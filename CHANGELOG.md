@@ -37,6 +37,8 @@
     - browse all covariates online
   - Dataset documentation pages now scale better with screen resolution to make text more legible
   - Dataset owners can now highlight key information about their dataset
+- **Tool Changes**
+  - Titles no longer overlap tools tags on the tools index
 - **Agreement Changes**
   - Step 2 now has additional instructions to clarify the importance of describing the "Specific Purpose", and selecting an appropriate number of datasets
   - The signature step now allows users to opt out of signing the agreement if they have institutional requirements forbidding signing of agreements
