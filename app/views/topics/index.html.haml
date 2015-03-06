@@ -6,11 +6,8 @@
       = @title
     %p
       A place to ask questions, seek advice, and help others.
-    -#.jumbotron-pagination
-      -#= render partial: 'variables/per_page', locals: { per_page: 50, object_count: @topics.total_count }
 
-  - @background_class = 'white-texture'
-  .main-container
+  .main-container.grid-texture
     .row{ style: 'margin-bottom:20px' }
       .col-xs-6
         - if current_user
