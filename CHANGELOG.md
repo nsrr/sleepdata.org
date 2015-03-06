@@ -18,6 +18,7 @@
   - Updated the user sign in and registration page
   - Removed wget documentation in favor of the NSRR Downloader Ruby Gem
   - Added a map page to show NSRR membership
+  - The menu has minor UI improvements to scale better across different device sizes
 - **Challenges Added**
   - Started prototyping the flow limitation challenge
 - **Forum Changes**

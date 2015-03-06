@@ -1,0 +1,27 @@
+// Menu Container padding is based off of padding in containers.scss
+
+.menu-container {
+  padding-left:  0px;
+  padding-right: 0px;
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .menu-container {
+    padding-left:  50px;
+    padding-right: 50px;
+  }
+}
+
+@media screen and (min-width: $screen-md-min) {
+  .menu-container {
+    padding-left:  60px;
+    padding-right: 60px;
+  }
+}
+
+@media screen and (min-width: $screen-lg-min) {
+  .menu-container {
+    padding-left:  80px;
+    padding-right: 80px;
+  }
+}
