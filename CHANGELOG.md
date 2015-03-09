@@ -48,6 +48,7 @@
   - The password reset email and other emails have had their template updated
 - **Administrative Changes**
   - Admins can now set the auto-subscribe forum notifications features for users
+  - Location statistics now load more quickly
 - **Gem Changes**
   - Updated to pg 0.18.1
   - Updated to contour 3.0.0.beta1

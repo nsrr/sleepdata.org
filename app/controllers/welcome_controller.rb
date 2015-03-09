@@ -2,6 +2,10 @@ class WelcomeController < ApplicationController
   before_action :authenticate_user!,        only: [ :sync, :stats, :agreement_reports, :downloads_by_month, :location, :token, :reviews_index, :reviews_show ]
   before_action :check_system_admin,        only: [ :sync, :stats, :agreement_reports, :downloads_by_month, :location, :reviews_index, :reviews_show ]
 
+  def location
+    render layout: 'layouts/application-full'
+  end
+
   def about
     @users = User.core_members.order( :last_name, :first_name )
   end
