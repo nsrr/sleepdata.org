@@ -46,6 +46,8 @@
   - Academic agreements no longer include Indemnification Clause (11 and 12), and have been renumbered
 - **Email Changes**
   - The password reset email and other emails have had their template updated
+- **Administrative Changes**
+  - Admins can now set the auto-subscribe forum notifications features for users
 - **Gem Changes**
   - Updated to pg 0.18.1
   - Updated to contour 3.0.0.beta1

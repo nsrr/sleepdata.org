@@ -4,6 +4,12 @@ class UsersController < ApplicationController
   before_action :set_user, only: [ :show, :edit, :update, :destroy ]
   before_action :redirect_without_user, only: [ :show, :edit, :update, :destroy ]
 
+  layout 'layouts/application-full'
+
+  def settings
+    render layout: 'layouts/application'
+  end
+
   def update_settings
     if current_user.update(user_params)
       redirect_to settings_path, notice: 'Settings successfully updated.'
