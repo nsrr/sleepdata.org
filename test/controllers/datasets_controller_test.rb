@@ -312,6 +312,24 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:datasets)
   end
 
+  test "should get index as json" do
+    get :index, format: 'json'
+    assert_not_nil assigns(:datasets)
+    datasets = JSON.parse(response.body)
+    assert_equal 1, datasets.select{|d| d['slug'] == 'wecare'}.count
+    assert_equal 0, datasets.select{|d| d['slug'] == 'private'}.count
+    assert_response :success
+  end
+
+  test "should get index as json for user with token" do
+    get :index, auth_token: users(:admin).id_and_auth_token, format: 'json'
+    assert_not_nil assigns(:datasets)
+    datasets = JSON.parse(response.body)
+    assert_equal 1, datasets.select{|d| d['slug'] == 'wecare'}.count
+    assert_equal 1, datasets.select{|d| d['slug'] == 'private'}.count
+    assert_response :success
+  end
+
   test "should get new" do
     login(users(:admin))
     get :new
@@ -446,6 +464,17 @@ class DatasetsControllerTest < ActionController::TestCase
     login(users(:valid))
     get :show, id: datasets(:private)
     assert_redirected_to datasets_path
+  end
+
+  test "should show private dataset to authorized user with token" do
+    get :show, id: datasets(:private), auth_token: users(:admin).id_and_auth_token, format: 'json'
+    assert_not_nil assigns(:dataset)
+    dataset = JSON.parse(response.body)
+    assert_equal 'private', dataset['slug']
+    assert_equal 'In the Works', dataset['name']
+    assert_equal 'Currently being constructed and not yet public.', dataset['description']
+    assert_equal false, dataset['public']
+    assert_response :success
   end
 
   test "should show public page to anonymous user" do

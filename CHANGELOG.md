@@ -37,6 +37,7 @@
     - browse all covariates online
   - Dataset documentation pages now scale better with screen resolution to make text more legible
   - Dataset owners can now highlight key information about their dataset
+  - Improved the dataset API to allow the NSRR gem to download data from private datasets for authorized users
 - **Tool Changes**
   - Titles no longer overlap tools tags on the tools index
 - **Agreement Changes**

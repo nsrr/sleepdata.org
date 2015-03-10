@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get "account(/:auth_token)/profile" => "account#profile"
+
   resources :tags
 
   resources :topics, path: "forum" do
@@ -90,6 +92,9 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  get "/a/:auth_token/datasets" => 'datasets#index'
+  get "/a/:auth_token/datasets/:id" => 'datasets#show'
 
   resources :reviews do
     member do

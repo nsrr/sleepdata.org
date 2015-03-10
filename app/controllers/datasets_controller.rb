@@ -1,5 +1,5 @@
 class DatasetsController < ApplicationController
-  before_action :authenticate_user_from_token!, only: [ :json_manifest, :manifest, :files, :upload_graph, :refresh_dictionary, :upload_dataset_csv, :editor ]
+  before_action :authenticate_user_from_token!, only: [ :json_manifest, :manifest, :files, :upload_graph, :refresh_dictionary, :upload_dataset_csv, :editor, :index, :show ]
   before_action :authenticate_user!,        only: [ :new, :edit, :create, :update, :destroy, :audits, :requests, :create_access, :remove_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync, :set_public_file, :reset_index ]
   before_action :check_system_admin,        only: [ :new, :create, :destroy ]
   before_action :set_viewable_dataset,      only: [ :show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :search, :editor ]
