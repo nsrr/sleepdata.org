@@ -2,12 +2,6 @@
 
 ### Enhancements
 - **General Changes**
-  - Added a new showcase carousel on the home page aimed at highlighting new items of interest
-  - A new demo page is now available that is aimed at getting new users started by:
-    - downloading data
-    - opening CSV datasets and accessing variable information
-    - extracting information from EDFs
-  - A new page to showcase new tools and datasets on the NSRR website
   - Fixed a minor styling issue with pagination on dataset variable indexes
   - Topic tags are now faded using grayscale instead of opacity to maintain contrast between text and tag color
   - Streamlined login system by removing alternate logins
@@ -19,6 +13,16 @@
   - Removed wget documentation in favor of the NSRR Downloader Ruby Gem
   - Added a map page to show NSRR membership
   - The menu has minor UI improvements to scale better across different device sizes
+- **Showcase Added**
+  - A new showcase section has been added that highlights certain areas of interest for researchers
+  - Added a page highlighting Shaun Purcell's work on Genetics of Sleep Spindles
+  - Added a page that covers the purpose of the NSRR in 5 steps
+  - Added a new showcase carousel on the home page aimed at highlighting showcase items
+  - A new page to showcase new tools and datasets on the NSRR website
+  - A new demo page is now available that is aimed at getting new users started by:
+    - downloading data
+    - opening CSV datasets and accessing variable information
+    - extracting information from EDFs
 - **Challenges Added**
   - The flow limitation challenge is now available
 - **Forum Changes**

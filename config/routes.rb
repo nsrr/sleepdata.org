@@ -110,13 +110,16 @@ Rails.application.routes.draw do
     end
   end
 
+  scope module: 'showcase' do
+    get :showcase, action: 'index', as: :showcase
+    get "showcase(/:slug)", action: 'show', as: :showcase_show
+  end
+
   scope module: 'static' do
     get :demo
     get :parallax
     get :parallax2
     get :map
-    # get :showcase
-    get "showcase(/:slug)", action: 'showcase', as: :showcase
     get :version
     get :sizes
   end

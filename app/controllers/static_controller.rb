@@ -5,9 +5,6 @@ class StaticController < ApplicationController
   def demo
   end
 
-  def showcase
-  end
-
   def parallax
     render layout: 'layouts/application-parallax'
   end

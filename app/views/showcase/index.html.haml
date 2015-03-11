@@ -1,0 +1,37 @@
+- @title = 'Showcase'
+.beta-container
+  .main-container.dark-texture
+    %h1
+      = @title
+
+  .main-container.grid-texture
+    %p
+      Don't know where to start? Take a look at our
+      = link_to('NSRR overview', showcase_show_path('where-to-start')) + '!'
+      It's as easy as
+      %span.label.label-success 1
+      %span.label.label-success 2
+      %span.label.label-success 3
+      !
+  .main-container.light-texture
+    = image_tag 'physiomimi_logo.png', class: 'img-white-background'
+    %p
+      Learn about the
+      = link_to('NSRR Cross Dataset Query Tool', showcase_show_path('search-nsrr')) + '.'
+
+  .main-container.grid-texture
+    %p
+      We're also delighted to highlight a short summary of
+      %strong Shaun Purcell's
+      work on the
+      = link_to 'genetics of sleep spindles', showcase_show_path('shaun-purcell-genetics-of-sleep-spindles')
+      using data availabe on the NSRR!
+    = image_tag 'showcase/nsrr-sigma-power-twin.png', class: 'img-white-background'
+
+  .main-container.light-texture
+    %p
+      Get started with
+      = link_to 'three short tutorials', demo_path
+      that cover downloading data, generating statistics, and extracting signal
+      data from EDFs.
+    = image_tag 'nsrr-rdi3p-age-gender.png', class: 'img-white-background'

@@ -17,17 +17,6 @@ class StaticControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get showcase for logged out user" do
-    get :showcase
-    assert_response :success
-  end
-
-  test "should get showcase for regular user" do
-    login(@regular_user)
-    get :showcase
-    assert_response :success
-  end
-
   test "should get version" do
     get :version
     assert_response :success
