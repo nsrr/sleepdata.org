@@ -26,6 +26,7 @@ class User < ActiveRecord::Base
   # Model Relationships
   has_many :agreements, -> { where deleted: false }
   has_many :agreement_events
+  has_many :answers
   has_many :challenges, -> { where deleted: false }
   has_many :comments, -> { where deleted: false }
   has_many :datasets, -> { where deleted: false }

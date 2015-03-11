@@ -6,6 +6,9 @@
         Signal
         = @signal
         of 30
+      - last_question = @challenge.questions.find_by_name 'signal30n'
+      - if current_user.answers.where(challenge_id: @challenge.id, question_id: last_question.id).where.not(response: nil).count > 0
+        %p= link_to 'Return to Review', review_challenge_path(@challenge), class: 'btn btn-xs btn-default'
     - if flash[:alert]
       .slim-container.flash-alert
         %p.center
