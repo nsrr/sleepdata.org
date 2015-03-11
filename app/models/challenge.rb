@@ -12,6 +12,8 @@ class Challenge < ActiveRecord::Base
 
   # Model Relationships
   belongs_to :user
+  has_many :questions, -> { where deleted: false }
+  has_many :answers
 
   # Challenge Methods
 

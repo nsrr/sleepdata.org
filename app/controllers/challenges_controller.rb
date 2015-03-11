@@ -2,9 +2,11 @@ class ChallengesController < ApplicationController
   before_action :authenticate_user!,          except: [ :index, :show, :images ]
   before_action :check_system_admin,          only: [ :new, :create, :edit, :update, :destroy ]
 
-  before_action :set_viewable_challenge,      only: [ :show, :images, :signal ]
+  before_action :set_viewable_challenge,      only: [ :show, :images, :signal, :update_signal, :review ]
   before_action :set_editable_challenge,      only: [ :edit, :update, :destroy ]
-  before_action :redirect_without_challenge,  only: [ :show, :images, :signal, :edit, :update, :destroy ]
+  before_action :redirect_without_challenge,  only: [ :show, :images, :signal, :update_signal, :review, :edit, :update, :destroy ]
+
+  before_action :set_signal_map,              only: [ :signal, :update_signal, :review ]
 
   layout 'application-full'
 
@@ -20,14 +22,35 @@ class ChallengesController < ApplicationController
   end
 
   def signal
-    @signal = [params[:signal].to_i, 1].max
+  end
 
-    @signal_map = [('A'..'R'), ('A'..'V'), ('A'..'P'), ('A'..'N'), ('A'..'P'),
-                   ('A'..'S'), ('A'..'M'), ('A'..'M'), ('A'..'P'), ('A'..'M'),
-                   ('A'..'O'), ('A'..'S'), ('A'..'R'), ('A'..'P'), ('A'..'M'),
-                   ('A'..'R'), ('A'..'P'), ('A'..'J'), ('A'..'S'), ('A'..'L'),
-                   ('A'..'M'), ('A'..'P'), ('A'..'M'), ('A'..'K'), ('A'..'M'),
-                   ('A'..'U'), ('A'..'O'), ('A'..'O'), ('A'..'L'), ('A'..'N')]
+  def update_signal
+    range = @signal_map[@signal - 1]
+    number = "%02d" % @signal
+    blank_found = false
+
+    range.each do |letter|
+      question_name = "signal#{number}#{letter.downcase}"
+      question = @challenge.questions.find_by_name(question_name)
+      answer = @challenge.answers.where(question_id: question.id, user_id: current_user.id).first_or_create
+      Rails.logger.debug question_name + " " + params[question_name].to_s
+      if ['yes', 'no', 'intermediate', 'unscorable'].include?(params[question_name])
+        answer.update response: params[question_name]
+      else
+        blank_found = true
+      end
+    end
+
+    if blank_found
+      flash[:alert] = "Please answer every question."
+      redirect_to signal_challenge_path(@challenge, signal: @signal)
+    else
+      if @signal == 30
+        redirect_to review_challenge_path(@challenge)
+      else
+        redirect_to signal_challenge_path(@challenge, signal: @signal + 1)
+      end
+    end
   end
 
   # GET /challenges/new
@@ -114,5 +137,16 @@ class ChallengesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def challenge_params
       params.require(:challenge).permit(:name, :slug, :description, :public)
+    end
+
+    def set_signal_map
+      @signal = [params[:signal].to_i, 1].max
+
+      @signal_map = [('A'..'R'), ('A'..'V'), ('A'..'P'), ('A'..'N'), ('A'..'P'),
+                     ('A'..'S'), ('A'..'M'), ('A'..'M'), ('A'..'P'), ('A'..'M'),
+                     ('A'..'O'), ('A'..'S'), ('A'..'R'), ('A'..'P'), ('A'..'M'),
+                     ('A'..'R'), ('A'..'P'), ('A'..'J'), ('A'..'S'), ('A'..'L'),
+                     ('A'..'M'), ('A'..'P'), ('A'..'M'), ('A'..'K'), ('A'..'M'),
+                     ('A'..'U'), ('A'..'O'), ('A'..'O'), ('A'..'L'), ('A'..'N')]
     end
 end

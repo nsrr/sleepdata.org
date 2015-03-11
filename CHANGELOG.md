@@ -20,7 +20,7 @@
   - Added a map page to show NSRR membership
   - The menu has minor UI improvements to scale better across different device sizes
 - **Challenges Added**
-  - Started prototyping the flow limitation challenge
+  - The flow limitation challenge is now available
 - **Forum Changes**
   - The forum user interface has been updated
   - Forum post anchors now correctly offset based on the top navigation bar

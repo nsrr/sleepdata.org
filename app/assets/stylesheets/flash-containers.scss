@@ -1,0 +1,11 @@
+
+.flash-alert {
+  background-color: $alert-warning-bg;
+  background-image: none;
+}
+
+.flash-notice {
+  background-color: $alert-success-bg;
+  color: #333;
+  background-image: none;
+}

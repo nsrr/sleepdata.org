@@ -12,30 +12,46 @@
       My Answers
 
     %p
-      Here are the answers you provided for this challenge. Please review them, and then either go back and edit, or submit your responses. You will no longer be able to edit your responses after submitting.
+      Here are the answers you provided for this challenge. Please review them, and then either go back and edit, or submit your responses at the bottom.
 
-    .center{ style: 'width:100%;margin-top:40px;' }
-      = image_tag 'challenges/flow-limitation-letters.png', class: 'img-thumbnail'
+  - @signal_map.each_with_index do |range, index|
+    - signal = index + 1
+    .slim-container{ class: "#{signal.odd? ? 'light-texture' : 'grid-texture' }" }
+      %h3
+        Signal
+        = signal
+        = link_to 'edit answers', signal_challenge_path(@challenge, signal), class: 'btn btn-xs btn-default'
+
+      = image_tag images_challenge_path(@challenge, path: "fl#{signal}.png"), style: 'max-width: 100%;'
+
+      %table.table{ style: 'table-layout:fixed' }
+        %thead
+          %tr
+            - range.each do |letter|
+              %th{ style: 'text-align:center' }=letter
+        %tbody
+          %tr
+            - range.each do |letter|
+              - number = "%02d" % signal
+              - question_name = "signal#{number}#{letter.downcase}"
+              - question = @challenge.questions.find_by_name(question_name)
+              - answer = @challenge.answers.where(question_id: question.id, user_id: current_user.id).first_or_create
+              %td{ style: 'text-align:center' }
+                - case answer.response when 'yes'
+                  %span.label.label-success Y
+                - when 'no'
+                  %span.label.label-danger N
+                - when 'intermediate'
+                  %span.label.label-warning I
+                - when 'unscorable'
+                  %span.label.label-default U
 
 
 
-    %p{ style: 'margin-top:40px'}
-      = link_to 'A - Flow Limited?', flow_limitation_challenge_step1_path
-    %p{ style: 'margin-left: 20px;'}
-      %strong Yes
-
-
-    %p
-      = link_to 'B - Flow Limited?', flow_limitation_challenge_step2_path
-    %p{ style: 'margin-left: 20px;'}
-      %strong Intermediate
-
-
-  %a.anchor-top{ name: 'submit-responses' }
   .main-container.call-to-action
 
     %h2.center
-      Last step, make sure to submit your answers!
+      Almost done, answer a short survey on the next page!
 
     .center{ style: 'margin-top:20px;margin-bottom:20px' }
-      = link_to 'Submit My Answers', flow_limitation_challenge_submitted_path, class: 'btn btn-call-to-action btn-lg'
+      = link_to 'Proceed to Survey', 'https://tryslice.io/survey/flow-limitation-challenge', class: 'btn btn-call-to-action btn-lg'

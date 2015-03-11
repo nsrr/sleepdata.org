@@ -44,11 +44,12 @@ Rails.application.routes.draw do
     member do
       get "images/*path", action: 'images', as: :images, format: false
       get "signal/:signal", action: 'signal', as: :signal
+      post "signal/:signal", action: 'update_signal', as: :update_signal
+      get :review
     end
   end
 
   scope module: 'challenges' do
-    get "challenges/flow-limitation/review", action: 'review', as: :flow_limitation_challenge_review
     get "challenges/flow-limitation/submitted", action: 'submitted', as: :flow_limitation_challenge_submitted
   end
 
