@@ -33,7 +33,6 @@ class ChallengesController < ApplicationController
       question_name = "signal#{number}#{letter.downcase}"
       question = @challenge.questions.find_by_name(question_name)
       answer = @challenge.answers.where(question_id: question.id, user_id: current_user.id).first_or_create
-      Rails.logger.debug question_name + " " + params[question_name].to_s
       if ['yes', 'no', 'intermediate', 'unscorable'].include?(params[question_name])
         answer.update response: params[question_name]
       else
