@@ -47,7 +47,7 @@
                   %label.btn.btn-default-to-warning{ class: "#{'active' if answer.response == 'intermediate'}", style: 'min-width:160px' }
                     = radio_button_tag question_name, 'intermediate', answer.response == 'intermediate'
                     Intermediate
-                  %label.btn.btn-default{ class: "#{'active' if answer.response == 'unscorable'}", style: 'min-width:160px' }
+                  %label.btn.btn-default-to-dark{ class: "#{'active' if answer.response == 'unscorable'}", style: 'min-width:160px' }
                     = radio_button_tag question_name, 'unscorable', answer.response == 'unscorable'
                     Unscorable / Artifact
 

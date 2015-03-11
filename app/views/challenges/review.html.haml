@@ -22,7 +22,7 @@
         = signal
         = link_to 'edit answers', signal_challenge_path(@challenge, signal), class: 'btn btn-xs btn-default'
 
-      = image_tag images_challenge_path(@challenge, path: "fl#{signal}.png"), style: 'max-width: 100%;'
+      = image_tag images_challenge_path(@challenge, path: "fl#{signal}.png"), style: 'width: 100%;'
 
       %table.table{ style: 'table-layout:fixed' }
         %thead
@@ -45,7 +45,8 @@
                   %span.label.label-warning I
                 - when 'unscorable'
                   %span.label.label-default U
-
+                - else
+                  %span.label{ style: "background-color: #FFF;color:#333;" } -
 
 
   .main-container.call-to-action

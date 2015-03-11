@@ -48,3 +48,20 @@
         border-color: darken($btn-warning-border, 12%);
   }
 }
+
+.btn-default-to-dark {
+  color: $btn-default-color;
+  background-color: $btn-default-bg;
+  border-color: $btn-default-border;
+
+  &:hover,
+  &:focus,
+  &.focus,
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: #FFF;
+    background-color: darken($btn-default-bg, 40%);
+        border-color: darken($btn-default-border, 42%);
+  }
+}
