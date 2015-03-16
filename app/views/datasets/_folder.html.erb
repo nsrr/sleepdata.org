@@ -90,7 +90,7 @@
           <% if current_user %>
             <%= link_to 'Fill out a Data Access and Use Agreement', submissions_path, class: 'btn btn-lg btn-success' %>.
           <% else %>
-            <%= link_to 'Register', new_user_registration_path, class: 'btn btn-lg btn-success' %> and then fill out a Data Access and Use Agreement.
+            <%= link_to 'Sign up', new_user_registration_path, class: 'btn btn-lg btn-success' %> and then fill out a Data Access and Use Agreement.
           <% end %>
         </p>
       <% elsif agreement = agreements.where( status: 'submitted' ).first %>
