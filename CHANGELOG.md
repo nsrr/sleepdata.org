@@ -55,6 +55,7 @@
   - Admins can now set the auto-subscribe forum notifications features for users
   - Location statistics now load more quickly
 - **Gem Changes**
+  - Updated to rails 4.2.1.rc4
   - Updated to pg 0.18.1
   - Updated to contour 3.0.0.beta1
   - Updated to kaminari 0.16.2
