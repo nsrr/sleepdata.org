@@ -66,6 +66,7 @@
 
 ### Bug Fix
 - Fixed a bug that caused too much information to be logged to the log file
+- Fixed an issue where friendly redirect on sign out was not redirecting to the last page the user was on
 
 ## 0.15.3 (January 6, 2015)
 

@@ -33,7 +33,6 @@ class NavigationTest < ActionDispatch::IntegrationTest
   end
 
   test "friendly url forwarding after logout" do
-    skip
     get datasets_path
     sign_in_as(@valid, "123456", "valid-2@example.com")
 
