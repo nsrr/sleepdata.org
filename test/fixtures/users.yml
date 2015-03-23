@@ -44,13 +44,20 @@ deleted:
   email: deleted@example.com
   encrypted_password: ""
 
-# An editor on the admin public project
+# An editor on the admin public dataset
 editor:
   first_name: EditorFirst
   last_name: EditorLast
   email: editor@example.com
   encrypted_password: ""
   authentication_token: D-FCa_ZUqLc2Mtaqp_9k
+
+# An editor on the admin private dataset
+editor_on_private:
+  first_name: EditorSecond
+  last_name: EditorSecond
+  email: editor_on_private@example.com
+  encrypted_password: ""
 
 # An AUG member
 aug:

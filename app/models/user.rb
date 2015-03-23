@@ -103,7 +103,7 @@ class User < ActiveRecord::Base
   end
 
   def all_viewable_datasets
-    Dataset.current.with_viewer( self.id )
+    Dataset.current.with_viewer_or_editor( self.id )
   end
 
   def all_viewable_challenges
@@ -127,7 +127,7 @@ class User < ActiveRecord::Base
   end
 
   def all_viewable_tools
-    Tool.current.with_viewer( self.id )
+    Tool.current.with_viewer_or_editor( self.id )
   end
 
   def avatar_url(size = 80, default = 'mm')

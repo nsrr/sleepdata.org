@@ -460,6 +460,12 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_redirected_to datasets_path
   end
 
+  test "should show private dataset to editor of private dataset" do
+    login(users(:editor_on_private))
+    get :show, id: datasets(:private)
+    assert_response :success
+  end
+
   test "should not show private dataset to logged in user" do
     login(users(:valid))
     get :show, id: datasets(:private)

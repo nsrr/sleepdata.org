@@ -11,7 +11,7 @@ class Dataset < ActiveRecord::Base
   scope :release_scheduled, -> { current.where( public: true ).where.not( release_date: nil )}
   scope :with_editor,   lambda { |arg| where(                       'datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)',       arg, arg, 'editor'   ).references(:dataset_users) }
   scope :with_reviewer, lambda { |arg| where(                                                  'datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)',            arg, 'reviewer' ).references(:dataset_users) }
-  scope :with_viewer,   lambda { |arg| where('datasets.public = ? or datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)', true, arg, arg, 'viewer'   ).references(:dataset_users) }
+  scope :with_viewer_or_editor,   lambda { |arg| where('datasets.public = ? or datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role IN (?))', true, arg, arg, ['viewer', 'editor']   ).references(:dataset_users) }
 
   # Model Validation
   validates_presence_of :name, :slug, :user_id

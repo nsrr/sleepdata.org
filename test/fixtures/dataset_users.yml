@@ -24,3 +24,8 @@ viewer_of_private_dataset_two:
   dataset: private
   user: two
   role: 'viewer'
+
+editor_of_private_dataset:
+  dataset: private
+  user: editor_on_private
+  role: 'editor'
