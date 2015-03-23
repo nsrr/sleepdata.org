@@ -10,6 +10,17 @@
       .row
         .col-sm-6
           .carousel-item-header
+            New Challenge
+          .carousel-item-description
+            Help fellow researchers by
+            = link_to 'participating', challenge_path('flow-limitation')
+            in the Flow Limitation Challenge.
+        .col-sm-6.center-picture{ style: 'overflow: hidden'}
+          = image_tag 'flow-limitation-logo.png', class: 'showcase-picture'
+    .item
+      .row
+        .col-sm-6
+          .carousel-item-header
             Search the NSRR
           .carousel-item-description
             Learn how to
@@ -44,21 +55,22 @@
             and
             = link_to 'EDFs', files_dataset_path('chat', path: 'edfs')
             available for the Childhood Adenotonsillectomy Trial.
-    .item
-      .row
-        .col-sm-6.center-picture
-          = image_tag 'heartbeat-logo.png', class: 'showcase-picture'
-        .col-sm-6
-          .carousel-item-header.hidden-xs
-            HeartBEAT v0.2.0
-          .carousel-item-header.visible-xs
-            HeartBEAT v0.2.0 Online
-          .carousel-item-description
-            Download the latest
-            = link_to 'datasets', files_dataset_path('heartbeat', path: 'datasets')
-            and
-            = link_to 'EDFs', files_dataset_path('heartbeat', path: 'edfs')
-            available for Heart Biomarker Evaluation in Apnea Treatment.
+    - if false
+      .item
+        .row
+          .col-sm-6.center-picture
+            = image_tag 'heartbeat-logo.png', class: 'showcase-picture'
+          .col-sm-6
+            .carousel-item-header.hidden-xs
+              HeartBEAT v0.2.0
+            .carousel-item-header.visible-xs
+              HeartBEAT v0.2.0 Online
+            .carousel-item-description
+              Download the latest
+              = link_to 'datasets', files_dataset_path('heartbeat', path: 'datasets')
+              and
+              = link_to 'EDFs', files_dataset_path('heartbeat', path: 'edfs')
+              available for Heart Biomarker Evaluation in Apnea Treatment.
     .item
       .row
         .col-sm-6
@@ -72,12 +84,15 @@
 .showcase-footer
   %ul#showcase-list
     %li.active{ data: { target: "#carousel-showcase", slide: { to: "0" } } }
-      = image_tag 'physiomimi_logo.png', class: 'showcase-indicator-picture img-bw img-color'
+      = image_tag 'showcase/flow-limitation-square.png', class: 'showcase-indicator-picture img-bw img-color'
     %li{ data: { target: "#carousel-showcase", slide: { to: "1" } } }
-      = image_tag 'shhs_logo.png', class: 'showcase-indicator-picture img-op'
+      = image_tag 'physiomimi_logo.png', class: 'showcase-indicator-picture img-bw'
     %li{ data: { target: "#carousel-showcase", slide: { to: "2" } } }
-      = image_tag 'chat_logo.png', class: 'showcase-indicator-picture img-bw'
+      = image_tag 'shhs_logo.png', class: 'showcase-indicator-picture img-op'
     %li{ data: { target: "#carousel-showcase", slide: { to: "3" } } }
-      = image_tag 'heartbeat-logo.png', class: 'showcase-indicator-picture img-bw'
+      = image_tag 'chat_logo.png', class: 'showcase-indicator-picture img-bw'
+    - if false
+      %li{ data: { target: "#carousel-showcase", slide: { to: "3" } } }
+        = image_tag 'heartbeat-logo.png', class: 'showcase-indicator-picture img-bw'
     %li{ data: { target: "#carousel-showcase", slide: { to: "4" } } }
       = image_tag 'nsrr-rdi3p-age-gender.png', class: 'showcase-indicator-picture img-bw'
