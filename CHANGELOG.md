@@ -1,4 +1,4 @@
-## 0.16.1
+## 0.16.1 (April 1, 2015)
 
 ### Bug Fix
 - Fixed incorrectly labeled Signal 13 on the Flow Limitation Challenge
