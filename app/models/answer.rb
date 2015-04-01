@@ -6,6 +6,7 @@ class Answer < ActiveRecord::Base
 
   # Model Relationships
   belongs_to :challenge
-  has_many :answers
+  belongs_to :question
+  belongs_to :user
 
 end
