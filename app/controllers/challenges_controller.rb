@@ -141,11 +141,6 @@ class ChallengesController < ApplicationController
     def set_signal_map
       @signal = [params[:signal].to_i, 1].max
 
-      @signal_map = [('A'..'R'), ('A'..'V'), ('A'..'P'), ('A'..'N'), ('A'..'P'),
-                     ('A'..'S'), ('A'..'M'), ('A'..'M'), ('A'..'P'), ('A'..'M'),
-                     ('A'..'O'), ('A'..'S'), ('A'..'Q'), ('A'..'P'), ('A'..'M'),
-                     ('A'..'R'), ('A'..'P'), ('A'..'J'), ('A'..'S'), ('A'..'L'),
-                     ('A'..'M'), ('A'..'P'), ('A'..'M'), ('A'..'K'), ('A'..'M'),
-                     ('A'..'U'), ('A'..'O'), ('A'..'O'), ('A'..'L'), ('A'..'N')]
+      @signal_map = Challenge::SIGNAL_MAP
     end
 end

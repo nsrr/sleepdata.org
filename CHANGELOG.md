@@ -3,6 +3,8 @@
 ### Enhancements
 - **General Changes**
   - Added Google Analytics
+- **Challenge Changes**
+  - Added an export for the Flow Limitation challenge
 - **Gem Changes**
   - Use of Ruby 2.2.2 is now recommended
 
