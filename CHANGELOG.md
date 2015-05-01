@@ -6,6 +6,9 @@
 - **Gem Changes**
   - Use of Ruby 2.2.2 is now recommended
 
+### Bug Fix
+- Fixed a bug that prevented reviewers seeing DAUA signature if the user signed and checked that they were unauthorized to sign the DAUA
+
 ## 0.16.1 (April 1, 2015)
 
 ### Bug Fix
