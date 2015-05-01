@@ -24,7 +24,7 @@ namespace :challenges do
       users = User.current.order(:email).where(id: challenge.answers.select(:user_id))
       user_count = users.count
       users.each_with_index do |u, index|
-        print "\rExporting Data For: #{index + 1} of #{user_count} - #{u.email}              "
+        print "\rExporting Data For: #{index + 1} of #{user_count} - #{u.email}      "
         user_row = [u.email, u.name]
         user_row += questions.collect do |question|
           answer = challenge.answers.where(question_id: question.id, user_id: u.id).first
