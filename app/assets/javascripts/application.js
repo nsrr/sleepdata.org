@@ -48,3 +48,5 @@
 //= require cookies
 
 //= require challenges
+
+//= require google_analytics

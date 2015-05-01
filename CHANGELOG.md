@@ -1,6 +1,8 @@
 ## 0.17.0
 
 ### Enhancements
+- **General Changes**
+  - Added Google Analytics
 - **Gem Changes**
   - Use of Ruby 2.2.2 is now recommended
 
