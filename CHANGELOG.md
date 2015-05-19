@@ -3,6 +3,7 @@
 ### Enhancements
 - **General Changes**
   - Added Google Analytics
+  - Fixed some minor spacing issues on forum
 - **Challenge Changes**
   - Added an export for the Flow Limitation challenge
 - **Gem Changes**
