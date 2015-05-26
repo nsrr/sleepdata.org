@@ -5,6 +5,13 @@ class AgreementsControllerTest < ActionController::TestCase
     @agreement = agreements(:one)
   end
 
+  test "should get irb assistance template for valid user" do
+    login(users(:valid))
+    get :irb_assistance_template
+
+    assert_response :success
+  end
+
   test "should get submissions for valid user" do
     login(users(:valid))
     get :submissions

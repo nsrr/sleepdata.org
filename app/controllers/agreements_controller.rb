@@ -1,6 +1,6 @@
 class AgreementsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_system_admin,             except: [ :renew, :daua, :dua, :create_step, :step, :update_step, :proof, :final_submission, :destroy_submission, :submissions, :welcome, :download_irb, :print, :complete, :new_step ]
+  before_action :check_system_admin,             except: [ :renew, :daua, :dua, :create_step, :step, :update_step, :proof, :final_submission, :destroy_submission, :submissions, :welcome, :download_irb, :print, :complete, :new_step, :irb_assistance_template ]
 
   before_action :set_viewable_submission,        only: [ :renew, :complete ]
   before_action :set_editable_submission,        only: [ :step, :update_step, :proof, :final_submission, :destroy_submission ]
