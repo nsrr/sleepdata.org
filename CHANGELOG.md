@@ -13,6 +13,7 @@
 - Fixed a bug that prevented reviewers seeing DAUA signature if the user signed and checked that they were unauthorized to sign the DAUA
 - Fixed an issue where users could post images and links on forum without having explicit permission to post links or images
 - IRB Assistance Template should now show up properly for regular users
+- Fixed map not picking up certain cases of users living in the US
 
 ## 0.16.1 (April 1, 2015)
 
