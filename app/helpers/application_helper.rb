@@ -11,7 +11,11 @@ module ApplicationHelper
     result = add_table_class(result, table_class) unless table_class.blank?
     result = expand_relative_paths(result)
     result = page_headers(result)
-    result = remove_links(result) unless allow_links
+    unless allow_links
+      result = remove_links(result)
+      result = remove_images(result)
+      result = remove_tables(result)
+    end
     result = target_link_as_blank(result) if target_blank
     result = link_usernames(result)
     result.html_safe
@@ -56,11 +60,19 @@ module ApplicationHelper
     end
 
     def target_link_as_blank(text)
-      text.to_s.gsub(/<a(.*?)>/, '<a\1 target="_blank">').html_safe
+      text.to_s.gsub(/<a(.*?)>/m, '<a\1 target="_blank">').html_safe
     end
 
     def remove_links(text)
-      text.to_s.gsub(/<a href="(.*?)">(.*?)<\/a>/, '\1')
+      text.to_s.gsub(/<a[^>]*? href="(.*?)">(.*?)<\/a>/m, '\1')
+    end
+
+    def remove_images(text)
+      text.to_s.gsub(/<img(.*?)>/m, '')
+    end
+
+    def remove_tables(text)
+      text.to_s.gsub(/<table(.*?)>(.*?)<\/table>/m, '')
     end
 
     def add_table_class(text, table_class)
