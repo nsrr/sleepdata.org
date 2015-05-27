@@ -26,7 +26,11 @@
         %tr
           %td
             - map_location = Map::MAP_COUNTRIES_AND_CODES.select{ |name, code| code == country }.first
-            = map_location[0] if map_location
+            - if map_location
+              = map_location[0]
+            - else
+              .text-muted
+                = country.inspect
           %td
             = pluralize(number_with_delimiter(count), 'user')
 
@@ -48,6 +52,10 @@
         %tr
           %td
             - map_location = Map::MAP_STATES_AND_CODES.select{ |name, code| code == state }.first
-            = map_location[0] if map_location
+            - if map_location
+              = map_location[0]
+            - else
+              .text-muted
+                = state.inspect
           %td
             = pluralize(number_with_delimiter(count), 'user')

@@ -6,6 +6,8 @@
   - Fixed some minor spacing issues on forum
 - **Challenge Changes**
   - Added an export for the Flow Limitation challenge
+- **Administrative Changes**
+  - Admin location report now better shows unmatched locations
 - **Gem Changes**
   - Use of Ruby 2.2.2 is now recommended
 
