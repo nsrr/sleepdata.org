@@ -1,6 +1,6 @@
 class ToolsController < ApplicationController
   before_action :authenticate_user!,        only: [ :new, :create, :edit, :update, :destroy, :requests, :request_access, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
-  before_action :check_system_admin,        only: [ :new, :create, :destroy, :pull_changes, :sync ]
+  before_action :check_system_admin,        only: [ :new, :create, :destroy ]
   before_action :set_viewable_tool,         only: [ :show, :logo, :images, :pages, :request_access ]
   before_action :set_editable_tool,         only: [ :edit, :update, :destroy, :requests, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
   before_action :redirect_without_tool,     only: [ :show, :logo, :images, :pages, :requests, :request_access, :set_access, :create_access, :edit, :update, :destroy, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]

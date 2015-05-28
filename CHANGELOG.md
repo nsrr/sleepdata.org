@@ -6,6 +6,8 @@
   - Fixed some minor spacing issues on forum
 - **Challenge Changes**
   - Added an export for the Flow Limitation challenge
+- **Tool Changes**
+  - Tool editors can now sync documentation repositories
 - **Administrative Changes**
   - Admin location report now better shows unmatched locations
 - **Gem Changes**

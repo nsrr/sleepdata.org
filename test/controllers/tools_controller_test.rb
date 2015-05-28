@@ -5,6 +5,12 @@ class ToolsControllerTest < ActionController::TestCase
     @tool = tools(:one)
   end
 
+  test "should get sync for editor" do
+    login(users(:editor))
+    get :sync, id: @tool
+    assert_response :success
+  end
+
   test "should show requests to editor" do
     login(users(:editor))
     get :requests, id: @tool
@@ -184,7 +190,7 @@ class ToolsControllerTest < ActionController::TestCase
   end
 
   test "should create page as editor" do
-    login(users(:admin)) # Should be :editor
+    login(users(:editor))
     post :create_page, id: @tool, page_name: 'CREATE_ME.md', page_contents: "# CREATE ME\nThis is the `CREATE_ME.md`."
 
     assert_redirected_to pages_tool_path(assigns(:tool), path: assigns(:path))
