@@ -12,6 +12,9 @@
   - Admin location report now better shows unmatched locations
 - **Gem Changes**
   - Use of Ruby 2.2.2 is now recommended
+  - Updated to pg 0.18.2
+  - Updated to simplecov 0.10.0
+  - Updated to chunky_png 1.3.4
 
 ### Bug Fix
 - Fixed a bug that prevented reviewers seeing DAUA signature if the user signed and checked that they were unauthorized to sign the DAUA
