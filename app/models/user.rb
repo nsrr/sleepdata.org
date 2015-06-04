@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
 
   # Callbacks
   before_save :ensure_authentication_token
-  after_create :notify_system_admins
 
   # Named Scopes
   scope :aug_members, -> { current.where( aug_member: true ) }
@@ -73,25 +72,6 @@ class User < ActiveRecord::Base
 
   def reviewable_agreements
     Agreement.current.where( "agreements.id IN (select requests.agreement_id from requests where requests.dataset_id IN (?))", self.all_reviewable_datasets.pluck(:id) )
-  end
-
-  # If a user has auto-subscribe enabled, then the user receives notifications on topics they have not explicity squelched.
-  # If a user has auto-subscribe disabled, then the user receives notifications on topics to which they have explicitely subscribed.
-  def subscribed_topics
-    @subscribed_topics ||= begin
-      if self.auto_subscribe?
-        Topic.current.not_banned.where.not( id: self.subscriptions.where( subscribed: false ).pluck( :topic_id ) )
-      else
-        Topic.current.not_banned.where( id: self.subscriptions.where( subscribed: true ).pluck( :topic_id ) )
-      end
-    end
-  end
-
-  # All comments created in the last day, or over the weekend if it is Monday
-  # Ex: On Monday, returns tasks created since Friday morning (Time.now - 3.day)
-  # Ex: On Tuesday, returns tasks created since Monday morning (Time.now - 1.day)
-  def digest_comments
-    Comment.digest_visible.where( topic_id: self.subscribed_topics.pluck(:id) ).where("created_at > ?", (Time.now.monday? ? Time.now.midnight - 3.day : Time.now.midnight - 1.day))
   end
 
   def all_datasets
@@ -187,14 +167,6 @@ class User < ActiveRecord::Base
   def destroy
     super
     update_column :updated_at, Time.now
-  end
-
-  private
-
-  def notify_system_admins
-    User.system_admins.each do |system_admin|
-      UserMailer.notify_system_admin(system_admin, self).deliver_later if Rails.env.production?
-    end
   end
 
 end

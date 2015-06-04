@@ -64,7 +64,7 @@ class AgreementEvent < ActiveRecord::Base
   end
 
   def email_mentioned_users
-    users = User.current.where(email_me_when_mentioned: true).reject{|u| u.username.blank?}.uniq.sort
+    users = User.current.reject{|u| u.username.blank?}.uniq.sort
     users.each do |user|
       UserMailer.mentioned_in_agreement_comment(self, user).deliver_later if Rails.env.production? and self.event_type == 'commented' and self.comment.to_s.match(/@#{user.username}\b/i)
     end

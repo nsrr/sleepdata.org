@@ -21,10 +21,13 @@
               - resource.errors.full_messages.each do |msg|
                 %li= msg
 
-        - Contour.sign_up_fields.each do |field_hash|
-          .form-group
-            = f.label field_hash[:attribute], class: 'control-label'
-            = f.send(field_hash[:type], field_hash[:attribute], class: 'form-control')
+        .form-group
+          = f.label :first_name, class: 'control-label'
+          = f.text_field :first_name, class: 'form-control'
+
+        .form-group
+          = f.label :last_name, class: 'control-label'
+          = f.text_field :last_name, class: 'form-control'
 
         .form-group
           = f.label :email, class: 'control-label'
@@ -37,6 +40,13 @@
         .form-group
           = f.label :password_confirmation, class: 'control-label'
           = f.password_field :password_confirmation, class: 'form-control', autocomplete: 'off'
+
+        .form-group
+          %label.control-label Receive Forum Emails
+          .checkbox
+            %label
+              = f.check_box :emails_enabled
+              Allow the NSRR to send you emails when a topic receives a reply to which you are subscribed, and when someone mentions you on the forum.
 
         - Contour.spam_fields.each do |name|
           .form-group.control-special

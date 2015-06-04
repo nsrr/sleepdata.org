@@ -2,15 +2,18 @@ require 'test_helper'
 
 class UserMailerTest < ActionMailer::TestCase
 
-  test "forum digest email" do
-    valid = users(:valid)
+  test "post replied email" do
+    post = comments(:six)
+    user = users(:two)
 
-    email = UserMailer.forum_digest(valid).deliver_now
+    # Send the email, then test that it got queued
+    email = UserMailer.post_replied(post, user).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
-    assert_equal [valid.email], email.to
-    assert_equal "Forum Digest for #{Date.today.strftime('%a %d %b %Y')}", email.subject
-    assert_match(/Dear #{valid.first_name},/, email.encoded)
+    # Test the body of the sent email contains what we expect it to
+    assert_equal [user.email], email.to
+    assert_equal "New Forum Reply: #{post.topic.name}", email.subject
+    assert_match(/Someone posted a reply to the following topic:/, email.encoded)
   end
 
   test "reviewer digest email" do
@@ -22,20 +25,6 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal [valid.email], email.to
     assert_equal "Reviewer Digest for #{Date.today.strftime('%a %d %b %Y')}", email.subject
     assert_match(/Dear #{valid.first_name},/, email.encoded)
-  end
-
-  test "notify system admin email" do
-    valid = users(:valid)
-    admin = users(:admin)
-
-    # Send the email, then test that it got queued
-    email = UserMailer.notify_system_admin(admin, valid).deliver_now
-    assert !ActionMailer::Base.deliveries.empty?
-
-    # Test the body of the sent email contains what we expect it to
-    assert_equal [admin.email], email.to
-    assert_equal "#{valid.name} Signed Up", email.subject
-    assert_match(/#{valid.name} \[#{valid.email}\] signed up for an account\./, email.encoded)
   end
 
   test "daua submitted email" do
@@ -120,20 +109,6 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal [dataset_user.user.email], email.to
     assert_equal "Your #{dataset_user.dataset.name} File Access Request Has Been Approved By #{editor.name}", email.subject
     assert_match(/#{editor.name} approved your file access request on #{dataset_user.dataset.name}\./, email.encoded)
-  end
-
-  test "mentioned in comment email" do
-    valid = users(:valid)
-    comment = comments(:one)
-
-    # Send the email, then test that it got queued
-    email = UserMailer.mentioned_in_comment(comment, valid).deliver_now
-    assert !ActionMailer::Base.deliveries.empty?
-
-    # Test the body of the sent email contains what we expect it to
-    assert_equal [valid.email], email.to
-    assert_equal "#{comment.user.forum_name} Mentioned You on the Forum", email.subject
-    assert_match(/#{comment.user.forum_name} mentioned you in a comment on the forum\./, email.encoded)
   end
 
   test "mentioned during review of agreement email" do

@@ -1,10 +1,11 @@
 class UserMailer < ApplicationMailer
 
-  def forum_digest(user)
+  def post_replied(post, user)
     setup_email
+    @post = post
     @user = user
     @email_to = user.email
-    mail(to: user.email, subject: "Forum Digest for #{Date.today.strftime('%a %d %b %Y')}")
+    mail(to: @email_to, subject: "New Forum Reply: #{@post.topic.name}")
   end
 
   def reviewer_digest(user)
@@ -12,16 +13,6 @@ class UserMailer < ApplicationMailer
     @user = user
     @email_to = user.email
     mail(to: user.email, subject: "Reviewer Digest for #{Date.today.strftime('%a %d %b %Y')}")
-  end
-
-  def notify_system_admin(system_admin, user)
-    setup_email
-    @system_admin = system_admin
-    @user = user
-    @email_to = system_admin.email
-    mail(to: system_admin.email,
-         subject: "#{user.name} Signed Up",
-         reply_to: user.email)
   end
 
   def daua_submitted(reviewer, agreement)
@@ -80,15 +71,6 @@ class UserMailer < ApplicationMailer
     mail(to: @email_to,
          subject: "Your #{dataset_user.dataset.name} File Access Request Has Been Approved By #{@editor.name}",
          reply_to: editor.email)
-  end
-
-  def mentioned_in_comment(comment, user)
-    setup_email
-    @user = user
-    @comment = comment
-    @email_to = user.email
-    mail(to: @email_to,
-      subject: "#{comment.user.forum_name} Mentioned You on the Forum")
   end
 
   def mentioned_in_agreement_comment(agreement_event, user)

@@ -22,9 +22,9 @@
         = link_to @user.username, topics_path(a: @user.username) if @user.username.present?
 
       %dt
-        Auto-Subscribe
+        Emails Enabled
       %dd
-        = simple_check @user.auto_subscribe?
+        = simple_check @user.emails_enabled?
 
       %dt
         Degree

@@ -1,0 +1,24 @@
+%b
+  Dear
+  = succeed ',' do
+    = @user.first_name
+%br
+%br
+Someone posted a reply to the following topic:
+%br
+%br
+%center
+  = link_to @post.topic.name, "#{ENV['website_url']}/forum/#{@post.topic.to_param}/comments/#{@post.to_param}", style: "color: #428bca"
+%br
+%br
+= succeed ':' do
+  %strong
+    = @post.user.forum_name
+= strip_tags(simple_markdown @post.description).truncate(100, separator: ' ').html_safe
+= link_to "Post ##{@post.number}", "#{ENV['website_url']}/forum/#{@post.topic.to_param}/comments/#{@post.to_param}", style: "color: #428bca"
+%br
+%br
+%i{ style: "color:#777" }
+  You may also
+  = link_to 'visit the topic', "#{ENV['website_url']}/forum/#{@post.topic.to_param}/comments/#{@post.to_param}", style: "color: #428bca"
+  to unsubscribe and stop receiving future replies to this topic.

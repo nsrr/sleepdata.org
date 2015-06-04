@@ -6,7 +6,7 @@ class Comment < ActiveRecord::Base
   include Deletable
 
   # Callbacks
-  after_create :touch_topic, :email_mentioned_users
+  after_create :touch_topic
 
   # Model Validation
   validates_presence_of :topic_id, :description, :user_id
@@ -35,17 +35,30 @@ class Comment < ActiveRecord::Base
     self.topic.comments.order(:id).pluck(:id).index(self.id) + 1 rescue 0
   end
 
+  # Reply Emails sends emails if the following conditions are met:
+  # 1) The topic subscriber has email notifications enabled
+  # AND
+  # 2) The topic subscriber is not the post creator
+  def send_reply_emails!
+    unless Rails.env.test? or Rails.env.development?
+      pid = Process.fork
+      if pid.nil? then
+        # In child
+        self.topic.subscribers.where.not(id: self.user_id).each do |u|
+          UserMailer.post_replied(self, u).deliver_later if Rails.env.production?
+        end
+        Kernel.exit!
+      else
+        # In parent
+        Process.detach(pid)
+      end
+    end
+  end
+
   private
 
   def touch_topic
     self.topic.update last_comment_at: Time.now
-  end
-
-  def email_mentioned_users
-    users = User.current.where(email_me_when_mentioned: true).reject{|u| u.username.blank?}.uniq.sort
-    users.each do |user|
-      UserMailer.mentioned_in_comment(self, user).deliver_later if Rails.env.production? and self.description.match(/@#{user.username}\b/i)
-    end
   end
 
 end

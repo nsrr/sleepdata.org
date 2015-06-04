@@ -22,6 +22,7 @@ class Topic < ActiveRecord::Base
   has_many :comments
   belongs_to :user
   has_many :subscriptions
+  has_many :subscribers, -> { current.where(emails_enabled: true).where(subscriptions: { subscribed: true }) }, through: :subscriptions, source: :user
   has_many :topic_tags
   has_many :tags, -> { where(deleted: false).order(:name) }, through: :topic_tags
 
@@ -45,21 +46,7 @@ class Topic < ActiveRecord::Base
   end
 
   def subscribed?(current_user)
-    subscription = current_user.subscriptions.where( topic_id: self.id ).first
-    subscription && subscription.subscribed? ? true : false
-  end
-
-  def subscription_type(current_user)
-    subscription = current_user.subscriptions.where( topic_id: self.id ).first
-    if subscription and subscription.subscribed == true
-      'subscribed'
-    elsif subscription and subscription.subscribed == false
-      'muted'
-    elsif current_user.auto_subscribe?
-      'auto-subscribed'
-    else
-      'auto-muted'
-    end
+    current_user.subscriptions.where(topic_id: self.id, subscribed: true).count > 0
   end
 
   private

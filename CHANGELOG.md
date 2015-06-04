@@ -4,6 +4,10 @@
 - **General Changes**
   - Added Google Analytics
   - Fixed some minor spacing issues on forum
+- **Forum Changes**
+  - Removed auto-subscribing users to new forum topics
+  - Comments on topics are now immediately sent to anyone subscribed to the topic
+  - Daily forum digests have been removed
 - **Challenge Changes**
   - Added an export for the Flow Limitation challenge
 - **Tool Changes**

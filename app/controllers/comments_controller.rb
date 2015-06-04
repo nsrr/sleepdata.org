@@ -30,10 +30,11 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @comment = @topic.comments.new(comment_params)
+    @comment = current_user.comments.where(topic_id: @topic.id).new(comment_params)
 
     respond_to do |format|
       if @comment.save
+        @comment.send_reply_emails!
         @topic.get_or_create_subscription(current_user)
         format.html { redirect_to topic_comment_path(@topic, @comment), notice: 'Comment was successfully created.' }
         format.json { render action: 'show', status: :created, location: @comment }
@@ -115,9 +116,6 @@ class CommentsController < ApplicationController
     end
 
     def comment_params
-      params[:comment] ||= { }
-      params[:comment][:user_id] = current_user.id unless @comment
-
-      params.require(:comment).permit(:description, :user_id)
+      params.require(:comment).permit(:description)
     end
 end

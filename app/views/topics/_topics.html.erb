@@ -4,7 +4,7 @@
 <table class="table table-striped"><% if current_user %><col class="hidden-xs" width="30px"/><% end %><col width="30px"/><col /><col /><col width="40px" />
   <thead>
     <tr>
-      <% if current_user %><th class="hidden-xs"><%= link_to "<span class='glyphicon #{current_user.auto_subscribe? ? 'glyphicon-volume-off' : 'glyphicon-volume-up'}'></span>".html_safe, settings_path, rel: 'tooltip', title: "Turn #{current_user.auto_subscribe? ? 'off' : 'on'} Auto-Subscribe", data: { container: 'body', placement: 'right' } %></th><% end %>
+      <% if current_user %><th class="hidden-xs"></th><% end %>
       <th></th>
       <th>Topic</th>
       <th class="hidden-xs">Tags</th>
@@ -15,10 +15,8 @@
     <tr class="<%= 'warning' if topic.stickied? %>">
       <% if current_user %>
         <td class="hidden-xs">
-          <% case topic.subscription_type(current_user) when 'subscribed' %>
+          <% if topic.subscribed?(current_user) %>
             <span class="glyphicon glyphicon-volume-up" rel="tooltip" title="Subscribed to Topic" data-container="body" data-placement="right"></span>
-          <% when 'auto-subscribed' %>
-            <span class="glyphicon glyphicon-volume-up" rel="tooltip" title="Auto-subscribed to Topic" data-container="body" data-placement="right"></span>
           <% end %>
         </td>
       <% end %>

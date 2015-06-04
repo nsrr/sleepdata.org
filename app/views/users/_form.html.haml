@@ -36,8 +36,8 @@
       .col-md-10.col-md-offset-2
         .checkbox
           %label
-            = f.check_box :auto_subscribe
-            Auto-Subscribe
+            = f.check_box :emails_enabled
+            Emails Enabled
 
     - if current_user.system_admin?
       .form-group
