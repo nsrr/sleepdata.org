@@ -364,7 +364,7 @@ class AgreementsControllerTest < ActionController::TestCase
     get :download_irb, id: agreements(:filled_out_application_with_attached_irb_file)
     assert_not_nil assigns(:agreement)
     assert_kind_of String, response.body
-    assert_equal File.binread( File.join('test', 'support', 'agreements', 'blank.pdf') ), response.body
+    assert_equal File.binread( Rails.root.join('test', 'support', 'agreements', 'blank.pdf') ), response.body
     assert_response :success
   end
 
@@ -373,7 +373,7 @@ class AgreementsControllerTest < ActionController::TestCase
     get :download_irb, id: agreements(:filled_out_application_with_attached_irb_file)
     assert_not_nil assigns(:agreement)
     assert_kind_of String, response.body
-    assert_equal File.binread( File.join('test', 'support', 'agreements', 'blank.pdf') ), response.body
+    assert_equal File.binread( Rails.root.join('test', 'support', 'agreements', 'blank.pdf') ), response.body
     assert_response :success
   end
 
@@ -456,7 +456,7 @@ class AgreementsControllerTest < ActionController::TestCase
     get :download, id: @agreement
     assert_not_nil assigns(:agreement)
     assert_kind_of String, response.body
-    assert_equal File.binread( File.join('test', 'support', 'agreements', 'blank.pdf') ), response.body
+    assert_equal File.binread( Rails.root.join('test', 'support', 'agreements', 'blank.pdf') ), response.body
     assert_response :success
   end
 

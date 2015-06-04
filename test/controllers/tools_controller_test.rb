@@ -196,7 +196,7 @@ class ToolsControllerTest < ActionController::TestCase
     assert_redirected_to pages_tool_path(assigns(:tool), path: assigns(:path))
 
     # Clean up file so tests can be rerun
-    file_path = File.join('test', 'support', 'tools', 'demo', 'pages', 'CREATE_ME.md')
+    file_path = Rails.root.join('test', 'support', 'tools', 'demo', 'pages', 'CREATE_ME.md')
     File.delete(file_path) if File.exist?(file_path)
   end
 

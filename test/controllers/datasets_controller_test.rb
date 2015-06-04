@@ -546,7 +546,7 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_redirected_to pages_dataset_path(assigns(:dataset), path: assigns(:path))
 
     # Clean up file so tests can be rerun
-    file_path = File.join('test', 'support', 'datasets', 'wecare', 'pages', 'CREATE_ME.md')
+    file_path = Rails.root.join('test', 'support', 'datasets', 'wecare', 'pages', 'CREATE_ME.md')
     File.delete(file_path) if File.exist?(file_path)
   end
 
