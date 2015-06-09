@@ -19,6 +19,7 @@
   - Updated to pg 0.18.2
   - Updated to simplecov 0.10.0
   - Updated to chunky_png 1.3.4
+  - Updated to contour 3.0.0.rc
 
 ### Bug Fix
 - Fixed a bug that prevented reviewers seeing DAUA signature if the user signed and checked that they were unauthorized to sign the DAUA
