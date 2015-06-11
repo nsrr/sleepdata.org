@@ -9,6 +9,7 @@ class ShowcaseController < ApplicationController
     showcases = %w( search-nsrr
                     where-to-start
                     shaun-purcell-genetics-of-sleep-spindles
+                    matt-butler-novel-sleep-measures-and-cardiovascular-risk
                   )
     if showcases.include?(params[:slug])
       render params[:slug].to_s.gsub('-', '_')

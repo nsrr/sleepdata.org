@@ -6,6 +6,17 @@
 
   - @background_class = 'light-texture'
 
+  .main-container.transparent-texture
+    .row
+      .col-sm-8
+        %h3.inset-header-text Researcher Showcase
+        %p
+          %strong Matt Butler
+          has given us some insight into his work on
+          = succeed '!' do
+            = link_to 'Novel Sleep Measures and Cardiovascular Risk', showcase_show_path('matt-butler-novel-sleep-measures-and-cardiovascular-risk')
+      .col-sm-4.hidden-xs
+        = image_tag 'showcase/matt-butler.png', class: 'img-thumbnail img-responsive', style: ' box-shadow:         3px 3px 5px 0px #777;padding:15px;border: 1px solid #ccc'
   .main-container.grid-texture.inset-border
     .row
       .col-sm-4.hidden-xs

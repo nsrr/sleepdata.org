@@ -4,6 +4,8 @@
 - **General Changes**
   - Added Google Analytics
   - Fixed some minor spacing issues on forum
+- **Showcase Added**
+  - Added a page highlighting Matt Butler's work on Novel Sleep Measures and Cardiovascular Risk
 - **Forum Changes**
   - Removed auto-subscribing users to new forum topics
   - Comments on topics are now immediately sent to anyone subscribed to the topic
