@@ -146,9 +146,9 @@ class AgreementsController < ApplicationController
       elsif original_status != 'resubmit' and @agreement.status == 'resubmit'
         @agreement.sent_back_for_resubmission_email(current_user)
       end
-      redirect_to @agreement, notice: 'Agreement was successfully updated.'
+      redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.last.number}", notice: 'Agreement was successfully updated.'
     else
-      render action: 'review'
+      render 'reviews/show'
     end
   end
 

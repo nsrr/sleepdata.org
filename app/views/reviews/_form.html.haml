@@ -1,0 +1,10 @@
+- agreement_event_id = (@agreement_event.new_record? ? 'new' : @agreement_event.id)
+
+- if @agreement_event.new_record?
+  .row
+    .col-xs-1
+      = render 'topics/forum_gravatar', user: current_user, icon: 'identicon'
+    .col-md-11.col-xs-10.col-xs-offset-1.col-md-offset-0
+      = render 'reviews/form_inner', agreement_event_id: agreement_event_id
+- else
+  = render 'reviews/form_inner', agreement_event_id: agreement_event_id

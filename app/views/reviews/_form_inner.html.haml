@@ -1,0 +1,70 @@
+%ul.nav.nav-tabs
+  %li.active
+    %a{ href: "#edit-#{agreement_event_id}", data: { toggle: "tab" } }
+      = @agreement_event.new_record? ? 'Write' : 'Edit'
+  %li
+    %a{ href: "#preview-#{agreement_event_id}", data: { toggle: "tab", agreement_id: @agreement.to_param, object: "preview-review", review_id: agreement_event_id } }
+      Preview
+  - if @agreement_event.new_record?
+    %li= link_to 'Vote', "#vote-#{agreement_event_id}", data: { toggle: 'tab' }
+    %li= link_to 'Tags', "#tags-#{agreement_event_id}", data: { toggle: 'tab' }
+    - if current_user.system_admin?
+      %li= link_to 'Review', "#review-#{agreement_event_id}", data: { toggle: 'tab' }
+
+.tab-content
+  .tab-pane.active{ id: "edit-#{agreement_event_id}", style: "padding-top:23px" }
+    - url = @agreement_event.new_record? ? create_comment_review_path(@agreement) : update_comment_review_path(@agreement, agreement_event_id: @agreement_event.id)
+    = form_tag url, method: :post, class: 'form-horizontal', id: "agreement_event_#{agreement_event_id}_form" do
+      .form-group
+        .col-xs-12
+          = text_area_tag "agreement_event[comment]", @agreement_event.comment, rows: 7, class: 'form-control', id: "agreement_event_comment_#{agreement_event_id}", data: { object: 'text-area-autocomplete', mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort }
+
+      .form-group
+        .col-xs-12
+          - button_text = @agreement_event.new_record? ? 'Comment' : 'Update'
+          = submit_tag button_text, class: 'btn btn-primary'
+          = link_to 'Cancel', show_comment_review_path(@agreement, agreement_event_id: @agreement_event.id), remote: true, method: :post, class: 'btn btn-default' unless @agreement_event.new_record?
+
+  .tab-pane{ id: "preview-#{agreement_event_id}", style: "min-height:241px;" }
+    %div{ id: "preview-#{agreement_event_id}-container", style: "min-height:192px;padding: 30px 13px 13px 13px" }
+    - button_text = @agreement_event.new_record? ? 'Comment' : 'Update'
+    = link_to button_text, '#', data: { object: 'submit', target: "#agreement_event_#{agreement_event_id}_form" }, class: 'btn btn-primary'
+    = link_to 'Cancel', show_comment_review_path(@agreement, agreement_event_id: @agreement_event.id), remote: true, method: :post, class: 'btn btn-default' unless @agreement_event.new_record?
+
+  - if @agreement_event.new_record?
+    .tab-pane{ id: "vote-#{agreement_event_id}", style: "min-height:241px;padding: 30px 13px 13px 13px;" }
+      .row
+        .col-sm-6
+          %h3{ style: "margin-top:0px" } My Vote
+          - @review = @agreement.reviews.where( user_id: current_user.id ).first
+          - if @review and @review.approved == true
+            = link_to 'Change My Vote to Rejected', vote_review_path(@agreement, approved: '0'), data: { confirm: "Are you sure you want to change your vote to REJECTED for Agreement #{@agreement.name}?" }, method: :post, class: 'btn btn-danger'
+          - elsif @review and @review.approved == false
+            = link_to 'Change My Vote to Approved', vote_review_path(@agreement, approved: '1'), data: { confirm: "Are you sure you want to chagne your vote to APPROVED for Agreement #{@agreement.name}?" }, method: :post, class: 'btn btn-success'
+          - else
+            = link_to 'Reject', vote_review_path(@agreement, approved: '0'), data: { confirm: "Are you sure you want to REJECT Agreement #{@agreement.name}?" }, method: :post, class: 'btn btn-danger'
+            = link_to 'Approve', vote_review_path(@agreement, approved: '1'), data: { confirm: "Are you sure you want to APPROVE Agreement #{@agreement.name}?" }, method: :post, class: 'btn btn-success'
+          .bs-callout.bs-callout-info
+            Consider commenting when approving or rejecting an agreement to provide additional information for other reviewers. Reviewer comments are not emailed to the DAUA submitter.
+        .col-sm-6
+          %h3{ style: "margin-top:0px" } Current Votes
+          = render 'reviews/reviewers', agreement: @agreement
+
+    .tab-pane{ id: "tags-#{agreement_event_id}", style: "min-height:241px;padding: 30px 15px 15px 15px;" }
+      = form_tag update_tags_review_path(@agreement), method: :post, class: 'form-horizontal' do
+        .form-group
+          .col-md-12
+            .row
+              = hidden_field_tag 'agreement[tag_ids][]', nil
+              - Tag.review_tags.order( :name ).each do |tag|
+                .col-xs-6.col-sm-4.col-md-3.col-lg-2
+                  %label.checkbox.tag-checkbox{ class: "#{'tag-selected' if @agreement.tags.include?(tag)}", style: "margin-bottom: 10px;background-color:#{tag.color}" }
+                    = check_box_tag "agreement[tag_ids][]", tag.id, @agreement.tags.include?(tag)
+                    .tag-name{ style: "overflow:hidden;white-space:nowrap" }
+                      = tag.name
+        .form-group
+          .col-xs-12
+            = submit_tag 'Update Tags', class: 'btn btn-primary'
+    - if current_user.system_admin?
+      .tab-pane{ id: "review-#{agreement_event_id}", style: "min-height:241px;padding: 30px 15px 15px 15px;" }
+        = render 'agreements/form'

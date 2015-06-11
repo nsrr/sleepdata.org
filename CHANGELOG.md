@@ -11,6 +11,9 @@
   - Removed auto-subscribing users to new forum topics
   - Comments on topics are now immediately sent to anyone subscribed to the topic
   - Daily forum digests have been removed
+- **Agreement Changes**
+  - The agreements administration is being merged into the reviewer page
+    - This will help consolidate the DAUA approval process in a single place for principal reviewers
 - **Challenge Changes**
   - Added an export for the Flow Limitation challenge
 - **Tool Changes**

@@ -476,7 +476,7 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:agreement).reviewer_signature
     assert_equal 'approved', assigns(:agreement).status
 
-    assert_redirected_to agreement_path(assigns(:agreement))
+    assert_redirected_to review_path(assigns(:agreement), anchor: "c#{assigns("agreement").agreement_events.last.number}")
   end
 
   test "should update agreement and ask user to resubmit" do
@@ -487,7 +487,7 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_equal 'resubmit', assigns(:agreement).status
     assert_equal 'Please Resubmit', assigns(:agreement).comments
 
-    assert_redirected_to agreement_path(assigns(:agreement))
+    assert_redirected_to review_path(assigns(:agreement), anchor: "c#{assigns("agreement").agreement_events.last.number}")
   end
 
   test "should not approve agreement without required fields" do
@@ -501,7 +501,7 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_equal ["can't be blank"], assigns(:agreement).errors[:expiration_date]
     assert_equal ["can't be blank"], assigns(:agreement).errors[:reviewer_signature]
 
-    assert_template 'review'
+    assert_template 'reviews/show'
   end
 
   test "should not update agreement and ask user to resubmit without comments" do
@@ -513,7 +513,7 @@ class AgreementsControllerTest < ActionController::TestCase
     assert assigns(:agreement).errors.size > 0
     assert_equal ["can't be blank"], assigns(:agreement).errors[:comments]
 
-    assert_template 'review'
+    assert_template 'reviews/show'
   end
 
   test "should destroy agreement" do
