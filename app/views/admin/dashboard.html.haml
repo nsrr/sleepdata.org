@@ -1,0 +1,60 @@
+.page-header
+  %h1 Admin Dashboard
+
+.row
+  .col-sm-6.col-md-4
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title
+          %span.glyphicon.glyphicon-inbox
+          Agreements Review
+      .panel-body
+        = link_to 'Go To Agreements', reviews_path
+
+  .col-sm-6.col-md-4
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title
+          %span.glyphicon.glyphicon-user
+          User Adminstration
+      .panel-body
+        = link_to 'Go To Users', users_path
+
+  .col-sm-6.col-md-4
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title
+          %span.glyphicon.glyphicon-globe
+          Where is Everyone From?
+      .panel-body
+        = link_to 'Go To Location', location_path
+
+  .col-sm-6.col-md-4
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title
+          %span.glyphicon.glyphicon-repeat
+          Sync Documentation
+      .panel-body
+        = link_to 'Go To Sync', sync_path
+
+  .col-sm-6.col-md-4
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title
+          %span.glyphicon.glyphicon-tag
+          Forum Tags
+      .panel-body
+        = link_to 'Forum Tags', tags_path
+
+  .col-sm-6.col-md-4
+    .panel.panel-default
+      .panel-heading
+        %h3.panel-title
+          %span.glyphicon.glyphicon-stats
+          Website Statistics
+      .panel-body
+        %ul.list-unstyled
+          %li= link_to 'Go To Stats', stats_path
+          %li= link_to 'Downloads By Month', downloads_by_month_path( user_type: 'regular' )
+          %li= link_to 'Agreement Reports', agreement_reports_path

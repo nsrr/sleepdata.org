@@ -20,6 +20,7 @@
   - Tool editors can now sync documentation repositories
 - **Administrative Changes**
   - Admin location report now better shows unmatched locations
+  - The admin dashboard now points to the consolidated reviews path
 - **Gem Changes**
   - Use of Ruby 2.2.2 is now recommended
   - Updated to pg 0.18.2
