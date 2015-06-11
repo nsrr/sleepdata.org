@@ -166,7 +166,8 @@
 #showcase-list li {
   display:inline-block;
   list-style-type:none;
-  width:14%;
+  width: 11%; // Equal to (100 / Number of List Items) - 5
+  // width:14%;
   max-width:200px;
   height:auto;
   margin-left:2.5%;

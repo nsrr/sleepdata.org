@@ -5,8 +5,20 @@
     %li{ data: { target: "#carousel-showcase", slide: { to: "2" } } }
     %li{ data: { target: "#carousel-showcase", slide: { to: "3" } } }
     %li{ data: { target: "#carousel-showcase", slide: { to: "4" } } }
+    %li{ data: { target: "#carousel-showcase", slide: { to: "5" } } }
   .carousel-inner{role: "listbox"}
     .item.active
+      .row
+        .col-sm-6
+          .carousel-item-header
+            Researcher Showcase
+          .carousel-item-description
+            Learn about Shaun Purcell's work with data from the NSRR in the area of
+            = succeed '.' do
+              = link_to 'Genetics of Sleep Spindles', showcase_show_path('shaun-purcell-genetics-of-sleep-spindles')
+        .col-sm-6.center-picture{ style: 'overflow: hidden'}
+          = image_tag 'showcase/carousel/nsrr-sigma-power-twin-small.png', class: 'showcase-picture'
+    .item
       .row
         .col-sm-6
           .carousel-item-header
@@ -84,15 +96,17 @@
 .showcase-footer
   %ul#showcase-list
     %li.active{ data: { target: "#carousel-showcase", slide: { to: "0" } } }
-      = image_tag 'showcase/flow-limitation-square.png', class: 'showcase-indicator-picture img-bw img-color'
+      = image_tag 'showcase/carousel/nsrr-sigma-power-twin-small.png', class: 'showcase-indicator-picture img-bw img-color'
     %li{ data: { target: "#carousel-showcase", slide: { to: "1" } } }
-      = image_tag 'physiomimi_logo.png', class: 'showcase-indicator-picture img-bw'
+      = image_tag 'showcase/flow-limitation-square.png', class: 'showcase-indicator-picture img-bw'
     %li{ data: { target: "#carousel-showcase", slide: { to: "2" } } }
-      = image_tag 'shhs_logo.png', class: 'showcase-indicator-picture img-op'
+      = image_tag 'physiomimi_logo.png', class: 'showcase-indicator-picture img-bw'
     %li{ data: { target: "#carousel-showcase", slide: { to: "3" } } }
+      = image_tag 'shhs_logo.png', class: 'showcase-indicator-picture img-op'
+    %li{ data: { target: "#carousel-showcase", slide: { to: "4" } } }
       = image_tag 'chat_logo.png', class: 'showcase-indicator-picture img-bw'
     - if false
       %li{ data: { target: "#carousel-showcase", slide: { to: "3" } } }
         = image_tag 'heartbeat-logo.png', class: 'showcase-indicator-picture img-bw'
-    %li{ data: { target: "#carousel-showcase", slide: { to: "4" } } }
+    %li{ data: { target: "#carousel-showcase", slide: { to: "5" } } }
       = image_tag 'nsrr-rdi3p-age-gender.png', class: 'showcase-indicator-picture img-bw'
