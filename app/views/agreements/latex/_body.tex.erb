@@ -323,32 +323,25 @@ survive its expiration or termination. \\
 
 Agreed to by: \\
 \\
-DATA USER \\
+<%= @agreement.unauthorized_to_sign? ? "DATA USER'S DULY AUTHORIZED REPRESENTATIVE" : 'DATA USER' %> \\
 
 \begin{addmargin}[1em]{1em}
   \begin{addmargin}[1em]{1em}
     \begin{figure}[!htpb]
-      \includegraphics{<%= "#{Rails.root}/tmp/files/agreements/#{@agreement.id}/signature.png" %>}
+      \includegraphics{<%= "#{Rails.root}/tmp/files/agreements/#{@agreement.id}/#{@agreement.unauthorized_to_sign? ? 'duly_authorized_representative_signature' : 'signature'}.png" %>}
     \end{figure}
     \textbf{Signature} \\
   \end{addmargin}
 
   \textbf{By (print name)}
   \begin{addmargin}[1em]{1em}
-    \hl{<%= latex_safe @agreement.signature_print %>} \\
+    \hl{<%= latex_safe @agreement.unauthorized_to_sign? ? @agreement.duly_authorized_representative_signature_print : @agreement.signature_print %>} \\
   \end{addmargin}
 
   \textbf{Date Signed}
   \begin{addmargin}[1em]{1em}
-    \hl{<%= latex_safe @agreement.signature_date ? @agreement.signature_date.strftime("%-d %B %Y") : "" %>} \\<% unless @agreement.data_user_type == 'organization' and @agreement.organization_emails.present? %>[2.0cm]<% end %>
+    \hl{<%= latex_safe @agreement.authorized_signature_date ? @agreement.authorized_signature_date.strftime("%-d %B %Y") : "" %>} \\[2.0cm]
   \end{addmargin}
-
-  <% if @agreement.data_user_type == 'organization' and @agreement.organization_emails.present? %>
-    \textbf{Approved Organization Member Emails}
-    \begin{addmargin}[1em]{1em}
-      \hl{<%= latex_safe @agreement.organization_emails %>} \\[2.0cm]
-    \end{addmargin}
-  <% end %>
 
 \end{addmargin}
 

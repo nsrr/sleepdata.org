@@ -1,0 +1,46 @@
+.horizontal-fade{ style: "position:relative;" }
+  .jumbotron.vertical-fade-subtle{ style: "margin-bottom:0px;border-radius: 0px;" }
+    %h1
+      %span.glyphicon.glyphicon-list-alt
+      You're
+      %strong almost
+      done!
+
+    %div{ style: "background-image:url(#{asset_path('datasets-header.jpg')});background-repeat: no-repeat;z-index:-2;top:0;right:0;bottom:0;left:0;position:absolute" }
+
+%p.lead.center
+  Please proof read your application and then click "Submit" to complete Data
+  Access Request.
+
+
+- steps = (@agreement.no_irb_evidence? ? (1..8) : (1..7))
+
+- steps.each do |step|
+  .step{ class: "step-#{(@agreement.step_valid?(step) ? 'success' : 'warning')}" }
+    %h2
+      Step
+      = step
+      = link_to "Edit Step #{step}", step_agreement_path(@agreement, step: step), class: 'btn btn-xs btn-primary'
+
+    = render "agreements/proof/step#{step}"
+
+
+%hr.divider-md
+
+= form_for @agreement, url: final_submission_agreement_path(@agreement), method: :patch, html: { class: 'form-horizontal', id: 'final_submission_form' } do |f|
+  .row
+    .col-sm-6
+      = link_to submissions_path, class: 'btn btn-lg btn-default btn-block' do
+        %span.glyphicon.glyphicon-arrow-left
+        Back to Submissions
+    .col-sm-6
+      - if @agreement.fully_filled_out?
+        = link_to '#', data: { object: 'submit', target: '#final_submission_form' }, class: 'btn btn-lg btn-primary btn-block' do
+          %span.glyphicon.glyphicon-cloud-upload
+          Submit Application
+      - else
+        = link_to '#', data: { object: 'suppress-click' }, class: 'btn btn-lg btn-warning btn-block', disabled: true do
+          %span.glyphicon.glyphicon-warning-sign
+          Complete All Steps Before Submitting
+
+- @footer_img = 'datasets-footer.jpg'

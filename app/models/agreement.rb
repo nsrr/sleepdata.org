@@ -38,6 +38,9 @@ class Agreement < ActiveRecord::Base
   mount_uploader :irb, PDFUploader
   mount_uploader :printed_file, PDFUploader
 
+  # Callbacks
+  after_create :set_token
+
   STATUS = ["submitted", "approved", "resubmit", "expired", "started"].collect{|i| [i,i]}
 
   attr_accessor :draft_mode, :full_mode
@@ -54,8 +57,7 @@ class Agreement < ActiveRecord::Base
 
   # Model Validation
   validates_presence_of :user_id
-  # validates_presence_of :dua
-  # validates_presence_of :executed_dua, if: :approved?
+  validates_uniqueness_of :duly_authorized_representative_token, allow_nil: true
 
   validates_presence_of :reviewer_signature, :approval_date, :expiration_date, if: :approved?
   validates :reviewer_signature, length: { minimum: 20, tokenizer: lambda { |str| (JSON.parse(str) rescue []) }, too_short: "can't be blank" }, if: :approved?
@@ -68,7 +70,7 @@ class Agreement < ActiveRecord::Base
   validates_presence_of :individual_institution_name, :individual_title, :individual_telephone, :individual_fax, :individual_address, if: :step1_and_individual?
   validates_presence_of :organization_business_name, :organization_contact_name, :organization_contact_title, :organization_contact_telephone, :organization_contact_fax, :organization_contact_email, :organization_address, if: :step1_and_organization?
 
-  validates_presence_of :specific_purpose, if: :step2?
+  validates_presence_of :title_of_project, :specific_purpose, if: :step2?
   validates_length_of :specific_purpose, minimum: 20, too_short: "is lacking sufficient detail and must be at least %{count} words.", tokenizer: lambda {|str| str.scan(/\w+/) }, if: :step2?
   validates_presence_of :datasets, if: :step2?
 
@@ -79,17 +81,18 @@ class Agreement < ActiveRecord::Base
 
   validates_presence_of :has_read_step5, if: :step5?
 
-  validates_presence_of :signature, if: :step6_and_authorized?
+  validates_presence_of :signature, :signature_print, :signature_date, if: :step6_and_authorized?
   validates :signature, length: { minimum: 20, tokenizer: lambda { |str| (JSON.parse(str) rescue []) }, too_short: "can't be blank" }, if: :step6_and_authorized?
 
-  validates_presence_of :signature_print, :signature_date, if: :step6?
+  validates_presence_of :duly_authorized_representative_signature, :duly_authorized_representative_signature_print, :duly_authorized_representative_signature_date, if: :step6_and_not_authorized?
+  validates :duly_authorized_representative_signature, length: { minimum: 20, tokenizer: lambda { |str| (JSON.parse(str) rescue []) }, too_short: "can't be blank" }, if: :step6_and_not_authorized?
 
   validates_presence_of :irb_evidence_type, if: :step7?
   validates :irb_evidence_type, inclusion: { in: %w(has_evidence no_evidence), message: "\"%{value}\" is not a valid evidence type" }, if: :step7?
 
   validates_presence_of :irb, if: :step7_and_has_evidence?
 
-  validates_presence_of :title_of_project, :intended_use_of_data, :data_secured_location, :secured_device, :human_subjects_protections_trained, if: :step8?
+  validates_presence_of :intended_use_of_data, :data_secured_location, :secured_device, :human_subjects_protections_trained, if: :step8?
 
   # Model Relationships
   belongs_to :user
@@ -190,6 +193,7 @@ class Agreement < ActiveRecord::Base
 
   def step_valid?(step)
     dup_agreement = self.dup
+    dup_agreement.duly_authorized_representative_token = nil
     dup_agreement.current_step = step
     dup_agreement.irb = self.irb
     dup_agreement.datasets = self.datasets
@@ -246,6 +250,7 @@ class Agreement < ActiveRecord::Base
     folder = File.join( Rails.root, 'tmp', 'files', 'agreements', "#{self.id}" )
     FileUtils.mkpath folder
     Agreement.create_signature_png(self.signature, File.join(folder, "signature.png"))
+    Agreement.create_signature_png(self.duly_authorized_representative_signature, File.join(folder, "duly_authorized_representative_signature.png"))
     Agreement.create_signature_png(self.reviewer_signature, File.join(folder, "reviewer_signature.png"))
   end
 
@@ -257,6 +262,28 @@ class Agreement < ActiveRecord::Base
     end
     png = canvas.to_image
     png.save(filename)
+  end
+
+  def duly_authorized_representative_valid?
+    self.duly_authorized_representative_signature.present? and self.duly_authorized_representative_signature_print.present? and self.duly_authorized_representative_signature_date.present?
+  end
+
+  def send_daua_signed_email!
+    unless Rails.env.test? or Rails.env.development?
+      pid = Process.fork
+      if pid.nil? then
+        # In child
+        UserMailer.daua_signed(self).deliver_later if Rails.env.production?
+        Kernel.exit!
+      else
+        # In parent
+        Process.detach(pid)
+      end
+    end
+  end
+
+  def authorized_signature_date
+    self.unauthorized_to_sign? ? self.duly_authorized_representative_signature_date : self.signature_date
   end
 
   protected
@@ -305,6 +332,10 @@ class Agreement < ActiveRecord::Base
     self.unauthorized_to_sign == false and self.step6?
   end
 
+  def step6_and_not_authorized?
+    self.unauthorized_to_sign == true and self.step6?
+  end
+
   def step7?
     self.validate_step?(7)
   end
@@ -319,6 +350,15 @@ class Agreement < ActiveRecord::Base
 
   def self.latex_safe(mystring)
     self.new.latex_safe(mystring)
+  end
+
+  private
+
+  def set_token
+    begin
+      self.update_column :duly_authorized_representative_token, Digest::SHA1.hexdigest(Time.now.usec.to_s) if self.duly_authorized_representative_token.blank?
+    rescue
+    end
   end
 
 end

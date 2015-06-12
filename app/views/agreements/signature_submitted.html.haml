@@ -1,0 +1,23 @@
+.horizontal-fade{ style: "position:relative;" }
+  .jumbotron.vertical-fade-subtle{ style: "margin-bottom:0px;border-radius: 0px;" }
+    %h1
+      %span.glyphicon.glyphicon-list-alt
+      Success!
+
+    %div{ style: "background-image:url(#{asset_path('datasets-header.jpg')});background-repeat: no-repeat;z-index:-2;top:0;right:0;bottom:0;left:0;position:absolute" }
+
+%p.lead.center
+  Thank you for making use of the NSRR online DAUA process.
+
+%p.lead.center
+  If you have any questions regarding this process, you can contact us at:
+  = mail_to ENV['support_email']
+
+.row{ style: 'margin-top:20px' }
+  .col-sm-offset-3.col-sm-6
+    = link_to root_path, class: 'btn btn-lg btn-default btn-block' do
+      %span.glyphicon.glyphicon-arrow-left
+      Back to the NSRR Home Page
+
+
+- @footer_img = 'datasets-footer.jpg'

@@ -1,0 +1,18 @@
+%b
+  Dear
+  = succeed ',' do
+    = @agreement.user.first_name
+%br
+%br
+Your Data Access and Use Agreement submission has been
+= succeed '.' do
+  %span{ style: "padding:5px;background-color:#5cb85c;color:white" } approved
+%br
+%br
+You can now start exploring available data here:
+%br
+%br
+%center= link_to "#{ENV['website_url']}/datasets", "#{ENV['website_url']}/datasets", style: "color: #428bca"
+%br
+%br
+You can reply directly to this email if you have any questions.

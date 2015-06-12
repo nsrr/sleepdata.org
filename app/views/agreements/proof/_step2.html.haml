@@ -1,0 +1,12 @@
+%dl.dl-horizontal
+  %dt Title of Project
+  %dd= @agreement.title_of_project
+
+  %dt Specific Purpose
+  %dd= simple_format @agreement.specific_purpose
+
+  %dt Datasets
+  %dd
+    %ul.list-unstyled
+      - @agreement.datasets.each do |dataset|
+        %li= dataset.name

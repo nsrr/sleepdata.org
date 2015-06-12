@@ -45,6 +45,7 @@ filled_out_application_with_attached_irb_file:
   # organization_contact_fax:
   # organization_contact_email:
   # organization_address:
+  title_of_project: Furthering Research for Science
   specific_purpose: I have always wanted to study the correlation between gender and age in the Welcome dataset in order to further research in this area.
   has_read_step3: true
   posting_permission: all

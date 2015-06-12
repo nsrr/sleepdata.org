@@ -7,6 +7,7 @@
   </div>
   <h1 style="text-align:left">
     <%= link_to "Reviews", reviews_path %> <span style="white-space:nowrap">&middot; <%= @title %></span>
+    <%= link_to 'Print', print_agreement_path(@agreement), class: 'btn btn-default btn-xs' if current_user.all_agreements.where(id: @agreement.id).count > 0 %>
   </h1>
 </div>
 

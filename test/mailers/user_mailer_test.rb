@@ -55,6 +55,19 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match(/Your Data Access and Use Agreement submission has been approved\./, email.encoded)
   end
 
+  test "daua signed email" do
+    agreement = agreements(:one)
+
+    # Send the email, then test that it got queued
+    email = UserMailer.daua_signed(agreement).deliver_now
+    assert !ActionMailer::Base.deliveries.empty?
+
+    # Test the body of the sent email contains what we expect it to
+    assert_equal [agreement.user.email], email.to
+    assert_equal "Your DAUA has been Signed by your Duly Authorized Representative", email.subject
+    assert_match(/Your Data Access and Use Agreement has been signed by #{agreement.duly_authorized_representative_signature_print}, your Duly Authorized Representative\./, email.encoded)
+  end
+
   test "daua sent back for resubmission email" do
     agreement = agreements(:one)
     admin = users(:admin)

@@ -23,6 +23,12 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.daua_approved(agreement, admin)
   end
 
+  def daua_signed
+    agreement = Agreement.first
+
+    UserMailer.daua_signed(agreement)
+  end
+
   def dataset_access_requested
     dataset_user = DatasetUser.first
     editor = User.first

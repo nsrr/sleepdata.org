@@ -1,0 +1,11 @@
+Dear <%= @agreement.user.first_name %>,
+
+Your Data Access and Use Agreement has been signed by <%= @agreement.duly_authorized_representative_signature_print %>, your Duly Authorized Representative.
+
+You can now finalize and submit your Data Access and Use Agreement here: <%= "#{ENV['website_url']}/daua" %>
+
+You can reply directly to this email if you have any questions.
+
+Thank you!
+
+<%= ENV['website_name'] %>

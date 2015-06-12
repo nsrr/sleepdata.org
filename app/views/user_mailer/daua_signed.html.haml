@@ -1,0 +1,21 @@
+%b
+  Dear
+  = succeed ',' do
+    = @agreement.user.first_name
+%br
+%br
+Your Data Access and Use Agreement has been
+%span{ style: "padding:5px;background-color:#428bca;color:white" } signed
+by
+= succeed ',' do
+  %strong= @agreement.duly_authorized_representative_signature_print
+your Duly Authorized Representative.
+%br
+%br
+You can now finalize and submit your Data Access and Use Agreement here:
+%br
+%br
+%center= link_to "#{ENV['website_url']}/daua", "#{ENV['website_url']}/daua", style: "color: #428bca"
+%br
+%br
+You can reply directly to this email if you have any questions.
