@@ -12,13 +12,9 @@
 
 - if @agreement.errors.any?
   #error_explanation.bs-callout.bs-callout-danger
-    %h4
-      = pluralize(@agreement.errors.count, "error")
-      prohibited this step from being saved
-
-    %ul
-      - @agreement.errors.full_messages.each do |msg|
-        %li= msg
+    %strong
+      Errors prohibited this from being saved.
+    Please scroll down and try again.
 
 = hidden_field_tag 'isdirty', '1'
 
@@ -96,22 +92,29 @@
       = hidden_field_tag "agreement[current_step]", @step
 
       .form-group
-        = f.label :duly_authorized_representative_signature, 'Duly Authorized Representative Signature', class: 'control-label'
+        = f.label :duly_authorized_representative_signature, 'Signature of Duly Authorized Representative', class: 'control-label'
         %div{ style: "position:relative" }
           = f.hidden_field :duly_authorized_representative_signature, class: 'output-write'
           %canvas.pad{ width: "300", height: "55" }
           %span.clearButton{ style: "position: absolute; margin-top: 12.5px; margin-left: 10px;" }
             = link_to 'Clear', '#clear', class: 'btn btn-default', tabindex: '-1'
-          %p.lead
-            Signature of Duly Authorized Representative
+        - if @agreement.errors.messages[:duly_authorized_representative_signature].size > 0
+          .bs-callout.bs-callout-danger{ style: 'margin-top: 10px' }
+            Please sign your full name.
 
       .form-group
         = f.label :duly_authorized_representative_signature_print, 'By (print name)', class: 'control-label'
         = f.text_field :duly_authorized_representative_signature_print, class: 'form-control'
+        - if @agreement.errors.messages[:duly_authorized_representative_signature_print].size > 0
+          .bs-callout.bs-callout-danger{ style: 'margin-top: 10px' }
+            Please print your full name.
 
       .form-group
         = f.label :duly_authorized_representative_signature_date, 'Date Signed', class: 'control-label'
         = f.text_field :duly_authorized_representative_signature_date, class: 'datepicker form-control', value: @agreement.duly_authorized_representative_signature_date ? @agreement.duly_authorized_representative_signature_date.strftime('%m/%d/%Y') : ''
+        - if @agreement.errors.messages[:duly_authorized_representative_signature_date].size > 0
+          .bs-callout.bs-callout-danger{ style: 'margin-top: 10px' }
+            Please enter a valid date.
 
   %hr.divider-md
 
