@@ -19,13 +19,7 @@
   = hidden_field_tag "step", @step
   = hidden_field_tag "agreement[current_step]", @step
 
-  %p.lead-paragraph
-    2. Data User will describe to BWH via the electronic registration process
-    for NSRR Data access at https://sleepdata.org the specific sleep research
-    use for the Data / Datasets proposed by Data User (the
-    = succeed ').' do
-      %strong "Specific Purpose"
-    The Specific Purpose as described in the online application process is:
+  = render 'agreements/show/step2/part1'
 
   .row{ style: "margin-top: 20px;margin-bottom: 20px;" }
     .col-md-10.col-md-offset-1
@@ -85,24 +79,7 @@
           %i Specific Purpose
         You will be asked to resubmit if you request too many datasets.
 
-  %p.lead-paragraph
-    For avoidance of doubt, permissible uses may include use of the Data /
-    Datasets for research evaluation and testing of a product or technology but
-    will not extend to proposals that include or incorporate the Data / Datasets
-    into such product. BWH will provide the Data / Datasets requested by the
-    Data User upon BWH's approval, in its sole discretion, of the Specific
-    Purpose, its receipt of this DAUA signed by Data User (or of Data User's
-    Duly Authorized Representative, if an organization), and the submission by
-    Data User of any additional information or documentation required by NSRR
-    policies and procedures as applicable to the request (including, when
-    required, submission of evidence of approval of the Specific Purpose by Data
-    User's Institutional Review Board). The requirements described in this
-    Section 2 will apply regardless of whether Data User has been previously
-    approved by NHLBI to access complementary data from databases or other
-    resources controlled by NHLBI (including but not limited to BioLINCC). Data
-    User acknowledges that other researchers are permitted to access the Data /
-    Dataset on the same terms as Data User, so that duplication of research may
-    occur.
+  = render 'agreements/show/step2/part2'
 
   %hr.divider-md
 

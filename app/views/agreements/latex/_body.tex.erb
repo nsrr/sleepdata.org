@@ -129,6 +129,8 @@ set forth below, the parties hereby agree as follows: \\
   The Specific Purpose as described in the online application process is: \\
 
   \begin{addmargin}[1em]{1em}
+    \hl{\textbf{<%= latex_safe @agreement.title_of_project %>}} \\
+
     \hl{<%= latex_safe @agreement.specific_purpose %>} \\
 
     \begin{itemize}
@@ -196,7 +198,8 @@ writing any use or disclosure not provided for by this DAUA of which it becomes
 aware. \\
 
 8. Upon the expiration or earlier termination of this DAUA as provided in
-Section 14 below, the Data User shall cease using the Data / Datasets and shall
+Section <%= @agreement.commercial? ? '14' : '12' %> below, the Data User shall
+cease using the Data / Datasets and shall
 destroy (or return if so requested by BWH) all of the Data / Datasets received
 in tangible form, including notes, reports, and other information to the extent
 it contains the Data / Datasets, and shall keep no copies, except to the extent

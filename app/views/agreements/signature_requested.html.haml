@@ -10,6 +10,16 @@
     = mail_to ENV['support_email']
 
 
+- if @agreement.errors.any?
+  #error_explanation.bs-callout.bs-callout-danger
+    %h4
+      = pluralize(@agreement.errors.count, "error")
+      prohibited this step from being saved
+
+    %ul
+      - @agreement.errors.full_messages.each do |msg|
+        %li= msg
+
 = hidden_field_tag 'isdirty', '1'
 
 .page-header
@@ -18,30 +28,75 @@
     %br
     National Sleep Research Resource (NSRR)
 
-%h2.center SIGNATURE
+= render 'agreements/show/step1/title'
+
+%p.lead-paragraph
+  = render 'agreements/show/step1/part1'
+  %mark= @agreement.data_user
+  = surround '(', ').' do
+    %strong "Data User"
+
+= render 'agreements/show/step1/part2'
+= render 'agreements/show/step1/part3'
+
+
+= render 'agreements/show/step2/part1'
+
+%p.lead-paragraph
+  %strong
+    %mark= @agreement.title_of_project
+%p.lead-paragraph
+  %mark= sanitize @agreement.specific_purpose.to_s.gsub("\n", '<br />')
+
+%ul
+  - @agreement.datasets.each do |dataset|
+    %li
+      %mark= dataset.name
+
+= render 'agreements/show/step2/part2'
+
+= render 'agreements/show/step3/part1'
+
+= render 'agreements/show/step4/part1'
+
+%p.lead-paragraph
+  - case @agreement.posting_permission when 'all'
+    %mark
+      Data User gives BWH permission to post
+      %strong Data User's name
+      and a
+      summary of
+      %strong Data User's Specific Purpose
+      on https://sleepdata.org
+  - when 'name_only'
+    %mark
+      Data User gives BWH permission to post
+      %strong Data User's name
+      on https://sleepdata.org
+  - when 'none'
+    %mark
+      Data User
+      %strong does not give permission
+      to post Data User's name or a summary of Data User's Specific Purpose on
+      https://sleepdata.org
+
+= render 'agreements/show/step5/part1'
 
 %hr.divider-md
+
+%p.lead-paragraph Agreed to by:
 
 .row
   .col-md-offset-3.col-md-6
 
     = form_for @agreement, url: duly_authorized_representative_submit_signature_agreement_path(@agreement, duly_authorized_representative_token: @agreement.duly_authorized_representative_token), method: :patch, html: { class: 'form-vertical', id: 'update_step_form', data: { object: 'signature', signature_target: '.output-write' } } do |f|
-      - if @agreement.errors.any?
-        #error_explanation.bs-callout.bs-callout-danger
-          %h4
-            = pluralize(@agreement.errors.count, "error")
-            prohibited this step from being saved
-
-          %ul
-            - @agreement.errors.full_messages.each do |msg|
-              %li= msg
 
       = hidden_field_tag "agreement[draft_mode]", nil
       = hidden_field_tag "step", @step
       = hidden_field_tag "agreement[current_step]", @step
 
       .form-group
-        = f.label :duly_authorized_representative_signature, nil, class: 'control-label'
+        = f.label :duly_authorized_representative_signature, 'Duly Authorized Representative Signature', class: 'control-label'
         %div{ style: "position:relative" }
           = f.hidden_field :duly_authorized_representative_signature, class: 'output-write'
           %canvas.pad{ width: "300", height: "55" }
@@ -61,11 +116,11 @@
   %hr.divider-md
 
   .row
-    .col-xs-4
-    .col-xs-4
+    .col-xs-2.col-sm-4
+    .col-xs-8.col-sm-4
       = link_to '#', data: { object: 'submit', target: '#update_step_form' }, class: 'btn btn-lg btn-primary btn-block' do
         %span.glyphicon.glyphicon-floppy-disk
         Submit Signature
-    .col-xs-4
+    .col-xs-2.col-sm-4
 
 - @footer_img = 'footer.jpg'

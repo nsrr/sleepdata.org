@@ -1,0 +1,83 @@
+%p.lead-paragraph
+  1. Data User is:
+
+- if @agreement.data_user_type == 'individual'
+  %p.lead-paragraph
+    An individual, requesting Data/Datasets under this DAUA on behalf of
+    himself/herself as follows:
+
+  %p.lead-paragraph
+    %strong Institution
+    %br
+    %mark= @agreement.individual_institution_name
+
+  %p.lead-paragraph
+    %strong Full Name
+    %br
+    %mark= @agreement.user.name
+
+  %p.lead-paragraph
+    %strong Professional Title
+    %br
+    %mark= @agreement.individual_title
+
+  %p.lead-paragraph
+    %strong Telephone
+    %br
+    %mark= @agreement.individual_telephone
+
+  %p.lead-paragraph
+    %strong Fax
+    %br
+    %mark= @agreement.individual_fax
+
+  %p.lead-paragraph
+    %strong Contact Email
+    %br
+    %mark= @agreement.user.email
+
+  %p.lead-paragraph
+    %strong Address
+    %br
+    %mark= sanitize @agreement.individual_address.to_s.gsub("\n", '<br />')
+
+- elsif @agreement.data_user_type == 'organization'
+  %p.lead-paragraph
+    An organization / corporation, requesting Data/Datasets under this DAUA on
+    behalf of itself and its employees, with a principal place of business and
+    primary business contact as follows:
+
+  %p.lead-paragraph
+    %strong Organization
+    %br
+    %mark= @agreement.organization_business_name
+
+  %p.lead-paragraph
+    %strong Contact Name
+    %br
+    %mark= @agreement.organization_contact_name
+
+  %p.lead-paragraph
+    %strong Contact Title
+    %br
+    %mark= @agreement.organization_contact_title
+
+  %p.lead-paragraph
+    %strong Contact Telephone
+    %br
+    %mark= @agreement.organization_contact_telephone
+
+  %p.lead-paragraph
+    %strong Contact Fax
+    %br
+    %mark= @agreement.organization_contact_fax
+
+  %p.lead-paragraph
+    %strong Contact Email
+    %br
+    %mark= @agreement.organization_contact_email
+
+  %p.lead-paragraph
+    %strong Organization Address
+    %br
+    %mark= sanitize @agreement.organization_address.to_s.gsub("\n", '<br />')

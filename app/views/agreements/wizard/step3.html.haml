@@ -1,0 +1,48 @@
+= render 'agreements/wizard/daua_progress'
+
+%h2.center DATA ACCESS AND USE AGREEMENT
+
+%hr.divider-md
+
+= form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, html: { class: 'form-horizontal', id: 'update_step_form' } do |f|
+  - if @agreement.errors.any?
+    #error_explanation.bs-callout.bs-callout-danger
+      %h4
+        = pluralize(@agreement.errors.count, "error")
+        prohibited this step from being saved
+
+      %ul
+        - @agreement.errors.full_messages.each do |msg|
+          %li= msg
+
+  = hidden_field_tag "agreement[draft_mode]", nil
+  = hidden_field_tag "step", @step
+  = hidden_field_tag "agreement[current_step]", @step
+
+  = render 'agreements/show/step3/part1'
+
+  .well
+    .form-group
+      .col-md-offset-3.col-md-9
+        .checkbox
+          %label
+            = f.check_box :has_read_step3
+            I have read and fully understand and accept the above terms and conditions.
+
+  %hr.divider-md
+
+  .row
+    .col-xs-4
+      = link_to step_agreement_path(@agreement, step: @step-1), class: 'btn btn-lg btn-default btn-block' do
+        %span.glyphicon.glyphicon-arrow-left
+        Back to Previous Step
+    .col-xs-4
+      = link_to '#', data: { object: 'submit-draft', target: '#update_step_form' }, class: 'btn btn-lg btn-warning btn-block' do
+        %span.glyphicon.glyphicon-floppy-disk
+        Save Draft
+    .col-xs-4
+      = link_to '#', data: { object: 'submit', target: '#update_step_form' }, class: 'btn btn-lg btn-primary btn-block' do
+        %span.glyphicon.glyphicon-floppy-disk
+        Save and Continue
+
+- @footer_img = 'footer.jpg'

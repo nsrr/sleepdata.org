@@ -17,6 +17,7 @@
   - Users not authorized to sign a DAUA are now provided a link that they can send to the authorized user
   - An email is sent to the DAUA user when the authorized user has signed the DAUA
   - Appending multiple users to an organization's DAUA has been removed
+  - The Duly Authorized Representative can now review the entire agreement before signing
 - **Challenge Changes**
   - Added an export for the Flow Limitation challenge
 - **Tool Changes**
