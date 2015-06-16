@@ -18,6 +18,7 @@
   - An email is sent to the DAUA user when the authorized user has signed the DAUA
   - Appending multiple users to an organization's DAUA has been removed
   - The Duly Authorized Representative can now review the entire agreement before signing
+  - Agreement changes are now audited so that reviewers can view changes more easily between resubmissions
 - **Challenge Changes**
   - Added an export for the Flow Limitation challenge
 - **Tool Changes**

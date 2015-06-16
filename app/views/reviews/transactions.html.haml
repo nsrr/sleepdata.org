@@ -1,0 +1,74 @@
+- @title = "#{@agreement.name} Transactions"
+
+%h2.subject-header
+  = link_to @agreement.name, review_path(@agreement)
+  &middot; Transactions
+
+- @agreement_transactions = @agreement.agreement_transactions
+- agreement_transaction_total = @agreement_transactions.count
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th Transaction Number
+      %th User
+      %th Type
+      %th Created At
+
+  - ignore_mask_attributes = ['irb', 'last_submitted_at', 'submitted_at', 'resubmitted_at', 'status', 'comments', 'secured_device', 'human_subjects_protections_trained', 'unauthorized_to_sign', 'has_read_step3', 'has_read_step5', 'data_user_type', 'irb_evidence_type']
+
+  - @agreement_transactions.each_with_index do |t, index|
+    %tbody
+      %tr
+        %td= "##{agreement_transaction_total - index}"
+        - if t.user
+          %td
+            = image_tag t.user.avatar_url(16, "identicon"), size: '16x16', alt: '', style: 'vertical-align: middle', class: 'img-rounded'
+            = t.user.name
+            &middot;
+            = t.remote_ip
+        - else
+          %td.text-muted
+            Anonymous &middot;
+            = t.remote_ip
+        %td= t.transaction_type
+        %td= t.created_at.strftime("%b %d, %Y at %l:%M %p")
+      %tr
+        %td{ colspan: "4" }
+          %table.table.table-bordered
+            %thead
+              %tr
+                %th Attribute
+                %th Value Before
+                %th Value After
+            - t.agreement_transaction_audits.each do |a|
+              - if a.agreement_attribute_name == 'dataset_ids'
+                - a.value_before = Dataset.where(id: a.value_before.to_s.split(/[\[\],]/)).pluck(:slug).sort
+                - a.value_after = Dataset.where(id: a.value_after.to_s.split(/[\[\],]/)).pluck(:slug).sort
+              %tr
+                %td{ style: "white-space:nowrap" }
+                  = a.agreement_attribute_name
+                %td{ class: "#{'text-muted' if a.value_before == nil or a.value_before == ''}" }
+                  - if a.value_before == nil
+                    nil
+                  - elsif a.value_before == ''
+                    %span{ rel: "tooltip", title: "Blank Response", data: { placement: "right" } } &#9872;
+                  - else
+                    - if ignore_mask_attributes.include?(a.agreement_attribute_name)
+                      - mask = []
+                    - else
+                      - mask = find_diff(a.value_before, a.value_after)
+                    %span{ style: "padding: 0px;background-color:#FAA;" }
+                      = a.value_before.to_s.split('').each_with_index.collect{ |character, index| mask[index] ? "<span class='highlight-subtract'>#{character}</span>" : character }.join('').html_safe
+                %td{ class: "#{'text-muted' if a.value_after == nil or a.value_after == ''}" }
+                  - if a.value_after == nil
+                    nil
+                  - elsif a.value_after == ''
+                    %span{ rel: "tooltip", title: "Blank Response", data: { placement: "right" } } &#9872;
+                  - else
+                    - if ignore_mask_attributes.include?(a.agreement_attribute_name)
+                      - mask = []
+                    - else
+                      - mask = find_diff(a.value_after, a.value_before)
+                    %span{ style: "padding: 0px;background-color:#AFA;" }
+                      = a.value_after.to_s.split('').each_with_index.collect{ |character, index| mask[index] ? "<span class='highlight-add'>#{character}</span>" : character }.join('').html_safe

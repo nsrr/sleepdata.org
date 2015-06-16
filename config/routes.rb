@@ -111,6 +111,7 @@ Rails.application.routes.draw do
       post :destroy_comment
       post :vote
       post :update_tags
+      get :transactions
     end
   end
 

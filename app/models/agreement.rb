@@ -102,6 +102,8 @@ class Agreement < ActiveRecord::Base
   has_many :agreement_events, -> { order( :event_at ) }
   has_many :agreement_tags
   has_many :tags, -> { where(deleted: false).order(:name) }, through: :agreement_tags
+  has_many :agreement_transactions, -> { order(id: :desc) }
+  has_many :agreement_transaction_audits
 
   # Agreement Methods
 

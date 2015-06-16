@@ -602,3 +602,11 @@ body {
 .affix .affix-add {
   display: block;
 }
+
+.highlight-add {
+  background-color: #DFD;  /* light green */
+}
+
+.highlight-subtract {
+  background-color: #FDD; /* light red */
+}

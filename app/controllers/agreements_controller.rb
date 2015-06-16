@@ -26,7 +26,7 @@ class AgreementsController < ApplicationController
     @agreement = Agreement.current.where(id: params[:id], status: [nil, '', 'started', 'resubmit']).find_by_duly_authorized_representative_token(params[:duly_authorized_representative_token]) unless params[:duly_authorized_representative_token].blank?
     @step = 6
     if @agreement
-      if @agreement.update(duly_authorized_params)
+      if AgreementTransaction.save_agreement!(@agreement, duly_authorized_params, current_user, request.remote_ip, 'public_agreement_update')
         @agreement.update_column :current_step, 6
         @agreement.send_daua_signed_email!
         redirect_to signature_submitted_agreements_path
@@ -71,10 +71,7 @@ class AgreementsController < ApplicationController
   def create_step
     @agreement = current_user.agreements.new(step_params)
 
-    if @agreement.save
-      # @agreement.add_event!('Data Access and Use Agreement submitted.', current_user, 'submitted')
-      # @agreement.daua_submitted
-      # redirect_to submissions_path, notice: 'Agreement was successfully created.'
+    if AgreementTransaction.save_agreement!(@agreement, step_params, current_user, request.remote_ip, 'agreement_create')
       if @agreement.draft_mode?
         redirect_to submissions_path
       else
@@ -87,7 +84,7 @@ class AgreementsController < ApplicationController
   end
 
   def update_step
-    if @agreement.update(step_params)
+    if AgreementTransaction.save_agreement!(@agreement, step_params, current_user, request.remote_ip, 'agreement_update')
       if @agreement.draft_mode?
         redirect_to submissions_path
       elsif @agreement.fully_filled_out? or (@agreement.current_step == 7 and @agreement.has_irb_evidence?) or @agreement.current_step == 8
@@ -119,7 +116,7 @@ class AgreementsController < ApplicationController
 
     if not @agreement.fully_filled_out?
       render 'proof'
-    elsif @agreement.update( hash )
+    elsif AgreementTransaction.save_agreement!(@agreement, hash, current_user, request.remote_ip, 'agreement_update')
       @agreement.add_event!(msg, current_user, 'submitted')
       @agreement.agreement_events.create event_type: event_type, user_id: current_user.id, event_at: current_time
       @agreement.daua_submitted
@@ -170,7 +167,7 @@ class AgreementsController < ApplicationController
   # PATCH /agreements/1
   def update
     original_status = @agreement.status
-    if @agreement.update(agreement_review_params)
+    if AgreementTransaction.save_agreement!(@agreement, agreement_review_params, current_user, request.remote_ip, 'agreement_update')
       if original_status != 'approved' and @agreement.status == 'approved'
         @agreement.daua_approved_email(current_user)
       elsif original_status != 'resubmit' and @agreement.status == 'resubmit'
