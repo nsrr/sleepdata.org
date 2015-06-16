@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       post :create_step
       get :submissions
       get "signature-submitted", action: 'signature_submitted', as: :signature_submitted
+      get :export
     end
     member do
       get ":duly_authorized_representative_token/signature-requested", action: 'signature_requested', as: :signature_requested

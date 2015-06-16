@@ -1,0 +1,64 @@
+- @title = "Reviews"
+
+.beta-container
+  .slim-container.dark-texture
+    %h1
+      = @title
+
+  .main-container.grid-texture
+    = form_tag reviews_path, method: :get, class: 'form-inline' do
+      = text_field_tag 'search', params[:search], class: 'form-control'
+      .form-group
+        = label :status, 'Status'
+        = select_tag :status, options_for_select([['---', nil]] + Agreement::STATUS, params[:status].kind_of?(Array) ? nil : params[:status]), class: 'form-control'
+
+      .form-group
+        = label :tag_id, 'Tag'
+        = select_tag :tag_id, options_for_select([['---', nil]] + Tag.review_tags.pluck(:name, :id), params[:tag_id].kind_of?(Array) ? nil : params[:tag_id]), class: 'form-control'
+
+      = submit_tag 'Search', class: 'btn btn-primary', name: nil
+      = link_to 'Reset', reviews_path, class: 'btn btn-default'
+      - if current_user.system_admin?
+        = link_to export_agreements_path( format: 'csv' ), class: 'btn btn-xs btn-default' do
+          %span.glyphicon.glyphicon-csv
+          Export CSV
+
+    = render 'contour/layouts/per_page', per_page: 40, object_count: @agreements.total_count
+
+    %table.table.table-striped
+      %thead
+        %tr
+          %th
+            = link_to 'Agreement', reviews_path( order: (params[:order] == 'agreements.id DESC' ? 'agreements.id' : 'agreements.id DESC'), status: params[:status], tag_id: params[:tag_id], search: params[:search] )
+          %th{ style: "white-space:nowrap" }
+            = link_to 'Submission Date', reviews_path( order: (params[:order] == 'agreements.last_submitted_at DESC' ? 'agreements.last_submitted_at' : nil), status: params[:status], tag_id: params[:tag_id], search: params[:search] )
+          %th Reviewers
+          %th Datasets
+          %th{ style: "white-space:nowrap" }
+            = link_to 'Status', reviews_path( order: (params[:order] == 'agreements.status DESC' ? 'agreements.status' : 'agreements.status DESC'), status: params[:status], tag_id: params[:tag_id], search: params[:search] )
+          %th Events
+
+      - @agreements.each do |agreement|
+        %tr
+          %td
+            = image_tag agreement.user.avatar_url(18), style: 'vertical-align:text-bottom;width:18px'
+            = link_to agreement.name_with_id, review_path(agreement)
+          %td
+            - if agreement.resubmitted_at
+              = agreement.resubmitted_at.strftime("%Y-%m-%d")
+              = link_to '#', rel: 'tooltip', title: 'Resubmitted', data: { object: 'suppress-click', container: 'body', placement: 'right' } do
+                %span.glyphicon.glyphicon-info-sign
+            - elsif agreement.submitted_at
+              = agreement.submitted_at.strftime("%Y-%m-%d")
+          %td
+            = render 'reviews/reviewers', agreement: agreement
+          %td
+            - agreement.datasets.order(:release_date, :name).each do |dataset|
+              = render 'datasets/mini',  dataset: dataset
+          %td
+            = status_helper(agreement)
+          %td
+            %span.badge= agreement.agreement_events.count
+
+    .center
+      = paginate @agreements, theme: 'contour'
