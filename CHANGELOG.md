@@ -19,6 +19,7 @@
   - Appending multiple users to an organization's DAUA has been removed
   - The Duly Authorized Representative can now review the entire agreement before signing
   - Agreement changes are now audited so that reviewers can view changes more easily between resubmissions
+  - Principal reviewers can now modify the requested datasets during the review process
 - **Challenge Changes**
   - Added an export for the Flow Limitation challenge
 - **Tool Changes**

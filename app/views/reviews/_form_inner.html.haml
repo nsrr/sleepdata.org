@@ -10,6 +10,7 @@
     %li= link_to 'Tags', "#tags-#{agreement_event_id}", data: { toggle: 'tab' }
     - if current_user.system_admin?
       %li= link_to 'Review', "#review-#{agreement_event_id}", data: { toggle: 'tab' }
+      %li= link_to 'Datasets', "#datasets-#{agreement_event_id}", data: { toggle: 'tab' }
 
 .tab-content
   .tab-pane.active{ id: "edit-#{agreement_event_id}", style: "padding-top:23px" }
@@ -68,3 +69,5 @@
     - if current_user.system_admin?
       .tab-pane{ id: "review-#{agreement_event_id}", style: "min-height:241px;padding: 30px 15px 15px 15px;" }
         = render 'agreements/form'
+      .tab-pane{ id: "datasets-#{agreement_event_id}", style: "min-height:241px;padding: 30px 15px 15px 15px;" }
+        = render 'agreements/datasets'
