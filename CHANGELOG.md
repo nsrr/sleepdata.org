@@ -22,6 +22,7 @@
   - Agreement changes are now audited so that reviewers can view changes more easily between resubmissions
   - Principal reviewers can now modify the requested datasets during the review process
   - Principal reviewers can now export information on all agreements as a CSV
+  - Clarified reference to the IRB Assistance page
 - **Challenge Changes**
   - Added an export for the Flow Limitation challenge
 - **Tool Changes**

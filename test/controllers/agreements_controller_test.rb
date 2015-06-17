@@ -7,7 +7,7 @@ class AgreementsControllerTest < ActionController::TestCase
 
   test "should get irb assistance template for valid user" do
     login(users(:valid))
-    get :irb_assistance_template
+    get :irb_assistance
 
     assert_response :success
   end

@@ -3,7 +3,7 @@ class AgreementsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [ :signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted ]
 
   before_action :authenticate_user!,             except: [ :signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted ]
-  before_action :check_system_admin,             except: [ :signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted, :renew, :daua, :dua, :create_step, :step, :update_step, :proof, :final_submission, :destroy_submission, :submissions, :welcome, :download_irb, :print, :complete, :new_step, :irb_assistance_template ]
+  before_action :check_system_admin,             except: [ :signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted, :renew, :daua, :dua, :create_step, :step, :update_step, :proof, :final_submission, :destroy_submission, :submissions, :welcome, :download_irb, :print, :complete, :new_step, :irb_assistance ]
 
   before_action :set_viewable_submission,        only: [ :renew, :complete ]
   before_action :set_editable_submission,        only: [ :step, :update_step, :proof, :final_submission, :destroy_submission ]
