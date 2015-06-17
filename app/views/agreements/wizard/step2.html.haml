@@ -27,28 +27,13 @@
         %h4 Instructions
 
         %p
-          Please describe your research in detail, how it relates to the
-          datasets you are requesting, which variables you will be looking at,
-          and the goal of your research.
+          Please provide enough detail about your research and how you intend to
+          use the data. All requests are reviewed for appropriateness based on
+          the description provided.
 
-        %p
-          Please describe subject characteristics (children or adults, with or
-          without criteria), types of signals, and other covariates needed to
-          address scientific goals or hypotheses.
+          %strong Select only those datasets needed for your project.
 
-        %p
-          %strong
-            This single response plays an important role in determing
-            whether or not you will be granted access to the data.
-
-        %p
-          If you have
-          %strong NOT
-          explored the variables for datasets on the NSRR, it is STRONGLY
-          recommended you become familiar with them before requesting access.
-          You can explore
-          = succeed '.' do
-            = link_to 'all the datasets here', datasets_path
+          Incomplete descriptions will result in delays in granting access.
 
   .form-group
     = f.label :title_of_project, 'Title Of Project', class: 'control-label'
@@ -56,7 +41,7 @@
 
   .form-group
     = f.label :specific_purpose, 'Specific Purpose', class: 'control-label'
-    = f.text_area :specific_purpose, rows: '5', class: 'form-control', placeholder: "Explain Specific Purpose: (More than 20 words required.)"
+    = f.text_area :specific_purpose, rows: '5', class: 'form-control', placeholder: "Be specific! (More than 20 words required.)"
 
   .form-group
     = f.label :dataset_ids, 'Select a Dataset', class: 'control-label'
