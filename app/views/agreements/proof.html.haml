@@ -1,19 +1,11 @@
-.horizontal-fade{ style: "position:relative;" }
-  .jumbotron.vertical-fade-subtle{ style: "margin-bottom:0px;border-radius: 0px;" }
-    %h1
-      %span.glyphicon.glyphicon-list-alt
-      You're
-      %strong almost
-      done!
-
-    %div{ style: "background-image:url(#{asset_path('datasets-header.jpg')});background-repeat: no-repeat;z-index:-2;top:0;right:0;bottom:0;left:0;position:absolute" }
+= render 'agreements/wizard/daua_progress'
 
 %p.lead.center
   Please proofread your application and then click "Submit" to complete Data
   Access Request.
 
 
-- steps = (@agreement.no_irb_evidence? ? (1..8) : (1..7))
+- steps = (1..5)
 
 - steps.each do |step|
   .step{ class: "step-#{(@agreement.step_valid?(step) ? 'success' : 'warning')}" }

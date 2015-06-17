@@ -1,0 +1,9 @@
+%dl.dl-horizontal
+  %dt IRB Evidence
+  %dd
+    - if @agreement.irb_evidence_type == 'has_evidence'
+      = render 'agreements/proof/irb_file_download'
+    - else
+      Has requested the
+      %strong NSRR Internal Review Committee
+      to conduct the review.

@@ -1,0 +1,23 @@
+- steps = [["Data User Name", "edit"], ["Specific Purpose", "edit"], ["Stipulations", "check"], ["Signature", "pencil"], ["IRB Review", "file"], ["Proof", "file"]]
+
+.page-header
+  = link_to submissions_path, class: 'btn btn-default' do
+    %span.glyphicon.glyphicon-arrow-left
+    Back to my Submissions
+  %h1.center
+    Brigham and Women's Hospital
+    %br
+    National Sleep Research Resource (NSRR)
+
+.row{ style: "margin-top: 20px;" }
+  - steps.each_with_index do |(label, icon), index|
+    .col-xs-12.col-sm-4.col-lg-2
+      .panel{ class: "panel-#{step_helper(@agreement, index+1, @step)}" }
+        .panel-heading{ style: "overflow-x:hidden" }
+          %h3.panel-title.center{ style: "white-space:nowrap" }
+            - url = @agreement.new_record? ? '#' : step_agreement_path(@agreement, step: index+1)
+            = link_to url, rel: 'tooltip', title: label, data: { object: "#{'suppress-click' if @agreement.new_record?}", container: 'body', placement: 'bottom' } do
+              %span.glyphicon{ class: "glyphicon-#{icon}" }
+              = label
+
+= hidden_field_tag 'isdirty', '1'

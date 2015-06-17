@@ -237,7 +237,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should update step 2 of agreement and continue" do
     login(users(:valid))
     assert_difference('Request.count') do
-      patch :update_step, id: agreements(:step1_saved_as_draft), step: '2', agreement: { current_step: '2', title_of_project: 'Title of Project', specific_purpose: 'My Specific Purpose Needs to be More than 20 words in order to be sufficiently describe what I will do with the data.', dataset_ids: [0, ActiveRecord::FixtureSet.identify(:public)] }
+      patch :update_step, id: agreements(:step1_saved_as_draft), step: '2', agreement: { current_step: '2', title_of_project: 'Title of Project', specific_purpose: 'My Specific Purpose Needs to be More than 20 words in order to be sufficiently describe what I will do with the data.', dataset_ids: [0, ActiveRecord::FixtureSet.identify(:public)], intended_use_of_data: 'Publication', data_secured_location: 'Securly Stored', secured_device: '1', human_subjects_protections_trained: '1' }
     end
 
     assert_equal 2, assigns(:step)
@@ -246,6 +246,10 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_equal 'Title of Project', assigns(:agreement).title_of_project
     assert_equal 'My Specific Purpose Needs to be More than 20 words in order to be sufficiently describe what I will do with the data.', assigns(:agreement).specific_purpose
     assert_equal [datasets(:public).id], assigns(:agreement).datasets.pluck(:id)
+    assert_equal 'Publication', assigns(:agreement).intended_use_of_data
+    assert_equal 'Securly Stored', assigns(:agreement).data_secured_location
+    assert_equal true, assigns(:agreement).secured_device
+    assert_equal true, assigns(:agreement).human_subjects_protections_trained
 
     assert_redirected_to step_agreement_path(assigns(:agreement), step: 3)
   end
@@ -287,27 +291,11 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get step6 of agreement" do
+  test "should get step6 of agreement and redirect to proof" do
     login(users(:valid))
     get :step, id: agreements(:step1_saved_as_draft), step: 6
     assert_not_nil assigns(:agreement)
-    assert_template 'wizard/step6'
-    assert_response :success
-  end
-
-  test "should get step7 of agreement" do
-    login(users(:valid))
-    get :step, id: agreements(:step1_saved_as_draft), step: 7
-    assert_not_nil assigns(:agreement)
-    assert_template 'wizard/step7'
-    assert_response :success
-  end
-
-  test "should get step8 of agreement" do
-    login(users(:valid))
-    get :step, id: agreements(:step1_saved_as_draft), step: 8
-    assert_not_nil assigns(:agreement)
-    assert_template 'wizard/step8'
+    assert_template 'proof'
     assert_response :success
   end
 

@@ -16,7 +16,7 @@ class AgreementsController < ApplicationController
 
   def signature_requested
     @agreement = Agreement.current.where(id: params[:id], status: [nil, '', 'started', 'resubmit']).find_by_duly_authorized_representative_token(params[:duly_authorized_representative_token]) unless params[:duly_authorized_representative_token].blank?
-    @step = 6
+    @step = 4
     unless @agreement
       redirect_to root_path, alert: 'Agreement has been locked.'
     end
@@ -24,10 +24,10 @@ class AgreementsController < ApplicationController
 
   def duly_authorized_representative_submit_signature
     @agreement = Agreement.current.where(id: params[:id], status: [nil, '', 'started', 'resubmit']).find_by_duly_authorized_representative_token(params[:duly_authorized_representative_token]) unless params[:duly_authorized_representative_token].blank?
-    @step = 6
+    @step = 4
     if @agreement
       if AgreementTransaction.save_agreement!(@agreement, duly_authorized_params, current_user, request.remote_ip, 'public_agreement_update')
-        @agreement.update_column :current_step, 6
+        @agreement.update_column :current_step, 4
         @agreement.send_daua_signed_email!
         redirect_to signature_submitted_agreements_path
       else
@@ -48,8 +48,10 @@ class AgreementsController < ApplicationController
   end
 
   def step
-    if @step and @step > 0 and @step < 10
+    if @step and @step > 0 and @step < 6
       render "agreements/wizard/step#{@step}"
+    elsif @step == 6
+      render "agreements/proof"
     else
       redirect_to step_agreement_path(@agreement, step: 1)
     end
@@ -87,7 +89,7 @@ class AgreementsController < ApplicationController
     if AgreementTransaction.save_agreement!(@agreement, step_params, current_user, request.remote_ip, 'agreement_update')
       if @agreement.draft_mode?
         redirect_to submissions_path
-      elsif @agreement.fully_filled_out? or (@agreement.current_step == 7 and @agreement.has_irb_evidence?) or @agreement.current_step == 8
+      elsif @agreement.fully_filled_out? or @agreement.current_step == 5
         redirect_to proof_agreement_path(@agreement)
       else
         redirect_to step_agreement_path(@agreement, step: @agreement.current_step + 1)
@@ -100,6 +102,7 @@ class AgreementsController < ApplicationController
   end
 
   def proof
+    @step = 6
   end
 
   def final_submission

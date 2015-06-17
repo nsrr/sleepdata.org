@@ -73,26 +73,22 @@ class Agreement < ActiveRecord::Base
   validates_presence_of :title_of_project, :specific_purpose, if: :step2?
   validates_length_of :specific_purpose, minimum: 20, too_short: "is lacking sufficient detail and must be at least %{count} words.", tokenizer: lambda {|str| str.scan(/\w+/) }, if: :step2?
   validates_presence_of :datasets, if: :step2?
+  validates_presence_of :intended_use_of_data, :data_secured_location, :secured_device, :human_subjects_protections_trained, if: :step2?
 
   validates_presence_of :has_read_step3, if: :step3?
+  validates_presence_of :posting_permission, if: :step3?
+  validates :posting_permission, inclusion: { in: %w(all name_only none), message: "\"%{value}\" is not a valid posting permission" }, if: :step3?
 
-  validates_presence_of :posting_permission, if: :step4?
-  validates :posting_permission, inclusion: { in: %w(all name_only none), message: "\"%{value}\" is not a valid posting permission" }, if: :step4?
+  validates_presence_of :signature, :signature_print, :signature_date, if: :step4_and_authorized?
+  validates :signature, length: { minimum: 20, tokenizer: lambda { |str| (JSON.parse(str) rescue []) }, too_short: "can't be blank" }, if: :step4_and_authorized?
 
-  validates_presence_of :has_read_step5, if: :step5?
+  validates_presence_of :duly_authorized_representative_signature, :duly_authorized_representative_signature_print, :duly_authorized_representative_signature_date, if: :step4_and_not_authorized?
+  validates :duly_authorized_representative_signature, length: { minimum: 20, tokenizer: lambda { |str| (JSON.parse(str) rescue []) }, too_short: "can't be blank" }, if: :step4_and_not_authorized?
 
-  validates_presence_of :signature, :signature_print, :signature_date, if: :step6_and_authorized?
-  validates :signature, length: { minimum: 20, tokenizer: lambda { |str| (JSON.parse(str) rescue []) }, too_short: "can't be blank" }, if: :step6_and_authorized?
+  validates_presence_of :irb_evidence_type, if: :step5?
+  validates :irb_evidence_type, inclusion: { in: %w(has_evidence no_evidence), message: "\"%{value}\" is not a valid evidence type" }, if: :step5?
 
-  validates_presence_of :duly_authorized_representative_signature, :duly_authorized_representative_signature_print, :duly_authorized_representative_signature_date, if: :step6_and_not_authorized?
-  validates :duly_authorized_representative_signature, length: { minimum: 20, tokenizer: lambda { |str| (JSON.parse(str) rescue []) }, too_short: "can't be blank" }, if: :step6_and_not_authorized?
-
-  validates_presence_of :irb_evidence_type, if: :step7?
-  validates :irb_evidence_type, inclusion: { in: %w(has_evidence no_evidence), message: "\"%{value}\" is not a valid evidence type" }, if: :step7?
-
-  validates_presence_of :irb, if: :step7_and_has_evidence?
-
-  validates_presence_of :intended_use_of_data, :data_secured_location, :secured_device, :human_subjects_protections_trained, if: :step8?
+  validates_presence_of :irb, if: :step5_and_has_evidence?
 
   # Model Relationships
   belongs_to :user
@@ -322,32 +318,20 @@ class Agreement < ActiveRecord::Base
     self.validate_step?(4)
   end
 
+  def step4_and_authorized?
+    self.unauthorized_to_sign == false and self.step4?
+  end
+
+  def step4_and_not_authorized?
+    self.unauthorized_to_sign == true and self.step4?
+  end
+
   def step5?
     self.validate_step?(5)
   end
 
-  def step6?
-    self.validate_step?(6)
-  end
-
-  def step6_and_authorized?
-    self.unauthorized_to_sign == false and self.step6?
-  end
-
-  def step6_and_not_authorized?
-    self.unauthorized_to_sign == true and self.step6?
-  end
-
-  def step7?
-    self.validate_step?(7)
-  end
-
-  def step7_and_has_evidence?
-    self.irb_evidence_type == 'has_evidence' and self.step7?
-  end
-
-  def step8?
-    self.irb_evidence_type == 'no_evidence' and self.validate_step?(8)
+  def step5_and_has_evidence?
+    self.irb_evidence_type == 'has_evidence' and self.step5?
   end
 
   def self.latex_safe(mystring)

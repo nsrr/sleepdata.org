@@ -32,6 +32,11 @@
           and the goal of your research.
 
         %p
+          Please describe subject characteristics (children or adults, with or
+          without criteria), types of signals, and other covariates needed to
+          address scientific goals or hypotheses.
+
+        %p
           %strong
             This single response plays an important role in determing
             whether or not you will be granted access to the data.
@@ -80,6 +85,42 @@
         = succeed '.' do
           %i Specific Purpose
         You will be asked to resubmit if you request too many datasets.
+
+  .form-group
+    = f.label :intended_use_of_data, 'Intended Use Of Data', class: 'control-label'
+    = f.text_field :intended_use_of_data, class: 'form-control'
+    .bs-callout.bs-callout-info
+      %p
+        %strong Examples:
+        Publication; thesis work; other education; algorithm for commercial
+        use; preliminary data for a grant.
+
+
+  .form-group
+    = f.label :data_secured_location, 'Please describe where data will be stored and secured', class: 'control-label'
+    = f.text_field :data_secured_location, class: 'form-control'
+
+  .form-group
+    = f.label :secured_device, 'Security', class: 'control-label'
+    .checkbox
+      %label
+        = f.check_box :secured_device
+        I attest that data will be stored on a secure password protected device.
+
+  .form-group
+    = f.label :human_subjects_protections_trained, 'HIPAA Training', class: 'control-label'
+    .checkbox
+      %label
+        = f.check_box :human_subjects_protections_trained
+        I attest that I have completed a Human Subjects Protections Training Course.
+
+    .bs-callout.bs-callout-info
+      %strong Don't have Human Subjects Protections Training?
+      You may sign up and complete a course at these links:
+      %ul
+        %li= link_to 'http://www.hrsa.gov/publichealth/clinical/HumanSubjects/', 'http://www.hrsa.gov/publichealth/clinical/HumanSubjects/'
+        %li= link_to 'http://grants.nih.gov/grants/policy/hs/training.htm', 'http://grants.nih.gov/grants/policy/hs/training.htm'
+        %li= link_to 'http://irtsectraining.nih.gov/publicUser0.aspx', 'http://irtsectraining.nih.gov/publicUser0.aspx'
 
   = render 'agreements/show/step2/part2'
 

@@ -16,6 +16,8 @@ module AgreementsHelper
   def step_helper(agreement, step, selected_step)
     if step == selected_step
       'primary'
+    elsif step == 6
+      'warning'
     elsif agreement.step_valid?(step)
       'success'
     else

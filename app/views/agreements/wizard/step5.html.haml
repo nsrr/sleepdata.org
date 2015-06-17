@@ -1,10 +1,10 @@
-= render partial: 'agreements/wizard/daua_progress'
+= render 'agreements/wizard/daua_progress'
 
-%h2.center DATA ACCESS AND USE AGREEMENT
+%h2.center EVIDENCE OF IRB REVIEW
 
 %hr.divider-md
 
-= form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, html: { class: 'form-horizontal', id: 'update_step_form' } do |f|
+= form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, multipart: true, html: { class: 'form-vertical', id: 'update_step_form' } do |f|
   - if @agreement.errors.any?
     #error_explanation.bs-callout.bs-callout-danger
       %h4
@@ -19,16 +19,65 @@
   = hidden_field_tag "step", @step
   = hidden_field_tag "agreement[current_step]", @step
 
-  = render 'agreements/show/step5/part1'
+  %p.lead-paragraph
+    In addition to completing and executing the NSRR Data Access and Use
+    Agreement for the research project/specific purpose identified in your
+    request, you will also need to submit evidence of Institutional Review
+    Board (IRB)/Ethics Committee review of your project to ensure the data will
+    be used for appropriate research purposes and to ensure data security and
+    appropriate handling of the data at the users site. This IRB review can be
+    obtained locally and submitted with the DAUA, or by completion of the online
+    request form if you would like to apply for NSRR IRB review of your project.
 
-  .well
-    .form-group
-      .col-md-offset-3.col-md-9
-        .checkbox
-          %label
-            = f.check_box :has_read_step5
-            I have read and fully understand and accept the above terms and
-            conditions.
+  .row
+    .col-sm-6
+      .panel.panel-info.panel-hover{ data: { object: "select_radio_button", target: "#agreement_irb_evidence_type_has_evidence" } }
+        .panel-heading
+          Option 1 (Preferred)
+        .panel-body
+          .form-group
+            .radio
+              %label
+                = f.radio_button :irb_evidence_type, 'has_evidence'
+                Please attach evidence of IRB review. It is expected the
+                document attached shows the IRB has either a) performed a review
+                of the project and issued an approval, or b) declared that the
+                research project is exempt from review.
+
+          .form-group
+            - if @agreement.irb.size > 0
+              .bs-callout.bs-callout-default
+                = link_to download_irb_agreement_path(@agreement), target: '_blank' do
+                  %span.glyphicon.glyphicon-file
+                  = @agreement.irb.to_s.split('/').last
+                %tt= number_to_human_size @agreement.irb.size
+
+            = f.label :irb, 'Evidence of IRB review (PDF)', class: 'control-label'
+
+            = f.file_field :irb, class: 'form-control'
+            .bs-callout.bs-callout-info
+              %h4 IRB Template
+
+              %p
+                = link_to irb_assistance_template_path, target: '_blank' do
+                  %span.glyphicon.glyphicon-link
+                  IRB Assistance Template for Evidence of IRB Review
+
+    .col-sm-6
+      .panel.panel-info.panel-hover{ data: { object: "select_radio_button", target: "#agreement_irb_evidence_type_no_evidence" } }
+        .panel-heading
+          Option 2
+        .panel-body
+          .form-group
+            .radio
+              %label
+                = f.radio_button :irb_evidence_type, 'no_evidence'
+                I don't have IRB Review, and would like the NSRR Internal Review
+                Committee to conduct the review.
+                %strong Please allow 3 to 4 weeks for review.
+                Select this to fill out the online request form if you would
+                like to apply for NSRR Internal Review Committee review of your
+                project.
 
   %hr.divider-md
 

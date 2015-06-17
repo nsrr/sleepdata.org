@@ -1,0 +1,57 @@
+%dl.dl-horizontal
+  %dt Data User
+  %dd= @agreement.data_user
+
+  - if @agreement.data_user_type == 'individual'
+    %dt Application Type
+    %dd
+      An
+      - succeed ',' do
+        %strong indivdual
+      requesting Data/Datasets under this DAUA on behalf of himself/herself as
+      follows:
+
+    %dt Institution
+    %dd= @agreement.individual_institution_name
+    %dt Full Name
+    %dd= @agreement.user.name
+    %dt Professional Title
+    %dd= @agreement.individual_title
+    %dt Telephone
+    %dd= @agreement.individual_telephone
+    %dt Fax
+    %dd= @agreement.individual_fax
+    %dt Contact Email
+    %dd= @agreement.user.email
+    %dt Address
+    %dd= simple_format @agreement.individual_address
+  - elsif @agreement.data_user_type == 'organization'
+    %dt Application Type
+    %dd
+      An
+      = succeed ',' do
+        %strong organization / corporation
+      requesting Data/Datasets under this DAUA on behalf of itself and its
+      employees, with a principal place of business and primary business contact
+      as follows:
+    %dt Organization
+    %dd
+      = @agreement.organization_business_name
+    %dt Contact Name
+    %dd
+      = @agreement.organization_contact_name
+    %dt Contact Title
+    %dd
+      = @agreement.organization_contact_title
+    %dt Contact Telephone
+    %dd
+      = @agreement.organization_contact_telephone
+    %dt Contact Fax
+    %dd
+      = @agreement.organization_contact_fax
+    %dt Contact Email
+    %dd
+      = @agreement.organization_contact_email
+    %dt Organization Address
+    %dd
+      = simple_format @agreement.organization_address

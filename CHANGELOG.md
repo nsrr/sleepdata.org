@@ -12,6 +12,7 @@
   - Comments on topics are now immediately sent to anyone subscribed to the topic
   - Daily forum digests have been removed
 - **Agreement Changes**
+  - The DAUA process has been simplified to 6 steps total
   - The agreements administration is being merged into the reviewer page
     - This will help consolidate the DAUA approval process in a single place for principal reviewers
   - Users not authorized to sign a DAUA are now provided a link that they can send to the authorized user

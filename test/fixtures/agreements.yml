@@ -47,6 +47,10 @@ filled_out_application_with_attached_irb_file:
   # organization_address:
   title_of_project: Furthering Research for Science
   specific_purpose: I have always wanted to study the correlation between gender and age in the Welcome dataset in order to further research in this area.
+  intended_use_of_data: Publication
+  data_secured_location: Stored on encrypted harddrive.
+  secured_device: true
+  human_subjects_protections_trained: true
   has_read_step3: true
   posting_permission: all
   has_read_step5: true
@@ -75,6 +79,10 @@ submitted_application:
   # organization_contact_email:
   # organization_address:
   specific_purpose: To sleep and look at data.
+  intended_use_of_data: Education
+  data_secured_location: Stored on secure server without internet access.
+  secured_device: true
+  human_subjects_protections_trained: true
   has_read_step3: true
   posting_permission: all
   has_read_step5: true

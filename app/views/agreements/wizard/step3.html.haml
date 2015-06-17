@@ -21,6 +21,37 @@
 
   = render 'agreements/show/step3/part1'
 
+  = render 'agreements/show/step3/part2'
+
+  %p.lead-paragraph
+    (check one)
+
+  .form-group
+    .col-md-10.col-md-offset-1
+      .radio
+        %label
+          = f.radio_button :posting_permission, 'all'
+          Data User gives BWH permission to post
+          %strong Data User's name
+          and a summary of
+          %strong Data User's Specific Purpose
+          on https://sleepdata.org
+      .radio
+        %label
+          = f.radio_button :posting_permission, 'name_only'
+          Data User gives BWH permission to post
+          %strong Data User's name
+          on https://sleepdata.org
+      .radio
+        %label
+          = f.radio_button :posting_permission, 'none'
+          Data User
+          %strong does not give permission
+          to post Data User's name or a summary of Data User's Specific Purpose
+          on https://sleepdata.org
+
+  = render 'agreements/show/step3/part3'
+
   .well
     .form-group
       .col-md-offset-3.col-md-9
