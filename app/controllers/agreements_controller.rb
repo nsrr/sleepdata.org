@@ -356,6 +356,10 @@ class AgreementsController < ApplicationController
       params[:agreement] ||= {}
       params[:agreement][:signature_date] = parse_date(params[:agreement][:signature_date]) if params[:agreement].key?(:signature_date)
 
+      if params[:agreement].key?(:dataset_ids)
+        params[:agreement][:dataset_ids] = Dataset.release_scheduled.where( id: params[:agreement][:dataset_ids] ).pluck(:id)
+      end
+
       params.require(:agreement).permit(
         :current_step, :draft_mode,
         # Step One

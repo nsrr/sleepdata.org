@@ -108,7 +108,7 @@ class Agreement < ActiveRecord::Base
   end
 
   def dataset_ids=(ids)
-    self.datasets = Dataset.release_scheduled.where( id: ids )
+    self.datasets = Dataset.where( id: ids )
   end
 
   def name
