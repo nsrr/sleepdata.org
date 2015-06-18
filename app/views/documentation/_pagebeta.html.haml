@@ -1,17 +1,17 @@
-- if @object.class == Dataset
-  - edit_page_path = edit_page_dataset_path( @object, path: @path )
-  - new_page_path  =  new_page_dataset_path( @object, path: @path )
-  - pages_path     =     pages_dataset_path( @object )
+- if object.class == Dataset
+  - edit_page_path = edit_page_dataset_path( object, path: @path )
+  - new_page_path  =  new_page_dataset_path( object, path: @path )
+  - pages_path     =     pages_dataset_path( object )
 - else
-  - edit_page_path = edit_page_tool_path( @object, path: @path )
-  - new_page_path  =  new_page_tool_path( @object, path: @path )
-  - pages_path     =     pages_tool_path( @object )
+  - edit_page_path = edit_page_tool_path( object, path: @path )
+  - new_page_path  =  new_page_tool_path( object, path: @path )
+  - pages_path     =     pages_tool_path( object )
 
 .breadcrumb-container
   .pull-right.hidden-xs
     %p= link_to '&laquo; Show Navigation'.html_safe, '#', id: 'show-page-button', data: { object: 'set-cookie toggle-page-list', cookie_key: 'hide_page_list', cookie_value: '0' }, style: "#{'display:none' if cookies[:hide_page_list] != '1'}", class: 'btn btn-xs btn-default'
   %ol
-    %li= link_to @object.slug, @object
+    %li= link_to object.slug, object
     %li= link_to_if !@path.blank?, 'pages', pages_path
     - unless @path.blank?
       - @path.to_s.split('/')[0..-2].each_with_index do |folder, index|
@@ -32,10 +32,10 @@
     #documentation-content{ class: "#{cookies[:hide_page_list] == '1' ? 'col-sm-12' : 'col-sm-9'}"}
       - if File.exist?(File.join(@page_path, 'README.md'))
         = render partial: 'documentation/render_page_beta', locals: { page_path: File.join(@page_path, 'README.md'), path: 'README.md' }
-      - elsif @object.pages(@path).select{|name, f| File.file?(f)}.size > 0
-        - first_page = @object.pages(@path).select{|name, f| File.file?(f)}.first
+      - elsif object.pages(@path).select{|name, f| File.file?(f)}.size > 0
+        - first_page = object.pages(@path).select{|name, f| File.file?(f)}.first
         = render partial: 'documentation/render_page_beta', locals: { page_path: first_page[1], path: first_page[0] }
-      - elsif @object.pages(@path).size == 0
+      - elsif object.pages(@path).size == 0
         = render partial: 'documentation/nodoc'
     #sidebar-content.hidden-xs{ class: "#{cookies[:hide_page_list] == '1' ? '' : 'col-sm-3'}"}
       = render partial: 'documentation/pages_list', locals: { pages_path: pages_path }

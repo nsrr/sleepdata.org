@@ -1,129 +1,129 @@
+.slim-container
+  .bs-callout.bs-callout-info
+    %p.lead-paragraph
+      = @agreement.user.name
+      has named you as the Duly Authorized Representative to sign the following Data
+      Access and Use Agreement on their behalf.
+    %p.lead-paragraph
+      If you have any questions regarding this process, please email the NSRR
+      directly at:
+      = mail_to ENV['support_email']
 
-.bs-callout.bs-callout-info
+
+  - if @agreement.errors.any?
+    #error_explanation.bs-callout.bs-callout-danger
+      %strong
+        Errors prohibited this from being saved.
+      Please scroll down and try again.
+
+  = hidden_field_tag 'isdirty', '1'
+
+  .page-header
+    %h1.center
+      Brigham and Women's Hospital
+      %br
+      National Sleep Research Resource (NSRR)
+
+  = render 'agreements/show/step1/title'
+
   %p.lead-paragraph
-    = @agreement.user.name
-    has named you as the Duly Authorized Representative to sign the following Data
-    Access and Use Agreement on their behalf.
+    = render 'agreements/show/step1/part1'
+    %mark= @agreement.data_user
+    = surround '(', ').' do
+      %strong "Data User"
+
+  = render 'agreements/show/step1/part2'
+  = render 'agreements/show/step1/part3'
+
+
+  = render 'agreements/show/step2/part1'
+
   %p.lead-paragraph
-    If you have any questions regarding this process, please email the NSRR
-    directly at:
-    = mail_to ENV['support_email']
-
-
-- if @agreement.errors.any?
-  #error_explanation.bs-callout.bs-callout-danger
     %strong
-      Errors prohibited this from being saved.
-    Please scroll down and try again.
+      %mark= @agreement.title_of_project
+  %p.lead-paragraph
+    %mark= sanitize @agreement.specific_purpose.to_s.gsub("\n", '<br />')
 
-= hidden_field_tag 'isdirty', '1'
+  %ul
+    - @agreement.datasets.each do |dataset|
+      %li
+        %mark= dataset.name
 
-.page-header
-  %h1.center
-    Brigham and Women's Hospital
-    %br
-    National Sleep Research Resource (NSRR)
+  = render 'agreements/show/step2/part2'
 
-= render 'agreements/show/step1/title'
+  = render 'agreements/show/step3/part1'
 
-%p.lead-paragraph
-  = render 'agreements/show/step1/part1'
-  %mark= @agreement.data_user
-  = surround '(', ').' do
-    %strong "Data User"
+  = render 'agreements/show/step3/part2'
 
-= render 'agreements/show/step1/part2'
-= render 'agreements/show/step1/part3'
+  %p.lead-paragraph
+    - case @agreement.posting_permission when 'all'
+      %mark
+        Data User gives BWH permission to post
+        %strong Data User's name
+        and a
+        summary of
+        %strong Data User's Specific Purpose
+        on https://sleepdata.org
+    - when 'name_only'
+      %mark
+        Data User gives BWH permission to post
+        %strong Data User's name
+        on https://sleepdata.org
+    - when 'none'
+      %mark
+        Data User
+        %strong does not give permission
+        to post Data User's name or a summary of Data User's Specific Purpose on
+        https://sleepdata.org
 
-
-= render 'agreements/show/step2/part1'
-
-%p.lead-paragraph
-  %strong
-    %mark= @agreement.title_of_project
-%p.lead-paragraph
-  %mark= sanitize @agreement.specific_purpose.to_s.gsub("\n", '<br />')
-
-%ul
-  - @agreement.datasets.each do |dataset|
-    %li
-      %mark= dataset.name
-
-= render 'agreements/show/step2/part2'
-
-= render 'agreements/show/step3/part1'
-
-= render 'agreements/show/step3/part2'
-
-%p.lead-paragraph
-  - case @agreement.posting_permission when 'all'
-    %mark
-      Data User gives BWH permission to post
-      %strong Data User's name
-      and a
-      summary of
-      %strong Data User's Specific Purpose
-      on https://sleepdata.org
-  - when 'name_only'
-    %mark
-      Data User gives BWH permission to post
-      %strong Data User's name
-      on https://sleepdata.org
-  - when 'none'
-    %mark
-      Data User
-      %strong does not give permission
-      to post Data User's name or a summary of Data User's Specific Purpose on
-      https://sleepdata.org
-
-= render 'agreements/show/step3/part3'
-
-%hr.divider-md
-
-%p.lead-paragraph Agreed to by:
-
-.row
-  .col-md-offset-3.col-md-6
-
-    = form_for @agreement, url: duly_authorized_representative_submit_signature_agreement_path(@agreement, duly_authorized_representative_token: @agreement.duly_authorized_representative_token), method: :patch, html: { class: 'form-vertical', id: 'update_step_form', data: { object: 'signature', signature_target: '.output-write' } } do |f|
-
-      = hidden_field_tag "agreement[draft_mode]", nil
-      = hidden_field_tag "step", @step
-      = hidden_field_tag "agreement[current_step]", @step
-
-      .form-group
-        = f.label :duly_authorized_representative_signature, 'Signature of Duly Authorized Representative', class: 'control-label'
-        %div{ style: "position:relative" }
-          = f.hidden_field :duly_authorized_representative_signature, class: 'output-write'
-          %canvas.pad{ width: "300", height: "55" }
-          %span.clearButton{ style: "position: absolute; margin-top: 12.5px; margin-left: 10px;" }
-            = link_to 'Clear', '#clear', class: 'btn btn-default', tabindex: '-1'
-        - if @agreement.errors.messages[:duly_authorized_representative_signature].size > 0
-          .bs-callout.bs-callout-danger{ style: 'margin-top: 10px' }
-            Please sign your full name.
-
-      .form-group
-        = f.label :duly_authorized_representative_signature_print, 'By (print name)', class: 'control-label'
-        = f.text_field :duly_authorized_representative_signature_print, class: 'form-control'
-        - if @agreement.errors.messages[:duly_authorized_representative_signature_print].size > 0
-          .bs-callout.bs-callout-danger{ style: 'margin-top: 10px' }
-            Please print your full name.
-
-      .form-group
-        = f.label :duly_authorized_representative_signature_date, 'Date Signed', class: 'control-label'
-        = f.text_field :duly_authorized_representative_signature_date, class: 'datepicker form-control', value: @agreement.duly_authorized_representative_signature_date ? @agreement.duly_authorized_representative_signature_date.strftime('%m/%d/%Y') : ''
-        - if @agreement.errors.messages[:duly_authorized_representative_signature_date].size > 0
-          .bs-callout.bs-callout-danger{ style: 'margin-top: 10px' }
-            Please enter a valid date.
+  = render 'agreements/show/step3/part3'
 
   %hr.divider-md
 
-  .row
-    .col-xs-2.col-sm-4
-    .col-xs-8.col-sm-4
-      = link_to '#', data: { object: 'submit', target: '#update_step_form' }, class: 'btn btn-lg btn-primary btn-block' do
-        %span.glyphicon.glyphicon-floppy-disk
-        Submit Signature
-    .col-xs-2.col-sm-4
+  %p.lead-paragraph Agreed to by:
 
-- @footer_img = 'footer.jpg'
+  .row
+    .col-md-offset-3.col-md-6
+
+      = form_for @agreement, url: duly_authorized_representative_submit_signature_agreement_path(@agreement, duly_authorized_representative_token: @agreement.duly_authorized_representative_token), method: :patch, html: { class: 'form-vertical', id: 'update_step_form', data: { object: 'signature', signature_target: '.output-write' } } do |f|
+
+        = hidden_field_tag "agreement[draft_mode]", nil
+        = hidden_field_tag "step", @step
+        = hidden_field_tag "agreement[current_step]", @step
+
+        .form-group
+          = f.label :duly_authorized_representative_signature, 'Signature of Duly Authorized Representative', class: 'control-label'
+          %div{ style: "position:relative" }
+            = f.hidden_field :duly_authorized_representative_signature, class: 'output-write'
+            %canvas.pad{ width: "300", height: "55" }
+            %span.clearButton{ style: "position: absolute; margin-top: 12.5px; margin-left: 10px;" }
+              = link_to 'Clear', '#clear', class: 'btn btn-default', tabindex: '-1'
+          - if @agreement.errors.messages[:duly_authorized_representative_signature].size > 0
+            .bs-callout.bs-callout-danger{ style: 'margin-top: 10px' }
+              Please sign your full name.
+
+        .form-group
+          = f.label :duly_authorized_representative_signature_print, 'By (print name)', class: 'control-label'
+          = f.text_field :duly_authorized_representative_signature_print, class: 'form-control'
+          - if @agreement.errors.messages[:duly_authorized_representative_signature_print].size > 0
+            .bs-callout.bs-callout-danger{ style: 'margin-top: 10px' }
+              Please print your full name.
+
+        .form-group
+          = f.label :duly_authorized_representative_signature_date, 'Date Signed', class: 'control-label'
+          = f.text_field :duly_authorized_representative_signature_date, class: 'datepicker form-control', value: @agreement.duly_authorized_representative_signature_date ? @agreement.duly_authorized_representative_signature_date.strftime('%m/%d/%Y') : ''
+          - if @agreement.errors.messages[:duly_authorized_representative_signature_date].size > 0
+            .bs-callout.bs-callout-danger{ style: 'margin-top: 10px' }
+              Please enter a valid date.
+
+    %hr.divider-md
+
+    .row
+      .col-xs-2.col-sm-4
+      .col-xs-8.col-sm-4
+        = link_to '#', data: { object: 'submit', target: '#update_step_form' }, class: 'btn btn-lg btn-primary btn-block' do
+          %span.glyphicon.glyphicon-floppy-disk
+          Submit Signature
+      .col-xs-2.col-sm-4
+
+  - @footer_img = 'footer.jpg'

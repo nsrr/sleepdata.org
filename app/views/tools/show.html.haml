@@ -1,8 +1,5 @@
 - @title = @tool.name
 
-.beta-container
-  .main-container.dark-texture
-    %h1.center
-      = @tool.name
+= render 'tools/header'
 
-  = render partial: 'documentation/pagebeta', locals: { object: @tool }
+= render 'documentation/pagebeta', object: @tool

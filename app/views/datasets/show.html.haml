@@ -1,98 +1,39 @@
-.beta-container
-  .main-container.dark-texture
-    %h1.center
-      = @dataset.name
-    - if @dataset.info_count > 0
-      .row
-        - if @dataset.info_what.present?
-          %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
-            .info-container
-              %h6
-                %span.glyphicon.glyphicon-education
-                What
-              %span.static
-                = @dataset.info_what
-        - if @dataset.info_who.present?
-          %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
-            .info-container
-              %h6
-                %span.glyphicon.glyphicon-user
-                Who
-              %span.static
-                = @dataset.info_who
-        - if @dataset.info_when.present?
-          %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
-            .info-container
-              %h6
-                %span.glyphicon.glyphicon-calendar
-                When
-              %span.static
-                = @dataset.info_when
-        - if @dataset.info_funded_by.present?
-          %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
-            .info-container
-              .info-title
-                %h6
-                  %span.glyphicon.glyphicon-piggy-bank
-                  Funded By
-              %span.static
-                = @dataset.info_funded_by
+= render 'datasets/header'
 
-  - file_count = @dataset.indexed_files(nil, 0)
-  - if file_count > 0 or @dataset.variables.count > 0
-    .container-fluid
-      .row
-        - if file_count > 0
-          %div{ class: (@dataset.variables.count > 0 ? "col-md-6" : "col-md-12"), style: 'padding: 0px;' }
-            .slim-container.neutral-texture{ class: @dataset.variables.count > 0 ? "md-fixed-height" : "" }
-              %h2
-                Downloads
-              %p
-                Explore
-                = link_to 'available files', files_dataset_path(@dataset)
-                or download files using
-                = link_to('the NSRR gem', 'https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites') + "."
-              .code-container
-                %span.code-command{ style: 'background-color:#FFF' }
-                  nsrr download
-                  = @dataset.slug
-
-              - if @dataset.info_size > 0
-                %p
-                  The total download size of
-                  = @dataset.name
-                  is
-                  %strong= number_to_human_size(@dataset.info_size) + '.'
-              %hr
-              %p
-                Alternatively, you can start with the
-                = link_to 'covariate datasets', files_dataset_path(@dataset, path: 'datasets')
-                if you do not intend on analyzing these large binary files.
-        - if @dataset.variables.count > 0
-          %div{ class: (file_count > 0 ? "col-md-6" : "col-md-12"), style: 'padding: 0px;' }
-            .slim-container.grid-texture{ class: file_count > 0 ? "md-fixed-height" : "" }
-              %h2
-                Variables
-              - @variables = @dataset.variables.where( commonly_used: true ).order("RANDOM()").limit(6)
-              - if @variables.count > 0
-                %p
-                  We've carefully selected some commonly used covariates to get you started!
-
-                .row{ style: "margin-top:40px" }
-                  - @variables.each_with_index do |variable, index|
-                    .col-xs-6.col-sm-4{ class: "#{'hidden-xs' if index > 3}" }
-                      = render partial: 'variables/panel', locals: { variable: variable }
-                %p
-                  You may browse
-                  = link_to('all variables here', dataset_variables_path(@dataset)) + '.'
-              - else
-                %p
-                  We're currently working on getting the dataset variables uploaded to the NSRR.
-
+- if @dataset.info_count > 0
   .slim-container.dark-texture
-    %h2
-      Documentation
-    %p
-      Sit back and dig into the dataset documentation.
-
-  = render partial: 'documentation/pagebeta', locals: { object: @dataset }
+    .row
+      - if @dataset.info_what.present?
+        %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
+          .info-container
+            %h6
+              %span.glyphicon.glyphicon-education
+              What
+            %span.static
+              = @dataset.info_what
+      - if @dataset.info_who.present?
+        %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
+          .info-container
+            %h6
+              %span.glyphicon.glyphicon-user
+              Who
+            %span.static
+              = @dataset.info_who
+      - if @dataset.info_when.present?
+        %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
+          .info-container
+            %h6
+              %span.glyphicon.glyphicon-calendar
+              When
+            %span.static
+              = @dataset.info_when
+      - if @dataset.info_funded_by.present?
+        %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
+          .info-container
+            .info-title
+              %h6
+                %span.glyphicon.glyphicon-piggy-bank
+                Funded By
+            %span.static
+              = @dataset.info_funded_by
+= render 'documentation/pagebeta', object: @dataset

@@ -1,6 +1,8 @@
 - @title = [@object.name, @path.to_s.split('/').last.to_s.split(/\.(md|txt)/).first.to_s.titleize].reject{|a| a.blank?}.join(' - ')
-.beta-container
-  .slim-container.dark-texture
-    %h1=@object.name
 
-  = render partial: 'documentation/pagebeta'
+- if @object.class == Dataset
+  = render 'datasets/header'
+- else
+  = render 'tools/header'
+
+= render 'documentation/pagebeta', object: @object

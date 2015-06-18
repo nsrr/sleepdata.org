@@ -1,0 +1,60 @@
+- @title = "Requests - #{@dataset.name}"
+
+= render 'datasets/header'
+
+.main-container
+  .row
+    .col-sm-9{ style: "margin-bottom:20px" }
+      .table-responsive
+        %table.table.table-striped
+          %thead
+            %tr
+              %th DAUA
+              %th User
+              %th Role
+              %th Status
+          - @dataset.agreements.each do |agreement|
+            %tr
+              %td= link_to "View ##{agreement.id}", agreement
+              %td
+                = image_tag agreement.user.avatar_url(18), style: 'vertical-align:text-bottom;min-width:18px'
+                = agreement.user.name
+              %td Viewer
+              %td= status_helper(agreement)
+
+      .table-responsive
+        %table.table.table-striped
+          %thead
+            %tr
+              %th User
+              %th Role
+              %th Actions
+
+          - @dataset.dataset_users.order(:id).sort{|a,b| [a.role.to_s, a.user.last_name, a.user.first_name] <=> [b.role.to_s, b.user.last_name, b.user.first_name]}.each do |dataset_user|
+            %tr{ class: "#{'warning' if params[:dataset_user_id].to_i == dataset_user.id}" }
+              %td
+                = image_tag dataset_user.user.avatar_url(18), style: 'vertical-align:text-bottom;min-width:18px'
+                = dataset_user.user.name
+              %td
+                - case dataset_user.role when 'editor'
+                  Editor
+                - when 'viewer'
+                  Viewer
+                - when 'reviewer'
+                  Reviewer
+                - else
+                  %span.text-muted No Role
+              %td{ style: "white-space:nowrap" }
+                = link_to 'Delete', remove_access_dataset_path( @dataset, dataset_user_id: dataset_user.id ), method: :post, class: 'btn btn-danger-inverse btn-xs'
+      = form_tag create_access_dataset_path(@dataset), method: :post, class: 'form-inline' do
+        .form-group
+          = label :user_id, 'User'
+          = select_tag :user_id, options_for_select([['---', nil]] + User.current.order('last_name, first_name').collect{|u| [u.reverse_name_and_email, u.id]}), class: 'form-control'
+        .form-group
+          = label :role, 'Role'
+          = select_tag :role, options_for_select([['---', nil]] + DatasetUser::ROLES), class: 'form-control'
+        = submit_tag 'Set User', class: 'btn btn-primary', name: nil
+
+    .col-sm-3
+      = render 'documentation/logo_and_admin'
+      = render 'datasets/links'

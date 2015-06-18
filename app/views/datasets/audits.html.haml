@@ -1,0 +1,94 @@
+- @title = "Audits - #{@dataset.name}"
+
+= render 'datasets/header'
+
+= render 'layouts/per_page', per_page: 100, object_count: @audits.count
+
+.main-container
+
+  .table-responsive
+    %table.table.table-striped
+      %thead
+        %tr
+          %th File Path
+          %th File Size
+          %th User
+          %th Remote IP
+          %th Medium
+          %th Downloaded At
+        %tr.success
+          %th Total
+          %th= number_to_human_size @audits.sum(:file_size)
+          %th
+            - if params.has_key?(:user_id)
+              %span.glyphicon.glyphicon-filter
+              - user = User.find_by_id(params[:user_id])
+              = user ? user.name : 'Anonymous'
+            - else
+              %span.text-muted -
+          %th
+            - if params.has_key?(:remote_ip)
+              %span.glyphicon.glyphicon-filter
+              = params[:remote_ip].blank? ? 'blank' : params[:remote_ip]
+            - else
+              %span.text-muted -
+          %th
+            - if params.has_key?(:medium)
+              %span.glyphicon.glyphicon-filter
+              = params[:medium].blank? ? 'blank' : params[:medium]
+            - else
+              %span.text-muted -
+          %th
+
+      - paginated_audits = @audits.page(params[:page]).per( 100 )
+
+      - paginated_audits.each do |audit|
+        %tr
+          %td= audit.file_path
+          %td= number_to_human_size audit.file_size
+          %td
+            - if audit.user_id.to_s == params[:user_id]
+              = link_to audits_dataset_path(@dataset, medium: params[:medium], remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: "Remove Filter", placement: 'left' } do
+                %span.glyphicon.glyphicon-remove
+            - else
+              = link_to audits_dataset_path(@dataset, medium: params[:medium], user_id: audit.user_id.to_s, remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: "Filter by #{ audit.user ? audit.user.name : 'Anonymous' }", placement: 'left' } do
+                %span.glyphicon.glyphicon-filter
+            - if audit.user
+              = audit.user.name if audit.user
+            - else
+              %span.text-muted Anonymous
+          %td
+            - if audit.remote_ip.to_s == params[:remote_ip]
+              = link_to audits_dataset_path(@dataset, user_id: params[:user_id], medium: params[:medium]), rel: 'tooltip', data: { title: "Remove Filter", placement: 'left' } do
+                %span.glyphicon.glyphicon-remove
+            - else
+              = link_to audits_dataset_path(@dataset, remote_ip: audit.remote_ip.to_s, user_id: params[:user_id], medium: params[:medium]), rel: 'tooltip', data: { title: "Filter by #{audit.remote_ip}", placement: 'left' } do
+                %span.glyphicon.glyphicon-filter
+            = audit.remote_ip
+          %td
+            - if audit.medium.to_s == params[:medium]
+              = link_to audits_dataset_path(@dataset, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: "Remove Filter", placement: 'left' } do
+                %span.glyphicon.glyphicon-remove
+            - else
+              = link_to audits_dataset_path(@dataset, medium: audit.medium.to_s, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: "Filter by #{audit.medium}", placement: 'left' } do
+                %span.glyphicon.glyphicon-filter
+            = audit.medium
+          %td= audit.created_at.strftime("%b %d, %Y &middot; %I:%M %p").html_safe
+
+  .center
+    = paginate paginated_audits, theme: "contour"
+
+  - @page_views = @dataset.dataset_page_audits.group_by(&:page_path).collect{|page_path, audits| [page_path, audits.count]}.sort{|a,b| b[1] <=> a[1]}
+  %table.table.table-striped
+    %thead
+      %tr
+        %th Page Path
+        %th Page Views
+      %tr.success
+        %th Total
+        %th= number_with_delimiter( @page_views.sum{|p| p[1]} )
+
+    - @page_views.each do |page_path, page_view_count|
+      %tr
+        %td= page_path
+        %td= number_with_delimiter( page_view_count )

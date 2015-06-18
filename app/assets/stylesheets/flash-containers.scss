@@ -1,3 +1,11 @@
+.flash-alert, .flash-notice {
+  position: relative;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  .lead {
+    margin: 0px;
+  }
+}
 
 .flash-alert {
   background-color: $alert-warning-bg;

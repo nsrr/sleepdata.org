@@ -217,24 +217,20 @@ class DatasetsController < ApplicationController
       Dataset.current.where( public: true )
     end
     @datasets = dataset_scope.order(:release_date, :name).page(params[:page]).per( 18 )
-    render layout: 'layouts/application-full'
   end
 
   # GET /datasets/1
   # GET /datasets/1.json
   def show
-    render layout: 'layouts/application-full'
   end
 
   # GET /datasets/new
   def new
     @dataset = Dataset.new
-    render layout: 'layouts/application-full'
   end
 
   # GET /datasets/1/edit
   def edit
-    render layout: 'layouts/application-full'
   end
 
   # POST /datasets

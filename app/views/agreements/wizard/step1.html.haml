@@ -1,163 +1,164 @@
-= render 'agreements/wizard/daua_progress'
+.slim-container
+  = render 'agreements/wizard/daua_progress'
 
-= render 'agreements/show/step1/title'
-
-%hr.divider-md
-
-- url = @agreement.new_record? ? create_step_agreements_path : update_step_agreement_path(@agreement)
-- method = @agreement.new_record? ? :post : :patch
-= form_for @agreement, url: url, method: method, html: { class: 'form-horizontal', id: 'create_step_form' } do |f|
-  - if @agreement.errors.any?
-    #error_explanation.bs-callout.bs-callout-danger
-      %h4
-        = pluralize(@agreement.errors.count, "error")
-        prohibited this step from being saved
-
-      %ul
-        - @agreement.errors.full_messages.each do |msg|
-          %li= msg
-
-  = hidden_field_tag "agreement[draft_mode]", nil
-  = hidden_field_tag "step", @step
-  = hidden_field_tag "agreement[current_step]", @step
-
-  %p.lead-paragraph
-    = render 'agreements/show/step1/part1'
-
-  .form-group{ style: "margin-top: 20px;margin-bottom: 20px;" }
-    .col-md-10.col-md-offset-1
-      .input-group
-        = f.text_field :data_user, class: 'form-control', placeholder: "Full Name"
-        .input-group-addon
-          = surround '(', ').' do
-            %strong "Data User"
-
-  = render 'agreements/show/step1/part2'
+  = render 'agreements/show/step1/title'
 
   %hr.divider-md
 
-  %p.lead-paragraph
-    1. Data User is either (check one):
+  - url = @agreement.new_record? ? create_step_agreements_path : update_step_agreement_path(@agreement)
+  - method = @agreement.new_record? ? :post : :patch
+  = form_for @agreement, url: url, method: method, html: { class: 'form-horizontal', id: 'create_step_form' } do |f|
+    - if @agreement.errors.any?
+      #error_explanation.bs-callout.bs-callout-danger
+        %h4
+          = pluralize(@agreement.errors.count, "error")
+          prohibited this step from being saved
 
-  .row
-    .col-md-6
-      .panel.panel-info.panel-hover{ data: { object: "select_radio_button", target: "#agreement_data_user_type_individual" } }
-        .panel-heading
-          Individual
-        .panel-body
-          .form-group{ style: "height:90px" }
-            .col-md-9.col-md-offset-3
-              .radio
-                %label
-                  = f.radio_button :data_user_type, 'individual'
-                  An individual, requesting Data/Datasets under this DAUA on
-                  behalf of himself/herself as follows:
+        %ul
+          - @agreement.errors.full_messages.each do |msg|
+            %li= msg
 
-          .form-group
-            = f.label :individual_institution_name, "Institution", class: 'col-md-3 control-label'
-            .col-md-9
-              = f.text_field :individual_institution_name, class: 'form-control'
+    = hidden_field_tag "agreement[draft_mode]", nil
+    = hidden_field_tag "step", @step
+    = hidden_field_tag "agreement[current_step]", @step
 
-          .form-group
-            = label :individual_name, 'Full Name', class: 'col-md-3 control-label'
-            .col-md-9
-              %input#individual_name.form-control{ type: "text", name: "individual_name", disabled: "disabled", value: "#{current_user.name}" }
+    %p.lead-paragraph
+      = render 'agreements/show/step1/part1'
 
-          .form-group
-            = f.label :individual_title, "Professional Title", class: 'col-md-3 control-label'
-            .col-md-9
-              = f.text_field :individual_title, class: 'form-control'
-              .bs-callout.bs-callout-info
-                %h4 Examples
-                Associate Professor, Data Manager, Student
+    .form-group{ style: "margin-top: 20px;margin-bottom: 20px;" }
+      .col-md-10.col-md-offset-1
+        .input-group
+          = f.text_field :data_user, class: 'form-control', placeholder: "Full Name"
+          .input-group-addon
+            = surround '(', ').' do
+              %strong "Data User"
 
-          .form-group
-            = f.label :individual_telephone, "Telephone", class: 'col-md-3 control-label'
-            .col-md-9
-              = f.text_field :individual_telephone, class: 'form-control'
+    = render 'agreements/show/step1/part2'
 
-          .form-group
-            = f.label :individual_fax, "Fax", class: 'col-md-3 control-label'
-            .col-md-9
-              = f.text_field :individual_fax, class: 'form-control'
+    %hr.divider-md
 
-          .form-group
-            = label :individual_email, "Email", class: 'col-md-3 control-label'
-            .col-md-9
-              %input#individual_email.form-control{ type: "email", name: "individual_email", disabled: "disabled", value: "#{current_user.email}" }
+    %p.lead-paragraph
+      1. Data User is either (check one):
 
-          .form-group
-            = f.label :individual_address, "Address", class: 'col-md-3 control-label'
-            .col-md-9
-              = f.text_area :individual_address, rows: 5, class: 'form-control'
+    .row
+      .col-md-6
+        .panel.panel-info.panel-hover{ data: { object: "select_radio_button", target: "#agreement_data_user_type_individual" } }
+          .panel-heading
+            Individual
+          .panel-body
+            .form-group{ style: "height:90px" }
+              .col-md-9.col-md-offset-3
+                .radio
+                  %label
+                    = f.radio_button :data_user_type, 'individual'
+                    An individual, requesting Data/Datasets under this DAUA on
+                    behalf of himself/herself as follows:
 
-    .col-md-6
-      .panel.panel-info.panel-hover{ data: { object: "select_radio_button", target: "#agreement_data_user_type_organization" } }
-        .panel-heading
-          Organization / Corporation
-        .panel-body
-          .form-group{ style: "height:90px" }
-            .col-md-9.col-md-offset-3
-              .radio
-                %label
-                  = f.radio_button :data_user_type, 'organization'
-                  An organization / corporation, requesting Data/Datasets under
-                  this DAUA on behalf of itself and its employees, with a
-                  principal place of business and primary business contact as
-                  follows:
+            .form-group
+              = f.label :individual_institution_name, "Institution", class: 'col-md-3 control-label'
+              .col-md-9
+                = f.text_field :individual_institution_name, class: 'form-control'
 
-          .form-group
-            = f.label :organization_business_name, "Organization", class: 'col-md-3 control-label'
-            .col-md-9
-              = f.text_field :organization_business_name, class: 'form-control'
+            .form-group
+              = label :individual_name, 'Full Name', class: 'col-md-3 control-label'
+              .col-md-9
+                %input#individual_name.form-control{ type: "text", name: "individual_name", disabled: "disabled", value: "#{current_user.name}" }
 
-          .form-group
-            = f.label :organization_contact_name, "Contact Name", class: 'col-md-3 control-label'
-            .col-md-9
-              = f.text_field :organization_contact_name, class: 'form-control'
+            .form-group
+              = f.label :individual_title, "Professional Title", class: 'col-md-3 control-label'
+              .col-md-9
+                = f.text_field :individual_title, class: 'form-control'
+                .bs-callout.bs-callout-info
+                  %h4 Examples
+                  Associate Professor, Data Manager, Student
 
-          .form-group
-            = f.label :organization_contact_title, "Contact Title", class: 'col-md-3 control-label'
-            .col-md-9
-              = f.text_field :organization_contact_title, class: 'form-control'
-              .bs-callout.bs-callout-info
-                %h4 Examples
-                Associate Professor, Data Manager, Student
+            .form-group
+              = f.label :individual_telephone, "Telephone", class: 'col-md-3 control-label'
+              .col-md-9
+                = f.text_field :individual_telephone, class: 'form-control'
 
-          .form-group
-            = f.label :organization_contact_telephone, "Contact Tel", class: 'col-md-3 control-label'
-            .col-md-9
-              = f.text_field :organization_contact_telephone, class: 'form-control'
+            .form-group
+              = f.label :individual_fax, "Fax", class: 'col-md-3 control-label'
+              .col-md-9
+                = f.text_field :individual_fax, class: 'form-control'
 
-          .form-group
-            = f.label :organization_contact_fax, "Contact Fax", class: 'col-md-3 control-label'
-            .col-md-9
-              = f.text_field :organization_contact_fax, class: 'form-control'
+            .form-group
+              = label :individual_email, "Email", class: 'col-md-3 control-label'
+              .col-md-9
+                %input#individual_email.form-control{ type: "email", name: "individual_email", disabled: "disabled", value: "#{current_user.email}" }
 
-          .form-group
-            = f.label :organization_contact_email, "Contact Email", class: 'col-md-3 control-label'
-            .col-md-9
-              = f.email_field :organization_contact_email, class: 'form-control'
+            .form-group
+              = f.label :individual_address, "Address", class: 'col-md-3 control-label'
+              .col-md-9
+                = f.text_area :individual_address, rows: 5, class: 'form-control'
 
-          .form-group
-            = f.label :organization_address, "Organization Address", class: 'col-md-3 control-label'
-            .col-md-9
-              = f.text_area :organization_address, rows: 5, class: 'form-control'
+      .col-md-6
+        .panel.panel-info.panel-hover{ data: { object: "select_radio_button", target: "#agreement_data_user_type_organization" } }
+          .panel-heading
+            Organization / Corporation
+          .panel-body
+            .form-group{ style: "height:90px" }
+              .col-md-9.col-md-offset-3
+                .radio
+                  %label
+                    = f.radio_button :data_user_type, 'organization'
+                    An organization / corporation, requesting Data/Datasets under
+                    this DAUA on behalf of itself and its employees, with a
+                    principal place of business and primary business contact as
+                    follows:
 
-  %hr.divider-md
+            .form-group
+              = f.label :organization_business_name, "Organization", class: 'col-md-3 control-label'
+              .col-md-9
+                = f.text_field :organization_business_name, class: 'form-control'
 
-  .row
-    .col-xs-4
-      = link_to submissions_path, class: 'btn btn-lg btn-default btn-block' do
-        %span.glyphicon.glyphicon-arrow-left
-        Back to my Submissions
-    .col-xs-4
-      = link_to '#', data: { object: 'submit-draft', target: '#create_step_form' }, class: 'btn btn-lg btn-warning btn-block' do
-        %span.glyphicon.glyphicon-floppy-disk
-        Save Draft
-    .col-xs-4
-      = link_to '#', data: { object: 'submit', target: '#create_step_form' }, class: 'btn btn-lg btn-primary btn-block' do
-        Save and Continue
-        %span.glyphicon.glyphicon-arrow-right
+            .form-group
+              = f.label :organization_contact_name, "Contact Name", class: 'col-md-3 control-label'
+              .col-md-9
+                = f.text_field :organization_contact_name, class: 'form-control'
 
-- @footer_img = 'footer.jpg'
+            .form-group
+              = f.label :organization_contact_title, "Contact Title", class: 'col-md-3 control-label'
+              .col-md-9
+                = f.text_field :organization_contact_title, class: 'form-control'
+                .bs-callout.bs-callout-info
+                  %h4 Examples
+                  Associate Professor, Data Manager, Student
+
+            .form-group
+              = f.label :organization_contact_telephone, "Contact Tel", class: 'col-md-3 control-label'
+              .col-md-9
+                = f.text_field :organization_contact_telephone, class: 'form-control'
+
+            .form-group
+              = f.label :organization_contact_fax, "Contact Fax", class: 'col-md-3 control-label'
+              .col-md-9
+                = f.text_field :organization_contact_fax, class: 'form-control'
+
+            .form-group
+              = f.label :organization_contact_email, "Contact Email", class: 'col-md-3 control-label'
+              .col-md-9
+                = f.email_field :organization_contact_email, class: 'form-control'
+
+            .form-group
+              = f.label :organization_address, "Organization Address", class: 'col-md-3 control-label'
+              .col-md-9
+                = f.text_area :organization_address, rows: 5, class: 'form-control'
+
+    %hr.divider-md
+
+    .row
+      .col-xs-4
+        = link_to submissions_path, class: 'btn btn-lg btn-default btn-block' do
+          %span.glyphicon.glyphicon-arrow-left
+          Back to my Submissions
+      .col-xs-4
+        = link_to '#', data: { object: 'submit-draft', target: '#create_step_form' }, class: 'btn btn-lg btn-warning btn-block' do
+          %span.glyphicon.glyphicon-floppy-disk
+          Save Draft
+      .col-xs-4
+        = link_to '#', data: { object: 'submit', target: '#create_step_form' }, class: 'btn btn-lg btn-primary btn-block' do
+          Save and Continue
+          %span.glyphicon.glyphicon-arrow-right
+
+  - @footer_img = 'footer.jpg'

@@ -1,0 +1,10 @@
+.slim-container.dark-texture
+  %h1
+    = @dataset.name
+    = link_to 'Documentation', pages_dataset_path(@dataset), class: 'btn btn-xs btn-default'
+    = link_to 'Files', files_dataset_path(@dataset), class: 'btn btn-xs btn-default'
+    = link_to 'Variables', dataset_variables_path(@dataset), class: 'btn btn-xs btn-default'
+
+    - if current_user and @dataset.editable_by?(current_user)
+      = link_to 'Audits', audits_dataset_path(@dataset), class: "btn btn-xs btn-default #{'active' if params[:action] == 'audits'}"
+      = link_to 'Requests', requests_dataset_path(@dataset), class: "btn btn-xs btn-default #{'active' if params[:action] == 'requests'}"

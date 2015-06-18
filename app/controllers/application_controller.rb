@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   before_action :store_location
 
+  layout 'application-full'
+
   def store_location
     if (params[:action] != 'logo' &&
         params[:action] != 'files' &&

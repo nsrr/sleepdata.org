@@ -1,110 +1,111 @@
-.page-header
-  %h1 My Submissions
-  = link_to 'Start A New Submission', submissions_welcome_path, class: 'btn btn-primary'
+.main-container
+  .page-header
+    %h1 My Submissions
+    = link_to 'Start A New Submission', submissions_welcome_path, class: 'btn btn-primary'
 
-= render 'contour/layouts/per_page', per_page: 40, object_count: @agreements.total_count
+  = render 'contour/layouts/per_page', per_page: 40, object_count: @agreements.total_count
 
-%div{ style: "clear:both" }
-  &nbsp;
+  %div{ style: "clear:both" }
+    &nbsp;
 
-- @agreements.order( id: :desc ).each do |agreement|
-  - if agreement.approved?
-    - agreement_status_class = 'step-success'
-  - elsif agreement.under_review?
-    - agreement_status_class = 'step-info'
-  - elsif agreement.status == 'resubmit'
-    - agreement_status_class = 'step-danger'
-  - elsif agreement.status == 'expired'
-    - agreement_status_class = 'step-default'
-  - else
-    - agreement_status_class = 'step-warning'
-
-  .jumbotron{ class: agreement_status_class, style: "position:relative;border: 2px solid transparent;" }
-    .jumbotron-left-after
-      Agreement
-      = precede '#' do
-        = agreement.agreement_number
-
-    - if agreement.under_review?
-      %p.lead
-        This submission is currently
-        = succeed '.' do
-          %strong under review
-    - elsif agreement.approved?
-      %p.lead
-        Your data access request was
-        = succeed '.' do
-          %strong approved
-          = agreement.approval_date.strftime("on %-d %B %Y") if agreement.approval_date
-      %p.lead
-        - if agreement.expiration_date
-          This agreement expires
-          = succeed '.' do
-            = agreement.expiration_date.strftime("on %-d %B %Y")
+  - @agreements.order( id: :desc ).each do |agreement|
+    - if agreement.approved?
+      - agreement_status_class = 'step-success'
+    - elsif agreement.under_review?
+      - agreement_status_class = 'step-info'
+    - elsif agreement.status == 'resubmit'
+      - agreement_status_class = 'step-danger'
     - elsif agreement.status == 'expired'
-      %p.lead
-        Your data access request
-        = succeed '.' do
-          %strong expired
-          =agreement.expiration_date.strftime(" on %-d %B %Y") if agreement.expiration_date
-      .jumbotron-right-bottom-after
-        = link_to renew_agreement_path(agreement) do
-          Renew
-          %span.glyphicon.glyphicon-arrow-right
+      - agreement_status_class = 'step-default'
     - else
+      - agreement_status_class = 'step-warning'
 
-      %p.lead
-        Steps:
-        - (1..6).each do |step|
-          - current_step = (step == 1 ? 2 : agreement.current_step)
-          = link_to step, step_agreement_path(agreement, step: step), class: "btn btn-#{step_helper(agreement, step, current_step)}"
+    .jumbotron{ class: agreement_status_class, style: "position:relative;border: 2px solid transparent;" }
+      .jumbotron-left-after
+        Agreement
+        = precede '#' do
+          = agreement.agreement_number
 
-      .jumbotron-right-bottom-after
-        - if agreement.fully_filled_out?
-          = link_to proof_agreement_path(agreement) do
-            Continue
+      - if agreement.under_review?
+        %p.lead
+          This submission is currently
+          = succeed '.' do
+            %strong under review
+      - elsif agreement.approved?
+        %p.lead
+          Your data access request was
+          = succeed '.' do
+            %strong approved
+            = agreement.approval_date.strftime("on %-d %B %Y") if agreement.approval_date
+        %p.lead
+          - if agreement.expiration_date
+            This agreement expires
+            = succeed '.' do
+              = agreement.expiration_date.strftime("on %-d %B %Y")
+      - elsif agreement.status == 'expired'
+        %p.lead
+          Your data access request
+          = succeed '.' do
+            %strong expired
+            =agreement.expiration_date.strftime(" on %-d %B %Y") if agreement.expiration_date
+        .jumbotron-right-bottom-after
+          = link_to renew_agreement_path(agreement) do
+            Renew
             %span.glyphicon.glyphicon-arrow-right
-        - else
-          = link_to step_agreement_path(agreement, step: agreement.current_step) do
-            Continue
-            %span.glyphicon.glyphicon-arrow-right
+      - else
 
-      .jumbotron-left-bottom-after
-        = link_to destroy_submission_agreement_path(agreement), class: 'text-danger', method: :delete, data: { confirm: "Are you sure you want to delete Agreement ##{agreement.agreement_number}?" } do
-          %span.glyphicon.glyphicon-trash
-          Delete
+        %p.lead
+          Steps:
+          - (1..6).each do |step|
+            - current_step = (step == 1 ? 2 : agreement.current_step)
+            = link_to step, step_agreement_path(agreement, step: step), class: "btn btn-#{step_helper(agreement, step, current_step)}"
 
-    - if agreement.datasets.count > 0
-      .jumbotron-right-after
-        Datasets:
-        - agreement.datasets.order( :release_date ).each do |dataset|
-          = link_to dataset.slug, dataset, class: 'btn btn-default btn-xs'
+        .jumbotron-right-bottom-after
+          - if agreement.fully_filled_out?
+            = link_to proof_agreement_path(agreement) do
+              Continue
+              %span.glyphicon.glyphicon-arrow-right
+          - else
+            = link_to step_agreement_path(agreement, step: agreement.current_step) do
+              Continue
+              %span.glyphicon.glyphicon-arrow-right
 
-    - if agreement.under_review? or agreement.approved? or agreement.status == 'expired'
-      .jumbotron-left-bottom-after
-        - if agreement.resubmitted_at
-          Resubmitted:
-          = agreement.resubmitted_at.strftime("%-d %B %Y, %-l:%M %p (%H:%M)")
-        - elsif agreement.submitted_at
-          Submitted:
-          = agreement.submitted_at.strftime("%-d %B %Y, %-l:%M %p (%H:%M)")
+        .jumbotron-left-bottom-after
+          = link_to destroy_submission_agreement_path(agreement), class: 'text-danger', method: :delete, data: { confirm: "Are you sure you want to delete Agreement ##{agreement.agreement_number}?" } do
+            %span.glyphicon.glyphicon-trash
+            Delete
 
-      .jumbotron-right-bottom-after
-        = link_to print_agreement_path(agreement), target: '_blank' do
-          %span.glyphicon.glyphicon-print
-          Print Copy of Agreement
+      - if agreement.datasets.count > 0
+        .jumbotron-right-after
+          Datasets:
+          - agreement.datasets.order( :release_date ).each do |dataset|
+            = link_to dataset.slug, dataset, class: 'btn btn-default btn-xs'
 
-    - if agreement.status == 'resubmit'
-      %hr.divider-sm
-      %p.lead-paragraph.text-danger
-        = agreement.comments
+      - if agreement.under_review? or agreement.approved? or agreement.status == 'expired'
+        .jumbotron-left-bottom-after
+          - if agreement.resubmitted_at
+            Resubmitted:
+            = agreement.resubmitted_at.strftime("%-d %B %Y, %-l:%M %p (%H:%M)")
+          - elsif agreement.submitted_at
+            Submitted:
+            = agreement.submitted_at.strftime("%-d %B %Y, %-l:%M %p (%H:%M)")
 
-    - unless agreement.specific_purpose.blank?
-      %hr.divider-sm
-      %p.lead-paragraph.text-muted
-        %strong= agreement.title_of_project
-        %br
-        = agreement.specific_purpose
+        .jumbotron-right-bottom-after
+          = link_to print_agreement_path(agreement), target: '_blank' do
+            %span.glyphicon.glyphicon-print
+            Print Copy of Agreement
 
-.center
-  = paginate @agreements, theme: 'contour'
+      - if agreement.status == 'resubmit'
+        %hr.divider-sm
+        %p.lead-paragraph.text-danger
+          = agreement.comments
+
+      - unless agreement.specific_purpose.blank?
+        %hr.divider-sm
+        %p.lead-paragraph.text-muted
+          %strong= agreement.title_of_project
+          %br
+          = agreement.specific_purpose
+
+  .center
+    = paginate @agreements, theme: 'contour'
