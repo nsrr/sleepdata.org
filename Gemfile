@@ -2,9 +2,6 @@ source 'https://rubygems.org'
 
 gem 'rails',                '4.2.2'
 
-### Rack 1.6.3 breaks navigation tests, hardcoding to 1.6.2 for time being
-gem 'rack',                 '1.6.2'
-
 # Database Adapter
 gem 'pg',                   '0.18.2'
 
