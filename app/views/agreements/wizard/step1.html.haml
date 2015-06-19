@@ -1,20 +1,19 @@
-.slim-container
+.slim-container.dark-texture
   = render 'agreements/wizard/daua_progress'
 
+.slim-container.math-texture
   = render 'agreements/show/step1/title'
-
-  %hr.divider-md
 
   - url = @agreement.new_record? ? create_step_agreements_path : update_step_agreement_path(@agreement)
   - method = @agreement.new_record? ? :post : :patch
   = form_for @agreement, url: url, method: method, html: { class: 'form-horizontal', id: 'create_step_form' } do |f|
     - if @agreement.errors.any?
       #error_explanation.bs-callout.bs-callout-danger
-        %h4
+        %strong
           = pluralize(@agreement.errors.count, "error")
           prohibited this step from being saved
 
-        %ul
+        %ul.fixed-font-size
           - @agreement.errors.full_messages.each do |msg|
             %li= msg
 
@@ -22,22 +21,22 @@
     = hidden_field_tag "step", @step
     = hidden_field_tag "agreement[current_step]", @step
 
-    %p.lead-paragraph
-      = render 'agreements/show/step1/part1'
+    .markdown-container
 
-    .form-group{ style: "margin-top: 20px;margin-bottom: 20px;" }
-      .col-md-10.col-md-offset-1
-        .input-group
-          = f.text_field :data_user, class: 'form-control', placeholder: "Full Name"
-          .input-group-addon
-            = surround '(', ').' do
-              %strong "Data User"
+      %p
+        = render 'agreements/show/step1/part1'
 
-    = render 'agreements/show/step1/part2'
+      .form-group{ style: "margin-top: 20px;margin-bottom: 20px;" }
+        .col-md-10.col-md-offset-1
+          .input-group
+            = f.text_field :data_user, class: 'form-control', placeholder: "Full Name"
+            .input-group-addon
+              = surround '(', ').' do
+                %strong "Data User"
 
-    %hr.divider-md
+      = render 'agreements/show/step1/part2'
 
-    %p.lead-paragraph
+    %p
       1. Data User is either (check one):
 
     .row
@@ -69,7 +68,8 @@
               .col-md-9
                 = f.text_field :individual_title, class: 'form-control'
                 .bs-callout.bs-callout-info
-                  %h4 Examples
+                  %strong Examples
+                  %br
                   Associate Professor, Data Manager, Student
 
             .form-group
@@ -122,7 +122,8 @@
               .col-md-9
                 = f.text_field :organization_contact_title, class: 'form-control'
                 .bs-callout.bs-callout-info
-                  %h4 Examples
+                  %strong Examples
+                  %br
                   Associate Professor, Data Manager, Student
 
             .form-group

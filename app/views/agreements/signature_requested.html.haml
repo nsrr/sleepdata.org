@@ -1,86 +1,95 @@
-.slim-container
-  .bs-callout.bs-callout-info
-    %p.lead-paragraph
-      = @agreement.user.name
-      has named you as the Duly Authorized Representative to sign the following Data
-      Access and Use Agreement on their behalf.
-    %p.lead-paragraph
-      If you have any questions regarding this process, please email the NSRR
-      directly at:
-      = mail_to ENV['support_email']
+.slim-container.dark-texture
+  %h1.center
+    Brigham and Women's Hospital
+    %br
+    National Sleep Research Resource (NSRR)
+
+.slim-container.math-texture
+
+  .row
+    .col-md-10.col-md-offset-1
+      .bs-callout.bs-callout-info
+        %p
+          %strong Instructions
+          %br
+          = @agreement.user.name
+          has named you as the Duly Authorized Representative to sign the following Data
+          Access and Use Agreement on their behalf.
+        %p
+          If you have any questions regarding this process, please email the NSRR
+          directly at:
+          = mail_to ENV['support_email']
 
 
-  - if @agreement.errors.any?
-    #error_explanation.bs-callout.bs-callout-danger
-      %strong
-        Errors prohibited this from being saved.
-      Please scroll down and try again.
+      - if @agreement.errors.any?
+        #error_explanation.bs-callout.bs-callout-danger
+          %strong
+            Errors prohibited this from being saved.
+          Please scroll down and try again.
 
   = hidden_field_tag 'isdirty', '1'
 
-  .page-header
-    %h1.center
-      Brigham and Women's Hospital
-      %br
-      National Sleep Research Resource (NSRR)
-
-  = render 'agreements/show/step1/title'
-
-  %p.lead-paragraph
-    = render 'agreements/show/step1/part1'
-    %mark= @agreement.data_user
-    = surround '(', ').' do
-      %strong "Data User"
-
-  = render 'agreements/show/step1/part2'
-  = render 'agreements/show/step1/part3'
+  %h2.center
+    = render 'agreements/show/step1/title'
 
 
-  = render 'agreements/show/step2/part1'
+  .markdown-container
 
-  %p.lead-paragraph
-    %strong
-      %mark= @agreement.title_of_project
-  %p.lead-paragraph
-    %mark= sanitize @agreement.specific_purpose.to_s.gsub("\n", '<br />')
+    %p
+      = render 'agreements/show/step1/part1'
+      %mark= @agreement.data_user
+      = surround '(', ').' do
+        %strong "Data User"
 
-  %ul
-    - @agreement.datasets.each do |dataset|
-      %li
-        %mark= dataset.name
+    = render 'agreements/show/step1/part2'
+    = render 'agreements/show/step1/part3'
 
-  = render 'agreements/show/step2/part2'
 
-  = render 'agreements/show/step3/part1'
+    = render 'agreements/show/step2/part1'
 
-  = render 'agreements/show/step3/part2'
+    %p
+      %strong
+        %mark= @agreement.title_of_project
+    %p
+      %mark= sanitize @agreement.specific_purpose.to_s.gsub("\n", '<br />')
 
-  %p.lead-paragraph
-    - case @agreement.posting_permission when 'all'
-      %mark
-        Data User gives BWH permission to post
-        %strong Data User's name
-        and a
-        summary of
-        %strong Data User's Specific Purpose
-        on https://sleepdata.org
-    - when 'name_only'
-      %mark
-        Data User gives BWH permission to post
-        %strong Data User's name
-        on https://sleepdata.org
-    - when 'none'
-      %mark
-        Data User
-        %strong does not give permission
-        to post Data User's name or a summary of Data User's Specific Purpose on
-        https://sleepdata.org
+    %ul
+      - @agreement.datasets.each do |dataset|
+        %li
+          %mark= dataset.name
 
-  = render 'agreements/show/step3/part3'
+    = render 'agreements/show/step2/part2'
 
-  %hr.divider-md
+    = render 'agreements/show/step3/part1'
 
-  %p.lead-paragraph Agreed to by:
+    = render 'agreements/show/step3/part2'
+
+    %p
+      - case @agreement.posting_permission when 'all'
+        %mark
+          Data User gives BWH permission to post
+          %strong Data User's name
+          and a
+          summary of
+          %strong Data User's Specific Purpose
+          on https://sleepdata.org
+      - when 'name_only'
+        %mark
+          Data User gives BWH permission to post
+          %strong Data User's name
+          on https://sleepdata.org
+      - when 'none'
+        %mark
+          Data User
+          %strong does not give permission
+          to post Data User's name or a summary of Data User's Specific Purpose on
+          https://sleepdata.org
+
+    = render 'agreements/show/step3/part3'
+
+  .row
+    .col-md-10.col-md-offset-1
+      %p Agreed to by:
 
   .row
     .col-md-offset-3.col-md-6
@@ -116,8 +125,6 @@
             .bs-callout.bs-callout-danger{ style: 'margin-top: 10px' }
               Please enter a valid date.
 
-    %hr.divider-md
-
     .row
       .col-xs-2.col-sm-4
       .col-xs-8.col-sm-4
@@ -125,5 +132,3 @@
           %span.glyphicon.glyphicon-floppy-disk
           Submit Signature
       .col-xs-2.col-sm-4
-
-  - @footer_img = 'footer.jpg'

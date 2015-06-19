@@ -1,83 +1,83 @@
-%p.lead-paragraph
+%p
   1. Data User is:
 
 - if @agreement.data_user_type == 'individual'
-  %p.lead-paragraph
+  %p
     An individual, requesting Data/Datasets under this DAUA on behalf of
     himself/herself as follows:
 
-  %p.lead-paragraph
+  %p
     %strong Institution
     %br
     %mark= @agreement.individual_institution_name
 
-  %p.lead-paragraph
+  %p
     %strong Full Name
     %br
     %mark= @agreement.user.name
 
-  %p.lead-paragraph
+  %p
     %strong Professional Title
     %br
     %mark= @agreement.individual_title
 
-  %p.lead-paragraph
+  %p
     %strong Telephone
     %br
     %mark= @agreement.individual_telephone
 
-  %p.lead-paragraph
+  %p
     %strong Fax
     %br
     %mark= @agreement.individual_fax
 
-  %p.lead-paragraph
+  %p
     %strong Contact Email
     %br
     %mark= @agreement.user.email
 
-  %p.lead-paragraph
+  %p
     %strong Address
     %br
     %mark= sanitize @agreement.individual_address.to_s.gsub("\n", '<br />')
 
 - elsif @agreement.data_user_type == 'organization'
-  %p.lead-paragraph
+  %p
     An organization / corporation, requesting Data/Datasets under this DAUA on
     behalf of itself and its employees, with a principal place of business and
     primary business contact as follows:
 
-  %p.lead-paragraph
+  %p
     %strong Organization
     %br
     %mark= @agreement.organization_business_name
 
-  %p.lead-paragraph
+  %p
     %strong Contact Name
     %br
     %mark= @agreement.organization_contact_name
 
-  %p.lead-paragraph
+  %p
     %strong Contact Title
     %br
     %mark= @agreement.organization_contact_title
 
-  %p.lead-paragraph
+  %p
     %strong Contact Telephone
     %br
     %mark= @agreement.organization_contact_telephone
 
-  %p.lead-paragraph
+  %p
     %strong Contact Fax
     %br
     %mark= @agreement.organization_contact_fax
 
-  %p.lead-paragraph
+  %p
     %strong Contact Email
     %br
     %mark= @agreement.organization_contact_email
 
-  %p.lead-paragraph
+  %p
     %strong Organization Address
     %br
     %mark= sanitize @agreement.organization_address.to_s.gsub("\n", '<br />')

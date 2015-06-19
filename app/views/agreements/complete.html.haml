@@ -1,0 +1,51 @@
+.slim-container.dark-texture
+  %h1.center
+    Brigham and Women's Hospital
+    %br
+    National Sleep Research Resource (NSRR)
+  .row{ style: "margin-top: 20px;margin-bottom: 20px;" }
+    .col-xs-12.col-sm-3.col-sm-offset-3
+      = link_to submissions_path, class: 'btn btn-default btn-block' do
+        %span.glyphicon.glyphicon-th-list
+        Review My Submissions
+    .col-xs-12.col-sm-3
+      = link_to print_agreement_path(@agreement), target: '_blank', class: 'btn btn-primary btn-block' do
+        %span.glyphicon.glyphicon-print
+        Print Copy of Agreement
+
+.slim-container.call-to-action
+  %h2
+    Success!
+  %p
+    Thank you for your submission, your DAUA was submitted successfully.
+
+.slim-container.math-texture
+
+  .markdown-container
+
+    %p
+      Dear
+      = succeed ',' do
+        = link_to current_user.first_name
+
+    %p Once your DAUA is approved, you will be able to download data from the datasets you requested.
+
+    %p
+      Don't know where to start? You can take a look at our
+      = link_to 'Where to Start', showcase_show_path('where-to-start')
+      guide as well.
+
+    %p
+      You can learn how to download data by using the NSRR Ruby gem here:
+      = link_to 'NSRR Demo', demo_path
+
+    %p
+      Also, don't forget you can
+      = link_to 'post on the forum', topics_path
+      or contact us directly at
+      = mail_to ENV['support_email']
+      if you need any help getting started!
+
+    %p Welcome aboard!
+
+    %p The NSRR Team

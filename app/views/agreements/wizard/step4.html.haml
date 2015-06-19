@@ -1,20 +1,22 @@
-.slim-container
+.slim-container.dark-texture
   = render 'agreements/wizard/daua_progress'
 
+.slim-container.math-texture
   %h2.center SIGNATURE
-
-  %hr.divider-md
 
   = form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, html: { class: 'form-vertical', id: 'update_step_form', data: { object: 'signature', signature_target: '.output-write' } } do |f|
     - if @agreement.errors.any?
-      #error_explanation.bs-callout.bs-callout-danger
-        %h4
-          = pluralize(@agreement.errors.count, "error")
-          prohibited this step from being saved
-
-        %ul
-          - @agreement.errors.full_messages.each do |msg|
-            %li= msg
+      - if @agreement.errors.messages.keys.include?(:duly_authorized_representative_signature) or @agreement.errors.messages.keys.include?(:duly_authorized_representative_signature_date) or @agreement.errors.messages.keys.include?(:duly_authorized_representative_signature_print)
+        #error_explanation.bs-callout.bs-callout-danger
+          %strong
+            Errors prohibited this from being saved.
+          Your Duly Authorized Representative has not yet signed and dated the agreement.
+          You can send your representative the link provided below.
+      - else
+        #error_explanation.bs-callout.bs-callout-danger
+          %strong
+            Errors prohibited this from being saved.
+          Please make sure to sign and print your name, and select the date you signed.
 
     = hidden_field_tag "agreement[draft_mode]", nil
     = hidden_field_tag "step", @step
@@ -34,14 +36,12 @@
 
 
             .form-group
-              = f.label :signature, nil, class: 'control-label'
+              = f.label :signature, 'Signature of Data User', class: 'control-label'
               %div{ style: "position:relative" }
                 = f.hidden_field :signature, class: 'output-write'
                 %canvas.pad{ width: "300", height: "55" }
                 %span.clearButton{ style: "position: absolute; margin-top: 12.5px; margin-left: 10px;" }
                   = link_to 'Clear', '#clear', class: 'btn btn-default', tabindex: '-1'
-                %p.lead
-                  Signature of Data User
 
             .form-group
               = f.label :signature_print, 'By (print name)', class: 'control-label'
@@ -69,7 +69,7 @@
                   %br
                   If you are not authorized to sign an agreement based on institutional
                   requirements:
-                  %ol
+                  %ol.fixed-font-size
                     %li Check the above box
                     %li Type authorized user's name below
                     %li Email the link below to your authorized user
@@ -85,10 +85,10 @@
                 = f.label :duly_authorized_representative_signature_print, 'Duly Authorized Representative Name', class: 'control-label'
                 = f.text_field :duly_authorized_representative_signature_print, class: 'form-control'
 
-              %p
-                %strong Email the following link
-                to your Duly Authorized Representative.
-              = link_to signature_request_url, signature_request_url, target: '_blank'
+              %strong Email the following link
+              to your Duly Authorized Representative.
+              %div{ style: 'border: 1px solid #ededed; border-radius:2px; padding: 4px' }
+                = link_to signature_request_url, signature_request_url, target: '_blank'
 
             - if @agreement.duly_authorized_representative_valid?
               .bs-callout.bs-callout-info
@@ -100,12 +100,10 @@
                 below to finalize your data access and use agreement.
 
               .form-group
-                = f.label :duly_authorized_representative_signature, nil, class: 'control-label'
+                = f.label :duly_authorized_representative_signature, 'Signature of Duly Authorized Representative', class: 'control-label'
                 %div{ data: { object: "signature-display", signature_target: ".output-read" } }
                   = hidden_field_tag 'duly_authorized_representative_signature', @agreement.duly_authorized_representative_signature, class: 'output-read'
                   %canvas.pad-display{ width: "300", height: "55" }
-                  %p.lead
-                    Signature of Duly Authorized Representative
 
               .form-group
                 = f.label :duly_authorized_representative_signature_print, 'Duly Authorized Representative (print name)', class: 'control-label'

@@ -1,7 +1,8 @@
-.slim-container
+.slim-container.dark-texture
   = render 'agreements/wizard/daua_progress'
 
-  %p.lead.center
+.slim-container.math-texture
+  %p.center
     Please proofread your application and then click "Submit" to complete Data
     Access Request.
 
@@ -9,11 +10,16 @@
   - steps = (1..5)
 
   - steps.each do |step|
-    .step{ class: "step-#{(@agreement.step_valid?(step) ? 'success' : 'warning')}" }
+    .markdown-container
       %h2
         Step
         = step
         = link_to "Edit Step #{step}", step_agreement_path(@agreement, step: step), class: 'btn btn-xs btn-primary'
+
+      - unless @agreement.step_valid?(step)
+        .bs-callout.bs-callout-danger
+          %strong Attention
+          This step is not complete. Please edit the missing information.
 
       = render "agreements/proof/step#{step}"
 

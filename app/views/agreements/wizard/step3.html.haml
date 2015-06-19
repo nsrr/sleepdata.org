@@ -1,57 +1,64 @@
-.slim-container
+.slim-container.dark-texture
   = render 'agreements/wizard/daua_progress'
 
+.slim-container.math-texture
   %h2.center DATA ACCESS AND USE AGREEMENT
-
-  %hr.divider-md
 
   = form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, html: { class: 'form-horizontal', id: 'update_step_form' } do |f|
     - if @agreement.errors.any?
-      #error_explanation.bs-callout.bs-callout-danger
-        %h4
-          = pluralize(@agreement.errors.count, "error")
-          prohibited this step from being saved
+      - messages = []
+      - if @agreement.errors.messages[:posting_permission] and @agreement.errors.messages[:posting_permission].size > 0
+        - messages << 'have selected a posting permission'
+      - if @agreement.errors.messages[:has_read_step3] and @agreement.errors.messages[:has_read_step3].size > 0
+        - messages << 'marked that you have read these conditions'
 
-        %ul
-          - @agreement.errors.full_messages.each do |msg|
-            %li= msg
+      #error_explanation.bs-callout.bs-callout-danger
+        %strong
+          Errors prohibited this from being saved.
+        Please make sure you
+        = succeed '.' do
+          = messages.join(', and ')
 
     = hidden_field_tag "agreement[draft_mode]", nil
     = hidden_field_tag "step", @step
     = hidden_field_tag "agreement[current_step]", @step
 
-    = render 'agreements/show/step3/part1'
+    .markdown-container
+      = render 'agreements/show/step3/part1'
 
-    = render 'agreements/show/step3/part2'
+      = render 'agreements/show/step3/part2'
 
-    %p.lead-paragraph
-      (check one)
-
-    .form-group
+    .row{ style: "margin-top: 20px;margin-bottom: 20px;" }
       .col-md-10.col-md-offset-1
-        .radio
-          %label
-            = f.radio_button :posting_permission, 'all'
-            Data User gives BWH permission to post
-            %strong Data User's name
-            and a summary of
-            %strong Data User's Specific Purpose
-            on https://sleepdata.org
-        .radio
-          %label
-            = f.radio_button :posting_permission, 'name_only'
-            Data User gives BWH permission to post
-            %strong Data User's name
-            on https://sleepdata.org
-        .radio
-          %label
-            = f.radio_button :posting_permission, 'none'
-            Data User
-            %strong does not give permission
-            to post Data User's name or a summary of Data User's Specific Purpose
-            on https://sleepdata.org
+        %p
+          Posting Permission (check one):
 
-    = render 'agreements/show/step3/part3'
+        .form-group
+          .col-md-10.col-md-offset-1
+            .radio
+              %label
+                = f.radio_button :posting_permission, 'all'
+                Data User gives BWH permission to post
+                %strong Data User's name
+                and a summary of
+                %strong Data User's Specific Purpose
+                on https://sleepdata.org
+            .radio
+              %label
+                = f.radio_button :posting_permission, 'name_only'
+                Data User gives BWH permission to post
+                %strong Data User's name
+                on https://sleepdata.org
+            .radio
+              %label
+                = f.radio_button :posting_permission, 'none'
+                Data User
+                %strong does not give permission
+                to post Data User's name or a summary of Data User's Specific Purpose
+                on https://sleepdata.org
+
+    .markdown-container
+      = render 'agreements/show/step3/part3'
 
     .well
       .form-group

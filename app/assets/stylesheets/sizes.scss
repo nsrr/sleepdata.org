@@ -136,3 +136,14 @@ footer {
     font-weight: normal;
   }
 }
+
+.fixed-font-size, .fixed-font-size li, .fixed-font-size p {
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.datepicker-dropdown {
+  p, .p, ol, ul, li, pre, code, table, thead, tbody, tr, th, td {
+    font-size: 14px;
+  }
+}

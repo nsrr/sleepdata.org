@@ -1,4 +1,4 @@
-%p.lead-paragraph
+%p
   = succeed '.' do
     = @agreement.commercial? ? '14' : '12'
   This DAUA shall become effective upon the date of BWH's release of Data /
@@ -17,7 +17,7 @@
   the Initial Term or any subsequent term, and for any reason, upon written
   notice to the Data User.
 
-%p.lead-paragraph
+%p
   = succeed '.' do
     = @agreement.commercial? ? '15' : '13'
   To the extent Data User is permitted under the terms of this DAUA to retain
@@ -26,7 +26,7 @@
   DAUA with respect to such Data / Datasets shall survive such expiration or
   termination for as long as Data User retains the Data / Datasets.
 
-%p.lead-paragraph
+%p
   = succeed '.' do
     = @agreement.commercial? ? '16' : '14'
   This DAUA may be modified or amended only in a writing signed by duly
@@ -36,13 +36,13 @@
   action brought under this DAUA shall be brought in the federal or state
   courts of Massachusetts.
 
-%p.lead-paragraph
+%p
   = succeed '.' do
     = @agreement.commercial? ? '17' : '15'
   All notices required by this DAUA shall be provided to the signatory for
   each party at the address identified below.
 
-%p.lead-paragraph
+%p
   = succeed '.' do
     = @agreement.commercial? ? '18' : '16'
   In all publications and other citations that use resources made available
@@ -54,7 +54,7 @@
 %p.lead.center
   NSRR R24 HL114473: NHLBI National Sleep Research Resource.
 
-  %p.lead-paragraph
+  %p
     - if @agreement.commercial?
       19. Sections 3 through 13 and Sections 15, 16, 17, and 18 of this DAUA shall survive its expiration or termination.
     - else

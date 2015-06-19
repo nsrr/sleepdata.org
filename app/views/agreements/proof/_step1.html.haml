@@ -24,7 +24,8 @@
     %dt Contact Email
     %dd= @agreement.user.email
     %dt Address
-    %dd= simple_format @agreement.individual_address
+    %dd.fixed-font-size
+      = simple_format @agreement.individual_address
   - elsif @agreement.data_user_type == 'organization'
     %dt Application Type
     %dd
@@ -53,5 +54,5 @@
     %dd
       = @agreement.organization_contact_email
     %dt Organization Address
-    %dd
+    %dd.fixed-font-size
       = simple_format @agreement.organization_address

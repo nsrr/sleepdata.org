@@ -23,6 +23,7 @@
   - Principal reviewers can now modify the requested datasets during the review process
   - Principal reviewers can now export information on all agreements as a CSV
   - Clarified reference to the IRB Assistance page
+  - Improved the user interface for the DAUA submission process
 - **Challenge Changes**
   - Added an export for the Flow Limitation challenge
 - **Dataset Changes**
