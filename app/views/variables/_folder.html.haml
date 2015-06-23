@@ -1,0 +1,9 @@
+%h2{ style: 'margin-top:20px;border-bottom: 2px solid #ccc' }
+  = link_to @dataset.name, dataset_variables_path(@dataset) if show_dataset
+
+  - unless folder.blank?
+    - folder.to_s.split('/').each_with_index do |partial_folder, index|
+      - full_folder = folder.to_s.split('/')[0..index].join('/')
+      - if index > 0 or show_dataset
+        %span{ style: 'color: #ccc' } /
+      = link_to partial_folder, dataset_variables_path(@dataset, folder: full_folder).gsub("%2F","/"), style: 'text-decoration: none'

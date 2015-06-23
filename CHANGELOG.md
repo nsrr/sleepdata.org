@@ -28,6 +28,7 @@
   - Added an export for the Flow Limitation challenge
 - **Dataset Changes**
   - The dataset pages have been updated to be easier to navigate
+  - Dataset variable and file pages now have a newer interface
 - **Tool Changes**
   - Tool editors can now sync documentation repositories
 - **Administrative Changes**

@@ -266,10 +266,6 @@ pre.code {
   border-color: #FFD700;
 }
 
-.panel-gold code {
-  font-size: 1.0em !important;
-}
-
 .panel-gold > .panel-heading {
   color: #333333;
   background-color: #FFF4B6;

@@ -1,0 +1,111 @@
+= render 'datasets/header'
+
+= render 'variables/folder_breadcrumb', folder: @variable.folder
+
+.slim-container.dark-texture{ style: 'margin-top: -20px' }
+
+  %h1= @variable.name
+  - if @dataset.chartable_variables.pluck(:id).index(@variable.id)
+    - previous_variable = @dataset.variables.find_by_id(@dataset.chartable_variables[@dataset.chartable_variables.pluck(:id).index(@variable.id) - 1]) unless @dataset.chartable_variables.pluck(:id).index(@variable.id) == 0
+    - next_variable = @dataset.variables.find_by_id(@dataset.chartable_variables[@dataset.chartable_variables.pluck(:id).index(@variable.id) + 1])
+    = link_to '&laquo;'.html_safe, dataset_variable_path(@dataset, previous_variable, g: params[:g]), class: 'btn btn-large btn-default pull-left', style: 'margin-left:-40px', id: 'previous-variable' if previous_variable
+    = link_to '&raquo;'.html_safe, dataset_variable_path(@dataset, next_variable, g: params[:g]), class: 'btn btn-large btn-default pull-right', style: 'margin-right:-40px', id: 'next-variable' if next_variable
+
+  %p= @variable.display_name
+
+  - if @variable.forms.size > 0
+    %p
+      - @variable.forms.each do |form|
+        %span.glyphicon.glyphicon-book
+        = link_to form.display_name, files_dataset_path(@dataset) + "/forms/#{form.folder}?f=#{CGI::escape form.code_book.to_s}"
+
+  %p
+    Dataset
+    = link_to "v#{@version}", files_dataset_path(@dataset, path: 'datasets', f: "#{@dataset.slug}-#{@version}.csv"), target: '_blank'
+
+= hidden_field_tag 'chart_type', params[:g]
+
+- json_location = File.join(@dataset.root_folder, 'dd', 'graphs', @version, "#{@variable.name}.json")
+- json = JSON.parse(File.read(json_location)) rescue json = nil
+#charts-info{ style: "display:hidden", data: { charts: "#{json.to_json}" } }
+
+- charts = []
+- charts = json['charts'].keys.collect{|k| [k.titleize, k]} if json and json.kind_of?(Hash) and json['charts'].kind_of?(Hash)
+
+- if charts.size > 0
+  .slim-container.math-texture
+    - [['hidden-sm hidden-xs', 'btn-lg'], ['hidden-md hidden-lg', 'btn-sm']].each do |hidden_classes, btn_size_class|
+      .btn-group.btn-group-justified{ class: hidden_classes, style: "padding-bottom:20px" }
+        - charts.each do |chart_name, chart_value|
+          = link_to chart_name, '#', class: "btn btn-#{chart_value == params[:g].to_s || (chart_value == 'histogram' && params[:g].blank?) ? 'primary' : 'default'} #{btn_size_class}", data: { object: 'variable-chart-button', chart_type: chart_value }
+    #chart-container.math-texture{ style: "min-width: 200px; max-width: 800px; height: 400px; margin: 0 auto" }
+- elsif File.file?( File.join( @dataset.root_folder, 'dd', 'images', @version, "#{@variable.name}-lg.png") )
+  .slim-container{ style: "padding-top:20px;padding-bottom:20px" }
+    - [['hidden-sm hidden-xs', 'btn-lg'], ['hidden-md hidden-lg', 'btn-sm']].each do |hidden_classes, btn_size_class|
+      .btn-group.btn-group-justified{ class: hidden_classes, style: "padding-bottom:20px" }
+        = link_to 'Graph', '#', data: { object: 'suppress-click' }, class: "btn btn-primary #{btn_size_class}"
+    %center
+      = image_tag image_dataset_variable_path(@variable.dataset, @variable, size: 'lg'), style: 'max-width: 100%;max-height:400px;display:block'
+
+- unless @variable.description.blank?
+  .slim-container.dark-texture
+    %p= @variable.description
+
+.slim-container.math-texture
+  - if json and json['tables']
+    - (json['tables'] || []).each do |key, tables|
+      %div{ style: "display:none", data: { chart_name: key } }
+        - [tables].flatten.each do |table|
+          - if table.kind_of?(Hash)
+            %h3{ style: "text-align:center;margin:0px" }= table['title']
+            %h5{ style: "text-align:center;margin:0px;padding-bottom:8px" }= table['subtitle']
+
+            .table-responsive
+              %table.table.table-hover
+                %thead
+                  - (table['headers'] || []).each do |headers|
+                    %tr
+                      - headers.each do |cell|
+                        = render 'variables/table_cell', cell: cell, type: :th
+                %tfoot
+                  - (table['footers'] || []).each do |footers|
+                    %tr
+                      - footers.each do |cell|
+                        = render 'variables/table_cell', cell: cell, type: :td
+                %tbody
+                  - (table['rows'] || []).each do |rows|
+                    %tr
+                      - rows.each do |cell|
+                        = render 'variables/table_cell', cell: cell, type: :td
+
+= render 'variables/calculation' unless @variable.calculation.blank?
+
+- variables = @variable.related_variables
+- if variables.size > 0
+  .slim-container.math-texture
+    %p Related Variables
+
+    .row{ style: "margin-top:40px" }
+      - variables.each do |variable|
+        .col-xs-6.col-sm-4.col-md-2
+          = render 'variables/panel', variable: variable
+
+.main-container.call-to-action
+
+  %h2.center Ready to begin your analysis?
+
+  .center{ style: 'margin-top:20px;margin-bottom:20px' }
+    = link_to 'Download Dataset', files_dataset_path(@dataset, path: 'datasets'), class: 'btn btn-lg btn-call-to-action'
+    - @variable.forms.each do |form|
+      %br
+      %br
+      = link_to files_dataset_path(@dataset) + "/forms/#{form.folder}?f=#{CGI::escape form.code_book.to_s}", class: 'btn btn-lg btn-primary' do
+        %span.glyphicon.glyphicon-book
+        = form.display_name
+
+  %p.center{ style: 'margin-top:50px;' }
+    Email us at
+    = mail_to 'support@sleepdata.org'
+    if you have any questions or
+    = succeed '!' do
+      = link_to 'visit our forum', topics_path

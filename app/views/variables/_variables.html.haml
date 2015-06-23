@@ -1,0 +1,40 @@
+- if @variables.count > 0
+  - if params[:view] == 'list'
+    .table-responsive
+      %table.table.table-condensed.table-striped
+        %thead
+          %tr
+            %th
+            %th{ style: "white-space:nowrap" } Name
+            %th{ style: "white-space:nowrap" } Display Name
+            %th{ style: "white-space:nowrap" } Folder
+
+        - @variables.each do |variable|
+          %tr{ class: "#{'row-gold' if variable.commonly_used?}" }
+            %td
+              - if File.file?( File.join( variable.dataset.root_folder, 'dd', 'images', variable.version.to_s, "#{variable.name}.png") )
+                %img.lazy{ width: "27", height: "18", style: "max-width: 100%;min-width:27px;max-height:18px;display:block;vertical-align:text-bottom",  data: { original: image_dataset_variable_path(variable.dataset, variable) } }
+            %td= link_to variable.name, dataset_variable_path(variable.dataset, variable, view: 'list')
+            %td= variable.display_name
+            %td= variable.folder
+  - else
+    - @variables.group_by{|v| v.folder}.sort.each do |folder, folder_variables|
+      = render 'variables/folder', folder: folder, show_dataset: false
+      .row
+        - folder_variables.each do |variable|
+          .col-xs-12.col-sm-6.col-md-3
+            = render 'variables/panel', variable: variable
+- else
+  .jumbotron{ style: "margin-top:30px" }
+    %p
+      No variables found matching
+      = succeed '.' do
+        %code= params[:s]
+    %p
+      Please contact us directly at
+      = mail_to 'support@sleepdata.org'
+      with any questions.
+
+
+.center
+  = paginate @variables, theme: "contour"
