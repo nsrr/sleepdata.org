@@ -137,9 +137,13 @@ footer {
   }
 }
 
-.fixed-font-size, .fixed-font-size li, .fixed-font-size p, .fixed-font-size code {
+.fixed-font-size {
   font-size: 14px;
   font-weight: normal;
+
+  p, .p, ol, ul, li, pre, code, table, thead, tbody, tr, th, td {
+    font-size: 14px;
+  }
 }
 
 .datepicker-dropdown {

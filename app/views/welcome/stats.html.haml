@@ -29,7 +29,7 @@
       %td.center= Agreement.current.regular_members.where( status: ['submitted', 'approved', 'resubmit', 'expired'] ).count
       %td.center= Agreement.current.regular_members.where( status: ['approved', 'expired'] ).count
 
-  %table.table.table-striped
+  %table.table.table-striped.fixed-font-size
     %col{ width: "1%" }
     %thead
       %tr
