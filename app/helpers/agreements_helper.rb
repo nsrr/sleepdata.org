@@ -26,6 +26,9 @@ module AgreementsHelper
   end
 
   def find_diff(word_one, word_two, phrase_size = word_one.to_s.split('').size)
+    return []
+
+    # TO FIX
     return [] if phrase_size == 0
 
     word_one_array = word_one.to_s.split('')
