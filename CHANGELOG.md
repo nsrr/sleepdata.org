@@ -35,7 +35,7 @@
   - The admin dashboard now points to the consolidated reviews path
 - **Gem Changes**
   - Use of Ruby 2.2.2 is now recommended
-  - Updated to rails 4.2.2
+  - Updated to rails 4.2.3.rc1
   - Updated to pg 0.18.2
   - Updated to simplecov 0.10.0
   - Updated to chunky_png 1.3.4
