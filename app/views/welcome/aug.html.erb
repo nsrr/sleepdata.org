@@ -1,11 +1,9 @@
-<div class="slim-container">
-  <div class="welcome-box welcome-even" style="margin-top:40px">
-    <div class="jumbotron" style="margin-bottom:0px;padding:20px 0px 0px 0px">
-      <h1 style="margin-top:10px">Academic User Group</h1>
-      <p class="lead">The <%= link_to 'NSRR team', about_path %> is thrilled to have the support and guidance of the diverse Academic User Group.</p>
-    </div>
-  </div>
+<div class="slim-container dark-texture">
+  <h1>Academic User Group</h1>
+  <p>The <%= link_to 'NSRR team', about_path %> is thrilled to have the support and guidance of the diverse Academic User Group.</p>
+</div>
 
+<div class="slim-container math-texture">
   <% first_half = @users.collect.with_index{|u, i| [u, i]}.select{|u, i| i < (@users.size + 1) / 2 }.collect{|u, i| u} %>
   <% second_half = @users.collect.with_index{|u, i| [u, i]}.select{|u, i| i >= (@users.size + 1) / 2 }.collect{|u, i| u} %>
 
@@ -23,15 +21,12 @@
     </div>
   </div>
 
-  <hr class="soften" />
+</div>
 
+<div class="slim-container dark-texture">
   <div class="center">
-    <p class="lead">
+    <p>
       The National Sleep Research Resource (NSRR) is funded by the NIH National Heart, Lung, and Blood Institute.
     </p>
-  </div>
-
-  <div class="center" style="margin-top:60px">
-    <%= image_tag 'nsrr_logo_256.png', size: '256x256', alt: 'NSRR' %>
   </div>
 </div>

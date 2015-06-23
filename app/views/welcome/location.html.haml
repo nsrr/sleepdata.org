@@ -1,61 +1,60 @@
 - @title = 'Location'
-.beta-container
-  .main-container.dark-texture
-    %h1
-      = @title
-    = link_to 'Stats', stats_path, class: 'btn btn-xs btn-default'
+.slim-container.dark-texture
+  %h1
+    = @title
+  = link_to 'Stats', stats_path, class: 'btn btn-xs btn-default'
 
-  .main-container.grid-texture
+.slim-container.grid-texture
 
-    %h2
-      Regular Member Sign Ups by Country
+  %h2
+    Regular Member Sign Ups by Country
 
-    - location_array = []
-    - location_array = User.current.where( core_member: false, aug_member: false ).pluck(:country_code, :state_code)
+  - location_array = []
+  - location_array = User.current.where( core_member: false, aug_member: false ).pluck(:country_code, :state_code)
 
-    - country_count = location_array.group_by{|item| item[0]}.collect{|key, values| [key, values.count]}.sort{|a,b| b[1] <=> a[1]}
+  - country_count = location_array.group_by{|item| item[0]}.collect{|key, values| [key, values.count]}.sort{|a,b| b[1] <=> a[1]}
 
-    %table.table.table-striped
-      %thead
-        %tr
-          %th
-            Country
-          %th
-            Regular Member Sign Ups
-      - country_count.each do |country, count|
-        %tr
-          %td
-            - map_location = Map::MAP_COUNTRIES_AND_CODES.select{ |name, code| code == country }.first
-            - if map_location
-              = map_location[0]
-            - else
-              .text-muted
-                = country.inspect
-          %td
-            = pluralize(number_with_delimiter(count), 'user')
+  %table.table.table-striped
+    %thead
+      %tr
+        %th
+          Country
+        %th
+          Regular Member Sign Ups
+    - country_count.each do |country, count|
+      %tr
+        %td
+          - map_location = Map::MAP_COUNTRIES_AND_CODES.select{ |name, code| code == country }.first
+          - if map_location
+            = map_location[0]
+          - else
+            .text-muted
+              = country.inspect
+        %td
+          = pluralize(number_with_delimiter(count), 'user')
 
-  .main-container.light-texture
+.slim-container.light-texture
 
-    %h2
-      Regular Member Sign Ups by State in the United States
+  %h2
+    Regular Member Sign Ups by State in the United States
 
-    - state_count = location_array.select{|item| item[0] == 'us'}.group_by{|item| item[1]}.collect{|key, values| [key, values.count]}.sort{|a,b| b[1] <=> a[1]}
+  - state_count = location_array.select{|item| item[0] == 'us'}.group_by{|item| item[1]}.collect{|key, values| [key, values.count]}.sort{|a,b| b[1] <=> a[1]}
 
-    %table.table.table-striped
-      %thead
-        %tr
-          %th
-            State
-          %th
-            Regular Member Sign Ups
-      - state_count.each do |state, count|
-        %tr
-          %td
-            - map_location = Map::MAP_STATES_AND_CODES.select{ |name, code| code == state }.first
-            - if map_location
-              = map_location[0]
-            - else
-              .text-muted
-                = state.inspect
-          %td
-            = pluralize(number_with_delimiter(count), 'user')
+  %table.table.table-striped
+    %thead
+      %tr
+        %th
+          State
+        %th
+          Regular Member Sign Ups
+    - state_count.each do |state, count|
+      %tr
+        %td
+          - map_location = Map::MAP_STATES_AND_CODES.select{ |name, code| code == state }.first
+          - if map_location
+            = map_location[0]
+          - else
+            .text-muted
+              = state.inspect
+        %td
+          = pluralize(number_with_delimiter(count), 'user')

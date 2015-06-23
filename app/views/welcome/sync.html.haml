@@ -1,0 +1,10 @@
+- @title = 'Sync Status'
+.slim-container.dark-texture
+  %h1= @title
+
+.slim-container.math-texture
+  - Dataset.current.order(:name).each do |dataset|
+    = render 'documentation/sync', local_commit: dataset.local_commit, remote_commit: dataset.remote_commit, object: dataset, back: 'sync'
+
+  - Tool.current.order(:name).each do |tool|
+    = render 'documentation/sync', local_commit: tool.local_commit, remote_commit: tool.remote_commit, object: tool, back: 'sync'
