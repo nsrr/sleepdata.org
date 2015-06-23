@@ -392,11 +392,14 @@ class AgreementsController < ApplicationController
     def duly_authorized_params
       params[:agreement] ||= {}
       params[:agreement][:duly_authorized_representative_signature_date] = parse_date(params[:agreement][:duly_authorized_representative_signature_date]) if params[:agreement].key?(:duly_authorized_representative_signature_date)
+      params[:agreement][:unauthorized_to_sign] = true
 
       params.require(:agreement).permit(
         :current_step,
         # Duly Authorized Representative to Sign
         :duly_authorized_representative_signature_print, :duly_authorized_representative_signature, :duly_authorized_representative_signature_date,
+        # Automatically set
+        :unauthorized_to_sign
       )
     end
 
