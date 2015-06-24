@@ -1,0 +1,9 @@
+- @title = "Edit Tool: #{@tool.name}"
+
+.slim-container.dark-texture
+  %h1
+    Edit Tool
+  %p
+    = link_to @tool.name, @tool
+
+= render 'form'
