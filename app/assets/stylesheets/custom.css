@@ -193,6 +193,7 @@ pre.code {
   white-space: pre-wrap;
 
   font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+  background-color: #fff;
 }
 
 /* Moved to documentation.scss
