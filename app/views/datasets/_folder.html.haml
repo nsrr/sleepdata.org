@@ -1,0 +1,96 @@
+.slim-container.math-texture
+  - indexed_files = @dataset.indexed_files(path, page+1)
+  - if indexed_files.size == 0
+    = render 'datasets/nofiles', path: path
+  - else
+    .file-list-container{ style: "background-color:white" }
+      %table.table.table-condensed.table-hover.fixed-font-size{ style: "margin-bottom:0px" }
+        %col{ width: "1px" }
+        - indexed_files.each do |folder, file_name, is_file, file_size, file_time|
+          - is_public = @dataset.public_file?(folder)
+          - url = files_dataset_path( @dataset ) + "#{'/m/browser' if is_file}" + '/' + folder
+          %tr{ class: "#{'warning' if file_name == params[:f]}" }
+            %td
+              %span.glyphicon{ class: "glyphicon-#{is_file ? 'file' : 'folder-close'}" }
+            %td
+              = link_to_if (!is_file || is_public || @dataset.grants_file_access_to?(current_user)), file_name, url, data: { object: "#{'autodownload' if is_file and file_name == params[:f]}" }
+              - if ENV['altamira_url'].present? and /\.edf$/i =~ file_name and is_file and (is_public or @dataset.grants_file_access_to?(current_user))
+                = link_to "#{ENV['altamira_url']}?slug=#{@dataset.slug}&path=#{[path, file_name].join('/')}&auto=.", class: "btn btn-xs btn-default"do
+                  %span.glyphicon.glyphicon-eye-open
+                  Preview Online
+            %td= file_time if is_file
+            %td{ style: "text-align:right" }
+              = number_to_human_size(file_size) if is_file
+              - if is_file
+                - if is_public
+                  %span.glyphicon.glyphicon-globe
+                - if current_user and @dataset.editors.pluck(:id).include?(current_user.id)
+                  - if is_public
+                    = link_to set_public_file_dataset_path(@dataset, public: '0', path: folder ), method: :post do
+                      %span.glyphicon.glyphicon-eye-close
+                  - else
+                    = link_to set_public_file_dataset_path(@dataset, public: '1', path: folder ), method: :post do
+                      %span.glyphicon.glyphicon-globe
+
+- if @dataset.grants_file_access_to?(current_user)
+  = render 'datasets/download_command'
+- else
+  .main-container.call-to-action.center
+    - agreements = (current_user ? @dataset.agreements.where( user_id: current_user.id ) : Agreement.none)
+    - if agreement = agreements.where( status: 'submitted' ).first
+      %p
+        We are currently reviewing your
+        = status_helper(agreement)
+        = succeed '.' do
+          = link_to 'DAUA', submissions_path
+      %p
+        Please contact us directly at
+        = link_to 'support@sleepdata.org', 'mailto:support@sleepdata.org'
+        with any questions.
+    - elsif agreement = agreements.where( status: 'resubmit' ).first
+      %p
+        You are required to
+        = status_helper(agreement)
+        your DAUA.
+      %p
+        Please make the changes requested by the reviewer and
+        = succeed '.' do
+          = link_to 'resubmit your DAUA', submissions_path
+    - elsif agreement = agreements.expired.first
+      - agreement.update status: 'expired'
+      %p
+        Your DAUA is
+        = succeed '.' do
+          = status_helper(agreement)
+      %p
+        You will need to
+        = link_to 'renew your DAUA', submissions_path
+        to continue downloading files.
+    - elsif agreement = agreements.where( status: ['', 'started', nil] ).first
+      %p
+        You have
+        = status_helper(agreement)
+        filling out a
+        - if agreement.fully_filled_out?
+          = succeed '.' do
+            = link_to 'DAUA', proof_agreement_path(agreement)
+        - else
+          = succeed '.' do
+            = link_to 'DAUA', step_agreement_path(agreement, step: agreement.current_step)
+      %p
+        Please contact us directly at
+        = mail_to 'support@sleepdata.org'
+        with any questions regarding the process.
+    - else
+      %p
+        To download files:
+      - if current_user
+        %p
+          = link_to 'Fill out a Data Access and Use Agreement', submissions_path(dataset: @dataset), class: 'btn btn-lg btn-call-to-action'
+      - else
+        %p
+          Step 1:
+          = link_to 'Sign up', new_user_registration_path, class: 'btn btn-lg btn-call-to-action'
+        %p
+          Step 2:
+          = link_to 'Fill out a Data Access and Use Agreement', submissions_path(dataset: @dataset), class: 'btn btn-lg btn-call-to-action'

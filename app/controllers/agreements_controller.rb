@@ -44,7 +44,9 @@ class AgreementsController < ApplicationController
 
   def submissions
     @agreements = current_user.agreements.page(params[:page]).per( 40 )
-    redirect_to submissions_welcome_path if @agreements.count == 0
+    if @agreements.count == 0
+      redirect_to submissions_welcome_path(dataset: params[:dataset])
+    end
   end
 
   def step

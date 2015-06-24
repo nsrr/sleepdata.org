@@ -6,7 +6,8 @@
     nsrr download
     = @local_folder
 
-.alert.alert-info
-  %strong Don't have the NSRR gem?
-  Install using our
-  = link_to('NSRR Gem installation instructions', 'https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites', target: '_blank', class: 'alert-link') + "."
+.slim-container.call-to-action
+  %p.center
+    %strong Don't have the NSRR gem?
+    Install using our
+    = link_to 'NSRR Gem installation instructions', 'https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites', target: '_blank', class: 'btn btn-lg btn-call-to-action'

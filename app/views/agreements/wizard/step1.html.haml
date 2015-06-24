@@ -21,6 +21,9 @@
     = hidden_field_tag "step", @step
     = hidden_field_tag "agreement[current_step]", @step
 
+    - if @agreement.new_record? and dataset = Dataset.current.find_by_param(params[:dataset])
+      = hidden_field_tag "agreement[dataset_ids][]", dataset.id
+
     .markdown-container
 
       %p

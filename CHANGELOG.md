@@ -29,6 +29,7 @@
 - **Dataset Changes**
   - The dataset pages have been updated to be easier to navigate
   - Dataset variable and file pages now have a newer interface
+  - Visiting a dataset page now better displays a current users process of accessing data
 - **Tool Changes**
   - Tool editors can now sync documentation repositories
 - **Administrative Changes**

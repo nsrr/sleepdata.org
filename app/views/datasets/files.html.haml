@@ -42,33 +42,38 @@
         %li= link_to folder, url
       %li= path.to_s.split('/').last
 
-.row
-  .col-sm-8
-    .slim-container.math-texture
-      = render 'datasets/folder', path: path, page: page
 
-  .col-sm-4
-    .slim-container.math-texture
-      - file_count = @dataset.indexed_files(nil, 0)
-      - if file_count > 0
-        %h2
-          Downloads
-        %p
-          Download files using
-          = succeed '.' do
-            = link_to 'the NSRR gem', 'https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites'
-        .code-container
-          %span.code-command{ style: 'background-color:#FFF' }
-            nsrr download
-            = @dataset.slug
-        - if @dataset.info_size > 0
+= render 'datasets/folder', path: path, page: page
+
+
+- if false
+  .row
+    .col-sm-8
+      .slim-container.math-texture
+        = render 'datasets/folder', path: path, page: page
+
+    .col-sm-4
+      .slim-container.math-texture
+        - file_count = @dataset.indexed_files(nil, 0)
+        - if file_count > 0
+          %h2
+            Downloads
           %p
-            The total download size of
-            = @dataset.name
-            is
-            %strong= number_to_human_size(@dataset.info_size) + '.'
-        %hr
-        %p
-          Alternatively, you can start with the
-          = link_to 'covariate datasets', files_dataset_path(@dataset, path: 'datasets')
-          if you do not intend on analyzing these large binary files.
+            Download files using
+            = succeed '.' do
+              = link_to 'the NSRR gem', 'https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites'
+          .code-container
+            %span.code-command{ style: 'background-color:#FFF' }
+              nsrr download
+              = @dataset.slug
+          - if @dataset.info_size > 0
+            %p
+              The total download size of
+              = @dataset.name
+              is
+              %strong= number_to_human_size(@dataset.info_size) + '.'
+          %hr
+          %p
+            Alternatively, you can start with the
+            = link_to 'covariate datasets', files_dataset_path(@dataset, path: 'datasets')
+            if you do not intend on analyzing these large binary files.

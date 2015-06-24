@@ -447,6 +447,7 @@ tr.banned td, .label-banned {
   border: 1px solid #dedede;
   padding: 3px 5px;
   white-space: normal;
+  background-color: #fff;
 }
 
 @media screen and (min-width: 768px) {
@@ -456,7 +457,8 @@ tr.banned td, .label-banned {
 }
 
 .code-command::before {
-  content: '$';
+  font-family: 'Glyphicons Halflings Contour';
+  content: "\e205";
   color: #dedede;
 }
 

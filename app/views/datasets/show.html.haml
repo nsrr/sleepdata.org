@@ -3,37 +3,68 @@
 - if @dataset.info_count > 0
   .slim-container.dark-texture
     .row
-      - if @dataset.info_what.present?
-        %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
-          .info-container
-            %h6
-              %span.glyphicon.glyphicon-education
-              What
-            %span.static
-              = @dataset.info_what
-      - if @dataset.info_who.present?
-        %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
-          .info-container
-            %h6
-              %span.glyphicon.glyphicon-user
-              Who
-            %span.static
-              = @dataset.info_who
-      - if @dataset.info_when.present?
-        %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
-          .info-container
-            %h6
-              %span.glyphicon.glyphicon-calendar
-              When
-            %span.static
-              = @dataset.info_when
-      - if @dataset.info_funded_by.present?
-        %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
-          .info-container
-            .info-title
-              %h6
-                %span.glyphicon.glyphicon-piggy-bank
-                Funded By
-            %span.static
-              = @dataset.info_funded_by
+      .col-md-9
+        .row
+          - if @dataset.info_what.present?
+            %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
+              .info-container
+                %h6
+                  %span.glyphicon.glyphicon-education
+                  What
+                %span.static
+                  = @dataset.info_what
+          - if @dataset.info_who.present?
+            %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
+              .info-container
+                %h6
+                  %span.glyphicon.glyphicon-user
+                  Who
+                %span.static
+                  = @dataset.info_who
+          - if @dataset.info_when.present?
+            %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
+              .info-container
+                %h6
+                  %span.glyphicon.glyphicon-calendar
+                  When
+                %span.static
+                  = @dataset.info_when
+          - if @dataset.info_funded_by.present?
+            %div{ class: "#{"col-sm-#{12 / @dataset.info_count}"}" }
+              .info-container
+                .info-title
+                  %h6
+                    %span.glyphicon.glyphicon-piggy-bank
+                    Funded By
+                %span.static
+                  = @dataset.info_funded_by
+      .col-md-3
+        .info-container
+          - agreements = (current_user ? @dataset.agreements.where( user_id: current_user.id ) : Agreement.none)
+          - if agreement = agreements.where( status: 'submitted' ).first
+            %p
+              Request Submitted
+            = link_to 'Under Review', submissions_path, class: 'btn btn-lg btn-default'
+          - elsif agreement = agreements.where( status: 'resubmit' ).first
+            %p
+              Changes Required
+            = link_to 'Resubmit Your DAUA', submissions_path, class: 'btn btn-lg btn-call-to-action'
+          - elsif agreement = agreements.expired.first
+            %p
+              Request Expired
+            = link_to 'Renew Access', submissions_path(dataset: @dataset), class: 'btn btn-lg btn-call-to-action'
+          - elsif agreement = agreements.where( status: ['', 'started', nil] ).first
+            %p
+              Request Started
+            - if agreement.fully_filled_out?
+              = link_to 'Complete Your DAUA', proof_agreement_path(agreement), class: 'btn btn-lg btn-call-to-action'
+            - else
+              = link_to 'Complete Your DAUA', step_agreement_path(agreement, step: agreement.current_step), class: 'btn btn-lg btn-call-to-action'
+          - elsif agreement = agreements.where(status: 'approved').first
+            %p Data Access
+            = link_to 'Approved', files_dataset_path(@dataset), class: 'btn btn-lg btn-call-to-action'
+          - else
+            %p.center
+              = link_to 'Request Access', submissions_path(dataset: @dataset), class: 'btn btn-lg btn-call-to-action'
+
 = render 'documentation/pagebeta', object: @dataset
