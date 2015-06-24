@@ -544,10 +544,10 @@ body {
   display: block;
 }
 
-.highlight-add {
+ins.differ, .highlight-add {
   background-color: #DFD;  /* light green */
 }
 
-.highlight-subtract {
+del.differ, .highlight-subtract {
   background-color: #FDD; /* light red */
 }

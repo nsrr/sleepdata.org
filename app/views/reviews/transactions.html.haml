@@ -44,6 +44,7 @@
                 %tr
                   %th Attribute
                   %th Value Before
+                  %th Diff
                   %th Value After
               - t.agreement_transaction_audits.each do |a|
                 - if a.agreement_attribute_name == 'dataset_ids'
@@ -58,21 +59,15 @@
                     - elsif a.value_before == ''
                       %span{ rel: "tooltip", title: "Blank Response", data: { placement: "right" } } &#9872;
                     - else
-                      - if ignore_mask_attributes.include?(a.agreement_attribute_name)
-                        - mask = []
-                      - else
-                        - mask = find_diff(a.value_before, a.value_after)
-                      %span{ style: "padding: 0px;background-color:#FAA;" }
-                        = a.value_before.to_s.split('').each_with_index.collect{ |character, index| mask[index] ? "<span class='highlight-subtract'>#{character}</span>" : character }.join('').html_safe
+                      = a.value_before
+                  %td
+                    - unless ignore_mask_attributes.include?(a.agreement_attribute_name)
+                      - diff = Differ.diff_by_char(a.value_after.to_s, a.value_before.to_s)
+                      = diff.format_as(:html).html_safe
                   %td{ class: "#{'text-muted' if a.value_after == nil or a.value_after == ''}" }
                     - if a.value_after == nil
                       nil
                     - elsif a.value_after == ''
                       %span{ rel: "tooltip", title: "Blank Response", data: { placement: "right" } } &#9872;
                     - else
-                      - if ignore_mask_attributes.include?(a.agreement_attribute_name)
-                        - mask = []
-                      - else
-                        - mask = find_diff(a.value_after, a.value_before)
-                      %span{ style: "padding: 0px;background-color:#AFA;" }
-                        = a.value_after.to_s.split('').each_with_index.collect{ |character, index| mask[index] ? "<span class='highlight-add'>#{character}</span>" : character }.join('').html_safe
+                      = a.value_after

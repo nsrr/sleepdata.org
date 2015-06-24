@@ -14,6 +14,7 @@ gem 'geocoder',             '~> 1.2.1'
 gem 'chunky_png',           '~> 1.3.4'
 gem 'haml'
 gem 'figaro',               '~> 1.1.0'
+gem 'differ',               '~> 0.1.2'
 
 # Rails Defaults
 gem 'coffee-rails',         '~> 4.1.0'

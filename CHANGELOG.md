@@ -42,6 +42,7 @@
   - Updated to simplecov 0.10.0
   - Updated to chunky_png 1.3.4
   - Updated to contour 3.0.0.rc
+  - Added differ 0.1.2 gem to see changes in DAUAs
 
 ### Bug Fix
 - Fixed a bug that prevented reviewers seeing DAUA signature if the user signed and checked that they were unauthorized to sign the DAUA
