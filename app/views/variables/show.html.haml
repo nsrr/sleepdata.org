@@ -8,8 +8,9 @@
   - if @dataset.chartable_variables.pluck(:id).index(@variable.id)
     - previous_variable = @dataset.variables.find_by_id(@dataset.chartable_variables[@dataset.chartable_variables.pluck(:id).index(@variable.id) - 1]) unless @dataset.chartable_variables.pluck(:id).index(@variable.id) == 0
     - next_variable = @dataset.variables.find_by_id(@dataset.chartable_variables[@dataset.chartable_variables.pluck(:id).index(@variable.id) + 1])
-    = link_to '&laquo;'.html_safe, dataset_variable_path(@dataset, previous_variable, g: params[:g]), class: 'btn btn-large btn-default pull-left', style: 'margin-left:-40px', id: 'previous-variable' if previous_variable
-    = link_to '&raquo;'.html_safe, dataset_variable_path(@dataset, next_variable, g: params[:g]), class: 'btn btn-large btn-default pull-right', style: 'margin-right:-40px', id: 'next-variable' if next_variable
+    %div{ style: 'display:none' }
+      = link_to '&laquo;'.html_safe, dataset_variable_path(@dataset, previous_variable, g: params[:g]), class: 'btn btn-large btn-default pull-left', style: 'margin-left:-40px', id: 'previous-variable' if previous_variable
+      = link_to '&raquo;'.html_safe, dataset_variable_path(@dataset, next_variable, g: params[:g]), class: 'btn btn-large btn-default pull-right', style: 'margin-right:-40px', id: 'next-variable' if next_variable
 
   %p= @variable.display_name
 
