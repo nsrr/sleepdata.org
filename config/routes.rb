@@ -176,6 +176,7 @@ Rails.application.routes.draw do
 
   get '/admin' => 'admin#dashboard'
   get '/admin/dashboard' => 'admin#dashboard', as: :admin_dashboard
+  get '/admin/roles' => 'admin#roles', as: :admin_roles
 
   get '/daua/irb-assistance' => 'agreements#irb_assistance', as: :irb_assistance
 

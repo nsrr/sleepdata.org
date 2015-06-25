@@ -35,6 +35,7 @@
 - **Administrative Changes**
   - Admin location report now better shows unmatched locations
   - The admin dashboard now points to the consolidated reviews path
+  - The admin now has a report view that shows user roles across datasets
 - **Gem Changes**
   - Use of Ruby 2.2.2 is now recommended
   - Updated to rails 4.2.3.rc1

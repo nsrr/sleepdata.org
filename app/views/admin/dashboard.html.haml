@@ -4,7 +4,7 @@
 .slim-container.math-texture
   .row
     .col-sm-6.col-md-4
-      .panel.panel-default
+      .panel.panel-default{ style: 'min-height: 200px' }
         .panel-heading
           %span.glyphicon.glyphicon-inbox
           Agreements Review
@@ -12,15 +12,17 @@
           = link_to 'Go To Agreements', reviews_path
 
     .col-sm-6.col-md-4
-      .panel.panel-default
+      .panel.panel-default{ style: 'min-height: 200px' }
         .panel-heading
           %span.glyphicon.glyphicon-user
           User Adminstration
         .panel-body
-          = link_to 'Go To Users', users_path
+          %ul.list-unstyled.fixed-font-size
+            %li= link_to 'Go To Users', users_path
+            %li= link_to 'Roles on Datasets', admin_roles_path
 
     .col-sm-6.col-md-4
-      .panel.panel-default
+      .panel.panel-default{ style: 'min-height: 200px' }
         .panel-heading
           %span.glyphicon.glyphicon-globe
           Where is Everyone From?
@@ -28,7 +30,7 @@
           = link_to 'Go To Location', location_path
 
     .col-sm-6.col-md-4
-      .panel.panel-default
+      .panel.panel-default{ style: 'min-height: 200px' }
         .panel-heading
           %span.glyphicon.glyphicon-repeat
           Sync Documentation
@@ -36,7 +38,7 @@
           = link_to 'Go To Sync', sync_path
 
     .col-sm-6.col-md-4
-      .panel.panel-default
+      .panel.panel-default{ style: 'min-height: 200px' }
         .panel-heading
           %span.glyphicon.glyphicon-tag
           Forum Tags
@@ -44,7 +46,7 @@
           = link_to 'Forum Tags', tags_path
 
     .col-sm-6.col-md-4
-      .panel.panel-default
+      .panel.panel-default{ style: 'min-height: 200px' }
         .panel-heading
           %span.glyphicon.glyphicon-stats
           Website Statistics

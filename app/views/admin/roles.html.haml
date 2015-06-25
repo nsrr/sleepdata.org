@@ -1,0 +1,29 @@
+- @title = "Roles on Datasets"
+
+.slim-container.dark-texture
+  %h1= @title
+
+.slim-container.math-texture
+  %table.table.table-striped.fixed-font-size
+    %thead
+      %tr
+        %th Dataset
+        %th Reviewers
+        %th Editors
+        %th Viewers
+    %tbody
+      - Dataset.current.order(:release_date, :name).each do |d|
+        %tr
+          %td= link_to d.name, requests_dataset_path(d), class: 'btn btn-xs btn-default'
+          %td
+            - d.reviewers.order(:first_name, :last_name).each do |u|
+              %span{ rel: 'tooltip', title: u.name, data: { container: 'body', placement: 'top' } }
+                = u.initials
+          %td
+            - d.editors.order(:first_name, :last_name).each do |u|
+              %span{ rel: 'tooltip', title: u.name, data: { container: 'body', placement: 'top' } }
+                = u.initials
+          %td
+            - d.viewers.order(:first_name, :last_name).each do |u|
+              %span{ rel: 'tooltip', title: u.name, data: { container: 'body', placement: 'top' } }
+                = u.initials
