@@ -82,7 +82,7 @@ class Agreement < ActiveRecord::Base
   validates_presence_of :signature, :signature_print, :signature_date, if: :step4_and_authorized?
   validates :signature, length: { minimum: 20, tokenizer: lambda { |str| (JSON.parse(str) rescue []) }, too_short: "can't be blank" }, if: :step4_and_authorized?
 
-  validates_presence_of :duly_authorized_representative_signature, :duly_authorized_representative_signature_print, :duly_authorized_representative_signature_date, if: :step4_and_not_authorized?
+  validates_presence_of :duly_authorized_representative_signature, :duly_authorized_representative_signature_print, :duly_authorized_representative_signature_date, :duly_authorized_representative_title, if: :step4_and_not_authorized?
   validates :duly_authorized_representative_signature, length: { minimum: 20, tokenizer: lambda { |str| (JSON.parse(str) rescue []) }, too_short: "can't be blank" }, if: :step4_and_not_authorized?
 
   validates_presence_of :irb_evidence_type, if: :step5?
@@ -263,7 +263,7 @@ class Agreement < ActiveRecord::Base
   end
 
   def duly_authorized_representative_valid?
-    self.duly_authorized_representative_signature.present? and self.duly_authorized_representative_signature_print.present? and self.duly_authorized_representative_signature_date.present?
+    self.duly_authorized_representative_signature.present? and self.duly_authorized_representative_signature_print.present? and self.duly_authorized_representative_signature_date.present? and self.duly_authorized_representative_title.present?
   end
 
   def send_daua_signed_email!

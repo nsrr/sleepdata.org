@@ -399,7 +399,7 @@ class AgreementsController < ApplicationController
       params.require(:agreement).permit(
         :current_step,
         # Duly Authorized Representative to Sign
-        :duly_authorized_representative_signature_print, :duly_authorized_representative_signature, :duly_authorized_representative_signature_date,
+        :duly_authorized_representative_signature_print, :duly_authorized_representative_signature, :duly_authorized_representative_signature_date, :duly_authorized_representative_title,
         # Automatically set
         :unauthorized_to_sign
       )

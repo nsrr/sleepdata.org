@@ -119,6 +119,17 @@
               Please print your full name.
 
         .form-group
+          = f.label :duly_authorized_representative_title, 'Professional Title', class: 'control-label'
+          = f.text_field :duly_authorized_representative_title, class: 'form-control'
+          - if @agreement.errors.messages[:duly_authorized_representative_title].size > 0
+            .bs-callout.bs-callout-danger{ style: 'margin-top: 10px' }
+              Please enter your professional title.
+          .bs-callout.bs-callout-info
+            %strong Examples
+            %br
+            Associate Professor, Data Manager
+
+        .form-group
           = f.label :duly_authorized_representative_signature_date, 'Date Signed', class: 'control-label'
           = f.text_field :duly_authorized_representative_signature_date, class: 'datepicker form-control', value: @agreement.duly_authorized_representative_signature_date ? @agreement.duly_authorized_representative_signature_date.strftime('%m/%d/%Y') : ''
           - if @agreement.errors.messages[:duly_authorized_representative_signature_date].size > 0

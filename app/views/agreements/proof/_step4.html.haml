@@ -7,6 +7,8 @@
       %canvas.pad-display{ width: "300", height: "55" }
     %dt By (print name)
     %dd= @agreement.duly_authorized_representative_signature_print
+    %dt Professional Title
+    %dd= @agreement.duly_authorized_representative_title
     %dt Date Signed
     %dd= @agreement.duly_authorized_representative_signature_date ? @agreement.duly_authorized_representative_signature_date.strftime("%-d %B %Y") : ""
   - else

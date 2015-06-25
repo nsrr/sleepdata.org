@@ -341,6 +341,13 @@ Agreed to by: \\
     \hl{<%= latex_safe @agreement.unauthorized_to_sign? ? @agreement.duly_authorized_representative_signature_print : @agreement.signature_print %>} \\
   \end{addmargin}
 
+  <% if @agreement.unauthorized_to_sign? %>
+    \textbf{Professional Title}
+    \begin{addmargin}[1em]{1em}
+      \hl{<%= latex_safe @agreement.duly_authorized_representative_title %>} \\
+    \end{addmargin}
+  <% end %>
+
   \textbf{Date Signed}
   \begin{addmargin}[1em]{1em}
     \hl{<%= latex_safe @agreement.authorized_signature_date ? @agreement.authorized_signature_date.strftime("%-d %B %Y") : "" %>} \\[2.0cm]
