@@ -144,10 +144,22 @@ footer {
   p, .p, ol, ul, li, pre, code, table, thead, tbody, tr, th, td {
     font-size: 14px;
   }
+  p, .p, ol, ul, li, pre, code, table, tbody, tr, td {
+    font-weight: normal;
+  }
+  thead, th {
+    font-weight: bold;
+  }
 }
 
 .datepicker-dropdown {
   p, .p, ol, ul, li, pre, code, table, thead, tbody, tr, th, td {
     font-size: 14px;
+  }
+  p, .p, ol, ul, li, pre, code, table, tbody, tr, td {
+    font-weight: normal;
+  }
+  thead, th {
+    font-weight: bold;
   }
 }
