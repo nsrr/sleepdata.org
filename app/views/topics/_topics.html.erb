@@ -1,7 +1,7 @@
 <div style="margin-bottom:-40px;float:right">
-  <%= render partial: 'variables/per_page', locals: { per_page: 50, object_count: @topics.total_count } %>
+  <%= render 'variables/per_page', per_page: 50, object_count: @topics.total_count %>
 </div>
-<table class="table table-striped"><% if current_user %><col class="hidden-xs" width="30px"/><% end %><col width="30px"/><col /><col /><col width="40px" />
+<table class="table table-striped fixed-font-size"><% if current_user %><col class="hidden-xs" width="30px"/><% end %><col width="30px"/><col /><col /><col width="40px" />
   <thead>
     <tr>
       <% if current_user %><th class="hidden-xs"></th><% end %>

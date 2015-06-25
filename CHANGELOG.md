@@ -11,6 +11,7 @@
   - Removed auto-subscribing users to new forum topics
   - Comments on topics are now immediately sent to anyone subscribed to the topic
   - Daily forum digests have been removed
+  - Forum index font size has been reduced to display more topics
 - **Agreement Changes**
   - The DAUA process has been simplified to 6 steps total
   - The agreements administration is being merged into the reviewer page

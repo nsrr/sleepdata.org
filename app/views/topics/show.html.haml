@@ -1,134 +1,133 @@
 - @title = @topic.name
-.beta-container
-  .main-container.dark-texture
-    %h1
-      = @title
+.slim-container.dark-texture
+  %h1
+    = @title
 
-    %p
-      Topic by
-      = link_to @topic.user.forum_name, topics_path(a: @topic.user.forum_name)
+  %p
+    Topic by
+    = link_to @topic.user.forum_name, topics_path(a: @topic.user.forum_name)
 
-    - if @topic.tags.count > 0
-      - @topic.tags.each do |tag|
-        %span.label.label-default{ style: "background-color:#{tag.color}" }= tag.name
+  - if @topic.tags.count > 0
+    - @topic.tags.each do |tag|
+      %span.label.label-default{ style: "background-color:#{tag.color}" }= tag.name
 
-    - if current_user and @topic.editable_by?(current_user)
-      = link_to edit_topic_path(@topic), class: 'btn btn-xs btn-default' do
-        %span.glyphicon.glyphicon-edit
-        Edit Topic
-    %div{ style: 'margin-bottom:20px;margin-top:-20px' }
-      = render partial: 'variables/per_page', locals: { per_page: Comment::COMMENTS_PER_PAGE, object_count: @comments.total_count }
+  - if current_user and @topic.editable_by?(current_user)
+    = link_to edit_topic_path(@topic), class: 'btn btn-xs btn-default' do
+      %span.glyphicon.glyphicon-edit
+      Edit Topic
+  %div{ style: 'margin-bottom:20px;margin-top:-20px' }
+    = render partial: 'variables/per_page', locals: { per_page: Comment::COMMENTS_PER_PAGE, object_count: @comments.total_count }
 
-  - @background_class = 'math-texture'
-  .posts-container.math-texture
-    - @comments.each_with_index do |comment, index|
-      - current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1)
-      - current_index = ((current_page - 1) * Comment::COMMENTS_PER_PAGE) + index + 1
-      %a.anchor-top{ name: "c#{current_index}" }
-      - if comment.banned_or_deleted?
-        .post-avatar
-        .post-container
-          .post-header
-            .pull-right
-              %a{ href: "#c#{current_index}" }= "##{current_index}"
-            %i.text-muted Comment Deleted
-      - else
-        .post-avatar
-          = render partial: 'topics/forum_gravatar', locals: { user: comment.user, icon: 'identicon', no_tooltip: true }
-        .post-container
-          .post-header
-            .pull-right
-              - if current_user and comment.editable_by?(current_user)
-                = link_to edit_topic_comment_path(@topic, comment), remote: true, method: :get, class: 'btn btn-xs btn-default', rel: 'tooltip', title: 'Edit Comment' do
-                  %span.glyphicon.glyphicon-edit
-                &nbsp;
-              - if current_user and comment.deletable_by?(current_user)
-                = link_to [@topic, comment], method: :delete, data: { confirm: "Are you sure you want to delete Comment ##{current_index}"}, class: 'btn btn-xs btn-danger-inverse' do
-                  %span.glyphicon.glyphicon-trash
-                &nbsp;
-              %a{ href: "#c#{current_index}" }= "##{current_index}"
+- @background_class = 'math-texture'
+.posts-container.math-texture
+  - @comments.each_with_index do |comment, index|
+    - current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1)
+    - current_index = ((current_page - 1) * Comment::COMMENTS_PER_PAGE) + index + 1
+    %a.anchor-top{ name: "c#{current_index}" }
+    - if comment.banned_or_deleted?
+      .post-avatar
+      .post-container
+        .post-header
+          .pull-right
+            %a{ href: "#c#{current_index}" }= "##{current_index}"
+          %i.text-muted Comment Deleted
+    - else
+      .post-avatar
+        = render partial: 'topics/forum_gravatar', locals: { user: comment.user, icon: 'identicon', no_tooltip: true }
+      .post-container
+        .post-header
+          .pull-right
+            - if current_user and comment.editable_by?(current_user)
+              = link_to edit_topic_comment_path(@topic, comment), remote: true, method: :get, class: 'btn btn-xs btn-default', rel: 'tooltip', title: 'Edit Comment' do
+                %span.glyphicon.glyphicon-edit
+              &nbsp;
+            - if current_user and comment.deletable_by?(current_user)
+              = link_to [@topic, comment], method: :delete, data: { confirm: "Are you sure you want to delete Comment ##{current_index}"}, class: 'btn btn-xs btn-danger-inverse' do
+                %span.glyphicon.glyphicon-trash
+              &nbsp;
+            %a{ href: "#c#{current_index}" }= "##{current_index}"
 
-            = comment.user.forum_name
-            %span.small.text-muted
-              %abbr{ rel: "tooltip", data: { title: comment.created_at.strftime("%-d %B %Y, %-l:%M %p"), container: "body", placement: "right" } }
-                = time_ago_in_words(comment.created_at)
-                ago
+          = comment.user.forum_name
+          %span.small.text-muted
+            %abbr{ rel: "tooltip", data: { title: comment.created_at.strftime("%-d %B %Y, %-l:%M %p"), container: "body", placement: "right" } }
+              = time_ago_in_words(comment.created_at)
+              ago
 
-          .post-body
-            %div{ id: "comment_#{comment.id}_container" }
-              = render partial: 'comments/formatted', locals: { comment: comment }
+        .post-body
+          %div{ id: "comment_#{comment.id}_container" }
+            = render partial: 'comments/formatted', locals: { comment: comment }
 
-          - if comment.user.core_member? or comment.user.aug_member?
-            .post-footer
-              - if comment.user.core_member?
-                .core-member Core Member
-              - elsif comment.user.aug_member?
-                .aug-member AUG Member
+        - if comment.user.core_member? or comment.user.aug_member?
+          .post-footer
+            - if comment.user.core_member?
+              .core-member Core Member
+            - elsif comment.user.aug_member?
+              .aug-member AUG Member
 
-    .center= paginate @comments, theme: 'contour'
+  .center= paginate @comments, theme: 'contour'
 
-    - if current_user and not @topic.locked? and not current_user.banned?
-      - @comment = @topic.comments.new
-      = form_for [@topic, @comment] do |f|
-        - if @comment.errors.any?
-          #error_explanation.bs-callout.bs-callout-danger
-            %h4
-            = pluralize(@comment.errors.count, "error")
-            prohibited this comment from being saved
-            %ul
-              - @comment.errors.full_messages.each do |msg|
-                %li= msg
+  - if current_user and not @topic.locked? and not current_user.banned?
+    - @comment = @topic.comments.new
+    = form_for [@topic, @comment] do |f|
+      - if @comment.errors.any?
+        #error_explanation.bs-callout.bs-callout-danger
+          %h4
+          = pluralize(@comment.errors.count, "error")
+          prohibited this comment from being saved
+          %ul
+            - @comment.errors.full_messages.each do |msg|
+              %li= msg
 
-        .post-avatar
-          = render partial: 'topics/forum_gravatar', locals: { user: current_user, icon: 'identicon' }
+      .post-avatar
+        = render partial: 'topics/forum_gravatar', locals: { user: current_user, icon: 'identicon' }
 
-        .post-container{ style: 'background-color: transparent;border: 0px solid transparent' }
-          %ul.nav.nav-tabs
-            %li.active{ style: 'font-size: 14px' }
-              = link_to 'Write', '#write-new', data: { toggle: 'tab' }
-            %li{ style: 'font-size: 14px' }
-              = link_to 'Preview', '#preview-new', data: { toggle: 'tab', topic_id: @topic.to_param, object: 'preview-comment', comment_id: 'new' }
-            %li{ style: 'font-size: 14px' }
-              = link_to 'Markup', '#markup-new', data: { toggle: 'tab' }
-          .tab-content{ style: 'background-color: white;border-left: 1px solid #ddd;border-right: 1px solid #ddd;border-bottom: 1px solid #ddd;' }
-            #write-new.tab-pane.active{ style: "padding: 10px 5px 15px 5px;" }
-              = f.text_area :description, rows: 7, class: 'form-control post-description-control', id: 'comment_description_new', data: { object: 'text-area-autocomplete', mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort }, placeholder: 'Click here to write your comment...'
-            #preview-new.tab-pane{ style: "min-height:177px;padding: 30px 15px 15px 15px;background-color:#FFF" }
-            #markup-new.tab-pane{ style: "min-height:177px;padding: 30px 15px 15px 15px;background-color:#FFF" }
-              = render partial: 'topics/markup'
-          = f.submit "Comment", class: 'btn btn-primary', data: { disable_with: "Submitting..." }, style: 'margin-top:10px'
+      .post-container{ style: 'background-color: transparent;border: 0px solid transparent' }
+        %ul.nav.nav-tabs
+          %li.active{ style: 'font-size: 14px' }
+            = link_to 'Write', '#write-new', data: { toggle: 'tab' }
+          %li{ style: 'font-size: 14px' }
+            = link_to 'Preview', '#preview-new', data: { toggle: 'tab', topic_id: @topic.to_param, object: 'preview-comment', comment_id: 'new' }
+          %li{ style: 'font-size: 14px' }
+            = link_to 'Markup', '#markup-new', data: { toggle: 'tab' }
+        .tab-content{ style: 'background-color: white;border-left: 1px solid #ddd;border-right: 1px solid #ddd;border-bottom: 1px solid #ddd;' }
+          #write-new.tab-pane.active{ style: "padding: 10px 5px 15px 5px;" }
+            = f.text_area :description, rows: 7, class: 'form-control post-description-control', id: 'comment_description_new', data: { object: 'text-area-autocomplete', mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort }, placeholder: 'Click here to write your comment...'
+          #preview-new.tab-pane{ style: "min-height:177px;padding: 30px 15px 15px 15px;background-color:#FFF" }
+          #markup-new.tab-pane{ style: "min-height:177px;padding: 30px 15px 15px 15px;background-color:#FFF" }
+            = render partial: 'topics/markup'
+        = f.submit "Comment", class: 'btn btn-primary', data: { disable_with: "Submitting..." }, style: 'margin-top:10px'
 
 
-  - if @topic.locked?
+- if @topic.locked?
+  .well{ style: "text-align:center;margin-top:20px" }
+    .text-muted.center
+      This topic is locked
+      %span.glyphicon.glyphicon-lock
+- elsif current_user
+  - if current_user.banned?
     .well{ style: "text-align:center;margin-top:20px" }
       .text-muted.center
-        This topic is locked
-        %span.glyphicon.glyphicon-lock
-  - elsif current_user
-    - if current_user.banned?
-      .well{ style: "text-align:center;margin-top:20px" }
-        .text-muted.center
-          You have been
-          %span.label.label-banned banned
-          from commenting on this forum.
-    = render partial: 'topics/subscribe_unsubscribe', locals: { topic: @topic }
-  - elsif true
+        You have been
+        %span.label.label-banned banned
+        from commenting on this forum.
+  = render partial: 'topics/subscribe_unsubscribe', locals: { topic: @topic }
+- elsif true
 
-    .main-container.call-to-action
+  .main-container.call-to-action
 
-      %h2.center
-        Join the discussion today!
+    %h2.center
+      Join the discussion today!
 
-      .center{ style: 'margin-top:20px;margin-bottom:20px' }
-        = link_to 'Create an Account', new_user_registration_path, class: 'btn btn-call-to-action btn-lg'
+    .center{ style: 'margin-top:20px;margin-bottom:20px' }
+      = link_to 'Create an Account', new_user_registration_path, class: 'btn btn-call-to-action btn-lg'
 
-      %p.center{ style: 'margin-top:50px;'   }
-        Already have an account?
-        = link_to 'Sign in', new_user_session_path
-        and contribute to the conversation.
+    %p.center{ style: 'margin-top:50px;'   }
+      Already have an account?
+      = link_to 'Sign in', new_user_session_path
+      and contribute to the conversation.
 
-  - else
-    .well{ style: "text-align:center" }
-      You may
-      = link_to 'sign in'.html_safe, new_user_session_path, class: 'btn btn-xs btn-success'
-      to join the discussion.
+- else
+  .well{ style: "text-align:center" }
+    You may
+    = link_to 'sign in'.html_safe, new_user_session_path, class: 'btn btn-xs btn-success'
+    to join the discussion.
