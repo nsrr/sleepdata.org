@@ -24,11 +24,11 @@
 
       = image_tag images_challenge_path(@challenge, path: "fl#{signal}.png"), style: 'width: 100%;'
 
-      %table.table{ style: 'table-layout:fixed' }
+      %table.table.table-fixed
         %thead
           %tr
             - range.each do |letter|
-              %th{ style: 'text-align:center' }=letter
+              %th.center=letter
         %tbody
           %tr
             - range.each do |letter|

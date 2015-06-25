@@ -21,7 +21,7 @@
           .center
             = image_tag images_challenge_path(@challenge, path: "fl#{@signal}.png"), style: 'max-width: 100%;', id: "affix-img"
           .center
-            %table.table{ style: 'table-layout:fixed' }
+            %table.table.table-fixed
               %thead
                 %tr
                   %th.center Breath
@@ -30,7 +30,7 @@
     .main-container.grid-texture
       = form_tag update_signal_challenge_path(@challenge, signal: @signal), method: :post, id: 'signal-form' do
         - array = (@signal_map[@signal - 1] ? @signal_map[@signal - 1].to_a : ('A'..'A').to_a)
-        %table.table{ style: 'table-layout:fixed' }
+        %table.table.table-fixed
           - array.each do |letter|
             - number = "%02d" % @signal
             - question_name = "signal#{number}#{letter.downcase}"

@@ -22,8 +22,8 @@
     %thead
       %tr
         %th.center Regular member signups
-        %th.center= link_to 'Regular member DAUAs submitted', agreements_path( status: ['submitted', 'approved', 'resubmit', 'expired'], user_type: 'regular' )
-        %th.center= link_to 'Regular member DAUAs approved', agreements_path( status: ['approved', 'expired'], user_type: 'regular' )
+        %th.center= link_to 'Regular member DAUAs submitted', reviews_path( status: ['submitted', 'approved', 'resubmit', 'expired'], user_type: 'regular' )
+        %th.center= link_to 'Regular member DAUAs approved', reviews_path( status: ['approved', 'expired'], user_type: 'regular' )
     %tr
       %td.center= User.current.where( core_member: false, aug_member: false ).count
       %td.center= Agreement.current.regular_members.where( status: ['submitted', 'approved', 'resubmit', 'expired'] ).count
