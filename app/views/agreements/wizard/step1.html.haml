@@ -81,11 +81,6 @@
                 = f.text_field :individual_telephone, class: 'form-control'
 
             .form-group
-              = f.label :individual_fax, "Fax", class: 'col-md-3 control-label'
-              .col-md-9
-                = f.text_field :individual_fax, class: 'form-control'
-
-            .form-group
               = label :individual_email, "Email", class: 'col-md-3 control-label'
               .col-md-9
                 %input#individual_email.form-control{ type: "email", name: "individual_email", disabled: "disabled", value: "#{current_user.email}" }
@@ -133,11 +128,6 @@
               = f.label :organization_contact_telephone, "Contact Tel", class: 'col-md-3 control-label'
               .col-md-9
                 = f.text_field :organization_contact_telephone, class: 'form-control'
-
-            .form-group
-              = f.label :organization_contact_fax, "Contact Fax", class: 'col-md-3 control-label'
-              .col-md-9
-                = f.text_field :organization_contact_fax, class: 'form-control'
 
             .form-group
               = f.label :organization_contact_email, "Contact Email", class: 'col-md-3 control-label'

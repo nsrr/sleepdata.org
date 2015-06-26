@@ -7,7 +7,6 @@ class Agreement < ActiveRecord::Base
   #   # :individual_name => Not in schema, this is data_user
   #   :individual_title
   #   :individual_telephone
-  #   :individual_fax
   #   # :individual_email => Not in schema, this is agreement.user.email
   #   :individual_address
 
@@ -15,7 +14,6 @@ class Agreement < ActiveRecord::Base
   #   :organization_contact_name
   #   :organization_contact_title
   #   :organization_contact_telephone
-  #   :organization_contact_fax
   #   :organization_contact_email
   #   :organization_address
 
@@ -67,8 +65,8 @@ class Agreement < ActiveRecord::Base
   validates_presence_of :data_user, if: :step1?
   validates_presence_of :data_user_type, if: :step1?
   validates :data_user_type, inclusion: { in: %w(individual organization), message: "\"%{value}\" is not a valid data user type" }, if: :step1?
-  validates_presence_of :individual_institution_name, :individual_title, :individual_telephone, :individual_fax, :individual_address, if: :step1_and_individual?
-  validates_presence_of :organization_business_name, :organization_contact_name, :organization_contact_title, :organization_contact_telephone, :organization_contact_fax, :organization_contact_email, :organization_address, if: :step1_and_organization?
+  validates_presence_of :individual_institution_name, :individual_title, :individual_telephone, :individual_address, if: :step1_and_individual?
+  validates_presence_of :organization_business_name, :organization_contact_name, :organization_contact_title, :organization_contact_telephone, :organization_contact_email, :organization_address, if: :step1_and_organization?
 
   validates_presence_of :title_of_project, :specific_purpose, if: :step2?
   validates_length_of :specific_purpose, minimum: 20, too_short: "is lacking sufficient detail and must be at least %{count} words.", tokenizer: lambda {|str| str.scan(/\w+/) }, if: :step2?

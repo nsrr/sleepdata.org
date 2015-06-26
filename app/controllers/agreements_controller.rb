@@ -367,9 +367,9 @@ class AgreementsController < ApplicationController
         # Step One
           :data_user, :data_user_type,
         #   Individual
-          :individual_institution_name, :individual_title, :individual_telephone, :individual_fax, :individual_address,
+          :individual_institution_name, :individual_title, :individual_telephone, :individual_address,
         #   Organization
-          :organization_business_name, :organization_contact_name, :organization_contact_title, :organization_contact_telephone, :organization_contact_fax, :organization_contact_email, :organization_address,
+          :organization_business_name, :organization_contact_name, :organization_contact_title, :organization_contact_telephone, :organization_contact_email, :organization_address,
         # Step Two
           :specific_purpose, { dataset_ids: [] },
         # Step Three
