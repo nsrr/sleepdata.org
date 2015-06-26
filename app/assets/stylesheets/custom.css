@@ -551,3 +551,7 @@ ins.differ, .highlight-add {
 del.differ, .highlight-subtract {
   background-color: #FDD; /* light red */
 }
+
+.nowrap {
+  white-space: nowrap;
+}

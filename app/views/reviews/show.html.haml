@@ -7,8 +7,7 @@
       &middot;
       = @title
   .pull-right
-    - @agreement.tags.each do |tag|
-      %span.label.label-default{ style: "background-color:#{tag.color}" }= tag.name
+    = render 'reviews/tags', agreement: @agreement
   = link_to 'Transactions', transactions_review_path(@agreement), class: 'btn btn-default btn-xs'
   = link_to 'Print', print_agreement_path(@agreement), class: 'btn btn-default btn-xs' if current_user.all_agreements.where(id: @agreement.id).count > 0
 
