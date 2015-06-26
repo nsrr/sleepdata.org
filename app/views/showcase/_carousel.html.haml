@@ -1,3 +1,6 @@
+- shhs_dataset_version = '0.7.0'
+- chat_dataset_version = '0.3.0'
+
 #carousel-showcase.carousel.slide{ 'data-ride' => 'carousel' }
   %ol.carousel-indicators.hidden-sm.hidden-xs
     %li.active{ data: { target: "#carousel-showcase", slide: { to: "0" } } }
@@ -47,7 +50,7 @@
           = image_tag 'shhs_logo.png', class: 'showcase-picture'
         .col-sm-6
           .carousel-item-header
-            SHHS v0.6.0 Online
+            = "SHHS v#{shhs_dataset_version} Online"
           .carousel-item-description
             Download the latest
             = link_to 'datasets', files_dataset_path('shhs', path: 'datasets')
@@ -60,7 +63,7 @@
           = image_tag 'chat_logo.png', class: 'showcase-picture'
         .col-sm-6
           .carousel-item-header
-            CHAT v0.3.0 Online
+            = "CHAT v#{chat_dataset_version} Online"
           .carousel-item-description
             Download the latest
             = link_to 'datasets', files_dataset_path('chat', path: 'datasets')

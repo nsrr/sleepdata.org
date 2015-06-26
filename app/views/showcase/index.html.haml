@@ -1,69 +1,68 @@
 - @title = 'Showcase'
-.beta-container
-  .main-container.dark-texture
-    %h1
-      = @title
+.main-container.dark-texture
+  %h1
+    = @title
 
-  - @background_class = 'light-texture'
+- @background_class = 'light-texture'
 
-  .main-container.transparent-texture
-    .row
-      .col-sm-8
-        %h3.inset-header-text Researcher Showcase
-        %p
-          %strong Matt Butler
-          has given us some insight into his work on
-          = succeed '!' do
-            = link_to 'Novel Sleep Measures and Cardiovascular Risk', showcase_show_path('matt-butler-novel-sleep-measures-and-cardiovascular-risk')
-      .col-sm-4.hidden-xs
-        = image_tag 'showcase/matt-butler.png', class: 'img-thumbnail img-responsive', style: ' box-shadow:         3px 3px 5px 0px #777;padding:15px;border: 1px solid #ccc'
-  .main-container.grid-texture.inset-border
-    .row
-      .col-sm-4.hidden-xs
-        %div.img-thumbnail.img-responsive{ style: "box-shadow:         3px 3px 5px 0px #777;padding:15px;border: 1px solid #ccc" }
-          %p.center
-            Get Started!
-          %p.center
-            %span.label.label-success 1
-            %span.label.label-success 2
-            %span.label.label-success 3
+.main-container.transparent-texture
+  .row
+    .col-sm-8
+      %h3.inset-header-text Researcher Showcase
+      %p
+        %strong Matt Butler
+        has given us some insight into his work on
+        = succeed '!' do
+          = link_to 'Novel Sleep Measures and Cardiovascular Risk', showcase_show_path('matt-butler-novel-sleep-measures-and-cardiovascular-risk')
+    .col-sm-4.hidden-xs
+      = image_tag 'showcase/matt-butler.png', class: 'img-thumbnail img-responsive', style: ' box-shadow:         3px 3px 5px 0px #777;padding:15px;border: 1px solid #ccc'
+.main-container.grid-texture.inset-border
+  .row
+    .col-sm-4.hidden-xs
+      %div.img-thumbnail.img-responsive{ style: "box-shadow:         3px 3px 5px 0px #777;padding:15px;border: 1px solid #ccc" }
+        %p.center
+          Get Started!
+        %p.center
+          %span.label.label-success 1
+          %span.label.label-success 2
+          %span.label.label-success 3
 
-      .col-sm-8
-        %h3.inset-header-text Tutorial Showcase
-        %p
-          Don't know
-          %strong where to start?
-          Take a look at our
-          = link_to('NSRR overview', showcase_show_path('where-to-start')) + '!'
-  .main-container.transparent-texture
-    .row
-      .col-sm-8
-        %h3.inset-header-text Tool Showcase
-        %p
-          Learn about the
-          = link_to('NSRR Cross Dataset Query Tool', showcase_show_path('search-nsrr')) + '.'
-      .col-sm-4.hidden-xs
-        = image_tag 'physiomimi_logo.png', class: 'img-thumbnail img-responsive', style: ' box-shadow:         3px 3px 5px 0px #777;padding:15px;border: 1px solid #ccc'
-  .main-container.grid-texture.inset-border
-    .row
-      .col-sm-4.hidden-xs
-        = image_tag 'showcase/smp.png', class: 'img-thumbnail img-responsive', style: ' box-shadow:         3px 3px 5px 0px #777;'
-      .col-sm-8
-        %h3.inset-header-text Researcher Showcase
-        %p
-          We're delighted to highlight a short summary of
-          %strong Shaun Purcell's
-          work on the
-          = link_to 'genetics of sleep spindles', showcase_show_path('shaun-purcell-genetics-of-sleep-spindles')
-          using data availabe on the NSRR!
-  .main-container.transparent-texture
-    .row
-      .col-sm-8
-        %h3.inset-header-text Tutorial Showcase
-        %p
-          Get started with
-          = link_to 'three intermediate tutorials', demo_path
-          that cover downloading data, generating statistics, and extracting signal
-          data from EDFs.
-      .col-sm-4.hidden-xs
-        = image_tag 'nsrr-rdi3p-age-gender.png', class: 'img-thumbnail img-responsive', style: ' box-shadow:         3px 3px 5px 0px #777;padding:15px;border: 1px solid #ccc'
+    .col-sm-8
+      %h3.inset-header-text Tutorial Showcase
+      %p
+        Don't know
+        %strong where to start?
+        Take a look at our
+        = link_to('NSRR overview', showcase_show_path('where-to-start')) + '!'
+.main-container.transparent-texture
+  .row
+    .col-sm-8
+      %h3.inset-header-text Tool Showcase
+      %p
+        Learn about the
+        = link_to('NSRR Cross Dataset Query Tool', showcase_show_path('search-nsrr')) + '.'
+    .col-sm-4.hidden-xs
+      = image_tag 'physiomimi_logo.png', class: 'img-thumbnail img-responsive', style: ' box-shadow:         3px 3px 5px 0px #777;padding:15px;border: 1px solid #ccc'
+.main-container.grid-texture.inset-border
+  .row
+    .col-sm-4.hidden-xs
+      = image_tag 'showcase/smp.png', class: 'img-thumbnail img-responsive', style: ' box-shadow:         3px 3px 5px 0px #777;'
+    .col-sm-8
+      %h3.inset-header-text Researcher Showcase
+      %p
+        We're delighted to highlight a short summary of
+        %strong Shaun Purcell's
+        work on the
+        = link_to 'genetics of sleep spindles', showcase_show_path('shaun-purcell-genetics-of-sleep-spindles')
+        using data availabe on the NSRR!
+.main-container.transparent-texture
+  .row
+    .col-sm-8
+      %h3.inset-header-text Tutorial Showcase
+      %p
+        Get started with
+        = link_to 'three intermediate tutorials', demo_path
+        that cover downloading data, generating statistics, and extracting signal
+        data from EDFs.
+    .col-sm-4.hidden-xs
+      = image_tag 'nsrr-rdi3p-age-gender.png', class: 'img-thumbnail img-responsive', style: ' box-shadow:         3px 3px 5px 0px #777;padding:15px;border: 1px solid #ccc'
