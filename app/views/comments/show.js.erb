@@ -1,1 +1,1 @@
-$("#comment_<%= @comment.id %>_container").html("<%= escape_javascript(render partial: 'comments/formatted', locals: { comment: @comment }) %>");
+$("#comment_<%= @comment.id %>_container").html("<%=j render 'comments/formatted', comment: @comment %>");

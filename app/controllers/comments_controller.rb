@@ -46,7 +46,12 @@ class CommentsController < ApplicationController
   end
 
   def preview
-    @comment = @topic.comments.new(comment_params)
+    if @comment = @topic.comments.find_by_id(params[:comment_id])
+      @comment.description = params[:comment][:description]
+    else
+      @comment = @topic.comments.new(comment_params)
+      @comment.user_id = current_user.id
+    end
   end
 
   def show
