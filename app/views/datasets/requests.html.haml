@@ -46,10 +46,11 @@
                   %span.text-muted No Role
               %td{ style: "white-space:nowrap" }
                 = link_to 'Delete', remove_access_dataset_path( @dataset, dataset_user_id: dataset_user.id ), method: :post, class: 'btn btn-danger-inverse btn-xs'
+      %h4 Add User
       = form_tag create_access_dataset_path(@dataset), method: :post, class: 'form-inline' do
         .form-group
-          = label :user_id, 'User'
-          = select_tag :user_id, options_for_select([['---', nil]] + User.current.order('last_name, first_name').collect{|u| [u.reverse_name_and_email, u.id]}), class: 'form-control'
+          = text_field_tag :user_email, '', autocomplete: "off", data: { object: 'typeahead', local: User.current.collect{|user| "#{user.name} [#{user.email}]" }.to_json }, class: 'form-control', placeholder: 'Email Address'
+
         .form-group
           = label :role, 'Role'
           = select_tag :role, options_for_select([['---', nil]] + DatasetUser::ROLES), class: 'form-control'

@@ -635,7 +635,7 @@ class DatasetsControllerTest < ActionController::TestCase
   test "should create access role to dataset" do
     login(users(:editor))
     assert_difference('DatasetUser.count') do
-      post :create_access, id: @dataset, user_id: users(:aug).id, role: 'editor'
+      post :create_access, id: @dataset, user_email: "#{users(:aug).name} [#{users(:aug).email}]", role: 'editor'
     end
 
     assert_not_nil assigns(:dataset_user)
@@ -648,7 +648,7 @@ class DatasetsControllerTest < ActionController::TestCase
   test "should find existing access when creating access request to dataset" do
     login(users(:editor))
     assert_difference('DatasetUser.count', 0) do
-      post :create_access, id: @dataset, user_id: users(:two).id
+      post :create_access, id: @dataset, user_email: "#{users(:two).name} [#{users(:two).email}]"
     end
 
     assert_not_nil assigns(:dataset_user)

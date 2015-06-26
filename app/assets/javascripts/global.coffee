@@ -15,6 +15,14 @@
   val = $(element_id).val()
   $(element_id).focus().val('').val(val)
 
+@initializeTypeahead = () ->
+  $('[data-object~="typeahead"]').each( () ->
+    $this = $(this)
+    $this.typeahead(
+      local: $this.data('local')
+    )
+  )
+
 @ready = () ->
   contourReady()
   $('.file-list-container').scroll( () ->
@@ -38,6 +46,7 @@
   showcaseReady()
   mapsReady()
   challengesReady()
+  initializeTypeahead()
   new WOW().init()
 
 $(window).onbeforeunload = () -> return "You haven't saved your changes." if window.$isDirty

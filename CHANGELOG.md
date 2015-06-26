@@ -31,6 +31,7 @@
   - The dataset pages have been updated to be easier to navigate
   - Dataset variable and file pages now have a newer interface
   - Visiting a dataset page now better displays a current users process of accessing data
+  - Simplified specifying user roles for dataset editors
 - **Tool Changes**
   - Tool editors can now sync documentation repositories
 - **Administrative Changes**
