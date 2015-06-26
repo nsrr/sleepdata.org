@@ -40,7 +40,7 @@
   - Admins can now see a list of agreements on individual user pages
 - **Gem Changes**
   - Use of Ruby 2.2.2 is now recommended
-  - Updated to rails 4.2.3.rc1
+  - Updated to rails 4.2.3
   - Updated to pg 0.18.2
   - Updated to simplecov 0.10.0
   - Updated to chunky_png 1.3.4
