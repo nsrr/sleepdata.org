@@ -32,7 +32,6 @@ Rails.application.routes.draw do
       get ":duly_authorized_representative_token/duly_authorized_representative_submit_signature", action: 'signature_requested'
       patch ":duly_authorized_representative_token/duly_authorized_representative_submit_signature", action: 'duly_authorized_representative_submit_signature', as: :duly_authorized_representative_submit_signature
       get :download
-      get :review
       get :step
       patch :update_step
       get :proof

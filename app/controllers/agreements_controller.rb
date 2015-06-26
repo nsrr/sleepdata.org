@@ -11,8 +11,8 @@ class AgreementsController < ApplicationController
   before_action :set_step,                       only: [ :create_step, :step, :update_step ]
 
   before_action :set_downloadable_irb_agreement, only: [ :download_irb, :print ]
-  before_action :set_agreement,                  only: [ :show, :destroy, :download, :review, :update ]
-  before_action :redirect_without_agreement,     only: [ :show, :destroy, :download, :review, :update, :download_irb, :print ]
+  before_action :set_agreement,                  only: [ :destroy, :download, :update ]
+  before_action :redirect_without_agreement,     only: [ :destroy, :download, :update, :download_irb, :print ]
 
   def signature_requested
     @agreement = Agreement.current.where(id: params[:id], status: [nil, '', 'started', 'resubmit']).find_by_duly_authorized_representative_token(params[:duly_authorized_representative_token]) unless params[:duly_authorized_representative_token].blank?
@@ -134,20 +134,7 @@ class AgreementsController < ApplicationController
   # GET /agreements
   # GET /agreements.json
   def index
-    params[:order] = "agreements.last_submitted_at DESC" if params[:order].blank?
-    @order = scrub_order(Agreement, params[:order], [:id])
-    agreement_scope = Agreement.current.search(params[:search]).order(@order)
-    agreement_scope = agreement_scope.with_tag(params[:tag_id]) if params[:tag_id].present?
-    if params[:status] == 'started'
-      agreement_scope = agreement_scope.where( status: nil )
-    elsif params[:status].present?
-      agreement_scope = agreement_scope.where( status: params[:status] )
-    end
-    if params[:user_type] == 'regular'
-      regular_member_ids = User.current.where( aug_member: false, core_member: false ).pluck(:id)
-      agreement_scope = agreement_scope.where( user_id: regular_member_ids )
-    end
-    @agreements = agreement_scope.page(params[:page]).per( 40 )
+    redirect_to reviews_path
   end
 
   def export
@@ -246,6 +233,7 @@ class AgreementsController < ApplicationController
   # GET /agreements/1
   # GET /agreements/1.json
   def show
+    redirect_to reviews_path
   end
 
   # # GET /agreements/new
@@ -256,11 +244,6 @@ class AgreementsController < ApplicationController
   # # GET /agreements/1/edit
   # def edit
   # end
-
-  # This is the "edit action"
-  # GET /agreements/1/review
-  def review
-  end
 
   # PATCH /agreements/1
   def update

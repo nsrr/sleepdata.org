@@ -416,22 +416,18 @@ class AgreementsControllerTest < ActionController::TestCase
 
   # Older Agreements
 
+  # deprecated
   test "should get index" do
     login(users(:admin))
     get :index
-    assert_response :success
-    assert_not_nil assigns(:agreements)
+    assert_redirected_to reviews_path
   end
 
-  # test "should get new" do
-  #   get :new
-  #   assert_response :success
-  # end
-
+  # deprecated
   test "should show agreement" do
     login(users(:admin))
     get :show, id: @agreement
-    assert_response :success
+    assert_redirected_to reviews_path
   end
 
   test "should download pdf" do
@@ -440,12 +436,6 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:agreement)
     assert_kind_of String, response.body
     assert_equal File.binread( Rails.root.join('test', 'support', 'agreements', 'blank.pdf') ), response.body
-    assert_response :success
-  end
-
-  test "should get review" do
-    login(users(:admin))
-    get :review, id: @agreement
     assert_response :success
   end
 
