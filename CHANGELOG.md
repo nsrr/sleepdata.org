@@ -44,7 +44,7 @@
   - Updated to pg 0.18.2
   - Updated to simplecov 0.10.0
   - Updated to chunky_png 1.3.4
-  - Updated to contour 3.0.0.rc
+  - Updated to contour 3.0.0
   - Added differ 0.1.2 gem to see changes in DAUAs
 
 ### Bug Fix

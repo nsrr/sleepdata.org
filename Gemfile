@@ -6,7 +6,7 @@ gem 'rails',                '4.2.3'
 gem 'pg',                   '0.18.2'
 
 # Gems used by project
-gem 'contour',              '~> 3.0.0.rc'
+gem 'contour',              '~> 3.0.0'
 gem 'kaminari',             '~> 0.16.2'
 gem 'carrierwave',          '~> 0.10.0'
 gem 'redcarpet',            '~> 3.2.0'
