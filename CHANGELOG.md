@@ -55,6 +55,7 @@
 - Fixed map not picking up certain cases of users living in the US
 - Fixed an issue on iOS 7 devices that were incorrectly rendering `vh` units
 - Fixed a bug rendering previews for new and existing comments
+- Posts on forum now correctly display when a user uses the `<` symbol
 
 ## 0.16.1 (April 1, 2015)
 
