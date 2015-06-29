@@ -1,185 +1,184 @@
-.beta-container
-  .main-container.dark-texture
-    %h1 Forum Post Markup
-    %p
-      Looking to spice up your forum post? Learn more below!
+.slim-container.dark-texture
+  %h1 Forum Post Markup
+  %p
+    Looking to spice up your forum post? Learn more below!
 
-  %a.anchor-top{ name: 'highlight' }
-  .main-container.grid-texture
-    %h2
-      Highlight
-      %a.anchor-link{ href: '#highlight' }
+%a.anchor-top{ name: 'highlight' }
+.main-container.grid-texture
+  %h2
+    Highlight
+    %a.anchor-link{ href: '#highlight' }
 
-    .codeblocks-container.code-input-file.p
-      The following text is ==highlighted==.
+  .codeblocks-container.code-input-file.p
+    The following text is ==highlighted==.
 
-    .codeblocks-container.code-input-file.p
-      The following text is <mark>highlighted</mark>.
+  .codeblocks-container.code-input-file.p
+    The following text is <mark>highlighted</mark>.
 
-  %a.anchor-top{ name: 'superscript' }
-  .main-container.white-texture
-    %h2
-      Superscript
-      %a.anchor-link{ href: '#superscript' }
+%a.anchor-top{ name: 'superscript' }
+.main-container.white-texture
+  %h2
+    Superscript
+    %a.anchor-link{ href: '#superscript' }
 
-    .codeblocks-container.code-input-file.p
-      This is the 2^(nd) time.
+  .codeblocks-container.code-input-file.p
+    This is the 2^(nd) time.
 
-    .codeblocks-container.code-input-file.p
-      This is the 2<sup>nd</sup> time.
+  .codeblocks-container.code-input-file.p
+    This is the 2<sup>nd</sup> time.
 
-  %a.anchor-top{ name: 'quotes' }
-  .main-container.grid-texture
+%a.anchor-top{ name: 'quotes' }
+.main-container.grid-texture
 
-    %h2
-      Quotes
-      %a.anchor-link{ href: '#quotes' }
+  %h2
+    Quotes
+    %a.anchor-link{ href: '#quotes' }
 
-    .codeblocks-container.code-input-file.p
-      > This is a quote.
+  .codeblocks-container.code-input-file.p
+    > This is a quote.
 
-    .codeblocks-container.code-input-file.p
-      %blockquote.p{ style: 'margin:0px' } This is a quote.
+  .codeblocks-container.code-input-file.p
+    %blockquote.p{ style: 'margin:0px' } This is a quote.
 
-  %a.anchor-top{ name: 'underline' }
-  .main-container.white-texture
+%a.anchor-top{ name: 'underline' }
+.main-container.white-texture
 
-    %h2
-      Underline
-      %a.anchor-link{ href: '#underline' }
+  %h2
+    Underline
+    %a.anchor-link{ href: '#underline' }
 
-    .codeblocks-container.code-input-file.p
-      The following text is _underlined_.
+  .codeblocks-container.code-input-file.p
+    The following text is _underlined_.
 
-    .codeblocks-container.code-input-file.p
-      The following text is <u>underlined</u>.
+  .codeblocks-container.code-input-file.p
+    The following text is <u>underlined</u>.
 
-  %a.anchor-top{ name: 'strikethrough' }
-  .main-container.grid-texture
+%a.anchor-top{ name: 'strikethrough' }
+.main-container.grid-texture
 
-    %h2
-      Strikethrough
-      %a.anchor-link{ href: '#strikethrough' }
+  %h2
+    Strikethrough
+    %a.anchor-link{ href: '#strikethrough' }
 
-    .codeblocks-container.code-input-file.p
-      This is ~~removed~~.
+  .codeblocks-container.code-input-file.p
+    This is ~~removed~~.
 
-    .codeblocks-container.code-input-file.p
-      This is <del>removed</del>.
+  .codeblocks-container.code-input-file.p
+    This is <del>removed</del>.
 
-  %a.anchor-top{ name: 'horizontal-rule' }
-  .main-container.white-texture
+%a.anchor-top{ name: 'horizontal-rule' }
+.main-container.white-texture
 
-    %h2
-      Horizontal Rule
-      %a.anchor-link{ href: '#horizontal-rule' }
+  %h2
+    Horizontal Rule
+    %a.anchor-link{ href: '#horizontal-rule' }
 
-    .codeblocks-container.code-input-file.p
-      Here is some text...
-      %br
-      \---
-      %br
-      \...and some more text.
+  .codeblocks-container.code-input-file.p
+    Here is some text...
+    %br
+    \---
+    %br
+    \...and some more text.
 
-    .codeblocks-container.code-input-file.p
-      Here is some text...
-      %hr
-      \...and some more text.
+  .codeblocks-container.code-input-file.p
+    Here is some text...
+    %hr
+    \...and some more text.
 
-  %a.anchor-top{ name: 'footnotes' }
-  .main-container.grid-texture
+%a.anchor-top{ name: 'footnotes' }
+.main-container.grid-texture
 
-    %h2
-      Footnotes
-      %a.anchor-link{ href: '#footnotes' }
+  %h2
+    Footnotes
+    %a.anchor-link{ href: '#footnotes' }
 
-    .codeblocks-container.code-input-file.p
-      This is a sentence.[^1]
-      %br
-      This is another sentence.[^2]
-      %br
-      [^1]: This is a footnote.
-      %br
-      [^2]: This is a second footnote.
+  .codeblocks-container.code-input-file.p
+    This is a sentence.[^1]
+    %br
+    This is another sentence.[^2]
+    %br
+    [^1]: This is a footnote.
+    %br
+    [^2]: This is a second footnote.
 
-    .codeblocks-container.code-input-file.p
-      %a.anchor-top{ name: 'fnref1' }
-      %p This is a sentence.<sup><a href="#fn1" rel="footnote">1</a></sup>
-      %a.anchor-top{ name: 'fnref2' }
-      %p This is another sentence.<sup><a href="#fn2" rel="footnote">2</a></sup>
-      .footnotes
-      %hr
-      %ol
-        %li
-          %a.anchor-top{ name: 'fn1' }
-          %p This is a footnote.&nbsp;<a href="#fnref1" rev="footnote">&#8617;</a>
-        %li
-          %a.anchor-top{ name: 'fn2' }
-          %p
-            This is a second footnote.&nbsp;<a href="#fnref2" rev="footnote">&#8617;</a>
+  .codeblocks-container.code-input-file.p
+    %a.anchor-top{ name: 'fnref1' }
+    %p This is a sentence.<sup><a href="#fn1" rel="footnote">1</a></sup>
+    %a.anchor-top{ name: 'fnref2' }
+    %p This is another sentence.<sup><a href="#fn2" rel="footnote">2</a></sup>
+    .footnotes
+    %hr
+    %ol
+      %li
+        %a.anchor-top{ name: 'fn1' }
+        %p This is a footnote.&nbsp;<a href="#fnref1" rev="footnote">&#8617;</a>
+      %li
+        %a.anchor-top{ name: 'fn2' }
+        %p
+          This is a second footnote.&nbsp;<a href="#fnref2" rev="footnote">&#8617;</a>
 
-  %a.anchor-top{ name: 'links' }
-  .main-container.white-texture
+%a.anchor-top{ name: 'links' }
+.main-container.white-texture
 
-    %h2
-      Links*
-      %a.anchor-link{ href: '#links' }
+  %h2
+    Links*
+    %a.anchor-link{ href: '#links' }
 
-    .codeblocks-container.code-input-file.p
-      Here is a [link](https://sleepdata.org).
+  .codeblocks-container.code-input-file.p
+    Here is a [link](https://sleepdata.org).
 
-    .codeblocks-container.code-input-file.p
-      Here is a
-      = link_to('link', 'https://sleepdata.org', target: '_blank') + '.'
+  .codeblocks-container.code-input-file.p
+    Here is a
+    = link_to('link', 'https://sleepdata.org', target: '_blank') + '.'
 
-    %p
-      * The ability to post links is earned.
+  %p
+    * The ability to post links is earned.
 
-  %a.anchor-top{ name: 'images' }
-  .main-container.grid-texture
+%a.anchor-top{ name: 'images' }
+.main-container.grid-texture
 
-    %h2
-      Images*
-      %a.anchor-link{ href: '#images' }
+  %h2
+    Images*
+    %a.anchor-link{ href: '#images' }
 
-    .codeblocks-container.code-input-file.p
-      The current build status is ![Build Status](https://travis-ci.org/nsrr/www.sleepdata.org.svg)
+  .codeblocks-container.code-input-file.p
+    The current build status is ![Build Status](https://travis-ci.org/nsrr/www.sleepdata.org.svg)
 
-    .codeblocks-container.code-input-file.p
-      The current build status is <img src="https://travis-ci.org/nsrr/www.sleepdata.org.svg" alt="Build Status">
+  .codeblocks-container.code-input-file.p
+    The current build status is <img src="https://travis-ci.org/nsrr/www.sleepdata.org.svg" alt="Build Status">
 
-    %p
-      * The ability to post images is earned.
+  %p
+    * The ability to post images is earned.
 
-  %a.anchor-top{ name: 'tables' }
-  .main-container.white-texture
+%a.anchor-top{ name: 'tables' }
+.main-container.white-texture
 
-    %h2
-      Tables
-      %a.anchor-link{ href: '#tables' }
+  %h2
+    Tables
+    %a.anchor-link{ href: '#tables' }
 
-    .codeblocks-container.code-input-file.p
-      | Header 1 | Header 2 | Header 3&nbsp;|
-      %br
-      |:---------|:--------:|---------:|
-      %br
-      |&nbsp;Row&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Center&nbsp;&nbsp;&nbsp;|&nbsp;Right&nbsp;&nbsp;&nbsp;&nbsp;|
-      %br
-      |&nbsp;Row&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Center&nbsp;&nbsp;&nbsp;|&nbsp;Right&nbsp;&nbsp;&nbsp;&nbsp;|
+  .codeblocks-container.code-input-file.p
+    | Header 1 | Header 2 | Header 3&nbsp;|
+    %br
+    |:---------|:--------:|---------:|
+    %br
+    |&nbsp;Row&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Center&nbsp;&nbsp;&nbsp;|&nbsp;Right&nbsp;&nbsp;&nbsp;&nbsp;|
+    %br
+    |&nbsp;Row&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Center&nbsp;&nbsp;&nbsp;|&nbsp;Right&nbsp;&nbsp;&nbsp;&nbsp;|
 
-    .codeblocks-container.code-input-file.p
-      %table.table.table-striped
-        %thead
-          %tr
-            %th{ style: "text-align: left" } Header 1
-            %th{ style: "text-align: center" } Header 2
-            %th{ style: "text-align: right" } Header 3
-        %tbody
-          %tr
-            %td{ style: "text-align: left" } Row 1
-            %td{ style: "text-align: center" } Center
-            %td{ style: "text-align: right" } Right
-          %tr
-            %td{ style: "text-align: left" } Row 2
-            %td{ style: "text-align: center" } Center
-            %td{ style: "text-align: right" } Right
+  .codeblocks-container.code-input-file.p
+    %table.table.table-striped
+      %thead
+        %tr
+          %th{ style: "text-align: left" } Header 1
+          %th{ style: "text-align: center" } Header 2
+          %th{ style: "text-align: right" } Header 3
+      %tbody
+        %tr
+          %td{ style: "text-align: left" } Row 1
+          %td{ style: "text-align: center" } Center
+          %td{ style: "text-align: right" } Right
+        %tr
+          %td{ style: "text-align: left" } Row 2
+          %td{ style: "text-align: center" } Center
+          %td{ style: "text-align: right" } Right

@@ -6,7 +6,7 @@
 
   = form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, html: { class: 'form-vertical', id: 'update_step_form' } do |f|
     - if @agreement.errors.any?
-      #error_explanation.bs-callout.bs-callout-danger
+      .bs-callout.bs-callout-danger
         %strong
           = pluralize(@agreement.errors.count, "error")
           prohibited this step from being saved

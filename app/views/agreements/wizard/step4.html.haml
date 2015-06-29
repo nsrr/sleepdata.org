@@ -7,13 +7,13 @@
   = form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, html: { class: 'form-vertical', id: 'update_step_form', data: { object: 'signature', signature_target: '.output-write' } } do |f|
     - if @agreement.errors.any?
       - if @agreement.errors.messages.keys.include?(:duly_authorized_representative_signature) or @agreement.errors.messages.keys.include?(:duly_authorized_representative_signature_date) or @agreement.errors.messages.keys.include?(:duly_authorized_representative_signature_print) or @agreement.errors.messages.keys.include?(:duly_authorized_representative_title)
-        #error_explanation.bs-callout.bs-callout-danger
+        .bs-callout.bs-callout-danger
           %strong
             Errors prohibited this from being saved.
           Your Duly Authorized Representative has not yet signed and dated the agreement.
           You can send your representative the link provided below.
       - else
-        #error_explanation.bs-callout.bs-callout-danger
+        .bs-callout.bs-callout-danger
           %strong
             Errors prohibited this from being saved.
           Please make sure to sign and print your name, and select the date you signed.

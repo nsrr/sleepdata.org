@@ -1,57 +1,56 @@
 - @title = 'Join the NSRR'
-.beta-container
-  .main-container.dark-texture
-    %h1
-      = @title
-    %p
-      Gain access to fully-curated sleep datasets.
+.slim-container.dark-texture
+  %h1
+    = @title
+  %p
+    Gain access to fully-curated sleep datasets.
 
-  .main-container.grid-texture
-    .sign-up-form
-      .sign-up-form-title
-        Create your account
-      = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'form-vertical', autocomplete: 'off' }) do |f|
-        - if resource.errors.any?
-          #error_explanation.bs-callout.bs-callout-danger
-            %h4
-              = pluralize(resource.errors.count, "error")
-              prohibited this step from being saved
+.main-container.grid-texture
+  .sign-up-form
+    .sign-up-form-title
+      Create your account
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'form-vertical', autocomplete: 'off' }) do |f|
+      - if resource.errors.any?
+        .bs-callout.bs-callout-danger
+          %strong
+            = pluralize(resource.errors.count, "error")
+            prohibited this step from being saved
 
-            %ul
-              - resource.errors.full_messages.each do |msg|
-                %li= msg
+          %ul.fixed-font-size
+            - resource.errors.full_messages.each do |msg|
+              %li= msg
 
-        .form-group
-          = f.label :first_name, class: 'control-label'
-          = f.text_field :first_name, class: 'form-control'
+      .form-group
+        = f.label :first_name, class: 'control-label'
+        = f.text_field :first_name, class: 'form-control'
 
-        .form-group
-          = f.label :last_name, class: 'control-label'
-          = f.text_field :last_name, class: 'form-control'
+      .form-group
+        = f.label :last_name, class: 'control-label'
+        = f.text_field :last_name, class: 'form-control'
 
-        .form-group
-          = f.label :email, class: 'control-label'
-          = f.email_field :email, class: 'form-control'
+      .form-group
+        = f.label :email, class: 'control-label'
+        = f.email_field :email, class: 'form-control'
 
-        .form-group
-          = f.label :password, class: 'control-label'
-          = f.password_field :password, class: 'form-control', autocomplete: 'off'
+      .form-group
+        = f.label :password, class: 'control-label'
+        = f.password_field :password, class: 'form-control', autocomplete: 'off'
 
-        .form-group
-          = f.label :password_confirmation, class: 'control-label'
-          = f.password_field :password_confirmation, class: 'form-control', autocomplete: 'off'
+      .form-group
+        = f.label :password_confirmation, class: 'control-label'
+        = f.password_field :password_confirmation, class: 'form-control', autocomplete: 'off'
 
-        .form-group
-          %label.control-label Receive Forum Emails
-          .checkbox
-            %label
-              = f.check_box :emails_enabled
-              Allow the NSRR to send you emails when a topic receives a reply to which you are subscribed, and when someone mentions you on the forum.
+      .form-group
+        %label.control-label Receive Forum Emails
+        .checkbox
+          %label
+            = f.check_box :emails_enabled
+            Allow the NSRR to send you emails when a topic receives a reply to which you are subscribed, and when someone mentions you on the forum.
 
-        - Contour.spam_fields.each do |name|
-          .form-group.control-special
-            = label_tag "#{resource_name}[#{name}]", name, class: 'control-label'
-            = text_field_tag "#{resource_name}[#{name}]", '', class: 'form-control'
+      - Contour.spam_fields.each do |name|
+        .form-group.control-special
+          = label_tag "#{resource_name}[#{name}]", name, class: 'control-label'
+          = text_field_tag "#{resource_name}[#{name}]", '', class: 'form-control'
 
-        .form-group
-          = f.submit "Create an Account", class: 'btn btn-success'
+      .form-group
+        = f.submit "Create an Account", class: 'btn btn-success'

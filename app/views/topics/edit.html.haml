@@ -1,11 +1,10 @@
 - @title = "Edit Topic: #{@topic.name}"
 
-.beta-container
-  .main-container.dark-texture
-    %h1
-      Edit Topic
-    %p
-      = link_to @topic.name, @topic
+.slim-container.dark-texture
+  %h1
+    Edit Topic
+  %p
+    = link_to @topic.name, @topic
 
-  = render 'form'
+= render 'form'
 

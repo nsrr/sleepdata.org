@@ -6,7 +6,7 @@
 
   = form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, multipart: true, html: { class: 'form-vertical', id: 'update_step_form' } do |f|
     - if @agreement.errors.any?
-      #error_explanation.bs-callout.bs-callout-danger
+      .bs-callout.bs-callout-danger
         %strong
           Errors prohibited this from being saved.
         Please upload evidence of your IRB review in PDF format or select Option 2.

@@ -1,9 +1,9 @@
-.main-container.dark-texture
+.slim-container.dark-texture
   %h1 My Submissions
-  = render 'contour/layouts/per_page', per_page: 40, object_count: @agreements.total_count
+  = render 'contour/layouts/per_page', per_page: 40, object_count: @agreements.total_count, pagination_size: 'small'
   = link_to 'Start A New Submission', submissions_welcome_path(dataset: params[:dataset]), class: 'btn btn-primary'
 
-.main-container.math-texture
+.slim-container.math-texture
 
   - @agreements.order( id: :desc ).each do |agreement|
     - if agreement.approved?

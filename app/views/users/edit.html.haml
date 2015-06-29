@@ -1,10 +1,9 @@
 - @title = "Edit User: #{@user.name}"
 
-.beta-container
-  .main-container.dark-texture
-    %h1
-      Edit User
-    %p
-      = link_to @user.name, @user
+.slim-container.dark-texture
+  %h1
+    Edit User
+  %p
+    = link_to @user.name, @user
 
-  = render 'form'
+= render 'form'

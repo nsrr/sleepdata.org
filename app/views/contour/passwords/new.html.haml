@@ -1,28 +1,27 @@
 - @title = 'Forgot your password?'
-.beta-container
-  .main-container.dark-texture
-    %h1
-      = @title
+.slim-container.dark-texture
+  %h1
+    = @title
 
-  .main-container.grid-texture
-    .sign-up-form
-      .sign-up-form-title
-        Reset Password
+.main-container.grid-texture
+  .sign-up-form
+    .sign-up-form-title
+      Reset Password
 
-      = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'form-vertical' }) do |f|
-        - if resource.errors.any?
-          #error_explanation.bs-callout.bs-callout-danger
-            %h4
-              Please enter a valid email
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'form-vertical' }) do |f|
+      - if resource.errors.any?
+        .bs-callout.bs-callout-danger
+          %strong
+            Please enter a valid email
 
-            %ul
-              - resource.errors.full_messages.each do |msg|
-                %li= msg
+          %ul.fixed-font-size
+            - resource.errors.full_messages.each do |msg|
+              %li= msg
 
 
-        .form-group
-          = f.label :email, class: 'control-label'
-          = f.email_field :email, class: 'form-control'
+      .form-group
+        = f.label :email, class: 'control-label'
+        = f.email_field :email, class: 'form-control'
 
-        .form-group
-          = f.submit "Send me reset password instructions", class: 'btn btn-success'
+      .form-group
+        = f.submit "Send me reset password instructions", class: 'btn btn-success'

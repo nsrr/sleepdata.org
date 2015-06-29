@@ -1,16 +1,14 @@
-.main-container.grid-texture
+.slim-container.grid-texture
   = form_for @topic, html: { class: 'form-horizontal' } do |f|
     - if @topic.errors.any?
-      .row
-        .col-md-offset-2.col-md-10
-          #error_explanation.bs-callout.bs-callout-danger
-            %h6
-              = pluralize(@topic.errors.count, "error")
-              prohibited this topic from being saved
+      .bs-callout.bs-callout-danger
+        %strong
+          = pluralize(@topic.errors.count, "error")
+          prohibited this topic from being saved
 
-            %ul
-            - @topic.errors.full_messages.each do |msg|
-              %li= msg
+        %ul.fixed-font-size
+          - @topic.errors.full_messages.each do |msg|
+            %li= msg
 
     .form-group
       = f.label :name, 'Topic Title', class: 'col-md-2 control-label'

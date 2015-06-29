@@ -70,11 +70,11 @@
     - @comment = @topic.comments.new
     = form_for [@topic, @comment] do |f|
       - if @comment.errors.any?
-        #error_explanation.bs-callout.bs-callout-danger
-          %h4
+        .bs-callout.bs-callout-danger
+          %strong
           = pluralize(@comment.errors.count, "error")
           prohibited this comment from being saved
-          %ul
+          %ul.fixed-font-size
             - @comment.errors.full_messages.each do |msg|
               %li= msg
 
