@@ -4,6 +4,7 @@
 - **General Changes**
   - Added Google Analytics
   - Fixed some minor spacing issues on forum
+  - User setting page now lists all active dataset requests for a user
 - **Showcase Added**
   - Added a page highlighting Matt Butler's work on Novel Sleep Measures and Cardiovascular Risk
   - Highlighted Shaun Purcell's work on the home page carousel

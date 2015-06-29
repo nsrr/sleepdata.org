@@ -7,7 +7,6 @@ class UsersController < ApplicationController
   layout 'layouts/application-full'
 
   def settings
-    render layout: 'layouts/application'
   end
 
   def update_settings

@@ -1,73 +1,118 @@
 - @title = 'My Settings'
-.page-header
+.slim-container.dark-texture
   %h1= @title
 
-= render 'layouts/flash_messages'
+.slim-container.math-texture
 
-.row
-  .col-md-6
-    .panel.panel-info
-      .panel-heading
-        %span.glyphicon.glyphicon-cog
-        My Settings
-      .panel-body
-        = form_for current_user, url: update_settings_path, html: { class: 'form-horizontal' } do |f|
-          - if current_user.errors.any?
-            #error_explanation.bs-callout.bs-callout-danger
-              %h4
-                = pluralize(current_user.errors.count, "error")
-                prohibited settings from being saved
+  .row
+    .col-md-6
+      .panel.panel-info
+        .panel-heading
+          %span.glyphicon.glyphicon-cog
+          My Settings
+        .panel-body
+          = form_for current_user, url: update_settings_path, html: { class: 'form-horizontal' } do |f|
+            - if current_user.errors.any?
+              .bs-callout.bs-callout-danger
+                %strong
+                  = pluralize(current_user.errors.count, "error")
+                  prohibited settings from being saved
 
-              %ul
-                - current_user.errors.full_messages.each do |msg|
-                  %li= msg
+                %ul.fixed-font-size
+                  - current_user.errors.full_messages.each do |msg|
+                    %li= msg
 
-          .form-group
-            = f.label :first_name, nil, class: 'col-md-3 control-label'
-            .col-md-9
-              = f.text_field :first_name, class: 'form-control'
+            .form-group
+              = f.label :first_name, nil, class: 'col-md-3 control-label'
+              .col-md-9
+                = f.text_field :first_name, class: 'form-control'
 
-          .form-group
-            = f.label :last_name, nil, class: 'col-md-3 control-label'
-            .col-md-9
-              = f.text_field :last_name, class: 'form-control'
+            .form-group
+              = f.label :last_name, nil, class: 'col-md-3 control-label'
+              .col-md-9
+                = f.text_field :last_name, class: 'form-control'
 
-          .form-group
-            = f.label :email, nil, class: 'col-md-3 control-label'
-            .col-md-9
-              = f.text_field :email, class: 'form-control'
+            .form-group
+              = f.label :email, nil, class: 'col-md-3 control-label'
+              .col-md-9
+                = f.text_field :email, class: 'form-control'
 
-          .form-group
-            = f.label :username, 'Forum Username', class: 'col-md-3 control-label'
-            .col-md-9
-              = f.text_field :username, class: 'form-control', placeholder: current_user.name
+            .form-group
+              .col-md-offset-3.col-md-9
+                = submit_tag 'Save Changes', class: 'btn btn-primary'
+      .panel.panel-info
+        .panel-heading
+          %span.glyphicon.glyphicon-cog
+          My Dataset Requests
+        .panel-body
+          %table.table.table-condensed.table-striped.fixed-font-size
+            %thead
+              %tr
+                %th.hidden-xs{ colspan: '2' } Dataset
+                %th.visible-xs Dataset
+                %th Status
+            %tbody
+              - current_user.all_viewable_datasets.order(:release_date, :name).each do |d|
+                %tr
+                  %td
+                    = render 'datasets/mini', dataset: d
+                  %td.hidden-xs
+                    = link_to d.name, d
+                  %td
+                    - agreements = d.agreements.where( user_id: current_user.id )
+                    - if agreement = agreements.where( status: 'submitted' ).first
+                      = link_to 'Under Review', submissions_path, class: 'btn btn-xs btn-call-to-default'
+                    - elsif agreement = agreements.where( status: 'resubmit' ).first
+                      = link_to 'Resubmit Your DAUA', submissions_path, class: 'btn btn-xs btn-call-to-warning'
+                    - elsif agreement = agreements.expired.first
+                      = link_to 'Renew Access', submissions_path(dataset: d), class: 'btn btn-xs btn-call-to-warning'
+                    - elsif agreement = agreements.where( status: ['', 'started', nil] ).first
+                      - if agreement.fully_filled_out?
+                        = link_to 'Complete Your DAUA', proof_agreement_path(agreement), class: 'btn btn-xs btn-call-to-primary'
+                      - else
+                        = link_to 'Complete Your DAUA', step_agreement_path(agreement, step: agreement.current_step), class: 'btn btn-xs btn-call-to-primary'
+                    - elsif agreement = agreements.where(status: 'approved').first
+                      = link_to 'Approved', files_dataset_path(d), class: 'btn btn-xs btn-call-to-action'
+                    - else
+                      = link_to 'Request Access', submissions_path(dataset: d), class: 'btn btn-xs btn-call-to-primary'
 
-          .form-group
-            %label.col-md-3.control-label Receive Forum Emails
-            .col-md-9
-              .checkbox
-                %label
-                  = f.check_box :emails_enabled
-                  Allow the NSRR to send you emails when a topic receives a reply to which you are subscribed, and when someone mentions you on the forum. Unchecking this box will disable forum emails.
+
+    .col-md-6
+      .panel.panel-info
+        .panel-heading
+          %span.glyphicon.glyphicon-user
+          My Forum Settings
+        .panel-body
+          = form_for current_user, url: update_settings_path, html: { class: 'form-horizontal' } do |f|
+            .form-group
+              = label 'gravatar', 'Forum Avatar', class: 'col-md-3 control-label'
+              .col-md-9
+                = image_tag current_user.avatar_url(80, 'identicon'), class: 'img-rounded'
                 .bs-callout.bs-callout-info
                   %strong Note:
-                  You will still receive emails for:
-                  %ul
-                    %li Progress updates for Data Access and Use Agreements
-                    %li Password reset emails
+                  You can change your avatar at
+                  = link_to 'gravatar.com', 'http://gravatar.com', target: '_blank'
 
-          .form-group
-            .col-md-offset-3.col-md-9
-              = submit_tag 'Save Changes', class: 'btn btn-primary'
 
-  .col-md-6
-    .panel.panel-info
-      .panel-heading
-        %span.glyphicon.glyphicon-user
-        My Forum Avatar
-      .panel-body
-        = image_tag current_user.avatar_url(80, 'identicon'), class: 'img-rounded'
-        You can change your avatar at
-        = link_to 'gravatar.com', 'http://gravatar.com', target: '_blank'
+            .form-group
+              = f.label :username, 'Forum Username', class: 'col-md-3 control-label'
+              .col-md-9
+                = f.text_field :username, class: 'form-control', placeholder: current_user.name
 
-- @footer_img = 'settings-footer.jpg'
+            .form-group
+              %label.col-md-3.control-label Receive Forum Emails
+              .col-md-9
+                .checkbox
+                  %label
+                    = f.check_box :emails_enabled
+                    Allow the NSRR to send you emails when a topic receives a reply to which you are subscribed, and when someone mentions you on the forum. Unchecking this box will disable forum emails.
+                  .bs-callout.bs-callout-info
+                    %strong Note:
+                    You will still receive emails for:
+                    %ul.fixed-font-size
+                      %li Progress updates for Data Access and Use Agreements
+                      %li Password reset emails
+
+            .form-group
+              .col-md-offset-3.col-md-9
+                = submit_tag 'Save Changes', class: 'btn btn-primary'

@@ -49,6 +49,75 @@
   border-color: rgb(255, 133, 71) !important; // #398439 !important;
 }
 
+.btn-call-to-warning {
+  border-radius: 40px;
+  min-width: 200px;
+  max-width: 500px;
+  width: 100%;
+  color: $btn-warning-border !important;
+  border-color: $btn-warning-border !important;
+  background-color: white !important;
+  -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
+  -webkit-backface-visibility: hidden; /* Fix for transition flickering */
+}
+
+.btn-call-to-warning:hover,
+.btn-call-to-warning:focus,
+.btn-call-to-warning:active,
+.btn-call-to-warning.active,
+.btn-call-to-warning.disabled,
+.btn-call-to-warning[disabled] {
+  color: #fff !important;
+  background-color: rgb(255, 157, 107) !important;
+  border-color: rgb(255, 133, 71) !important;
+}
+
+.btn-call-to-default {
+  border-radius: 40px;
+  min-width: 200px;
+  max-width: 500px;
+  width: 100%;
+  color: $btn-default-color !important;
+  border-color: $btn-default-color !important;
+  background-color: white !important;
+  -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
+  -webkit-backface-visibility: hidden; /* Fix for transition flickering */
+}
+
+.btn-call-to-default:hover,
+.btn-call-to-default:focus,
+.btn-call-to-default:active,
+.btn-call-to-default.active,
+.btn-call-to-default.disabled,
+.btn-call-to-default[disabled] {
+  color: #fff !important;
+  background-color: rgb(255, 157, 107) !important;
+  border-color: rgb(255, 133, 71) !important;
+}
+
+.btn-call-to-primary {
+  border-radius: 40px;
+  min-width: 200px;
+  max-width: 500px;
+  width: 100%;
+  color: $btn-primary-border !important;
+  border-color: $btn-primary-border !important;
+  background-color: white !important;
+  -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
+  -webkit-backface-visibility: hidden; /* Fix for transition flickering */
+}
+
+.btn-call-to-primary:hover,
+.btn-call-to-primary:focus,
+.btn-call-to-primary:active,
+.btn-call-to-primary.active,
+.btn-call-to-primary.disabled,
+.btn-call-to-primary[disabled] {
+  color: #fff !important;
+  background-color: rgb(255, 157, 107) !important;
+  border-color: rgb(255, 133, 71) !important;
+}
+
 .math-texture {
   background-color: #FFF;
   background-image: asset-url('static/old_mathematics_no_border.png');
