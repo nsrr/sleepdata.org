@@ -1,11 +1,11 @@
 = form_for @agreement, html: { class: 'form-horizontal', data: { object: 'signature', signature_target: '.output-write' } } do |f|
   - if @agreement.errors.any?
-    #error_explanation.bs-callout.bs-callout-danger
-      %h4
+    .bs-callout.bs-callout-danger
+      %strong
         = pluralize(@agreement.errors.count, "error")
         prohibited this agreement from being saved
 
-      %ul
+      %ul.fixed-font-size
         - @agreement.errors.full_messages.each do |msg|
           %li= msg
 
@@ -51,10 +51,10 @@
     .col-md-9
       = f.text_area :comments, rows: 7, class: 'form-control'
       .bs-callout.bs-callout-warning
-        %h4 Comments are emailed to user
+        %strong Comments are emailed to user
 
-        %p Please specify why the DAUA needs to be resubmitted.
-        %p
+        %p.fixed-font-size Please specify why the DAUA needs to be resubmitted.
+        %p.fixed-font-size
           Comments are
           %strong required
           if the agreement is
