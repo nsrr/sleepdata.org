@@ -2,12 +2,18 @@
 
 = render 'datasets/header'
 
-= render 'layouts/per_page', per_page: 100, object_count: @audits.count
+.slim-container.neutral-texture
+  %h2 File Download Audits
 
-.main-container
+.breadcrumb-container
+  &nbsp;
+  %div{ style: 'float:right; margin-top: -25px' }
+    = render 'layouts/per_page', per_page: 100, object_count: @audits.count, pagination_size: 'small'
+
+.slim-container.math-texture
 
   .table-responsive
-    %table.table.table-striped
+    %table.table.table-striped.fixed-font-size
       %thead
         %tr
           %th File Path
@@ -76,10 +82,15 @@
           %td= audit.created_at.strftime("%b %d, %Y &middot; %I:%M %p").html_safe
 
   .center
-    = paginate paginated_audits, theme: "contour"
+    = paginate paginated_audits, theme: "contour-small"
+
+.slim-container.dark-texture
+  %h2 Page Views
+
+.slim-container.math-texture
 
   - @page_views = @dataset.dataset_page_audits.group_by(&:page_path).collect{|page_path, audits| [page_path, audits.count]}.sort{|a,b| b[1] <=> a[1]}
-  %table.table.table-striped
+  %table.table.table-striped.fixed-font-size
     %thead
       %tr
         %th Page Path
