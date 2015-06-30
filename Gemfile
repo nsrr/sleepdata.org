@@ -13,7 +13,7 @@ gem 'redcarpet',            '~> 3.3.2'
 gem 'geocoder',             '~> 1.2.9'
 gem 'chunky_png',           '~> 1.3.4'
 gem 'haml',                 '~> 4.0.6'
-gem 'figaro',               '~> 1.1.0'
+gem 'figaro',               '~> 1.1.1'
 gem 'differ',               '~> 0.1.2'
 
 # Rails Defaults

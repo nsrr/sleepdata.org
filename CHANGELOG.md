@@ -51,6 +51,7 @@
   - Updated to kaminari 0.16.3
   - Updated to redcarpet 3.3.2
   - Updated to geocoder 1.2.9
+  - Updated to figaro 1.1.1
 
 ### Bug Fix
 - Fixed a bug that prevented reviewers seeing DAUA signature if the user signed and checked that they were unauthorized to sign the DAUA
