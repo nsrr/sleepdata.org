@@ -49,6 +49,7 @@
   - Updated to contour 3.0.0
   - Added differ 0.1.2 gem to see changes in DAUAs
   - Updated to kaminari 0.16.3
+  - Updated to redcarpet 3.3.2
 
 ### Bug Fix
 - Fixed a bug that prevented reviewers seeing DAUA signature if the user signed and checked that they were unauthorized to sign the DAUA
