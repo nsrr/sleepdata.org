@@ -2,6 +2,7 @@
 
 ### Enhancements
 - **Gem Changes**
+  - Use of Ruby 2.2.3 is now recommended
   - Updated to rails 4.2.4
 
 ## 0.17.1 (July 8, 2015)
