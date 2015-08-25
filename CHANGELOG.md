@@ -1,6 +1,8 @@
 ## 0.17.2
 
 ### Enhancements
+- **General Changes**
+  - Updated styling on documentation sync pages
 - **Gem Changes**
   - Use of Ruby 2.2.3 is now recommended
   - Updated to rails 4.2.4

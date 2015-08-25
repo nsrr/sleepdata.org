@@ -1,0 +1,33 @@
+- if object.class == Dataset
+  - pull_changes_path = pull_changes_dataset_path(object, back: back)
+- else
+  - pull_changes_path = pull_changes_tool_path(object, back: back)
+
+- if object.git_repository.blank?
+  .panel.panel-default{ style: "margin-top:20px" }
+    .panel-heading
+      %h3.panel-title
+        = link_to object.name, object
+        &middot; No repository specified.
+- elsif local_commit != remote_commit
+  .panel.panel-warning{ style: "margin-top:20px" }
+    .panel-heading
+      %h3.panel-title
+        = link_to object.name, object
+        &middot; Not up-to-date.
+    .panel-body
+      - compare_string = "#{local_commit[0..5]}...#{remote_commit[0..5]}"
+      = link_to "#{compare_string}" , object.git_repository.to_s.gsub(/\.git$/, '') + "/compare/#{compare_string}", target: '_blank', class: 'btn btn-xs btn-default'
+      = link_to "Sync Repository", pull_changes_path, method: :post, class: 'btn btn-success btn-xs'
+      = object.git_repository
+- else
+  .panel.panel-success{ style: "margin-top:20px" }
+    .panel-heading
+      %h3.panel-title
+        = link_to object.name, object
+        &middot; Already up-to-date.
+    .panel-body
+      - compare_string = "#{local_commit[0..5]}...master"
+      = link_to "#{compare_string}" , object.git_repository.to_s.gsub(/\.git$/, '') + "/compare/#{compare_string}", target: '_blank', class: 'btn btn-xs btn-success-inverse'
+      = link_to "Sync Repository", pull_changes_path, method: :post, class: 'btn btn-success btn-xs'
+      = object.git_repository
