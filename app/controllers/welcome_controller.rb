@@ -57,7 +57,7 @@ class WelcomeController < ApplicationController
   end
 
   def agreement_reports
-    @agreements = Agreement.current
+    @agreements = Agreement.current.regular_members
   end
 
 end

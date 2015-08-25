@@ -38,7 +38,7 @@
         %th Approved
     %tfoot
       %tr
-        - agreement_events = AgreementEvent.with_current_agreement.where(event_type: ['user_submitted', 'principal_reviewer_approved'])
+        - agreement_events = AgreementEvent.with_current_agreement.regular_members.where(event_type: ['user_submitted', 'principal_reviewer_approved'])
         %th Total
         %th
           - count = agreement_events.select{|ae| ae.event_type == 'user_submitted'}.count
@@ -46,7 +46,7 @@
         %th
           - count = agreement_events.select{|ae| ae.event_type == 'principal_reviewer_approved'}.count
           = count == 0 ? '-' : count
-    - AgreementEvent.with_current_agreement.where(event_type: ['user_submitted', 'principal_reviewer_approved']).order(:event_at).group_by{|ae| [ae.event_at.year, ae.event_at.month]}.each do |(year, month), agreement_events|
+    - AgreementEvent.with_current_agreement.regular_members.where(event_type: ['user_submitted', 'principal_reviewer_approved']).order(:event_at).group_by{|ae| [ae.event_at.year, ae.event_at.month]}.each do |(year, month), agreement_events|
       %tr
         %td
           = Date::ABBR_MONTHNAMES[month]

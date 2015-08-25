@@ -3,6 +3,8 @@
 ### Enhancements
 - **General Changes**
   - Updated styling on documentation sync pages
+- **Admin Changes**
+  - Agreement reports are now filtered by regular members
 - **Gem Changes**
   - Use of Ruby 2.2.3 is now recommended
   - Updated to rails 4.2.4

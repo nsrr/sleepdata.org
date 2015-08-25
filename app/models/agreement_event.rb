@@ -21,7 +21,8 @@ class AgreementEvent < ActiveRecord::Base
   after_create :email_mentioned_users
 
   # Named Scopes
-  scope :with_current_agreement, -> { where( 'agreement_events.agreement_id in (select agreements.id from agreements where agreements.deleted = ?)', false ).references(:agreements) }
+  scope :with_current_agreement, -> { joins(:agreement).merge(Agreement.current) }
+  scope :regular_members, -> { joins(:agreement).merge(Agreement.regular_members) }
 
   # Model Validation
   validates_presence_of :agreement_id, :user_id, :event_type, :event_at
