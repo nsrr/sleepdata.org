@@ -1,5 +1,9 @@
 ## 0.17.3
 
+### Enhancements
+- **General Changes**
+  - Fixed a minor display issue when proofing a DAUA submission in Step 1
+
 ## 0.17.2 (August 25, 2015)
 
 ### Enhancements
