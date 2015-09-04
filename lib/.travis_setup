@@ -8,7 +8,7 @@ smtp@example.com
 smtp_username
 smtp_password
 http://localhost/altamira
-/usr/bin/pdflatex
+echo /usr/bin/pdflatex
 UA-googleanalytics-1
 postgres
 
