@@ -3,6 +3,7 @@
 ### Enhancements
 - **General Changes**
   - Fixed a minor display issue when proofing a DAUA submission in Step 1
+  - Updated items on the carousel
 - **Gem Changes**
   - Set minitest-reporters to use '~> 1.0.20'
 

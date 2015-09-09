@@ -25,13 +25,25 @@
       .row
         .col-sm-6
           .carousel-item-header
-            New Challenge
+            Early Adopter Meeting
           .carousel-item-description
-            Help fellow researchers by
-            = link_to 'participating', challenge_path('flow-limitation')
-            in the Flow Limitation Challenge.
+            The NSRR is
+            = link_to 'organizing a meeting', 'https://sleepdata.org/forum/43-nsrr-early-adopters-meeting-oct-9-2015'
+            with a group of early adopters on October 9th in Boston.
         .col-sm-6.center-picture{ style: 'overflow: hidden'}
-          = image_tag 'flow-limitation-logo.png', class: 'showcase-picture'
+          = image_tag 'showcase/carousel/eeg.png', class: 'showcase-picture'
+    - if false
+      .item
+        .row
+          .col-sm-6
+            .carousel-item-header
+              New Challenge
+            .carousel-item-description
+              Help fellow researchers by
+              = link_to 'participating', challenge_path('flow-limitation')
+              in the Flow Limitation Challenge.
+          .col-sm-6.center-picture{ style: 'overflow: hidden'}
+            = image_tag 'flow-limitation-logo.png', class: 'showcase-picture'
     .item
       .row
         .col-sm-6
@@ -47,16 +59,29 @@
     .item
       .row
         .col-sm-6.center-picture
-          = image_tag 'shhs_logo.png', class: 'showcase-picture'
+          = image_tag 'showcase/matt-butler-graph.png', class: 'showcase-picture'
+          =# image_tag 'showcase/matt-butler.png', class: 'showcase-picture'
         .col-sm-6
           .carousel-item-header
-            = "SHHS v#{shhs_dataset_version} Online"
+            Researcher Showcase
           .carousel-item-description
-            Download the latest
-            = link_to 'datasets', files_dataset_path('shhs', path: 'datasets')
-            and
-            = link_to 'EDFs', files_dataset_path('shhs', path: 'edfs')
-            available for the Sleep Heart Health Study.
+            Learn about Matt Butler's work with data from the NSRR in the area of
+            = succeed '.' do
+              = link_to 'Novel Sleep Measures and Cardiovascular Risk', showcase_show_path('matt-butler-novel-sleep-measures-and-cardiovascular-risk')
+    - if false
+      .item
+        .row
+          .col-sm-6.center-picture
+            = image_tag 'shhs_logo.png', class: 'showcase-picture'
+          .col-sm-6
+            .carousel-item-header
+              = "SHHS v#{shhs_dataset_version} Online"
+            .carousel-item-description
+              Download the latest
+              = link_to 'datasets', files_dataset_path('shhs', path: 'datasets')
+              and
+              = link_to 'EDFs', files_dataset_path('shhs', path: 'edfs')
+              available for the Sleep Heart Health Study.
     .item
       .row
         .col-sm-6.center-picture
@@ -99,13 +124,20 @@
 .showcase-footer
   %ul#showcase-list
     %li.active{ data: { target: "#carousel-showcase", slide: { to: "0" } } }
-      = image_tag 'showcase/carousel/nsrr-sigma-power-twin-small.png', class: 'showcase-indicator-picture img-bw img-color'
+      = image_tag 'showcase/smp-icon.png', class: 'showcase-indicator-picture img-bw img-color'
+      =# image_tag 'showcase/carousel/nsrr-sigma-power-twin-small.png', class: 'showcase-indicator-picture img-bw img-color'
     %li{ data: { target: "#carousel-showcase", slide: { to: "1" } } }
-      = image_tag 'showcase/flow-limitation-square.png', class: 'showcase-indicator-picture img-bw'
+      = image_tag 'showcase/carousel/eeg.png', class: 'showcase-indicator-picture img-bw'
+    - if false
+      %li{ data: { target: "#carousel-showcase", slide: { to: "1" } } }
+        = image_tag 'showcase/flow-limitation-square.png', class: 'showcase-indicator-picture img-bw'
     %li{ data: { target: "#carousel-showcase", slide: { to: "2" } } }
       = image_tag 'physiomimi_logo.png', class: 'showcase-indicator-picture img-bw'
     %li{ data: { target: "#carousel-showcase", slide: { to: "3" } } }
-      = image_tag 'shhs_logo.png', class: 'showcase-indicator-picture img-op'
+      = image_tag 'showcase/matt-butler-icon.png', class: 'showcase-indicator-picture img-bw img-circle'
+    - if false
+      %li{ data: { target: "#carousel-showcase", slide: { to: "3" } } }
+        = image_tag 'shhs_logo.png', class: 'showcase-indicator-picture img-op'
     %li{ data: { target: "#carousel-showcase", slide: { to: "4" } } }
       = image_tag 'chat_logo.png', class: 'showcase-indicator-picture img-bw'
     - if false
