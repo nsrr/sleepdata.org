@@ -24,6 +24,19 @@
   background-color: #4cae4c;
   color: #FFF;
   background-image: none;
+
+  a {
+    color: #FFE899;
+  }
+  a:hover,
+  a:focus,
+  a:active,
+  a.active,
+  a.disabled,
+  a[disabled] {
+    color: #EFD16C;
+  }
+
 }
 
 .btn-call-to-action {
