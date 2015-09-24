@@ -132,9 +132,9 @@ class DatasetsController < ApplicationController
   # GET /datasets/1/file_audits
   def audits
     audit_scope = @dataset.dataset_file_audits.order( created_at: :desc )
-    audit_scope = audit_scope.where( user_id: params[:user_id].blank? ? nil : params[:user_id] ) if params.has_key?(:user_id)
-    audit_scope = audit_scope.where( medium: params[:medium].blank? ? nil : params[:medium] ) if params.has_key?(:medium)
-    audit_scope = audit_scope.where( remote_ip: params[:remote_ip].blank? ? nil : params[:remote_ip] ) if params.has_key?(:remote_ip)
+    audit_scope = audit_scope.where( user_id: params[:user_id].blank? ? nil : params[:user_id] ) if params.key?(:user_id)
+    audit_scope = audit_scope.where( medium: params[:medium].blank? ? nil : params[:medium] ) if params.key?(:medium)
+    audit_scope = audit_scope.where( remote_ip: params[:remote_ip].blank? ? nil : params[:remote_ip] ) if params.key?(:remote_ip)
     @audits = audit_scope
   end
 

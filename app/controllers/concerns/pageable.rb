@@ -58,7 +58,7 @@ module Pageable
 
   # PATCH /(datasets|tools)/1/update_page
   def update_page
-    if @page_path and File.file?(@page_path) and params.has_key?(:page_contents)
+    if @page_path and File.file?(@page_path) and params.key?(:page_contents)
       File.open(@page_path, 'w') do |outfile|
         outfile.write params[:page_contents].to_s
       end

@@ -26,20 +26,20 @@
           %th Total
           %th= number_to_human_size @audits.sum(:file_size)
           %th
-            - if params.has_key?(:user_id)
+            - if params.key?(:user_id)
               %span.glyphicon.glyphicon-filter
               - user = User.find_by_id(params[:user_id])
               = user ? user.name : 'Anonymous'
             - else
               %span.text-muted -
           %th
-            - if params.has_key?(:remote_ip)
+            - if params.key?(:remote_ip)
               %span.glyphicon.glyphicon-filter
               = params[:remote_ip].blank? ? 'blank' : params[:remote_ip]
             - else
               %span.text-muted -
           %th
-            - if params.has_key?(:medium)
+            - if params.key?(:medium)
               %span.glyphicon.glyphicon-filter
               = params[:medium].blank? ? 'blank' : params[:medium]
             - else
