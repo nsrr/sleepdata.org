@@ -166,7 +166,7 @@ class Dataset < ActiveRecord::Base
       index += 1
     end
 
-    files = files.count if page == 0 and files.kind_of?(Array)
+    files = files.count if page == 0 and files.is_a?(Array)
     return files
   end
 

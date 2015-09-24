@@ -32,7 +32,7 @@ namespace :agreements do
         agreement.attributes.reject{|k,v| ignored_attributes.include?(k.to_s)}.each do |k,v|
           value_before = nil
           value_after = nil
-          if v.kind_of?(Array)
+          if v.is_a?(Array)
             value_before = v[0]
             value_after = v[1]
           else
