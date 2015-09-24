@@ -8,6 +8,7 @@
   - Updated link to the NSRR Cross Dataset Query Interface
 - **Gem Changes**
   - Removed minitest-reporters
+  - Updated to pg 0.18.3
 
 ## 0.17.2 (August 25, 2015)
 
