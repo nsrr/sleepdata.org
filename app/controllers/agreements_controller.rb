@@ -108,7 +108,7 @@ class AgreementsController < ApplicationController
   end
 
   def final_submission
-    current_time = Time.now
+    current_time = Time.zone.now
     if @agreement.status == 'resubmit'
       hash = { status: 'submitted', resubmitted_at: current_time, last_submitted_at: current_time }
       msg = "Data Access and Use Agreement resubmitted."
@@ -227,7 +227,7 @@ class AgreementsController < ApplicationController
     end
 
     send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
-                           disposition: "attachment; filename=\"Agreements List - #{Time.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
+                           disposition: "attachment; filename=\"Agreements List - #{Time.zone.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
   end
 
   # GET /agreements/1

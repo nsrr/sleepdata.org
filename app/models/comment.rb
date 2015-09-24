@@ -58,7 +58,7 @@ class Comment < ActiveRecord::Base
   private
 
   def touch_topic
-    self.topic.update last_comment_at: Time.now
+    self.topic.update last_comment_at: Time.zone.now
   end
 
 end

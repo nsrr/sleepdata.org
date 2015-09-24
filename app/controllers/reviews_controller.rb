@@ -40,7 +40,7 @@ class ReviewsController < ApplicationController
       'reviewer_rejected'
     end
 
-    @agreement.agreement_events.create event_type: event_type, user_id: current_user.id, event_at: Time.now if event_type.present?
+    @agreement.agreement_events.create event_type: event_type, user_id: current_user.id, event_at: Time.zone.now if event_type.present?
 
     redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.count}", notice: 'Review was successfully created.'
   end
@@ -57,7 +57,7 @@ class ReviewsController < ApplicationController
   end
 
   def create_comment
-    @agreement_event = @agreement.agreement_events.where(user_id: current_user.id, event_at: Time.now, event_type: 'commented').new(agreement_event_params)
+    @agreement_event = @agreement.agreement_events.where(user_id: current_user.id, event_at: Time.zone.now, event_type: 'commented').new(agreement_event_params)
 
     respond_to do |format|
       if @agreement_event.save
@@ -113,7 +113,7 @@ class ReviewsController < ApplicationController
 
     if added_tag_ids.count + removed_tag_ids.count > 0
       @agreement.update tags: submitted_tags
-      @agreement.agreement_events.create event_type: 'tags_updated', user_id: current_user.id, event_at: Time.now, added_tag_ids: added_tag_ids, removed_tag_ids: removed_tag_ids
+      @agreement.agreement_events.create event_type: 'tags_updated', user_id: current_user.id, event_at: Time.zone.now, added_tag_ids: added_tag_ids, removed_tag_ids: removed_tag_ids
     end
 
     redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.count}"

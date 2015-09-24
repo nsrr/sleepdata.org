@@ -166,7 +166,7 @@ class User < ActiveRecord::Base
 
   def destroy
     super
-    update_column :updated_at, Time.now
+    update_column :updated_at, Time.zone.now
   end
 
 end

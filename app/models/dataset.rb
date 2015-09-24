@@ -88,7 +88,7 @@ class Dataset < ActiveRecord::Base
     file_digest = if is_file
       message = "Computing MD5 Digest for #{file_name} of size #{file_size} bytes"
       Rails.logger.info message
-      File.open(lock_file, 'a') { |f| f.write "#{Time.now}: #{message}\n" } if file_size > 10.megabytes
+      File.open(lock_file, 'a') { |f| f.write "#{Time.zone.now}: #{message}\n" } if file_size > 10.megabytes
       Digest::MD5.file(f).hexdigest
     else
       nil
@@ -108,7 +108,7 @@ class Dataset < ActiveRecord::Base
     begin
       File.delete(index_file) if File.exist?(index_file) and File.file?(index_file)
       FileUtils.mkpath(File.join(files_folder, location.to_s))
-      File.write(lock_file, "#{Time.now}: Refresh started\n")
+      File.write(lock_file, "#{Time.zone.now}: Refresh started\n")
       files = Dir.glob(File.join(files_folder, location.to_s, '*')).sort{|a,b| [File.file?(a).to_s, a.split('/').last] <=> [File.file?(b).to_s, b.split('/').last]}.collect{|f| file_array(f, lock_file)}
       File.open(index_file, 'w') do |outfile|
         outfile.puts files.size

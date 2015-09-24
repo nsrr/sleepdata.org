@@ -146,14 +146,14 @@ class Agreement < ActiveRecord::Base
   end
 
   def add_event!(message, current_user, status)
-    self.history << { message: message, user_id: current_user.id, event_at: Time.now, status: status }
+    self.history << { message: message, user_id: current_user.id, event_at: Time.zone.now, status: status }
     self.status = status
     self.save
   end
 
   def daua_approved_email(current_user)
     self.add_event!('Data Access and Use Agreement approved.', current_user, 'approved')
-    self.agreement_events.create event_type: 'principal_reviewer_approved', user_id: current_user.id, event_at: Time.now
+    self.agreement_events.create event_type: 'principal_reviewer_approved', user_id: current_user.id, event_at: Time.zone.now
     self.reviews.where( approved: nil ).destroy_all
     UserMailer.daua_approved(self, current_user).deliver_later if Rails.env.production?
     notify_admins_on_daua_progress(current_user)
@@ -161,7 +161,7 @@ class Agreement < ActiveRecord::Base
 
   def sent_back_for_resubmission_email(current_user)
     self.add_event!('Data Access and Use Agreement sent back for resubmission.', current_user, 'resubmit')
-    self.agreement_events.create event_type: 'principal_reviewer_required_resubmission', user_id: current_user.id, event_at: Time.now, comment: self.comments
+    self.agreement_events.create event_type: 'principal_reviewer_required_resubmission', user_id: current_user.id, event_at: Time.zone.now, comment: self.comments
     UserMailer.sent_back_for_resubmission(self, current_user).deliver_later if Rails.env.production?
     notify_admins_on_daua_progress(current_user)
   end
@@ -340,7 +340,7 @@ class Agreement < ActiveRecord::Base
 
   def set_token
     begin
-      self.update_column :duly_authorized_representative_token, Digest::SHA1.hexdigest(Time.now.usec.to_s) if self.duly_authorized_representative_token.blank?
+      self.update_column :duly_authorized_representative_token, Digest::SHA1.hexdigest(Time.zone.now.usec.to_s) if self.duly_authorized_representative_token.blank?
     rescue
     end
   end
