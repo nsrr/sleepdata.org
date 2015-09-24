@@ -7,7 +7,7 @@
   - Added call to action on research showcase pages
   - Updated link to the NSRR Cross Dataset Query Interface
 - **Gem Changes**
-  - Set minitest-reporters to use '~> 1.0.20'
+  - Removed minitest-reporters
 
 ## 0.17.2 (August 25, 2015)
 
