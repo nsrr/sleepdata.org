@@ -1,25 +1,34 @@
 - @title = 'Challenges'
-.beta-container
-  .main-container.dark-texture
-    %h1
-      = @title
-      - if current_user and current_user.system_admin?
-        = link_to "Create Challenge", new_challenge_path, class: 'btn btn-xs btn-primary'
-    %p
-      Participate in exciting challenges to test your mettle!
 
-  .main-container
+.main-container.dark-texture
+  %h1
+    = @title
+    - if current_user and current_user.system_admin?
+      = link_to "Create Challenge", new_challenge_path, class: 'btn btn-xs btn-primary'
+  %p
+    Participate in exciting challenges to test your mettle!
 
-    %p
-      Our first challenge on the NSRR is Flow Limitation.
+.main-container
 
-    %p
-      Learn more about the
-      = link_to('Flow Limitation Challenge', challenge_path('flow-limitation')) + "!"
+  %p
+    Our second challenge is now available!
+
+  %p
+    Learn more about the
+    = succeed '!' do
+      = link_to 'Flow Limitation Challenge - Part 2', challenge_path('flow-limitation-2')
 
 
-    - if @challenges.size > 1
-      Other available challenges can be found here:
-      %ul
-        - @challenges.each do |challenge|
-          %li= link_to challenge.name, challenge
+  - if @challenges.size > 1 && false
+    Other available challenges can be found here:
+    %ul
+      - @challenges.each do |challenge|
+        %li= link_to challenge.name, challenge
+
+.main-container.light-texture
+  %h2 Older Challenges
+
+  %p The following challenges are no longer active.
+
+  %p
+    = link_to 'Flow Limitation Challenge', challenge_path('flow-limitation')

@@ -50,6 +50,7 @@ Rails.application.routes.draw do
       get "signal/:signal", action: 'signal', as: :signal
       post "signal/:signal", action: 'update_signal', as: :update_signal
       get :review
+      get :submitted
     end
   end
 

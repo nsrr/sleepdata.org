@@ -1,68 +1,68 @@
-- if @challenge.slug == 'flow-limitation'
-  .beta-container
-    .main-container.dark-texture
-      %h1 Flow Limitation Challenge
-      %p.wow.flipInX
-        Signal
-        = @signal
-        of 30
-      - last_question = @challenge.questions.find_by_name 'signal30n'
-      - if current_user.answers.where(challenge_id: @challenge.id, question_id: last_question.id).where.not(response: nil).count > 0
-        %p= link_to 'Return to Review', review_challenge_path(@challenge), class: 'btn btn-xs btn-default'
-    - if flash[:alert]
-      .slim-container.flash-alert
-        %p.center
-          = flash[:alert]
+- if @challenge.signal_count > 0
+  .main-container.dark-texture
+    %h1 Flow Limitation Challenge
+    %p.wow.flipInX
+      Signal
+      = @signal
+      of
+      = @challenge.signal_count
+    - last_question = @challenge.questions.order(:name).last
+    - if current_user.answers.where(challenge_id: @challenge.id, question_id: last_question.id).where.not(response: nil).count > 0
+      %p= link_to 'Return to Review', review_challenge_path(@challenge), class: 'btn btn-xs btn-default'
+  - if flash[:alert]
+    .slim-container.flash-alert
+      %p.center
+        = flash[:alert]
 
 
-    #affix-container.grid-texture{ style: 'height:300px;width:100%;margin-bottom:40px' }
-      %div{ data: { object: "signal-affix" } }
-        .main-container.grid-texture{ style: 'padding-top:20px;padding-bottom:0px;' }
-          .center
-            = image_tag images_challenge_path(@challenge, path: "fl#{@signal}.png"), style: 'max-width: 100%;', id: "affix-img"
-          .center
-            %table.table.table-fixed
-              %thead
-                %tr
-                  %th.center Breath
-                  %th Is the breath flow limited?
+  #affix-container.grid-texture{ style: 'height:300px;width:100%;margin-bottom:40px' }
+    %div{ data: { object: 'signal-affix' } }
+      .main-container.grid-texture{ style: 'padding-top:20px;padding-bottom:0px;' }
+        .center
+          = image_tag images_challenge_path(@challenge, path: @challenge.signal_name(@signal)), style: 'max-width: 100%;', id: "affix-img"
+        .center
+          %table.table.table-fixed
+            %thead
+              %tr
+                %th.center Breath
+                %th Is the breath flow limited?
 
-    .main-container.grid-texture
-      = form_tag update_signal_challenge_path(@challenge, signal: @signal), method: :post, id: 'signal-form' do
-        - array = (@signal_map[@signal - 1] ? @signal_map[@signal - 1].to_a : ('A'..'A').to_a)
-        %table.table.table-fixed
-          - array.each do |letter|
-            - number = "%02d" % @signal
-            - question_name = "signal#{number}#{letter.downcase}"
-            - question = @challenge.questions.find_by_name(question_name)
-            - answer = @challenge.answers.where(question_id: question.id, user_id: current_user.id).first_or_create
-            %tr{ class: "#{'warning' if flash[:alert] and answer.response.blank?}" }
-              %td.center
-                = letter
-              %td
-                %p{ data: { toggle: "buttons" } }
-                  %label.btn.btn-default-to-success{ class: "#{'active' if answer.response == 'yes'}", style: 'min-width:77px' }
-                    = radio_button_tag question_name, 'yes', answer.response == 'yes'
-                    Yes
-                  %label.btn.btn-default-to-danger{ class: "#{'active' if answer.response == 'no'}", style: 'min-width:77px' }
-                    = radio_button_tag question_name, 'no', answer.response == 'no'
-                    No
-                  %label.btn.btn-default-to-warning{ class: "#{'active' if answer.response == 'intermediate'}", style: 'min-width:160px' }
-                    = radio_button_tag question_name, 'intermediate', answer.response == 'intermediate'
-                    Intermediate
-                  %label.btn.btn-default-to-dark{ class: "#{'active' if answer.response == 'unscorable'}", style: 'min-width:160px' }
-                    = radio_button_tag question_name, 'unscorable', answer.response == 'unscorable'
-                    Unscorable / Artifact
+  .main-container.grid-texture
+    = form_tag update_signal_challenge_path(@challenge, signal: @signal), method: :post, id: 'signal-form' do
+      - array = (@signal_map[@signal - 1] ? @signal_map[@signal - 1].to_a : ('A'..'A').to_a)
+      %table.table.table-fixed
+        - array.each do |letter|
+          - number = "%02d" % @signal
+          - question_name = "signal#{number}#{letter.downcase}"
+          - question = @challenge.questions.find_by_name(question_name)
+          - answer = @challenge.answers.where(question_id: question.id, user_id: current_user.id).first_or_create
+          %tr{ class: "#{'warning' if flash[:alert] and answer.response.blank?}" }
+            %td.center
+              = letter
+            %td
+              %p{ data: { toggle: "buttons" } }
+                %label.btn.btn-default-to-success{ class: "#{'active' if answer.response == 'yes'}", style: 'min-width:77px' }
+                  = radio_button_tag question_name, 'yes', answer.response == 'yes'
+                  Yes
+                %label.btn.btn-default-to-danger{ class: "#{'active' if answer.response == 'no'}", style: 'min-width:77px' }
+                  = radio_button_tag question_name, 'no', answer.response == 'no'
+                  No
+                %label.btn.btn-default-to-warning{ class: "#{'active' if answer.response == 'intermediate'}", style: 'min-width:160px' }
+                  = radio_button_tag question_name, 'intermediate', answer.response == 'intermediate'
+                  Intermediate
+                %label.btn.btn-default-to-dark{ class: "#{'active' if answer.response == 'unscorable'}", style: 'min-width:160px' }
+                  = radio_button_tag question_name, 'unscorable', answer.response == 'unscorable'
+                  Unscorable / Artifact
 
-    #bottom-navigation
-      - unless @signal == 30
-        .main-container{ style: 'padding-top: 0px'}
-          .center
-            = link_to '&laquo; Previous Signal'.html_safe, signal_challenge_path(signal: @signal - 1), class: 'btn btn-default btn-lg' unless @signal == 1
-            = link_to 'Save and Continue to Next Signal &raquo;'.html_safe, '#' , class: 'btn btn-primary btn-lg', data: { object: 'submit', target: '#signal-form' }
+  #bottom-navigation
+    - unless @signal == 30
+      .main-container{ style: 'padding-top: 0px'}
+        .center
+          = link_to '&laquo; Previous Signal'.html_safe, signal_challenge_path(@challenge, signal: @signal - 1), class: 'btn btn-default btn-lg' unless @signal == 1
+          = link_to 'Save and Continue to Next Signal &raquo;'.html_safe, '#' , class: 'btn btn-primary btn-lg', data: { object: 'submit', target: '#signal-form' }
 
-      - if @signal == 30
-        .main-container
-          .center
-            = link_to '&laquo; Previous Signal'.html_safe, signal_challenge_path(signal: @signal - 1), class: 'btn btn-default btn-lg' unless @signal == 1
-            = link_to 'Save and Continue to Review Answers &raquo;'.html_safe, '#' , class: 'btn btn-primary btn-lg', data: { object: 'submit', target: '#signal-form' }
+    - if @signal == 30
+      .main-container
+        .center
+          = link_to '&laquo; Previous Signal'.html_safe, signal_challenge_path(@challenge, signal: @signal - 1), class: 'btn btn-default btn-lg' unless @signal == 1
+          = link_to 'Save and Continue to Review Answers &raquo;'.html_safe, '#' , class: 'btn btn-primary btn-lg', data: { object: 'submit', target: '#signal-form' }

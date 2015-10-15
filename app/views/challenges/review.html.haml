@@ -1,58 +1,65 @@
-.beta-container
-  .main-container.dark-texture
-    %h1 Flow Limitation Challenge
-    %p.wow.flipInX
-      Review Answers
+.main-container.dark-texture
+  %h1
+    = @challenge.name
+    Challenge
+  %p.wow.flipInX
+    Review Answers
+
+.main-container.grid-texture
+
+  %h2
+    My Answers
+
+  %p
+    Here are the answers you provided for this challenge. Please review them, and then either go back and edit, or submit your responses at the bottom.
+
+- @signal_map.each_with_index do |range, index|
+  - signal = index + 1
+  .slim-container{ class: "#{signal.odd? ? 'light-texture' : 'grid-texture' }" }
+    %h3
+      Signal
+      = signal
+      = link_to 'edit answers', signal_challenge_path(@challenge, signal), class: 'btn btn-xs btn-default'
+
+    = image_tag images_challenge_path(@challenge, path: @challenge.signal_name(signal)), style: 'width: 100%;'
+
+    %table.table.table-fixed
+      %thead
+        %tr
+          - range.each do |letter|
+            %th.center=letter
+      %tbody
+        %tr
+          - range.each do |letter|
+            - number = format('%02d', signal)
+            - question_name = "signal#{number}#{letter.downcase}"
+            - question = @challenge.questions.find_by_name(question_name)
+            - answer = @challenge.answers.where(question_id: question.id, user_id: current_user.id).first_or_create
+            %td{ style: 'text-align:center' }
+              - case answer.response when 'yes'
+                %span.label.label-success Y
+              - when 'no'
+                %span.label.label-danger N
+              - when 'intermediate'
+                %span.label.label-warning I
+              - when 'unscorable'
+                %span.label.label-default U
+              - else
+                %span.label{ style: "background-color: #FFF;color:#333;" } -
 
 
-  %a.anchor-top{ name: 'download-data' }
-  .main-container.grid-texture
+.main-container.call-to-action
 
-    %h2
-      My Answers
-
-    %p
-      Here are the answers you provided for this challenge. Please review them, and then either go back and edit, or submit your responses at the bottom.
-
-  - @signal_map.each_with_index do |range, index|
-    - signal = index + 1
-    .slim-container{ class: "#{signal.odd? ? 'light-texture' : 'grid-texture' }" }
-      %h3
-        Signal
-        = signal
-        = link_to 'edit answers', signal_challenge_path(@challenge, signal), class: 'btn btn-xs btn-default'
-
-      = image_tag images_challenge_path(@challenge, path: "fl#{signal}.png"), style: 'width: 100%;'
-
-      %table.table.table-fixed
-        %thead
-          %tr
-            - range.each do |letter|
-              %th.center=letter
-        %tbody
-          %tr
-            - range.each do |letter|
-              - number = "%02d" % signal
-              - question_name = "signal#{number}#{letter.downcase}"
-              - question = @challenge.questions.find_by_name(question_name)
-              - answer = @challenge.answers.where(question_id: question.id, user_id: current_user.id).first_or_create
-              %td{ style: 'text-align:center' }
-                - case answer.response when 'yes'
-                  %span.label.label-success Y
-                - when 'no'
-                  %span.label.label-danger N
-                - when 'intermediate'
-                  %span.label.label-warning I
-                - when 'unscorable'
-                  %span.label.label-default U
-                - else
-                  %span.label{ style: "background-color: #FFF;color:#333;" } -
-
-
-  .main-container.call-to-action
+  - if @challenge.survey_url.present?
 
     %h2.center
       Almost done, answer a short survey on the next page!
 
     .center{ style: 'margin-top:20px;margin-bottom:20px' }
-      = link_to 'Proceed to Survey', 'https://tryslice.io/survey/flow-limitation-challenge', class: 'btn btn-call-to-action btn-lg'
+      = link_to 'Proceed to Survey', @challenge.survey_url, class: 'btn btn-call-to-action btn-lg'
+  - else
+    %h2.center
+      Almost done, continue below!
+
+    .center{ style: 'margin-top:20px;margin-bottom:20px' }
+      = link_to 'Complete Challenge', submitted_challenge_path(@challenge), class: 'btn btn-call-to-action btn-lg'

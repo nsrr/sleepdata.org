@@ -3,14 +3,27 @@
 
 #carousel-showcase.carousel.slide{ 'data-ride' => 'carousel' }
   %ol.carousel-indicators.hidden-sm.hidden-xs
-    %li.active{ data: { target: "#carousel-showcase", slide: { to: "0" } } }
-    %li{ data: { target: "#carousel-showcase", slide: { to: "1" } } }
-    %li{ data: { target: "#carousel-showcase", slide: { to: "2" } } }
-    %li{ data: { target: "#carousel-showcase", slide: { to: "3" } } }
-    %li{ data: { target: "#carousel-showcase", slide: { to: "4" } } }
-    %li{ data: { target: "#carousel-showcase", slide: { to: "5" } } }
-  .carousel-inner{role: "listbox"}
+    %li.active{ data: { target: '#carousel-showcase', slide: { to: '0' } } }
+    %li{ data: { target: '#carousel-showcase', slide: { to: '1' } } }
+    %li{ data: { target: '#carousel-showcase', slide: { to: '2' } } }
+    %li{ data: { target: '#carousel-showcase', slide: { to: '3' } } }
+    %li{ data: { target: '#carousel-showcase', slide: { to: '4' } } }
+    %li{ data: { target: '#carousel-showcase', slide: { to: '5' } } }
+  .carousel-inner{ role: 'listbox' }
     .item.active
+      .row
+        .col-sm-6
+          .carousel-item-header
+            Our Second Challenge!
+          .carousel-item-description
+            Help fellow researchers by
+            = link_to 'participating', challenge_path('flow-limitation-2')
+            in the
+            %strong second
+            Flow Limitation Challenge.
+        .col-sm-6.center-picture{ style: 'overflow: hidden'}
+          = image_tag 'flow-limitation-2-logo.png', class: 'showcase-picture'
+    .item
       .row
         .col-sm-6
           .carousel-item-header
@@ -32,18 +45,6 @@
             with a group of early adopters on October 9th in Boston.
         .col-sm-6.center-picture{ style: 'overflow: hidden'}
           = image_tag 'showcase/carousel/eeg.png', class: 'showcase-picture'
-    - if false
-      .item
-        .row
-          .col-sm-6
-            .carousel-item-header
-              New Challenge
-            .carousel-item-description
-              Help fellow researchers by
-              = link_to 'participating', challenge_path('flow-limitation')
-              in the Flow Limitation Challenge.
-          .col-sm-6.center-picture{ style: 'overflow: hidden'}
-            = image_tag 'flow-limitation-logo.png', class: 'showcase-picture'
     .item
       .row
         .col-sm-6
@@ -82,19 +83,20 @@
               and
               = link_to 'EDFs', files_dataset_path('shhs', path: 'edfs')
               available for the Sleep Heart Health Study.
-    .item
-      .row
-        .col-sm-6.center-picture
-          = image_tag 'chat_logo.png', class: 'showcase-picture'
-        .col-sm-6
-          .carousel-item-header
-            = "CHAT v#{chat_dataset_version} Online"
-          .carousel-item-description
-            Download the latest
-            = link_to 'datasets', files_dataset_path('chat', path: 'datasets')
-            and
-            = link_to 'EDFs', files_dataset_path('chat', path: 'edfs')
-            available for the Childhood Adenotonsillectomy Trial.
+    - if false
+      .item
+        .row
+          .col-sm-6.center-picture
+            = image_tag 'chat_logo.png', class: 'showcase-picture'
+          .col-sm-6
+            .carousel-item-header
+              = "CHAT v#{chat_dataset_version} Online"
+            .carousel-item-description
+              Download the latest
+              = link_to 'datasets', files_dataset_path('chat', path: 'datasets')
+              and
+              = link_to 'EDFs', files_dataset_path('chat', path: 'edfs')
+              available for the Childhood Adenotonsillectomy Trial.
     - if false
       .item
         .row
@@ -124,22 +126,21 @@
 .showcase-footer
   %ul#showcase-list
     %li.active{ data: { target: "#carousel-showcase", slide: { to: "0" } } }
-      = image_tag 'showcase/smp-icon.png', class: 'showcase-indicator-picture img-bw img-color'
-      =# image_tag 'showcase/carousel/nsrr-sigma-power-twin-small.png', class: 'showcase-indicator-picture img-bw img-color'
-    %li{ data: { target: "#carousel-showcase", slide: { to: "1" } } }
-      = image_tag 'showcase/carousel/eeg.png', class: 'showcase-indicator-picture img-bw'
-    - if false
-      %li{ data: { target: "#carousel-showcase", slide: { to: "1" } } }
-        = image_tag 'showcase/flow-limitation-square.png', class: 'showcase-indicator-picture img-bw'
+      = image_tag 'showcase/flow-limitation-square.png', class: 'showcase-indicator-picture img-bw img-color'
+    %li.active{ data: { target: "#carousel-showcase", slide: { to: "1" } } }
+      = image_tag 'showcase/smp-icon.png', class: 'showcase-indicator-picture img-bw'
     %li{ data: { target: "#carousel-showcase", slide: { to: "2" } } }
-      = image_tag 'physiomimi_logo.png', class: 'showcase-indicator-picture img-bw'
+      = image_tag 'showcase/carousel/eeg.png', class: 'showcase-indicator-picture img-bw'
     %li{ data: { target: "#carousel-showcase", slide: { to: "3" } } }
+      = image_tag 'physiomimi_logo.png', class: 'showcase-indicator-picture img-bw'
+    %li{ data: { target: "#carousel-showcase", slide: { to: "4" } } }
       = image_tag 'showcase/matt-butler-icon.png', class: 'showcase-indicator-picture img-bw img-circle'
     - if false
       %li{ data: { target: "#carousel-showcase", slide: { to: "3" } } }
         = image_tag 'shhs_logo.png', class: 'showcase-indicator-picture img-op'
-    %li{ data: { target: "#carousel-showcase", slide: { to: "4" } } }
-      = image_tag 'chat_logo.png', class: 'showcase-indicator-picture img-bw'
+    - if false
+      %li{ data: { target: "#carousel-showcase", slide: { to: "4" } } }
+        = image_tag 'chat_logo.png', class: 'showcase-indicator-picture img-bw'
     - if false
       %li{ data: { target: "#carousel-showcase", slide: { to: "3" } } }
         = image_tag 'heartbeat-logo.png', class: 'showcase-indicator-picture img-bw'

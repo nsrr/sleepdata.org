@@ -1,6 +1,10 @@
 ## 0.17.3
 
 ### Enhancements
+- **Challenge Updates**
+  - A new challenge has been added!
+    - Flow Limitation - Part 2 is now available for users to fill out
+    - The original Flow Limitation challenge has been archived
 - **General Changes**
   - Fixed a minor display issue when proofing a DAUA submission in Step 1
   - Updated items on the carousel
