@@ -10,6 +10,7 @@
   - Updated items on the carousel
   - Added call to action on research showcase pages
   - Updated link to the NSRR Cross Dataset Query Interface
+  - Removed swiping left and right on variable pages from mobile view
 - **Gem Changes**
   - Removed minitest-reporters
   - Updated to pg 0.18.3
