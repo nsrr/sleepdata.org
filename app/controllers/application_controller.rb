@@ -76,7 +76,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user_from_token!
     user_id               = params[:auth_token].to_s.split('-').first
-    auth_token            = (params[:auth_token].to_s.split('-')[1..-1] || []).join('-')
+    auth_token            = params[:auth_token].to_s.gsub(/^#{user_id}-/, '')
     user                  = user_id && User.find_by_id(user_id)
 
     # Notice how we use Devise.secure_compare to compare the token
@@ -103,5 +103,4 @@ class ApplicationController < ActionController::Base
   def redirect_without_dataset
     empty_response_or_root_path( datasets_path ) unless @dataset
   end
-
 end

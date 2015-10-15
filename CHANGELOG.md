@@ -14,6 +14,9 @@
   - Removed minitest-reporters
   - Updated to pg 0.18.3
 
+### Bug Fix
+- Fixed a bug that prevented users with tokens ending in hyphens from authenticating correctly while using the NSRR gem
+
 ## 0.17.2 (August 25, 2015)
 
 ### Enhancements
