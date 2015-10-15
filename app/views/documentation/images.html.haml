@@ -1,0 +1,26 @@
+- if @object.class == Dataset
+  - images_path = images_dataset_path(@object, path: @image_file)
+- else
+  - images_path = images_tool_path(@object, path: @image_file)
+
+.slim-container.dark-texture
+  %h1
+    = @dataset.name
+
+  .row
+    .col-xs-12.col-sm-4{ style: 'margin-bottom: 10px' }
+      = link_to 'Documentation', pages_dataset_path(@dataset), class: "btn btn-block btn-#{params[:action] == 'pages' ? 'primary' : 'default'}"
+    .col-xs-12.col-sm-4{ style: 'margin-bottom: 10px' }
+      = link_to 'Files', files_dataset_path(@dataset), class: "btn btn-block btn-#{params[:action] == 'files' ? 'primary' : 'default'}"
+    .col-xs-12.col-sm-4{ style: 'margin-bottom: 10px' }
+      = link_to 'Variables', dataset_variables_path(@dataset), class: "btn btn-block btn-#{params[:controller] == 'variables' ? 'primary' : 'default'}"
+
+.breadcrumb-container
+  %ol.breadcrumb
+    %li= link_to @object.slug, @object
+    %li images
+    %li= link_to File.basename(@image_file), images_path
+
+.slim-container
+  .center{ style: 'margin-bottom: 20px' }
+    = image_tag images_path, style: 'max-width:100%'

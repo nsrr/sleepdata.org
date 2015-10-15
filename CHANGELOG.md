@@ -11,6 +11,7 @@
   - Added call to action on research showcase pages
   - Updated link to the NSRR Cross Dataset Query Interface
   - Removed swiping left and right on variable pages from mobile view
+  - Updated styling on dataset and tool image pages
 - **Forum Changes**
   - Large images are now scaled down to fit correctly in forum posts
 - **Gem Changes**
