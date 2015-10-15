@@ -76,7 +76,7 @@ module Pageable
     elsif @image_file
       render 'documentation/images'
     else
-      render nothing: true
+      head :ok
     end
   end
 

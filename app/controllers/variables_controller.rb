@@ -22,7 +22,7 @@ class VariablesController < ApplicationController
   end
 
   def image
-    render nothing: true and return unless @variable
+    head :ok and return unless @variable
     size = 'lg' if params[:size] == 'lg'
 
     image_name = [@variable.name, size].compact.join('-')
