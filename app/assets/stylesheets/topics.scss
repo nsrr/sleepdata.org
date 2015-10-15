@@ -86,6 +86,9 @@
   padding: 10px;
   overflow: hidden;
   @include remove-element-margins;
+  img {
+    max-width: 100%;
+  }
 }
 
 .post-footer {
