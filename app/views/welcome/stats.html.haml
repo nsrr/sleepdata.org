@@ -2,6 +2,7 @@
 .slim-container.dark-texture
   %h1
     = @title
+  = link_to 'Admin Dashboard', admin_path, class: 'btn btn-xs btn-default'
   = link_to 'Location', location_path, class: 'btn btn-xs btn-default'
 
 .slim-container.math-texture
@@ -13,50 +14,59 @@
         %th.center Core Team member signups
         %th.center Total Signups
     %tr
-      %td.center= User.current.where( core_member: false, aug_member: false ).count
-      %td.center= User.current.where( aug_member: true ).count
-      %td.center= User.current.where( core_member: true ).count
+      %td.center= User.current.where(core_member: false, aug_member: false).count
+      %td.center= User.current.where(aug_member: true).count
+      %td.center= User.current.where(core_member: true).count
       %td.center= User.current.count
 
   %table.table.table-striped
     %thead
       %tr
         %th.center Regular member signups
-        %th.center= link_to 'Regular member DAUAs submitted', reviews_path( status: ['submitted', 'approved', 'resubmit', 'expired'], user_type: 'regular' )
-        %th.center= link_to 'Regular member DAUAs approved', reviews_path( status: ['approved', 'expired'], user_type: 'regular' )
+        %th.center= link_to 'Regular member DAUAs submitted', reviews_path(status: ['submitted', 'approved', 'resubmit', 'expired'], user_type: 'regular')
+        %th.center= link_to 'Regular member DAUAs approved', reviews_path(status: ['approved', 'expired'], user_type: 'regular')
     %tr
-      %td.center= User.current.where( core_member: false, aug_member: false ).count
-      %td.center= Agreement.current.regular_members.where( status: ['submitted', 'approved', 'resubmit', 'expired'] ).count
-      %td.center= Agreement.current.regular_members.where( status: ['approved', 'expired'] ).count
+      %td.center= User.current.where(core_member: false, aug_member: false).count
+      %td.center= Agreement.current.regular_members.where(status: ['submitted', 'approved', 'resubmit', 'expired']).count
+      %td.center= Agreement.current.regular_members.where(status: ['approved', 'expired']).count
+
+  - regular_members_files = DatasetFileAudit.regular_members.group(:dataset_id).count
+  - regular_members_file_sizes = DatasetFileAudit.regular_members.group(:dataset_id).sum(:file_size)
+  - aug_or_core_members_files = DatasetFileAudit.aug_or_core_members.group(:dataset_id).count
+  - aug_or_core_members_file_sizes = DatasetFileAudit.aug_or_core_members.group(:dataset_id).sum(:file_size)
+  - public_downloads_files = DatasetFileAudit.public_downloads.group(:dataset_id).count
+  - public_downloads_file_sizes = DatasetFileAudit.public_downloads.group(:dataset_id).sum(:file_size)
 
   %table.table.table-striped.fixed-font-size
     %col{ width: "1%" }
     %thead
       %tr
         %th
-        %th.center{ colspan: "2" } Regular Members
-        %th.center{ colspan: "2" } AUG + Core Members
-        %th.center{ colspan: "2" } Total
+        %th.center{ colspan: 2 } Regular Members
+        %th.center{ colspan: 2 } AUG + Core Members
+        %th.center{ colspan: 2 } Total
       %tr
         %th Dataset
-        %th.center{ colspan: "2" } Files Downloaded
-        %th.center{ colspan: "2" } Files Downloaded
-        %th.center{ colspan: "2" } Files Downloaded
+        %th.center{ colspan: 2 } Files Downloaded
+        %th.center{ colspan: 2 } Files Downloaded
+        %th.center{ colspan: 2 } Files Downloaded
     - Dataset.current.order(:release_date, :name).each do |dataset|
+      - public_downloads_files[dataset.id] ||= 0
+      - public_downloads_file_sizes[dataset.id] ||= 0
       %tr
-        %td{ style: "white-space:nowrap" }= link_to dataset.name, audits_dataset_path(dataset)
-        %td.center= pluralize number_with_delimiter(dataset.dataset_file_audits.regular_members.count), 'file'
-        %td.center= number_to_human_size dataset.dataset_file_audits.regular_members.sum( :file_size )
-        %td.center= pluralize number_with_delimiter(dataset.dataset_file_audits.aug_or_core_members.count), 'file'
-        %td.center= number_to_human_size dataset.dataset_file_audits.aug_or_core_members.sum( :file_size )
-        %td.center= pluralize number_with_delimiter(dataset.dataset_file_audits.count), 'file'
-        %td.center= number_to_human_size dataset.dataset_file_audits.sum( :file_size )
+        %td.nowrap= link_to dataset.name, audits_dataset_path(dataset)
+        %td.center= pluralize number_with_delimiter(regular_members_files[dataset.id] ||= 0), 'file'
+        %td.center= number_to_human_size(regular_members_file_sizes[dataset.id] ||= 0)
+        %td.center= pluralize number_with_delimiter(aug_or_core_members_files[dataset.id] ||= 0), 'file'
+        %td.center= number_to_human_size(aug_or_core_members_file_sizes[dataset.id] ||= 0)
+        %td.center= pluralize number_with_delimiter(regular_members_files[dataset.id] + aug_or_core_members_files[dataset.id] + public_downloads_files[dataset.id]), 'file'
+        %td.center= number_to_human_size regular_members_file_sizes[dataset.id] + aug_or_core_members_file_sizes[dataset.id] + public_downloads_file_sizes[dataset.id]
     %tfoot
       %tr
         %th Total
-        %th.center= pluralize number_with_delimiter(DatasetFileAudit.regular_members.count), 'file'
-        %th.center.success= number_to_human_size DatasetFileAudit.regular_members.sum( :file_size )
-        %th.center= pluralize number_with_delimiter(DatasetFileAudit.aug_or_core_members.count), 'file'
-        %th.center= number_to_human_size DatasetFileAudit.aug_or_core_members.sum( :file_size )
-        %th.center= pluralize number_with_delimiter(DatasetFileAudit.count), 'file'
-        %th.center= number_to_human_size DatasetFileAudit.sum( :file_size )
+        %th.center= pluralize number_with_delimiter(regular_members_files.values.sum), 'file'
+        %th.center.success= number_to_human_size regular_members_file_sizes.values.sum
+        %th.center= pluralize number_with_delimiter(aug_or_core_members_files.values.sum), 'file'
+        %th.center= number_to_human_size aug_or_core_members_file_sizes.values.sum
+        %th.center= pluralize number_with_delimiter(regular_members_files.values.sum + aug_or_core_members_files.values.sum + public_downloads_files.values.sum), 'file'
+        %th.center= number_to_human_size regular_members_file_sizes.values.sum + aug_or_core_members_file_sizes.values.sum + public_downloads_file_sizes.values.sum

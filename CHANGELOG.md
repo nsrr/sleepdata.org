@@ -14,6 +14,9 @@
   - Updated styling on dataset and tool image pages
 - **Forum Changes**
   - Large images are now scaled down to fit correctly in forum posts
+- **Admin Changes**
+  - Improved loading time of overall file download statistics
+  - Improved loading time of overall file downloads per month graph
 - **Gem Changes**
   - Removed minitest-reporters
   - Updated to pg 0.18.3

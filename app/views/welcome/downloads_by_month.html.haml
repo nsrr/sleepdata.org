@@ -1,15 +1,17 @@
 - case params[:user_type] when 'aug'
-  - user_ids = User.current.where( aug_member: true ).pluck(:id)
+  - dfa_scope = DatasetFileAudit.aug_members
   - user_type = 'AUG Members'
 - when 'core'
-  - user_ids = User.current.where( core_member: true ).pluck(:id)
+  - dfa_scope = DatasetFileAudit.core_members
   - user_type = 'Core Members'
 - when 'regular'
-  - user_ids = User.current.where( aug_member: false, core_member: false ).pluck(:id)
+  - dfa_scope = DatasetFileAudit.regular_members
   - user_type = 'Regular Members'
 - else
-  - user_ids = User.current.pluck(:id)
+  - dfa_scope = DatasetFileAudit.all_members
   - user_type = 'All Members'
+- @year = (params[:year] || Date.today.year).to_i
+- dataset_file_audit_hash = dfa_scope.year(@year).group(:dataset_id, "extract(month from dataset_file_audits.created_at)").sum(:file_size)
 
 - @title = "Downloads By Month for #{user_type}"
 .slim-container.dark-texture
@@ -31,9 +33,8 @@
   = link_to 'Core Members', downloads_by_month_path(year: @year, user_type: 'core'), class: "btn btn-xs #{ params[:user_type] == 'core' ? 'btn-primary' : 'btn-default'}"
 
   - series = Dataset.current.order(:release_date, :name).collect do |dataset|
-    - file_sizes = (1..12).to_a.collect do |month|
-      - current_month = Date.parse("#{@year}-#{month}-01")
-      - dataset.dataset_file_audits.audit_after(current_month).audit_before(current_month.end_of_month).where( user_id: user_ids ).sum( :file_size ).to_i
+    - file_sizes = (1..12).collect(&:to_f).collect do |month|
+      - dataset_file_audit_hash[[dataset.id, month]].to_i
     - if file_sizes.sum > 0
       - { name: dataset.name, data: file_sizes }
     - else

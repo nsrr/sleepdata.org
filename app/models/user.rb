@@ -11,14 +11,14 @@ class User < ActiveRecord::Base
   before_save :ensure_authentication_token
 
   # Named Scopes
-  scope :aug_members, -> { current.where( aug_member: true ) }
-  scope :core_members, -> { current.where( core_member: true ) }
-  scope :system_admins, -> { current.where( system_admin: true ) }
-  scope :search, lambda { |arg| where( 'LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ) }
-  scope :with_name, lambda { |arg| where("(users.first_name || ' ' || users.last_name) IN (?) or users.username IN (?)", arg, arg) }
+  scope :aug_members, -> { current.where(aug_member: true) }
+  scope :core_members, -> { current.where(core_member: true) }
+  scope :system_admins, -> { current.where(system_admin: true) }
+  scope :search, -> (arg) { where('LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%')) }
+  scope :with_name, -> (arg) { where("(users.first_name || ' ' || users.last_name) IN (?) or users.username IN (?)", arg, arg) }
 
   # Model Validation
-  validates_presence_of :first_name, :last_name
+  validates :first_name, :last_name, presence: true
   validates_uniqueness_of :username, allow_blank: true, case_sensitive: false
   validates_format_of :username, with: /\A[a-z]\w*\Z/i, allow_blank: true
 
