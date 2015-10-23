@@ -17,6 +17,14 @@ class User < ActiveRecord::Base
   scope :search, -> (arg) { where('LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%')) }
   scope :with_name, -> (arg) { where("(users.first_name || ' ' || users.last_name) IN (?) or users.username IN (?)", arg, arg) }
 
+  def self.aug_or_core_members
+    current.where('aug_member = ? or core_member = ?', true, true)
+  end
+
+  def self.regular_members
+    current.where(aug_member: false, core_member: false)
+  end
+
   # Model Validation
   validates :first_name, :last_name, presence: true
   validates_uniqueness_of :username, allow_blank: true, case_sensitive: false
