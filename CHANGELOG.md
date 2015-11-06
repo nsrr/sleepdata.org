@@ -1,4 +1,4 @@
-## 0.17.3
+## 0.17.3 (November 6, 2015)
 
 ### Enhancements
 - **Challenge Updates**
