@@ -1,0 +1,23 @@
+.slim-container.dark-texture
+  %h2
+    Domain
+    = @variable.domain.name
+  %table.table
+    %thead
+      %tr
+        %th Value
+        %th Name
+        - if false
+          %th Description
+          %th Missing Code
+    - @variable.domain.options.each do |option|
+      %tr
+        %td
+          = option['value']
+        %td
+          = option['display_name']
+        - if false
+          %td
+            = option['description']
+          %td
+            = option['missing_code']

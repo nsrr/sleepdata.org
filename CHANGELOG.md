@@ -1,6 +1,8 @@
 ## 0.18.0
 
 ### Enhancements
+- **Variable Changes**
+  - Added a table of domain options for variables that are linked to domains
 - **Gem Changes**
   - Updated to rails 4.2.5
   - Updated to pg 0.18.4

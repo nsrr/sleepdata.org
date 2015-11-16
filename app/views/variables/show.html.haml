@@ -52,6 +52,9 @@
   .slim-container.dark-texture
     %p= @variable.description
 
+- if @variable.domain
+  = render 'variables/domain'
+
 .slim-container.math-texture
   - if json and json['tables']
     - (json['tables'] || []).each do |key, tables|
