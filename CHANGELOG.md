@@ -8,6 +8,9 @@
   - Updated to pg 0.18.4
   - Started testing of Ruby 2.3.0-preview1
 
+### Bug Fix
+- Fixed an issue where chart numbers would not show well on charts with dark columns
+
 ## 0.17.3 (November 6, 2015)
 
 ### Enhancements

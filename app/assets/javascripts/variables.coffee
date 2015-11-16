@@ -23,8 +23,8 @@
         title:
           text: json['units']
       tooltip:
-        headerFormat: '<span style="font-size:10px">{point.key}</span><table>'
-        pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' + "<td style=\"padding:0\"><b>{point.y}</b> #{(if json['stacking'] then '({point.percentage:.0f}%)' else json['units'])}</td></tr>"
+        headerFormat: '<span style="font-size: 16px"><b>{point.key}</b></span><table>'
+        pointFormat: '<tr><td style="font-size: 14px;color:{series.color};padding:0">{series.name}: </td>' + "<td style=\"font-size: 14px;padding:0\"><b>{point.y}</b> #{(if json['stacking'] then '({point.percentage:.0f}%)' else json['units'])}</td></tr>"
         footerFormat: '</table>'
         shared: true,
         useHTML: true
@@ -46,6 +46,12 @@
   $("[data-object~='variable-chart-button'][data-chart-type~='#{$(element).data('chart-type')}']").addClass('btn-primary')
 
 @variablesReady = () ->
+  Highcharts.setOptions(
+    lang:
+      thousandsSep: ','
+    colors: ['#7cb5ec', '#90ed7d', '#f7a35c', '#8085e9',
+      '#f15c80', '#e4d354', '#2b908f', '#f45b5b', '#91e8e1']
+  )
   chart_type = $('#chart_type').val() || 'histogram'
   drawChart(chart_type)
   $("[data-chart-name~='#{chart_type}']").show()

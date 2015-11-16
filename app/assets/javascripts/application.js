@@ -31,12 +31,12 @@
 //= require external/lang-matlab
 //= require external/lang-r
 
-//= require external/highcharts-4.0.4.src.js
+//= require external/highcharts-4.1.9.src.js
 //= require variables
 //= require download_graphs
 
-//= require external/highmaps-1.0.4-modules-map.src.js
-//= require external/highmaps-1.0.4-modules-data.js
+//= require external/highmaps-1.1.9-modules-map.src.js
+//= require external/highmaps-1.1.9-modules-data.src.js
 //= require external/us-all.js
 //= require external/world.js
 //= require maps
