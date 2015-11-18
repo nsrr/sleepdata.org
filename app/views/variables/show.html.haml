@@ -33,7 +33,7 @@
 - charts = []
 - charts = json['charts'].keys.collect{|k| [k.titleize, k]} if json and json.is_a?(Hash) and json['charts'].is_a?(Hash)
 
-- if charts.size > 0 && false
+- if charts.size > 0
   .slim-container.math-texture
     - [['hidden-sm hidden-xs', 'btn-lg'], ['hidden-md hidden-lg', 'btn-sm']].each do |hidden_classes, btn_size_class|
       .btn-group.btn-group-justified{ class: hidden_classes, style: "padding-bottom:20px" }
