@@ -33,20 +33,28 @@
 - charts = []
 - charts = json['charts'].keys.collect{|k| [k.titleize, k]} if json and json.is_a?(Hash) and json['charts'].is_a?(Hash)
 
-- if charts.size > 0
+- if charts.size > 0 && false
   .slim-container.math-texture
     - [['hidden-sm hidden-xs', 'btn-lg'], ['hidden-md hidden-lg', 'btn-sm']].each do |hidden_classes, btn_size_class|
       .btn-group.btn-group-justified{ class: hidden_classes, style: "padding-bottom:20px" }
         - charts.each do |chart_name, chart_value|
           = link_to chart_name, '#', class: "btn btn-#{chart_value == params[:g].to_s || (chart_value == 'histogram' && params[:g].blank?) ? 'primary' : 'default'} #{btn_size_class}", data: { object: 'variable-chart-button', chart_type: chart_value }
     #chart-container.math-texture{ style: "min-width: 200px; max-width: 800px; height: 400px; margin: 0 auto" }
-- elsif File.file?( File.join( @dataset.root_folder, 'dd', 'images', @version, "#{@variable.name}-lg.png") )
+- elsif File.file?(File.join( @dataset.root_folder, 'dd', 'images', @version, "#{@variable.name}-lg.png"))
   .slim-container.math-texture
     - [['hidden-sm hidden-xs', 'btn-lg'], ['hidden-md hidden-lg', 'btn-sm']].each do |hidden_classes, btn_size_class|
       .btn-group.btn-group-justified{ class: hidden_classes, style: "padding-bottom:20px" }
         = link_to 'Graph', '#', data: { object: 'suppress-click' }, class: "btn btn-primary #{btn_size_class}"
     %center
       = image_tag image_dataset_variable_path(@variable.dataset, @variable, size: 'lg'), style: 'max-width: 100%;max-height:400px;display:block'
+- elsif File.file?(File.join( @dataset.root_folder, 'dd', 'images', @version, "#{@variable.name}.svg"))
+  .slim-container.math-texture
+    - [['hidden-sm hidden-xs', 'btn-lg'], ['hidden-md hidden-lg', 'btn-sm']].each do |hidden_classes, btn_size_class|
+      .btn-group.btn-group-justified{ class: hidden_classes, style: "padding-bottom:20px" }
+        = link_to 'Graph', '#', data: { object: 'suppress-click' }, class: "btn btn-primary #{btn_size_class}"
+    %center
+      %object{ type: 'image/svg+xml', data: image_dataset_variable_path(@variable.dataset, @variable, size: 'lg', format: 'svg'), style: 'max-width: 100%;max-height:400px;display:block' }
+        Your browser does not support SVG
 
 - unless @variable.description.blank?
   .slim-container.dark-texture
