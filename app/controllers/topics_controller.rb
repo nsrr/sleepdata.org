@@ -7,8 +7,6 @@ class TopicsController < ApplicationController
   before_action :set_editable_topic, only: [ :edit, :update ]
   before_action :redirect_without_topic, only: [ :show, :edit, :update, :destroy, :subscription ]
 
-  layout 'layouts/application-full'
-
   def markup
 
   end

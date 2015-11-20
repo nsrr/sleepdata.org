@@ -39,13 +39,11 @@ class ToolsController < ApplicationController
     end
     tool_scope = tool_scope.where( tool_type: params[:type] ) unless params[:type].blank?
     @tools = tool_scope.order(:tool_type, :name).page(params[:page]).per( 12 )
-    render layout: 'layouts/application-full'
   end
 
   # GET /tools/1
   # GET /tools/1.json
   def show
-    render layout: 'layouts/application-full'
   end
 
   # GET /tools/new

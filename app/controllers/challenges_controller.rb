@@ -8,8 +8,6 @@ class ChallengesController < ApplicationController
 
   before_action :set_signal_map,              only: [:signal, :update_signal, :review, :submitted]
 
-  layout 'application-full'
-
   # GET /challenges
   def index
     @challenges = Challenge.all

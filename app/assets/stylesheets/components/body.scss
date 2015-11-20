@@ -1,0 +1,11 @@
+// General styles for html and body elements to account for header and footer
+
+html {
+  min-height: 100%;
+  position: relative;
+}
+
+body {
+  margin-bottom: $footer-height;
+  padding-top: $header-height + 1px; // Includes 1px border bottom of menu
+}

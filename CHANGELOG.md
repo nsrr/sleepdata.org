@@ -1,6 +1,8 @@
 ## 0.18.0
 
 ### Enhancements
+- **General Changes**
+  - Improved the user interface across the site for easier navigation and a cleaner look
 - **Variable Changes**
   - Added a table of domain options for variables that are linked to domains
   - Added ability to display SVG graphs for variables for future integration with Spout

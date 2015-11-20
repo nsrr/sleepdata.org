@@ -1,11 +1,12 @@
 require 'test_helper'
 
+# Tests to make sure static pages are publicly available
 class StaticControllerTest < ActionController::TestCase
   setup do
     @regular_user = users(:valid)
   end
 
-  test 'should get demo for logged out user' do
+  test 'should get demo for public user' do
     get :demo
     assert_response :success
   end
@@ -13,16 +14,6 @@ class StaticControllerTest < ActionController::TestCase
   test 'should get demo for regular user' do
     login(@regular_user)
     get :demo
-    assert_response :success
-  end
-
-  test 'should get parallax' do
-    get :parallax
-    assert_response :success
-  end
-
-  test 'should get parallax2' do
-    get :parallax2
     assert_response :success
   end
 

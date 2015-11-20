@@ -8,7 +8,7 @@
 .breadcrumb-container
   &nbsp;
   %div{ style: 'float:right; margin-top: -25px' }
-    = render 'layouts/per_page', per_page: 100, object_count: @audits.count, pagination_size: 'small'
+    = render 'variables/per_page', per_page: 100, object_count: @audits.count, pagination_size: 'small'
 
 .slim-container.math-texture
 

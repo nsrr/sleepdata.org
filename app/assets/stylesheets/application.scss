@@ -1,3 +1,12 @@
-@import 'nsrr-variables';
+// Bootstrap and general variable definitions
+@import 'variables/all';
 
-@import 'tree';
+// Core Bootstrap styles
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+
+// App specific styles
+@import 'components/all';
+@import 'extensions/all';
+@import 'fixes/all';
+@import 'objects/all';

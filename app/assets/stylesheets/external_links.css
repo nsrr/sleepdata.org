@@ -1,9 +1,0 @@
-a[href ^= "http"]:not([href*="//sleepdata.org"]) {
-  color: #5bc0de;
-  border-color: #46b8da;
-}
-
-a[href ^= "http"]:not([href*="//sleepdata.org"]):hover {
-  color: #31b0d5;
-  border-color: #269abc;
-}

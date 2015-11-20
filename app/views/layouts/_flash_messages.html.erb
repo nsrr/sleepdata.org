@@ -1,8 +1,0 @@
-<% if flash.present? %>
-  <% flash.each do |type, message| %>
-    <div class="alert <%= {'notice' => 'alert-info', 'alert' => 'alert-warning', 'error' => 'alert-danger'}[type] %>">
-      <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-      <%= message %>
-    </div>
-  <% end %>
-<% end %>

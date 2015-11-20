@@ -1,19 +1,8 @@
+# Provides access to publicly available static pages
 class StaticController < ApplicationController
-
-  layout 'application-full'
-
   def demo
-  end
-
-  def parallax
-    render layout: 'layouts/application-parallax'
-  end
-
-  def parallax2
-    render layout: 'layouts/application-parallax'
   end
 
   def version
   end
-
 end

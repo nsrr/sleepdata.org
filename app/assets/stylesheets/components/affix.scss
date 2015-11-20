@@ -1,0 +1,60 @@
+.logo-header .jumbotron {
+  // margin-bottom: 0px;
+}
+
+// Container to maintain height of document when transitioning relative div to
+// a fixed div
+.navbar-outer {
+  height: $header-height;
+
+  .navbar {
+    background-color: $body-bg;
+    border-width: 1px 0;
+    // border-width: 0;
+    transition: all .2s ease;
+    z-index: 1030;
+  }
+}
+
+.navbar {
+  border-radius: 0;
+
+  &.affix {
+    background-color: $brand-primary;
+    border-width: 0 0 1px;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 1030;
+
+    // a {
+    //   background-color: $brand-primary;
+    //   color: $brand-white;
+    // }
+    // .active {
+    //   a {
+    //     background-color: $brand-white;
+    //     color: $brand-primary;
+    //   }
+    // }
+  }
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .navbar-outer{
+    .navbar-collapse {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+}
+
+// .navbar-nav {
+//   .active {
+//     a {
+//       background-color: $brand-primary;
+//       color: $brand-white;
+//     }
+//   }
+// }

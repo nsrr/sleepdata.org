@@ -17,7 +17,6 @@ class ReviewsController < ApplicationController
       agreement_scope = agreement_scope.where( status: params[:status] )
     end
     @agreements = agreement_scope.page(params[:page]).per( 40 )
-    render layout: 'application-full'
   end
 
   def show

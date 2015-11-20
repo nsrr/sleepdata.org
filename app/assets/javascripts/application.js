@@ -20,6 +20,8 @@
 //= require flashcanvas.js
 //= require jquery.signaturepad.min.js
 
+
+
 //= require global
 //= require agreements
 //= require datasets
@@ -50,3 +52,7 @@
 //= require challenges
 
 //= require google_analytics
+
+
+
+//= require components/affix

@@ -1,11 +1,11 @@
+# Main web application controller for NSRR website. Keeps track of user's
+# location for friendly forwarding.
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
   before_action :store_location
-
-  layout 'application-full'
 
   def store_location
     if (!request.post? &&
@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   end
 
   def check_system_admin
-    redirect_to root_path, alert: "You do not have sufficient privileges to access that page." unless current_user.system_admin?
+    redirect_to root_path, alert: 'You do not have sufficient privileges to access that page.' unless current_user.system_admin?
   end
 
   def scrub_order(model, params_order, default_order)
@@ -55,14 +55,19 @@ class ApplicationController < ActionController::Base
   end
 
   def check_banned
-    if current_user.banned?
-      flash[:warning] = "You do not have permission to post on the forum."
-      empty_response_or_root_path(@topic || topics_path)
-    end
+    return unless current_user.banned?
+    flash[:warning] = 'You do not have permission to post on the forum.'
+    empty_response_or_root_path(@topic || topics_path)
   end
 
   def parse_date(date_string, default_date = '')
-    date_string.to_s.split('/').last.size == 2 ? Date.strptime(date_string, "%m/%d/%y") : Date.strptime(date_string, "%m/%d/%Y") rescue default_date
+    if date_string.to_s.split('/').last.size == 2
+      Date.strptime(date_string, '%m/%d/%y')
+    else
+      Date.strptime(date_string, '%m/%d/%Y')
+    end
+  rescue
+    default_date
   end
 
   def empty_response_or_root_path(path = root_path)
@@ -89,10 +94,10 @@ class ApplicationController < ActionController::Base
 
   def set_viewable_dataset(id = :dataset_id)
     viewable_datasets = if current_user
-      current_user.all_viewable_datasets
-    else
-      Dataset.current.where( public: true )
-    end
+                          current_user.all_viewable_datasets
+                        else
+                          Dataset.current.where(public: true)
+                        end
     @dataset = viewable_datasets.find_by_slug(params[id])
   end
 
@@ -101,6 +106,6 @@ class ApplicationController < ActionController::Base
   end
 
   def redirect_without_dataset
-    empty_response_or_root_path( datasets_path ) unless @dataset
+    empty_response_or_root_path(datasets_path) unless @dataset
   end
 end
