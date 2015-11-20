@@ -90,7 +90,8 @@
                       - rows.each do |cell|
                         = render 'variables/table_cell', cell: cell, type: :td
 
-= render 'variables/calculation' unless @variable.calculation.blank?
+.slim-container.math-texture
+  = render 'variables/calculation' unless @variable.calculation.blank?
 
 - variables = @variable.related_variables
 - if variables.size > 0
