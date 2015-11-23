@@ -1,15 +1,11 @@
 - @title = 'Datasets'
-.beta-container
-  .cloud-texture
-    .horizontal-fade
-      .vertical-fade{ style: 'padding: 0vw 5vw 0vw 5vw;' }
-        .main-container
-          %h1
-            = @title
-            - if current_user and current_user.system_admin?
-              = link_to "Create Dataset", new_dataset_path, class: 'btn btn-xs btn-primary'
-          %p
-            Read documentation, download files, and view charts and statistics.
 
-  .main-container.grid-texture
-    = render partial: 'datasets/datasets'
+%h1
+  = @title
+  - if current_user && current_user.system_admin?
+    = link_to 'Create Dataset', new_dataset_path, class: 'btn btn-xs btn-primary'
+%p
+  Read documentation, download files, and view charts and statistics.
+
+.content-container
+  = render 'datasets/datasets'

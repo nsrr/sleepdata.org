@@ -40,7 +40,7 @@
                   = @dataset.info_funded_by
       .col-md-3
         .info-container
-          - agreements = (current_user ? @dataset.agreements.where( user_id: current_user.id ) : Agreement.none)
+          - agreements = (current_user ? @dataset.agreements.where(user_id: current_user.id) : Agreement.none)
           - if agreement = agreements.where( status: 'submitted' ).first
             %p
               Request Submitted

@@ -1,6 +1,7 @@
+# TODO: Remove/refactor controller
 class WelcomeController < ApplicationController
-  before_action :authenticate_user!,        only: [ :sync, :stats, :agreement_reports, :downloads_by_month, :location, :token, :reviews_index, :reviews_show ]
-  before_action :check_system_admin,        only: [ :sync, :stats, :agreement_reports, :downloads_by_month, :location, :reviews_index, :reviews_show ]
+  before_action :authenticate_user!,        only: [:sync, :stats, :agreement_reports, :downloads_by_month, :location, :token, :reviews_index, :reviews_show]
+  before_action :check_system_admin,        only: [:sync, :stats, :agreement_reports, :downloads_by_month, :location, :reviews_index, :reviews_show]
 
   def about
     @users = User.core_members.order( :last_name, :first_name )
@@ -38,7 +39,6 @@ class WelcomeController < ApplicationController
       variable_scope = variable_scope.where("search_terms ~* ?", @labels.collect{|l| "(\\m#{l})"}.join("|"))
       @variables = variable_scope.sort{|a,b| [b.score(@labels), a.name] <=> [a.score(@labels), b.name]}
     end
-
   end
 
   def collection_modal
@@ -52,12 +52,7 @@ class WelcomeController < ApplicationController
     @variable = @dataset.variables.find_by_name(params[:basename]) if @dataset
   end
 
-  def index
-    @datasets = Dataset.release_scheduled
-  end
-
   def agreement_reports
     @agreements = Agreement.current.regular_members
   end
-
 end

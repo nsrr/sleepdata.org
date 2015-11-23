@@ -1,31 +1,26 @@
 - if @challenge.signal_count > 0
-  .main-container.dark-texture
-    %h1 Flow Limitation Challenge
-    %p.wow.flipInX
-      Signal
-      = @signal
-      of
-      = @challenge.signal_count
-    - last_question = @challenge.questions.order(:name).last
-    - if current_user.answers.where(challenge_id: @challenge.id, question_id: last_question.id).where.not(response: nil).count > 0
-      %p= link_to 'Return to Review', review_challenge_path(@challenge), class: 'btn btn-xs btn-default'
-  - if flash[:alert]
-    .slim-container.flash-alert
-      %p.center
-        = flash[:alert]
+  .challenge-header
+    .main-container.dark-texture
+      %h1 Flow Limitation Challenge
+      %p.wow.flipInX
+        Signal
+        = @signal
+        of
+        = @challenge.signal_count
+      - last_question = @challenge.questions.order(:name).last
+      - if current_user.answers.where(challenge_id: @challenge.id, question_id: last_question.id).where.not(response: nil).count > 0
+        %p= link_to 'Return to Review', review_challenge_path(@challenge), class: 'btn btn-xs btn-default'
 
-
-  #affix-container.grid-texture{ style: 'height:300px;width:100%;margin-bottom:40px' }
-    %div{ data: { object: 'signal-affix' } }
-      .main-container.grid-texture{ style: 'padding-top:20px;padding-bottom:0px;' }
-        .center
-          = image_tag images_challenge_path(@challenge, path: @challenge.signal_name(@signal)), style: 'max-width: 100%;', id: "affix-img"
-        .center
-          %table.table.table-fixed
-            %thead
-              %tr
-                %th.center Breath
-                %th Is the breath flow limited?
+  #affix-container.grid-texture{ style: 'height: 300px;width: 100%;' }
+    .container{ style: 'top: 51px;background-color: #fff;', data: { object: 'signal-affix' } }
+      .center
+        = image_tag images_challenge_path(@challenge, path: @challenge.signal_name(@signal)), style: 'max-width: 100%;', id: "affix-img"
+      .center
+        %table.table.table-fixed{ style: 'margin-bottom: 0px;' }
+          %thead
+            %tr
+              %th.center Breath
+              %th Is the breath flow limited?
 
   .main-container.grid-texture
     = form_tag update_signal_challenge_path(@challenge, signal: @signal), method: :post, id: 'signal-form' do

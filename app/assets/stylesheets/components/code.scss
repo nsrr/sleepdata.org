@@ -1,0 +1,32 @@
+.code-container {
+  margin: 24px 0;
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .code-container {
+    margin: 48px 0;
+  }
+}
+
+.code-command {
+  border: 1px solid $gray-lighter;
+  border-radius: 5px;
+  font-family: Monaco, Menlo, Consolas, 'Courier New', monospace;
+  font-size: 16px;
+  line-height: 2;
+  padding: 3px 5px;
+  white-space: normal;
+}
+
+@media screen and (min-width: 768px) {
+  .code-command {
+    font-size: 21px;
+  }
+}
+
+.code-command::before {
+  content: '\e205';
+  color: $gray-lighter;
+  font-family: 'Glyphicons Halflings';
+}

@@ -1,19 +1,18 @@
-.main-container.dark-texture.full-height
+- content_for :banner do
+  .call-to-action{ style: 'background-color: #333' }
+    .call-to-action-body Participate in the
+    .call-to-action-header.brand
+      Flow Limitation Challenge
+    .call-to-action-body
+      Non-Invasive Identification of Inspiratory Flow Limitation in Sleep
+      Studies
 
-  %p.header-middle-lead
-    Participate in the
+    .call-to-action-body
+      .logo-middle
+        = image_tag 'flow-limitation-logo.png', class: 'img-white-background'
 
-  %h1.header-middle
-    Flow Limitation Challenge
 
-  %p.center
-    Non-Invasive Identification of Inspiratory Flow Limitation in Sleep
-    Studies
-
-  .logo-middle
-    = image_tag 'flow-limitation-logo.png', class: 'img-white-background'
-
-.slim-container.light-texture
+.content-container
   %p
     Working Group for the ATS 2015 Workshop "Non-Invasive Identification of
     Inspiratory Flow Limitation in Sleep Studies": Sushmita Pamidi, Indu
@@ -21,7 +20,7 @@
     Redline.
 
 %a.anchor-top{ name: 'about-the-challenge' }
-.main-container.grid-texture
+.content-container
 
   %h2
     About This Initiative
@@ -40,7 +39,7 @@
     different manual and/or automated methods have reported an association
     between IFL and adverse outcomes.
 
-.main-container.light-texture
+.content-container
   %h2
     Objective
 
@@ -54,7 +53,7 @@
     acceptance of IFL as a physiological tool across large clinical
     datasets.
 
-.main-container.grid-texture
+.content-container
   %h2
     How You Can Help
 
@@ -80,10 +79,9 @@
       Inspiratory Flow limitation in Sleep Studies".
 
 
-.main-container.call-to-action
-
-  %h2.center
-    Help us better define Inspiratory Flow Limitation!
-
-  .center{ style: 'margin-top:20px;margin-bottom:20px' }
-    = link_to 'Get Started Now &raquo;'.html_safe, signal_challenge_path(@challenge, signal: '1'), class: 'btn btn-call-to-action btn-lg'
+- content_for :call_to_action do
+  .call-to-action
+    .call-to-action-header
+      Help us better define Inspiratory Flow Limitation!
+    .call-to-action-body
+      = link_to 'Get Started Now &raquo;'.html_safe, signal_challenge_path(@challenge, signal: '1'), class: 'btn btn-call-to-action btn-lg'

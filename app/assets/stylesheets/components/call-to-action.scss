@@ -68,71 +68,71 @@
   border-color: $brand-primary-text !important;
 }
 
-// .btn-call-to-warning {
-//   border-radius: 40px;
-//   min-width: 200px;
-//   max-width: 500px;
-//   width: 100%;
-//   color: $btn-warning-border !important;
-//   border-color: $btn-warning-border !important;
-//   background-color: white !important;
-//   -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
-//   -webkit-backface-visibility: hidden; /* Fix for transition flickering */
-// }
+.btn-call-to-danger {
+  border-radius: 40px;
+  min-width: 200px;
+  max-width: 500px;
+  width: 100%;
+  color: $btn-danger-border !important;
+  border-color: $btn-danger-border !important;
+  background-color: $brand-white !important;
+  -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
+  -webkit-backface-visibility: hidden; /* Fix for transition flickering */
+}
 
-// .btn-call-to-warning:hover,
-// .btn-call-to-warning:focus,
-// .btn-call-to-warning:active,
-// .btn-call-to-warning.active,
-// .btn-call-to-warning.disabled,
-// .btn-call-to-warning[disabled] {
-//   color: #fff !important;
-//   background-color: rgb(255, 157, 107) !important;
-//   border-color: rgb(255, 133, 71) !important;
-// }
+.btn-call-to-danger:hover,
+.btn-call-to-danger:focus,
+.btn-call-to-danger:active,
+.btn-call-to-danger.active,
+.btn-call-to-danger.disabled,
+.btn-call-to-danger[disabled] {
+  color: $brand-white !important;
+  background-color: $brand-danger-text !important;
+  border-color: $brand-danger-text !important;
+}
 
-// .btn-call-to-default {
-//   border-radius: 40px;
-//   min-width: 200px;
-//   max-width: 500px;
-//   width: 100%;
-//   color: $btn-default-color !important;
-//   border-color: $btn-default-color !important;
-//   background-color: white !important;
-//   -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
-//   -webkit-backface-visibility: hidden; /* Fix for transition flickering */
-// }
+.btn-call-to-default {
+  border-radius: 40px;
+  min-width: 200px;
+  max-width: 500px;
+  width: 100%;
+  color: $gray-light !important;
+  border-color: $gray-lighter !important;
+  background-color: $gray-lighter !important;
+  -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
+  -webkit-backface-visibility: hidden; /* Fix for transition flickering */
+}
 
-// .btn-call-to-default:hover,
-// .btn-call-to-default:focus,
-// .btn-call-to-default:active,
-// .btn-call-to-default.active,
-// .btn-call-to-default.disabled,
-// .btn-call-to-default[disabled] {
-//   color: #fff !important;
-//   background-color: rgb(255, 157, 107) !important;
-//   border-color: rgb(255, 133, 71) !important;
-// }
+.btn-call-to-default:hover,
+.btn-call-to-default:focus,
+.btn-call-to-default:active,
+.btn-call-to-default.active,
+.btn-call-to-default.disabled,
+.btn-call-to-default[disabled] {
+  color: $gray-light !important;
+  background-color: $gray-lighter !important;
+  border-color: $gray-lighter !important;
+}
 
-// .btn-call-to-primary {
-//   border-radius: 40px;
-//   min-width: 200px;
-//   max-width: 500px;
-//   width: 100%;
-//   color: $btn-primary-border !important;
-//   border-color: $btn-primary-border !important;
-//   background-color: white !important;
-//   -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
-//   -webkit-backface-visibility: hidden; /* Fix for transition flickering */
-// }
+.btn-call-to-info {
+  border-radius: 40px;
+  min-width: 200px;
+  max-width: 500px;
+  width: 100%;
+  color: $btn-info-border !important;
+  border-color: $btn-info-border !important;
+  background-color: $brand-white !important;
+  -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
+  -webkit-backface-visibility: hidden; /* Fix for transition flickering */
+}
 
-// .btn-call-to-primary:hover,
-// .btn-call-to-primary:focus,
-// .btn-call-to-primary:active,
-// .btn-call-to-primary.active,
-// .btn-call-to-primary.disabled,
-// .btn-call-to-primary[disabled] {
-//   color: #fff !important;
-//   background-color: rgb(255, 157, 107) !important;
-//   border-color: rgb(255, 133, 71) !important;
-// }
+.btn-call-to-info:hover,
+.btn-call-to-info:focus,
+.btn-call-to-info:active,
+.btn-call-to-info.active,
+.btn-call-to-info.disabled,
+.btn-call-to-info[disabled] {
+  color: $brand-white !important;
+  background-color: $brand-info-text !important;
+  border-color: $brand-info-text !important;
+}

@@ -121,10 +121,18 @@ Rails.application.routes.draw do
 
   scope module: :internal do
     get :dashboard
+    # TODO ENABLE THESE
     # get :settings
     # get :submissions
     # get :tools
     get :profile
+  end
+
+  scope module: :external do
+    # TODO ENABLE THESE
+    # get :about
+    # get :contact
+    get :landing
   end
 
   scope module: 'static' do
@@ -193,5 +201,5 @@ Rails.application.routes.draw do
   get '/agreements/:id/final_submission' => 'agreements#proof'
   get '/agreements/:id/update_step' => 'agreements#step'
 
-  root to: 'welcome#index'
+  root to: 'external#landing'
 end

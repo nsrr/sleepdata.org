@@ -192,7 +192,7 @@ class DatasetsController < ApplicationController
         pid = Process.fork
         if pid.nil? then
           # In child
-          Rails.logger.debug "Refresh Folder Index"
+          Rails.logger.debug 'Refresh Folder Index'
 
           folder_string = File.join('', folder.to_s)
 
@@ -202,7 +202,7 @@ class DatasetsController < ApplicationController
           Rails.logger.debug "Generating Index for #{folder_string}"
           @dataset.create_folder_index(folder)
 
-          Rails.logger.debug "Refresh Dataset Folder Complete"
+          Rails.logger.debug 'Refresh Dataset Folder Complete'
 
           Kernel.exit!
         else
@@ -217,12 +217,13 @@ class DatasetsController < ApplicationController
   # GET /datasets
   # GET /datasets.json
   def index
+    @order = scrub_order(Dataset, params[:order], 'release_date, name')
     dataset_scope = if current_user
-      current_user.all_viewable_datasets
-    else
-      Dataset.current.where( public: true )
-    end
-    @datasets = dataset_scope.order(:release_date, :name).page(params[:page]).per( 18 )
+                      current_user.all_viewable_datasets
+                    else
+                      Dataset.current.where(public: true)
+                    end
+    @datasets = dataset_scope.order(@order).page(params[:page]).per(18)
   end
 
   # GET /datasets/1

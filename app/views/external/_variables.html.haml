@@ -1,0 +1,14 @@
+%h2
+  Download the data.
+
+%p
+  Explore over
+  = pluralize(number_with_delimiter(Variable.where(dataset_id: Dataset.current.where(public: true).pluck(:id)).count), 'covariate')
+  across
+  = link_to(pluralize(Dataset.current.where(public: true).count, 'public dataset'), datasets_path) + "."
+
+.row{ style: "margin-top:40px" }
+  - @variables = Variable.where( dataset_id: Dataset.current.where( public: true ).pluck(:id), commonly_used: true ).order("RANDOM()").limit(6)
+  - @variables.each do |variable|
+    .col-xs-6.col-sm-4.col-md-2
+      = render partial: 'variables/panel', locals: { variable: variable }

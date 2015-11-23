@@ -51,48 +51,48 @@
   }
 }
 
-.main-container {
-  @include remove-element-margins;
-  padding: 40px;
-}
+// .main-container {
+//   @include remove-element-margins;
+//   padding: 40px;
+// }
 
-@media screen and (min-width: $screen-sm-min) {
-  .main-container {
-    padding: 50px;
-  }
-}
+// @media screen and (min-width: $screen-sm-min) {
+//   .main-container {
+//     padding: 50px;
+//   }
+// }
 
-@media screen and (min-width: $screen-md-min) {
-  .main-container {
-    padding: 60px;
-  }
-}
+// @media screen and (min-width: $screen-md-min) {
+//   .main-container {
+//     padding: 60px;
+//   }
+// }
 
-@media screen and (min-width: $screen-lg-min) {
-  .main-container {
-    padding: 80px;
-  }
-}
+// @media screen and (min-width: $screen-lg-min) {
+//   .main-container {
+//     padding: 80px;
+//   }
+// }
 
-.slim-container {
-  @include remove-element-margins;
-  padding: 20px 40px;
-}
+// .slim-container {
+//   @include remove-element-margins;
+//   padding: 20px 40px;
+// }
 
-@media screen and (min-width: $screen-sm-min) {
-  .slim-container {
-    padding: 25px 50px;
-  }
-}
+// @media screen and (min-width: $screen-sm-min) {
+//   .slim-container {
+//     padding: 25px 50px;
+//   }
+// }
 
-@media screen and (min-width: $screen-md-min) {
-  .slim-container {
-    padding: 30px 60px;
-  }
-}
+// @media screen and (min-width: $screen-md-min) {
+//   .slim-container {
+//     padding: 30px 60px;
+//   }
+// }
 
-@media screen and (min-width: $screen-lg-min) {
-  .slim-container {
-    padding: 40px 80px;
-  }
-}
+// @media screen and (min-width: $screen-lg-min) {
+//   .slim-container {
+//     padding: 40px 80px;
+//   }
+// }

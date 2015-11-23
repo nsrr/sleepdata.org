@@ -1,15 +1,37 @@
 - @title = 'Tools'
-.beta-container
-  .bridge-texture
-    .horizontal-fade
-      .vertical-fade{ style: 'padding: 0vw 5vw 0vw 5vw;' }
-        .main-container
-          %h1
-            = @title
-            - if current_user and current_user.system_admin?
-              = link_to "Create Tool", new_tool_path, class: 'btn btn-xs btn-primary'
-          %p
-            Tools to help jumpstart your research.
+%h1
+  = @title
+  - if current_user && current_user.system_admin?
+    = link_to 'Create Tool', new_tool_path, class: 'btn btn-xs btn-primary'
+%p
+  Tools to help jumpstart your research.
 
-  .main-container.grid-texture
-    = render partial: 'tools/tools'
+%p.lead Popular Tools
+%p.lead Search for Tool
+%p.lead Submit a Tool
+%p.lead Bookmark a Tool
+%p.lead Popular Requests
+%p.lead Researcher Helped Solve a Request
+%p.lead Researcher Submitted a Tool Requested that's Highly Rated
+%p.lead "Tool URL no longer available"
+%p.lead Tool Description
+%p.lead Tool Discussion
+
+.content-container
+  = render 'tools/tools'
+
+- content_for :call_to_action do
+  .call-to-action
+    .call-to-action-body
+      %strong Are you a tool developer?
+    .call-to-action-body
+      Submit a link to your tool code repository and help other researchers.
+    .call-to-action-body
+      = link_to 'Contribute a Tool', '#', data: { object: 'suppress-click' }, class: 'btn btn-call-to-action'
+
+    .call-to-action-body
+      %strong Unsure how to work with a data type?
+    .call-to-action-body
+      Put in a request for a tool.
+    .call-to-action-body
+      = link_to 'Request a Tool', '#', data: { object: 'suppress-click' }, class: 'btn btn-call-to-action'

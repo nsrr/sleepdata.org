@@ -1,4 +1,32 @@
-- if current_page?(root_path)
+- content_for :header do
+  .logo-header{ style: 'margin-top: -50px' }
+    .call-to-action
+      .call-to-action-header.brand
+        National Sleep Research Resource
+      .call-to-action-body
+        Explore a rich collection of sleep research data collected in children and
+        adults across the U.S.
+
+.content-container= render 'news/news'
+
+.content-spacer
+
+.content-container
+  = render 'external/datasets'
+
+.content-spacer
+
+.content-container
+  = render 'external/variables'
+
+.content-spacer
+
+.content-container
+  = render 'external/tools'
+
+.content-spacer
+
+- content_for :call_to_action do
   .call-to-action
     .call-to-action-header
       Start your

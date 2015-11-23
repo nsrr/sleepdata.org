@@ -6,8 +6,13 @@
     nsrr download
     = @local_folder
 
-.slim-container.call-to-action
-  %p.center
-    %strong Don't have the NSRR gem?
-    Install using our
-    = link_to 'NSRR Gem installation instructions', 'https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites', target: '_blank', class: 'btn btn-lg btn-call-to-action'
+
+- content_for :call_to_action do
+  .call-to-action
+    .call-to-action-body
+      %strong Don't have the NSRR gem?
+      Install using our
+    .call-to-action-body
+      = link_to 'https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites', target: '_blank', class: 'btn btn-lg btn-call-to-action' do
+        %span.hidden-xs NSRR Gem
+        Installation Instructions
