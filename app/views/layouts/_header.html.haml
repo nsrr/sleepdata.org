@@ -1,11 +1,8 @@
-.logo-header
-  .container
-    .slim-container.center
-      %h1 National Sleep Research Resource
-  .container-primary
-    .container
-      .slim-container
-        %h2 About the NSRR - Sleep Research Data
-        %p.lead
-          Explore a rich collection of sleep research data collected in children and
-          adults across the U.S.
+- if current_page?(root_path)
+  .logo-header{ style: 'margin-top: -50px' }
+    .call-to-action
+      .call-to-action-header.brand
+        National Sleep Research Resource
+      .call-to-action-body
+        Explore a rich collection of sleep research data collected in children and
+        adults across the U.S.

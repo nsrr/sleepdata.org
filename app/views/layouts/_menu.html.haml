@@ -37,7 +37,8 @@
           %form.navbar-form.navbar-right
             = link_to 'Logout', destroy_user_session_path, class: 'btn btn-primary'
           %ul.nav.navbar-nav.navbar-right.hidden-xs
-            %li= link_to "#{current_user.first_name}", root_path
+            %li{ class: "#{ 'active' if current_page?(dashboard_path) }" }
+              = link_to "#{current_user.first_name}", dashboard_path
         - else
           %form.navbar-form.navbar-right
             = link_to 'Sign up', new_user_registration_path, class: 'btn btn-primary' unless current_page?(new_user_registration_path)

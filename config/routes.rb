@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   get "account(/:auth_token)/profile" => "account#profile"
 
   resources :tags
@@ -57,7 +56,6 @@ Rails.application.routes.draw do
   scope module: 'challenges' do
     get "challenges/flow-limitation/submitted", action: 'submitted', as: :flow_limitation_challenge_submitted
   end
-
 
   resources :datasets do
     member do
@@ -121,6 +119,14 @@ Rails.application.routes.draw do
     get "showcase(/:slug)", action: 'show', as: :showcase_show
   end
 
+  scope module: :internal do
+    get :dashboard
+    # get :settings
+    # get :submissions
+    # get :tools
+    get :profile
+  end
+
   scope module: 'static' do
     get :demo
     get :parallax
@@ -173,7 +179,6 @@ Rails.application.routes.draw do
   get '/settings' => 'users#settings', as: :settings
   patch '/settings' => 'users#update_settings', as: :update_settings
 
-
   get '/admin' => 'admin#dashboard'
   get '/admin/dashboard' => 'admin#dashboard', as: :admin_dashboard
   get '/admin/roles' => 'admin#roles', as: :admin_roles
@@ -188,7 +193,5 @@ Rails.application.routes.draw do
   get '/agreements/:id/final_submission' => 'agreements#proof'
   get '/agreements/:id/update_step' => 'agreements#step'
 
-
   root to: 'welcome#index'
-
 end

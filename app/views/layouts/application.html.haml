@@ -23,14 +23,15 @@
     = javascript_include_tag 'application', data: { turbolinks_track: true }
     = javascript_tag "var root_url='#{request.script_name + '/'}';"
   %body
-    - if current_page?(root_path)
-      = render 'layouts/header'
+    = render 'layouts/header'
 
     = render 'layouts/menu'
     = render 'layouts/flash_messages'
 
     .container
       = yield
+
+    = render 'layouts/call_to_action'
 
     .footer-container.container-black
       .container

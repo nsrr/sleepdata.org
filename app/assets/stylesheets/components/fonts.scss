@@ -1,4 +1,6 @@
 // Fonts
+
+// Open Sans
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
@@ -21,4 +23,15 @@
   font-weight: 700;
   src: asset-url('opensans/OpenSans-Bold.woff') format('woff'),
        asset-url('opensans/OpenSans-Bold.ttf') format('truetype');
+}
+
+
+// Libre Baskerville
+
+@font-face {
+  font-family: 'Libre Baskerville';
+  font-style: normal;
+  font-weight: 400;
+  src: asset-url('libre_baskerville/LibreBaskerville-Regular.woff') format('woff'),
+       asset-url('libre_baskerville/LibreBaskerville-Regular.ttf') format('truetype');
 }

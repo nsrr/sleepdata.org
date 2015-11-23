@@ -1,0 +1,17 @@
+.content-spacer {
+  display: block;
+  height: 1px;
+  margin: 40px 0;
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .content-spacer {
+    margin: 60px 0;
+  }
+}
+
+@media screen and (min-width: $screen-md-min) {
+  .content-spacer {
+    margin: 80px 0;
+  }
+}

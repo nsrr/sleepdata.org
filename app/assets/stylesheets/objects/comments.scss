@@ -1,0 +1,109 @@
+// Styles for discussions, forums, and comments.
+
+.comment-outer {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.comment-left-fixed {
+  display: none;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 64px;
+}
+
+.comment-right-fluid {
+  position: relative;
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .comment-left-fixed {
+    display: block;
+  }
+
+  .comment-right-fluid {
+    margin-left: 64px;
+  }
+}
+
+.comment-box {
+  border: 1px solid $navbar-default-border;
+  border-radius: 2px;
+}
+
+.comment-action {
+  margin: 15px 10px;
+}
+
+.comment-header {
+  background-color: $cg-custom-light-green;
+  padding: 10px;
+  position: relative;
+
+  &.comment-unread::after {
+    border-right-color: $alert-warning-bg;
+  }
+}
+
+.comment-body {
+  padding: 10px;
+}
+
+.comment-control {
+  background-color: $input-bg;
+  background-image: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: $input-color;
+  display: block;
+  font-size: $font-size-base;
+  height: auto;
+  line-height: $line-height-base;
+  outline: none;
+  padding: 0;
+  resize: none;
+  width: 100%;
+}
+
+.comment-header::before {
+  border-bottom: 7px solid transparent;
+  border-right: 7px solid $navbar-default-border;
+  border-top: 7px solid transparent;
+  content: '';
+  height: 0;
+  left: -7px;
+  position: absolute;
+  top: 14px;
+  width: 0;
+}
+
+.comment-header::after {
+  border-bottom: 7px solid transparent;
+  border-right: 7px solid $cg-custom-light-green;
+  border-top: 7px solid transparent;
+  content: '';
+  height: 0;
+  left: -6px;
+  position: absolute;
+  top: 14px;
+  width: 0;
+}
+
+.comment-icon {
+  display: none;
+  left: -$font-size-base;
+  position: absolute;
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .comment-icon {
+    display: block;
+  }
+}
+
+.comment-unread {
+  background-color: $alert-warning-bg;
+  color: $alert-warning-text;
+}

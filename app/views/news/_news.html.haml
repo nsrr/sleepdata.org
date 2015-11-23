@@ -1,0 +1,120 @@
+.comment-outer
+  .comment-left-fixed
+    = image_tag ''
+    = image_tag 'flow-limitation-2-logo.png', size: '48x48', alt: ''
+  .comment-right-fluid
+    .comment-box
+      .comment-header
+        %strong Our Second Challenge!
+      .comment-body
+        Help fellow researchers by
+        = link_to 'participating', challenge_path('flow-limitation-2')
+        in the
+        %strong second
+        Flow Limitation Challenge.
+        .center-picture{ style: 'overflow: hidden'}
+
+.comment-outer
+  .comment-left-fixed
+    = image_tag 'showcase/smp.png', style: 'width: 48px', alt: ''
+  .comment-right-fluid
+    .comment-box
+      .comment-header
+        %strong Researcher Showcase
+      .comment-body
+        Learn about Shaun Purcell's work with data from the NSRR in the area of
+        = succeed '.' do
+          = link_to 'Genetics of Sleep Spindles', showcase_show_path('shaun-purcell-genetics-of-sleep-spindles')
+
+- if false
+  .comment-outer
+    .comment-left-fixed
+      = image_tag 'showcase/carousel/eeg.png', size: '48x48', alt: ''
+    .comment-right-fluid
+      .comment-box
+        .comment-header
+          %strong Early Adopter Meeting
+        .comment-body
+          The NSRR is
+          = link_to 'organizing a meeting', 'https://sleepdata.org/forum/43-nsrr-early-adopters-meeting-oct-9-2015'
+          with a group of early adopters on October 9th in Boston.
+
+.comment-outer
+  .comment-left-fixed
+  .comment-right-fluid
+    .comment-icon
+      %span.glyphicon.glyphicon-blackboard
+    .comment-action
+      %strong Learn
+      how to
+      = link_to 'search the NSRR', showcase_show_path(slug: 'search-nsrr')
+      using the
+      NSRR Cross Dataset Query Interface.
+
+.comment-outer
+  .comment-left-fixed
+    = image_tag 'showcase/matt-butler.png', style: 'width: 48px', alt: ''
+  .comment-right-fluid
+    .comment-box
+      .comment-header
+        %strong Researcher Showcase
+      .comment-body
+        Learn about Matt Butler's work with data from the NSRR in the area of
+        = succeed '.' do
+          = link_to 'Novel Sleep Measures and Cardiovascular Risk', showcase_show_path('matt-butler-novel-sleep-measures-and-cardiovascular-risk')
+
+- if false
+  .item
+    .row
+      .col-sm-6.center-picture
+        = image_tag 'shhs_logo.png', class: 'showcase-picture'
+      .col-sm-6
+        .carousel-item-header
+          = "SHHS v#{shhs_dataset_version} Online"
+        .carousel-item-description
+          Download the latest
+          = link_to 'datasets', files_dataset_path('shhs', path: 'datasets')
+          and
+          = link_to 'EDFs', files_dataset_path('shhs', path: 'edfs')
+          available for the Sleep Heart Health Study.
+- if false
+  .item
+    .row
+      .col-sm-6.center-picture
+        = image_tag 'chat_logo.png', class: 'showcase-picture'
+      .col-sm-6
+        .carousel-item-header
+          = "CHAT v#{chat_dataset_version} Online"
+        .carousel-item-description
+          Download the latest
+          = link_to 'datasets', files_dataset_path('chat', path: 'datasets')
+          and
+          = link_to 'EDFs', files_dataset_path('chat', path: 'edfs')
+          available for the Childhood Adenotonsillectomy Trial.
+- if false
+  .item
+    .row
+      .col-sm-6.center-picture
+        = image_tag 'heartbeat-logo.png', class: 'showcase-picture'
+      .col-sm-6
+        .carousel-item-header.hidden-xs
+          HeartBEAT v0.2.0
+        .carousel-item-header.visible-xs
+          HeartBEAT v0.2.0 Online
+        .carousel-item-description
+          Download the latest
+          = link_to 'datasets', files_dataset_path('heartbeat', path: 'datasets')
+          and
+          = link_to 'EDFs', files_dataset_path('heartbeat', path: 'edfs')
+          available for Heart Biomarker Evaluation in Apnea Treatment.
+
+.comment-outer
+  .comment-left-fixed
+  .comment-right-fluid
+    .comment-icon
+      %span.glyphicon.glyphicon-blackboard
+    .comment-action
+      %strong Get started
+      with your
+      = link_to 'first tutorial', demo_path
+      for the NSRR.

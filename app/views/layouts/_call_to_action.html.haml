@@ -1,0 +1,19 @@
+- if current_page?(root_path)
+  .call-to-action
+    .call-to-action-header
+      Start your
+      research
+      today!
+
+    - if current_user
+      .call-to-action-body
+        You will need a completed Data Access and Use Agreement to download data.
+
+      %div.center{ style: 'margin-top:20px;margin-bottom:20px' }
+        = link_to 'My DAUAs', submissions_path, class: 'btn btn-call-to-action btn-lg'
+    - else
+      .call-to-action-body
+        You will need an account and a completed Data Access and Use Agreement to download data.
+
+      %div.center{ style: 'margin-top:20px;margin-bottom:20px' }
+        = link_to 'Sign Up', new_user_registration_path, class: 'btn btn-call-to-action btn-lg'
