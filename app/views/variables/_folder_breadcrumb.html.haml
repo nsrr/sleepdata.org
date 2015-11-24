@@ -7,7 +7,7 @@
     - unless folder.blank?
       - folder.to_s.split('/')[0..(@variable ? -1 : -2)].each_with_index do |partial_folder, index|
         - full_folder = folder.to_s.split('/')[0..index].join('/')
-        %li= link_to partial_folder, dataset_variables_path(@dataset, s: s, folder: full_folder, view: params[:view], common: params[:common]).gsub("%2F","/")
+        %li= link_to partial_folder, dataset_variables_path(@dataset, s: s, folder: full_folder, common: params[:common]).gsub("%2F","/")
       - unless @variable
         %li= folder.to_s.split('/').last
     - if @variable

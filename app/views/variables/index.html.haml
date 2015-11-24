@@ -28,51 +28,62 @@
           .btn-group{ style: "padding-bottom:10px" }
             - s = (params[:s].blank? ? nil : params[:s])
             - if params[:folder].blank?
-              = link_to '/', dataset_variables_path(@dataset, view: params[:view], common: params[:common]), class: "btn #{btn_size_class} btn-primary"
+              = link_to '/', dataset_variables_path(@dataset, common: params[:common]), class: "btn #{btn_size_class} btn-primary"
             - else
-              = link_to '..', dataset_variables_path(@dataset, s: s, folder: params[:folder].split('/')[0..-2].join('/'), view: params[:view], common: params[:common]).gsub("%2F","/"), class: "btn #{btn_size_class} btn-primary"
+              = link_to '..', dataset_variables_path(@dataset, s: s, folder: params[:folder].split('/')[0..-2].join('/'), common: params[:common]).gsub("%2F","/"), class: "btn #{btn_size_class} btn-primary"
               - unless params[:folder].blank?
                 - params[:folder].to_s.split('/').each_with_index do |partial_folder, index|
                   - full_folder = params[:folder].to_s.split('/')[0..index].join('/')
-                  = link_to partial_folder, dataset_variables_path(@dataset, s: s, folder: full_folder, view: params[:view], common: params[:common]).gsub("%2F","/"), class: "btn #{btn_size_class} btn-primary"
+                  = link_to partial_folder, dataset_variables_path(@dataset, s: s, folder: full_folder, common: params[:common]).gsub("%2F","/"), class: "btn #{btn_size_class} btn-primary"
           - @folders.each do |folder|
             - full_folder = [params[:folder].blank? ? nil : params[:folder], folder].compact.join('/')
-            = link_to folder, dataset_variables_path(@dataset, s: s, folder: full_folder, view: params[:view], common: params[:common]).gsub("%2F","/"), class: "btn #{btn_size_class} btn-default", style: "margin-bottom:10px"
+            = link_to folder, dataset_variables_path(@dataset, s: s, folder: full_folder, common: params[:common]).gsub("%2F","/"), class: "btn #{btn_size_class} btn-default", style: "margin-bottom:10px"
 
-.content-container
-  %table.table.table-striped
-    %thead
-      %tr
-        %th
-        %th Name
-        %th.nowrap Display Name
-        %th Folder
-        %th Description
-        - unless params[:s].blank?
-          %th Relevance
-          - if current_user && current_user.system_admin?
-            %th Labels
-            %th.nowrap Rank Score
-            %th Reason
+- if @variables.count > 0
+  .content-container
+    %table.table.table-striped
+      %thead
+        %tr
+          %th
+          %th Name
+          %th.nowrap Display Name
+          %th Folder
+          %th Description
+          - unless params[:s].blank?
+            %th Relevance
+            - if current_user && current_user.system_admin?
+              %th Labels
+              %th.nowrap Rank Score
+              %th Reason
 
-    - @variables.sort { |a,b| a.rank_sort_order(params[:s]) <=> b.rank_sort_order(params[:s]) }.each do |variable|
-      %tr
-        %td
-          - if variable.commonly_used?
-            %span.glyphicon.glyphicon-star.text-warning
-          - if false
-            - if File.file?( File.join( variable.dataset.root_folder, 'dd', 'images', variable.version.to_s, "#{variable.name}.png") )
-              %img.lazy{ width: "27", height: "18", style: "max-width: 100%;min-width:27px;max-height:18px;display:block;vertical-align:text-bottom",  data: { original: image_dataset_variable_path(variable.dataset, variable) } }
-        %td= link_to variable.name, dataset_variable_path(variable.dataset, variable, view: 'list')
-        %td= variable.display_name
-        %td= variable.folder
-        %td= variable.description
-        - unless params[:s].blank?
-          %td= render 'variables/relevance', variable: variable
-          - if current_user && current_user.system_admin?
-            %td= variable.labels
-            %td= variable.rank(params[:s])[:score]
-            %td.nowrap= variable.rank(params[:s])[:reasons].join('<br />').html_safe
+      - @variables.sort { |a,b| a.rank_sort_order(params[:s]) <=> b.rank_sort_order(params[:s]) }.each do |variable|
+        %tr
+          %td
+            - if variable.commonly_used?
+              %span.glyphicon.glyphicon-star.text-warning
+            - if false
+              - if File.file?( File.join( variable.dataset.root_folder, 'dd', 'images', variable.version.to_s, "#{variable.name}.png") )
+                %img.lazy{ width: "27", height: "18", style: "max-width: 100%;min-width:27px;max-height:18px;display:block;vertical-align:text-bottom",  data: { original: image_dataset_variable_path(variable.dataset, variable) } }
+          %td= link_to variable.name, dataset_variable_path(variable.dataset, variable)
+          %td= variable.display_name
+          %td= variable.folder
+          %td= variable.description
+          - unless params[:s].blank?
+            %td= render 'variables/relevance', variable: variable
+            - if current_user && current_user.system_admin?
+              %td= variable.labels
+              %td= variable.rank(params[:s])[:score]
+              %td.nowrap= variable.rank(params[:s])[:reasons].join('<br />').html_safe
 
-  - if false
-    .center= paginate @variables, theme: 'contour'
+    - if false
+      .center= paginate @variables, theme: 'contour'
+- else
+  .jumbotron{ style: "margin-top:30px" }
+    %p
+      No variables found matching
+      = succeed '.' do
+        %code= params[:s]
+    %p
+      Please contact us directly at
+      = mail_to 'support@sleepdata.org'
+      with any questions.
