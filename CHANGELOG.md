@@ -9,6 +9,7 @@
 - **Variable Changes**
   - Added a table of domain options for variables that are linked to domains
   - Added ability to display SVG graphs for variables for future integration with Spout
+  - Variables are now sorted by relevance when searching for key terms
 - **Gem Changes**
   - Updated to rails 4.2.5
   - Updated to pg 0.18.4

@@ -298,8 +298,9 @@ class Dataset < ActiveRecord::Base
         name = path.split('/')[-1].to_s.gsub(/\.json$/, '')
         folder = path.split('/')[0..-2].join('/')
         domain = self.domains.find_by_name(json['domain'])
+        labels = (json['labels'] || [])
         search_terms = [name.downcase] + folder.split('/')
-        search_terms += (json['labels'] || [])
+        search_terms += labels
         search_terms += (json['forms'] || [])
         [json['display_name'], json['units'], json['calculation'], json['description']].each do |json_string|
           search_terms += json_string.to_s.split(/[^\w\d%]/)
@@ -316,6 +317,7 @@ class Dataset < ActiveRecord::Base
           commonly_used: (json['commonly_used'] == true),
           domain_id: (domain ? domain.id : nil),
           version: version,
+          labels: labels,
           search_terms: search_terms.select{|a| a.to_s.strip.size > 1}.collect{|b| b.downcase.strip}.uniq.sort.join(' ')
         )
         unless v.new_record?

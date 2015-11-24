@@ -5,10 +5,17 @@ class VariablesController < ApplicationController
   before_action :redirect_without_variable, only: [:show]
 
   def index
-    variable_scope = @dataset.variables.search(params[:s]).with_folder(params[:folder]).order(:folder, :name)
-    variable_scope = variable_scope.where( commonly_used: true ) if params[:common] == '1'
-    @folders = variable_scope.pluck(:folder).uniq.collect{ |f| f.gsub(/^#{params[:folder]}(\/)?/, '').split('/').first }.uniq.compact.sort
-    @variables = variable_scope.page(params[:page]).per( 100 )
+    variable_scope = @dataset.variables.search(params[:s]).with_folder(params[:folder])
+    variable_scope = variable_scope.where(commonly_used: true) if params[:common] == '1'
+    if params[:s].blank?
+      @variables = variable_scope.page(params[:page]).per(100)
+      @folders = variable_scope.pluck(:folder).uniq.collect { |f| f.gsub(/^#{params[:folder]}(\/)?/, '').split('/').first }.uniq.compact.sort
+      @total_count = @variables.total_count
+    else
+      @variables = variable_scope
+      @folders = variable_scope.pluck(:folder).uniq.collect { |f| f.gsub(/^#{params[:folder]}(\/)?/, '').split('/').first }.uniq.compact.sort
+      @total_count = @variables.count
+    end
   end
 
   def show

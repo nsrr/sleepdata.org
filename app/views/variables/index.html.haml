@@ -4,8 +4,22 @@
 
 = render 'variables/folder_breadcrumb', folder: params[:folder]
 
-.slim-container.math-texture
-  = render 'variables/per_page', per_page: 100, object_count: @variables.total_count
+.content-container
+  = form_tag dataset_variables_path(@dataset), method: :get, class: 'form-inline', id: 'collection_form' do
+    = hidden_field_tag 'common', params[:common]
+    = text_field_tag 's', params[:s], class: 'form-control'
+    = succeed ' ' do
+      - if params[:common] == '1'
+        = link_to '#', class: 'btn btn-warning', data: { object: 'commonly-used-submit', value: '0', target: '#collection_form' } do
+          %span.glyphicon.glyphicon-star
+      - else
+        = link_to '#', class: 'btn btn-default', data: { object: 'commonly-used-submit', value: '1', target: '#collection_form' } do
+          %span.glyphicon.glyphicon-star-empty
+    = submit_tag 'Search', class: 'btn btn-primary', name: nil
+    = link_to 'Reset', dataset_variables_path(@dataset), class: 'btn btn-default'
+
+.content-container
+  = render 'variables/per_page', per_page: 100, object_count: @total_count
 
   .row
     .col-sm-8.col-lg-9
@@ -24,27 +38,41 @@
           - @folders.each do |folder|
             - full_folder = [params[:folder].blank? ? nil : params[:folder], folder].compact.join('/')
             = link_to folder, dataset_variables_path(@dataset, s: s, folder: full_folder, view: params[:view], common: params[:common]).gsub("%2F","/"), class: "btn #{btn_size_class} btn-default", style: "margin-bottom:10px"
-    .col-sm-4.col-lg-3{ style: "position:relative" }
-      %form#collection_form.form-inline{ action: dataset_variables_path(@dataset), method: "get" }
-        -#= hidden_field_tag 'folder', params[:folder] unless params[:folder].blank?
-        = hidden_field_tag 'view', params[:view]
-        = hidden_field_tag 'common', params[:common]
-        .input-group
-          = text_field_tag 's', params[:s], class: 'form-control', style: 'width:100%'
-          %span.input-group-btn
-            = link_to 'Search', '#', class: 'btn btn-primary', data: { object: 'submit', target: '#collection_form' }
-            - if params[:view] == 'list'
-              = link_to '#', class: 'btn btn-primary', data: { object: 'grid-submit', target: '#collection_form' } do
-                %span.glyphicon.glyphicon-th
-            - else
-              = link_to '#', class: 'btn btn-primary', data: { object: 'list-submit', target: '#collection_form' } do
-                %span.glyphicon.glyphicon-list
-            - if params[:common] == '1'
-              = link_to '#', class: 'btn btn-warning', data: { object: 'commonly-used-submit', value: '0', target: '#collection_form' } do
-                %span.glyphicon.glyphicon-star
-            - else
-              = link_to '#', class: 'btn btn-default', data: { object: 'commonly-used-submit', value: '1', target: '#collection_form' } do
-                %span.glyphicon.glyphicon-star-empty
 
-  = render 'variables/variables'
+.content-container
+  %table.table.table-striped
+    %thead
+      %tr
+        %th
+        %th Name
+        %th.nowrap Display Name
+        %th Folder
+        %th Description
+        - unless params[:s].blank?
+          %th Relevance
+          - if current_user && current_user.system_admin?
+            %th Labels
+            %th.nowrap Rank Score
+            %th Reason
 
+    - @variables.sort { |a,b| a.rank_sort_order(params[:s]) <=> b.rank_sort_order(params[:s]) }.each_with_index do |variable, index|
+      %tr
+        %td
+          - if variable.commonly_used?
+            %span.glyphicon.glyphicon-star.text-warning
+          - if false
+            - if File.file?( File.join( variable.dataset.root_folder, 'dd', 'images', variable.version.to_s, "#{variable.name}.png") )
+              %img.lazy{ width: "27", height: "18", style: "max-width: 100%;min-width:27px;max-height:18px;display:block;vertical-align:text-bottom",  data: { original: image_dataset_variable_path(variable.dataset, variable) } }
+        %td= link_to variable.name, dataset_variable_path(variable.dataset, variable, view: 'list')
+        %td= variable.display_name
+        %td.nowrap= variable.folder
+        %td= variable.description
+        - unless params[:s].blank?
+          %td= render 'variables/relevance', variable: variable
+          - if current_user && current_user.system_admin?
+            %td= variable.labels
+            %td= variable.rank(params[:s])[:score]
+            %td.nowrap= variable.rank(params[:s])[:reasons].join('<br />').html_safe
+
+  - if false
+    .center= paginate @variables, theme: 'contour'
