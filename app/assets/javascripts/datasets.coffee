@@ -2,6 +2,16 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
+# @initializeDatasetNavigationBar = () ->
+#   $("[data-object~='dataset-affix']").each( (index, element) ->
+#     $(element).affix(
+#       offset:
+#         top: 200
+#         bottom: 0
+#     )
+#   )
+
+
 @downloadFile = (index,element) ->
   $("[data-object~='autodownload']")[index].click()
 
@@ -9,6 +19,7 @@
   $("[data-object~='autodownload']").each( (index, element) ->
     setTimeout( (() -> downloadFile(index, element)), 500 )
   )
+  # @initializeDatasetNavigationBar()
 
 $(document)
   .on('click', "[data-object~='show-info']", () ->

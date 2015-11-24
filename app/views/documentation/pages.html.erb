@@ -1,9 +1,0 @@
-<% @title = [@object.name, @path.to_s.split('/').last.to_s.split(/\.(md|txt)/).first.to_s.titleize].reject{|a| a.blank?}.join(' - ') %>
-
-<% if @object.class == Dataset %>
-  <%= render partial: 'datasets/header' %>
-<% else %>
-  <%= render partial: 'tools/header' %>
-<% end %>
-
-<%= render partial: 'documentation/page' %>

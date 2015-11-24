@@ -162,7 +162,6 @@ class ToolsControllerTest < ActionController::TestCase
     assert_equal File.binread( File.join(CarrierWave::Uploader::Base.root, assigns(:tool).logo.url) ), response.body
   end
 
-
   test "should show public page in subfolder to anonymous user" do
     # assert_difference('ToolPageAudit.count') do
       get :pages, id: @tool, path: 'subfolder/MORE_INFO.txt'
@@ -178,9 +177,9 @@ class ToolsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should show directory of pages in subfolder" do
+  test 'should show directory of pages in subfolder' do
     get :pages, id: @tool, path: 'subfolder'
-    assert_template 'pagesbeta'
+    assert_template 'pages'
     assert_response :success
   end
 

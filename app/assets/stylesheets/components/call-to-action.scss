@@ -3,16 +3,20 @@
   color: $brand-white;
   padding: 40px;
 
-  a {
+  &.dark {
+    background-color: $brand-black;
+  }
+
+  a:not(.btn) {
     color: $cg4-blue-bg;
   }
 
-  a:hover,
-  a:focus,
-  a:active,
-  a.active,
-  a.disabled,
-  a[disabled] {
+  a:not(.btn):hover,
+  a:not(.btn):focus,
+  a:not(.btn):active,
+  a:not(.btn).active,
+  a:not(.btn).disabled,
+  a:not(.btn)[disabled] {
     color: $cg4-blue-text;
   }
 
@@ -43,7 +47,6 @@
     }
   }
 }
-
 
 .btn-call-to-action {
   border-radius: 40px;

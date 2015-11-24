@@ -15,7 +15,7 @@
               = link_to root_path do
                 %span.glyphicon.glyphicon-home
                 Home
-          %li{ class: "#{ 'active' if params[:controller] == 'datasets' }" }
+          %li{ class: "#{ 'active' if %w(datasets variables).include?(params[:controller]) }" }
             = link_to datasets_path do
               %span.glyphicon.glyphicon-cloud
               Datasets

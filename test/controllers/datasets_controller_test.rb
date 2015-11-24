@@ -513,9 +513,9 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should show directory of pages in subfolder" do
+  test 'should show directory of pages in subfolder' do
     get :pages, id: @dataset, path: 'subfolder'
-    assert_template 'pagesbeta'
+    assert_template 'pages'
     assert_response :success
   end
 

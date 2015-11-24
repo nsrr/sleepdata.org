@@ -8,4 +8,64 @@
   Read documentation, download files, and view charts and statistics.
 
 .content-container
-  = render 'datasets/datasets'
+  .row
+    - @datasets.each do |dataset|
+      .col-xs-12.col-sm-6.col-md-4.col-lg-3
+        .panel{ class: "panel-#{dataset.release_date && dataset.release_date <= Date.today ? 'success' : 'default'}" }
+          .panel-heading{ style: 'overflow:hidden' }
+            .panel-title.nowrap= link_to dataset.name, dataset
+          .panel-body
+            .center{ style: 'padding-bottom:5px;height:145px;line-height:145px' }
+              - if dataset.logo.size > 0
+                = link_to image_tag(logo_dataset_path(dataset), style: 'max-width:100%;max-height:140px'), dataset
+              - else
+                = link_to image_tag('project-default-logo.png', style: 'max-width:100%;max-height:140px'), dataset
+          .panel-footer.center.nowrap{ style: 'overflow:hidden;' }
+            = render 'datasets/request', dataset: dataset, expanded: false
+            - if false
+              %br
+              - if dataset.release_date && dataset.release_date <= Date.today
+                = link_to 'Data Available Now!', dataset
+              - elsif dataset.release_date
+                = link_to "Coming #{dataset.release_date.strftime('%B %e, %Y')}", dataset
+              - else
+                = link_to 'Preview', dataset
+
+  .center= paginate @datasets, theme: 'contour'
+
+  - if false
+    %table.table.table-striped
+      %thead
+        %tr
+          %th
+          = th_sort_field @order, 'datasets.name', 'Dataset'
+          %th What
+          %th Who
+          = th_sort_field @order, 'datasets.info_size', 'Size'
+          = th_sort_field @order, 'datasets.release_date', 'Release Date'
+          %th Data Access
+      %tbody
+        - @datasets.each do |dataset|
+          %tr
+            %td
+              - if dataset.logo.size > 0
+                = link_to image_tag(logo_dataset_path(dataset), style: 'max-width:100%;max-height:140px'), dataset
+              - else
+                = link_to image_tag('project-default-logo.png', style: 'max-width:100%;max-height:140px'), dataset
+            %td= link_to dataset.name, dataset
+            %td= dataset.info_what
+            %td= dataset.info_who
+            %td.nowrap= number_to_human_size(dataset.info_size)
+            %td
+              = dataset.release_date.strftime('%B %e, %Y') if dataset.release_date
+            %td= render 'datasets/request', dataset: dataset
+
+
+- content_for :call_to_action do
+  .call-to-action
+    .call-to-action-header
+      Would you like to contribute a dataset?
+    .call-to-action-body
+      We can help you host your dataset on the NSRR, start by
+      = link_to 'filling out a short form', '#', data: { object: 'suppress-click' }
+      to learn more about the process.

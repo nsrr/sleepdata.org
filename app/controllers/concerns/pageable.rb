@@ -2,22 +2,21 @@ module Pageable
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_object,                only: [ :new_page, :create_page, :edit_page, :update_page, :show, :pages, :images, :requests, :pull_changes, :sync ]
-    before_action :redirect_without_object,   only: [ :new_page, :create_page, :edit_page, :update_page, :show, :pages, :images, :requests, :pull_changes, :sync ]
-    before_action :set_page_path,             only: [ :new_page, :create_page, :edit_page, :update_page, :show, :pages ]
+    before_action :set_object,                only: [:new_page, :create_page, :edit_page, :update_page, :show, :pages, :images, :requests, :pull_changes, :sync]
+    before_action :redirect_without_object,   only: [:new_page, :create_page, :edit_page, :update_page, :show, :pages, :images, :requests, :pull_changes, :sync]
+    before_action :set_page_path,             only: [:new_page, :create_page, :edit_page, :update_page, :show, :pages]
   end
 
   # GET /(datasets|tools)/1/pages
   def pages
     @term = params[:s].to_s.gsub(/[^\w]/, '')
-    if @page_path and File.file?(@page_path) and [@object.find_page_folder(params[:path]), File.basename(@page_path)].compact.join('/') == params[:path]
-      # render text: @object.find_page_folder(params[:path])
+    if @page_path && File.file?(@page_path) && [@object.find_page_folder(params[:path]), File.basename(@page_path)].compact.join('/') == params[:path]
       @object.create_page_audit!(current_user, @path, request.remote_ip)
-      render 'documentation/pagesbeta'
-    elsif @page_path and File.directory?(@page_path) and @object.find_page_folder(params[:path]) == params[:path]
-      render 'documentation/pagesbeta'
+      render 'documentation/pages'
+    elsif @page_path && File.directory?(@page_path) && @object.find_page_folder(params[:path]) == params[:path]
+      render 'documentation/pages'
     elsif params[:path].blank?
-      render 'documentation/pagesbeta'
+      render 'documentation/pages'
     else
       @path = @object.find_page_folder(params[:path])
       redirect_to_pages_path

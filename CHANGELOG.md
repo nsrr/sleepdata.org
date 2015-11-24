@@ -3,6 +3,9 @@
 ### Enhancements
 - **General Changes**
   - Improved the user interface across the site for easier navigation and a cleaner look
+- **Dataset Changes**
+  - Improved dataset access request flow
+  - Added call to action for researchers who wish to contribute datasets to the NSRR
 - **Variable Changes**
   - Added a table of domain options for variables that are linked to domains
   - Added ability to display SVG graphs for variables for future integration with Spout

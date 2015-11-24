@@ -12,7 +12,7 @@
     border-width: 1px 0;
     // border-width: 0;
     transition: all .2s ease;
-    z-index: 1030;
+    z-index: $zindex-navbar-fixed;
   }
 }
 
@@ -26,7 +26,7 @@
     position: fixed;
     right: 0;
     top: 0;
-    z-index: 1030;
+    z-index: $zindex-navbar-fixed;
 
     // a {
     //   background-color: $brand-primary;
