@@ -55,7 +55,7 @@
             %th.nowrap Rank Score
             %th Reason
 
-    - @variables.sort { |a,b| a.rank_sort_order(params[:s]) <=> b.rank_sort_order(params[:s]) }.each_with_index do |variable, index|
+    - @variables.sort { |a,b| a.rank_sort_order(params[:s]) <=> b.rank_sort_order(params[:s]) }.each do |variable|
       %tr
         %td
           - if variable.commonly_used?
@@ -65,7 +65,7 @@
               %img.lazy{ width: "27", height: "18", style: "max-width: 100%;min-width:27px;max-height:18px;display:block;vertical-align:text-bottom",  data: { original: image_dataset_variable_path(variable.dataset, variable) } }
         %td= link_to variable.name, dataset_variable_path(variable.dataset, variable, view: 'list')
         %td= variable.display_name
-        %td.nowrap= variable.folder
+        %td= variable.folder
         %td= variable.description
         - unless params[:s].blank?
           %td= render 'variables/relevance', variable: variable

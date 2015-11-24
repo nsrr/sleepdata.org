@@ -8,7 +8,7 @@ class VariablesController < ApplicationController
     variable_scope = @dataset.variables.search(params[:s]).with_folder(params[:folder])
     variable_scope = variable_scope.where(commonly_used: true) if params[:common] == '1'
     if params[:s].blank?
-      @variables = variable_scope.page(params[:page]).per(100)
+      @variables = variable_scope.page(params[:page]).per(100).order('commonly_used desc', :folder, :name)
       @folders = variable_scope.pluck(:folder).uniq.collect { |f| f.gsub(/^#{params[:folder]}(\/)?/, '').split('/').first }.uniq.compact.sort
       @total_count = @variables.total_count
     else
