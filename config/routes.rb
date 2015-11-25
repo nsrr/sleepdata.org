@@ -92,7 +92,11 @@ Rails.application.routes.draw do
 
     resources :variables do
       member do
+        get :graphs
+        get :history
         get :image
+        get :known_issues
+        get :related
       end
     end
   end

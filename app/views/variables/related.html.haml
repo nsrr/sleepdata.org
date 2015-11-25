@@ -1,0 +1,18 @@
+- @title = "#{@variable.name.upcase} - #{@dataset.slug.upcase} Variables"
+
+= render 'variables/header'
+
+.row
+  .col-md-3
+    = render 'variables/menu'
+  .col-md-9
+    %h1 Related Variables
+
+    - variables = @variable.related_variables
+    - if variables.size > 0
+      .row{ style: "margin-top:40px" }
+        - variables.each do |variable|
+          .col-xs-6.col-sm-4
+            = render 'variables/panel', variable: variable
+    - else
+      This variable has no related variables.

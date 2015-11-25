@@ -1,0 +1,16 @@
+- @title = "#{@variable.name.upcase} - #{@dataset.slug.upcase} Variables"
+
+= render 'variables/header'
+
+.row
+  .col-md-3
+    = render 'variables/menu'
+  .col-md-9
+    %h1 Known Issues
+
+    - if @variable.known_issues.count > 0
+      %ul
+        - @variable.known_issues.each do |issue|
+          %li= issue
+    - else
+      This variable has no known issues.

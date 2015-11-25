@@ -39,6 +39,10 @@ class Variable < ActiveRecord::Base
     dataset.variables.where("(search_terms ~* ? or name in (?)) and id != ?", "(\\m#{name}\\M)", search_terms.split(' '), id).order(:folder, :name)
   end
 
+  def known_issues
+    []
+  end
+
   def self.max_score(search)
     130 * search.to_s.split(/\s/).reject(&:blank?).uniq.count
   end

@@ -15,5 +15,4 @@ class Domain < ActiveRecord::Base
   def values
     self.options.collect{ |option| option[:value] }
   end
-
 end

@@ -1,0 +1,44 @@
+.left-menu {
+  list-style: none;
+  margin-bottom: 0;
+  padding-left: 0;
+
+  li {
+    display: block;
+    position: relative;
+
+    a {
+      border-left: 2px solid transparent;
+      display: block;
+      padding: 7px 15px;
+      position: relative;
+    }
+
+    .active,
+    a:hover,
+    a:focus {
+      background-color: $brand-info-text;
+      border-color: $brand-info;
+      color: $brand-white;
+      text-decoration: none;
+    }
+
+    &.left-menu-header {
+      @include brand;
+      color: $brand-info-text;
+      font-size: 85%;
+      font-weight: normal;
+      letter-spacing: 1px;
+      margin-bottom: 5px;
+      padding-left: 15px;
+      padding-right: 15px;
+      text-transform: uppercase;
+    }
+
+    // Add a margin to the top of a menu header if it has other menu items
+    // preceding it
+    + .left-menu-header {
+      margin-top: 20px;
+    }
+  }
+}

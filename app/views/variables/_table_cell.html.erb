@@ -1,5 +1,0 @@
-<% if cell.is_a?(String) %>
-  <%= content_tag type, cell %>
-<% elsif cell.is_a?(Hash) %>
-  <%= content_tag type, cell['text'], class: cell['class'], style: cell['style'], colspan: cell['colspan'] %>
-<% end %>

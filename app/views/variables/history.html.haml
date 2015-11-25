@@ -1,0 +1,13 @@
+- @title = "#{@variable.name.upcase} - #{@dataset.slug.upcase} Variables"
+
+= render 'variables/header'
+
+.row
+  .col-md-3
+    = render 'variables/menu'
+  .col-md-9
+    %h1 History
+
+    %ul
+      - @valid_folders.each do |version|
+        %li= link_to version, dataset_variable_path(@dataset, @variable, v: version)
