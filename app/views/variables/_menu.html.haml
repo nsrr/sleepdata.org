@@ -13,15 +13,19 @@
   %li.left-menu-header= @variable.name
   %li
     = link_to 'Overview', dataset_variable_path(@dataset, @variable, v: params[:v]), class: (params[:action] == 'show' ? 'active' : nil)
-  - if charts.size > 0
+  - if params[:action] =='graphs' || charts.size > 0
     %li.left-menu-header Graphs
-
-    - charts.each do |chart_name, chart_value|
-      %li= link_to chart_name, graphs_dataset_variable_path(@dataset, @variable, g: chart_value, v: params[:v]), class: (params[:action] == 'graphs' && chart.first == chart_name ? 'active' : nil)
+    - if charts.size > 0
+      - charts.each do |chart_name, chart_value|
+        %li= link_to chart_name, graphs_dataset_variable_path(@dataset, @variable, g: chart_value, v: params[:v]), class: (params[:action] == 'graphs' && chart.first == chart_name ? 'active' : nil)
+    - else
+      %li= link_to 'No Graphs', graphs_dataset_variable_path(@dataset, @variable, g: params[:g], v: params[:v]), class: 'active'
   %li.left-menu-header More
-  %li
-    = link_to 'Known Issues', known_issues_dataset_variable_path(@dataset, @variable, v: params[:v]), class: (params[:action] == 'known_issues' ? 'active' : nil)
-  %li
-    = link_to 'Related', related_dataset_variable_path(@dataset, @variable, v: params[:v]), class: (params[:action] == 'related' ? 'active' : nil)
+  - if params[:action] == 'known_issues' || @variable.known_issues.count > 0
+    %li
+      = link_to 'Known Issues', known_issues_dataset_variable_path(@dataset, @variable, v: params[:v]), class: (params[:action] == 'known_issues' ? 'active' : nil)
+  - if params[:action] == 'related' || @variable.related_variables.count > 0
+    %li
+      = link_to 'Related', related_dataset_variable_path(@dataset, @variable, v: params[:v]), class: (params[:action] == 'related' ? 'active' : nil)
   %li
     = link_to 'History', history_dataset_variable_path(@dataset, @variable, v: params[:v]), class: (params[:action] == 'history' ? 'active' : nil)

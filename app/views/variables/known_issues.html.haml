@@ -9,8 +9,6 @@
     %h1 Known Issues
 
     - if @variable.known_issues.count > 0
-      %ul
-        - @variable.known_issues.each do |issue|
-          %li= issue
+      = simple_markdown @variable.known_issues.join("\n")
     - else
       This variable has no known issues.

@@ -40,7 +40,22 @@ class Variable < ActiveRecord::Base
   end
 
   def known_issues
-    []
+    line_found = false
+    result = []
+    known_issues_file = File.join(dataset.data_dictionary_folder, 'KNOWNISSUES.md')
+    if File.exist?(known_issues_file) && File.file?(known_issues_file)
+      IO.foreach(known_issues_file) do |line|
+        if line_found && Variable.starts_with?(line, '  - ')
+          result << line
+        elsif Variable.partial_match?(line, "\\[#{name}\\]")
+          line_found = true
+          result << line
+        else
+          line_found = false
+        end
+      end
+    end
+    result
   end
 
   def self.max_score(search)
