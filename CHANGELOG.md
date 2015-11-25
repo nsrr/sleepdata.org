@@ -11,6 +11,7 @@
   - Added ability to display SVG graphs for variables for future integration with Spout
   - Variables are now sorted by relevance when searching for key terms
   - Individual variable pages have been redesigned and include additional information about known issues and variable history
+  - Folder navigation has been simplified on the variable index
 - **Gem Changes**
   - Updated to rails 4.2.5
   - Updated to pg 0.18.4

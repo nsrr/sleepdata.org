@@ -5,6 +5,7 @@
 = render 'variables/folder_breadcrumb', folder: params[:folder]
 
 .content-container
+  = render 'variables/per_page', per_page: 100, object_count: @total_count
   = form_tag dataset_variables_path(@dataset), method: :get, class: 'form-inline', id: 'collection_form' do
     = hidden_field_tag 'common', params[:common]
     = text_field_tag 's', params[:s], class: 'form-control'
@@ -17,27 +18,6 @@
           %span.glyphicon.glyphicon-star-empty
     = submit_tag 'Search', class: 'btn btn-primary', name: nil
     = link_to 'Reset', dataset_variables_path(@dataset), class: 'btn btn-default'
-
-.content-container
-  = render 'variables/per_page', per_page: 100, object_count: @total_count
-
-  .row
-    .col-sm-8.col-lg-9
-      - [['hidden-sm hidden-xs', ''], ['hidden-md hidden-lg', 'btn-sm']].each do |hidden_classes, btn_size_class|
-        .btn-toolbar{ class: hidden_classes, role: "toolbar" }
-          .btn-group{ style: "padding-bottom:10px" }
-            - s = (params[:s].blank? ? nil : params[:s])
-            - if params[:folder].blank?
-              = link_to '/', dataset_variables_path(@dataset, common: params[:common]), class: "btn #{btn_size_class} btn-primary"
-            - else
-              = link_to '..', dataset_variables_path(@dataset, s: s, folder: params[:folder].split('/')[0..-2].join('/'), common: params[:common]).gsub("%2F","/"), class: "btn #{btn_size_class} btn-primary"
-              - unless params[:folder].blank?
-                - params[:folder].to_s.split('/').each_with_index do |partial_folder, index|
-                  - full_folder = params[:folder].to_s.split('/')[0..index].join('/')
-                  = link_to partial_folder, dataset_variables_path(@dataset, s: s, folder: full_folder, common: params[:common]).gsub("%2F","/"), class: "btn #{btn_size_class} btn-primary"
-          - @folders.each do |folder|
-            - full_folder = [params[:folder].blank? ? nil : params[:folder], folder].compact.join('/')
-            = link_to folder, dataset_variables_path(@dataset, s: s, folder: full_folder, common: params[:common]).gsub("%2F","/"), class: "btn #{btn_size_class} btn-default", style: "margin-bottom:10px"
 
 - if @variables.count > 0
   .content-container
