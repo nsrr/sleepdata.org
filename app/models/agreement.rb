@@ -155,28 +155,28 @@ class Agreement < ActiveRecord::Base
     self.add_event!('Data Access and Use Agreement approved.', current_user, 'approved')
     self.agreement_events.create event_type: 'principal_reviewer_approved', user_id: current_user.id, event_at: Time.zone.now
     self.reviews.where( approved: nil ).destroy_all
-    UserMailer.daua_approved(self, current_user).deliver_later if Rails.env.production?
+    UserMailer.daua_approved(self, current_user).deliver_later if EMAILS_ENABLED
     notify_admins_on_daua_progress(current_user)
   end
 
   def sent_back_for_resubmission_email(current_user)
     self.add_event!('Data Access and Use Agreement sent back for resubmission.', current_user, 'resubmit')
     self.agreement_events.create event_type: 'principal_reviewer_required_resubmission', user_id: current_user.id, event_at: Time.zone.now, comment: self.comments
-    UserMailer.sent_back_for_resubmission(self, current_user).deliver_later if Rails.env.production?
+    UserMailer.sent_back_for_resubmission(self, current_user).deliver_later if EMAILS_ENABLED
     notify_admins_on_daua_progress(current_user)
   end
 
   def notify_admins_on_daua_progress(current_user)
     other_admins = User.system_admins.where.not( id: current_user.id )
     other_admins.each do |admin|
-      UserMailer.daua_progress_notification(self, admin).deliver_later if Rails.env.production?
+      UserMailer.daua_progress_notification(self, admin).deliver_later if EMAILS_ENABLED
     end
   end
 
   def daua_submitted
     self.add_reviewers!
     self.reviews.each do |review|
-      UserMailer.daua_submitted(review.user, self).deliver_later if Rails.env.production?
+      UserMailer.daua_submitted(review.user, self).deliver_later if EMAILS_ENABLED
     end
   end
 
@@ -269,7 +269,7 @@ class Agreement < ActiveRecord::Base
       pid = Process.fork
       if pid.nil? then
         # In child
-        UserMailer.daua_signed(self).deliver_later if Rails.env.production?
+        UserMailer.daua_signed(self).deliver_later if EMAILS_ENABLED
         Kernel.exit!
       else
         # In parent

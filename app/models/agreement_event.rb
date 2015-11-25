@@ -1,5 +1,4 @@
 class AgreementEvent < ActiveRecord::Base
-
   EVENT_TYPE = [['user_submitted', 'user_submitted'],
                 ['reviewer_approved', 'reviewer_approved'],
                 ['reviewer_rejected', 'reviewer_rejected'],
@@ -67,8 +66,7 @@ class AgreementEvent < ActiveRecord::Base
   def email_mentioned_users
     users = User.current.reject{|u| u.username.blank?}.uniq.sort
     users.each do |user|
-      UserMailer.mentioned_in_agreement_comment(self, user).deliver_later if Rails.env.production? and self.event_type == 'commented' and self.comment.to_s.match(/@#{user.username}\b/i)
+      UserMailer.mentioned_in_agreement_comment(self, user).deliver_later if EMAILS_ENABLED && event_type == 'commented' && comment.to_s.match(/@#{user.username}\b/i)
     end
   end
-
 end

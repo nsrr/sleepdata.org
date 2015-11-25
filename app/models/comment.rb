@@ -45,7 +45,7 @@ class Comment < ActiveRecord::Base
       if pid.nil? then
         # In child
         self.topic.subscribers.where.not(id: self.user_id).each do |u|
-          UserMailer.post_replied(self, u).deliver_later if Rails.env.production?
+          UserMailer.post_replied(self, u).deliver_later if EMAILS_ENABLED
         end
         Kernel.exit!
       else
