@@ -4,20 +4,19 @@
 
 = render 'variables/folder_breadcrumb', folder: params[:folder]
 
-.content-container
-  = render 'variables/per_page', per_page: 100, object_count: @total_count
-  = form_tag dataset_variables_path(@dataset), method: :get, class: 'form-inline', id: 'collection_form' do
-    = hidden_field_tag 'common', params[:common]
-    = text_field_tag 's', params[:s], class: 'form-control'
-    = succeed ' ' do
-      - if params[:common] == '1'
-        = link_to '#', class: 'btn btn-warning', data: { object: 'commonly-used-submit', value: '0', target: '#collection_form' } do
-          %span.glyphicon.glyphicon-star
-      - else
-        = link_to '#', class: 'btn btn-default', data: { object: 'commonly-used-submit', value: '1', target: '#collection_form' } do
-          %span.glyphicon.glyphicon-star-empty
-    = submit_tag 'Search', class: 'btn btn-primary', name: nil
-    = link_to 'Reset', dataset_variables_path(@dataset), class: 'btn btn-default'
+= render 'variables/per_page', per_page: 100, object_count: @total_count
+= form_tag dataset_variables_path(@dataset), method: :get, class: 'form-inline', id: 'collection_form' do
+  = hidden_field_tag 'common', params[:common]
+  = text_field_tag 's', params[:s], class: 'form-control'
+  = succeed ' ' do
+    - if params[:common] == '1'
+      = link_to '#', class: 'btn btn-warning', data: { object: 'commonly-used-submit', value: '0', target: '#collection_form' } do
+        %span.glyphicon.glyphicon-star
+    - else
+      = link_to '#', class: 'btn btn-default', data: { object: 'commonly-used-submit', value: '1', target: '#collection_form' } do
+        %span.glyphicon.glyphicon-star-empty
+  = submit_tag 'Search', class: 'btn btn-primary', name: nil
+  = link_to 'Reset', dataset_variables_path(@dataset), class: 'btn btn-default'
 
 - if @variables.count > 0
   .content-container
