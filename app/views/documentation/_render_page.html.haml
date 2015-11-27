@@ -1,5 +1,5 @@
 - if ['.md','.markdown'].include?(File.extname(page_path))
-  .markdown-container
+  .markdown-container-no-border
     = highlight(simple_markdown(File.read(page_path), false, 'table table-striped table-hover'), @term, sanitize: false)
 - else
   .mono-container

@@ -32,7 +32,7 @@
     #sidebar-content.hidden-xs{ class: "#{cookies[:hide_page_list] == '1' ? '' : 'col-sm-3'}"}
       - @path = @path.to_s.split('/')[0..-2].join('/')
       = render 'documentation/pages_list', pages_path: pages_path
-- elsif @page_path and File.directory?(@page_path)
+- elsif @page_path && File.directory?(@page_path)
   .row
     #documentation-content{ class: "#{cookies[:hide_page_list] == '1' ? 'col-sm-12' : 'col-sm-9'}"}
       - if File.exist?(File.join(@page_path, 'README.md'))

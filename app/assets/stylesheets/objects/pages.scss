@@ -1,33 +1,47 @@
 // Pages adds styles for markdown and text documents for datasets and tools
 
+.markdown-container-no-border,
 .markdown-container,
 .mono-container {
   background-color: $body-bg;
-  border: 1px solid $gray-lighter;
-  box-shadow: 2px 2px 5px $brand-shadow;
   font-size: 14px;
   font-weight: 300;
-  margin: 20px;
-  padding: 20px;
 
   img {
     max-width: 100%;
   }
 }
 
+.markdown-container,
+.mono-container {
+  border: 1px solid $gray-lighter;
+  box-shadow: 2px 2px 5px $brand-shadow;
+  padding: 20px;
+  margin: 20px;
+}
+
 @media screen and (min-width: $screen-sm-min) {
+  .markdown-container-no-border,
   .markdown-container,
   .mono-container {
     font-size: 16px;
-    // font-weight: 300;
+  }
+
+  .markdown-container,
+  .mono-container {
     padding: 30px;
   }
 }
 
 @media screen and (min-width: $screen-md-min) {
+  .markdown-container-no-border,
   .markdown-container,
   .mono-container {
     font-size: 18px;
+  }
+
+  .markdown-container,
+  .mono-container {
     padding: 40px;
   }
 }
@@ -39,18 +53,11 @@
   }
 }
 
-// TODO READD IF NEEDED
-// .page-list-container {
-//   background-color: #FFF;
-//   margin: 20px 0px 20px 0px;
-//   padding: 20px 0px 20px 20px;
-//   box-shadow: 5px 5px 15px #888888;
-// }
-
-// #documentation-content, #sidebar-content, .page-list-container {
-//   -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
-//   -webkit-backface-visibility: hidden; /* Fix for transition flickering */
-// }
+.page-list-container {
+  border-left: 1px solid $breadcrumb-bg;
+  margin: -20px 0;
+  padding: 20px 0;
+}
 
 .mono-container {
   font-family: Monaco, Menlo, Consolas, "Courier New", monospace;

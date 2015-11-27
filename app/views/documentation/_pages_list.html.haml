@@ -1,30 +1,28 @@
 .page-list-container{ style: "#{'display:none' if cookies[:hide_page_list] == '1'}" }
-  %table.table.table-striped.table-hover.table-fixed{ style: "margin-bottom:0px" }
-    %col{ width: "30px" }
+  %ul.left-menu
     - page = [params[:page].to_i, 0].max
-    %tr{ class: "#{"warning" if @path == params[:path]} " }
-      - if @path.blank?
-        %td{ style: 'border-top: 0px solid #FFF;' }
-        %td{ style: 'border-top: 0px solid #FFF;' }
-          = @object.slug
-      - else
-        %td{ style: 'border-top: 0px solid #FFF;' }
-          %span.glyphicon.glyphicon-level-up
-        %td{ style: 'border-top: 0px solid #FFF;' }
-          - @path.to_s.split('/')[-1..-1].each_with_index do |folder, index|
-            - url = pages_path + '/' + @path.to_s.split('/')[0..-2].join('/')
-            = link_to folder, url
+    - if @path.blank?
+      %li.left-menu-header
+        = @object.slug
+    - else
+      %li.left-menu-header
+        = @object.slug
+      %li
+        - @path.to_s.split('/')[-1..-1].each_with_index do |folder, index|
+          - url = pages_path + '/' + @path.to_s.split('/')[0..-2].join('/')
+          = link_to url, class: (@path == params[:path] ? 'active' : nil) do
+            %span.glyphicon.glyphicon-level-up
+            = folder
 
 
     - @object.pages(@path)[0..(page*100+100 - 1)].each do |page_name, page|
       - is_file = File.file?(page)
       - folder = @object.page_path(page)
       - url = pages_path + '/' + folder
-      %tr{ class: "#{"warning" if folder == params[:path]} " }
-        %td
+      %li.nowrap{ style: 'overflow:hidden' }
+        = link_to url, class: (page_name == File.basename(@page_path) ? 'active' : nil) do
           %span.glyphicon{ class: "glyphicon-#{is_file ? 'file' : 'folder-close'}" }
-        %td
-          = link_to page_name, url
+          = page_name
 
   - if @object.class == Dataset
     - logo_path = logo_dataset_path(@object)
@@ -38,12 +36,13 @@
       = image_tag logo_path
 
   - if current_user and @object.editable_by?(current_user)
-    %hr.soften{ style: "margin-top: 20px;margin-bottom: 20px;" }
+    .small-spacer
     .center
       = link_to "Edit #{@object.class.name}", edit_path, class: 'btn btn-xs btn-default'
       = link_to "Delete #{@object.class.name}", @object, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete #{@object.class.name} #{@object.name}?" } if current_user.system_admin?
     - if @object.class == Dataset
-      %hr.soften{ style: "margin-top: 20px;margin-bottom: 20px;" }
+      .small-spacer
       .center
         = link_to 'Audits', audits_dataset_path(@object), class: 'btn btn-xs btn-default'
         = link_to 'Requests', requests_dataset_path(@object), class: 'btn btn-xs btn-default'
+    .small-spacer
