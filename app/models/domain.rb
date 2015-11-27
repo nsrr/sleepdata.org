@@ -1,11 +1,12 @@
+# Represents the valid values and options for a variable
 class Domain < ActiveRecord::Base
   serialize :options, Array
 
   # Model Validation
-  validates_presence_of :name, :dataset_id
-  validates_format_of :name, with: /\A[a-z]\w*\Z/i
+  validates :name, :dataset_id, presence: true
+  validates :name, format: { with: /\A[a-z]\w*\Z/i }
   validates :name, length: { maximum: 30 }
-  validates_uniqueness_of :name, scope: :dataset_id
+  validates :name, uniqueness: { scope: :dataset_id }
 
   # Model Relationships
   belongs_to :dataset
@@ -13,6 +14,6 @@ class Domain < ActiveRecord::Base
 
   # Domain Methods
   def values
-    self.options.collect{ |option| option[:value] }
+    options.collect { |option| option[:value] }
   end
 end
