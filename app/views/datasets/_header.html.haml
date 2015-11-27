@@ -10,6 +10,20 @@
             = link_to 'Files', files_dataset_path(@dataset), class: "btn btn-block btn-#{params[:action] == 'files' ? 'primary' : 'default'}"
           .col-xs-12.col-sm-4
             = link_to 'Variables', dataset_variables_path(@dataset), class: "btn btn-block btn-#{params[:controller] == 'variables' ? 'primary' : 'default'}"
+
+  - if defined?(@version) && defined?(@variable) && @version != @variable.version
+    .flash-alert
+      .container
+        %strong Old Version
+        You are viewing variable information
+        that is kept around
+        for historical purposes only. The latest version
+        %code= "v#{@variable.version}"
+        is
+        = succeed '.' do
+          = link_to 'available here', [@dataset, @variable], class: 'alert-link'
+
+
 - if false
   .dataset-navigation-bar{ data: { object: 'dataset-affix' } }
     %nav.navbar.navbar-default{ style: 'margin-bottom: 0' }

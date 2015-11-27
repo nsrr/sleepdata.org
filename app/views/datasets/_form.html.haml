@@ -82,9 +82,21 @@
         = f.text_field :info_size, class: 'form-control'
 
     .form-group
-      = f.label :git_repository, nil, class: 'col-md-2 control-label'
+      = f.label :git_repository, 'Documentation Repository', class: 'col-md-2 control-label'
       .col-md-10
         = f.text_field :git_repository, class: 'form-control'
+        .bs-callout.bs-callout-info
+          %strong Repository must be Public
+          %ul.fixed-font-size
+            %li The repository must be publicly accessible.
+          %p.fixed-font-size
+            Ex:
+            %code https://github.com/&lt;repository-name&gt;.git
+
+    .form-group
+      = f.label :data_dictionary_repository, nil, class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_field :data_dictionary_repository, class: 'form-control'
         .bs-callout.bs-callout-info
           %strong Repository must be Public
           %ul.fixed-font-size

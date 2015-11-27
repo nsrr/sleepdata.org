@@ -13,10 +13,18 @@
   background-color: $alert-warning-bg;
   background-image: none;
   color: $alert-warning-text;
+  .alert-link {
+    font-weight: bold;
+    color: $alert-warning-text;
+  }
 }
 
 .flash-notice {
   background-color: $alert-success-bg;
   background-image: none;
   color: $alert-success-text;
+  .alert-link {
+    font-weight: bold;
+    color: $alert-success-text;
+  }
 }

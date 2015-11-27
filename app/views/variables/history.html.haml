@@ -10,4 +10,11 @@
 
     %ul
       - @valid_folders.reverse.each do |version|
-        %li= link_to version, dataset_variable_path(@dataset, @variable, v: version)
+        %li{ style: (version == @variable.version ? 'font-weight: bold' : nil) }
+          = link_to version, dataset_variable_path(@dataset, @variable, v: version)
+          = '(current version)' if version == @variable.version
+
+    - if @dataset.data_dictionary_repository.present?
+      = link_to "#{@dataset.data_dictionary_repository.gsub(/\.git$/, '')}/blob/master/CHANGELOG.md", target: '_blank', class: 'btn btn-default' do
+        View Change Log
+        %span.glyphicon.glyphicon-new-window
