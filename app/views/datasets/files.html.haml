@@ -8,39 +8,7 @@
 
 - file_count = @dataset.indexed_files(path, 0)
 
-.breadcrumb-container
-  - if file_count > Dataset::FILES_PER_PAGE
-    - upto_file_number = page*Dataset::FILES_PER_PAGE+Dataset::FILES_PER_PAGE - 1 + 1
-    .pull-right
-      %ul.pagination.pagination-sm{ style: "margin-top:3px;margin-bottom:0px;" }
-        - if page > 0
-          %li= link_to '&laquo;'.html_safe, files_dataset_path( @dataset ) + '/' + path.to_s + "#{page > 1 ? "?page=#{page}" : ""}"
-        - else
-          %li.disabled
-            %span &laquo;
-        %li
-          %span
-            %strong{ style: "font-size:0.95em" }
-              = number_with_delimiter( page*Dataset::FILES_PER_PAGE + 1 )
-              to
-              = number_with_delimiter [upto_file_number, file_count].min
-            of
-            = number_with_delimiter file_count
-        - if upto_file_number < file_count
-          %li= link_to '&raquo;'.html_safe, files_dataset_path( @dataset ) + '/' + path.to_s + "?page=#{page+2}"
-        - else
-          %li.disabled
-            %span &raquo;
-  = render 'datasets/reset_folder_index', path: path
-  %ol.breadcrumb
-    %li= link_to @dataset.slug, @dataset
-    %li= link_to_if !path.blank?, 'files', files_dataset_path(@dataset)
-    - unless path.blank?
-      - path.to_s.split('/')[0..-2].each_with_index do |folder, index|
-        - url = files_dataset_path( @dataset ) + '/' + path.to_s.split('/')[0..index].join('/')
-        %li= link_to folder, url
-      %li= path.to_s.split('/').last
-
+= render 'datasets/files_breadcrumb', path: path, page: page, file_count: file_count
 
 = render 'datasets/folder', path: path, page: page
 

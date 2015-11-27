@@ -4,19 +4,20 @@
 
 = render 'variables/folder_breadcrumb', folder: params[:folder]
 
-= render 'variables/per_page', per_page: 100, object_count: @total_count
 = form_tag dataset_variables_path(@dataset), method: :get, class: 'form-inline', id: 'collection_form' do
   = hidden_field_tag 'common', params[:common]
-  = text_field_tag 's', params[:s], class: 'form-control'
-  = succeed ' ' do
-    - if params[:common] == '1'
-      = link_to '#', class: 'btn btn-warning', data: { object: 'commonly-used-submit', value: '0', target: '#collection_form' } do
-        %span.glyphicon.glyphicon-star
-    - else
-      = link_to '#', class: 'btn btn-default', data: { object: 'commonly-used-submit', value: '1', target: '#collection_form' } do
-        %span.glyphicon.glyphicon-star-empty
-  = submit_tag 'Search', class: 'btn btn-primary', name: nil
-  = link_to 'Reset', dataset_variables_path(@dataset), class: 'btn btn-default'
+  .input-group
+    = text_field_tag 's', params[:s], class: 'form-control', placeholder: "Search #{@dataset.slug.upcase}"
+    .input-group-btn
+      = submit_tag 'Search', class: 'btn btn-primary', name: nil
+      - if params[:common] == '1'
+        = link_to '#', class: 'btn btn-default', data: { object: 'commonly-used-submit', value: '0', target: '#collection_form' } do
+          %span.glyphicon.glyphicon-star.text-warning
+      - else
+        = link_to '#', class: 'btn btn-default', data: { object: 'commonly-used-submit', value: '1', target: '#collection_form' } do
+          %span.glyphicon.glyphicon-star-empty
+
+      = link_to 'Reset', dataset_variables_path(@dataset), class: 'btn btn-default'
 
 - if @variables.count > 0
   .content-container
@@ -26,8 +27,8 @@
           %th
           %th Name
           %th.nowrap Display Name
-          %th Folder
           %th Description
+          %th Folder
           - unless params[:s].blank?
             %th Relevance
             - if current_user && current_user.system_admin?
@@ -45,8 +46,8 @@
                 %img.lazy{ width: "27", height: "18", style: "max-width: 100%;min-width:27px;max-height:18px;display:block;vertical-align:text-bottom",  data: { original: image_dataset_variable_path(variable.dataset, variable) } }
           %td= link_to variable.name, dataset_variable_path(variable.dataset, variable)
           %td= variable.display_name
-          %td= variable.folder
           %td= variable.description
+          %td= variable.folder
           - unless params[:s].blank?
             %td= render 'variables/relevance', variable: variable
             - if current_user && current_user.system_admin?
@@ -57,7 +58,7 @@
     - if false
       .center= paginate @variables, theme: 'contour'
 - else
-  .jumbotron{ style: "margin-top:30px" }
+  .jumbotron{ style: 'margin-top:30px' }
     %p
       No variables found matching
       = succeed '.' do

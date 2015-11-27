@@ -54,13 +54,9 @@
         This variable does not have a domain.
 
     %p
-      FORMS
-      - if @variable.forms.size > 0
-        - @variable.forms.each do |form|
-          %span.glyphicon.glyphicon-book
-          = link_to form.display_name, files_dataset_path(@dataset) + "/forms/#{form.folder}?f=#{CGI::escape form.code_book.to_s}"
-      - else
-        This variable is not found on any forms.
+      UNITS
+      - if @variable.units
+        %code= @variable.units
 
 
 
@@ -71,13 +67,6 @@
     .call-to-action-body
       .center{ style: 'margin-top:20px;margin-bottom:20px' }
         = link_to 'Download Dataset', files_dataset_path(@dataset, path: 'datasets'), class: 'btn btn-lg btn-call-to-action'
-        - @variable.forms.each do |form|
-          %br
-          %br
-          = link_to files_dataset_path(@dataset) + "/forms/#{form.folder}?f=#{CGI::escape form.code_book.to_s}", class: 'btn btn-lg btn-primary' do
-            %span.glyphicon.glyphicon-book
-            = form.display_name
-
       %p.center{ style: 'margin-top:50px;' }
         Email us at
         = mail_to 'support@sleepdata.org'

@@ -1,6 +1,32 @@
 - content_for :banner do
   .breadcrumb-container
-    .container
+    .container{ style: 'position: relative;' }
+      - if defined?(@total_count)
+        - per_page = 100
+        - page = params[:page].blank? ? 1 : params[:page].to_i
+        - current_page_min = (page - 1) * per_page + 1
+        - current_page_max = page * per_page
+        .hidden-xs{ style: 'position: absolute; top: -5.5px; right: 15px' }
+          %ul.pagination.pagination-sm{ style: 'margin: 0' }
+            - if current_page_min > 1
+              %li= link_to '&laquo;'.html_safe, url_for(params.merge(page: page - 1)  ).gsub("%2F","/")
+            - else
+              %li.disabled
+                %span &laquo
+            %li
+              %span{ style: 'color:#333' }
+                %b{ style: "font-size:0.95em" }
+                  = number_with_delimiter current_page_min
+                  to
+                  = number_with_delimiter [current_page_max, @total_count].min
+                of
+                = number_with_delimiter @total_count
+            - if current_page_max < @total_count
+              %li= link_to '&raquo;'.html_safe, url_for(params.merge(page: page + 1)).gsub('%2F', '/')
+            - else
+              %li.disabled
+                %span &raquo;
+
       %ol.breadcrumb
         %li= link_to @dataset.slug, @dataset
 
@@ -23,4 +49,4 @@
               &nbsp;
               = form_tag dataset_variables_path(@dataset), method: :get, class: 'form-inline', style: 'position: absolute;top: -7px;left: 11px', id: 'variable-folder-form' do
                 .form-group{ style: 'cursor: pointer' }
-                  = select_tag :folder, options_for_select([['Navigate to...', nil]] + folders_for_select), data: { object: 'variable-folder-select', target: '#variable-folder-form' }, class: 'form-control', style: 'border-color: transparent;background-color: transparent;box-shadow: none;cursor: pointer;color: #777'
+                  = select_tag :folder, options_for_select([['Navigate to...', nil]] + folders_for_select), data: { object: 'variable-folder-select', target: '#variable-folder-form' }, class: 'form-control', style: 'border-color: transparent;background-color: transparent;box-shadow: none;cursor: pointer;color: #777; display: inline-block; width: auto;'

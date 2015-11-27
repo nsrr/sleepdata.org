@@ -1,0 +1,10 @@
+- if current_user && @dataset.editors.pluck(:id).include?(current_user.id)
+  %ul.pagination.pagination-sm{ style: 'margin: 0' }
+    - if @dataset.current_folder_locked?(path)
+      %li.disabled
+        = link_to '<i class="fa fa-refresh fa-spin"></i> Indexing...'.html_safe, '#', data: { object: 'suppress-click' }
+    - else
+      %li
+        = link_to reset_index_dataset_path(@dataset, path: path), method: :post, data: { confirm: 'Are you sure you want to reset this folder index?' } do
+          %span.glyphicon.glyphicon-refresh
+          Refresh

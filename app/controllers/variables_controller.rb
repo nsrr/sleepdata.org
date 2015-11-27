@@ -1,9 +1,9 @@
 class VariablesController < ApplicationController
-  before_action :set_viewable_dataset,      only: [:show, :graphs, :known_issues, :related, :history, :index, :image]
-  before_action :redirect_without_dataset,  only: [:show, :graphs, :known_issues, :related, :history, :index, :image]
-  before_action :set_viewable_variable,     only: [:show, :graphs, :known_issues, :related, :history, :image]
-  before_action :redirect_without_variable, only: [:show, :graphs, :known_issues, :related, :history]
-  before_action :set_folder_and_version,    only: [:show, :graphs, :known_issues, :related, :history]
+  before_action :set_viewable_dataset,      only: [:show, :graphs, :form, :known_issues, :related, :history, :index, :image]
+  before_action :redirect_without_dataset,  only: [:show, :graphs, :form, :known_issues, :related, :history, :index, :image]
+  before_action :set_viewable_variable,     only: [:show, :graphs, :form, :known_issues, :related, :history, :image]
+  before_action :redirect_without_variable, only: [:show, :graphs, :form, :known_issues, :related, :history]
+  before_action :set_folder_and_version,    only: [:show, :graphs, :form, :known_issues, :related, :history]
 
   def index
     variable_scope = @dataset.variables.search(params[:s]).with_folder(params[:folder])
@@ -23,6 +23,11 @@ class VariablesController < ApplicationController
   end
 
   def graphs
+  end
+
+  def form
+    @form = @variable.forms.find_by_name params[:name]
+    redirect_to [@dataset, @variable] unless @form
   end
 
   def related

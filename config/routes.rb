@@ -92,6 +92,7 @@ Rails.application.routes.draw do
 
     resources :variables do
       member do
+        get :form
         get :graphs
         get :history
         get :image

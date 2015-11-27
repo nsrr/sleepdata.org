@@ -9,17 +9,27 @@
 - chart = charts.find { |chart_name, chart_value| chart_value == params[:g] }
 - chart = charts.first unless chart
 
+- forms = @variable.forms
+
+
 %ul.left-menu
   %li.left-menu-header= @variable.name
   %li
     = link_to 'Overview', dataset_variable_path(@dataset, @variable, v: params[:v]), class: (params[:action] == 'show' ? 'active' : nil)
-  - if params[:action] =='graphs' || charts.size > 0
+  - if params[:action] == 'graphs' || charts.size > 0
     %li.left-menu-header Graphs
     - if charts.size > 0
       - charts.each do |chart_name, chart_value|
         %li= link_to chart_name, graphs_dataset_variable_path(@dataset, @variable, g: chart_value, v: params[:v]), class: (params[:action] == 'graphs' && chart.first == chart_name ? 'active' : nil)
     - else
       %li= link_to 'No Graphs', graphs_dataset_variable_path(@dataset, @variable, g: params[:g], v: params[:v]), class: 'active'
+  - if params[:action] == 'form' || forms.size > 0
+    %li.left-menu-header Forms
+    - if forms.size > 0
+      - forms.each do |form|
+        %li= link_to form.display_name, form_dataset_variable_path(@dataset, @variable, name: form.name, v: params[:v]), class: (params[:action] == 'form' && params[:name] == form.name ? 'active' : nil)
+    - else
+      %li= link_to 'No Forms', form_dataset_variable_path(@dataset, @variable, v: params[:v]), class: 'active'
   %li.left-menu-header More
   - if params[:action] == 'known_issues' || @variable.known_issues.count > 0
     %li

@@ -161,13 +161,17 @@ class DatasetsController < ApplicationController
 
   def files
     file = @dataset.find_file( params[:path] )
-    if file and File.file?(file) and [@dataset.find_file_folder(params[:path]), File.basename(file)].compact.join('/') == params[:path] and (@dataset.public_file?(params[:path]) or @dataset.grants_file_access_to?(current_user))
-      @dataset.dataset_file_audits.create( user_id: (current_user ? current_user.id : nil), file_path: @dataset.file_path(file), medium: params[:medium], file_size: File.size(file), remote_ip: request.remote_ip )
-      send_file file
-    elsif file and File.directory?(file) and @dataset.find_file_folder(params[:path]) == params[:path]
+    if file && File.file?(file) && [@dataset.find_file_folder(params[:path]), File.basename(file)].compact.join('/') == params[:path] && (@dataset.public_file?(params[:path]) || @dataset.grants_file_access_to?(current_user))
+      @dataset.dataset_file_audits.create(user_id: (current_user ? current_user.id : nil), file_path: @dataset.file_path(file), medium: params[:medium], file_size: File.size(file), remote_ip: request.remote_ip)
+      if params[:inline] == '1' && file.to_s.split('.').last.to_s.downcase == 'pdf'
+        send_file file, type: 'application/pdf', disposition: 'inline'
+      else
+        send_file file
+      end
+    elsif file && File.directory?(file) && @dataset.find_file_folder(params[:path]) == params[:path]
       store_location_in_session
       render 'files'
-    elsif not File.directory?(@dataset.files_folder)
+    elsif !File.directory?(@dataset.files_folder)
       redirect_to @dataset
     else
       redirect_to files_dataset_path(@dataset, path: @dataset.find_file_folder(params[:path]))
