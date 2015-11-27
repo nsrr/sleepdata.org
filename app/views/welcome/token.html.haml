@@ -1,7 +1,12 @@
 - @title = 'Token'
-.slim-container.dark-texture
-  %h1= @title
 
-.slim-container.math-texture
-  %h3.center
-    = current_user.id_and_auth_token
+- content_for :body_class do
+  brand-background
+
+- content_for :banner do
+  .call-to-action
+    .call-to-action-header.brand
+      My
+      = @title
+    .call-to-action-body
+      %code= current_user.id_and_auth_token

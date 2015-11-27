@@ -1,13 +1,12 @@
-- @title = "Version"
+- @title = 'Version'
 
-.beta-container
-  .main-container.dark-texture
-    %h1 Version
-    %p
+- content_for :body_class do
+  brand-background
+
+- content_for :banner do
+  .call-to-action
+    .call-to-action-header.brand
       National Sleep Research Resource
-
-  .main-container.grid-texture
-    .text-center{ style: 'margin-top:40px' }
-      %p.lead
-        Current version
-        %strong= WwwSleepdataOrg::VERSION::STRING
+    .call-to-action-body
+      Version
+      %strong= WwwSleepdataOrg::VERSION::STRING

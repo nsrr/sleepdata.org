@@ -9,3 +9,8 @@ body {
   margin-bottom: $footer-height;
   padding-top: $header-height + 1px; // Includes 1px border bottom of menu
 }
+
+.brand-background {
+  background-color: $brand-primary;
+  color: $brand-white;
+}
