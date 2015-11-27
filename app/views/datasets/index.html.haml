@@ -20,7 +20,7 @@
                 = link_to image_tag(logo_dataset_path(dataset), style: 'max-width:100%;max-height:140px'), dataset
               - else
                 = link_to image_tag('project-default-logo.png', style: 'max-width:100%;max-height:140px'), dataset
-          .panel-footer.center.nowrap{ style: 'overflow:hidden;' }
+          .panel-footer.center.nowrap{ style: 'overflow:hidden; background-color: transparent; border-color: transparent' }
             = render 'datasets/request', dataset: dataset, expanded: false
             - if false
               %br
