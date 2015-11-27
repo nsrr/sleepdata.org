@@ -19,14 +19,8 @@
 
 
     - if charts.size > 0
-      .slim-container.math-texture
-        - if false
-          - [['hidden-sm hidden-xs', 'btn-lg'], ['hidden-md hidden-lg', 'btn-sm']].each do |hidden_classes, btn_size_class|
-            .btn-group.btn-group-justified{ class: hidden_classes, style: "padding-bottom:20px" }
-              - charts.each do |chart_name, chart_value|
-                = link_to chart_name, '#', class: "btn btn-#{chart_value == params[:g].to_s || (chart_value == 'histogram' && params[:g].blank?) ? 'primary' : 'default'} #{btn_size_class}", data: { object: 'variable-chart-button', chart_type: chart_value }
-        %h1= chart.first if chart
-        #chart-container.math-texture{ style: "min-width: 200px; max-width: 800px; height: 400px; margin: 0 auto" }
+      %h1.variable-header.brand= chart.first if chart
+      #chart-container{ style: 'min-width: 200px; max-width: 800px; height: 400px; margin: 0 auto 20px auto' }
     - if false
       - if false
       - elsif File.file?(File.join(@dataset.root_folder, 'dd', 'images', @version, "#{@variable.name}-lg.png"))
@@ -47,11 +41,11 @@
 
     - if json && json['tables']
       - (json['tables'] || []).each do |key, tables|
-        %div{ style: "display:none", data: { chart_name: key } }
+        %div{ style: 'display:none', data: { chart_name: key } }
           - [tables].flatten.each do |table|
             - if table.is_a?(Hash)
-              %h3{ style: "text-align:center;margin:0px" }= table['title']
-              %h5{ style: "text-align:center;margin:0px;padding-bottom:8px" }= table['subtitle']
+              %h3.brand.center= table['title']
+              %h5.center= table['subtitle']
 
               .table-responsive
                 %table.table.table-hover

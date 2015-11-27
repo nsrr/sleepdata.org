@@ -6,8 +6,8 @@
   .col-md-3
     = render 'variables/menu'
   .col-md-9
-    %h1 History
+    %h1.variable-header.brand History
 
     %ul
-      - @valid_folders.each do |version|
+      - @valid_folders.reverse.each do |version|
         %li= link_to version, dataset_variable_path(@dataset, @variable, v: version)

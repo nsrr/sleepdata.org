@@ -6,13 +6,20 @@
   .col-md-3
     = render 'variables/menu'
   .col-md-9
-    %h1 Related Variables
+    %h1.variable-header.brand Related Variables
 
     - variables = @variable.related_variables
     - if variables.size > 0
-      .row{ style: "margin-top:40px" }
+      %table.table
         - variables.each do |variable|
-          .col-xs-6.col-sm-4
-            = render 'variables/panel', variable: variable
+          %tr
+            %td
+              - if variable.commonly_used?
+                %span.glyphicon.glyphicon-star.text-warning
+            %td= link_to variable.name, dataset_variable_path(variable.dataset, variable)
+            %td= variable.display_name
+            %td= variable.description
+            %td= variable.folder
+
     - else
-      This variable has no related variables.
+      %p.lead This variable has no related variables.

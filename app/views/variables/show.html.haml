@@ -6,59 +6,43 @@
   .col-md-3
     = render 'variables/menu'
   .col-md-9
+    %h1.variable-header.brand= @variable.display_name
 
-    %h1.brand= @variable.name
-    %p= @variable.display_name
+    - if @variable.description.present?
+      %blockquote= @variable.description
 
-    %p
-      Description:
-      = @variable.description
+    - if @variable.known_issues.count > 0
+      .alert.alert-danger{ role: 'alert' }
+        %strong KNOWN ISSUES
+        Please be sure to check the
+        = link_to 'known issues', known_issues_dataset_variable_path(@dataset, @variable), class: 'alert-link'
+        before using this variable in analysis.
 
-    %p
-      Calculation:
-      - unless @variable.calculation.blank?
-        .mono-display
-          .file-display-after Calculation
-          = calculation_helper(@variable)
+    %table.table.table-borderless
+      %col{ width: '1px' }
+      %col
+      - if @variable.calculation.present?
+        %tr
+          %td{ style: 'font-weight: bold' } Calculation
+          %td
+            .variable-calculation= calculation_helper @variable
 
-    %p
-      Dataset
-      = link_to "v#{@version}", files_dataset_path(@dataset, path: 'datasets', f: "#{@dataset.slug}-#{@version}.csv"), target: '_blank'
+      - if @variable.units.present?
+        %tr
+          %td{ style: 'font-weight: bold' } Units
+          %td
+            %code= @variable.units
 
-    %p
-      DOMAIN
       - if @variable.domain
-        %h2
-          Domain
-          = @variable.domain.name
-        %table.table
-          %thead
-            %tr
-              %th Value
-              %th Name
-              - if false
-                %th Description
-                %th Missing Code
-          - @variable.domain.options.each do |option|
-            %tr
-              %td
-                = option['value']
-              %td
-                = option['display_name']
-              - if false
-                %td
-                  = option['description']
-                %td
-                  = option['missing_code']
-      - else
-        This variable does not have a domain.
-
-    %p
-      UNITS
-      - if @variable.units
-        %code= @variable.units
-
-
+        %tr
+          %td{ style: 'font-weight: bold' }
+            Domain
+          %td
+            %div{ style: 'margin-bottom: 10px' }
+              %code= @variable.domain.name
+            %ul.list-unstyled
+              - @variable.domain.options.each do |option|
+                %li= "#{option['value']}: #{option['display_name']}"
 
 - content_for :call_to_action do
   .call-to-action

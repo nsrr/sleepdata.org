@@ -26,3 +26,11 @@
 .table .sort-selected {
   border-bottom-color: $link-color;
 }
+
+.table {
+  &.table-borderless {
+    td {
+      border-width: 0;
+    }
+  }
+}

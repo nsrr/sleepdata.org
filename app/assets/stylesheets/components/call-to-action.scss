@@ -8,7 +8,8 @@
   }
 
   a:not(.btn) {
-    color: $cg4-blue-bg;
+    color: $cg4-green-text;
+    font-weight: bold;
   }
 
   a:not(.btn):hover,
@@ -17,7 +18,8 @@
   a:not(.btn).active,
   a:not(.btn).disabled,
   a:not(.btn)[disabled] {
-    color: $cg4-blue-text;
+    color: $cg4-green-text;
+    font-weight: bold;
   }
 
   .call-to-action-header {

@@ -7,17 +7,23 @@
   - new_page_path  =  new_page_tool_path( object, path: @path )
   - pages_path     =     pages_tool_path( object )
 
-.breadcrumb-container
-  .pull-right.hidden-xs
-    %p= link_to '&laquo; Show Navigation'.html_safe, '#', id: 'show-page-button', data: { object: 'set-cookie toggle-page-list', cookie_key: 'hide_page_list', cookie_value: '0' }, style: "#{'display:none' if cookies[:hide_page_list] != '1'}", class: 'btn btn-xs btn-default'
-  %ol
-    %li= link_to object.slug, object
-    %li= link_to_if !@path.blank?, 'pages', pages_path
-    - unless @path.blank?
-      - @path.to_s.split('/')[0..-2].each_with_index do |folder, index|
-        - url = pages_path + '/' + @path.to_s.split('/')[0..index].join('/')
-        %li= link_to folder, url
-      %li= @path.to_s.split('/').last
+
+- content_for :banner do
+  .breadcrumb-container
+    .container{ style: 'position: relative;' }
+      .hidden-xs{ style: 'position: absolute; top: -5.5px; right: 15px' }
+        %ul#show-page-button.pagination.pagination-sm{ style: "margin: 0; #{'display:none' if cookies[:hide_page_list] != '1'}" }
+          %li= link_to '&laquo; Show Menu'.html_safe, '#', data: { object: 'set-cookie toggle-page-list', cookie_key: 'hide_page_list', cookie_value: '0' }
+        %ul#hide-page-button.pagination.pagination-sm{ style: "margin: 0; #{'display:none' if cookies[:hide_page_list] == '1'}" }
+          %li= link_to 'Hide Menu &raquo;'.html_safe, '#', data: { object: 'set-cookie toggle-page-list', cookie_key: 'hide_page_list', cookie_value: '1' }
+      %ol.breadcrumb
+        %li= link_to object.slug, object
+        %li= link_to_if !@path.blank?, 'pages', pages_path
+        - unless @path.blank?
+          - @path.to_s.split('/')[0..-2].each_with_index do |folder, index|
+            - url = pages_path + '/' + @path.to_s.split('/')[0..index].join('/')
+            %li= link_to folder, url
+          %li= @path.to_s.split('/').last
 
 - if @page_path && File.file?(@page_path) && File.size(@page_path) < 1.megabyte
   .row

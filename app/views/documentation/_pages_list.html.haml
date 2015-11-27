@@ -1,5 +1,4 @@
 .page-list-container{ style: "#{'display:none' if cookies[:hide_page_list] == '1'}" }
-  = link_to 'Hide Navigation &raquo;'.html_safe, '#', data: { object: 'set-cookie toggle-page-list', cookie_key: 'hide_page_list', cookie_value: '1' }, class: 'btn btn-xs btn-default pull-right', style: 'margin-right:20px;margin-bottom:20px'
   %table.table.table-striped.table-hover.table-fixed{ style: "margin-bottom:0px" }
     %col{ width: "30px" }
     - page = [params[:page].to_i, 0].max

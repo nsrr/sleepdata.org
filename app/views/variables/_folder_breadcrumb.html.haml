@@ -26,6 +26,11 @@
             - else
               %li.disabled
                 %span &raquo;
+      - if defined?(@version)
+        .hidden-xs{ style: 'position: absolute; top: -5.5px; right: 15px' }
+          %ul.pagination.pagination-sm{ style: 'margin: 0' }
+            %li
+              = link_to "v#{@version}", files_dataset_path(@dataset, path: 'datasets', f: "#{@dataset.slug}-#{@version}.csv"), target: '_blank'
 
       %ol.breadcrumb
         %li= link_to @dataset.slug, @dataset
