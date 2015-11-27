@@ -1,4 +1,8 @@
+# Helps display status of agreements
 module AgreementsHelper
+  def status_helper_simple(agreement)
+    content_tag(:span, agreement.status.blank? ? 'started' : agreement.status)
+  end
 
   def status_helper(agreement)
     status_hash = { 'approved' => 'success',
@@ -24,5 +28,4 @@ module AgreementsHelper
       'warning'
     end
   end
-
 end
