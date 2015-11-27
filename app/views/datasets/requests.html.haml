@@ -5,22 +5,17 @@
 .main-container
   .row
     .col-sm-9{ style: "margin-bottom:20px" }
-      .table-responsive
-        %table.table.table-striped
-          %thead
-            %tr
-              %th DAUA
-              %th User
-              %th Role
-              %th Status
-          - @dataset.agreements.each do |agreement|
-            %tr
-              %td= link_to "View ##{agreement.id}", agreement
-              %td
-                = image_tag agreement.user.avatar_url(18), style: 'vertical-align:text-bottom;min-width:18px'
-                = agreement.user.name
-              %td Viewer
-              %td= status_helper(agreement)
+      %h1 Collaborators
+
+      %h4 Add User
+      = form_tag create_access_dataset_path(@dataset), method: :post, class: 'form-inline' do
+        .form-group
+          = text_field_tag :user_email, '', autocomplete: "off", data: { object: 'typeahead', local: User.current.collect{|user| "#{user.name} [#{user.email}]" }.to_json }, class: 'form-control', placeholder: 'Email Address'
+
+        .form-group
+          = label :role, 'Role'
+          = select_tag :role, options_for_select([['---', nil]] + DatasetUser::ROLES), class: 'form-control'
+        = submit_tag 'Set User', class: 'btn btn-primary', name: nil
 
       .table-responsive
         %table.table.table-striped
@@ -46,15 +41,6 @@
                   %span.text-muted No Role
               %td{ style: "white-space:nowrap" }
                 = link_to 'Delete', remove_access_dataset_path( @dataset, dataset_user_id: dataset_user.id ), method: :post, class: 'btn btn-danger-inverse btn-xs'
-      %h4 Add User
-      = form_tag create_access_dataset_path(@dataset), method: :post, class: 'form-inline' do
-        .form-group
-          = text_field_tag :user_email, '', autocomplete: "off", data: { object: 'typeahead', local: User.current.collect{|user| "#{user.name} [#{user.email}]" }.to_json }, class: 'form-control', placeholder: 'Email Address'
-
-        .form-group
-          = label :role, 'Role'
-          = select_tag :role, options_for_select([['---', nil]] + DatasetUser::ROLES), class: 'form-control'
-        = submit_tag 'Set User', class: 'btn btn-primary', name: nil
 
     .col-sm-3
       = render 'documentation/logo_and_admin'

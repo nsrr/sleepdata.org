@@ -2,13 +2,14 @@
 
 = render 'datasets/header'
 
-.slim-container.neutral-texture
-  %h2 File Download Audits
+%h2 File Download Audits
 
-.breadcrumb-container
-  &nbsp;
-  %div{ style: 'float:right; margin-top: -25px' }
-    = render 'variables/per_page', per_page: 100, object_count: @audits.count, pagination_size: 'small'
+- content_for :banner do
+  .breadcrumb-container
+    .container{ style: 'position: relative;' }
+      .hidden-xs{ style: 'position: absolute; top: -5.5px; right: 15px' }
+        = render 'variables/per_page', per_page: 100, object_count: @audits.count, pagination_size: 'small'
+      &nbsp;
 
 .slim-container.math-texture
 
