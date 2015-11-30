@@ -144,3 +144,10 @@ has_no_agreement_for_a_b_not_c:
   last_name: Garces
   email: gerrygarces@example.com
   encrypted_password: ""
+
+community_manager:
+  first_name: Community
+  last_name: Manager
+  email: community_manager@example.com
+  encrypted_password: ""
+  community_manager: true

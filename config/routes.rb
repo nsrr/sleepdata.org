@@ -1,22 +1,14 @@
 Rails.application.routes.draw do
   get "account(/:auth_token)/profile" => "account#profile"
 
-  resources :tags
-
-  resources :topics, path: "forum" do
-    member do
-      post :admin
-      post :subscription
-    end
-    collection do
-      get :markup
-    end
-    resources :comments do
-      collection do
-        post :preview
-      end
-    end
+  scope module: :blog do
+    get :blog
+    get 'blog/:id', action: 'show', as: :blog_post
+    get 'blog/:id/image', action: 'image', as: :blog_post_image
+    get :blog_archive
   end
+
+  resources :broadcasts
 
   resources :agreements do
     collection do
@@ -149,6 +141,8 @@ Rails.application.routes.draw do
     get :sizes
   end
 
+  resources :tags
+
   resources :tools do
     member do
       get :sync
@@ -166,6 +160,21 @@ Rails.application.routes.draw do
       post "create_page(/*path)", action: 'create_page', as: :create_page, format: false
       patch "update_page/*path", action: 'update_page', as: :update_page, format: false
       post :pull_changes
+    end
+  end
+
+  resources :topics, path: "forum" do
+    member do
+      post :admin
+      post :subscription
+    end
+    collection do
+      get :markup
+    end
+    resources :comments do
+      collection do
+        post :preview
+      end
     end
   end
 

@@ -1,0 +1,39 @@
+%p
+  %strong Title
+  = @broadcast.title
+
+%p
+  %strong Description
+  = @broadcast.description
+
+%p
+  %strong User
+  = @broadcast.user_id
+
+%p
+  %strong Pinned
+  = @broadcast.pinned
+
+%p
+  %strong Archived
+  = @broadcast.archived
+
+%p
+  %strong Image
+  = @broadcast.image
+
+%p
+  %strong Publish date
+  = @broadcast.publish_date
+
+%p
+  %strong Published
+  = @broadcast.published
+
+%p
+  %strong Deleted
+  = @broadcast.deleted
+
+= link_to 'Edit', edit_broadcast_path(@broadcast)
+|
+= link_to 'Back', broadcasts_path

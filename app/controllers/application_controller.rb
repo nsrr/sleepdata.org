@@ -42,6 +42,10 @@ class ApplicationController < ActionController::Base
     session[:previous_url] = request.fullpath
   end
 
+  def check_community_manager
+    redirect_to root_path, alert: 'You do not have sufficient privileges to access that page.' unless current_user.community_manager?
+  end
+
   def check_system_admin
     redirect_to root_path, alert: 'You do not have sufficient privileges to access that page.' unless current_user.system_admin?
   end

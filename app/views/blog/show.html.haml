@@ -1,0 +1,5 @@
+- @title = @broadcast.title
+%h2
+  = @title
+  %small= link_to 'Back to Blog', blog_path, class: 'btn btn-xs btn-default'
+= render 'blog/show', broadcast: @broadcast

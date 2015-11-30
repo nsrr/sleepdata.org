@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
   has_many :agreements, -> { where deleted: false }
   has_many :agreement_events
   has_many :answers
+  has_many :broadcasts, -> { current }
   has_many :challenges, -> { where deleted: false }
   has_many :comments, -> { where deleted: false }
   has_many :datasets, -> { where deleted: false }
@@ -164,17 +165,16 @@ class User < ActiveRecord::Base
   end
 
   def forum_name
-    self.username.blank? ? self.name : self.username
+    username.blank? ? name : username
   end
 
   # Overriding Devise built-in active_for_authentication? method
   def active_for_authentication?
-    super and not self.deleted?
+    super && !deleted?
   end
 
   def destroy
     super
     update_column :updated_at, Time.zone.now
   end
-
 end

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+published:
+  title: Published
+  description: This is a published post
+  user: community_manager
+  pinned: false
+  archived: false
+  # image: MyString
+  publish_date: 2015-11-30
+  published: true
+
+draft:
+  title: Draft
+  description: This is a post being drafted.
+  user: community_manager
+  pinned: false
+  archived: false
+  # image: MyString
+  publish_date: 2015-11-30
+  published: false

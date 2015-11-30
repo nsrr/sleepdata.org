@@ -1,0 +1,56 @@
+= form_for @broadcast, html: { class: 'form-horizontal' } do |f|
+  - if @broadcast.errors.any?
+    .bs-callout.bs-callout-danger
+      %strong
+        = pluralize @broadcast.errors.count, 'error'
+        prohibited this broadcast from being saved
+      %ul
+        - @broadcast.errors.full_messages.each do |message|
+          %li= message
+
+  .form-group
+    = f.label :title, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :title, class: 'form-control'
+
+  .form-group
+    = f.label :description, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_area :description, rows: 7, class: 'form-control'
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      .checkbox
+        %label
+          = f.check_box :pinned
+          Pinned
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      .checkbox
+        %label
+          = f.check_box :archived
+          Archived
+
+  .form-group
+    = f.label :image, 'Image (JPG, GIF, PNG)', class: 'col-md-2 control-label'
+    .col-md-10
+      = f.file_field :image, class: 'form-control'
+      = f.hidden_field :image_cache
+
+  .form-group
+    = f.label :publish_date, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :publish_date, class: 'datepicker form-control', value: @broadcast.publish_date ? @broadcast.publish_date.strftime('%m/%d/%Y') : ''
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      .checkbox
+        %label
+          = f.check_box :published
+          Published
+
+  .form-group
+    .col-md-10.col-md-offset-2
+      = f.submit nil, class: 'btn btn-primary'
+      = cancel

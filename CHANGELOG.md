@@ -13,6 +13,8 @@
   - Individual variable pages have been redesigned and include additional information about known issues and variable history
   - Folder navigation has been simplified on the variable index
   - Embedded PDFs for variables are now displayed directly on the variable page
+- **Blog Added**
+  - Community managers can now create new blogs posts that are viewable on the NSRR home page
 - **Gem Changes**
   - Updated to rails 4.2.5
   - Updated to pg 0.18.4

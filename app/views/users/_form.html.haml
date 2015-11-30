@@ -61,6 +61,15 @@
         .col-md-10.col-md-offset-2
           .checkbox
             %label
+              = f.check_box :community_manager
+              Community Manager
+          .bs-callout.bs-callout-danger
+            Community managers can create blog posts
+
+      .form-group
+        .col-md-10.col-md-offset-2
+          .checkbox
+            %label
               = f.check_box :system_admin
               System Admin
 

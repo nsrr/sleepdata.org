@@ -41,6 +41,11 @@
       = simple_check @user.aug_member?
 
     %dt
+      Community Manager
+    %dd
+      = simple_check @user.community_manager?
+
+    %dt
       Research Summary
     %dd{ style: 'line-height: inherit' }
       = simple_markdown @user.research_summary

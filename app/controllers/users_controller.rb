@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.current.search(params[:search]).order(current_sign_in_at: :desc).page(params[:page]).per( 40 )
+    @users = User.current.search(params[:search]).order(current_sign_in_at: :desc).page(params[:page]).per(40)
   end
 
   def edit
@@ -50,7 +50,9 @@ class UsersController < ApplicationController
 
       if current_user.system_admin?
         params.require(:user).permit(
-          :first_name, :last_name, :email, :username, :research_summary, :degree, :aug_member, :core_member, :system_admin, :banned, :emails_enabled
+          :first_name, :last_name, :email, :username, :research_summary,
+          :degree, :aug_member, :core_member, :system_admin, :community_manager,
+          :banned, :emails_enabled
         )
       else
         params.require(:user).permit(

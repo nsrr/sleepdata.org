@@ -22,3 +22,7 @@
   %h2 My Forum Posts
 
   %h2 Notifications for Me
+
+  - if current_user.community_manager?
+    %h2 Blog Posts
+    = link_to 'Blog', broadcasts_path

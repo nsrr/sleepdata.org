@@ -1,0 +1,9 @@
+- @title = 'Blog'
+%h1= @title
+
+- @broadcasts.each do |broadcast|
+  %div
+    %h2= link_to broadcast.title, blog_post_path(broadcast)
+    = render 'blog/show', broadcast: broadcast
+
+.center= paginate @broadcasts, theme: 'contour'
