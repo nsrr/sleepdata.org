@@ -21,7 +21,7 @@
       - if @variable.description.present?
         %tr
           %td{ style: 'font-weight: bold' } Description
-          %td.variable-description= simple_markdown @variable.description
+          %td.variable-description= simple_markdown_no_lists @variable.description
 
       - if @variable.calculation.present?
         %tr

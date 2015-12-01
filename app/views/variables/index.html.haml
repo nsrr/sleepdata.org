@@ -35,7 +35,7 @@
               %span.glyphicon.glyphicon-star.text-warning
           %td= link_to variable.name, dataset_variable_path(variable.dataset, variable)
           %td= variable.display_name
-          %td.variable-description= simple_markdown variable.description
+          %td.variable-description= simple_markdown_no_lists variable.description
           %td= variable.folder
           - if false
             %td

@@ -3,10 +3,17 @@ module ApplicationHelper
     content_tag(:span, '', class: "glyphicon #{checked ? 'glyphicon-ok' : 'glyphicon-unchecked'}")
   end
 
-  def simple_markdown(text, target_blank = true, table_class = '', allow_links = true)
+  def simple_markdown_no_lists(text, target_blank: true, table_class: '', allow_links: true, allow_lists: true)
+    allow_lists = false
+    simple_markdown(text, target_blank, table_class, allow_links, allow_lists)
+  end
+
+  def simple_markdown(text, target_blank = true, table_class = '', allow_links = true, allow_lists = true)
     result = ''
     markdown = Redcarpet::Markdown.new( Redcarpet::Render::HTML, no_intra_emphasis: true, fenced_code_blocks: true, autolink: true, strikethrough: true, superscript: true, tables: true, lax_spacing: true, space_after_headers: true, underline: true, highlight: true, footnotes: true )
-    result = markdown.render(text.to_s)
+    result = text.to_s
+    result = replace_numbers_with_ascii(result) unless allow_lists
+    result = markdown.render(result)
     result = result.encode('UTF-16', undef: :replace, invalid: :replace, replace: "").encode('UTF-8')
     result = add_table_class(result, table_class) unless table_class.blank?
     result = expand_relative_paths(result)
@@ -93,5 +100,13 @@ module ApplicationHelper
 
   def add_table_class(text, table_class)
     text.to_s.gsub(/<table>/, "<table class=\"#{table_class}\">").html_safe
+  end
+
+  def replace_numbers_with_ascii(text)
+    text.gsub(/^[ \t]*(\d)/) { |m| ascii_number($1) }
+  end
+
+  def ascii_number(number)
+    "&##{(number.to_i + 48).to_s};"
   end
 end
