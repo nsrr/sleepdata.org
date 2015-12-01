@@ -5,18 +5,10 @@
 = render 'variables/folder_breadcrumb', folder: params[:folder]
 
 = form_tag dataset_variables_path(@dataset), method: :get, class: 'form-inline', id: 'collection_form' do
-  = hidden_field_tag 'common', params[:common]
   .input-group
     = text_field_tag 's', params[:s], class: 'form-control', placeholder: "Search #{@dataset.slug.upcase}"
     .input-group-btn
       = submit_tag 'Search', class: 'btn btn-primary', name: nil
-      - if params[:common] == '1'
-        = link_to '#', class: 'btn btn-default', data: { object: 'commonly-used-submit', value: '0', target: '#collection_form' } do
-          %span.glyphicon.glyphicon-star.text-warning
-      - else
-        = link_to '#', class: 'btn btn-default', data: { object: 'commonly-used-submit', value: '1', target: '#collection_form' } do
-          %span.glyphicon.glyphicon-star-empty
-
       = link_to 'Reset', dataset_variables_path(@dataset), class: 'btn btn-default'
 
 - if @variables.count > 0
