@@ -12,5 +12,8 @@
         %object.white-background{ data: inline_url, type: 'application/pdf' }
           alt :
           = link_to @form.display_name, download_url, class: 'btn btn-xs btn-default'
+    - elsif @form.image?
+      .center{ style: 'margin-bottom: 20px' }
+        = image_tag inline_url, style: 'max-width: 100%'
     - else
       = link_to @form.display_name, download_url, class: 'btn btn-xs btn-default'

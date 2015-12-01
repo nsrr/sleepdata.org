@@ -14,9 +14,9 @@ class Form < ActiveRecord::Base
     extension == 'pdf'
   end
 
-  # def image?
-  #   %w(png jpg jpeg gif).include?(extension)
-  # end
+  def image?
+    %w(png jpg jpeg gif).include?(extension)
+  end
 
   def extension
     code_book.split('.').last.to_s.downcase
