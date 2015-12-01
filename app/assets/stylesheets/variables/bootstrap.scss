@@ -358,15 +358,15 @@ $input-border-focus: $brand-primary;
 // $navbar-padding-vertical:          (($navbar-height - $line-height-computed) / 2) !default;
 // $navbar-collapse-max-height:       340px !default;
 
-$navbar-default-color:             $cg4-green-text; // #777 !default;
+$navbar-default-color:             $cg4-black; // #777 !default;
 $navbar-default-bg:                $cg4-green-bg;
 // $navbar-default-border:            darken($navbar-default-bg, 6.5%) !default;
 
 // // Navbar links
-$navbar-default-link-color:        $cg4-green-text; // #777 !default;
+$navbar-default-link-color:        $cg4-black; // #777 !default;
 $navbar-default-link-hover-color:  darken($navbar-default-link-color, 10%); // #333 !default;
 // $navbar-default-link-hover-bg:             transparent !default;
-$navbar-default-link-active-color: $cg4-green-text; //        #555 !default;
+$navbar-default-link-active-color: $cg4-black; //        #555 !default;
 // $navbar-default-link-active-bg:            darken($navbar-default-bg, 6.5%) !default;
 // $navbar-default-link-disabled-color:       #ccc !default;
 // $navbar-default-link-disabled-bg:          transparent !default;
