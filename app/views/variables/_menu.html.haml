@@ -13,7 +13,7 @@
 
 
 %ul.left-menu
-  %li.left-menu-header.nowrap
+  %li.left-menu-header{ style: 'word-break: break-word;' }
     = @variable.name
     - if @variable.commonly_used?
       %span.glyphicon.glyphicon-star.text-warning
