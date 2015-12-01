@@ -18,6 +18,38 @@ class Variable < ActiveRecord::Base
   has_many :variable_forms
   has_many :forms, through: :variable_forms
 
+  def n
+    0
+  end
+
+  def mean
+    0
+  end
+
+  def stddev
+    0
+  end
+
+  def median
+    0
+  end
+
+  def min
+    0
+  end
+
+  def max
+    0
+  end
+
+  def unknown
+    0
+  end
+
+  def total
+    0
+  end
+
   def score(labels)
     return labels.count + 1 if labels.include?(name)
     result = (commonly_used? ? 0.5 : 0)

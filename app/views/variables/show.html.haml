@@ -8,9 +8,6 @@
   .col-md-9
     %h1.variable-header.brand= @variable.display_name
 
-    - if @variable.description.present?
-      %blockquote= @variable.description
-
     - if @variable.known_issues.count > 0
       .alert.alert-danger{ role: 'alert' }
         %strong KNOWN ISSUES
@@ -18,9 +15,14 @@
         = link_to 'known issues', known_issues_dataset_variable_path(@dataset, @variable), class: 'alert-link'
         before using this variable in analysis.
 
-    %table.table.table-borderless
+    %table.table.table-borderless{ style: 'margin-top: 20px;' }
       %col{ width: '1px' }
       %col
+      - if @variable.description.present?
+        %tr
+          %td{ style: 'font-weight: bold' } Description
+          %td.variable-description= simple_markdown @variable.description
+
       - if @variable.calculation.present?
         %tr
           %td{ style: 'font-weight: bold' } Calculation
@@ -44,16 +46,51 @@
               - @variable.domain.options.each do |option|
                 %li= "#{option['value']}: #{option['display_name']}"
 
-- content_for :call_to_action do
-  .call-to-action
-    .call-to-action-header
-      Ready to begin your analysis?
-    .call-to-action-body
-      .center{ style: 'margin-top:20px;margin-bottom:20px' }
-        = link_to 'Download Dataset', files_dataset_path(@dataset, path: 'datasets'), class: 'btn btn-lg btn-call-to-action'
-      %p.center{ style: 'margin-top:50px;' }
-        Email us at
-        = mail_to 'support@sleepdata.org'
-        if you have any questions or
-        = succeed '!' do
-          = link_to 'visit our forum', topics_path
+      - if @variable.variable_type.present?
+        %tr
+          %td{ style: 'font-weight: bold' } Type
+          %td
+            %code= @variable.variable_type
+
+      - if (@variable.variable_type == 'integer' || @variable.variable_type == 'numeric') && false
+        %tr
+          %td{ style: 'font-weight: bold' } Stats
+          %td{ style: 'padding-top: 0' }
+            %table.table.table-fixed.table-borderless
+              %thead
+                %tr
+                  %th N
+                  %th Mean
+                  %th StdDev
+                  %th Median
+                  %th Min
+                  %th Max
+                  %th Unknown
+                  %th Total
+              %tbody
+                %tr
+                  %td= @variable.n
+                  %td= @variable.mean
+                  %td= @variable.stddev
+                  %td= @variable.median
+                  %td= @variable.min
+                  %td= @variable.max
+                  %td= @variable.unknown
+                  %td= @variable.total
+
+
+
+- if false
+  - content_for :call_to_action do
+    .call-to-action
+      .call-to-action-header
+        Ready to begin your analysis?
+      .call-to-action-body
+        .center{ style: 'margin-top:20px;margin-bottom:20px' }
+          = link_to 'Download Dataset', files_dataset_path(@dataset, path: 'datasets'), class: 'btn btn-lg btn-call-to-action'
+        %p.center{ style: 'margin-top:50px;' }
+          Email us at
+          = mail_to 'support@sleepdata.org'
+          if you have any questions or
+          = succeed '!' do
+            = link_to 'visit our forum', topics_path
