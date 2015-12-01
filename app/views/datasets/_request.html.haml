@@ -2,7 +2,11 @@
 
 - if dataset.release_date && dataset.release_date <= Date.today
   - agreements = (current_user ? dataset.agreements.where(user_id: current_user.id) : Agreement.none)
-  - if agreement = agreements.find_by(status: 'submitted')
+  - if agreement = agreements.find_by(status: 'approved')
+    - if expanded
+      .info-header Data Access
+    = link_to 'Approved', files_dataset_path(dataset), class: "btn #{btn_size} btn-call-to-action"
+  - elsif agreement = agreements.find_by(status: 'submitted')
     - if expanded
       .info-header Request Submitted
     = link_to 'Under Review', submissions_path, class: "btn #{btn_size} btn-call-to-default"
@@ -21,10 +25,6 @@
       = link_to 'Complete Your DAUA', proof_agreement_path(agreement), class: "btn #{btn_size} btn-call-to-info"
     - else
       = link_to 'Complete Your DAUA', step_agreement_path(agreement, step: agreement.current_step), class: "btn #{btn_size} btn-call-to-info"
-  - elsif agreement = agreements.find_by(status: 'approved')
-    - if expanded
-      .info-header Data Access
-    = link_to 'Approved', files_dataset_path(dataset), class: "btn #{btn_size} btn-call-to-action"
   - else
     = link_to 'Request Access', submissions_path(dataset: dataset), class: "btn #{btn_size} btn-call-to-info"
 - elsif dataset.release_date
