@@ -16,4 +16,9 @@ class ExternalControllerTest < ActionController::TestCase
     get :landing
     assert_response :success
   end
+
+  test 'should get site map' do
+    get :sitemap
+    assert_response :success
+  end
 end
