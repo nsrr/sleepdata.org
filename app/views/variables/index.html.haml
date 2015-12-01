@@ -31,7 +31,7 @@
           %th Folder
           - unless params[:s].blank?
             %th Relevance
-            - if current_user && current_user.system_admin?
+            - if current_user && current_user.system_admin? && false
               %th Labels
               %th.nowrap Rank Score
               %th Reason
@@ -51,7 +51,7 @@
                 %img.lazy{ width: '27', height: '18', style: 'max-width: 100%;min-width:27px;max-height:18px;display:block;vertical-align:text-bottom',  data: { original: image_dataset_variable_path(variable.dataset, variable) } }
           - unless params[:s].blank?
             %td= render 'variables/relevance', variable: variable
-            - if current_user && current_user.system_admin?
+            - if current_user && current_user.system_admin? && false
               %td= variable.labels
               %td= variable.rank(params[:s])[:score]
               %td.nowrap= variable.rank(params[:s])[:reasons].join('<br />').html_safe
