@@ -130,6 +130,7 @@ Rails.application.routes.draw do
     # get :about
     # get :contact
     get :landing
+    get :sitemap
   end
 
   scope module: 'static' do

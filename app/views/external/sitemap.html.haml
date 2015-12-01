@@ -1,0 +1,40 @@
+%h1 NSRR Site Map
+
+.row
+  .col-md-3
+    %h3 About NSRR
+    %ul
+      %li= link_to 'NSRR Info', about_path
+      %li= link_to 'Team', about_path
+      %li= link_to 'Academic User Group', aug_path
+  .col-md-3
+    %h3 News
+    %ul
+      %li= link_to 'Blog', blog_path
+  .col-md-3
+    %h3 Learn
+    %ul
+      %li= link_to 'Demo', demo_path
+      %li= link_to 'Showcase', showcase_path
+      %li= link_to 'Challenges', challenges_path
+  .col-md-3
+    %h3 Support
+    %ul
+      %li= link_to 'Contact Us', contact_path
+      %li= link_to 'Forum', topics_path
+
+.content-spacer
+
+%h2 Resources
+
+.row
+  .col-md-6
+    %h3 Datasets
+    %ul
+      - Dataset.current.where(public: true).order(:name).each do |dataset|
+        %li= link_to dataset.name, dataset
+  .col-md-6
+    %h3 Tools
+    %ul
+      - Tool.current.where(public: true).order(:name).each do |tool|
+        %li= link_to tool.name, tool
