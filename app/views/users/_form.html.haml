@@ -1,7 +1,7 @@
 .slim-container.grid-texture
   = form_for(@user, html: { class: 'form-horizontal' }) do |f|
     - if @user.errors.any?
-      .bs-callout.bs-callout-danger
+      .callout.callout-danger
         %strong
           = pluralize(@user.errors.count, "error")
           prohibited this user from being saved
@@ -63,7 +63,7 @@
             %label
               = f.check_box :community_manager
               Community Manager
-          .bs-callout.bs-callout-danger
+          .callout.callout-danger
             Community managers can create blog posts
 
       .form-group

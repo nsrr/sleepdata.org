@@ -10,7 +10,7 @@
     Create your account
   = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'form-vertical', autocomplete: 'off' }) do |f|
     - if resource.errors.any?
-      .bs-callout.bs-callout-danger
+      .callout.callout-danger
         %strong
           = pluralize(resource.errors.count, "error")
           prohibited this registration from being saved

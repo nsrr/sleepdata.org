@@ -1,7 +1,7 @@
 .slim-container.grid-texture
   = form_for @topic, html: { class: 'form-horizontal' } do |f|
     - if @topic.errors.any?
-      .bs-callout.bs-callout-danger
+      .callout.callout-danger
         %strong
           = pluralize(@topic.errors.count, "error")
           prohibited this topic from being saved
@@ -14,7 +14,7 @@
       = f.label :name, 'Topic Title', class: 'col-md-2 control-label'
       .col-md-10
         = f.text_field :name, class: 'form-control', maxlength: 40, autocomplete: 'off'
-        .bs-callout.bs-callout-info
+        .callout.callout-info
           The maximum length for the title is
           %strong 40 characters.
           - if @topic.new_record?

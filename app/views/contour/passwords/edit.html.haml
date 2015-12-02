@@ -13,7 +13,7 @@
 
   = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: 'form-vertical' }) do |f|
     - if resource.errors.any?
-      .bs-callout.bs-callout-danger
+      .callout.callout-danger
         %strong
           The following
           = 'error'.pluralize(resource.errors.count)

@@ -6,7 +6,7 @@
 
   = form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, multipart: true, html: { class: 'form-vertical', id: 'update_step_form' } do |f|
     - if @agreement.errors.any?
-      .bs-callout.bs-callout-danger
+      .callout.callout-danger
         %strong
           Errors prohibited this from being saved.
         Please upload evidence of your IRB review in PDF format or select Option 2.
@@ -44,7 +44,7 @@
 
             .form-group
               - if @agreement.irb.size > 0
-                .bs-callout.bs-callout-default
+                .callout.callout-default
                   = link_to download_irb_agreement_path(@agreement), target: '_blank' do
                     %span.glyphicon.glyphicon-file
                     = @agreement.irb.to_s.split('/').last
@@ -53,7 +53,7 @@
               = f.label :irb, 'Evidence of IRB review (PDF)', class: 'control-label'
 
               = f.file_field :irb, class: 'form-control'
-              .bs-callout.bs-callout-info
+              .callout.callout-info
                 %strong IRB Information
                 %br
                 = link_to irb_assistance_path, target: '_blank' do

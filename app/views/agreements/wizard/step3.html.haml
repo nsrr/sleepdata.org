@@ -12,7 +12,7 @@
       - if @agreement.errors.messages[:has_read_step3] and @agreement.errors.messages[:has_read_step3].size > 0
         - messages << 'marked that you have read these conditions'
 
-      .bs-callout.bs-callout-danger
+      .callout.callout-danger
         %strong
           Errors prohibited this from being saved.
         Please make sure you

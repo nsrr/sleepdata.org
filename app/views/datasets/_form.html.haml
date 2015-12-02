@@ -1,7 +1,7 @@
 .slim-container.grid-texture
   = form_for @dataset, html: { class: 'form-horizontal' } do |f|
     - if @dataset.errors.any?
-      .bs-callout.bs-callout-danger
+      .callout.callout-danger
         %strong
           = pluralize(@dataset.errors.count, "error")
           prohibited this dataset from being saved
@@ -24,7 +24,7 @@
       = f.label :slug, nil, class: 'col-md-2 control-label'
       .col-md-10
         = f.text_field :slug, class: 'form-control'
-        .bs-callout.bs-callout-info
+        .callout.callout-info
           %strong Naming convention
 
           %ul.fixed-font-size
@@ -85,7 +85,7 @@
       = f.label :git_repository, 'Documentation Repository', class: 'col-md-2 control-label'
       .col-md-10
         = f.text_field :git_repository, class: 'form-control'
-        .bs-callout.bs-callout-info
+        .callout.callout-info
           %strong Repository must be Public
           %ul.fixed-font-size
             %li The repository must be publicly accessible.
@@ -97,7 +97,7 @@
       = f.label :data_dictionary_repository, nil, class: 'col-md-2 control-label'
       .col-md-10
         = f.text_field :data_dictionary_repository, class: 'form-control'
-        .bs-callout.bs-callout-info
+        .callout.callout-info
           %strong Repository must be Public
           %ul.fixed-font-size
             %li The repository must be publicly accessible.

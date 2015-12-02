@@ -8,7 +8,7 @@
   - method = @agreement.new_record? ? :post : :patch
   = form_for @agreement, url: url, method: method, html: { class: 'form-horizontal', id: 'create_step_form' } do |f|
     - if @agreement.errors.any?
-      .bs-callout.bs-callout-danger
+      .callout.callout-danger
         %strong
           = pluralize(@agreement.errors.count, "error")
           prohibited this step from being saved
@@ -70,7 +70,7 @@
               = f.label :individual_title, "Professional Title", class: 'col-md-3 control-label'
               .col-md-9
                 = f.text_field :individual_title, class: 'form-control'
-                .bs-callout.bs-callout-info
+                .callout.callout-info
                   %strong Examples
                   %br
                   Associate Professor, Data Manager, Student
@@ -119,7 +119,7 @@
               = f.label :organization_contact_title, "Contact Title", class: 'col-md-3 control-label'
               .col-md-9
                 = f.text_field :organization_contact_title, class: 'form-control'
-                .bs-callout.bs-callout-info
+                .callout.callout-info
                   %strong Examples
                   %br
                   Associate Professor, Data Manager, Student

@@ -4,7 +4,7 @@
 .slim-container.math-texture
   = form_for @tag, html: { class: 'form-horizontal' } do |f|
     - if @tag.errors.any?
-      .bs-callout.bs-callout-danger
+      .callout.callout-danger
         %strong
           = pluralize(@tag.errors.count, "error")
           prohibited this tag from being saved

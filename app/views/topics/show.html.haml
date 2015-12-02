@@ -70,7 +70,7 @@
     - @comment = @topic.comments.new
     = form_for [@topic, @comment] do |f|
       - if @comment.errors.any?
-        .bs-callout.bs-callout-danger
+        .callout.callout-danger
           %strong
           = pluralize(@comment.errors.count, "error")
           prohibited this comment from being saved

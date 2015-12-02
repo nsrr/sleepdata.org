@@ -8,7 +8,7 @@
 
   .row
     .col-md-10.col-md-offset-1
-      .bs-callout.bs-callout-info
+      .callout.callout-info
         %p
           %strong Instructions
           %br
@@ -22,7 +22,7 @@
 
 
       - if @agreement.errors.any?
-        .bs-callout.bs-callout-danger
+        .callout.callout-danger
           %strong
             Errors prohibited this from being saved.
           Please scroll down and try again.
@@ -108,23 +108,23 @@
             %span.clearButton{ style: "position: absolute; margin-top: 12.5px; margin-left: 10px;" }
               = link_to 'Clear', '#clear', class: 'btn btn-default', tabindex: '-1'
           - if @agreement.errors.messages[:duly_authorized_representative_signature].size > 0
-            .bs-callout.bs-callout-danger{ style: 'margin-top: 10px' }
+            .callout.callout-danger{ style: 'margin-top: 10px' }
               Please sign your full name.
 
         .form-group
           = f.label :duly_authorized_representative_signature_print, 'By (print name)', class: 'control-label'
           = f.text_field :duly_authorized_representative_signature_print, class: 'form-control'
           - if @agreement.errors.messages[:duly_authorized_representative_signature_print].size > 0
-            .bs-callout.bs-callout-danger{ style: 'margin-top: 10px' }
+            .callout.callout-danger{ style: 'margin-top: 10px' }
               Please print your full name.
 
         .form-group
           = f.label :duly_authorized_representative_title, 'Professional Title', class: 'control-label'
           = f.text_field :duly_authorized_representative_title, class: 'form-control'
           - if @agreement.errors.messages[:duly_authorized_representative_title].size > 0
-            .bs-callout.bs-callout-danger{ style: 'margin-top: 10px' }
+            .callout.callout-danger{ style: 'margin-top: 10px' }
               Please enter your professional title.
-          .bs-callout.bs-callout-info
+          .callout.callout-info
             %strong Examples
             %br
             Associate Professor, Data Manager
@@ -133,7 +133,7 @@
           = f.label :duly_authorized_representative_signature_date, 'Date Signed', class: 'control-label'
           = f.text_field :duly_authorized_representative_signature_date, class: 'datepicker form-control', value: @agreement.duly_authorized_representative_signature_date ? @agreement.duly_authorized_representative_signature_date.strftime('%m/%d/%Y') : ''
           - if @agreement.errors.messages[:duly_authorized_representative_signature_date].size > 0
-            .bs-callout.bs-callout-danger{ style: 'margin-top: 10px' }
+            .callout.callout-danger{ style: 'margin-top: 10px' }
               Please enter a valid date.
 
     .row

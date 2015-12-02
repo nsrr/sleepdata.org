@@ -6,7 +6,7 @@
 
   = form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, html: { class: 'form-vertical', id: 'update_step_form' } do |f|
     - if @agreement.errors.any?
-      .bs-callout.bs-callout-danger
+      .callout.callout-danger
         %strong
           = pluralize(@agreement.errors.count, "error")
           prohibited this step from being saved
@@ -24,7 +24,7 @@
 
     .row{ style: "margin-top: 20px;margin-bottom: 20px;" }
       .col-md-10.col-md-offset-1
-        .bs-callout.bs-callout-info
+        .callout.callout-info
           %strong Instructions
           %br
           Please provide enough detail about your research and how you intend to
@@ -73,7 +73,7 @@
         .form-group
           = f.label :intended_use_of_data, 'Intended Use Of Data', class: 'control-label'
           = f.text_field :intended_use_of_data, class: 'form-control'
-          .bs-callout.bs-callout-info
+          .callout.callout-info
             %strong Examples
             Publication; thesis work; other education; algorithm for commercial
             use; preliminary data for a grant.
@@ -97,7 +97,7 @@
               = f.check_box :human_subjects_protections_trained
               I attest that I have completed a Human Subjects Protections Training Course.
 
-          .bs-callout.bs-callout-info
+          .callout.callout-info
             %strong Don't have Human Subjects Protections Training?
             You may sign up and complete a course at these links:
             %ul.fixed-font-size
