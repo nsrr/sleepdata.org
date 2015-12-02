@@ -1,0 +1,34 @@
+.bs-callout {
+  border-left: 5px solid $gray-lighter;
+  margin: 20px 0;
+  padding: 15px 30px 15px 15px;
+
+  p:last-child,
+  ul:last-child {
+    margin-bottom: 0;
+  }
+
+}
+
+.bs-callout code,
+.bs-callout .highlight {
+  background-color: $gray-lighter;
+}
+
+.bs-callout-danger {
+  background-color: $panel-danger-heading-bg;
+  border-color: $panel-danger-border;
+  color: $panel-danger-text;
+}
+
+.bs-callout-warning {
+  background-color: $panel-warning-heading-bg;
+  border-color: $panel-warning-border;
+  color: $panel-warning-text;
+}
+
+.bs-callout-info {
+  background-color: $panel-info-heading-bg;
+  border-color: $panel-info-border;
+  color: $panel-info-text;
+}
