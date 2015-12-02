@@ -55,3 +55,6 @@
             %li= link_to 'Go To Stats', stats_path
             %li= link_to 'Downloads By Month', downloads_by_month_path( user_type: 'regular' )
             %li= link_to 'Agreement Reports', agreement_reports_path
+
+- if current_user.system_admin?
+  = link_to 'HOSTING REQUESTS', hosting_requests_path, class: 'btn btn-block btn-default'

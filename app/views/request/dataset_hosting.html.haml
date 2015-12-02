@@ -1,2 +1,121 @@
-%h1 Request#dataset_hosting
-%p Find me in app/views/request/dataset_hosting.html.haml
+- @title = 'Hosting Datasets on the NSRR'
+
+- content_for :banner do
+  .dataset-banner
+    .container
+      .dataset-header.brand= @title
+
+%h1 Welcome!
+
+%p
+  We're excited to start working with you on getting your dataset hosted on the
+  NSRR.
+
+  The following will help you learn more about our process, and give you a
+  chance to tell us more about your data.
+
+= form_for @hosting_request, url: create_hosting_request_path, method: :post, html: { class: 'form-horizontal', id: 'dataset_hosting_request_form' } do |f|
+  - if @hosting_request.errors.any?
+    .callout.callout-danger
+      %strong
+        = pluralize @hosting_request.errors.count, 'error'
+        prohibited this request from being processed
+
+      %ul
+        - @hosting_request.errors.full_messages.each do |msg|
+          %li= msg
+
+  %h2 Account Information
+
+  - if current_user
+    Currently logged in as
+    = succeed '.' do
+      %strong= current_user.name
+    Not
+    = succeed '?' do
+      = current_user.name
+    = link_to 'Sign Out', destroy_user_session_path
+  - else
+
+    %h3 Create New Account
+
+    %p
+      It's
+      %strong easy
+      and
+      %strong free
+      to register a new account on the NSRR. We will contact you through the
+      email you provide as we review your request.
+
+    - if @errors && @errors.any?
+      .callout.callout-danger
+        %strong
+          = pluralize @errors.count, 'error'
+          prohibited this registration from being saved
+
+        %ul
+          - @errors.full_messages.each do |msg|
+            %li= msg
+
+    .form-group
+      .col-md-offset-2.col-md-10
+        = link_to new_user_session_path, class: 'btn btn-xs btn-default' do
+          I already have an account
+          .glyphicon.glyphicon-export
+    .form-group
+      .col-md-offset-2.col-md-10
+        %strong or
+
+    .form-group
+      = label :first_name, 'First Name', class: 'col-md-2 control-label'
+      .col-md-10
+        = text_field_tag 'user[first_name]', (params[:user] ? params[:user][:first_name] : nil), class: 'form-control'
+
+    .form-group
+      = label :last_name, 'Last Name', class: 'col-md-2 control-label'
+      .col-md-10
+        = text_field_tag 'user[last_name]', (params[:user] ? params[:user][:last_name] : nil), class: 'form-control'
+
+    .form-group
+      = label :email, 'Email', class: 'col-md-2 control-label'
+      .col-md-10
+        = email_field_tag 'user[email]', (params[:user] ? params[:user][:email] : nil), class: 'form-control'
+
+
+  %h2 Dataset Information
+
+  %p
+    The datasets that are hosted on the NSRR range in size and complexity, but
+    typically are in the following format.
+
+    A CSV, or set of CSVs that defines the core covariate dataset. The SHHS study
+    for example has the datasets split up by visit. Each dataset provides a list
+    of deidentified individuals, along with their data for hundreds (or even
+    thousands for our larger datasets) of collected variables.
+
+    Additionally, datasets also contain a large quantity of binary files that may
+    be linked on the subject level. For instance, the SHHS dataset has individual
+    polysomnographs for each subject in the dataset that span multiple gigabytes
+    of data.
+
+  %p Please give a short description
+  .form-group
+    = f.label :description, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_area :description, rows: 7, class: 'form-control'
+
+  %h2 Ownership of Data
+
+  %p
+    Ownership of data stays with the institution, and can either be publicly
+    shared or can be require approval and signing of a Data Access and Use
+    Agreement provided by the institution.
+
+  %p Please enter the name of your institution
+  .form-group
+    = f.label :institution_name, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :institution_name, class: 'form-control'
+
+  = link_to '#', data: { object: 'submit', target: '#dataset_hosting_request_form' }, class: 'btn btn-lg btn-primary btn-block' do
+    Submit Request

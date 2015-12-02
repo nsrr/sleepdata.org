@@ -94,6 +94,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :hosting_requests, path: 'hosting-requests'
+
   get '/a/:auth_token/datasets' => 'datasets#index'
   get '/a/:auth_token/datasets/:id' => 'datasets#show'
 
@@ -137,6 +139,8 @@ Rails.application.routes.draw do
     get 'tool/contribute', action: 'tool_contribute', as: :tool_contribute
     get 'tool/request', action: 'tool_request', as: :tool_request
     get 'dataset/hosting', action: 'dataset_hosting', as: :dataset_hosting
+    post 'dataset/hosting', action: 'create_hosting_request', as: :create_hosting_request
+    get 'dataset/hosting/submitted', action: 'dataset_hosting_submitted', as: :dataset_hosting_submitted
   end
 
   scope module: 'static' do

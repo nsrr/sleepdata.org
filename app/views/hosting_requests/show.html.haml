@@ -1,0 +1,19 @@
+%p
+  %strong User
+  = @hosting_request.user_id
+
+%p
+  %strong Description
+  = @hosting_request.description
+
+%p
+  %strong Institution name
+  = @hosting_request.institution_name
+
+%p
+  %strong Deleted
+  = @hosting_request.deleted
+
+= link_to 'Edit', edit_hosting_request_path(@hosting_request)
+|
+= link_to 'Back', hosting_requests_path

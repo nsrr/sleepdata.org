@@ -7,6 +7,7 @@
 - **Dataset Changes**
   - Improved dataset access request flow
   - Added call to action for researchers who wish to contribute datasets to the NSRR
+  - Users can now fill out a dataset hosting request form to host new datasets on the NSRR
 - **Variable Changes**
   - Added a table of domain options for variables that are linked to domains
   - Added ability to display SVG graphs for variables for future integration with Spout

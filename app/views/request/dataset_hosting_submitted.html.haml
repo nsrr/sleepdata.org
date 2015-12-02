@@ -1,0 +1,28 @@
+- @title = 'Hosting Request Submitted'
+
+- content_for :body_class do
+  brand-background
+
+- content_for :banner do
+  .dataset-banner
+    .container
+      .dataset-header.brand= @title
+
+  .call-to-action
+    .call-to-action-body
+      %p
+        Thank you for your interest in having the NSRR host your dataset.
+
+      %p
+        We will review the request and get back in touch with you to discuss
+        further details.
+
+      %p
+        Don't hesitate to contact us at our email address with any further
+        questions:
+        = mail_to 'support@sleepdata.org'
+
+
+      = link_to dashboard_path, class: 'btn btn-lg btn-call-to-action' do
+        Go to My Dashboard
+        %span.glyphicon.glyphicon-arrow-right
