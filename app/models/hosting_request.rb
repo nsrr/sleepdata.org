@@ -18,6 +18,6 @@ class HostingRequest < ActiveRecord::Base
   end
 
   def send_email(generated_password)
-    # Sent with
+    # Sent with generated_password
   end
 end
