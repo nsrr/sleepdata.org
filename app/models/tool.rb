@@ -1,5 +1,4 @@
 class Tool < ActiveRecord::Base
-
   mount_uploader :logo, ImageUploader
 
   TYPE = [['Web', 'web'], ['Matlab', 'matlab'], ['R Language', 'r'], ['Java', 'java'], ['Utility', 'utility'], ['Ruby', 'ruby']].sort
@@ -8,13 +7,15 @@ class Tool < ActiveRecord::Base
   include Deletable, Documentable, Gitable
 
   # Named Scopes
-  scope :with_editor, lambda { |arg| where('tools.user_id IN (?) or tools.id in (select tool_users.tool_id from tool_users where tool_users.user_id = ? and tool_users.editor = ? and tool_users.approved = ?)', arg, arg, true, true ).references(:tool_users) }
-  scope :with_viewer_or_editor, lambda { |arg| where('tools.user_id IN (?) or tools.public = ? or tools.id in (select tool_users.tool_id from tool_users where tool_users.user_id = ? and tool_users.approved = ?)', arg, true, arg, true ).references(:tool_users) }
+  scope :with_editor, lambda { |arg| where('tools.user_id IN (?) or tools.id in (select tool_users.tool_id from tool_users where tool_users.user_id = ? and tool_users.editor = ? and tool_users.approved = ?)', arg, arg, true, true).references(:tool_users) }
+  scope :with_viewer_or_editor, lambda { |arg| where('tools.user_id IN (?) or tools.public = ? or tools.id in (select tool_users.tool_id from tool_users where tool_users.user_id = ? and tool_users.approved = ?)', arg, true, arg, true).references(:tool_users) }
 
   # Model Validation
-  validates_presence_of :name, :slug, :user_id
-  validates_uniqueness_of :slug, scope: [ :deleted ]
-  validates_format_of :slug, with: /\A[a-z][a-z0-9\-]*\Z/
+  # TODO UPDATE VALIDATIONS
+  # validates :name, :slug, :user_id, presence: true
+  validates :user_id, :url, presence: true
+  # validates :slug, uniqueness: { scope: :deleted }
+  # validates :slug, format: { with: /\A[a-z][a-z0-9\-]*\Z/ }
 
   # Model Relationships
   belongs_to :user
@@ -33,15 +34,15 @@ class Tool < ActiveRecord::Base
   end
 
   def viewers
-    User.where( id: [self.user_id] + self.tool_users.where( approved: true ).pluck(:user_id) )
+    User.where(id: [user_id] + tool_users.where(approved: true).pluck(:user_id) )
   end
 
   def editors
-    User.where( id: [self.user_id] + self.tool_users.where( approved: true, editor: true ).pluck(:user_id) )
+    User.where(id: [user_id] + tool_users.where(approved: true, editor: true).pluck(:user_id) )
   end
 
   def root_folder
-    File.join(CarrierWave::Uploader::Base.root, 'tools', (Rails.env.test? ? self.slug : self.id.to_s))
+    File.join(CarrierWave::Uploader::Base.root, 'tools', (Rails.env.test? ? slug : id.to_s))
   end
 
   def create_page_audit!(current_user, page_path, remote_ip )
@@ -49,7 +50,8 @@ class Tool < ActiveRecord::Base
   end
 
   def type_name
-    TYPE.select{|label, value| value == self.tool_type}.first[0] rescue nil
+    TYPE.find { |_label, value| value == tool_type }[0]
+  rescue
+    nil
   end
-
 end

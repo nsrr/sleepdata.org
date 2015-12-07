@@ -137,6 +137,8 @@ Rails.application.routes.draw do
 
   scope module: 'request' do
     get 'tool/contribute', action: 'tool_contribute', as: :tool_contribute
+    post 'tool/contribute', action: 'create_tool_contribute', as: :create_tool_contribute
+    get 'tool/contribute/submitted', action: 'tool_contribute_submitted', as: :tool_contribute_submitted
     get 'tool/request', action: 'tool_request', as: :tool_request
     get 'dataset/hosting', action: 'dataset_hosting', as: :dataset_hosting
     post 'dataset/hosting', action: 'create_hosting_request', as: :create_hosting_request

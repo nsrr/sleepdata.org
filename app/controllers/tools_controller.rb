@@ -1,9 +1,9 @@
 class ToolsController < ApplicationController
-  before_action :authenticate_user!,        only: [ :new, :create, :edit, :update, :destroy, :requests, :request_access, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
-  before_action :check_system_admin,        only: [ :new, :create, :destroy ]
-  before_action :set_viewable_tool,         only: [ :show, :logo, :images, :pages, :request_access ]
-  before_action :set_editable_tool,         only: [ :edit, :update, :destroy, :requests, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
-  before_action :redirect_without_tool,     only: [ :show, :logo, :images, :pages, :requests, :request_access, :set_access, :create_access, :edit, :update, :destroy, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync ]
+  before_action :authenticate_user!,        only: [:new, :create, :edit, :update, :destroy, :requests, :request_access, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync]
+  before_action :check_system_admin,        only: [:new, :create, :destroy]
+  before_action :set_viewable_tool,         only: [:show, :logo, :images, :pages, :request_access]
+  before_action :set_editable_tool,         only: [:edit, :update, :destroy, :requests, :set_access, :create_access, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync]
+  before_action :redirect_without_tool,     only: [:show, :logo, :images, :pages, :requests, :request_access, :set_access, :create_access, :edit, :update, :destroy, :new_page, :create_page, :edit_page, :update_page, :pull_changes, :sync]
 
   # Concerns
   include Pageable
@@ -33,10 +33,11 @@ class ToolsController < ApplicationController
   # GET /tools.json
   def index
     tool_scope = if current_user
-      current_user.all_viewable_tools
-    else
-      Tool.current.where( public: true )
-    end
+                   current_user.all_viewable_tools
+                 else
+                   Tool.current.where(public: true)
+                 end
+    tool_scope = tool_scope.where.not(name: ['', nil])
     tool_scope = tool_scope.where( tool_type: params[:type] ) unless params[:type].blank?
     @tools = tool_scope.order(:tool_type, :name).page(params[:page]).per( 12 )
   end
@@ -101,24 +102,25 @@ class ToolsController < ApplicationController
   end
 
   private
-    def set_viewable_tool
-      viewable_tools = if current_user
-        current_user.all_viewable_tools
-      else
-        Tool.current.where( public: true )
-      end
-      @tool = viewable_tools.find_by_slug(params[:id])
-    end
 
-    def set_editable_tool
-      @tool = current_user.all_tools.find_by_slug( params[:id] ) if current_user
-    end
+  def set_viewable_tool
+    viewable_tools = if current_user
+                       current_user.all_viewable_tools
+                     else
+                       Tool.current.where(public: true)
+                     end
+    @tool = viewable_tools.where.not(name: ['', nil]).find_by_slug(params[:id])
+  end
 
-    def redirect_without_tool
-      empty_response_or_root_path( tools_path ) unless @tool
-    end
+  def set_editable_tool
+    @tool = current_user.all_tools.find_by_slug(params[:id]) if current_user
+  end
 
-    def tool_params
-      params.require(:tool).permit( :name, :description, :slug, :logo, :logo_cache, :public, :tool_type, :git_repository )
-    end
+  def redirect_without_tool
+    empty_response_or_root_path( tools_path ) unless @tool
+  end
+
+  def tool_params
+    params.require(:tool).permit( :name, :description, :slug, :logo, :logo_cache, :public, :tool_type, :git_repository )
+  end
 end

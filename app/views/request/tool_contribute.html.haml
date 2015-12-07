@@ -1,2 +1,101 @@
-%h1 Request#tool_contribute
-%p Find me in app/views/request/tool_contribute.html.haml
+- @title = 'Contribute a Tool to the NSRR'
+
+- content_for :banner do
+  .dataset-banner
+    .container
+      .dataset-header.brand= @title
+
+%h1 Welcome!
+
+%p
+  The NSRR aims at aggregating tools to solve common problems for researchers
+  working with sleep data. If you have a tool that you think may benefit other
+  community members, please submit a short description, and a URL to the code
+  repository below. (ex: GitHub, SourceForge, PhysioNet)
+
+
+
+= form_for @tool, url: create_tool_contribute_path, method: :post, html: { class: 'form-horizontal', id: 'tool_contribution_form' } do |f|
+  - if @tool.errors.any?
+    .callout.callout-danger
+      %strong
+        = pluralize @tool.errors.count, 'error'
+        prohibited this submission from being processed
+
+      %ul
+        - @tool.errors.full_messages.each do |msg|
+          %li= msg
+
+  %h2 Account Information
+
+  - if current_user
+    Currently logged in as
+    = succeed '.' do
+      %strong= current_user.name
+    Not
+    = succeed '?' do
+      = current_user.name
+    = link_to 'Sign Out', destroy_user_session_path
+  - else
+
+    %h3 Create New Account
+
+    %p
+      It's
+      %strong easy
+      and
+      %strong free
+      to register a new account on the NSRR. We will contact you through the
+      email you provide as we review your submission.
+
+    - if @errors && @errors.any?
+      .callout.callout-danger
+        %strong
+          = pluralize @errors.count, 'error'
+          prohibited this registration from being saved
+
+        %ul
+          - @errors.full_messages.each do |msg|
+            %li= msg
+
+    .form-group
+      .col-md-offset-2.col-md-10
+        = link_to new_user_session_path, class: 'btn btn-xs btn-default' do
+          I already have an account
+          .glyphicon.glyphicon-export
+    .form-group
+      .col-md-offset-2.col-md-10
+        %strong or
+
+    .form-group
+      = label :first_name, 'First Name', class: 'col-md-2 control-label'
+      .col-md-10
+        = text_field_tag 'user[first_name]', (params[:user] ? params[:user][:first_name] : nil), class: 'form-control'
+
+    .form-group
+      = label :last_name, 'Last Name', class: 'col-md-2 control-label'
+      .col-md-10
+        = text_field_tag 'user[last_name]', (params[:user] ? params[:user][:last_name] : nil), class: 'form-control'
+
+    .form-group
+      = label :email, 'Email', class: 'col-md-2 control-label'
+      .col-md-10
+        = email_field_tag 'user[email]', (params[:user] ? params[:user][:email] : nil), class: 'form-control'
+
+
+  %h2 Tool Submission Information
+
+  %p Please enter the URL to your tool repository or your GitHub Gist
+  .form-group
+    = f.label :url, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :url, class: 'form-control'
+
+  %p Please give a short description
+  .form-group
+    = f.label :description, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_area :description, rows: 7, class: 'form-control'
+
+  = link_to '#', data: { object: 'submit', target: '#tool_contribution_form' }, class: 'btn btn-lg btn-primary btn-block' do
+    Submit Tool
