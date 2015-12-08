@@ -35,11 +35,15 @@
     margin-bottom: 20px;
     text-align: center;
   }
+
+  .call-to-action-body:last-child {
+    margin-bottom: 0;
+  }
 }
 
 @media screen and (min-width: $screen-md-min) {
   .call-to-action {
-    padding: 80px;
+    padding: 60px;
 
     .call-to-action-header {
       font-size: 44px;
@@ -51,15 +55,19 @@
 }
 
 .btn-call-to-action {
-  border-radius: 40px;
-  min-width: 200px;
-  max-width: 500px;
-  width: 100%;
-  color: $brand-primary !important;
-  border-color: $brand-primary !important;
   background-color: $brand-white !important;
-  -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
-  -webkit-backface-visibility: hidden; /* Fix for transition flickering */
+  backface-visibility: hidden; /* Fix for transition flickering */
+  border-color: $brand-primary !important;
+  border-radius: 40px;
+  color: $brand-primary !important;
+  font-size: 16px;
+  transition: all .4s ease; /* Fade to color for Chrome and Safari */
+}
+
+@media screen and (min-width: $screen-md-min) {
+  .btn-call-to-action {
+    font-size: 24px;
+  }
 }
 
 .btn-call-to-action:hover,

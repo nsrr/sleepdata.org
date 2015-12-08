@@ -85,13 +85,4 @@
       - else
         .call-to-action-body
           To download files:
-        - if current_user
-          .call-to-action-body
-            = link_to 'Fill out a Data Access and Use Agreement', submissions_path(dataset: @dataset), class: 'btn btn-lg btn-call-to-action'
-        - else
-          .call-to-action-body
-            Step 1:
-            = link_to 'Sign up', new_user_registration_path, class: 'btn btn-lg btn-call-to-action'
-          .call-to-action-body
-            Step 2:
-            = link_to 'Fill out a Data Access and Use Agreement', submissions_path(dataset: @dataset), class: 'btn btn-lg btn-call-to-action'
+          = link_to 'Fill out a Data Access and Use Agreement', submissions_path(dataset: @dataset), class: 'btn btn-lg btn-call-to-action'
