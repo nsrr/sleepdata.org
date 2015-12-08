@@ -1,6 +1,6 @@
 - @title = 'Tools'
 %h1
-  = @title
+  %span.brand= @title
   - if current_user && current_user.system_admin?
     = link_to 'Create Tool', new_tool_path, class: 'btn btn-xs btn-primary'
 %p

@@ -1,7 +1,7 @@
 - @title = 'Datasets'
 
 %h1
-  = @title
+  %span.brand= @title
   - if current_user && current_user.system_admin?
     = link_to 'Create Dataset', new_dataset_path, class: 'btn btn-xs btn-primary'
 %p

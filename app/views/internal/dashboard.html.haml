@@ -76,16 +76,23 @@
       %p Your DAUA will expire soon!
       %p Your access token updated recently!
 
-    %div{ style: 'border-radius: 4px; border: 1px solid #333; padding: 10px 20px; margin-bottom: 20px; background-color: #333; color: white;' }
-      %strong NSRR Blog
-      &middot;
-      %small= link_to 'View All', blog_path, style: 'color: white;text-decoration:underline'
+    .dashboard-container
+      .dashboard-title
+        %strong NSRR Blog
+        &middot;
+        %small= link_to 'View All', blog_path
 
-    - @broadcasts = Broadcast.current.published.order(publish_date: :desc).limit(3).each do |broadcast|
-      .dashboard-container
-        .dashboard-title
-          %strong= link_to broadcast.title, blog_post_path(broadcast)
-        - if broadcast.image.size > 0
-          .center{ style: 'overflow: hidden; margin-left: -20px; margin-right: -20px; margin-bottom: -20px; max-height: 150px;' }
-            = image_tag blog_post_image_path(broadcast), style: 'width: 100%'
-            =# image_tag blog_post_image_path(broadcast), style: 'max-width:100%;max-height:140px'
+      %div{ style: 'margin-bottom: -20px' }
+        - @broadcasts = Broadcast.current.published.order(publish_date: :desc).limit(3).each_with_index do |broadcast, index|
+          - unless index == 0
+            %div{ style: 'border-bottom: 1px solid #ccc; margin-left: -20px; margin-right: -20px' }
+          %div{ style: 'margin-top: 10px;' }
+            - if broadcast.image.size > 0
+              = link_to blog_post_path(broadcast) do
+                / .center{ style: 'overflow: hidden; margin-left: -20px; margin-right: -20px; max-height: 150px;margin-bottom: 10px' }
+                /=# image_tag blog_post_image_path(broadcast), style: 'width: 100%'
+                .center{ style: 'overflow: hidden;max-height: 140px;margin-bottom: 10px;padding-top: 10px;' }
+                  = image_tag blog_post_image_path(broadcast), style: 'width: 100%;'
+                  =# image_tag blog_post_image_path(broadcast), style: 'max-width:100%;max-height:140px'
+            %div{ style: 'margin-bottom: 10px' }
+              %strong= link_to broadcast.title, blog_post_path(broadcast)

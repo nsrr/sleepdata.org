@@ -21,7 +21,7 @@
 
 .dashboard-notification {
   background-color: $brand-warning;
-  border-color: $brand-warning-text;
+  border-color: darken($brand-warning, 20%);
   // color: $brand-warning-text;
 }
 
