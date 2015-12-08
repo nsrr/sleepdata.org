@@ -1,7 +1,9 @@
-// TODO Add dark #333 for footer
+// Defines a sticky footer
 
 .footer-container {
+  background-color: $brand-black;
   bottom: 0;
+  color: $brand-white;
   font-weight: 300;
   height: $footer-height;
   position: absolute;
@@ -10,20 +12,5 @@
 
 .footer {
   height: $footer-height;
-  margin-left: -15px;
-  margin-right: -15px;
-  padding: 40px 25px;
-  position: relative;
-}
-
-@media screen and (min-width: $screen-md-min) {
-  .footer {
-    padding: 40px 50px;
-  }
-}
-
-.footer-on-top {
-  position: absolute;
-  right: 0;
-  top: -45px;
+  padding: 40px 0;
 }

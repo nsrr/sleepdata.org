@@ -4,7 +4,7 @@
 %p
   Analyze and manipulate data using a variety of
   = succeed '.' do
-    = link_to 'available tools', tools_path
+    = link_to 'tools contributed by the research community', tools_path
 
 .row{ style: 'margin-top:40px' }
   - tools = Tool.current.where(slug: ['physiomimi', 'edf-viewer', 'block-edf-loader']).order(:name)
