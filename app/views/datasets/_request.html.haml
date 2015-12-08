@@ -5,31 +5,31 @@
   - if agreement = agreements.find_by(status: 'approved')
     - if expanded
       .info-header Data Access
-    = link_to 'Approved', files_dataset_path(dataset), class: "btn #{btn_size} btn-call-to-action"
+    = link_to 'Approved', files_dataset_path(dataset), class: "btn #{btn_size} btn-call-to-action btn-block"
   - elsif agreement = agreements.find_by(status: 'submitted')
     - if expanded
       .info-header Request Submitted
-    = link_to 'Under Review', submissions_path, class: "btn #{btn_size} btn-call-to-default"
+    = link_to 'Under Review', submissions_path, class: "btn #{btn_size} btn-call-to-default btn-block"
   - elsif agreement = agreements.find_by(status: 'resubmit')
     - if expanded
       .info-header Changes Required
-    = link_to 'Resubmit Your DAUA', submissions_path, class: "btn #{btn_size} btn-call-to-danger"
+    = link_to 'Resubmit Your DAUA', submissions_path, class: "btn #{btn_size} btn-call-to-danger btn-block"
   - elsif agreement = agreements.expired.first
     - if expanded
       .info-header Request Expired
-    = link_to 'Renew Access', submissions_path(dataset: dataset), class: "btn #{btn_size} btn-call-to-danger"
+    = link_to 'Renew Access', submissions_path(dataset: dataset), class: "btn #{btn_size} btn-call-to-danger btn-block"
   - elsif agreement = agreements.find_by(status: ['', 'started', nil])
     - if expanded
       .info-header Request Started
     - if agreement.fully_filled_out?
-      = link_to 'Complete Your DAUA', proof_agreement_path(agreement), class: "btn #{btn_size} btn-call-to-info"
+      = link_to 'Complete Your DAUA', proof_agreement_path(agreement), class: "btn #{btn_size} btn-call-to-info btn-block"
     - else
-      = link_to 'Complete Your DAUA', step_agreement_path(agreement, step: agreement.current_step), class: "btn #{btn_size} btn-call-to-info"
+      = link_to 'Complete Your DAUA', step_agreement_path(agreement, step: agreement.current_step), class: "btn #{btn_size} btn-call-to-info btn-block"
   - else
-    = link_to 'Request Access', submissions_path(dataset: dataset), class: "btn #{btn_size} btn-call-to-info"
+    = link_to 'Request Access', submissions_path(dataset: dataset), class: "btn #{btn_size} btn-call-to-info btn-block"
 - elsif dataset.release_date
-  = link_to dataset, class: "btn #{btn_size} btn-call-to-default" do
+  = link_to dataset, class: "btn #{btn_size} btn-call-to-default btn-block" do
     Coming
     = dataset.release_date.strftime('%B %e, %Y')
 - else
-  = link_to 'Preview', dataset, class: "btn #{btn_size} btn-call-to-default"
+  = link_to 'Preview', dataset, class: "btn #{btn_size} btn-call-to-default btn-block"

@@ -1,0 +1,18 @@
+.award {
+  background-color: $brand-black;
+  border-radius: 6px;
+  display: inline-block;
+  padding: 6px;
+}
+
+.award-gold {
+  background-color: $cg-gold;
+}
+
+.award-silver {
+  background-color: $cg-silver;
+}
+
+.award-bronze {
+  background-color: $cg-bronze;
+}

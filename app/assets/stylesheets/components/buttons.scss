@@ -16,3 +16,38 @@
   border: 1px solid $btn-danger-border !important;
   color: $body-bg !important;
 }
+
+
+.btn-primary-inverse {
+  background-color: $brand-white;
+  border: 1px solid $btn-primary-border;
+  color: $btn-primary-bg;
+}
+
+.btn-primary-inverse:hover,
+.btn-primary-inverse:focus,
+.btn-primary-inverse:active,
+.btn-primary-inverse.active,
+.btn-primary-inverse.disabled,
+.btn-primary-inverse[disabled] {
+  background-color: $btn-primary-bg;
+  border: 1px solid $btn-primary-border;
+  color: $brand-white;
+}
+
+.btn-info-inverse {
+  background-color: $brand-white;
+  border: 1px solid $btn-info-border;
+  color: $btn-info-bg;
+}
+
+.btn-info-inverse:hover,
+.btn-info-inverse:focus,
+.btn-info-inverse:active,
+.btn-info-inverse.active,
+.btn-info-inverse.disabled,
+.btn-info-inverse[disabled] {
+  background-color: $btn-info-bg;
+  border: 1px solid $btn-info-border;
+  color: $brand-white;
+}

@@ -49,55 +49,55 @@ class User < ActiveRecord::Base
   # User Methods
 
   def all_topics
-    if self.system_admin?
+    if system_admin?
       Topic.current
     else
-      self.topics
+      topics
     end
   end
 
   def all_comments
-    if self.system_admin?
+    if system_admin?
       Comment.current
     else
-      self.comments
+      comments
     end
   end
 
   def all_agreements
-    if self.system_admin?
+    if system_admin?
       Agreement.current
     else
-      self.agreements
+      agreements
     end
   end
 
   def all_agreement_events
-    if self.system_admin?
+    if system_admin?
       AgreementEvent.all
     else
-      self.agreement_events
+      agreement_events
     end
   end
 
   def reviewable_agreements
-    Agreement.current.where( "agreements.id IN (select requests.agreement_id from requests where requests.dataset_id IN (?))", self.all_reviewable_datasets.pluck(:id) )
+    Agreement.current.where('agreements.id IN (select requests.agreement_id from requests where requests.dataset_id IN (?))', all_reviewable_datasets.pluck(:id))
   end
 
   def all_datasets
-    Dataset.current.with_editor( self.id )
+    Dataset.current.with_editor(id)
   end
 
   def all_reviewable_datasets
-    Dataset.current.with_reviewer( self.id )
+    Dataset.current.with_reviewer(id)
   end
 
   def all_viewable_datasets
-    Dataset.current.with_viewer_or_editor( self.id )
+    Dataset.current.with_viewer_or_editor(id)
   end
 
   def all_viewable_challenges
-    if self.system_admin?
+    if system_admin?
       Challenge.current
     else
       Challenge.current.where(public: true)
@@ -105,36 +105,36 @@ class User < ActiveRecord::Base
   end
 
   def all_challenges
-    if self.system_admin?
+    if system_admin?
       Challenge.current
     else
-      self.challenges
+      challenges
     end
   end
 
   def all_tools
-    Tool.current.with_editor( self.id )
+    Tool.current.with_editor(id)
   end
 
   def all_viewable_tools
-    Tool.current.with_viewer_or_editor( self.id )
+    Tool.current.with_viewer_or_editor(id)
   end
 
   def avatar_url(size = 80, default = 'mm')
-    gravatar_id = Digest::MD5.hexdigest(self.email.to_s.downcase)
+    gravatar_id = Digest::MD5.hexdigest(email.to_s.downcase)
     "//gravatar.com/avatar/#{gravatar_id}.png?&s=#{size}&r=pg&d=#{default}"
   end
 
   def can_post_links?
-    aug_member? or core_member?
+    aug_member? || core_member?
   end
 
   def topics_created_in_last_day
-    self.topics.where( "created_at >= ?", Date.today - 1.day )
+    topics.where('created_at >= ?', Date.today - 1.day)
   end
 
   def max_topics
-    if aug_member? or core_member?
+    if aug_member? || core_member?
       10
     else
       2
@@ -142,7 +142,7 @@ class User < ActiveRecord::Base
   end
 
   def digest_reviews
-    self.reviews.where( approved: nil ).joins(:agreement).where( "agreements.deleted = ? and agreements.status = ?", false, 'submitted' ).order( "agreements.last_submitted_at DESC" )
+    reviews.where(approved: nil).joins(:agreement).where('agreements.deleted = ? and agreements.status = ?', false, 'submitted').order('agreements.last_submitted_at DESC')
   end
 
   def name
@@ -162,7 +162,7 @@ class User < ActiveRecord::Base
   end
 
   def id_and_auth_token
-    "#{self.id}-#{self.authentication_token}"
+    "#{id}-#{authentication_token}"
   end
 
   def forum_name

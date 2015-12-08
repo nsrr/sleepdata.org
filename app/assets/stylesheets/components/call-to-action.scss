@@ -60,15 +60,16 @@
   border-color: $brand-primary !important;
   border-radius: 40px;
   color: $brand-primary !important;
-  font-size: 16px;
+  // font-size: 16px;
   transition: all .4s ease; /* Fade to color for Chrome and Safari */
+  overflow: hidden;
 }
 
-@media screen and (min-width: $screen-md-min) {
-  .btn-call-to-action {
-    font-size: 24px;
-  }
-}
+// @media screen and (min-width: $screen-md-min) {
+//   .btn-call-to-action {
+//     font-size: 24px;
+//   }
+// }
 
 .btn-call-to-action:hover,
 .btn-call-to-action:focus,
@@ -83,14 +84,15 @@
 
 .btn-call-to-danger {
   border-radius: 40px;
-  min-width: 200px;
-  max-width: 500px;
-  width: 100%;
+  // min-width: 200px;
+  // max-width: 500px;
+  // width: 100%;
   color: $btn-danger-border !important;
   border-color: $btn-danger-border !important;
   background-color: $brand-white !important;
   -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
   -webkit-backface-visibility: hidden; /* Fix for transition flickering */
+  overflow: hidden;
 }
 
 .btn-call-to-danger:hover,
@@ -106,14 +108,15 @@
 
 .btn-call-to-default {
   border-radius: 40px;
-  min-width: 200px;
-  max-width: 500px;
-  width: 100%;
+  // min-width: 200px;
+  // max-width: 500px;
+  // width: 100%;
   color: $gray-light !important;
   border-color: $gray-lighter !important;
   background-color: $gray-lighter !important;
   -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
   -webkit-backface-visibility: hidden; /* Fix for transition flickering */
+  overflow: hidden;
 }
 
 .btn-call-to-default:hover,
@@ -129,14 +132,15 @@
 
 .btn-call-to-info {
   border-radius: 40px;
-  min-width: 200px;
-  max-width: 500px;
-  width: 100%;
+  // min-width: 200px;
+  // max-width: 500px;
+  // width: 100%;
   color: $btn-info-border !important;
   border-color: $btn-info-border !important;
   background-color: $brand-white !important;
   -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
   -webkit-backface-visibility: hidden; /* Fix for transition flickering */
+  overflow: hidden;
 }
 
 .btn-call-to-info:hover,
