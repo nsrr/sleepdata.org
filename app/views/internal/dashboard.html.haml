@@ -84,7 +84,7 @@
     - @broadcasts = Broadcast.current.published.order(publish_date: :desc).limit(3).each do |broadcast|
       .dashboard-container
         .dashboard-title
-          %strong= link_to broadcast.title, broadcast
+          %strong= link_to broadcast.title, blog_post_path(broadcast)
         - if broadcast.image.size > 0
           .center{ style: 'overflow: hidden; margin-left: -20px; margin-right: -20px; margin-bottom: -20px; max-height: 150px;' }
             = image_tag blog_post_image_path(broadcast), style: 'width: 100%'
