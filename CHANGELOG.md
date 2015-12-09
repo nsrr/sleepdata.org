@@ -29,6 +29,7 @@
 
 ### Bug Fix
 - Fixed an issue where chart numbers would not show well on charts with dark columns
+- Fixed an issue where users would be logged out when switching between www and non-www versions of the site
 
 ## 0.17.3 (November 6, 2015)
 
