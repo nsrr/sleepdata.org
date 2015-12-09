@@ -18,7 +18,6 @@
   Turbolinks.allowLinkExtensions('md')
   Turbolinks.enableProgressBar()
   window.$isDirty = false
-  prettyPrint()
   variablesReady() if (typeof variablesReady == 'function')
   datasetsReady()
   agreementsReady()
