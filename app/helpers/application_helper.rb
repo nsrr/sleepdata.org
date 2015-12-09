@@ -14,7 +14,7 @@ module ApplicationHelper
     result = text.to_s
     result = replace_numbers_with_ascii(result) unless allow_lists
     result = markdown.render(result)
-    result = result.encode('UTF-16', undef: :replace, invalid: :replace, replace: "").encode('UTF-8')
+    result = result.encode('UTF-16', undef: :replace, invalid: :replace, replace: '').encode('UTF-8')
     result = add_table_class(result, table_class) unless table_class.blank?
     result = expand_relative_paths(result)
     result = page_headers(result)

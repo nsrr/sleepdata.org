@@ -14,7 +14,6 @@
 //= require compatibility/array_prototype_index_of
 //= require compatibility/array_prototype_map
 //= require turbolinks
-//= require external/prettify
 
 //= require external/json2.min.js
 //= require flashcanvas.js
@@ -29,9 +28,6 @@
 //= require reviews
 //= require tags
 //= require showcase
-//= require external/jquery.lazyload.js
-//= require external/lang-matlab
-//= require external/lang-r
 
 //= require external/highcharts-4.1.9.src.js
 //= require variables

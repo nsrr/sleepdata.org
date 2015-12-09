@@ -37,10 +37,6 @@
           %td= variable.display_name
           %td.variable-description= simple_markdown_no_lists variable.description
           %td= variable.folder
-          - if false
-            %td
-              - if File.file?(File.join(variable.dataset.root_folder, 'dd', 'images', variable.version.to_s, "#{variable.name}.png"))
-                %img.lazy{ width: '27', height: '18', style: 'max-width: 100%;min-width:27px;max-height:18px;display:block;vertical-align:text-bottom',  data: { original: image_dataset_variable_path(variable.dataset, variable) } }
           - unless params[:s].blank?
             %td= render 'variables/relevance', variable: variable
             - if current_user && current_user.system_admin? && false
