@@ -1,4 +1,4 @@
-- shhs_dataset_version = '0.7.0' # 'SHHS'
+- shhs_dataset_version = '0.8.0' # 'SHHS'
 - nsrr_gem_version = '0.2.0'
 
 .main-container.dark-texture.full-height
@@ -308,7 +308,8 @@
     %li
       %a.anchor-top{ name: '2' }
       The NSRR maintains its data dictionaries using the
-      = link_to 'Spout Data Dictionary Management Tool', tool_path('spout')
+      = succeed '.' do
+        = link_to 'Spout Data Dictionary Management Tool', tool_path('spout')
       Spout creates a framework that simplifies data dictionary management and creation, and allows researchers to identify documentation gaps between the dataset and the data dictionary.
     %li
       %a.anchor-top{ name: '3' }
@@ -316,5 +317,3 @@
       is a Ruby gem that provides access to signals and epochs in EDF polysomnographs. Edfize is used by
       = link_to 'Altamira Web EDF Viewer', ENV['altamira_url']
       to render EDFs in your web browser.
-.dark-texture
-  = image_tag 'pure-signal-t.png', style: 'width:100%;', class: 'wow fadeIn'
