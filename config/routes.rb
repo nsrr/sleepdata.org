@@ -147,11 +147,8 @@ Rails.application.routes.draw do
 
   scope module: 'static' do
     get :demo
-    get :parallax
-    get :parallax2
     get :map
     get :version
-    get :sizes
   end
 
   resources :tags
@@ -205,8 +202,6 @@ Rails.application.routes.draw do
   get '/downloads_by_month' => 'welcome#downloads_by_month', as: :downloads_by_month
   get '/agreement_reports' => 'welcome#agreement_reports', as: :agreement_reports
   get '/location' => 'welcome#location', as: :location
-  get '/collection' => 'welcome#collection', as: :collection
-  get '/collection_modal' => 'welcome#collection_modal', as: :collection_modal
   get '/token' => 'welcome#token', as: :token
 
   get '/dua' => 'agreements#submissions'

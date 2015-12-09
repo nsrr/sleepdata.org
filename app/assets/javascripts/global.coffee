@@ -1,16 +1,3 @@
-@setScrollShadow = (element) ->
-  return unless $(element)[0]
-  scroll = $(element).scrollTop();
-  if scroll + $(element).innerHeight() == $(element)[0].scrollHeight
-    $(element).removeClass("shadow-inset-bottom")
-  else
-    $(element).addClass("shadow-inset-bottom")
-
-  if scroll == 0
-    $(element).removeClass("shadow-inset-top")
-  else
-    $(element).addClass("shadow-inset-top")
-
 @setFocusToField = (element_id) ->
   val = $(element_id).val()
   $(element_id).focus().val('').val(val)
@@ -25,10 +12,6 @@
 
 @ready = () ->
   contourReady()
-  $('.file-list-container').scroll( () ->
-    setScrollShadow(this)
-  )
-  setScrollShadow($('.file-list-container'))
   $("[rel=tooltip]").tooltip( trigger: 'hover' )
   if $("#collection_form #s, #page_name, #search_form #s, #search, #collection_form #s, #s").val() != ''
     setFocusToField("#collection_form #s, #page_name, #search_form #s, #search, #collection_form #s, #s")

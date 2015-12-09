@@ -3,34 +3,33 @@
   - if indexed_files.size == 0
     = render 'datasets/nofiles', path: path
   - else
-    .file-list-container{ style: "background-color:white" }
-      %table.table.table-condensed.table-hover.fixed-font-size{ style: "margin-bottom:0px" }
-        %col{ width: "1px" }
-        - indexed_files.each do |folder, file_name, is_file, file_size, file_time|
-          - is_public = @dataset.public_file?(folder)
-          - url = files_dataset_path( @dataset ) + "#{'/m/browser' if is_file}" + '/' + folder
-          %tr{ class: "#{'warning' if file_name == params[:f]}" }
-            %td
-              %span.glyphicon{ class: "glyphicon-#{is_file ? 'file' : 'folder-close'}" }
-            %td
-              = link_to_if (!is_file || is_public || @dataset.grants_file_access_to?(current_user)), file_name, url, data: { object: "#{'autodownload' if is_file and file_name == params[:f]}" }
-              - if ENV['altamira_url'].present? and /\.edf$/i =~ file_name and is_file and (is_public or @dataset.grants_file_access_to?(current_user))
-                = link_to "#{ENV['altamira_url']}?slug=#{@dataset.slug}&path=#{[path, file_name].join('/')}&auto=.", class: "btn btn-xs btn-default"do
-                  %span.glyphicon.glyphicon-eye-open
-                  Preview Online
-            %td= file_time if is_file
-            %td{ style: "text-align:right" }
-              = number_to_human_size(file_size) if is_file
-              - if is_file
+    %table.table.table-condensed.table-hover
+      %col{ width: '1px' }
+      - indexed_files.each do |folder, file_name, is_file, file_size, file_time|
+        - is_public = @dataset.public_file?(folder)
+        - url = files_dataset_path( @dataset ) + "#{'/m/browser' if is_file}" + '/' + folder
+        %tr{ class: "#{'warning' if file_name == params[:f]}" }
+          %td
+            %span.glyphicon{ class: "glyphicon-#{is_file ? 'file' : 'folder-close'}" }
+          %td
+            = link_to_if (!is_file || is_public || @dataset.grants_file_access_to?(current_user)), file_name, url, data: { object: "#{'autodownload' if is_file and file_name == params[:f]}" }
+            - if ENV['altamira_url'].present? and /\.edf$/i =~ file_name and is_file and (is_public or @dataset.grants_file_access_to?(current_user))
+              = link_to "#{ENV['altamira_url']}?slug=#{@dataset.slug}&path=#{[path, file_name].join('/')}&auto=.", class: "btn btn-xs btn-default"do
+                %span.glyphicon.glyphicon-eye-open
+                Preview Online
+          %td= file_time if is_file
+          %td.text-right
+            = number_to_human_size(file_size) if is_file
+            - if is_file
+              - if is_public
+                %span.glyphicon.glyphicon-globe
+              - if current_user and @dataset.editors.pluck(:id).include?(current_user.id)
                 - if is_public
-                  %span.glyphicon.glyphicon-globe
-                - if current_user and @dataset.editors.pluck(:id).include?(current_user.id)
-                  - if is_public
-                    = link_to set_public_file_dataset_path(@dataset, public: '0', path: folder ), method: :post do
-                      %span.glyphicon.glyphicon-eye-close
-                  - else
-                    = link_to set_public_file_dataset_path(@dataset, public: '1', path: folder ), method: :post do
-                      %span.glyphicon.glyphicon-globe
+                  = link_to set_public_file_dataset_path(@dataset, public: '0', path: folder ), method: :post do
+                    %span.glyphicon.glyphicon-eye-close
+                - else
+                  = link_to set_public_file_dataset_path(@dataset, public: '1', path: folder ), method: :post do
+                    %span.glyphicon.glyphicon-globe
 
 - if @dataset.grants_file_access_to?(current_user)
   = render 'datasets/download_command'
