@@ -2,13 +2,13 @@
   .dataset-banner
     .container
       .dataset-header.brand= @dataset.name
-      .dataset-body
+      .dataset-body.hidden-xs
         .row
-          .col-xs-12.col-sm-4.col-buffer
+          .col-sm-4.col-buffer
             = link_to 'Documentation', @dataset, class: "btn btn-block btn-#{params[:action] == 'pages' || current_page?(@dataset) ? 'primary' : 'default'}"
-          .col-xs-12.col-sm-4.col-buffer
+          .col-sm-4.col-buffer
             = link_to 'Files', files_dataset_path(@dataset), class: "btn btn-block btn-#{params[:action] == 'files' ? 'primary' : 'default'}"
-          .col-xs-12.col-sm-4
+          .col-sm-4
             = link_to 'Variables', dataset_variables_path(@dataset), class: "btn btn-block btn-#{params[:controller] == 'variables' ? 'primary' : 'default'}"
 
   - if defined?(@version) && defined?(@variable) && @version != @variable.version

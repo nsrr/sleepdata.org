@@ -16,6 +16,19 @@
             = link_to datasets_path do
               %span.glyphicon.glyphicon-cloud
               Datasets
+          - if @dataset
+            %li.visible-xs{ style: 'margin-left: 20px', class: "#{ 'active' if %w(datasets).include?(params[:controller]) && (params[:action] == 'pages' || current_page?(@dataset)) }" }
+              = link_to @dataset do
+                = @dataset.slug.upcase
+                Documentation
+            %li.visible-xs{ style: 'margin-left: 20px', class: "#{ 'active' if %w(datasets).include?(params[:controller]) && params[:action] == 'files' }" }
+              = link_to files_dataset_path(@dataset) do
+                = @dataset.slug.upcase
+                Files
+            %li.visible-xs{ style: 'margin-left: 20px', class: "#{ 'active' if %w(variables).include?(params[:controller]) }" }
+              = link_to dataset_variables_path(@dataset) do
+                = @dataset.slug.upcase
+                Variables
           %li{ class: "#{ 'active' if params[:controller] == 'tools' }" }
             = link_to tools_path do
               %span.glyphicon.glyphicon-wrench

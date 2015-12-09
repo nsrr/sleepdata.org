@@ -2,10 +2,6 @@
   margin-top: -($header-height + 1px);
 }
 
-.logo-header .jumbotron {
-  // margin-bottom: 0px;
-}
-
 // Container to maintain height of document when transitioning relative div to
 // a fixed div
 .navbar-outer {
@@ -32,16 +28,12 @@
     top: 0;
     z-index: $zindex-navbar-fixed;
 
-    // a {
-    //   background-color: $brand-primary;
-    //   color: $brand-white;
-    // }
-    // .active {
-    //   a {
-    //     background-color: $brand-white;
-    //     color: $brand-primary;
-    //   }
-    // }
+    a,
+    a:active,
+    a:focus,
+    a:hover {
+      color: $brand-white;
+    }
   }
 }
 
@@ -54,11 +46,12 @@
   }
 }
 
-// .navbar-nav {
-//   .active {
-//     a {
-//       background-color: $brand-primary;
-//       color: $brand-white;
-//     }
-//   }
-// }
+.navbar.affix {
+  .navbar-nav > li > a,
+  .navbar-nav > li > a:active,
+  .navbar-nav > li > a:focus,
+  .navbar-nav > li > a:hover {
+    color: $brand-white;
+  }
+}
+
