@@ -16,7 +16,7 @@
             = link_to datasets_path do
               %span.glyphicon.glyphicon-cloud
               Datasets
-          - if @dataset
+          - if @dataset && !@dataset.new_record?
             %li.visible-xs{ style: 'margin-left: 20px', class: "#{ 'active' if %w(datasets).include?(params[:controller]) && (params[:action] == 'pages' || current_page?(@dataset)) }" }
               = link_to @dataset do
                 = @dataset.slug.upcase
