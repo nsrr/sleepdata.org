@@ -43,6 +43,6 @@ $(document)
       $($this.data('log-id')).html('Success: Images uploaded!')
     ).fail( () ->
       url = $this.data('fallback-url')
-      $($this.data('log-id')).html("An error occurred, the images could not be uploaded!<br /><br />Please try again or <a href=\"#{$this.data('fallback-url')}\">upload the images</a> manually.")
+      $($this.data('log-id')).html("An error occurred, the images could not be uploaded! Please try again or <a href=\"#{$this.data('fallback-url')}\">upload the images</a> manually.")
     )
   )
