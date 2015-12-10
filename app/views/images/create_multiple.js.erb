@@ -1,0 +1,5 @@
+if($("<%= params[:update] %>").val() == '')
+  extra_newline = "";
+else
+  extra_newline = "\n";
+$("<%= params[:update] %>").val($("<%= params[:update] %>").val() + extra_newline + "<%=j @ids.collect { |id| "![](#{ENV['website_url']}/image/#{id})" }.join("\n") %>");

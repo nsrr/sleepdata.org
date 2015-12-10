@@ -1,0 +1,30 @@
+- @title = 'Images'
+
+%h1 Images
+
+= link_to 'New Image', new_image_path
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th
+      %th User
+      %th Image
+      %th File Size
+      %th Created At
+      %th{ colspan: 3 }
+
+  %tbody
+    - @images.each do |image|
+      %tr
+        %td
+          = image_tag download_image_path(image, size: 'thumb'), class: 'img-responsive'
+        %td= image.user.name
+        %td= image.image
+        %td= number_to_human_size image.file_size
+        %td= image.created_at.strftime('%-d %b %Y, %-l:%M %p')
+        %td= link_to 'Show', image
+        %td= link_to 'Edit', edit_image_path(image)
+        %td= link_to 'Destroy', image, method: :delete, data: { confirm: "Are you sure you want to delete t to delete image #{image.name}?" }
+
+.center= paginate @images, theme: 'contour'

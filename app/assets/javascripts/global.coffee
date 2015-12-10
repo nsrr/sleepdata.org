@@ -29,6 +29,7 @@
   challengesReady()
   initializeTypeahead()
   affixReady()
+  fileDragReady()
   new WOW().init()
 
 $(window).onbeforeunload = () -> return "You haven't saved your changes." if window.$isDirty

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: valid
+  image: image.png
+
+two:
+  user: valid
+  image: image.png
+
+three:
+  user: valid
+  # image:

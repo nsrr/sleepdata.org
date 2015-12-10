@@ -1,7 +1,7 @@
 %span.text-muted= broadcast.publish_date.strftime '%B %-d, %Y'
 by
 = broadcast.user.forum_name
-%p= simple_markdown broadcast.description, false
+.broadcast= simple_markdown broadcast.description, false
 
 - if broadcast.image.size > 0
   = image_tag blog_post_image_path(broadcast), style: 'max-width:100%;max-height:140px'

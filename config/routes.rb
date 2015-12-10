@@ -94,10 +94,18 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :hosting_requests, path: 'hosting-requests'
-
   get '/a/:auth_token/datasets' => 'datasets#index'
   get '/a/:auth_token/datasets/:id' => 'datasets#show'
+
+  resources :hosting_requests, path: 'hosting-requests'
+
+  resources :images do
+    collection do
+      post :upload, action: :create_multiple
+    end
+  end
+
+  get '/image/:id' => 'images#download', as: 'download_image'
 
   resources :reviews do
     member do

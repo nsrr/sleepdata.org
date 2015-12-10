@@ -9,6 +9,18 @@
           %li= message
 
   .form-group
+    = f.label :publish_date, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :publish_date, class: 'datepicker form-control', value: @broadcast.publish_date ? @broadcast.publish_date.strftime('%m/%d/%Y') : ''
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      .checkbox
+        %label
+          = f.check_box :published
+          Published
+
+  .form-group
     = f.label :title, class: 'col-md-2 control-label'
     .col-md-10
       = f.text_field :title, class: 'form-control'
@@ -16,7 +28,10 @@
   .form-group
     = f.label :description, class: 'col-md-2 control-label'
     .col-md-10
-      = f.text_area :description, rows: 7, class: 'form-control'
+      = f.text_area :description, rows: 14, class: 'form-control filedrag-container', data: { object: 'dropfile', upload_url: upload_images_path(update: '#broadcast_description', format: 'js'), fallback_url: new_image_path, log_id: '#log_new' }
+      #log_new.filedrag
+        Drag images above to insert into post.
+
 
   .form-group
     .col-md-offset-2.col-md-10
@@ -38,17 +53,6 @@
       = f.file_field :image, class: 'form-control'
       = f.hidden_field :image_cache
 
-  .form-group
-    = f.label :publish_date, class: 'col-md-2 control-label'
-    .col-md-10
-      = f.text_field :publish_date, class: 'datepicker form-control', value: @broadcast.publish_date ? @broadcast.publish_date.strftime('%m/%d/%Y') : ''
-
-  .form-group
-    .col-md-offset-2.col-md-10
-      .checkbox
-        %label
-          = f.check_box :published
-          Published
 
   .form-group
     .col-md-10.col-md-offset-2

@@ -14,7 +14,7 @@ class BroadcastsController < ApplicationController
 
   # GET /broadcasts/new
   def new
-    @broadcast = current_user.broadcasts.new
+    @broadcast = current_user.broadcasts.new(publish_date: Date.today)
   end
 
   # GET /broadcasts/1/edit

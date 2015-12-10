@@ -20,8 +20,8 @@
           %td= simple_check broadcast.published
           %td= link_to broadcast.title, broadcast
           %td= broadcast.publish_date.strftime '%a %d %b %Y'
-          %td= broadcast.pinned
-          %td= broadcast.archived
+          %td= simple_check broadcast.pinned
+          %td= simple_check broadcast.archived
           %td= broadcast.user.name
           %td
             = link_to 'Edit', edit_broadcast_path(broadcast), class: 'btn btn-xs btn-default'

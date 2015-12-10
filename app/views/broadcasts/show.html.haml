@@ -1,10 +1,15 @@
+= link_to 'Edit', edit_broadcast_path(@broadcast)
+|
+= link_to 'Back', broadcasts_path
+
 %p
   %strong Title
   = @broadcast.title
 
 %p
   %strong Description
-  = @broadcast.description
+  .broadcast
+    = simple_markdown @broadcast.description, false
 
 %p
   %strong User
@@ -29,11 +34,3 @@
 %p
   %strong Published
   = @broadcast.published
-
-%p
-  %strong Deleted
-  = @broadcast.deleted
-
-= link_to 'Edit', edit_broadcast_path(@broadcast)
-|
-= link_to 'Back', broadcasts_path

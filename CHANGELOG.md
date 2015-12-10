@@ -21,6 +21,7 @@
   - Users can now view their personal dashboard that contains updates and links to their datasets and other NSRR related activity
 - **Blog Added**
   - Community managers can now create new blogs posts that are viewable on the NSRR home page
+  - Images can be easily added via drag-and-drop while editing blog posts
 - **Gem Changes**
   - Updated to rails 4.2.5
   - Updated to pg 0.18.4

@@ -1,5 +1,4 @@
 class Dataset < ActiveRecord::Base
-
   FILES_PER_PAGE = 100
 
   mount_uploader :logo, ImageUploader
@@ -8,16 +7,16 @@ class Dataset < ActiveRecord::Base
   include Deletable, Documentable, Gitable
 
   # Named Scopes
-  scope :release_scheduled, -> { current.where( public: true ).where.not( release_date: nil )}
-  scope :with_editor,   lambda { |arg| where(                       'datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)',       arg, arg, 'editor'   ).references(:dataset_users) }
-  scope :with_reviewer, lambda { |arg| where(                                                  'datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)',            arg, 'reviewer' ).references(:dataset_users) }
-  scope :with_viewer_or_editor,   lambda { |arg| where('datasets.public = ? or datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role IN (?))', true, arg, arg, ['viewer', 'editor']   ).references(:dataset_users) }
+  scope :release_scheduled, -> { current.where(public: true).where.not(release_date: nil) }
+  scope :with_editor, -> (arg) { where('datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)', arg, arg, 'editor').references(:dataset_users) }
+  scope :with_reviewer, -> (arg) {  where('datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)', arg, 'reviewer' ).references(:dataset_users) }
+  scope :with_viewer_or_editor, -> (arg) { where('datasets.public = ? or datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role IN (?))', true, arg, arg, ['viewer', 'editor']).references(:dataset_users) }
 
   # Model Validation
-  validates_presence_of :name, :slug, :user_id
-  validates_uniqueness_of :slug, scope: [ :deleted ]
-  validates_format_of :slug, with: /\A[a-z][a-z0-9\-]*\Z/
-  validates_numericality_of :info_size, greater_than_or_equal_to: 0
+  validates :name, :slug, :user_id, presence: true
+  validates :slug, uniqueness: { scope: :deleted }
+  validates :slug, format: { with: /\A[a-z][a-z0-9\-]*\Z/ }
+  validates :info_size, numericality: { greater_than_or_equal_to: 0 }
 
   # Model Relationships
   belongs_to :user
@@ -33,7 +32,6 @@ class Dataset < ActiveRecord::Base
   has_many :public_files, source: :dataset
   has_many :requests
   has_many :agreements, -> { where deleted: false }, through: :requests
-
 
   def public_file?(path)
     self.public_files.where( file_path: self.file_path(path) ).count > 0

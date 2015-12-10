@@ -6,7 +6,7 @@
           = pluralize(@dataset.errors.count, "error")
           prohibited this dataset from being saved
 
-        %ul.fixed-font-size
+        %ul
           - @dataset.errors.full_messages.each do |msg|
             %li= msg
 

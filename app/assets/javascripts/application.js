@@ -43,6 +43,9 @@
 //= require external/colorpicker
 
 //= require external/wow
+
+//= require extensions/filedrag
+
 //= require cookies
 
 //= require challenges
@@ -52,3 +55,5 @@
 
 
 //= require components/affix
+
+//= require objects/images
