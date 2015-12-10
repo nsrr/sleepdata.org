@@ -25,6 +25,6 @@
         %td= image.created_at.strftime('%-d %b %Y, %-l:%M %p')
         %td= link_to 'Show', image
         %td= link_to 'Edit', edit_image_path(image)
-        %td= link_to 'Destroy', image, method: :delete, data: { confirm: "Are you sure you want to delete t to delete image #{image.name}?" }
+        %td= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure you want to delete this image?' }
 
 .center= paginate @images, theme: 'contour'
