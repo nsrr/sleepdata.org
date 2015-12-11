@@ -1,9 +1,13 @@
 - @title = 'Blog'
-%h1.brand= @title
+%h1.brand
+  NSRR
+  = @title
 
-- @broadcasts.each do |broadcast|
-  %div
-    %h2= link_to broadcast.title, blog_post_path(broadcast)
-    = render 'blog/show', broadcast: broadcast
+.row
+  .col-md-9
+    - @broadcasts.each do |broadcast|
+      %h2= link_to broadcast.title, blog_post_path(broadcast)
+      = render 'blog/show', broadcast: broadcast
+    .center= paginate @broadcasts, theme: 'contour'
+  .col-md-3
 
-.center= paginate @broadcasts, theme: 'contour'

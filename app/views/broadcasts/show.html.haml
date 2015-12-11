@@ -1,36 +1,35 @@
-= link_to 'Edit', edit_broadcast_path(@broadcast)
-|
-= link_to 'Back', broadcasts_path
+%h1
+  = link_to 'Blog Posts', broadcasts_path
+  &middot;
+  = @broadcast.title_was
+
+  - if @broadcast.published?
+    %span.label.label-info Published
+  - else
+    %span.label.label-warning DRAFT
+
+  = link_to 'Edit', edit_broadcast_path(@broadcast), class: 'btn btn-xs btn-default'
 
 %p
-  %strong Title
-  = @broadcast.title
+  %strong Short Description
+  = @broadcast.short_description
 
 %p
-  %strong Description
-  .broadcast
-    = simple_markdown @broadcast.description, false
-
-%p
-  %strong User
-  = @broadcast.user_id
-
-%p
-  %strong Pinned
-  = @broadcast.pinned
-
-%p
-  %strong Archived
-  = @broadcast.archived
-
-%p
-  %strong Image
-  = @broadcast.image
+  %strong Creator
+  = @broadcast.user.name
 
 %p
   %strong Publish date
   = @broadcast.publish_date
 
 %p
-  %strong Published
-  = @broadcast.published
+  %strong Pinned
+  = simple_check @broadcast.pinned
+
+%p
+  %strong Archived
+  = simple_check @broadcast.archived
+
+.broadcast
+  = simple_markdown @broadcast.description, false
+

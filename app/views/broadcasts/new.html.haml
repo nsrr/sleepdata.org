@@ -1,5 +1,8 @@
-- @title = 'New Broadcast'
+- @title = 'New Blog Post'
 
-%h1= @title
+%h1
+  = link_to 'Blog Posts', broadcasts_path
+  &middot;
+  = @title
 
 = render 'form'

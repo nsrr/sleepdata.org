@@ -23,7 +23,7 @@ class ResizableImageUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  process resize_to_limit: [1024, 1024]
+  process resize_to_limit: [1140, 1140]
 
   # Create different versions of your uploaded files:
   version :preview do

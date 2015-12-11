@@ -7,22 +7,24 @@
         Explore a rich collection of sleep research data collected in children and
         adults across the U.S.
 
-.content-container= render 'news/news'
+.row
+  .col-md-9
 
-.content-spacer
+    .content-container
+      = render 'external/datasets'
 
-.content-container
-  = render 'external/datasets'
+    .content-spacer
 
-.content-spacer
+    .content-container
+      = render 'external/variables'
 
-.content-container
-  = render 'external/variables'
+    .content-spacer
 
-.content-spacer
+    .content-container
+      = render 'external/tools'
 
-.content-container
-  = render 'external/tools'
+  .col-md-3
+    = render 'news/news'
 
 - content_for :call_to_action do
   .call-to-action

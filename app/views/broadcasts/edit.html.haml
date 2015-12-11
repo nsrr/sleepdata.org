@@ -1,6 +1,11 @@
-- @title = "Edit Broadcast: #{@broadcast.title}"
+- @title = "Edit Broadcast: #{@broadcast.title_was}"
 
-%h1 Edit Broadcast
+%h1
+  = link_to 'Blog Posts', broadcasts_path
+  &middot;
+  = link_to @broadcast.title_was, @broadcast
+  &middot;
+  Edit
 
 = render 'form'
 

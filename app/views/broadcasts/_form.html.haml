@@ -26,6 +26,11 @@
       = f.text_field :title, class: 'form-control'
 
   .form-group
+    = f.label :short_description, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :short_description, class: 'form-control'
+
+  .form-group
     = f.label :description, class: 'col-md-2 control-label'
     .col-md-10
       = f.text_area :description, rows: 14, class: 'form-control filedrag-container', data: { object: 'dropfile', upload_url: upload_images_path(update: '#broadcast_description', format: 'js'), fallback_url: new_image_path, log_id: '#log_new' }

@@ -1,5 +1,8 @@
 - @title = @broadcast.title
-%h2
-  = @title
-  %small= link_to 'Back to Blog', blog_path, class: 'btn btn-xs btn-default'
-= render 'blog/show', broadcast: @broadcast
+%h1.brand
+  = link_to 'NSRR Blog', blog_path
+
+.row
+  .col-md-9
+    %h2= @title
+    = render 'blog/show', broadcast: @broadcast

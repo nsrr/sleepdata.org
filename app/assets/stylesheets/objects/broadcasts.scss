@@ -1,4 +1,6 @@
 .broadcast {
+  margin-bottom: 80px;
+
   img {
     border: 1px solid $gray-lighter;
     margin-top: 10px;
@@ -9,4 +11,76 @@
     height: auto;
     max-width: 100%;
   }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+
+.broadcast-outer {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.broadcast-left-fixed {
+  color: $brand-info;
+  display: none;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 32px;
+}
+
+.broadcast-right-fluid {
+  position: relative;
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .broadcast-left-fixed {
+    display: block;
+  }
+
+  .broadcast-right-fluid {
+    margin-left: 32px;
+  }
+}
+
+.broadcast-box {
+  border: 1px solid $brand-info;
+  border-radius: 2px;
+  background-color: $brand-white;
+}
+
+.broadcast-header {
+  padding: 10px 10px 0;
+  position: relative;
+}
+
+.broadcast-body {
+  padding: 10px;
+}
+
+.broadcast-header::before {
+  border-bottom: 7px solid transparent;
+  border-right: 7px solid $brand-info;
+  border-top: 7px solid transparent;
+  content: '';
+  height: 0;
+  left: -7px;
+  position: absolute;
+  top: 14px;
+  width: 0;
+}
+
+.broadcast-header::after {
+  border-bottom: 7px solid transparent;
+  border-right: 7px solid $brand-white;
+  border-top: 7px solid transparent;
+  content: '';
+  height: 0;
+  left: -6px;
+  position: absolute;
+  top: 14px;
+  width: 0;
 }
