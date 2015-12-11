@@ -25,7 +25,7 @@
 - **Gem Changes**
   - Updated to rails 4.2.5
   - Updated to pg 0.18.4
-  - Started testing of Ruby 2.3.0-preview1
+  - Started testing Ruby 2.3.0-preview2
   - Updated to simplecov 0.11.1
 
 ### Bug Fix
