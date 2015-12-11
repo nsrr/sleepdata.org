@@ -11,7 +11,7 @@
     .col-xs-12.col-md-4
       .panel{ class: "panel-#{dataset.release_date && dataset.release_date <= Date.today ? 'primary' : 'default'}" }
         .panel-heading
-          %div.panel-title{ style: "white-space:nowrap;overflow:hidden" }= link_to dataset.name, dataset
+          %div.panel-title{ style: "white-space:nowrap;overflow:hidden;text-overflow: ellipsis;" }= link_to dataset.name, dataset
         .panel-body
           %div{ style: "text-align:center;background-color:white;padding-bottom:5px;height:145px;line-height:145px" }
             - if dataset.logo.size > 0

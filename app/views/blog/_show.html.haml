@@ -1,7 +1,7 @@
-%span.text-muted= broadcast.publish_date.strftime '%B %-d, %Y'
-by
-= broadcast.user.forum_name
-
-%hr
+.broadcast-info
+  Posted by
+  = link_to broadcast.user.forum_name, topics_path(a: broadcast.user.forum_name)
+  on
+  %i= broadcast.publish_date.strftime '%B %-d, %Y'
 
 .broadcast= simple_markdown broadcast.description, false
