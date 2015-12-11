@@ -58,6 +58,6 @@ class BroadcastsController < ApplicationController
     params[:broadcast][:publish_date] = parse_date(params[:broadcast][:publish_date]) if params[:broadcast].key?(:publish_date)
     params.require(:broadcast).permit(
       :title, :description, :pinned, :archived,
-      :image, :image_cache, :publish_date, :published)
+      :image, :image_cache, :remove_image, :publish_date, :published)
   end
 end
