@@ -1,9 +1,6 @@
 # A broadcast is a blog post. Blog posts can be edited by community managers and
 # set to be published on specific dates.
 class Broadcast < ActiveRecord::Base
-  # Uploaders
-  mount_uploader :image, ImageUploader
-
   # Concerns
   include Deletable
 
