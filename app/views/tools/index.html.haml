@@ -1,10 +1,9 @@
 - @title = 'Tools'
 %h1
-  %span.brand= @title
+  %span.brand Community Tools
   - if current_user && current_user.system_admin?
     = link_to 'Create Tool', new_tool_path, class: 'btn btn-xs btn-primary'
-%p
-  Tools to help jumpstart your research.
+    = link_to 'Review Submitted Tools', community_tools_path, class: 'btn btn-xs btn-default'
 
 - if false
   %p.lead Popular Tools
@@ -18,12 +17,14 @@
   %p.lead Tool Description
   %p.lead Tool Discussion
 
-.content-container
-  = render 'tools/tools'
-
 - if @community_tools.present?
   .content-container
-    %h2.brand Community Tools
+    = form_tag tools_path, method: :get, class: 'form-inline' do
+      .input-group
+        = text_field_tag 's', params[:s], class: 'form-control', placeholder: "Search Tools"
+        .input-group-btn
+          = submit_tag 'Search', class: 'btn btn-primary', name: nil
+          = link_to 'Reset', tools_path, class: 'btn btn-default'
 
     %table.table.table-striped
       %thead
@@ -40,6 +41,13 @@
             %td= community_tool.user.forum_name
 
     .center= paginate @community_tools, theme: 'contour'
+
+.content-container
+  %h2.brand Other Tools
+  %p
+    Tools to help jumpstart your research.
+.content-container
+  = render 'tools/tools'
 
 - content_for :call_to_action do
   .call-to-action

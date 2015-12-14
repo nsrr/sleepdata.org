@@ -5,6 +5,11 @@
     .container
       .dataset-header.brand= @community_tool.name
 
+  .breadcrumb-container
+    .container
+      %ol.breadcrumb
+        %li= link_to_if @community_tool.safe_url?, @community_tool.url, @community_tool.url, target: '_blank'
+
 
 .row
   .col-md-9
@@ -17,17 +22,17 @@
           = simple_markdown "```\n" + @community_tool.readme_content + "\n```"
 
   .col-md-3
-    - if @community_tool.safe_url?
-      %p
-        %strong URL
-        = link_to @community_tool.url, target: '_blank' do
-          = @community_tool.url
-          %span.glyphicon.glyphicon-new-window
+    %p
+      %strong Author
+      %br
+      = link_to @community_tool.user.forum_name, tools_path(a: @community_tool.user.forum_name)
+
+    %p
+      %strong Date Added
+      %br
+      = @community_tool.created_at.strftime '%B %-d, %Y'
 
     %p
       %strong Description
+      %br
       = @community_tool.description
-
-    %p
-      %strong Author
-      = @community_tool.user.forum_name
