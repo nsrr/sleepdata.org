@@ -27,6 +27,7 @@
   - Updated to pg 0.18.4
   - Started testing Ruby 2.3.0-preview2
   - Updated to simplecov 0.11.1
+  - Updated to web-console 3.0
 
 ### Bug Fix
 - Fixed an issue where chart numbers would not show well on charts with dark columns
