@@ -3,17 +3,57 @@
 
   img {
     border: 1px solid $gray-lighter;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    padding: 5px;
-
     display: block;
     height: auto;
+    margin: 10px auto 16px;
     max-width: 100%;
+    padding: 5px;
   }
 
   p:last-child {
     margin-bottom: 0;
+  }
+
+  p {
+    line-height: 25.6px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    border-bottom: 1px solid $brand-gray;
+    padding-bottom: 6.5px;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-size: 16px;
   }
 }
 
