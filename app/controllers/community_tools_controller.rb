@@ -50,7 +50,7 @@ class CommunityToolsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_community_tool
-    @community_tool = CommunityTool.find_by_id params[:id]
+    @community_tool = CommunityTool.current.find_by_id params[:id]
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

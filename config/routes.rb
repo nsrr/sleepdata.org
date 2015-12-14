@@ -182,6 +182,9 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'community/tools/:id' => 'tools#community_show', as: :community_show_tool
+
+
   resources :topics, path: 'forum' do
     member do
       post :admin

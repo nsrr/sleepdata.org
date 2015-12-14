@@ -61,7 +61,7 @@
         %ul
           - current_user.community_tools.each do |community_tool|
             %li
-              %span.label{ class: "label-#{community_tool.status == 'approved' ? 'success' : 'info'}" }= community_tool.status
+              %span.label{ class: "label-#{community_tool.status == 'accepted' ? 'success' : 'info'}" }= community_tool.status
               = community_tool.url
               %br
               = community_tool.description

@@ -10,6 +10,7 @@
   - Users can now fill out a dataset hosting request form to host new datasets on the NSRR
 - **Tool Changes**
   - Users can now submit URLs for tools to be listed on the NSRR
+  - GitHub repositories with READMEs and GitHub gists can now be contributed as tools
 - **Variable Changes**
   - Added a table of domain options for variables that are linked to domains
   - Added ability to display SVG graphs for variables for future integration with Spout

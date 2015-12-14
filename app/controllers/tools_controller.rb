@@ -38,12 +38,20 @@ class ToolsController < ApplicationController
                    Tool.current.where(public: true)
                  end
     tool_scope = tool_scope.where(tool_type: params[:type]) unless params[:type].blank?
-    @tools = tool_scope.order(:tool_type, :name).page(params[:page]).per( 12 )
+    @tools = tool_scope.order(:tool_type, :name).page(params[:page]).per(12)
+
+    @community_tools = CommunityTool.current.where(status: 'accepted').page(params[:page]).per(40)
   end
 
   # GET /tools/1
   # GET /tools/1.json
   def show
+  end
+
+  # GET /community/tools/1
+  def community_show
+    @community_tool = CommunityTool.current.where(status: 'accepted').find_by_id params[:id]
+    empty_response_or_root_path(tools_path) unless @community_tool
   end
 
   # GET /tools/new

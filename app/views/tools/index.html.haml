@@ -21,6 +21,26 @@
 .content-container
   = render 'tools/tools'
 
+- if @community_tools.present?
+  .content-container
+    %h2.brand Community Tools
+
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Name
+          %th URL
+          %th User
+
+      %tbody
+        - @community_tools.each do |community_tool|
+          %tr
+            %td= link_to community_tool.name, community_show_tool_path(community_tool)
+            %td= community_tool.url
+            %td= community_tool.user.name
+
+    .center= paginate @community_tools, theme: 'contour'
+
 - content_for :call_to_action do
   .call-to-action
     .call-to-action-body

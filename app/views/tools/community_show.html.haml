@@ -1,0 +1,21 @@
+- @title = @community_tool.name
+
+%h1
+  = link_to 'Community Tools', tools_path
+  &middot;
+  = @community_tool.name
+
+- if @community_tool.safe_url?
+  %p
+    %strong URL
+    = link_to @community_tool.url, target: '_blank' do
+      = @community_tool.url
+      %span.glyphicon.glyphicon-new-window
+
+%p
+  %strong Description
+  = @community_tool.description
+
+.markdown-container
+  - if @community_tool.readme_url.present?
+    = simple_markdown @community_tool.readme_content
