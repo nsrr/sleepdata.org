@@ -3,7 +3,12 @@ class BlogController < ApplicationController
   before_action :set_broadcast, only: [:show]
 
   def blog
-    @broadcasts = Broadcast.current.published.order(publish_date: :desc).page(params[:page]).per(10)
+    broadcast_scope = Broadcast.current.published.order(publish_date: :desc)
+    unless params[:a].blank?
+      user_ids = User.current.with_name(params[:a].to_s.split(','))
+      broadcast_scope = broadcast_scope.where(user_id: user_ids.select(:id))
+    end
+    @broadcasts = broadcast_scope.page(params[:page]).per(10)
   end
 
   def show
