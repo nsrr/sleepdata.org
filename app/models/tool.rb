@@ -11,11 +11,9 @@ class Tool < ActiveRecord::Base
   scope :with_viewer_or_editor, lambda { |arg| where('tools.user_id IN (?) or tools.public = ? or tools.id in (select tool_users.tool_id from tool_users where tool_users.user_id = ? and tool_users.approved = ?)', arg, true, arg, true).references(:tool_users) }
 
   # Model Validation
-  # TODO UPDATE VALIDATIONS
-  # validates :name, :slug, :user_id, presence: true
-  validates :user_id, :url, presence: true
-  # validates :slug, uniqueness: { scope: :deleted }
-  # validates :slug, format: { with: /\A[a-z][a-z0-9\-]*\Z/ }
+  validates :name, :slug, :user_id, presence: true
+  validates :slug, uniqueness: { scope: :deleted }
+  validates :slug, format: { with: /\A[a-z][a-z0-9\-]*\Z/ }
 
   # Model Relationships
   belongs_to :user

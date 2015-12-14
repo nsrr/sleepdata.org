@@ -4,10 +4,10 @@
     - if @tool.errors.any?
       .callout.callout-danger
         %strong
-          = pluralize(@tool.errors.count, "error")
+          = pluralize @tool.errors.count, 'error'
           prohibited this tool from being saved
 
-        %ul.fixed-font-size
+        %ul
           - @tool.errors.full_messages.each do |msg|
             %li= msg
 

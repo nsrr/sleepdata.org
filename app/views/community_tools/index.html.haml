@@ -1,0 +1,26 @@
+- @title = 'Community Tools'
+%h1
+  = @title
+  = link_to 'New Community tool', new_community_tool_path, class: 'btn btn-xs btn-default'
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th Name
+      %th URL
+      %th User
+      %th Status
+      %th Actions
+
+  %tbody
+    - @community_tools.each do |community_tool|
+      %tr
+        %td= link_to community_tool.name, community_tool
+        %td= community_tool.url
+        %td= community_tool.user.name
+        %td= community_tool.status
+        %td
+          = link_to 'Edit', edit_community_tool_path(community_tool), class: 'btn btn-xs btn-default'
+          = link_to 'Destroy', community_tool, method: :delete, data: { confirm: "Are you sure you want to delete #{community_tool.name}?" }, class: 'btn btn-xs btn-danger-inverse'
+
+.center= paginate @community_tools, theme: 'contour'

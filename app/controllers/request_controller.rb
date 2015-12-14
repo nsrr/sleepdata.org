@@ -2,11 +2,11 @@
 # contribution or request, or a dataset hosting request.
 class RequestController < ApplicationController
   def tool_contribute
-    @tool = Tool.new
+    @community_tool = CommunityTool.new
   end
 
   def create_tool_contribute
-    @tool = Tool.new(tool_contribute_params)
+    @community_tool = CommunityTool.new(community_tool_params)
     unless current_user
       user = User.new(user_params)
       if user.save
@@ -20,8 +20,8 @@ class RequestController < ApplicationController
       end
     end
 
-    @tool.user_id = current_user.id
-    if @tool.save
+    @community_tool.user_id = current_user.id
+    if @community_tool.save
       redirect_to tool_contribute_submitted_path
     else
       render :tool_contribute
@@ -66,8 +66,8 @@ class RequestController < ApplicationController
 
   private
 
-  def tool_contribute_params
-    params.require(:tool).permit(:description, :url)
+  def community_tool_params
+    params.require(:community_tool).permit(:description, :url)
   end
 
   def hosting_request_params

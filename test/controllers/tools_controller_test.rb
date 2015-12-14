@@ -98,7 +98,6 @@ class ToolsControllerTest < ActionController::TestCase
   end
 
   test 'should create tool' do
-    skip
     login(users(:admin))
     assert_difference('Tool.count') do
       post :create, tool: { logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), name: @tool.name, slug: 'new-tool', description: @tool.description }
@@ -108,7 +107,6 @@ class ToolsControllerTest < ActionController::TestCase
   end
 
   test 'should not create tool with blank name' do
-    skip
     login(users(:admin))
     assert_difference('Tool.count', 0) do
       post :create, tool: { logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), name: '', slug: 'new-tool', description: @tool.description }
@@ -132,14 +130,12 @@ class ToolsControllerTest < ActionController::TestCase
   end
 
   test 'should update tool' do
-    skip
     login(users(:admin))
     patch :update, id: @tool, tool: { logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), name: @tool.name, slug: @tool.slug, description: @tool.description }
     assert_redirected_to tool_path(assigns(:tool))
   end
 
   test 'should not update tool with blank name' do
-    skip
     login(users(:admin))
     patch :update, id: @tool, tool: { logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), name: '', slug: @tool.slug, description: @tool.description }
     assert assigns(:tool).errors.size > 0

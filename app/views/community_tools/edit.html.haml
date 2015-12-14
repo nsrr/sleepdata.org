@@ -1,0 +1,10 @@
+- @title = "Edit Tool: #{@community_tool.url_was}"
+
+%h1
+  = link_to 'Community Tools', community_tools_path
+  &middot;
+  = link_to @community_tool.name, @community_tool
+  &middot;
+  Edit
+
+= render 'form'

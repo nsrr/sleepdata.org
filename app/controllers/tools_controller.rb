@@ -37,8 +37,7 @@ class ToolsController < ApplicationController
                  else
                    Tool.current.where(public: true)
                  end
-    tool_scope = tool_scope.where.not(name: ['', nil])
-    tool_scope = tool_scope.where( tool_type: params[:type] ) unless params[:type].blank?
+    tool_scope = tool_scope.where(tool_type: params[:type]) unless params[:type].blank?
     @tools = tool_scope.order(:tool_type, :name).page(params[:page]).per( 12 )
   end
 
@@ -109,7 +108,7 @@ class ToolsController < ApplicationController
                      else
                        Tool.current.where(public: true)
                      end
-    @tool = viewable_tools.where.not(name: ['', nil]).find_by_slug(params[:id])
+    @tool = viewable_tools.find_by_slug(params[:id])
   end
 
   def set_editable_tool
@@ -117,10 +116,10 @@ class ToolsController < ApplicationController
   end
 
   def redirect_without_tool
-    empty_response_or_root_path( tools_path ) unless @tool
+    empty_response_or_root_path(tools_path) unless @tool
   end
 
   def tool_params
-    params.require(:tool).permit( :name, :description, :slug, :logo, :logo_cache, :public, :tool_type, :git_repository )
+    params.require(:tool).permit(:name, :description, :slug, :logo, :logo_cache, :public, :tool_type, :git_repository)
   end
 end

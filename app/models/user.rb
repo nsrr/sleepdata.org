@@ -27,8 +27,7 @@ class User < ActiveRecord::Base
 
   # Model Validation
   validates :first_name, :last_name, presence: true
-  validates_uniqueness_of :username, allow_blank: true, case_sensitive: false
-  validates_format_of :username, with: /\A[a-z]\w*\Z/i, allow_blank: true
+  validates :username, uniqueness: { case_sensitive: false }, format: { with: /\A[a-z]\w*\Z/i }, allow_blank: true
 
   # Model Relationships
   has_many :agreements, -> { where deleted: false }
@@ -37,6 +36,7 @@ class User < ActiveRecord::Base
   has_many :broadcasts, -> { current }
   has_many :challenges, -> { where deleted: false }
   has_many :comments, -> { where deleted: false }
+  has_many :community_tools, -> { current }
   has_many :datasets, -> { where deleted: false }
   has_many :dataset_file_audits
   has_many :hosting_requests, -> { current }
@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
   end
 
   def reviewable_agreements
-    Agreement.current.where('agreements.id IN (select requests.agreement_id from requests where requests.dataset_id IN (?))', all_reviewable_datasets.pluck(:id))
+    Agreement.current.where('agreements.id IN (select requests.agreement_id from requests where requests.dataset_id IN (?))', all_reviewable_datasets.select(:id))
   end
 
   def all_datasets

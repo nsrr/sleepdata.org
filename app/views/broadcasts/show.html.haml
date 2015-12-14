@@ -1,7 +1,7 @@
 %h1
   = link_to 'Blog Posts', broadcasts_path
   &middot;
-  = @broadcast.title_was
+  = @broadcast.title
 
   - if @broadcast.published?
     %span.label.label-info Published

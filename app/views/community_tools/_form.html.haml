@@ -1,0 +1,30 @@
+= form_for @community_tool, html: { class: 'form-horizontal' } do |f|
+  - if @community_tool.errors.any?
+    .callout.callout-danger
+      %strong
+        = pluralize @community_tool.errors.count, 'error'
+        prohibited this tool from being saved
+
+      %ul
+        - @community_tool.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label :url, 'URL', class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :url, class: 'form-control'
+
+  .form-group
+    = f.label :description, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_area :description, rows: 7, class: 'form-control'
+
+  .form-group
+    = f.label :status, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.select :status, CommunityTool::STATUS, {}, class: 'form-control'
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      = f.submit nil, class: 'btn btn-primary'
+      = cancel

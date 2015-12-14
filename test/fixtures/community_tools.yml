@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+accepted:
+  url: MyString
+  description: MyText
+  user: valid
+  status: accepted
+
+submitted:
+  url: MyString
+  description: MyText
+  user: valid
+  status: submitted

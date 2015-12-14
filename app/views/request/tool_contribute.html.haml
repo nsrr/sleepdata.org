@@ -15,15 +15,15 @@
 
 
 
-= form_for @tool, url: create_tool_contribute_path, method: :post, html: { class: 'form-horizontal', id: 'tool_contribution_form' } do |f|
-  - if @tool.errors.any?
+= form_for @community_tool, url: create_tool_contribute_path, method: :post, html: { class: 'form-horizontal', id: 'tool_contribution_form' } do |f|
+  - if @community_tool.errors.any?
     .callout.callout-danger
       %strong
-        = pluralize @tool.errors.count, 'error'
+        = pluralize @community_tool.errors.count, 'error'
         prohibited this submission from being processed
 
       %ul
-        - @tool.errors.full_messages.each do |msg|
+        - @community_tool.errors.full_messages.each do |msg|
           %li= msg
 
   %h2 Account Information

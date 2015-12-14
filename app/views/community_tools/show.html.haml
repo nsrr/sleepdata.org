@@ -1,0 +1,24 @@
+- @title = @community_tool.name
+
+%h1
+  = link_to 'Community Tools', community_tools_path
+  &middot;
+  = @community_tool.name
+
+  = link_to 'Edit', edit_community_tool_path(@community_tool), class: 'btn btn-xs btn-default'
+
+%p
+  %strong URL
+  = @community_tool.url
+
+%p
+  %strong Description
+  = @community_tool.description
+
+%p
+  %strong User
+  = @community_tool.user.name
+
+%p
+  %strong Status
+  = @community_tool.status

@@ -1,0 +1,2 @@
+module CommunityToolsHelper
+end
