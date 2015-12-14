@@ -37,7 +37,7 @@
           %tr
             %td= link_to community_tool.name, community_show_tool_path(community_tool)
             %td= community_tool.url
-            %td= community_tool.user.name
+            %td= community_tool.user.forum_name
 
     .center= paginate @community_tools, theme: 'contour'
 
