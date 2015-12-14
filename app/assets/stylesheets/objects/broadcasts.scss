@@ -59,9 +59,16 @@
 }
 
 .broadcast-title {
+  font-size: 28px;
   font-weight: 600;
   border-bottom: 1px solid $brand-gray;
   padding-bottom: 9.5px;
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .broadcast-title {
+    font-size: 34px;
+  }
 }
 
 .broadcast-info {
