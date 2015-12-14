@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   def store_location
     if (!request.post? &&
         params[:controller] != 'internal' &&
+        params[:action] != 'download' &&
         params[:action] != 'logo' &&
         params[:action] != 'files' &&
         params[:action] != 'variable_chart' &&
