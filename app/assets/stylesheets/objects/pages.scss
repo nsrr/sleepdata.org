@@ -1,6 +1,7 @@
 // Pages adds styles for markdown and text documents for datasets and tools
 
 .markdown-container-no-border,
+.mono-container-no-border,
 .markdown-container,
 .mono-container {
   background-color: $body-bg;
@@ -22,6 +23,7 @@
 
 @media screen and (min-width: $screen-sm-min) {
   .markdown-container-no-border,
+  .mono-container-no-border,
   .markdown-container,
   .mono-container {
     font-size: 16px;
@@ -35,6 +37,7 @@
 
 @media screen and (min-width: $screen-md-min) {
   .markdown-container-no-border,
+  .mono-container-no-border,
   .markdown-container,
   .mono-container {
     font-size: 18px;

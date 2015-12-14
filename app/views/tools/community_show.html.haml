@@ -1,21 +1,33 @@
 - @title = @community_tool.name
 
-%h1
-  = link_to 'Community Tools', tools_path
-  &middot;
-  = @community_tool.name
+- content_for :banner do
+  .dataset-banner
+    .container
+      .dataset-header.brand= @community_tool.name
 
-- if @community_tool.safe_url?
-  %p
-    %strong URL
-    = link_to @community_tool.url, target: '_blank' do
-      = @community_tool.url
-      %span.glyphicon.glyphicon-new-window
 
-%p
-  %strong Description
-  = @community_tool.description
+.row
+  .col-md-9
+    - if @community_tool.readme_url.present?
+      - if @community_tool.markdown?
+        .markdown-container-no-border
+          = simple_markdown @community_tool.readme_content
+      - else
+        .mono-container-no-border
+          = simple_markdown "```\n" + @community_tool.readme_content + "\n```"
 
-.markdown-container
-  - if @community_tool.readme_url.present?
-    = simple_markdown @community_tool.readme_content
+  .col-md-3
+    - if @community_tool.safe_url?
+      %p
+        %strong URL
+        = link_to @community_tool.url, target: '_blank' do
+          = @community_tool.url
+          %span.glyphicon.glyphicon-new-window
+
+    %p
+      %strong Description
+      = @community_tool.description
+
+    %p
+      %strong Author
+      = @community_tool.user.forum_name

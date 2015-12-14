@@ -40,8 +40,8 @@ class CommunityTool < ActiveRecord::Base
                  end
       response.body
     end
-  # rescue
-    # 'No Content'
+  rescue
+    nil
   end
 
   def readme_url
@@ -58,5 +58,27 @@ class CommunityTool < ActiveRecord::Base
 
   def github_readme?
     %r{^https://github.com/} =~ url
+  end
+
+  def markdown?
+    if github_gist?
+      uri = URI.parse(url + '.json')
+      http = Net::HTTP.new(uri.host, uri.port)
+      if uri.scheme == 'https'
+        http.use_ssl = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      end
+
+      req = Net::HTTP::Get.new(uri.path)
+      response = http.start do |http|
+                   http.request(req)
+                 end
+      filename = JSON.parse(response.body)['files'].first
+      /\.md$/ =~ filename || /\.markdown$/ =~ filename
+    else
+      github_readme?
+    end
+  rescue
+    false
   end
 end
