@@ -3,25 +3,25 @@ class CommunityToolsController < ApplicationController
   before_action :check_system_admin
   before_action :set_community_tool, only: [:show, :edit, :update, :destroy]
 
-  # GET /community_tools
+  # GET /community-tools
   def index
     @community_tools = CommunityTool.current.page(params[:page]).per(40)
   end
 
-  # GET /community_tools/1
+  # GET /community-tools/1
   def show
   end
 
-  # GET /community_tools/new
+  # GET /community-tools/new
   def new
     @community_tool = CommunityTool.new
   end
 
-  # GET /community_tools/1/edit
+  # GET /community-tools/1/edit
   def edit
   end
 
-  # POST /community_tools
+  # POST /community-tools
   def create
     @community_tool = current_user.community_tools.new(community_tool_params)
     if @community_tool.save
@@ -31,7 +31,7 @@ class CommunityToolsController < ApplicationController
     end
   end
 
-  # PATCH /community_tools/1
+  # PATCH /community-tools/1
   def update
     if @community_tool.update(community_tool_params)
       redirect_to @community_tool, notice: 'Community tool was successfully updated.'
@@ -40,7 +40,7 @@ class CommunityToolsController < ApplicationController
     end
   end
 
-  # DELETE /community_tools/1
+  # DELETE /community-tools/1
   def destroy
     @community_tool.destroy
     redirect_to community_tools_path, notice: 'Community tool was successfully destroyed.'
