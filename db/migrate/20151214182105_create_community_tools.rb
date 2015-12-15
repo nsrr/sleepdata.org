@@ -4,7 +4,7 @@ class CreateCommunityTools < ActiveRecord::Migration
       t.string :url
       t.text :description
       t.integer :user_id
-      t.string :status, null: false, default: 'submitted'
+      t.string :status, null: false, default: 'started'
       t.boolean :deleted, null: false, default: false
 
       t.timestamps null: false

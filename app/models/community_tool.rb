@@ -1,6 +1,7 @@
+# Community Tool is a user submitted tool
 class CommunityTool < ActiveRecord::Base
   # Constants
-  STATUS = %w(submitted accepted rejected)
+  STATUS = %w(started submitted accepted rejected)
 
   # Concerns
   include Deletable
