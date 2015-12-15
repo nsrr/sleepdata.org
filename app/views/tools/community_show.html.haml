@@ -13,7 +13,7 @@
 
 .row
   .col-md-9
-    .markdown-container-no-border
+    .markdown-container-new
       = simple_markdown @community_tool.description
 
   .col-md-3
@@ -26,8 +26,3 @@
       %strong Date Added
       %br
       = @community_tool.created_at.strftime '%B %-d, %Y'
-
-    %p
-      %strong Description
-      %br
-      = @community_tool.description

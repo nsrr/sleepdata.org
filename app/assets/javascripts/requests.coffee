@@ -12,3 +12,8 @@ $(document)
       $("#sign-up-sign-in-button").data('target', '#contribute_tool_form_register')
     false
   )
+  .on('click', '[data-object~="submit-tool-draft"]', () ->
+    $("#draft").val('1')
+    $($(this).data('target')).submit()
+    false
+  )

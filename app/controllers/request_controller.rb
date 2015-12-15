@@ -70,8 +70,14 @@ class RequestController < ApplicationController
       return
     end
 
-    if @community_tool.update(name: params[:community_tool][:name], description: params[:community_tool][:description], status: 'submitted')
-      redirect_to dashboard_path, notice: 'Tool submitted successfully.'
+    status = (params[:draft] == '1' ? 'started' : 'submitted')
+
+    if @community_tool.update(name: params[:community_tool][:name], description: params[:community_tool][:description], status: status)
+      if status == 'started'
+        redirect_to dashboard_path, notice: 'Draft saved successfully.'
+      else
+        redirect_to contribute_tool_submitted_path
+      end
     else
       render :contribute_tool_description
     end

@@ -1,0 +1,26 @@
+- @title = 'Tool Submission Contributed'
+
+- content_for :banner do
+  .dataset-banner
+    .container
+      .dataset-header.brand= @title
+
+.jumbotron
+  %p
+    Thank you for submitting your tool to the NSRR.
+
+  %p
+    We will do a quick review of the tool to see that it is applicable to
+    data hosted on the NSRR and you will receive an email when this has been
+    completed.
+
+  %p
+    Don't hesitate to contact us at our email address with any further
+    questions:
+    = mail_to 'support@sleepdata.org'
+
+
+.center
+  = link_to dashboard_path, class: 'btn btn-primary btn-lg', style: 'width:100%; max-width: 400px;' do
+    Go to My Dashboard
+    %span.glyphicon.glyphicon-arrow-right

@@ -58,12 +58,32 @@
       .dashboard-title
         %strong Tool Contributions
       - if current_user.community_tools.present?
-        %ul
+        %table.table.table-fixed
+          %thead
+            %tr
+              %th
+                Name
+              %th
+                Actions
           - current_user.community_tools.each do |community_tool|
-            %li
-              %span.label{ class: "label-#{community_tool.status == 'accepted' ? 'success' : 'info'}" }= community_tool.status
-              = community_tool.url
-              = link_to 'Continue Submission', contribute_tool_description_path(community_tool) if community_tool.started?
+            %tr
+              %td{ style: 'overflow:hidden;text-overflow: ellipsis;'}
+                - if %w(started submitted).include?(community_tool.status)
+                  - name = (community_tool.name.present? ? community_tool.name : community_tool.url)
+                  = link_to_if community_tool.safe_url?, name, community_tool.url, target: '_blank'
+                - elsif community_tool.status == 'accepted'
+                  = link_to community_tool.name, community_show_tool_path(community_tool)
+              %td
+                - if community_tool.started?
+                  = link_to 'Continue Submission', contribute_tool_description_path(community_tool), class: "btn btn-xs btn-call-to-info btn-block"
+                - elsif community_tool.status == 'submitted'
+                  = link_to 'Under Review', '#', class: "btn btn-xs btn-call-to-default btn-block", data: { object: 'suppress-click' }, style: 'cursor: default'
+                - elsif community_tool.status == 'accepted'
+                  .row
+                    .col-xs-6{ style: 'padding-right: 1px;' }
+                      = link_to 'View', community_show_tool_path(community_tool), class: "btn btn-xs btn-call-to-action btn-block"
+                    .col-xs-6{ style: 'padding-left: 1px;' }
+                      = link_to 'Edit', contribute_tool_description_path(community_tool), class: "btn btn-xs btn-call-to-action btn-block"
     .dashboard-container
       .dashboard-title
         %strong Publications

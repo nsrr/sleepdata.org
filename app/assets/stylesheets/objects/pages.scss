@@ -1,5 +1,70 @@
 // Pages adds styles for markdown and text documents for datasets and tools
 
+.markdown-container-new {
+  margin-bottom: 80px;
+
+  img {
+    height: auto;
+    max-width: 100%;
+  }
+
+  h1:first-child,
+  h2:first-child,
+  h3:first-child,
+  h4:first-child,
+  h5:first-child,
+  h6:first-child {
+    margin-top: 0;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  p {
+    line-height: 25.6px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    border-bottom: 1px solid $brand-gray;
+    padding-bottom: 6.5px;
+    margin-bottom: 12px;
+    margin-top: 40px;
+  }
+
+  h1 {
+    font-size: 24px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  h3 {
+    font-size: 18px;
+  }
+
+  h4,
+  h5,
+  h6 {
+    font-size: 16px;
+  }
+}
+
 .markdown-container-no-border,
 .mono-container-no-border,
 .markdown-container,
