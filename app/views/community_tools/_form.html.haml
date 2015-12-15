@@ -24,8 +24,8 @@
     .col-md-10
       .preview-container
         .preview-header
-          = link_to 'Write', '#', data: { object: 'view-content-markdown' }, class: 'preview-tab active'
-          = link_to 'Preview', '#', data: { object: 'view-content-preview', content: '#community_tool_description' }, class: 'preview-tab'
+          = link_to 'Write', '#', data: { object: 'view-content-markdown' }, class: 'preview-tab active', tabindex: '-1'
+          = link_to 'Preview', '#', data: { object: 'view-content-preview', content: '#community_tool_description' }, class: 'preview-tab', tabindex: '-1'
         .preview-body
           #content_markdown
             = f.text_area :description, rows: [[5, @community_tool.description.to_s.count("\n") + 1].max, 25].min, class: 'preview-control', data: { object: 'expandable-text-area', default_rows: 5 }
