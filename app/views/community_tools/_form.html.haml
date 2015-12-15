@@ -29,7 +29,7 @@
         .preview-body
           #content_markdown
             = f.text_area :description, rows: [[5, @community_tool.description.to_s.count("\n") + 1].max, 25].min, class: 'preview-control', data: { object: 'expandable-text-area', default_rows: 5 }
-          #content_preview{ style: 'display:none' }
+          #content_preview.markdown-container-new{ style: 'display:none' }
 
   .form-group
     = f.label :status, nil, class: 'col-md-2 control-label'
