@@ -5,22 +5,40 @@
     .container
       .dataset-header.brand= @title
 
-.jumbotron
+  .call-to-action
+    .call-to-action-header
+      Success!
+    .call-to-action-body
+      Thank you for your submission, your tool contribution was submitted successfully.
+
+.markdown-container
+  %p
+    Dear
+    = succeed ',' do
+      = current_user.first_name
+
   %p
     Thank you for submitting your tool to the NSRR.
 
   %p
-    We will do a quick review of the tool to see that it is applicable to
-    data hosted on the NSRR and you will receive an email when this has been
-    completed.
+    We will review the tool to see that it is applicable to data hosted on the
+    NSRR and will send you a notification when the review is complete.
 
   %p
     Don't hesitate to contact us at our email address with any further
     questions:
     = mail_to 'support@sleepdata.org'
 
+  %p Kindly,
 
-.center
-  = link_to dashboard_path, class: 'btn btn-primary btn-lg', style: 'width:100%; max-width: 400px;' do
-    Go to My Dashboard
-    %span.glyphicon.glyphicon-arrow-right
+  %p The NSRR Team
+
+.row
+  .col-xs-12.col-sm-3.col-sm-offset-3.col-buffer
+    = link_to tools_path, class: 'btn btn-default btn-block' do
+      %span.glyphicon.glyphicon-wrench
+      Back to Tools
+  .col-xs-12.col-sm-3
+    = link_to dashboard_path, class: 'btn btn-primary btn-block' do
+      %span.glyphicon.glyphicon-home
+      Go to My Dashboard
