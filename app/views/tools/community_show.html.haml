@@ -13,13 +13,8 @@
 
 .row
   .col-md-9
-    - if @community_tool.readme_url.present?
-      - if @community_tool.markdown?
-        .markdown-container-no-border
-          = simple_markdown @community_tool.readme_content
-      - else
-        .mono-container-no-border
-          = simple_markdown "```\n" + @community_tool.readme_content + "\n```"
+    .markdown-container-no-border
+      = simple_markdown @community_tool.description
 
   .col-md-3
     %p

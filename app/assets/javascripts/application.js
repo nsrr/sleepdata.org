@@ -28,6 +28,8 @@
 //= require reviews
 //= require tags
 //= require showcase
+//= require requests
+//= require previews
 
 //= require external/highcharts-4.1.9.src.js
 //= require variables

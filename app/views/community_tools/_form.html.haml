@@ -10,6 +10,11 @@
           %li= msg
 
   .form-group
+    = f.label :name, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :name, class: 'form-control'
+
+  .form-group
     = f.label :url, 'URL', class: 'col-md-2 control-label'
     .col-md-10
       = f.text_field :url, class: 'form-control'
@@ -17,7 +22,14 @@
   .form-group
     = f.label :description, nil, class: 'col-md-2 control-label'
     .col-md-10
-      = f.text_area :description, rows: 7, class: 'form-control'
+      .preview-container
+        .preview-header
+          = link_to 'Write', '#', data: { object: 'view-content-markdown' }, class: 'preview-tab active'
+          = link_to 'Preview', '#', data: { object: 'view-content-preview', content: '#community_tool_description' }, class: 'preview-tab'
+        .preview-body
+          #content_markdown
+            = f.text_area :description, rows: [[5, @community_tool.description.to_s.count("\n") + 1].max, 25].min, class: 'preview-control', data: { object: 'expandable-text-area', default_rows: 5 }
+          #content_preview{ style: 'display:none' }
 
   .form-group
     = f.label :status, nil, class: 'col-md-2 control-label'

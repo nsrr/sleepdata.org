@@ -20,7 +20,7 @@ class CommunityToolsControllerTest < ActionController::TestCase
 
   test 'should create community_tool' do
     assert_difference('CommunityTool.count') do
-      post :create, community_tool: { url: 'https://github.com/nsrr/www.sleepdata.org', description: @community_tool.description, status: @community_tool.status }
+      post :create, community_tool: { name: 'Community Tool Name', url: 'https://github.com/nsrr/www.sleepdata.org', description: @community_tool.description, status: @community_tool.status }
     end
 
     assert_redirected_to community_tool_path(assigns(:community_tool))
@@ -37,7 +37,7 @@ class CommunityToolsControllerTest < ActionController::TestCase
   end
 
   test 'should update community_tool' do
-    patch :update, id: @community_tool, community_tool: { url: 'https://github.com/nsrr/www.sleepdata.org', description: @community_tool.description, status: @community_tool.status }
+    patch :update, id: @community_tool, community_tool: { name: 'Community Tool Name Update', url: 'https://github.com/nsrr/www.sleepdata.org', description: @community_tool.description, status: @community_tool.status }
     assert_redirected_to community_tool_path(assigns(:community_tool))
   end
 

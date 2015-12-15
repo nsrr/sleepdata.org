@@ -11,6 +11,7 @@
 - **Tool Changes**
   - Users can now submit URLs for tools to be listed on the NSRR
   - GitHub repositories with READMEs and GitHub gists can now be contributed as tools
+  - Tool descriptions are pulled automatically and can be written and previewed using markdown
 - **Variable Changes**
   - Added a table of domain options for variables that are linked to domains
   - Added ability to display SVG graphs for variables for future integration with Spout
@@ -23,6 +24,7 @@
 - **Blog Added**
   - Community managers can now create new blogs posts that are viewable on the NSRR home page
   - Images can be easily added via drag-and-drop while editing blog posts
+  - Blogs can be previewed while editing
 - **Gem Changes**
   - Updated to rails 4.2.5
   - Updated to pg 0.18.4

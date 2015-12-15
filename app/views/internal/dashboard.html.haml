@@ -63,8 +63,7 @@
             %li
               %span.label{ class: "label-#{community_tool.status == 'accepted' ? 'success' : 'info'}" }= community_tool.status
               = community_tool.url
-              %br
-              = community_tool.description
+              = link_to 'Continue Submission', contribute_tool_description_path(community_tool) if community_tool.started?
     .dashboard-container
       .dashboard-title
         %strong Publications

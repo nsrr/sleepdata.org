@@ -2,10 +2,10 @@
   - if @agreement.errors.any?
     .callout.callout-danger
       %strong
-        = pluralize(@agreement.errors.count, "error")
+        = pluralize @agreement.errors.count, 'error'
         prohibited this agreement from being saved
 
-      %ul.fixed-font-size
+      %ul
         - @agreement.errors.full_messages.each do |msg|
           %li= msg
 

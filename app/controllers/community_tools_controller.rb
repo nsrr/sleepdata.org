@@ -55,6 +55,6 @@ class CommunityToolsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def community_tool_params
-    params.require(:community_tool).permit(:url, :description, :status)
+    params.require(:community_tool).permit(:name, :url, :description, :status)
   end
 end

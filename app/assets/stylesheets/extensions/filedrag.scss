@@ -1,6 +1,10 @@
 .filedrag {
   display: none;
-  color: $text-muted;
+  color: $brand-gray;
+  border-top: 1px solid $gray-lighter;
+  padding: 10px 10px 0;
+  margin-left: -10px;
+  margin-right: -10px;
 }
 
 .filedrag-container {

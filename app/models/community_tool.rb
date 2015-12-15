@@ -9,16 +9,20 @@ class CommunityTool < ActiveRecord::Base
   # Named Scopes
 
   # Model Validation
-  validates :user_id, :url, :description, :status, presence: true
+  validates :user_id, :url, :status, presence: true
+  validates :url, uniqueness: { scope: :deleted }
+  validates :name, :description, presence: true, unless: :started?
+  validates :name, uniqueness: { scope: [:user_id, :deleted] }, unless: :started?
+  validates :url, format: URI.regexp(%w(http https ftp))
 
   # Model Relationships
   belongs_to :user
 
   # Community Tool Methods
 
-  def name
-    "Tool ##{id}"
-  end
+  # def name
+  #   "Tool ##{id}"
+  # end
 
   def safe_url?
     %w(http https ftp).include?(URI.parse(url).scheme)
@@ -81,5 +85,9 @@ class CommunityTool < ActiveRecord::Base
     end
   rescue
     false
+  end
+
+  def started?
+    status == 'started'
   end
 end

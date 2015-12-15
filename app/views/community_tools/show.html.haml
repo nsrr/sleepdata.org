@@ -12,13 +12,13 @@
   = @community_tool.url
 
 %p
-  %strong Description
-  = @community_tool.description
-
-%p
   %strong User
   = @community_tool.user.name
 
 %p
   %strong Status
   = @community_tool.status
+
+
+= simple_markdown @community_tool.description
+

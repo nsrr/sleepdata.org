@@ -1,12 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 accepted:
+  name: Accepted Tool
   url: MyString
   description: MyText
   user: valid
   status: accepted
 
 submitted:
+  name: Submitted Tool
   url: MyString
   description: MyText
   user: valid

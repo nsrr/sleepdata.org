@@ -42,12 +42,13 @@
 
     .center= paginate @community_tools, theme: 'contour'
 
-.content-container
-  %h2.brand Other Tools
-  %p
-    Tools to help jumpstart your research.
-.content-container
-  = render 'tools/tools'
+- if false
+  .content-container
+    %h2.brand Other Tools
+    %p
+      Tools to help jumpstart your research.
+  .content-container
+    = render 'tools/tools'
 
 - content_for :call_to_action do
   .call-to-action
@@ -56,7 +57,7 @@
     .call-to-action-body
       Submit a link to your tool code repository and help other researchers.
     .call-to-action-body
-      = link_to 'Contribute a Tool', tool_contribute_path, class: 'btn btn-call-to-action'
+      = link_to 'Contribute a Tool', contribute_tool_start_path, class: 'btn btn-call-to-action'
 
     .call-to-action-body
       %strong Unsure how to work with a data type?

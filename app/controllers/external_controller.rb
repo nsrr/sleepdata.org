@@ -12,4 +12,7 @@ class ExternalController < ApplicationController
 
   def sitemap
   end
+
+  def preview
+  end
 end

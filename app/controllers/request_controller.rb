@@ -1,6 +1,82 @@
 # This controller handles easy registration/sign in of users as part of a tool
 # contribution or request, or a dataset hosting request.
 class RequestController < ApplicationController
+  before_action :authenticate_user!, only: [:contribute_tool_description, :contribute_tool_set_description]
+
+  def contribute_tool_start
+    @community_tool = CommunityTool.new
+  end
+
+  def contribute_tool_set_location
+    @community_tool = CommunityTool.new(url: params[:community_tool][:url].strip)
+    @community_tool.valid?
+    if @community_tool.errors[:url].present?
+      render :contribute_tool_start
+    else
+      if current_user
+        save_tool_user
+      else
+        render :contribute_tool_about_me
+      end
+    end
+  end
+
+  def contribute_tool_about_me
+    @community_tool = CommunityTool.new(url: params[:url])
+  end
+
+  def contribute_tool_register_user
+    @community_tool = CommunityTool.new(url: params[:community_tool][:url])
+    unless current_user
+      user = User.new(user_params)
+      if user.save
+        sign_in(:user, user)
+      else
+        @registration_errors = user.errors
+        render :contribute_tool_about_me
+        return
+      end
+    end
+
+    save_tool_user
+  end
+
+  def contribute_tool_sign_in_user
+    @community_tool = CommunityTool.new(url: params[:community_tool][:url])
+    unless current_user
+      user = User.find_by_email params[:email]
+      if user && user.valid_password?(params[:password])
+        sign_in(:user, user)
+      else
+        @sign_in_errors = []
+        @sign_in = true
+        render :contribute_tool_about_me
+        return
+      end
+    end
+
+    save_tool_user
+  end
+
+  def contribute_tool_description
+    @community_tool = current_user.community_tools.where(status: 'started').find_by_id params[:id]
+    redirect_to dashboard_path, alert: 'This tool does not exist.' unless @community_tool
+  end
+
+  def contribute_tool_set_description
+    @community_tool = current_user.community_tools.where(status: 'started').find_by_id params[:id]
+    unless @community_tool
+      redirect_to dashboard_path, alert: 'This tool does not exist.'
+      return
+    end
+
+    if @community_tool.update(name: params[:community_tool][:name], description: params[:community_tool][:description], status: 'submitted')
+      redirect_to dashboard_path, notice: 'Tool submitted successfully.'
+    else
+      render :contribute_tool_description
+    end
+  end
+
   def tool_contribute
     @community_tool = CommunityTool.new
   end
@@ -80,5 +156,19 @@ class RequestController < ApplicationController
     params.require(:user).permit(
       :first_name, :last_name, :email,
       :password, :password_confirmation)
+  end
+
+  def save_tool_user
+    @community_tool.user_id = current_user.id
+    if @community_tool.save
+      description = @community_tool.readme_content
+      if description
+        description = "```\n#{description}\n```" unless @community_tool.markdown?
+        @community_tool.update description: description
+      end
+      redirect_to contribute_tool_description_path(@community_tool)
+    else
+      render :contribute_tool_start
+    end
   end
 end

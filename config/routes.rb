@@ -142,9 +142,26 @@ Rails.application.routes.draw do
     # get :contact
     get :landing
     get :sitemap
+    post :preview
   end
 
   scope module: 'request' do
+    get 'contribute/tool', to: redirect('contribute/tool/start')
+    get 'contribute/tool/start', action: 'contribute_tool_start', as: :contribute_tool_start
+    post 'contribute/tool/start', action: 'contribute_tool_set_location', as: :contribute_tool_set_location
+    # post 'contribute/tool/start', action: 'contribute_tool_set_user', as: :contribute_tool_set_user
+    get 'contribute/tool/about-me', action: 'contribute_tool_about_me', as: :contribute_tool_about_me
+    # post 'contribute/tool/about-me', action: 'contribute_tool_set_user', as: :contribute_tool_set_user
+    post 'contribute/tool/about-me', action: 'contribute_tool_register_user', as: :contribute_tool_register_user
+    patch 'contribute/tool/about-me', action: 'contribute_tool_sign_in_user', as: :contribute_tool_sign_in_user
+
+    get 'contribute/tool/location', action: 'contribute_tool_location', as: :contribute_tool_location
+
+    get 'contribute/tool/description/:id', action: 'contribute_tool_description', as: :contribute_tool_description
+    post 'contribute/tool/description/:id', action: 'contribute_tool_set_description', as: :contribute_tool_set_description
+    get 'contribute/tool/preview', action: 'contribute_tool_preview', as: :contribute_tool_preview
+    post 'contribute/tool/submit', action: 'contribute_tool_submit', as: :contribute_tool_submit
+
     get 'tool/contribute', action: 'tool_contribute', as: :tool_contribute
     post 'tool/contribute', action: 'create_tool_contribute', as: :create_tool_contribute
     get 'tool/contribute/submitted', action: 'tool_contribute_submitted', as: :tool_contribute_submitted
