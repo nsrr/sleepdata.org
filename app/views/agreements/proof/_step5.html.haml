@@ -2,7 +2,11 @@
   %dt IRB Evidence
   %dd
     - if @agreement.irb_evidence_type == 'has_evidence'
-      = render 'agreements/proof/irb_file_download'
+      - if @agreement.irb.size > 0
+        = link_to download_irb_agreement_path(@agreement), target: '_blank' do
+          %span.glyphicon.glyphicon-file
+          = @agreement.irb.to_s.split('/').last
+        %tt= number_to_human_size @agreement.irb.size
     - else
       Has requested the
       %strong NSRR Internal Review Committee

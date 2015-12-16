@@ -1,0 +1,5 @@
+= link_to dataset, rel: 'tooltip', title: dataset.name, data: { container: 'body', placement: 'top' }, style: 'text-decoration: none;' do
+  - if dataset.logo.size > 0
+    = image_tag(logo_dataset_path(dataset), style: 'max-width:100%;max-height:20px', alt: '')
+  - else
+    = image_tag('project-default-logo.png', style: 'max-width:100%;max-height:20px', alt: '')

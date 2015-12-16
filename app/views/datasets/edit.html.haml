@@ -1,10 +1,9 @@
 - @title = "Edit Dataset: #{@dataset.name}"
 
-.slim-container.dark-texture
-  %h1
-    Edit Dataset
-  %p
-    = link_to @dataset.name, @dataset
+%h1
+  Edit Dataset
+%p
+  = link_to @dataset.name, @dataset
 
 = render 'form'
 

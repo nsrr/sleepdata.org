@@ -19,8 +19,8 @@
       - is_file = File.file?(page)
       - folder = @object.page_path(page)
       - url = pages_path + '/' + folder
-      %li.nowrap{ style: 'overflow:hidden' }
-        = link_to url, class: (page_name == File.basename(@page_path) ? 'active' : nil) do
+      %li.nowrap
+        = link_to url, class: "overflow-hidden #{(page_name == File.basename(@page_path) ? 'active' : nil)}" do
           %span.glyphicon{ class: "glyphicon-#{is_file ? 'file' : 'folder-close'}" }
           = page_name
 
@@ -35,7 +35,7 @@
     .img-logo-navigation-bar
       = image_tag logo_path
 
-  - if current_user and @object.editable_by?(current_user)
+  - if current_user && @object.editable_by?(current_user)
     .small-spacer
     .center
       = link_to "Edit #{@object.class.name}", edit_path, class: 'btn btn-xs btn-default'
@@ -45,4 +45,5 @@
       .center
         = link_to 'Audits', audits_dataset_path(@object), class: 'btn btn-xs btn-default'
         = link_to 'Requests', requests_dataset_path(@object), class: 'btn btn-xs btn-default'
+        = link_to 'Sync', sync_dataset_path(@object), class: 'btn btn-xs btn-default'
     .small-spacer

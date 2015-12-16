@@ -1,9 +1,0 @@
-PDF View Currently Unavailable
-
-<hr />
-
-<% steps = (@agreement.no_irb_evidence? ? (1..8) : (1..7)) %>
-
-<% steps.each do |step| %>
-  <%= render partial: "agreements/proof/step#{step}" %>
-<% end %>

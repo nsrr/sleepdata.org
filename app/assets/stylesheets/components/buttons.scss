@@ -51,3 +51,20 @@
   border: 1px solid $btn-info-border;
   color: $brand-white;
 }
+
+.btn-success-inverse {
+  background-color: $brand-white;
+  border: 1px solid $btn-success-border;
+  color: $btn-success-bg;
+}
+
+.btn-success-inverse:hover,
+.btn-success-inverse:focus,
+.btn-success-inverse:active,
+.btn-success-inverse.active,
+.btn-success-inverse.disabled,
+.btn-success-inverse[disabled] {
+  background-color: $btn-success-bg;
+  border: 1px solid $btn-success-border;
+  color: $brand-white;
+}
