@@ -4,6 +4,7 @@
 - **General Changes**
   - Improved the user interface across the site for easier navigation and a cleaner look
   - Started work on a comprehensive Site Map
+  - Emails sent from site have been updated to match the new user interface
 - **Dataset Changes**
   - Improved dataset access request flow
   - Added call to action for researchers who wish to contribute datasets to the NSRR

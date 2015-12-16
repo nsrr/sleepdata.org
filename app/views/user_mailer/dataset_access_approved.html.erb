@@ -1,6 +1,6 @@
 <b>Dear <%= @dataset_user.user.first_name %>,</b><br />
 <br />
-<%= @editor.name %> <span style="padding:5px;background-color:#5cb85c;color:white">approved</span> your file access request on <%= link_to @dataset_user.dataset.name, "#{ENV['website_url']}/datasets/#{@dataset_user.dataset.to_param}", style: "color: #428bca;" %>.<br />
+<%= @editor.name %> <span style="padding:5px;background-color:#4bbf74;color:white">approved</span> your file access request on <%= link_to @dataset_user.dataset.name, "#{ENV['website_url']}/datasets/#{@dataset_user.dataset.to_param}", style: "color: #428bca;" %>.<br />
 <br />
 You can now start exploring available data here:<br />
 <br />

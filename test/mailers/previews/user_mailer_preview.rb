@@ -1,10 +1,4 @@
 class UserMailerPreview < ActionMailer::Preview
-
-  def forum_digest
-    user = User.first
-    UserMailer.forum_digest(user)
-  end
-
   def post_replied
     post = Post.first
     user = User.first
@@ -56,22 +50,10 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.daua_submitted(admin, agreement)
   end
 
-  def notify_system_admin
-    system_admin = User.current.first
-    user = User.current.first
-    UserMailer.notify_system_admin(system_admin, user)
-  end
-
   def sent_back_for_resubmission
     agreement = Agreement.first
     admin = User.first
     UserMailer.sent_back_for_resubmission(agreement, admin)
-  end
-
-  def mentioned_in_comment
-    user = User.first
-    comment = Comment.first
-    UserMailer.mentioned_in_comment(comment, user)
   end
 
   def mentioned_in_agreement_comment
@@ -79,6 +61,4 @@ class UserMailerPreview < ActionMailer::Preview
     agreement_event = AgreementEvent.where( event_type: 'commented' ).first
     UserMailer.mentioned_in_agreement_comment(agreement_event, user)
   end
-
-
 end
