@@ -2,9 +2,9 @@ module Pageable
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_object,                only: [:new_page, :create_page, :edit_page, :update_page, :show, :pages, :images, :requests, :pull_changes, :sync]
-    before_action :redirect_without_object,   only: [:new_page, :create_page, :edit_page, :update_page, :show, :pages, :images, :requests, :pull_changes, :sync]
-    before_action :set_page_path,             only: [:new_page, :create_page, :edit_page, :update_page, :show, :pages]
+    before_action :set_object,                only: [:show, :pages, :images, :requests, :pull_changes, :sync]
+    before_action :redirect_without_object,   only: [:show, :pages, :images, :requests, :pull_changes, :sync]
+    before_action :set_page_path,             only: [:show, :pages]
   end
 
   # GET /(datasets|tools)/1/pages
@@ -21,49 +21,6 @@ module Pageable
       @path = @object.find_page_folder(params[:path])
       redirect_to_pages_path
     end
-  end
-
-  # GET /(datasets|tools)/1/new_page
-  def new_page
-    render 'documentation/new_page'
-  end
-
-  def create_page
-    page_name = params[:page_name].to_s.gsub(/[^\w\.\-]/, '').gsub(/^[\.]*/, '')
-    @folder_path = @object.find_page_folder(params[:path])
-    @page_path = File.join(@object.pages_folder, @folder_path.to_s, page_name.to_s)
-    if not File.exist?(@page_path) and not page_name.blank?
-      FileUtils.mkdir_p( File.join(@object.pages_folder, @folder_path.to_s) )
-      File.open(@page_path, 'w') do |outfile|
-        outfile.write params[:page_contents].to_s
-      end
-      @path = @page_path.gsub(@object.pages_folder + '/', '')
-      redirect_to_pages_path
-    else
-      @errors = {}
-      @errors[:page_name] = page_name.blank? ? "Page name can't be blank" : "A page with that name already exists"
-      render 'documentation/new_page'
-    end
-  end
-
-  # GET /(datasets|tools)/1/edit_page
-  def edit_page
-    unless @page_path and File.file?(@page_path) and File.size(@page_path) < 1.megabyte
-      redirect_to_pages_path
-    else
-      render 'documentation/edit_page'
-    end
-  end
-
-  # PATCH /(datasets|tools)/1/update_page
-  def update_page
-    if @page_path and File.file?(@page_path) and params.key?(:page_contents)
-      File.open(@page_path, 'w') do |outfile|
-        outfile.write params[:page_contents].to_s
-      end
-    end
-
-    redirect_to_pages_path
   end
 
   def images
@@ -101,25 +58,24 @@ module Pageable
 
   private
 
-    def set_object
-      @object = @dataset || @tool
-    end
+  def set_object
+    @object = @dataset || @tool
+  end
 
-    def redirect_without_object
-      empty_response_or_root_path( @object.class == Dataset ? datasets_path : tools_path ) unless @object
-    end
+  def redirect_without_object
+    empty_response_or_root_path(@object.class == Dataset ? datasets_path : tools_path) unless @object
+  end
 
-    def redirect_to_pages_path
-      if @object.class == Dataset
-        redirect_to pages_dataset_path( @object, path: @path )
-      else
-        redirect_to pages_tool_path( @object, path: @path )
-      end
+  def redirect_to_pages_path
+    if @object.class == Dataset
+      redirect_to pages_dataset_path(@object, path: @path)
+    else
+      redirect_to pages_tool_path(@object, path: @path)
     end
+  end
 
-    def set_page_path
-      @page_path = @object.find_page(params[:path])
-      @path = (@page_path ? @page_path.gsub(@object.pages_folder + '/', '') : nil)
-    end
-
+  def set_page_path
+    @page_path = @object.find_page(params[:path])
+    @path = (@page_path ? @page_path.gsub(@object.pages_folder + '/', '') : nil)
+  end
 end

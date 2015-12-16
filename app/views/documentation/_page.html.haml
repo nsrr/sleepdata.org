@@ -1,12 +1,7 @@
 - if object.class == Dataset
-  - edit_page_path = edit_page_dataset_path( object, path: @path )
-  - new_page_path  =  new_page_dataset_path( object, path: @path )
-  - pages_path     =     pages_dataset_path( object )
+  - pages_path = pages_dataset_path(object)
 - else
-  - edit_page_path = edit_page_tool_path( object, path: @path )
-  - new_page_path  =  new_page_tool_path( object, path: @path )
-  - pages_path     =     pages_tool_path( object )
-
+  - pages_path = pages_tool_path(object)
 
 - content_for :banner do
   .breadcrumb-container

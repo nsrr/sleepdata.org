@@ -1,6 +1,8 @@
 - @title = @object.name
-.slim-container.dark-texture
-  %h1= @title
 
-.slim-container.math-texture
-  = render 'documentation/sync', local_commit: @local_commit, remote_commit: @remote_commit, object: @object, back: ''
+- if @object.class == Dataset
+  = render 'datasets/header'
+- else
+  = render 'tools/header'
+
+= render 'documentation/sync', local_commit: @local_commit, remote_commit: @remote_commit, object: @object, back: ''
