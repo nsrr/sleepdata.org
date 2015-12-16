@@ -1,13 +1,13 @@
-%h2
-  Begin analysis.
-
-%p
-  Analyze and manipulate data using a variety of
-  = succeed '.' do
-    = link_to 'tools contributed by the research community', tools_path
-
-.row{ style: 'margin-top:40px' }
-  - tools = Tool.current.where(slug: ['physiomimi', 'edf-viewer', 'block-edf-loader']).order(:name)
-  - tools.each do |tool|
-    .col-xs-12.col-sm-6.col-md-4
-      = render 'tools/panel', tool: tool
+.landing-container
+  .landing-header
+    %h2
+      Begin analysis.
+    %p.lead
+      Analyze and manipulate data using
+      = succeed '.' do
+        = link_to 'tools contributed by the research community', tools_path
+  .landing-body
+    .row
+      - @tools.each do |tool|
+        .col-xs-12.col-sm-6.col-md-4
+          = render 'tools/panel', tool: tool

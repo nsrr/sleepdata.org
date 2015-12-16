@@ -10,18 +10,11 @@
 .row
   .col-md-9
 
-    .content-container
-      = render 'external/datasets'
+    = render 'external/datasets'
 
-    .content-spacer
+    = render 'external/variables'
 
-    .content-container
-      = render 'external/variables'
-
-    .content-spacer
-
-    .content-container
-      = render 'external/tools'
+    = render 'external/tools'
 
   .col-md-3
     = render 'news/news'

@@ -1,26 +1,29 @@
-%h2
-  Download the data.
+.landing-container
+  .landing-header
+    %h2
+      Explore the data.
 
-%p
-  Explore over
-  = pluralize(number_with_delimiter(Variable.where(dataset_id: Dataset.current.where(public: true).pluck(:id)).count), 'covariate')
-  across
-  = link_to(pluralize(Dataset.current.where(public: true).count, 'public dataset'), datasets_path) + "."
+    %p.lead
+      Drill down and view over
+      = pluralize(number_with_delimiter(Variable.where(dataset_id: Dataset.current.where(public: true).pluck(:id)).count), 'covariate')
+      across
+      = succeed '.' do
+        = link_to pluralize(Dataset.current.where(public: true).count, 'public dataset'), datasets_path
 
-%table.table
-  %thead
-    %tr
-      %th Dataset
-      %th.nowrap Name
-      %th Variable Name
+  .landing-body
+    %table.table
+      %thead
+        %tr
+          %th Dataset
+          %th.nowrap Name
+          %th Variable Name
 
-  - @variables = Variable.where(dataset_id: Dataset.current.where(public: true).select(:id), commonly_used: true).order('RANDOM()').limit(10)
-  - @variables.each do |variable|
-    %tr
-      %td
-        = link_to variable.dataset.slug, dataset_variables_path(variable.dataset)
-      %td
-        = link_to dataset_variable_path(variable.dataset, variable) do
-          = variable.display_name
-      %td
-        %code=variable.name
+      - @variables.each do |variable|
+        %tr
+          %td
+            = link_to variable.dataset.slug, dataset_variables_path(variable.dataset)
+          %td
+            = link_to dataset_variable_path(variable.dataset, variable) do
+              = variable.display_name
+          %td
+            %code=variable.name
