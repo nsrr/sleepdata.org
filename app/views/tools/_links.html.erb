@@ -1,5 +1,0 @@
-<% if current_user and @tool.editable_by?(current_user) %>
-  <div class="center" style="margin-top:20px">
-    <%= link_to 'Requests', requests_tool_path(@tool), class: 'btn btn-xs btn-default' %>
-  </div>
-<% end %>

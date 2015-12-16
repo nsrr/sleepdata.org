@@ -1,0 +1,25 @@
+Dear
+= succeed ',' do
+  = @user.first_name
+%br
+%br
+= @agreement_event.user.name
+%span{ style: 'padding:5px;background-color:#428bca;color:white' } mentioned
+you while reviewing an agreement.
+%br
+%br
+%table{ style: 'width:100%;border:0px;border-collapse:collapse;margin:0px;padding:0px;color:#505050;font-family:Arial;font-size:14px;' }
+  %tbody
+    %tr
+      %td{ colspan: 3, style: 'border-top:1px solid #ddd;' }
+    %tr
+      %td{ colspan: 3, style: 'text-align:left;padding-top:10px;padding-right:20px;padding-bottom:10px;' }
+        %b= link_to @agreement_event.agreement.name_with_id, "#{ENV['website_url']}/reviews/#{@agreement_event.agreement.to_param}", style: 'color: #428bca;'
+    %tr= render 'digest_review_comment'
+    %tr
+      %td{ colspan: 3, style: 'padding-bottom:10px' }
+    %tr
+      %td{ colspan: 3, style: 'padding-bottom:10px' }
+%br
+%center
+  = link_to "#{ENV['website_url']}/reviews/#{@agreement_event.agreement.to_param}", "#{ENV['website_url']}/reviews/#{@agreement_event.agreement.to_param}#c#{@agreement_event.number}", style: 'color: #428bca'

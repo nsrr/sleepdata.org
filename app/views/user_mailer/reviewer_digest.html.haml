@@ -1,0 +1,31 @@
+Dear
+= succeed ',' do
+  = @user.first_name
+%br
+%br
+The following agreements are awaiting your review. Please click on each and then approve or reject the agreement.
+%br
+%br
+
+- if @user.digest_reviews.size > 0
+  %table{ style: 'width:100%;border:0px;border-collapse:collapse;margin:0px;padding:0px;color:#505050;font-family:Arial;font-size:14px;' }
+    %thead
+      %tr{ style: 'text-align:left' }
+        %th{ colspan: 2, style: 'padding-bottom:10px;font-weight:normal' }
+          %span{ style: 'padding:5px;background-color:#428bca;color:white' } Agreements
+        %th{ style: 'text-align:right' } Last Submitted
+    - @user.digest_reviews.each_with_index do |review, index|
+      %tbody{ style: "#{'background-color: #fbfbfb' if index % 2 == 0}" }
+        %tr
+          %td{ colspan: 3, style: 'border-top:1px solid #ddd;' }
+        %tr
+          %td{ colspan: 2, style: 'text-align:left;padding-top:10px;padding-right:20px;padding-bottom:10px;' }
+            %b= link_to review.agreement.name_with_id, "#{ENV['website_url']}/reviews/#{review.agreement.to_param}", style: 'color: #428bca;'
+          %td{ style: 'text-align:right' }= review.agreement.last_submitted_at.strftime('%-d %B %Y') if review.agreement.last_submitted_at
+        %tr
+          %td{ colspan: 3, style: 'padding-bottom:10px' }
+        %tr
+          %td{ colspan: 3, style: 'padding-bottom:10px' }
+%br
+%center
+  = link_to "#{ENV['website_url']}/reviews", "#{ENV['website_url']}/reviews", style: 'color: #428bca'

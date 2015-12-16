@@ -1,0 +1,19 @@
+Dear
+= succeed ',' do
+  = @editor.first_name
+%br
+%br
+= @dataset_user.user.name
+= surround '[', ']' do
+  = mail_to @dataset_user.user.email, @dataset_user.user.email, style: "color: #428bca;"
+%span{ style: 'padding:5px;background-color:#f0ad4e;color:white' } requested
+file access on
+= succeed '.' do
+  = @dataset_user.dataset.name
+%br
+%br
+You can review the Data File Access request here:
+%br
+%br
+%center
+  = link_to "#{ENV['website_url']}/datasets/#{@dataset_user.dataset.to_param}/requests?dataset_user_id=#{@dataset_user.id}", "#{ENV['website_url']}/datasets/#{@dataset_user.dataset.to_param}/requests?dataset_user_id=#{@dataset_user.id}", style: 'color: #428bca;'

@@ -1,8 +1,0 @@
-Principal Reviewer <span class="label label-danger">sent back</span> agreement for resubmission
-<abbr rel="tooltip" data-title="<%= agreement_event.event_at.strftime("%-d %B %Y, %-l:%M %p") %>" data-container="body" data-placement="right"><%= time_ago_in_words(agreement_event.event_at) %> ago</abbr>.
-
-<% if agreement_event.comment.present? %>
-  <blockquote style="margin-top: 28px">
-    <%= simple_markdown(sanitize(agreement_event.comment), true, 'table table-striped', true) %>
-  </blockquote>
-<% end %>

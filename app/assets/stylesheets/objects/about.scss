@@ -1,0 +1,14 @@
+.user-panel {
+  background-color: $brand-white;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  margin: 40px auto 20px;
+  min-height: 140px;
+
+  padding: 20px 20px 10px 20px;
+
+  h4 {
+    margin-bottom: 20px;
+    margin-top: 0;
+  }
+}

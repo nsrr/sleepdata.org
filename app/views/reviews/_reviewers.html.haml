@@ -1,0 +1,14 @@
+- agreement.reviews.each do |review|
+  - case review.approved when true
+    - glyphicon = 'thumbs-up'
+    - label = 'success'
+  - when false
+    - glyphicon = 'thumbs-down'
+    - label = 'danger'
+  - else
+    - glyphicon = 'flash'
+    - label = 'default'
+  %span.label{ class: "label-#{label}" }
+    = review.user.initials
+    %span.glyphicon{ class: "glyphicon-#{glyphicon}" }
+  &nbsp;

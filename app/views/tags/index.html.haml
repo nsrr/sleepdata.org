@@ -1,14 +1,17 @@
 - @title = 'Tags'
-.slim-container.dark-texture
-  %h1
-    = @title
-  = link_to 'Create Tag', new_tag_path, class: 'btn btn-xs btn-primary'
 
-.slim-container.math-texture
-  = form_tag tags_path, method: :get, class: 'form-inline' do
-    = hidden_field_tag :order, params[:order]
-    = text_field_tag 'search', params[:search], class: 'form-control'
-    = submit_tag 'Search', class: 'btn btn-primary', name: nil
-    = link_to 'Reset', tags_path, class: 'btn btn-default'
+- content_for :banner do
+  .challenge-header
+    .banner
+      .container
+        .banner-header
+          %span.brand= @title
+          = link_to 'Create Tag', new_tag_path, class: 'btn btn-xs btn-primary'
 
-  = render 'tags/tags'
+= form_tag tags_path, method: :get, class: 'form-inline' do
+  = hidden_field_tag :order, params[:order]
+  = text_field_tag 'search', params[:search], class: 'form-control'
+  = submit_tag 'Search', class: 'btn btn-primary', name: nil
+  = link_to 'Reset', tags_path, class: 'btn btn-default'
+
+= render 'tags/tags'

@@ -1,0 +1,25 @@
+- @title = 'Academic User Group'
+
+- content_for :banner do
+  .challenge-header
+    .banner
+      .container
+        .banner-header.brand
+          = @title
+        .banner-body
+          The
+          = link_to 'NSRR team', about_path
+          is thrilled to have the support and guidance of the diverse Academic
+          User Group.
+
+- first_half = @users.collect.with_index{|u, i| [u, i]}.select{|u, i| i < (@users.size + 1) / 2 }.collect{|u, i| u}
+- second_half = @users.collect.with_index{|u, i| [u, i]}.select{|u, i| i >= (@users.size + 1) / 2 }.collect{|u, i| u}
+
+.row
+  .col-xs-12.col-sm-6
+    - first_half.each do |user|
+      = render 'user_panel', user: user
+
+  .col-xs-12.col-sm-6
+    - second_half.each do |user|
+      = render 'user_panel', user: user
