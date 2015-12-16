@@ -2,14 +2,21 @@
 
 accepted:
   name: Accepted Tool
-  url: MyString
+  url: http://example.com/accepted
   description: MyText
   user: valid
   status: accepted
 
 submitted:
   name: Submitted Tool
-  url: MyString
+  url: http://example.com/submitted
   description: MyText
   user: valid
   status: submitted
+
+started:
+  # name:
+  url: http://example.com/started
+  # description:
+  user: valid
+  status: started

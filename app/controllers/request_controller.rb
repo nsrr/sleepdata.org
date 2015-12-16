@@ -8,7 +8,7 @@ class RequestController < ApplicationController
   end
 
   def contribute_tool_set_location
-    @community_tool = CommunityTool.new(url: params[:community_tool][:url].strip)
+    @community_tool = CommunityTool.new(community_tool_params)
     @community_tool.valid?
     if @community_tool.errors[:url].present?
       render :contribute_tool_start
@@ -21,12 +21,8 @@ class RequestController < ApplicationController
     end
   end
 
-  def contribute_tool_about_me
-    @community_tool = CommunityTool.new(url: params[:url])
-  end
-
   def contribute_tool_register_user
-    @community_tool = CommunityTool.new(url: params[:community_tool][:url])
+    @community_tool = CommunityTool.new(community_tool_params)
     unless current_user
       user = User.new(user_params)
       if user.save
@@ -42,7 +38,7 @@ class RequestController < ApplicationController
   end
 
   def contribute_tool_sign_in_user
-    @community_tool = CommunityTool.new(url: params[:community_tool][:url])
+    @community_tool = CommunityTool.new(community_tool_params)
     unless current_user
       user = User.find_by_email params[:email]
       if user && user.valid_password?(params[:password])
@@ -83,36 +79,8 @@ class RequestController < ApplicationController
     end
   end
 
-  def tool_contribute
-    @community_tool = CommunityTool.new
-  end
-
-  def create_tool_contribute
-    @community_tool = CommunityTool.new(community_tool_params)
-    unless current_user
-      user = User.new(user_params)
-      if user.save
-        # TODO: Send email of account creation with temporary password
-        # UserMailer.tool_contribute_account_created(params[:user][:password]).deliver!
-        sign_in(:user, user)
-      else
-        @errors = user.errors
-        render :tool_contribute
-        return
-      end
-    end
-
-    @community_tool.user_id = current_user.id
-    if @community_tool.save
-      redirect_to tool_contribute_submitted_path
-    else
-      render :tool_contribute
-    end
-  end
-
-  def tool_contribute_submitted
-  end
-
+  #
+  # Tool Requests
   def tool_request
   end
 
@@ -149,7 +117,9 @@ class RequestController < ApplicationController
   private
 
   def community_tool_params
-    params.require(:community_tool).permit(:description, :url)
+    params[:community_tool] ||= { blank: '1' }
+    params[:community_tool][:description] = params[:community_tool][:url].to_s.strip if params[:community_tool].key?(:url)
+    params.require(:community_tool).permit(:name, :description, :url)
   end
 
   def hosting_request_params
