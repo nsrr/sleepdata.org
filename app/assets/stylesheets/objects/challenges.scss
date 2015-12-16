@@ -1,0 +1,67 @@
+.challenge-btn-default-to-success {
+  color: $btn-default-color;
+  background-color: $btn-default-bg;
+  border-color: $btn-default-border;
+
+  &:hover,
+  &:focus,
+  &.focus,
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: $btn-success-color;
+    background-color: darken($btn-success-bg, 10%);
+        border-color: darken($btn-success-border, 12%);
+  }
+}
+
+.challenge-btn-default-to-danger {
+  color: $btn-default-color;
+  background-color: $btn-default-bg;
+  border-color: $btn-default-border;
+
+  &:hover,
+  &:focus,
+  &.focus,
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: $btn-danger-color;
+    background-color: darken($btn-danger-bg, 10%);
+        border-color: darken($btn-danger-border, 12%);
+  }
+}
+
+.challenge-btn-default-to-warning {
+  color: $btn-default-color;
+  background-color: $btn-default-bg;
+  border-color: $btn-default-border;
+
+  &:hover,
+  &:focus,
+  &.focus,
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: $btn-warning-color;
+    background-color: darken($btn-warning-bg, 10%);
+        border-color: darken($btn-warning-border, 12%);
+  }
+}
+
+.challenge-btn-default-to-dark {
+  color: $btn-default-color;
+  background-color: $btn-default-bg;
+  border-color: $btn-default-border;
+
+  &:hover,
+  &:focus,
+  &.focus,
+  &:active,
+  &.active,
+  .open > &.dropdown-toggle {
+    color: #FFF;
+    background-color: darken($btn-default-bg, 40%);
+        border-color: darken($btn-default-border, 42%);
+  }
+}

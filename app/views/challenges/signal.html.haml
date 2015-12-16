@@ -36,16 +36,16 @@
               = letter
             %td
               %p{ data: { toggle: "buttons" } }
-                %label.btn.btn-default-to-success{ class: "#{'active' if answer.response == 'yes'}", style: 'min-width:77px' }
+                %label.btn.challenge-btn-default-to-success{ class: "#{'active' if answer.response == 'yes'}", style: 'min-width:77px' }
                   = radio_button_tag question_name, 'yes', answer.response == 'yes'
                   Yes
-                %label.btn.btn-default-to-danger{ class: "#{'active' if answer.response == 'no'}", style: 'min-width:77px' }
+                %label.btn.challenge-btn-default-to-danger{ class: "#{'active' if answer.response == 'no'}", style: 'min-width:77px' }
                   = radio_button_tag question_name, 'no', answer.response == 'no'
                   No
-                %label.btn.btn-default-to-warning{ class: "#{'active' if answer.response == 'intermediate'}", style: 'min-width:160px' }
+                %label.btn.challenge-btn-default-to-warning{ class: "#{'active' if answer.response == 'intermediate'}", style: 'min-width:160px' }
                   = radio_button_tag question_name, 'intermediate', answer.response == 'intermediate'
                   Intermediate
-                %label.btn.btn-default-to-dark{ class: "#{'active' if answer.response == 'unscorable'}", style: 'min-width:160px' }
+                %label.btn.challenge-btn-default-to-dark{ class: "#{'active' if answer.response == 'unscorable'}", style: 'min-width:160px' }
                   = radio_button_tag question_name, 'unscorable', answer.response == 'unscorable'
                   Unscorable / Artifact
 
