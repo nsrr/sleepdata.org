@@ -1,4 +1,4 @@
-%p.lead.center{ style: 'color: #ccc;' } Standing on the shoulders of giants.
+/ %p.lead.center{ style: 'color: #ccc;' } Standing on the shoulders of giants.
 
 - register_visible = (@sign_in != true)
 - target = (register_visible ? '#form_register' : '#form_sign_in')
@@ -9,8 +9,8 @@
     About Yourself
 
   #sign-up-form{ style: "#{'display:none' unless register_visible}" }
-    = form_for @community_tool, url: contribute_tool_register_user_path, method: :post, html: { class: 'form-vertical', id: 'form_register' } do |f|
-      = f.hidden_field :url
+    = form_for @agreement, url: submissions_register_user_path, method: :post, html: { class: 'form-vertical', id: 'form_register' } do |f|
+      = text_field_tag :dataset, params[:dataset]
 
       - if @registration_errors
         .form-group
@@ -20,7 +20,6 @@
                 %li
                   = succeed '.' do
                     = msg
-            / Please enter all fields.
 
       .form-group
         = label_tag :user_first_name, 'First Name', class: 'control-label'
@@ -39,8 +38,8 @@
           = link_to 'I already have an account', '#', data: { object: 'toggle-sign-up' }, tabindex: '-1'
 
   #sign-in-form{ style: "#{'display:none' if register_visible}" }
-    = form_for @community_tool, url: contribute_tool_sign_in_user_path, method: :patch, html: { class: 'form-vertical', id: 'form_sign_in' } do |f|
-      = f.hidden_field :url
+    = form_for @agreement, url: submissions_sign_in_user_path, method: :patch, html: { class: 'form-vertical', id: 'form_sign_in' } do |f|
+      = text_field_tag :dataset, params[:dataset]
 
       - if @sign_in_errors
         .form-group
@@ -68,6 +67,4 @@
 
 .jumbotron
   %p
-    Attribution is a core tenet of the NSRR. Please register an account so that
-    we can recognize your contribution. Your email will not be visible to other
-    members.
+    Your email will not be visible to other members.

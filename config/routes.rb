@@ -161,6 +161,11 @@ Rails.application.routes.draw do
     get 'dataset/hosting', action: 'dataset_hosting', as: :dataset_hosting
     post 'dataset/hosting', action: 'create_hosting_request', as: :create_hosting_request
     get 'dataset/hosting/submitted', action: 'dataset_hosting_submitted', as: :dataset_hosting_submitted
+
+    get 'submissions/start', action: 'submissions_start', as: :submissions_start
+    post 'submissions/start', action: 'submissions_launch', as: :submissions_launch
+    post 'submissions/register', action: 'submissions_register_user', as: :submissions_register_user
+    patch 'submissions/sign_in', action: 'submissions_sign_in_user', as: :submissions_sign_in_user
   end
 
   scope module: 'static' do
@@ -192,7 +197,6 @@ Rails.application.routes.draw do
   end
 
   get 'community/tools/:id' => 'tools#community_show', as: :community_show_tool
-
 
   resources :topics, path: 'forum' do
     member do
@@ -236,9 +240,6 @@ Rails.application.routes.draw do
   get '/admin/roles' => 'admin#roles', as: :admin_roles
 
   get '/daua/irb-assistance' => 'agreements#irb_assistance', as: :irb_assistance
-
-  get '/submissions/welcome' => 'agreements#welcome', as: :submissions_welcome
-  get '/submissions/start' => 'agreements#new_step', as: :submissions_start
 
   # In case 'failed submission steps are reloaded using get request'
   get '/agreements/:id/final_submission' => 'agreements#proof'

@@ -79,6 +79,56 @@ class RequestController < ApplicationController
     end
   end
 
+  # DAUA Submissions
+
+  def submissions_start
+  end
+
+  def submissions_launch
+    if current_user
+      @agreement = current_user.agreements.new
+      save_agreement_user
+    else
+      @agreement = Agreement.new
+      render :submissions_about_me
+    end
+  end
+
+  def submissions_register_user
+    @agreement = Agreement.new # TODO: Set dataset IDS
+    unless current_user
+      user = User.new(user_params)
+      if user.save
+        sign_in(:user, user)
+      else
+        @registration_errors = user.errors
+        render :submissions_about_me
+        return
+      end
+    end
+
+    save_agreement_user
+  end
+
+  def submissions_sign_in_user
+    @agreement = Agreement.new # TODO: Set dataset IDS
+    unless current_user
+      user = User.find_by_email params[:email]
+      if user && user.valid_password?(params[:password])
+        sign_in(:user, user)
+      else
+        @sign_in_errors = []
+        @sign_in = true
+        render :submissions_about_me
+        return
+      end
+    end
+
+    save_agreement_user
+  end
+
+
+
   #
   # Tool Requests
   def tool_request
@@ -146,5 +196,15 @@ class RequestController < ApplicationController
     else
       render :contribute_tool_start
     end
+  end
+
+  def save_agreement_user
+    dataset = current_user.all_viewable_datasets.find_by_param(params[:dataset])
+    if dataset
+      agreement = dataset.agreements.where(user_id: current_user.id, status: ['resubmit', 'started', '', nil]).first_or_create(status: 'started')
+    else
+      agreement = current_user.agreements.create(status: 'started')
+    end
+    redirect_to step_agreement_path(agreement, step: agreement.current_step)
   end
 end

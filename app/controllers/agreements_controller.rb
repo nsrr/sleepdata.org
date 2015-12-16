@@ -1,18 +1,18 @@
 class AgreementsController < ApplicationController
-  prepend_before_filter only: [ :signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted ] { request.env["devise.skip_timeout"] = true }
-  skip_before_action :verify_authenticity_token, only: [ :signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted ]
+  prepend_before_filter only: [:signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted] { request.env['devise.skip_timeout'] = true }
+  skip_before_action :verify_authenticity_token, only: [:signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted]
 
-  before_action :authenticate_user!,             except: [ :signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted ]
-  before_action :check_system_admin,             except: [ :signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted, :renew, :daua, :dua, :create_step, :step, :update_step, :proof, :final_submission, :destroy_submission, :submissions, :welcome, :download_irb, :print, :complete, :new_step, :irb_assistance ]
+  before_action :authenticate_user!,             except: [:signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted]
+  before_action :check_system_admin,             except: [:signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted, :renew, :daua, :dua, :create_step, :step, :update_step, :proof, :final_submission, :destroy_submission, :download_irb, :print, :complete, :new_step, :irb_assistance]
 
-  before_action :set_viewable_submission,        only: [ :renew, :complete ]
-  before_action :set_editable_submission,        only: [ :step, :update_step, :proof, :final_submission, :destroy_submission ]
-  before_action :redirect_without_submission,    only: [ :step, :update_step, :proof, :final_submission, :destroy_submission, :renew, :complete ]
-  before_action :set_step,                       only: [ :create_step, :step, :update_step ]
+  before_action :set_viewable_submission,        only: [:renew, :complete]
+  before_action :set_editable_submission,        only: [:step, :update_step, :proof, :final_submission, :destroy_submission]
+  before_action :redirect_without_submission,    only: [:step, :update_step, :proof, :final_submission, :destroy_submission, :renew, :complete]
+  before_action :set_step,                       only: [:create_step, :step, :update_step]
 
-  before_action :set_downloadable_irb_agreement, only: [ :download_irb, :print ]
-  before_action :set_agreement,                  only: [ :destroy, :download, :update ]
-  before_action :redirect_without_agreement,     only: [ :destroy, :download, :update, :download_irb, :print ]
+  before_action :set_downloadable_irb_agreement, only: [:download_irb, :print]
+  before_action :set_agreement,                  only: [:destroy, :download, :update]
+  before_action :redirect_without_agreement,     only: [:destroy, :download, :update, :download_irb, :print]
 
   def signature_requested
     @agreement = Agreement.current.where(id: params[:id], status: [nil, '', 'started', 'resubmit']).find_by_duly_authorized_representative_token(params[:duly_authorized_representative_token]) unless params[:duly_authorized_representative_token].blank?
@@ -40,13 +40,6 @@ class AgreementsController < ApplicationController
 
   def signature_submitted
 
-  end
-
-  def submissions
-    @agreements = current_user.agreements.page(params[:page]).per( 40 )
-    if @agreements.count == 0
-      redirect_to submissions_welcome_path(dataset: params[:dataset])
-    end
   end
 
   def step

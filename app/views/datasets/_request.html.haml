@@ -26,7 +26,7 @@
     - else
       = link_to 'Complete Your DAUA', step_agreement_path(agreement, step: agreement.current_step), class: "btn #{btn_size} btn-call-to-info btn-block"
   - else
-    = link_to 'Request Access', submissions_path(dataset: dataset), class: "btn #{btn_size} btn-call-to-info btn-block"
+    = link_to 'Request Access', submissions_start_path(dataset: dataset), class: "btn #{btn_size} btn-call-to-info btn-block"
 - elsif dataset.release_date
   = link_to dataset, class: "btn #{btn_size} btn-call-to-default btn-block" do
     Coming

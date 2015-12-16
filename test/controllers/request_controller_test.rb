@@ -173,6 +173,17 @@ class RequestControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_path
   end
 
+  test 'should get submissions start as public user' do
+    get :submissions_start, dataset: 'wecare'
+    assert_response :success
+  end
+
+  test 'should get submissions start as regular user' do
+    login(users(:valid))
+    get :submissions_start, dataset: 'wecare'
+    assert_response :success
+  end
+
   test 'should get tool request' do
     get :tool_request
     assert_response :success

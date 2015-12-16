@@ -12,14 +12,6 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get submissions for valid user" do
-    login(users(:valid))
-    get :submissions
-
-    assert_not_nil assigns(:agreements)
-    assert_response :success
-  end
-
   test "should get submission start for valid user" do
     login(users(:valid))
     get :new_step
@@ -317,29 +309,6 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_equal Date.today, assigns(:agreement).submitted_at.to_date
 
     assert_redirected_to complete_agreement_path(assigns(:agreement))
-  end
-
-  test "should not get submissions for anonymous user" do
-    get :submissions
-    assert_nil assigns(:agreements)
-    assert_redirected_to new_user_session_path
-  end
-
-  test "should redirect a user with no submissions to the submissions welcome splash page" do
-    login(users(:valid_with_no_submissions))
-
-    get :submissions
-
-    assert_not_nil assigns(:agreements)
-    assert_equal 0, assigns(:agreements).count
-
-    assert_redirected_to submissions_welcome_path
-  end
-
-  test "should get submissions welcome for valid user" do
-    login(users(:valid))
-    get :welcome
-    assert_response :success
   end
 
   test "should download irb pdf for system admin" do

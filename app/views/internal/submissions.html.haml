@@ -22,7 +22,7 @@
         = succeed '.' do
           = mail_to 'support@sleepdata.org'
 
-      = link_to 'Start A New Data Access Request', submissions_welcome_path(dataset: params[:dataset]), class: 'btn btn-primary btn-block'
+      = link_to 'Start A New Data Access Request', submissions_start_path, class: 'btn btn-primary btn-block'
 
 
     - current_user.agreements.order(id: :desc).each do |agreement|

@@ -2,11 +2,8 @@ require 'test_helper'
 
 # Tests for personal member pages
 class InternalControllerTest < ActionController::TestCase
-  setup do
-    @regular_user = login(users(:valid))
-  end
-
-  test 'should get dashboard' do
+  test 'should get dashboard as regular user' do
+    login(users(:valid))
     get :dashboard
     assert_response :success
   end
@@ -16,10 +13,16 @@ class InternalControllerTest < ActionController::TestCase
   #   assert_response :success
   # end
 
-  # test 'should get submissions' do
-  #   get :submissions
-  #   assert_response :success
-  # end
+  test 'should get submissions as regular user' do
+    login(users(:valid))
+    get :submissions
+    assert_response :success
+  end
+
+  test 'should not get submissions for public user' do
+    get :submissions
+    assert_redirected_to new_user_session_path
+  end
 
   # test 'should get tools' do
   #   get :tools
@@ -27,6 +30,7 @@ class InternalControllerTest < ActionController::TestCase
   # end
 
   test 'should get profile' do
+    login(users(:valid))
     get :profile
     assert_response :success
   end

@@ -4,12 +4,12 @@ $(document)
       $("#sign-up-form").toggle()
       $("#sign-in-form").toggle('fade')
       $("#sign-up-sign-in-button").html('Sign in <span class="glyphicon glyphicon-arrow-right"></span>')
-      $("#sign-up-sign-in-button").data('target', '#contribute_tool_form_sign_in')
+      $("#sign-up-sign-in-button").data('target', '#form_sign_in')
     else
       $("#sign-in-form").toggle()
       $("#sign-up-form").toggle('fade')
       $("#sign-up-sign-in-button").html('Create Account <span class="glyphicon glyphicon-arrow-right"></span>')
-      $("#sign-up-sign-in-button").data('target', '#contribute_tool_form_register')
+      $("#sign-up-sign-in-button").data('target', '#form_register')
     false
   )
   .on('click', '[data-object~="submit-tool-draft"]', () ->
