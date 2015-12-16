@@ -1,16 +1,19 @@
 - steps = [["Data User Name", "edit"], ["Specific Purpose", "edit"], ["Stipulations", "check"], ["Signature", "pencil"], ["IRB Review", "file"], ["Proof", "file"]]
 
-%h1.center
-  Brigham and Women's Hospital
-  %br
-  National Sleep Research Resource (NSRR)
-
-.row{ style: "margin-top: 20px;margin-bottom: 20px;" }
-  - steps.each_with_index do |(label, icon), index|
-    .col-xs-12.col-sm-4.col-lg-2
-      - url = @agreement.new_record? ? '#' : step_agreement_path(@agreement, step: index+1)
-      = link_to url, class: "btn btn-block btn-#{step_helper(@agreement, index+1, @step)}", rel: 'tooltip', title: label, data: { object: "#{'suppress-click' if @agreement.new_record?}", container: 'body', placement: 'bottom' } do
-        %span.glyphicon{ class: "glyphicon-#{icon}" }
-        = label
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand.center
+        Brigham and Women's Hospital
+        %br
+        National Sleep Research Resource (NSRR)
+      .banner-body.hidden-xs
+        .row{ style: 'margin-bottom: -20px' }
+          - steps.each_with_index do |(label, icon), index|
+            .col-sm-4.col-lg-2.col-buffer
+              - url = @agreement.new_record? ? '#' : step_agreement_path(@agreement, step: index+1)
+              = link_to url, class: "btn btn-block btn-#{step_helper(@agreement, index+1, @step)}", rel: 'tooltip', title: label, data: { object: "#{'suppress-click' if @agreement.new_record?}", container: 'body', placement: 'bottom' } do
+                %span.glyphicon{ class: "glyphicon-#{icon}" }
+                = label
 
 = hidden_field_tag 'isdirty', '1'

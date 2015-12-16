@@ -1,0 +1,32 @@
+.banner {
+  background-color: $brand-black;
+  color: $brand-white;
+  padding-top: 20px;
+}
+
+.banner-header {
+  font-size: 24px;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.banner-body {
+  font-size: 16px;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .banner-header {
+    font-size: 30px;
+  }
+}
+
+@media screen and (min-width: $screen-md-min) {
+  .banner-header {
+    font-size: 44px;
+  }
+  .banner-body {
+    font-size: 24px;
+  }
+}

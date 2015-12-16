@@ -1,15 +1,19 @@
 - if @challenge.signal_count > 0
-  .challenge-header
-    .main-container.dark-texture
-      %h1 Flow Limitation Challenge
-      %p.wow.flipInX
-        Signal
-        = @signal
-        of
-        = @challenge.signal_count
-      - last_question = @challenge.questions.order(:name).last
-      - if current_user.answers.where(challenge_id: @challenge.id, question_id: last_question.id).where.not(response: nil).count > 0
-        %p= link_to 'Return to Review', review_challenge_path(@challenge), class: 'btn btn-xs btn-default'
+  - content_for :banner do
+    .challenge-header
+      .banner
+        .container
+          .banner-header.brand
+            = @challenge.name
+            Challenge
+          .banner-body
+            Signal
+            = @signal
+            of
+            = @challenge.signal_count
+            - last_question = @challenge.questions.order(:name).last
+            - if current_user.answers.where(challenge_id: @challenge.id, question_id: last_question.id).where.not(response: nil).count > 0
+              = link_to 'Return to Review', review_challenge_path(@challenge), class: 'btn btn-xs btn-default'
 
   #affix-container.grid-texture{ style: 'height: 300px;width: 100%;' }
     .container{ style: 'top: 51px;background-color: #fff;', data: { object: 'signal-affix' } }
