@@ -1,2 +1,2 @@
-$("#agreement_event_<%= @agreement_event.id %>_container").html("<%= escape_javascript(render partial: 'reviews/form') %>");
+$("#agreement_event_<%= @agreement_event.id %>_container").html("<%=j render 'reviews/form' %>");
 commentsReady();
