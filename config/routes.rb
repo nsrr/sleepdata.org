@@ -129,11 +129,11 @@ Rails.application.routes.draw do
 
   scope module: :internal do
     get :dashboard
+    get :profile
+    get :submissions
     # TODO ENABLE THESE
     # get :settings
-    # get :submissions
     # get :tools
-    get :profile
   end
 
   scope module: :external do
@@ -232,8 +232,8 @@ Rails.application.routes.draw do
   get '/location' => 'welcome#location', as: :location
   get '/token' => 'welcome#token', as: :token
 
-  get '/dua' => 'agreements#submissions'
-  get '/daua' => 'agreements#submissions'
+  get '/dua' => 'internal#submissions'
+  get '/daua' => 'internal#submissions'
 
   get '/settings' => 'users#settings', as: :settings
   patch '/settings' => 'users#update_settings', as: :update_settings
@@ -244,7 +244,6 @@ Rails.application.routes.draw do
 
   get '/daua/irb-assistance' => 'agreements#irb_assistance', as: :irb_assistance
 
-  get '/submissions' => 'agreements#submissions', as: :submissions
   get '/submissions/welcome' => 'agreements#welcome', as: :submissions_welcome
   get '/submissions/start' => 'agreements#new_step', as: :submissions_start
 

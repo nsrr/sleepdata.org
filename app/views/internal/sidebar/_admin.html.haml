@@ -1,0 +1,10 @@
+- if current_user.community_manager? || current_user.system_admin?
+  .dashboard-container
+    .dashboard-title
+      %strong Admin Area
+    - if current_user.community_manager?
+      %p
+        = link_to 'Manage Blog Posts', broadcasts_path
+    - if current_user.system_admin?
+      %p
+        = link_to 'Admin Dashboard', admin_path

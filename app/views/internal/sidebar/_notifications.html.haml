@@ -1,0 +1,10 @@
+- array = ['Your DAUA has been updated!', 'Someone replied to your forum post!', 'You tool has been accepted!', 'Your DAUA will expire soon!', 'Your access token updated recently!']
+
+.broadcast-outer.broadcast-alert
+  .broadcast-left-fixed
+    %div{ style: 'position: absolute;right: 10px;top: 12px;' }
+      %span.glyphicon.glyphicon-warning-sign
+  .broadcast-right-fluid
+    .broadcast-box
+      .broadcast-header{ style: 'padding-bottom: 10px' }
+        = array.sample

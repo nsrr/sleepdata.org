@@ -3,41 +3,11 @@
 
 .row
   .col-md-3
-    .profile-container
-      .profile-top
-        .profile-image-container
-          = image_tag current_user.avatar_url(100, 'identicon'), size: '100x100', class: 'profile-image', alt: ''
-      .profile-bottom
-        .center{ style: 'font-weight: 600;margin-bottom: 10px' }= current_user.name
-        %p{ style: 'font-weight: 300; margin-bottom: 0' }
-          Researcher
-        %div
-          .award.award-gold
-          5
-          .award.award-silver
-          30
-          .award.award-bronze
-          20
-    - if current_user.community_manager? || current_user.system_admin?
-      .dashboard-container
-        .dashboard-title
-          %strong Admin Area
-        - if current_user.community_manager?
-          %p
-            = link_to 'Manage Blog Posts', broadcasts_path
-        - if current_user.system_admin?
-          %p
-            = link_to 'Admin Dashboard', admin_path
-    .dashboard-container
-      .dashboard-title
-        %strong Datasets
-        &middot;
-        %small= link_to 'View All', datasets_path
-      - current_user.all_viewable_datasets.order(:release_date, :name).each do |d|
-        %table.table-fixed{ style: 'width: 100%;' }
-          %tr
-            %td{ style: 'padding:4px' }= d.slug.upcase
-            %td{ style: 'padding:4px' }= render 'datasets/request', dataset: d, expanded: false
+    = render 'internal/profile'
+
+    = render 'internal/sidebar/admin'
+
+    = render 'internal/sidebar/datasets'
 
 
   .col-md-6
@@ -94,14 +64,6 @@
       .dashboard-title
         %strong My Forum Posts/Topics
   .col-md-3
-    .dashboard-container.dashboard-notification
-      .dashboard-title
-        %strong Notifications
-      %p Your DAUA has been updated!
-      %p Someone replied to your forum post!
-      %p You tool has been accepted!
-      %p Your DAUA will expire soon!
-      %p Your access token updated recently!
+    = render 'internal/sidebar/notifications'
 
-
-    = render 'news/news'
+    = render 'internal/sidebar/blog_posts'

@@ -90,6 +90,10 @@
   width: 32px;
 }
 
+.broadcast-alert .broadcast-left-fixed {
+  color: $brand-warning-text;
+}
+
 .broadcast-right-fluid {
   position: relative;
 }
@@ -105,9 +109,14 @@
 }
 
 .broadcast-box {
+  background-color: $brand-white;
   border: 1px solid $brand-gray;
   border-radius: 2px;
-  background-color: $brand-white;
+}
+
+.broadcast-alert .broadcast-box {
+  border-color: darken($brand-warning, 20%);
+  background-color: $brand-warning;
 }
 
 .broadcast-header {
@@ -131,6 +140,10 @@
   width: 0;
 }
 
+.broadcast-alert .broadcast-header::before {
+  border-right-color: darken($brand-warning, 20%);
+}
+
 .broadcast-header::after {
   border-bottom: 7px solid transparent;
   border-right: 7px solid $brand-white;
@@ -141,4 +154,8 @@
   position: absolute;
   top: 14px;
   width: 0;
+}
+
+.broadcast-alert .broadcast-header::after {
+  border-right-color: $brand-warning;
 }

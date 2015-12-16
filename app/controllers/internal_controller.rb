@@ -8,8 +8,8 @@ class InternalController < ApplicationController
   # def settings
   # end
 
-  # def submissions
-  # end
+  def submissions
+  end
 
   # def tools
   # end
