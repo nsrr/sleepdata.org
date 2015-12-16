@@ -10,7 +10,7 @@
 
   #sign-up-form{ style: "#{'display:none' unless register_visible}" }
     = form_for @agreement, url: submissions_register_user_path, method: :post, html: { class: 'form-vertical', id: 'form_register' } do |f|
-      = text_field_tag :dataset, params[:dataset]
+      = hidden_field_tag :dataset, params[:dataset]
 
       - if @registration_errors
         .form-group
@@ -39,7 +39,7 @@
 
   #sign-in-form{ style: "#{'display:none' if register_visible}" }
     = form_for @agreement, url: submissions_sign_in_user_path, method: :patch, html: { class: 'form-vertical', id: 'form_sign_in' } do |f|
-      = text_field_tag :dataset, params[:dataset]
+      = hidden_field_tag :dataset, params[:dataset]
 
       - if @sign_in_errors
         .form-group
