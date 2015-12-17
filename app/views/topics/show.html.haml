@@ -1,22 +1,25 @@
 - @title = @topic.name
-.slim-container.dark-texture
-  %h1
-    = @title
 
-  %p
-    Topic by
-    = link_to @topic.user.forum_name, topics_path(a: @topic.user.forum_name)
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = @title
+      .banner-body
+        Topic by
+        = link_to @topic.user.forum_name, topics_path(a: @topic.user.forum_name)
 
-  - if @topic.tags.count > 0
-    - @topic.tags.each do |tag|
-      %span.label.label-default{ style: "background-color:#{tag.color}" }= tag.name
+        - if @topic.tags.count > 0
+          - @topic.tags.each do |tag|
+            %span.label.label-default{ style: "background-color:#{tag.color}" }= tag.name
 
-  - if current_user and @topic.editable_by?(current_user)
-    = link_to edit_topic_path(@topic), class: 'btn btn-xs btn-default' do
-      %span.glyphicon.glyphicon-edit
-      Edit Topic
-  %div{ style: 'margin-bottom:20px;margin-top:-20px' }
-    = render partial: 'variables/per_page', locals: { per_page: Comment::COMMENTS_PER_PAGE, object_count: @comments.total_count }
+        - if current_user and @topic.editable_by?(current_user)
+          = link_to edit_topic_path(@topic), class: 'btn btn-xs btn-default' do
+            %span.glyphicon.glyphicon-edit
+            Edit Topic
+
+%div{ style: 'margin-bottom:20px;margin-top:-20px' }
+  = render partial: 'variables/per_page', locals: { per_page: Comment::COMMENTS_PER_PAGE, object_count: @comments.total_count }
 
 - @background_class = 'math-texture'
 .posts-container.math-texture
@@ -72,9 +75,9 @@
       - if @comment.errors.any?
         .callout.callout-danger
           %strong
-          = pluralize(@comment.errors.count, "error")
+          = pluralize @comment.errors.count, 'error'
           prohibited this comment from being saved
-          %ul.fixed-font-size
+          %ul
             - @comment.errors.full_messages.each do |msg|
               %li= msg
 
@@ -95,7 +98,7 @@
           #preview-new.tab-pane{ style: "min-height:177px;padding: 30px 15px 15px 15px;background-color:#FFF" }
           #markup-new.tab-pane{ style: "min-height:177px;padding: 30px 15px 15px 15px;background-color:#FFF" }
             = render partial: 'topics/markup'
-        = f.submit "Comment", class: 'btn btn-primary', data: { disable_with: "Submitting..." }, style: 'margin-top:10px'
+        = f.submit 'Comment', class: 'btn btn-primary', data: { disable_with: 'Submitting...' }, style: 'margin-top:10px'
 
 
 - if @topic.locked?
@@ -111,23 +114,16 @@
         %span.label.label-banned banned
         from commenting on this forum.
   = render partial: 'topics/subscribe_unsubscribe', locals: { topic: @topic }
-- elsif true
-
-  .main-container.call-to-action
-
-    %h2.center
-      Join the discussion today!
-
-    .center{ style: 'margin-top:20px;margin-bottom:20px' }
-      = link_to 'Create an Account', new_user_registration_path, class: 'btn btn-call-to-action btn-lg'
-
-    %p.center{ style: 'margin-top:50px;'   }
-      Already have an account?
-      = link_to 'Sign in', new_user_session_path
-      and contribute to the conversation.
-
 - else
-  .well{ style: "text-align:center" }
-    You may
-    = link_to 'sign in'.html_safe, new_user_session_path, class: 'btn btn-xs btn-success'
-    to join the discussion.
+  - content_for :call_to_action do
+    .call-to-action
+      .call-to-action-header
+        Join the discussion today!
+
+      .call-to-action-body
+        = link_to 'Create an Account', new_user_registration_path, class: 'btn btn-call-to-action btn-lg'
+
+      .call-to-action-body
+        Already have an account?
+        = link_to 'Sign in', new_user_session_path
+        and contribute to the conversation.

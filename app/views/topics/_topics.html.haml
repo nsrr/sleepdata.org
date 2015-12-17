@@ -1,7 +1,7 @@
 %div{ style: 'margin-bottom:-40px;float:right' }
   = render 'variables/per_page', per_page: 50, object_count: @topics.total_count
 
-%table.table.table-striped
+%table.table.table-striped.table-borderless
   - if current_user
     %col.hidden-xs{ width: '30px' }
   %col{ width: '30px' }

@@ -1,9 +1,12 @@
 - @title = 'Forum'
 
-%h1.brand
-  = @title
-%p
-  A place to ask questions, seek advice, and help others.
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = @title
+      .banner-body
+        A place to ask questions, seek advice, and help others.
 
 .row{ style: 'margin-bottom:20px' }
   .col-xs-6
@@ -17,8 +20,9 @@
   .col-xs-6
     = form_tag topics_path, method: :get, class: 'form-inline pull-right' do
       .input-group
-        = text_field_tag 's', params[:s], class: 'form-control', style: 'width:100%'
+        = text_field_tag 's', params[:s], class: 'form-control', style: 'width:100%', placeholder: 'Search the Forum'
         %span.input-group-btn
           = submit_tag 'Search', class: 'btn btn-primary', name: nil
+
 .topics-container
   = render 'topics/topics'
