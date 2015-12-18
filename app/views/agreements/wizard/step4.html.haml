@@ -24,7 +24,7 @@
 
     .row
       .col-sm-6
-        .panel.panel-info.panel-hover{ data: { object: "select_radio_button", target: "#agreement_unauthorized_to_sign_false" } }
+        .panel.panel-info{ data: { object: "select_radio_button", target: "#agreement_unauthorized_to_sign_false" } }
           .panel-heading
             Option 1 - Data User Signature
           .panel-body
@@ -52,7 +52,7 @@
               = f.text_field :signature_date, class: 'datepicker form-control', value: @agreement.signature_date ? @agreement.signature_date.strftime('%m/%d/%Y') : ''
 
       .col-sm-6
-        .panel.panel-info.panel-hover{ data: { object: "select_radio_button", target: "#agreement_unauthorized_to_sign_true" } }
+        .panel.panel-info{ data: { object: "select_radio_button", target: "#agreement_unauthorized_to_sign_true" } }
           .panel-heading
             Option 2 - Duly Authorized Representative Signature
           .panel-body

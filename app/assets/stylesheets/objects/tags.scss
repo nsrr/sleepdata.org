@@ -1,0 +1,19 @@
+.tag-checkbox {
+  font-weight: 300;
+  padding: 6px 10px 6px 25px;
+  font-size: 13px;
+  line-height: 18px;
+  background-color: #f9f9f9;
+  border-radius: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-transition: all .4s ease;   /* Fade to color for Chrome and Safari */
+  -webkit-backface-visibility: hidden; /* Fix for transition flickering */
+  -webkit-filter: grayscale(100%);
+  color: $brand-white;
+}
+
+.tag-checkbox:hover,
+.tag-checkbox.tag-selected {
+  -webkit-filter: grayscale(0%);
+}
