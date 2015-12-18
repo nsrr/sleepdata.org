@@ -12,18 +12,12 @@
 
   .landing-body
     %table.table
-      %thead
-        %tr
-          %th Dataset
-          %th.nowrap Name
-          %th Variable Name
+      %col
+      %col
+      %col{ width: '50px' }
 
       - @variables.each do |variable|
         %tr
-          %td
-            = link_to variable.dataset.slug, dataset_variables_path(variable.dataset)
-          %td
-            = link_to dataset_variable_path(variable.dataset, variable) do
-              = variable.display_name
-          %td
-            %code=variable.name
+          %td= link_to variable.name, dataset_variable_path(variable.dataset, variable)
+          %td= variable.display_name
+          %td= render 'datasets/mini', dataset: variable.dataset
