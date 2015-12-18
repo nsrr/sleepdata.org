@@ -497,7 +497,7 @@ $state-success-bg:               $cg4-green-bg;
 // $state-success-border:           darken(adjust-hue($state-success-bg, -10), 5%) !default;
 
 $state-info-text:                $cg4-blue-text;
-$state-info-bg:                  $cg4-blue-bg;
+$state-info-bg:                  lighten($cg4-blue-bg, 35%);
 // $state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%) !default;
 
 $state-warning-text:             $cg4-yellow-text;

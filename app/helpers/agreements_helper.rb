@@ -28,4 +28,12 @@ module AgreementsHelper
       'default'
     end
   end
+
+  def step_helper_2(agreement, step)
+    if step != 6 && agreement.step_valid?(step)
+      'check agreement-step-completed'
+    else
+      'unchecked'
+    end
+  end
 end

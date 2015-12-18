@@ -102,27 +102,27 @@ class Agreement < ActiveRecord::Base
   # Agreement Methods
 
   def copyable_attributes
-    self.attributes.reject{|key, val| ['id', 'deleted', 'created_at', 'updated_at', 'reviewer_signature', 'approval_date', 'expiration_date', 'comments', 'has_read_step3', 'has_read_step5', 'current_step', 'dua', 'executed_dua'].include?(key.to_s)}
+    attributes.reject { |key, val| ['id', 'deleted', 'created_at', 'updated_at', 'reviewer_signature', 'approval_date', 'expiration_date', 'comments', 'has_read_step3', 'has_read_step5', 'current_step', 'dua', 'executed_dua'].include?(key.to_s) }
   end
 
   def dataset_ids=(ids)
-    self.datasets = Dataset.where( id: ids )
+    self.datasets = Dataset.where(id: ids)
   end
 
   def name
-    self.user ? self.user.name : "##{self.id}"
+    user ? user.name : "##{id}"
   end
 
   def name_with_id
-    self.user ? "##{self.id} - #{self.user.name}" : "##{self.id}"
+    user ? "##{id} - #{user.name}" : "##{id}"
   end
 
   def to_param
-    "#{id}" + (self.user ? "-#{self.user.name.parameterize}" : '')
+    "#{id}" + (user ? "-#{user.name.parameterize}" : '')
   end
 
   def agreement_number
-    Agreement.where(user_id: self.user_id).order(:id).pluck(:id).index(self.id) + 1
+    Agreement.where(user_id: user_id).order(:id).pluck(:id).index(id) + 1
   end
 
   def approved?

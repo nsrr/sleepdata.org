@@ -10,29 +10,29 @@
     - if @agreement.errors.any?
       .callout.callout-danger
         %strong
-          = pluralize(@agreement.errors.count, "error")
+          = pluralize @agreement.errors.count, 'error'
           prohibited this step from being saved
 
         %ul.fixed-font-size
           - @agreement.errors.full_messages.each do |msg|
             %li= msg
 
-    = hidden_field_tag "agreement[draft_mode]", nil
-    = hidden_field_tag "step", @step
-    = hidden_field_tag "agreement[current_step]", @step
+    = hidden_field_tag 'agreement[draft_mode]', nil
+    = hidden_field_tag 'step', @step
+    = hidden_field_tag 'agreement[current_step]', @step
 
     - if @agreement.new_record? and dataset = Dataset.current.find_by_param(params[:dataset])
-      = hidden_field_tag "agreement[dataset_ids][]", dataset.id
+      = hidden_field_tag 'agreement[dataset_ids][]', dataset.id
 
     .markdown-container
 
       %p
         = render 'agreements/show/step1/part1'
 
-      .form-group{ style: "margin-top: 20px;margin-bottom: 20px;" }
+      .form-group{ style: 'margin-top: 20px;margin-bottom: 20px;' }
         .col-md-10.col-md-offset-1
           .input-group
-            = f.text_field :data_user, class: 'form-control', placeholder: "Full Name"
+            = f.text_field :data_user, class: 'form-control', placeholder: 'Full Name'
             .input-group-addon
               = surround '(', ').' do
                 %strong "Data User"
@@ -44,11 +44,11 @@
 
     .row
       .col-md-6
-        .panel.panel-info.panel-hover{ data: { object: "select_radio_button", target: "#agreement_data_user_type_individual" } }
+        .panel.panel-info.panel-hover{ data: { object: 'select_radio_button', target: '#agreement_data_user_type_individual' } }
           .panel-heading
             Individual
           .panel-body
-            .form-group{ style: "height:90px" }
+            .form-group{ style: 'height:90px' }
               .col-md-9.col-md-offset-3
                 .radio
                   %label
@@ -57,17 +57,17 @@
                     behalf of himself/herself as follows:
 
             .form-group
-              = f.label :individual_institution_name, "Institution", class: 'col-md-3 control-label'
+              = f.label :individual_institution_name, 'Institution', class: 'col-md-3 control-label'
               .col-md-9
                 = f.text_field :individual_institution_name, class: 'form-control'
 
             .form-group
               = label :individual_name, 'Full Name', class: 'col-md-3 control-label'
               .col-md-9
-                %input#individual_name.form-control{ type: "text", name: "individual_name", disabled: "disabled", value: "#{current_user.name}" }
+                %input#individual_name.form-control{ type: 'text', name: 'individual_name', disabled: 'disabled', value: "#{current_user.name}" }
 
             .form-group
-              = f.label :individual_title, "Professional Title", class: 'col-md-3 control-label'
+              = f.label :individual_title, 'Professional Title', class: 'col-md-3 control-label'
               .col-md-9
                 = f.text_field :individual_title, class: 'form-control'
                 .callout.callout-info
@@ -76,26 +76,26 @@
                   Associate Professor, Data Manager, Student
 
             .form-group
-              = f.label :individual_telephone, "Telephone", class: 'col-md-3 control-label'
+              = f.label :individual_telephone, 'Telephone', class: 'col-md-3 control-label'
               .col-md-9
                 = f.text_field :individual_telephone, class: 'form-control'
 
             .form-group
-              = label :individual_email, "Email", class: 'col-md-3 control-label'
+              = label :individual_email, 'Email', class: 'col-md-3 control-label'
               .col-md-9
-                %input#individual_email.form-control{ type: "email", name: "individual_email", disabled: "disabled", value: "#{current_user.email}" }
+                %input#individual_email.form-control{ type: 'email', name: 'individual_email', disabled: 'disabled', value: "#{current_user.email}" }
 
             .form-group
-              = f.label :individual_address, "Address", class: 'col-md-3 control-label'
+              = f.label :individual_address, 'Address', class: 'col-md-3 control-label'
               .col-md-9
                 = f.text_area :individual_address, rows: 5, class: 'form-control'
 
       .col-md-6
-        .panel.panel-info.panel-hover{ data: { object: "select_radio_button", target: "#agreement_data_user_type_organization" } }
+        .panel.panel-info.panel-hover{ data: { object: 'select_radio_button', target: '#agreement_data_user_type_organization' } }
           .panel-heading
             Organization / Corporation
           .panel-body
-            .form-group{ style: "height:90px" }
+            .form-group{ style: 'height:90px' }
               .col-md-9.col-md-offset-3
                 .radio
                   %label
@@ -106,17 +106,17 @@
                     follows:
 
             .form-group
-              = f.label :organization_business_name, "Organization", class: 'col-md-3 control-label'
+              = f.label :organization_business_name, 'Organization', class: 'col-md-3 control-label'
               .col-md-9
                 = f.text_field :organization_business_name, class: 'form-control'
 
             .form-group
-              = f.label :organization_contact_name, "Contact Name", class: 'col-md-3 control-label'
+              = f.label :organization_contact_name, 'Contact Name', class: 'col-md-3 control-label'
               .col-md-9
                 = f.text_field :organization_contact_name, class: 'form-control'
 
             .form-group
-              = f.label :organization_contact_title, "Contact Title", class: 'col-md-3 control-label'
+              = f.label :organization_contact_title, 'Contact Title', class: 'col-md-3 control-label'
               .col-md-9
                 = f.text_field :organization_contact_title, class: 'form-control'
                 .callout.callout-info
@@ -125,17 +125,17 @@
                   Associate Professor, Data Manager, Student
 
             .form-group
-              = f.label :organization_contact_telephone, "Contact Tel", class: 'col-md-3 control-label'
+              = f.label :organization_contact_telephone, 'Contact Tel', class: 'col-md-3 control-label'
               .col-md-9
                 = f.text_field :organization_contact_telephone, class: 'form-control'
 
             .form-group
-              = f.label :organization_contact_email, "Contact Email", class: 'col-md-3 control-label'
+              = f.label :organization_contact_email, 'Contact Email', class: 'col-md-3 control-label'
               .col-md-9
                 = f.email_field :organization_contact_email, class: 'form-control'
 
             .form-group
-              = f.label :organization_address, "Organization Address", class: 'col-md-3 control-label'
+              = f.label :organization_address, 'Organization Address', class: 'col-md-3 control-label'
               .col-md-9
                 = f.text_area :organization_address, rows: 5, class: 'form-control'
 

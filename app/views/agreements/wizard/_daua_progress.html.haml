@@ -8,12 +8,13 @@
         %br
         National Sleep Research Resource (NSRR)
       .banner-body.hidden-xs
+        %hr{ style: 'border-color: #777;' }
         .row{ style: 'margin-bottom: -20px' }
           - steps.each_with_index do |(label, icon), index|
             .col-sm-4.col-lg-2.col-buffer
               - url = @agreement.new_record? ? '#' : step_agreement_path(@agreement, step: index+1)
-              = link_to url, class: "btn btn-block btn-#{step_helper(@agreement, index+1, @step)}", rel: 'tooltip', title: label, data: { object: "#{'suppress-click' if @agreement.new_record?}", container: 'body', placement: 'bottom' } do
-                %span.glyphicon{ class: "glyphicon-#{icon}" }
+              = link_to url, class: "btn btn-block btn-link", data: { object: "#{'suppress-click' if @agreement.new_record?}" }, style: 'color: #fff;' do
+                %span.glyphicon{ class: "glyphicon-#{step_helper_2(@agreement, index + 1)}" }
                 = label
 
 = hidden_field_tag 'isdirty', '1'
