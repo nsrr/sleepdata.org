@@ -501,7 +501,7 @@ $state-info-bg:                  lighten($cg4-blue-bg, 35%);
 // $state-info-border:              darken(adjust-hue($state-info-bg, -10), 7%) !default;
 
 $state-warning-text:             $cg4-yellow-text;
-$state-warning-bg:               $cg4-yellow-bg;
+$state-warning-bg:               lighten($cg4-yellow-bg, 25%);
 // $state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%) !default;
 
 $state-danger-text:              $cg4-red-text;
