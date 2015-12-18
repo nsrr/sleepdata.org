@@ -47,11 +47,13 @@
 
     = render 'agreements/show/step2/part1'
 
-    %p
-      %strong
-        %mark= @agreement.title_of_project
-    %p
-      %mark= sanitize @agreement.specific_purpose.to_s.gsub("\n", '<br />')
+    - if @agreement.title_of_project.present?
+      %p
+        %strong
+          %mark= @agreement.title_of_project
+    - if @agreement.specific_purpose.present?
+      %p
+        %mark= sanitize @agreement.specific_purpose.to_s.gsub("\n", '<br />')
 
     %ul
       - @agreement.datasets.each do |dataset|
@@ -96,16 +98,16 @@
 
       = form_for @agreement, url: duly_authorized_representative_submit_signature_agreement_path(@agreement, duly_authorized_representative_token: @agreement.duly_authorized_representative_token), method: :patch, html: { class: 'form-vertical', id: 'update_step_form', data: { object: 'signature', signature_target: '.output-write' } } do |f|
 
-        = hidden_field_tag "agreement[draft_mode]", nil
-        = hidden_field_tag "step", @step
-        = hidden_field_tag "agreement[current_step]", @step
+        = hidden_field_tag 'agreement[draft_mode]', nil
+        = hidden_field_tag 'step', @step
+        = hidden_field_tag 'agreement[current_step]', @step
 
         .form-group
           = f.label :duly_authorized_representative_signature, 'Signature of Duly Authorized Representative', class: 'control-label'
-          %div{ style: "position:relative" }
+          %div{ style: 'position:relative' }
             = f.hidden_field :duly_authorized_representative_signature, class: 'output-write'
-            %canvas.pad{ width: "300", height: "55" }
-            %span.clearButton{ style: "position: absolute; margin-top: 12.5px; margin-left: 10px;" }
+            %canvas.pad{ width: '300', height: '55' }
+            %span.clearButton{ style: 'position: absolute; margin-top: 12.5px; margin-left: 10px;' }
               = link_to 'Clear', '#clear', class: 'btn btn-default', tabindex: '-1'
           - if @agreement.errors.messages[:duly_authorized_representative_signature].size > 0
             .callout.callout-danger{ style: 'margin-top: 10px' }
