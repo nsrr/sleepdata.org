@@ -22,19 +22,11 @@
   h4,
   h5,
   h6 {
-    font-weight: 600;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
     border-bottom: 1px solid $brand-gray;
-    padding-bottom: 6.5px;
+    font-weight: 600;
     margin-bottom: 12px;
     margin-top: 40px;
+    padding-bottom: 6.5px;
   }
 
   h1 {
@@ -57,9 +49,9 @@
 }
 
 .broadcast-title {
+  border-bottom: 1px solid $brand-gray;
   font-size: 28px;
   font-weight: 600;
-  border-bottom: 1px solid $brand-gray;
   padding-bottom: 9.5px;
 }
 
@@ -113,8 +105,8 @@
 }
 
 .broadcast-alert .broadcast-box {
-  border-color: darken($brand-warning, 20%);
   background-color: $brand-warning;
+  border-color: darken($brand-warning, 20%);
 }
 
 .broadcast-header {
