@@ -5,14 +5,12 @@
 }
 
 .dashboard-container {
+  @include remove-last-child-bottom-margin;
+
   border-radius: 4px;
   padding: 20px;
   margin-bottom: 20px;
   overflow: hidden;
-
-  p:last-child {
-    margin-bottom: 0;
-  }
 }
 
 .dashboard-title {

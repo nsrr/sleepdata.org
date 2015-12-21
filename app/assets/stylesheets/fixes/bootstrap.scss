@@ -1,0 +1,3 @@
+.jumbotron {
+  @include remove-last-child-bottom-margin;
+}

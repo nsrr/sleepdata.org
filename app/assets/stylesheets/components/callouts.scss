@@ -1,12 +1,9 @@
 .callout {
+  @include remove-last-child-bottom-margin;
+
   border-left: 5px solid $gray-lighter;
   margin: 20px 0;
   padding: 15px 30px 15px 15px;
-
-  p:last-child,
-  ul:last-child {
-    margin-bottom: 0;
-  }
 }
 
 .callout code,

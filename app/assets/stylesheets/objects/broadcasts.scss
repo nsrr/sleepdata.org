@@ -1,4 +1,6 @@
 .broadcast {
+  @include remove-last-child-bottom-margin;
+
   margin-bottom: 80px;
 
   img {
@@ -8,10 +10,6 @@
     margin: 10px auto 16px;
     max-width: 100%;
     padding: 5px;
-  }
-
-  p:last-child {
-    margin-bottom: 0;
   }
 
   p {

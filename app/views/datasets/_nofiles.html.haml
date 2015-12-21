@@ -1,9 +1,10 @@
 .jumbotron
-  %p No Files
+  .center
+    %p No Files
 
-- if current_user and @dataset.editors.pluck(:id).include?(current_user.id) and @dataset.current_folder_locked?(path)
+- if current_user && @dataset.editors.pluck(:id).include?(current_user.id) && @dataset.current_folder_locked?(path)
   - lock_file = File.join(@dataset.files_folder, path.to_s, '.sleepdata.md5inprogress')
-  - if File.exist?(lock_file) and File.file?(lock_file)
+  - if File.exist?(lock_file) && File.file?(lock_file)
     .mono-display
       .file-display-after MD5 Log
       - File.readlines(lock_file).reverse.each do |line|

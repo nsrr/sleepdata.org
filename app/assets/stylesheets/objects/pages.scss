@@ -1,6 +1,8 @@
 // Pages adds styles for markdown and text documents for datasets and tools
 
 .markdown-container-new {
+  @include remove-last-child-bottom-margin;
+
   margin-bottom: 80px;
 
   img {
@@ -15,10 +17,6 @@
   h5:first-child,
   h6:first-child {
     margin-top: 0;
-  }
-
-  p:last-child {
-    margin-bottom: 0;
   }
 
   p {

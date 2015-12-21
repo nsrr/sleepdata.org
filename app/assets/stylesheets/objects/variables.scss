@@ -58,7 +58,5 @@
 }
 
 .variable-description {
-  p:last-child {
-    margin-bottom: 0;
-  }
+  @include remove-last-child-bottom-margin;
 }

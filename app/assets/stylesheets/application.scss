@@ -5,6 +5,9 @@
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 
+// App Mixins
+@import 'mixins/all';
+
 // App specific styles
 @import 'components/all';
 @import 'extensions/all';
