@@ -1,19 +1,27 @@
-.tag-checkbox {
-  font-weight: 300;
-  padding: 6px 10px 6px 25px;
-  font-size: 13px;
-  line-height: 18px;
-  background-color: #f9f9f9;
-  border-radius: 3px;
-  cursor: pointer;
-  white-space: nowrap;
-  -webkit-transition: all .4s ease;   /* Fade to color for Chrome and Safari */
-  -webkit-backface-visibility: hidden; /* Fix for transition flickering */
-  -webkit-filter: grayscale(100%);
-  color: $brand-white;
-}
+// scss-lint:disable VendorPrefix
+// Vendor Prefix for filter isn't well supported, disabling this message until
+// wider support is provided. It also seems that the vendor prefixes aren't
+// being generated for filter.
+// TODO: investigate why vendor prefixes aren't being added
 
-.tag-checkbox:hover,
-.tag-checkbox.tag-selected {
-  -webkit-filter: grayscale(0%);
+.tag-checkbox {
+  backface-visibility: hidden; // Fix for transition flickering
+  background-color: $brand-gray-lightest;
+  border-radius: 3px;
+  color: $brand-white;
+  cursor: pointer;
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%);
+  font-size: 13px;
+  font-weight: 300;
+  line-height: 18px;
+  padding: 6px 10px 6px 25px;
+  transition: all .4s ease;   // Fade to color for Chrome and Safari
+  white-space: nowrap;
+
+  &:hover,
+  &.tag-selected {
+    -webkit-filter: grayscale(0%);
+    filter: grayscale(0%);
+  }
 }
