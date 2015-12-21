@@ -26,6 +26,7 @@
   .dataset-header {
     font-size: 44px;
   }
+
   .dataset-body {
     font-size: 24px;
   }
@@ -62,29 +63,11 @@
 }
 
 .img-logo-navigation-bar {
-  margin-top: 40px;
   margin-right: 20px;
+  margin-top: 40px;
   text-align: center;
+
+  img {
+    max-width: 100%;
+  }
 }
-
-.img-logo-navigation-bar img {
-  max-width: 100%;
-}
-
-// .dataset-navigation-bar {
-//   width: 100%;
-
-//   .navbar {
-//     display: none;
-//   }
-
-//   &.affix {
-//     top: 0; // $header-height;
-//     z-index: $zindex-navbar-fixed;
-
-//     .navbar {
-//       border-width: 0 0 1px;
-//       display: block;
-//     }
-//   }
-// }
