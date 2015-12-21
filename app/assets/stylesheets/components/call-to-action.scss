@@ -7,19 +7,17 @@
     background-color: $brand-black;
   }
 
-  a:not(.btn) {
-    color: $cg4-green-text;
-    font-weight: bold;
-  }
-
-  a:not(.btn):hover,
-  a:not(.btn):focus,
-  a:not(.btn):active,
-  a:not(.btn).active,
-  a:not(.btn).disabled,
-  a:not(.btn)[disabled] {
-    color: $cg4-green-text;
-    font-weight: bold;
+  a {
+    &:not(.btn),
+    &:not(.btn):hover,
+    &:not(.btn):focus,
+    &:not(.btn):active,
+    &:not(.btn).active,
+    &:not(.btn).disabled,
+    &:not(.btn)[disabled] {
+      color: $cg4-green-text;
+      font-weight: bold;
+    }
   }
 
   .call-to-action-header {
@@ -48,6 +46,7 @@
     .call-to-action-header {
       font-size: 44px;
     }
+
     .call-to-action-body {
       font-size: 24px;
     }
@@ -55,21 +54,14 @@
 }
 
 .btn-call-to-action {
-  background-color: $brand-white !important;
-  backface-visibility: hidden; /* Fix for transition flickering */
-  border-color: $brand-primary !important;
+  backface-visibility: hidden; // Fix for transition flickering
+  background-color: $brand-white;
+  border-color: $brand-primary;
   border-radius: 40px;
-  color: $brand-primary !important;
-  // font-size: 16px;
-  transition: all .4s ease; /* Fade to color for Chrome and Safari */
+  color: $brand-primary;
   overflow: hidden;
+  transition: all .4s ease; // Fade to color for Chrome and Safari
 }
-
-// @media screen and (min-width: $screen-md-min) {
-//   .btn-call-to-action {
-//     font-size: 24px;
-//   }
-// }
 
 .btn-call-to-action:hover,
 .btn-call-to-action:focus,
@@ -77,22 +69,19 @@
 .btn-call-to-action.active,
 .btn-call-to-action.disabled,
 .btn-call-to-action[disabled] {
-  color: $brand-white !important;
-  background-color: $brand-primary-text !important;
-  border-color: $brand-primary-text !important;
+  background-color: $brand-primary-text;
+  border-color: $brand-primary-text;
+  color: $brand-white;
 }
 
 .btn-call-to-danger {
+  backface-visibility: hidden; // Fix for transition flickering
+  background-color: $brand-white;
+  border-color: $btn-danger-border;
   border-radius: 40px;
-  // min-width: 200px;
-  // max-width: 500px;
-  // width: 100%;
-  color: $btn-danger-border !important;
-  border-color: $btn-danger-border !important;
-  background-color: $brand-white !important;
-  -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
-  -webkit-backface-visibility: hidden; /* Fix for transition flickering */
+  color: $btn-danger-border;
   overflow: hidden;
+  transition: all .4s ease; // Fade to color for Chrome and Safari
 }
 
 .btn-call-to-danger:hover,
@@ -101,22 +90,19 @@
 .btn-call-to-danger.active,
 .btn-call-to-danger.disabled,
 .btn-call-to-danger[disabled] {
-  color: $brand-white !important;
-  background-color: $brand-danger-text !important;
-  border-color: $brand-danger-text !important;
+  background-color: $brand-danger-text;
+  border-color: $brand-danger-text;
+  color: $brand-white;
 }
 
 .btn-call-to-default {
+  backface-visibility: hidden; // Fix for transition flickering
+  background-color: $gray-lighter;
+  border-color: $gray-lighter;
   border-radius: 40px;
-  // min-width: 200px;
-  // max-width: 500px;
-  // width: 100%;
-  color: $gray-light !important;
-  border-color: $gray-lighter !important;
-  background-color: $gray-lighter !important;
-  -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
-  -webkit-backface-visibility: hidden; /* Fix for transition flickering */
+  color: $gray-light;
   overflow: hidden;
+  transition: all .4s ease; // Fade to color for Chrome and Safari
 }
 
 .btn-call-to-default:hover,
@@ -125,22 +111,19 @@
 .btn-call-to-default.active,
 .btn-call-to-default.disabled,
 .btn-call-to-default[disabled] {
-  color: $gray-light !important;
-  background-color: $gray-lighter !important;
-  border-color: $gray-lighter !important;
+  background-color: $gray-lighter;
+  border-color: $gray-lighter;
+  color: $gray-light;
 }
 
 .btn-call-to-info {
+  backface-visibility: hidden; // Fix for transition flickering
+  background-color: $brand-white;
+  border-color: $btn-info-border;
   border-radius: 40px;
-  // min-width: 200px;
-  // max-width: 500px;
-  // width: 100%;
-  color: $btn-info-border !important;
-  border-color: $btn-info-border !important;
-  background-color: $brand-white !important;
-  -webkit-transition: all .4s ease; /* Fade to color for Chrome and Safari */
-  -webkit-backface-visibility: hidden; /* Fix for transition flickering */
+  color: $btn-info-border;
   overflow: hidden;
+  transition: all .4s ease; // Fade to color for Chrome and Safari
 }
 
 .btn-call-to-info:hover,
@@ -149,7 +132,7 @@
 .btn-call-to-info.active,
 .btn-call-to-info.disabled,
 .btn-call-to-info[disabled] {
-  color: $brand-white !important;
-  background-color: $brand-info-text !important;
-  border-color: $brand-info-text !important;
+  background-color: $brand-info-text;
+  border-color: $brand-info-text;
+  color: $brand-white;
 }
