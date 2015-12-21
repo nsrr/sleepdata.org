@@ -2,8 +2,8 @@
   table-layout: fixed;
 }
 
-.sort-up:after,
-.sort-down:after {
+.sort-up::after,
+.sort-down::after {
   border-left: 4px solid transparent;
   border-right: 4px solid transparent;
   content: '';
@@ -15,16 +15,12 @@
   width: 0;
 }
 
-.sort-up:after {
+.sort-up::after {
   border-bottom: 4px solid;
 }
 
-.sort-down:after {
+.sort-down::after {
   border-top: 4px solid;
-}
-
-.table .sort-selected {
-  border-bottom-color: $link-color;
 }
 
 .table {
@@ -33,5 +29,9 @@
     th {
       border-width: 0;
     }
+  }
+
+  .sort-selected {
+    border-bottom-color: $link-color;
   }
 }
