@@ -1,45 +1,38 @@
-.slim-container.dark-texture
-  = render 'agreements/wizard/daua_progress'
+= render 'agreements/wizard/daua_progress'
 
-.slim-container.math-texture
-  %p.center
-    Please proofread your application and then click "Submit" to complete Data
-    Access Request.
+%p.lead.center
+  Please proofread your application and then click "Submit" to complete Data
+  Access Request.
 
 
-  - steps = (1..5)
+- steps = (1..5)
 
-  - steps.each do |step|
-    .markdown-container
-      %h2
-        Step
-        = step
-        = link_to "Edit Step #{step}", step_agreement_path(@agreement, step: step), class: 'btn btn-xs btn-primary'
+- steps.each do |step|
+  .markdown-container
+    %h2
+      Step
+      = step
+      = link_to "Edit Step #{step}", step_agreement_path(@agreement, step: step), class: 'btn btn-xs btn-primary'
 
-      - unless @agreement.step_valid?(step)
-        .callout.callout-danger
-          %strong Attention
-          This step is not complete. Please edit the missing information.
+    - unless @agreement.step_valid?(step)
+      .callout.callout-danger
+        %strong Attention
+        This step is not complete. Please edit the missing information.
 
-      = render "agreements/proof/step#{step}"
+    = render "agreements/proof/step#{step}"
 
-
-  %hr.divider-md
-
-  = form_for @agreement, url: final_submission_agreement_path(@agreement), method: :patch, html: { class: 'form-horizontal', id: 'final_submission_form' } do |f|
-    .row
-      .col-sm-6
-        = link_to submissions_path, class: 'btn btn-lg btn-default btn-block' do
-          %span.glyphicon.glyphicon-arrow-left
-          Back to Submissions
-      .col-sm-6
-        - if @agreement.fully_filled_out?
-          = link_to '#', data: { object: 'submit', target: '#final_submission_form' }, class: 'btn btn-lg btn-primary btn-block' do
-            %span.glyphicon.glyphicon-cloud-upload
-            Submit Application
-        - else
-          = link_to '#', data: { object: 'suppress-click' }, class: 'btn btn-lg btn-warning btn-block', disabled: true do
-            %span.glyphicon.glyphicon-warning-sign
-            Complete All Steps Before Submitting
-
-  - @footer_img = 'datasets-footer.jpg'
+= form_for @agreement, url: final_submission_agreement_path(@agreement), method: :patch, html: { class: 'form-horizontal', id: 'final_submission_form' } do |f|
+  .row
+    .col-sm-6
+      = link_to submissions_path, class: 'btn btn-lg btn-default btn-block' do
+        %span.glyphicon.glyphicon-arrow-left
+        Back to Submissions
+    .col-sm-6
+      - if @agreement.fully_filled_out?
+        = link_to '#', data: { object: 'submit', target: '#final_submission_form' }, class: 'btn btn-lg btn-primary btn-block' do
+          %span.glyphicon.glyphicon-cloud-upload
+          Submit Application
+      - else
+        = link_to '#', data: { object: 'suppress-click' }, class: 'btn btn-lg btn-warning btn-block', disabled: true do
+          %span.glyphicon.glyphicon-warning-sign
+          Complete All Steps Before Submitting

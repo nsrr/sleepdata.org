@@ -113,8 +113,6 @@
                 = f.label :duly_authorized_representative_signature_date, 'Date Signed', class: 'control-label'
                 .form-control{ disabled: '' }= @agreement.duly_authorized_representative_signature_date ? @agreement.duly_authorized_representative_signature_date.strftime('%m/%d/%Y') : ''
 
-    %hr.divider-md
-
     .row
       .col-sm-4
         = link_to step_agreement_path(@agreement, step: @step-1), class: 'btn btn-lg btn-default btn-block' do
