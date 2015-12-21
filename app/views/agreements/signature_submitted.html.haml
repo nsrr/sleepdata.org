@@ -1,19 +1,20 @@
-.slim-container.call-to-action
-  %h1.center
-    %span.glyphicon.glyphicon-list-alt
-    Success!
+- content_for :banner do
+  .challenge-header
+    .banner
+      .container
+        .banner-header.brand
+          %span.glyphicon.glyphicon-list-alt
+          Success!
+  .call-to-action
+    .call-to-action-body
+      Thank you for making use of the NSRR online DAUA process.
 
-.slim-container.math-texture
+%p.lead.center
+  If you have any questions regarding this process, you can contact us at:
+  = mail_to ENV['support_email']
 
-  %p.center
-    Thank you for making use of the NSRR online DAUA process.
-
-  %p.lead.center
-    If you have any questions regarding this process, you can contact us at:
-    = mail_to ENV['support_email']
-
-  .row{ style: 'margin-top:20px' }
-    .col-sm-offset-3.col-sm-6
-      = link_to root_path, class: 'btn btn-lg btn-default btn-block' do
-        %span.glyphicon.glyphicon-arrow-left
-        Back to the NSRR Home Page
+.row{ style: 'margin-top:20px' }
+  .col-sm-offset-3.col-sm-6
+    = link_to root_path, class: 'btn btn-lg btn-default btn-block' do
+      %span.glyphicon.glyphicon-arrow-left
+      Back to the NSRR Home Page
