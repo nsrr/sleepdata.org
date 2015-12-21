@@ -1,4 +1,7 @@
-tr.banned td, .label-banned {
-  background-color:#333 !important;
-  color:#fff;
+.table {
+  .banned td,
+  .label-banned {
+    background-color: $brand-black;
+    color: $brand-white;
+  }
 }
