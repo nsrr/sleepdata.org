@@ -10,28 +10,6 @@
     max-width: 100%;
   }
 
-  h1:first-child,
-  h2:first-child,
-  h3:first-child,
-  h4:first-child,
-  h5:first-child,
-  h6:first-child {
-    margin-top: 0;
-  }
-
-  p {
-    line-height: 25.6px;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-weight: 600;
-  }
-
   h1,
   h2,
   h3,
@@ -39,9 +17,14 @@
   h5,
   h6 {
     border-bottom: 1px solid $brand-gray;
-    padding-bottom: 6.5px;
+    font-weight: 600;
     margin-bottom: 12px;
     margin-top: 40px;
+    padding-bottom: 6.5px;
+
+    &:first-child {
+      margin-top: 0;
+    }
   }
 
   h1 {
@@ -60,6 +43,10 @@
   h5,
   h6 {
     font-size: 16px;
+  }
+
+  p {
+    line-height: 25.6px;
   }
 }
 
@@ -80,8 +67,8 @@
 .mono-container {
   border: 1px solid $gray-lighter;
   box-shadow: 2px 2px 5px $brand-shadow;
-  padding: 20px;
   margin: 20px;
+  padding: 20px;
 }
 
 @media screen and (min-width: $screen-sm-min) {
