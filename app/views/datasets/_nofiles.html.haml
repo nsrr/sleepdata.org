@@ -1,6 +1,5 @@
 .jumbotron
-  .center
-    %p No Files
+  %p.center No Files
 
 - if current_user && @dataset.editors.pluck(:id).include?(current_user.id) && @dataset.current_folder_locked?(path)
   - lock_file = File.join(@dataset.files_folder, path.to_s, '.sleepdata.md5inprogress')

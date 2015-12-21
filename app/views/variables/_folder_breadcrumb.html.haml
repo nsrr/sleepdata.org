@@ -32,7 +32,7 @@
             %li
               = link_to "v#{@version}", files_dataset_path(@dataset, path: 'datasets', f: "#{@dataset.slug}-#{@version}.csv"), target: '_blank'
 
-      %ol.breadcrumb
+      %ol
         %li= link_to @dataset.slug, @dataset
 
         %li= link_to_if !folder.blank?, 'variables', dataset_variables_path(@dataset)

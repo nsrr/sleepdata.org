@@ -8,8 +8,8 @@
 
 - content_for :banner do
   .breadcrumb-container
-    .container{ style: 'position: relative;' }
-      %ol.breadcrumb
+    .container
+      %ol
         %li= link_to @object.slug, @object
         %li images
         %li= link_to File.basename(@image_file), images_path

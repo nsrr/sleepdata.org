@@ -23,7 +23,7 @@
             %li.disabled
               %span &raquo;
         = render 'datasets/reset_folder_index', path: path
-      %ol.breadcrumb
+      %ol
         %li= link_to @dataset.slug, @dataset
         %li= link_to_if !path.blank?, 'files', files_dataset_path(@dataset)
         - unless path.blank?

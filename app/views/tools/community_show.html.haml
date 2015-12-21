@@ -7,7 +7,7 @@
 
   .breadcrumb-container
     .container
-      %ol.breadcrumb
+      %ol
         %li= link_to_if @community_tool.safe_url?, @community_tool.url, @community_tool.url, target: '_blank'
 
 
