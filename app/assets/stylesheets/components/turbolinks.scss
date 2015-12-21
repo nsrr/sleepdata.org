@@ -1,3 +1,9 @@
+// scss-lint:disable ImportantRule
+// Since the documentation for Turbolinks recommends using !important to
+// overwrite the color of the progress-bar, the rule is ignored. Turbolinks is
+// a pure JS library that doesn't include its own stylesheet.
+// https://github.com/rails/turbolinks#progress-bar
+
 .turbolinks-progress-bar::before {
   background-color: $brand-primary-text !important;
 }
