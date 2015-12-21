@@ -147,58 +147,59 @@
     %span.code-comment
       \# generate-statistics.rb
     %br
-    %span.code-function
+    %span.code-keyword
       require
     %span.code-string
       'csv'
     %br
     csv
-    %span.code-function =
-    File.open(
-    %span.code-string
-      = "'shhs1-dataset-#{shhs_dataset_version}.csv'"
-    )
+    %span.code-keyword =
+    = surround 'File.open(', ')' do
+      %span.code-string= "'shhs1-dataset-#{shhs_dataset_version}.csv'"
     %br
     mcount
-    %span.code-function =
+    %span.code-keyword =
     fcount
-    %span.code-function =
+    %span.code-keyword =
     %span.code-number 0
     %br
-    CSV.parse( csv,
-    %span.code-symbol headers: true
-    ) do |row|
+    CSV.parse(csv,
+    = succeed ')' do
+      %span.code-symbol headers: true
+    do
+    = surround '|', '|' do
+      %span.code-block-iterator row
     %br
-    %span.code-function &nbsp;&nbsp;case
-    row[
-    %span.code-string 'gender'
-    ]
-    %span.code-function when
+    %span.code-keyword &nbsp;&nbsp;case
+    = surround 'row[', ']' do
+      %span.code-string 'gender'
+    %br
+    %span.code-keyword &nbsp;&nbsp;when
     %span.code-string '1'
     %br
     &nbsp;&nbsp;&nbsp;&nbsp;mcount
-    %span.code-function +=
+    %span.code-keyword +=
     %span.code-number 1
     %br
-    %span.code-function &nbsp;&nbsp;when
+    %span.code-keyword &nbsp;&nbsp;when
     %span.code-string '2'
     %br
     &nbsp;&nbsp;&nbsp;&nbsp;fcount
-    %span.code-function +=
+    %span.code-keyword +=
     %span.code-number 1
     %br
-    %span.code-function &nbsp;&nbsp;end
+    %span.code-keyword &nbsp;&nbsp;end
     %br
-    %span.code-function end
+    %span.code-keyword end
     %br
     puts
     %span.code-string "There are
-    %span.code-string-variable \#{mcount}
+    %span.code-string-escaped \#{mcount}
     %span.code-string male participants in SHHS 1."
     %br
     puts
     %span.code-string "There are
-    %span.code-string-variable \#{fcount}
+    %span.code-string-escaped \#{fcount}
     %span.code-string female participants in SHHS 1."
 
   .codeblocks-container.code-input
@@ -227,12 +228,12 @@
       gem install edfize
 
   .codeblocks-container.code-input-file.p
-    %span.code-function
+    %span.code-keyword
       require
     %span.code-string
       'rubygems'
     %br
-    %span.code-function
+    %span.code-keyword
       require
     %span.code-string
       'edfize'
@@ -240,10 +241,9 @@
     %span.code-comment # Loads the file and reads the EDF Header
     %br
     edf
-    %span.code-function =
-    Edfize::Edf.new(
-    %span.code-string 'shhs1-200001.edf'
-    )
+    %span.code-keyword =
+    = surround 'Edfize::Edf.new(', ')' do
+      %span.code-string 'shhs1-200001.edf'
     %br
     %span.code-comment # Loads the data section of the EDF into Signal objects
     %br
@@ -253,30 +253,33 @@
     %br
     puts
     %span.code-string "EDF
-    %span.code-string-variable \#{edf.filename}
+    %span.code-string-escaped \#{edf.filename}
     %span.code-string contains
-    %span.code-string-variable \#{edf.signals.count}
+    %span.code-string-escaped \#{edf.signals.count}
     %span.code-string signal
-    %span.code-string-variable \#{'s' unless edf.signals.count == 1}
-    %span.code-string \:\n\n"
+    %span.code-string-escaped \#{'s' unless edf.signals.count == 1}
+    %span.code-string :
+    %span.code-string-escaped \n\n
+    %span.code-string "
     %br
     %br
     edf.signals.each do |signal|
     %br
     &nbsp;&nbsp;puts
     %span.code-string "Signal Label :
-    %span.code-string-variable \#{signal.label}
+    %span.code-string-escaped \#{signal.label}
     %span.code-string "
     %br
     &nbsp;&nbsp;puts
     %span.code-string "Samples Per Data Record  :
-    %span.code-string-variable \#{signal.samples_per_data_record}
+    %span.code-string-escaped \#{signal.samples_per_data_record}
     %span.code-string "
     %br
     &nbsp;&nbsp;puts
     %span.code-string "First 10 Physical Values :
-    %span.code-string-variable \#{(signal.physical_values[0..10] + ['...']).inspect}
-    %span.code-string \n\n"
+    %span.code-string-escaped \#{(signal.physical_values[0..10] + ['...']).inspect}
+    %span.code-string-escaped \n\n
+    %span.code-string "
     %br
     end
 

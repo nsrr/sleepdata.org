@@ -1,32 +1,45 @@
+// Code Colors
+$codeblock-bg: #2b2b2b;
+$codeblock-gray: #dedede;
+$codeblock-string: #a5c261;
+$codeblock-string-escaped: #519f50;
+$codeblock-comment: #bc9458;
+$codeblock-link: #6d9cbe;
+$codeblock-keyword: #cc7833;
+$codeblock-function: #e8bf6a;
+$codeblock-constant: #6d9cbe;
+$codeblock-variable-other: #d0d0ff;
+
 .codeblocks-container {
+  border-radius: 5px;
   font-family: Monaco, Menlo, Consolas, 'Courier New', monospace;
-  -webkit-border-radius: 5px;
-     -moz-border-radius: 5px;
-          border-radius: 5px;
-  white-space: normal;
-  line-height: 2;
   font-weight: 200;
+  line-height: 2;
   margin-bottom: 20px;
+  white-space: normal;
+
+  code::before {
+    color: $codeblock-gray;
+    content: '$ ';
+  }
 }
 
-.codeblocks-container code::before {
-   content: '$ ';
-   color: #dedede;
-}
-
-.code-input code, .code-input-file, .code-output {
-  border: 1px solid #dedede;
+.code-input code,
+.code-input-file,
+.code-output {
+  border: 1px solid $codeblock-gray;
   padding: 3px 7px;
 }
 
-.code-input code, .code-input-file {
-  background-color: #FFF;
-  color: #333;
+.code-input code {
+  background-color: $brand-white;
+  color: $brand-black;
 }
 
-.code-output {
-  background-color: #333;
-  color: #FFF;
+.code-output,
+.code-input-file {
+  background-color: $codeblock-bg;
+  color: $brand-white;
 }
 
 
@@ -36,31 +49,43 @@
   }
 }
 
-// Code Colors
-
-.code-green {
-  color: green;
+.code-string {
+  color: $codeblock-string;
 }
 
 .code-link {
-  color: #337ab7;
+  color: $codeblock-link;
   text-decoration: underline;
 }
 
 .code-comment {
-  color: #999988;
+  color: $codeblock-comment;
   font-style: italic;
 }
 
 .code-function {
-  color: #990000;
+  color: $codeblock-function;
   font-weight: bold;
 }
 
-.code-string, .code-number {
-  color: #dd1144;
+.code-keyword {
+  color: $codeblock-keyword;
+}
+
+.code-string,
+.code-number {
+  color: $codeblock-string;
+}
+
+.code-green,
+.code-string-escaped {
+  color: $codeblock-string-escaped;
 }
 
 .code-symbol {
-  color: #0086b3;
+  color: $codeblock-constant;
+}
+
+.code-block-iterator {
+  color: $codeblock-variable-other;
 }
