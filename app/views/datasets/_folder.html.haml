@@ -1,4 +1,4 @@
-%div{ style: 'min-height: 200px' }
+%div
   - indexed_files = @dataset.indexed_files(path, page+1)
   - if indexed_files.size == 0
     = render 'datasets/nofiles', path: path

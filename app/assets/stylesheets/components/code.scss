@@ -26,8 +26,8 @@
 }
 
 .code-command::before {
-  content: '\e205';
   color: $gray-lighter;
+  content: '\e205';
   font-family: 'Glyphicons Halflings';
 }
 
