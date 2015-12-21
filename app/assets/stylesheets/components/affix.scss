@@ -34,24 +34,26 @@
     a:hover {
       color: $brand-white;
     }
+
+    // In case the new selection is too general, the original CSS used to be:
+    // .navbar-nav > li > a
+    // .navbar-nav > li > a:active
+    // .navbar-nav > li > a:focus
+    // .navbar-nav > li > a:hover
+    .navbar-nav a,
+    .navbar-nav a:active,
+    .navbar-nav a:focus,
+    .navbar-nav a:hover {
+      color: $brand-white;
+    }
   }
 }
 
 @media screen and (min-width: $screen-sm-min) {
-  .navbar-outer{
+  .navbar-outer {
     .navbar-collapse {
       padding-left: 0;
       padding-right: 0;
     }
   }
 }
-
-.navbar.affix {
-  .navbar-nav > li > a,
-  .navbar-nav > li > a:active,
-  .navbar-nav > li > a:focus,
-  .navbar-nav > li > a:hover {
-    color: $brand-white;
-  }
-}
-
