@@ -1,12 +1,15 @@
+// scss-lint:disable ImportantRule
+// TODO: Remove dependence on important for overriding borders in input-control
+
 .topics-container {
-  padding: 0px;
   margin-left: -40px;
   margin-right: -40px;
+  padding: 0;
 }
 
 @media screen and (min-width: $screen-sm-min) {
   .topics-container {
-    margin: 0px;
+    margin: 0;
   }
 }
 
@@ -29,18 +32,18 @@
 }
 
 .post-avatar {
-  width: 75px;
-  margin: 0px 10px;
   height: 55px;
+  margin: 0 10px;
+  width: 75px;
 }
 
 .post-container {
-  background-color: #FFF;
+  background-color: $brand-white;
+  border: 1px solid $brand-gray;
+  border-right-width: 0;
+  margin-bottom: 20px;
   margin-left: 75px;
   margin-top: -55px;
-  margin-bottom: 20px;
-  border: 1px solid #CCC;
-  border-right-width: 0px;
 }
 
 @media screen and (min-width: $screen-sm-min) {
@@ -51,88 +54,107 @@
 }
 
 .post-header {
-  background-color: #f7f7f7;
+  background-color: $brand-gray-lightest;
   padding: 10px;
   position: relative;
-}
 
-.post-header:before, .post-header:after {
-  position: absolute;
-  top: 11px;
-  left: -16px;
-  right: 100%;
-  width: 0;
-  height: 0;
-  display: block;
-  content: " ";
-  border-color: transparent;
-  border-style: solid solid outset;
-  pointer-events: none;
-}
+  &::before,
+  &::after {
+    border-color: transparent;
+    border-style: solid solid outset;
+    content: ' ';
+    display: block;
+    height: 0;
+    left: -16px;
+    pointer-events: none;
+    position: absolute;
+    right: 100%;
+    top: 11px;
+    width: 0;
+  }
 
-.post-header:before {
-  border-right-color: #BBB;
-  border-width: 8px;
-}
+  &::before {
+    border-right-color: $brand-gray;
+    border-width: 8px;
+  }
 
-.post-header:after {
-  border-width: 7px;
-  border-right-color: #f7f7f7;
-  margin-top: 1px;
-  margin-left: 2px;
+  &::after {
+    border-right-color: $brand-gray-lightest;
+    border-width: 7px;
+    margin-left: 2px;
+    margin-top: 1px;
+  }
 }
 
 @mixin remove-element-margins {
-  h1, h2, h3, h4, h5, h6, p, code, pre {
-    margin-top: 0px;
-    margin-bottom: 10px;
-  }
   margin-bottom: -10px;
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  code,
+  p,
+  pre {
+    margin-bottom: 10px;
+    margin-top: 0;
+  }
+
   @media screen and (min-width: $screen-sm-min) {
-    h1, h2, h3, h4, h5, h6, p, code, pre {
-      margin-top: 0px;
-      margin-bottom: 20px;
-    }
     margin-bottom: -20px;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    code,
+    p,
+    pre {
+      margin-bottom: 20px;
+      margin-top: 0;
+    }
   }
 }
 
 .post-body {
-  padding: 10px;
-  overflow: hidden;
   @include remove-element-margins;
+  overflow: hidden;
+  padding: 10px;
+
   img {
     max-width: 100%;
   }
 }
 
 .post-footer {
-  position: relative;
   height: 25px;
-}
+  position: relative;
 
-.post-footer .core-member, .post-footer .aug-member {
-  position: absolute;
-  right: 0px;
-  bottom: 0px;
-  font-size: 12px;
-  color: #FFF;
-  padding: 4px 8px;
-}
+  .core-member,
+  .aug-member {
+    bottom: 0;
+    color: $brand-white;
+    font-size: 12px;
+    padding: 4px 8px;
+    position: absolute;
+    right: 0;
+  }
 
-.post-footer .core-member {
-  background-color: #428bca;
-}
+  .aug-member {
+    background-color: $brand-success;
+  }
 
-.post-footer .aug-member {
-  background-color: #5cb85c;
+  .core-member {
+    background-color: $brand-info;
+  }
 }
 
 .post-description-control {
-  outline: none;
   border: none !important;
-  -webkit-box-shadow: none !important;
-  -moz-box-shadow: none !important;
   box-shadow: none !important;
+  outline: none;
 }
