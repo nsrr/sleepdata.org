@@ -1,3 +1,5 @@
+// Fixes and adjustments for bootstrap components
+
 .jumbotron {
   @include remove-last-child-bottom-margin;
 }
