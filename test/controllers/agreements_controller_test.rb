@@ -306,7 +306,7 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:agreement)
     assert_equal [], assigns(:agreement).errors.full_messages
     assert_equal 'submitted', assigns(:agreement).status
-    assert_equal Date.today, assigns(:agreement).submitted_at.to_date
+    assert_equal Time.zone.today, assigns(:agreement).submitted_at.to_date
 
     assert_redirected_to complete_agreement_path(assigns(:agreement))
   end
