@@ -43,10 +43,19 @@ ratings:
 # exclude_paths key.
 
 exclude_paths:
+- app/assets/fonts/**/*
 - app/assets/images/**/*
 - app/assets/javascripts/external/**/*
+- bin/**/*
+- config/**/*
+- db/**/*
+- lib/**/*
+- public/**/*
+- test/**/*
+- vendor/**/*
+- "CHANGELOG.md"
+- "config.ru"
 - Gemfile
 - LICENSE
 - Rakefile
-- test/**/*
-- vendor/**/*
+- "README.md"
