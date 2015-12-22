@@ -1,33 +1,30 @@
 - @title = 'Shaun Purcell - Genetics of Sleep Spindles'
-.main-container.dark-texture
 
-  %p.header-middle
-    Shaun Purcell
-    %br
-    = link_to 'http://research.mssm.edu/statgen/', 'http://research.mssm.edu/statgen/', target: '_blank'
+- content_for :banner do
+  .banner
+    .container.center
+      .banner-body
+        Shaun Purcell
+        %br
+        = link_to 'http://research.mssm.edu/statgen/', 'http://research.mssm.edu/statgen/', target: '_blank'
+      .banner-header.brand
+        Genetics of Sleep Spindles
+      .banner-body
+        10th March 2015
 
-  %h1.header-middle
-    Genetics of Sleep
-    %span.wow.flipInX{ data: { wow: { duration: '2s' } } } Spindles
+.content-container
+  %p.lead
+    The NSRR is fortunate to have a diverse community of researchers,
+    colleagues, and collaborators. A leading expert in his field, we were able
+    to talk with Shaun Purcell about his research in the Genetics of Sleep
+    Spindles. Thank you Shaun for your time and contributions!
 
-  .center
-    %p 10th March 2015
-
-.main-container.grid-texture
-
-  %p
-    The NSRR is fortunate to have a diverse community of researchers, colleagues,
-    and collaborators. A leading expert in his field, we were able to talk
-    with Shaun Purcell about his research in the Genetics of Sleep Spindles.
-    Thank you Shaun for your time and contributions!
-
-.main-container.light-texture
-
+.content-container
   %h2
     Can you tell us a little about your group?
 
   .post-avatar
-    = image_tag 'showcase/smp.png', size: '50x50', class: 'img-thumbnail', style: "min-height:55px;min-width:55px;border-radius:0px;"
+    = image_tag 'showcase/smp.png', size: '50x50', class: 'img-thumbnail', style: 'min-height: 55px;min-width: 55px;border-radius: 0;'
   .post-container
     .post-header
       Shaun Purcell
@@ -50,11 +47,11 @@
         variation in schizophrenia, using genome-wide association study (GWAS)
         and exome sequencing approaches.
 
-.main-container.grid-texture
+.content-container
   %h2
     How is the NSRR helping your research?
   .post-avatar
-    = image_tag 'showcase/smp.png', size: '50x50', class: 'img-thumbnail', style: "min-height:55px;min-width:55px;border-radius:0px;"
+    = image_tag 'showcase/smp.png', size: '50x50', class: 'img-thumbnail', style: 'min-height: 55px;min-width: 55px;border-radius: 0;'
   .post-container
     .post-header
       Shaun Purcell
@@ -82,11 +79,11 @@
         neuropsychiatric disease, we may be able to understand better the
         relationship between brain activity during sleep and disease risk.
 
-.main-container.light-texture
+.content-container
   %h2
     What would you like to tell newcomers about the site?
   .post-avatar
-    = image_tag 'showcase/smp.png', size: '50x50', class: 'img-thumbnail', style: "min-height:55px;min-width:55px;border-radius:0px;"
+    = image_tag 'showcase/smp.png', size: '50x50', class: 'img-thumbnail', style: 'min-height: 55px;min-width: 55px;border-radius: 0;'
   .post-container
     .post-header
       Shaun Purcell
@@ -107,10 +104,10 @@
         use of the data.  The NSRR is a model for data sharing, and one that
         groups in other areas would do well to follow.
 
-.main-container.grid-texture
+.content-container
   %a.anchor-top{ name: 'fig1' }
   .center
-    = image_tag 'showcase/nsrr-sigma-power-twin.png', class: 'img-white-background'
+    = image_tag 'showcase/nsrr-sigma-power-twin.png', style: 'max-width: 100%'
   .markdown-container
     %p
       %strong Figure 1.
@@ -128,9 +125,7 @@
       we hope to identify genes that drive these differences in spectral and
       spindle traits.
 
-= render 'showcase/research_call_to_action'
-
-.main-container.dark-texture
+.content-container
   %h2
     References
   %ol
@@ -150,5 +145,4 @@
       %a.anchor-top{ name: '5' }
       Purcell, S. M. et al. Common polygenic variation contributes to risk of schizophrenia and bipolar disorder. Nature 460, 748–752 (2009).
 
-.dark-texture
-  = image_tag 'pure-signal-t.png', style: 'width:100%;', class: 'wow fadeIn'
+= render 'showcase/research_call_to_action'

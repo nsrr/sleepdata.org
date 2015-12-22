@@ -1,26 +1,24 @@
 - @title = 'Matt Butler - Novel Sleep Measures and Cardiovascular Risk'
-.main-container.dark-texture
 
-  %p.header-middle
-    Matthew P. Butler
-    %br
-    = link_to 'Butler Clock Physiology Lab', 'http://www.ohsu.edu/xd/research/centers-institutes/oregon-institute-occupational-health-sciences/research/butler-lab.cfm', target: '_blank'
+- content_for :banner do
+  .banner
+    .container.center
+      .banner-body
+        Matthew P. Butler
+        %br
+        = link_to 'Butler Clock Physiology Lab', 'http://www.ohsu.edu/xd/research/centers-institutes/oregon-institute-occupational-health-sciences/research/butler-lab.cfm', target: '_blank'
+      .banner-header.brand
+        Sex Differences in Sleep Apnea and Novel Sleep Measures to Predict Cardiovascular Risk
+      .banner-body
+        11th June 2015
 
-  %h1.header-middle
-    Sex Differences in Sleep Apnea and Novel Sleep Measures to Predict Cardiovascular Risk
-
-  .center
-    %p 11th June 2015
-
-.main-container.grid-texture
-
-  %p
+.content-container
+  %p.lead
     Today, the NSRR team is taking a moment to discuss the latest sleep
     research with Matt Butler.
     Thank you Matt for providing us with insight into your research!
 
-.main-container.light-texture
-
+.content-container
   %h2
     Can you tell us a little about your group?
 
@@ -38,7 +36,8 @@
         goals are to determine the mechanisms by which this occurs through
         controlled physiology experiments (basic and clinical) as well as
         through prospective analyses in long term human sleep study cohorts.
-.main-container.grid-texture
+
+.content-container
   %h2
     How were you introduced to the NSRR?
   .post-avatar
@@ -61,7 +60,7 @@
         data as I worked on the preliminary analyses that led to this grant
         award from the American Sleep Medicine Foundation.
 
-.main-container.light-texture
+.content-container
   %h2
     Can you tell us about the research you have done?
   .post-avatar
@@ -91,49 +90,50 @@
           = link_to '(Figure 1)', "#fig1"
 
         %a.anchor-top{ name: 'table1' }
-        %table.table.table-bordered
-          %thead
-            %tr
-              %th.center Event duration quartiles (sec)
-              %th.center Hazard Ratio
-              %th.center Confidence Interval
-              %th.center p value
-          %tbody
-            %tr
-              %td.center
-                %strong 24.0 - 57.6
-              %td.center 1.0
-              %td.center
-              %td.center Ref.
-            %tr
-              %td.center
-                %strong 20.6 - 24.0
-              %td.center 0.98
-              %td.center 0.79 - 1.09
-              %td.center n.s.
-            %tr
-              %td.center
-                %strong 17.7 - 20.6
-              %td.center 1.17
-              %td.center 1.0 - 1.36
-              %td.center
-                %strong p<0.05
-            %tr
-              %td.center
-                %strong 11.1 - 17.7
-              %td.center 1.26
-              %td.center 1.07 - 1.48
-              %td.center
-                %strong p<0.01
+        .table-responsive
+          %table.table.table-bordered
+            %thead
+              %tr
+                %th.center Event duration quartiles (sec)
+                %th.center Hazard Ratio
+                %th.center Confidence Interval
+                %th.center p value
+            %tbody
+              %tr
+                %td.center
+                  %strong 24.0 - 57.6
+                %td.center 1.0
+                %td.center
+                %td.center Ref.
+              %tr
+                %td.center
+                  %strong 20.6 - 24.0
+                %td.center 0.98
+                %td.center 0.79 - 1.09
+                %td.center n.s.
+              %tr
+                %td.center
+                  %strong 17.7 - 20.6
+                %td.center 1.17
+                %td.center 1.0 - 1.36
+                %td.center
+                  %strong p<0.05
+              %tr
+                %td.center
+                  %strong 11.1 - 17.7
+                %td.center 1.26
+                %td.center 1.07 - 1.48
+                %td.center
+                  %strong p<0.01
         %p
           %strong Table 1:
           Mortality hazard ratios by event duration quartiles,
           adjusted for age, sex, BMI, race, smoking, and AHI.
 
-.main-container.grid-texture
+.content-container
   %a.anchor-top{ name: 'fig1' }
   .center
-    = image_tag 'showcase/matt-butler-graph.png', class: 'img-white-background'
+    = image_tag 'showcase/matt-butler-graph.png', style: 'max-width: 100%'
   .markdown-container
     %p
       %strong Figure 1.
@@ -143,14 +143,22 @@
       subjects have a maximum IEI of ~2 min, whereas the two right subjects
       have a maximum IEI of >10 min and ~25% of all intervals are >2min.
 
+- content_for :call_to_action do
+  .banner
+    .container.center
+      .banner-body
+        The American Sleep Medicine Foundation
+      .banner-header
+        2014 Focused Projects Award
+      .banner-body
+        %p
+          Sex differences in sleep apnea and novel sleep measures to predict
+          cardiovascular risk
+        %p Matthew P. Butler (PI)
+        %p
+          Oregon Institute of Occupational Health Sciences and Dept. of
+          Behavioral Neuroscience, Oregon Health & Science University, Portland,
+          OR 97239
+
 = render 'showcase/research_call_to_action'
 
-.main-container.dark-texture
-  %p.center The American Sleep Medicine Foundation
-  %h2.center 2014 Focused Projects Award
-  %p.center Sex differences in sleep apnea and novel sleep measures to predict cardiovascular risk
-  %p.center Matthew P. Butler (PI)
-  %p.center Oregon Institute of Occupational Health Sciences and Dept. of Behavioral Neuroscience, Oregon Health & Science University, Portland, OR 97239
-
-.dark-texture
-  = image_tag 'pure-signal-t.png', style: 'width:100%;', class: 'wow fadeIn'

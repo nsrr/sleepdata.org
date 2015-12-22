@@ -1,37 +1,40 @@
-.beta-container
-  .main-container.dark-texture
-    %h1 Sleep Researcher Community
-    %p
-      NSRR World-Wide Membership
+- @title = 'Sleep Researcher Community'
 
-  - @background_class = 'white-texture'
-  .main-container.transparent-texture
-    %h2
-      Across the world...
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = @title
+      .banner-body
+        NSRR World-Wide Membership
 
-    %div{ style: "height: 500px; min-width: 310px; max-width: 800px; margin: 0 auto", data: { object: 'draw-world-map', membership: Map.countries_for_map.to_json } }
+.content-container
+  %h2
+    Across the world...
 
-    %h2
-      \...and in the US.
+  %div{ style: 'height: 500px; min-width: 310px; max-width: 800px; margin: 0 auto', data: { object: 'draw-world-map', membership: Map.countries_for_map.to_json } }
 
-    %div{ style: "height: 500px; min-width: 310px; max-width: 800px; margin: 0 auto", data: { object: 'draw-map', membership: Map.states_for_map.to_json } }
+  %h2
+    \...and in the US.
+
+  %div{ style: 'height: 500px; min-width: 310px; max-width: 800px; margin: 0 auto', data: { object: 'draw-map', membership: Map.states_for_map.to_json } }
 
 
-  .main-container.call-to-action
-
+- content_for :call_to_action do
+  .call-to-action
     - if current_user
-      %h2.center
+      .call-to-action-header
         Thank you for being part of our sleep community!
-      %p.center
+      .call-to-action-body
         Discuss more with your colleagues on our forum.
 
-      .center{ style: 'margin-top:20px;margin-bottom:20px' }
+      .call-to-action-body
         = link_to 'Visit the Forum', topics_path, class: 'btn btn-call-to-action btn-lg'
     - else
-      %h2.center
+      .call-to-action-header
         Join today!
-      %p.center
+      .call-to-action-body
         Collaborate with an international community of sleep researchers.
 
-      .center{ style: 'margin-top:20px;margin-bottom:20px' }
+      .call-to-action-body
         = link_to 'Sign Up', new_user_registration_path, class: 'btn btn-call-to-action btn-lg'

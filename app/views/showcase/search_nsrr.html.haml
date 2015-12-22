@@ -1,71 +1,70 @@
-.beta-container
-  .main-container.dark-texture.full-height
+- content_for :banner do
+  .banner
+    .container.center
+      .banner-body
+        Presenting the
+      .banner-header.brand
+        NSRR Cross Dataset Query Interface
+      .banner-body
+        = image_tag 'physiomimi_logo.png', class: 'img-thumbnail'
 
-    %p.header-middle-lead
-      Presenting the
+%a.anchor-top{ name: 'search-across-datasets' }
+.content-container
+  %h2
+    Search Across Datasets
 
-    %h1.header-middle
-      NSRR Cross Dataset Query Interface
+  %p
+    Create powerful queries across datasets available on the NSRR.
 
-    .logo-middle
-      = image_tag 'physiomimi_logo.png', class: 'img-white-background'
-
-  %a.anchor-top{ name: 'search-across-datasets' }
-  .main-container.grid-texture
-
-    %h2
-      Search Across Datasets
-
-    %p
-      Create powerful queries across datasets available on the NSRR.
-
-    %div{ style: 'text-align:center;max-width:1200px;margin:40px auto 0px auto;' }
-      = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-02-querybuilder-browse.png', class: 'img-responsive img-white-background'
+  .center{ style: 'max-width: 1200px;margin: 40px auto 0px auto;' }
+    = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-02-querybuilder-browse.png', class: 'img-responsive'
 
 
-  %a.anchor-top{ name: 'graphical-exploration' }
-  .main-container.neutral-texture
+%a.anchor-top{ name: 'graphical-exploration' }
+.content-container
+  %h2
+    Dynamically Plot Variables
 
-    %h2
-      Dynamically Plot Variables
+  .row
+    .col-md-6
+      %p.hidden-xs.hidden-sm.text-right{ style: 'margin-top:80px;' }
+        Select two variables and click
+        %strong Graph Distribution.
+      %p.visible-xs.visible-sm.text-right
+        Select two variables and click
+        %strong Graph Distribution.
+    .col-md-6
+      = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-08-xy-dropdown.png', class: 'img-responsive'
 
-    .row
-      .col-md-6
-        %p.hidden-xs.hidden-sm{ style: 'margin-top:80px;text-align:right' }
-          Select two variables and click
-          %strong Graph Distribution.
-        %p.visible-xs.visible-sm{ style: 'text-align:right' }
-          Select two variables and click
-          %strong Graph Distribution.
-      .col-md-6
-        = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-08-xy-dropdown.png', class: 'img-responsive img-white-background'
-
-    .row{ style: 'margin-top: 20px' }
-      .col-md-6
-        %p.visible-xs.visible-sm{ style: 'text-align:right' }
-          %strong Find interesting correlations?
-          Download complete datasets for offline analysis from the
+  .row{ style: 'margin-top: 20px' }
+    .col-md-6
+      %p.visible-xs.visible-sm.text-right
+        %strong Find interesting correlations?
+        %br
+        Download complete datasets for offline analysis from the
+        = succeed '.' do
           = link_to 'NSRR website', ENV['website_url']
 
-        = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-09-xy-plot.png', class: 'img-responsive img-white-background hidden-xs hidden-sm'
-      .col-md-6
-        %p.hidden-xs.hidden-sm{ style: 'margin-top:80px;' }
-          %strong Find interesting correlations?
-          Download complete datasets for offline analysis from the
+      = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-09-xy-plot.png', class: 'img-responsive hidden-xs hidden-sm'
+    .col-md-6
+      %p.hidden-xs.hidden-sm{ style: 'margin-top:80px;' }
+        %strong Find interesting correlations?
+        Download complete datasets for offline analysis from the
+        = succeed '.' do
           = link_to 'NSRR website', ENV['website_url']
 
-        = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-09-xy-plot.png', class: 'img-responsive img-white-background visible-xs visible-sm'
+      = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-09-xy-plot.png', class: 'img-responsive visible-xs visible-sm'
 
-  %a.anchor-top{ name: 'get-started-now' }
-  .main-container.call-to-action
+%a.anchor-top{ name: 'get-started-now' }
 
-    %h2.center
+- content_for :call_to_action do
+  .call-to-action
+    .call-to-action-header
       Start your cross dataset exploration now.
-
-    .center{ style: 'margin-top:20px;margin-bottom:20px' }
+    .call-to-action-body
       = link_to 'Start a Query', 'https://www.x-search.net/queries/builder', class: 'btn btn-call-to-action btn-lg'
 
-    %p.center{ style: 'margin-top:50px;' }
+    .call-to-action-body
       Not sure yet?
       = link_to 'Learn more', tool_path('physiomimi')
       about the NSRR Cross Dataset Query Interface.

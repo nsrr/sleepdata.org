@@ -1,10 +1,15 @@
-.slim-container.dark-texture
-  %h1 Forum Post Markup
-  %p
-    Looking to spice up your forum post? Learn more below!
+- @title = 'Forum Post Markup'
+
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = @title
+      .banner-body
+        Looking to spice up your forum post? Learn more below!
 
 %a.anchor-top{ name: 'highlight' }
-.main-container.grid-texture
+.content-container
   %h2
     Highlight
     %a.anchor-link{ href: '#highlight' }
@@ -12,11 +17,13 @@
   .codeblocks-container.code-input-file.p
     The following text is ==highlighted==.
 
-  .codeblocks-container.code-input-file.p
-    The following text is <mark>highlighted</mark>.
+  %p
+    The following text is
+    = succeed '.' do
+      %mark highlighted
 
 %a.anchor-top{ name: 'superscript' }
-.main-container.white-texture
+.content-container
   %h2
     Superscript
     %a.anchor-link{ href: '#superscript' }
@@ -24,12 +31,11 @@
   .codeblocks-container.code-input-file.p
     This is the 2^(nd) time.
 
-  .codeblocks-container.code-input-file.p
+  %p
     This is the 2<sup>nd</sup> time.
 
 %a.anchor-top{ name: 'quotes' }
-.main-container.grid-texture
-
+.content-container
   %h2
     Quotes
     %a.anchor-link{ href: '#quotes' }
@@ -37,12 +43,11 @@
   .codeblocks-container.code-input-file.p
     > This is a quote.
 
-  .codeblocks-container.code-input-file.p
-    %blockquote.p{ style: 'margin:0px' } This is a quote.
+  %p
+    %blockquote This is a quote.
 
 %a.anchor-top{ name: 'underline' }
-.main-container.white-texture
-
+.content-container
   %h2
     Underline
     %a.anchor-link{ href: '#underline' }
@@ -50,12 +55,13 @@
   .codeblocks-container.code-input-file.p
     The following text is _underlined_.
 
-  .codeblocks-container.code-input-file.p
-    The following text is <u>underlined</u>.
+  %p
+    The following text is
+    = succeed '.' do
+      %u underlined
 
 %a.anchor-top{ name: 'strikethrough' }
-.main-container.grid-texture
-
+.content-container
   %h2
     Strikethrough
     %a.anchor-link{ href: '#strikethrough' }
@@ -63,12 +69,13 @@
   .codeblocks-container.code-input-file.p
     This is ~~removed~~.
 
-  .codeblocks-container.code-input-file.p
-    This is <del>removed</del>.
+  %p
+    This is
+    = succeed '.' do
+      %del removed
 
 %a.anchor-top{ name: 'horizontal-rule' }
-.main-container.white-texture
-
+.content-container
   %h2
     Horizontal Rule
     %a.anchor-link{ href: '#horizontal-rule' }
@@ -80,14 +87,13 @@
     %br
     \...and some more text.
 
-  .codeblocks-container.code-input-file.p
+  %p
     Here is some text...
     %hr
     \...and some more text.
 
 %a.anchor-top{ name: 'footnotes' }
-.main-container.grid-texture
-
+.content-container
   %h2
     Footnotes
     %a.anchor-link{ href: '#footnotes' }
@@ -101,25 +107,23 @@
     %br
     [^2]: This is a second footnote.
 
-  .codeblocks-container.code-input-file.p
-    %a.anchor-top{ name: 'fnref1' }
-    %p This is a sentence.<sup><a href="#fn1" rel="footnote">1</a></sup>
-    %a.anchor-top{ name: 'fnref2' }
-    %p This is another sentence.<sup><a href="#fn2" rel="footnote">2</a></sup>
-    .footnotes
-    %hr
-    %ol
-      %li
-        %a.anchor-top{ name: 'fn1' }
-        %p This is a footnote.&nbsp;<a href="#fnref1" rev="footnote">&#8617;</a>
-      %li
-        %a.anchor-top{ name: 'fn2' }
-        %p
-          This is a second footnote.&nbsp;<a href="#fnref2" rev="footnote">&#8617;</a>
+  %a.anchor-top{ name: 'fnref1' }
+  %p This is a sentence.<sup><a href="#fn1" rel="footnote">1</a></sup>
+  %a.anchor-top{ name: 'fnref2' }
+  %p This is another sentence.<sup><a href="#fn2" rel="footnote">2</a></sup>
+  .footnotes
+  %hr
+  %ol
+    %li
+      %a.anchor-top{ name: 'fn1' }
+      %p This is a footnote.&nbsp;<a href="#fnref1" rev="footnote">&#8617;</a>
+    %li
+      %a.anchor-top{ name: 'fn2' }
+      %p
+        This is a second footnote.&nbsp;<a href="#fnref2" rev="footnote">&#8617;</a>
 
 %a.anchor-top{ name: 'links' }
-.main-container.white-texture
-
+.content-container
   %h2
     Links*
     %a.anchor-link{ href: '#links' }
@@ -127,16 +131,17 @@
   .codeblocks-container.code-input-file.p
     Here is a [link](https://sleepdata.org).
 
-  .codeblocks-container.code-input-file.p
+  %p
     Here is a
     = link_to('link', 'https://sleepdata.org', target: '_blank') + '.'
 
-  %p
-    * The ability to post links is earned.
+  .callout.callout-info
+    %p
+      %strong *
+      The ability to post links is earned.
 
 %a.anchor-top{ name: 'images' }
-.main-container.grid-texture
-
+.content-container
   %h2
     Images*
     %a.anchor-link{ href: '#images' }
@@ -144,15 +149,18 @@
   .codeblocks-container.code-input-file.p
     The current build status is ![Build Status](https://travis-ci.org/nsrr/www.sleepdata.org.svg)
 
-  .codeblocks-container.code-input-file.p
-    The current build status is <img src="https://travis-ci.org/nsrr/www.sleepdata.org.svg" alt="Build Status">
-
   %p
-    * The ability to post images is earned.
+    The current build status is
+    = image_tag 'https://travis-ci.org/nsrr/www.sleepdata.org.svg', alt: 'Build Status'
+
+  .callout.callout-info
+    %p
+      %strong *
+      The ability to post images is earned.
+
 
 %a.anchor-top{ name: 'tables' }
-.main-container.white-texture
-
+.content-container
   %h2
     Tables
     %a.anchor-link{ href: '#tables' }
@@ -166,19 +174,19 @@
     %br
     |&nbsp;Row&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Center&nbsp;&nbsp;&nbsp;|&nbsp;Right&nbsp;&nbsp;&nbsp;&nbsp;|
 
-  .codeblocks-container.code-input-file.p
+  %p
     %table.table.table-striped
       %thead
         %tr
-          %th{ style: "text-align: left" } Header 1
-          %th{ style: "text-align: center" } Header 2
-          %th{ style: "text-align: right" } Header 3
+          %th Header 1
+          %th.text-center Header 2
+          %th.text-right Header 3
       %tbody
         %tr
-          %td{ style: "text-align: left" } Row 1
-          %td{ style: "text-align: center" } Center
-          %td{ style: "text-align: right" } Right
+          %td Row 1
+          %td.text-center Center
+          %td.text-right Right
         %tr
-          %td{ style: "text-align: left" } Row 2
-          %td{ style: "text-align: center" } Center
-          %td{ style: "text-align: right" } Right
+          %td Row 2
+          %td.text-center Center
+          %td.text-right Right

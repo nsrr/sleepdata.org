@@ -1,20 +1,24 @@
 - shhs_dataset_version = '0.8.0' # 'SHHS'
 - nsrr_gem_version = '0.2.0'
+- @title = 'Demo'
 
-.main-container.dark-texture.full-height
-  %h1.header-bottom.align-right.wow.slideInRight NSRR Demo
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        NSRR Demo
+      .banner-body
+        Learn how to
+        %strong= link_to 'download data', '#download-data'
+        and
+        %strong= link_to 'run simple statistics', '#statistics'
+        and
+        = succeed '.' do
+          %strong= link_to 'open signal files', '#extract-edf-signal'
 
-  %p.align-right.wow.fadeInRight{ data: { 'wow-delay': '1s' } }
-    Learn how to
-    %strong= link_to 'download data', '#download-data'
-    and
-    %strong= link_to 'run simple statistics', '#statistics'
-    and
-    %strong= link_to('open signal files', '#extract-edf-signal') + "."
 
 %a.anchor-top{ name: 'download-data' }
-.main-container.grid-texture
-
+.content-container
   %h2
     Download Data
 
@@ -79,7 +83,7 @@
     0 files skipped, 0 files failed
 
 %a.anchor-top{ name: 'statistics' }
-.main-container.neutral-texture{ style: 'background-attachment: fixed;'}
+.content-container
   .row
     .col-md-6.added-margin-bottom
       = image_tag 'nsrr-rdi3p-age-gender.png', class: 'img-responsive img-faded-border'
@@ -217,8 +221,7 @@
 
 
 %a.anchor-top{ name: 'extract-edf-signal' }
-.main-container.grid-texture
-
+.content-container
   %h2
     Extract Signals from EDFs
     = link_to('<sup>[3]</sup>'.html_safe, "#3") + "."
@@ -296,7 +299,7 @@
     Full output of this code snippet can be found here:
     = link_to 'https://github.com/sleepepi/edfize', 'https://github.com/sleepepi/edfize#example-of-how-to-load-and-analyze-edfs-in-a-ruby-script'
 
-.main-container.dark-texture
+.content-container
   %h2
     References
   %ol
