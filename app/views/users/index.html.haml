@@ -1,13 +1,27 @@
 - @title = 'Users'
 
-.slim-container.dark-texture
-  %h1
-    = @title
+.row
+  .col-md-3
+    = render 'internal/profile'
+    .dashboard-link
+      = link_to admin_path do
+        %span.glyphicon.glyphicon-arrow-left
+        Back to Admin Dashboard
 
-.slim-container.grid-texture
-  = form_tag users_path, method: :get, class: 'form-inline' do
-    = text_field_tag 'search', params[:search], class: 'form-control'
-    = submit_tag 'Search', class: 'btn btn-primary', name: nil
-    = link_to 'Reset', users_path, class: 'btn btn-default'
+    .dashboard-container
+      .dashboard-title
+        %strong User Administration
+      %p All your admin needs.
 
-  = render 'users/users'
+
+  .col-md-9
+    .dashboard-container
+      .dashboard-title
+        %strong User Administration
+
+      = form_tag users_path, method: :get, class: 'form-inline' do
+        = text_field_tag 'search', params[:search], class: 'form-control'
+        = submit_tag 'Search', class: 'btn btn-primary', name: nil
+        = link_to 'Reset', users_path, class: 'btn btn-default'
+
+      = render 'users/users'

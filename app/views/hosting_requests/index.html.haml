@@ -1,20 +1,40 @@
-%h1 Listing Hosting Requests
+- @title = 'Hosting Requests'
 
-%table.table
-  %thead
-    %tr
-      %th User
-      %th Description
-      %th Institution name
-      %th{ colspan: 3 }
+.row
+  .col-md-3
+    = render 'internal/profile'
+    .dashboard-link
+      = link_to admin_path do
+        %span.glyphicon.glyphicon-arrow-left
+        Back to Admin Dashboard
+
+    .dashboard-container
+      .dashboard-title
+        %strong= @title
+      %p All your admin needs.
 
 
-  %tbody
-    - @hosting_requests.each do |hosting_request|
-      %tr
-        %td= hosting_request.user_id
-        %td= hosting_request.description
-        %td= hosting_request.institution_name
-        %td= link_to 'Show', hosting_request
-        %td= link_to 'Edit', edit_hosting_request_path(hosting_request)
-        %td= link_to 'Destroy', hosting_request, method: :delete, data: { confirm: 'Are you sure?' }
+  .col-md-9
+    .dashboard-container
+      .dashboard-title
+        %strong= @title
+
+      .table-responsive
+        %table.table
+          %thead
+            %tr
+              %th User
+              %th Description
+              %th Institution Name
+              %th{ colspan: 3 }
+
+
+          %tbody
+            - @hosting_requests.each do |hosting_request|
+              %tr
+                %td= hosting_request.user_id
+                %td= hosting_request.description
+                %td= hosting_request.institution_name
+                %td= link_to 'Show', hosting_request
+                %td= link_to 'Edit', edit_hosting_request_path(hosting_request)
+                %td= link_to 'Destroy', hosting_request, method: :delete, data: { confirm: 'Are you sure?' }

@@ -1,20 +1,21 @@
 - @title = @tag.name
-.slim-container.dark-texture
-  %h1
-    = link_to "Tags", tags_path
-    &middot;
-    = @title
-  = link_to "Edit Tag", edit_tag_path(@tag), class: 'btn btn-xs btn-default'
-  = link_to "Delete Tag", @tag, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Tag #{@tag.name}?" }
 
-.slim-container.math-texture
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = link_to 'Tags', tags_path
+        &middot;
+        = @title
+      .banner-body
+        = link_to 'Edit Tag', edit_tag_path(@tag), class: 'btn btn-xs btn-default'
+        = link_to 'Delete Tag', @tag, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Tag #{@tag.name}?" }
+
+.content-container
   %dl.dl-horizontal
-    %dt Name
-    %dd= link_to @tag.name, topics_path( tags: @tag.name )
-
     %dt Color
     %dd
-      %span.label{ style: "line-height:20px;background-color:#{@tag.color}" }
+      %span.label{ style: "line-height: 20px; background-color: #{@tag.color}" }
         = @tag.color
 
     %dt Type

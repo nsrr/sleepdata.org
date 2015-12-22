@@ -1,9 +1,13 @@
-- @title = "Edit Tool: #{@tool.name}"
+- @title = "Edit Tool: #{@tool.name_was}"
 
-.slim-container.dark-texture
-  %h1
-    Edit Tool
-  %p
-    = link_to @tool.name, @tool
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = link_to 'Tools', tools_path
+        &middot;
+        = link_to @tool.name_was, @tool
+        &middot;
+        Edit
 
 = render 'form'

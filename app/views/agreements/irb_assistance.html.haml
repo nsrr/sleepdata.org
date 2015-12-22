@@ -1,15 +1,13 @@
-.slim-container.dark-texture
-  %h1.center
-    Brigham and Women's Hospital
-    %br
-    National Sleep Research Resource (NSRR)
-
-.slim-container.math-texture
-  %h2.center
-    Basic Information On Submitting a Proposed NSRR Project to Your Local IRB
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand.center
+        Brigham and Women's Hospital
+      .banner-body.center
+        Basic Information On Submitting a Proposed NSRR Project to Your Local
+        IRB
 
 .markdown-container
-
   %p
     We are required to obtain evidence that your project/purpose has been
     %strong
@@ -55,7 +53,7 @@
     project and local IRB rules and procedures, your submission may result in a
     full IRB review and that approval letter would be attached to the DAUA.
 
-.slim-container.math-texture.center
-  = link_to 'JavaScript:window.close()', class: 'btn btn-default' do
+.center
+  = link_to 'JavaScript:window.close()', class: 'btn btn-default btn-lg' do
     %span.glyphicon.glyphicon-arrow-left
     Back to my Submission

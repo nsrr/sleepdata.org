@@ -2,17 +2,17 @@
 
 = render 'datasets/header'
 
-%h2 File Download Audits
-
 - content_for :banner do
   .breadcrumb-container
     .container{ style: 'position: relative;' }
       .hidden-xs{ style: 'position: absolute; top: -5.5px; right: 15px' }
         = render 'variables/per_page', per_page: 100, object_count: @audits.count, pagination_size: 'small'
-      &nbsp;
+      %ol
+        %li= link_to @dataset.slug, @dataset
+        %li File Download Audits
 
-.slim-container.math-texture
 
+.content-container
   .table-responsive
     %table.table.table-striped.fixed-font-size
       %thead
@@ -85,10 +85,8 @@
   .center
     = paginate paginated_audits, theme: "contour-small"
 
-.slim-container.dark-texture
+.content-container
   %h2 Page Views
-
-.slim-container.math-texture
 
   - @page_views = @dataset.dataset_page_audits.group_by(&:page_path).collect{|page_path, audits| [page_path, audits.count]}.sort{|a,b| b[1] <=> a[1]}
   %table.table.table-striped.fixed-font-size

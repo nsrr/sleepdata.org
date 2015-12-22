@@ -1,60 +1,66 @@
-.slim-container.dark-texture
-  %h1 Admin Dashboard
+- content_for :body_class do
+  gray-background
 
-.slim-container.math-texture
-  .row
-    .col-sm-6.col-md-4
-      .panel.panel-default{ style: 'min-height: 200px' }
-        .panel-heading
-          %span.glyphicon.glyphicon-inbox
-          Agreements Review
-        .panel-body
-          = link_to 'Go To Agreements', reviews_path
+.row
+  .col-md-3
+    = render 'internal/profile'
+    .dashboard-link
+      = link_to dashboard_path do
+        %span.glyphicon.glyphicon-arrow-left
+        Back to Dashboard
 
-    .col-sm-6.col-md-4
-      .panel.panel-default{ style: 'min-height: 200px' }
-        .panel-heading
-          %span.glyphicon.glyphicon-user
-          User Adminstration
-        .panel-body
-          %ul.list-unstyled.fixed-font-size
-            %li= link_to 'Go To Users', users_path
-            %li= link_to 'Roles on Datasets', admin_roles_path
+    .dashboard-container
+      .dashboard-title
+        %strong Admin Dashboard
+      %p All your admin needs.
 
-    .col-sm-6.col-md-4
-      .panel.panel-default{ style: 'min-height: 200px' }
-        .panel-heading
-          %span.glyphicon.glyphicon-globe
-          Where is Everyone From?
-        .panel-body
-          = link_to 'Go To Location', location_path
 
-    .col-sm-6.col-md-4
-      .panel.panel-default{ style: 'min-height: 200px' }
-        .panel-heading
+  .col-md-3
+    .dashboard-container
+      .dashboard-title
+        %strong User Adminstration
+      %p= link_to 'Go To Users', users_path
+
+    .dashboard-container
+      .dashboard-title
+        %strong Dataset
+      %p= link_to 'Roles on Datasets', admin_roles_path
+      %p= link_to 'Hosting Requests', hosting_requests_path
+
+  .col-md-3
+    .dashboard-container
+      .dashboard-title
+        %strong Agreements Review
+      %p= link_to 'Go To Agreements', reviews_path
+
+    .dashboard-container
+      .dashboard-title
+        %strong Website Statistics
+      %p
+        = link_to 'Go To Stats', stats_path
+        %br
+        = link_to 'Downloads By Month', downloads_by_month_path(user_type: 'regular')
+        %br
+        = link_to 'Agreement Reports', agreement_reports_path
+
+  .col-md-3
+    .dashboard-container
+      .dashboard-title
+        %strong
+          %span.glyphicon.glyphicon-tag
+          Tags
+      %p= link_to 'Forum and Agreement Tags', tags_path
+
+    .dashboard-container
+      .dashboard-title
+        %strong
           %span.glyphicon.glyphicon-repeat
           Sync Documentation
-        .panel-body
-          = link_to 'Go To Sync', sync_path
+      %p= link_to 'Go To Sync', sync_path
 
-    .col-sm-6.col-md-4
-      .panel.panel-default{ style: 'min-height: 200px' }
-        .panel-heading
-          %span.glyphicon.glyphicon-tag
-          Forum Tags
-        .panel-body
-          = link_to 'Forum Tags', tags_path
-
-    .col-sm-6.col-md-4
-      .panel.panel-default{ style: 'min-height: 200px' }
-        .panel-heading
-          %span.glyphicon.glyphicon-stats
-          Website Statistics
-        .panel-body
-          %ul.list-unstyled.fixed-font-size
-            %li= link_to 'Go To Stats', stats_path
-            %li= link_to 'Downloads By Month', downloads_by_month_path( user_type: 'regular' )
-            %li= link_to 'Agreement Reports', agreement_reports_path
-
-- if current_user.system_admin?
-  = link_to 'HOSTING REQUESTS', hosting_requests_path, class: 'btn btn-block btn-default'
+    .dashboard-container
+      .dashboard-title
+        %strong
+          %span.glyphicon.glyphicon-globe
+          Where is Everyone From?
+      %p= link_to 'Go To Location', location_path

@@ -39,7 +39,7 @@ class Agreement < ActiveRecord::Base
   # Callbacks
   after_create :set_token
 
-  STATUS = ["submitted", "approved", "resubmit", "expired", "started"].collect{|i| [i,i]}
+  STATUS = %w(submitted approved resubmit expired started).collect { |i| [i, i] }
 
   attr_accessor :draft_mode, :full_mode
 

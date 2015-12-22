@@ -1,10 +1,11 @@
-- @title = "Edit Topic: #{@topic.name}"
+- @title = "Edit Topic: #{@topic.name_was}"
 
-.slim-container.dark-texture
-  %h1
-    Edit Topic
-  %p
-    = link_to @topic.name, @topic
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = link_to @topic.name_was, @topic
+        &middot;
+        Edit
 
 = render 'form'
-

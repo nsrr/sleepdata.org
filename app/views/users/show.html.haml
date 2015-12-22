@@ -1,121 +1,123 @@
 - @title = @user.name
-.slim-container.dark-texture
-  %h1
-    = link_to_if current_user.system_admin?, "Users", users_path
-    &middot;
-    = @title
+
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = link_to 'Users', users_path
+        &middot;
+        = @title
+      .banner-body
+        = link_to 'Edit User', edit_user_path(@user), class: 'btn btn-xs btn-default'
+        = link_to 'Delete User', @user, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete User #{@user.name}?" } unless current_user == @user
+
+%dl.dl-horizontal
+  %dt
+    Email
+  %dd
+    = @user.email
+
+  %dt
+    Forum Username
+  %dd
+    = link_to @user.username, topics_path(a: @user.username) if @user.username.present?
+
+  %dt
+    Emails Enabled
+  %dd
+    = simple_check @user.emails_enabled?
+
+  %dt
+    Degree
+  %dd
+    = @user.degree
+
+  %dt
+    Core Team Member
+  %dd
+    = simple_check @user.core_member?
+
+  %dt
+    AUG Member
+  %dd
+    = simple_check @user.aug_member?
+
+  %dt
+    Community Manager
+  %dd
+    = simple_check @user.community_manager?
+
+  %dt
+    Research Summary
+  %dd{ style: 'line-height: inherit' }
+    = simple_markdown @user.research_summary
+
   - if current_user.system_admin?
-    = link_to "Edit User", edit_user_path(@user), class: 'btn btn-default btn-xs'
-    = link_to 'Delete User', @user, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete User #{@user.name}?" } unless current_user == @user
-
-.slim-container.grid-texture
-  %dl.dl-horizontal
     %dt
-      Email
+      System Admin
     %dd
-      = @user.email
+      = simple_check @user.system_admin?
 
     %dt
-      Forum Username
+      Banned
     %dd
-      = link_to @user.username, topics_path(a: @user.username) if @user.username.present?
+      = simple_check @user.banned?
+      - if @user.banned?
+        %span.label{ style: "background-color:#333;" }
+          Banned from Forum
 
-    %dt
-      Emails Enabled
-    %dd
-      = simple_check @user.emails_enabled?
+  %dt
+    User Avatar
+  %dd
+    = image_tag @user.avatar_url, class: 'img-rounded'
 
-    %dt
-      Degree
-    %dd
-      = @user.degree
-
-    %dt
-      Core Team Member
-    %dd
-      = simple_check @user.core_member?
-
-    %dt
-      AUG Member
-    %dd
-      = simple_check @user.aug_member?
-
-    %dt
-      Community Manager
-    %dd
-      = simple_check @user.community_manager?
-
-    %dt
-      Research Summary
-    %dd{ style: 'line-height: inherit' }
-      = simple_markdown @user.research_summary
-
-    - if current_user.system_admin?
-      %dt
-        System Admin
-      %dd
-        = simple_check @user.system_admin?
-
-      %dt
-        Banned
-      %dd
-        = simple_check @user.banned?
-        - if @user.banned?
-          %span.label{ style: "background-color:#333;" }
-            Banned from Forum
-
-    %dt
-      User Avatar
-    %dd
-      = image_tag @user.avatar_url, class: 'img-rounded'
-
-    %dt
-      Agreements
-    %dd
-      %table.table.table-condensed.table-striped.fixed-font-size
-        %thead
+  %dt
+    Agreements
+  %dd
+    %table.table.table-condensed.table-striped.fixed-font-size
+      %thead
+        %tr
+          %th ID
+          %th Status
+          %th Datasets
+      %tbody
+        - @user.agreements.order(id: :desc).each do |a|
           %tr
-            %th ID
-            %th Status
-            %th Datasets
-        %tbody
-          - @user.agreements.order(id: :desc).each do |a|
-            %tr
-              %td= link_to "##{a.id}", review_path(a)
-              %td= status_helper(a)
-              %td
-                - a.datasets.order(:release_date, :name).each do |dataset|
-                  = render 'datasets/mini', dataset: dataset
+            %td= link_to "##{a.id}", review_path(a)
+            %td= status_helper(a)
+            %td
+              - a.datasets.order(:release_date, :name).each do |dataset|
+                = render 'datasets/mini', dataset: dataset
 
-    - download_sizes = []
-    - download_counts = []
-    %dt
-      Total Downloads
-    %dd
-      %table.table.table-striped.fixed-font-size
-        %thead
+  - download_sizes = []
+  - download_counts = []
+  %dt
+    Total Downloads
+  %dd
+    %table.table.table-striped.fixed-font-size
+      %thead
+        %tr
+          %th
+            Dataset
+          %th{ style: "text-align:center", colspan: "2" }
+            Files Downloaded
+      - Dataset.current.order(:release_date, :name).each do |dataset|
+        - download_size = dataset.dataset_file_audits.where( user_id: @user.id ).sum( :file_size )
+        - download_count = dataset.dataset_file_audits.where( user_id: @user.id ).count
+        - if download_size > 0
+          - download_sizes << download_size
+          - download_counts << download_count
           %tr
-            %th
-              Dataset
-            %th{ style: "text-align:center", colspan: "2" }
-              Files Downloaded
-        - Dataset.current.order(:release_date, :name).each do |dataset|
-          - download_size = dataset.dataset_file_audits.where( user_id: @user.id ).sum( :file_size )
-          - download_count = dataset.dataset_file_audits.where( user_id: @user.id ).count
-          - if download_size > 0
-            - download_sizes << download_size
-            - download_counts << download_count
-            %tr
-              %td
-                = dataset.name
-              %td
-                = pluralize number_with_delimiter(download_count), 'file'
-              %td
-                = number_to_human_size download_size
-        %tfoot
-          %th
-            Total
-          %th
-            = pluralize number_with_delimiter(download_counts.sum), 'file'
-          %th
-            = number_to_human_size(download_sizes.sum)
+            %td
+              = dataset.name
+            %td
+              = pluralize number_with_delimiter(download_count), 'file'
+            %td
+              = number_to_human_size download_size
+      %tfoot
+        %th
+          Total
+        %th
+          = pluralize number_with_delimiter(download_counts.sum), 'file'
+        %th
+          = number_to_human_size(download_sizes.sum)

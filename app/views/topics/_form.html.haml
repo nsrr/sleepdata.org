@@ -1,47 +1,46 @@
-.slim-container.grid-texture
-  = form_for @topic, html: { class: 'form-horizontal' } do |f|
-    - if @topic.errors.any?
-      .callout.callout-danger
-        %strong
-          = pluralize(@topic.errors.count, "error")
-          prohibited this topic from being saved
+= form_for @topic, html: { class: 'form-horizontal' } do |f|
+  - if @topic.errors.any?
+    .callout.callout-danger
+      %strong
+        = pluralize(@topic.errors.count, "error")
+        prohibited this topic from being saved
 
-        %ul.fixed-font-size
-          - @topic.errors.full_messages.each do |msg|
-            %li= msg
+      %ul.fixed-font-size
+        - @topic.errors.full_messages.each do |msg|
+          %li= msg
 
+  .form-group
+    = f.label :name, 'Topic Title', class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :name, class: 'form-control', maxlength: 40, autocomplete: 'off'
+      .callout.callout-info
+        The maximum length for the title is
+        %strong 40 characters.
+        - if @topic.new_record?
+          Fill in additional details in the description.
+
+  - if @topic.new_record?
     .form-group
-      = f.label :name, 'Topic Title', class: 'col-md-2 control-label'
+      = f.label :description, nil, class: 'col-md-2 control-label'
       .col-md-10
-        = f.text_field :name, class: 'form-control', maxlength: 40, autocomplete: 'off'
-        .callout.callout-info
-          The maximum length for the title is
-          %strong 40 characters.
-          - if @topic.new_record?
-            Fill in additional details in the description.
+        = f.text_area :description, rows: 7, class: 'form-control', data: { object: 'text-area-autocomplete', mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort }
+  - else
+    = f.hidden_field :description, value: @topic.comments.first.description
 
-    - if @topic.new_record?
-      .form-group
-        = f.label :description, nil, class: 'col-md-2 control-label'
-        .col-md-10
-          = f.text_area :description, rows: 7, class: 'form-control', data: { object: 'text-area-autocomplete', mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort }
-    - else
-      = f.hidden_field :description, value: @topic.comments.first.description
-
-    - if (current_user.aug_member? or current_user.core_member?) and Tag.forum_tags.count > 0
-      .form-group
-        = label :topic, :tag_ids, 'Tags', class: 'col-md-2 control-label'
-        .col-md-10
-          .row
-            = hidden_field_tag 'topic[tag_ids][]', nil
-            - Tag.forum_tags.order( :name ).each do |tag|
-              .col-xs-6.col-sm-4.col-md-3.col-lg-2
-                %label.checkbox.tag-checkbox{ class: "#{'tag-selected' if @topic.tags.include?(tag)}", style: "margin-bottom: 10px;background-color: #{tag.color}" }
-                  = check_box_tag "topic[tag_ids][]", tag.id, @topic.tags.include?(tag)
-                  .tag-name{ style: "overflow:hidden;white-space:nowrap" }
-                    = tag.name
-
+  - if (current_user.aug_member? or current_user.core_member?) and Tag.forum_tags.count > 0
     .form-group
-      .col-md-offset-2.col-md-10
-        = f.submit nil, class: 'btn btn-primary'
-        = cancel
+      = label :topic, :tag_ids, 'Tags', class: 'col-md-2 control-label'
+      .col-md-10
+        .row
+          = hidden_field_tag 'topic[tag_ids][]', nil
+          - Tag.forum_tags.order( :name ).each do |tag|
+            .col-xs-6.col-sm-4.col-md-3.col-lg-2
+              %label.checkbox.tag-checkbox{ class: "#{'tag-selected' if @topic.tags.include?(tag)}", style: "margin-bottom: 10px;background-color: #{tag.color}" }
+                = check_box_tag "topic[tag_ids][]", tag.id, @topic.tags.include?(tag)
+                .tag-name{ style: "overflow:hidden;white-space:nowrap" }
+                  = tag.name
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      = f.submit nil, class: 'btn btn-primary'
+      = cancel

@@ -1,17 +1,19 @@
+- @agreement_transactions = @agreement.agreement_transactions
+- agreement_transaction_total = @agreement_transactions.count
+
 - @title = "#{@agreement.name} Transactions"
 
-.slim-container.dark-texture
+- content_for :banner do
+  .banner
+    .container
+      .banner-header
+        .brand
+          = link_to @agreement.name, review_path(@agreement)
+          &middot; Transactions
 
-  %h2.subject-header
-    = link_to @agreement.name, review_path(@agreement)
-    &middot; Transactions
 
-  - @agreement_transactions = @agreement.agreement_transactions
-  - agreement_transaction_total = @agreement_transactions.count
-
-.slim-container.math-texture
-
-  %table.table.table-striped.fixed-font-size
+.content-container
+  %table.table.table-striped
     %thead
       %tr
         %th Transaction Number

@@ -1,37 +1,33 @@
-.slim-container.dark-texture
-  %h1= @title
+= form_for @tag, html: { class: 'form-horizontal' } do |f|
+  - if @tag.errors.any?
+    .callout.callout-danger
+      %strong
+        = pluralize(@tag.errors.count, "error")
+        prohibited this tag from being saved
 
-.slim-container.math-texture
-  = form_for @tag, html: { class: 'form-horizontal' } do |f|
-    - if @tag.errors.any?
-      .callout.callout-danger
-        %strong
-          = pluralize(@tag.errors.count, "error")
-          prohibited this tag from being saved
+      %ul.fixed-font-size
+        - @tag.errors.full_messages.each do |msg|
+          %li= msg
 
-        %ul.fixed-font-size
-          - @tag.errors.full_messages.each do |msg|
-            %li= msg
+  .form-group
+    = f.label :name, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :name, class: 'form-control'
 
-    .form-group
-      = f.label :name, nil, class: 'col-md-2 control-label'
-      .col-md-10
-        = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label :color, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.hidden_field :color, id: "tag_hexcolor", value: (@tag.color.blank? ? '#ffffff' : @tag.color)
+      .custom_widget
+        .colorselector{ style: "background-image: none", data: { object: "color-selector", target: "#tag_hexcolor", color: "#{@tag.color.blank? ? '#ffffff' : @tag.color}" } }
+          #tag_hexcolor_display{ style: "background-color: #{@tag.color.blank? ? '#ffffff' : @tag.color};top:0px;left:0px" }
 
-    .form-group
-      = f.label :color, class: 'col-md-2 control-label'
-      .col-md-10
-        = f.hidden_field :color, id: "tag_hexcolor", value: (@tag.color.blank? ? '#ffffff' : @tag.color)
-        .custom_widget
-          .colorselector{ style: "background-image: none", data: { object: "color-selector", target: "#tag_hexcolor", color: "#{@tag.color.blank? ? '#ffffff' : @tag.color}" } }
-            #tag_hexcolor_display{ style: "background-color: #{@tag.color.blank? ? '#ffffff' : @tag.color};top:0px;left:0px" }
+  .form-group
+    = f.label :tag_type, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.select :tag_type, [['---', nil]] + Tag::TYPE, {}, class: 'form-control'
 
-    .form-group
-      = f.label :tag_type, nil, class: 'col-md-2 control-label'
-      .col-md-10
-        = f.select :tag_type, [['---', nil]] + Tag::TYPE, {}, class: 'form-control'
-
-    .form-group
-      .col-md-offset-2.col-md-10
-        = f.submit nil, class: 'btn btn-primary'
-        = cancel
+  .form-group
+    .col-md-offset-2.col-md-10
+      = f.submit nil, class: 'btn btn-primary'
+      = cancel

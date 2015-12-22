@@ -1,9 +1,13 @@
-- @title = "Edit User: #{@user.name}"
+- @title = "Edit User: #{@user.name_was}"
 
-.slim-container.dark-texture
-  %h1
-    Edit User
-  %p
-    = link_to @user.name, @user
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = link_to 'Users', users_path
+        &middot;
+        = link_to @user.name_was, @user
+        &middot;
+        Edit
 
 = render 'form'

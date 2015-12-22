@@ -17,6 +17,11 @@
   margin-bottom: 10px;
 }
 
+.dashboard-link {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
 .dashboard-notification {
   background-color: $brand-warning;
   border-color: darken($brand-warning, 20%);

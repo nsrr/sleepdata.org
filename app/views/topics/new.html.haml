@@ -1,7 +1,9 @@
-- @title = "New Topic"
+- @title = 'New Topic'
 
-.slim-container.dark-texture
-  %h1
-    = @title
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = @title
 
 = render 'form'

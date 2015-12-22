@@ -1,3 +1,13 @@
-- @title = "Edit Tag: #{@tag.name}"
+- @title = "Edit Tag: #{@tag.name_was}"
+
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = link_to 'Tags', tags_path
+        &middot;
+        = link_to @tag.name_was, @tag
+        &middot;
+        Edit
 
 = render 'form'

@@ -21,23 +21,6 @@
     - if charts.size > 0
       %h1.variable-header.brand= chart.first if chart
       #chart-container{ style: 'min-width: 200px; max-width: 800px; height: 400px; margin: 0 auto 20px auto' }
-    - if false
-      - if false
-      - elsif File.file?(File.join(@dataset.root_folder, 'dd', 'images', @version, "#{@variable.name}-lg.png"))
-        .slim-container.math-texture
-          - [['hidden-sm hidden-xs', 'btn-lg'], ['hidden-md hidden-lg', 'btn-sm']].each do |hidden_classes, btn_size_class|
-            .btn-group.btn-group-justified{ class: hidden_classes, style: "padding-bottom:20px" }
-              = link_to 'Graph', '#', data: { object: 'suppress-click' }, class: "btn btn-primary #{btn_size_class}"
-          %center
-            = image_tag image_dataset_variable_path(@variable.dataset, @variable, size: 'lg'), style: 'max-width: 100%;max-height:400px;display:block'
-      - elsif File.file?(File.join( @dataset.root_folder, 'dd', 'images', @version, "#{@variable.name}.svg"))
-        .slim-container.math-texture
-          - [['hidden-sm hidden-xs', 'btn-lg'], ['hidden-md hidden-lg', 'btn-sm']].each do |hidden_classes, btn_size_class|
-            .btn-group.btn-group-justified{ class: hidden_classes, style: "padding-bottom:20px" }
-              = link_to 'Graph', '#', data: { object: 'suppress-click' }, class: "btn btn-primary #{btn_size_class}"
-          %center
-            %object{ type: 'image/svg+xml', data: image_dataset_variable_path(@variable.dataset, @variable, size: 'lg', format: 'svg'), style: 'max-width: 100%;max-height:400px;display:block' }
-              Your browser does not support SVG
 
     - if json && json['tables']
       - (json['tables'] || []).each do |key, tables|

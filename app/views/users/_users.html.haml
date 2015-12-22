@@ -1,29 +1,28 @@
-= render 'contour/layouts/per_page', per_page: 40, object_count: @users.total_count
+.table-responsive
+  %table.table.table-striped
+    %thead
+      %tr
+        %th.nowrap Name
+        %th.nowrap Recent Activity
+        %th.nowrap Core Member
+        %th.nowrap AUG Member
+        %th.nowrap Community Manager
+        - if current_user.system_admin?
+          %th.nowrap System Admin
 
-%table.table.table-striped.fixed-font-size
-  %thead
-    %tr
-      %th.nowrap Name
-      %th.nowrap Recent Activity
-      %th.nowrap Core Member
-      %th.nowrap AUG Member
-      %th.nowrap Community Manager
-      - if current_user.system_admin?
-        %th.nowrap System Admin
+    - @users.each do |user|
+      %tr{ class: "#{'banned' if current_user.system_admin? && user.banned?}" }
+        %td.nowrap
+          = image_tag user.avatar_url(18), style: 'min-width: 18px;', size: '18x18', alt: ''
+          = link_to user.name, user
+        %td
+          - if user.current_sign_in_at
+            = time_ago_in_words(user.current_sign_in_at)
+            ago
+        %td.center= simple_check user.core_member?
+        %td.center= simple_check user.aug_member?
+        %td.center= simple_check user.community_manager?
+        - if current_user.system_admin?
+          %td.center= simple_check user.system_admin?
 
-  - @users.each do |user|
-    %tr{ class: "#{'banned' if current_user.system_admin? && user.banned?}" }
-      %td
-        = image_tag user.avatar_url(18), style: 'vertical-align:text-bottom;min-width:18px'
-        = link_to user.name, user
-      %td
-        - if user.current_sign_in_at
-          = time_ago_in_words(user.current_sign_in_at)
-          ago
-      %td.center= simple_check user.core_member?
-      %td.center= simple_check user.aug_member?
-      %td.center= simple_check user.community_manager?
-      - if current_user.system_admin?
-        %td.center= simple_check user.system_admin?
-
-.center= paginate @users, theme: 'contour'
+  .center= paginate @users, theme: 'contour'

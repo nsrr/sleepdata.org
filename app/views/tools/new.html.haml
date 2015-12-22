@@ -1,8 +1,11 @@
-- @title = "New Tool"
+- @title = 'New Tool'
 
-.slim-container.dark-texture
-  %h1
-    = @title
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = link_to 'Tools', tools_path
+        &middot;
+        = @title
 
 = render 'form'
-

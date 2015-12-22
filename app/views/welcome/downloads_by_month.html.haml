@@ -14,36 +14,56 @@
 - dataset_file_audit_hash = dfa_scope.year(@year).group(:dataset_id, "extract(month from dataset_file_audits.created_at)").sum(:file_size)
 
 - @title = "Downloads By Month for #{user_type}"
-.slim-container.dark-texture
-  %h1= @title
 
-.slim-container.math-texture
-  - @year = (params[:year] || Date.today.year).to_i
+.row
+  .col-md-3
+    = render 'internal/profile'
+    .dashboard-link
+      = link_to admin_path do
+        %span.glyphicon.glyphicon-arrow-left
+        Back to Admin Dashboard
 
-  = link_to downloads_by_month_path(year: @year - 1, user_type: params[:user_type]), class: 'btn btn-xs btn-default' do
-    %span.glyphicon.glyphicon-chevron-left
-    Previous Year
-  = link_to 'Current Year', downloads_by_month_path(user_type: params[:user_type]), class: 'btn btn-xs btn-default'
-  = link_to downloads_by_month_path(year: @year + 1, user_type: params[:user_type]), class: 'btn btn-xs btn-default' do
-    Next Year
-    %span.glyphicon.glyphicon-chevron-right
-  = link_to 'All Members', downloads_by_month_path(year: @year), class: "btn btn-xs #{ !['regular', 'core', 'aug'].include?(params[:user_type]) ? 'btn-primary' : 'btn-default'}"
-  = link_to 'Regular Members', downloads_by_month_path(year: @year, user_type: 'regular'), class: "btn btn-xs #{ params[:user_type] == 'regular' ? 'btn-primary' : 'btn-default'}"
-  = link_to 'AUG Members', downloads_by_month_path(year: @year, user_type: 'aug'), class: "btn btn-xs #{ params[:user_type] == 'aug' ? 'btn-primary' : 'btn-default'}"
-  = link_to 'Core Members', downloads_by_month_path(year: @year, user_type: 'core'), class: "btn btn-xs #{ params[:user_type] == 'core' ? 'btn-primary' : 'btn-default'}"
+    .dashboard-container
+      .dashboard-title
+        %strong= @title
+      %p All your admin needs.
 
-  - series = Dataset.current.order(:release_date, :name).collect do |dataset|
-    - file_sizes = (1..12).collect(&:to_f).collect do |month|
-      - dataset_file_audit_hash[[dataset.id, month]].to_i
-    - if file_sizes.sum > 0
-      - { name: dataset.name, data: file_sizes }
-    - else
-      - nil
 
-  - series = series.compact
+  .col-md-9
+    .dashboard-container
+      .dashboard-title
+        %strong= @title
 
-  - series = [{ name: 'No Downloads', data: [0]*12}] if series.blank?
+      %p
+        - @year = (params[:year] || Date.today.year).to_i
+        = link_to downloads_by_month_path(year: @year - 1, user_type: params[:user_type]), class: 'btn btn-xs btn-default' do
+          %span.glyphicon.glyphicon-chevron-left
+          Previous Year
+        &nbsp;
+        = link_to downloads_by_month_path(user_type: params[:user_type]), class: 'btn btn-xs btn-default' do
+          Current Year
+        &nbsp;
+        = link_to downloads_by_month_path(year: @year + 1, user_type: params[:user_type]), class: 'btn btn-xs btn-default' do
+          Next Year
+          %span.glyphicon.glyphicon-chevron-right
+      %p
+        = link_to 'All Members', downloads_by_month_path(year: @year), class: "btn btn-xs #{ !['regular', 'core', 'aug'].include?(params[:user_type]) ? 'btn-primary' : 'btn-default'}"
+        = link_to 'Regular Members', downloads_by_month_path(year: @year, user_type: 'regular'), class: "btn btn-xs #{ params[:user_type] == 'regular' ? 'btn-primary' : 'btn-default'}"
+        = link_to 'AUG Members', downloads_by_month_path(year: @year, user_type: 'aug'), class: "btn btn-xs #{ params[:user_type] == 'aug' ? 'btn-primary' : 'btn-default'}"
+        = link_to 'Core Members', downloads_by_month_path(year: @year, user_type: 'core'), class: "btn btn-xs #{ params[:user_type] == 'core' ? 'btn-primary' : 'btn-default'}"
 
-  %hr.divider-md
+      - series = Dataset.current.order(:release_date, :name).collect do |dataset|
+        - file_sizes = (1..12).collect(&:to_f).collect do |month|
+          - dataset_file_audit_hash[[dataset.id, month]].to_i
+        - if file_sizes.sum > 0
+          - { name: dataset.name, data: file_sizes }
+        - else
+          - nil
 
-  #downloads-chart-container{ data: { series: series.to_json, categories: Date::ABBR_MONTHNAMES.last(12).to_json, title: "#{@year} Downloads", subtitle: user_type, yaxis: "File Size" } }
+      - series = series.compact
+
+      - series = [{ name: 'No Downloads', data: [0]*12}] if series.blank?
+
+      .small-spacer
+
+      #downloads-chart-container{ data: { series: series.to_json, categories: Date::ABBR_MONTHNAMES.last(12).to_json, title: "#{@year} Downloads", subtitle: user_type, yaxis: "File Size" } }

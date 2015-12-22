@@ -1,17 +1,47 @@
 - @title = @agreement.name
 
-.slim-container.dark-texture
-  %h1
-    = link_to "Reviews", reviews_path
-    %span{ style: "white-space:nowrap" }
-      &middot;
-      = @title
-  .pull-right
-    = render 'reviews/tags', agreement: @agreement
-  = link_to 'Transactions', transactions_review_path(@agreement), class: 'btn btn-default btn-xs'
-  = link_to 'Print', print_agreement_path(@agreement), class: 'btn btn-default btn-xs' if current_user.all_agreements.where(id: @agreement.id).count > 0
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = @title
+      .banner-body
+        .pull-right
+          = render 'reviews/tags', agreement: @agreement
+        = link_to reviews_path, class: 'btn btn-default btn-xs' do
+          %span.glyphicon.glyphicon-arrow-left
+          Back to Reviews
+        &nbsp;
+        = link_to transactions_review_path(@agreement), class: 'btn btn-default btn-xs' do
+          %span.glyphicon.glyphicon-th-list
+          Transactions
+        - if current_user.all_agreements.where(id: @agreement.id).count > 0
+          &nbsp;
+          = link_to print_agreement_path(@agreement), class: 'btn btn-default btn-xs' do
+            %span.glyphicon.glyphicon-print
+            Print
 
-.slim-container.math-texture
+- other_agreements = @agreement.user.agreements.where.not(id: @agreement.id).where(status: %w(submitted resubmit approved expired))
+- if other_agreements.count > 0
+  .callout.callout-danger
+    %strong
+      Attention!
+
+    %p
+      This user has
+      = other_agreements.count
+      other
+      = succeed ':' do
+        = "agreement#{'s' if other_agreements.count > 1}"
+
+    %ul.fixed-font-size
+      - other_agreements.each do |a|
+        %li
+          = link_to a.name, review_path(a), class: 'callout-link'
+          = status_helper(a)
+
+
+.content-container
   - steps = (1..5)
 
   - steps.each do |step|
@@ -27,8 +57,7 @@
 
       = render "agreements/proof/step#{step}"
 
-.slim-container.dark-texture
-
+.content-container
   .pull-right
     %p
       = render 'reviews/reviewers', agreement: @agreement
@@ -36,12 +65,9 @@
   %h2 History
 
 
-.slim-container.math-texture
-
+.content-container
   - if @agreement.agreement_events.count == 0
-
     %p.center.text-muted This Agreement Has No Events
-
   - else
     - @agreement.agreement_events.each_with_index do |agreement_event, index|
       - current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1)

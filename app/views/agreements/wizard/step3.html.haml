@@ -1,85 +1,83 @@
-.slim-container.dark-texture
-  = render 'agreements/wizard/daua_progress'
+= render 'agreements/wizard/daua_progress'
 
-.slim-container.math-texture
-  %h2.center.brand DATA ACCESS AND USE AGREEMENT
+%h2.center.brand DATA ACCESS AND USE AGREEMENT
 
-  = form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, html: { class: 'form-horizontal', id: 'update_step_form' } do |f|
-    - if @agreement.errors.any?
-      - messages = []
-      - if @agreement.errors.messages[:posting_permission] and @agreement.errors.messages[:posting_permission].size > 0
-        - messages << 'have selected a posting permission'
-      - if @agreement.errors.messages[:has_read_step3] and @agreement.errors.messages[:has_read_step3].size > 0
-        - messages << 'marked that you have read these conditions'
+= form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, html: { class: 'form-horizontal', id: 'update_step_form' } do |f|
+  - if @agreement.errors.any?
+    - messages = []
+    - if @agreement.errors.messages[:posting_permission] and @agreement.errors.messages[:posting_permission].size > 0
+      - messages << 'have selected a posting permission'
+    - if @agreement.errors.messages[:has_read_step3] and @agreement.errors.messages[:has_read_step3].size > 0
+      - messages << 'marked that you have read these conditions'
 
-      .callout.callout-danger
-        %strong
-          Errors prohibited this from being saved.
-        Please make sure you
-        = succeed '.' do
-          = messages.join(', and ')
+    .callout.callout-danger
+      %strong
+        Errors prohibited this from being saved.
+      Please make sure you
+      = succeed '.' do
+        = messages.join(', and ')
 
-    = hidden_field_tag "agreement[draft_mode]", nil
-    = hidden_field_tag "step", @step
-    = hidden_field_tag "agreement[current_step]", @step
+  = hidden_field_tag "agreement[draft_mode]", nil
+  = hidden_field_tag "step", @step
+  = hidden_field_tag "agreement[current_step]", @step
 
-    .markdown-container
-      = render 'agreements/show/step3/part1'
+  .markdown-container
+    = render 'agreements/show/step3/part1'
 
-      = render 'agreements/show/step3/part2'
+    = render 'agreements/show/step3/part2'
 
-    .row{ style: "margin-top: 20px;margin-bottom: 20px;" }
-      .col-md-10.col-md-offset-1
-        %p
-          Posting Permission (check one):
+  .row{ style: "margin-top: 20px;margin-bottom: 20px;" }
+    .col-md-10.col-md-offset-1
+      %p
+        Posting Permission (check one):
 
-        .form-group
-          .col-md-10.col-md-offset-1
-            .radio
-              %label
-                = f.radio_button :posting_permission, 'all'
-                Data User gives BWH permission to post
-                %strong Data User's name
-                and a summary of
-                %strong Data User's Specific Purpose
-                on https://sleepdata.org
-            .radio
-              %label
-                = f.radio_button :posting_permission, 'name_only'
-                Data User gives BWH permission to post
-                %strong Data User's name
-                on https://sleepdata.org
-            .radio
-              %label
-                = f.radio_button :posting_permission, 'none'
-                Data User
-                %strong does not give permission
-                to post Data User's name or a summary of Data User's Specific Purpose
-                on https://sleepdata.org
-
-    .markdown-container
-      = render 'agreements/show/step3/part3'
-
-    .well
       .form-group
-        .col-md-offset-3.col-md-9
-          .checkbox
+        .col-md-10.col-md-offset-1
+          .radio
             %label
-              = f.check_box :has_read_step3
-              I have read and fully understand and accept the above terms and conditions.
+              = f.radio_button :posting_permission, 'all'
+              Data User gives BWH permission to post
+              %strong Data User's name
+              and a summary of
+              %strong Data User's Specific Purpose
+              on https://sleepdata.org
+          .radio
+            %label
+              = f.radio_button :posting_permission, 'name_only'
+              Data User gives BWH permission to post
+              %strong Data User's name
+              on https://sleepdata.org
+          .radio
+            %label
+              = f.radio_button :posting_permission, 'none'
+              Data User
+              %strong does not give permission
+              to post Data User's name or a summary of Data User's Specific Purpose
+              on https://sleepdata.org
 
-    .row
-      .col-sm-4
-        = link_to step_agreement_path(@agreement, step: @step-1), class: 'btn btn-lg btn-default btn-block' do
-          %span.glyphicon.glyphicon-arrow-left
-          Back to Previous Step
-      .col-sm-4
-        = link_to '#', data: { object: 'submit-draft', target: '#update_step_form' }, class: 'btn btn-lg btn-warning btn-block' do
-          %span.glyphicon.glyphicon-floppy-disk
-          Save Draft
-      .col-sm-4
-        = link_to '#', data: { object: 'submit', target: '#update_step_form' }, class: 'btn btn-lg btn-primary btn-block' do
-          %span.glyphicon.glyphicon-floppy-disk
-          Save and Continue
+  .markdown-container
+    = render 'agreements/show/step3/part3'
 
-  - @footer_img = 'footer.jpg'
+  .well
+    .form-group
+      .col-md-offset-3.col-md-9
+        .checkbox
+          %label
+            = f.check_box :has_read_step3
+            I have read and fully understand and accept the above terms and conditions.
+
+  .small-spacer
+
+  .row
+    .col-sm-4
+      = link_to step_agreement_path(@agreement, step: @step-1), class: 'btn btn-lg btn-default btn-block' do
+        %span.glyphicon.glyphicon-arrow-left
+        Back to Previous Step
+    .col-sm-4
+      = link_to '#', data: { object: 'submit-draft', target: '#update_step_form' }, class: 'btn btn-lg btn-warning btn-block' do
+        %span.glyphicon.glyphicon-floppy-disk
+        Save Draft
+    .col-sm-4
+      = link_to '#', data: { object: 'submit', target: '#update_step_form' }, class: 'btn btn-lg btn-primary btn-block' do
+        %span.glyphicon.glyphicon-floppy-disk
+        Save and Continue
