@@ -1,18 +1,15 @@
 - content_for :banner do
-  .call-to-action{ style: 'background-color: #333' }
-    .call-to-action-body Participate in the
-    .call-to-action-header.brand
-      Flow Limitation Challenge - Part 2
-    .call-to-action-body
-      Non-Invasive Identification of Inspiratory Flow Limitation in Sleep
-      Studies
+  .banner
+    .container
+      .banner-body.center Participate in the
+      .banner-header.brand.center
+        Flow Limitation Challenge - Part 2
+      .banner-body.center
+        Non-Invasive Identification of Inspiratory Flow Limitation in Sleep
+        Studies
+      .banner-body.center
+        = image_tag 'flow-limitation-logo.png'
 
-    .call-to-action-body
-      .logo-middle
-        = image_tag 'flow-limitation-logo.png', class: 'img-white-background'
-
-
-%a.anchor-top{ name: 'about-the-challenge' }
 .content-container
 
   %h2

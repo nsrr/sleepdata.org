@@ -44,7 +44,7 @@
       .small-spacer
       .center
         = link_to 'Audits', audits_dataset_path(@object), class: 'btn btn-xs btn-default'
-        = link_to 'Requests', requests_dataset_path(@object), class: 'btn btn-xs btn-default'
+        = link_to 'Collaborators', collaborators_dataset_path(@object), class: 'btn btn-xs btn-default'
         = link_to 'Sync', sync_dataset_path(@object), class: 'btn btn-xs btn-default'
     - elsif @object.is_a? Tool
       .small-spacer

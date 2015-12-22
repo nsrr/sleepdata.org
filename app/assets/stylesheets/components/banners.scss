@@ -2,6 +2,11 @@
   background-color: $brand-black;
   color: $brand-white;
   padding-top: 20px;
+
+  img {
+    height: auto;
+    max-width: 100%;
+  }
 }
 
 .banner-header {

@@ -73,6 +73,20 @@ namespace :challenges do
     puts "\nExport Complete - #{fl_csv}"
   end
 
+  desc 'Create Flow Limitation Challenge'
+  task create_flow_limitation_challenge: :environment do
+    challenge = Challenge
+                .where(slug: 'flow-limitation')
+                .first_or_create(name: 'Flow Limitation', user_id: 1)
+    challenge.signal_map.each_with_index do |letters, index|
+      letters.each do |letter|
+        number = format('%02d', index + 1)
+        name = "signal#{number}#{letter.downcase}"
+        challenge.questions.where(name: name).first_or_create
+      end
+    end
+  end
+
   desc 'Create Flow Limitation Challenge 2'
   task create_flow_limitation_challenge_2: :environment do
     challenge = Challenge

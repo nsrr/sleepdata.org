@@ -2,8 +2,8 @@ module Pageable
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_object,                only: [:show, :pages, :images, :requests, :pull_changes, :sync]
-    before_action :redirect_without_object,   only: [:show, :pages, :images, :requests, :pull_changes, :sync]
+    before_action :set_object,                only: [:show, :pages, :images, :collaborators, :requests, :pull_changes, :sync]
+    before_action :redirect_without_object,   only: [:show, :pages, :images, :collaborators, :requests, :pull_changes, :sync]
     before_action :set_page_path,             only: [:show, :pages]
   end
 

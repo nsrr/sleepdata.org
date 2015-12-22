@@ -152,9 +152,9 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_equal File.read(assigns(:dataset).find_file('PUBLIC_FILE.txt')), response.body
   end
 
-  test 'should show requests to editor' do
+  test 'should show collaborators to editor' do
     login(users(:editor))
-    get :requests, id: @dataset
+    get :collaborators, id: @dataset
     assert_response :success
   end
 
@@ -591,7 +591,7 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_equal 'editor', assigns(:dataset_user).role
     assert_equal users(:aug), assigns(:dataset_user).user
 
-    assert_redirected_to requests_dataset_path(assigns(:dataset), dataset_user_id: assigns(:dataset_user).id)
+    assert_redirected_to collaborators_dataset_path(assigns(:dataset), dataset_user_id: assigns(:dataset_user).id)
   end
 
   test 'should find existing access when creating access request to dataset' do
@@ -605,6 +605,6 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_equal false, assigns(:dataset_user).editor
     assert_equal users(:two), assigns(:dataset_user).user
 
-    assert_redirected_to requests_dataset_path(assigns(:dataset), dataset_user_id: assigns(:dataset_user).id)
+    assert_redirected_to collaborators_dataset_path(assigns(:dataset), dataset_user_id: assigns(:dataset_user).id)
   end
 end

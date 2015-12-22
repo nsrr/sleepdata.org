@@ -1,10 +1,10 @@
 class DatasetsController < ApplicationController
   before_action :authenticate_user_from_token!, only: [:json_manifest, :manifest, :files, :upload_graph, :refresh_dictionary, :upload_dataset_csv, :editor, :index, :show]
-  before_action :authenticate_user!,        only: [:new, :edit, :create, :update, :destroy, :audits, :requests, :create_access, :remove_access, :pull_changes, :sync, :set_public_file, :reset_index]
+  before_action :authenticate_user!,        only: [:new, :edit, :create, :update, :destroy, :audits, :collaborators, :create_access, :remove_access, :pull_changes, :sync, :set_public_file, :reset_index]
   before_action :check_system_admin,        only: [:new, :create, :destroy]
   before_action :set_viewable_dataset,      only: [:show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :search, :editor]
-  before_action :set_editable_dataset,      only: [:edit, :update, :destroy, :audits, :requests, :create_access, :remove_access, :pull_changes, :sync, :set_public_file, :reset_index, :upload_graph, :refresh_dictionary, :upload_dataset_csv]
-  before_action :redirect_without_dataset,  only: [:show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :create_access, :remove_access, :search, :edit, :update, :destroy, :audits, :requests, :pull_changes, :sync, :set_public_file, :reset_index, :upload_graph, :refresh_dictionary, :upload_dataset_csv, :editor]
+  before_action :set_editable_dataset,      only: [:edit, :update, :destroy, :audits, :collaborators, :create_access, :remove_access, :pull_changes, :sync, :set_public_file, :reset_index, :upload_graph, :refresh_dictionary, :upload_dataset_csv]
+  before_action :redirect_without_dataset,  only: [:show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :create_access, :remove_access, :search, :edit, :update, :destroy, :audits, :collaborators, :pull_changes, :sync, :set_public_file, :reset_index, :upload_graph, :refresh_dictionary, :upload_dataset_csv, :editor]
 
   skip_before_action :verify_authenticity_token, only: [:upload_graph, :upload_dataset_csv]
 
@@ -116,9 +116,9 @@ class DatasetsController < ApplicationController
 
     if user = User.current.find_by_email(user_email.split('[').last.to_s.split(']').first)
       @dataset_user = @dataset.dataset_users.where( user_id: user.id, role: params[:role] ).first_or_create
-      redirect_to requests_dataset_path(@dataset, dataset_user_id: @dataset_user ? @dataset_user.id : nil)
+      redirect_to collaborators_dataset_path(@dataset, dataset_user_id: @dataset_user ? @dataset_user.id : nil)
     else
-      redirect_to requests_dataset_path(@dataset), alert: "User '<code>#{user_email}</code>' was not found."
+      redirect_to collaborators_dataset_path(@dataset), alert: "User '<code>#{user_email}</code>' was not found."
     end
   end
 
@@ -126,7 +126,7 @@ class DatasetsController < ApplicationController
     if @dataset_user = @dataset.dataset_users.find_by_id(params[:dataset_user_id])
       @dataset_user.destroy
     end
-    redirect_to requests_dataset_path(@dataset)
+    redirect_to collaborators_dataset_path(@dataset)
   end
 
   # GET /datasets/1/file_audits

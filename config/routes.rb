@@ -46,17 +46,13 @@ Rails.application.routes.draw do
     end
   end
 
-  scope module: 'challenges' do
-    get 'challenges/flow-limitation/submitted', action: 'submitted', as: :flow_limitation_challenge_submitted
-  end
-
   resources :datasets do
     member do
       get :sync
       get :logo
       get :audits
       get :request_access
-      get :requests
+      get :collaborators
       post :create_access
       post :remove_access
       patch :set_access
