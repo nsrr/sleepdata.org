@@ -53,7 +53,7 @@
                   - a.value_before = Dataset.where(id: a.value_before.to_s.split(/[\[\],]/)).pluck(:slug).sort
                   - a.value_after = Dataset.where(id: a.value_after.to_s.split(/[\[\],]/)).pluck(:slug).sort
                 %tr
-                  %td{ style: "white-space:nowrap" }
+                  %td.nowrap
                     = a.agreement_attribute_name
                   %td{ class: "#{'text-muted' if a.value_before == nil or a.value_before == ''}" }
                     - if a.value_before == nil

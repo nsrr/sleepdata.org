@@ -22,8 +22,8 @@
         prohibited this request from being processed
 
       %ul
-        - @hosting_request.errors.full_messages.each do |msg|
-          %li= msg
+        - @hosting_request.errors.full_messages.each do |message|
+          %li= message
 
   %h2 Account Information
 
@@ -54,8 +54,8 @@
           prohibited this registration from being saved
 
         %ul
-          - @errors.full_messages.each do |msg|
-            %li= msg
+          - @errors.full_messages.each do |message|
+            %li= message
 
     .form-group
       .col-md-offset-2.col-md-10

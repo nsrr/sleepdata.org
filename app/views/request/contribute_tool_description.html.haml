@@ -13,8 +13,8 @@
           prohibited this tool from being submitted
 
         %ul
-          - @community_tool.errors.full_messages.each do |msg|
-            %li= msg
+          - @community_tool.errors.full_messages.each do |message|
+            %li= message
 
     = hidden_field_tag :draft, 0
 

@@ -14,7 +14,7 @@
 
 .content-container
   .table-responsive
-    %table.table.table-striped.fixed-font-size
+    %table.table.table-striped
       %thead
         %tr
           %th File Path
@@ -89,7 +89,7 @@
   %h2 Page Views
 
   - @page_views = @dataset.dataset_page_audits.group_by(&:page_path).collect{|page_path, audits| [page_path, audits.count]}.sort{|a,b| b[1] <=> a[1]}
-  %table.table.table-striped.fixed-font-size
+  %table.table.table-striped
     %thead
       %tr
         %th Page Path

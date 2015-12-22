@@ -16,10 +16,10 @@
         .form-group
           .callout.callout-danger
             %ul.list-unstyled
-              - @registration_errors.full_messages.each do |msg|
+              - @registration_errors.full_messages.each do |message|
                 %li
                   = succeed '.' do
-                    = msg
+                    = message
 
       .form-group
         = label_tag :user_first_name, 'First Name', class: 'control-label'

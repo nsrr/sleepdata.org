@@ -34,7 +34,7 @@
       = succeed ':' do
         = "agreement#{'s' if other_agreements.count > 1}"
 
-    %ul.fixed-font-size
+    %ul
       - other_agreements.each do |a|
         %li
           = link_to a.name, review_path(a), class: 'callout-link'

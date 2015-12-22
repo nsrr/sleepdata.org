@@ -2,12 +2,12 @@
   - if @tag.errors.any?
     .callout.callout-danger
       %strong
-        = pluralize(@tag.errors.count, "error")
+        = pluralize @tag.errors.count, 'error'
         prohibited this tag from being saved
 
-      %ul.fixed-font-size
-        - @tag.errors.full_messages.each do |msg|
-          %li= msg
+      %ul
+        - @tag.errors.full_messages.each do |message|
+          %li= message
 
   .form-group
     = f.label :name, nil, class: 'col-md-2 control-label'

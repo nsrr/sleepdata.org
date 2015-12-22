@@ -21,8 +21,7 @@
 %div{ style: 'margin-bottom:20px;margin-top:-20px' }
   = render partial: 'variables/per_page', locals: { per_page: Comment::COMMENTS_PER_PAGE, object_count: @comments.total_count }
 
-- @background_class = 'math-texture'
-.posts-container.math-texture
+.posts-container
   - @comments.each_with_index do |comment, index|
     - current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1)
     - current_index = ((current_page - 1) * Comment::COMMENTS_PER_PAGE) + index + 1
@@ -78,8 +77,8 @@
           = pluralize @comment.errors.count, 'error'
           prohibited this comment from being saved
           %ul
-            - @comment.errors.full_messages.each do |msg|
-              %li= msg
+            - @comment.errors.full_messages.each do |message|
+              %li= message
 
       .post-avatar
         = render partial: 'topics/forum_gravatar', locals: { user: current_user, icon: 'identicon' }

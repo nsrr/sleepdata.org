@@ -20,8 +20,8 @@
           prevented your password from being changed
 
         %ul
-          - resource.errors.full_messages.each do |msg|
-            %li= msg
+          - resource.errors.full_messages.each do |message|
+            %li= message
 
     = f.hidden_field :reset_password_token
 

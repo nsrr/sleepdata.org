@@ -6,8 +6,8 @@
         prohibited this challenge from being saved
 
       %ul
-        - @challenge.errors.full_messages.each do |msg|
-          %li= msg
+        - @challenge.errors.full_messages.each do |message|
+          %li= message
 
   .form-group
     = f.label :name, nil, class: 'col-md-2 control-label'

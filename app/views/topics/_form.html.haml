@@ -2,12 +2,12 @@
   - if @topic.errors.any?
     .callout.callout-danger
       %strong
-        = pluralize(@topic.errors.count, "error")
+        = pluralize @topic.errors.count, 'error'
         prohibited this topic from being saved
 
-      %ul.fixed-font-size
-        - @topic.errors.full_messages.each do |msg|
-          %li= msg
+      %ul
+        - @topic.errors.full_messages.each do |message|
+          %li= message
 
   .form-group
     = f.label :name, 'Topic Title', class: 'col-md-2 control-label'
@@ -37,7 +37,7 @@
             .col-xs-6.col-sm-4.col-md-3.col-lg-2
               %label.checkbox.tag-checkbox{ class: "#{'tag-selected' if @topic.tags.include?(tag)}", style: "margin-bottom: 10px;background-color: #{tag.color}" }
                 = check_box_tag "topic[tag_ids][]", tag.id, @topic.tags.include?(tag)
-                .tag-name{ style: "overflow:hidden;white-space:nowrap" }
+                .tag-name.nowrap{ style: 'overflow: hidden;' }
                   = tag.name
 
   .form-group

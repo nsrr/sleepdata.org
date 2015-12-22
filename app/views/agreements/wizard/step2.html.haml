@@ -6,12 +6,12 @@
   - if @agreement.errors.any?
     .callout.callout-danger
       %strong
-        = pluralize(@agreement.errors.count, "error")
+        = pluralize @agreement.errors.count, 'error'
         prohibited this step from being saved
 
-      %ul.fixed-font-size
-        - @agreement.errors.full_messages.each do |msg|
-          %li= msg
+      %ul
+        - @agreement.errors.full_messages.each do |message|
+          %li= message
 
   = hidden_field_tag "agreement[draft_mode]", nil
   = hidden_field_tag "step", @step
@@ -50,7 +50,7 @@
             .col-xs-6.col-sm-4.col-md-3
               .panel{ class: "#{dataset_included ? 'panel-success' : 'panel-default'}", data: { object: "select_checkbox_panel", target: "#agreement_dataset_ids_#{dataset.id}" } }
                 .panel-heading{ style: "overflow:hidden" }
-                  %h3.panel-title{ style: "white-space:nowrap" }
+                  %h3.panel-title.nowrap
                     = check_box_tag "agreement[dataset_ids][]", dataset.id, dataset_included, id: "agreement_dataset_ids_#{dataset.id}"
                     = dataset.name
                 .panel-body
@@ -98,7 +98,7 @@
         .callout.callout-info
           %strong Don't have Human Subjects Protections Training?
           You may sign up and complete a course at these links:
-          %ul.fixed-font-size
+          %ul
             %li= link_to 'http://www.hrsa.gov/publichealth/clinical/HumanSubjects/', 'http://www.hrsa.gov/publichealth/clinical/HumanSubjects/'
             %li= link_to 'http://grants.nih.gov/grants/policy/hs/training.htm', 'http://grants.nih.gov/grants/policy/hs/training.htm'
             %li= link_to 'http://irtsectraining.nih.gov/publicUser0.aspx', 'http://irtsectraining.nih.gov/publicUser0.aspx'

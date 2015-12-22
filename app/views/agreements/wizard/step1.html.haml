@@ -11,9 +11,9 @@
         = pluralize @agreement.errors.count, 'error'
         prohibited this step from being saved
 
-      %ul.fixed-font-size
-        - @agreement.errors.full_messages.each do |msg|
-          %li= msg
+      %ul
+        - @agreement.errors.full_messages.each do |message|
+          %li= message
 
   = hidden_field_tag 'agreement[draft_mode]', nil
   = hidden_field_tag 'step', @step

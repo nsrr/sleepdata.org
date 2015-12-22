@@ -2,6 +2,6 @@
   = link_to "##{@comment.number}", "#{ENV['website_url']}/forum/#{@comment.topic.to_param}/comments/#{@comment.id}", style: 'color: #428bca;'
 %td{ style: 'padding-right:10px;vertical-align:top' }
   = strip_tags(simple_markdown @comment.description).truncate(100, separator: ' ').html_safe
-%td{ style: 'padding-right:10px;white-space:nowrap;text-align:right;vertical-align:top' }
+%td.text-right.nowrap{ style: 'padding-right:10px;vertical-align:top' }
   = @comment.user.forum_name
   = image_tag "http:#{@comment.user.avatar_url(16, 'identicon')}", size: '16x16', alt: '', style: 'vertical-align: middle;margin-top:-1px;margin-bottom:-1px'

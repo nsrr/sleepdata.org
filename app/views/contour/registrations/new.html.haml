@@ -12,12 +12,12 @@
     - if resource.errors.any?
       .callout.callout-danger
         %strong
-          = pluralize(resource.errors.count, "error")
+          = pluralize resource.errors.count, 'error'
           prohibited this registration from being saved
 
         %ul
-          - resource.errors.full_messages.each do |msg|
-            %li= msg
+          - resource.errors.full_messages.each do |message|
+            %li= message
 
     .form-group
       = f.label :first_name, class: 'control-label'

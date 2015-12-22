@@ -6,8 +6,8 @@
         prohibited this dataset from being saved
 
       %ul
-        - @dataset.errors.full_messages.each do |msg|
-          %li= msg
+        - @dataset.errors.full_messages.each do |message|
+          %li= message
 
   .form-group
     = f.label :name, nil, class: 'col-md-2 control-label'
@@ -26,7 +26,7 @@
       .callout.callout-info
         %strong Naming convention
 
-        %ul.fixed-font-size
+        %ul
           %li
             Must be a lowercase letter
             %code a-z
@@ -39,7 +39,7 @@
             or dashes
             = succeed '.' do
               %code -
-        %p.fixed-font-size
+        %p
           Ex:
           %code abc123-trial
 
@@ -86,9 +86,9 @@
       = f.text_field :git_repository, class: 'form-control'
       .callout.callout-info
         %strong Repository must be Public
-        %ul.fixed-font-size
+        %ul
           %li The repository must be publicly accessible.
-        %p.fixed-font-size
+        %p
           Ex:
           %code https://github.com/&lt;repository-name&gt;.git
 
@@ -98,9 +98,9 @@
       = f.text_field :data_dictionary_repository, class: 'form-control'
       .callout.callout-info
         %strong Repository must be Public
-        %ul.fixed-font-size
+        %ul
           %li The repository must be publicly accessible.
-        %p.fixed-font-size
+        %p
           Ex:
           %code https://github.com/&lt;repository-name&gt;.git
 

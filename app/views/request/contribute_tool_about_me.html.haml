@@ -16,10 +16,10 @@
         .form-group
           .callout.callout-danger
             %ul.list-unstyled
-              - @registration_errors.full_messages.each do |msg|
+              - @registration_errors.full_messages.each do |message|
                 %li
                   = succeed '.' do
-                    = msg
+                    = message
             / Please enter all fields.
 
       .form-group

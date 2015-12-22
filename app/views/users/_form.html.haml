@@ -2,12 +2,12 @@
   - if @user.errors.any?
     .callout.callout-danger
       %strong
-        = pluralize(@user.errors.count, "error")
+        = pluralize @user.errors.count, 'error'
         prohibited this user from being saved
-      %ul.fixed-font-size
-        - @user.errors.full_messages.each do |msg|
+      %ul
+        - @user.errors.full_messages.each do |message|
           %li
-            = msg
+            = message
 
   .form-group
     = f.label :first_name, nil, class: 'col-md-2 control-label'

@@ -13,7 +13,7 @@ The following agreements are awaiting your review. Please click on each and then
       %tr{ style: 'text-align:left' }
         %th{ colspan: 2, style: 'padding-bottom:10px;font-weight:normal' }
           %span{ style: 'padding:5px;background-color:#428bca;color:white' } Agreements
-        %th{ style: 'text-align:right' } Last Submitted
+        %th.text-right Last Submitted
     - @user.digest_reviews.each_with_index do |review, index|
       %tbody{ style: "#{'background-color: #fbfbfb' if index % 2 == 0}" }
         %tr
@@ -21,7 +21,7 @@ The following agreements are awaiting your review. Please click on each and then
         %tr
           %td{ colspan: 2, style: 'text-align:left;padding-top:10px;padding-right:20px;padding-bottom:10px;' }
             %b= link_to review.agreement.name_with_id, "#{ENV['website_url']}/reviews/#{review.agreement.to_param}", style: 'color: #428bca;'
-          %td{ style: 'text-align:right' }= review.agreement.last_submitted_at.strftime('%-d %B %Y') if review.agreement.last_submitted_at
+          %td.text-right= review.agreement.last_submitted_at.strftime('%-d %B %Y') if review.agreement.last_submitted_at
         %tr
           %td{ colspan: 3, style: 'padding-bottom:10px' }
         %tr

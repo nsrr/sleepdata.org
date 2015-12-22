@@ -3,21 +3,21 @@
   %dd= @agreement.title_of_project
 
   %dt Specific Purpose
-  %dd.fixed-font-size
+  %dd
     = simple_format @agreement.specific_purpose
 
   %dt Datasets
   %dd
-    %ul.list-unstyled.fixed-font-size
+    %ul.list-unstyled
       - @agreement.datasets.each do |dataset|
         %li= dataset.name
 
   %dt Intended Use of Data
-  %dd.fixed-font-size
+  %dd
     = simple_format @agreement.intended_use_of_data
 
   %dt Please describe where data will be stored and secured
-  %dd.fixed-font-size
+  %dd
     = simple_format @agreement.data_secured_location
 
   %dt Secure Password Protected Device

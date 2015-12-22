@@ -6,8 +6,8 @@
         prohibited this agreement from being saved
 
       %ul
-        - @agreement.errors.full_messages.each do |msg|
-          %li= msg
+        - @agreement.errors.full_messages.each do |message|
+          %li= message
 
   = hidden_field_tag "agreement[current_step]", 0
 
@@ -53,8 +53,8 @@
       .callout.callout-warning
         %strong Comments are emailed to user
 
-        %p.fixed-font-size Please specify why the DAUA needs to be resubmitted.
-        %p.fixed-font-size
+        %p Please specify why the DAUA needs to be resubmitted.
+        %p
           Comments are
           %strong required
           if the agreement is

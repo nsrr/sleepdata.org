@@ -9,7 +9,7 @@
       .col-xs-6.col-sm-4.col-md-3
         .panel{ class: "#{dataset_included ? 'panel-success' : 'panel-default'}", data: { object: "select_checkbox_panel", target: "#agreement_dataset_ids_#{dataset.id}" } }
           .panel-heading{ style: "overflow:hidden" }
-            %h3.panel-title{ style: "white-space:nowrap" }
+            %h3.panel-title.nowrap
               = check_box_tag "agreement[dataset_ids][]", dataset.id, dataset_included, id: "agreement_dataset_ids_#{dataset.id}"
               = dataset.name
           .panel-body

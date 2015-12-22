@@ -1,4 +1,4 @@
-%ul.fixed-font-size.nav.nav-tabs
+%ul.nav.nav-tabs
   %li.active
     %a{ href: "#edit-#{agreement_event_id}", data: { toggle: "tab" } }
       = @agreement_event.new_record? ? 'Write' : 'Edit'
@@ -61,7 +61,7 @@
                 .col-xs-6.col-sm-4.col-md-3.col-lg-2
                   %label.checkbox.tag-checkbox{ class: "#{'tag-selected' if @agreement.tags.include?(tag)}", style: "margin-bottom: 10px;background-color:#{tag.color}" }
                     = check_box_tag "agreement[tag_ids][]", tag.id, @agreement.tags.include?(tag)
-                    .tag-name{ style: "overflow:hidden;white-space:nowrap" }
+                    .tag-name.nowrap{ style: 'overflow: hidden;' }
                       = tag.name
         .form-group
           .col-xs-12
