@@ -16,4 +16,7 @@ class InternalController < ApplicationController
 
   def profile
   end
+
+  def token
+  end
 end

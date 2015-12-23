@@ -4,6 +4,10 @@ class ExternalController < ApplicationController
     @users = User.core_members.order(:last_name, :first_name)
   end
 
+  def aug
+    @users = User.aug_members.order(:last_name, :first_name)
+  end
+
   def contact
   end
 

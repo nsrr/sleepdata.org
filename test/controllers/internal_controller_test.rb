@@ -34,4 +34,10 @@ class InternalControllerTest < ActionController::TestCase
     get :profile
     assert_response :success
   end
+
+  test 'should get token' do
+    login(users(:valid))
+    get :token
+    assert_response :success
+  end
 end

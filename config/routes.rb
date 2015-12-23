@@ -126,12 +126,14 @@ Rails.application.routes.draw do
     # TODO ENABLE THESE
     # get :settings
     # get :tools
+    get :token
   end
 
   scope module: :external do
     # TODO ENABLE THESE
     get :about
-    # get :contact
+    get :aug, path: 'about/academic-user-group'
+    get :contact
     get :landing
     get :sitemap
     post :preview
@@ -206,15 +208,11 @@ Rails.application.routes.draw do
   resources :users
 
   # TODO: Move these to modules
-  get 'welcome/index'
-  get '/about/aug' => 'welcome#aug', as: :aug
-  get '/contact' => 'welcome#contact', as: :contact
   get '/sync' => 'welcome#sync', as: :sync
   get '/stats' => 'welcome#stats', as: :stats
   get '/downloads_by_month' => 'welcome#downloads_by_month', as: :downloads_by_month
   get '/agreement_reports' => 'welcome#agreement_reports', as: :agreement_reports
   get '/location' => 'welcome#location', as: :location
-  get '/token' => 'welcome#token', as: :token
 
   get '/dua' => 'internal#submissions'
   get '/daua' => 'internal#submissions'

@@ -25,16 +25,4 @@ class WelcomeControllerTest < ActionController::TestCase
     get :agreement_reports
     assert_redirected_to new_user_session_path
   end
-
-  test 'should get aug' do
-    get :aug
-    assert_not_nil assigns(:users)
-    assert_equal 1, assigns(:users).count
-    assert_response :success
-  end
-
-  test 'should get contact' do
-    get :contact
-    assert_response :success
-  end
 end
