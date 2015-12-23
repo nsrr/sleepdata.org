@@ -23,7 +23,7 @@ var UNDEFINED,
 	Series = Highcharts.Series,
 	SVGRenderer = Highcharts.SVGRenderer,
 	VMLRenderer = Highcharts.VMLRenderer,
-	
+
 	addEvent = Highcharts.addEvent,
 	each = Highcharts.each,
 	error = Highcharts.error,
@@ -94,7 +94,7 @@ wrap(Axis.prototype, 'setAxisTranslation', function (proceed) {
 		fixDiff,
 		preserveAspectRatio;
 
-	
+
 	// Run the parent method
 	proceed.call(this);
 
@@ -106,15 +106,15 @@ wrap(Axis.prototype, 'setAxisTranslation', function (proceed) {
 			}
 		});
 	}
-	
+
 	// On Y axis, handle both
 	if (preserveAspectRatio) {
-		
+
 		// Use the same translation for both axes
 		this.transA = xAxis.transA = Math.min(this.transA, xAxis.transA);
-		
+
 		mapRatio = plotRatio / ((xAxis.max - xAxis.min) / (this.max - this.min));
-		
+
 		// What axis to pad to put the map in the middle
 		padAxis = mapRatio < 1 ? this : xAxis;
 
@@ -209,7 +209,7 @@ extend(ColorAxis.prototype, {
 
 	/*
 	 * Return an intermediate color between two colors, according to pos where 0
-	 * is the from color and 1 is the to color. 
+	 * is the from color and 1 is the to color.
 	 * NOTE: Changes here should be copied
 	 * to the same function in drilldown.src.js and solid-gauge-src.js.
 	 */
@@ -228,10 +228,10 @@ extend(ColorAxis.prototype, {
 			from = from.rgba;
 			to = to.rgba;
 			hasAlpha = (to[3] !== 1 || from[3] !== 1);
-			ret = (hasAlpha ? 'rgba(' : 'rgb(') + 
-				Math.round(to[0] + (from[0] - to[0]) * (1 - pos)) + ',' + 
-				Math.round(to[1] + (from[1] - to[1]) * (1 - pos)) + ',' + 
-				Math.round(to[2] + (from[2] - to[2]) * (1 - pos)) + 
+			ret = (hasAlpha ? 'rgba(' : 'rgb(') +
+				Math.round(to[0] + (from[0] - to[0]) * (1 - pos)) + ',' +
+				Math.round(to[1] + (from[1] - to[1]) * (1 - pos)) + ',' +
+				Math.round(to[2] + (from[2] - to[2]) * (1 - pos)) +
 				(hasAlpha ? (',' + (to[3] + (from[3] - to[3]) * (1 - pos))) : '') + ')';
 		}
 		return ret;
@@ -262,8 +262,8 @@ extend(ColorAxis.prototype, {
 					}
 				} else {
 					dataClass.color = axis.tweenColors(
-						Color(options.minColor), 
-						Color(options.maxColor), 
+						Color(options.minColor),
+						Color(options.maxColor),
 						len < 2 ? 0.5 : i / (len - 1) // #3219
 					);
 				}
@@ -313,7 +313,7 @@ extend(ColorAxis.prototype, {
 		}
 	},
 
-	/** 
+	/**
 	 * Translate from a value to a color
 	 */
 	toColor: function (value, point) {
@@ -338,7 +338,7 @@ extend(ColorAxis.prototype, {
 						point.dataClass = i;
 					}
 					break;
-				}	
+				}
 			}
 
 		} else {
@@ -360,7 +360,7 @@ extend(ColorAxis.prototype, {
 			pos = 1 - (to[0] - pos) / ((to[0] - from[0]) || 1);
 
 			color = this.tweenColors(
-				from.color, 
+				from.color,
 				to.color,
 				pos
 			);
@@ -374,7 +374,7 @@ extend(ColorAxis.prototype, {
 	getOffset: function () {
 		var group = this.legendGroup,
 			sideOffset = this.chart.axisOffset[this.side];
-		
+
 		if (group) {
 
 			// Hook for the getOffset method to add groups to this parent group
@@ -465,7 +465,7 @@ extend(ColorAxis.prototype, {
 			crossPos,
 			axisPos = this.pos,
 			axisLen = this.len;
-		
+
 		if (point) {
 			crossPos = this.toPixels(point[point.series.colorKey]);
 			if (crossPos < axisPos) {
@@ -473,13 +473,13 @@ extend(ColorAxis.prototype, {
 			} else if (crossPos > axisPos + axisLen) {
 				crossPos = axisPos + axisLen + 2;
 			}
-			
+
 			point.plotX = crossPos;
 			point.plotY = this.len - crossPos;
 			Axis.prototype.drawCrosshair.call(this, e, point);
 			point.plotX = plotX;
 			point.plotY = plotY;
-			
+
 			if (this.cross) {
 				this.cross
 					.attr({
@@ -491,8 +491,8 @@ extend(ColorAxis.prototype, {
 	},
 	getPlotLinePath: function (a, b, c, d, pos) {
 		if (typeof pos === 'number') { // crosshairs only // #3969 pos can be 0 !!
-			return this.horiz ? 
-				['M', pos - 4, this.top - 6, 'L', pos + 4, this.top - 6, pos, this.top, 'Z'] : 
+			return this.horiz ?
+				['M', pos - 4, this.top - 6, 'L', pos + 4, this.top - 6, pos, this.top, 'Z'] :
 				['M', this.left, pos, 'L', this.left - 6, pos + 6, this.left - 6, pos - 6, 'Z'];
 		} else {
 			return Axis.prototype.getPlotLinePath.call(this, a, b, c, d);
@@ -513,11 +513,11 @@ extend(ColorAxis.prototype, {
 				if (item.isDataClass) {
 					item.legendGroup.destroy();
 				}
-			});			
+			});
 			chart.isDirtyLegend = true;
 		}
 
-		// Keep the options structure updated for export. Unlike xAxis and yAxis, the colorAxis is 
+		// Keep the options structure updated for export. Unlike xAxis and yAxis, the colorAxis is
 		// not an array. (#3207)
 		chart.options[this.coll] = merge(this.userOptions, newOptions);
 
@@ -545,7 +545,7 @@ extend(ColorAxis.prototype, {
 				var vis = true,
 					from = dataClass.from,
 					to = dataClass.to;
-				
+
 				// Assemble the default name. This can be overridden by legend.options.labelFormatter
 				name = '';
 				if (from === UNDEFINED) {
@@ -562,7 +562,7 @@ extend(ColorAxis.prototype, {
 				if (to !== UNDEFINED) {
 					name += Highcharts.numberFormat(to, valueDecimals) + valueSuffix;
 				}
-				
+
 				// Add a mock object to the legend items
 				legendItems.push(extend({
 					chart: chart,
@@ -581,7 +581,7 @@ extend(ColorAxis.prototype, {
 								}
 							});
 						});
-						
+
 						chart.legend.colorizeItem(this, vis);
 					}
 				}, dataClass));
@@ -619,7 +619,7 @@ wrap(Chart.prototype, 'getAxes', function (proceed) {
 
 
 /**
- * Wrap the legend getAllItems method to add the color axis. This also removes the 
+ * Wrap the legend getAllItems method to add the color axis. This also removes the
  * axis' own series to prevent them from showing up individually.
  */
 wrap(Legend.prototype, 'getAllItems', function (proceed) {
@@ -678,7 +678,7 @@ var colorSeriesMixin = {
 	getSymbol: noop,
 	parallelArrays: ['x', 'y', 'value'],
 	colorKey: 'value',
-	
+
 	/**
 	 * In choropleth maps, the color is a result of the value, so this needs translation too
 	 */
@@ -692,7 +692,7 @@ var colorSeriesMixin = {
 			var value = point[colorKey],
 				color;
 
-			color = point.options.color || 
+			color = point.options.color ||
 				(value === null ? nullColor : (colorAxis && value !== undefined) ? colorAxis.toColor(value, point) : point.color || series.color);
 
 			if (color) {
@@ -736,14 +736,14 @@ extend(Chart.prototype, {
 					attr.style = merge(buttonOptions.theme.style, buttonOptions.style); // #3203
 					states = attr.states;
 					button = chart.renderer.button(
-							buttonOptions.text, 
-							0, 
-							0, 
-							outerHandler, 
-							attr, 
+							buttonOptions.text,
+							0,
+							0,
+							outerHandler,
+							attr,
 							states && states.hover,
-							states && states.select, 
-							0, 
+							states && states.select,
+							0,
 							n === 'zoomIn' ? 'topbutton' : 'bottombutton'
 						)
 						.attr({
@@ -751,7 +751,7 @@ extend(Chart.prototype, {
 							height: buttonOptions.height,
 							title: chart.options.lang[n],
 							zIndex: 5
-						})					
+						})
 						.add();
 					button.handler = buttonOptions.onclick;
 					button.align(extend(buttonOptions, { width: button.width, height: 2 * button.height }), null, buttonOptions.alignTo);
@@ -786,7 +786,7 @@ extend(Chart.prototype, {
 				inner[pos] = outer[pos];
 			}
 		});
-		
+
 
 		return inner;
 	},
@@ -843,7 +843,7 @@ extend(Chart.prototype, {
 			xAxis.setExtremes(undefined, undefined, false);
 			yAxis.setExtremes(undefined, undefined, false);
 		}
-		
+
 		// Prevent zooming until this one is finished animating
 		/*chart.holdMapZoom = true;
 		setTimeout(function () {
@@ -913,7 +913,7 @@ extend(Pointer.prototype, {
 				0.5,
 				chart.xAxis[0].toValue(e.chartX),
 				chart.yAxis[0].toValue(e.chartY),
-				e.chartX, 
+				e.chartX,
 				e.chartY
 			);
 		}
@@ -963,20 +963,20 @@ wrap(Pointer.prototype, 'pinchTranslate', function (proceed, pinchDown, touches,
 	if (this.chart.options.chart.type === 'map' && this.hasZoom) {
 		xBigger = transform.scaleX > transform.scaleY;
 		this.pinchTranslateDirection(
-			!xBigger, 
-			pinchDown, 
-			touches, 
-			transform, 
-			selectionMarker, 
-			clip, 
-			lastValidTouch, 
+			!xBigger,
+			pinchDown,
+			touches,
+			transform,
+			selectionMarker,
+			clip,
+			lastValidTouch,
 			xBigger ? transform.scaleX : transform.scaleY
 		);
 	}
 });
 
 
-// The vector-effect attribute is not supported in IE <= 11 (at least), so we need 
+// The vector-effect attribute is not supported in IE <= 11 (at least), so we need
 // diffent logic (#3218)
 var supportsVectorEffect = document.documentElement.style.vectorEffect !== undefined;
 
@@ -1045,12 +1045,12 @@ var MapAreaPoint = extendClass(Point, extend({
 				point.value = point.value || null;
 			}
 		}
-		
+
 		return point;
 	},
 
 	/**
-	 * Stop the fade-out 
+	 * Stop the fade-out
 	 */
 	onMouseOver: function (e) {
 		clearTimeout(this.colorInterval);
@@ -1141,15 +1141,15 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 	 */
 	getBox: function (paths) {
 		var MAX_VALUE = Number.MAX_VALUE,
-			maxX = -MAX_VALUE, 
-			minX =  MAX_VALUE, 
-			maxY = -MAX_VALUE, 
+			maxX = -MAX_VALUE,
+			minX =  MAX_VALUE,
+			maxY = -MAX_VALUE,
 			minY =  MAX_VALUE,
 			minRange = MAX_VALUE,
 			xAxis = this.xAxis,
 			yAxis = this.yAxis,
 			hasBox;
-		
+
 		// Find the bounding box
 		each(paths || [], function (point) {
 
@@ -1161,9 +1161,9 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 				var path = point.path || [],
 					i = path.length,
 					even = false, // while loop reads from the end
-					pointMaxX = -MAX_VALUE, 
-					pointMinX =  MAX_VALUE, 
-					pointMaxY = -MAX_VALUE, 
+					pointMaxX = -MAX_VALUE,
+					pointMinX =  MAX_VALUE,
+					pointMaxY = -MAX_VALUE,
 					pointMinY =  MAX_VALUE,
 					properties = point.properties;
 
@@ -1182,9 +1182,9 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 						}
 					}
 					// Cache point bounding box for use to position data labels, bubbles etc
-					point._midX = pointMinX + (pointMaxX - pointMinX) * 
+					point._midX = pointMinX + (pointMaxX - pointMinX) *
 						(point.middleX || (properties && properties['hc-middle-x']) || 0.5); // pick is slower and very marginally needed
-					point._midY = pointMinY + (pointMaxY - pointMinY) * 
+					point._midY = pointMinY + (pointMaxY - pointMinY) *
 						(point.middleY || (properties && properties['hc-middle-y']) || 0.5);
 					point._maxX = pointMaxX;
 					point._minX = pointMinX;
@@ -1210,7 +1210,7 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 			this.minX = Math.min(minX, pick(this.minX, MAX_VALUE));
 			this.maxX = Math.max(maxX, pick(this.maxX, -MAX_VALUE));
 
-			// If no minRange option is set, set the default minimum zooming range to 5 times the 
+			// If no minRange option is set, set the default minimum zooming range to 5 times the
 			// size of the smallest element
 			if (xAxis && xAxis.options.minRange === undefined) {
 				xAxis.minRange = Math.min(5 * minRange, (this.maxX - this.minX) / 5, xAxis.minRange || MAX_VALUE);
@@ -1220,7 +1220,7 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 			}
 		}
 	},
-	
+
 	getExtremes: function () {
 		// Get the actual value extremes for colors
 		Series.prototype.getExtremes.call(this, this.valueData);
@@ -1237,13 +1237,13 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 		this.dataMin = this.minY;
 		this.dataMax = this.maxY;
 	},
-	
+
 	/**
 	 * Translate the path so that it automatically fits into the plot area box
 	 * @param {Object} path
 	 */
 	translatePath: function (path) {
-		
+
 		var series = this,
 			even = false, // while loop reads from the end
 			xAxis = series.xAxis,
@@ -1262,7 +1262,7 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 			i = path.length;
 			while (i--) {
 				if (typeof path[i] === 'number') {
-					ret[i] = even ? 
+					ret[i] = even ?
 						(path[i] - xMin) * xTransA + xMinPixelPadding :
 						(path[i] - yMin) * yTransA + yMinPixelPadding;
 					even = !even;
@@ -1274,9 +1274,9 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 
 		return ret;
 	},
-	
+
 	/**
-	 * Extend setData to join in mapData. If the allAreas option is true, all areas 
+	 * Extend setData to join in mapData. If the allAreas option is true, all areas
 	 * from the mapData are used, and those that don't correspond to a data value
 	 * are given null values.
 	 */
@@ -1321,9 +1321,9 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 					this.chart.mapTransforms = mapTransforms = mapData['hc-transform'];
 					// Cache cos/sin of transform rotation angle
 					for (transform in mapTransforms) {
-						if (mapTransforms.hasOwnProperty(transform) && transform.rotation) {							
+						if (mapTransforms.hasOwnProperty(transform) && transform.rotation) {
 							transform.cosAngle = Math.cos(transform.rotation);
-							transform.sinAngle = Math.sin(transform.rotation);							
+							transform.sinAngle = Math.sin(transform.rotation);
 						}
 					}
 				}
@@ -1333,7 +1333,7 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 			this.getBox(mapData);
 			this.mapData = mapData;
 			this.mapMap = {};
-			
+
 			for (i = 0; i < mapData.length; i++) {
 				mapPoint = mapData[i];
 				props = mapPoint.properties;
@@ -1358,7 +1358,7 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 				}
 
 				// Add those map points that don't correspond to data, which will be drawn as null points
-				dataUsed = '|' + dataUsed.join('|') + '|'; // String search is faster than array.indexOf 
+				dataUsed = '|' + dataUsed.join('|') + '|'; // String search is faster than array.indexOf
 
 				each(mapData, function (mapPoint) {
 					if (!joinBy[0] || dataUsed.indexOf('|' + mapPoint[joinBy[0]] + '|') === -1) {
@@ -1370,14 +1370,14 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 		Series.prototype.setData.call(this, data, redraw);
 	},
 
-	
+
 	/**
 	 * No graph for the map series
 	 */
 	drawGraph: noop,
-	
+
 	/**
-	 * We need the points' bounding boxes in order to draw the data labels, so 
+	 * We need the points' bounding boxes in order to draw the data labels, so
 	 * we skip it now and call it from drawPoints instead.
 	 */
 	drawDataLabels: noop,
@@ -1389,7 +1389,7 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 	doFullTranslate: function () {
 		return this.isDirtyData || this.chart.isResizing || this.chart.renderer.isVML || !this.baseTrans;
 	},
-	
+
 	/**
 	 * Add the path option for data points. Find the max value for color calculation.
 	 */
@@ -1400,16 +1400,16 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 			doFullTranslate = series.doFullTranslate();
 
 		series.generatePoints();
-		
+
 		each(series.data, function (point) {
-		
+
 			// Record the middle point (loosely based on centroid), determined
 			// by the middleX and middleY options.
 			point.plotX = xAxis.toPixels(point._midX, true);
 			point.plotY = yAxis.toPixels(point._midY, true);
 
 			if (doFullTranslate) {
-		
+
 				point.shapeType = 'path';
 				point.shapeArgs = {
 					d: series.translatePath(point.path)
@@ -1419,11 +1419,11 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 				}
 			}
 		});
-		
+
 		series.translateColors();
 	},
-	
-	/** 
+
+	/**
 	 * Use the drawPoints method of column, that is able to handle simple shapeArgs.
 	 * Extend it by assigning the tooltip position.
 	 */
@@ -1451,11 +1451,11 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 				.add(group);
 			series.transformGroup.survive = true;
 		}
-		
+
 		// Draw the shapes again
 		if (series.doFullTranslate()) {
 
-			// Individual point actions	
+			// Individual point actions
 			if (chart.hasRendered && series.pointAttrToOptions.fill === 'color') {
 				each(series.points, function (point) {
 
@@ -1467,7 +1467,7 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 			}
 
 			// If vector-effect is not supported, we set the stroke-width on the group element
-			// and let all point graphics inherit. That way we don't have to iterate over all 
+			// and let all point graphics inherit. That way we don't have to iterate over all
 			// points to update the stroke-width on zooming.
 			if (!supportsVectorEffect) {
 				each(series.points, function (point) {
@@ -1499,11 +1499,11 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 				}
 			});
 
-			// Set the base for later scale-zooming. The originX and originY properties are the 
+			// Set the base for later scale-zooming. The originX and originY properties are the
 			// axis values in the plot area's upper left corner.
 			this.baseTrans = {
 				originX: xAxis.min - xAxis.minPixelPadding / xAxis.transA,
-				originY: yAxis.min - yAxis.minPixelPadding / yAxis.transA + (yAxis.reversed ? 0 : yAxis.len / yAxis.transA), 
+				originY: yAxis.min - yAxis.minPixelPadding / yAxis.transA + (yAxis.reversed ? 0 : yAxis.len / yAxis.transA),
 				transAX: xAxis.transA,
 				transAY: yAxis.transA
 			};
@@ -1540,22 +1540,22 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 
 		}
 
-		// Set the stroke-width directly on the group element so the children inherit it. We need to use 
-		// setAttribute directly, because the stroke-widthSetter method expects a stroke color also to be 
+		// Set the stroke-width directly on the group element so the children inherit it. We need to use
+		// setAttribute directly, because the stroke-widthSetter method expects a stroke color also to be
 		// set.
 		if (!supportsVectorEffect) {
 			series.group.element.setAttribute('stroke-width', series.options.borderWidth / (scaleX || 1));
 		}
 
 		this.drawMapDataLabels();
-		
-		
+
+
 	},
 
 	/**
 	 * Draw the data labels. Special for maps is the time that the data labels are drawn (after points),
 	 * and the clipping of the dataLabelsGroup.
-	 */		
+	 */
 	drawMapDataLabels: function () {
 
 		Series.prototype.drawDataLabels.call(this);
@@ -1582,7 +1582,7 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 	},
 
 	/**
-	 * The initial animation for the map series. By default, animation is disabled. 
+	 * The initial animation for the map series. By default, animation is disabled.
 	 * Animation of map shapes is not at all supported in VML browsers.
 	 */
 	animate: function (init) {
@@ -1604,7 +1604,7 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 
 			// Initialize the animation
 			if (init) {
-			
+
 				// Scale down the group and place it in the center
 				group.attr({
 					translateX: left + xAxis.len / 2,
@@ -1612,7 +1612,7 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 					scaleX: 0.001, // #1499
 					scaleY: 0.001
 				});
-			
+
 			// Run the animation
 			} else {
 				group.animate({
@@ -1621,7 +1621,7 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 					scaleX: 1,
 					scaleY: 1
 				}, animation);
-			
+
 				// Delete this function to allow it only once
 				this.animate = null;
 			}
@@ -1638,7 +1638,7 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 			fromBox = level.bBox,
 			animationOptions = this.chart.options.drilldown.animation,
 			scale;
-			
+
 		if (!init) {
 
 			scale = Math.min(fromBox.width / toBox.width, fromBox.height / toBox.height);
@@ -1648,8 +1648,8 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 				translateX: fromBox.x,
 				translateY: fromBox.y
 			};
-			
-			// TODO: Animate this.group instead
+
+			// Animate this.group instead
 			each(this.points, function (point) {
 				if (point.graphic) {
 					point.graphic
@@ -1665,7 +1665,7 @@ seriesTypes.map = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 
 			this.animate = null;
 		}
-		
+
 	},
 
 	drawLegendSymbol: LegendSymbolMixin.drawRectangle,
@@ -1710,7 +1710,7 @@ defaultPlotOptions.mappoint = merge(defaultPlotOptions.scatter, {
 	dataLabels: {
 		enabled: true,
 		formatter: function () { // #2945
-			return this.point.name; 
+			return this.point.name;
 		},
 		crop: false,
 		defer: false,
@@ -1854,7 +1854,7 @@ seriesTypes.heatmap = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 				height: Math.abs(y2 - y1)
 			};
 		});
-		
+
 		series.translateColors();
 
 		// Make sure colors are updated on colorAxis update (#2893)
@@ -1878,11 +1878,11 @@ seriesTypes.heatmap = extendClass(seriesTypes.scatter, merge(colorSeriesMixin, {
 		// Get the extremes from the y data
 		Series.prototype.getExtremes.call(this);
 	}
-		
+
 }));
 
 
-/** 
+/**
  * Test for point in polygon. Polygon defined as array of [x,y] points.
  */
 function pointInPolygon(point, polygon) {
@@ -1917,7 +1917,7 @@ Chart.prototype.transformFromLatLon = function (latLon, transform) {
 		cosAngle = transform.cosAngle || (transform.rotation && Math.cos(transform.rotation)),
 		sinAngle = transform.sinAngle || (transform.rotation && Math.sin(transform.rotation)),
 		rotated = transform.rotation ? [projected[0] * cosAngle + projected[1] * sinAngle, -projected[0] * sinAngle + projected[1] * cosAngle] : projected;
-	
+
 	return {
 		x: ((rotated[0] - (transform.xoffset || 0)) * (transform.scale || 1) + (transform.xpan || 0)) * (transform.jsonres || 1) + (transform.jsonmarginX || 0),
 		y: (((transform.yoffset || 0) - rotated[1]) * (transform.scale || 1) + (transform.ypan || 0)) * (transform.jsonres || 1) - (transform.jsonmarginY || 0)
@@ -2010,7 +2010,7 @@ Highcharts.geojson = function (geojson, hType, series) {
 		};
 
 	hType = hType || 'map';
-	
+
 	each(geojson.features, function (feature) {
 
 		var geometry = feature.geometry,
@@ -2018,7 +2018,7 @@ Highcharts.geojson = function (geojson, hType, series) {
 			coordinates = geometry.coordinates,
 			properties = feature.properties,
 			point;
-		
+
 		path = [];
 
 		if (hType === 'map' || hType === 'mapbubble') {
@@ -2036,7 +2036,7 @@ Highcharts.geojson = function (geojson, hType, series) {
 			if (path.length) {
 				point = { path: path };
 			}
-		
+
 		} else if (hType === 'mapline') {
 			if (type === 'LineString') {
 				polygonToPath(coordinates);
@@ -2047,7 +2047,7 @@ Highcharts.geojson = function (geojson, hType, series) {
 			if (path.length) {
 				point = { path: path };
 			}
-		
+
 		} else if (hType === 'mappoint') {
 			if (type === 'Point') {
 				point = {
@@ -2058,7 +2058,7 @@ Highcharts.geojson = function (geojson, hType, series) {
 		}
 		if (point) {
 			mapData.push(extend(point, {
-				name: properties.name || properties.NAME, 
+				name: properties.name || properties.NAME,
 				properties: properties
 			}));
 		}
@@ -2087,8 +2087,8 @@ wrap(Chart.prototype, 'showCredits', function (proceed, credits) {
 
 	proceed.call(this, credits);
 
-	if (this.credits) { 
-		this.credits.attr({ 
+	if (this.credits) {
+		this.credits.attr({
 			title: this.mapCreditsFull
 		});
 	}
@@ -2153,10 +2153,10 @@ Highcharts.splitPath = function (path) {
 	path = path.replace(/([A-Za-z])/g, ' $1 ');
 	// Trim
 	path = path.replace(/^\s*/, "").replace(/\s*$/, "");
-	
+
 	// Split on spaces and commas
 	path = path.split(/[ ,]+/);
-	
+
 	// Parse numbers
 	for (i = 0; i < path.length; i++) {
 		if (!/[a-zA-Z]/.test(path[i])) {
@@ -2215,7 +2215,7 @@ if (Renderer === VMLRenderer) {
  * A wrapper for Chart with all the default values for a Map
  */
 Highcharts.Map = function (options, callback) {
-	
+
 	var hiddenAxis = {
 			endOnTick: false,
 			gridLineWidth: 0,
@@ -2233,18 +2233,18 @@ Highcharts.Map = function (options, callback) {
 	hiddenAxis.gridZIndex = 10;
 	hiddenAxis.tickPositions = undefined;
 	// */
-	
+
 	// Don't merge the data
 	seriesOptions = options.series;
 	options.series = null;
-	
+
 	options = merge({
 		chart: {
 			panning: 'xy',
 			type: 'map'
 		},
 		xAxis: hiddenAxis,
-		yAxis: merge(hiddenAxis, { reversed: true })	
+		yAxis: merge(hiddenAxis, { reversed: true })
 	},
 	options, // user's options
 

@@ -32,7 +32,7 @@ if (typeof jQuery === 'undefined') {
         completer[strategies].apply(completer, args);
       } else {
         // For backward compatibility.
-        // TODO: Remove at v0.4
+        // Remove at v0.4
         $.each(strategies, function (obj) {
           $.each(['header', 'footer', 'placement', 'maxCount'], function (name) {
             if (obj[name]) {
@@ -69,7 +69,7 @@ if (typeof jQuery === 'undefined') {
   //   lockedFunc();  // none
   //   lockedFunc();  // none
   //   // 1 sec past then
-  //   // => 'Hello, world' 
+  //   // => 'Hello, world'
   //   lockedFunc();  // => 'Hello, world'
   //   lockedFunc();  // none
   //
@@ -633,7 +633,7 @@ if (typeof jQuery === 'undefined') {
       }
     },
 
-    _applyPlacement: function (position) { 
+    _applyPlacement: function (position) {
       // If the 'placement' option set to 'top', move the position above the element.
       if (this.placement.indexOf('top') !== -1) {
         // Overwrite the position object to set the 'bottom' property instead of the top.
