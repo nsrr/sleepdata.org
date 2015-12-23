@@ -16,11 +16,13 @@
         ))
       index: 1
       replace: (mention) ->
-        return '@' + mention + ' '
+        return "@#{mention} "
     ], { appendTo: 'body' }
   )
 
 $(document)
   .on('click', '[data-object~="preview-comment"]', () ->
-    $.post(root_url + 'forum/' + $(this).data('topic-id') + '/comments/preview', $("#comment_description_#{$(this).data('comment-id')}").serialize() + "&comment_id=" + $(this).data('comment-id'), null, "script")
+    $.post("#{root_url}forum/#{$(this).data('topic-id')}/comments/preview",
+      $("#comment_description_#{$(this).data('comment-id')}").serialize() +
+      "&comment_id=#{$(this).data('comment-id')}", null, 'script')
   )

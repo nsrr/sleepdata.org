@@ -3,11 +3,11 @@
   s = ['bytes', 'KB', 'MB', 'GB', 'TB', 'PB']
   e = Math.floor(Math.log(bytes)/Math.log(1024))
   value = ((bytes/Math.pow(1024, Math.floor(e))).toFixed(precision))
-  e = if e<0 then (-e) else e
-  value += ' ' + s[e] if label
+  e = if e < 0 then (-e) else e
+  value += " #{s[e]}" if label
   value
 
-@draw_download_graph_by_month = () ->
+@draw_downloads_by_month = () ->
   if $('#downloads-chart-container').length > 0
     $('#downloads-chart-container').highcharts(
       credits:
@@ -38,5 +38,5 @@
       series: $('#downloads-chart-container').data('series')
     )
 
-@downloadGraphsReady = () ->
-  draw_download_graph_by_month()
+@graphsReady = () ->
+  draw_downloads_by_month()

@@ -16,7 +16,7 @@
 //= require turbolinks
 
 //= require external/json2.min.js
-//= require flashcanvas.js
+//= require external/flashcanvas.js
 //= require jquery.signaturepad.min.js
 
 
@@ -33,7 +33,7 @@
 
 //= require external/highcharts-4.1.9.src.js
 //= require variables
-//= require download_graphs
+//= require graphs
 
 //= require external/highmaps-1.1.9-modules-map.src.js
 //= require external/highmaps-1.1.9-modules-data.src.js

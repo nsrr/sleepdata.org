@@ -23,7 +23,7 @@
   agreementsReady()
   commentsReady()
   tagsReady()
-  downloadGraphsReady()
+  graphsReady()
   showcaseReady()
   mapsReady()
   challengesReady()
