@@ -1,6 +1,7 @@
 # Displays publicly available pages
 class ExternalController < ApplicationController
   def about
+    @users = User.core_members.order(:last_name, :first_name)
   end
 
   def contact

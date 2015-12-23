@@ -130,7 +130,7 @@ Rails.application.routes.draw do
 
   scope module: :external do
     # TODO ENABLE THESE
-    # get :about
+    get :about
     # get :contact
     get :landing
     get :sitemap
@@ -207,7 +207,6 @@ Rails.application.routes.draw do
 
   # TODO: Move these to modules
   get 'welcome/index'
-  get '/about' => 'welcome#about', as: :about
   get '/about/aug' => 'welcome#aug', as: :aug
   get '/contact' => 'welcome#contact', as: :contact
   get '/sync' => 'welcome#sync', as: :sync

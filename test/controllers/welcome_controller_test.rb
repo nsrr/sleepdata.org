@@ -26,12 +26,6 @@ class WelcomeControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_path
   end
 
-  test 'should get about' do
-    get :about
-    assert_not_nil assigns(:users)
-    assert_response :success
-  end
-
   test 'should get aug' do
     get :aug
     assert_not_nil assigns(:users)
