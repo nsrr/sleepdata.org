@@ -37,7 +37,7 @@
       .dashboard-title
         %strong Website Statistics
       %p
-        = link_to 'Go To Stats', stats_path
+        = link_to 'Go To Stats', admin_stats_path
         %br
         = link_to 'Downloads By Month', downloads_by_month_path(user_type: 'regular')
         %br
@@ -56,11 +56,11 @@
         %strong
           %span.glyphicon.glyphicon-repeat
           Sync Documentation
-      %p= link_to 'Go To Sync', sync_path
+      %p= link_to 'Go To Sync', admin_sync_path
 
     .dashboard-container
       .dashboard-title
         %strong
           %span.glyphicon.glyphicon-globe
           Where is Everyone From?
-      %p= link_to 'Go To Location', location_path
+      %p= link_to 'Go To Location', admin_location_path

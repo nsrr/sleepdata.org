@@ -2,6 +2,15 @@ Rails.application.routes.draw do
   resources :community_tools, path: 'community-tools'
   get 'account(/:auth_token)/profile' => 'account#profile'
 
+  namespace :admin do
+    get :dashboard
+    get :location
+    get :roles
+    get :stats
+    get :sync
+    root to: :dashboard
+  end
+
   scope module: :blog do
     get :blog
     get 'blog/:id', action: 'show', as: :blog_post
@@ -208,21 +217,15 @@ Rails.application.routes.draw do
   resources :users
 
   # TODO: Move these to modules
-  get '/sync' => 'welcome#sync', as: :sync
-  get '/stats' => 'welcome#stats', as: :stats
+
   get '/downloads_by_month' => 'welcome#downloads_by_month', as: :downloads_by_month
   get '/agreement_reports' => 'welcome#agreement_reports', as: :agreement_reports
-  get '/location' => 'welcome#location', as: :location
 
   get '/dua' => 'internal#submissions'
   get '/daua' => 'internal#submissions'
 
   get '/settings' => 'users#settings', as: :settings
   patch '/settings' => 'users#update_settings', as: :update_settings
-
-  get '/admin' => 'admin#dashboard'
-  get '/admin/dashboard' => 'admin#dashboard', as: :admin_dashboard
-  get '/admin/roles' => 'admin#roles', as: :admin_roles
 
   get '/daua/irb-assistance' => 'agreements#irb_assistance', as: :irb_assistance
 

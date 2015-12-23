@@ -39,7 +39,7 @@ module Pageable
   def pull_changes
     @object.pull_latest!
     if params[:back] == 'sync'
-      redirect_to sync_path
+      redirect_to admin_sync_path
     elsif @object.class == Dataset
       redirect_to sync_dataset_path(@object)
     elsif @object.class == Tool
