@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     get :roles
     get :stats
     get :sync
-    root to: :dashboard
+    root action: :dashboard
   end
 
   scope module: :blog do
