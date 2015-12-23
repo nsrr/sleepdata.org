@@ -24,7 +24,6 @@
   commentsReady()
   tagsReady()
   graphsReady()
-  showcaseReady()
   mapsReady()
   challengesReady()
   initializeTypeahead()

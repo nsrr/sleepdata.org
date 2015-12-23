@@ -9,8 +9,8 @@ $(document)
   .on('click', '[data-object~="view-content-markdown"]', () ->
     $('[data-object~="view-content-markdown"]').addClass('active')
     $('[data-object~="view-content-preview"]').removeClass('active')
-    $('#content_preview').hide();
-    $('#content_markdown').show();
+    $('#content_preview').hide()
+    $('#content_markdown').show()
     false
   )
   .on('input', '[data-object~="expandable-text-area"]', (e) ->

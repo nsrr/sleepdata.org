@@ -27,7 +27,6 @@
 //= require comments
 //= require reviews
 //= require tags
-//= require showcase
 //= require requests
 //= require previews
 

@@ -1,9 +1,5 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
-
 @drawChart = (chartName) ->
-  json = $("#charts-info").data('charts')['charts'][chartName] if $("#charts-info").data('charts') and $("#charts-info").data('charts')['charts']
+  json = $('#charts-info').data('charts')['charts'][chartName] if $('#charts-info').data('charts') and $('#charts-info').data('charts')['charts']
   if json
     $('#chart-container').highcharts(
       credits:
@@ -42,7 +38,7 @@
     $('#chart-container').html('')
 
 @toggleVariableButtonClasses = (element) ->
-  $("[data-object~='variable-chart-button']").removeClass('btn-primary').addClass('btn-default')
+  $('[data-object~="variable-chart-button"]').removeClass('btn-primary').addClass('btn-default')
   $("[data-object~='variable-chart-button'][data-chart-type~='#{$(element).data('chart-type')}']").addClass('btn-primary')
 
 @variablesReady = () ->
@@ -57,30 +53,30 @@
   $("[data-chart-name~='#{chart_type}']").show()
 
 $(document)
-  .on('click', "[data-chart-type]", () ->
+  .on('click', '[data-chart-type]', () ->
     toggleVariableButtonClasses(this)
     chart_type = $(this).data('chart-type')
     drawChart(chart_type)
-    $("[data-chart-name]").hide()
+    $('[data-chart-name]').hide()
     $("[data-chart-name~='#{chart_type}']").show()
     false
   )
-  .on('click', "[data-link]", (e) ->
+  .on('click', '[data-link]', (e) ->
     if $(e.target).is('a')
       # Do nothing, propagate standard behavior
     else if nonStandardClick(e)
-      window.open($(this).data("link"))
+      window.open($(this).data('link'))
       return false
     else
-      Turbolinks.visit($(this).data("link"))
+      Turbolinks.visit($(this).data('link'))
   )
-  .keydown( (e) ->
-    if e.which == 39 and not $("input, textarea, select, a").is(":focus")
+  .keydown((e) ->
+    if e.which == 39 and not $('input, textarea, select, a').is(':focus')
       $('#next-variable')[0].click() if $('#next-variable')[0]
-    else if e.which == 37 and not $("input, textarea, select, a").is(":focus")
+    else if e.which == 37 and not $('input, textarea, select, a').is(':focus')
       $('#previous-variable')[0].click() if $('#previous-variable')[0]
   )
-  .on('change', "[data-object~='variable-folder-select']", () ->
+  .on('change', '[data-object~="variable-folder-select"]', () ->
     $($(this).data('target')).submit()
     false
   )
