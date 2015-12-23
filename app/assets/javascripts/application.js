@@ -17,7 +17,7 @@
 
 //= require external/json2.min.js
 //= require external/flashcanvas.js
-//= require jquery.signaturepad.min.js
+//= require external/jquery.signaturepad.min.js
 
 
 
