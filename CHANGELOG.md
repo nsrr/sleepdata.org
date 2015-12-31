@@ -27,9 +27,9 @@
   - Images can be easily added via drag-and-drop while editing blog posts
   - Blogs can be previewed while editing
 - **Gem Changes**
+  - Use of Ruby 2.3.0 is now recommended
   - Updated to rails 4.2.5
   - Updated to pg 0.18.4
-  - Started testing Ruby 2.3.0-preview2
   - Updated to simplecov 0.11.1
   - Updated to web-console 3.0
 
