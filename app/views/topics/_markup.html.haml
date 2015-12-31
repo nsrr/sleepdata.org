@@ -1,56 +1,57 @@
-.row
-  .col-xs-6
-    %p.lead
-      <mark>Highlight</mark> text.
-  .col-xs-6
-    %p.lead
-      \==Highlight== text.
+%table.table.table-borderless
+  %tr
+    %td
+      %p
+        <mark>Highlight</mark> text.
+    %td
+      %p
+        \==Highlight== text.
 
-.row
-  .col-xs-6
-    %p.lead
-      The 2<sup>nd</sup> time.
-  .col-xs-6
-    %p.lead
-      The 2^(nd) time.
-
-
-.row
-  .col-xs-6
-    %blockquote Quoted text.
-  .col-xs-6
-    %p.lead
-      > Quoted text.
-
-.row
-  .col-xs-6
-    %p.lead
-      Text <u>underline</u>.
-  .col-xs-6
-    %p.lead
-      Text _underline_.
+  %tr
+    %td
+      %p
+        The 2<sup>nd</sup> time.
+    %td
+      %p
+        The 2^(nd) time.
 
 
-.row
-  .col-xs-6
-    %p.lead
-      Text <del>removed</del>.
-  .col-xs-6
-    %p.lead
-      Text ~~removed~~.
+  %tr
+    %td
+      %blockquote Quoted text.
+    %td
+      %p
+        > Quoted text.
 
-.row
-  .col-xs-6
-    %ul.lead
-      %li Item 1
-      %li Item 2
-      %li Item 3
-  .col-xs-6
-    %p.lead
-      \- Item 1
-      %br
-      \- Item 2
-      %br
-      \- Item 3
+  %tr
+    %td
+      %p
+        Text <u>underline</u>.
+    %td
+      %p
+        Text _underline_.
+
+
+  %tr
+    %td
+      %p
+        Text <del>removed</del>.
+    %td
+      %p
+        Text ~~removed~~.
+
+  %tr
+    %td
+      %ul
+        %li Item 1
+        %li Item 2
+        %li Item 3
+    %td
+      %p
+        \- Item 1
+        %br
+        \- Item 2
+        %br
+        \- Item 3
 
 = link_to 'View More Markup', markup_topics_path, target: '_blank'

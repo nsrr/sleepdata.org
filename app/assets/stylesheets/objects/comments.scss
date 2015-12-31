@@ -28,7 +28,8 @@
 }
 
 .comment-box {
-  border: 1px solid $navbar-default-border;
+  @include scale-images;
+  border: 1px solid $brand-gray;
   border-radius: 2px;
 }
 
@@ -37,7 +38,8 @@
 }
 
 .comment-header {
-  background-color: $cg-custom-light-green;
+  background-color: $brand-gray-lightest;
+  border-bottom: 1px solid $brand-gray;
   padding: 10px;
   position: relative;
 
@@ -46,7 +48,34 @@
   }
 }
 
+.comment-tab,
+.comment-tab:active,
+.comment-tab:focus,
+.comment-tab:hover {
+  border: 1px solid transparent;
+  border-bottom: 0;
+  border-radius: 4px 4px 0 0;
+  color: $text-muted;
+  display: inline-block;
+  margin-bottom: -11px;
+  margin-top: -5px;
+  outline: none;
+  padding-bottom: 11px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 4px;
+  text-decoration: none;
+
+  &.active {
+    background-color: $brand-white;
+    border-color: $brand-gray;
+    color: $text-color;
+  }
+}
+
+
 .comment-body {
+  @include remove-last-child-bottom-margin;
   padding: 10px;
 }
 
@@ -69,7 +98,7 @@
 
 .comment-header::before {
   border-bottom: 7px solid transparent;
-  border-right: 7px solid $navbar-default-border;
+  border-right: 7px solid $brand-gray;
   border-top: 7px solid transparent;
   content: '';
   height: 0;
@@ -81,7 +110,7 @@
 
 .comment-header::after {
   border-bottom: 7px solid transparent;
-  border-right: 7px solid $cg-custom-light-green;
+  border-right: 7px solid $brand-gray-lightest;
   border-top: 7px solid transparent;
   content: '';
   height: 0;
@@ -93,7 +122,7 @@
 
 .comment-icon {
   display: none;
-  left: -$font-size-base;
+  left: -16px;
   position: absolute;
 }
 

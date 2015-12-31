@@ -26,6 +26,8 @@
   - Community managers can now create new blogs posts that are viewable on the NSRR home page
   - Images can be easily added via drag-and-drop while editing blog posts
   - Blogs can be previewed while editing
+- **Forum Changes**
+  - Images can now be more easily added to forum posts
 - **Gem Changes**
   - Use of Ruby 2.3.0 is now recommended
   - Updated to rails 4.2.5

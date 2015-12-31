@@ -1,2 +1,3 @@
-$("#comment_<%= @comment.id %>_container").html("<%=j render 'comments/form' %>");
+$("#comment_container_<%= @comment.id %>").html("<%=j render 'comments/form' %>");
 commentsReady();
+fileDragReady();

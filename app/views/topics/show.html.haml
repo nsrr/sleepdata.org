@@ -18,96 +18,60 @@
             %span.glyphicon.glyphicon-edit
             Edit Topic
 
-%div{ style: 'margin-bottom:20px;margin-top:-20px' }
+%div{ style: 'margin-bottom:20px;height: 40px;' }
   = render 'variables/per_page', per_page: Comment::COMMENTS_PER_PAGE, object_count: @comments.total_count
 
-.posts-container
+%div{ style: 'clear:both' }
+
+%div
   - @comments.each_with_index do |comment, index|
     - current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1)
     - current_index = ((current_page - 1) * Comment::COMMENTS_PER_PAGE) + index + 1
-    %a.anchor-top{ name: "c#{current_index}" }
-    - if comment.banned_or_deleted?
-      .post-avatar
-      .post-container
-        .post-header
-          .pull-right
-            %a{ href: "#c#{current_index}" }= "##{current_index}"
-          %i.text-muted Comment Deleted
-    - else
-      .post-avatar
-        = render 'topics/forum_gravatar', user: comment.user, icon: 'identicon', no_tooltip: true
-      .post-container
-        .post-header
-          .pull-right
-            - if current_user and comment.editable_by?(current_user)
-              = link_to edit_topic_comment_path(@topic, comment), remote: true, method: :get, class: 'btn btn-xs btn-default', rel: 'tooltip', title: 'Edit Comment' do
-                %span.glyphicon.glyphicon-edit
-              &nbsp;
-            - if current_user and comment.deletable_by?(current_user)
-              = link_to [@topic, comment], method: :delete, data: { confirm: "Are you sure you want to delete Comment ##{current_index}"}, class: 'btn btn-xs btn-danger-inverse' do
-                %span.glyphicon.glyphicon-trash
-              &nbsp;
-            %a{ href: "#c#{current_index}" }= "##{current_index}"
+    = render 'comments/show', comment: comment, number: comment.number
 
-          = comment.user.forum_name
-          %span.small.text-muted
-            %abbr{ rel: "tooltip", data: { title: comment.created_at.strftime("%-d %B %Y, %-l:%M %p"), container: "body", placement: "right" } }
-              = time_ago_in_words(comment.created_at)
-              ago
 
-        .post-body
-          %div{ id: "comment_#{comment.id}_container" }
-            = render 'comments/formatted', comment: comment
+- if !@topic.locked? && current_user && !current_user.banned?
+  - @comment = @topic.comments.where(user_id: current_user.id).new
+  = form_for [@topic, @comment] do |f|
+    - if @comment.errors.any?
+      .callout.callout-danger
+        %strong
+        = pluralize @comment.errors.count, 'error'
+        prohibited this comment from being saved
+        %ul
+          - @comment.errors.full_messages.each do |message|
+            %li= message
 
-        - if comment.user.core_member? or comment.user.aug_member?
-          .post-footer
-            - if comment.user.core_member?
-              .core-member Core Member
-            - elsif comment.user.aug_member?
-              .aug-member AUG Member
+    .comment-outer
+      .comment-left-fixed
+        = image_tag current_user.avatar_url(48, 'identicon'), size: '48x48', alt: ''
 
-  .center= paginate @comments, theme: 'contour'
+      .comment-right-fluid
+        .comment-box
+          .comment-header
+            %strong= @comment.user.forum_name
+            = link_to 'Write', '#', data: { object: 'view-comment-write', comment_id: 'new' }, class: 'comment-tab active', tabindex: '-1'
+            = link_to 'Preview', '#', data: { object: 'view-comment-preview', comment_id: 'new', topic_id: @topic.to_param }, class: 'comment-tab', tabindex: '-1'
+            = link_to 'Markup', '#', data: { object: 'view-comment-markup', comment_id: 'new' }, class: 'comment-tab', tabindex: '-1'
+          .comment-body
+            #comment_write_new
+              = f.text_area :description, rows: 7, class: 'comment-control filedrag-container', data: { object: 'expandable-text-area dropfile text-area-autocomplete', default_rows: 7, mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort, upload_url: upload_images_path(update: '#comment_description_new', format: 'js'), fallback_url: new_image_path, log_id: '#comment_log_new' }, id: 'comment_description_new', placeholder: 'Write a comment'
+              #comment_log_new.filedrag
+                Drag images above to insert into post.
+            #comment_preview_new{ style: 'display:none;min-height: 187px' }
+            #comment_markup_new{ style: 'display:none;min-height: 187px' }
+              = render 'topics/markup'
 
-  - if current_user and not @topic.locked? and not current_user.banned?
-    - @comment = @topic.comments.new
-    = form_for [@topic, @comment] do |f|
-      - if @comment.errors.any?
-        .callout.callout-danger
-          %strong
-          = pluralize @comment.errors.count, 'error'
-          prohibited this comment from being saved
-          %ul
-            - @comment.errors.full_messages.each do |message|
-              %li= message
-
-      .post-avatar
-        = render 'topics/forum_gravatar', user: current_user, icon: 'identicon'
-
-      .post-container{ style: 'background-color: transparent;border: 0px solid transparent' }
-        %ul.nav.nav-tabs
-          %li.active{ style: 'font-size: 14px' }
-            = link_to 'Write', '#write-new', data: { toggle: 'tab' }
-          %li{ style: 'font-size: 14px' }
-            = link_to 'Preview', '#preview-new', data: { toggle: 'tab', topic_id: @topic.to_param, object: 'preview-comment', comment_id: 'new' }
-          %li{ style: 'font-size: 14px' }
-            = link_to 'Markup', '#markup-new', data: { toggle: 'tab' }
-        .tab-content{ style: 'background-color: white;border-left: 1px solid #ddd;border-right: 1px solid #ddd;border-bottom: 1px solid #ddd;' }
-          #write-new.tab-pane.active{ style: "padding: 10px 5px 15px 5px;" }
-            = f.text_area :description, rows: 7, class: 'form-control post-description-control', id: 'comment_description_new', data: { object: 'text-area-autocomplete', mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort }, placeholder: 'Click here to write your comment...'
-          #preview-new.tab-pane{ style: "min-height:177px;padding: 30px 15px 15px 15px;background-color:#FFF" }
-          #markup-new.tab-pane{ style: "min-height:177px;padding: 30px 15px 15px 15px;background-color:#FFF" }
-            = render 'topics/markup'
-        = f.submit 'Comment', class: 'btn btn-primary', data: { disable_with: 'Submitting...' }, style: 'margin-top:10px'
-
+            = f.submit 'Comment', class: 'btn btn-primary', data: { disable_with: 'Submitting...' }, style: 'margin-top:10px'
 
 - if @topic.locked?
-  .well{ style: "text-align:center;margin-top:20px" }
+  .well{ style: 'text-align:center;margin-top:20px' }
     .text-muted.center
       This topic is locked
       %span.glyphicon.glyphicon-lock
 - elsif current_user
   - if current_user.banned?
-    .well{ style: "text-align:center;margin-top:20px" }
+    .well{ style: 'text-align:center;margin-top:20px' }
       .text-muted.center
         You have been
         %span.label.label-banned banned
