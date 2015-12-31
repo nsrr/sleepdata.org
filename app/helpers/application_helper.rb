@@ -17,7 +17,6 @@ module ApplicationHelper
     result = result.encode('UTF-16', undef: :replace, invalid: :replace, replace: '').encode('UTF-8')
     result = add_table_class(result, table_class) unless table_class.blank?
     result = expand_relative_paths(result)
-    result = page_headers(result)
     unless allow_links
       result = remove_links(result)
       result = remove_images(result)
@@ -76,10 +75,6 @@ module ApplicationHelper
       result = result.gsub(/@#{username}\b/i, "<a href=\"#{full_path}/forum?a=#{username}\">@#{username}</a>")
     end
     result.html_safe
-  end
-
-  def page_headers(text)
-    text.to_s.gsub(/<h2>/, '<h2 class="markdown-header">').html_safe
   end
 
   def target_link_as_blank(text)
