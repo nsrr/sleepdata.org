@@ -4,7 +4,7 @@ Dear <%= @user.first_name %>,
 
 <%= "#{@agreement_event.agreement.name_with_id} #{ENV['website_url']}/reviews/#{@agreement_event.agreement.to_param}" %>
 
-  <%= render partial: 'digest_review_comment' %>
+  <%= render 'digest_review_comment' %>
 
 
 Click the following link to view the comment:

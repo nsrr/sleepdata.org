@@ -13,7 +13,7 @@
         = f.text_area :description, rows: 7, class: 'form-control post-description-control', id: "comment_description_#{@comment.id}", data: { object: 'text-area-autocomplete', mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort }
       .tab-pane{ id: "preview-#{@comment.id}", style: "min-height:177px;padding: 10px 15px 15px 15px;" }
       .tab-pane{ id: "markup-#{@comment.id}", style: "min-height:177px;padding: 15px 15px 15px 15px;" }
-        = render partial: 'topics/markup'
+        = render 'topics/markup'
 
   .form-group
     .col-xs-12

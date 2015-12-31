@@ -12,7 +12,7 @@ Agreements
 
 <% if false %>
   <% comments.sort_by(&:id).each do |comment| %>
-  <%= @comment = comment; render partial: 'digest_comment' %>
+  <%= @comment = comment; render 'digest_comment' %>
   <% end %>
 <% end %>
 

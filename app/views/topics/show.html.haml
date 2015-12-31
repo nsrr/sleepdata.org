@@ -19,7 +19,7 @@
             Edit Topic
 
 %div{ style: 'margin-bottom:20px;margin-top:-20px' }
-  = render partial: 'variables/per_page', locals: { per_page: Comment::COMMENTS_PER_PAGE, object_count: @comments.total_count }
+  = render 'variables/per_page', per_page: Comment::COMMENTS_PER_PAGE, object_count: @comments.total_count
 
 .posts-container
   - @comments.each_with_index do |comment, index|
@@ -35,7 +35,7 @@
           %i.text-muted Comment Deleted
     - else
       .post-avatar
-        = render partial: 'topics/forum_gravatar', locals: { user: comment.user, icon: 'identicon', no_tooltip: true }
+        = render 'topics/forum_gravatar', user: comment.user, icon: 'identicon', no_tooltip: true
       .post-container
         .post-header
           .pull-right
@@ -57,7 +57,7 @@
 
         .post-body
           %div{ id: "comment_#{comment.id}_container" }
-            = render partial: 'comments/formatted', locals: { comment: comment }
+            = render 'comments/formatted', comment: comment
 
         - if comment.user.core_member? or comment.user.aug_member?
           .post-footer
@@ -81,7 +81,7 @@
               %li= message
 
       .post-avatar
-        = render partial: 'topics/forum_gravatar', locals: { user: current_user, icon: 'identicon' }
+        = render 'topics/forum_gravatar', user: current_user, icon: 'identicon'
 
       .post-container{ style: 'background-color: transparent;border: 0px solid transparent' }
         %ul.nav.nav-tabs
@@ -96,7 +96,7 @@
             = f.text_area :description, rows: 7, class: 'form-control post-description-control', id: 'comment_description_new', data: { object: 'text-area-autocomplete', mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort }, placeholder: 'Click here to write your comment...'
           #preview-new.tab-pane{ style: "min-height:177px;padding: 30px 15px 15px 15px;background-color:#FFF" }
           #markup-new.tab-pane{ style: "min-height:177px;padding: 30px 15px 15px 15px;background-color:#FFF" }
-            = render partial: 'topics/markup'
+            = render 'topics/markup'
         = f.submit 'Comment', class: 'btn btn-primary', data: { disable_with: 'Submitting...' }, style: 'margin-top:10px'
 
 
@@ -112,7 +112,7 @@
         You have been
         %span.label.label-banned banned
         from commenting on this forum.
-  = render partial: 'topics/subscribe_unsubscribe', locals: { topic: @topic }
+  = render 'topics/subscribe_unsubscribe', topic: @topic
 - else
   - content_for :call_to_action do
     .call-to-action
