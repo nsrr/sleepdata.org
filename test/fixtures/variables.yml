@@ -10,6 +10,7 @@ one:
   # domain:
   # units:
   version: 0.1.0
+  dataset_version: public_one
   # calculation:
   commonly_used: true
   search_terms: gender demographics
@@ -23,7 +24,8 @@ two:
   dataset: public
   # domain:
   # units:
-  # version:
+  version: 0.1.0
+  dataset_version: public_one
   # calculation:
   commonly_used: false
   search_terms: variable two
@@ -35,6 +37,7 @@ private:
   # description:
   # variable_type:
   dataset: private
+  dataset_version: private_one
   # domain:
   # units:
   # version:

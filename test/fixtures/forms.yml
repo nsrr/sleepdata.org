@@ -5,11 +5,12 @@ one:
   name: MyString
   display_name: MyString
   code_book: MyString
-  dataset_id: 1
+  dataset: public
+  dataset_version: public_one
 
 two:
   folder: MyText
   name: MyString
   display_name: MyString
   code_book: MyString
-  dataset_id: 1
+  dataset_version: public_one

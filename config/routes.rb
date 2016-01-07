@@ -11,6 +11,13 @@ Rails.application.routes.draw do
     root action: :dashboard
   end
 
+  namespace :api do
+    namespace :v1 do
+      resources :variables, only: [:create, :show, :index]
+      # resources :domains
+    end
+  end
+
   scope module: :blog do
     get :blog
     get 'blog/:id', action: 'show', as: :blog_post

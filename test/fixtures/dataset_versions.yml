@@ -1,0 +1,22 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+public_one:
+  dataset: public
+  version: 0.1.0
+  commit: 6a327c71187b2605bbfaaa3543527545d3fe0082
+  release_date: 2015-01-01
+  release_notes: "Changes\n - First Public Release"
+
+public_two:
+  dataset: public
+  version: 0.2.0
+  commit: 668b4914900e7fae940b3a656a6de93912c407a3
+  release_date: 2016-02-02
+  release_notes: "Changes\n - Second Public Release"
+
+private_one:
+  dataset: private
+  version: 0.1.0.pre
+  # commit:
+  # release_date:
+  # release_notes:

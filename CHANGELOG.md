@@ -9,6 +9,7 @@
   - Improved dataset access request flow
   - Added call to action for researchers who wish to contribute datasets to the NSRR
   - Users can now fill out a dataset hosting request form to host new datasets on the NSRR
+  - Datasets now track all versions and maintain data dictionary changes and history
 - **Tool Changes**
   - Users can now submit URLs for tools to be listed on the NSRR
   - GitHub repositories with READMEs and GitHub gists can now be contributed as tools
@@ -29,7 +30,7 @@
 - **Forum Changes**
   - Images can now be more easily added to forum posts
 - **Gem Changes**
-  - Use of Ruby 2.3.0 is now recommended
+  - Updated to Ruby 2.3.0
   - Updated to rails 4.2.5
   - Updated to pg 0.18.4
   - Updated to simplecov 0.11.1

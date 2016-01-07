@@ -9,8 +9,8 @@ class Dataset < ActiveRecord::Base
   # Named Scopes
   scope :release_scheduled, -> { current.where(public: true).where.not(release_date: nil) }
   scope :with_editor, -> (arg) { where('datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)', arg, arg, 'editor').references(:dataset_users) }
-  scope :with_reviewer, -> (arg) {  where('datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)', arg, 'reviewer' ).references(:dataset_users) }
-  scope :with_viewer_or_editor, -> (arg) { where('datasets.public = ? or datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role IN (?))', true, arg, arg, ['viewer', 'editor']).references(:dataset_users) }
+  scope :with_reviewer, -> (arg) { where('datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)', arg, 'reviewer').references(:dataset_users) }
+  scope :with_viewer_or_editor, -> (arg) { where('datasets.public = ? or datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role IN (?))', true, arg, arg, %w(viewer editor)).references(:dataset_users) }
 
   # Model Validation
   validates :name, :slug, :user_id, presence: true
@@ -20,6 +20,8 @@ class Dataset < ActiveRecord::Base
 
   # Model Relationships
   belongs_to :user
+  belongs_to :dataset_version
+  has_many :dataset_versions
   has_many :dataset_file_audits
   has_many :dataset_page_audits
   has_many :dataset_users
@@ -34,27 +36,27 @@ class Dataset < ActiveRecord::Base
   has_many :agreements, -> { where deleted: false }, through: :requests
 
   def public_file?(path)
-    self.public_files.where( file_path: self.file_path(path) ).count > 0
+    public_files.where(file_path: file_path(path)).count > 0
   end
 
   def chartable_variables
-    self.variables.order(:folder, :name)
+    variables.order(:folder, :name)
   end
 
   def editors
-    User.where( id: [self.user_id] + self.dataset_users.where( role: 'editor' ).pluck(:user_id) )
+    User.where(id: [user_id] + dataset_users.where(role: 'editor').pluck(:user_id))
   end
 
   def reviewers
-    User.where( id: self.dataset_users.where( role: 'reviewer' ).pluck(:user_id) )
+    User.where(id: dataset_users.where(role: 'reviewer').select(:user_id))
   end
 
   def viewers
-    User.where( id: [self.user_id] + self.dataset_users.where( role: 'viewer' ).pluck(:user_id) )
+    User.where(id: [user_id] + dataset_users.where(role: 'viewer').pluck(:user_id))
   end
 
   def grants_file_access_to?(current_user)
-    self.all_files_public? || ( self.agreements.where( status: 'approved', user_id: (current_user ? current_user.id : nil) ).not_expired.count > 0 )
+    all_files_public? || (agreements.where(status: 'approved', user_id: (current_user ? current_user.id : nil)).not_expired.count > 0)
   end
 
   def to_param

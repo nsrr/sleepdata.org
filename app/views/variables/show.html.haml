@@ -2,6 +2,14 @@
 
 = render 'variables/header'
 
+%p
+  DATASET VERSION:
+  %span.label.label-danger= @dataset_version.inspect
+%p
+  Search Terms:
+  %span.label.label-danger= @variable.search_terms.inspect
+
+
 .row
   .col-md-3
     = render 'variables/menu'

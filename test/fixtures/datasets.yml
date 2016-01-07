@@ -10,6 +10,7 @@ public:
   all_files_public: true
   deleted: false
   release_date: 2014-03-25
+  dataset_version: public_one
 
 private:
   name: In the Works
@@ -21,6 +22,7 @@ private:
   all_files_public: false
   deleted: false
   release_date: 2145-01-01
+  dataset_version: private_one
 
 public_with_no_files_folder:
   name: No Files

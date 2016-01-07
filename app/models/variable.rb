@@ -7,16 +7,22 @@ class Variable < ActiveRecord::Base
   scope :search, -> (arg) { where('search_terms ~* ?', arg.to_s.split(/\s/).collect { |l| l.to_s.gsub(/[^\w\d%]/, '') }.collect { |l| "(#{l})" }.join('|')) }
 
   # Model Validation
-  validates :name, :display_name, :variable_type, :dataset_id, presence: true
+  validates :name, :display_name, :variable_type, :dataset_id, :dataset_version_id, presence: true
   validates :name, format: { with: /\A[a-z]\w*\Z/i }
   validates :name, length: { maximum: 32 }
-  validates :name, uniqueness: { scope: :dataset_id }
+  validates :name, uniqueness: { scope: [:dataset_id, :dataset_version_id] }
 
   # Model Relationships
   belongs_to :dataset
   belongs_to :domain
+  belongs_to :dataset_version
   has_many :variable_forms
   has_many :forms, through: :variable_forms
+
+  # Temporary while "version" is being deprecated
+  def api_version
+    dataset_version ? dataset_version.version : nil
+  end
 
   def n
     0
@@ -182,5 +188,19 @@ class Variable < ActiveRecord::Base
   def rank_sort_order(search)
     common = (commonly_used? ? 0 : 1)
     [-rank(search)[:score], common, folder, name]
+  end
+
+  def set_search_terms
+    search_terms = [name.downcase] + folder.split('/')
+    search_terms += labels
+    search_terms += forms.pluck(:name)
+    [display_name, units, calculation, description].each do |json_string|
+      search_terms += json_string.to_s.split(/[^\w\d%]/)
+    end
+    search_terms.select { |a| a.to_s.strip.size > 1 }.collect { |b| b.downcase.strip }.uniq.sort.join(' ')
+  end
+
+  def search_terms
+    set_search_terms
   end
 end
