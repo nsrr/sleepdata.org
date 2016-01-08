@@ -8,7 +8,7 @@
   .col-md-9
     = hidden_field_tag 'chart_type', params[:g]
 
-    - json = @variable.spout_stats
+    - json = @variable.fixed_spout_stats
     #charts-info{ style: 'display:hidden', data: { charts: "#{json.to_json}" } }
 
     - charts = []

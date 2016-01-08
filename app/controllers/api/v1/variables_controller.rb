@@ -79,17 +79,23 @@ class Api::V1::VariablesController < Api::V1::BaseController
   end
 
   def variable_optional_params
-    params.require(:variable).permit(:folder, :description, :units, :calculation, :commonly_used, :domain_id, { labels: [] }).tap do |whitelisted|
+    params.require(:variable).permit(
+      :folder, :description, :units, :calculation, :commonly_used, :domain_id,
+      :stats_n, :stats_mean, :stats_stddev, :stats_median, :stats_min, :stats_max, :stats_unknown, :stats_total,
+      { labels: [] }).tap do |whitelisted|
       whitelisted[:spout_stats] = params[:variable][:spout_stats] if params[:variable][:spout_stats]
     end
   end
 
   def variable_params
-    params.require(:variable).permit(:name, :display_name, :variable_type, :folder, :description,  :units, :calculation, :commonly_used, :domain_id, { labels: [] }).tap do |whitelisted|
+    params.require(:variable).permit(
+      :name, :display_name, :variable_type, :folder, :description,  :units,
+      :calculation, :commonly_used, :domain_id,
+      :stats_n, :stats_mean, :stats_stddev, :stats_median, :stats_min, :stats_max, :stats_unknown, :stats_total,
+      { labels: [] }).tap do |whitelisted|
       whitelisted[:spout_stats] = params[:variable][:spout_stats].to_hash if params[:variable][:spout_stats]
     end
     # TODO: Missing known_issues
-    # TODO: Missing stats_n, stats_mean, stats_stddev, stats_median, stats_min, stats_max, stats_unknown, stats_total
   end
 
   def domain_core_params

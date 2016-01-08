@@ -25,36 +25,30 @@ class Variable < ActiveRecord::Base
     dataset_version ? dataset_version.version : nil
   end
 
-  def n
-    0
+  def fixed_spout_stats
+    new_hash = {}
+    (spout_stats || {}).each do |key, value|
+      new_hash[key] = fix_hash(key, value)
+    end
+    new_hash
   end
 
-  def mean
-    0
-  end
-
-  def stddev
-    0
-  end
-
-  def median
-    0
-  end
-
-  def min
-    0
-  end
-
-  def max
-    0
-  end
-
-  def unknown
-    0
-  end
-
-  def total
-    0
+  def fix_hash(key, value)
+    if value.is_a? Hash
+      new_hash = {}
+      value.each do |k, v|
+        new_hash[k] = fix_hash(k, v)
+      end
+      new_hash
+    elsif key == 'data' && value.is_a?(Array)
+      value.collect(&:to_f)
+    elsif value.is_a?(Array)
+      value.collect do |v|
+        fix_hash(key, v)
+      end
+    else
+      value
+    end
   end
 
   def score(labels)
@@ -75,7 +69,7 @@ class Variable < ActiveRecord::Base
   end
 
   def related_variables
-    dataset.variables.where("(search_terms ~* ? or name in (?)) and id != ?", "(\\m#{name}\\M)", search_terms.split(' '), id).order(:folder, :name)
+    dataset.variables.where(dataset_version_id: dataset_version_id).where("(search_terms ~* ? or name in (?)) and id != ?", "(\\m#{name}\\M)", search_terms.split(' '), id).order(:folder, :name)
   end
 
   def known_issues
