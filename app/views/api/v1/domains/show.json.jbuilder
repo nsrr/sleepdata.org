@@ -1,1 +1,1 @@
-json.extract! @domain, :id, :name, :create, :created_at, :updated_at
+json.partial! 'api/v1/domains/domain', domain: @domain

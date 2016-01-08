@@ -25,6 +25,22 @@ class Api::V1::VariablesController < Api::V1::BaseController
   # POST /api/v1/variables/create_or_update.json
   def create_or_update
     @variable = dataset_version_variables.where(name: params[:variable][:name]).first_or_create(variable_core_params)
+    if params[:domain] && params[:domain][:name].present?
+      @domain = dataset_version_domains.where(name: params[:domain][:name]).first_or_create
+      if @domain
+        @domain.update(domain_optional_params)
+        params[:variable][:domain_id] = @domain.id
+      end
+    end
+
+    (params[:forms] || []).collect do |form_params|
+      form = dataset_version_forms.where(name: form_params[:name]).first_or_create
+      if form
+        form.update(folder: form_params[:folder], display_name: form_params[:display_name], code_book: form_params[:code_book])
+        @variable.forms << form
+      end
+    end
+
     if @variable.update(variable_optional_params)
       render :show, status: :ok, location: api_v1_variable_path(@variable)
     else
@@ -62,17 +78,33 @@ class Api::V1::VariablesController < Api::V1::BaseController
   end
 
   def variable_optional_params
-    params.require(:variable).permit(:folder, :description, :units, :calculation, :commonly_used, labels: [])
+    params.require(:variable).permit(:folder, :description, :units, :calculation, :commonly_used, :domain_id, labels: [])
   end
 
   def variable_params
-    params.require(:variable).permit(:name, :display_name, :variable_type, :folder, :description,  :units, :calculation, :commonly_used, labels: [])
-    # TODO: Missing domain, forms, graphs
+    params.require(:variable).permit(:name, :display_name, :variable_type, :folder, :description,  :units, :calculation, :commonly_used, :domain_id, labels: [])
+    # TODO: Missing graphs
     # TODO: Missing known_issues
     # TODO: Missing stats_n, stats_mean, stats_stddev, stats_median, stats_min, stats_max, stats_unknown, stats_total
   end
 
+  def domain_core_params
+    params.require(:domain).permit(:name)
+  end
+
+  def domain_optional_params
+    params.require(:domain).permit(:folder, options: [:display_name, :value, :description, :missing])
+  end
+
   def dataset_version_variables
     @dataset.variables.where(dataset_version_id: @dataset_version.id)
+  end
+
+  def dataset_version_domains
+    @dataset.domains.where(dataset_version_id: @dataset_version.id)
+  end
+
+  def dataset_version_forms
+    @dataset.forms.where(dataset_version_id: @dataset_version.id)
   end
 end

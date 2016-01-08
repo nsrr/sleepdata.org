@@ -266,6 +266,9 @@ class Dataset < ActiveRecord::Base
   end
 
   def load_data_dictionary!
+    Rails.logger.warn 'Load Data Dictionary Deprecated'
+    return
+
     version = File.open("#{self.data_dictionary_folder}/VERSION", &:readline).strip rescue version = nil
     form_files = Dir.glob("#{self.data_dictionary_folder}/forms/**/*.json", File::FNM_CASEFOLD)
     domain_files = Dir.glob("#{self.data_dictionary_folder}/domains/**/*.json", File::FNM_CASEFOLD)

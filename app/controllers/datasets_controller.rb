@@ -25,9 +25,9 @@ class DatasetsController < ApplicationController
         pid = Process.fork
         if pid.nil? then
           # In child
-          Rails.logger.debug "Refresh Dataset Started"
-          Rails.logger.debug "Loading Data Dictionary"
-          @dataset.load_data_dictionary!
+          # Rails.logger.debug "Refresh Dataset Started"
+          # Rails.logger.debug "Loading Data Dictionary"
+          # @dataset.load_data_dictionary!
 
           Rails.logger.debug "Generating Index for /"
           @dataset.lock_folder!(nil)
