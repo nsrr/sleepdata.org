@@ -13,7 +13,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :variables, only: [:create, :show, :index]
+      resources :variables, only: [:create, :show, :index] do
+        collection do
+          post :create_or_update
+        end
+      end
       # resources :domains
     end
   end
