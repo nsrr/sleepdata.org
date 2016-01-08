@@ -1,7 +1,6 @@
 # Represent Spout variable structure for variable pages
 class Variable < ActiveRecord::Base
   serialize :labels, Array
-  serialize :spout_stats, Hash
 
   # Named Scopes
   scope :with_folder, -> (arg) { where 'folder ~* ?', "(^#{arg})" }
@@ -23,32 +22,6 @@ class Variable < ActiveRecord::Base
   # Temporary while "version" is being deprecated
   def api_version
     dataset_version ? dataset_version.version : nil
-  end
-
-  def fixed_spout_stats
-    new_hash = {}
-    (spout_stats || {}).each do |key, value|
-      new_hash[key] = fix_hash(key, value)
-    end
-    new_hash
-  end
-
-  def fix_hash(key, value)
-    if value.is_a? Hash
-      new_hash = {}
-      value.each do |k, v|
-        new_hash[k] = fix_hash(k, v)
-      end
-      new_hash
-    elsif key == 'data' && value.is_a?(Array)
-      value.collect(&:to_f)
-    elsif value.is_a?(Array)
-      value.collect do |v|
-        fix_hash(key, v)
-      end
-    else
-      value
-    end
   end
 
   def score(labels)

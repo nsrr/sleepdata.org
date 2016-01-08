@@ -8,7 +8,7 @@
   .col-md-9
     = hidden_field_tag 'chart_type', params[:g]
 
-    - json = @variable.fixed_spout_stats
+    - json = JSON.parse(@variable.spout_stats) rescue json = nil
     #charts-info{ style: 'display:hidden', data: { charts: "#{json.to_json}" } }
 
     - charts = []
@@ -25,10 +25,9 @@
       - (json['tables'] || []).each do |key, tables|
         %div{ style: 'display:none', data: { chart_name: key } }
           - [tables].flatten.each do |table|
-            - if table.is_a?(Hash)
+            - if table.is_a? Hash
               %h3.brand.center= table['title']
               %h5.center= table['subtitle']
-
               .table-responsive
                 %table.table.table-hover
                   %thead

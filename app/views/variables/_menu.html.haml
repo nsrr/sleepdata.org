@@ -2,7 +2,7 @@
   - if File.file?(File.join( @dataset.root_folder, 'dd', 'images', @version, "#{@variable.name}.png"))
     = image_tag image_dataset_variable_path(@variable.dataset, @variable), style: 'max-width: 100%;max-height:50px;display:block'
 
-- json = @variable.spout_stats
+- json = JSON.parse(@variable.spout_stats) rescue json = nil
 - charts = []
 - charts = json['charts'].keys.collect { |k| [k.titleize, k] } if json.is_a?(Hash) && json['charts'].is_a?(Hash)
 - chart = charts.find { |chart_name, chart_value| chart_value == params[:g] }

@@ -87,13 +87,12 @@
                   %td= @variable.stats_total
 
 
-    - json = @variable.fixed_spout_stats
+    - json = JSON.parse(@variable.spout_stats) rescue json = nil
     #charts-info{ style: 'display:hidden', data: { charts: "#{json.to_json}" } }
 
     - charts = []
     - charts = json['charts'].keys.collect { |k| [k.titleize, k] } if json.is_a?(Hash) && json['charts'].is_a?(Hash)
     - chart = charts.first unless chart
-
 
     - if charts.size > 0
       #chart-container{ style: 'min-width: 200px; max-width: 800px; height: 400px; margin: 0 auto 20px auto' }
