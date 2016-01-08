@@ -1,6 +1,7 @@
 # Represent Spout variable structure for variable pages
 class Variable < ActiveRecord::Base
   serialize :labels, Array
+  serialize :spout_stats, Hash
 
   # Named Scopes
   scope :with_folder, -> (arg) { where 'folder ~* ?', "(^#{arg})" }

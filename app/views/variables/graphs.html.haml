@@ -8,8 +8,7 @@
   .col-md-9
     = hidden_field_tag 'chart_type', params[:g]
 
-    - json_location = File.join(@dataset.root_folder, 'dd', 'graphs', @version, "#{@variable.name}.json")
-    - json = JSON.parse(File.read(json_location)) rescue json = nil
+    - json = @variable.spout_stats
     #charts-info{ style: 'display:hidden', data: { charts: "#{json.to_json}" } }
 
     - charts = []

@@ -33,7 +33,8 @@ class Api::V1::VariablesController < Api::V1::BaseController
       end
     end
 
-    (params[:forms] || []).collect do |form_params|
+    @variable.variable_forms.destroy_all
+    (params[:forms] || []).each do |form_params|
       form = dataset_version_forms.where(name: form_params[:name]).first_or_create
       if form
         form.update(folder: form_params[:folder], display_name: form_params[:display_name], code_book: form_params[:code_book])
@@ -78,12 +79,15 @@ class Api::V1::VariablesController < Api::V1::BaseController
   end
 
   def variable_optional_params
-    params.require(:variable).permit(:folder, :description, :units, :calculation, :commonly_used, :domain_id, labels: [])
+    params.require(:variable).permit(:folder, :description, :units, :calculation, :commonly_used, :domain_id, { labels: [] }).tap do |whitelisted|
+      whitelisted[:spout_stats] = params[:variable][:spout_stats] if params[:variable][:spout_stats]
+    end
   end
 
   def variable_params
-    params.require(:variable).permit(:name, :display_name, :variable_type, :folder, :description,  :units, :calculation, :commonly_used, :domain_id, labels: [])
-    # TODO: Missing graphs
+    params.require(:variable).permit(:name, :display_name, :variable_type, :folder, :description,  :units, :calculation, :commonly_used, :domain_id, { labels: [] }).tap do |whitelisted|
+      whitelisted[:spout_stats] = params[:variable][:spout_stats].to_hash if params[:variable][:spout_stats]
+    end
     # TODO: Missing known_issues
     # TODO: Missing stats_n, stats_mean, stats_stddev, stats_median, stats_min, stats_max, stats_unknown, stats_total
   end
