@@ -24,6 +24,7 @@ class Api::V1::VariablesController < Api::V1::BaseController
 
   # POST /api/v1/variables/create_or_update.json
   def create_or_update
+    @errors = []
     @variable = dataset_version_variables.where(name: params[:variable][:name]).first_or_create(variable_core_params)
     if params[:domain] && params[:domain][:name].present?
       @domain = dataset_version_domains.where(name: params[:domain][:name]).first_or_create
@@ -36,13 +37,17 @@ class Api::V1::VariablesController < Api::V1::BaseController
     @variable.variable_forms.destroy_all
     (params[:forms] || []).each do |form_params|
       form = dataset_version_forms.where(name: form_params[:name]).first_or_create
-      if form
+      if form && form.valid?
         form.update(folder: form_params[:folder], display_name: form_params[:display_name], code_book: form_params[:code_book])
         @variable.forms << form
+      else
+        @errors << "Invalid form name: #{form_params[:name]}"
       end
     end
 
-    if @variable.update(variable_optional_params)
+    if @errors.count > 0
+      render json: { errors: @errors }, status: :unprocessable_entity
+    elsif @variable.update(variable_optional_params)
       render :show, status: :ok, location: api_v1_variable_path(@variable)
     else
       render json: @variable.errors, status: :unprocessable_entity
