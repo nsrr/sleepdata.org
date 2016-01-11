@@ -38,7 +38,11 @@ class Api::V1::VariablesController < Api::V1::BaseController
     (params[:forms] || []).each do |form_params|
       form = dataset_version_forms.where(name: form_params[:name]).first_or_create
       if form && form.valid?
-        form.update(folder: form_params[:folder], display_name: form_params[:display_name], code_book: form_params[:code_book])
+        form.update(
+          folder: form_params[:folder],
+          display_name: form_params[:display_name],
+          code_book: form_params[:code_book],
+          spout_version: form_params[:spout_version])
         @variable.forms << form
       else
         @errors << "Invalid form name: #{form_params[:name]}"
@@ -87,6 +91,7 @@ class Api::V1::VariablesController < Api::V1::BaseController
     params.require(:variable).permit(
       :folder, :description, :units, :calculation, :commonly_used, :domain_id,
       :stats_n, :stats_mean, :stats_stddev, :stats_median, :stats_min, :stats_max, :stats_unknown, :stats_total, :spout_stats,
+      :spout_version,
       { labels: [] })
   end
 
@@ -95,6 +100,7 @@ class Api::V1::VariablesController < Api::V1::BaseController
       :name, :display_name, :variable_type, :folder, :description,  :units,
       :calculation, :commonly_used, :domain_id,
       :stats_n, :stats_mean, :stats_stddev, :stats_median, :stats_min, :stats_max, :stats_unknown, :stats_total, :spout_stats,
+      :spout_version,
       { labels: [] }).tap
     # TODO: Missing known_issues
   end
@@ -104,7 +110,7 @@ class Api::V1::VariablesController < Api::V1::BaseController
   end
 
   def domain_optional_params
-    params.require(:domain).permit(:folder, options: [:display_name, :value, :description, :missing])
+    params.require(:domain).permit(:folder, :spout_version, options: [:display_name, :value, :description, :missing])
   end
 
   def dataset_version_variables

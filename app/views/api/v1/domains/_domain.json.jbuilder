@@ -1,1 +1,1 @@
-json.extract! domain, :folder, :name, :options
+json.extract! domain, :folder, :name, :options, :spout_version
