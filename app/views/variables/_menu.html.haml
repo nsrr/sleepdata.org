@@ -33,7 +33,7 @@
     - else
       %li= link_to 'No Forms', form_dataset_variable_path(@dataset, @variable, v: params[:v]), class: 'active'
   %li.left-menu-header More
-  - if params[:action] == 'known_issues' || @variable.known_issues.count > 0
+  - if params[:action] == 'known_issues' || @variable.known_issues.present?
     %li
       = link_to 'Known Issues', known_issues_dataset_variable_path(@dataset, @variable, v: params[:v]), class: (params[:action] == 'known_issues' ? 'active' : nil)
   - if params[:action] == 'related' || @variable.related_variables.count > 0

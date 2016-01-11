@@ -16,11 +16,11 @@
   .col-md-9
     %h1.variable-header.brand= @variable.display_name
 
-    - if @variable.known_issues.count > 0
+    - if @variable.known_issues.present?
       .alert.alert-danger{ role: 'alert' }
         %strong KNOWN ISSUES
         Please be sure to check the
-        = link_to 'known issues', known_issues_dataset_variable_path(@dataset, @variable), class: 'alert-link'
+        = link_to 'known issues', known_issues_dataset_variable_path(@dataset, @variable, v: params[:v]), class: 'alert-link'
         before using this variable in analysis.
 
     %table.table.table-borderless{ style: 'margin-top: 20px;' }

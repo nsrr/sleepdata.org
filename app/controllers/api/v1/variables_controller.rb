@@ -91,7 +91,7 @@ class Api::V1::VariablesController < Api::V1::BaseController
     params.require(:variable).permit(
       :folder, :description, :units, :calculation, :commonly_used, :domain_id,
       :stats_n, :stats_mean, :stats_stddev, :stats_median, :stats_min, :stats_max, :stats_unknown, :stats_total, :spout_stats,
-      :spout_version,
+      :known_issues, :spout_version,
       { labels: [] })
   end
 
@@ -100,7 +100,7 @@ class Api::V1::VariablesController < Api::V1::BaseController
       :name, :display_name, :variable_type, :folder, :description,  :units,
       :calculation, :commonly_used, :domain_id,
       :stats_n, :stats_mean, :stats_stddev, :stats_median, :stats_min, :stats_max, :stats_unknown, :stats_total, :spout_stats,
-      :spout_version,
+      :known_issues, :spout_version,
       { labels: [] }).tap
     # TODO: Missing known_issues
   end

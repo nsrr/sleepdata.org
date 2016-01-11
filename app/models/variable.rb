@@ -45,25 +45,6 @@ class Variable < ActiveRecord::Base
     dataset.variables.where(dataset_version_id: dataset_version_id).where("(search_terms ~* ? or name in (?)) and id != ?", "(\\m#{name}\\M)", search_terms.split(' '), id).order(:folder, :name)
   end
 
-  def known_issues
-    line_found = false
-    result = []
-    known_issues_file = File.join(dataset.data_dictionary_folder, 'KNOWNISSUES.md')
-    if File.exist?(known_issues_file) && File.file?(known_issues_file)
-      IO.foreach(known_issues_file) do |line|
-        if line_found && Variable.starts_with?(line, '  - ')
-          result << line
-        elsif Variable.partial_match?(line, "\\[#{name}\\]")
-          line_found = true
-          result << line
-        else
-          line_found = false
-        end
-      end
-    end
-    result
-  end
-
   def self.max_score(search)
     130 * search.to_s.split(/\s/).reject(&:blank?).uniq.count
   end
