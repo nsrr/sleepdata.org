@@ -102,7 +102,6 @@ class Api::V1::VariablesController < Api::V1::BaseController
       :stats_n, :stats_mean, :stats_stddev, :stats_median, :stats_min, :stats_max, :stats_unknown, :stats_total, :spout_stats,
       :known_issues, :spout_version,
       { labels: [] }).tap
-    # TODO: Missing known_issues
   end
 
   def domain_core_params
