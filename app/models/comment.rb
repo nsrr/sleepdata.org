@@ -42,7 +42,7 @@ class Comment < ActiveRecord::Base
   def send_reply_emails!
     unless Rails.env.test? or Rails.env.development?
       pid = Process.fork
-      if pid.nil? then
+      if pid.nil?
         # In child
         self.topic.subscribers.where.not(id: self.user_id).each do |u|
           UserMailer.post_replied(self, u).deliver_later if EMAILS_ENABLED

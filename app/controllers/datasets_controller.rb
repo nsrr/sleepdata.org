@@ -1,12 +1,10 @@
 class DatasetsController < ApplicationController
-  before_action :authenticate_user_from_token!, only: [:json_manifest, :manifest, :files, :upload_graph, :refresh_dictionary, :upload_dataset_csv, :editor, :index, :show]
+  before_action :authenticate_user_from_token!, only: [:json_manifest, :manifest, :files, :refresh_dictionary, :editor, :index, :show]
   before_action :authenticate_user!,        only: [:new, :edit, :create, :update, :destroy, :audits, :collaborators, :create_access, :remove_access, :pull_changes, :sync, :set_public_file, :reset_index]
   before_action :check_system_admin,        only: [:new, :create, :destroy]
   before_action :set_viewable_dataset,      only: [:show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :search, :editor]
-  before_action :set_editable_dataset,      only: [:edit, :update, :destroy, :audits, :collaborators, :create_access, :remove_access, :pull_changes, :sync, :set_public_file, :reset_index, :upload_graph, :refresh_dictionary, :upload_dataset_csv]
-  before_action :redirect_without_dataset,  only: [:show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :create_access, :remove_access, :search, :edit, :update, :destroy, :audits, :collaborators, :pull_changes, :sync, :set_public_file, :reset_index, :upload_graph, :refresh_dictionary, :upload_dataset_csv, :editor]
-
-  skip_before_action :verify_authenticity_token, only: [:upload_graph, :upload_dataset_csv]
+  before_action :set_editable_dataset,      only: [:edit, :update, :destroy, :audits, :collaborators, :create_access, :remove_access, :pull_changes, :sync, :set_public_file, :reset_index, :refresh_dictionary]
+  before_action :redirect_without_dataset,  only: [:show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :create_access, :remove_access, :search, :edit, :update, :destroy, :audits, :collaborators, :pull_changes, :sync, :set_public_file, :reset_index, :refresh_dictionary, :editor]
 
   # Concerns
   include Pageable
@@ -21,81 +19,34 @@ class DatasetsController < ApplicationController
     version = params[:version].to_s.gsub(/[^a-z\.\d]/, '')
     stdout = @dataset.pull_new_data_dictionary!(version)
     response = if stdout.match(/Switched to a new branch '#{version}'/)
-      unless Rails.env.test?
-        pid = Process.fork
-        if pid.nil? then
-          # In child
-          # Rails.logger.debug "Refresh Dataset Started"
-          # Rails.logger.debug "Loading Data Dictionary"
-          # @dataset.load_data_dictionary!
-
-          Rails.logger.debug "Generating Index for /"
-          @dataset.lock_folder!(nil)
-          @dataset.create_folder_index(nil)
-
-          Rails.logger.debug "Generating Index for /datasets"
-          @dataset.lock_folder!('datasets')
-          @dataset.create_folder_index('datasets')
-
-          Rails.logger.debug "Refresh Dataset Complete"
-
-          Kernel.exit!
-        else
-          # In parent
-          Process.detach(pid)
-        end
-      end
-      'success'
-    elsif stdout.match(/DD Git Repository Does Not Exist/)
-      'gitrepodoesnotexist'
-    else
-      'notagfound'
-    end
+                 unless Rails.env.test?
+                   pid = Process.fork
+                   if pid.nil?
+                     # In child
+                     # Rails.logger.debug "Refresh Dataset Started"
+                     # Rails.logger.debug "Loading Data Dictionary"
+                     # @dataset.load_data_dictionary!
+                     Rails.logger.debug 'Generating Index for /'
+                     @dataset.lock_folder!(nil)
+                     @dataset.create_folder_index(nil)
+                     Rails.logger.debug 'Generating Index for /datasets'
+                     @dataset.lock_folder!('datasets')
+                     @dataset.create_folder_index('datasets')
+                     Rails.logger.debug 'Refresh Dataset Complete'
+                     Kernel.exit!
+                   else
+                     # In parent
+                     Process.detach(pid)
+                   end
+                 end
+                 'success'
+               elsif stdout.match(/DD Git Repository Does Not Exist/)
+                 'gitrepodoesnotexist'
+               else
+                 'notagfound'
+               end
 
     render json: { refresh: response }
-  end
-
-  def upload_dataset_csv
-    upload = 'success'
-    dataset_csv_folder = File.join(@dataset.files_folder, 'datasets')
-    FileUtils.mkpath dataset_csv_folder
-    new_file_location = ''
-    begin
-      if params[:file]
-        new_file_location = File.join(dataset_csv_folder, params[:file].original_filename)
-        FileUtils.cp params[:file].tempfile, new_file_location
-      end
-    rescue
-    end
-
-    if not File.exist?(new_file_location) or (File.exist?(new_file_location) and File.size(new_file_location) == 0)
-      upload = 'failed'
-    end
-
-    render json: { upload: upload }
-  end
-
-  def upload_graph
-    upload = 'success'
-    version = params[:version].to_s.gsub(/[^a-z\.\d]/, '')
-    type = params[:type] == 'images' ? 'images' : 'graphs'
-    version_folder = File.join(@dataset.data_dictionary_folder, type, version)
-    FileUtils.mkpath version_folder
-
-    new_file_location = ''
-    begin
-      if params[:file]
-        new_file_location = File.join(version_folder, params[:file].original_filename)
-        FileUtils.cp params[:file].tempfile, new_file_location
-      end
-    rescue
-    end
-
-    if not File.exist?(new_file_location) or (File.exist?(new_file_location) and File.size(new_file_location) == 0)
-      upload = 'failed'
-    end
-
-    render json: { upload: upload }
   end
 
   def set_public_file
@@ -131,10 +82,10 @@ class DatasetsController < ApplicationController
 
   # GET /datasets/1/file_audits
   def audits
-    audit_scope = @dataset.dataset_file_audits.order( created_at: :desc )
-    audit_scope = audit_scope.where( user_id: params[:user_id].blank? ? nil : params[:user_id] ) if params.key?(:user_id)
-    audit_scope = audit_scope.where( medium: params[:medium].blank? ? nil : params[:medium] ) if params.key?(:medium)
-    audit_scope = audit_scope.where( remote_ip: params[:remote_ip].blank? ? nil : params[:remote_ip] ) if params.key?(:remote_ip)
+    audit_scope = @dataset.dataset_file_audits.order(created_at: :desc)
+    audit_scope = audit_scope.where(user_id: params[:user_id].blank? ? nil : params[:user_id]) if params.key?(:user_id)
+    audit_scope = audit_scope.where(medium: params[:medium].blank? ? nil : params[:medium]) if params.key?(:medium)
+    audit_scope = audit_scope.where(remote_ip: params[:remote_ip].blank? ? nil : params[:remote_ip]) if params.key?(:remote_ip)
     @audits = audit_scope
   end
 
@@ -194,7 +145,7 @@ class DatasetsController < ApplicationController
     if file and File.directory?(file) and not @dataset.current_folder_locked?(folder)
       unless Rails.env.test?
         pid = Process.fork
-        if pid.nil? then
+        if pid.nil?
           # In child
           Rails.logger.debug 'Refresh Folder Index'
 

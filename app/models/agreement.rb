@@ -267,7 +267,7 @@ class Agreement < ActiveRecord::Base
   def send_daua_signed_email!
     unless Rails.env.test? or Rails.env.development?
       pid = Process.fork
-      if pid.nil? then
+      if pid.nil?
         # In child
         UserMailer.daua_signed(self).deliver_later if EMAILS_ENABLED
         Kernel.exit!

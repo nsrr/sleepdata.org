@@ -5,38 +5,6 @@ class DatasetsControllerTest < ActionController::TestCase
     @dataset = datasets(:public)
   end
 
-  test 'should get success if dataset csv is uploaded' do
-    post :upload_dataset_csv, id: datasets(:public), auth_token: users(:editor).id_and_auth_token, file: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png')
-
-    assert_not_nil response
-    assert_equal '{"upload":"success"}', response.body
-    assert_response :success
-  end
-
-  test 'should get failed if dataset csv does not exist after upload' do
-    post :upload_dataset_csv, id: datasets(:public), auth_token: users(:editor).id_and_auth_token, file: ''
-
-    assert_not_nil response
-    assert_equal '{"upload":"failed"}', response.body
-    assert_response :success
-  end
-
-  test 'should get success if graph is uploaded' do
-    post :upload_graph, id: datasets(:public), auth_token: users(:editor).id_and_auth_token, file: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png')
-
-    assert_not_nil response
-    assert_equal '{"upload":"success"}', response.body
-    assert_response :success
-  end
-
-  test 'should get failed if graph does not exist after upload' do
-    post :upload_graph, id: datasets(:public), auth_token: users(:editor).id_and_auth_token, file: ''
-
-    assert_not_nil response
-    assert_equal '{"upload":"failed"}', response.body
-    assert_response :success
-  end
-
   test 'should get editor status as editor' do
     get :editor, id: datasets(:public), auth_token: users(:editor).id_and_auth_token, format: 'json'
 
