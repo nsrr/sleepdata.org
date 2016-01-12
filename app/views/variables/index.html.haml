@@ -4,9 +4,10 @@
 
 = render 'variables/folder_breadcrumb', folder: params[:folder]
 
-%p
-  DATASET VERSION:
-  %span.label.label-danger= @dataset_version.inspect
+- if false
+  %p
+    DATASET VERSION:
+    %span.label.label-danger= @dataset_version.inspect
 
 = form_tag dataset_variables_path(@dataset), method: :get, class: 'form-inline', id: 'collection_form' do
   .input-group
