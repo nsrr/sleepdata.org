@@ -101,7 +101,6 @@ Rails.application.routes.draw do
         get :form
         get :graphs
         get :history
-        get :image
         get :known_issues
         get :related
       end

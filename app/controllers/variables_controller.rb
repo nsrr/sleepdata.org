@@ -2,7 +2,7 @@ class VariablesController < ApplicationController
   before_action :set_viewable_dataset
   before_action :redirect_without_dataset
   before_action :set_dataset_version
-  before_action :set_viewable_variable,     only: [:show, :graphs, :form, :known_issues, :related, :history, :image]
+  before_action :set_viewable_variable,     only: [:show, :graphs, :form, :known_issues, :related, :history]
   before_action :redirect_without_variable, only: [:show, :graphs, :form, :known_issues, :related, :history]
 
   def index
@@ -37,20 +37,6 @@ class VariablesController < ApplicationController
   end
 
   def history
-  end
-
-  def image
-    head :ok and return unless @variable
-    size = 'lg' if params[:size] == 'lg'
-    image_name = [@variable.name, size].compact.join('-')
-
-    if params[:format] == 'svg'
-      image_file = File.join(@dataset.root_folder, 'dd', 'images', "#{@variable.version}", "#{image_name}.svg")
-      send_file image_file, disposition: 'inline', type: 'image/svg+xml' if File.file?(image_file)
-    else
-      image_file = File.join(@dataset.root_folder, 'dd', 'images', "#{@variable.version}", "#{image_name}.png")
-      send_file image_file if File.file?(image_file)
-    end
   end
 
   private
