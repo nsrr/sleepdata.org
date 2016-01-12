@@ -9,10 +9,10 @@
     %h1.variable-header.brand History
 
     %ul
-      - @valid_folders.reverse.each do |version|
-        %li{ style: (version == @variable.version ? 'font-weight: bold' : nil) }
-          = link_to version, dataset_variable_path(@dataset, @variable, v: version)
-          = '(current version)' if version == @variable.version
+      - @dataset.dataset_versions.where(id: @dataset.variables.where(name: @variable.name).select(:dataset_version_id)).order(release_date: :desc).each do |dataset_version|
+        %li{ style: (dataset_version.id == @variable.dataset_version_id ? 'font-weight: bold' : nil) }
+          = link_to dataset_version.version, dataset_variable_path(@dataset, @variable, v: dataset_version.version)
+          = '(current version)' if dataset_version.id == @variable.dataset_version_id
 
     - if @dataset.data_dictionary_repository.present?
       = link_to "#{@dataset.data_dictionary_repository.gsub(/\.git$/, '')}/blob/master/CHANGELOG.md", target: '_blank', class: 'btn btn-default' do

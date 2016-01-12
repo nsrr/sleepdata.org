@@ -11,14 +11,14 @@
           .col-sm-4
             = link_to 'Variables', dataset_variables_path(@dataset), class: "btn btn-block btn-#{params[:controller] == 'variables' ? 'primary' : 'default'}"
 
-  - if defined?(@version) && defined?(@variable) && @version != @variable.version
+  - if @variable && @dataset.dataset_version && @variable.dataset_version_id != @dataset.dataset_version_id
     .flash-alert
       .container
         %strong Old Version
         You are viewing variable information
         that is kept around
         for historical purposes only. The latest version
-        %code= "v#{@variable.version}"
+        %code= "v#{@dataset.dataset_version.version}"
         is
         = succeed '.' do
           = link_to 'available here', [@dataset, @variable], class: 'alert-link'

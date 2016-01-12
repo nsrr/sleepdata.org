@@ -4,7 +4,6 @@ class VariablesController < ApplicationController
   before_action :set_dataset_version
   before_action :set_viewable_variable,     only: [:show, :graphs, :form, :known_issues, :related, :history, :image]
   before_action :redirect_without_variable, only: [:show, :graphs, :form, :known_issues, :related, :history]
-  before_action :set_folder_and_version,    only: [:show, :graphs, :form, :known_issues, :related, :history]
 
   def index
     variable_scope = @dataset.variables.with_folder(params[:folder])
@@ -69,15 +68,5 @@ class VariablesController < ApplicationController
 
   def redirect_without_variable
     empty_response_or_root_path(dataset_variables_path(@dataset)) unless @variable
-  end
-
-  def set_folder_and_version
-    graphs_folder = File.join(@dataset.root_folder, 'dd', 'graphs')
-    @valid_folders = if File.exist?(graphs_folder)
-                      (Dir.entries(graphs_folder) - ['.','..']).select { |f| !File.file?(f) }
-                    else
-                      []
-                    end
-    @version = (@valid_folders.include?(params[:v].to_s.strip) ? @valid_folders.select { |f| f == params[:v].to_s.strip }.first : @variable.version.to_s)
   end
 end
