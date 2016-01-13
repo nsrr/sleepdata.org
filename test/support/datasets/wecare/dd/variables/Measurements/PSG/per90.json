@@ -1,7 +1,0 @@
-{
-  "id": "per90",
-  "display_name": "% time O2 saturation < 90%",
-  "description": "",
-  "type": "numeric",
-  "units": "%"
-}

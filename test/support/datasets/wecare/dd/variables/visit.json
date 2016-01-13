@@ -1,7 +1,0 @@
-{
-  "id": "visit",
-  "display_name": "Visit",
-  "description": "",
-  "type": "choices",
-  "domain": "visit_type"
-}

@@ -14,7 +14,8 @@
           = link_to dataset_version.version, dataset_variable_path(@dataset, @variable, v: dataset_version.version)
           = '(current version)' if dataset_version.id == @variable.dataset_version_id
 
-    - if @dataset.data_dictionary_repository.present?
-      = link_to "#{@dataset.data_dictionary_repository.gsub(/\.git$/, '')}/blob/master/CHANGELOG.md", target: '_blank', class: 'btn btn-default' do
+    - if @variable.dataset_version
+      - download_url = files_dataset_path(@dataset) + "/datasets/archive/#{@variable.dataset_version.version}/CHANGELOG.md"
+      = link_to download_url, class: 'btn btn-default' do
         View Change Log
         %span.glyphicon.glyphicon-new-window

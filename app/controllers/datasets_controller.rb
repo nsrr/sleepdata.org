@@ -16,37 +16,8 @@ class DatasetsController < ApplicationController
   end
 
   def refresh_dictionary
-    version = params[:version].to_s.gsub(/[^a-z\.\d]/, '')
-    stdout = @dataset.pull_new_data_dictionary!(version)
-    response = if stdout.match(/Switched to a new branch '#{version}'/)
-                 unless Rails.env.test?
-                   pid = Process.fork
-                   if pid.nil?
-                     # In child
-                     # Rails.logger.debug "Refresh Dataset Started"
-                     # Rails.logger.debug "Loading Data Dictionary"
-                     # @dataset.load_data_dictionary!
-                     Rails.logger.debug 'Generating Index for /'
-                     @dataset.lock_folder!(nil)
-                     @dataset.create_folder_index(nil)
-                     Rails.logger.debug 'Generating Index for /datasets'
-                     @dataset.lock_folder!('datasets')
-                     @dataset.create_folder_index('datasets')
-                     Rails.logger.debug 'Refresh Dataset Complete'
-                     Kernel.exit!
-                   else
-                     # In parent
-                     Process.detach(pid)
-                   end
-                 end
-                 'success'
-               elsif stdout.match(/DD Git Repository Does Not Exist/)
-                 'gitrepodoesnotexist'
-               else
-                 'notagfound'
-               end
-
-    render json: { refresh: response }
+    @dataset.recompute_datasets_folder_indices_in_background
+    render json: { refresh: 'success' }
   end
 
   def set_public_file
@@ -250,9 +221,8 @@ class DatasetsController < ApplicationController
     params[:dataset][:release_date] = parse_date(params[:dataset][:release_date])
     params.require(:dataset).permit(
       :name, :description, :slug, :logo, :logo_cache, :public,
-      :all_files_public, :git_repository, :data_dictionary_repository,
-      :release_date, :info_what, :info_who, :info_when, :info_funded_by,
-      :info_citation, :info_size
+      :all_files_public, :git_repository, :release_date, :info_what, :info_who,
+      :info_when, :info_funded_by, :info_citation, :info_size
       )
   end
 end
