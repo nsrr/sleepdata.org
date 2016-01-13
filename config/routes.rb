@@ -15,6 +15,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       namespace :dictionary do
         post :upload_dataset_csv
+        post :upload_file
+        get :refresh
       end
       resources :variables, only: [:create, :show, :index] do
         collection do
@@ -92,7 +94,6 @@ Rails.application.routes.draw do
       post :pull_changes
 
       post :set_public_file
-      get '/a/:auth_token/refresh_dictionary', action: 'refresh_dictionary', as: :refresh_dictionary
       get '/a/:auth_token/editor', action: 'editor', as: :editor
     end
 

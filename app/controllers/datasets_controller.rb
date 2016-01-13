@@ -1,10 +1,10 @@
 class DatasetsController < ApplicationController
-  before_action :authenticate_user_from_token!, only: [:json_manifest, :manifest, :files, :refresh_dictionary, :editor, :index, :show]
+  before_action :authenticate_user_from_token!, only: [:json_manifest, :manifest, :files, :editor, :index, :show]
   before_action :authenticate_user!,        only: [:new, :edit, :create, :update, :destroy, :audits, :collaborators, :create_access, :remove_access, :pull_changes, :sync, :set_public_file, :reset_index]
   before_action :check_system_admin,        only: [:new, :create, :destroy]
   before_action :set_viewable_dataset,      only: [:show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :search, :editor]
-  before_action :set_editable_dataset,      only: [:edit, :update, :destroy, :audits, :collaborators, :create_access, :remove_access, :pull_changes, :sync, :set_public_file, :reset_index, :refresh_dictionary]
-  before_action :redirect_without_dataset,  only: [:show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :create_access, :remove_access, :search, :edit, :update, :destroy, :audits, :collaborators, :pull_changes, :sync, :set_public_file, :reset_index, :refresh_dictionary, :editor]
+  before_action :set_editable_dataset,      only: [:edit, :update, :destroy, :audits, :collaborators, :create_access, :remove_access, :pull_changes, :sync, :set_public_file, :reset_index]
+  before_action :redirect_without_dataset,  only: [:show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :create_access, :remove_access, :search, :edit, :update, :destroy, :audits, :collaborators, :pull_changes, :sync, :set_public_file, :reset_index, :editor]
 
   # Concerns
   include Pageable
@@ -13,11 +13,6 @@ class DatasetsController < ApplicationController
   def editor
     editor = (current_user && @dataset.editable_by?(current_user) ? true : false)
     render json: { editor: editor, user_id: (current_user ? current_user.id : nil) }
-  end
-
-  def refresh_dictionary
-    @dataset.recompute_datasets_folder_indices_in_background
-    render json: { refresh: 'success' }
   end
 
   def set_public_file

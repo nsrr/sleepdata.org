@@ -228,15 +228,19 @@ class Dataset < ActiveRecord::Base
     colors(Dataset.order(:id).pluck(:id).index(id))
   end
 
-  def recompute_datasets_folder_indices_in_background
-    fork_process(:recompute_datasets_folder_indices)
+  def recompute_datasets_folder_indices_in_background(folders)
+    fork_process(:recompute_datasets_folder_indices, folders)
   end
 
-  def recompute_datasets_folder_indices
+  def recompute_datasets_folder_indices(folders)
     lock_folder!(nil)
     create_folder_index(nil)
-    lock_folder!('datasets')
-    create_folder_index('datasets')
+    folders.each do |folder|
+      if File.exist?(File.join(files_folder, folder))
+        lock_folder!(folder)
+        create_folder_index(folder)
+      end
+    end
   end
 
   def create_page_audit!(current_user, page_path, remote_ip)
