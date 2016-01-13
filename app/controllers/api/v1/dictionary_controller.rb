@@ -25,6 +25,16 @@ class Api::V1::DictionaryController < Api::V1::BaseController
     render json: { refresh: 'success' }
   end
 
+  def update_default_version
+    dataset_version = @dataset.dataset_versions.find_by(version: params[:version])
+    if dataset_version
+      @dataset.update dataset_version_id: dataset_version.id
+      render json: { version_update: 'success' }
+    else
+      render json: { version_update: 'fail' }
+    end
+  end
+
   private
 
   def get_folder
