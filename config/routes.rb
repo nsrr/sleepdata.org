@@ -16,7 +16,7 @@ Rails.application.routes.draw do
       namespace :dictionary do
         post :upload_dataset_csv
         post :upload_file
-        get :refresh
+        post :refresh
         post :update_default_version
       end
       resources :variables, only: [:create, :show, :index] do
