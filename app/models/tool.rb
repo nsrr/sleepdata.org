@@ -12,7 +12,7 @@ class Tool < ActiveRecord::Base
 
   # Model Validation
   validates :name, :slug, :user_id, presence: true
-  validates :slug, uniqueness: { scope: :deleted }
+  validates :slug, uniqueness: { scope: :deleted, case_sensitive: false }
   validates :slug, format: { with: /\A[a-z][a-z0-9\-]*\Z/ }
 
   # Model Relationships

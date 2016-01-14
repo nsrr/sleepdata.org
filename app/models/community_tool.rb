@@ -10,9 +10,9 @@ class CommunityTool < ActiveRecord::Base
 
   # Model Validation
   validates :user_id, :url, :status, presence: true
-  validates :url, uniqueness: { scope: :deleted }
+  validates :url, uniqueness: { scope: :deleted, case_sensitive: false }
   validates :name, :description, presence: true, unless: :started?
-  validates :name, uniqueness: { scope: [:user_id, :deleted] }, unless: :started?
+  validates :name, uniqueness: { scope: [:user_id, :deleted], case_sensitive: false }, unless: :started?
   validates :url, format: URI.regexp(%w(http https ftp))
 
   # Model Relationships

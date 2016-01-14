@@ -6,7 +6,7 @@ class Domain < ActiveRecord::Base
   validates :name, :dataset_id, :dataset_version_id, presence: true
   validates :name, format: { with: /\A[a-z]\w*\Z/i }
   validates :name, length: { maximum: 30 }
-  validates :name, uniqueness: { scope: [:dataset_id, :dataset_version_id] }
+  validates :name, uniqueness: { scope: [:dataset_id, :dataset_version_id], case_sensitive: false }
 
   # Model Relationships
   belongs_to :dataset

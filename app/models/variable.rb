@@ -10,7 +10,7 @@ class Variable < ActiveRecord::Base
   validates :name, :display_name, :variable_type, :dataset_id, :dataset_version_id, presence: true
   validates :name, format: { with: /\A[a-z]\w*\Z/i }
   validates :name, length: { maximum: 32 }
-  validates :name, uniqueness: { scope: [:dataset_id, :dataset_version_id] }
+  validates :name, uniqueness: { scope: [:dataset_id, :dataset_version_id], case_sensitive: false }
 
   # Model Relationships
   belongs_to :dataset

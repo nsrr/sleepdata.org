@@ -14,7 +14,7 @@ class Dataset < ActiveRecord::Base
 
   # Model Validation
   validates :name, :slug, :user_id, presence: true
-  validates :slug, uniqueness: { scope: :deleted }
+  validates :slug, uniqueness: { scope: :deleted, case_sensitive: false }
   validates :slug, format: { with: /\A[a-z][a-z0-9\-]*\Z/ }
   validates :info_size, numericality: { greater_than_or_equal_to: 0 }
 
