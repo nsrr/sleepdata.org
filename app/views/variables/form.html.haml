@@ -1,9 +1,9 @@
 = render 'variables/header'
 
 .row
-  .col-md-3
+  .col-sm-3
     = render 'variables/menu'
-  .col-md-9
+  .col-sm-9
     - download_url = files_dataset_path(@dataset) + "/forms/#{@form.folder}?f=#{CGI::escape @form.code_book.to_s}"
     - inline_url = files_dataset_path(@dataset) + "/m/browser/forms/#{@form.folder}/#{@form.code_book}?inline=1"
 

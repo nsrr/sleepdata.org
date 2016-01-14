@@ -103,7 +103,7 @@ Rails.application.routes.draw do
         get :form
         get :graphs
         get :history
-        get :known_issues
+        get :known_issues, path: 'known-issues'
         get :related
       end
     end

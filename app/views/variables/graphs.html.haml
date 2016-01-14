@@ -3,9 +3,9 @@
 = render 'variables/header'
 
 .row
-  .col-md-3
+  .col-sm-3
     = render 'variables/menu'
-  .col-md-9
+  .col-sm-9
     = hidden_field_tag 'chart_type', params[:g]
 
     - json = JSON.parse(@variable.spout_stats) rescue json = nil
