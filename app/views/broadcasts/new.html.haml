@@ -1,8 +1,11 @@
 - @title = 'New Blog Post'
 
-%h1
-  = link_to 'Blog Posts', broadcasts_path
-  &middot;
-  = @title
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = link_to 'Blog Posts', broadcasts_path
+        &middot;
+        New
 
 = render 'form'

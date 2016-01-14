@@ -46,7 +46,7 @@ class ToolsController < ApplicationController
       community_tool_scope = community_tool_scope.where(user_id: user_ids.select(:id))
     end
 
-    @community_tools = community_tool_scope.page(params[:page]).per(40)
+    @community_tools = community_tool_scope.search(params[:s]).page(params[:page]).per(40)
   end
 
   # GET /tools/1

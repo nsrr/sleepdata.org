@@ -1,35 +1,49 @@
-%h1
-  = link_to 'Blog Posts', broadcasts_path
-  &middot;
-  = @broadcast.title
+- @title = @broadcast.title
 
-  - if @broadcast.published?
-    %span.label.label-info Published
-  - else
-    %span.label.label-warning DRAFT
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = link_to 'Blog Posts', broadcasts_path
+        &middot;
+        = @broadcast.title
+      .banner-body
+        - if @broadcast.published?
+          %span.label.label-info Published
+        - else
+          %span.label.label-warning DRAFT
+        = link_to edit_broadcast_path(@broadcast), class: 'btn btn-xs btn-default' do
+          %span.glyphicon.glyphicon-edit
+          Edit Blog Post
 
-  = link_to 'Edit', edit_broadcast_path(@broadcast), class: 'btn btn-xs btn-default'
+.row
+  .col-sm-9
+    .broadcast
+      = simple_markdown @broadcast.description, false
 
-%p
-  %strong Short Description
-  = @broadcast.short_description
+  .col-sm-3
+    %p
+      %strong Short Description
+      %br
+      = @broadcast.short_description
 
-%p
-  %strong Creator
-  = @broadcast.user.name
+    %p
+      %strong Creator
+      %br
+      = @broadcast.user.name
 
-%p
-  %strong Publish date
-  = @broadcast.publish_date
+    %p
+      %strong Publish date
+      %br
+      = @broadcast.publish_date
 
-%p
-  %strong Pinned
-  = simple_check @broadcast.pinned
+    %p
+      %strong Pinned
+      %br
+      = simple_check @broadcast.pinned
 
-%p
-  %strong Archived
-  = simple_check @broadcast.archived
-
-.broadcast
-  = simple_markdown @broadcast.description, false
+    %p
+      %strong Archived
+      %br
+      = simple_check @broadcast.archived
 

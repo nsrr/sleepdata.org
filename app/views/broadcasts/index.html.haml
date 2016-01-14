@@ -1,7 +1,14 @@
 - @title = 'Blog Posts'
-%h1
-  Blog Posts
-  = link_to 'New Blog Post', new_broadcast_path, class: 'btn btn-xs btn-default'
+
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        Blog Posts
+      .banner-body
+        = link_to new_broadcast_path, class: 'btn btn-xs btn-default' do
+          %span.glyphicon.glyphicon-plus
+          New Blog Post
 
 %table.table
   %thead

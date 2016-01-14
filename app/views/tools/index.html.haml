@@ -19,30 +19,29 @@
 
 .row
   .col-sm-9
-    - if @community_tools.present?
-      .content-container
-        = form_tag tools_path, method: :get, class: 'form-inline' do
-          .input-group
-            = text_field_tag 's', params[:s], class: 'form-control', placeholder: "Search Tools"
-            .input-group-btn
-              = submit_tag 'Search', class: 'btn btn-primary', name: nil
-              = link_to 'Reset', tools_path, class: 'btn btn-default'
+    .content-container
+      = form_tag tools_path, method: :get, class: 'form-inline' do
+        .input-group
+          = text_field_tag 's', params[:s], class: 'form-control', placeholder: "Search Tools"
+          .input-group-btn
+            = submit_tag 'Search', class: 'btn btn-primary', name: nil
+            = link_to 'Reset', tools_path, class: 'btn btn-default'
 
-        %table.table.table-striped
-          %thead
+      %table.table.table-striped
+        %thead
+          %tr
+            %th Name
+            %th URL
+            %th User
+
+        %tbody
+          - @community_tools.each do |community_tool|
             %tr
-              %th Name
-              %th URL
-              %th User
+              %td= link_to community_tool.name, community_show_tool_path(community_tool)
+              %td= community_tool.url
+              %td= community_tool.user.forum_name
 
-          %tbody
-            - @community_tools.each do |community_tool|
-              %tr
-                %td= link_to community_tool.name, community_show_tool_path(community_tool)
-                %td= community_tool.url
-                %td= community_tool.user.forum_name
-
-        .center= paginate @community_tools, theme: 'contour'
+      .center= paginate @community_tools, theme: 'contour'
   .col-sm-3
     - if false
       %strong Unsure how to work with a data type?

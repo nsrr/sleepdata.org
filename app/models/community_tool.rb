@@ -8,6 +8,8 @@ class CommunityTool < ActiveRecord::Base
 
   # Named Scopes
 
+  scope :search, -> (arg) { where('name ~* ?', arg.to_s.split(/\s/).collect { |l| l.to_s.gsub(/[^\w\d%]/, '') }.collect { |l| "(#{l})" }.join('|')) }
+
   # Model Validation
   validates :user_id, :url, :status, presence: true
   validates :url, uniqueness: { scope: :deleted, case_sensitive: false }

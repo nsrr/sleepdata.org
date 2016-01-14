@@ -1,10 +1,13 @@
-- @title = "Edit Tool: #{@community_tool.url_was}"
+- @title = "Edit Tool: #{@community_tool.name_was}"
 
-%h1
-  = link_to 'Community Tools', community_tools_path
-  &middot;
-  = link_to @community_tool.name, @community_tool
-  &middot;
-  Edit
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = link_to 'Community Tools', community_tools_path
+        &middot;
+        = link_to @community_tool.name_was, @community_tool
+        &middot;
+        Edit
 
 = render 'form'

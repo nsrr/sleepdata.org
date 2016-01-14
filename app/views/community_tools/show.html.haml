@@ -1,11 +1,16 @@
 - @title = @community_tool.name
 
-%h1
-  = link_to 'Community Tools', community_tools_path
-  &middot;
-  = @community_tool.name
-
-  = link_to 'Edit', edit_community_tool_path(@community_tool), class: 'btn btn-xs btn-default'
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = link_to 'Community Tools', community_tools_path
+        &middot;
+        = @community_tool.name
+      .banner-body
+        = link_to edit_community_tool_path(@community_tool), class: 'btn btn-xs btn-default' do
+          %span.glyphicon.glyphicon-edit
+          Edit Tool
 
 %p
   %strong URL

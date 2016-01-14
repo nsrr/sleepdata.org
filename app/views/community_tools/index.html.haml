@@ -1,7 +1,14 @@
 - @title = 'Community Tools'
-%h1
-  = @title
-  = link_to 'New Community tool', new_community_tool_path, class: 'btn btn-xs btn-default'
+
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        Community Tools
+      .banner-body
+        = link_to new_community_tool_path, class: 'btn btn-xs btn-default' do
+          %span.glyphicon.glyphicon-plus
+          New Community Tool
 
 %table.table.table-striped
   %thead
