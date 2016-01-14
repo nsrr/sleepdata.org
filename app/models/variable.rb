@@ -2,6 +2,8 @@
 class Variable < ActiveRecord::Base
   serialize :labels, Array
 
+  after_save :set_search_terms
+
   # Named Scopes
   scope :with_folder, -> (arg) { where 'folder ~* ?', "(^#{arg})" }
   scope :search, -> (arg) { where('search_terms ~* ?', arg.to_s.split(/\s/).collect { |l| l.to_s.gsub(/[^\w\d%]/, '') }.collect { |l| "(#{l})" }.join('|')) }
@@ -140,16 +142,13 @@ class Variable < ActiveRecord::Base
   end
 
   def set_search_terms
-    search_terms = [name.downcase] + folder.split('/')
-    search_terms += labels
-    search_terms += forms.pluck(:name)
+    terms = [name.downcase] + folder.to_s.split('/')
+    terms += labels
+    terms += forms.pluck(:name)
     [display_name, units, calculation, description].each do |json_string|
-      search_terms += json_string.to_s.split(/[^\w\d%]/)
+      terms += json_string.to_s.split(/[^\w\d%]/).reject(&:blank?)
     end
-    search_terms.select { |a| a.to_s.strip.size > 1 }.collect { |b| b.downcase.strip }.uniq.sort.join(' ')
-  end
-
-  def search_terms
-    set_search_terms
+    terms = terms.select { |a| a.to_s.strip.size > 1 }.collect { |b| b.downcase.strip }.uniq.sort.join(' ')
+    update_column :search_terms, terms
   end
 end
