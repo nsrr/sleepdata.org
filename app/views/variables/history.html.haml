@@ -15,7 +15,7 @@
           = '(current version)' if dataset_version.id == @variable.dataset_version_id
 
     - if @variable.dataset_version
-      - download_url = files_dataset_path(@dataset) + "/datasets/archive/#{@variable.dataset_version.version}/CHANGELOG.md"
+      - download_url = files_dataset_path(@dataset) + "/datasets/archive/#{@variable.dataset_version.version}"
       = link_to download_url, class: 'btn btn-default' do
         View Change Log
         %span.glyphicon.glyphicon-new-window
