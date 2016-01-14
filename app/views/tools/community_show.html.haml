@@ -10,13 +10,12 @@
       %ol
         %li= link_to_if @community_tool.safe_url?, @community_tool.url, @community_tool.url, target: '_blank'
 
-
 .row
-  .col-md-9
+  .col-sm-9
     .markdown-container-new
       = simple_markdown @community_tool.description
 
-  .col-md-3
+  .col-sm-3
     %p
       %strong Author
       %br
@@ -27,47 +26,38 @@
       %br
       = @community_tool.created_at.strftime '%B %-d, %Y'
 
-    %p
-      %strong
-        Add to Favorites
-      Favorite this Tool
+    - if false
+      %p
+        %strong
+          Add to Favorites
+        Favorite this Tool
 
-    %p
-      %strong
-        Discuss this Tool
-      Add a Comment
+      %p
+        %strong
+          Discuss this Tool
+        Add a Comment
 
-    %p
-      %strong
-        Language
-      This is written in Ruby!
+      %p
+        %strong
+          Language
+        This is written in Ruby!
 
-    %p
-      %strong
-        Category/Tags
-      %code tag1
-      %code tag2
-      %code tagd
+      %p
+        %strong
+          Category/Tags
+        %code tag1
+        %code tag2
+        %code tagd
 
-    %p
-      %strong Editor's Choice Tool
-      This is an editor's choice tool!
+      %p
+        %strong Editor's Choice Tool
+        This is an editor's choice tool!
 
-    %p
-      %strong Date last reviewed/Verified
-      Shown if it's earlier than the last updated by user.
+      %p
+        %strong Date last reviewed/Verified
+        Shown if it's earlier than the last updated by user.
 
-    %p
-      %strong License
-      http://choosealicense.com/
-      Remember to choose a license?
-
-
-
-
-
-
-
-
-
-
+      %p
+        %strong License
+        http://choosealicense.com/
+        Remember to choose a license?

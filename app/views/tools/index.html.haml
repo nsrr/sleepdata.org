@@ -18,7 +18,7 @@
   %p.lead Tool Discussion
 
 .row
-  .col-md-9
+  .col-sm-9
     - if @community_tools.present?
       .content-container
         = form_tag tools_path, method: :get, class: 'form-inline' do
@@ -43,9 +43,13 @@
                 %td= community_tool.user.forum_name
 
         .center= paginate @community_tools, theme: 'contour'
-  .col-md-3
-    %strong Unsure how to work with a data type?
-    = link_to 'Request a Tool', tool_request_path, class: 'btn btn-primary btn-xs'
+  .col-sm-3
+    - if false
+      %strong Unsure how to work with a data type?
+      = link_to 'Request a Tool', tool_request_path, class: 'btn btn-primary btn-xs'
+    - else
+      %strong Questions?
+      = link_to 'Contact Us!', contact_path
 
 - if false
   .content-container

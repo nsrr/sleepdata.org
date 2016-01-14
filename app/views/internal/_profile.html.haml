@@ -4,12 +4,17 @@
       = image_tag current_user.avatar_url(100, 'identicon'), size: '100x100', class: 'profile-image', alt: ''
   .profile-bottom
     .center{ style: 'font-weight: 600;margin-bottom: 10px' }= current_user.name
-    %p{ style: 'font-weight: 300; margin-bottom: 0' }
-      Researcher
-    %div
-      .award.award-gold
-      5
-      .award.award-silver
-      30
-      .award.award-bronze
-      20
+    - if false
+      %p{ style: 'font-weight: 300; margin-bottom: 0' }
+        Researcher
+      %div
+        .award.award-gold
+        5
+        .award.award-silver
+        30
+        .award.award-bronze
+        20
+
+.dashboard-container
+  %span.glyphicon.glyphicon-cog
+  = link_to 'Settings', settings_path

@@ -33,84 +33,104 @@
             = precede '#' do
               = agreement.agreement_number
 
+          = link_to print_agreement_path(agreement), target: '_blank', class: 'btn btn-xs btn-default' do
+            %span.glyphicon.glyphicon-print
+            Print
+
+        %table.table.table-striped
           - if agreement.under_review?
-            %p
-              This submission is currently
-              = succeed '.' do
-                %strong under review
-          - elsif agreement.approved?
-            %p
-              Your data access request was
-              = succeed '.' do
-                %strong approved
-                = agreement.approval_date.strftime("on %-d %B %Y") if agreement.approval_date
-            %p
-              - if agreement.expiration_date
-                This agreement expires
+            %tr
+              %td.text-right
+                %strong Status
+              %td
+                This submission is currently
                 = succeed '.' do
-                  = agreement.expiration_date.strftime("on %-d %B %Y")
+                  %strong under review
+          - elsif agreement.approved?
+            %tr
+              %td.text-right
+                %strong Status
+              %td
+                Your data access request was
+                = succeed '.' do
+                  %strong approved
+                  = agreement.approval_date.strftime("on %-d %B %Y") if agreement.approval_date
+            %tr
+              %td.text-right
+                %strong Status
+              %td
+                - if agreement.expiration_date
+                  This agreement expires
+                  = succeed '.' do
+                    = agreement.expiration_date.strftime("on %-d %B %Y")
           - elsif agreement.status == 'expired'
-            %p
-              Your data access request
-              = succeed '.' do
-                %strong expired
-                =agreement.expiration_date.strftime(" on %-d %B %Y") if agreement.expiration_date
-              = link_to renew_agreement_path(agreement) do
-                Renew
-                %span.glyphicon.glyphicon-arrow-right
+            %tr
+              %td.text-right
+                %strong Status
+              %td
+                Your data access request
+                = succeed '.' do
+                  %strong expired
+                  =agreement.expiration_date.strftime(" on %-d %B %Y") if agreement.expiration_date
+                = link_to renew_agreement_path(agreement) do
+                  Renew
+                  %span.glyphicon.glyphicon-arrow-right
           - else
-            %div
-              %strong
-                Steps:
+            %tr
+              %td.text-right
+                %strong Status
+              %td
+                Started
+            %tr
+              %td.text-right
+                %strong Steps
+              %td
                 - (1..6).each do |step|
                   - current_step = (step == 1 ? 2 : agreement.current_step)
                   = link_to step, step_agreement_path(agreement, step: step), class: "btn btn-#{step_helper(agreement, step, current_step)}"
-            %div
-              %strong
-                Actions
-              %br
-              - if agreement.fully_filled_out?
-                = link_to proof_agreement_path(agreement), class: 'btn btn-xs btn-success' do
-                  Continue
-                  %span.glyphicon.glyphicon-arrow-right
-              - else
-                = link_to step_agreement_path(agreement, step: agreement.current_step), class: 'btn btn-xs btn-success' do
-                  Continue
-                  %span.glyphicon.glyphicon-arrow-right
-
-              = link_to destroy_submission_agreement_path(agreement), class: 'btn btn-xs btn-danger-inverse', method: :delete, data: { confirm: "Are you sure you want to delete Agreement ##{agreement.agreement_number}?" } do
-                %span.glyphicon.glyphicon-trash
-                Delete
+            %tr
+              %td.text-right
+                %strong Actions
+              %td
+                - if agreement.fully_filled_out?
+                  = link_to proof_agreement_path(agreement), class: 'btn btn-xs btn-success' do
+                    Continue
+                    %span.glyphicon.glyphicon-arrow-right
+                - else
+                  = link_to step_agreement_path(agreement, step: agreement.current_step), class: 'btn btn-xs btn-success' do
+                    Continue
+                    %span.glyphicon.glyphicon-arrow-right
+                &nbsp;
+                = link_to destroy_submission_agreement_path(agreement), class: 'btn btn-xs btn-danger-inverse', method: :delete, data: { confirm: "Are you sure you want to delete Agreement ##{agreement.agreement_number}?" } do
+                  %span.glyphicon.glyphicon-trash
+                  Delete
 
           - if agreement.datasets.count > 0
-            %div
-              %strong Datasets:
-              %br
-              - agreement.datasets.order(:release_date).each do |dataset|
-                = dataset.slug
+            %tr
+              %td.text-right
+                %strong Datasets
+              %td
+                - agreement.datasets.order(:release_date).each do |dataset|
+                  = dataset.slug
           - if agreement.under_review? || agreement.approved? || agreement.status == 'expired'
-            %div
+            %tr
               - if agreement.resubmitted_at
-                %strong Resubmitted:
-                %br
-                = agreement.resubmitted_at.strftime("%-d %B %Y, %-l:%M %p (%H:%M)")
+                %td.text-right
+                  %strong Resubmitted
+                %td
+                  = agreement.resubmitted_at.strftime("%-d %B %Y, %-l:%M %p (%H:%M)")
               - elsif agreement.submitted_at
-                %strong Submitted:
-                %br
-                = agreement.submitted_at.strftime("%-d %B %Y, %-l:%M %p (%H:%M)")
+                %td.text-right
+                  %strong Submitted
+                %td
+                  = agreement.submitted_at.strftime("%-d %B %Y, %-l:%M %p (%H:%M)")
 
-          = link_to print_agreement_path(agreement), target: '_blank', class: 'btn btn-xs btn-default' do
-            %span.glyphicon.glyphicon-print
-            Print Copy of Agreement
+        - if agreement.status == 'resubmit'
+          %p.text-danger
+            = agreement.comments
 
-          - if agreement.status == 'resubmit'
-            %hr.divider-sm
-            %p.text-danger
-              = agreement.comments
-
-          - unless agreement.specific_purpose.blank?
-            %hr.divider-sm
-            %p.text-muted
-              %strong= agreement.title_of_project
-              %br
-              = agreement.specific_purpose
+        - unless agreement.specific_purpose.blank?
+          %p.text-muted
+            %strong= agreement.title_of_project
+            %br
+            = agreement.specific_purpose
