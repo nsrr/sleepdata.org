@@ -1,9 +1,13 @@
-- @title = "Edit Dataset: #{@dataset.name}"
+- @title = "Edit Dataset: #{@dataset.name_was}"
 
-%h1
-  Edit Dataset
-%p
-  = link_to @dataset.name, @dataset
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = link_to 'Datasets', datasets_path
+        &middot;
+        = link_to @dataset.name_was, @dataset
+        &middot;
+        Edit
 
 = render 'form'
-
