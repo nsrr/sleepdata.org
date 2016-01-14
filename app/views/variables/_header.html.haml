@@ -2,9 +2,11 @@
 
 = render 'variables/folder_breadcrumb', folder: @variable.folder
 
-- if @dataset.chartable_variables.pluck(:id).index(@variable.id)
-  - previous_variable = @dataset.variables.find_by_id(@dataset.chartable_variables[@dataset.chartable_variables.pluck(:id).index(@variable.id) - 1]) unless @dataset.chartable_variables.pluck(:id).index(@variable.id) == 0
-  - next_variable = @dataset.variables.find_by_id(@dataset.chartable_variables[@dataset.chartable_variables.pluck(:id).index(@variable.id) + 1])
+- chartables = @dataset.chartable_variables.where(dataset_version_id: @variable.dataset_version_id)
+
+- if chartables.pluck(:id).index(@variable.id)
+  - previous_variable = @dataset.variables.find_by_id(chartables[chartables.pluck(:id).index(@variable.id) - 1]) unless chartables.pluck(:id).index(@variable.id) == 0
+  - next_variable = @dataset.variables.find_by_id(chartables[chartables.pluck(:id).index(@variable.id) + 1])
   %div{ style: 'display:none' }
     = link_to '&laquo;'.html_safe, url_for(id: previous_variable, g: params[:g], v: params[:v]), class: 'btn btn-large btn-default pull-left', style: 'margin-left:-40px', id: 'previous-variable' if previous_variable
     = link_to '&raquo;'.html_safe, url_for(id: next_variable, g: params[:g], v: params[:v]), class: 'btn btn-large btn-default pull-right', style: 'margin-right:-40px', id: 'next-variable' if next_variable
