@@ -24,14 +24,9 @@
           %th
           %th Name
           %th.nowrap Display Name
-          %th Description
           %th Folder
           - unless params[:s].blank?
             %th Relevance
-            - if current_user && current_user.system_admin? && false
-              %th Labels
-              %th.nowrap Rank Score
-              %th Reason
 
       - @variables.sort { |a,b| a.rank_sort_order(params[:s]) <=> b.rank_sort_order(params[:s]) }.each do |variable|
         %tr
@@ -39,15 +34,12 @@
             - if variable.commonly_used?
               %span.glyphicon.glyphicon-star.text-warning
           %td= link_to variable.name, dataset_variable_path(variable.dataset, variable)
-          %td= variable.display_name
-          %td.variable-description= simple_markdown_no_lists variable.description
+          %td
+            = variable.display_name
+            %small.text-muted.variable-description{ colspan: 2 }= simple_markdown_no_lists variable.description
           %td= variable.folder
           - unless params[:s].blank?
             %td= render 'variables/relevance', variable: variable
-            - if current_user && current_user.system_admin? && false
-              %td= variable.labels
-              %td= variable.rank(params[:s])[:score]
-              %td.nowrap= variable.rank(params[:s])[:reasons].join('<br />').html_safe
 
     - if false
       .center= paginate @variables, theme: 'contour'
