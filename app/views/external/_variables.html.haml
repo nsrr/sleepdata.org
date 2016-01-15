@@ -5,7 +5,8 @@
 
     %p.lead
       Drill down and view over
-      = pluralize(number_with_delimiter(Variable.where(dataset_id: Dataset.current.where(public: true).pluck(:id)).count), 'covariate')
+      - public_variable_count = Variable.joins(:dataset).where("variables.dataset_version_id = datasets.dataset_version_id").merge(Dataset.current.where(public: true)).count
+      = pluralize(number_with_delimiter(public_variable_count), 'covariate')
       across
       = succeed '.' do
         = link_to pluralize(Dataset.current.where(public: true).count, 'public dataset'), datasets_path
