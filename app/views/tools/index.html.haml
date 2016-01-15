@@ -22,7 +22,7 @@
     .content-container
       = form_tag tools_path, method: :get, class: 'form-inline' do
         .input-group
-          = text_field_tag 's', params[:s], class: 'form-control', placeholder: "Search Tools"
+          = text_field_tag 's', params[:s], class: 'form-control', placeholder: 'Search Tools'
           .input-group-btn
             = submit_tag 'Search', class: 'btn btn-primary', name: nil
             = link_to 'Reset', tools_path, class: 'btn btn-default'
@@ -50,11 +50,11 @@
       %strong Questions?
       = link_to 'Contact Us!', contact_path
 
-- if false
+- if false || true
   .content-container
-    %h2.brand Other Tools
+    %h2.brand NSRR Team Tools
     %p
-      Tools to help jumpstart your research.
+      Here are a few tools provided by the NSRR team members.
   .content-container
     = render 'tools/tools'
 

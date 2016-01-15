@@ -7,6 +7,7 @@ class Variable < ActiveRecord::Base
   # Named Scopes
   scope :with_folder, -> (arg) { where 'folder ~* ?', "(^#{arg})" }
   scope :search, -> (arg) { where('search_terms ~* ?', arg.to_s.split(/\s/).collect { |l| l.to_s.gsub(/[^\w\d%]/, '') }.collect { |l| "(#{l})" }.join('|')) }
+  scope :latest, -> { joins(:dataset).where('variables.dataset_version_id = datasets.dataset_version_id').merge(Dataset.current.where(public: true)) }
 
   # Model Validation
   validates :name, :display_name, :variable_type, :dataset_id, :dataset_version_id, presence: true
