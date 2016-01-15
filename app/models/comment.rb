@@ -24,15 +24,17 @@ class Comment < ActiveRecord::Base
   end
 
   def deletable_by?(current_user)
-    self.user == current_user or current_user.system_admin?
+    user == current_user || current_user.system_admin?
   end
 
   def banned_or_deleted?
-    self.user.banned? or self.deleted?
+    user.banned? || deleted?
   end
 
   def number
-    self.topic.comments.order(:id).pluck(:id).index(self.id) + 1 rescue 0
+    topic.comments.order(:id).pluck(:id).index(id) + 1
+  rescue
+    0
   end
 
   # Reply Emails sends emails if the following conditions are met:

@@ -22,6 +22,7 @@
 
 
 //= require global
+//= require agreement_events
 //= require agreements
 //= require datasets
 //= require comments

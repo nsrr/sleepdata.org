@@ -66,81 +66,15 @@
 
 
 .content-container
-  - if @agreement.agreement_events.count == 0
-    %p.center.text-muted This Agreement Has No Events
-  - else
-    - @agreement.agreement_events.each_with_index do |agreement_event, index|
-      - current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1)
-      - current_index = ((current_page - 1) * Comment::COMMENTS_PER_PAGE) + index + 1
-      %a.anchor-top{ name: "c#{current_index}" }
-      .row
-        - if agreement_event.deleted?
-          .col-xs-1
-          .col-md-11.col-xs-10.col-xs-offset-1.col-md-offset-0
-            .file-display{ style: "margin-bottom:20px;background-color:#efefef; padding: 1px 34px 3px 3px;font-weight: 200;" }
-              .file-display-right-middle-after{ style: "text-decoration:line-through;bottom:-1px" }
-                = precede '#' do
-                  = current_index
-              %i.text-muted Comment Deleted
-        - elsif agreement_event.event_type == 'commented'
-          .col-xs-1
-            = render 'topics/forum_gravatar', user: agreement_event.user, icon: 'identicon'
+  #agreement_events
+    - if @agreement.agreement_events.count == 0
+      %p.center.text-muted This Agreement Has No Events
+    - else
+      - @agreement.agreement_events.each_with_index do |agreement_event, index|
+        - current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1)
+        - current_index = ((current_page - 1) * Comment::COMMENTS_PER_PAGE) + index + 1
+        = render 'agreement_events/show', agreement_event: agreement_event, number: agreement_event.number
 
-          .col-md-11.col-xs-10.col-xs-offset-1.col-md-offset-0
-            .file-display{ style: "margin-bottom:20px;background-color:#fff" }
-              .file-display-right-after
-                - if current_user and agreement_event.editable_by?(current_user)
-                  = link_to edit_comment_review_path(@agreement, agreement_event_id: agreement_event.id), remote: true, method: :get, class: 'btn btn-xs btn-default', rel: 'tooltip', title: 'Edit Comment' do
-                    %span.glyphicon.glyphicon-edit
-                - if current_user and agreement_event.deletable_by?(current_user)
-                  = link_to destroy_comment_review_path(@agreement, agreement_event_id: agreement_event.id), method: :post, data: { confirm: "Are you sure you want to delete Comment ##{current_index}"}, class: 'btn btn-xs btn-danger-inverse' do
-                    %span.glyphicon.glyphicon-trash
-                %a{ href: "#c#{current_index}" }
-                  = precede '#' do
-                    = current_index
-
-              - if agreement_event.user.core_member?
-                .file-display-right-bottom-after{ style: "background-color:#428bca;color:white" } Core Member
-              - elsif agreement_event.user.aug_member?
-                .file-display-right-bottom-after{ style: "background-color:#5cb85c;color:white" } AUG Member
-
-              %div{ id: "agreement_event_#{agreement_event.id}_container" }
-                = render 'reviews/formatted_review', agreement_event: agreement_event
-              .small.text-muted{ style: "font-weight: 300" }
-                %abbr{ rel: "tooltip", data: { title: agreement_event.event_at.strftime("%-d %B %Y, %-l:%M %p"), container: "body", placement: "right" } }
-                  = time_ago_in_words(agreement_event.event_at)
-                  ago
-        - elsif ['principal_reviewer_approved', 'principal_reviewer_required_resubmission'].include?(agreement_event.event_type)
-          .col-xs-1
-            - if agreement_event.user.core_member
-              - background_color = '#428bca'
-              - border_color = '#357ebd'
-            - elsif agreement_event.user.aug_member?
-              - background_color = '#5cb85c'
-              - border_color = '#4cae4c'
-            - else
-              - background_color = ''
-              - border_color = ''
-            = image_tag agreement_event.user.avatar_url(50, 'identicon'), size: '50x50', class: 'img-thumbnail', style: "min-height:55px;min-width:55px;border-color:#{border_color};background-color:#{background_color}", rel: 'tooltip', title: agreement_event.user.name, data: { container: 'body', placement: 'bottom' }
-          .col-md-11.col-xs-10.col-xs-offset-1.col-md-offset-0
-            .file-display{ style: "margin-bottom:20px;background-color:#fff" }
-              .file-display-right-after
-                %a{ href: "#c#{current_index}" }
-                  = precede '#' do
-                    = current_index
-
-              %div{ id: "comment_#{agreement_event.id}_container" }
-                .lead
-                  = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event, current_index: current_index
-        - else
-          .col-xs-1
-          .col-md-11.col-xs-10.col-xs-offset-1.col-md-offset-0
-            .file-display{ style: "margin-bottom:20px;padding: 1px 34px 3px 15px;font-weight: 200;border: 1px solid transparent;" }
-              .file-display-right-middle-after{ style: "border-radius: 4px;" }
-                %a{ href: "#c#{current_index}" }
-                  = precede '#' do
-                    = current_index
-              = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event, current_index: current_index
-
-  - @agreement_event = @agreement.agreement_events.new
-  = render 'reviews/form'
+  #agreement_events_new_form
+    - @agreement_event = @agreement.agreement_events.where(user_id: current_user.id).new
+    = render 'agreement_events/form'

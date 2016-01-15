@@ -1,0 +1,16 @@
+.row
+  .col-sm-6
+    %h3{ style: "margin-top:0px" } My Vote
+    - @review = @agreement.reviews.where(user_id: current_user.id).first
+    - if @review && @review.approved == true
+      = link_to 'Change My Vote to Rejected', vote_review_path(@agreement, approved: '0'), data: { confirm: "Are you sure you want to change your vote to REJECTED for Agreement #{@agreement.name}?" }, method: :post, class: 'btn btn-danger'
+    - elsif @review && @review.approved == false
+      = link_to 'Change My Vote to Approved', vote_review_path(@agreement, approved: '1'), data: { confirm: "Are you sure you want to chagne your vote to APPROVED for Agreement #{@agreement.name}?" }, method: :post, class: 'btn btn-success'
+    - else
+      = link_to 'Reject', vote_review_path(@agreement, approved: '0'), data: { confirm: "Are you sure you want to REJECT Agreement #{@agreement.name}?" }, method: :post, class: 'btn btn-danger'
+      = link_to 'Approve', vote_review_path(@agreement, approved: '1'), data: { confirm: "Are you sure you want to APPROVE Agreement #{@agreement.name}?" }, method: :post, class: 'btn btn-success'
+    .callout.callout-info
+      Consider commenting when approving or rejecting an agreement to provide additional information for other reviewers. Reviewer comments are not emailed to the DAUA submitter.
+  .col-sm-6
+    %h3{ style: 'margin-top:0px' } Current Votes
+    = render 'reviews/reviewers', agreement: @agreement

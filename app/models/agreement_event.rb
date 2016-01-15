@@ -24,8 +24,8 @@ class AgreementEvent < ActiveRecord::Base
   scope :regular_members, -> { joins(:agreement).merge(Agreement.regular_members) }
 
   # Model Validation
-  validates_presence_of :agreement_id, :user_id, :event_type, :event_at
-  validates_presence_of :comment, if: :is_comment?
+  validates :agreement_id, :user_id, :event_type, :event_at, presence: true
+  validates :comment, presence: true, if: :is_comment?
 
   # Model Relationships
   belongs_to :agreement
@@ -33,38 +33,44 @@ class AgreementEvent < ActiveRecord::Base
 
   # Agreement Event Methods
 
+  def banned_or_deleted?
+    user.banned? || deleted?
+  end
+
   def number
-    self.agreement.agreement_events.order(:event_at).pluck(:id).index(self.id) + 1 rescue 0
+    agreement.agreement_events.order(:event_at).pluck(:id).index(id) + 1
+  rescue
+    0
   end
 
   def editable_by?(current_user)
-    self.user == current_user or current_user.system_admin?
+    user == current_user || current_user.system_admin?
   end
 
   def deletable_by?(current_user)
-    self.user == current_user or current_user.system_admin?
+    user == current_user || current_user.system_admin?
   end
 
   def added_tags
     @added_tags ||= begin
-      Tag.review_tags.where(id: self.added_tag_ids)
+      Tag.review_tags.where(id: added_tag_ids)
     end
   end
 
   def removed_tags
     @removed_tags ||= begin
-      Tag.review_tags.where(id: self.removed_tag_ids)
+      Tag.review_tags.where(id: removed_tag_ids)
     end
+  end
+
+  def is_comment?
+    event_type == 'commented'
   end
 
   protected
 
-  def is_comment?
-    self.event_type == 'commented'
-  end
-
   def email_mentioned_users
-    users = User.current.reject{|u| u.username.blank?}.uniq.sort
+    users = User.current.reject { |u| u.username.blank? }.uniq.sort
     users.each do |user|
       UserMailer.mentioned_in_agreement_comment(self, user).deliver_later if EMAILS_ENABLED && event_type == 'commented' && comment.to_s.match(/@#{user.username}\b/i)
     end

@@ -8,7 +8,6 @@
         .comment-action
           %small.text-muted Comment Deleted
   - else
-
     .comment-outer{ data: { comment_id: comment.id } }
       .comment-left-fixed
         = image_tag comment.user.avatar_url(48, 'identicon'), size: '48x48', alt: ''

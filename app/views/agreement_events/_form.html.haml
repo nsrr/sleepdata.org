@@ -1,0 +1,46 @@
+- agreement_event_id = (@agreement_event.new_record? ? 'new' : @agreement_event.id)
+= form_for [@agreement, @agreement_event], remote: true do |f|
+  .comment-outer
+    .comment-left-fixed
+      = image_tag @agreement_event.user.avatar_url(48, 'identicon'), size: '48x48', alt: ''
+
+    .comment-right-fluid
+      .comment-box
+        .comment-header
+          %strong= @agreement_event.user.forum_name
+          = link_to (@agreement_event.new_record? ? 'Write' : 'Edit'), '#', data: { object: 'view-agreement-event', action: 'write', agreement_event_id: agreement_event_id }, class: 'comment-tab active', tabindex: '-1'
+          = link_to 'Preview', '#', data: { object: 'view-agreement-event view-agreement-event-preview', action: 'preview', agreement_event_id: agreement_event_id, agreement_id: @agreement_event.agreement_id }, class: 'comment-tab', tabindex: '-1'
+          = link_to 'Markup', '#', data: { object: 'view-agreement-event', action: 'markup', agreement_event_id: agreement_event_id }, class: 'comment-tab', tabindex: '-1'
+          - if @agreement_event.new_record?
+            = link_to 'Vote', '#', data: { object: 'view-agreement-event', action: 'vote', agreement_event_id: agreement_event_id }, class: 'comment-tab', tabindex: '-1'
+            = link_to 'Tags', '#', data: { object: 'view-agreement-event', action: 'tags', agreement_event_id: agreement_event_id }, class: 'comment-tab', tabindex: '-1'
+            - if current_user.system_admin?
+              = link_to 'Review', '#', data: { object: 'view-agreement-event', action: 'review', agreement_event_id: agreement_event_id }, class: 'comment-tab', tabindex: '-1'
+              = link_to 'Datasets', '#', data: { object: 'view-agreement-event', action: 'datasets', agreement_event_id: agreement_event_id }, class: 'comment-tab', tabindex: '-1'
+          - unless @agreement_event.new_record?
+            .pull-right
+              = link_to 'Cancel', agreement_agreement_event_path(@agreement, @agreement_event), remote: true, method: :get, class: 'btn btn-default btn-xs'
+              = link_to "##{@agreement_event.number}", "#c#{@agreement_event.number}", class: 'btn btn-link btn-xs'
+        .comment-body
+          %div{ id: "agreement_event_write_#{agreement_event_id}" }
+            - if @agreement_event.errors.any?
+              .callout.callout-danger{ style: 'margin-top:0; margin-bottom:10px' }
+                %strong Comment can't be blank.
+            = f.text_area :comment, rows: [[7, @agreement_event.comment.to_s.count("\n") + 1].max, 25].min, class: 'comment-control filedrag-container', data: { object: 'expandable-text-area dropfile text-area-autocomplete', default_rows: 7, mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort, upload_url: upload_images_path(update: "#agreement_event_comment_#{agreement_event_id}", format: 'js'), fallback_url: new_image_path, log_id: "#agreement_event_log_#{agreement_event_id}" }, id: "agreement_event_comment_#{agreement_event_id}", placeholder: 'Write a comment'
+            .filedrag{ id: "agreement_event_log_#{agreement_event_id}" }
+              Drag images above to insert into post.
+            - button_text = @agreement_event.new_record? ? 'Comment' : 'Update'
+            = f.submit button_text, class: 'btn btn-primary', data: { disable_with: 'Submitting...' }, style: 'margin-top:10px'
+          %div{ id: "agreement_event_preview_#{agreement_event_id}", style: 'display:none;min-height: 233px' }
+          %div{ id: "agreement_event_markup_#{agreement_event_id}", style: 'display:none;min-height: 233px' }
+            = render 'topics/markup'
+          - if @agreement_event.new_record?
+            %div{ id: "agreement_event_vote_#{agreement_event_id}", style: 'display:none;min-height: 233px' }
+              = render 'agreement_events/vote'
+            %div{ id: "agreement_event_tags_#{agreement_event_id}", style: 'display:none;min-height: 233px' }
+              = render 'agreement_events/tags'
+            - if current_user.system_admin?
+              %div{ id: "agreement_event_review_#{agreement_event_id}", style: 'display:none;min-height: 233px' }
+                = render 'agreements/form'
+              %div{ id: "agreement_event_datasets_#{agreement_event_id}", style: 'display:none;min-height: 233px' }
+                = render 'agreements/datasets'

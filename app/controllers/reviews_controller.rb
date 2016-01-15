@@ -48,25 +48,25 @@ class ReviewsController < ApplicationController
   # def edit
   # end
 
-  def preview
-    @agreement_event = @agreement.agreement_events.new(agreement_event_params)
-  end
+  # def preview
+  #   @agreement_event = @agreement.agreement_events.new(agreement_event_params)
+  # end
 
-  def create_comment
-    @agreement_event = @agreement.agreement_events.where(user_id: current_user.id, event_at: Time.zone.now, event_type: 'commented').new(agreement_event_params)
+  # def create_comment
+  #   @agreement_event = @agreement.agreement_events.where(user_id: current_user.id, event_at: Time.zone.now, event_type: 'commented').new(agreement_event_params)
 
-    if @agreement_event.save
-      redirect_to review_path(@agreement) + "#c#{@agreement_event.number}", notice: 'Review was successfully created.'
-    else
-      redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.count}"
-    end
-  end
+  #   if @agreement_event.save
+  #     redirect_to review_path(@agreement) + "#c#{@agreement_event.number}", notice: 'Review was successfully created.'
+  #   else
+  #     redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.count}"
+  #   end
+  # end
 
-  def show_comment
-  end
+  # def show_comment
+  # end
 
-  def edit_comment
-  end
+  # def edit_comment
+  # end
 
   def update_comment
     if @agreement_event.update(agreement_event_params)

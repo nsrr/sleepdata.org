@@ -60,6 +60,12 @@ Rails.application.routes.draw do
       get :print
       delete :destroy_submission
     end
+
+    resources :agreement_events do
+      collection do
+        post :preview
+      end
+    end
   end
 
   resources :challenges do
