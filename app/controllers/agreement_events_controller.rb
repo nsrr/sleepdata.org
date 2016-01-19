@@ -61,9 +61,12 @@ class AgreementEventsController < ApplicationController
 
   # DELETE /agreement/1/agreement_events/1
   def destroy
-    @comment.destroy
+    @agreement_event.destroy
 
-    redirect_to topic_comment_path(@topic, @comment)
+    respond_to do |format|
+      format.html { redirect_to agreement_agreement_event_path(@agreement, @agreement_event) }
+      format.js
+    end
   end
 
   private

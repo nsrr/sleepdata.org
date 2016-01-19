@@ -1,65 +1,65 @@
-%div{ id: "agreement_event_container_#{agreement_event.id}"}
-  - if agreement_event.banned_or_deleted?
-    .comment-outer
-      .comment-left-fixed
-      .comment-right-fluid
-        .comment-icon
-          %span.glyphicon.glyphicon-list-alt
-        .comment-action
-          %small.text-muted Comment Deleted
-  - elsif agreement_event.is_comment?
-    .comment-outer{ data: { agreement_event_id: agreement_event.id } }
-      .comment-left-fixed
-        = image_tag agreement_event.user.avatar_url(48, 'identicon'), size: '48x48', alt: ''
-      .comment-right-fluid
-        .comment-box
-          .comment-header
-            %strong= agreement_event.user.forum_name
-            commented
-            %abbr{ rel: 'tooltip', data: { title: agreement_event.created_at.strftime('%-d %b %Y, %-l:%M %p'), container: 'body', placement: 'right' } }
-              = time_ago_in_words agreement_event.created_at
-              ago
-            - if agreement_event.user.core_member?
-              %span.post-footer{ style: 'padding-left:5px; height: 0' }
-                %span.core-member.nowrap{ style: 'position: relative; border-radius: 4px;' } Core Member
-            - elsif agreement_event.user.aug_member?
-              %span.post-footer{ style: 'padding-left:5px; height: 0' }
-                %span.aug-member.nowrap{ style: 'position: relative; border-radius: 4px;' } AUG Member
-            .pull-right
-              - if current_user && agreement_event.editable_by?(current_user)
-                = succeed ' ' do
-                  = link_to edit_agreement_agreement_event_path(agreement_event.agreement, agreement_event, number: number), remote: true, class: 'btn btn-xs btn-default' do
-                    %span.glyphicon.glyphicon-pencil
-              - if current_user && agreement_event.deletable_by?(current_user)
-                %span{ id: "agreement-event-#{agreement_event.id}-request-delete" }
-                  = link_to '#', class: 'btn btn-xs btn-danger-inverse', data: { object: 'toggle-delete-buttons', target_show: "#agreement-event-#{agreement_event.id}-confirm-delete", target_hide: "#agreement-event-#{agreement_event.id}-request-delete" } do
-                    %span.glyphicon.glyphicon-trash
-                %span{ id: "agreement-event-#{agreement_event.id}-confirm-delete", style: 'display:none' }
-                  = link_to 'Cancel', '#', class: 'btn btn-xs btn-default', data: { object: 'toggle-delete-buttons', target_show: "#agreement-event-#{agreement_event.id}-request-delete", target_hide: "#agreement-event-#{agreement_event.id}-confirm-delete" }
-                  = link_to 'Confirm Delete', [agreement_event.agreement, agreement_event], method: :delete, remote: true, class: 'btn btn-xs btn-danger-inverse'
-              = link_to "##{number}", "#c#{number}", class: 'btn btn-link btn-xs'
-          .comment-body
-            = render 'agreement_events/formatted', agreement_event: agreement_event
-  - elsif ['principal_reviewer_approved', 'principal_reviewer_required_resubmission'].include?(agreement_event.event_type)
-    .comment-outer
-      .comment-left-fixed
-      .comment-right-fluid
-        .comment-icon
-          - if agreement_event.event_type == 'principal_reviewer_approved'
-            %span.glyphicon.glyphicon-thumbs-up.text-success
-          - if agreement_event.event_type == 'principal_reviewer_required_resubmission'
-            %span.glyphicon.glyphicon-thumbs-down.text-danger
-        .comment-action
-          = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event, current_index: nil # TODO Remove current_index
-  - else
-    .comment-outer
-      .comment-left-fixed
-      .comment-right-fluid
-        .comment-icon
-          - case agreement_event.event_type
-          - when 'reviewer_approved', 'reviewer_changed_from_rejected_to_approved'
-            %span.glyphicon.glyphicon-thumbs-up.text-success
-          - when 'reviewer_rejected', 'reviewer_changed_from_approved_to_rejected'
-            %span.glyphicon.glyphicon-thumbs-down.text-danger
-        .comment-action
-          = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event, current_index: nil # TODO Remove current_index
+%a.anchor-top{ name: "c#{number}" }
+- if agreement_event.banned_or_deleted?
+  .comment-outer
+    .comment-left-fixed
+    .comment-right-fluid
+      .comment-icon
+        %span.glyphicon.glyphicon-list-alt
+      .comment-action
+        %small.text-muted Comment Deleted
+- elsif agreement_event.is_comment?
+  .comment-outer{ data: { agreement_event_id: agreement_event.id } }
+    .comment-left-fixed
+      = image_tag agreement_event.user.avatar_url(48, 'identicon'), size: '48x48', alt: ''
+    .comment-right-fluid
+      .comment-box
+        .comment-header
+          %strong= agreement_event.user.forum_name
+          commented
+          %abbr{ rel: 'tooltip', data: { title: agreement_event.created_at.strftime('%-d %b %Y, %-l:%M %p'), container: 'body', placement: 'right' } }
+            = time_ago_in_words agreement_event.created_at
+            ago
+          - if agreement_event.user.core_member?
+            %span.post-footer{ style: 'padding-left:5px; height: 0' }
+              %span.core-member.nowrap{ style: 'position: relative; border-radius: 4px;' } Core Member
+          - elsif agreement_event.user.aug_member?
+            %span.post-footer{ style: 'padding-left:5px; height: 0' }
+              %span.aug-member.nowrap{ style: 'position: relative; border-radius: 4px;' } AUG Member
+          .pull-right
+            - if current_user && agreement_event.editable_by?(current_user)
+              = succeed ' ' do
+                = link_to edit_agreement_agreement_event_path(agreement_event.agreement, agreement_event, number: number), remote: true, class: 'btn btn-xs btn-default' do
+                  %span.glyphicon.glyphicon-pencil
+            - if current_user && agreement_event.deletable_by?(current_user)
+              %span{ id: "agreement-event-#{agreement_event.id}-request-delete" }
+                = link_to '#', class: 'btn btn-xs btn-danger-inverse', data: { object: 'toggle-delete-buttons', target_show: "#agreement-event-#{agreement_event.id}-confirm-delete", target_hide: "#agreement-event-#{agreement_event.id}-request-delete" } do
+                  %span.glyphicon.glyphicon-trash
+              %span{ id: "agreement-event-#{agreement_event.id}-confirm-delete", style: 'display:none' }
+                = link_to 'Cancel', '#', class: 'btn btn-xs btn-default', data: { object: 'toggle-delete-buttons', target_show: "#agreement-event-#{agreement_event.id}-request-delete", target_hide: "#agreement-event-#{agreement_event.id}-confirm-delete" }
+                = link_to 'Confirm Delete', [agreement_event.agreement, agreement_event], method: :delete, remote: true, class: 'btn btn-xs btn-danger-inverse'
+            = link_to "##{number}", "#c#{number}", class: 'btn btn-link btn-xs'
+        .comment-body
+          = render 'agreement_events/formatted', agreement_event: agreement_event
+- elsif ['principal_reviewer_approved', 'principal_reviewer_required_resubmission'].include?(agreement_event.event_type)
+  .comment-outer
+    .comment-left-fixed
+    .comment-right-fluid
+      .comment-icon
+        - if agreement_event.event_type == 'principal_reviewer_approved'
+          %span.glyphicon.glyphicon-thumbs-up.text-success
+        - if agreement_event.event_type == 'principal_reviewer_required_resubmission'
+          %span.glyphicon.glyphicon-thumbs-down.text-danger
+      .comment-action
+        = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event, current_index: nil # TODO Remove current_index
+- else
+  .comment-outer
+    .comment-left-fixed
+    .comment-right-fluid
+      .comment-icon
+        - case agreement_event.event_type
+        - when 'reviewer_approved', 'reviewer_changed_from_rejected_to_approved'
+          %span.glyphicon.glyphicon-thumbs-up.text-success
+        - when 'reviewer_rejected', 'reviewer_changed_from_approved_to_rejected'
+          %span.glyphicon.glyphicon-thumbs-down.text-danger
+      .comment-action
+        = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event, current_index: nil # TODO Remove current_index
