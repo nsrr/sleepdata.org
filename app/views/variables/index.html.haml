@@ -43,6 +43,14 @@
 
     - if false
       .center= paginate @variables, theme: 'contour'
+- elsif @dataset.variables.count == 0
+  .jumbotron{ style: 'margin-top:30px' }
+    %p
+      We have not yet generated graphs for variables in this dataset.
+    %p
+      Please contact us directly at
+      = mail_to 'support@sleepdata.org'
+      with any questions.
 - else
   .jumbotron{ style: 'margin-top:30px' }
     %p
