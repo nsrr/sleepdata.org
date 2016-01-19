@@ -79,3 +79,8 @@ $(document)
     $("#approval-date-container, #expiration-date-container").hide()
     $("#agreement_approval_date, #agreement_expiration_date").prop('disabled', true);
   )
+  .on('click', '[data-object~="toggle-delete-buttons"]', () ->
+    $($(this).data('target-show')).show()
+    $($(this).data('target-hide')).hide()
+    false
+  )

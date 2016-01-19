@@ -27,7 +27,8 @@
   - @comments.each_with_index do |comment, index|
     - current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1)
     - current_index = ((current_page - 1) * Comment::COMMENTS_PER_PAGE) + index + 1
-    = render 'comments/show', comment: comment, number: comment.number
+    %div{ id: "comment_container_#{comment.id}"}
+      = render 'comments/show', comment: comment, number: comment.number
 
 
 - if !@topic.locked? && current_user && !current_user.banned?
