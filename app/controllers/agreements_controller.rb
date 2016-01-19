@@ -28,7 +28,7 @@ class AgreementsController < ApplicationController
     if @agreement
       if AgreementTransaction.save_agreement!(@agreement, duly_authorized_params, current_user, request.remote_ip, 'public_agreement_update')
         @agreement.update_column :current_step, 4
-        @agreement.send_daua_signed_email!
+        @agreement.send_daua_signed_email_in_background
         redirect_to signature_submitted_agreements_path
       else
         render 'signature_requested'
