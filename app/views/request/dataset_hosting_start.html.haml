@@ -1,0 +1,41 @@
+%p.lead.center{ style: 'color: #ccc;' } Empower others in research.
+
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        Dataset Hosting Request
+      .banner-body
+        Tell us about the type of data you would like hosted.
+
+= form_for @hosting_request, url: dataset_hosting_set_description_path, method: :post, html: { class: 'form-horizontal', id: 'dataset_hosting_form' } do |f|
+  .form-group
+    = f.label :description, 'Description', class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_area :description, rows: 7, class: 'form-control', placeholder: 'Describe the dataset you would like hosted.'
+      - if @hosting_request.errors[:description].present?
+        .callout.callout-danger{ style: 'margin-top: 10px;' }
+          Please describe your dataset you wish to have hosted.
+
+  .form-group
+    = f.label :institution_name, 'Institution Name', class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :institution_name, class: 'form-control'
+      - if @hosting_request.errors[:institution_name].present?
+        .callout.callout-danger{ style: 'margin-top: 10px;' }
+          Please provide your institutions name.
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      = f.submit 'Continue', class: 'btn btn-primary btn-lg'
+
+.jumbotron
+  %h1.center Hosting on the NSRR
+
+  %p
+    The NSRR is looking to expand the wealth of data researchers can access by
+    allowing community users to upload novel datasets.
+
+  %p
+    We're excited to start working with you on getting your dataset hosted on
+    the NSRR.

@@ -1,7 +1,7 @@
 # This controller handles easy registration/sign in of users as part of a tool
 # contribution or request, or a dataset hosting request.
 class RequestController < ApplicationController
-  before_action :authenticate_user!, only: [:contribute_tool_description, :contribute_tool_set_description, :contribute_tool_submitted]
+  before_action :authenticate_user!, only: [:contribute_tool_description, :contribute_tool_set_description, :contribute_tool_submitted, :dataset_hosting_submitted]
 
   def contribute_tool_start
     @community_tool = CommunityTool.new
@@ -127,42 +127,94 @@ class RequestController < ApplicationController
     save_agreement_user
   end
 
+  def dataset_hosting_start
+    @hosting_request = HostingRequest.new
+  end
 
+  def dataset_hosting_set_description
+    @hosting_request = HostingRequest.new(hosting_request_params)
+    @hosting_request.valid?
+    if @hosting_request.errors[:description].present? || @hosting_request.errors[:institution_name].present?
+      render :dataset_hosting_start
+    else
+      if current_user
+        save_dataset_hosting_user
+      else
+        render :dataset_hosting_about_me
+      end
+    end
+  end
+
+  def dataset_hosting_register_user
+    @hosting_request = HostingRequest.new(hosting_request_params)
+    unless current_user
+      user = User.new(user_params)
+      if user.save
+        sign_in(:user, user)
+      else
+        @registration_errors = user.errors
+        render :dataset_hosting_about_me
+        return
+      end
+    end
+
+    save_dataset_hosting_user
+  end
+
+  def dataset_hosting_sign_in_user
+    @hosting_request = HostingRequest.new(hosting_request_params)
+    unless current_user
+      user = User.find_by_email params[:email]
+      if user && user.valid_password?(params[:password])
+        sign_in(:user, user)
+      else
+        @sign_in_errors = []
+        @sign_in = true
+        render :dataset_hosting_about_me
+        return
+      end
+    end
+
+    save_dataset_hosting_user
+  end
+
+  def dataset_hosting_submitted
+  end
 
   #
   # Tool Requests
   def tool_request
   end
 
-  def dataset_hosting
-    @hosting_request = HostingRequest.new
-  end
+  # Dataset Hosting
 
-  def create_hosting_request
-    @hosting_request = HostingRequest.new(hosting_request_params)
-    unless current_user
-      user = User.new(user_params)
-      if user.save
-        # TODO: Send email of account creation with temporary password
-        # UserMailer.hosting_request_account_created(params[:user][:password]).deliver!
-        sign_in(:user, user)
-      else
-        @errors = user.errors
-        render :dataset_hosting
-        return
-      end
-    end
+  # def dataset_hosting
+  #   @hosting_request = HostingRequest.new
+  # end
 
-    @hosting_request.user_id = current_user.id
-    if @hosting_request.save
-      redirect_to dataset_hosting_submitted_path
-    else
-      render :dataset_hosting
-    end
-  end
+  # def create_hosting_request
+  #   @hosting_request = HostingRequest.new(hosting_request_params)
+  #   unless current_user
+  #     user = User.new(user_params)
+  #     if user.save
+  #       # TODO: Send email of account creation with temporary password
+  #       # UserMailer.hosting_request_account_created(params[:user][:password]).deliver!
+  #       sign_in(:user, user)
+  #     else
+  #       @errors = user.errors
+  #       render :dataset_hosting
+  #       return
+  #     end
+  #   end
 
-  def dataset_hosting_submitted
-  end
+  #   @hosting_request.user_id = current_user.id
+  #   if @hosting_request.save
+  #     redirect_to dataset_hosting_submitted_path
+  #   else
+  #     render :dataset_hosting
+  #   end
+  # end
+
 
   private
 
@@ -206,5 +258,14 @@ class RequestController < ApplicationController
       agreement = current_user.agreements.create(status: 'started')
     end
     redirect_to step_agreement_path(agreement, step: agreement.current_step)
+  end
+
+  def save_dataset_hosting_user
+    @hosting_request.user_id = current_user.id
+    if @hosting_request.save
+      redirect_to dataset_hosting_submitted_path
+    else
+      render :dataset_hosting_start
+    end
   end
 end

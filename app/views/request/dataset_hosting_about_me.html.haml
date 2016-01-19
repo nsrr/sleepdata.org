@@ -1,0 +1,83 @@
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        Dataset Hosting Request
+      .banner-body
+        Tell us about yourself.
+
+%p.lead.center{ style: 'color: #ccc;' } Empower others in research.
+
+
+- register_visible = (@sign_in != true)
+- target = (register_visible ? '#form_register' : '#form_sign_in')
+- button_text = (register_visible ? 'Create Account' : 'Sign in')
+
+.sign-up-form{ style: 'margin-bottom: 20px' }
+  .sign-up-form-title
+    About Yourself
+
+  #sign-up-form{ style: "#{'display:none' unless register_visible}" }
+    = form_for @hosting_request, url: dataset_hosting_register_user_path, method: :post, html: { class: 'form-vertical', id: 'form_register' } do |f|
+      = f.hidden_field :description
+      = f.hidden_field :institution_name
+
+      - if @registration_errors
+        .form-group
+          .callout.callout-danger
+            %ul.list-unstyled
+              - @registration_errors.full_messages.each do |message|
+                %li
+                  = succeed '.' do
+                    = message
+
+      .form-group
+        = label_tag :user_first_name, 'First Name', class: 'control-label'
+        = text_field_tag 'user[first_name]', (params[:user] ? params[:user][:first_name] : nil), class: 'form-control'
+
+      .form-group
+        = label_tag :user_last_name, 'Last Name', class: 'control-label'
+        = text_field_tag 'user[last_name]', (params[:user] ? params[:user][:last_name] : nil), class: 'form-control'
+
+      .form-group
+        = label_tag :user_email, 'Email', class: 'control-label'
+        = email_field_tag 'user[email]', (params[:user] ? params[:user][:email] : nil), class: 'form-control'
+
+      .form-group{ style: 'margin-bottom: 0' }
+        .col-md-offset-2.col-md-10
+          = link_to 'I already have an account', '#', data: { object: 'toggle-sign-up' }, tabindex: '-1'
+
+  #sign-in-form{ style: "#{'display:none' if register_visible}" }
+    = form_for @hosting_request, url: dataset_hosting_sign_in_user_path, method: :patch, html: { class: 'form-vertical', id: 'form_sign_in' } do |f|
+      = f.hidden_field :description
+      = f.hidden_field :institution_name
+
+      - if @sign_in_errors
+        .form-group
+          .callout.callout-danger
+            Invalid email or password.
+
+      .form-group
+        = label_tag :email, 'Email', class: 'control-label'
+        = email_field_tag :email, '', class: 'form-control'
+
+      .form-group
+        = label_tag :password, 'Password', class: 'control-label'
+        = link_to '(Forgot password?)', new_user_password_path, tabindex: '-1'
+        = password_field_tag :password, '', class: 'form-control', autocomplete: 'off'
+
+      .form-group{ style: 'margin-bottom: 0' }
+        .col-md-offset-2.col-md-10
+          = link_to "I don't have an account", '#', data: { object: 'toggle-sign-up' }
+
+.center{ style: 'margin-bottom: 20px' }
+  = link_to '#', data: { object: 'submit', target: target }, class: 'btn btn-primary btn-lg ', style: 'width:100%; max-width: 400px;', id: 'sign-up-sign-in-button' do
+    = button_text
+    %span.glyphicon.glyphicon-arrow-right
+
+
+.jumbotron
+  %p
+    Attribution is a core tenet of the NSRR. Please register an account so that
+    we can recognize your contribution. Your email will not be visible to other
+    members.

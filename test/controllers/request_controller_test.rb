@@ -189,60 +189,145 @@ class RequestControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'should get dataset hosting' do
-    get :dataset_hosting
+  test 'should get dataset hosting start as public user' do
+    get :dataset_hosting_start
     assert_response :success
   end
 
-  test 'should create dataset hosting request for new user' do
-    assert_difference('User.count') do
-      assert_difference('HostingRequest.count') do
-        post :create_hosting_request, user: { first_name: 'First Name', last_name: 'Last Name', email: 'dataset@hosting.com' }, hosting_request: { description: 'Description', institution_name: 'Institution' }
-      end
+  test 'should get dataset hosting start as regular user' do
+    login(users(:valid))
+    get :dataset_hosting_start
+    assert_response :success
+  end
+
+  test 'should dataset hosting and set description as public user' do
+    post :dataset_hosting_set_description, hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }
+    assert_not_nil assigns(:hosting_request)
+    assert_equal 'Dataset is a set of EDFs', assigns(:hosting_request).description
+    assert_equal 'Institution Name', assigns(:hosting_request).institution_name
+    assert_template :dataset_hosting_about_me
+    assert_response :success
+  end
+
+  test 'should dataset hosting and set description as regular user' do
+    login(users(:valid))
+    assert_difference('HostingRequest.count') do
+      post :dataset_hosting_set_description, hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }
     end
+    assert_not_nil assigns(:hosting_request)
+    assert_equal 'Dataset is a set of EDFs', assigns(:hosting_request).description
+    assert_equal 'Institution Name', assigns(:hosting_request).institution_name
+    assert_equal users(:valid), assigns(:hosting_request).user
     assert_redirected_to dataset_hosting_submitted_path
   end
 
-  test 'should create dataset hosting request for logged in user' do
+  test 'should not dataset hosting with blank description' do
+    post :dataset_hosting_set_description, hosting_request: { description: '', institution_name: 'Institution Name' }
+    assert_not_nil assigns(:hosting_request)
+    assert_template :dataset_hosting_start
+    assert_response :success
+  end
+
+  test 'should dataset hosting and register user as public user' do
+    assert_difference('User.count') do
+      assert_difference('HostingRequest.count') do
+        post :dataset_hosting_register_user, hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }, user: { first_name: 'First Name', last_name: 'Last Name', email: 'new_user@example.com' }
+      end
+    end
+    assert_not_nil assigns(:hosting_request)
+    assert_equal 'Dataset is a set of EDFs', assigns(:hosting_request).description
+    assert_equal 'Institution Name', assigns(:hosting_request).institution_name
+    assert_equal 'new_user@example.com', assigns(:hosting_request).user.email
+    assert_redirected_to dataset_hosting_submitted_path
+  end
+
+  test 'should dataset hosting and assign logged in regular user from registration page' do
     login(users(:valid))
     assert_difference('User.count', 0) do
       assert_difference('HostingRequest.count') do
-        post :create_hosting_request, hosting_request: { description: 'Description', institution_name: 'Institution' }
+        post :dataset_hosting_register_user, hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }, user: { first_name: 'First Name', last_name: 'Last Name', email: 'new_user@example.com' }
       end
     end
+    assert_not_nil assigns(:hosting_request)
+    assert_equal 'Dataset is a set of EDFs', assigns(:hosting_request).description
+    assert_equal 'Institution Name', assigns(:hosting_request).institution_name
+    assert_equal users(:valid), assigns(:hosting_request).user
     assert_redirected_to dataset_hosting_submitted_path
   end
 
-  test 'should not create dataset hosting request for new user with incomplete information' do
+  test 'should not dataset hosting and register user with existing email address' do
     assert_difference('User.count', 0) do
       assert_difference('HostingRequest.count', 0) do
-        post :create_hosting_request, user: { first_name: '', last_name: 'Last Name', email: 'dataset@hosting.com' }, hosting_request: { description: 'Description', institution_name: 'Institution' }
+        post :dataset_hosting_register_user, hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }, user: { first_name: 'First Name', last_name: 'Last Name', email: 'valid@example.com' }
       end
     end
-
-    assert_not_nil assigns(:errors)
-    assert_equal ["can't be blank"], assigns(:errors)[:first_name]
-
-    assert_template :dataset_hosting
-    assert_response :success
-  end
-
-  test 'should register user but not create dataset hosting request with incomplete information' do
-    assert_difference('User.count', 1) do
-      assert_difference('HostingRequest.count', 0) do
-        post :create_hosting_request, user: { first_name: 'First Name', last_name: 'Last Name', email: 'dataset@hosting.com' }, hosting_request: { description: '', institution_name: 'Institution' }
-      end
-    end
-
     assert_not_nil assigns(:hosting_request)
-    assert assigns(:hosting_request).errors.size > 0
-    assert_equal ["can't be blank"], assigns(:hosting_request).errors[:description]
-
-    assert_template :dataset_hosting
-    assert_response :success
+    assert_equal 'Dataset is a set of EDFs', assigns(:hosting_request).description
+    assert_equal 'Institution Name', assigns(:hosting_request).institution_name
+    assert_not_nil assigns(:registration_errors)
+    assert_template :dataset_hosting_about_me
   end
 
-  test 'should get dataset hosting submitted' do
+  test 'should dataset hosting and sign in user' do
+    users(:valid).update password: 'password'
+    assert_difference('User.count', 0) do
+      assert_difference('HostingRequest.count') do
+        patch :dataset_hosting_sign_in_user, hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }, email: 'valid@example.com', password: 'password'
+      end
+    end
+    assert_not_nil assigns(:hosting_request)
+    assert_equal 'Dataset is a set of EDFs', assigns(:hosting_request).description
+    assert_equal 'Institution Name', assigns(:hosting_request).institution_name
+    assert_equal users(:valid), assigns(:hosting_request).user
+    assert_redirected_to dataset_hosting_submitted_path
+  end
+
+  test 'should dataset hosting and assign logged in regular user from sign in page' do
+    login(users(:valid))
+    assert_difference('User.count', 0) do
+      assert_difference('HostingRequest.count') do
+        patch :dataset_hosting_sign_in_user, hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }, email: '', password: ''
+      end
+    end
+    assert_not_nil assigns(:hosting_request)
+    assert_equal 'Dataset is a set of EDFs', assigns(:hosting_request).description
+    assert_equal 'Institution Name', assigns(:hosting_request).institution_name
+    assert_equal users(:valid), assigns(:hosting_request).user
+    assert_redirected_to dataset_hosting_submitted_path
+  end
+
+  test 'should not dataset hosting and sign in user with invalid email and password' do
+    assert_difference('User.count', 0) do
+      assert_difference('HostingRequest.count', 0) do
+        patch :dataset_hosting_sign_in_user, hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }, email: 'valid@example.com', password: ''
+      end
+    end
+    assert_not_nil assigns(:hosting_request)
+    assert_equal 'Dataset is a set of EDFs', assigns(:hosting_request).description
+    assert_equal 'Institution Name', assigns(:hosting_request).institution_name
+    assert_not_nil assigns(:sign_in_errors)
+    assert_template :dataset_hosting_about_me
+  end
+
+  # test 'should get dataset hosting description as regular user' do
+  #   login(users(:valid))
+  #   get :dataset_hosting_description, id: hosting_requests(:started)
+  #   assert_response :success
+  # end
+
+  # test 'should not get dataset hosting description as public user' do
+  #   get :dataset_hosting_description, id: hosting_requests(:started)
+  #   assert_redirected_to new_user_session_path
+  # end
+
+  # test 'should not get dataset hosting description as regular user with invalid id' do
+  #   login(users(:valid))
+  #   get :dataset_hosting_description, id: -1
+  #   assert_redirected_to dashboard_path
+  # end
+
+  test 'should get dataset hosting submitted as regular user' do
+    login(users(:valid))
     get :dataset_hosting_submitted
     assert_response :success
   end

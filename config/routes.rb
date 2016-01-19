@@ -180,9 +180,17 @@ Rails.application.routes.draw do
     # post 'contribute/tool/submit', action: 'contribute_tool_submit', as: :contribute_tool_submit
 
     get 'tool/request', action: 'tool_request', as: :tool_request
-    get 'dataset/hosting', action: 'dataset_hosting', as: :dataset_hosting
-    post 'dataset/hosting', action: 'create_hosting_request', as: :create_hosting_request
+
+    get 'dataset/hosting', to: redirect('dataset/hosting/start')
+    get 'dataset/hosting/start', action: 'dataset_hosting_start', as: :dataset_hosting_start
+    post 'dataset/hosting/start', action: 'dataset_hosting_set_description', as: :dataset_hosting_set_description
+    post 'dataset/hosting', action: 'dataset_hosting_register_user', as: :dataset_hosting_register_user
+    patch 'dataset/hosting', action: 'dataset_hosting_sign_in_user', as: :dataset_hosting_sign_in_user
     get 'dataset/hosting/submitted', action: 'dataset_hosting_submitted', as: :dataset_hosting_submitted
+
+    # get 'dataset/hosting', action: 'dataset_hosting', as: :dataset_hosting
+    # post 'dataset/hosting', action: 'create_hosting_request', as: :create_hosting_request
+
 
     get 'submissions/start', action: 'submissions_start', as: :submissions_start
     post 'submissions/start', action: 'submissions_launch', as: :submissions_launch

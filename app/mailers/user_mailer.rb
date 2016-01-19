@@ -1,5 +1,4 @@
 class UserMailer < ApplicationMailer
-
   def post_replied(post, user)
     setup_email
     @post = post
@@ -87,7 +86,14 @@ class UserMailer < ApplicationMailer
     @agreement_event = agreement_event
     @email_to = user.email
     mail(to: @email_to,
-      subject: "#{agreement_event.user.name} Mentioned You While Reviewing an Agreement")
+         subject: "#{agreement_event.user.name} Mentioned You While Reviewing an Agreement")
   end
 
+  def hosting_request_submitted(hosting_request)
+    setup_email
+    @hosting_request = hosting_request
+    @email_to = ENV['support_email']
+    mail(to: @email_to,
+         subject: "#{hosting_request.user.name} - Dataset Hosting Request")
+  end
 end

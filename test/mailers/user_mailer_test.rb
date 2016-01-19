@@ -138,4 +138,16 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match(/#{agreement_event.user.name} mentioned you while reviewing an agreement\./, email.encoded)
   end
 
+  test 'dataset hosting request submitted email' do
+    hosting_request = hosting_requests(:one)
+
+    # Send the email, then test that it got queued
+    email = UserMailer.hosting_request_submitted(hosting_request).deliver_now
+    assert !ActionMailer::Base.deliveries.empty?
+
+    # Test the body of the sent email contains what we expect it to
+    assert_equal [ENV['support_email']], email.to
+    assert_equal "#{hosting_request.user.name} - Dataset Hosting Request", email.subject
+    assert_match(/#{hosting_request.user.name} \[#{hosting_request.user.email}\] submitted a Dataset Hosting Request\./, email.encoded)
+  end
 end
