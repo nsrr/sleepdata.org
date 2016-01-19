@@ -1,19 +1,19 @@
+- @title = @hosting_request.name
+
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = link_to 'Hosting Requests', hosting_requests_path
+        &middot;
+        = @hosting_request.name
+
 %p
   %strong User
-  = @hosting_request.user_id
+  = @hosting_request.user.name
 
 %p
-  %strong Description
-  = @hosting_request.description
-
-%p
-  %strong Institution name
+  %strong Institution Name
   = @hosting_request.institution_name
 
-%p
-  %strong Deleted
-  = @hosting_request.deleted
-
-= link_to 'Edit', edit_hosting_request_path(@hosting_request)
-|
-= link_to 'Back', hosting_requests_path
+.markdown-container-new= simple_markdown @hosting_request.description

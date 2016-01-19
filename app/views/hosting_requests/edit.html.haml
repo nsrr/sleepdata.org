@@ -1,7 +1,13 @@
-%h1 Editing Hosting Request
+- @title = "Edit Hosting Request: #{@hosting_request.name_was}"
+
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = link_to 'Hosting Requests', hosting_request_path
+        &middot;
+        = link_to @hosting_request.name_was, @hosting_request
+        &middot;
+        Edit
 
 = render 'form'
-
-= link_to 'Show', @hosting_request
-|
-= link_to 'Back', hosting_requests_path

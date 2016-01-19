@@ -1,28 +1,39 @@
-= form_for(@hosting_request) do |f|
+= form_for @hosting_request, html: { class: 'form-horizontal' } do |f|
   - if @hosting_request.errors.any?
-    %h2
-      = pluralize @hosting_request.errors.count, 'error'
-      prohibited this hosting_request from being saved
+    .callout.callout-danger
+      %strong
+        = pluralize @hosting_request.errors.count, 'error'
+        prohibited this hosting request from being saved
 
-    %ul
-      - @hosting_request.errors.full_messages.each do |message|
-        %li= message
+      %ul
+        - @hosting_request.errors.full_messages.each do |message|
+          %li= message
 
-  .field
-    = f.label :user_id
-    = f.number_field :user_id
+  .form-group
+    = f.label :user_id, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      .form-control
+        = @hosting_request.user.name
+        = mail_to @hosting_request.user.email
 
-  .field
-    = f.label :description
-    = f.text_area :description
+  .form-group
+    = f.label :institution_name, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :institution_name, class: 'form-control'
 
-  .field
-    = f.label :institution_name
-    = f.text_field :institution_name
+  .form-group
+    = f.label :description, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      .preview-container
+        .preview-header
+          = link_to 'Write', '#', data: { object: 'view-content-markdown' }, class: 'preview-tab active', tabindex: '-1'
+          = link_to 'Preview', '#', data: { object: 'view-content-preview', content: '#hosting_request_description' }, class: 'preview-tab', tabindex: '-1'
+        .preview-body
+          #content_markdown
+            = f.text_area :description, rows: [[5, @hosting_request.description.to_s.count("\n") + 1].max, 25].min, class: 'preview-control', data: { object: 'expandable-text-area', default_rows: 5 }
+          #content_preview.markdown-container-new{ style: 'display:none' }
 
-  .field
-    = f.label :deleted
-    = f.check_box :deleted
-
-  .actions
-    = f.submit
+  .form-group
+    .col-md-offset-2.col-md-10
+      = f.submit nil, class: 'btn btn-primary'
+      = cancel

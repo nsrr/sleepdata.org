@@ -48,13 +48,12 @@ class HostingRequestsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_hosting_request
-      @hosting_request = HostingRequest.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def hosting_request_params
-      params.require(:hosting_request).permit(:user_id, :description, :institution_name, :deleted)
-    end
+  def set_hosting_request
+    @hosting_request = HostingRequest.find(params[:id])
+  end
+
+  def hosting_request_params
+    params.require(:hosting_request).permit(:description, :institution_name)
+  end
 end

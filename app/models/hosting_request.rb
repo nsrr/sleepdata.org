@@ -16,6 +16,14 @@ class HostingRequest < ActiveRecord::Base
 
   # Model Methods
 
+  def name
+    "Hosting Request ID ##{id}"
+  end
+
+  def name_was
+    name
+  end
+
   def send_email_in_background
   end
 
