@@ -16,7 +16,6 @@
   - Tool descriptions are pulled automatically and can be written and previewed using markdown
 - **Variable Changes**
   - Added a table of domain options for variables that are linked to domains
-  - Added ability to display SVG graphs for variables for future integration with Spout
   - Variables are now sorted by relevance when searching for key terms
   - Individual variable pages have been redesigned and include additional information about known issues and variable history
   - Folder navigation has been simplified on the variable index
