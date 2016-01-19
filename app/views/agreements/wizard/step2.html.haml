@@ -45,7 +45,7 @@
         = f.label :dataset_ids, 'Select a Dataset', class: 'control-label'
         .row
           = hidden_field_tag "agreement[dataset_ids][]", 0
-          - Dataset.release_scheduled.each do |dataset|
+          - Dataset.release_scheduled.order(:release_date).each do |dataset|
             - dataset_included = @agreement.datasets.pluck(:id).include?(dataset.id)
             .col-xs-6.col-sm-4.col-md-3
               .panel{ class: "#{dataset_included ? 'panel-success' : 'panel-default'}", data: { object: "select_checkbox_panel", target: "#agreement_dataset_ids_#{dataset.id}" } }
