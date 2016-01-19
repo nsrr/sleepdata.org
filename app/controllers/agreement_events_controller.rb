@@ -37,7 +37,7 @@ class AgreementEventsController < ApplicationController
 
   def show
     respond_to do |format|
-      format.html { redirect_to topic_path(@topic) + "?page=#{((@comment.number - 1) / Comment::COMMENTS_PER_PAGE)+1}#c#{@comment.number}" }
+      format.html { redirect_to review_path(@agreement) + "?page=#{((@agreement_event.number - 1) / AgreementEvent::AGREEMENT_EVENTS_PER_PAGE)+1}#c#{@agreement_event.number}" }
       format.js
     end
   end
