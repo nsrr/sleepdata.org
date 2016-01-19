@@ -56,9 +56,9 @@
                 .panel-body
                   .center{ style: "background-color:white;padding-bottom:5px;height:75px;line-height:75px" }
                     - if dataset.logo.size > 0
-                      = image_tag( logo_dataset_path(dataset), style: 'max-width:100%;max-height:70px' )
+                      = image_tag(logo_dataset_path(dataset), style: 'max-width:100%;max-height:70px')
                     - else
-                      = image_tag( 'project-default-logo.png', style: 'max-width:100%;max-height:70px' )
+                      = image_tag('project-default-logo.png', style: 'max-width:100%;max-height:70px')
 
       #too-many-datasets{ style: "#{'display:none' if @agreement.datasets.count < 2}" }
         .alert.alert-warning
