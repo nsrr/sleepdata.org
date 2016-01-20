@@ -2,7 +2,41 @@
   %tr
     %td
       %p
-        <mark>Highlight</mark> text.
+        Write inline
+        = succeed '.' do
+          %code code
+    %td
+      %p
+        Write inline `code`.
+
+  %tr
+    %td
+      %p
+        %pre
+          \# Write code block
+          def add(a,b)
+          &nbsp;&nbsp;return a+b
+          end
+    %td
+      %p
+
+        ```
+        %br
+        \# Write code block
+        %br
+        def add(a,b)
+        %br
+        &nbsp;&nbsp;return a+b
+        %br
+        end
+        %br
+        ```
+
+  %tr
+    %td
+      %p
+        %mark Highlight
+        text.
     %td
       %p
         \==Highlight== text.

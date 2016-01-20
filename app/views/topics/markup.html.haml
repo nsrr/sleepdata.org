@@ -8,6 +8,44 @@
       .banner-body
         Looking to spice up your forum post? Learn more below!
 
+%a.anchor-top{ name: 'inline-code' }
+.content-container
+  %h2
+    Inline Code
+    %a.anchor-link{ href: '#inline-code' }
+
+  .codeblocks-container.code-input-file.p
+    The following text is `inline code`.
+
+  %p
+    The following text is
+    = succeed '.' do
+      %code inline code
+
+%a.anchor-top{ name: 'code-block' }
+.content-container
+  %h2
+    Code Block
+    %a.anchor-link{ href: '#code-block' }
+
+  .codeblocks-container.code-input-file.p
+    ```
+    %br
+    \# Write code block
+    %br
+    def add(a,b)
+    %br
+    &nbsp;&nbsp;return a+b
+    %br
+    end
+    %br
+    ```
+  %pre
+    \# Write code block
+    def add(a,b)
+    &nbsp;&nbsp;return a+b
+    end
+
 %a.anchor-top{ name: 'highlight' }
 .content-container
   %h2
