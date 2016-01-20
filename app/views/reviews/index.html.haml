@@ -46,11 +46,13 @@
           %thead
             %tr
               %th
-                = link_to 'Status', reviews_path( order: (params[:order] == 'agreements.status DESC' ? 'agreements.status' : 'agreements.status DESC'), status: params[:status], tag_id: params[:tag_id], search: params[:search] )
+                = link_to 'Status', reviews_path(order: (params[:order] == 'agreements.status DESC' ? 'agreements.status' : 'agreements.status DESC'), status: params[:status], tag_id: params[:tag_id], search: params[:search])
               %th
-                = link_to 'Agreement', reviews_path( order: (params[:order] == 'agreements.id DESC' ? 'agreements.id' : 'agreements.id DESC'), status: params[:status], tag_id: params[:tag_id], search: params[:search] )
+                = link_to 'Agreement', reviews_path(order: (params[:order] == 'agreements.id DESC' ? 'agreements.id' : 'agreements.id DESC'), status: params[:status], tag_id: params[:tag_id], search: params[:search])
               %th.nowrap
-                = link_to 'Submission Date', reviews_path( order: (params[:order] == 'agreements.last_submitted_at DESC' ? 'agreements.last_submitted_at' : nil), status: params[:status], tag_id: params[:tag_id], search: params[:search] )
+                = link_to 'Submitted', reviews_path(order: (params[:order] == 'agreements.last_submitted_at DESC' ? 'agreements.last_submitted_at' : nil), status: params[:status], tag_id: params[:tag_id], search: params[:search])
+              %th.nowrap
+                = link_to 'Expires', reviews_path(order: (params[:order] == 'agreements.expiration_date DESC' ? 'agreements.expiration_date' : 'agreements.expiration_date DESC'), status: params[:status], tag_id: params[:tag_id], search: params[:search])
               %th Reviewers
               %th Datasets
               %th Tags
@@ -68,6 +70,9 @@
                     %span.glyphicon.glyphicon-info-sign
                 - elsif agreement.submitted_at
                   = agreement.submitted_at.strftime("%Y-%m-%d")
+              %td.nowrap
+                - if agreement.expiration_date
+                  = agreement.expiration_date.strftime('%Y-%m-%d')
               %td.nowrap= render 'reviews/reviewers', agreement: agreement
               %td
                 - agreement.datasets.order(:release_date, :name).each do |dataset|
