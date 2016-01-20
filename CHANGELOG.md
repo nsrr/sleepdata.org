@@ -9,7 +9,7 @@
   - Minor update to text on contact page
 
 ### Bug Fix
-- Fixed an issue setting tags on DAUAs
+- Fixed an issue approving and setting tags on DAUAs
 
 ## 0.18.0 (January 20, 2016)
 
