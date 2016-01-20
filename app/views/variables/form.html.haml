@@ -1,7 +1,7 @@
 = render 'variables/header'
 
-.row
-  .col-sm-3
+.row{ style: 'margin-bottom: 20px' }
+  .col-sm-3.hidden-xs
     = render 'variables/menu'
   .col-sm-9
     - download_url = files_dataset_path(@dataset) + "/forms/#{@form.folder}?f=#{CGI::escape @form.code_book.to_s}"
@@ -17,3 +17,5 @@
         = image_tag inline_url, style: 'max-width: 100%'
     - else
       = link_to @form.display_name, download_url, class: 'btn btn-xs btn-default'
+
+.visible-xs= render 'variables/menu'

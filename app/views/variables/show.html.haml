@@ -2,17 +2,8 @@
 
 = render 'variables/header'
 
-- if false
-  %p
-    DATASET VERSION:
-    %span.label.label-danger= @dataset_version.inspect
-  %p
-    Search Terms:
-    %span.label.label-danger= @variable.search_terms.inspect
-
-
-.row
-  .col-sm-3
+.row{ style: 'margin-bottom: 20px' }
+  .col-sm-3.hidden-xs
     = render 'variables/menu'
   .col-sm-9
     %h1.variable-header.brand= @variable.display_name
@@ -61,8 +52,8 @@
           %td
             %code= @variable.variable_type
 
-      - if (@variable.variable_type == 'integer' || @variable.variable_type == 'numeric') || true
-        %tr
+      - if @variable.variable_type == 'integer' || @variable.variable_type == 'numeric'
+        %tr.hidden-xs
           %td{ style: 'font-weight: bold' } Stats
           %td{ style: 'padding-top: 0' }
             %table.table.table-fixed.table-borderless
@@ -79,11 +70,19 @@
               %tbody
                 %tr
                   %td= @variable.stats_n
-                  %td= '%0.2f' % @variable.stats_mean if @variable.stats_mean
-                  %td= '%0.2f' % @variable.stats_stddev if @variable.stats_stddev
+                  %td= '%0.1f' % @variable.stats_mean if @variable.stats_mean
+                  %td= '± %0.1f' % @variable.stats_stddev if @variable.stats_stddev
                   %td= '%0.1f' % @variable.stats_median if @variable.stats_median
-                  %td= @variable.stats_min
-                  %td= @variable.stats_max
+                  %td
+                    - if @variable.variable_type == 'numeric' && @variable.stats_min
+                      = '%0.1f' % @variable.stats_min
+                    - else
+                      = @variable.stats_min
+                  %td
+                    - if @variable.variable_type == 'numeric' && @variable.stats_max
+                      = '%0.1f' % @variable.stats_max
+                    - else
+                      = @variable.stats_max
                   %td= @variable.stats_unknown
                   %td= @variable.stats_total
 
@@ -98,6 +97,7 @@
     - if charts.size > 0
       #chart-container{ style: 'min-width: 200px; max-width: 800px; height: 400px; margin: 0 auto 20px auto' }
 
+.visible-xs= render 'variables/menu'
 
 - if false
   - content_for :call_to_action do

@@ -2,8 +2,8 @@
 
 = render 'variables/header'
 
-.row
-  .col-sm-3
+.row{ style: 'margin-bottom: 20px' }
+  .col-sm-3.hidden-xs
     = render 'variables/menu'
   .col-sm-9
     = hidden_field_tag 'chart_type', params[:g]
@@ -45,3 +45,5 @@
                       %tr
                         - rows.each do |cell|
                           = render 'variables/table_cell', cell: cell, type: :td
+
+.visible-xs= render 'variables/menu'

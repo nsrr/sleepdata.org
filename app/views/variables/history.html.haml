@@ -2,8 +2,8 @@
 
 = render 'variables/header'
 
-.row
-  .col-sm-3
+.row{ style: 'margin-bottom: 20px' }
+  .col-sm-3.hidden-xs
     = render 'variables/menu'
   .col-sm-9
     %h1.variable-header.brand History
@@ -19,3 +19,5 @@
       = link_to download_url, class: 'btn btn-default' do
         View Change Log
         %span.glyphicon.glyphicon-new-window
+
+.visible-xs= render 'variables/menu'

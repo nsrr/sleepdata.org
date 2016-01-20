@@ -2,8 +2,8 @@
 
 = render 'variables/header'
 
-.row
-  .col-sm-3
+.row{ style: 'margin-bottom: 20px' }
+  .col-sm-3.hidden-xs
     = render 'variables/menu'
   .col-sm-9
     %h1.variable-header.brand Known Issues
@@ -12,3 +12,5 @@
       = simple_markdown @variable.known_issues
     - else
       %p.lead This variable has no known issues.
+
+.visible-xs= render 'variables/menu'

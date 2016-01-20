@@ -2,8 +2,8 @@
 
 = render 'variables/header'
 
-.row
-  .col-sm-3
+.row{ style: 'margin-bottom: 20px' }
+  .col-sm-3.hidden-xs
     = render 'variables/menu'
   .col-sm-9
     %h1.variable-header.brand Related Variables
@@ -23,3 +23,5 @@
 
     - else
       %p.lead This variable has no related variables.
+
+.visible-xs= render 'variables/menu'
