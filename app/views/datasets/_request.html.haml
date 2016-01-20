@@ -17,7 +17,7 @@
   - elsif agreement = agreements.expired.first
     - if expanded
       .info-header Request Expired
-    = link_to 'Renew Access', submissions_path(dataset: dataset), class: "btn #{btn_size} btn-call-to-danger btn-block"
+    = link_to 'Renew Access', submissions_start_path(dataset: dataset), class: "btn #{btn_size} btn-call-to-danger btn-block"
   - elsif agreement = agreements.find_by(status: ['', 'started', nil])
     - if expanded
       .info-header Request Started
