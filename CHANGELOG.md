@@ -8,6 +8,9 @@
 - **Contact Changes**
   - Minor update to text on contact page
 
+### Bug Fix
+- Fixed an issue setting tags on DAUAs
+
 ## 0.18.0 (January 20, 2016)
 
 ### Enhancements
