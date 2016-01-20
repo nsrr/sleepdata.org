@@ -50,27 +50,6 @@
       = f.hidden_field :logo_cache
 
   .form-group
-    = f.label :info_what, 'One sentence summary of the study', class: 'col-md-2 control-label'
-    .col-md-10
-      = f.text_field :info_what, class: 'form-control'
-
-
-  .form-group
-    = f.label :info_who, 'Description of the study population', class: 'col-md-2 control-label'
-    .col-md-10
-      = f.text_area :info_who, rows: 7, class: 'form-control'
-
-  .form-group
-    = f.label :info_when, 'Study timeframe', class: 'col-md-2 control-label'
-    .col-md-10
-      = f.text_field :info_when, class: 'form-control'
-
-  .form-group
-    = f.label :info_funded_by, 'List of funders / grant numbers', class: 'col-md-2 control-label'
-    .col-md-10
-      = f.text_area :info_funded_by, rows: 7, class: 'form-control'
-
-  .form-group
     = f.label :info_citation, 'Citation', class: 'col-md-2 control-label'
     .col-md-10
       = f.text_area :info_citation, rows: 7, class: 'form-control'
@@ -110,6 +89,31 @@
     = f.label :release_date, class: 'col-md-2 control-label'
     .col-md-10
       = f.text_field :release_date, class: 'datepicker form-control', value: @dataset.release_date ? @dataset.release_date.strftime('%m/%d/%Y') : ''
+
+  .form-group
+    .col-md-2
+    .col-md-10
+      %h2 Dataset Banner
+
+  .form-group
+    = f.label :info_what, 'One sentence summary of the study', class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :info_what, class: 'form-control'
+
+  .form-group
+    = f.label :info_who, 'Description of the study population', class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :info_who, class: 'form-control'
+
+  .form-group
+    = f.label :info_when, 'Study timeframe', class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :info_when, class: 'form-control'
+
+  .form-group
+    = f.label :info_funded_by, 'List of funders / grant numbers', class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :info_funded_by, class: 'form-control'
 
   .form-group
     .col-md-offset-2.col-md-10
