@@ -10,13 +10,18 @@
     )
   )
 
+@initializeTurbolinks = () ->
+  # Don't cache pages with Turbolinks
+  Turbolinks.pagesCached(0)
+  Turbolinks.allowLinkExtensions('md')
+  Turbolinks.enableProgressBar()
+
 @ready = () ->
   contourReady()
   $("[rel=tooltip]").tooltip( trigger: 'hover' )
   if $("#collection_form #s, #page_name, #search_form #s, #search, #collection_form #s, #s").val() != ''
     setFocusToField("#collection_form #s, #page_name, #search_form #s, #search, #collection_form #s, #s")
-  Turbolinks.allowLinkExtensions('md')
-  Turbolinks.enableProgressBar()
+  initializeTurbolinks()
   window.$isDirty = false
   variablesReady()
   datasetsReady()

@@ -37,6 +37,7 @@
 
 ### Bug Fix
 - Fixed an issue where chart numbers would not show well on charts with dark columns
+- Fixed various navigation issues in IE caused by caching
 
 ## 0.17.3 (November 6, 2015)
 
