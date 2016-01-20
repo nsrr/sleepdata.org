@@ -1,4 +1,4 @@
-## 0.18.1
+## 0.18.1 (January 20, 2016)
 
 ### Enhancements
 - **Forum Changes**
