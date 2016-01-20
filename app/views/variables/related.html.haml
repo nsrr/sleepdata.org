@@ -17,10 +17,10 @@
               - if variable.commonly_used?
                 %span.glyphicon.glyphicon-star.text-warning
             %td= link_to variable.name, dataset_variable_path(variable.dataset, variable)
-            %td= variable.display_name
-            %td= variable.description
+            %td
+              = variable.display_name
+              %small.text-muted.variable-description{ colspan: 2 }= simple_markdown_no_lists variable.description
             %td= variable.folder
-
     - else
       %p.lead This variable has no related variables.
 
