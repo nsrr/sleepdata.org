@@ -1,5 +1,9 @@
 ## 0.18.1
 
+### Enhancements
+- **Forum Changes**
+  - Fixed a minor UI issue with the forum post edit and delete buttons
+
 ## 0.18.0 (January 20, 2016)
 
 ### Enhancements

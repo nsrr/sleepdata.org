@@ -14,17 +14,6 @@
     .comment-right-fluid
       .comment-box
         .comment-header
-          %strong= comment.user.forum_name
-          commented
-          %abbr{ rel: 'tooltip', data: { title: comment.created_at.strftime('%-d %b %Y, %-l:%M %p'), container: 'body', placement: 'right' } }
-            = time_ago_in_words comment.created_at
-            ago
-          - if comment.user.core_member?
-            %span.post-footer{ style: 'padding-left:5px; height: 0' }
-              %span.core-member.nowrap{ style: 'position: relative; border-radius: 4px;' } Core Member
-          - elsif comment.user.aug_member?
-            %span.post-footer{ style: 'padding-left:5px; height: 0' }
-              %span.aug-member.nowrap{ style: 'position: relative; border-radius: 4px;' } AUG Member
           .pull-right
             - if current_user && comment.editable_by?(current_user)
               = succeed ' ' do
@@ -38,5 +27,16 @@
                 = link_to 'Cancel', '#', class: 'btn btn-xs btn-default', data: { object: 'toggle-delete-buttons', target_show: "#comment-#{comment.id}-request-delete", target_hide: "#comment-#{comment.id}-confirm-delete" }
                 = link_to 'Confirm Delete', [comment.topic, comment], method: :delete, remote: true, class: 'btn btn-xs btn-danger-inverse'
             = link_to "##{number}", "#c#{number}", class: 'btn btn-link btn-xs'
+          %strong= comment.user.forum_name
+          commented
+          %abbr{ rel: 'tooltip', data: { title: comment.created_at.strftime('%-d %b %Y, %-l:%M %p'), container: 'body', placement: 'right' } }
+            = time_ago_in_words comment.created_at
+            ago
+          - if comment.user.core_member?
+            %span.post-footer{ style: 'padding-left:5px; height: 0' }
+              %span.core-member.nowrap{ style: 'position: relative; border-radius: 4px;' } Core Member
+          - elsif comment.user.aug_member?
+            %span.post-footer{ style: 'padding-left:5px; height: 0' }
+              %span.aug-member.nowrap{ style: 'position: relative; border-radius: 4px;' } AUG Member
         .comment-body
           = render 'comments/formatted', comment: comment

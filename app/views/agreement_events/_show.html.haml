@@ -14,17 +14,6 @@
     .comment-right-fluid
       .comment-box
         .comment-header
-          %strong= agreement_event.user.forum_name
-          commented
-          %abbr{ rel: 'tooltip', data: { title: agreement_event.created_at.strftime('%-d %b %Y, %-l:%M %p'), container: 'body', placement: 'right' } }
-            = time_ago_in_words agreement_event.created_at
-            ago
-          - if agreement_event.user.core_member?
-            %span.post-footer{ style: 'padding-left:5px; height: 0' }
-              %span.core-member.nowrap{ style: 'position: relative; border-radius: 4px;' } Core Member
-          - elsif agreement_event.user.aug_member?
-            %span.post-footer{ style: 'padding-left:5px; height: 0' }
-              %span.aug-member.nowrap{ style: 'position: relative; border-radius: 4px;' } AUG Member
           .pull-right
             - if current_user && agreement_event.editable_by?(current_user)
               = succeed ' ' do
@@ -38,6 +27,17 @@
                 = link_to 'Cancel', '#', class: 'btn btn-xs btn-default', data: { object: 'toggle-delete-buttons', target_show: "#agreement-event-#{agreement_event.id}-request-delete", target_hide: "#agreement-event-#{agreement_event.id}-confirm-delete" }
                 = link_to 'Confirm Delete', [agreement_event.agreement, agreement_event], method: :delete, remote: true, class: 'btn btn-xs btn-danger-inverse'
             = link_to "##{number}", "#c#{number}", class: 'btn btn-link btn-xs'
+          %strong= agreement_event.user.forum_name
+          commented
+          %abbr{ rel: 'tooltip', data: { title: agreement_event.created_at.strftime('%-d %b %Y, %-l:%M %p'), container: 'body', placement: 'right' } }
+            = time_ago_in_words agreement_event.created_at
+            ago
+          - if agreement_event.user.core_member?
+            %span.post-footer{ style: 'padding-left:5px; height: 0' }
+              %span.core-member.nowrap{ style: 'position: relative; border-radius: 4px;' } Core Member
+          - elsif agreement_event.user.aug_member?
+            %span.post-footer{ style: 'padding-left:5px; height: 0' }
+              %span.aug-member.nowrap{ style: 'position: relative; border-radius: 4px;' } AUG Member
         .comment-body
           = render 'agreement_events/formatted', agreement_event: agreement_event
 - elsif ['principal_reviewer_approved', 'principal_reviewer_required_resubmission'].include?(agreement_event.event_type)
