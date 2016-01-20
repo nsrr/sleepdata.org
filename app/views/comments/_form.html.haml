@@ -15,13 +15,13 @@
     .comment-right-fluid
       .comment-box
         .comment-header
+          .pull-right
+            = link_to 'Cancel', topic_comment_path(@topic, @comment), remote: true, method: :get, class: 'btn btn-default btn-xs' unless @comment.new_record?
+            = link_to "##{@comment.number}", "#c#{@comment.number}", class: 'btn btn-link btn-xs'
           %strong= @comment.user.forum_name
           = link_to 'Edit', '#', data: { object: 'view-comment-write', comment_id: @comment.id }, class: 'comment-tab active', tabindex: '-1'
           = link_to 'Preview', '#', data: { object: 'view-comment-preview', comment_id: @comment.id, topic_id: @topic.to_param }, class: 'comment-tab', tabindex: '-1'
           = link_to 'Markup', '#', data: { object: 'view-comment-markup', comment_id: @comment.id }, class: 'comment-tab', tabindex: '-1'
-          .pull-right
-            = link_to 'Cancel', topic_comment_path(@topic, @comment), remote: true, method: :get, class: 'btn btn-default btn-xs' unless @comment.new_record?
-            = link_to "##{@comment.number}", "#c#{@comment.number}", class: 'btn btn-link btn-xs'
         .comment-body
           %div{ id: "comment_write_#{@comment.id}" }
             = f.text_area :description, rows: [[7, @comment.description.to_s.count("\n") + 1].max, 25].min, class: 'comment-control filedrag-container', data: { object: 'expandable-text-area dropfile text-area-autocomplete', default_rows: 7, mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort, upload_url: upload_images_path(update: "#comment_description_#{@comment.id}", format: 'js'), fallback_url: new_image_path, log_id: "#comment_log_#{@comment.id}" }, id: "comment_description_#{@comment.id}", placeholder: 'Write a comment'

@@ -6,6 +6,10 @@
   .comment-right-fluid
     .comment-box
       .comment-header
+        - unless @agreement_event.new_record?
+          .pull-right
+            = link_to 'Cancel', agreement_agreement_event_path(@agreement, @agreement_event), remote: true, method: :get, class: 'btn btn-default btn-xs'
+            = link_to "##{@agreement_event.number}", "#c#{@agreement_event.number}", class: 'btn btn-link btn-xs'
         %strong= @agreement_event.user.forum_name
         = link_to (@agreement_event.new_record? ? 'Write' : 'Edit'), '#', data: { object: 'view-agreement-event', action: 'write', agreement_event_id: agreement_event_id }, class: 'comment-tab active', tabindex: '-1'
         = link_to 'Preview', '#', data: { object: 'view-agreement-event view-agreement-event-preview', action: 'preview', agreement_event_id: agreement_event_id, agreement_id: @agreement_event.agreement_id }, class: 'comment-tab', tabindex: '-1'
@@ -16,10 +20,6 @@
           - if current_user.system_admin?
             = link_to 'Review', '#', data: { object: 'view-agreement-event', action: 'review', agreement_event_id: agreement_event_id }, class: 'comment-tab', tabindex: '-1'
             = link_to 'Datasets', '#', data: { object: 'view-agreement-event', action: 'datasets', agreement_event_id: agreement_event_id }, class: 'comment-tab', tabindex: '-1'
-        - unless @agreement_event.new_record?
-          .pull-right
-            = link_to 'Cancel', agreement_agreement_event_path(@agreement, @agreement_event), remote: true, method: :get, class: 'btn btn-default btn-xs'
-            = link_to "##{@agreement_event.number}", "#c#{@agreement_event.number}", class: 'btn btn-link btn-xs'
       .comment-body
         %div{ id: "agreement_event_write_#{agreement_event_id}" }
           = form_for [@agreement, @agreement_event], remote: true do |f|
