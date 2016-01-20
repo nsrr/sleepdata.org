@@ -1,4 +1,4 @@
-## 0.18.0
+## 0.18.0 (January 20, 2016)
 
 ### Enhancements
 - **General Changes**
