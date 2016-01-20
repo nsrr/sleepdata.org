@@ -4,7 +4,7 @@
 
   .row
     = hidden_field_tag "agreement[dataset_ids][]", 0
-    - Dataset.current.each do |dataset|
+    - Dataset.current.order(:release_date, :name).each do |dataset|
       - dataset_included = @agreement.datasets.pluck(:id).include?(dataset.id)
       .col-xs-6.col-sm-4.col-md-3
         .panel{ class: "#{dataset_included ? 'panel-success' : 'panel-default'}", data: { object: "select_checkbox_panel", target: "#agreement_dataset_ids_#{dataset.id}" } }

@@ -3,6 +3,8 @@
 ### Enhancements
 - **Forum Changes**
   - Fixed a minor UI issue with the forum post edit and delete buttons
+- **Agreement Changes**
+  - Datasets are now ordered properly while reviewing existing DAUAs
 
 ## 0.18.0 (January 20, 2016)
 
