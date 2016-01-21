@@ -1,6 +1,8 @@
 ## 0.18.2
 
 ### Enhancements
+- **Submission Changes**
+  - Improved visibility of "Get Started" button when launching a new DAUA
 - **Registration Changes**
   - A welcome email is now generated for new users filling out:
     - dataset access use agreements
