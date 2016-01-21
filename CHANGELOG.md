@@ -1,5 +1,12 @@
 ## 0.18.2
 
+### Enhancements
+- **Registration Changes**
+  - A welcome email is now generated for new users filling out:
+    - dataset access use agreements
+    - dataset hosting requests
+    - and tool contributions
+
 ## 0.18.1 (January 20, 2016)
 
 ### Enhancements

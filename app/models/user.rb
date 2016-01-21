@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   # Concerns
-  include Deletable, TokenAuthenticatable
+  include Deletable, TokenAuthenticatable, Forkable
 
   # Callbacks
   before_save :ensure_authentication_token
@@ -183,5 +183,13 @@ class User < ActiveRecord::Base
   def destroy
     super
     update_column :updated_at, Time.zone.now
+  end
+
+  def send_welcome_email_with_password_in_background(pw)
+    fork_process(:send_welcome_email_with_password, pw)
+  end
+
+  def send_welcome_email_with_password(pw)
+    RegistrationMailer.send_welcome_email_with_password(self, pw).deliver_later if EMAILS_ENABLED
   end
 end

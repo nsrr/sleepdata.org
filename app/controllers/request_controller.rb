@@ -26,6 +26,7 @@ class RequestController < ApplicationController
     unless current_user
       user = User.new(user_params)
       if user.save
+        user.send_welcome_email_with_password_in_background(params[:user][:password])
         sign_in(:user, user)
       else
         @registration_errors = user.errors
@@ -99,6 +100,7 @@ class RequestController < ApplicationController
     unless current_user
       user = User.new(user_params)
       if user.save
+        user.send_welcome_email_with_password_in_background(params[:user][:password])
         sign_in(:user, user)
       else
         @registration_errors = user.errors
@@ -150,6 +152,7 @@ class RequestController < ApplicationController
     unless current_user
       user = User.new(user_params)
       if user.save
+        user.send_welcome_email_with_password_in_background(params[:user][:password])
         sign_in(:user, user)
       else
         @registration_errors = user.errors
