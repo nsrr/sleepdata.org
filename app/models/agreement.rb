@@ -157,6 +157,14 @@ class Agreement < ActiveRecord::Base
     add_event!('Data Access and Use Agreement approved.', current_user, 'approved')
     agreement_events.create event_type: 'principal_reviewer_approved', user_id: current_user.id, event_at: Time.zone.now
     reviews.where(approved: nil).destroy_all
+    daua_approved_send_emails_in_background(current_user)
+  end
+
+  def daua_approved_send_emails_in_background(current_user)
+    fork_process(:daua_approved_send_emails, current_user)
+  end
+
+  def daua_approved_send_emails(current_user)
     UserMailer.daua_approved(self, current_user).deliver_later if EMAILS_ENABLED
     notify_admins_on_daua_progress(current_user)
   end
@@ -165,6 +173,14 @@ class Agreement < ActiveRecord::Base
     add_event!('Data Access and Use Agreement sent back for resubmission.', current_user, 'resubmit')
     agreement_events.create event_type: 'principal_reviewer_required_resubmission', user_id: current_user.id,
                             event_at: Time.zone.now, comment: comments
+    daua_ask_for_resubmit_send_emails_in_background(current_user)
+  end
+
+  def daua_ask_for_resubmit_send_emails_in_background(current_user)
+    fork_process(:daua_ask_for_resubmit_send_emails, current_user)
+  end
+
+  def daua_ask_for_resubmit_send_emails(current_user)
     UserMailer.sent_back_for_resubmission(self, current_user).deliver_later if EMAILS_ENABLED
     notify_admins_on_daua_progress(current_user)
   end

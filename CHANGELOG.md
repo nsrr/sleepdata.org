@@ -1,6 +1,8 @@
 ## 0.18.2
 
 ### Enhancements
+- **Agreement Changes**
+  - Emails are now sent in background when a principal reviewer approves and agreement or asks for an agreement resubmission
 - **Submission Changes**
   - Improved visibility of "Get Started" button when launching a new DAUA
 - **Registration Changes**
