@@ -21,12 +21,12 @@
             %span.glyphicon.glyphicon-print
             Print
 
+.pull-right
+  = render 'reviews/reviewers', agreement: @agreement
+
 - other_agreements = @agreement.user.agreements.where.not(id: @agreement.id).where(status: %w(submitted resubmit approved expired))
 - if other_agreements.count > 0
-  .callout.callout-danger
-    %strong
-      Attention!
-
+  .callout.callout-info
     %p
       This user has
       = other_agreements.count
@@ -34,12 +34,26 @@
       = succeed ':' do
         = "agreement#{'s' if other_agreements.count > 1}"
 
-    %ul
+    %ul.list-unstyled
       - other_agreements.each do |a|
-        %li
-          = link_to a.name, review_path(a), class: 'callout-link'
+        %li{ style: 'padding-bottom: 5px' }
           = status_helper(a)
+          = link_to a.name_with_id, review_path(a), class: 'callout-link'
 
+.content-container
+  #agreement_events
+    - if @agreement.agreement_events.count == 0
+      %p.center.text-muted This Agreement Has No Events
+    - else
+      - @agreement.agreement_events.each_with_index do |agreement_event, index|
+        - current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1)
+        - current_index = ((current_page - 1) * Comment::COMMENTS_PER_PAGE) + index + 1
+        %div{ id: "agreement_event_container_#{agreement_event.id}"}
+          = render 'agreement_events/show', agreement_event: agreement_event, number: agreement_event.number
+
+  #agreement_events_new_form
+    - @agreement_event = @agreement.agreement_events.where(user_id: current_user.id).new
+    = render 'agreement_events/form'
 
 .content-container
   - steps = (1..5)
@@ -56,26 +70,3 @@
           This step is not complete.
 
       = render "agreements/proof/step#{step}"
-
-.content-container
-  .pull-right
-    %p
-      = render 'reviews/reviewers', agreement: @agreement
-
-  %h2 History
-
-
-.content-container
-  #agreement_events
-    - if @agreement.agreement_events.count == 0
-      %p.center.text-muted This Agreement Has No Events
-    - else
-      - @agreement.agreement_events.each_with_index do |agreement_event, index|
-        - current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1)
-        - current_index = ((current_page - 1) * Comment::COMMENTS_PER_PAGE) + index + 1
-        %div{ id: "agreement_event_container_#{agreement_event.id}"}
-          = render 'agreement_events/show', agreement_event: agreement_event, number: agreement_event.number
-
-  #agreement_events_new_form
-    - @agreement_event = @agreement.agreement_events.where(user_id: current_user.id).new
-    = render 'agreement_events/form'

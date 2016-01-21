@@ -40,16 +40,11 @@
               %span.aug-member.nowrap{ style: 'position: relative; border-radius: 4px;' } AUG Member
         .comment-body
           = render 'agreement_events/formatted', agreement_event: agreement_event
-- elsif ['principal_reviewer_approved', 'principal_reviewer_required_resubmission'].include?(agreement_event.event_type)
+- elsif %w(principal_reviewer_approved principal_reviewer_required_resubmission user_submitted user_resubmitted).include?(agreement_event.event_type)
   .comment-outer
     .comment-left-fixed
     .comment-right-fluid
-      .comment-icon
-        - if agreement_event.event_type == 'principal_reviewer_approved'
-          %span.glyphicon.glyphicon-thumbs-up.text-success
-        - if agreement_event.event_type == 'principal_reviewer_required_resubmission'
-          %span.glyphicon.glyphicon-thumbs-down.text-danger
-      .comment-action
+      .well
         = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event, current_index: nil # TODO Remove current_index
 - else
   .comment-outer

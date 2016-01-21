@@ -3,6 +3,7 @@
 ### Enhancements
 - **Agreement Changes**
   - Emails are now sent in background when a principal reviewer approves and agreement or asks for an agreement resubmission
+  - Improved user interface for the DAUA review process
 - **Submission Changes**
   - Improved visibility of "Get Started" button when launching a new DAUA
 - **Registration Changes**

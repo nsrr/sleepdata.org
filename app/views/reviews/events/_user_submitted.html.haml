@@ -4,3 +4,45 @@
 agreement
 = succeed '.' do
   %abbr{ rel: 'tooltip', data: { title: agreement_event.event_at.strftime("%-d %B %Y, %-l:%M %p"), container: 'body', placement: 'right' } }= "#{time_ago_in_words(agreement_event.event_at)} ago"
+
+.row{ style: 'padding-top: 20px'}
+  .col-sm-6.col-buffer
+    %div{ style: 'padding: 0 20px;' }
+      %strong= agreement_event.agreement.title_of_project
+      %div{ style: 'font-style:italic;padding-top:5px' }
+        = simple_format agreement_event.agreement.specific_purpose
+        = simple_format agreement_event.agreement.intended_use_of_data
+
+      - agreement_event.agreement.datasets.order(:release_date, :name).each do |dataset|
+        = render 'datasets/mini', dataset: dataset
+  .col-sm-3.col-buffer
+    %div{ style: 'padding-left: 20px;' }
+      - if @agreement.data_user_type == 'individual'
+        %p
+          %strong= @agreement.individual_institution_name
+        %p= simple_format @agreement.individual_address
+      - elsif @agreement.data_user_type == 'organization'
+        %p
+          %strong= @agreement.organization_business_name
+        %p= simple_format @agreement.organization_address
+
+  .col-sm-3
+    %div{ style: 'padding-left: 20px;' }
+      - if @agreement.data_user_type == 'individual'
+        %p
+          %strong= @agreement.user.name
+        %p
+          = @agreement.individual_title
+          %br
+          = @agreement.individual_telephone
+          %br
+          = @agreement.user.email
+      - elsif @agreement.data_user_type == 'organization'
+        %p
+          %strong= @agreement.organization_contact_name
+        %p
+          = @agreement.organization_contact_title
+          %br
+          = @agreement.organization_contact_telephone
+          %br
+          = @agreement.organization_contact_email
