@@ -6,6 +6,8 @@
     - dataset access use agreements
     - dataset hosting requests
     - and tool contributions
+- **Blog Changes**
+  - Added an ATOM feed to allow new blogs posts to be picked up by RSS feed readers
 
 ## 0.18.1 (January 20, 2016)
 

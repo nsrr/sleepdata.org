@@ -6,6 +6,11 @@ class BlogControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should get blog atom feed' do
+    get :blog, format: 'atom'
+    assert_response :success
+  end
+
   test 'should show published blog' do
     get :show, id: broadcasts(:published)
     assert_response :success

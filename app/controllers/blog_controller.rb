@@ -8,7 +8,12 @@ class BlogController < ApplicationController
       user_ids = User.current.with_name(params[:a].to_s.split(','))
       broadcast_scope = broadcast_scope.where(user_id: user_ids.select(:id))
     end
-    @broadcasts = broadcast_scope.page(params[:page]).per(10)
+    @broadcasts = broadcast_scope.page(params[:page]).per(40)
+
+    respond_to do |format|
+      format.html
+      format.atom
+    end
   end
 
   def show

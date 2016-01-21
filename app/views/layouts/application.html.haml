@@ -12,6 +12,7 @@
       = [@title, 'National Sleep Research Resource'].compact.join(' - ').html_safe
 
     = favicon_link_tag
+    = auto_discovery_link_tag(:rss, "#{ENV['website_url']}/blog.atom")
     = csrf_meta_tags
 
     / HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
