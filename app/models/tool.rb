@@ -1,7 +1,12 @@
 class Tool < ApplicationRecord
   mount_uploader :logo, ImageUploader
 
-  TYPE = [['Web', 'web'], ['Matlab', 'matlab'], ['R Language', 'r'], ['Java', 'java'], ['Utility', 'utility'], ['Ruby', 'ruby']].sort
+  TYPE = [['Web', 'web'],
+          ['Matlab', 'matlab'],
+          ['R Language', 'r'],
+          ['Java', 'java'],
+          ['Utility', 'utility'],
+          ['Ruby', 'ruby']].sort
 
   # Concerns
   include Deletable, Documentable, Gitable

@@ -28,7 +28,7 @@ class StaticControllerTest < ActionController::TestCase
   end
 
   test 'should get version as json' do
-    get :version, format: 'json'
+    get :version, params: { format: 'json' }
     version = JSON.parse(response.body)
     assert_equal WwwSleepdataOrg::VERSION::STRING, version['version']['string']
     assert_equal WwwSleepdataOrg::VERSION::MAJOR, version['version']['major']

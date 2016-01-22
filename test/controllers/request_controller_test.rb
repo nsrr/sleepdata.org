@@ -14,7 +14,7 @@ class RequestControllerTest < ActionController::TestCase
   end
 
   test 'should contribute tool and set location as public user' do
-    post :contribute_tool_set_location, community_tool: { url: 'http://example.com' }
+    post :contribute_tool_set_location, params: { community_tool: { url: 'http://example.com' } }
     assert_not_nil assigns(:community_tool)
     assert_equal 'http://example.com', assigns(:community_tool).url
     assert_template :contribute_tool_about_me
@@ -24,7 +24,7 @@ class RequestControllerTest < ActionController::TestCase
   test 'should contribute tool and set location as regular user' do
     login(users(:valid))
     assert_difference('CommunityTool.count') do
-      post :contribute_tool_set_location, community_tool: { url: 'http://example.com' }
+      post :contribute_tool_set_location, params: { community_tool: { url: 'http://example.com' } }
     end
     assert_not_nil assigns(:community_tool)
     assert_equal 'http://example.com', assigns(:community_tool).url
@@ -33,7 +33,7 @@ class RequestControllerTest < ActionController::TestCase
   end
 
   test 'should not contribute tool with invalid url' do
-    post :contribute_tool_set_location, community_tool: { url: 'not a url' }
+    post :contribute_tool_set_location, params: { community_tool: { url: 'not a url' } }
     assert_not_nil assigns(:community_tool)
     assert_template :contribute_tool_start
     assert_response :success
@@ -42,7 +42,7 @@ class RequestControllerTest < ActionController::TestCase
   test 'should contribute tool and register user as public user' do
     assert_difference('User.count') do
       assert_difference('CommunityTool.count') do
-        post :contribute_tool_register_user, community_tool: { url: 'http://example.com' }, user: { first_name: 'First Name', last_name: 'Last Name', email: 'new_user@example.com' }
+        post :contribute_tool_register_user, params: { community_tool: { url: 'http://example.com' }, user: { first_name: 'First Name', last_name: 'Last Name', email: 'new_user@example.com' } }
       end
     end
     assert_not_nil assigns(:community_tool)
@@ -55,7 +55,7 @@ class RequestControllerTest < ActionController::TestCase
     login(users(:valid))
     assert_difference('User.count', 0) do
       assert_difference('CommunityTool.count') do
-        post :contribute_tool_register_user, community_tool: { url: 'http://example.com' }, user: { first_name: 'First Name', last_name: 'Last Name', email: 'new_user@example.com' }
+        post :contribute_tool_register_user, params: { community_tool: { url: 'http://example.com' }, user: { first_name: 'First Name', last_name: 'Last Name', email: 'new_user@example.com' } }
       end
     end
     assert_not_nil assigns(:community_tool)
@@ -67,7 +67,7 @@ class RequestControllerTest < ActionController::TestCase
   test 'should not contribute tool and register user with existing email address' do
     assert_difference('User.count', 0) do
       assert_difference('CommunityTool.count', 0) do
-        post :contribute_tool_register_user, community_tool: { url: 'http://example.com' }, user: { first_name: 'First Name', last_name: 'Last Name', email: 'valid@example.com' }
+        post :contribute_tool_register_user, params: { community_tool: { url: 'http://example.com' }, user: { first_name: 'First Name', last_name: 'Last Name', email: 'valid@example.com' } }
       end
     end
     assert_not_nil assigns(:community_tool)
@@ -80,7 +80,7 @@ class RequestControllerTest < ActionController::TestCase
     users(:valid).update password: 'password'
     assert_difference('User.count', 0) do
       assert_difference('CommunityTool.count') do
-        patch :contribute_tool_sign_in_user, community_tool: { url: 'http://example.com' }, email: 'valid@example.com', password: 'password'
+        patch :contribute_tool_sign_in_user, params: { community_tool: { url: 'http://example.com' }, email: 'valid@example.com', password: 'password' }
       end
     end
     assert_not_nil assigns(:community_tool)
@@ -93,7 +93,7 @@ class RequestControllerTest < ActionController::TestCase
     login(users(:valid))
     assert_difference('User.count', 0) do
       assert_difference('CommunityTool.count') do
-        patch :contribute_tool_sign_in_user, community_tool: { url: 'http://example.com' }, email: '', password: ''
+        patch :contribute_tool_sign_in_user, params: { community_tool: { url: 'http://example.com' }, email: '', password: '' }
       end
     end
     assert_not_nil assigns(:community_tool)
@@ -105,7 +105,7 @@ class RequestControllerTest < ActionController::TestCase
   test 'should not contribute tool and sign in user with invalid email and password' do
     assert_difference('User.count', 0) do
       assert_difference('CommunityTool.count', 0) do
-        patch :contribute_tool_sign_in_user, community_tool: { url: 'http://example.com' }, email: 'valid@example.com', password: ''
+        patch :contribute_tool_sign_in_user, params: { community_tool: { url: 'http://example.com' }, email: 'valid@example.com', password: '' }
       end
     end
     assert_not_nil assigns(:community_tool)
@@ -116,24 +116,24 @@ class RequestControllerTest < ActionController::TestCase
 
   test 'should get contribute tool description as regular user' do
     login(users(:valid))
-    get :contribute_tool_description, id: community_tools(:started)
+    get :contribute_tool_description, params: { id: community_tools(:started) }
     assert_response :success
   end
 
   test 'should not get contribute tool description as public user' do
-    get :contribute_tool_description, id: community_tools(:started)
+    get :contribute_tool_description, params: { id: community_tools(:started) }
     assert_redirected_to new_user_session_path
   end
 
   test 'should not get contribute tool description as regular user with invalid id' do
     login(users(:valid))
-    get :contribute_tool_description, id: -1
+    get :contribute_tool_description, params: { id: -1 }
     assert_redirected_to dashboard_path
   end
 
   test 'should set description and submit tool as regular user' do
     login(users(:valid))
-    post :contribute_tool_set_description, id: community_tools(:started), community_tool: { name: 'Tool Name', description: 'Tool Description' }
+    post :contribute_tool_set_description, params: { id: community_tools(:started), community_tool: { name: 'Tool Name', description: 'Tool Description' } }
     assert_not_nil assigns(:community_tool)
     assert_equal 'Tool Name', assigns(:community_tool).name
     assert_equal 'Tool Description', assigns(:community_tool).description
@@ -142,7 +142,7 @@ class RequestControllerTest < ActionController::TestCase
 
   test 'should set description and save draft tool as regular user' do
     login(users(:valid))
-    post :contribute_tool_set_description, id: community_tools(:started), community_tool: { name: 'Tool Name - DRAFT', description: '' }, draft: '1'
+    post :contribute_tool_set_description, params: { id: community_tools(:started), community_tool: { name: 'Tool Name - DRAFT', description: '' }, draft: '1' }
     assert_not_nil assigns(:community_tool)
     assert_equal 'Tool Name - DRAFT', assigns(:community_tool).name
     assert_equal '', assigns(:community_tool).description
@@ -151,14 +151,14 @@ class RequestControllerTest < ActionController::TestCase
 
   test 'should not set description and submit tool as regular user with invalid id' do
     login(users(:valid))
-    post :contribute_tool_set_description, id: -1, community_tool: { name: 'Tool Name', description: 'Tool Description' }
+    post :contribute_tool_set_description, params: { id: -1, community_tool: { name: 'Tool Name', description: 'Tool Description' } }
     assert_nil assigns(:community_tool)
     assert_redirected_to dashboard_path
   end
 
   test 'should not submit tool as regular user without description' do
     login(users(:valid))
-    post :contribute_tool_set_description, id: community_tools(:started), community_tool: { name: '', description: '' }
+    post :contribute_tool_set_description, params: { id: community_tools(:started), community_tool: { name: '', description: '' } }
     assert_not_nil assigns(:community_tool)
     assert assigns(:community_tool).errors.size > 0
     assert_equal ["can't be blank"], assigns(:community_tool).errors[:name]
@@ -168,19 +168,19 @@ class RequestControllerTest < ActionController::TestCase
   end
 
   test 'should not set description and submit tool as public user' do
-    post :contribute_tool_set_description, id: community_tools(:started), community_tool: { name: 'Tool Name', description: 'Tool Description' }
+    post :contribute_tool_set_description, params: { id: community_tools(:started), community_tool: { name: 'Tool Name', description: 'Tool Description' } }
     assert_nil assigns(:community_tool)
     assert_redirected_to new_user_session_path
   end
 
   test 'should get submissions start as public user' do
-    get :submissions_start, dataset: 'wecare'
+    get :submissions_start, params: { dataset: 'wecare' }
     assert_response :success
   end
 
   test 'should get submissions start as regular user' do
     login(users(:valid))
-    get :submissions_start, dataset: 'wecare'
+    get :submissions_start, params: { dataset: 'wecare' }
     assert_response :success
   end
 
@@ -201,7 +201,7 @@ class RequestControllerTest < ActionController::TestCase
   end
 
   test 'should dataset hosting and set description as public user' do
-    post :dataset_hosting_set_description, hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }
+    post :dataset_hosting_set_description, params: { hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' } }
     assert_not_nil assigns(:hosting_request)
     assert_equal 'Dataset is a set of EDFs', assigns(:hosting_request).description
     assert_equal 'Institution Name', assigns(:hosting_request).institution_name
@@ -212,7 +212,7 @@ class RequestControllerTest < ActionController::TestCase
   test 'should dataset hosting and set description as regular user' do
     login(users(:valid))
     assert_difference('HostingRequest.count') do
-      post :dataset_hosting_set_description, hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }
+      post :dataset_hosting_set_description, params: { hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' } }
     end
     assert_not_nil assigns(:hosting_request)
     assert_equal 'Dataset is a set of EDFs', assigns(:hosting_request).description
@@ -222,7 +222,7 @@ class RequestControllerTest < ActionController::TestCase
   end
 
   test 'should not dataset hosting with blank description' do
-    post :dataset_hosting_set_description, hosting_request: { description: '', institution_name: 'Institution Name' }
+    post :dataset_hosting_set_description, params: { hosting_request: { description: '', institution_name: 'Institution Name' } }
     assert_not_nil assigns(:hosting_request)
     assert_template :dataset_hosting_start
     assert_response :success
@@ -231,7 +231,7 @@ class RequestControllerTest < ActionController::TestCase
   test 'should dataset hosting and register user as public user' do
     assert_difference('User.count') do
       assert_difference('HostingRequest.count') do
-        post :dataset_hosting_register_user, hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }, user: { first_name: 'First Name', last_name: 'Last Name', email: 'new_user@example.com' }
+        post :dataset_hosting_register_user, params: { hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }, user: { first_name: 'First Name', last_name: 'Last Name', email: 'new_user@example.com' } }
       end
     end
     assert_not_nil assigns(:hosting_request)
@@ -245,7 +245,7 @@ class RequestControllerTest < ActionController::TestCase
     login(users(:valid))
     assert_difference('User.count', 0) do
       assert_difference('HostingRequest.count') do
-        post :dataset_hosting_register_user, hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }, user: { first_name: 'First Name', last_name: 'Last Name', email: 'new_user@example.com' }
+        post :dataset_hosting_register_user, params: { hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }, user: { first_name: 'First Name', last_name: 'Last Name', email: 'new_user@example.com' } }
       end
     end
     assert_not_nil assigns(:hosting_request)
@@ -258,7 +258,7 @@ class RequestControllerTest < ActionController::TestCase
   test 'should not dataset hosting and register user with existing email address' do
     assert_difference('User.count', 0) do
       assert_difference('HostingRequest.count', 0) do
-        post :dataset_hosting_register_user, hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }, user: { first_name: 'First Name', last_name: 'Last Name', email: 'valid@example.com' }
+        post :dataset_hosting_register_user, params: { hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }, user: { first_name: 'First Name', last_name: 'Last Name', email: 'valid@example.com' } }
       end
     end
     assert_not_nil assigns(:hosting_request)
@@ -272,7 +272,7 @@ class RequestControllerTest < ActionController::TestCase
     users(:valid).update password: 'password'
     assert_difference('User.count', 0) do
       assert_difference('HostingRequest.count') do
-        patch :dataset_hosting_sign_in_user, hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }, email: 'valid@example.com', password: 'password'
+        patch :dataset_hosting_sign_in_user, params: { hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }, email: 'valid@example.com', password: 'password' }
       end
     end
     assert_not_nil assigns(:hosting_request)
@@ -286,7 +286,7 @@ class RequestControllerTest < ActionController::TestCase
     login(users(:valid))
     assert_difference('User.count', 0) do
       assert_difference('HostingRequest.count') do
-        patch :dataset_hosting_sign_in_user, hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }, email: '', password: ''
+        patch :dataset_hosting_sign_in_user, params: { hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }, email: '', password: '' }
       end
     end
     assert_not_nil assigns(:hosting_request)
@@ -299,7 +299,7 @@ class RequestControllerTest < ActionController::TestCase
   test 'should not dataset hosting and sign in user with invalid email and password' do
     assert_difference('User.count', 0) do
       assert_difference('HostingRequest.count', 0) do
-        patch :dataset_hosting_sign_in_user, hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }, email: 'valid@example.com', password: ''
+        patch :dataset_hosting_sign_in_user, params: { hosting_request: { description: 'Dataset is a set of EDFs', institution_name: 'Institution Name' }, email: 'valid@example.com', password: '' }
       end
     end
     assert_not_nil assigns(:hosting_request)
@@ -311,18 +311,18 @@ class RequestControllerTest < ActionController::TestCase
 
   # test 'should get dataset hosting description as regular user' do
   #   login(users(:valid))
-  #   get :dataset_hosting_description, id: hosting_requests(:started)
+  #   get :dataset_hosting_description, params: { id: hosting_requests(:started) }
   #   assert_response :success
   # end
 
   # test 'should not get dataset hosting description as public user' do
-  #   get :dataset_hosting_description, id: hosting_requests(:started)
+  #   get :dataset_hosting_description, params: { id: hosting_requests(:started) }
   #   assert_redirected_to new_user_session_path
   # end
 
   # test 'should not get dataset hosting description as regular user with invalid id' do
   #   login(users(:valid))
-  #   get :dataset_hosting_description, id: -1
+  #   get :dataset_hosting_description, params: { id: -1 }
   #   assert_redirected_to dashboard_path
   # end
 

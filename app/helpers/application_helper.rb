@@ -10,7 +10,7 @@ module ApplicationHelper
 
   def simple_markdown(text, target_blank = true, table_class = '', allow_links = true, allow_lists = true)
     result = ''
-    markdown = Redcarpet::Markdown.new( Redcarpet::Render::HTML, no_intra_emphasis: true, fenced_code_blocks: true, autolink: true, strikethrough: true, superscript: true, tables: true, lax_spacing: true, space_after_headers: true, underline: true, highlight: true, footnotes: true )
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, no_intra_emphasis: true, fenced_code_blocks: true, autolink: true, strikethrough: true, superscript: true, tables: true, lax_spacing: true, space_after_headers: true, underline: true, highlight: true, footnotes: true)
     result = text.to_s
     result = replace_numbers_with_ascii(result) unless allow_lists
     result = markdown.render(result)
@@ -28,6 +28,8 @@ module ApplicationHelper
   end
 
   def th_sort_field(order, sort_field, display_name)
+    sort_params = params.permit(:search)
+
     sort_field_order = (order == sort_field) ? "#{sort_field} DESC" : sort_field
     if order == sort_field
       css_class = 'sort-up'
@@ -37,7 +39,7 @@ module ApplicationHelper
       selected_class = 'sort-selected'
     end
     content_tag(:th, class: ['nowrap', selected_class]) do
-      link_to url_for(params.merge(order: sort_field_order)), style: 'text-decoration:none', class: css_class do
+      link_to url_for(sort_params.merge(order: sort_field_order)), style: 'text-decoration:none', class: css_class do
         display_name.to_s.html_safe
       end
     end.html_safe

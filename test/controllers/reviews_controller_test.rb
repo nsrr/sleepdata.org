@@ -19,30 +19,30 @@ class ReviewsControllerTest < ActionController::TestCase
 
   # test 'should create review' do
   #   assert_difference('Review.count') do
-  #     post :create, review: { agreement_id: @review.agreement_id, approved: @review.approved, user_id: @review.user_id }
+  #     post :create, params: { review: { agreement_id: @review.agreement_id, approved: @review.approved, user_id: @review.user_id } }
   #   end
 
   #   assert_redirected_to review_path(assigns(:review))
   # end
 
   # test 'should show review' do
-  #   get :show, id: @review
+  #   get :show, params: { id: @review }
   #   assert_response :success
   # end
 
   # test 'should get edit' do
-  #   get :edit, id: @review
+  #   get :edit, params: { id: @review }
   #   assert_response :success
   # end
 
   # test 'should update review' do
-  #   patch :update, id: @review, review: { agreement_id: @review.agreement_id, approved: @review.approved, user_id: @review.user_id }
+  #   patch :update, params: { id: @review, review: { agreement_id: @review.agreement_id, approved: @review.approved, user_id: @review.user_id } }
   #   assert_redirected_to review_path(assigns(:review))
   # end
 
   # test 'should destroy review' do
   #   assert_difference('Review.count', -1) do
-  #     delete :destroy, id: @review
+  #     delete :destroy, params: { id: @review }
   #   end
 
   #   assert_redirected_to reviews_path
