@@ -4,12 +4,13 @@
       - if defined?(@total_count)
         - per_page = 100
         - page = params[:page].blank? ? 1 : params[:page].to_i
+        - sort_params = params.permit(:s)
         - current_page_min = (page - 1) * per_page + 1
         - current_page_max = page * per_page
         .hidden-xs{ style: 'position: absolute; top: -5.5px; right: 15px' }
           %ul.pagination.pagination-sm{ style: 'margin: 0' }
             - if current_page_min > 1
-              %li= link_to '&laquo;'.html_safe, url_for(params.merge(page: page - 1)  ).gsub("%2F","/")
+              %li= link_to '&laquo;'.html_safe, url_for(sort_params.merge(page: page - 1)  ).gsub("%2F","/")
             - else
               %li.disabled
                 %span &laquo
@@ -22,7 +23,7 @@
                 of
                 = number_with_delimiter @total_count
             - if current_page_max < @total_count
-              %li= link_to '&raquo;'.html_safe, url_for(params.merge(page: page + 1)).gsub('%2F', '/')
+              %li= link_to '&raquo;'.html_safe, url_for(sort_params.merge(page: page + 1)).gsub('%2F', '/')
             - else
               %li.disabled
                 %span &raquo;
