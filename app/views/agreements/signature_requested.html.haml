@@ -108,7 +108,7 @@
             %canvas.pad{ width: '300', height: '55' }
             %span.clearButton{ style: 'position: absolute; margin-top: 12.5px; margin-left: 10px;' }
               = link_to 'Clear', '#clear', class: 'btn btn-default', tabindex: '-1'
-          - if @agreement.errors.messages[:duly_authorized_representative_signature].size > 0
+          - if @agreement.errors.messages[:edges_in_duly_authorized_representative_signature].size > 0
             .callout.callout-danger{ style: 'margin-top: 10px' }
               Please sign your full name.
 

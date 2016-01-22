@@ -357,7 +357,7 @@ class Agreement < ApplicationRecord
     retry
   end
 
-  def words_in_reviewer_signature
+  def edges_in_reviewer_signature
     JSON.parse(reviewer_signature)
   rescue
     []

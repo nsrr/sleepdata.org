@@ -21,7 +21,7 @@ class AgreementEventsControllerTest < ActionController::TestCase
     skip
     login(users(:admin))
     assert_difference('AgreementEvent.count') do
-      post :create, agreement_id: @agreement, agreement_event: { comment: 'I reviewed this data access request.' }, format: 'js'
+      post :create, params: { agreement_id: @agreement, agreement_event: { comment: 'I reviewed this data access request.' }, format: 'js' }
     end
 
     assert_equal 'I reviewed this data access request.', assigns(:agreement_event).agreement_events.last.comment
@@ -30,7 +30,7 @@ class AgreementEventsControllerTest < ActionController::TestCase
 
   test 'should not create agreement comment as anonymous user' do
     assert_difference('Comment.count', 0) do
-      post :create, agreement_id: @agreement, agreement_event: { comment: 'I am not logged in.' }
+      post :create, params: { agreement_id: @agreement, agreement_event: { comment: 'I am not logged in.' } }
     end
 
     assert_redirected_to new_user_session_path
@@ -117,7 +117,7 @@ class AgreementEventsControllerTest < ActionController::TestCase
   test 'should not destroy comment as another user' do
     login(users(:two))
     assert_difference('AgreementEvent.current.count', 0) do
-      delete :destroy, agreement_id: @agreement, id: @agreement_event
+      delete :destroy, params: { agreement_id: @agreement, id: @agreement_event }
     end
 
     assert_redirected_to reviews_path
@@ -125,7 +125,7 @@ class AgreementEventsControllerTest < ActionController::TestCase
 
   test 'should not destroy comment as anonymous user' do
     assert_difference('AgreementEvent.current.count', 0) do
-      delete :destroy, agreement_id: @agreement, id: @agreement_event
+      delete :destroy, params: { agreement_id: @agreement, id: @agreement_event }
     end
 
     assert_redirected_to new_user_session_path

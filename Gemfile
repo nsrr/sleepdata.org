@@ -29,7 +29,7 @@ gem 'uglifier',             '>= 1.3.0'
 
 gem 'jbuilder',             '~> 2.0'
 gem 'jquery-rails',         '~> 4.0.3'
-gem 'turbolinks',           '>= 2.2.0'
+gem 'turbolinks', github: 'rails/turbolinks', ref: 'dd31f4b'
 
 # Testing
 group :test do
