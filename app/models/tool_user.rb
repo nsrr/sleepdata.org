@@ -1,4 +1,4 @@
-class ToolUser < ActiveRecord::Base
+class ToolUser < ApplicationRecord
 
   # Model Relationships
   belongs_to :tool

@@ -1,4 +1,4 @@
-class PublicFile < ActiveRecord::Base
+class PublicFile < ApplicationRecord
 
   belongs_to :dataset
   belongs_to :user

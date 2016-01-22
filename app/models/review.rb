@@ -1,4 +1,4 @@
-class Review < ActiveRecord::Base
+class Review < ApplicationRecord
 
   # Model Validation
   validates_presence_of :agreement_id, :user_id

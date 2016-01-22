@@ -1,4 +1,4 @@
-class DatasetContributor < ActiveRecord::Base
+class DatasetContributor < ApplicationRecord
 
   # Model Relationships
   belongs_to :dataset

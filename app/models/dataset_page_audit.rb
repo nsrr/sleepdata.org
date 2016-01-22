@@ -1,4 +1,4 @@
-class DatasetPageAudit < ActiveRecord::Base
+class DatasetPageAudit < ApplicationRecord
 
   # Model Relationships
   belongs_to :dataset

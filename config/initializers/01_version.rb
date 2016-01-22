@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module WwwSleepdataOrg
   module VERSION #:nodoc:
     MAJOR = 0

@@ -1,12 +1,16 @@
 source 'https://rubygems.org'
 
-gem 'rails',                '4.2.5'
+gem 'rails',                '5.0.0.beta1'
+
+# Temporary includes
+gem 'bootstrap-sass'
+gem 'devise', github: 'plataformatec/devise', ref: 'b97b3e6'
 
 # Database Adapter
 gem 'pg',                   '0.18.4'
 
 # Gems used by project
-gem 'contour',              '~> 3.0.1'
+gem 'contour', github: 'remomueller/contour', ref: 'f077390'
 gem 'kaminari',             '~> 0.16.3'
 gem 'carrierwave',          '~> 0.10.0'
 gem 'mini_magick'
@@ -32,6 +36,7 @@ group :test do
   # Pretty printed test output
   gem 'minitest'
   gem 'simplecov',          '~> 0.11.1',           require: false
+  gem 'rails-controller-testing'
 end
 
 group :development do

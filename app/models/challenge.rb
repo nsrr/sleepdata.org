@@ -1,5 +1,5 @@
 # Encapsulates challenges as well as responses to challenge questions.
-class Challenge < ActiveRecord::Base
+class Challenge < ApplicationRecord
   # Concerns
   include Deletable
 

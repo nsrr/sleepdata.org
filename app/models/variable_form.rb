@@ -1,4 +1,4 @@
-class VariableForm < ActiveRecord::Base
+class VariableForm < ApplicationRecord
 
   # Model Relationships
   belongs_to :dataset

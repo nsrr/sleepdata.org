@@ -1,5 +1,5 @@
 # Community Tool is a user submitted tool
-class CommunityTool < ActiveRecord::Base
+class CommunityTool < ApplicationRecord
   # Constants
   STATUS = %w(started submitted accepted rejected)
 

@@ -1,5 +1,5 @@
 # Represent Spout variable structure for variable pages
-class Variable < ActiveRecord::Base
+class Variable < ApplicationRecord
   serialize :labels, Array
 
   after_save :set_search_terms

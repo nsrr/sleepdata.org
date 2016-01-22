@@ -1,4 +1,4 @@
-class AgreementTransactionAudit < ActiveRecord::Base
+class AgreementTransactionAudit < ApplicationRecord
 
   # Model Relationships
   belongs_to :agreement

@@ -1,4 +1,4 @@
-class AgreementTag < ActiveRecord::Base
+class AgreementTag < ApplicationRecord
 
   belongs_to :agreement
   belongs_to :tag

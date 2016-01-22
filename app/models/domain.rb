@@ -1,5 +1,5 @@
 # Represents the valid values and options for a variable
-class Domain < ActiveRecord::Base
+class Domain < ApplicationRecord
   serialize :options, Array
 
   # Model Validation

@@ -1,4 +1,4 @@
-class Dataset < ActiveRecord::Base
+class Dataset < ApplicationRecord
   FILES_PER_PAGE = 100
 
   mount_uploader :logo, ImageUploader

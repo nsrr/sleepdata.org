@@ -1,4 +1,4 @@
-class ToolContributor < ActiveRecord::Base
+class ToolContributor < ApplicationRecord
 
   # Model Relationships
   belongs_to :dataset

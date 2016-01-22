@@ -1,5 +1,5 @@
 # Tracks the number of files downloaded per dataset and by user
-class DatasetFileAudit < ActiveRecord::Base
+class DatasetFileAudit < ApplicationRecord
   # Model Relationships
   belongs_to :dataset
   belongs_to :user

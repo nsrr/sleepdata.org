@@ -1,4 +1,4 @@
-class Question < ActiveRecord::Base
+class Question < ApplicationRecord
   # Model Validation
   validates :name, :challenge_id, presence: true
   validates :name, uniqueness: { scope: [:challenge_id, :deleted], case_sensitive: false }

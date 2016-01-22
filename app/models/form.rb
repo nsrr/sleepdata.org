@@ -1,5 +1,5 @@
 # Represents the PDF or CRF on which a variable was captured
-class Form < ActiveRecord::Base
+class Form < ApplicationRecord
   # Model Validation
   validates :name, :dataset_id, :dataset_version_id, presence: true
   validates :name, format: { with: /\A[a-z]\w*\Z/i }

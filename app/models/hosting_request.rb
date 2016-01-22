@@ -1,5 +1,5 @@
 # Allows users to request to have their data hosted on the NSRR
-class HostingRequest < ActiveRecord::Base
+class HostingRequest < ApplicationRecord
   # Concerns
   include Deletable, Forkable
 

@@ -1,4 +1,4 @@
-class DatasetUser < ActiveRecord::Base
+class DatasetUser < ApplicationRecord
 
   ROLES = [['Editor', 'editor'],['Viewer', 'viewer'],['Reviewer', 'reviewer']]
 

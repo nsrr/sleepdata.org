@@ -1,4 +1,4 @@
-class AgreementEvent < ActiveRecord::Base
+class AgreementEvent < ApplicationRecord
   AGREEMENT_EVENTS_PER_PAGE = 20
   EVENT_TYPE = [['user_submitted', 'user_submitted'],
                 ['reviewer_approved', 'reviewer_approved'],

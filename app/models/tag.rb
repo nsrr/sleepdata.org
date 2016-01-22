@@ -1,4 +1,4 @@
-class Tag < ActiveRecord::Base
+class Tag < ApplicationRecord
   TYPE = [['Forum', 'topic'], ['Review', 'agreement']]
 
   # Concerns

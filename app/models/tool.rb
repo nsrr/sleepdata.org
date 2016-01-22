@@ -1,4 +1,4 @@
-class Tool < ActiveRecord::Base
+class Tool < ApplicationRecord
   mount_uploader :logo, ImageUploader
 
   TYPE = [['Web', 'web'], ['Matlab', 'matlab'], ['R Language', 'r'], ['Java', 'java'], ['Utility', 'utility'], ['Ruby', 'ruby']].sort
