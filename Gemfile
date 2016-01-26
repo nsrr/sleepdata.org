@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails',                '5.0.0.beta1'
+gem 'rails',                '5.0.0.beta1.1'
 
 # Temporary includes
 gem 'bootstrap-sass'
@@ -28,7 +28,7 @@ gem 'sass-rails',           '~> 5.0'
 gem 'uglifier',             '>= 1.3.0'
 
 gem 'jbuilder',             '~> 2.0'
-gem 'jquery-rails',         '~> 4.0.3'
+gem 'jquery-rails',         '~> 4.1.0'
 gem 'turbolinks', github: 'rails/turbolinks', ref: 'dd31f4b'
 
 # Testing

@@ -2,7 +2,14 @@
 
 ### Enhancements
 - **Gem Changes**
-  - Updated to rails 5.0.0.beta1
+  - Updated to rails 5.0.0.beta1.1
+
+## 0.18.3  (January 26, 2016)
+
+### Enhancements
+- **Gem Changes**
+  - Updated to rails 4.2.5.1
+  - Updated to jquery-rails 4.1.0
 
 ## 0.18.2 (January 21, 2016)
 
