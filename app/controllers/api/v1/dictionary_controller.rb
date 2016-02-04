@@ -42,7 +42,7 @@ class Api::V1::DictionaryController < Api::V1::BaseController
   end
 
   def get_folders
-    params[:folders].collect{ |folder| clean_folder(folder) }
+    (params[:folders] || []).collect { |folder| clean_folder(folder) }
   end
 
   def clean_folder(folder)
