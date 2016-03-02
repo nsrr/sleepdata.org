@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Allows emails to be viewed at /rails/mailers
 class UserMailerPreview < ActionMailer::Preview
   def post_replied
     post = Post.first
@@ -21,20 +24,6 @@ class UserMailerPreview < ActionMailer::Preview
     agreement = Agreement.first
 
     UserMailer.daua_signed(agreement)
-  end
-
-  def dataset_access_requested
-    dataset_user = DatasetUser.first
-    editor = User.first
-
-    UserMailer.dataset_access_requested(dataset_user, editor)
-  end
-
-  def dataset_access_approved
-    dataset_user = DatasetUser.first
-    editor = User.first
-
-    UserMailer.dataset_access_approved(dataset_user, editor)
   end
 
   def daua_progress_notification

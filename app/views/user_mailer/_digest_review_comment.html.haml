@@ -1,5 +1,5 @@
 %td{ style: 'padding-left:10px;padding-right:10px;vertical-align:top' }
-  = link_to "##{@agreement_event.number}", "#{ENV['website_url']}/reviews/#{@agreement_event.agreement.to_param}#c#{@agreement_event.number}", style: 'color: #428bca;'
+  = link_to "##{@agreement_event.number}", "#{ENV['website_url']}/reviews/#{@agreement_event.agreement.to_param}#c#{@agreement_event.number}", style: link_style
 %td{ style: 'padding-right:10px;vertical-align:top' }
   = strip_tags(simple_markdown @agreement_event.comment).truncate(100, separator: ' ').html_safe
 %td.text-right.nowrap{ style: 'padding-right:10px;vertical-align:top' }

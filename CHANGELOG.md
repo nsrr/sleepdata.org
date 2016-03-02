@@ -1,5 +1,9 @@
 ## 0.18.4
 
+### Enhancements
+- **Email Changes**
+  - Improved the responsiveness and display of emails on smaller devices
+
 ### Bug Fixes
 - Fixed a bug that occurred when updating variables without uploading datasets
 

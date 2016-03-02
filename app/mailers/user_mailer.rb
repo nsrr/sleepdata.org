@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Sends out application emails to users
 class UserMailer < ApplicationMailer
   def post_replied(post, user)
     setup_email
@@ -11,7 +14,7 @@ class UserMailer < ApplicationMailer
     setup_email
     @user = user
     @email_to = user.email
-    mail(to: user.email, subject: "Reviewer Digest for #{Date.today.strftime('%a %d %b %Y')}")
+    mail(to: user.email, subject: "Reviewer Digest for #{Time.zone.today.strftime('%a %d %b %Y')}")
   end
 
   def daua_submitted(reviewer, agreement)
@@ -28,7 +31,7 @@ class UserMailer < ApplicationMailer
     @agreement = agreement
     @email_to = agreement.user.email
     mail(to: agreement.user.email,
-         subject: "Your DAUA Submission has been Approved",
+         subject: 'Your DAUA Submission has been Approved',
          reply_to: admin.email)
   end
 
@@ -37,7 +40,7 @@ class UserMailer < ApplicationMailer
     @agreement = agreement
     @email_to = agreement.user.email
     mail(to: agreement.user.email,
-         subject: "Your DAUA has been Signed by your Duly Authorized Representative")
+         subject: 'Your DAUA has been Signed by your Duly Authorized Representative')
   end
 
   def daua_progress_notification(agreement, admin)
@@ -57,27 +60,8 @@ class UserMailer < ApplicationMailer
     @agreement = agreement
     @email_to = agreement.user.email
     mail(to: agreement.user.email,
-         subject: "Please Resubmit your DAUA",
+         subject: 'Please Resubmit your DAUA',
          reply_to: admin.email)
-  end
-
-  def dataset_access_requested(dataset_user, editor)
-    setup_email
-    @dataset_user = dataset_user
-    @editor = editor
-    @email_to = editor.email
-    mail(to: @email_to,
-         subject: "#{dataset_user.user.name} Requested Dataset File Access on #{dataset_user.dataset.name}")
-  end
-
-  def dataset_access_approved(dataset_user, editor)
-    setup_email
-    @dataset_user = dataset_user
-    @editor = editor
-    @email_to = dataset_user.user.email
-    mail(to: @email_to,
-         subject: "Your #{dataset_user.dataset.name} File Access Request Has Been Approved By #{@editor.name}",
-         reply_to: editor.email)
   end
 
   def mentioned_in_agreement_comment(agreement_event, user)

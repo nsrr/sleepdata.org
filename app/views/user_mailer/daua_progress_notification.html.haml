@@ -1,41 +1,40 @@
-Dear
-= succeed ',' do
-  = @admin.first_name
-%br
-%br
+%p{ style: p_style }
+  Dear
+  = succeed ',' do
+    = @admin.first_name
+
 - case @agreement.status when 'approved'
-  = succeed "'s" do
-    = @agreement.user.name
-  DAUA has been
-  %span{ style: 'padding:5px;background-color:#4bbf74;color:white' } approved
-  by
-  = succeed '.' do
-    = @last_user.name if @last_user
-  %br
+  %p{ style: p_style }
+    = succeed "'s" do
+      = @agreement.user.name
+    DAUA has been
+    %span{ style: success_style } approved
+    by
+    = succeed '.' do
+      = @last_user.name if @last_user
 - when 'resubmit'
-  = @agreement.user.name
-  has been asked to
-  %span{ style: 'padding:5px;background-color:#d9534f;color:white' } resubmit
-  the DAUA
-  by
-  = succeed '.' do
-    = @last_user.name if @last_user
-  %br
-  %br
-  %br
-  %blockquote{ style: 'font-style: italic;' }= @agreement.comments
-- else
-  = succeed "'s" do
+  %p{ style: p_style }
     = @agreement.user.name
-  DAUA status has been changed to
-  %span{ style: 'padding:5px;background-color:#999;color:white' }= @agreement.status
-  by
-  = succeed '.' do
-    = @last_user.name if @last_user
-  %br
-%br
-You can review the DAUA here:
-%br
-%br
-%center
-  = link_to "#{ENV['website_url']}/reviews/#{@agreement.id}", "#{ENV['website_url']}/reviews/#{@agreement.id}", style: 'color: #428bca;'
+    has been asked to
+    %span{ style: danger_style } resubmit
+    the DAUA
+    by
+    = succeed '.' do
+      = @last_user.name if @last_user
+
+  %blockquote{ style: blockquote_style }= @agreement.comments
+- else
+  %p{ style: p_style }
+    = succeed "'s" do
+      = @agreement.user.name
+    DAUA status has been changed to
+    %span{ style: default_style }= @agreement.status
+    by
+    = succeed '.' do
+      = @last_user.name if @last_user
+
+%p{ style: p_style }
+  You can review the DAUA here:
+
+%p{ style: center_style }
+  = link_to "#{ENV['website_url']}/reviews/#{@agreement.id}", "#{ENV['website_url']}/reviews/#{@agreement.id}", style: link_style
