@@ -4,7 +4,7 @@
 - if current_user && @dataset.editors.pluck(:id).include?(current_user.id) && @dataset.current_folder_locked?(path)
   - lock_file = File.join(@dataset.files_folder, path.to_s, '.sleepdata.md5inprogress')
   - if File.exist?(lock_file) && File.file?(lock_file)
-    .mono-display
+    %div{ style: 'white-space: pre-wrap;word-wrap: break-word;font-family: Monaco, Menlo, Consolas, "Courier New", monospace;' }
       .file-display-after MD5 Log
       - File.readlines(lock_file).reverse.each do |line|
         = line
