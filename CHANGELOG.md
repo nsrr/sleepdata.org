@@ -3,6 +3,8 @@
 ### Enhancements
 - **Email Changes**
   - Improved the responsiveness and display of emails on smaller devices
+- **Gem Changes**
+  - Updated to rails 4.2.5.2
 
 ### Bug Fixes
 - Fixed a bug that occurred when updating variables without uploading datasets
