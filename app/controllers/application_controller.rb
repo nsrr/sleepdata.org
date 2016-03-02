@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Main web application controller for NSRR website. Keeps track of user's
 # location for friendly forwarding.
 class ApplicationController < ActionController::Base
