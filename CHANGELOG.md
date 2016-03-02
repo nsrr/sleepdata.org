@@ -1,6 +1,8 @@
 ## 0.18.4
 
 ### Enhancements
+- **General Changes**
+  - Added a Past Contributor page
 - **Email Changes**
   - Improved the responsiveness and display of emails on smaller devices
 - **Gem Changes**

@@ -75,6 +75,9 @@
   alongside a highly-talented
   = succeed '.' do
     = link_to 'Academic User Group', aug_path
+  Also, a big thanks to our
+  = succeed '.' do
+    = link_to 'past contributors', contributors_path
 
 - first_half = @users.collect.with_index { |u, i| [u, i] }.select { |u, i| i < (@users.size + 1) / 2 }.collect { |u, i| u }
 - second_half = @users.collect.with_index { |u, i| [u, i] }.select { |u, i| i >= (@users.size + 1) / 2 }.collect { |u, i| u }

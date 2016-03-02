@@ -135,7 +135,8 @@
   position: relative;
 
   .core-member,
-  .aug-member {
+  .aug-member,
+  .contributor {
     bottom: 0;
     color: $brand-white;
     font-size: 12px;
@@ -150,6 +151,10 @@
 
   .core-member {
     background-color: $brand-info;
+  }
+
+  .contributor {
+    background-color: $gray;
   }
 }
 

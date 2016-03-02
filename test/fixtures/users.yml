@@ -79,6 +79,16 @@ core:
   email: core@example.com
   encrypted_password: ""
 
+# A Contributor
+contributor:
+  first_name: Contributing
+  last_name: Member
+  deleted: false
+  contributor: true
+  system_admin: false
+  email: contributor@example.com
+  encrypted_password: ""
+
 # A user banned from posting on the forum
 banned:
   first_name: Banned

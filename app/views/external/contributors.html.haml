@@ -1,0 +1,15 @@
+- @title = 'Past Contributors'
+
+- content_for :banner do
+  .challenge-header
+    .banner
+      .container
+        .banner-header.brand
+          Past Contributors
+
+%p.lead.center.text-muted
+  A special thanks to our past contributors.
+
+.center
+  - User.current.where(contributor: true).order(:first_name, :last_name).each do |user|
+    %p= user.name
