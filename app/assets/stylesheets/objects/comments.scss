@@ -77,6 +77,10 @@
 .comment-body {
   @include remove-last-child-bottom-margin;
   padding: 10px;
+
+  a {
+    word-wrap: break-word;
+  }
 }
 
 .comment-control {

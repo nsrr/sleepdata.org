@@ -16,6 +16,7 @@
   forwarding
 - Fixed a bug that inserted placeholder text into textarea elements when using
   Internet Explorer in combination with Turbolinks
+- Fixed an issue where long URLs would break topic views on mobile
 
 ## 0.18.3  (January 26, 2016)
 
