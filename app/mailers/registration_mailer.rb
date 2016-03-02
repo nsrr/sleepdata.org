@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Sends out registration welcome emails
 class RegistrationMailer < ApplicationMailer
   def send_welcome_email_with_password(user, pw)
