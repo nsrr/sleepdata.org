@@ -1,5 +1,10 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
+SimpleCov.command_name 'test:controllers'
+
+# Tests to make sure users can be modified by administrators.
 class UsersControllerTest < ActionController::TestCase
   setup do
     @user = users(:valid)
@@ -45,20 +50,20 @@ class UsersControllerTest < ActionController::TestCase
 
   test 'should update user for system admin' do
     login(users(:admin))
-    put :update, params: { id: @user, user: { first_name: 'FirstName', last_name: 'LastName', email: 'valid_updated_email@example.com', system_admin: false } }
+    patch :update, params: { id: @user, user: user_hash }
     assert_redirected_to user_path(assigns(:user))
   end
 
   test 'should not update user with blank name' do
     login(users(:admin))
-    put :update, params: { id: @user, user: { first_name: '', last_name: '' } }
+    patch :update, params: { id: @user, user: user_hash.merge(first_name: '', last_name: '') }
     assert_not_nil assigns(:user)
     assert_template 'edit'
   end
 
   test 'should not update user with invalid id' do
     login(users(:admin))
-    put :update, params: { id: -1, user: { first_name: 'FirstName', last_name: 'LastName', email: 'valid_updated_email@example.com', system_admin: false } }
+    patch :update, params: { id: -1, user: user_hash }
     assert_nil assigns(:user)
     assert_redirected_to users_path
   end
@@ -70,5 +75,14 @@ class UsersControllerTest < ActionController::TestCase
     end
 
     assert_redirected_to users_path
+  end
+
+  def user_hash
+    {
+      first_name: 'New',
+      last_name: 'User',
+      email: 'new_user@example.com',
+      system_admin: false
+    }
   end
 end

@@ -1,7 +1,5 @@
 require 'test_helper'
 
-SimpleCov.command_name 'test:controllers'
-
 # TODO: Remove Controller
 class WelcomeControllerTest < ActionController::TestCase
   test 'should get agreement reports for system admin' do

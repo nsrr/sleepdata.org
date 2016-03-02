@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'simplecov'
 require 'minitest/pride'
 
@@ -25,6 +27,10 @@ end
 
 # Set up ActionDispatch tests
 class ActionDispatch::IntegrationTest
+  def login(user)
+    sign_in_as(user, '1234567890')
+  end
+
   def sign_in_as(user, password)
     user.update password: password, password_confirmation: password
     post '/login', params: { user: { email: user.email, password: password } }

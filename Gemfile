@@ -2,11 +2,12 @@
 
 source 'https://rubygems.org'
 
-gem 'rails',                '5.0.0.beta1.1'
+gem 'rails', github: 'rails/rails', ref: '31b8903'
+# gem 'rails',                '>= 5.0.0.beta3', '< 5.1'
 
 # Temporary includes
 gem 'bootstrap-sass'
-gem 'devise', github: 'plataformatec/devise', ref: 'b97b3e6'
+gem 'devise', github: 'plataformatec/devise', ref: 'aab7610'
 
 # Database Adapter
 gem 'pg',                   '0.18.4'
