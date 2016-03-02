@@ -1,4 +1,6 @@
-= form_for @agreement, html: { class: 'form-horizontal', data: { object: 'signature', signature_target: '.output-write' } } do |f|
+- method = @agreement.new_record? ? :post : :patch
+
+= form_for @agreement, method: method, remote: true, html: { class: 'form-horizontal', data: { object: 'signature', signature_target: '.output-write' } } do |f|
   - if @agreement.errors.any?
     .callout.callout-danger
       %strong

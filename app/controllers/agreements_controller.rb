@@ -239,6 +239,7 @@ class AgreementsController < ApplicationController
   # end
 
   # PATCH /agreements/1
+  # PATCH /agreements/1.js
   def update
     original_status = @agreement.status
     if AgreementTransaction.save_agreement!(@agreement, agreement_review_params, current_user, request.remote_ip, 'agreement_update')
@@ -247,7 +248,10 @@ class AgreementsController < ApplicationController
       elsif original_status != 'resubmit' and @agreement.status == 'resubmit'
         @agreement.sent_back_for_resubmission_email(current_user)
       end
-      redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.last.number}", notice: 'Agreement was successfully updated.'
+      respond_to do |format|
+        format.html { redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.last.number}", notice: 'Agreement was successfully updated.' }
+        format.js { render 'agreement_events/index' }
+      end
     else
       render 'reviews/show'
     end

@@ -3,6 +3,8 @@
 ### Enhancements
 - **General Changes**
   - Added a Past Contributor page
+- **Agreement Changes**
+  - Reviewers comments and votes on DAUAs now update inline using AJAX
 - **Email Changes**
   - Improved the responsiveness and display of emails on smaller devices
 - **Gem Changes**
