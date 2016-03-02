@@ -1,15 +1,15 @@
-Dear NSRR Team,
-%br
-%br
-= @hosting_request.user.name
-= surround '[', ']' do
-  = mail_to @hosting_request.user.email, @hosting_request.user.email, style: 'color: #428bca;'
-%span{ style: 'padding:5px;background-color:#428bca;color:white' } submitted
-a Dataset Hosting Request.
-%br
-%br
-You can view the Dataset Hosting Request here:
-%br
-%br
-%center
-  = link_to "#{ENV['website_url']}/hosting-requests/#{@hosting_request.id}", "#{ENV['website_url']}/hosting-requests/#{@hosting_request.id}", style: 'color: #428bca'
+%p{ style: p_style }
+  Dear NSRR Team,
+
+%p{ style: p_style }
+  = @hosting_request.user.name
+  = surround '[', ']' do
+    = mail_to @hosting_request.user.email, @hosting_request.user.email, style: link_style
+  %span{ style: default_style } submitted
+  a Dataset Hosting Request.
+
+%p{ style: p_style }
+  You can view the Dataset Hosting Request here:
+
+%p{ style: center_style }
+  = link_to "#{ENV['website_url']}/hosting-requests/#{@hosting_request.id}", "#{ENV['website_url']}/hosting-requests/#{@hosting_request.id}", style: link_style

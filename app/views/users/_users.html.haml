@@ -5,6 +5,7 @@
         %th.nowrap Name
         %th.nowrap Recent Activity
         %th.nowrap Core Member
+        %th.nowrap Contributor
         %th.nowrap AUG Member
         %th.nowrap Community Manager
         - if current_user.system_admin?
@@ -20,6 +21,7 @@
             = time_ago_in_words(user.current_sign_in_at)
             ago
         %td.center= simple_check user.core_member?
+        %td.center= simple_check user.contributor?
         %td.center= simple_check user.aug_member?
         %td.center= simple_check user.community_manager?
         - if current_user.system_admin?

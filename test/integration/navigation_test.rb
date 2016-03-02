@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 SimpleCov.command_name 'test:integration'
 
+# Tests to assure that user navigation is working as intended
 class NavigationTest < ActionDispatch::IntegrationTest
   fixtures :users
 
@@ -41,5 +44,13 @@ class NavigationTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to datasets_path
     assert_equal I18n.t('devise.sessions.signed_out'), flash[:notice]
+  end
+
+  test 'blog rss should not be stored in friendly forwarding after login' do
+    get blog_path(format: 'atom')
+    get new_user_session_path
+    sign_in_as(@valid, '123456')
+    assert_equal root_path, path
+    assert_equal I18n.t('devise.sessions.signed_in'), flash[:notice]
   end
 end

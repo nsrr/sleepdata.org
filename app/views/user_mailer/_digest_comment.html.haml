@@ -1,5 +1,5 @@
 %td{ style: 'padding-left:10px;padding-right:10px;vertical-align:top' }
-  = link_to "##{@comment.number}", "#{ENV['website_url']}/forum/#{@comment.topic.to_param}/comments/#{@comment.id}", style: 'color: #428bca;'
+  = link_to "##{@comment.number}", "#{ENV['website_url']}/forum/#{@comment.topic.to_param}/comments/#{@comment.id}", style: link_style
 %td{ style: 'padding-right:10px;vertical-align:top' }
   = strip_tags(simple_markdown @comment.description).truncate(100, separator: ' ').html_safe
 %td.text-right.nowrap{ style: 'padding-right:10px;vertical-align:top' }

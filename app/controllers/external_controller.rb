@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Displays publicly available pages
 class ExternalController < ApplicationController
   def about
@@ -9,6 +11,9 @@ class ExternalController < ApplicationController
   end
 
   def contact
+  end
+
+  def contributors
   end
 
   def landing

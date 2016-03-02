@@ -4,6 +4,28 @@
 - **Gem Changes**
   - Updated to rails 5.0.0.beta1.1
 
+## 0.18.4 (March 2, 2016)
+
+### Enhancements
+- **General Changes**
+  - Added a Past Contributor page
+- **Agreement Changes**
+  - Reviewers comments and votes on DAUAs now update inline using AJAX
+- **Email Changes**
+  - Improved the responsiveness and display of emails on smaller devices
+- **Gem Changes**
+  - Updated to rails 4.2.5.2
+  - Updated to geocoder 1.3.1
+  - Updated to simplecov 0.11.2
+
+### Bug Fixes
+- Fixed a bug that occurred when updating variables without uploading datasets
+- Fixed an issue that caused the blog RSS from being cached for friendly
+  forwarding
+- Fixed a bug that inserted placeholder text into textarea elements when using
+  Internet Explorer in combination with Turbolinks
+- Fixed an issue where long URLs would break topic views on mobile
+
 ## 0.18.3  (January 26, 2016)
 
 ### Enhancements

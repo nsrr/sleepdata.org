@@ -19,6 +19,8 @@ class ReviewsController < ApplicationController
   def show
   end
 
+  # POST /reviews/1/vote
+  # POST /reviews/1/vote.js
   def vote
     @review = @agreement.reviews.where(user_id: current_user.id).first_or_create
     original_approval = @review.approved
@@ -36,9 +38,12 @@ class ReviewsController < ApplicationController
                    'reviewer_rejected'
                  end
 
-    @agreement.agreement_events.create(event_type: event_type, user_id: current_user.id, event_at: Time.zone.now) if event_type.present?
+    @agreement_event = @agreement.agreement_events.create(event_type: event_type, user_id: current_user.id, event_at: Time.zone.now) if event_type.present?
 
-    redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.count}", notice: 'Review was successfully created.'
+    respond_to do |format|
+      format.html { redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.count}", notice: 'Review was successfully created.' }
+      format.js { render 'agreement_events/create' }
+    end
   end
 
   # def new
@@ -99,10 +104,13 @@ class ReviewsController < ApplicationController
 
     if added_tag_ids.count + removed_tag_ids.count > 0
       @agreement.update tags: submitted_tags
-      @agreement.agreement_events.create event_type: 'tags_updated', user_id: current_user.id, event_at: Time.zone.now, added_tag_ids: added_tag_ids, removed_tag_ids: removed_tag_ids
+      @agreement_event = @agreement.agreement_events.create event_type: 'tags_updated', user_id: current_user.id, event_at: Time.zone.now, added_tag_ids: added_tag_ids, removed_tag_ids: removed_tag_ids
     end
 
-    redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.count}"
+    respond_to do |format|
+      format.html { redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.count}" }
+      format.js { render 'agreement_events/index' }
+    end
   end
 
   # def create

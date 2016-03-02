@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :community_tools, path: 'community-tools'
   get 'account(/:auth_token)/profile' => 'account#profile'
@@ -158,10 +160,10 @@ Rails.application.routes.draw do
   end
 
   scope module: :external do
-    # TODO ENABLE THESE
     get :about
     get :aug, path: 'about/academic-user-group'
     get :contact
+    get :contributors, path: 'about/contributors'
     get :landing
     get :sitemap
     post :preview

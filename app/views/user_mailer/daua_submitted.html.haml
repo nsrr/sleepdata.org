@@ -1,17 +1,16 @@
-Dear
-= succeed ',' do
-  = @reviewer.first_name
-%br
-%br
-= @agreement.user.name
-= surround '[', ']' do
-  = mail_to @agreement.user.email, @agreement.user.email, style: 'color: #428bca;'
-%span{ style: 'padding:5px;background-color:#428bca;color:white' } submitted
-a Data Access and Use Agreement.
-%br
-%br
-You can review the Data Access and Use Agreement here:
-%br
-%br
-%center
-  = link_to "#{ENV['website_url']}/reviews/#{@agreement.id}", "#{ENV['website_url']}/reviews/#{@agreement.id}", style: 'color: #428bca'
+%p{ style: p_style }
+  Dear
+  = succeed ',' do
+    = @reviewer.first_name
+%p{ style: p_style }
+  = @agreement.user.name
+  = surround '[', ']' do
+    = mail_to @agreement.user.email, @agreement.user.email, style: link_style
+  %span{ style: default_style } submitted
+  a Data Access and Use Agreement.
+
+%p{ style: p_style }
+  You can review the Data Access and Use Agreement here:
+
+%p{ style: center_style }
+  = link_to "#{ENV['website_url']}/reviews/#{@agreement.id}", "#{ENV['website_url']}/reviews/#{@agreement.id}", style: link_style

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Publicly available and published blog posts
 class BlogController < ApplicationController
   before_action :set_broadcast, only: [:show]

@@ -52,7 +52,7 @@ class UsersController < ApplicationController
         params.require(:user).permit(
           :first_name, :last_name, :email, :username, :research_summary,
           :degree, :aug_member, :core_member, :system_admin, :community_manager,
-          :banned, :emails_enabled
+          :banned, :emails_enabled, :contributor
         )
       else
         params.require(:user).permit(

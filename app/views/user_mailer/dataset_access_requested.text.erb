@@ -1,9 +1,0 @@
-Hello <%= @editor.first_name %>,
-
-<%= @dataset_user.user.name %> [<%= @dataset_user.user.email %>] requested file access on <%= @dataset_user.dataset.name %>.
-
-You can review the Data File Access request here: <%="#{ENV['website_url']}/datasets/#{@dataset_user.dataset.to_param}/requests?dataset_user_id=#{@dataset_user.id}" %>
-
-Thank you!
-
-<%= ENV['website_name'] %>

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 
 gem 'rails',                '5.0.0.beta1.1'
@@ -15,7 +17,7 @@ gem 'kaminari',             '~> 0.16.3'
 gem 'carrierwave',          '~> 0.10.0'
 gem 'mini_magick'
 gem 'redcarpet',            '~> 3.3.2'
-gem 'geocoder',             '~> 1.2.9'
+gem 'geocoder',             '~> 1.3.1'
 gem 'chunky_png',           '~> 1.3.4'
 gem 'haml',                 '~> 4.0.6'
 gem 'figaro',               '~> 1.1.1'
@@ -35,7 +37,7 @@ gem 'turbolinks', github: 'rails/turbolinks', ref: 'dd31f4b'
 group :test do
   # Pretty printed test output
   gem 'minitest'
-  gem 'simplecov',          '~> 0.11.1',           require: false
+  gem 'simplecov',          '~> 0.11.2', require: false
   gem 'rails-controller-testing'
 end
 

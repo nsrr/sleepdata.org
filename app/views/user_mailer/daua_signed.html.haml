@@ -1,20 +1,19 @@
-Dear
-= succeed ',' do
-  = @agreement.user.first_name
-%br
-%br
-Your Data Access and Use Agreement has been
-%span{ style: "padding:5px;background-color:#428bca;color:white" } signed
-by
-= succeed ',' do
-  %strong= @agreement.duly_authorized_representative_signature_print
-your Duly Authorized Representative.
-%br
-%br
-You can now finalize and submit your Data Access and Use Agreement here:
-%br
-%br
-%center= link_to "#{ENV['website_url']}/daua", "#{ENV['website_url']}/daua", style: "color: #428bca"
-%br
-%br
-You can reply directly to this email if you have any questions.
+%p{ style: p_style }
+  Dear
+  = succeed ',' do
+    = @agreement.user.first_name
+
+%p{ style: p_style }
+  Your Data Access and Use Agreement has been signed by
+  = succeed ',' do
+    %strong= @agreement.duly_authorized_representative_signature_print
+  your Duly Authorized Representative.
+
+%p{ style: p_style }
+  You can now finalize and submit your Data Access and Use Agreement here:
+
+%p{ style: center_style }
+  = link_to "#{ENV['website_url']}/daua", "#{ENV['website_url']}/daua", style: link_style
+
+%p{ style: p_style }
+  You can reply directly to this email if you have any questions.

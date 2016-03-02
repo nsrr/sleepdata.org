@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Generates previews for registration and welcome emails.
 class RegistrationMailerPreview < ActionMailer::Preview
   def send_welcome_email_with_password

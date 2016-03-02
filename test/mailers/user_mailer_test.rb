@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
+# Tests that mail views are rendered corretly, sent to correct user, and have a
+# correct subject line.
 class UserMailerTest < ActionMailer::TestCase
-
-  test "post replied email" do
+  test 'post replied email' do
     post = comments(:six)
     user = users(:two)
 
@@ -16,18 +19,18 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match(/Someone posted a reply to the following topic:/, email.encoded)
   end
 
-  test "reviewer digest email" do
+  test 'reviewer digest email' do
     valid = users(:valid)
 
     email = UserMailer.reviewer_digest(valid).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     assert_equal [valid.email], email.to
-    assert_equal "Reviewer Digest for #{Date.today.strftime('%a %d %b %Y')}", email.subject
+    assert_equal "Reviewer Digest for #{Time.zone.today.strftime('%a %d %b %Y')}", email.subject
     assert_match(/Dear #{valid.first_name},/, email.encoded)
   end
 
-  test "daua submitted email" do
+  test 'daua submitted email' do
     agreement = agreements(:one)
     valid = users(:valid)
 
@@ -38,10 +41,13 @@ class UserMailerTest < ActionMailer::TestCase
     # Test the body of the sent email contains what we expect it to
     assert_equal [valid.email], email.to
     assert_equal "#{agreement.user.name} Submitted a Data Access and Use Agreement", email.subject
-    assert_match(/#{agreement.user.name} \[#{agreement.user.email}\] submitted a Data Access and Use Agreement\./, email.encoded)
+    assert_match(
+      /#{agreement.user.name} \[#{agreement.user.email}\] submitted a Data Access and Use Agreement\./,
+      email.encoded
+    )
   end
 
-  test "daua approved email" do
+  test 'daua approved email' do
     agreement = agreements(:one)
     admin = users(:admin)
 
@@ -51,11 +57,11 @@ class UserMailerTest < ActionMailer::TestCase
 
     # Test the body of the sent email contains what we expect it to
     assert_equal [agreement.user.email], email.to
-    assert_equal "Your DAUA Submission has been Approved", email.subject
+    assert_equal 'Your DAUA Submission has been Approved', email.subject
     assert_match(/Your Data Access and Use Agreement submission has been approved\./, email.encoded)
   end
 
-  test "daua signed email" do
+  test 'daua signed email' do
     agreement = agreements(:one)
 
     # Send the email, then test that it got queued
@@ -64,11 +70,15 @@ class UserMailerTest < ActionMailer::TestCase
 
     # Test the body of the sent email contains what we expect it to
     assert_equal [agreement.user.email], email.to
-    assert_equal "Your DAUA has been Signed by your Duly Authorized Representative", email.subject
-    assert_match(/Your Data Access and Use Agreement has been signed by #{agreement.duly_authorized_representative_signature_print}, your Duly Authorized Representative\./, email.encoded)
+    assert_equal 'Your DAUA has been Signed by your Duly Authorized Representative', email.subject
+    assert_match(
+      /Your Data Access and Use Agreement has been signed by \
+#{agreement.duly_authorized_representative_signature_print}, your Duly Authorized Representative\./,
+      email.encoded
+    )
   end
 
-  test "daua sent back for resubmission email" do
+  test 'daua sent back for resubmission email' do
     agreement = agreements(:one)
     admin = users(:admin)
 
@@ -78,11 +88,11 @@ class UserMailerTest < ActionMailer::TestCase
 
     # Test the body of the sent email contains what we expect it to
     assert_equal [agreement.user.email], email.to
-    assert_equal "Please Resubmit your DAUA", email.subject
+    assert_equal 'Please Resubmit your DAUA', email.subject
     assert_match(/Your Data Access and Use Agreement submission was missing required information\./, email.encoded)
   end
 
-  test "daua progress notification email" do
+  test 'daua progress notification email' do
     agreement = agreements(:one)
     admin = users(:admin)
 
@@ -96,35 +106,7 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match(/#{agreement.user.name}'s DAUA has been approved by FirstAdmin LastAdmin\./, email.encoded)
   end
 
-  test "dataset file access requested email" do
-    dataset_user = dataset_users(:editor_public_access)
-    editor = users(:editor)
-
-    # Send the email, then test that it got queued
-    email = UserMailer.dataset_access_requested(dataset_user, editor).deliver_now
-    assert !ActionMailer::Base.deliveries.empty?
-
-    # Test the body of the sent email contains what we expect it to
-    assert_equal [editor.email], email.to
-    assert_equal "#{dataset_user.user.name} Requested Dataset File Access on #{dataset_user.dataset.name}", email.subject
-    assert_match(/#{dataset_user.user.name} \[#{dataset_user.user.email}\] requested file access on #{dataset_user.dataset.name}\./, email.encoded)
-  end
-
-  test "dataset file access approved email" do
-    dataset_user = dataset_users(:editor_public_access)
-    editor = users(:editor)
-
-    # Send the email, then test that it got queued
-    email = UserMailer.dataset_access_approved(dataset_user, editor).deliver_now
-    assert !ActionMailer::Base.deliveries.empty?
-
-    # Test the body of the sent email contains what we expect it to
-    assert_equal [dataset_user.user.email], email.to
-    assert_equal "Your #{dataset_user.dataset.name} File Access Request Has Been Approved By #{editor.name}", email.subject
-    assert_match(/#{editor.name} approved your file access request on #{dataset_user.dataset.name}\./, email.encoded)
-  end
-
-  test "mentioned during review of agreement email" do
+  test 'mentioned during review of agreement email' do
     valid = users(:valid)
     agreement_event = agreement_events(:one)
 
@@ -148,6 +130,9 @@ class UserMailerTest < ActionMailer::TestCase
     # Test the body of the sent email contains what we expect it to
     assert_equal [ENV['support_email']], email.to
     assert_equal "#{hosting_request.user.name} - Dataset Hosting Request", email.subject
-    assert_match(/#{hosting_request.user.name} \[#{hosting_request.user.email}\] submitted a Dataset Hosting Request\./, email.encoded)
+    assert_match(
+      /#{hosting_request.user.name} \[#{hosting_request.user.email}\] submitted a Dataset Hosting Request\./,
+      email.encoded
+    )
   end
 end
