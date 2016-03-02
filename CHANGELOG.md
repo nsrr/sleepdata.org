@@ -10,6 +10,7 @@
 - **Gem Changes**
   - Updated to rails 4.2.5.2
   - Updated to geocoder 1.3.1
+  - Updated to simplecov 0.11.2
 
 ### Bug Fixes
 - Fixed a bug that occurred when updating variables without uploading datasets
