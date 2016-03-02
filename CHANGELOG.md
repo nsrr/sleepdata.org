@@ -14,6 +14,8 @@
 - Fixed a bug that occurred when updating variables without uploading datasets
 - Fixed an issue that caused the blog RSS from being cached for friendly
   forwarding
+- Fixed a bug that inserted placeholder text into textarea elements when using
+  Internet Explorer in combination with Turbolinks
 
 ## 0.18.3  (January 26, 2016)
 

@@ -10,6 +10,13 @@
     )
   )
 
+# TODO: Might be able to remove this in the future with Turbolinks 5
+# https://github.com/turbolinks/turbolinks-classic/issues/455
+@fix_ie10_placeholder = ->
+  $('textarea').each ->
+    if $(@).val() == $(@).attr('placeholder')
+      $(@).val ''
+
 @initializeTurbolinks = () ->
   # Don't cache pages with Turbolinks
   Turbolinks.pagesCached(0)
@@ -35,6 +42,7 @@
   affixReady()
   fileDragReady()
   new WOW().init()
+  fix_ie10_placeholder()
 
 $(window).onbeforeunload = () -> return "You haven't saved your changes." if window.$isDirty
 $(document).ready(ready)
