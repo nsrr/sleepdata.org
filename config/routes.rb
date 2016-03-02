@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   resources :community_tools, path: 'community-tools'
   get 'account(/:auth_token)/profile' => 'account#profile'

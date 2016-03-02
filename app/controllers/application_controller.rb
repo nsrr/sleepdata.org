@@ -19,6 +19,7 @@ class ApplicationController < ActionController::Base
         params[:action] != 'image' &&
         params[:action] != 'reset_index' &&
         params[:action] != 'contribute_tool_description' &&
+        params[:format] != 'atom' &&
         !request.fullpath.match("#{request.script_name}/login") &&
         !request.fullpath.match("#{request.script_name}/join") &&
         !request.fullpath.match("#{request.script_name}/password") &&

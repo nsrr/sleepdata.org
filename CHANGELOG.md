@@ -8,6 +8,8 @@
 
 ### Bug Fixes
 - Fixed a bug that occurred when updating variables without uploading datasets
+- Fixed an issue that caused the blog RSS from being cached for friendly
+  forwarding
 
 ## 0.18.3  (January 26, 2016)
 
