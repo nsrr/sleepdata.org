@@ -9,7 +9,7 @@ gem 'rails', github: 'rails/rails', ref: 'd54de08'
 
 # Temporary includes
 gem 'bootstrap-sass'
-gem 'devise', github: 'plataformatec/devise', ref: 'aab7610'
+gem 'devise', '~> 4.0.0.rc2'
 
 # Database Adapter
 gem 'pg',                   '0.18.4'
