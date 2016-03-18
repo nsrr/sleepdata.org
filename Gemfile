@@ -2,8 +2,10 @@
 
 source 'https://rubygems.org'
 
-gem 'rails', github: 'rails/rails', ref: '31b8903'
-# gem 'rails',                '>= 5.0.0.beta3', '< 5.1'
+# gem 'rails', '>= 5.0.0.beta3', '< 5.1'
+# gem 'rails', github: 'rails/rails'
+# gem 'rails', github: 'rails/rails', ref: 'e56b594'
+gem 'rails', github: 'rails/rails', ref: 'd54de08'
 
 # Temporary includes
 gem 'bootstrap-sass'
@@ -14,7 +16,8 @@ gem 'pg',                   '0.18.4'
 
 # Gems used by project
 gem 'contour', github: 'remomueller/contour', ref: 'f077390'
-gem 'kaminari',             '~> 0.16.3'
+# gem 'kaminari',             '~> 0.16.3'
+gem 'kaminari', github: 'amatsuda/kaminari', ref: '3974ae5'
 gem 'carrierwave',          '~> 0.10.0'
 gem 'mini_magick'
 gem 'redcarpet',            '~> 3.3.2'
