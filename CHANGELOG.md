@@ -3,9 +3,12 @@
 ### Enhancements
 - **Blog Changes**
   - Community members can now more easily edit blogs
+- **Map Changes**
+  - Map location is now pulled using a local database lookup
 - **Gem Changes**
   - Updated to rails 4.2.6
   - Restricted mini_magick to 4.4.0
+  - Added maxminddb gem
 
 ### Refactoring
 - Started cleanup and refactoring, and additional testing of controllers

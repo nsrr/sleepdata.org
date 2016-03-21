@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   include Deletable, TokenAuthenticatable, Forkable
 
   # Callbacks
+  after_create :update_location
   before_save :ensure_authentication_token
 
   # Named Scopes
@@ -193,5 +194,9 @@ class User < ActiveRecord::Base
 
   def send_welcome_email_with_password(pw)
     RegistrationMailer.send_welcome_email_with_password(self, pw).deliver_later if EMAILS_ENABLED
+  end
+
+  def update_location
+    Map.update_user_location(self)
   end
 end
