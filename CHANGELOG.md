@@ -5,6 +5,7 @@
   - Community members can now more easily edit blogs
 - **Gem Changes**
   - Updated to rails 4.2.6
+  - Restricted mini_magick to 4.4.0
 
 ## 0.18.4 (March 2, 2016)
 
