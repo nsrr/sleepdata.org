@@ -38,7 +38,7 @@ class Agreement < ApplicationRecord
   mount_uploader :printed_file, PDFUploader
 
   # Callbacks
-  after_commit :set_token, on: :create
+  after_create_commit :set_token
 
   STATUS = %w(submitted approved resubmit expired started).collect { |i| [i, i] }
 

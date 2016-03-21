@@ -11,7 +11,7 @@ class User < ApplicationRecord
   include Deletable, TokenAuthenticatable, Forkable
 
   # Callbacks
-  after_commit :update_location, on: [:create]
+  after_create_commit :update_location
   before_save :ensure_authentication_token
 
   # Named Scopes

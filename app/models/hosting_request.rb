@@ -6,7 +6,7 @@ class HostingRequest < ApplicationRecord
   include Deletable, Forkable
 
   # Callbacks
-  after_commit :send_hosting_request_notification_in_background, on: :create
+  after_create_commit :send_hosting_request_notification_in_background
 
   # Named Scopes
 
