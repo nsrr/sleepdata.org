@@ -177,7 +177,7 @@ class ImagesControllerTest < ActionController::TestCase
   test 'should destroy image as admin' do
     login(users(:admin))
     assert_difference('Image.count', -1) do
-      delete :destroy, id: @image
+      delete :destroy, id: images(:three)
     end
 
     assert_redirected_to images_path
@@ -186,7 +186,7 @@ class ImagesControllerTest < ActionController::TestCase
   test 'should not destroy image as regular user' do
     login(users(:valid))
     assert_difference('Image.count', 0) do
-      delete :destroy, id: @image
+      delete :destroy, id: images(:three)
     end
 
     assert_redirected_to root_path
@@ -194,7 +194,7 @@ class ImagesControllerTest < ActionController::TestCase
 
   test 'should not destroy image as public user' do
     assert_difference('Image.count', 0) do
-      delete :destroy, id: @image
+      delete :destroy, id: images(:three)
     end
 
     assert_redirected_to new_user_session_path
