@@ -3,6 +3,8 @@
 ### Enhancements
 - **Blog Changes**
   - Community members can now more easily edit blogs
+- **Gem Changes**
+  - Updated to rails 4.2.6
 
 ## 0.18.4 (March 2, 2016)
 
