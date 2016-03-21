@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TopicsController < ApplicationController
   before_action :authenticate_user!, only: [ :new, :create, :edit, :update, :destroy, :admin, :subscription ]
   before_action :check_system_admin, only: [ :destroy, :admin ]

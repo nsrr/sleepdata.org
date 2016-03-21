@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DatasetUsersController < ApplicationController
   # before_action :set_dataset_user, only: [:show, :edit, :update, :destroy]
 

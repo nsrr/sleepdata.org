@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Dedicated to admin-only tasks of the site
 class AdminController < ApplicationController
   before_action :authenticate_user!

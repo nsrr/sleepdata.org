@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :agreements do
 
   desc 'Update existing agreements to new format'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CommunityToolsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_system_admin

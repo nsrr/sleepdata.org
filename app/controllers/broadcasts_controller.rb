@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class BroadcastsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_community_manager

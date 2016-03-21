@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ToolsController < ApplicationController
   before_action :authenticate_user!,        only: [:new, :create, :edit, :update, :destroy, :requests, :request_access, :set_access, :create_access, :pull_changes, :sync]
   before_action :check_system_admin,        only: [:new, :create, :destroy]

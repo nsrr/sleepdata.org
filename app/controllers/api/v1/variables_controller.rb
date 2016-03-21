@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::VariablesController < Api::V1::BaseController
   before_action :set_or_create_version, only: [:create, :create_or_update]
   before_action :set_version, only: [:show, :index, :update, :destroy]

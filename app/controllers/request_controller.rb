@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This controller handles easy registration/sign in of users as part of a tool
 # contribution or request, or a dataset hosting request.
 class RequestController < ApplicationController

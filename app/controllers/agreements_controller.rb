@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AgreementsController < ApplicationController
   prepend_before_filter only: [:signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted] { request.env['devise.skip_timeout'] = true }
   skip_before_action :verify_authenticity_token, only: [:signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted]

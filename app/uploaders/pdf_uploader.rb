@@ -1,5 +1,6 @@
-class PDFUploader < CarrierWave::Uploader::Base
+# frozen_string_literal: true
 
+class PDFUploader < CarrierWave::Uploader::Base
   # Choose what kind of storage to use for this uploader:
   storage :file
   # storage :s3
@@ -24,5 +25,4 @@ class PDFUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-
 end

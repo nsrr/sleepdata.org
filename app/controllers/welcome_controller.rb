@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # TODO: Remove/refactor controller
 class WelcomeController < ApplicationController
   before_action :authenticate_user!,        only: [:sync, :stats, :agreement_reports, :downloads_by_month, :location, :reviews_index, :reviews_show]
