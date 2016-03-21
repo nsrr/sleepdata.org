@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Represent Spout variable structure for variable pages
 class Variable < ApplicationRecord
   serialize :labels, Array

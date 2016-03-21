@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Tracks the number of files downloaded per dataset and by user
 class DatasetFileAudit < ApplicationRecord
   # Model Relationships

@@ -29,3 +29,18 @@ editor_of_private_dataset:
   dataset: private
   user: editor_on_private
   role: 'editor'
+
+reviewer_of_public_dataset:
+  dataset: public
+  user: reviewer_on_public
+  role: 'reviewer'
+
+reviewer_two_of_public_dataset:
+  dataset: public
+  user: reviewer_two_on_public
+  role: 'reviewer'
+
+admin_reviewer_of_public_dataset:
+  dataset: public
+  user: admin
+  role: 'reviewer'

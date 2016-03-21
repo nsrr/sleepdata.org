@@ -13,3 +13,10 @@ two:
   comment: MyText
   event_type: commented
   event_at: 2014-12-01 13:19:56
+
+reviewer_comment:
+  agreement: submitted_application
+  user: reviewer_on_public
+  comment: My First Comment
+  event_type: commented
+  event_at: 2016-03-21 16:06:35

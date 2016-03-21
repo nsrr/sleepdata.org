@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DatasetVersion < ApplicationRecord
   # Model Validation
   validates :dataset_id, :version, presence: true

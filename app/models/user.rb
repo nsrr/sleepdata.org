@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Defines the user model, relationships, and permissions.
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable and :omniauthable
@@ -8,14 +11,27 @@ class User < ApplicationRecord
   include Deletable, TokenAuthenticatable, Forkable
 
   # Callbacks
+  after_commit :update_location, on: [:create]
   before_save :ensure_authentication_token
 
   # Named Scopes
   scope :aug_members, -> { current.where(aug_member: true) }
   scope :core_members, -> { current.where(core_member: true) }
   scope :system_admins, -> { current.where(system_admin: true) }
-  scope :search, -> (arg) { where('LOWER(first_name) LIKE ? or LOWER(last_name) LIKE ? or LOWER(email) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%')) }
   scope :with_name, -> (arg) { where("(users.first_name || ' ' || users.last_name) IN (?) or users.username IN (?)", arg, arg) }
+
+  def self.search(arg)
+    term = arg.to_s.downcase.gsub(/^| |$/, '%')
+    conditions = [
+      'LOWER(first_name) LIKE ?',
+      'LOWER(last_name) LIKE ?',
+      'LOWER(email) LIKE ?',
+      '((LOWER(first_name) || LOWER(last_name)) LIKE ?)',
+      '((LOWER(last_name) || LOWER(first_name)) LIKE ?)'
+    ]
+    terms = [term] * conditions.count
+    where conditions.join(' or '), *terms
+  end
 
   def self.aug_or_core_members
     current.where('aug_member = ? or core_member = ?', true, true)
@@ -191,5 +207,9 @@ class User < ApplicationRecord
 
   def send_welcome_email_with_password(pw)
     RegistrationMailer.send_welcome_email_with_password(self, pw).deliver_later if EMAILS_ENABLED
+  end
+
+  def update_location
+    Map.update_user_location(self)
   end
 end

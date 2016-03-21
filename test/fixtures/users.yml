@@ -158,3 +158,17 @@ community_manager:
   email: community_manager@example.com
   encrypted_password: ""
   community_manager: true
+
+reviewer_on_public:
+  first_name: Reviewer
+  last_name: Van Public
+  email: reviewer_on_public
+  encrypted_password: ""
+  username: reviewer_on_public
+
+reviewer_two_on_public:
+  first_name: Reviewer Two
+  last_name: Van Public
+  email: reviewer_two_on_public
+  encrypted_password: ""
+  username: reviewer_two_on_public

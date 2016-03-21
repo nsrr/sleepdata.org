@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DatasetUser < ApplicationRecord
 
   ROLES = [['Editor', 'editor'],['Viewer', 'viewer'],['Reviewer', 'reviewer']]

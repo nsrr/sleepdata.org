@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 # Allows users to request to have their data hosted on the NSRR
 class HostingRequest < ApplicationRecord
   # Concerns
   include Deletable, Forkable
 
   # Callbacks
-  after_create :send_hosting_request_notification
+  after_commit :send_hosting_request_notification_in_background, on: :create
 
   # Named Scopes
 

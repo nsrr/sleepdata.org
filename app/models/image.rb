@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Encapsulate blog and forum embedded images
 class Image < ApplicationRecord
   # Uploaders

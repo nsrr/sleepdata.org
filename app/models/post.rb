@@ -1,2 +1,4 @@
-class Post < Comment  # ActiveRecord::Base
+# frozen_string_literal: true
+
+class Post < Comment
 end

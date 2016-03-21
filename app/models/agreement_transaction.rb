@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AgreementTransaction < ApplicationRecord
 
   TRANSACTION_TYPE = ['agreement_create', 'agreement_update', 'public_agreement_update', 'agreement_rollback']

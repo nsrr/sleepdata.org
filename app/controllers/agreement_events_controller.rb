@@ -3,8 +3,8 @@
 # Allows modification of comments on during agreement review process
 class AgreementEventsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_agreement
-  before_action :set_editable_agreement_event, only: [:show, :edit, :update, :destroy]
+  before_action :find_agreement_or_redirect
+  before_action :find_editable_agreement_event_or_redirect, only: [:show, :edit, :update, :destroy]
 
   # GET /agreement/1/agreement_events/1/edit.js
   def edit
@@ -28,6 +28,7 @@ class AgreementEventsController < ApplicationController
     end
   end
 
+  # POST /agreements/1/preview.js
   def preview
     @agreement_event = @agreement.agreement_events.find_by_id params[:agreement_event_id]
     if @agreement_event
@@ -37,15 +38,14 @@ class AgreementEventsController < ApplicationController
     end
   end
 
+  # GET /agreements/1/agreement_events/1
+  # GET /agreements/1/agreement_events/1.js
   def show
     respond_to do |format|
       format.html { redirect_to review_path(@agreement) + "?page=#{((@agreement_event.number - 1) / AgreementEvent::AGREEMENT_EVENTS_PER_PAGE)+1}#c#{@agreement_event.number}" }
       format.js
     end
   end
-
-  # def show
-  # end
 
   # PATCH /agreement/1/agreement_events/1
   # PATCH /agreement/1/agreement_events/1.js
@@ -73,12 +73,12 @@ class AgreementEventsController < ApplicationController
 
   private
 
-  def set_agreement
+  def find_agreement_or_redirect
     @agreement = current_user.reviewable_agreements.find_by_id(params[:agreement_id])
     empty_response_or_root_path(reviews_path) unless @agreement
   end
 
-  def set_editable_agreement_event
+  def find_editable_agreement_event_or_redirect
     @agreement_event = current_user.all_agreement_events.find_by_id(params[:id])
     empty_response_or_root_path(reviews_path) unless @agreement_event
   end

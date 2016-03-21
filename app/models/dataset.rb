@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Dataset < ApplicationRecord
   FILES_PER_PAGE = 100
 

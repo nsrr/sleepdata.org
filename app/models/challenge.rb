@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Encapsulates challenges as well as responses to challenge questions.
 class Challenge < ApplicationRecord
   # Concerns
