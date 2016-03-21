@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
   include Deletable, TokenAuthenticatable, Forkable
 
   # Callbacks
-  after_create :update_location
+  after_commit :update_location, on: [:create]
   before_save :ensure_authentication_token
 
   # Named Scopes
