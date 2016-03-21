@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Allows users to request to have their data hosted on the NSRR
 class HostingRequest < ActiveRecord::Base
   # Concerns

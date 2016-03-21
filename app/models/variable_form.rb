@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class VariableForm < ActiveRecord::Base
 
   # Model Relationships

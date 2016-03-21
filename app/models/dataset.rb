@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Dataset < ActiveRecord::Base
   FILES_PER_PAGE = 100
 

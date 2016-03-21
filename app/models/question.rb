@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Question < ActiveRecord::Base
   # Model Validation
   validates :name, :challenge_id, presence: true

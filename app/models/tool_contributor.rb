@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ToolContributor < ActiveRecord::Base
 
   # Model Relationships

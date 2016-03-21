@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DatasetPageAudit < ActiveRecord::Base
 
   # Model Relationships

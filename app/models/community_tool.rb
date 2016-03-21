@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Community Tool is a user submitted tool
 class CommunityTool < ActiveRecord::Base
   # Constants

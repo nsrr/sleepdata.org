@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Tool < ActiveRecord::Base
   mount_uploader :logo, ImageUploader
 

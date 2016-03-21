@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Represents the valid values and options for a variable
 class Domain < ActiveRecord::Base
   serialize :options, Array

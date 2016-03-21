@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Represents the PDF or CRF on which a variable was captured
 class Form < ActiveRecord::Base
   # Model Validation

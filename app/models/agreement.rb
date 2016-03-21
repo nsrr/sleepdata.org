@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Agreement < ActiveRecord::Base
   # STEP 1 Fields:
   #   :data_user

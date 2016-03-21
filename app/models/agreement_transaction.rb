@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AgreementTransaction < ActiveRecord::Base
 
   TRANSACTION_TYPE = ['agreement_create', 'agreement_update', 'public_agreement_update', 'agreement_rollback']
