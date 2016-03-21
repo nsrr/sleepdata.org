@@ -17,10 +17,10 @@ class AgreementEvent < ActiveRecord::Base
   serialize :removed_tag_ids, Array
 
   # Concerns
-  include Deletable
+  include Deletable, Forkable
 
   # Callbacks
-  after_create :email_mentioned_users
+  after_create :email_mentioned_users_in_background
 
   # Named Scopes
   scope :with_current_agreement, -> { joins(:agreement).merge(Agreement.current) }
@@ -70,12 +70,17 @@ class AgreementEvent < ActiveRecord::Base
     event_type == 'commented'
   end
 
+  def email_mentioned_users_in_background
+    fork_process(:email_mentioned_users)
+  end
+
   protected
 
   def email_mentioned_users
+    return unless EMAILS_ENABLED
     users = User.current.reject { |u| u.username.blank? }.uniq.sort
     users.each do |user|
-      UserMailer.mentioned_in_agreement_comment(self, user).deliver_later if EMAILS_ENABLED && event_type == 'commented' && comment.to_s.match(/@#{user.username}\b/i)
+      UserMailer.mentioned_in_agreement_comment(self, user).deliver_later if event_type == 'commented' && comment.to_s.match(/@#{user.username}\b/i)
     end
   end
 end
