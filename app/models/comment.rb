@@ -1,5 +1,4 @@
 class Comment < ActiveRecord::Base
-
   COMMENTS_PER_PAGE = 20
 
   # Concerns
@@ -60,7 +59,6 @@ class Comment < ActiveRecord::Base
   private
 
   def touch_topic
-    self.topic.update last_comment_at: Time.zone.now
+    topic.update last_comment_at: Time.zone.now
   end
-
 end

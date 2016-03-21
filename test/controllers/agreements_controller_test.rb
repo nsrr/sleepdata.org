@@ -53,6 +53,7 @@ class AgreementsControllerTest < ActionController::TestCase
 
     assert_equal 1, assigns(:step)
     assert_not_nil assigns(:agreement)
+    assert_not_nil assigns(:agreement).duly_authorized_representative_token
     assert_equal 1, assigns(:agreement).current_step
 
     assert_equal 'individual', assigns(:agreement).data_user_type

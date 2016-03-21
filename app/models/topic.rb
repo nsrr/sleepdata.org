@@ -1,5 +1,4 @@
 class Topic < ActiveRecord::Base
-
   attr_accessor :description
 
   # Concerns
@@ -26,7 +25,6 @@ class Topic < ActiveRecord::Base
   has_many :topic_tags
   has_many :tags, -> { where(deleted: false).order(:name) }, through: :topic_tags
 
-
   def to_param
     "#{id}-#{name.parameterize}"
   end
@@ -38,7 +36,7 @@ class Topic < ActiveRecord::Base
   # Placeholder
 
   def get_or_create_subscription(current_user)
-    current_user.subscriptions.where( topic_id: self.id ).first_or_create
+    current_user.subscriptions.where(topic_id: id).first_or_create
   end
 
   def set_subscription!(notify, current_user)
@@ -46,14 +44,13 @@ class Topic < ActiveRecord::Base
   end
 
   def subscribed?(current_user)
-    current_user.subscriptions.where(topic_id: self.id, subscribed: true).count > 0
+    current_user.subscriptions.where(topic_id: id, subscribed: true).count > 0
   end
 
   private
 
   def create_first_comment
-    self.comments.create( description: self.description, user_id: self.user_id )
-    self.get_or_create_subscription( self.user )
+    comments.create(description: description, user_id: user_id)
+    get_or_create_subscription(user)
   end
-
 end
