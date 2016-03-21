@@ -7,9 +7,6 @@ class Comment < ActiveRecord::Base
   # Concerns
   include Deletable, Forkable
 
-  # Callbacks
-  after_create :touch_topic
-
   # Model Validation
   validates :topic_id, :description, :user_id, presence: true
 
@@ -58,9 +55,7 @@ class Comment < ActiveRecord::Base
     end
   end
 
-  private
-
-  def touch_topic
+  def touch_topic!
     topic.update last_comment_at: Time.zone.now
   end
 end

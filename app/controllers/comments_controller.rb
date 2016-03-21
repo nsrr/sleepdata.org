@@ -36,6 +36,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save
         @comment.send_reply_emails_in_background!
+        @comment.touch_topic!
         @topic.get_or_create_subscription(current_user)
         format.html { redirect_to topic_comment_path(@topic, @comment), notice: 'Comment was successfully created.' }
       else
@@ -69,10 +70,10 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.update(comment_params)
         format.html { redirect_to topic_comment_path(@topic, @comment), notice: 'Comment was successfully updated.' }
-        format.js { render 'show' }
+        format.js { render :show }
       else
         format.html { redirect_to topic_comment_path(@topic, @comment), warning: 'Comment can\'t be blank.' }
-        format.js { render 'edit' }
+        format.js { render :edit }
       end
     end
   end
@@ -95,7 +96,7 @@ class CommentsController < ApplicationController
   end
 
   def set_commentable_topic
-    @topic = Topic.current.where( locked: false ).find_by_id(params[:topic_id])
+    @topic = Topic.current.where(locked: false).find_by_id(params[:topic_id])
   end
 
   def redirect_without_topic

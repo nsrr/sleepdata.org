@@ -50,6 +50,7 @@ class TopicsController < ApplicationController
     @topic = current_user.topics.new(topic_params)
 
     if @topic.save
+      @topic.update_column :last_comment_at, Time.zone.now
       redirect_to @topic, notice: 'Topic was successfully created.'
     else
       render :new

@@ -8,7 +8,7 @@ class Topic < ActiveRecord::Base
   include Deletable
 
   # Callbacks
-  after_create :create_first_comment
+  after_commit :create_first_comment, on: :create
 
   # Named Scopes
   scope :not_banned, -> { joins(:user).merge(User.where(banned: false)) }
