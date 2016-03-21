@@ -35,7 +35,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        @comment.send_reply_emails!
+        @comment.send_reply_emails_in_background!
         @topic.get_or_create_subscription(current_user)
         format.html { redirect_to topic_comment_path(@topic, @comment), notice: 'Comment was successfully created.' }
       else

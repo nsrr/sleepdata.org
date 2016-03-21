@@ -7,6 +7,9 @@
   - Updated to rails 4.2.6
   - Restricted mini_magick to 4.4.0
 
+### Refactoring
+- Started cleanup and refactoring, and additional testing of controllers
+
 ## 0.18.4 (March 2, 2016)
 
 ### Enhancements
