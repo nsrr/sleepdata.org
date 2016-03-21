@@ -10,6 +10,7 @@
       .banner-body
         - if @broadcast.published?
           %span.label.label-info Published
+          = link_to 'View Blog Post', blog_post_path(@broadcast), class: 'btn btn-xs btn-default'
         - else
           %span.label.label-warning DRAFT
         = link_to edit_broadcast_path(@broadcast), class: 'btn btn-xs btn-default' do
