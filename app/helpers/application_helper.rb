@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def simple_check(checked)
     content_tag(:span, '', class: "glyphicon #{checked ? 'glyphicon-ok' : 'glyphicon-unchecked'}")

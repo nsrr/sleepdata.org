@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module VariablesHelper
   def calculation_pieces(variable)
     new_calculation = variable.calculation.to_s

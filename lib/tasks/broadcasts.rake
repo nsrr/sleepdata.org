@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :broadcasts do
   desc 'Populate new broadcasts'
   task populate: :environment do

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Use to configure basic appearance of template
 Contour.setup do |config|
 

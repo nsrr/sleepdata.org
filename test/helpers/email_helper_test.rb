@@ -2,5 +2,5 @@
 
 require 'test_helper'
 
-class AgreementsHelperTest < ActionView::TestCase
+class EmailHelperTest < ActionView::TestCase
 end

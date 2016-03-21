@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
 # Tests access to upload and view images in blogs and forum posts

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 namespace :challenges do
   desc 'Export Flow Limitation challenge to CSV'
   task export_flow_limitation: :environment do

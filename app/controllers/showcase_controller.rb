@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Provides several pages that showcase different aspects of the NSRR
 class ShowcaseController < ApplicationController
   def index

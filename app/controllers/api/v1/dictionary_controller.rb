@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Creates an API for editors to update existing dataset dictionaries
 class Api::V1::DictionaryController < Api::V1::BaseController
   def upload_file

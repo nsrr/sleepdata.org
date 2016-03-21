@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DatasetsController < ApplicationController
   before_action :authenticate_user_from_token!, only: [:json_manifest, :manifest, :files, :editor, :index, :show]
   before_action :authenticate_user!,        only: [:new, :edit, :create, :update, :destroy, :audits, :collaborators, :create_access, :remove_access, :pull_changes, :sync, :set_public_file, :reset_index]

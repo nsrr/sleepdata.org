@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Allows user to insert images into blog and forum posts
 class ImagesController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :edit, :create, :create_multiple, :update, :destroy]

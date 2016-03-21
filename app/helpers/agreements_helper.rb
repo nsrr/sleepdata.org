@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Helps display status of agreements
 module AgreementsHelper
   def status_helper_simple(agreement)

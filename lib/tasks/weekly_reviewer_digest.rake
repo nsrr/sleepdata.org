@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 desc 'Launched by crontab -e, send a daily digest of recent activities.'
 task weekly_reviewer_digest: :environment do
   return unless EMAILS_ENABLED

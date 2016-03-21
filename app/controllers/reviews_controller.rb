@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_agreement, only: [:show, :vote, :create_comment, :preview, :show_comment, :edit_comment, :update_comment, :destroy_comment, :update_tags, :transactions]

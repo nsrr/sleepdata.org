@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChallengesController < ApplicationController
   before_action :authenticate_user!,          except: [:index, :show, :images]
   before_action :check_system_admin,          only: [:new, :create, :edit, :update, :destroy]

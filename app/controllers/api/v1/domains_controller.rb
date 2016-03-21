@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::DomainsController < Api::V1::BaseController
   before_action :set_domain, only: [:show, :edit, :update, :destroy]
 

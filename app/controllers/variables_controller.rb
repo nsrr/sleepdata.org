@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class VariablesController < ApplicationController
   before_action :set_viewable_dataset
   before_action :redirect_without_dataset

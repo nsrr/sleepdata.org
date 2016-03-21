@@ -1,5 +1,6 @@
-class ImageUploader < CarrierWave::Uploader::Base
+# frozen_string_literal: true
 
+class ImageUploader < CarrierWave::Uploader::Base
   # Choose what kind of storage to use for this uploader:
   storage :file
   # storage :s3
@@ -7,7 +8,11 @@ class ImageUploader < CarrierWave::Uploader::Base
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    File.join("#{model.class.to_s.underscore.pluralize}", (Rails.env.test? ? model.slug : model.id.to_s), mounted_as.to_s)
+    File.join(
+      model.class.to_s.underscore.pluralize,
+      (Rails.env.test? ? model.slug : model.id.to_s),
+      mounted_as.to_s
+    )
   end
 
   # Provide a default URL as a default if there hasn't been a file uploaded:
@@ -24,5 +29,4 @@ class ImageUploader < CarrierWave::Uploader::Base
   # def filename
   #   "something.jpg" if original_filename
   # end
-
 end

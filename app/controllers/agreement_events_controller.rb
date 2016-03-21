@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Allows modification of comments on during agreement review process
 class AgreementEventsController < ApplicationController
   before_action :authenticate_user!

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Note: There currently is no dedicated downloads_controller.rb, however handling
 # file downloads from datasets combined with agreements needs to be separated from
 # simple dataset updates, and makes more sense as it's own controller.
