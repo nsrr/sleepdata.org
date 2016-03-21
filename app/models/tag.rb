@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
+# Allows forum posts and agreements to be tagged
 class Tag < ActiveRecord::Base
-  TYPE = [['Forum', 'topic'], ['Review', 'agreement']]
+  TYPE = [%w(Forum topic), %w(Review agreement)]
 
   # Concerns
-  include Deletable
+  include Deletable, Searchable
 
   # Named Scopes
-  scope :search, -> (arg) { where('LOWER(name) LIKE ?', arg.to_s.downcase.gsub(/^| |$/, '%')) }
   scope :forum_tags, -> { current.where(tag_type: 'topic') }
   scope :review_tags, -> { current.where(tag_type: 'agreement') }
 
@@ -24,6 +24,12 @@ class Tag < ActiveRecord::Base
   has_many :agreements, -> { where deleted: false }, through: :agreement_tags
 
   has_many :agreement_events, -> { where deleted: false }
+
+  # Model Methods
+
+  def self.searchable_attributes
+    %w(name)
+  end
 
   def type_name
     types = TYPE.select { |_name, value| value == tag_type }
