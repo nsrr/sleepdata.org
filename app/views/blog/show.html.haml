@@ -1,7 +1,10 @@
 - @title = @broadcast.title
 .row
   .col-md-9
-    %h1.broadcast-title= @title
+    %h1.broadcast-title
+      = @title
+      - if current_user && current_user.community_manager?
+        = link_to 'Edit', edit_broadcast_path(@broadcast), class: 'btn btn-xs btn-default'
     = render 'blog/show', broadcast: @broadcast
   .col-md-3
     %h2.brand= link_to 'NSRR Blog', blog_path
