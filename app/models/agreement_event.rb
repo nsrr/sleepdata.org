@@ -20,7 +20,7 @@ class AgreementEvent < ActiveRecord::Base
   include Deletable, Forkable
 
   # Callbacks
-  after_create :email_mentioned_users_in_background
+  after_commit :email_mentioned_users_in_background, on: :create
 
   # Named Scopes
   scope :with_current_agreement, -> { joins(:agreement).merge(Agreement.current) }
