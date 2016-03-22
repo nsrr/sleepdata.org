@@ -3,28 +3,15 @@
 - content_for :body_class do
   gray-background
 
-.row
-  .col-md-3
-    = render 'internal/profile'
-    .dashboard-link
-      = link_to admin_dashboard_path do
-        %span.glyphicon.glyphicon-arrow-left
-        Back to Admin Dashboard
+= render 'internal/profile_header', title: @title
 
-    .dashboard-container
-      .dashboard-title
-        %strong User Administration
-      %p All your admin needs.
+.dashboard-container
+  .dashboard-title
+    %strong User Administration
 
+  = form_tag users_path, method: :get, class: 'form-inline' do
+    = text_field_tag 'search', params[:search], class: 'form-control'
+    = submit_tag 'Search', class: 'btn btn-primary', name: nil
+    = link_to 'Reset', users_path, class: 'btn btn-default'
 
-  .col-md-9
-    .dashboard-container
-      .dashboard-title
-        %strong User Administration
-
-      = form_tag users_path, method: :get, class: 'form-inline' do
-        = text_field_tag 'search', params[:search], class: 'form-control'
-        = submit_tag 'Search', class: 'btn btn-primary', name: nil
-        = link_to 'Reset', users_path, class: 'btn btn-default'
-
-      = render 'users/users'
+  = render 'users/users'

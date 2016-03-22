@@ -5,6 +5,8 @@
   - Principal reviewers can now close agreements
 - **Blog Changes**
   - Community members can now more easily edit blogs
+- **Dashboard Changes**
+  - Improved display of admin pages linked from the dashboard
 - **Map Changes**
   - Map location is now pulled using a local database lookup
 - **Email Changes**
