@@ -1,6 +1,8 @@
 ## 0.19.0
 
 ### Enhancements
+- **Agreement Changes**
+  - Principal reviewers can now close agreements
 - **Blog Changes**
   - Community members can now more easily edit blogs
 - **Map Changes**

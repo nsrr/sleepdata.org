@@ -11,7 +11,7 @@
     %span{ style: success_style } approved
     by
     = succeed '.' do
-      = @last_user.name if @last_user
+      = @agreement_event.user.name if @agreement_event.user
 - when 'resubmit'
   %p{ style: p_style }
     = @agreement.user.name
@@ -20,7 +20,7 @@
     the DAUA
     by
     = succeed '.' do
-      = @last_user.name if @last_user
+      = @agreement_event.user.name if @agreement_event.user
 
   %blockquote{ style: blockquote_style }= @agreement.comments
 - else
@@ -31,7 +31,7 @@
     %span{ style: default_style }= @agreement.status
     by
     = succeed '.' do
-      = @last_user.name if @last_user
+      = @agreement_event.user.name if @agreement_event.user
 
 %p{ style: p_style }
   You can review the DAUA here:

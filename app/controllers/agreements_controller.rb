@@ -1,17 +1,22 @@
 # frozen_string_literal: true
 
+# Allows users and admins to submit and update agreements.
 class AgreementsController < ApplicationController
   prepend_before_filter only: [:signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted] { request.env['devise.skip_timeout'] = true }
-  skip_before_action :verify_authenticity_token, only: [:signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted]
-
-  before_action :authenticate_user!,             except: [:signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted]
-  before_action :check_system_admin,             except: [:signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted, :renew, :daua, :dua, :create_step, :step, :update_step, :proof, :final_submission, :destroy_submission, :download_irb, :print, :complete, :new_step, :irb_assistance]
-
-  before_action :set_viewable_submission,        only: [:renew, :complete]
-  before_action :set_editable_submission,        only: [:step, :update_step, :proof, :final_submission, :destroy_submission]
-  before_action :redirect_without_submission,    only: [:step, :update_step, :proof, :final_submission, :destroy_submission, :renew, :complete]
+  skip_before_action :verify_authenticity_token, only: [
+    :signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted
+  ]
+  before_action :authenticate_user!, except: [
+    :signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted
+  ]
+  before_action :check_system_admin, except: [
+    :signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted, :renew, :daua, :dua,
+    :create_step, :step, :update_step, :proof, :final_submission, :destroy_submission, :download_irb, :print, :complete, :new_step, :irb_assistance
+  ]
+  before_action :find_viewable_submission_or_redirect, only: [:renew, :complete]
+  before_action :find_editable_submission_or_redirect, only: [:step, :update_step, :proof, :final_submission]
+  before_action :find_deletable_submission_or_redirect, only: [:destroy_submission]
   before_action :set_step,                       only: [:create_step, :step, :update_step]
-
   before_action :set_downloadable_irb_agreement, only: [:download_irb, :print]
   before_action :set_agreement,                  only: [:destroy, :download, :update]
   before_action :redirect_without_agreement,     only: [:destroy, :download, :update, :download_irb, :print]
@@ -41,14 +46,13 @@ class AgreementsController < ApplicationController
   end
 
   def signature_submitted
-
   end
 
   def step
-    if @step and @step > 0 and @step < 6
+    if @step && @step > 0 && @step < 6
       render "agreements/wizard/step#{@step}"
     elsif @step == 6
-      render "agreements/proof"
+      render 'agreements/proof'
     else
       redirect_to step_agreement_path(@agreement, step: 1)
     end
@@ -69,7 +73,6 @@ class AgreementsController < ApplicationController
   # POST /agreements
   def create_step
     @agreement = current_user.agreements.new(step_params)
-
     if AgreementTransaction.save_agreement!(@agreement, step_params, current_user, request.remote_ip, 'agreement_create')
       if @agreement.draft_mode?
         redirect_to submissions_path
@@ -79,14 +82,13 @@ class AgreementsController < ApplicationController
     else
       render "agreements/wizard/step#{@step}"
     end
-
   end
 
   def update_step
     if AgreementTransaction.save_agreement!(@agreement, step_params, current_user, request.remote_ip, 'agreement_update')
       if @agreement.draft_mode?
         redirect_to submissions_path
-      elsif @agreement.fully_filled_out? or @agreement.current_step == 5
+      elsif @agreement.fully_filled_out? || @agreement.current_step == 5
         redirect_to proof_agreement_path(@agreement)
       else
         redirect_to step_agreement_path(@agreement, step: @agreement.current_step + 1)
@@ -106,18 +108,15 @@ class AgreementsController < ApplicationController
     current_time = Time.zone.now
     if @agreement.status == 'resubmit'
       hash = { status: 'submitted', resubmitted_at: current_time, last_submitted_at: current_time }
-      msg = "Data Access and Use Agreement resubmitted."
       event_type = 'user_resubmitted'
     else
       hash = { status: 'submitted', submitted_at: current_time, last_submitted_at: current_time }
-      msg = "Data Access and Use Agreement submitted."
       event_type = 'user_submitted'
     end
 
-    if not @agreement.fully_filled_out?
+    if !@agreement.fully_filled_out?
       render 'proof'
     elsif AgreementTransaction.save_agreement!(@agreement, hash, current_user, request.remote_ip, 'agreement_update')
-      @agreement.add_event!(msg, current_user, 'submitted')
       @agreement.agreement_events.create event_type: event_type, user_id: current_user.id, event_at: current_time
       @agreement.daua_submitted
       redirect_to complete_agreement_path(@agreement)
@@ -221,8 +220,11 @@ class AgreementsController < ApplicationController
       end
     end
 
-    send_data @csv_string, type: 'text/csv; charset=iso-8859-1; header=present',
-                           disposition: "attachment; filename=\"Agreements List - #{Time.zone.now.strftime("%Y.%m.%d %Ih%M %p")}.csv\""
+    send_data(
+      @csv_string,
+      type: 'text/csv; charset=iso-8859-1; header=present',
+      disposition: "attachment; filename=\"Agreements List - #{Time.zone.now.strftime('%Y.%m.%d %Ih%M %p')}.csv\""
+    )
   end
 
   # GET /agreements/1
@@ -245,10 +247,14 @@ class AgreementsController < ApplicationController
   def update
     original_status = @agreement.status
     if AgreementTransaction.save_agreement!(@agreement, agreement_review_params, current_user, request.remote_ip, 'agreement_update')
-      if original_status != 'approved' and @agreement.status == 'approved'
+      if original_status != 'approved' && @agreement.status == 'approved'
         @agreement.daua_approved_email(current_user)
-      elsif original_status != 'resubmit' and @agreement.status == 'resubmit'
+      elsif original_status != 'resubmit' && @agreement.status == 'resubmit'
         @agreement.sent_back_for_resubmission_email(current_user)
+      elsif original_status != 'closed' && @agreement.status == 'closed'
+        @agreement.close_daua!(current_user)
+      elsif original_status != 'expired' && @agreement.status == 'expired'
+        @agreement.expire_daua!(current_user)
       end
       respond_to do |format|
         format.html { redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.last.number}", notice: 'Agreement was successfully updated.' }
@@ -273,7 +279,10 @@ class AgreementsController < ApplicationController
   end
 
   def download
-    send_file File.join( CarrierWave::Uploader::Base.root, (params[:executed] == '1' ? @agreement.executed_dua.url : @agreement.dua.url) ), disposition: 'inline'
+    send_file File.join(
+      CarrierWave::Uploader::Base.root,
+      (params[:executed] == '1' ? @agreement.executed_dua.url : @agreement.dua.url)
+    ), disposition: 'inline'
   end
 
   def destroy_submission
@@ -293,98 +302,107 @@ class AgreementsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_agreement
-      @agreement = Agreement.current.find_by_id(params[:id])
+
+  def set_agreement
+    @agreement = Agreement.current.find_by_id params[:id]
+  end
+
+  def set_downloadable_irb_agreement
+    @agreement = current_user.all_agreements.find_by_id params[:id]
+  end
+
+  def find_viewable_submission_or_redirect
+    @agreement = current_user.agreements.find_by_id params[:id]
+    redirect_without_submission
+  end
+
+  def find_editable_submission_or_redirect
+    @agreement = current_user.agreements
+                             .where(status: [nil, '', 'started', 'resubmit'])
+                             .find_by_id params[:id]
+    redirect_without_submission
+  end
+
+  def find_deletable_submission_or_redirect
+    @agreement = current_user.agreements
+                             .where(status: [nil, '', 'started', 'resubmit', 'closed'])
+                             .find_by_id params[:id]
+    redirect_without_submission
+  end
+
+  def redirect_without_submission
+    empty_response_or_root_path(submissions_path) unless @agreement
+  end
+
+  def redirect_without_agreement
+    empty_response_or_root_path( current_user && current_user.system_admin? ? agreements_path : submissions_path ) unless @agreement
+  end
+
+  def agreement_review_params
+    params[:agreement] ||= {}
+    [:approval_date, :expiration_date].each do |date|
+      params[:agreement][date] = parse_date(params[:agreement][date]) if params[:agreement].key?(date)
     end
+    params.require(:agreement).permit(
+      :current_step, :status, :comments, :approval_date, :expiration_date,
+      :reviewer_signature, dataset_ids: []
+    )
+  end
 
-    def set_downloadable_irb_agreement
-      @agreement = current_user.all_agreements.find_by_id(params[:id])
+  def daua_submission_params
+    params[:agreement] ||= { dua: '', remove_dua: '1' }
+    params.require(:agreement).permit(:dua, :remove_dua)
+  end
+
+  def set_step
+    @step = params[:step].to_i if params[:step].to_i > 0 && params[:step].to_i < 9
+  end
+
+  def step_params
+    params[:agreement] ||= {}
+    params[:agreement][:signature_date] = parse_date(params[:agreement][:signature_date]) if params[:agreement].key?(:signature_date)
+    if params[:agreement].key?(:dataset_ids)
+      params[:agreement][:dataset_ids] = Dataset.release_scheduled.where( id: params[:agreement][:dataset_ids] ).pluck(:id)
     end
-
-    def set_viewable_submission
-      @agreement = current_user.agreements.find_by_id(params[:id])
-    end
-
-    def set_editable_submission
-      @agreement = current_user.agreements.where( status: [nil, '', 'started', 'resubmit'] ).find_by_id(params[:id])
-    end
-
-    def redirect_without_submission
-      empty_response_or_root_path( submissions_path ) unless @agreement
-    end
-
-    def redirect_without_agreement
-      empty_response_or_root_path( current_user && current_user.system_admin? ? agreements_path : submissions_path ) unless @agreement
-    end
-
-    def agreement_review_params
-      params[:agreement] ||= {}
-      [:approval_date, :expiration_date].each do |date|
-        params[:agreement][date] = parse_date(params[:agreement][date]) if params[:agreement].key?(date)
-      end
-
-      params.require(:agreement).permit(:current_step, :status, :comments, :approval_date, :expiration_date, :reviewer_signature, { dataset_ids: [] })
-    end
-
-    def daua_submission_params
-      params[:agreement] ||= { dua: '', remove_dua: '1' }
-      params.require(:agreement).permit(:dua, :remove_dua)
-    end
-
-    def set_step
-      @step = params[:step].to_i if params[:step].to_i > 0 and params[:step].to_i < 9
-    end
-
-    def step_params
-      params[:agreement] ||= {}
-      params[:agreement][:signature_date] = parse_date(params[:agreement][:signature_date]) if params[:agreement].key?(:signature_date)
-
-      if params[:agreement].key?(:dataset_ids)
-        params[:agreement][:dataset_ids] = Dataset.release_scheduled.where( id: params[:agreement][:dataset_ids] ).pluck(:id)
-      end
-
-      params.require(:agreement).permit(
-        :current_step, :draft_mode,
-        # Step One
-          :data_user, :data_user_type,
-        #   Individual
-          :individual_institution_name, :individual_title, :individual_telephone, :individual_address,
-        #   Organization
-          :organization_business_name, :organization_contact_name, :organization_contact_title, :organization_contact_telephone, :organization_contact_email, :organization_address,
-        # Step Two
-          :specific_purpose, { dataset_ids: [] },
-        # Step Three
-          :has_read_step3,
-        # Step Four
-          :posting_permission,
-        # Step Five
-          :has_read_step5,
-        # Step Six
-          :unauthorized_to_sign,
-          # Data User Authorized to Sign
-          :signature, :signature_print, :signature_date,
-          # Duly Authorized Representative to Sign
-          :duly_authorized_representative_signature_print,
-        # Step Seven
-          :irb_evidence_type, :irb,
-        # Step Eight
-          :title_of_project, :intended_use_of_data, :data_secured_location, :secured_device, :human_subjects_protections_trained
-      )
-    end
-
-    def duly_authorized_params
-      params[:agreement] ||= {}
-      params[:agreement][:duly_authorized_representative_signature_date] = parse_date(params[:agreement][:duly_authorized_representative_signature_date]) if params[:agreement].key?(:duly_authorized_representative_signature_date)
-      params[:agreement][:unauthorized_to_sign] = true
-
-      params.require(:agreement).permit(
-        :current_step,
+    params.require(:agreement).permit(
+      :current_step, :draft_mode,
+      # Step One
+        :data_user, :data_user_type,
+      #   Individual
+        :individual_institution_name, :individual_title, :individual_telephone, :individual_address,
+      #   Organization
+        :organization_business_name, :organization_contact_name, :organization_contact_title, :organization_contact_telephone, :organization_contact_email, :organization_address,
+      # Step Two
+        :specific_purpose, { dataset_ids: [] },
+      # Step Three
+        :has_read_step3,
+      # Step Four
+        :posting_permission,
+      # Step Five
+        :has_read_step5,
+      # Step Six
+        :unauthorized_to_sign,
+        # Data User Authorized to Sign
+        :signature, :signature_print, :signature_date,
         # Duly Authorized Representative to Sign
-        :duly_authorized_representative_signature_print, :duly_authorized_representative_signature, :duly_authorized_representative_signature_date, :duly_authorized_representative_title,
-        # Automatically set
-        :unauthorized_to_sign
-      )
-    end
+        :duly_authorized_representative_signature_print,
+      # Step Seven
+        :irb_evidence_type, :irb,
+      # Step Eight
+        :title_of_project, :intended_use_of_data, :data_secured_location, :secured_device, :human_subjects_protections_trained
+    )
+  end
 
+  def duly_authorized_params
+    params[:agreement] ||= {}
+    params[:agreement][:duly_authorized_representative_signature_date] = parse_date(params[:agreement][:duly_authorized_representative_signature_date]) if params[:agreement].key?(:duly_authorized_representative_signature_date)
+    params[:agreement][:unauthorized_to_sign] = true
+    params.require(:agreement).permit(
+      :current_step,
+      # Duly Authorized Representative to Sign
+      :duly_authorized_representative_signature_print, :duly_authorized_representative_signature, :duly_authorized_representative_signature_date, :duly_authorized_representative_title,
+      # Automatically set
+      :unauthorized_to_sign
+    )
+  end
 end

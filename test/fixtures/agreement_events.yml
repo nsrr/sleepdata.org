@@ -1,18 +1,53 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+one_submitted:
+  agreement: one
+  user: valid
+  # comment:
+  event_type: user_submitted
+  event_at: 2014-01-15 14:22:15
+
+one_commented:
   agreement: one
   user: valid
   comment: MyText
   event_type: commented
-  event_at: 2014-12-01 13:19:56
+  event_at: 2014-01-16 13:19:56
 
-two:
+one_approved:
+  agreement: one
+  user: admin
+  # comment:
+  event_type: principal_reviewer_approved
+  event_at: 2014-01-17 08:42:12
+
+two_submitted:
+  agreement: one
+  user: two
+  # comment:
+  event_type: user_submitted
+  event_at: 2014-01-15 14:22:15
+
+two_commented:
   agreement: one
   user: two
   comment: MyText
   event_type: commented
   event_at: 2014-12-01 13:19:56
+
+resubmit_submitted:
+  agreement: resubmit
+  user: valid
+  # comment:
+  event_type: user_submitted
+  event_at: 2014-01-15 18:45:35
+
+resubmit_sent_back:
+  agreement: resubmit
+  user: admin
+  # comment:
+  event_type: principal_reviewer_required_resubmission
+  event_at: 2014-01-15 20:44:03
 
 reviewer_comment:
   agreement: submitted_application

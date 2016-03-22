@@ -160,7 +160,7 @@ class User < ActiveRecord::Base
   end
 
   def digest_reviews
-    reviews.where(approved: nil).joins(:agreement).where('agreements.deleted = ? and agreements.status = ?', false, 'submitted').order('agreements.last_submitted_at DESC')
+    reviews.where(approved: nil).joins(:agreement).merge(Agreement.current.where(status: 'submitted')).order('agreements.last_submitted_at DESC')
   end
 
   def name

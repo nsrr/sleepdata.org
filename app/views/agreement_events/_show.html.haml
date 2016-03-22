@@ -43,7 +43,7 @@
               %span.contributor.nowrap{ style: 'position: relative; border-radius: 4px;' } Contributor
         .comment-body
           = render 'agreement_events/formatted', agreement_event: agreement_event
-- elsif %w(principal_reviewer_approved principal_reviewer_required_resubmission user_submitted user_resubmitted).include?(agreement_event.event_type)
+- elsif %w(principal_reviewer_approved principal_reviewer_required_resubmission principal_reviewer_closed principal_reviewer_expired user_submitted user_resubmitted).include?(agreement_event.event_type)
   .comment-outer
     .comment-left-fixed
     .comment-right-fluid

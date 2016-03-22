@@ -94,10 +94,11 @@ class UserMailerTest < ActionMailer::TestCase
 
   test 'daua progress notification email' do
     agreement = agreements(:one)
+    agreement_event = agreement_events(:one_approved)
     admin = users(:admin)
 
     # Send the email, then test that it got queued
-    email = UserMailer.daua_progress_notification(agreement, admin).deliver_now
+    email = UserMailer.daua_progress_notification(agreement, admin, agreement_event).deliver_now
     assert !ActionMailer::Base.deliveries.empty?
 
     # Test the body of the sent email contains what we expect it to
@@ -108,7 +109,7 @@ class UserMailerTest < ActionMailer::TestCase
 
   test 'mentioned during review of agreement email' do
     valid = users(:valid)
-    agreement_event = agreement_events(:one)
+    agreement_event = agreement_events(:one_commented)
 
     # Send the email, then test that it got queued
     email = UserMailer.mentioned_in_agreement_comment(agreement_event, valid).deliver_now
