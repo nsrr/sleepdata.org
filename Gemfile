@@ -5,7 +5,8 @@ source 'https://rubygems.org'
 # gem 'rails', '>= 5.0.0.beta3', '< 5.1'
 # gem 'rails', github: 'rails/rails'
 # gem 'rails', github: 'rails/rails', ref: 'e56b594'
-gem 'rails', github: 'rails/rails', ref: 'd54de08'
+# gem 'rails', github: 'rails/rails', ref: 'd54de08'
+gem 'rails', github: 'rails/rails', ref: 'c519d1c'
 
 # Temporary includes
 gem 'bootstrap-sass'
