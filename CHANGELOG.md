@@ -5,6 +5,8 @@
   - Principal reviewers can now close agreements
 - **Blog Changes**
   - Community members can now more easily edit blogs
+- **Dataset Changes**
+  - Improved browsing file downloads on smaller devices
 - **Dashboard Changes**
   - Improved display of admin pages linked from the dashboard
 - **Forum Changes**
