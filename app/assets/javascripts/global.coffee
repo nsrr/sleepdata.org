@@ -23,6 +23,18 @@
   Turbolinks.allowLinkExtensions('md')
   Turbolinks.enableProgressBar()
 
+@initializeClipboard = () ->
+  clipboard = new Clipboard('[data-clipboard-target],[data-clipboard-text]')
+  clipboard.on('success', (e) ->
+    $(e.trigger).tooltip('show')
+    setTimeout(
+      () -> $(e.trigger).tooltip('destroy'),
+      1000
+    )
+    e.clearSelection()
+  )
+
+
 @ready = () ->
   contourReady()
   $("[rel=tooltip]").tooltip( trigger: 'hover' )
@@ -43,6 +55,7 @@
   fileDragReady()
   new WOW().init()
   fix_ie10_placeholder()
+  initializeClipboard()
 
 $(window).onbeforeunload = () -> return "You haven't saved your changes." if window.$isDirty
 $(document).ready(ready)

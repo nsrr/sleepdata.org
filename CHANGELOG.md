@@ -7,6 +7,7 @@
   - Community members can now more easily edit blogs
 - **Dataset Changes**
   - Improved browsing file downloads on smaller devices
+  - File download commands can now be easily copied to clipboard
 - **Dashboard Changes**
   - Improved display of admin pages linked from the dashboard
 - **Forum Changes**
