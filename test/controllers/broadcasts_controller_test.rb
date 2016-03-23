@@ -50,6 +50,14 @@ class BroadcastsControllerTest < ActionController::TestCase
     assert_redirected_to broadcast_path(assigns(:broadcast))
   end
 
+  test 'should not create broadcast with blank title' do
+    assert_difference('Broadcast.count', 0) do
+      post :create, broadcast: broadcast_params.merge(title: '')
+    end
+    assert_template 'new'
+    assert_response :success
+  end
+
   test 'should show broadcast' do
     get :show, id: @broadcast
     assert_response :success
@@ -63,6 +71,12 @@ class BroadcastsControllerTest < ActionController::TestCase
   test 'should update broadcast' do
     patch :update, id: @broadcast, broadcast: broadcast_params
     assert_redirected_to broadcast_path(assigns(:broadcast))
+  end
+
+  test 'should not update broadcast with blank title' do
+    patch :update, id: @broadcast, broadcast: broadcast_params.merge(title: '')
+    assert_template 'edit'
+    assert_response :success
   end
 
   test 'should destroy broadcast' do
