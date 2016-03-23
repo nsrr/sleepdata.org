@@ -16,12 +16,22 @@
   - Principal reviewers can now close agreements
 - **Blog Changes**
   - Community members can now more easily edit blogs
+  - Keywords can be added to blog posts to increase visibility on search engines
+- **Dataset Changes**
+  - Improved browsing file downloads on smaller devices
+  - File download commands can now be easily copied to clipboard
 - **Dashboard Changes**
   - Improved display of admin pages linked from the dashboard
+- **Forum Changes**
+  - Changing subscription preference on forum topics no longer reloads the
+    entire page
 - **Map Changes**
   - Map location is now pulled using a local database lookup
 - **Email Changes**
   - Removed margins in emails to display better across email clients
+- **Variable Changes**
+  - Variable labels are now added as meta page keywords to increase visibility
+    on search engines
 - **Gem Changes**
   - Updated to rails 4.2.6
   - Restricted mini_magick to 4.4.0

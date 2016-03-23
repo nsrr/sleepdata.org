@@ -77,7 +77,7 @@
         You have been
         %span.label.label-banned banned
         from commenting on this forum.
-  = render 'topics/subscribe_unsubscribe', topic: @topic
+  #topic-subscription= render 'topics/subscribe_unsubscribe', topic: @topic
 - else
   - content_for :call_to_action do
     .call-to-action

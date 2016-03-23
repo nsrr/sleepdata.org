@@ -7,6 +7,15 @@ class ToolsControllerTest < ActionController::TestCase
     @tool = tools(:one)
   end
 
+  def tool_params
+    {
+      name: @tool.name,
+      slug: @tool.slug,
+      description: @tool.description,
+      logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png')
+    }
+  end
+
   test 'should get sync for editor' do
     login(users(:editor))
     get :sync, params: { id: @tool }
@@ -102,7 +111,7 @@ class ToolsControllerTest < ActionController::TestCase
   test 'should create tool' do
     login(users(:admin))
     assert_difference('Tool.count') do
-      post :create, params: { tool: { logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), name: @tool.name, slug: 'new-tool', description: @tool.description } }
+      post :create, params: { tool: tool_params.merge(slug: 'new-tool') }
     end
 
     assert_redirected_to tool_path(assigns(:tool))
@@ -111,13 +120,14 @@ class ToolsControllerTest < ActionController::TestCase
   test 'should not create tool with blank name' do
     login(users(:admin))
     assert_difference('Tool.count', 0) do
-      post :create, params: { tool: { logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), name: '', slug: 'new-tool', description: @tool.description } }
+      post :create, params: {
+        tool: tool_params.merge(name: '', slug: 'new-tool')
+      }
     end
-
     assert assigns(:tool).errors.size > 0
     assert_equal ["can't be blank"], assigns(:tool).errors[:name]
-
     assert_template 'new'
+    assert_response :success
   end
 
   test 'should show tool' do
@@ -133,21 +143,24 @@ class ToolsControllerTest < ActionController::TestCase
 
   test 'should update tool' do
     login(users(:admin))
-    patch :update, params: { id: @tool, tool: { name: @tool.name, slug: @tool.slug, description: @tool.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png') } }
+    patch :update, params: { id: @tool, tool: tool_params }
     assert_redirected_to tool_path(assigns(:tool))
   end
 
   test 'should not update tool with blank name' do
     # TODO: This test is failing in Rails 5 when a blank name is passed.
     # Something is happening here with strong params and validations
-    skip
+    # This is related to:
+    # https://github.com/rails/rails/issues/23997
+    # and
+    # https://github.com/rack/rack/pull/1029
+    # Should be fixed when rack beyond 2.0.0.alpha is released
     login(users(:admin))
-    patch :update, params: { id: @tool, tool: { name: '', slug: @tool.slug, description: @tool.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png') } }
-    puts "#{assigns(:tool).errors.full_messages}"
+    patch :update, params: { id: @tool, tool: tool_params.merge(name: '') }
     assert assigns(:tool).errors.size > 0
     assert_equal ["can't be blank"], assigns(:tool).errors[:name]
-
     assert_template 'edit'
+    assert_response :success
   end
 
   test 'should destroy tool' do

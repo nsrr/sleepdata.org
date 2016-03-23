@@ -1,15 +1,15 @@
-.well{ style: "text-align:center;margin-top:20px" }
+.well{ style: 'text-align:center;margin-top:20px' }
   - if topic.subscribed?(current_user)
     You are subscribed to this topic. You may
     = succeed ' ' do
-      = link_to subscription_topic_path(topic, notify: '0'), method: :post, class: 'btn btn-xs btn-danger-inverse' do
+      = link_to subscription_topic_path(topic, notify: '0'), method: :post, remote: true, class: 'btn btn-xs btn-danger-inverse' do
         %span.glyphicon.glyphicon-volume-off
         unsubscribe
     to stop receiving updates for this topic.
   - else
     You may
     = succeed ' ' do
-      = link_to subscription_topic_path(topic, notify: '1'), method: :post, class: 'btn btn-xs btn-primary' do
+      = link_to subscription_topic_path(topic, notify: '1'), method: :post, remote: true, class: 'btn btn-xs btn-primary' do
         %span.glyphicon.glyphicon-envelope
         subscribe
     to receive updates for this topic.

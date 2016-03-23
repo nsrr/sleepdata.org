@@ -136,6 +136,9 @@ class ToolsController < ApplicationController
   end
 
   def tool_params
-    params.require(:tool).permit(:name, :description, :slug, :logo, :logo_cache, :public, :tool_type, :git_repository)
+    params.require(:tool).permit(
+      :name, :description, :slug, :logo, :logo_cache, :public, :tool_type,
+      :git_repository
+    )
   end
 end

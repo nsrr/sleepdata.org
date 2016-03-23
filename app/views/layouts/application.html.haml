@@ -6,7 +6,7 @@
     %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0'}
     %meta{ name: 'description', content: 'National Research Resource Resource offers free web access to large collections of de-identified physiological signals and clinical data elements collected in well-characterized research cohorts and clinical trials. The initial data resource is from the Sleep Heart Health Study.' }
     %meta{ name: 'author', content: '' }
-    %meta{ name: 'keywords', content: 'sleep data, research datasets, study, sleep apnea, free access, download datasets' }
+    %meta{ name: 'keywords', content: @keywords.present? ? @keywords : 'sleep data, research datasets, study, sleep apnea, free access, download datasets' }
 
     %title
       = [@title, 'National Sleep Research Resource'].compact.join(' - ').html_safe

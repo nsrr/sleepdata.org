@@ -59,7 +59,7 @@ class User < ApplicationRecord
   has_many :images
   has_many :reviews
   has_many :tags, -> { where deleted: false }
-  has_many :tools
+  has_many :tools, -> { current }
   has_many :topics, -> { where deleted: false }
   has_many :subscriptions
 

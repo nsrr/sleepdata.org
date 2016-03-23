@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Allows community managers to view and modify blog posts.
 class BroadcastsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_community_manager
@@ -7,7 +8,8 @@ class BroadcastsController < ApplicationController
 
   # GET /broadcasts
   def index
-    @broadcasts = Broadcast.current.order(publish_date: :desc).page(params[:page]).per(40)
+    @broadcasts = Broadcast.current.order(publish_date: :desc)
+                           .page(params[:page]).per(40)
   end
 
   # GET /broadcasts/1
@@ -16,7 +18,7 @@ class BroadcastsController < ApplicationController
 
   # GET /broadcasts/new
   def new
-    @broadcast = current_user.broadcasts.new(publish_date: Date.today)
+    @broadcast = current_user.broadcasts.new(publish_date: Time.zone.today)
   end
 
   # GET /broadcasts/1/edit
@@ -56,10 +58,11 @@ class BroadcastsController < ApplicationController
   end
 
   def broadcast_params
-    params[:broadcast] ||= {}
-    params[:broadcast][:publish_date] = parse_date(params[:broadcast][:publish_date]) if params[:broadcast].key?(:publish_date)
+    params[:broadcast] ||= { blank: '1' }
+    parse_date_if_key_present(:broadcast, :publish_date)
     params.require(:broadcast).permit(
       :title, :short_description, :description, :pinned, :archived,
-      :publish_date, :published)
+      :publish_date, :published, :keywords
+    )
   end
 end

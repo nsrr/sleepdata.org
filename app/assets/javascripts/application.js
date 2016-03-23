@@ -19,8 +19,6 @@
 //= require external/flashcanvas.js
 //= require external/jquery.signaturepad.min.js
 
-
-
 //= require global
 //= require agreement_events
 //= require agreements
@@ -59,3 +57,5 @@
 //= require components/affix
 
 //= require objects/images
+
+//= require external/clipboard-1.5.9.js
