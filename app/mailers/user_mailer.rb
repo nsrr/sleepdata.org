@@ -43,14 +43,12 @@ class UserMailer < ApplicationMailer
          subject: 'Your DAUA has been Signed by your Duly Authorized Representative')
   end
 
-  def daua_progress_notification(agreement, admin)
+  def daua_progress_notification(agreement, admin, agreement_event)
     setup_email
     @agreement = agreement
     @admin = admin
     @email_to = admin.email
-    @last_event = @agreement.history.last
-    @last_user = User.find_by_id(@last_event[:user_id])
-
+    @agreement_event = agreement_event
     mail(to: @email_to,
          subject: "#{@agreement.name}'s DAUA Status Changed to #{@agreement.status.titleize}")
   end

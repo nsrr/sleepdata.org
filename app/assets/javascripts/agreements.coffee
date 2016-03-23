@@ -38,3 +38,14 @@ $(document)
     if $('#isdirty').val() == '1'
       window.$isDirty = true
   )
+  .on('change', '#agreement_status', () ->
+    $('#resubmit-container').hide()
+    $('#approval-container').hide()
+    $('#agreement_approval_date, #agreement_expiration_date').prop('disabled', true)
+    switch $(this).val()
+      when 'approved'
+        $('#approval-container').show()
+        $('#agreement_approval_date, #agreement_expiration_date').prop('disabled', false)
+      when 'resubmit'
+        $('#resubmit-container').show()
+  )

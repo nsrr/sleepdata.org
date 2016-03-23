@@ -54,7 +54,7 @@
                 Your data access request was
                 = succeed '.' do
                   %strong approved
-                  = agreement.approval_date.strftime("on %-d %B %Y") if agreement.approval_date
+                  = agreement.approval_date.strftime('on %-d %B %Y') if agreement.approval_date
             %tr
               %td.text-right
                 %strong Status
@@ -62,7 +62,7 @@
                 - if agreement.expiration_date
                   This agreement expires
                   = succeed '.' do
-                    = agreement.expiration_date.strftime("on %-d %B %Y")
+                    = agreement.expiration_date.strftime('on %-d %B %Y')
           - elsif agreement.status == 'expired'
             %tr
               %td.text-right
@@ -71,10 +71,25 @@
                 Your data access request
                 = succeed '.' do
                   %strong expired
-                  =agreement.expiration_date.strftime(" on %-d %B %Y") if agreement.expiration_date
+                  = agreement.expiration_date.strftime(' on %-d %B %Y') if agreement.expiration_date
                 = link_to renew_agreement_path(agreement) do
                   Renew
                   %span.glyphicon.glyphicon-arrow-right
+          - elsif agreement.status == 'closed'
+            %tr
+              %td.text-right
+                %strong Status
+              %td
+                Your data access request has been
+                = succeed '.' do
+                  %strong closed
+            %tr
+              %td.text-right
+                %strong Actions
+              %td
+                = link_to destroy_submission_agreement_path(agreement), class: 'btn btn-xs btn-danger-inverse', method: :delete, data: { confirm: "Are you sure you want to delete Agreement ##{agreement.agreement_number}?" } do
+                  %span.glyphicon.glyphicon-trash
+                  Delete
           - else
             %tr
               %td.text-right

@@ -53,20 +53,6 @@ $(document)
     $($(this).data('target')).submit()
     false
   )
-  .on('click', '[data-object~="list-submit"]', () ->
-    $('#view').val('list')
-    $($(this).data('target')).submit()
-    false
-  )
-  .on('click', '[data-object~="grid-submit"]', () ->
-    $('#view').val('')
-    $($(this).data('target')).submit()
-    false
-  )
-  .on('click', "[data-basename]", () ->
-    $.get(root_url + 'collection_modal', { "basename": $(this).data('basename'), slug: $(this).data('slug'), d: $(this).data('d') }, null, "script")
-    return false
-  )
   .on('click', '[data-object~="hide-target"]', () ->
     $($(this).data('target')).hide()
     false
@@ -80,16 +66,6 @@ $(document)
   )
   .on('click', '[data-object~="enable-target"]', () ->
     $($(this).data('input-target')).prop('disabled', false);
-  )
-  .on('click', '[data-object~="agreement-update"]', () ->
-    $("#email-comments-container").hide()
-    $("#approval-date-container, #expiration-date-container").show()
-    $("#agreement_approval_date, #agreement_expiration_date").prop('disabled', false);
-  )
-  .on('click', '[data-object~="agreement-resubmit"]', () ->
-    $("#email-comments-container").show()
-    $("#approval-date-container, #expiration-date-container").hide()
-    $("#agreement_approval_date, #agreement_expiration_date").prop('disabled', true);
   )
   .on('click', '[data-object~="toggle-delete-buttons"]', () ->
     $($(this).data('target-show')).show()

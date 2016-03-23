@@ -5,8 +5,6 @@ one:
   user: valid
   dua: blank.pdf
   status: approved
-  history: [{ event_at: 2014-01-15, user_id: <%= ActiveRecord::FixtureSet.identify(:valid) %>, message: 'Data Access and Use Agreement submitted.', status: 'submitted' },
-            { event_at: 2014-01-17, user_id: <%= ActiveRecord::FixtureSet.identify(:admin) %>, message: 'Data Access and Use Agreement approved.', status: 'approved' }]
   approval_date: 2014-01-17
   expiration_date: <%= (Date.today + 5.years).strftime("%Y-%m-%d") %>
 
@@ -14,17 +12,12 @@ two:
   user: two
   dua: blank.pdf
   status: submitted
-  history: [{ event_at: 2014-01-15, user_id: <%= ActiveRecord::FixtureSet.identify(:valid) %>, message: 'Data Access and Use Agreement submitted.', status: 'submitted' }]
-  # approval_date: 2014-01-15
-  # expiration_date: 2014-01-15
 
 resubmit:
-  user: admin
+  user: valid
   dua: blank.pdf
   status: resubmit
   comments: There are missing fields that need to be added before this DAUA can be approved.
-  history: [{ event_at: 2014-01-15, user_id: <%= ActiveRecord::FixtureSet.identify(:valid) %>, message: 'Data Access and Use Agreement submitted.', status: 'submitted' },
-            { event_at: 2014-01-17, user_id: <%= ActiveRecord::FixtureSet.identify(:admin) %>, message: 'Data Access and Use Agreement sent back for resubmission.', status: 'resubmit' }]
   # approval_date: 2014-01-15
   # expiration_date: 2014-01-15
 

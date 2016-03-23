@@ -9,6 +9,7 @@ module AgreementsHelper
   def status_helper(agreement)
     status_hash = { 'approved' => 'success',
                     'resubmit' => 'danger',
+                    'closed' => 'danger',
                     'submitted' => 'primary',
                     'expired' => 'default',
                     '' => 'warning'

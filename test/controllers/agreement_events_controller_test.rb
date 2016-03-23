@@ -4,7 +4,7 @@ require 'test_helper'
 
 class AgreementEventsControllerTest < ActionController::TestCase
   setup do
-    @agreement_event = agreement_events(:one)
+    @agreement_event = agreement_events(:one_commented)
     @agreement = agreements(:one)
     @submitted = agreements(:submitted_application)
     @admin = users(:admin)

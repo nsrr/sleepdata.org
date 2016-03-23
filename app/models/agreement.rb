@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Allows users to request access to one or more datasets.
 class Agreement < ApplicationRecord
   # STEP 1 Fields:
   #   :data_user
@@ -30,8 +31,6 @@ class Agreement < ApplicationRecord
   # STEP 5 Fields
   #   :has_read_step5
 
-  serialize :history, Array
-
   mount_uploader :dua, PDFUploader
   mount_uploader :executed_dua, PDFUploader
   mount_uploader :irb, PDFUploader
@@ -40,7 +39,7 @@ class Agreement < ApplicationRecord
   # Callbacks
   after_create_commit :set_token
 
-  STATUS = %w(submitted approved resubmit expired started).collect { |i| [i, i] }
+  STATUS = %w(started submitted approved resubmit expired closed).collect { |i| [i, i] }
 
   attr_accessor :draft_mode, :full_mode
 
@@ -150,48 +149,50 @@ class Agreement < ApplicationRecord
     data_user_type == 'organization'
   end
 
-  def add_event!(message, current_user, status)
-    self.history << { message: message, user_id: current_user.id, event_at: Time.zone.now, status: status }
-    self.status = status
-    self.save
+  def close_daua!(current_user)
+    agreement_events.create event_type: 'principal_reviewer_closed', user_id: current_user.id, event_at: Time.zone.now
+  end
+
+  def expire_daua!(current_user)
+    agreement_events.create event_type: 'principal_reviewer_expired', user_id: current_user.id, event_at: Time.zone.now
   end
 
   def daua_approved_email(current_user)
-    add_event!('Data Access and Use Agreement approved.', current_user, 'approved')
-    agreement_events.create event_type: 'principal_reviewer_approved', user_id: current_user.id, event_at: Time.zone.now
+    agreement_event = agreement_events.create event_type: 'principal_reviewer_approved', user_id: current_user.id, event_at: Time.zone.now
     reviews.where(approved: nil).destroy_all
-    daua_approved_send_emails_in_background(current_user)
+    daua_approved_send_emails_in_background(current_user, agreement_event)
   end
 
-  def daua_approved_send_emails_in_background(current_user)
-    fork_process(:daua_approved_send_emails, current_user)
+  def daua_approved_send_emails_in_background(current_user, agreement_event)
+    fork_process(:daua_approved_send_emails, current_user, agreement_event)
   end
 
-  def daua_approved_send_emails(current_user)
+  def daua_approved_send_emails(current_user, agreement_event)
     UserMailer.daua_approved(self, current_user).deliver_later if EMAILS_ENABLED
-    notify_admins_on_daua_progress(current_user)
+    notify_admins_on_daua_progress(current_user, agreement_event)
   end
 
   def sent_back_for_resubmission_email(current_user)
-    add_event!('Data Access and Use Agreement sent back for resubmission.', current_user, 'resubmit')
-    agreement_events.create event_type: 'principal_reviewer_required_resubmission', user_id: current_user.id,
-                            event_at: Time.zone.now, comment: comments
-    daua_ask_for_resubmit_send_emails_in_background(current_user)
+    agreement_event = agreement_events.create(
+      event_type: 'principal_reviewer_required_resubmission',
+      user_id: current_user.id, event_at: Time.zone.now, comment: comments
+    )
+    daua_ask_for_resubmit_send_emails_in_background(current_user, agreement_event)
   end
 
-  def daua_ask_for_resubmit_send_emails_in_background(current_user)
-    fork_process(:daua_ask_for_resubmit_send_emails, current_user)
+  def daua_ask_for_resubmit_send_emails_in_background(current_user, agreement_event)
+    fork_process(:daua_ask_for_resubmit_send_emails, current_user, agreement_event)
   end
 
-  def daua_ask_for_resubmit_send_emails(current_user)
+  def daua_ask_for_resubmit_send_emails(current_user, agreement_event)
     UserMailer.sent_back_for_resubmission(self, current_user).deliver_later if EMAILS_ENABLED
-    notify_admins_on_daua_progress(current_user)
+    notify_admins_on_daua_progress(current_user, agreement_event)
   end
 
-  def notify_admins_on_daua_progress(current_user)
+  def notify_admins_on_daua_progress(current_user, agreement_event)
     other_admins = User.system_admins.where.not(id: current_user.id)
     other_admins.each do |admin|
-      UserMailer.daua_progress_notification(self, admin).deliver_later if EMAILS_ENABLED
+      UserMailer.daua_progress_notification(self, admin, agreement_event).deliver_later if EMAILS_ENABLED
     end
   end
 
@@ -218,14 +219,6 @@ class Agreement < ApplicationRecord
     dup_agreement.valid?
   end
 
-  def has_irb_evidence?
-    irb_evidence_type == 'has_evidence' && irb.size > 0
-  end
-
-  def no_irb_evidence?
-    irb_evidence_type == 'no_evidence'
-  end
-
   def draft_mode?
     draft_mode.to_s == '1'
   end
@@ -236,7 +229,7 @@ class Agreement < ApplicationRecord
 
   def fully_filled_out?
     self.full_mode = '1'
-    self.valid?
+    valid?
   end
 
   def latex_partial(partial)
