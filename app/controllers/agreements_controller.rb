@@ -2,16 +2,11 @@
 
 # Allows users and admins to submit and update agreements.
 class AgreementsController < ApplicationController
-  prepend_before_filter only: [:signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted] { request.env['devise.skip_timeout'] = true }
-  skip_before_action :verify_authenticity_token, only: [
-    :signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted
-  ]
-  before_action :authenticate_user!, except: [
-    :signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted
-  ]
+  before_action :authenticate_user!
   before_action :check_system_admin, except: [
-    :signature_requested, :duly_authorized_representative_submit_signature, :signature_submitted, :renew, :daua, :dua,
-    :create_step, :step, :update_step, :proof, :final_submission, :destroy_submission, :download_irb, :print, :complete, :new_step, :irb_assistance
+    :renew, :daua, :dua, :create_step, :step, :update_step, :proof,
+    :final_submission, :destroy_submission, :download_irb, :print, :complete,
+    :new_step, :irb_assistance
   ]
   before_action :find_viewable_submission_or_redirect, only: [:renew, :complete]
   before_action :find_editable_submission_or_redirect, only: [:step, :update_step, :proof, :final_submission]
@@ -20,33 +15,6 @@ class AgreementsController < ApplicationController
   before_action :set_downloadable_irb_agreement, only: [:download_irb, :print]
   before_action :set_agreement,                  only: [:destroy, :download, :update]
   before_action :redirect_without_agreement,     only: [:destroy, :download, :update, :download_irb, :print]
-
-  def signature_requested
-    @agreement = Agreement.current.where(id: params[:id], status: [nil, '', 'started', 'resubmit']).find_by_duly_authorized_representative_token(params[:duly_authorized_representative_token]) unless params[:duly_authorized_representative_token].blank?
-    @step = 4
-    unless @agreement
-      redirect_to root_path, alert: 'Agreement has been locked.'
-    end
-  end
-
-  def duly_authorized_representative_submit_signature
-    @agreement = Agreement.current.where(id: params[:id], status: [nil, '', 'started', 'resubmit']).find_by_duly_authorized_representative_token(params[:duly_authorized_representative_token]) unless params[:duly_authorized_representative_token].blank?
-    @step = 4
-    if @agreement
-      if AgreementTransaction.save_agreement!(@agreement, duly_authorized_params, current_user, request.remote_ip, 'public_agreement_update')
-        @agreement.update_column :current_step, 4
-        @agreement.send_daua_signed_email_in_background
-        redirect_to signature_submitted_agreements_path
-      else
-        render 'signature_requested'
-      end
-    else
-      redirect_to root_path, alert: 'Agreement has been locked.'
-    end
-  end
-
-  def signature_submitted
-  end
 
   def step
     if @step && @step > 0 && @step < 6
@@ -335,7 +303,7 @@ class AgreementsController < ApplicationController
   end
 
   def redirect_without_agreement
-    empty_response_or_root_path( current_user && current_user.system_admin? ? agreements_path : submissions_path ) unless @agreement
+    empty_response_or_root_path(current_user && current_user.system_admin? ? agreements_path : submissions_path) unless @agreement
   end
 
   def agreement_review_params
@@ -390,19 +358,6 @@ class AgreementsController < ApplicationController
         :irb_evidence_type, :irb,
       # Step Eight
         :title_of_project, :intended_use_of_data, :data_secured_location, :secured_device, :human_subjects_protections_trained
-    )
-  end
-
-  def duly_authorized_params
-    params[:agreement] ||= {}
-    params[:agreement][:duly_authorized_representative_signature_date] = parse_date(params[:agreement][:duly_authorized_representative_signature_date]) if params[:agreement].key?(:duly_authorized_representative_signature_date)
-    params[:agreement][:unauthorized_to_sign] = true
-    params.require(:agreement).permit(
-      :current_step,
-      # Duly Authorized Representative to Sign
-      :duly_authorized_representative_signature_print, :duly_authorized_representative_signature, :duly_authorized_representative_signature_date, :duly_authorized_representative_title,
-      # Automatically set
-      :unauthorized_to_sign
     )
   end
 end

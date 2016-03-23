@@ -124,6 +124,10 @@ class Agreement < ActiveRecord::Base
     "#{id}" + (user ? "-#{user.name.parameterize}" : '')
   end
 
+  def id_and_representative_token
+    "#{id}-#{duly_authorized_representative_token}"
+  end
+
   def agreement_number
     Agreement.where(user_id: user_id).order(:id).pluck(:id).index(id) + 1
   end
