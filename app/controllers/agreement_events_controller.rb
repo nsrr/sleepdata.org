@@ -4,27 +4,23 @@
 class AgreementEventsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_agreement_or_redirect
-  before_action :find_editable_agreement_event_or_redirect, only: [:show, :edit, :update, :destroy]
+  before_action :find_editable_agreement_event_or_redirect, only: [
+    :show, :edit, :update, :destroy
+  ]
 
-  # GET /agreement/1/agreement_events/1/edit.js
+  # GET /agreement/1/events/1/edit.js
   def edit
   end
 
-  # POST /agreement/1/agreement_events
-  # POST /agreement/1/agreement_events.js
+  # POST /agreement/1/events.js
   def create
-    @agreement_event = @agreement.agreement_events.where(user_id: current_user.id, event_at: Time.zone.now, event_type: 'commented').new(agreement_event_params)
-
-    respond_to do |format|
-      if @agreement_event.save
-        format.html { redirect_to review_path(@agreement) + "#c#{@agreement_event.number}", notice: 'Review was successfully created.' }
-        # redirect_to topic_comment_path(@topic, @comment), notice: 'Comment was successfully created.'
-        format.js { render :create }
-      else
-        format.html { redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.count}" }
-        # redirect_to topic_path(@topic, error: @errors)
-        format.js { render :new }
-      end
+    @agreement_event = @agreement.agreement_events
+                                 .where(user_id: current_user.id, event_at: Time.zone.now, event_type: 'commented')
+                                 .new(agreement_event_params)
+    if @agreement_event.save
+      render :create
+    else
+      render :new
     end
   end
 
@@ -34,41 +30,27 @@ class AgreementEventsController < ApplicationController
     if @agreement_event
       @agreement_event.comment = params[:agreement_event][:comment]
     else
-      @agreement_event = @agreement.agreement_events.where(user_id: current_user.id).new(agreement_event_params)
+      @agreement_event = @agreement.agreement_events.where(user_id: current_user.id)
+                                   .new(agreement_event_params)
     end
   end
 
-  # GET /agreements/1/agreement_events/1
-  # GET /agreements/1/agreement_events/1.js
+  # GET /agreements/1/events/1.js
   def show
-    respond_to do |format|
-      format.html { redirect_to review_path(@agreement) + "?page=#{((@agreement_event.number - 1) / AgreementEvent::AGREEMENT_EVENTS_PER_PAGE)+1}#c#{@agreement_event.number}" }
-      format.js
-    end
   end
 
-  # PATCH /agreement/1/agreement_events/1
-  # PATCH /agreement/1/agreement_events/1.js
+  # PATCH /agreement/1/events/1.js
   def update
-    respond_to do |format|
-      if @agreement_event.update(agreement_event_params)
-        format.html { redirect_to review_path(@agreement) + "#c#{@agreement_event.number}", notice: 'Comment was successfully updated.' }
-        format.js { render :show }
-      else
-        format.html { redirect_to review_path(@agreement) + "#c#{@agreement_event.number}", warning: 'Comment can\'t be blank.' }
-        format.js { render :edit }
-      end
+    if @agreement_event.update(agreement_event_params)
+      render :show
+    else
+      render :edit
     end
   end
 
-  # DELETE /agreement/1/agreement_events/1
+  # DELETE /agreement/1/events/1.js
   def destroy
     @agreement_event.destroy
-
-    respond_to do |format|
-      format.html { redirect_to agreement_agreement_event_path(@agreement, @agreement_event) }
-      format.js
-    end
   end
 
   private

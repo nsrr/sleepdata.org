@@ -63,7 +63,7 @@ Rails.application.routes.draw do
       delete :destroy_submission
     end
 
-    resources :agreement_events do
+    resources :agreement_events, path: 'events' do
       collection do
         post :preview
       end
