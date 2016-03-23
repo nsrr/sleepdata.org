@@ -1,7 +1,7 @@
 $(document)
   .on('click', '[data-object~="view-agreement-event-preview"]', () ->
     agreement_event_id = $(this).data('agreement-event-id')
-    $.post("#{root_url}agreements/#{$(this).data('agreement-id')}/agreement_events/preview",
+    $.post("#{root_url}agreements/#{$(this).data('agreement-id')}/events/preview",
       $("#agreement_event_comment_#{agreement_event_id}").serialize() +
       "&agreement_event_id=#{agreement_event_id}", null, 'script')
     false

@@ -164,3 +164,8 @@ approved_but_deleted_for_a_b_not_c:
   user: has_approved_but_deleted_agreement_for_a_b_not_c
   status: approved
   deleted: true
+
+sign_by_representative:
+  user: valid
+  status: started
+  duly_authorized_representative_token: sign_by_representative

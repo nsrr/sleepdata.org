@@ -39,18 +39,23 @@ Rails.application.routes.draw do
 
   resources :broadcasts
 
+  scope module: :agreements do
+    namespace :representative do
+      get ':representative_token/signature-requested', action: 'signature_requested', as: :signature_requested
+      get ':representative_token/submit-signature', action: 'signature_requested'
+      patch ':representative_token/submit-signature', action: 'submit_signature', as: :submit_signature
+      get 'signature-submitted', action: 'signature_submitted', as: :signature_submitted
+    end
+  end
+
   resources :agreements do
     collection do
       get :new_step
       post :create_step
       get :submissions
-      get 'signature-submitted', action: 'signature_submitted', as: :signature_submitted
       get :export
     end
     member do
-      get ':duly_authorized_representative_token/signature-requested', action: 'signature_requested', as: :signature_requested
-      get ':duly_authorized_representative_token/duly_authorized_representative_submit_signature', action: 'signature_requested'
-      patch ':duly_authorized_representative_token/duly_authorized_representative_submit_signature', action: 'duly_authorized_representative_submit_signature', as: :duly_authorized_representative_submit_signature
       get :download
       get :step
       patch :update_step
@@ -63,7 +68,7 @@ Rails.application.routes.draw do
       delete :destroy_submission
     end
 
-    resources :agreement_events do
+    resources :agreement_events, path: 'events' do
       collection do
         post :preview
       end

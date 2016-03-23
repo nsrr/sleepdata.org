@@ -50,9 +50,13 @@ class AgreementEventsControllerTest < ActionController::TestCase
 
   test 'should not create agreement comment as anonymous user' do
     assert_difference('Comment.count', 0) do
-      post :create, params: { agreement_id: @agreement, agreement_event: { comment: 'I am not logged in.' } }
+      post :create, params: {
+        agreement_id: @agreement,
+        agreement_event: { comment: 'I am not logged in.' }
+      }, format: 'js'
     end
-    assert_redirected_to new_user_session_path
+    assert_template nil
+    assert_response :unauthorized
   end
 
   # test 'should get show and redirect to specific page and location on topic' do

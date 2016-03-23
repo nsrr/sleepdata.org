@@ -95,7 +95,7 @@
   .row
     .col-md-offset-3.col-md-6
 
-      = form_for @agreement, url: duly_authorized_representative_submit_signature_agreement_path(@agreement, duly_authorized_representative_token: @agreement.duly_authorized_representative_token), method: :patch, html: { class: 'form-vertical', id: 'update_step_form', data: { object: 'signature', signature_target: '.output-write' } } do |f|
+      = form_for @agreement, url: representative_submit_signature_path(@agreement.id_and_representative_token), method: :patch, html: { class: 'form-vertical', id: 'update_step_form', data: { object: 'signature', signature_target: '.output-write' } } do |f|
 
         = hidden_field_tag 'agreement[draft_mode]', nil
         = hidden_field_tag 'step', @step

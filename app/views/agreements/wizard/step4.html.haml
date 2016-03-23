@@ -54,7 +54,7 @@
         .panel-heading
           Option 2 - Duly Authorized Representative Signature
         .panel-body
-          - signature_request_url = "#{ENV['website_url']}/agreements/#{@agreement.to_param}/#{@agreement.duly_authorized_representative_token}/signature-requested"
+          - signature_request_url = "#{ENV['website_url']}/representative/#{@agreement.id_and_representative_token}/signature-requested"
           .form-group
             .radio
               %label
