@@ -7,6 +7,9 @@
   - Community members can now more easily edit blogs
 - **Dashboard Changes**
   - Improved display of admin pages linked from the dashboard
+- **Forum Changes**
+  - Changing subscription preference on forum topics no longer reloads the
+    entire page
 - **Map Changes**
   - Map location is now pulled using a local database lookup
 - **Email Changes**

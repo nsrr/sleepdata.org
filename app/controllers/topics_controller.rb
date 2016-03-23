@@ -12,9 +12,9 @@ class TopicsController < ApplicationController
   def markup
   end
 
+  # POST /forum/1-my-first-topic/subscription.js
   def subscription
     @topic.set_subscription!(params[:notify].to_s == '1', current_user)
-    redirect_to @topic
   end
 
   # POST /forum/1-my-first-topic/admin

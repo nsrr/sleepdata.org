@@ -16,24 +16,27 @@ class TopicsControllerTest < ActionController::TestCase
 
   test 'should subscribe to notifications' do
     login(users(:valid))
-    get :subscription, id: @topic, notify: '1'
+    post :subscription, id: @topic, notify: '1', format: 'js'
     assert_not_nil assigns(:topic)
     assert_equal true, assigns(:topic).subscribed?(users(:valid))
-    assert_redirected_to assigns(:topic)
+    assert_template 'subscription'
+    assert_response :success
   end
 
   test 'should unsubscribe from notifications' do
     login(users(:valid))
-    get :subscription, id: @topic, notify: '0'
+    post :subscription, id: @topic, notify: '0', format: 'js'
     assert_not_nil assigns(:topic)
     assert_equal false, assigns(:topic).subscribed?(users(:valid))
-    assert_redirected_to assigns(:topic)
+    assert_template 'subscription'
+    assert_response :success
   end
 
   test 'should not subscribe for anonymous user' do
-    get :subscription, id: @topic, notify: '1'
+    post :subscription, id: @topic, notify: '1', format: 'js'
     assert_nil assigns(:topic)
-    assert_redirected_to new_user_session_path
+    assert_template nil
+    assert_response :unauthorized
   end
 
   test 'should get index' do
