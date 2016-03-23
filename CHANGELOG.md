@@ -5,6 +5,7 @@
   - Principal reviewers can now close agreements
 - **Blog Changes**
   - Community members can now more easily edit blogs
+  - Keywords can be added to blog posts to increase visibility on search engines
 - **Dataset Changes**
   - Improved browsing file downloads on smaller devices
   - File download commands can now be easily copied to clipboard
