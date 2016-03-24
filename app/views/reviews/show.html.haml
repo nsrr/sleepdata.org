@@ -39,7 +39,7 @@
         %li{ style: 'padding-bottom: 5px' }
           = status_helper(a)
           = link_to a.name_with_id, review_path(a), class: 'callout-link'
-          - a.datasets.each do |dataset|
+          - a.datasets.order(:release_date, :name).each do |dataset|
             = render 'datasets/mini', dataset: dataset
 
 .content-container

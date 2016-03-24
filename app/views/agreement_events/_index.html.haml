@@ -1,5 +1,6 @@
 - if @agreement.agreement_events.count == 0
-  %p.center.text-muted This Agreement Has No Events
+  .jumbotron
+    %p.center.text-muted This agreement has no events.
 - else
   - @agreement.agreement_events.each_with_index do |agreement_event, index|
     - current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1)
