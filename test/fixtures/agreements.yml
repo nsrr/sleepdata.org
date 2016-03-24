@@ -23,6 +23,7 @@ resubmit:
 
 filled_out_application_with_attached_irb_file:
   user: valid
+  status: started
   current_step: 7
   data_user: Valid User
   data_user_type: individual
@@ -83,6 +84,7 @@ submitted_application:
 
 step1_saved_as_draft:
   user: valid
+  status: started
   # current_step:
   # data_user:
   # data_user_type:
@@ -152,7 +154,7 @@ submitted_for_a_b_not_c:
 
 started_for_a_b_not_c:
   user: has_started_agreement_for_a_b_not_c
-  # status:
+  status: started
   deleted: false
 
 resubmit_for_a_b_not_c:

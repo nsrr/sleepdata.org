@@ -52,9 +52,11 @@ class Agreement < ActiveRecord::Base
   scope :not_expired, -> { where("agreements.expiration_date IS NULL or agreements.expiration_date >= ?", Date.today) }
   scope :with_tag, lambda { |arg| where('agreements.id in (select agreement_tags.agreement_id from agreement_tags where agreement_tags.tag_id = ?)', arg).references(:agreement_tags) }
   scope :regular_members, -> { where("agreements.user_id in (select users.id from users where users.deleted = ? and users.aug_member = ? and users.core_member = ?)", false, false, false).references(:users) }
+  scope :submittable, -> { where(status: %w(started resubmit)) }
+  scope :deletable, -> { where(status: %w(started resubmit closed)) }
 
   # Model Validation
-  validates :user_id, presence: true
+  validates :user_id, :status, presence: true
   validates :duly_authorized_representative_token, uniqueness: true, allow_nil: true
 
   validates :reviewer_signature, :approval_date, :expiration_date, presence: true, if: :approved?
@@ -121,7 +123,7 @@ class Agreement < ActiveRecord::Base
   end
 
   def to_param
-    "#{id}" + (user ? "-#{user.name.parameterize}" : '')
+    id.to_s + (user ? "-#{user.name.parameterize}" : '')
   end
 
   def id_and_representative_token

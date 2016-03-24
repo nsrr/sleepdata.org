@@ -28,7 +28,7 @@ class AgreementsController < ApplicationController
 
   def new_step
     @step = 1
-    @agreement = current_user.agreements.new( data_user: current_user.name )
+    @agreement = current_user.agreements.new(data_user: current_user.name)
     render "agreements/wizard/step#{@step}"
   end
 
@@ -285,16 +285,12 @@ class AgreementsController < ApplicationController
   end
 
   def find_editable_submission_or_redirect
-    @agreement = current_user.agreements
-                             .where(status: [nil, '', 'started', 'resubmit'])
-                             .find_by_id params[:id]
+    @agreement = current_user.agreements.submittable.find_by_id params[:id]
     redirect_without_submission
   end
 
   def find_deletable_submission_or_redirect
-    @agreement = current_user.agreements
-                             .where(status: [nil, '', 'started', 'resubmit', 'closed'])
-                             .find_by_id params[:id]
+    @agreement = current_user.agreements.deletable.find_by_id params[:id]
     redirect_without_submission
   end
 

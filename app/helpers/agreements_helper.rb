@@ -7,13 +7,6 @@ module AgreementsHelper
   end
 
   def status_helper(agreement)
-    status_hash = { 'approved' => 'success',
-                    'resubmit' => 'danger',
-                    'closed' => 'danger',
-                    'submitted' => 'primary',
-                    'expired' => 'default',
-                    '' => 'warning'
-                  }
     content_tag(
       :span, agreement.status.blank? ? 'started' : agreement.status,
       class: "label label-#{status_hash[agreement.status.to_s]}"
@@ -38,5 +31,16 @@ module AgreementsHelper
     else
       'unchecked'
     end
+  end
+
+  def status_hash
+    {
+      'started' => 'warning',
+      'submitted' => 'primary',
+      'approved' => 'success',
+      'resubmit' => 'danger',
+      'expired' => 'default',
+      'closed' => 'danger'
+    }
   end
 end
