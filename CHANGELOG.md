@@ -23,6 +23,8 @@
 - **Variable Changes**
   - Variable labels are now added as meta page keywords to increase visibility
     on search engines
+  - Variable forms now display a message if the file is available only viewable
+    with a data access and use agreement
 - **Gem Changes**
   - Updated to rails 4.2.6
   - Restricted mini_magick to 4.4.0

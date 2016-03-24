@@ -24,4 +24,12 @@ class Form < ActiveRecord::Base
   def extension
     code_book.split('.').last.to_s.downcase
   end
+
+  def viewable_by_user?(current_user)
+    dataset.grants_file_access_to?(current_user) || dataset.public_file?(full_location)
+  end
+
+  def full_location
+    ['forms', folder, code_book].reject(&:blank?).join('/')
+  end
 end

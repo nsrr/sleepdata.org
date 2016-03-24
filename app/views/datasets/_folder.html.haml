@@ -36,8 +36,8 @@
 - else
   - content_for :call_to_action do
     .call-to-action
-      - agreements = (current_user ? @dataset.agreements.where( user_id: current_user.id ) : Agreement.none)
-      - if agreement = agreements.where(status: 'submitted').first
+      - agreements = (current_user ? @dataset.agreements.where(user_id: current_user.id) : Agreement.none)
+      - if agreement = agreements.find_by(status: 'submitted')
         .call-to-action-body
           We are currently reviewing your
           = status_helper_simple(agreement)
@@ -47,7 +47,7 @@
           Please contact us directly at
           = mail_to 'support@sleepdata.org'
           with any questions.
-      - elsif agreement = agreements.where(status: 'resubmit').first
+      - elsif agreement = agreements.find_by(status: 'resubmit')
         .call-to-action-body
           You are required to
           = status_helper_simple(agreement)
@@ -59,26 +59,23 @@
       - elsif agreement = agreements.expired.first
         - agreement.update status: 'expired'
         .call-to-action-body
-          Your DAUA is
+          Your DAUA has
           = succeed '.' do
             = status_helper_simple(agreement)
         .call-to-action-body
           You will need to
           = link_to 'renew your DAUA', submissions_path
           to continue downloading files.
-      - elsif agreement = agreements.where( status: ['', 'started', nil] ).first
+      - elsif agreement = agreements.find_by(status: 'started')
         .call-to-action-body
-          You have
-          = status_helper_simple(agreement)
-          filling out a
+          Please complete your
           - if agreement.fully_filled_out?
-            = succeed '.' do
-              = link_to 'DAUA', proof_agreement_path(agreement)
+            = link_to 'DAUA', proof_agreement_path(agreement)
           - else
-            = succeed '.' do
-              = link_to 'DAUA', step_agreement_path(agreement, step: agreement.current_step)
+            = link_to 'DAUA', step_agreement_path(agreement, step: agreement.current_step)
+          to gain file access.
         .call-to-action-body
-          Please contact us directly at
+          You may contact us directly at
           = mail_to 'support@sleepdata.org'
           with any questions regarding the process.
       - else
