@@ -7,7 +7,18 @@
     - dataset_forms_folder = files_dataset_path(@dataset) + "/forms/#{@form.folder}?f=#{CGI::escape @form.code_book.to_s}"
     - direct_download = files_dataset_path(@dataset) + "/m/browser/#{@form.full_location}"
     - inline_url = files_dataset_path(@dataset) + "/m/browser/#{@form.full_location}?inline=1"
-    - if @form.viewable_by_user?(current_user)
+    - if @form.file_missing?
+      .callout.callout-danger
+        %strong
+          Form Missing From Server
+      .jumbotron
+        %p
+          The dataset owner has not uploaded
+          %code= @form.code_book
+          to the server. Please contact
+          = mail_to ENV['support_email'], ENV['support_email'], subject: 'Missing Variable Form on NSRR', body: "The file \"#{@form.code_book}\" for #{@dataset.slug}/variables/#{@variable.name} is missing from server."
+          to notify us of the missing file.
+    - elsif @form.viewable_by_user?(current_user)
       %div{ style: 'position:relative' }
         %div{ style: 'position:absolute; top: -30px; right: 0' }
           = link_to direct_download, class: 'btn btn-default btn-xs' do

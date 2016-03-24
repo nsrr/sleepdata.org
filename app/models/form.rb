@@ -32,4 +32,8 @@ class Form < ActiveRecord::Base
   def full_location
     ['forms', folder, code_book].reject(&:blank?).join('/')
   end
+
+  def file_missing?
+    !File.exist?(dataset.find_file(full_location))
+  end
 end
