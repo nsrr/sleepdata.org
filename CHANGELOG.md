@@ -3,6 +3,7 @@
 ### Enhancements
 - **Agreement Changes**
   - Principal reviewers can now close agreements
+  - Review process now quickly displays past datasets approved for data user
 - **Blog Changes**
   - Community members can now more easily edit blogs
   - Keywords can be added to blog posts to increase visibility on search engines
