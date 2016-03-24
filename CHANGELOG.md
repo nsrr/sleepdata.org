@@ -18,6 +18,8 @@
     entire page
 - **Map Changes**
   - Map location is now pulled using a local database lookup
+- **Mobile Changes**
+  - Added a link to the user dashboard in mobile navigation menu
 - **Email Changes**
   - Removed margins in emails to display better across email clients
 - **Variable Changes**
