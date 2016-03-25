@@ -1,0 +1,106 @@
+# TODO: fill in actual file_size, file_time, and checksum
+# TODO: Fill in other dataset files
+
+public_datasets:
+  dataset: public
+  full_path: "datasets"
+  folder: ""
+  file_name: datasets
+  is_file: false
+  # file_size: 1
+  # file_time: 2016-03-25 10:15:40
+  # file_checksum_md5: MyString
+  # checksum_md5_generated_at: 2016-03-25 10:15:40
+  # publicly_available: false
+  # archived: false
+
+public_datasets_rails_png:
+  dataset: public
+  full_path: "datasets/rails.png"
+  folder: "datasets/"
+  file_name: rails.png
+  is_file: true
+  # file_size: 1
+  # file_time: 2016-03-25 10:15:40
+  # file_checksum_md5: MyString
+  # checksum_md5_generated_at: 2016-03-25 10:15:40
+  # publicly_available: false
+  # archived: false
+
+public_subfolder:
+  dataset: public
+  full_path: "subfolder"
+  folder: ""
+  file_name: subfolder
+  is_file: false
+  # file_size: 1
+  # file_time: 2016-03-25 10:15:40
+  # file_checksum_md5: MyString
+  # checksum_md5_generated_at: 2016-03-25 10:15:40
+  # publicly_available: false
+  # archived: false
+
+public_subfolder_another_folder:
+  dataset: public
+  full_path: "subfolder/another_folder"
+  folder: "subfolder/"
+  file_name: another_folder
+  is_file: false
+  # file_size: 1
+  # file_time: 2016-03-25 10:15:40
+  # file_checksum_md5: MyString
+  # checksum_md5_generated_at: 2016-03-25 10:15:40
+  # publicly_available: false
+  # archived: false
+
+public_subfolder_another_folder_3_txt:
+  dataset: public
+  full_path: "subfolder/another_folder/3.txt"
+  folder: "subfolder/another_folder/"
+  file_name: 3.txt
+  is_file: true
+  # file_size: 1
+  # file_time: 2016-03-25 10:15:40
+  # file_checksum_md5: MyString
+  # checksum_md5_generated_at: 2016-03-25 10:15:40
+  # publicly_available: false
+  # archived: false
+
+public_subfolder_1_txt:
+  dataset: public
+  full_path: "subfolder/1.txt"
+  folder: "subfolder/"
+  file_name: 1.txt
+  is_file: true
+  # file_size: 1
+  # file_time: 2016-03-25 10:15:40
+  # file_checksum_md5: MyString
+  # checksum_md5_generated_at: 2016-03-25 10:15:40
+  # publicly_available: false
+  # archived: false
+
+public_subfolder_2_txt:
+  dataset: public
+  full_path: "subfolder/2.txt"
+  folder: "subfolder/"
+  file_name: 2.txt
+  is_file: true
+  # file_size: 1
+  # file_time: 2016-03-25 10:15:40
+  # file_checksum_md5: MyString
+  # checksum_md5_generated_at: 2016-03-25 10:15:40
+  # publicly_available: false
+  # archived: false
+
+public_download_me_txt:
+  dataset: public
+  full_path: "DOWNLOAD_ME.txt"
+  folder: ""
+  file_name: DOWNLOAD_ME.txt
+  is_file: true
+  # file_size: 1
+  # file_time: 2016-03-25 10:15:40
+  # file_checksum_md5: MyString
+  # checksum_md5_generated_at: 2016-03-25 10:15:40
+  # publicly_available: false
+  # archived: false

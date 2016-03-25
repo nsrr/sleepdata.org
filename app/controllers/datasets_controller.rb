@@ -125,6 +125,8 @@ class DatasetsController < ApplicationController
           Rails.logger.debug "Generating Index for #{folder_string}"
           @dataset.create_folder_index(folder)
 
+          @dataset.generate_new_files_in_folder(folder)
+
           Rails.logger.debug 'Refresh Dataset Folder Complete'
 
           Kernel.exit!

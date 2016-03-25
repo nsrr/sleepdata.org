@@ -11,6 +11,8 @@
 - **Dataset Changes**
   - Improved browsing file downloads on smaller devices
   - File download commands can now be easily copied to clipboard
+  - Dataset tracking of file information, like MD5 and file size, has been
+    improved
 - **Dashboard Changes**
   - Improved display of admin pages linked from the dashboard
 - **Forum Changes**

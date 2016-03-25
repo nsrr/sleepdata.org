@@ -37,6 +37,8 @@ class Dataset < ActiveRecord::Base
   has_many :requests
   has_many :agreements, -> { where deleted: false }, through: :requests
 
+  has_many :dataset_files
+
   def public_file?(path)
     public_files.where(file_path: file_path(path)).count > 0
   end
@@ -94,6 +96,44 @@ class Dataset < ActiveRecord::Base
   def lock_folder!(location = nil)
     lock_file = File.join(files_folder, location.to_s, '.sleepdata.md5inprogress')
     File.write(lock_file, '')
+  end
+
+  def generate_new_files_in_folder(location)
+    folder = location.blank? ? '' : "#{location}/"
+    dataset_files.current.where(folder: folder).find_each do |dataset_file|
+      dataset_file.destroy unless dataset_file.file_exist?
+    end
+    Dir.glob(File.join(files_folder, location.to_s, '*')).each do |file|
+      find_or_create_dataset_file(file)
+    end
+  end
+
+  def find_or_create_dataset_file(file)
+    full_path = file.gsub(%r{^#{files_folder}/}, '')
+    file_name = file.split('/').last
+    folder = full_path.gsub(/#{file_name}$/, '')
+    file_size = File.size(file)
+    file_time = File.mtime(file)
+    is_file = File.file?(file)
+    if is_file
+      file_checksum_md5 = Digest::MD5.file(file).hexdigest
+      checksum_md5_generated_at = Time.zone.now
+    else
+      file_checksum_md5 = nil
+      checksum_md5_generated_at = nil
+    end
+    dataset_file = dataset_files.where(full_path: full_path, is_file: is_file)
+                                .first_or_create(
+                                  folder: folder, file_name: file_name,
+                                  file_size: file_size, file_time: file_time
+                                )
+    dataset_file.update(
+      folder: folder, file_name: file_name, file_size: file_size,
+      file_time: file_time, file_checksum_md5: file_checksum_md5,
+      checksum_md5_generated_at: checksum_md5_generated_at, deleted: false
+    )
+    # These are set elsewhere and shouldn't be overwritten
+    # :publicly_available, :archived
   end
 
   def create_folder_index(location = nil)
