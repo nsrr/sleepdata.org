@@ -274,13 +274,8 @@ class Dataset < ActiveRecord::Base
     folders = path.to_s.split('/')[0..-2].collect(&:strip)
     name = path.to_s.split('/').last.to_s.strip
     clean_folder_path = find_file_folder(folders.join('/'))
-
-    entries = Dir.entries(File.join(files_folder, clean_folder_path.to_s)).reject { |e| e.first == '.'}
+    entries = Dir.entries(File.join(files_folder, clean_folder_path.to_s)).reject { |e| e.first == '.' }
     clean_file_name = entries.find { |e| e == name }
-
-    # clean_file_name = indexed_files(clean_folder_path, -1)
-    #                   .select { |_folder, file_name, is_file, _file_size, _file_time| is_file && file_name == name }
-    #                   .collect { |_folder, file_name, _is_file, _file_size, _file_time| file_name }.first
     File.join(files_folder, clean_folder_path.to_s, clean_file_name.to_s)
   end
 
