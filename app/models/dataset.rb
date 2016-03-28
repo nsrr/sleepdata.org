@@ -38,10 +38,6 @@ class Dataset < ActiveRecord::Base
 
   has_many :dataset_files
 
-  def public_file?(full_path)
-    dataset_files.where(full_path: full_path).count > 0
-  end
-
   def chartable_variables
     variables.order(:folder, :name)
   end
@@ -184,73 +180,6 @@ class Dataset < ActiveRecord::Base
     File.exist?(lock_file)
   end
 
-  # Returns [[folder, file_name, is_file, file_size, file_time, file_digest], [...], ... ]
-  # index -1 is all files
-  # index 0 is the file count
-  # index 1 is the first page
-  def indexed_files(location = nil, page = 1)
-    files = []
-    index_file = File.join(files_folder, location.to_s, '.sleepdata.index')
-    # Return if the folder does not exist
-    unless File.directory?(File.join(files_folder, location.to_s))
-      return (page == 0 ? 0 : files)
-    end
-    if Rails.env.test?
-      create_folder_index(location)
-    elsif !File.exist?(index_file)
-      return (page == 0 ? 0 : files)
-    end
-    index = 0
-    IO.foreach(index_file) do |line|
-      if index == page
-        files = if index == 0
-                  line.to_i
-                else
-                  JSON.parse(line.strip)
-                end
-        break
-      elsif page == -1 && index != 0
-        files += JSON.parse(line.strip)
-      end
-      index += 1
-    end
-    files = files.count if page == 0 && files.is_a?(Array)
-    files
-  end
-
-  def total_file_count(location = nil)
-    file_count = 0
-    index_files = Dir.glob(File.join(files_folder, location.to_s, '**', '.sleepdata.index'))
-    return 0 if index_files.count == 0
-    index_files.each do |index_file|
-      IO.foreach(index_file) do |line|
-        file_count += line.to_i
-        break
-      end
-    end
-    file_count - (index_files.count - 1)
-  end
-
-  def count_total_file_size
-    files = []
-    index_files = Dir.glob(File.join(files_folder, '**', '.sleepdata.index'))
-    return 0 if index_files.count == 0
-    index_files.each do |index_file|
-      index = 0
-      IO.foreach(index_file) do |line|
-        if index != 0
-          files += JSON.parse(line.strip).select { |f| f[2] }.collect { |f| f[3] }
-        end
-        index += 1
-      end
-    end
-    files.sum
-  end
-
-  def folder_has_files?(location)
-    indexed_files(location, -1).count { |_folder, _file_name, is_file, _file_size, _file_time| is_file } > 0
-  end
-
   def file_path(file)
     file.gsub(files_folder + '/', '')
   end
@@ -277,10 +206,6 @@ class Dataset < ActiveRecord::Base
     entries = Dir.entries(File.join(files_folder, clean_folder_path.to_s)).reject { |e| e.first == '.' }
     clean_file_name = entries.find { |e| e == name }
     File.join(files_folder, clean_folder_path.to_s, clean_file_name.to_s)
-  end
-
-  def color
-    colors(Dataset.order(:id).pluck(:id).index(id))
   end
 
   def recompute_datasets_folder_indices_in_background(folders)
@@ -313,14 +238,5 @@ class Dataset < ActiveRecord::Base
       count += 1 if info_funded_by.present?
       count
     end
-  end
-
-  private
-
-  def colors(index)
-    colors = %w(#bfbf0d #9a9cff #16a766 #4986e7 #cb74e6 #9f33e6 #ff7637 #92e1c0
-                #d06c64 #9fc6e7 #c2c2c2 #fa583c #AC725E #cca6ab #b89aff #f83b22
-                #43d691 #F691B2 #a67ae2 #FFAD46 #b3dc6c #4733e6 #7dd148)
-    colors[index.to_i % colors.size]
   end
 end

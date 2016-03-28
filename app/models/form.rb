@@ -26,7 +26,8 @@ class Form < ActiveRecord::Base
   end
 
   def viewable_by_user?(current_user)
-    dataset.grants_file_access_to?(current_user) || dataset.public_file?(full_location)
+    dataset_file = dataset.dataset_files.current.find_by(full_path: full_location, is_file: true)
+    dataset_file ? dataset_file.downloadable_by_user?(current_user) : false
   end
 
   def full_location

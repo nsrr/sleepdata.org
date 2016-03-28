@@ -28,9 +28,10 @@ class DatasetsController < ApplicationController
 
   # GET /datasets/1/json_manifest
   def json_manifest
-    @folder_path = @dataset.find_file_folder(params[:path])
-    if @folder_path == params[:path]
-      render json: @dataset.indexed_files(@folder_path, -1).collect { |folder, file_name, is_file, file_size, file_time, file_checksum| { file_name: file_name, checksum: file_checksum, is_file: is_file, file_size: file_size, dataset: @dataset.slug, file_path: folder } }
+    path = @dataset.find_file_folder(params[:path])
+    folder = path.blank? ? '' : "#{path}/"
+    if path == params[:path]
+      @dataset_files = @dataset.dataset_files.current.where(folder: folder)
     else
       render json: []
     end
