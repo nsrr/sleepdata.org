@@ -12,6 +12,11 @@
         = link_to 'NSRR', root_path, class: 'navbar-brand brand'
       .collapse.navbar-collapse.navbar-full-menu
         %ul.nav.navbar-nav
+          - if current_user
+            %li.visible-xs{ class: "#{ 'active' if current_page?(dashboard_path) }" }
+              = link_to dashboard_path do
+                %span.glyphicon.glyphicon-blackboard
+                = current_user.first_name
           %li{ class: "#{ 'active' if %w(datasets variables).include?(params[:controller]) }" }
             = link_to datasets_path do
               %span.glyphicon.glyphicon-cloud
@@ -41,7 +46,6 @@
             = link_to about_path do
               %span.glyphicon.glyphicon-leaf
               About
-
 
         - if current_user
           %form.navbar-form.navbar-right

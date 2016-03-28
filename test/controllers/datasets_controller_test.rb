@@ -8,124 +8,39 @@ class DatasetsControllerTest < ActionController::TestCase
   end
 
   test 'should get editor status as editor' do
-    get :editor, params: { id: datasets(:public), auth_token: users(:editor).id_and_auth_token, format: 'json' }
-
+    get :editor, params: { id: datasets(:public), auth_token: users(:editor).id_and_auth_token }, format: 'json'
     assert_not_nil response
     assert_equal "{\"editor\":true,\"user_id\":#{users(:editor).id}}", response.body
     assert_response :success
   end
 
   test 'should get non-editor status as viewer' do
-    get :editor, params: { id: datasets(:mixed), auth_token: users(:valid).id_and_auth_token, format: 'json' }
-
+    get :editor, params: { id: datasets(:mixed), auth_token: users(:valid).id_and_auth_token }, format: 'json'
     assert_not_nil response
     assert_equal "{\"editor\":false,\"user_id\":#{users(:valid).id}}", response.body
     assert_response :success
   end
 
   test 'should get non-editor status as anonymous' do
-    get :editor, params: { id: datasets(:public), auth_token: '', format: 'json' }
-
+    get :editor, params: { id: datasets(:public), auth_token: '' }, format: 'json'
     assert_not_nil response
     assert_equal '{"editor":false,"user_id":null}', response.body
     assert_response :success
   end
 
-  test 'should reset index as editor' do
-    login(users(:editor_mixed))
-    post :reset_index, params: { id: datasets(:mixed), path: nil }
-
-    assert_redirected_to files_dataset_path(assigns(:dataset), path: '')
-  end
-
-  test 'should not reset index as viewer' do
-    login(users(:valid))
-    post :reset_index, params: { id: datasets(:mixed), path: nil }
-
-    assert_redirected_to datasets_path
-  end
-
-  test 'should not reset index as anonymous' do
-    post :reset_index, params: { id: datasets(:mixed), path: nil }
-    assert_redirected_to new_user_session_path
-  end
-
-  test 'should set file as public as editor' do
-    login(users(:editor_mixed))
-    assert_difference('PublicFile.count') do
-      post :set_public_file, params: { id: datasets(:mixed), path: 'NOT_PUBLIC_YET.txt', public: '1', format: 'html' }
-    end
-
-    assert_redirected_to files_dataset_path(assigns(:dataset), path: '')
-  end
-
-  test 'should set file as private as editor' do
-    login(users(:editor_mixed))
-    assert_difference('PublicFile.count', -1) do
-      post :set_public_file, params: { id: datasets(:mixed), path: 'PUBLIC_FILE.txt', public: '0', format: 'html' }
-    end
-
-    assert_redirected_to files_dataset_path(assigns(:dataset), path: '')
-  end
-
-  test 'should set file in subfolder as public as editor' do
-    login(users(:editor_mixed))
-    assert_difference('PublicFile.count') do
-      post :set_public_file, params: { id: datasets(:mixed), path: 'subfolder/IN_SUBFOLDER_NOT_PUBLIC_YET.txt', public: '1', format: 'html' }
-    end
-
-    assert_redirected_to files_dataset_path(assigns(:dataset), path: 'subfolder')
-  end
-
-  test 'should set file in subfolder as private as editor' do
-    login(users(:editor_mixed))
-    assert_difference('PublicFile.count', -1) do
-      post :set_public_file, params: { id: datasets(:mixed), path: 'subfolder/IN_SUBFOLDER_PUBLIC_FILE.txt', public: '0', format: 'html' }
-    end
-
-    assert_redirected_to files_dataset_path(assigns(:dataset), path: 'subfolder')
-  end
-
-  test 'should not set file as public as viewer' do
-    login(users(:valid))
-    assert_difference('PublicFile.count', 0) do
-      post :set_public_file, params: { id: datasets(:mixed), path: 'NOT_PUBLIC_YET.txt', public: '1', format: 'html' }
-    end
-
-    assert_redirected_to datasets_path
-  end
-
-  test 'should not set file as public as anonymous' do
-    assert_difference('PublicFile.count', 0) do
-      post :set_public_file, params: { id: datasets(:mixed), path: 'NOT_PUBLIC_YET.txt', public: '1', format: 'html' }
-    end
-
-    assert_redirected_to new_user_session_path
-  end
-
   test 'should get public file from mixed dataset as viewer' do
     login(users(:valid))
-    get :files, params: { id: datasets(:mixed), path: 'PUBLIC_FILE.txt', format: 'html' }
-
+    get :files, params: { id: datasets(:mixed), path: 'PUBLIC_FILE.txt' }, format: 'html'
     assert_not_nil response
-
     assert_kind_of String, response.body
     assert_equal File.read(assigns(:dataset).find_file('PUBLIC_FILE.txt')), response.body
   end
 
   test 'should get public file from mixed dataset as anonymous user' do
-    get :files, params: { id: datasets(:mixed), path: 'PUBLIC_FILE.txt', format: 'html' }
-
+    get :files, params: { id: datasets(:mixed), path: 'PUBLIC_FILE.txt' }, format: 'html'
     assert_not_nil response
-
     assert_kind_of String, response.body
     assert_equal File.read(assigns(:dataset).find_file('PUBLIC_FILE.txt')), response.body
-  end
-
-  test 'should show collaborators to editor' do
-    login(users(:editor))
-    get :collaborators, params: { id: @dataset }
-    assert_response :success
   end
 
   test 'should get inline image for public dataset' do
@@ -149,7 +64,6 @@ class DatasetsControllerTest < ActionController::TestCase
 
   test 'should get folder from public dataset as anonymous user' do
     get :files, params: { id: @dataset, path: 'subfolder' }
-
     assert_template 'files'
     assert_response :success
   end
@@ -157,84 +71,68 @@ class DatasetsControllerTest < ActionController::TestCase
   test 'should get folder from public dataset as regular user' do
     login(users(:valid))
     get :files, params: { id: @dataset, path: 'subfolder' }
-
     assert_template 'files'
     assert_response :success
   end
 
   test 'should get files from public dataset as anonymous user' do
-    get :files, params: { id: @dataset, path: 'DOWNLOAD_ME.txt', format: 'html' }
-
+    get :files, params: { id: @dataset, path: 'DOWNLOAD_ME.txt' }, format: 'html'
     assert_not_nil response
-
     assert_kind_of String, response.body
     assert_equal File.read(assigns(:dataset).find_file('DOWNLOAD_ME.txt')), response.body
   end
 
   test 'should get files from public dataset as regular user' do
     login(users(:valid))
-    get :files, params: { id: @dataset, path: 'DOWNLOAD_ME.txt', format: 'html' }
-
+    get :files, params: { id: @dataset, path: 'DOWNLOAD_ME.txt' }, format: 'html'
     assert_not_nil response
-
     assert_kind_of String, response.body
     assert_equal File.read(assigns(:dataset).find_file('DOWNLOAD_ME.txt')), response.body
   end
 
-  test 'should redirect to dataset if no files folder exists' do
+  test 'should display no files if root files folder does not exists' do
     get :files, params: { id: datasets(:public_with_no_files_folder) }
-
-    assert_not_nil assigns(:dataset)
-    assert_redirected_to assigns(:dataset)
+    assert_template 'files'
+    assert_response :success
   end
 
   test 'should get files from subfolder from public dataset as anonymous user' do
-    get :files, params: { id: @dataset, path: 'subfolder/1.txt', format: 'html' }
-
+    get :files, params: { id: @dataset, path: 'subfolder/1.txt' }, format: 'html'
     assert_not_nil response
-
     assert_kind_of String, response.body
     assert_equal File.read(assigns(:dataset).find_file('subfolder/1.txt')), response.body
   end
 
   test 'should get files from subfolder from public dataset as regular user' do
     login(users(:valid))
-    get :files, params: { id: @dataset, path: 'subfolder/1.txt', format: 'html' }
-
+    get :files, params: { id: @dataset, path: 'subfolder/1.txt' }, format: 'html'
     assert_not_nil response
-
     assert_kind_of String, response.body
     assert_equal File.read(assigns(:dataset).find_file('subfolder/1.txt')), response.body
   end
 
   test 'should not get files from private dataset as anonymous user' do
-    get :files, params: { id: datasets(:private), path: 'HIDDEN_FILE.txt', format: 'html' }
-
+    get :files, params: { id: datasets(:private), path: 'HIDDEN_FILE.txt' }, format: 'html'
     assert_redirected_to datasets_path
   end
 
   test 'should not get files from private dataset as regular user' do
     login(users(:valid))
-    get :files, params: { id: datasets(:private), path: 'HIDDEN_FILE.txt', format: 'html' }
-
+    get :files, params: { id: datasets(:private), path: 'HIDDEN_FILE.txt' }, format: 'html'
     assert_redirected_to datasets_path
   end
 
   test 'should get files from private dataset as approved user using auth token' do
     get :files, params: { id: datasets(:private), path: 'HIDDEN_FILE.txt', auth_token: users(:two).id_and_auth_token, format: 'html' }
-
     assert_not_nil response
     assert_not_nil assigns(:dataset)
-
     assert_kind_of String, response.body
     assert_equal File.read(assigns(:dataset).find_file('HIDDEN_FILE.txt')), response.body
   end
 
   test 'should get logo from public dataset as anonymous user' do
     get :logo, params: { id: @dataset }
-
     assert_not_nil response
-
     assert_kind_of String, response.body
     assert_equal File.binread( File.join(CarrierWave::Uploader::Base.root, assigns(:dataset).logo.url) ), response.body
   end
@@ -242,29 +140,24 @@ class DatasetsControllerTest < ActionController::TestCase
   test 'should get logo from public dataset as regular user' do
     login(users(:valid))
     get :logo, params: { id: @dataset }
-
     assert_not_nil response
-
     assert_kind_of String, response.body
     assert_equal File.binread( File.join(CarrierWave::Uploader::Base.root, assigns(:dataset).logo.url) ), response.body
   end
 
   test 'should not get logo from private dataset as anonymous user' do
     get :logo, params: { id: datasets(:private) }
-
     assert_redirected_to datasets_path
   end
 
   test 'should not get logo from private dataset as regular user' do
     login(users(:valid))
     get :logo, params: { id: datasets(:private) }
-
     assert_redirected_to datasets_path
   end
 
   test 'should not get non-existant file from public dataset as anonymous user' do
-    get :files, params: { id: @dataset, path: 'subfolder/subsubfolder/3.txt', format: 'html' }
-
+    get :files, params: { id: @dataset, path: 'subfolder/subsubfolder/3.txt' }, format: 'html'
     assert_redirected_to files_dataset_path(assigns(:dataset), path: 'subfolder')
   end
 
@@ -299,62 +192,6 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test 'should get new' do
-    login(users(:admin))
-    get :new
-    assert_response :success
-  end
-
-  test 'should create dataset' do
-    login(users(:admin))
-    assert_difference('Dataset.count') do
-      post :create, params: { dataset: { name: 'New Dataset', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), public: true, slug: 'new-dataset', release_date: '2014-06-23' } }
-    end
-
-    assert_redirected_to dataset_path(assigns(:dataset))
-  end
-
-  test 'should not create dataset as anonymous user' do
-    assert_difference('Dataset.count', 0) do
-      post :create, params: { dataset: { name: 'New Dataset', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), public: true, slug: 'new-dataset', release_date: '2014-06-23' } }
-    end
-
-    assert_redirected_to new_user_session_path
-  end
-
-  test 'should not create dataset as regular user' do
-    login(users(:valid))
-    assert_difference('Dataset.count', 0) do
-      post :create, params: { dataset: { name: 'New Dataset', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), public: true, slug: 'new-dataset', release_date: '2014-06-23' } }
-    end
-
-    assert_redirected_to root_path
-  end
-
-  test 'should not create dataset with blank name' do
-    login(users(:admin))
-    assert_difference('Dataset.count', 0) do
-      post :create, params: { dataset: { name: '', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), public: true, slug: 'new-dataset', release_date: '2014-06-23' } }
-    end
-
-    assert assigns(:dataset).errors.size > 0
-    assert_equal ["can't be blank"], assigns(:dataset).errors[:name]
-
-    assert_template 'new'
-  end
-
-  test 'should not create dataset existing slug' do
-    login(users(:admin))
-    assert_difference('Dataset.count', 0) do
-      post :create, params: { dataset: { name: 'We Care Imposter', description: @dataset.description, logo: fixture_file_upload('../../test/support/datasets/wecare/images/rails.png'), public: true, slug: 'wecare' } }
-    end
-
-    assert assigns(:dataset).errors.size > 0
-    assert_equal ['has already been taken'], assigns(:dataset).errors[:slug]
-
-    assert_template 'new'
-  end
-
   test 'should get manifest' do
     get :json_manifest, params: { id: @dataset }
     assert_response :success
@@ -369,12 +206,12 @@ class DatasetsControllerTest < ActionController::TestCase
 
     assert_equal 3, manifest.size
 
-    assert_equal 'anotherfolder', manifest[0]['file_name']
+    assert_equal 'another_folder', manifest[0]['file_name']
     assert_equal nil, manifest[0]['checksum']
     assert_equal false, manifest[0]['is_file']
     assert_not_nil manifest[0]['file_size']
     assert_equal 'wecare', manifest[0]['dataset']
-    assert_equal 'subfolder/anotherfolder', manifest[0]['file_path']
+    assert_equal 'subfolder/another_folder', manifest[0]['file_path']
 
     assert_equal '1.txt', manifest[1]['file_name']
     assert_equal '39061daa34ca3de20df03a88c52530ea', manifest[1]['checksum']
@@ -399,17 +236,14 @@ class DatasetsControllerTest < ActionController::TestCase
   end
 
   test 'should show public dataset to logged out user as json' do
-    get :show, params: { id: @dataset, format: 'json' }
-
+    get :show, params: { id: @dataset }, format: 'json'
     dataset = JSON.parse(response.body)
-
     assert_equal 'We Care',  dataset['name']
     assert_equal 'The We Care Clinical Trial dataset', dataset['description']
     assert_equal 'wecare', dataset['slug']
     assert_equal true, dataset['public']
     assert_not_nil dataset['created_at']
     assert_not_nil dataset['updated_at']
-
     assert_response :success
   end
 
@@ -500,81 +334,5 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_equal '# VIEW_ME.md', assigns(:results).first.to_s.split(':').last
     assert_template :search
     assert_response :success
-  end
-
-  test 'should get edit' do
-    login(users(:editor))
-    get :edit, params: { id: @dataset }
-    assert_response :success
-  end
-
-  test 'should update dataset' do
-    login(users(:editor))
-    patch :update, params: { id: @dataset, dataset: { name: 'We Care Name Updated', description: @dataset.description, public: @dataset.public, slug: @dataset.slug } }
-    assert_equal assigns(:dataset).name, 'We Care Name Updated'
-    assert_redirected_to dataset_path(assigns(:dataset))
-  end
-
-  test 'should not update dataset with blank name' do
-    login(users(:editor))
-    patch :update, params: { id: @dataset, dataset: { name: '', description: @dataset.description, public: @dataset.public, slug: @dataset.slug } }
-
-    assert assigns(:dataset).errors.size > 0
-    assert_equal ["can't be blank"], assigns(:dataset).errors[:name]
-
-    assert_template 'edit'
-  end
-
-  test 'should not update dataset with existing slug' do
-    login(users(:editor))
-    patch :update, params: { id: @dataset, dataset: { name: '', description: @dataset.description, public: @dataset.public, slug: 'private' } }
-
-    assert assigns(:dataset).errors.size > 0
-    assert_equal ['has already been taken'], assigns(:dataset).errors[:slug]
-
-    assert_template 'edit'
-  end
-
-  test 'should destroy dataset' do
-    login(users(:admin))
-    assert_difference('Dataset.current.count', -1) do
-      delete :destroy, params: { id: @dataset }
-    end
-
-    assert_redirected_to datasets_path
-  end
-
-  test 'should get audits' do
-    login(users(:editor))
-    get :audits, params: { id: @dataset }
-    assert_not_nil assigns(:audits)
-    assert_response :success
-  end
-
-  test 'should create access role to dataset' do
-    login(users(:editor))
-    assert_difference('DatasetUser.count') do
-      post :create_access, params: { id: @dataset, user_email: "#{users(:aug).name} [#{users(:aug).email}]", role: 'editor' }
-    end
-
-    assert_not_nil assigns(:dataset_user)
-    assert_equal 'editor', assigns(:dataset_user).role
-    assert_equal users(:aug), assigns(:dataset_user).user
-
-    assert_redirected_to collaborators_dataset_path(assigns(:dataset), dataset_user_id: assigns(:dataset_user).id)
-  end
-
-  test 'should find existing access when creating access request to dataset' do
-    login(users(:editor))
-    assert_difference('DatasetUser.count', 0) do
-      post :create_access, params: { id: @dataset, user_email: "#{users(:two).name} [#{users(:two).email}]" }
-    end
-
-    assert_not_nil assigns(:dataset_user)
-    assert_equal nil, assigns(:dataset_user).approved
-    assert_equal false, assigns(:dataset_user).editor
-    assert_equal users(:two), assigns(:dataset_user).user
-
-    assert_redirected_to collaborators_dataset_path(assigns(:dataset), dataset_user_id: assigns(:dataset_user).id)
   end
 end

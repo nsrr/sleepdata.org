@@ -17,7 +17,8 @@ class Agreements::RepresentativeController < ApplicationController
   # POST /representative/1-abcd/submit-signature
   def submit_signature
     @step = 4
-    if AgreementTransaction.save_agreement!(@agreement, duly_authorized_params, current_user, request.remote_ip, 'public_agreement_update')
+    if AgreementTransaction.save_agreement!(@agreement, duly_authorized_params,
+                                            current_user, request.remote_ip, 'public_agreement_update')
       @agreement.update_column :current_step, 4
       @agreement.send_daua_signed_email_in_background
       redirect_to representative_signature_submitted_path
@@ -35,7 +36,7 @@ class Agreements::RepresentativeController < ApplicationController
   def authenticate_agreement_from_token!
     agreement_id = params[:representative_token].to_s.split('-').first
     auth_token = params[:representative_token].to_s.gsub(/^#{agreement_id}-/, '')
-    agreement = agreement_id && Agreement.current.where(status: [nil, '', 'started', 'resubmit']).find_by_id(agreement_id)
+    agreement = agreement_id && Agreement.current.submittable.find_by_id(agreement_id)
     # Devise.secure_compare is used to mitigate timing attacks.
     if agreement && Devise.secure_compare(agreement.duly_authorized_representative_token, auth_token)
       @agreement = agreement

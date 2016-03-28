@@ -5,7 +5,7 @@
         - upto_file_number = page * Dataset::FILES_PER_PAGE + Dataset::FILES_PER_PAGE - 1 + 1
         %ul.pagination.pagination-sm{ style: 'margin: 0' }
           - if page > 0
-            %li= link_to '&laquo;'.html_safe, files_dataset_path( @dataset ) + '/' + path.to_s + "#{page > 1 ? "?page=#{page}" : ""}"
+            %li= link_to '&laquo;'.html_safe, files_dataset_path(@dataset) + '/' + path.to_s + "#{page > 1 ? "?page=#{page}" : ""}"
           - else
             %li.disabled
               %span &laquo;
@@ -18,7 +18,7 @@
               of
               = number_with_delimiter file_count
           - if upto_file_number < file_count
-            %li= link_to '&raquo;'.html_safe, files_dataset_path( @dataset ) + '/' + path.to_s + "?page=#{page + 2}"
+            %li= link_to '&raquo;'.html_safe, files_dataset_path(@dataset) + '/' + path.to_s + "?page=#{page + 2}"
           - else
             %li.disabled
               %span &raquo;

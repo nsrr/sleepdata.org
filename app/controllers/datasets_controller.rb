@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
+# Allows users to view dataset documentation and download files
 class DatasetsController < ApplicationController
-  before_action :authenticate_user_from_token!, only: [:json_manifest, :manifest, :files, :editor, :index, :show]
-  before_action :authenticate_user!,        only: [:new, :edit, :create, :update, :destroy, :audits, :collaborators, :create_access, :remove_access, :pull_changes, :sync, :set_public_file, :reset_index]
-  before_action :check_system_admin,        only: [:new, :create, :destroy]
-  before_action :set_viewable_dataset,      only: [:show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :search, :editor]
-  before_action :set_editable_dataset,      only: [:edit, :update, :destroy, :audits, :collaborators, :create_access, :remove_access, :pull_changes, :sync, :set_public_file, :reset_index]
-  before_action :redirect_without_dataset,  only: [:show, :json_manifest, :manifest, :logo, :images, :files, :access, :pages, :create_access, :remove_access, :search, :edit, :update, :destroy, :audits, :collaborators, :pull_changes, :sync, :set_public_file, :reset_index, :editor]
+  before_action :authenticate_user_from_token!, only: [
+    :show, :json_manifest, :manifest, :files, :editor, :index
+  ]
+  before_action :find_viewable_dataset_or_redirect, only: [
+    :show, :json_manifest, :manifest, :files, :access, :editor, :logo, :images, :pages, :search
+  ]
+  before_action :find_dataset_file, only: [:files, :access]
 
   # Concerns
   include Pageable
@@ -15,46 +17,6 @@ class DatasetsController < ApplicationController
   def editor
     editor = (current_user && @dataset.editable_by?(current_user) ? true : false)
     render json: { editor: editor, user_id: (current_user ? current_user.id : nil) }
-  end
-
-  def set_public_file
-    file = @dataset.find_file( params[:path] )
-    if file
-      if params[:public] == '1'
-        @dataset.public_files.where( file_path: @dataset.file_path(file) ).first_or_create( user_id: current_user.id )
-      else
-        @dataset.public_files.where( file_path: @dataset.file_path(file) ).destroy_all
-      end
-    end
-
-    redirect_to files_dataset_path(@dataset, path: @dataset.find_file_folder(params[:path]))
-  end
-
-  def create_access
-    user_email = params[:user_email].to_s.strip
-
-    if user = User.current.find_by_email(user_email.split('[').last.to_s.split(']').first)
-      @dataset_user = @dataset.dataset_users.where( user_id: user.id, role: params[:role] ).first_or_create
-      redirect_to collaborators_dataset_path(@dataset, dataset_user_id: @dataset_user ? @dataset_user.id : nil)
-    else
-      redirect_to collaborators_dataset_path(@dataset), alert: "User '<code>#{user_email}</code>' was not found."
-    end
-  end
-
-  def remove_access
-    if @dataset_user = @dataset.dataset_users.find_by_id(params[:dataset_user_id])
-      @dataset_user.destroy
-    end
-    redirect_to collaborators_dataset_path(@dataset)
-  end
-
-  # GET /datasets/1/file_audits
-  def audits
-    audit_scope = @dataset.dataset_file_audits.order(created_at: :desc)
-    audit_scope = audit_scope.where(user_id: params[:user_id].blank? ? nil : params[:user_id]) if params.key?(:user_id)
-    audit_scope = audit_scope.where(medium: params[:medium].blank? ? nil : params[:medium]) if params.key?(:medium)
-    audit_scope = audit_scope.where(remote_ip: params[:remote_ip].blank? ? nil : params[:remote_ip]) if params.key?(:remote_ip)
-    @audits = audit_scope
   end
 
   # GET /datasets/1/search
@@ -66,32 +28,36 @@ class DatasetsController < ApplicationController
 
   # GET /datasets/1/json_manifest
   def json_manifest
-    @folder_path = @dataset.find_file_folder(params[:path])
-    if @folder_path == params[:path]
-      render json: @dataset.indexed_files(@folder_path, -1).collect{ |folder, file_name, is_file, file_size, file_time, file_checksum| { file_name: file_name, checksum: file_checksum, is_file: is_file, file_size: file_size, dataset: @dataset.slug, file_path: folder } }
+    path = @dataset.find_file_folder(params[:path])
+    folder = path.blank? ? '' : "#{path}/"
+    if path == params[:path]
+      @dataset_files = @dataset.dataset_files.current.where(folder: folder)
     else
       render json: []
     end
   end
 
   def logo
-    send_file File.join( CarrierWave::Uploader::Base.root, @dataset.logo.url )
+    send_file File.join(CarrierWave::Uploader::Base.root, @dataset.logo.url)
   end
 
   def files
-    file = @dataset.find_file( params[:path] )
-    if file && File.file?(file) && [@dataset.find_file_folder(params[:path]), File.basename(file)].compact.join('/') == params[:path] && (@dataset.public_file?(params[:path]) || @dataset.grants_file_access_to?(current_user))
-      @dataset.dataset_file_audits.create(user_id: (current_user ? current_user.id : nil), file_path: @dataset.file_path(file), medium: params[:medium], file_size: File.size(file), remote_ip: request.remote_ip)
-      if params[:inline] == '1' && file.to_s.split('.').last.to_s.downcase == 'pdf'
-        send_file file, type: 'application/pdf', disposition: 'inline'
+    if @dataset_file && @dataset_file.is_file? && @dataset_file.file_exist? && @dataset_file.downloadable_by_user?(current_user)
+      @dataset.dataset_file_audits.create(
+        user_id: (current_user ? current_user.id : nil),
+        file_path: @dataset_file.full_path,
+        medium: params[:medium],
+        file_size: @dataset_file.file_size,
+        remote_ip: request.remote_ip
+      )
+      if params[:inline] == '1' && @dataset_file.pdf?
+        send_file @dataset_file.filesystem_path, type: 'application/pdf', disposition: 'inline'
       else
-        send_file file
+        send_file @dataset_file.filesystem_path
       end
-    elsif file && File.directory?(file) && @dataset.find_file_folder(params[:path]) == params[:path]
+    elsif (@dataset_file && !@dataset_file.is_file?) || params[:path].blank?
       store_location_in_session
       render 'files'
-    elsif !File.directory?(@dataset.files_folder)
-      redirect_to @dataset
     else
       redirect_to files_dataset_path(@dataset, path: @dataset.find_file_folder(params[:path]))
     end
@@ -99,42 +65,8 @@ class DatasetsController < ApplicationController
 
   # Get /datasets/access/*path
   def access
-    file = @dataset.find_file( params[:path] )
-    if file and File.file?(file) and [@dataset.find_file_folder(params[:path]), File.basename(file)].compact.join('/') == params[:path] and (@dataset.public_file?(params[:path]) or @dataset.grants_file_access_to?(current_user))
-      render json: { dataset_id: @dataset.id, result: true, path: [@dataset.find_file_folder(params[:path]), File.basename(file)].compact.join('/') }
-    else
-      render json: { dataset_id: @dataset.id, result: false, path: [@dataset.find_file_folder(params[:path]), File.basename(file)].compact.join('/') }
-    end
-  end
-
-  def reset_index
-    file = @dataset.find_file( params[:path] )
-    folder = @dataset.find_file_folder(params[:path])
-    if file and File.directory?(file) and not @dataset.current_folder_locked?(folder)
-      unless Rails.env.test?
-        pid = Process.fork
-        if pid.nil?
-          # In child
-          Rails.logger.debug 'Refresh Folder Index'
-
-          folder_string = File.join('', folder.to_s)
-
-          Rails.logger.debug "Locking #{folder_string}"
-          @dataset.lock_folder!(folder)
-
-          Rails.logger.debug "Generating Index for #{folder_string}"
-          @dataset.create_folder_index(folder)
-
-          Rails.logger.debug 'Refresh Dataset Folder Complete'
-
-          Kernel.exit!
-        else
-          # In parent
-          Process.detach(pid)
-        end
-      end
-    end
-    redirect_to files_dataset_path(@dataset, path: @dataset.find_file_folder(params[:path]))
+    result = (@dataset_file && @dataset_file.is_file? && @dataset_file.file_exist? && @dataset_file.downloadable_by_user?(current_user) ? true : false)
+    render json: { dataset_id: @dataset.id, result: result, path: @dataset_file.full_path }
   end
 
   # GET /datasets
@@ -154,72 +86,13 @@ class DatasetsController < ApplicationController
   def show
   end
 
-  # GET /datasets/new
-  def new
-    @dataset = Dataset.new
-  end
-
-  # GET /datasets/1/edit
-  def edit
-  end
-
-  # POST /datasets
-  # POST /datasets.json
-  def create
-    @dataset = current_user.datasets.new(dataset_params)
-
-    respond_to do |format|
-      if @dataset.save
-        format.html { redirect_to @dataset, notice: 'Dataset was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @dataset }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @dataset.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /datasets/1
-  # PATCH/PUT /datasets/1.json
-  def update
-    respond_to do |format|
-      if @dataset.update(dataset_params)
-        format.html { redirect_to @dataset, notice: 'Dataset was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @dataset.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /datasets/1
-  # DELETE /datasets/1.json
-  def destroy
-    @dataset.destroy
-    respond_to do |format|
-      format.html { redirect_to datasets_url }
-      format.json { head :no_content }
-    end
-  end
-
   private
 
-  def set_viewable_dataset
+  def find_viewable_dataset_or_redirect
     super(:id)
   end
 
-  def set_editable_dataset
-    super(:id)
-  end
-
-  def dataset_params
-    params[:dataset] ||= {}
-    params[:dataset][:release_date] = parse_date(params[:dataset][:release_date])
-    params.require(:dataset).permit(
-      :name, :description, :slug, :logo, :logo_cache, :public,
-      :all_files_public, :git_repository, :release_date, :info_what, :info_who,
-      :info_when, :info_funded_by, :info_citation, :info_size
-      )
+  def find_dataset_file
+    @dataset_file = @dataset.dataset_files.current.find_by(full_path: params[:path])
   end
 end

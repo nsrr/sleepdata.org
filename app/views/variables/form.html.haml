@@ -4,18 +4,47 @@
   .col-sm-3.hidden-xs
     = render 'variables/menu'
   .col-sm-9
-    - download_url = files_dataset_path(@dataset) + "/forms/#{@form.folder}?f=#{CGI::escape @form.code_book.to_s}"
-    - inline_url = files_dataset_path(@dataset) + "/m/browser/forms/#{@form.folder}/#{@form.code_book}?inline=1"
-
-    - if @form.pdf?
-      .embed-responsive{ style: 'padding-bottom: 100.00%;' }
-        %object.white-background{ data: inline_url, type: 'application/pdf' }
-          alt :
-          = link_to @form.display_name, download_url, class: 'btn btn-xs btn-default'
-    - elsif @form.image?
-      .center{ style: 'margin-bottom: 20px' }
-        = image_tag inline_url, style: 'max-width: 100%'
+    - dataset_forms_folder = files_dataset_path(@dataset) + "/forms/#{@form.folder}?f=#{CGI::escape @form.code_book.to_s}"
+    - direct_download = files_dataset_path(@dataset) + "/m/browser/#{@form.full_location}"
+    - inline_url = files_dataset_path(@dataset) + "/m/browser/#{@form.full_location}?inline=1"
+    - if @form.file_missing?
+      .callout.callout-danger
+        %strong
+          Form Missing From Server
+      .jumbotron
+        %p
+          The dataset owner has not uploaded
+          %code= @form.code_book
+          to the server. Please contact
+          = mail_to ENV['support_email'], ENV['support_email'], subject: 'Missing Variable Form on NSRR', body: "The file \"#{@form.code_book}\" for #{@dataset.slug}/variables/#{@variable.name} is missing from server."
+          to notify us of the missing file.
+    - elsif @form.viewable_by_user?(current_user)
+      %div{ style: 'position:relative' }
+        %div{ style: 'position:absolute; top: -30px; right: 0' }
+          = link_to direct_download, class: 'btn btn-default btn-xs' do
+            %span.glyphicon.glyphicon-save
+            = @form.code_book
+      - if @form.pdf?
+        .embed-responsive{ style: 'padding-bottom: 100.00%;' }
+          %object.white-background{ data: inline_url, type: 'application/pdf' }
+            .jumbotron
+              %p
+                You may download the file here:
+              = link_to @form.code_book, direct_download
+      - elsif @form.image?
+        .center{ style: 'margin-bottom: 20px' }
+          = image_tag inline_url, style: 'max-width: 100%'
+      - else
+        .jumbotron
+          %p
+            You may download the file here:
+          = link_to @form.code_book, direct_download
     - else
-      = link_to @form.display_name, download_url, class: 'btn btn-xs btn-default'
+      .jumbotron
+        %p
+          You must have a completed Data Access and Use Agreement to view this
+          form.
+        = link_to @form.code_book, dataset_forms_folder
+
 
 .visible-xs= render 'variables/menu'

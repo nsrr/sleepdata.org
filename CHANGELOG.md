@@ -14,12 +14,16 @@
 ### Enhancements
 - **Agreement Changes**
   - Principal reviewers can now close agreements
+  - Review process now quickly displays past datasets approved for data user
+  - IRB approval attachment is now more prominently displayed for reviewers
 - **Blog Changes**
   - Community members can now more easily edit blogs
   - Keywords can be added to blog posts to increase visibility on search engines
 - **Dataset Changes**
   - Improved browsing file downloads on smaller devices
   - File download commands can now be easily copied to clipboard
+  - Dataset tracking of file information, like MD5 and file size, has been
+    improved
 - **Dashboard Changes**
   - Improved display of admin pages linked from the dashboard
 - **Forum Changes**
@@ -27,11 +31,17 @@
     entire page
 - **Map Changes**
   - Map location is now pulled using a local database lookup
+- **Mobile Changes**
+  - Added a link to the user dashboard in mobile navigation menu
 - **Email Changes**
   - Removed margins in emails to display better across email clients
 - **Variable Changes**
   - Variable labels are now added as meta page keywords to increase visibility
     on search engines
+  - Variable forms now display a message if the file is available only viewable
+    with a data access and use agreement
+  - Variable forms now display a message if the linked file is not found on the
+    server
 - **Gem Changes**
   - Updated to rails 4.2.6
   - Restricted mini_magick to 4.4.0

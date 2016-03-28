@@ -6,6 +6,7 @@
 
 require 'test_helper'
 
+# Tests to assure different access permissions can download approved files.
 class DownloadsControllerTest < ActionController::TestCase
   setup do
     @controller = DatasetsController.new # Will get removed when downloads_controller.rb is added
@@ -164,20 +165,20 @@ class DownloadsControllerTest < ActionController::TestCase
   end
 
   test 'should list private files on public documentation dataset as anonymous user' do
-    get :files, params: { id: datasets(:public_documentation), format: 'html' }
+    get :files, params: { id: datasets(:public_documentation) }, format: 'html'
     assert_not_nil assigns(:dataset)
     assert_template partial: '_folder'
     assert_response :success
   end
 
   test 'should not list private files on private documentation dataset as anonymous user' do
-    get :files, params: { id: datasets(:private_documentation), format: 'html' }
+    get :files, params: { id: datasets(:private_documentation) }, format: 'html'
     assert_nil assigns(:dataset)
     assert_redirected_to datasets_path
   end
 
   test 'should list private files on no access dataset as anonymous user' do
-    get :files, params: { id: datasets(:public_documentation_no_access), format: 'html' }
+    get :files, params: { id: datasets(:public_documentation_no_access) }, format: 'html'
     assert_not_nil assigns(:dataset)
     assert_template partial: '_folder'
     assert_response :success

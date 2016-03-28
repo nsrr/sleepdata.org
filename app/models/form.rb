@@ -24,4 +24,20 @@ class Form < ApplicationRecord
   def extension
     code_book.split('.').last.to_s.downcase
   end
+
+  def viewable_by_user?(current_user)
+    dataset_file ? dataset_file.downloadable_by_user?(current_user) : false
+  end
+
+  def full_location
+    ['forms', folder, code_book].reject(&:blank?).join('/')
+  end
+
+  def file_missing?
+    dataset_file ? !dataset_file.file_exist? : true
+  end
+
+  def dataset_file
+    dataset.dataset_files.current.find_by(full_path: full_location, is_file: true)
+  end
 end

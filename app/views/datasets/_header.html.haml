@@ -22,31 +22,3 @@
         is
         = succeed '.' do
           = link_to 'available here', [@dataset, @variable], class: 'alert-link'
-
-
-- if false
-  .dataset-navigation-bar{ data: { object: 'dataset-affix' } }
-    %nav.navbar.navbar-default{ style: 'margin-bottom: 0' }
-      .container
-        .navbar-header
-          %button.navbar-toggle{ type: 'button', data: { toggle: 'collapse', target: '.dataset-full-menu' } }
-            %span.sr-only Toggle navigation
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          = link_to 'NSRR', root_path, class: 'navbar-brand brand'
-        .collapse.navbar-collapse.dataset-full-menu
-          %ul.nav.navbar-nav
-            %li.active
-              = link_to @dataset do
-                %span.glyphicon.glyphicon-cloud
-                = @dataset.slug.upcase
-            %li{ class: "#{'active' if params[:action] == 'pages' || current_page?(@dataset)}" }
-              = link_to @dataset do
-                Documentation
-            %li{ class: "#{ 'active' if params[:controller] == 'files' }" }
-              = link_to files_dataset_path(@dataset) do
-                Files
-            %li{ class: "#{ 'active' if params[:controller] == 'variables' }" }
-              = link_to dataset_variables_path(@dataset) do
-                Variables
