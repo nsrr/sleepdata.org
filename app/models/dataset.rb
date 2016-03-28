@@ -33,14 +33,13 @@ class Dataset < ActiveRecord::Base
   has_many :variable_forms
   has_many :dataset_contributors
   has_many :contributors, -> { where deleted: false }, through: :dataset_contributors, source: :user
-  has_many :public_files, source: :dataset
   has_many :requests
   has_many :agreements, -> { where deleted: false }, through: :requests
 
   has_many :dataset_files
 
-  def public_file?(path)
-    public_files.where(file_path: file_path(path)).count > 0
+  def public_file?(full_path)
+    dataset_files.where(full_path: full_path).count > 0
   end
 
   def chartable_variables
@@ -96,6 +95,23 @@ class Dataset < ActiveRecord::Base
   def lock_folder!(location = nil)
     lock_file = File.join(files_folder, location.to_s, '.sleepdata.md5inprogress')
     File.write(lock_file, '')
+  end
+
+  def reset_index_in_background!(path)
+    fork_process(:reset_index!, path)
+  end
+
+  def reset_index!(path)
+    location = find_file(path)
+    Rails.logger.debug "PATH: #{path.inspect}"
+    Rails.logger.debug "LOCATION: #{location.inspect}"
+    if location && File.directory?(location)
+      # lock_folder!(folder)
+      # create_folder_index(folder)
+      folder = location.gsub(%r{^#{files_folder}/}, '')
+      generate_new_files_in_folder(folder)
+    end
+    # 1/0
   end
 
   def generate_new_files_in_folder(location)
@@ -244,11 +260,9 @@ class Dataset < ActiveRecord::Base
     clean_folder_path = nil
     # Navigate to relative folder
     folders.each do |folder|
-      current_folders = indexed_files(clean_folder_path, -1)
-                        .select { |_folder, _file_name, is_file, _file_size, _file_time| !is_file }
-                        .collect { |_folder, file_name, _is_file, _file_size, _file_time| file_name }
-      if current_folders.index(folder)
-        clean_folder_path = [clean_folder_path, current_folders[current_folders.index(folder)]].compact.join('/')
+      dataset_file = dataset_files.find_by(full_path: [clean_folder_path, folder].compact.join('/'), is_file: false)
+      if dataset_file
+        clean_folder_path = [clean_folder_path, dataset_file.file_name].compact.join('/')
       else
         break
       end
@@ -260,9 +274,13 @@ class Dataset < ActiveRecord::Base
     folders = path.to_s.split('/')[0..-2].collect(&:strip)
     name = path.to_s.split('/').last.to_s.strip
     clean_folder_path = find_file_folder(folders.join('/'))
-    clean_file_name = indexed_files(clean_folder_path, -1)
-                      .select { |_folder, file_name, is_file, _file_size, _file_time| is_file && file_name == name }
-                      .collect { |_folder, file_name, _is_file, _file_size, _file_time| file_name }.first
+
+    entries = Dir.entries(File.join(files_folder, clean_folder_path.to_s)).reject { |e| e.first == '.'}
+    clean_file_name = entries.find { |e| e == name }
+
+    # clean_file_name = indexed_files(clean_folder_path, -1)
+    #                   .select { |_folder, file_name, is_file, _file_size, _file_time| is_file && file_name == name }
+    #                   .collect { |_folder, file_name, _is_file, _file_size, _file_time| file_name }.first
     File.join(files_folder, clean_folder_path.to_s, clean_file_name.to_s)
   end
 

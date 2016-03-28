@@ -19,7 +19,19 @@ class DatasetFile < ActiveRecord::Base
 
   # Model Methods
 
+  def downloadable_by_user?(current_user)
+    publicly_available? || dataset.grants_file_access_to?(current_user)
+  end
+
   def file_exist?
-    File.exist?(File.join(dataset.files_folder, full_path))
+    File.exist?(filesystem_path)
+  end
+
+  def filesystem_path
+    File.join(dataset.files_folder, full_path)
+  end
+
+  def pdf?
+    file_name.split('.').last.to_s.casecmp('pdf') == 0
   end
 end

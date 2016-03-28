@@ -85,29 +85,40 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :datasets do
+  scope module: :editor do
+    resources :datasets, only: [:edit, :update] do
+      member do
+        get :audits
+        get :collaborators
+        post :create_access
+        post :remove_access
+        post :pull_changes
+        post :set_public_file
+        post 'reset_index(/*path)', action: 'reset_index', as: :reset_index, format: false
+        get 'reset_index(/*path)',
+            to: redirect { |path_params, _req| "datasets/#{path_params[:id]}/files/#{path_params[:path]}" },
+            format: false
+        get :sync
+      end
+    end
+  end
+
+  scope module: :admin do
+    resources :datasets, only: [:new, :create, :destroy]
+  end
+
+  resources :datasets, only: [:show, :index] do
     member do
-      get :sync
       get :logo
-      get :audits
       get :request_access
-      get :collaborators
-      post :create_access
-      post :remove_access
       patch :set_access
       get '(/a/:auth_token)/json_manifest(/*path)', action: 'json_manifest', as: :json_manifest, format: false
       get '(/a/:auth_token)/manifest(/*path)', action: 'manifest', as: :manifest, format: false
       get 'files((/a/:auth_token)(/m/:medium)/*path)', action: 'files', as: :files, format: false
       get 'access(/*path)', action: 'access', as: :access, format: false
-      post 'reset_index(/*path)', action: 'reset_index', as: :reset_index, format: false
-      get 'reset_index(/*path)', to: redirect{|path_params, req| 'datasets/#{path_params[:id]}/files/#{path_params[:path]}' }, format: false
       get 'search', action: 'search', as: :search
-
       get 'images/*path', action: 'images', as: :images, format: false
       get 'pages(/*path)', action: 'pages', as: :pages, format: false
-      post :pull_changes
-
-      post :set_public_file
       get '/a/:auth_token/editor', action: 'editor', as: :editor
     end
 

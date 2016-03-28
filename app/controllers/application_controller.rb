@@ -103,6 +103,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # TODO: Deprecated
   def set_viewable_dataset(id = :dataset_id)
     viewable_datasets = if current_user
                           current_user.all_viewable_datasets
@@ -112,8 +113,24 @@ class ApplicationController < ActionController::Base
     @dataset = viewable_datasets.find_by_slug(params[id])
   end
 
+  def find_viewable_dataset_or_redirect(id = :dataset_id)
+    viewable_datasets = if current_user
+                          current_user.all_viewable_datasets
+                        else
+                          Dataset.current.where(public: true)
+                        end
+    @dataset = viewable_datasets.find_by_slug(params[id])
+    redirect_without_dataset
+  end
+
+  # TODO: Deprecated
   def set_editable_dataset(id = :dataset_id)
     @dataset = current_user.all_datasets.find_by_slug(params[id]) if current_user
+  end
+
+  def find_editable_dataset_or_redirect(id = :dataset_id)
+    @dataset = current_user.all_datasets.find_by_slug(params[id]) if current_user
+    redirect_without_dataset
   end
 
   def redirect_without_dataset
