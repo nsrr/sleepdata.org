@@ -26,7 +26,6 @@ class Form < ActiveRecord::Base
   end
 
   def viewable_by_user?(current_user)
-    dataset_file = dataset.dataset_files.current.find_by(full_path: full_location, is_file: true)
     dataset_file ? dataset_file.downloadable_by_user?(current_user) : false
   end
 
@@ -35,6 +34,10 @@ class Form < ActiveRecord::Base
   end
 
   def file_missing?
-    !File.exist?(dataset.find_file(full_location))
+    dataset_file ? !dataset_file.file_exist? : true
+  end
+
+  def dataset_file
+    dataset.dataset_files.current.find_by(full_path: full_location, is_file: true)
   end
 end

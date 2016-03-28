@@ -97,25 +97,29 @@ class Dataset < ActiveRecord::Base
     fork_process(:reset_index!, path)
   end
 
-  def reset_index!(path)
-    location = find_file(path)
-    Rails.logger.debug "PATH: #{path.inspect}"
-    Rails.logger.debug "LOCATION: #{location.inspect}"
-    if location && File.directory?(location)
-      # lock_folder!(folder)
-      # create_folder_index(folder)
-      folder = location.gsub(%r{^#{files_folder}/}, '')
-      generate_new_files_in_folder(folder)
+  def reset_index!(params_path)
+    full_path = find_file(params_path)
+    if full_path && File.directory?(full_path)
+      path = full_path.gsub(%r{^#{files_folder}/}, '')
+      # FileUtils.mkpath(full_path) # TODO: Potentially add this.
+      generate_new_files_in_folder_with_lock(path)
     end
-    # 1/0
   end
 
-  def generate_new_files_in_folder(location)
-    folder = location.blank? ? '' : "#{location}/"
+  def generate_new_files_in_folder_with_lock(path)
+    lock_folder!(path)
+    generate_new_files_in_folder(path)
+  ensure
+    lock_file = File.join(files_folder, path.to_s, '.sleepdata.md5inprogress')
+    File.delete(lock_file) if File.exist?(lock_file) && File.file?(lock_file)
+  end
+
+  def generate_new_files_in_folder(path)
+    folder = path.blank? ? '' : "#{path}/"
     dataset_files.current.where(folder: folder).find_each do |dataset_file|
       dataset_file.destroy unless dataset_file.file_exist?
     end
-    Dir.glob(File.join(files_folder, location.to_s, '*')).each do |file|
+    Dir.glob(File.join(files_folder, path.to_s, '*')).each do |file|
       find_or_create_dataset_file(file)
     end
   end
@@ -148,32 +152,26 @@ class Dataset < ActiveRecord::Base
     # :publicly_available, :archived
   end
 
-  def create_folder_index(location = nil)
-    index_file = File.join(files_folder, location.to_s, '.sleepdata.index')
-    lock_file = File.join(files_folder, location.to_s, '.sleepdata.md5inprogress')
-    begin
-      File.delete(index_file) if File.exist?(index_file) && File.file?(index_file)
-      FileUtils.mkpath(File.join(files_folder, location.to_s))
-      File.write(lock_file, "#{Time.zone.now}: Refresh started\n")
-      files = Dir.glob(File.join(files_folder, location.to_s, '*'))
-              .sort { |a, b| [File.file?(a).to_s, a.split('/').last] <=> [File.file?(b).to_s, b.split('/').last] }
-              .collect { |f| file_array(f, lock_file) }
-      File.open(index_file, 'w') do |outfile|
-        outfile.puts files.size
-        files.in_groups_of(FILES_PER_PAGE, false).each do |file_group|
-          outfile.puts file_group.to_json
-        end
-      end
-    ensure
-      File.delete(lock_file) if File.exist?(lock_file) && File.file?(lock_file)
-    end
-  end
-
-  def reset_folder_indexes
-    Dir.glob(File.join(files_folder, '**/.sleepdata.index')).each do |f|
-      File.delete(f) if File.exist?(f) && File.file?(f)
-    end
-  end
+  # def create_folder_index(location = nil)
+  #   index_file = File.join(files_folder, location.to_s, '.sleepdata.index')
+  #   lock_file = File.join(files_folder, location.to_s, '.sleepdata.md5inprogress')
+  #   begin
+  #     File.delete(index_file) if File.exist?(index_file) && File.file?(index_file)
+  #     FileUtils.mkpath(File.join(files_folder, location.to_s))
+  #     File.write(lock_file, "#{Time.zone.now}: Refresh started\n")
+  #     files = Dir.glob(File.join(files_folder, location.to_s, '*'))
+  #             .sort { |a, b| [File.file?(a).to_s, a.split('/').last] <=> [File.file?(b).to_s, b.split('/').last] }
+  #             .collect { |f| file_array(f, lock_file) }
+  #     File.open(index_file, 'w') do |outfile|
+  #       outfile.puts files.size
+  #       files.in_groups_of(FILES_PER_PAGE, false).each do |file_group|
+  #         outfile.puts file_group.to_json
+  #       end
+  #     end
+  #   ensure
+  #     File.delete(lock_file) if File.exist?(lock_file) && File.file?(lock_file)
+  #   end
+  # end
 
   def current_folder_locked?(location)
     lock_file = File.join(files_folder, location.to_s, '.sleepdata.md5inprogress')
@@ -213,12 +211,10 @@ class Dataset < ActiveRecord::Base
   end
 
   def recompute_datasets_folder_indices(folders)
-    lock_folder!(nil)
-    create_folder_index(nil)
+    reset_index!(nil)
     folders.each do |folder|
       if File.exist?(File.join(files_folder, folder))
-        lock_folder!(folder)
-        create_folder_index(folder)
+        reset_index!(folder)
       end
     end
   end
