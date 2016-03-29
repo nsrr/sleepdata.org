@@ -13,6 +13,8 @@
   - File download commands can now be easily copied to clipboard
   - Dataset tracking of file information, like MD5 and file size, has been
     improved
+  - Requesting a single file through the JSON API now works as well
+    - This allows the nsrr gem to download single files
 - **Dashboard Changes**
   - Improved display of admin pages linked from the dashboard
 - **Forum Changes**

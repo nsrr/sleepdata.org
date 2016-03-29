@@ -209,7 +209,7 @@ class DatasetsControllerTest < ActionController::TestCase
 
     manifest = JSON.parse(response.body)
 
-    manifest.sort_by!{|item| [item['is_file'].to_s,item['file_name'].to_s]}
+    # manifest.sort_by!{|item| [item['is_file'].to_s,item['file_name'].to_s]}
 
     assert_equal 3, manifest.size
 
@@ -234,6 +234,19 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_equal 'wecare', manifest[2]['dataset']
     assert_equal 'subfolder/2.txt', manifest[2]['file_path']
 
+    assert_response :success
+  end
+
+  test 'should get manifest for single file using auth token' do
+    get :new_json_manifest, id: @dataset, path: 'subfolder/1.txt', auth_token: users(:valid).id_and_auth_token
+    manifest = JSON.parse(response.body)
+    assert_equal 1, manifest.size
+    assert_equal '1.txt', manifest[0]['file_name']
+    assert_equal '39061daa34ca3de20df03a88c52530ea', manifest[0]['checksum']
+    assert_equal true, manifest[0]['is_file']
+    assert_not_nil manifest[0]['file_size']
+    assert_equal 'wecare', manifest[0]['dataset']
+    assert_equal 'subfolder/1.txt', manifest[0]['file_path']
     assert_response :success
   end
 
