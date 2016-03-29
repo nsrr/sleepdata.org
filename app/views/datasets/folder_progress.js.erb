@@ -1,0 +1,9 @@
+<% path = params[:path] %>
+<% page = [params[:page].to_i - 1, 0].max %>
+
+<% unless @dataset.current_folder_locked?(path) %>
+  clearInterval(<%= params[:interval] %>);
+<% end %>
+
+$("#breadcrumb").html("<%=j render 'datasets/files_breadcrumb', path: path, page: page, file_count: @dataset_files.total_count %>");
+$("#folder").html("<%=j render 'dataset_files/folder', path: path %>");

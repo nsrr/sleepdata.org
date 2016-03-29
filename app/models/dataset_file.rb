@@ -11,7 +11,7 @@ class DatasetFile < ActiveRecord::Base
 
   # Model Validation
   validates :dataset_id, :full_path, :file_name, :file_size, :file_time, presence: true
-  validates :full_path, uniqueness: { scope: [:dataset_id, :is_file], case_sensitive: false }
+  validates :full_path, uniqueness: { scope: :dataset_id, case_sensitive: false }
   validates :file_size, numericality: { greater_than_or_equal_to: 0 }
 
   # Model Relationships
@@ -33,5 +33,20 @@ class DatasetFile < ActiveRecord::Base
 
   def pdf?
     file_name.split('.').last.to_s.casecmp('pdf') == 0
+  end
+
+  def verify_file!
+    destroy unless file_exist?
+  end
+
+  def generate_checksum_md5!
+    checksum = if is_file
+                 if file_checksum_md5.nil?
+                   Digest::MD5.file(filesystem_path).hexdigest
+                 else
+                   file_checksum_md5
+                 end
+               end
+    update file_checksum_md5: checksum
   end
 end

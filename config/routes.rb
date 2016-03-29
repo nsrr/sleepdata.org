@@ -120,6 +120,7 @@ Rails.application.routes.draw do
       get 'images/*path', action: 'images', as: :images, format: false
       get 'pages(/*path)', action: 'pages', as: :pages, format: false
       get '/a/:auth_token/editor', action: 'editor', as: :editor
+      post :folder_progress
     end
 
     resources :variables do

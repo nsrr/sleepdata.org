@@ -28,6 +28,13 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should get folder progress as editor' do
+    login(users(:editor))
+    post :folder_progress, id: datasets(:public), format: 'js'
+    assert_template 'folder_progress'
+    assert_response :success
+  end
+
   test 'should get public file from mixed dataset as viewer' do
     login(users(:valid))
     get :files, id: datasets(:mixed), path: 'PUBLIC_FILE.txt'

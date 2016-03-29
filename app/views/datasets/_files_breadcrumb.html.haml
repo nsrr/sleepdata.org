@@ -1,33 +1,32 @@
-- content_for :banner do
-  .breadcrumb-container
-    .container{ style: 'position: relative;' }
-      .hidden-xs{ style: 'position: absolute; top: -5.5px; right: 15px' }
-        - upto_file_number = page * Dataset::FILES_PER_PAGE + Dataset::FILES_PER_PAGE - 1 + 1
-        %ul.pagination.pagination-sm{ style: 'margin: 0' }
-          - if page > 0
-            %li= link_to '&laquo;'.html_safe, files_dataset_path(@dataset) + '/' + path.to_s + "#{page > 1 ? "?page=#{page}" : ""}"
-          - else
-            %li.disabled
-              %span &laquo;
-          %li
-            %span
-              %strong{ style: 'font-size:0.95em' }
-                = number_with_delimiter(page * Dataset::FILES_PER_PAGE + 1)
-                to
-                = number_with_delimiter [upto_file_number, file_count].min
-              of
-              = number_with_delimiter file_count
-          - if upto_file_number < file_count
-            %li= link_to '&raquo;'.html_safe, files_dataset_path(@dataset) + '/' + path.to_s + "?page=#{page + 2}"
-          - else
-            %li.disabled
-              %span &raquo;
-        = render 'datasets/reset_folder_index', path: path
-      %ol
-        %li= link_to @dataset.slug, @dataset
-        %li= link_to_if !path.blank?, 'files', files_dataset_path(@dataset)
-        - unless path.blank?
-          - path.to_s.split('/')[0..-2].each_with_index do |folder, index|
-            - url = files_dataset_path( @dataset ) + '/' + path.to_s.split('/')[0..index].join('/')
-            %li= link_to folder, url
-          %li= path.to_s.split('/').last
+.breadcrumb-container
+  .container{ style: 'position: relative;' }
+    .hidden-xs{ style: 'position: absolute; top: -5.5px; right: 15px' }
+      = render 'datasets/reset_folder_index', path: path
+      - upto_file_number = page * Dataset::FILES_PER_PAGE + Dataset::FILES_PER_PAGE - 1 + 1
+      %ul.pagination.pagination-sm{ style: 'margin: 0' }
+        - if page > 0
+          %li= link_to '&laquo;'.html_safe, files_dataset_path(@dataset) + '/' + path.to_s + "#{page > 1 ? "?page=#{page}" : ""}"
+        - else
+          %li.disabled
+            %span &laquo;
+        %li
+          %span
+            %strong{ style: 'font-size:0.95em' }
+              = number_with_delimiter(page * Dataset::FILES_PER_PAGE + 1)
+              to
+              = number_with_delimiter [upto_file_number, file_count].min
+            of
+            = number_with_delimiter file_count
+        - if upto_file_number < file_count
+          %li= link_to '&raquo;'.html_safe, files_dataset_path(@dataset) + '/' + path.to_s + "?page=#{page + 2}"
+        - else
+          %li.disabled
+            %span &raquo;
+    %ol
+      %li= link_to @dataset.slug, @dataset
+      %li= link_to_if !path.blank?, 'files', files_dataset_path(@dataset)
+      - unless path.blank?
+        - path.to_s.split('/')[0..-2].each_with_index do |folder, index|
+          - url = files_dataset_path( @dataset ) + '/' + path.to_s.split('/')[0..index].join('/')
+          %li= link_to folder, url
+        %li= path.to_s.split('/').last

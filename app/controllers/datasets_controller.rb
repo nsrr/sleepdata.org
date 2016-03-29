@@ -6,7 +6,8 @@ class DatasetsController < ApplicationController
     :show, :json_manifest, :manifest, :files, :editor, :index
   ]
   before_action :find_viewable_dataset_or_redirect, only: [
-    :show, :json_manifest, :manifest, :files, :access, :editor, :logo, :images, :pages, :search
+    :show, :json_manifest, :manifest, :files, :access, :editor, :logo, :images,
+    :pages, :search, :folder_progress
   ]
   before_action :find_dataset_file, only: [:files, :access]
 
@@ -31,7 +32,7 @@ class DatasetsController < ApplicationController
     path = @dataset.find_file_folder(params[:path])
     folder = path.blank? ? '' : "#{path}/"
     if path == params[:path]
-      @dataset_files = @dataset.dataset_files.current.where(folder: folder)
+      @dataset_files = @dataset.dataset_files.current.where(folder: folder).order_by_type
     else
       render json: []
     end
@@ -39,6 +40,12 @@ class DatasetsController < ApplicationController
 
   def logo
     send_file File.join(CarrierWave::Uploader::Base.root, @dataset.logo.url)
+  end
+
+  def folder_progress
+    path = params[:path]
+    folder = path.blank? ? '' : "#{path}/"
+    @dataset_files = @dataset.dataset_files.current.where(folder: folder).order_by_type.page(params[:page]).per(100)
   end
 
   def files
@@ -56,6 +63,9 @@ class DatasetsController < ApplicationController
         send_file @dataset_file.filesystem_path
       end
     elsif (@dataset_file && !@dataset_file.is_file?) || params[:path].blank?
+      path = params[:path]
+      folder = path.blank? ? '' : "#{path}/"
+      @dataset_files = @dataset.dataset_files.current.where(folder: folder).order_by_type.page(params[:page]).per(100)
       store_location_in_session
       render 'files'
     else

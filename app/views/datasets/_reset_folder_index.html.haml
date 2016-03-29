@@ -1,12 +1,21 @@
 - if current_user && @dataset.editors.pluck(:id).include?(current_user.id)
   %ul.pagination.pagination-sm{ style: 'margin: 0' }
     - if @dataset.current_folder_locked?(path)
-      %li.disabled
+      %li
+        = link_to reset_index_dataset_path(@dataset, path: path), method: :post, data: { confirm: 'Are you sure the process has stalled?' } do
+          %span.glyphicon.glyphicon-refresh
+          Refresh
+      %li.disabled{ data: { object: 'ajax-timer', path: folder_progress_dataset_path(@dataset, path: path) } }
         = link_to '#', data: { object: 'suppress-click' } do
           %span.glyphicon.glyphicon-refresh.spin
           Indexing...
+
     - else
       %li
-        = link_to reset_index_dataset_path(@dataset, path: path), method: :post, data: { confirm: 'Are you sure you want to reset this folder index?' } do
+        = link_to reset_index_dataset_path(@dataset, path: path), method: :post do
           %span.glyphicon.glyphicon-refresh
           Refresh
+      %li
+        = link_to reset_index_dataset_path(@dataset, path: path, recompute: '1'), method: :post, data: { confirm: 'Are you sure you want to completely reset this folder index?' } do
+          %span.glyphicon.glyphicon-flash
+          Reset All

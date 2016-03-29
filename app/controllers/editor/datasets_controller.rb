@@ -46,7 +46,7 @@ class Editor::DatasetsController < ApplicationController
 
   # POST /datasets/1/reset_index
   def reset_index
-    @dataset.reset_index_in_background!(params[:path])
+    @dataset.reset_index_in_background!(params[:path], recompute: params[:recompute].to_s == '1')
     redirect_to files_dataset_path(@dataset, path: @dataset.find_file_folder(params[:path]))
   end
 
