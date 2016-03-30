@@ -15,6 +15,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      resources :datasets, only: [:index, :show] do
+        member do
+          get :files
+        end
+      end
       namespace :dictionary do
         post :upload_dataset_csv
         post :upload_file
@@ -112,7 +117,6 @@ Rails.application.routes.draw do
       get :logo
       get :request_access
       patch :set_access
-      get '(/a/:auth_token)/new_json_manifest(/*path)', action: 'new_json_manifest', as: :new_json_manifest, format: false
       get '(/a/:auth_token)/json_manifest(/*path)', action: 'json_manifest', as: :json_manifest, format: false
       get '(/a/:auth_token)/manifest(/*path)', action: 'manifest', as: :manifest, format: false
       get 'files((/a/:auth_token)(/m/:medium)/*path)', action: 'files', as: :files, format: false

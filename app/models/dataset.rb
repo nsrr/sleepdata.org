@@ -170,16 +170,16 @@ class Dataset < ActiveRecord::Base
         break
       end
     end
-    clean_folder_path
+    clean_folder_path.to_s
   end
 
   def find_file(path)
     folders = path.to_s.split('/')[0..-2].collect(&:strip)
     name = path.to_s.split('/').last.to_s.strip
     clean_folder_path = find_file_folder(folders.join('/'))
-    entries = Dir.entries(File.join(files_folder, clean_folder_path.to_s)).reject { |e| e.first == '.' }
+    entries = Dir.entries(File.join(files_folder, clean_folder_path)).reject { |e| e.first == '.' }
     clean_file_name = entries.find { |e| e == name }
-    File.join(files_folder, clean_folder_path.to_s, clean_file_name.to_s)
+    File.join(files_folder, clean_folder_path, clean_file_name.to_s)
   end
 
   def recompute_datasets_folder_indices_in_background(folders)
