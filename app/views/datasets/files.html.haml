@@ -5,10 +5,7 @@
 - path = params[:path]
 - page = [params[:page].to_i - 1, 0].max
 
-- folder = path.blank? ? '' : "#{path}/"
-- @dataset_files = @dataset.dataset_files.current.where(folder: folder).order_by_type.page(params[:page]).per(100)
-- file_count = @dataset_files.total_count
+- content_for :banner do
+  #breadcrumb= render 'datasets/files_breadcrumb', path: path, page: page, file_count: @dataset_files.total_count
 
-= render 'datasets/files_breadcrumb', path: path, page: page, file_count: file_count
-
-= render 'dataset_files/folder', path: path
+#folder= render 'dataset_files/folder', path: path

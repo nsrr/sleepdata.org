@@ -1,13 +1,16 @@
+- current_user_is_editor = (current_user && @dataset.editors.pluck(:id).include?(current_user.id) ? true : false)
+
 %div
   - if @dataset_files.size == 0
-    = render 'datasets/nofiles', path: path
+    .jumbotron
+      %p.center No Files
   - else
     %table.table.table-condensed.table-hover
       %col{ width: '1px' }
       - @dataset_files.each do |dataset_file|
         - is_public = dataset_file.publicly_available?
         - url = files_dataset_path(@dataset) + "#{'/m/browser' if dataset_file.is_file?}" + '/' + dataset_file.full_path
-        %tr{ class: "#{'warning' if dataset_file.file_name == params[:f]}" }
+        %tr{ class: "#{'warning' if dataset_file.file_name == params[:f]} #{'info' if current_user_is_editor && dataset_file.file_checksum_md5.blank? && dataset_file.is_file?}" }
           %td
             %span.glyphicon{ class: "glyphicon-#{dataset_file.is_file? ? 'file' : 'folder-close'}" }
           %td

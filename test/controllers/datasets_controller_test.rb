@@ -2,6 +2,7 @@
 
 require 'test_helper'
 
+# Allows users to view and explore datasets.
 class DatasetsControllerTest < ActionController::TestCase
   setup do
     @dataset = datasets(:public)
@@ -25,6 +26,13 @@ class DatasetsControllerTest < ActionController::TestCase
     get :editor, params: { id: datasets(:public), auth_token: '' }, format: 'json'
     assert_not_nil response
     assert_equal '{"editor":false,"user_id":null}', response.body
+    assert_response :success
+  end
+
+  test 'should get folder progress as editor' do
+    login(users(:editor))
+    post :folder_progress, id: datasets(:public), format: 'js'
+    assert_template 'folder_progress'
     assert_response :success
   end
 
@@ -202,7 +210,7 @@ class DatasetsControllerTest < ActionController::TestCase
 
     manifest = JSON.parse(response.body)
 
-    manifest.sort_by!{|item| [item['is_file'].to_s,item['file_name'].to_s]}
+    # manifest.sort_by!{|item| [item['is_file'].to_s,item['file_name'].to_s]}
 
     assert_equal 3, manifest.size
 

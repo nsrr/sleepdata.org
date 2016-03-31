@@ -55,6 +55,7 @@
   new WOW().init()
   fix_ie10_placeholder()
   initializeClipboard()
+  initializeFiles()
 
 $(window).onbeforeunload = () -> return "You haven't saved your changes." if window.$isDirty
 $(document).ready(ready)

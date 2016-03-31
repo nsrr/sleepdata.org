@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Provides common methods used by all API controllers.
 class Api::V1::BaseController < ApplicationController
   before_action :authenticate_user_from_token!
   before_action :authenticate_user!

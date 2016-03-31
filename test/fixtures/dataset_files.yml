@@ -9,7 +9,6 @@ public_datasets:
   file_size: 102
   file_time: 2016-03-25 10:15:40
   # file_checksum_md5:
-  # checksum_md5_generated_at:
   # publicly_available: false
   # archived: false
 
@@ -22,7 +21,6 @@ public_datasets_rails_png:
   file_size: 6646
   file_time: 2016-03-28 11:25:23
   file_checksum_md5: 9c0a079bdd7701d7e729bd956823d153
-  checksum_md5_generated_at: 2016-03-28 12:13:15
   # publicly_available: false
   # archived: false
 
@@ -35,7 +33,6 @@ public_subfolder:
   file_size: 204
   file_time: 2016-03-28 11:25:27
   # file_checksum_md5:
-  # checksum_md5_generated_at:
   # publicly_available: false
   # archived: false
 
@@ -48,7 +45,6 @@ public_subfolder_another_folder:
   file_size: 102
   file_time: 2015-03-23 11:39:47
   # file_checksum_md5:
-  # checksum_md5_generated_at:
   # publicly_available: false
   # archived: false
 
@@ -61,7 +57,6 @@ public_subfolder_another_folder_3_txt:
   file_size: 6
   file_time: 2015-03-23 11:39:47
   file_checksum_md5: 91b04d56b31de6895ebb48a299f6579b
-  checksum_md5_generated_at: 2016-03-28 12:13:15
   # publicly_available: false
   # archived: false
 
@@ -74,7 +69,6 @@ public_subfolder_1_txt:
   file_size: 6
   file_time: 2014-02-18 16:12:29
   file_checksum_md5: 39061daa34ca3de20df03a88c52530ea
-  checksum_md5_generated_at: 2016-03-28 12:13:15
   # publicly_available: false
   # archived: false
 
@@ -87,7 +81,6 @@ public_subfolder_2_txt:
   file_size: 6
   file_time: 2014-02-18 16:12:29
   file_checksum_md5: 85c8f17e86771eb8480a44349e13127b
-  checksum_md5_generated_at: 2016-03-28 12:13:15
   # publicly_available: false
   # archived: false
 
@@ -100,7 +93,6 @@ public_download_me_txt:
   file_size: 16
   file_time: 2014-02-18 16:12:29
   file_checksum_md5: be3aad0b46648b4867534a1b10ec6ed1
-  checksum_md5_generated_at: 2016-03-28 12:13:15
   # publicly_available: false
   # archived: false
 
@@ -113,7 +105,6 @@ private_hidden_file_txt:
   file_size: 16
   file_time: 2014-02-18 16:12:29
   file_checksum_md5: b2695949c739899653b3ed001d226b78
-  checksum_md5_generated_at: 2016-03-28 12:13:15
   # publicly_available: false
   # archived: false
 
@@ -126,7 +117,6 @@ mixed_subfolder:
   file_size: 170
   file_time: 2016-03-28 11:54:47
   # file_checksum_md5:
-  # checksum_md5_generated_at:
   # publicly_available: false
   # archived: false
 
@@ -139,7 +129,6 @@ mixed_subfolder_in_subfolder_not_public_yet_txt:
   file_size: 32
   file_time: 2014-07-08 15:26:39
   file_checksum_md5: 8a59dbfe009557d80a3467acbe141d65
-  checksum_md5_generated_at: 2016-03-28 12:13:15
   # publicly_available: false
   # archived: false
 
@@ -152,7 +141,6 @@ mixed_subfolder_in_subfolder_public_file_txt:
   file_size: 29
   file_time: 2014-07-08 15:26:39
   file_checksum_md5: 29423ee86b07cb966ea263a37e88669a
-  checksum_md5_generated_at: 2016-03-28 12:13:15
   publicly_available: true
   # archived: false
 
@@ -165,7 +153,6 @@ mixed_access_required_txt:
   file_size: 20
   file_time: 2014-07-08 15:26:39
   file_checksum_md5: 26b1203ed43bcf15e89dcb2e79b804b8
-  checksum_md5_generated_at: 2016-03-28 12:13:15
   # publicly_available: false
   # archived: false
 
@@ -178,7 +165,6 @@ mixed_not_public_yet_txt:
   file_size: 19
   file_time: 2014-07-08 15:26:39
   file_checksum_md5: b9ec2f286c32a9056dc00580c586dd37
-  checksum_md5_generated_at: 2016-03-28 12:13:15
   # publicly_available: false
   # archived: false
 
@@ -191,7 +177,6 @@ mixed_public_file_txt:
   file_size: 16
   file_time: 2014-07-08 15:26:39
   file_checksum_md5: 41621f39d8ac658105c84cba3a94ebc8
-  checksum_md5_generated_at: 2016-03-28 12:13:15
   publicly_available: true
   # archived: false
 
@@ -204,7 +189,6 @@ private_documentation_access_required_txt:
   file_size: 20
   file_time: 2014-10-01 12:46:19
   file_checksum_md5: 26b1203ed43bcf15e89dcb2e79b804b8
-  checksum_md5_generated_at: 2016-03-28 12:13:15
   # publicly_available: false
   # archived: false
 
@@ -217,7 +201,6 @@ public_documentation_access_required_txt:
   file_size: 20
   file_time: 2014-10-01 12:46:19
   file_checksum_md5: 26b1203ed43bcf15e89dcb2e79b804b8
-  checksum_md5_generated_at: 2016-03-28 12:13:15
   # publicly_available: false
   # archived: false
 
@@ -230,6 +213,5 @@ public_documentation_no_access_access_required_txt:
   file_size: 20
   file_time: 2014-10-01 12:46:19
   file_checksum_md5: 26b1203ed43bcf15e89dcb2e79b804b8
-  checksum_md5_generated_at: 2016-03-28 12:13:15
   # publicly_available: false
   # archived: false

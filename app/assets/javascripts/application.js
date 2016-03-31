@@ -28,6 +28,7 @@
 //= require tags
 //= require requests
 //= require previews
+//= require files
 
 //= require external/highcharts-4.1.9.src.js
 //= require variables

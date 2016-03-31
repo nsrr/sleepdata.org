@@ -15,6 +15,14 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
+      namespace :account do
+        get :profile
+      end
+      resources :datasets, only: [:index, :show] do
+        member do
+          get :files
+        end
+      end
       namespace :dictionary do
         post :upload_dataset_csv
         post :upload_file
@@ -120,6 +128,7 @@ Rails.application.routes.draw do
       get 'images/*path', action: 'images', as: :images, format: false
       get 'pages(/*path)', action: 'pages', as: :pages, format: false
       get '/a/:auth_token/editor', action: 'editor', as: :editor
+      post :folder_progress
     end
 
     resources :variables do

@@ -24,6 +24,8 @@
   - File download commands can now be easily copied to clipboard
   - Dataset tracking of file information, like MD5 and file size, has been
     improved
+  - Requesting a single file through the JSON API now works as well
+    - This allows the nsrr gem to download single files
 - **Dashboard Changes**
   - Improved display of admin pages linked from the dashboard
 - **Forum Changes**
@@ -42,6 +44,25 @@
     with a data access and use agreement
   - Variable forms now display a message if the linked file is not found on the
     server
+- **API Changes**
+  - Introduced a new API for dataset file downloads that supports both full
+    folder and individual file downloads
+    - `GET /api/v1/datasets.json`
+      - List all viewable datasets
+    - `GET /api/v1/datasets/:dataset.json`
+      - Displays information on a dataset
+    - `GET /api/v1/datasets/:dataset/files.json`
+      - Displays a list of files available at the dataset files root directory
+    - `GET /api/v1/datasets/:dataset/files.json?path=folder`
+      - Displays a list of files available in the dataset `folder` directory
+    - `GET /api/v1/datasets/:dataset/files.json?path=folder/file.txt`
+      - Returns an array containing information about `folder/file.txt`
+  - All of the above commands can also optionally include the `auth_token`
+    parameter to authenticate a specific user to view information on private
+    datasets and files
+  - Added a new API for authenticating account
+    - `GET /api/v1/account/profile.json`
+      - Returns profile information for authenticated account
 - **Gem Changes**
   - Updated to rails 4.2.6
   - Restricted mini_magick to 4.4.0

@@ -9,7 +9,6 @@ class CreateDatasetFiles < ActiveRecord::Migration
       t.integer :file_size, limit: 8, null: false, default: 0
       t.datetime :file_time
       t.string :file_checksum_md5
-      t.datetime :checksum_md5_generated_at
       t.boolean :publicly_available, null: false, default: false
       t.boolean :archived, null: false, default: false
       t.boolean :deleted, null: false, default: false
@@ -17,7 +16,7 @@ class CreateDatasetFiles < ActiveRecord::Migration
       t.timestamps null: false
     end
 
-    add_index :dataset_files, [:dataset_id, :full_path, :is_file], unique: true
+    add_index :dataset_files, [:dataset_id, :full_path], unique: true
     add_index :dataset_files, :dataset_id
     add_index :dataset_files, :full_path
     add_index :dataset_files, :folder
@@ -26,7 +25,6 @@ class CreateDatasetFiles < ActiveRecord::Migration
     add_index :dataset_files, :file_size
     add_index :dataset_files, :file_time
     add_index :dataset_files, :file_checksum_md5
-    add_index :dataset_files, :checksum_md5_generated_at
     add_index :dataset_files, :publicly_available
     add_index :dataset_files, :archived
     add_index :dataset_files, :deleted
