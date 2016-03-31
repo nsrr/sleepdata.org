@@ -31,7 +31,7 @@ class DatasetsControllerTest < ActionController::TestCase
 
   test 'should get folder progress as editor' do
     login(users(:editor))
-    post :folder_progress, id: datasets(:public), format: 'js'
+    post :folder_progress, params: { id: datasets(:public) }, format: 'js'
     assert_template 'folder_progress'
     assert_response :success
   end

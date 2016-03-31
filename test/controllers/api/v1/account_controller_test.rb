@@ -5,7 +5,9 @@ require 'test_helper'
 # Tests JSON API for account authentication
 class Api::V1::AccountControllerTest < ActionController::TestCase
   test 'should get profile as valid user' do
-    get :profile, auth_token: users(:valid).id_and_auth_token, format: 'json'
+    get :profile, params: {
+      auth_token: users(:valid).id_and_auth_token
+    }, format: 'json'
     assert_not_nil response
     profile = JSON.parse(response.body)
     assert_equal true,        profile['authenticated']
@@ -15,7 +17,9 @@ class Api::V1::AccountControllerTest < ActionController::TestCase
   end
 
   test 'should get profile as logged out viewer' do
-    get :profile, auth_token: '', format: 'json'
+    get :profile, params: {
+      auth_token: ''
+    }, format: 'json'
     assert_not_nil response
     profile = JSON.parse(response.body)
     assert_equal false, profile['authenticated']

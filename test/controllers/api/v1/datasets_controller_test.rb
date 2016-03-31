@@ -14,12 +14,14 @@ class Api::V1::DatasetsControllerTest < ActionController::TestCase
   end
 
   test 'should get show' do
-    get :show, id: @dataset, format: 'json'
+    get :show, params: { id: @dataset }, format: 'json'
     assert_response :success
   end
 
   test 'should get files for single file using auth token' do
-    get :files, id: @dataset, path: 'subfolder/1.txt', auth_token: users(:valid).id_and_auth_token, format: 'json'
+    get :files, params: {
+      id: @dataset, path: 'subfolder/1.txt', auth_token: users(:valid).id_and_auth_token
+    }, format: 'json'
     manifest = JSON.parse(response.body)
     assert_equal 1, manifest.size
     assert_equal 'wecare', manifest[0]['dataset']
@@ -34,7 +36,9 @@ class Api::V1::DatasetsControllerTest < ActionController::TestCase
   end
 
   test 'should get files folder using auth token' do
-    get :files, id: @dataset, path: 'subfolder', auth_token: users(:valid).id_and_auth_token, format: 'json'
+    get :files, params: {
+      id: @dataset, path: 'subfolder', auth_token: users(:valid).id_and_auth_token
+    }, format: 'json'
     manifest = JSON.parse(response.body)
     assert_equal 3, manifest.size
     assert_equal 'wecare', manifest[0]['dataset']
@@ -65,7 +69,9 @@ class Api::V1::DatasetsControllerTest < ActionController::TestCase
   end
 
   test 'should get files with blank path using auth token' do
-    get :files, id: @dataset, path: '', auth_token: users(:valid).id_and_auth_token, format: 'json'
+    get :files, params: {
+      id: @dataset, path: '', auth_token: users(:valid).id_and_auth_token
+    }, format: 'json'
     manifest = JSON.parse(response.body)
     assert_equal 3, manifest.size
     assert_equal 'wecare', manifest[0]['dataset']
@@ -96,7 +102,9 @@ class Api::V1::DatasetsControllerTest < ActionController::TestCase
   end
 
   test 'should get files with nil path using auth token' do
-    get :files, id: @dataset, auth_token: users(:valid).id_and_auth_token, format: 'json'
+    get :files, params: {
+      id: @dataset, auth_token: users(:valid).id_and_auth_token
+    }, format: 'json'
     manifest = JSON.parse(response.body)
     assert_equal 3, manifest.size
     assert_equal 'wecare', manifest[0]['dataset']
@@ -127,7 +135,9 @@ class Api::V1::DatasetsControllerTest < ActionController::TestCase
   end
 
   test 'should not get private manifest for unapproved user using auth token' do
-    get :files, id: datasets(:private), auth_token: users(:valid).id_and_auth_token, format: 'json'
+    get :files, params: {
+      id: datasets(:private), auth_token: users(:valid).id_and_auth_token
+    }, format: 'json'
     assert_template nil
     assert_response :success
   end
