@@ -49,6 +49,9 @@
   - All of the above commands can also optionally include the `auth_token`
     parameter to authenticate a specific user to view information on private
     datasets and files
+  - Added a new API for authenticating account
+    - `GET /api/v1/account/profile.json`
+      - Returns profile information for authenticated account
 - **Gem Changes**
   - Updated to rails 4.2.6
   - Restricted mini_magick to 4.4.0
