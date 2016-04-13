@@ -60,9 +60,10 @@ class Editor::DatasetsController < ApplicationController
     redirect_to files_dataset_path(@dataset, path: @dataset.find_file_folder(params[:path]))
   end
 
+  # Handled by Pageable
   # GET /datasets/1/sync
-  def sync
-  end
+  # def sync
+  # end
 
   # GET /datasets/1/edit
   def edit

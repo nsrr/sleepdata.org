@@ -108,6 +108,12 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_path
   end
 
+  test 'should get sync' do
+    login(users(:editor))
+    get :sync, id: @dataset
+    assert_response :success
+  end
+
   test 'should get edit' do
     login(users(:editor))
     get :edit, id: @dataset

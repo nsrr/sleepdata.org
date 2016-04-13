@@ -58,6 +58,9 @@
   - Restricted mini_magick to 4.4.0
   - Added maxminddb gem
 
+### Bug Fix
+- Fixed documentation links on dataset and tool sync page
+
 ### Refactoring
 - Started cleanup and refactoring, and additional testing of controllers
 
