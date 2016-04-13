@@ -141,7 +141,7 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
 
   test 'should get sync' do
     login(users(:editor))
-    get :sync, id: @dataset
+    get :sync, params: { id: @dataset }
     assert_response :success
   end
 
