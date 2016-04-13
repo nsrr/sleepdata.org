@@ -2,7 +2,9 @@
 
 # Represents the valid values and options for a variable
 class Domain < ActiveRecord::Base
+  # TODO: Deprecated, remove after 0.19.0 release
   serialize :options, Array
+  # END Deprecated
 
   # Model Validation
   validates :name, :dataset_id, :dataset_version_id, presence: true
@@ -14,9 +16,7 @@ class Domain < ActiveRecord::Base
   belongs_to :dataset
   belongs_to :dataset_version
   has_many :variables
+  has_many :domain_options, dependent: :destroy
 
-  # Domain Methods
-  def values
-    options.collect { |option| option[:value] }
-  end
+  # Model Methods
 end

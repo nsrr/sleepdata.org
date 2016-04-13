@@ -5,9 +5,9 @@ one:
   name: gender
   display_name: Gender
   # description:
-  # variable_type:
+  variable_type: choices
   dataset: public
-  # domain:
+  domain: gender
   # units:
   version: 0.1.0
   dataset_version: public_one
@@ -20,7 +20,7 @@ two:
   name: public_variable_two
   display_name: Public Variable Two
   # description:
-  # variable_type:
+  variable_type: string
   dataset: public
   # domain:
   # units:
@@ -35,7 +35,7 @@ private:
   name: classified_red_tape
   display_name: Top Secret
   # description:
-  # variable_type:
+  variable_type: string
   dataset: private
   dataset_version: private_one
   # domain:

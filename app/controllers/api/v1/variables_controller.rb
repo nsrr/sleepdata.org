@@ -14,16 +14,6 @@ class Api::V1::VariablesController < Api::V1::BaseController
   def show
   end
 
-  # POST /api/v1/variables.json
-  def create
-    @variable = dataset_version_variables.new(variable_params)
-    if @variable.save
-      render :show, status: :created, location: api_v1_variable_path(@variable)
-    else
-      render json: @variable.errors, status: :unprocessable_entity
-    end
-  end
-
   # POST /api/v1/variables/create_or_update.json
   def create_or_update
     @errors = []
@@ -32,6 +22,17 @@ class Api::V1::VariablesController < Api::V1::BaseController
       @domain = dataset_version_domains.where(name: params[:domain][:name]).first_or_create
       if @domain
         @domain.update(domain_optional_params)
+        if params[:domain].key?(:options) && params[:domain][:options].is_a?(Array)
+          @domain.domain_options.destroy_all
+          params[:domain][:options].each do |option_hash|
+            @domain.domain_options.create(
+              display_name: option_hash[:display_name],
+              value: option_hash[:value],
+              description: option_hash[:description],
+              missing: option_hash[:missing]
+            )
+          end
+        end
         params[:variable][:domain_id] = @domain.id
       end
     end
@@ -53,27 +54,17 @@ class Api::V1::VariablesController < Api::V1::BaseController
 
     if @errors.count > 0
       render json: { errors: @errors }, status: :unprocessable_entity
-    elsif @variable.update(variable_optional_params)
-      render :show, status: :ok, location: api_v1_variable_path(@variable)
     else
-      render json: @variable.errors, status: :unprocessable_entity
+      @variable.update(variable_optional_params)
+      render :show, status: :ok, location: api_v1_variable_path(@variable)
     end
   end
 
-  # PATCH/PUT /api/v1/variables/1.json
-  def update
-    if @variable.update(variable_params)
-      render :show, status: :ok, location: api_v1_variable_path(@variable)
-    else
-      render json: @variable.errors, status: :unprocessable_entity
-    end
-  end
-
-  # DELETE /api/v1/variables/1.json
-  def destroy
-    @variable.destroy
-    head :no_content
-  end
+  # # DELETE /api/v1/variables/1.json
+  # def destroy
+  #   @variable.destroy
+  #   head :no_content
+  # end
 
   private
 
@@ -97,21 +88,12 @@ class Api::V1::VariablesController < Api::V1::BaseController
       { labels: [] })
   end
 
-  def variable_params
-    params.require(:variable).permit(
-      :name, :display_name, :variable_type, :folder, :description,  :units,
-      :calculation, :commonly_used, :domain_id,
-      :stats_n, :stats_mean, :stats_stddev, :stats_median, :stats_min, :stats_max, :stats_unknown, :stats_total, :spout_stats,
-      :known_issues, :spout_version,
-      { labels: [] }).tap
-  end
-
-  def domain_core_params
-    params.require(:domain).permit(:name)
-  end
+  # def domain_core_params
+  #   params.require(:domain).permit(:name)
+  # end
 
   def domain_optional_params
-    params.require(:domain).permit(:folder, :spout_version, options: [:display_name, :value, :description, :missing])
+    params.require(:domain).permit(:folder, :spout_version)
   end
 
   def dataset_version_variables
