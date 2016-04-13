@@ -39,7 +39,7 @@ class Dataset < ActiveRecord::Base
   has_many :dataset_files
 
   def chartable_variables
-    variables.order(:folder, :name)
+    variables.order('commonly_used desc', :folder, :name)
   end
 
   def editors
