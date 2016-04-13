@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  domain: gender
+  display_name: Male
+  value: 1
+  # description:
+  # missing: false
+
+two:
+  domain: gender
+  display_name: Female
+  value: 2
+  # description:
+  # missing: false

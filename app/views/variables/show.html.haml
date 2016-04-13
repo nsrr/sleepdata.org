@@ -44,8 +44,9 @@
             %div{ style: 'margin-bottom: 10px' }
               %code= @variable.domain.name
             %ul.list-unstyled
-              - @variable.domain.options.each do |option|
-                %li= "#{option['value']}: #{option['display_name']}"
+              - @variable.domain.domain_options.each do |domain_option|
+                %li= "#{domain_option.value}: #{domain_option.display_name}"
+
 
       - if @variable.variable_type.present?
         %tr

@@ -44,6 +44,7 @@
     with a data access and use agreement
   - Variable forms now display a message if the linked file is not found on the
     server
+  - Improved how variable domain options are stored
 - **API Changes**
   - Introduced a new API for dataset file downloads that supports both full
     folder and individual file downloads
