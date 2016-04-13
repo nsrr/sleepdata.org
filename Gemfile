@@ -6,7 +6,8 @@ source 'https://rubygems.org'
 # gem 'rails', github: 'rails/rails'
 # gem 'rails', github: 'rails/rails', ref: 'e56b594'
 # gem 'rails', github: 'rails/rails', ref: 'd54de08'
-gem 'rails', github: 'rails/rails', ref: 'c519d1c'
+# gem 'rails', github: 'rails/rails', ref: 'c519d1c'
+gem 'rails', github: 'rails/rails', ref: 'efaa6e4'
 # TODO: Remove rack dependency when version past 2.0.0.alpha is released
 # This currently fixes a problem with rack removing nested parameters in certain
 # cases.
