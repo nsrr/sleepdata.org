@@ -45,6 +45,7 @@
   - Variable forms now display a message if the linked file is not found on the
     server
   - Improved how variable domain options are stored
+  - Fixed the ordering when transitioning between variables using arrow keys
 - **API Changes**
   - Introduced a new API for dataset file downloads that supports both full
     folder and individual file downloads
@@ -68,6 +69,9 @@
   - Updated to rails 4.2.6
   - Restricted mini_magick to 4.4.0
   - Added maxminddb gem
+
+### Bug Fix
+- Fixed documentation links on dataset and tool sync page
 
 ### Refactoring
 - Started cleanup and refactoring, and additional testing of controllers

@@ -1,3 +1,8 @@
+- if @object.class == Dataset
+  - pages_path = pages_dataset_path(@object)
+- else
+  - pages_path = pages_tool_path(@object)
+
 .page-list-container{ style: "#{'display:none' if cookies[:hide_page_list] == '1'}" }
   %ul.left-menu
     - page = [params[:page].to_i, 0].max
