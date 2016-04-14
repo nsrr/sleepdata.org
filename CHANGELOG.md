@@ -1,4 +1,4 @@
-## 0.19.0
+## 0.19.0 (April 14, 2016)
 
 ### Enhancements
 - **Agreement Changes**
