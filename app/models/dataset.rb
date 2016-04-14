@@ -5,6 +5,9 @@ class Dataset < ActiveRecord::Base
 
   mount_uploader :logo, ImageUploader
 
+  # Callbacks
+  after_commit :create_folders, on: :create
+
   # Concerns
   include Deletable, Documentable, Gitable, Forkable
 
@@ -209,5 +212,9 @@ class Dataset < ActiveRecord::Base
       count += 1 if info_funded_by.present?
       count
     end
+  end
+
+  def create_folders
+    FileUtils.mkdir_p files_folder
   end
 end
