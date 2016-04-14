@@ -9,7 +9,7 @@
 - Prefer use of `after_create_commit :fn` instead of
   `after_commit :fn, on: :create`
 
-## 0.19.0
+## 0.19.0 (April 14, 2016)
 
 ### Enhancements
 - **Agreement Changes**
@@ -112,7 +112,8 @@
 
 ### Enhancements
 - **Agreement Changes**
-  - Emails are now sent in background when a principal reviewer approves an agreement or asks for an agreement resubmission
+  - Emails are now sent in background when a principal reviewer approves an
+    agreement or asks for an agreement resubmission
   - Improved user interface for the DAUA review process
 - **Submission Changes**
   - Improved visibility of "Get Started" button when launching a new DAUA
@@ -122,7 +123,8 @@
     - dataset hosting requests
     - and tool contributions
 - **Blog Changes**
-  - Added an ATOM feed to allow new blogs posts to be picked up by RSS feed readers
+  - Added an ATOM feed to allow new blogs posts to be picked up by RSS feed
+    readers
 
 ## 0.18.1 (January 20, 2016)
 
@@ -141,28 +143,37 @@
 
 ### Enhancements
 - **General Changes**
-  - Improved the user interface across the site for easier navigation and a cleaner look
+  - Improved the user interface across the site for easier navigation and a
+    cleaner look
   - Started work on a comprehensive Site Map
   - Emails sent from site have been updated to match the new user interface
 - **Dataset Changes**
   - Improved dataset access request flow
-  - Added call to action for researchers who wish to contribute datasets to the NSRR
-  - Users can now fill out a dataset hosting request form to host new datasets on the NSRR
-  - Datasets now track all versions and maintain data dictionary changes and history
+  - Added call to action for researchers who wish to contribute datasets to the
+    NSRR
+  - Users can now fill out a dataset hosting request form to host new datasets
+    on the NSRR
+  - Datasets now track all versions and maintain data dictionary changes and
+    history
 - **Tool Changes**
   - Users can now submit URLs for tools to be listed on the NSRR
-  - GitHub repositories with READMEs and GitHub gists can now be contributed as tools
-  - Tool descriptions are pulled automatically and can be written and previewed using markdown
+  - GitHub repositories with READMEs and GitHub gists can now be contributed as
+    tools
+  - Tool descriptions are pulled automatically and can be written and previewed
+    using markdown
 - **Variable Changes**
   - Added a table of domain options for variables that are linked to domains
   - Variables are now sorted by relevance when searching for key terms
-  - Individual variable pages have been redesigned and include additional information about known issues and variable history
+  - Individual variable pages have been redesigned and include additional
+    information about known issues and variable history
   - Folder navigation has been simplified on the variable index
   - Embedded PDFs for variables are now displayed directly on the variable page
 - **Dashboard Added**
-  - Users can now view their personal dashboard that contains updates and links to their datasets and other NSRR related activity
+  - Users can now view their personal dashboard that contains updates and links
+    to their datasets and other NSRR related activity
 - **Blog Added**
-  - Community managers can now create new blogs posts that are viewable on the NSRR home page
+  - Community managers can now create new blogs posts that are viewable on the
+    NSRR home page
   - Images can be easily added via drag-and-drop while editing blog posts
   - Blogs can be previewed while editing
 - **Forum Changes**
@@ -175,7 +186,8 @@
   - Updated to web-console 3.0
 
 ### Bug Fix
-- Fixed an issue where chart numbers would not show well on charts with dark columns
+- Fixed an issue where chart numbers would not show well on charts with dark
+  columns
 - Fixed various navigation issues in IE caused by caching
 
 ## 0.17.3 (November 6, 2015)
@@ -202,7 +214,8 @@
   - Updated to pg 0.18.3
 
 ### Bug Fix
-- Fixed a bug that prevented users with tokens ending in hyphens from authenticating correctly while using the NSRR gem
+- Fixed a bug that prevented users with tokens ending in hyphens from
+  authenticating correctly while using the NSRR gem
 
 ## 0.17.2 (August 25, 2015)
 
@@ -230,23 +243,31 @@
   - Fixed some minor spacing issues on forum
   - User setting page now lists all active dataset requests for a user
 - **Showcase Added**
-  - Added a page highlighting Matt Butler's work on Novel Sleep Measures and Cardiovascular Risk
+  - Added a page highlighting Matt Butler's work on Novel Sleep Measures and
+    Cardiovascular Risk
   - Highlighted Shaun Purcell's work on the home page carousel
 - **Forum Changes**
   - Removed auto-subscribing users to new forum topics
-  - Comments on topics are now immediately sent to anyone subscribed to the topic
+  - Comments on topics are now immediately sent to anyone subscribed to the
+    topic
   - Daily forum digests have been removed
   - Forum index font size has been reduced to display more topics
 - **Agreement Changes**
   - The DAUA process has been simplified to 6 steps total
   - The agreements administration is being merged into the reviewer page
-    - This will help consolidate the DAUA approval process in a single place for principal reviewers
-  - Users not authorized to sign a DAUA are now provided a link that they can send to the authorized user
-  - An email is sent to the DAUA user when the authorized user has signed the DAUA
+    - This will help consolidate the DAUA approval process in a single place for
+      principal reviewers
+  - Users not authorized to sign a DAUA are now provided a link that they can
+    send to the authorized user
+  - An email is sent to the DAUA user when the authorized user has signed the
+    DAUA
   - Appending multiple users to an organization's DAUA has been removed
-  - The Duly Authorized Representative can now review the entire agreement before signing
-  - Agreement changes are now audited so that reviewers can view changes more easily between resubmissions
-  - Principal reviewers can now modify the requested datasets during the review process
+  - The Duly Authorized Representative can now review the entire agreement
+    before signing
+  - Agreement changes are now audited so that reviewers can view changes more
+    easily between resubmissions
+  - Principal reviewers can now modify the requested datasets during the review
+    process
   - Principal reviewers can now export information on all agreements as a CSV
   - Clarified reference to the IRB Assistance page
   - Improved the user interface for the DAUA submission process
@@ -255,7 +276,8 @@
 - **Dataset Changes**
   - The dataset pages have been updated to be easier to navigate
   - Dataset variable and file pages now have a newer interface
-  - Visiting a dataset page now better displays a current users process of accessing data
+  - Visiting a dataset page now better displays a current users process of
+    accessing data
   - Simplified specifying user roles for dataset editors
 - **Tool Changes**
   - Tool editors can now sync documentation repositories
@@ -278,8 +300,10 @@
   - Updated to figaro 1.1.1
 
 ### Bug Fix
-- Fixed a bug that prevented reviewers seeing DAUA signature if the user signed and checked that they were unauthorized to sign the DAUA
-- Fixed an issue where users could post images and links on forum without having explicit permission to post links or images
+- Fixed a bug that prevented reviewers seeing DAUA signature if the user signed
+  and checked that they were unauthorized to sign the DAUA
+- Fixed an issue where users could post images and links on forum without having
+  explicit permission to post links or images
 - IRB Assistance Template should now show up properly for regular users
 - Fixed map not picking up certain cases of users living in the US
 - Fixed an issue on iOS 7 devices that were incorrectly rendering `vh` units
@@ -296,7 +320,8 @@
 ### Enhancements
 - **General Changes**
   - Fixed a minor styling issue with pagination on dataset variable indexes
-  - Topic tags are now faded using grayscale instead of opacity to maintain contrast between text and tag color
+  - Topic tags are now faded using grayscale instead of opacity to maintain
+    contrast between text and tag color
   - Streamlined login system by removing alternate logins
   - Updated the design of the NSRR footer
   - Started work on some parallax-enabled pages for future UI updates
@@ -305,14 +330,18 @@
   - Updated the user sign in and registration page
   - Removed wget documentation in favor of the NSRR Downloader Ruby Gem
   - Added a map page to show NSRR membership
-  - The menu has minor UI improvements to scale better across different device sizes
+  - The menu has minor UI improvements to scale better across different device
+    sizes
 - **Showcase Added**
-  - A new showcase section has been added that highlights certain areas of interest for researchers
+  - A new showcase section has been added that highlights certain areas of
+    interest for researchers
   - Added a page highlighting Shaun Purcell's work on Genetics of Sleep Spindles
   - Added a page that covers the purpose of the NSRR in 5 steps
-  - Added a new showcase carousel on the home page aimed at highlighting showcase items
+  - Added a new showcase carousel on the home page aimed at highlighting
+    showcase items
   - A new page to showcase new tools and datasets on the NSRR website
-  - A new demo page is now available that is aimed at getting new users started by:
+  - A new demo page is now available that is aimed at getting new users
+    started by:
     - downloading data
     - opening CSV datasets and accessing variable information
     - extracting information from EDFs
@@ -322,7 +351,8 @@
   - The forum user interface has been updated
   - Forum post anchors now correctly offset based on the top navigation bar
   - Users can now post twice in a row on a forum topic
-  - Forum markdown has been improved and examples are provided under the Markup tab
+  - Forum markdown has been improved and examples are provided under the Markup
+    tab
     - Blockquotes: `> This is quote`
     - Highlight: `==This is highlighted==`
     - Underline: `_This is underlined_`
@@ -332,16 +362,23 @@
   - Datasets now highlight the ability to:
     - download the full dataset using the NSRR gem
     - browse all covariates online
-  - Dataset documentation pages now scale better with screen resolution to make text more legible
+  - Dataset documentation pages now scale better with screen resolution to make
+    text more legible
   - Dataset owners can now highlight key information about their dataset
-  - Improved the dataset API to allow the NSRR gem to download data from private datasets for authorized users
+  - Improved the dataset API to allow the NSRR gem to download data from private
+    datasets for authorized users
 - **Tool Changes**
   - Titles no longer overlap tools tags on the tools index
 - **Agreement Changes**
-  - Step 2 now has additional instructions to clarify the importance of describing the "Specific Purpose", and selecting an appropriate number of datasets
-  - The signature step now allows users to opt out of signing the agreement if they have institutional requirements forbidding signing of agreements
-  - Users opting for NSRR Committee review now need to attest that they have received Human Subjects Protections Training
-  - Academic agreements no longer include Indemnification Clause (11 and 12), and have been renumbered
+  - Step 2 now has additional instructions to clarify the importance of
+    describing the "Specific Purpose", and selecting an appropriate number of
+    datasets
+  - The signature step now allows users to opt out of signing the agreement if
+    they have institutional requirements forbidding signing of agreements
+  - Users opting for NSRR Committee review now need to attest that they have
+    received Human Subjects Protections Training
+  - Academic agreements no longer include Indemnification Clause (11 and 12),
+    and have been renumbered
 - **Email Changes**
   - The password reset email and other emails have had their template updated
 - **Administrative Changes**
@@ -359,13 +396,16 @@
 
 ### Bug Fix
 - Fixed a bug that caused too much information to be logged to the log file
-- Fixed an issue where friendly redirect on sign out was not redirecting to the last page the user was on
-- Dataset editors can now properly view private datasets on which they are an editor
+- Fixed an issue where friendly redirect on sign out was not redirecting to the
+  last page the user was on
+- Dataset editors can now properly view private datasets on which they are an
+  editor
 
 ## 0.15.3 (January 6, 2015)
 
 ### Bug Fix
-- Fixed a bug that would occasionally occur when resetting a dataset folder index on reading an uninitialized folder index
+- Fixed a bug that would occasionally occur when resetting a dataset folder
+  index on reading an uninitialized folder index
 
 ## 0.15.2 (January 6, 2015)
 
@@ -379,7 +419,8 @@
 - Fixed a bug that prevented a dataset's root file index from being generated
 
 ### Refactoring
-- Use `.scss` instead of `.css.scss` to stay consistent with Rails recommendations
+- Use `.scss` instead of `.css.scss` to stay consistent with Rails
+  recommendations
 
 ## 0.15.1 (December 30, 2014)
 
@@ -394,19 +435,26 @@
 ### Enhancements
 - **General Changes**
   - Enabled turbolinks progress bar on page changes
-  - Email notifications now provide a link to the user settings page to allow users to update their email preferences
-  - Removed UserVoice, users tend to contact the NSRR via the support email address and the forum
+  - Email notifications now provide a link to the user settings page to allow
+    users to update their email preferences
+  - Removed UserVoice, users tend to contact the NSRR via the support email
+    address and the forum
 - **Dataset Changes**
-  - Dataset owners and editors can now add users as `editors`, `reviewers`, and `viewers`
-  - Reviewers can now make comments, approve, and reject DAUAs that request access to the dataset the reviewer is on
+  - Dataset owners and editors can now add users as `editors`, `reviewers`, and
+    `viewers`
+  - Reviewers can now make comments, approve, and reject DAUAs that request
+    access to the dataset the reviewer is on
   - Dataset editors can now sync documentation repositories
 - **Agreement Changes**
   - New review process for agreements
     - Reviewers can comment and approve or reject agreements
-    - Reviewers are specified per dataset and can only review agreements for their dataset
+    - Reviewers are specified per dataset and can only review agreements for
+      their dataset
   - Reviewers are sent weekly digests of agreements they have not yet reviewed
-  - Reviewers are now notified in place of system admins when a DAUA is submitted
-  - Reviewers now receive a notification email when another reviewer mentions them on an agreement
+  - Reviewers are now notified in place of system admins when a DAUA is
+    submitted
+  - Reviewers now receive a notification email when another reviewer mentions
+    them on an agreement
   - Agreements can now be annotated using specific tags
 - **Administrative Changes**
   - Administrators can now see a breakdown of agreements by status and by tag
@@ -429,7 +477,8 @@
   - Agreements are now filterable by status
   - Agreements are now numbered to help identify them more quickly
   - Download statistics now available on user pages
-  - Yearly download chart added to visually see downloads by month, dataset, and user type
+  - Yearly download chart added to visually see downloads by month, dataset, and
+    user type
 - **Dataset Changes**
   - Download audits and page view reports are now indexed to load more quickly
 
@@ -440,10 +489,13 @@
 
 ### Enhancements
 - **Agreement Changes**
-  - Step 8, Intended Use of Data, now requests more specific information to help the NSRR Review Committee
+  - Step 8, Intended Use of Data, now requests more specific information to help
+    the NSRR Review Committee
 - **Dataset Changes**
-  - New dataset releases can now be deployed using the Spout data dictionary management gem
-    - Spout, https://github.com/sleepepi/spout, tests and manages data dictionaries and datasets
+  - New dataset releases can now be deployed using the Spout data dictionary
+    management gem
+    - Spout, https://github.com/sleepepi/spout, tests and manages data
+      dictionaries and datasets
 - **Gem Changes**
   - Updated to rails 4.2.0.beta4
   - Updated to contour 2.6.0.beta8
@@ -456,7 +508,8 @@
 
 ### Enhancements
 - **Administrative Changes**
-  - Last submitted at column added to allow better sorting on the administrator agreement view
+  - Last submitted at column added to allow better sorting on the administrator
+    agreement view
   - Minor layout improvements for reviewing submitted agreements
 - **Agreement Changes**
   - PDFs of submitted and approved agreements can now be downloaded and printed
@@ -468,7 +521,8 @@
   - Users can set their forum username under their settings
   - Users get notified by email when they are mentioned in a comment
   - Users can turn off receiving mention emails in their settings
-  - Typing '@' will allow users to autocomplete usernames while creating new topics and posts
+  - Typing '@' will allow users to autocomplete usernames while creating new
+    topics and posts
   - Core and AUG members can now add tags to topics
 - **Gem Changes**
   - Updated to contour 2.6.0.beta7
@@ -480,7 +534,8 @@
 
 ### Enhancements
 - **Administrative Changes**
-  - Added an administrative dashboard and a link in the dropdown menu for system admins
+  - Added an administrative dashboard and a link in the dropdown menu for system
+    admins
 - **Dataset Changes**
   - Dataset file access is now controlled by the new DAUA process
   - Dataset editors can now refresh download folders through the web interface
@@ -490,12 +545,14 @@
 ## 0.11.2 (September 26, 2014)
 
 ### Bug Fix
-- Fixed a bug that prevented emails from being delivered if the logo file was unavailable
+- Fixed a bug that prevented emails from being delivered if the logo file was
+  unavailable
 
 ## 0.11.1 (September 24, 2014)
 
 ### Bug Fix
-- Fixed a bug that prevented non-admin users from starting a new DAUA submission process
+- Fixed a bug that prevented non-admin users from starting a new DAUA submission
+  process
 
 ## 0.11.0 (September 23, 2014)
 
@@ -519,16 +576,19 @@
   - The official NSRR ruby gem is now supported, https://rubygems.org/gems/nsrr
     - More information here: https://github.com/nsrr/nsrr-gem
   - The wget download option has been hidden in favor of the NSRR gem command
-    - Add `?wget=1` to the download url bar to see the `wget` download command syntax
+    - Add `?wget=1` to the download url bar to see the `wget` download command
+      syntax
   - Added UserVoice integration to collect better feedback on the NSRR website
   - Restructured the menu bar to provide more space for page content
 - **Dataset Changes**
   - Download folders now provide customizable commands using the NSRR gem
 - **Variable Changes**
   - Commonly used variables can now be filtered on the variables index
-  - Older variable graphs can now be viewed by passing the older version on the show page
+  - Older variable graphs can now be viewed by passing the older version on the
+    show page
     - Ex: https://sleepdata.org/datasets/shhs/variables/rdi3p?v=0.2.0
-  - Variables index and show page styling updated to be more consistent with the rest of the NSRR website
+  - Variables index and show page styling updated to be more consistent with the
+    rest of the NSRR website
 - **Forum Changes**
   - The forum is now linked in the main menu
 - **Gem Changes**
@@ -543,7 +603,8 @@
 
 ### Enhancements
 - **Dataset Changes**
-  - Increased the number of datasets to 18 to allow all scheduled datasets to be shown on a single page
+  - Increased the number of datasets to 18 to allow all scheduled datasets to be
+    shown on a single page
   - Dataset navigation only shows the variables tab if the dataset has variables
 - **Variable Changes**
   - The index page can now be viewed as a list or a grid
@@ -551,20 +612,23 @@
   - Updated to kaminari 0.16.1
 
 ### Bug Fix
-- Fixed a bug that prevented certain dataset variables from including navigation to neighboring variables
+- Fixed a bug that prevented certain dataset variables from including navigation
+  to neighboring variables
 
 ## 0.9.5 (July 9, 2014)
 
 ### Enhancements
 - **Dataset Changes**
-  - Highlighted files are now downloaded automatically when a user navigates to the downloads section
+  - Highlighted files are now downloaded automatically when a user navigates to
+    the downloads section
 - **Gem Changes**
   - Removed dependency on ruby-ntlm gem
 
 ## 0.9.4 (July 9, 2014)
 
 ### Bug Fix
-- Fixed an issue that prevented certain file indexes from being generated properly
+- Fixed an issue that prevented certain file indexes from being generated
+  properly
 
 ## 0.9.3 (July 8, 2014)
 
@@ -597,28 +661,34 @@
 ### Enhancements
 
 - **Forum Added**
-  - Added the ability for registered users to create topics on the forum and to post comments on other topics
+  - Added the ability for registered users to create topics on the forum and to
+    post comments on other topics
   - Core and AUG members are now highlighted as such on their forum posts
   - Comments can be previewed before being posted to the forum topic
   - System admins can lock, pin, and delete topics
   - System admins can ban users from posting on the forum
-  - Users who have commented on now receive daily forum updates to topics where they are subscribed
+  - Users who have commented on now receive daily forum updates to topics where
+    they are subscribed
   - Users may not post consecutive comments on the forum
-    - This is currently enabled to discourage topic "bumping", multi-comment spam, and to encourage clear dialogue between users
+    - This is currently enabled to discourage topic "bumping", multi-comment
+      spam, and to encourage clear dialogue between users
 - **Variable Changes**
-  - Swiping left or right now navigates to next or previous variable on mobile devices
+  - Swiping left or right now navigates to next or previous variable on mobile
+    devices
 - **Administrative Changes**
   - Syncing dataset and tool documentation is now more robust
 
 ### Bug Fix
-- Fixed an issue where navigating to dataset downloads for a dataset with no files could cause a redirect loop
+- Fixed an issue where navigating to dataset downloads for a dataset with no
+  files could cause a redirect loop
 
 ## 0.8.1 (May 28, 2014)
 
 ### Enhancement
 - **General Changes**
   - Changed the file organization of variable images and graphs
-    - The new file structure now includes the data dictionary version of the variable
+    - The new file structure now includes the data dictionary version of the
+      variable
 
 ## 0.8.0 (May 22, 2014)
 
@@ -641,7 +711,8 @@
 ## 0.7.2 (April 15, 2014)
 
 - **Administrative Changes**
-  - Added tables of regular member registrations by country and state for reporting purposes
+  - Added tables of regular member registrations by country and state for
+    reporting purposes
 
 ## 0.7.1 (April 14, 2014)
 
@@ -657,16 +728,20 @@
 
 ### Enhancements
 - **Administrative Changes**
-  - Site admins are notified by email when an admin approves or asks a user to resubmit a DAUA
-  - Added stats overview for system admins to track signups, DAUA submissions, and file downloads
+  - Site admins are notified by email when an admin approves or asks a user to
+    resubmit a DAUA
+  - Added stats overview for system admins to track signups, DAUA submissions,
+    and file downloads
 - **Dataset Changes**
   - Dataset owners are notified when users make new dataset file access requests
   - Variable popups are now hidden when the `Esc` key is pressed
-  - Users are notified by email when a dataset editor approves their file access request
+  - Users are notified by email when a dataset editor approves their file access
+    request
 - **General Changes**
   - Updated email styling template
   - Minor wording changes on About page and Home page
-  - Documentation pages for tools and datasets now include the filename as part of the title
+  - Documentation pages for tools and datasets now include the filename as part
+    of the title
 - **Gem Changes**
   - Updated to rails 4.1.0
   - Updated to contour 2.5.0.beta1
@@ -686,14 +761,19 @@
 
 ### Enhancements
 - **Dataset Changes**
-  - Dataset editors can now approve user access to datasets based on DAUA criteria
+  - Dataset editors can now approve user access to datasets based on DAUA
+    criteria
   - Removed variable lists to clean up interface
-    - Variables are now downloaded via the dataset CSV download from the files area
-  - Datasets can now specify release dates to allow users to see when those datasets will have files available
+    - Variables are now downloaded via the dataset CSV download from the files
+      area
+  - Datasets can now specify release dates to allow users to see when those
+    datasets will have files available
     - Datasets are highlighted when they have data available for download
-  - Dataset file downloads display steps the user needs to take to access the file download
+  - Dataset file downloads display steps the user needs to take to access the
+    file download
 - **Tool Changes**
-  - Tools can be marked as private to allow editors to work on them while they are a work in progress
+  - Tools can be marked as private to allow editors to work on them while they
+    are a work in progress
 - **Gem Changes**
   - Updated to rails 4.0.4
   - Updated to carrierwave 0.10.0
@@ -707,8 +787,10 @@
   - New sign ups can now be reviewed by system administrators
   - DAUA review process put into place for system administrators
     - Emails are sent to system administrators when DAUAs are submitted
-    - Users are notified when their DAUAs are approved or sent back for resubmission
-    - Executed DAUAs can now be uploaded alongside the originally submitted DAUAs
+    - Users are notified when their DAUAs are approved or sent back for
+      resubmission
+    - Executed DAUAs can now be uploaded alongside the originally submitted
+      DAUAs
   - Added Academic User Group page and added research summary for AUG Members
   - Documentation for repositories can now be synced by system administrators
 - **Dataset Changes**
@@ -723,15 +805,21 @@
 ## 0.4.0 (February 20, 2014)
 
 ### Enhancements
-- Signing in and signing out on the datasets files page now forwards back to the last folder location
-  - This was disabled in previous versions so that file downloads wouldn't trigger after sign in or sign out
-- Datasets header tabs now display `Variables` instead of `Collection` and `Search` has been removed
-- `Variables` section, formerly the `Collection` now displays a note on why certain variables have gold borders
+- Signing in and signing out on the datasets files page now forwards back to the
+  last folder location
+  - This was disabled in previous versions so that file downloads wouldn't
+    trigger after sign in or sign out
+- Datasets header tabs now display `Variables` instead of `Collection` and
+  `Search` has been removed
+- `Variables` section, formerly the `Collection` now displays a note on why
+  certain variables have gold borders
 - Added more descriptive links for datasets and tools
 - Reduced the size of the header bar on smaller screen sizes
 - External links now have different styling from internal links
-- Markdown no longer escapes numbers to their ASCII representation re-enabling ordered lists in Markdown
-- Documentation code fences can now be prettified using `<!--?prettify?-->` immediately before the code fence
+- Markdown no longer escapes numbers to their ASCII representation re-enabling
+  ordered lists in Markdown
+- Documentation code fences can now be prettified using `<!--?prettify?-->`
+  immediately before the code fence
 - **Tool Changes**
   - Tools can now specify one of the following tool types:
     - Matlab
@@ -752,8 +840,10 @@
 ## 0.3.0 (January 17, 2014)
 
 ### Enhancements
-- Home page is now more dynamic and includes direct links to available documentation, data, and tools
-- Covariate datasets can now be requested and downloaded if the user has been granted access to the dataset
+- Home page is now more dynamic and includes direct links to available
+  documentation, data, and tools
+- Covariate datasets can now be requested and downloaded if the user has been
+  granted access to the dataset
 - Added prototype of data use agreement request process
 - **Tool Changes**
   - Tools can now have multiple pages of documentation identical to datasets
@@ -778,8 +868,10 @@
   - Datasets can be added and shared publicly or privately
   - **Documentation**
     - Dataset editors can create, edit, and update documentation pages
-    - Datasets can be documented using markdown or plain text across multiple pages
-      - `:datasets_path:` and `:tools_path:` can now be referenced in documentation
+    - Datasets can be documented using markdown or plain text across multiple
+      pages
+      - `:datasets_path:` and `:tools_path:` can now be referenced in
+        documentation
     - Dataset specific paths can now be referenced:
       - `:pages_path:` => `/datasets/SLUG/pages`
       - `:images_path:` => `/datasets/SLUG/images`
@@ -792,20 +884,27 @@
     - File downloads are now audited and can be reviewed by dataset creators
     - Users can now request access to file downloads for datasets
     - Dataset editors can approve/deny user file access requests
-    - Dataset files are indexed to improve viewing folders with 1,000 or more files
+    - Dataset files are indexed to improve viewing folders with 1,000 or more
+      files
   - **Collection**
-    - Users can search across multiple datasets that have an associated data dictionary
-      - [Spout](https://github.com/sleepepi/spout) helps format and maintain JSON data dictionaries
-      - An example data dictionary is the [We Care Data Dictionary](https://github.com/sleepepi/wecare-data-dictionary)
-      - Variables with pre-computed charts now display the chart in the collection viewer
+    - Users can search across multiple datasets that have an associated data
+      dictionary
+      - [Spout](https://github.com/sleepepi/spout) helps format and maintain
+        JSON data dictionaries
+      - An example data dictionary is the
+        [We Care Data Dictionary](https://github.com/sleepepi/wecare-data-dictionary)
+      - Variables with pre-computed charts now display the chart in the
+        collection viewer
       - Users can create lists of variables on the collection viewer
-      - Variable charts are loaded when the image is placed in the web browser viewport
+      - Variable charts are loaded when the image is placed in the web browser
+        viewport
 - **Tool Changes**
   - Tools can be added and documented
 
 ## 0.0.0 (October 21, 2013)
 
 - Initial prototype of the National Sleep Research Resource splash page
-- Skeleton files to initialize Rails application with testing framework and continuous integration
+- Skeleton files to initialize Rails application with testing framework and
+  continuous integration
 - Added the We Care Dataset to prototype bulk file downloads
 - Added Windows and Mac OS X/Linux instructions for installing GNU Wget
