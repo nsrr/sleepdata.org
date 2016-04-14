@@ -220,7 +220,6 @@ class RequestController < ApplicationController
   #   end
   # end
 
-
   private
 
   def community_tool_params
