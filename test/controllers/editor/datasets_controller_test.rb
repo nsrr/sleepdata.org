@@ -8,6 +8,12 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
     @dataset = datasets(:public)
   end
 
+  test 'should get agreements' do
+    login(users(:editor))
+    get :agreements, id: @dataset
+    assert_response :success
+  end
+
   test 'should get audits' do
     login(users(:editor))
     get :audits, id: @dataset

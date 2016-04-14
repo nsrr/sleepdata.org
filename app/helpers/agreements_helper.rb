@@ -36,7 +36,7 @@ module AgreementsHelper
   def status_hash
     {
       'started' => 'warning',
-      'submitted' => 'primary',
+      'submitted' => 'info',
       'approved' => 'success',
       'resubmit' => 'danger',
       'expired' => 'default',

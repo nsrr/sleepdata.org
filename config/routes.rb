@@ -96,6 +96,7 @@ Rails.application.routes.draw do
   scope module: :editor do
     resources :datasets, only: [:edit, :update] do
       member do
+        get :agreements
         get :audits
         get :collaborators
         post :create_access

@@ -16,6 +16,7 @@
     improved
   - Requesting a single file through the JSON API now works as well
     - This allows the nsrr gem to download single files
+  - Dataset editors can now view and filter agreements for single datasets
 - **Dashboard Changes**
   - Improved display of admin pages linked from the dashboard
 - **Forum Changes**
