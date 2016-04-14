@@ -2,6 +2,13 @@
 
 = render 'datasets/header'
 
+- content_for :banner do
+  .breadcrumb-container
+    .container
+      %ol
+        %li= link_to @dataset.slug, @dataset
+        %li collaborators
+
 .row
   .col-sm-9.col-buffer
     %h1 Collaborators

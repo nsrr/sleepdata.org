@@ -32,7 +32,7 @@ class DatasetsController < ApplicationController
     path = @dataset.find_file_folder(params[:path])
     if path == params[:path].to_s
       folder = path.blank? ? '' : "#{path}/"
-      @dataset_files = @dataset.dataset_files.current.where(folder: folder).order_by_type
+      @dataset_files = @dataset.non_root_dataset_files.where(folder: folder).order_by_type
     else
       render json: []
     end
@@ -45,7 +45,7 @@ class DatasetsController < ApplicationController
   def folder_progress
     path = params[:path]
     folder = path.blank? ? '' : "#{path}/"
-    @dataset_files = @dataset.dataset_files.current.where(folder: folder).order_by_type.page(params[:page]).per(100)
+    @dataset_files = @dataset.non_root_dataset_files.where(folder: folder).order_by_type.page(params[:page]).per(100)
   end
 
   def files
@@ -65,7 +65,8 @@ class DatasetsController < ApplicationController
     elsif (@dataset_file && !@dataset_file.is_file?) || params[:path].blank?
       path = params[:path]
       folder = path.blank? ? '' : "#{path}/"
-      @dataset_files = @dataset.dataset_files.current.where(folder: folder).order_by_type.page(params[:page]).per(100)
+      @dataset_files = @dataset.non_root_dataset_files.where(folder: folder).order_by_type.page(params[:page]).per(100)
+      @root_dataset_file = @dataset.dataset_files.find_by(full_path: path.to_s)
       store_location_in_session
       render 'files'
     else

@@ -9,7 +9,7 @@ class DatasetFile < ApplicationRecord
   scope :order_by_type, -> { order(:is_file, :file_name) }
 
   # Model Validation
-  validates :dataset_id, :full_path, :file_name, :file_size, :file_time, presence: true
+  validates :dataset_id, :file_size, :file_time, presence: true
   validates :full_path, uniqueness: { scope: :dataset_id, case_sensitive: false }
   validates :file_size, numericality: { greater_than_or_equal_to: 0 }
 

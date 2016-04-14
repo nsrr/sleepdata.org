@@ -22,10 +22,13 @@
 - **Dataset Changes**
   - Improved browsing file downloads on smaller devices
   - File download commands can now be easily copied to clipboard
+  - Dataset file folders can now have individual descriptions
   - Dataset tracking of file information, like MD5 and file size, has been
     improved
   - Requesting a single file through the JSON API now works as well
     - This allows the nsrr gem to download single files
+  - Dataset editors can now view and filter agreements for single datasets
+  - The dataset files directory is now created on dataset creation
 - **Dashboard Changes**
   - Improved display of admin pages linked from the dashboard
 - **Forum Changes**

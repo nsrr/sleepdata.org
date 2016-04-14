@@ -47,10 +47,7 @@
       = link_to "Delete #{@object.class.name}", @object, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete #{@object.class.name} #{@object.name}?" } if current_user.system_admin?
     - if @object.is_a? Dataset
       .small-spacer
-      .center
-        = link_to 'Audits', audits_dataset_path(@object), class: 'btn btn-xs btn-default'
-        = link_to 'Collaborators', collaborators_dataset_path(@object), class: 'btn btn-xs btn-default'
-        = link_to 'Sync', sync_dataset_path(@object), class: 'btn btn-xs btn-default'
+      = render 'datasets/links'
     - elsif @object.is_a? Tool
       .small-spacer
       .center

@@ -8,6 +8,15 @@ class Editor::DatasetsController < ApplicationController
   # Concerns
   include Pageable
 
+  # GET /datasets/1/agreements
+  def agreements
+    params[:order] = 'agreements.id DESC' if params[:order].blank?
+    @order = scrub_order(Agreement, params[:order], [:id])
+    agreement_scope = @dataset.agreements.order(@order)
+    agreement_scope = agreement_scope.where(status: params[:status]) if params[:status].present?
+    @agreements = agreement_scope.page(params[:page]).per(40)
+  end
+
   # GET/POST/PATCH /datasets/1/audits
   def audits
     audit_scope = @dataset.dataset_file_audits.order(created_at: :desc)

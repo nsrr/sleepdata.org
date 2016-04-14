@@ -71,3 +71,10 @@
     max-width: 100%;
   }
 }
+
+.folder-callout {
+  border: 2px solid $gray-lighter;
+  color: $text-muted;
+  margin: 0 32px 40px !important;
+  padding: 20px;
+}

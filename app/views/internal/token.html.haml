@@ -9,4 +9,8 @@
       My
       = @title
     .call-to-action-body
-      %code.code-dark= current_user.id_and_auth_token
+      %code.code-dark{ style: 'border-radius: 4px 0 0 4px;' }>
+        = current_user.id_and_auth_token
+      %code{ style: 'border-radius: 0 4px 4px 0;' }
+        = link_to '#', data: { object: 'suppress-click', clipboard_text: current_user.id_and_auth_token, placement: 'bottom', container: 'body', title: 'Copied!', trigger: 'manual' }, style: 'text-decoration: none' do
+          %span.glyphicon.glyphicon-copy
