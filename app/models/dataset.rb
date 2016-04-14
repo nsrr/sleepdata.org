@@ -6,7 +6,7 @@ class Dataset < ApplicationRecord
   mount_uploader :logo, ImageUploader
 
   # Callbacks
-  after_commit :create_folders, on: :create
+  after_create_commit :create_folders
 
   # Concerns
   include Deletable, Documentable, Gitable, Forkable

@@ -10,7 +10,7 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
 
   test 'should get agreements' do
     login(users(:editor))
-    get :agreements, id: @dataset
+    get :agreements, params: { id: @dataset }
     assert_response :success
   end
 
