@@ -55,7 +55,8 @@ class Dataset < ActiveRecord::Base
   end
 
   def grants_file_access_to?(current_user)
-    all_files_public? || (agreements.where(status: 'approved', user_id: (current_user ? current_user.id : nil)).not_expired.count > 0)
+    user_id = (current_user ? current_user.id : nil)
+    all_files_public? || (agreements.where(status: 'approved', user_id: user_id).not_expired.count > 0)
   end
 
   def to_param
@@ -66,26 +67,16 @@ class Dataset < ActiveRecord::Base
     find_by_slug(input)
   end
 
+  def folder_name
+    Rails.env.test? ? slug : id.to_s
+  end
+
   def root_folder
-    File.join(CarrierWave::Uploader::Base.root, 'datasets', (Rails.env.test? ? slug : id.to_s))
+    File.join(CarrierWave::Uploader::Base.root, 'datasets', folder_name)
   end
 
   def files_folder
     File.join(root_folder, 'files')
-  end
-
-  def file_array(f, lock_file)
-    folder = f.gsub(%r{^#{files_folder}/}, '')
-    file_name = f.split('/').last
-    is_file = File.file?(f)
-    file_size = File.size(f)
-    file_time = File.mtime(f).strftime('%Y-%m-%d %H:%M:%S')
-    file_digest = if is_file
-                    message = "Computing MD5 Digest for #{file_name} of size #{file_size} bytes"
-                    File.open(lock_file, 'a') { |f| f.write "#{Time.zone.now}: #{message}\n" } if file_size > 10.megabytes
-                    Digest::MD5.file(f).hexdigest
-                  end
-    [folder, file_name, is_file, file_size, file_time, file_digest]
   end
 
   def reset_index_in_background!(path, recompute: false)
@@ -121,15 +112,23 @@ class Dataset < ActiveRecord::Base
     dataset_files.where(folder: folder).find_each(&:verify_file!)
   end
 
+  def non_root_dataset_files
+    dataset_files.current.where.not(file_name: '')
+  end
+
+  def all_files(path)
+    Dir.glob(File.join(files_folder, path.to_s)) + Dir.glob(File.join(files_folder, path.to_s, '*'))
+  end
+
   def generate_new_files_in_folder(path)
-    Dir.glob(File.join(files_folder, path.to_s, '*')).each do |file|
+    all_files(path).each do |file|
       find_or_create_dataset_file(file)
     end
   end
 
   def find_or_create_dataset_file(file)
     full_path = file.gsub(%r{^#{files_folder}/}, '')
-    file_name = file.split('/').last
+    file_name = File.basename(full_path)
     folder = full_path.gsub(/#{file_name}$/, '')
     file_size = File.size(file)
     file_time = File.mtime(file)

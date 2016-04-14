@@ -1,4 +1,14 @@
-# TODO: fill in actual file_size, file_time, and checksum
+public_root:
+  dataset: public
+  full_path: ""
+  folder: ""
+  file_name: ""
+  is_file: false
+  file_size: 204
+  file_time: 2016-03-28 15:54:44
+  # file_checksum_md5:
+  # publicly_available: false
+  # archived: false
 
 public_datasets:
   dataset: public
@@ -96,6 +106,18 @@ public_download_me_txt:
   # publicly_available: false
   # archived: false
 
+private_root:
+  dataset: private
+  full_path: ""
+  folder: ""
+  file_name: ""
+  is_file: false
+  file_size: 170
+  file_time: 2016-03-28 14:03:04
+  # file_checksum_md5:
+  # publicly_available: false
+  # archived: false
+
 private_hidden_file_txt:
   dataset: private
   full_path: "HIDDEN_FILE.txt"
@@ -105,6 +127,18 @@ private_hidden_file_txt:
   file_size: 16
   file_time: 2014-02-18 16:12:29
   file_checksum_md5: b2695949c739899653b3ed001d226b78
+  # publicly_available: false
+  # archived: false
+
+mixed_root:
+  dataset: mixed
+  full_path: ""
+  folder: ""
+  file_name: ""
+  is_file: false
+  file_size: 238
+  file_time: 2016-04-14 09:54:34
+  # file_checksum_md5:
   # publicly_available: false
   # archived: false
 
@@ -180,6 +214,18 @@ mixed_public_file_txt:
   publicly_available: true
   # archived: false
 
+private_documentation_root:
+  dataset: private_documentation
+  full_path: ""
+  folder: ""
+  file_name: ""
+  is_file: false
+  file_size: 136
+  file_time: 2016-03-28 14:03:00
+  # file_checksum_md5:
+  # publicly_available: false
+  # archived: false
+
 private_documentation_access_required_txt:
   dataset: private_documentation
   full_path: "ACCESS_REQUIRED.txt"
@@ -192,6 +238,18 @@ private_documentation_access_required_txt:
   # publicly_available: false
   # archived: false
 
+public_documentation_root:
+  dataset: public_documentation
+  full_path: ""
+  folder: ""
+  file_name: ""
+  is_file: false
+  file_size: 136
+  file_time: 2016-03-28 15:03:46
+  # file_checksum_md5:
+  # publicly_available: false
+  # archived: false
+
 public_documentation_access_required_txt:
   dataset: public_documentation
   full_path: "ACCESS_REQUIRED.txt"
@@ -201,6 +259,18 @@ public_documentation_access_required_txt:
   file_size: 20
   file_time: 2014-10-01 12:46:19
   file_checksum_md5: 26b1203ed43bcf15e89dcb2e79b804b8
+  # publicly_available: false
+  # archived: false
+
+public_documentation_no_access_root:
+  dataset: public_documentation_no_access
+  full_path: ""
+  folder: ""
+  file_name: ""
+  is_file: false
+  file_size: 136
+  file_time: 2016-03-28 15:03:46
+  # file_checksum_md5:
   # publicly_available: false
   # archived: false
 

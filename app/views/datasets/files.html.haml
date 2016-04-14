@@ -8,4 +8,8 @@
 - content_for :banner do
   #breadcrumb= render 'datasets/files_breadcrumb', path: path, page: page, file_count: @dataset_files.total_count
 
+- if @root_dataset_file && @root_dataset_file.description.present?
+  .markdown-container-new.folder-callout
+    = highlight(simple_markdown(@root_dataset_file.description, false, 'table table-striped table-hover'), @term, sanitize: false)
+
 #folder= render 'dataset_files/folder', path: path
