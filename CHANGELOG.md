@@ -9,6 +9,16 @@
 - Prefer use of `after_create_commit :fn` instead of
   `after_commit :fn, on: :create`
 
+## 0.19.1 (April 18, 2016)
+
+### Enhancements
+- **Gem Changes**
+  - Updated to carrierwave 0.11.0
+  - Updated to mini_magick 4.5.1
+
+### Bug Fix
+- Fixed a bug that prevented the documentation from being synced
+
 ## 0.19.0 (April 14, 2016)
 
 ### Enhancements

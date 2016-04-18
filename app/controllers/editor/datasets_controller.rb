@@ -49,9 +49,10 @@ class Editor::DatasetsController < ApplicationController
     redirect_to collaborators_dataset_path(@dataset)
   end
 
+  # Handled by Pageable
   # GET/POST/PATCH /datasets/1/pull_changes
-  def pull_changes
-  end
+  # def pull_changes
+  # end
 
   # POST /datasets/1/reset_index
   def reset_index

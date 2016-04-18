@@ -151,6 +151,12 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should pull changes' do
+    login(users(:editor))
+    post :pull_changes, params: { id: @dataset }
+    assert_redirected_to sync_dataset_path(@dataset)
+  end
+
   test 'should get edit' do
     login(users(:editor))
     get :edit, params: { id: @dataset }
