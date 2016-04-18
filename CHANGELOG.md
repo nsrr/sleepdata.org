@@ -1,4 +1,4 @@
-## 0.19.2
+## 0.19.2 (April 18, 2016)
 
 ### Enhancement
 - **Dataset Changes**
