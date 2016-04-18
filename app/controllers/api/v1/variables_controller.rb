@@ -105,6 +105,8 @@ class Api::V1::VariablesController < Api::V1::BaseController
 
   # Filtered for a single domain option
   def domain_option_params(option_hash)
+    option_hash ||= {}
+    option_hash[:missing] = false if option_hash.key?(:missing) && option_hash[:missing].blank?
     option_hash.permit(:display_name, :value, :description, :missing)
   end
 end
