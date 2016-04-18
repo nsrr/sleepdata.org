@@ -1,5 +1,9 @@
 ## 0.19.1
 
+### Enhancements
+- **Gem Changes**
+  - Updated to carrierwave 0.11.0
+
 ### Bug Fix
 - Fixed a bug that prevented the documentation from being synced
 
