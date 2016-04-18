@@ -1,5 +1,8 @@
 ## 0.19.2
 
+### Bug Fix
+- Fixed a bug that prevented domain options without missing key from being saved
+
 ## 0.19.1 (April 18, 2016)
 
 ### Enhancements

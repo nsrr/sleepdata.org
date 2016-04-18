@@ -25,12 +25,7 @@ class Api::V1::VariablesController < Api::V1::BaseController
         if params[:domain].key?(:options) && params[:domain][:options].is_a?(Array)
           @domain.domain_options.destroy_all
           params[:domain][:options].each do |option_hash|
-            @domain.domain_options.create(
-              display_name: option_hash[:display_name],
-              value: option_hash[:value],
-              description: option_hash[:description],
-              missing: option_hash[:missing]
-            )
+            @domain.domain_options.create(domain_option_params(option_hash))
           end
         end
         params[:variable][:domain_id] = @domain.id
@@ -106,5 +101,10 @@ class Api::V1::VariablesController < Api::V1::BaseController
 
   def dataset_version_forms
     @dataset.forms.where(dataset_version_id: @dataset_version.id)
+  end
+
+  # Filtered for a single domain option
+  def domain_option_params(option_hash)
+    option_hash.permit(:display_name, :value, :description, :missing)
   end
 end

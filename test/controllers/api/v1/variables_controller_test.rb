@@ -25,9 +25,7 @@ class Api::V1::VariablesControllerTest < ActionController::TestCase
     [
       {
         display_name: 'Vanilla',
-        value: '1',
-        description: '',
-        missing: false
+        value: '1'
       },
       {
         display_name: 'Chocolate',
