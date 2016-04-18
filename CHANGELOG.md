@@ -1,5 +1,9 @@
 ## 0.19.2
 
+### Enhancement
+- **Dataset Changes**
+  - Reduced the polling speed page refresh while indexing files
+
 ### Bug Fix
 - Fixed a bug that prevented domain options without missing key from being saved
 

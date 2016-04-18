@@ -4,4 +4,4 @@
       $('[data-object~="ajax-timer"]').each( () ->
         $.post($(this).data('path'), "interval=#{interval}", null, "script")
       )
-    , 1000)
+    , 5000)
