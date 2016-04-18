@@ -1,5 +1,8 @@
 ## 0.19.1
 
+### Bug Fix
+- Fixed a bug that prevented the documentation from being synced
+
 ## 0.19.0 (April 14, 2016)
 
 ### Enhancements
