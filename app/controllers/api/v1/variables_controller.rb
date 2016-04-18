@@ -24,8 +24,8 @@ class Api::V1::VariablesController < Api::V1::BaseController
         @domain.update(domain_optional_params)
         if params[:domain].key?(:options) && params[:domain][:options].is_a?(Array)
           @domain.domain_options.destroy_all
-          params[:domain][:options].each do |option_hash|
-            @domain.domain_options.create(domain_option_params(option_hash))
+          params[:domain][:options].each_with_index do |option_hash, index|
+            @domain.domain_options.create(domain_option_params(option_hash).merge(position: index))
           end
         end
         params[:variable][:domain_id] = @domain.id
