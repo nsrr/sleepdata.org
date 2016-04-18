@@ -16,7 +16,7 @@ class Domain < ActiveRecord::Base
   belongs_to :dataset
   belongs_to :dataset_version
   has_many :variables
-  has_many :domain_options, dependent: :destroy
+  has_many :domain_options, -> { order(:position) }, dependent: :destroy
 
   # Model Methods
 end
