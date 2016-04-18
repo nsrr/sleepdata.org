@@ -22,6 +22,12 @@ class ToolsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should get pull changes for editor' do
+    login(users(:editor))
+    post :pull_changes, params: { id: @tool }
+    assert_redirected_to sync_tool_path(@tool)
+  end
+
   test 'should show requests to editor' do
     login(users(:editor))
     get :requests, params: { id: @tool }

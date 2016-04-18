@@ -9,6 +9,15 @@
 - Prefer use of `after_create_commit :fn` instead of
   `after_commit :fn, on: :create`
 
+## 0.19.2
+
+### Enhancement
+- **Dataset Changes**
+  - Reduced the polling speed page refresh while indexing files
+
+### Bug Fix
+- Fixed a bug that prevented domain options without missing key from being saved
+
 ## 0.19.1 (April 18, 2016)
 
 ### Enhancements
