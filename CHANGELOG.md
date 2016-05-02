@@ -9,6 +9,12 @@
 - Prefer use of `after_create_commit :fn` instead of
   `after_commit :fn, on: :create`
 
+## 0.20.0
+
+### Enhancements
+- **Gem Changes**
+  - Updated to Ruby 2.3.1
+
 ## 0.19.2 (April 18, 2016)
 
 ### Enhancement

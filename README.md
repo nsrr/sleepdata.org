@@ -14,7 +14,7 @@ Edit Cron Jobs `sudo crontab -e` to run the task `lib/tasks/daily_digest.rake`
 
 ```
 SHELL=/bin/bash
-0 1 * * 3 source /etc/profile.d/rvm.sh && cd /var/www/www.sleepdata.org && /usr/local/rvm/gems/ruby-2.2.3/bin/bundle exec rake weekly_reviewer_digest RAILS_ENV=production
+0 1 * * 3 source /etc/profile.d/rvm.sh && cd /var/www/www.sleepdata.org && /usr/local/rvm/gems/ruby-2.3.1/bin/bundle exec rake weekly_reviewer_digest RAILS_ENV=production
 ```
 
 ## Installing Mini Magick - Image Upload Resizing
