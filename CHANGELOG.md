@@ -4,6 +4,9 @@
 - **Gem Changes**
   - Updated to Ruby 2.3.1
 
+### Refactoring
+- Removed deprecated code from domain model
+
 ## 0.19.2 (April 18, 2016)
 
 ### Enhancement
