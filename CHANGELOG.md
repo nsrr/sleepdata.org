@@ -4,6 +4,10 @@
 - **Gem Changes**
   - Updated to Ruby 2.3.1
 
+### Bug Fix
+- Agreement report tables now correctly shows counts of submissions that have
+  been started
+
 ### Refactoring
 - Removed deprecated code from domain model
 

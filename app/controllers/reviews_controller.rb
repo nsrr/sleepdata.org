@@ -10,11 +10,7 @@ class ReviewsController < ApplicationController
     @order = scrub_order(Agreement, params[:order], [:id])
     agreement_scope = current_user.reviewable_agreements.search(params[:search]).order(@order)
     agreement_scope = agreement_scope.with_tag(params[:tag_id]) if params[:tag_id].present?
-    if params[:status] == 'started'
-      agreement_scope = agreement_scope.where(status: nil)
-    elsif params[:status].present?
-      agreement_scope = agreement_scope.where(status: params[:status])
-    end
+    agreement_scope = agreement_scope.where(status: params[:status]) if params[:status].present?
     @agreements = agreement_scope.page(params[:page]).per(40)
   end
 
