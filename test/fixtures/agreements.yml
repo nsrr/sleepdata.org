@@ -20,6 +20,7 @@ resubmit:
   comments: There are missing fields that need to be added before this DAUA can be approved.
   # approval_date: 2014-01-15
   # expiration_date: 2014-01-15
+  resubmitted_at: 2014-01-15 14:22:15
 
 filled_out_application_with_attached_irb_file:
   user: valid

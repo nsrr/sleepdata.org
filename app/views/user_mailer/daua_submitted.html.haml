@@ -6,7 +6,11 @@
   = @agreement.user.name
   = surround '[', ']' do
     = mail_to @agreement.user.email, @agreement.user.email, style: link_style
-  %span{ style: default_style } submitted
+  %span{ style: emphasis_style }
+    - if @agreement.resubmitted?
+      resubmitted
+    - else
+      submitted
   a Data Access and Use Agreement.
 
 %p{ style: p_style }

@@ -3,6 +3,9 @@
 ### Enhancements
 - **General Changes**
   - Improved meta tags for sharing a link to the NSRR on Facebook and Google+
+- **Agreement Changes**
+  - Emails sent to reviewers for resubmitted agreements now indicate that the
+    agreement is a resubmission
 - **Gem Changes**
   - Updated to Ruby 2.3.1
 
