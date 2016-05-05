@@ -1,6 +1,8 @@
 ## 0.20.0
 
 ### Enhancements
+- **General Changes**
+  - Improved meta tags for sharing a link to the NSRR on Facebook and Google+
 - **Gem Changes**
   - Updated to Ruby 2.3.1
 
