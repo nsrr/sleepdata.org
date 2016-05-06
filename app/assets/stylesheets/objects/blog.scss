@@ -64,3 +64,12 @@
     margin-bottom: 10px;
   }
 }
+
+.comments-link {
+  color: $brand-gray;
+  font-weight: bold;
+}
+
+.just_voted {
+  animation: pulsate 300ms linear 1;
+}

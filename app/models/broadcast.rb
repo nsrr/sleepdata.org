@@ -17,6 +17,8 @@ class Broadcast < ActiveRecord::Base
   # Model Relationships
   belongs_to :user
   belongs_to :category
+  has_many :broadcast_comments
+  has_many :broadcast_comment_users
 
   # Model Methods
 

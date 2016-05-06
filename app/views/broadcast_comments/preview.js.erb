@@ -1,0 +1,1 @@
+$("[data-object~='broadcast-comment-tab-content'][data-action='preview'][data-parent-comment-id=<%= params[:parent_comment_id] %>][data-broadcast-comment-id=<%= params[:broadcast_comment_id] %>]").html("<%=j render 'broadcast_comments/formatted', broadcast_comment: @broadcast_comment %>");

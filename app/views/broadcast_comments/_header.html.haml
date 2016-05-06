@@ -1,0 +1,22 @@
+- unless broadcast_comment.deleted?
+  %span.pull-right
+    = render 'broadcast_comments/vote', broadcast_comment: broadcast_comment, just_voted: just_voted
+.nowrap.overflow-hidden
+  - if broadcast_comment.below_threshold?
+    = link_to '[+]', '#', data: { object: 'toggle-broadcast-comment' }, style: 'text-decoration:none', class: 'text-muted'
+  - else
+    = link_to '[-]', '#', data: { object: 'toggle-broadcast-comment' }, style: 'text-decoration:none', class: 'text-muted'
+  - if broadcast_comment.deleted?
+    %small
+      %i.text-muted [deleted]
+  - else
+    - if @broadcast.user == broadcast_comment.user
+      %small
+        %i.fa.fa-moon-o.primary-orange{ data: { toggle: 'tooltip', title: 'Blog Author', container: 'body' } }
+    = link_to broadcast_comment.user.forum_name, '#', data: { object: 'suppress-click' }
+  %span.text-muted{ style: 'font-size: 60%' }
+    - symbol = '+' if broadcast_comment.rank >= 0
+    = "#{symbol}#{broadcast_comment.rank} point#{'s' if broadcast_comment.rank.abs != 1}"
+    %span{ data: { toggle: 'tooltip', container: 'body', title: broadcast_comment.updated_at.strftime('%B %d, %Y at %-l:%M %p') } }
+      = time_ago_in_words broadcast_comment.updated_at
+      ago

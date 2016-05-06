@@ -1,0 +1,3 @@
+$("#broadcast_comment_<%= @broadcast_comment.id %>_options").click();
+$("[data-object~='broadcast-comment-show'][data-parent-comment-id=<%= @broadcast_comment.parent_comment_id %>][data-broadcast-comment-id=<%= @broadcast_comment.id %>]").html("<%=j render 'broadcast_comments/edit', broadcast_comment: @broadcast_comment %>");
+fileDragReady();

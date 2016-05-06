@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  namespace :async do
+    namespace :blog do
+      post :login
+      post :register
+      post :reply
+    end
+  end
+
+  resources :broadcast_comments
   resources :community_tools, path: 'community-tools'
   get 'account(/:auth_token)/profile' => 'account#profile'
 
@@ -47,7 +56,16 @@ Rails.application.routes.draw do
     get :blog_archive
   end
 
-  resources :broadcasts
+  resources :broadcasts, path: 'editor/blog'
+
+  resources :broadcast_comments do
+    collection do
+      post :preview
+    end
+    member do
+      post :vote
+    end
+  end
 
   scope module: :agreements do
     namespace :representative do

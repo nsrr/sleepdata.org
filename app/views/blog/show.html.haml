@@ -10,3 +10,6 @@
     = render 'blog/show', broadcast: @broadcast
   .col-md-3
     = render 'blog/menu'
+
+%a.anchor-top{ name: 'comments' }
+= render 'broadcast_comments/index', broadcast: @broadcast

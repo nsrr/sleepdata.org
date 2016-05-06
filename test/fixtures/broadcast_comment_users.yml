@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  broadcast: published
+  broadcast_comment: one
+  user: two
+  vote: 1
+
+two:
+  broadcast: published
+  broadcast_comment: one
+  user: aug
+  vote: 1

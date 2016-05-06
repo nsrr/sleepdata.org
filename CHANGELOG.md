@@ -9,6 +9,9 @@
 - **Blog Changes**
   - Admins can now create blog categories
   - Blogs can now be assigned a category
+  - Blog posts have a discussion section that is sorted by best or new comments
+  - Comments on blog posts can be up- and down-voted
+  - Comments can be ordered by highest ranked or newest
 - **Gem Changes**
   - Updated to Ruby 2.3.1
 
