@@ -6,6 +6,8 @@
 - **Agreement Changes**
   - Emails sent to reviewers for resubmitted agreements now indicate that the
     agreement is a resubmission
+- **Blog Changes**
+  - Admins can now create blog categories
 - **Gem Changes**
   - Updated to Ruby 2.3.1
 

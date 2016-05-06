@@ -83,6 +83,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :categories
+
   resources :challenges do
     member do
       get 'images/*path', action: 'images', as: :images, format: false

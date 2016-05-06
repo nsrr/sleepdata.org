@@ -46,6 +46,7 @@
 //= require external/wow
 
 //= require extensions/filedrag
+//= require extensions/slug
 
 //= require cookies
 
