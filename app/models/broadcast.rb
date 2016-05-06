@@ -7,17 +7,32 @@ class Broadcast < ActiveRecord::Base
   include Deletable
 
   # Named Scopes
-  scope :published, -> { current.where(published: true).where('publish_date <= ?', Date.today) }
+  scope :published, -> { current.where(published: true).where('publish_date <= ?', Time.zone.today) }
 
   # Model Validation
-  validates :title, :description, :user_id, :publish_date, presence: true
+  validates :title, :slug, :description, :user_id, :publish_date, presence: true
+  validates :slug, uniqueness: { scope: :deleted }
+  validates :slug, format: { with: /\A(?!\Anew\Z)[a-z][a-z0-9\-]*\Z/ }
 
   # Model Relationships
   belongs_to :user
+  belongs_to :category
 
   # Model Methods
 
   def to_param
-    "#{id}-#{title.parameterize}"
+    slug.to_s
+  end
+
+  def url_hash
+    {
+      year: publish_date.year,
+      month: publish_date.strftime('%m'),
+      slug: slug
+    }
+  end
+
+  def editable_by?(current_user)
+    current_user.editable_broadcasts.where(id: id).count == 1
   end
 end

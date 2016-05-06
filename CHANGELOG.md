@@ -8,6 +8,7 @@
     agreement is a resubmission
 - **Blog Changes**
   - Admins can now create blog categories
+  - Blogs can now be assigned a category
 - **Gem Changes**
   - Updated to Ruby 2.3.1
 

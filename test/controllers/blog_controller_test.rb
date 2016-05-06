@@ -2,6 +2,7 @@
 
 require 'test_helper'
 
+# Test to make sure blog is publicly accessible
 class BlogControllerTest < ActionController::TestCase
   test 'should get blog' do
     get :blog
@@ -14,12 +15,12 @@ class BlogControllerTest < ActionController::TestCase
   end
 
   test 'should show published blog' do
-    get :show, id: broadcasts(:published)
+    get :show, slug: broadcasts(:published).slug
     assert_response :success
   end
 
   test 'should not show draft blog' do
-    get :show, id: broadcasts(:draft)
+    get :show, slug: broadcasts(:draft).slug
     assert_redirected_to blog_path
   end
 end

@@ -9,10 +9,16 @@
         = @broadcast.title
       .banner-body
         - if @broadcast.published?
-          %span.label.label-info Published
-          = link_to 'View Blog Post', blog_post_path(@broadcast), class: 'btn btn-xs btn-default'
+          - if @broadcast.publish_date <= Time.zone.today
+            %span.label.label-info Published
+            = link_to 'View Blog Post', blog_post_path(@broadcast.url_hash), class: 'btn btn-xs btn-default'
+          - else
+            %span.label.label-info
+              Set to Publish on
+              = @broadcast.publish_date.strftime('%a, %B %-d, %Y')
         - else
           %span.label.label-warning DRAFT
+        &nbsp;
         = link_to edit_broadcast_path(@broadcast), class: 'btn btn-xs btn-default' do
           %span.glyphicon.glyphicon-edit
           Edit Blog Post

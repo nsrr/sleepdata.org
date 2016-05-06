@@ -81,6 +81,14 @@ class User < ActiveRecord::Base
     end
   end
 
+  def editable_broadcasts
+    if system_admin?
+      Broadcast.current
+    else
+      broadcasts
+    end
+  end
+
   def all_agreements
     if system_admin?
       Agreement.current

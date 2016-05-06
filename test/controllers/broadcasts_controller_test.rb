@@ -12,6 +12,7 @@ class BroadcastsControllerTest < ActionController::TestCase
   def broadcast_params
     {
       title: 'Broadcast Title',
+      slug: 'broadcast-title',
       short_description: 'This is the short description.',
       keywords: 'new article, short description, blog post',
       description: 'This is the longer content of the blog post.',
@@ -40,6 +41,7 @@ class BroadcastsControllerTest < ActionController::TestCase
 
     assert_not_nil assigns(:broadcast)
     assert_equal 'Broadcast Title', assigns(:broadcast).title
+    assert_equal 'broadcast-title', assigns(:broadcast).slug
     assert_equal 'This is the short description.', assigns(:broadcast).short_description
     assert_equal 'This is the longer content of the blog post.', assigns(:broadcast).description
     assert_equal users(:community_manager), assigns(:broadcast).user

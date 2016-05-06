@@ -1,7 +1,6 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 published:
   title: Published
+  slug: published
   description: This is a published post
   user: community_manager
   pinned: false
@@ -12,6 +11,7 @@ published:
 
 draft:
   title: Draft
+  slug: draft
   description: This is a post being drafted.
   user: community_manager
   pinned: false

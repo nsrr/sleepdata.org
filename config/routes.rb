@@ -40,8 +40,10 @@ Rails.application.routes.draw do
 
   scope module: :blog do
     get :blog
-    get 'blog/:id', action: 'show', as: :blog_post
-    get 'blog/:id/image', action: 'image', as: :blog_post_image
+    get 'blog/category/:category', action: 'blog', as: :blog_category
+    get 'blog/author/:author', action: 'blog', as: :blog_author
+    get 'blog/:slug', action: 'show'
+    get 'blog/:year/:month/:slug', action: 'show', as: :blog_post
     get :blog_archive
   end
 

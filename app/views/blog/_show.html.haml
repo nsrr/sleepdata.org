@@ -1,7 +1,10 @@
 .broadcast-info
   Posted by
-  = link_to broadcast.user.forum_name, blog_path(a: broadcast.user.forum_name)
+  = link_to broadcast.user.forum_name, blog_author_path(author: broadcast.user.forum_name)
   on
   %i= broadcast.publish_date.strftime '%B %-d, %Y'
+  - if broadcast.category
+    in
+    = link_to broadcast.category.name, blog_category_path(category: broadcast.category)
 
 .broadcast= simple_markdown broadcast.description, false
