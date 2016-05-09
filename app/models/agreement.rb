@@ -147,6 +147,10 @@ class Agreement < ApplicationRecord
     status == 'resubmit'
   end
 
+  def resubmitted?
+    resubmitted_at.present?
+  end
+
   def academic?
     data_user_type == 'individual'
   end

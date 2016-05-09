@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: Releases
+  slug: releases
+  deleted: false
+
+two:
+  name: News
+  slug: news
+  deleted: false

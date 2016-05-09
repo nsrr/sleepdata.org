@@ -2,10 +2,6 @@
 
 # Represents the valid values and options for a variable
 class Domain < ApplicationRecord
-  # TODO: Deprecated, remove after 0.19.0 release
-  serialize :options, Array
-  # END Deprecated
-
   # Model Validation
   validates :name, :dataset_id, :dataset_version_id, presence: true
   validates :name, format: { with: /\A[a-z]\w*\Z/i }

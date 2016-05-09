@@ -1,7 +1,11 @@
 .broadcast {
   @include remove-last-child-bottom-margin;
 
-  margin-bottom: 80px;
+  margin-bottom: 40px;
+
+  a {
+    word-wrap: break-word;
+  }
 
   img {
     border: 1px solid $gray-lighter;
@@ -64,6 +68,8 @@
 .broadcast-info {
   font-weight: 300;
   margin-bottom: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .broadcast-outer {
@@ -148,4 +154,79 @@
 
 .broadcast-alert .broadcast-header::after {
   border-right-color: $brand-warning;
+}
+
+.broadcast-discussion {
+  background-color: #daece1;
+
+  .broadcast-discussion-header {
+    background-color: $brand-gray-lighter;
+    border: 2px solid $brand-primary;
+    border-radius: 4px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+    margin: 10px 0 20px 0;
+    padding: 20px;
+  }
+
+  .broadcast-comment {
+    &.broadcast-comment-even {
+      background-color: $brand-white;
+    }
+
+    &.broadcast-comment-odd {
+      background-color: $brand-gray-lightest;
+    }
+
+    .broadcast-comment {
+      margin-top: 10px;
+      border: 1px solid $brand-gray-lighter;
+      border-radius: 4px 0 0 4px;
+      padding: 10px;
+      margin-right: -11px;
+    }
+  }
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .broadcast-discussion {
+    .broadcast-comment {
+      .broadcast-comment {
+        border-radius: 4px;
+        margin-right: 0;
+      }
+    }
+  }
+}
+
+.broadcast-comment-body {
+  padding-bottom: 10px;
+  padding-left: 0;
+  padding-top: 10px;
+
+  img {
+    max-height: 100px;
+  }
+
+  blockquote {
+    font-size: $font-size-base;
+    margin: 0 0 11px 0;
+    padding: 0 10px;
+    border: 0;
+    border-left: 2px solid $brand-gray-lighter;
+    color: #999;
+  }
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .broadcast-comment-body {
+    padding-left: 20px;
+  }
+}
+
+.outer-broadcast-comment {
+  background-color: $brand-white;
+  border: 0;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+  margin-bottom: 20px;
+  padding: 20px;
 }

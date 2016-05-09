@@ -46,6 +46,7 @@
 //= require external/wow
 
 //= require extensions/filedrag
+//= require extensions/slug
 
 //= require cookies
 
@@ -57,6 +58,7 @@
 
 //= require components/affix
 
+//= require objects/blog
 //= require objects/images
 
 //= require external/clipboard-1.5.9.js

@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  namespace :async do
+    namespace :blog do
+      post :login
+      post :register
+      post :reply
+    end
+  end
+
+  resources :broadcast_comments
   resources :community_tools, path: 'community-tools'
   get 'account(/:auth_token)/profile' => 'account#profile'
 
@@ -40,12 +49,23 @@ Rails.application.routes.draw do
 
   scope module: :blog do
     get :blog
-    get 'blog/:id', action: 'show', as: :blog_post
-    get 'blog/:id/image', action: 'image', as: :blog_post_image
+    get 'blog/category/:category', action: 'blog', as: :blog_category
+    get 'blog/author/:author', action: 'blog', as: :blog_author
+    get 'blog/:slug', action: 'show'
+    get 'blog/:year/:month/:slug', action: 'show', as: :blog_post
     get :blog_archive
   end
 
-  resources :broadcasts
+  resources :broadcasts, path: 'editor/blog'
+
+  resources :broadcast_comments do
+    collection do
+      post :preview
+    end
+    member do
+      post :vote
+    end
+  end
 
   scope module: :agreements do
     namespace :representative do
@@ -82,6 +102,8 @@ Rails.application.routes.draw do
       end
     end
   end
+
+  resources :categories
 
   resources :challenges do
     member do

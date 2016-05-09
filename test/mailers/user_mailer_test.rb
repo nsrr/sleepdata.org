@@ -47,6 +47,22 @@ class UserMailerTest < ActionMailer::TestCase
     )
   end
 
+  test 'daua resubmitted email' do
+    agreement = agreements(:resubmit)
+    valid = users(:valid)
+    # Send the email, then test that it got queued
+    email = UserMailer.daua_submitted(valid, agreement).deliver_now
+    assert !ActionMailer::Base.deliveries.empty?
+
+    # Test the body of the sent email contains what we expect it to
+    assert_equal [valid.email], email.to
+    assert_equal "#{agreement.user.name} Resubmitted a Data Access and Use Agreement", email.subject
+    assert_match(
+      /#{agreement.user.name} \[#{agreement.user.email}\] resubmitted a Data Access and Use Agreement\./,
+      email.encoded
+    )
+  end
+
   test 'daua approved email' do
     agreement = agreements(:one)
     admin = users(:admin)

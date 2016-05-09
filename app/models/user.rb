@@ -50,6 +50,7 @@ class User < ApplicationRecord
   has_many :agreement_events
   has_many :answers
   has_many :broadcasts, -> { current }
+  has_many :broadcast_comments
   has_many :challenges, -> { where deleted: false }
   has_many :comments, -> { where deleted: false }
   has_many :community_tools, -> { current }
@@ -78,6 +79,22 @@ class User < ApplicationRecord
       Comment.current
     else
       comments
+    end
+  end
+
+  def editable_broadcasts
+    if system_admin?
+      Broadcast.current
+    else
+      broadcasts
+    end
+  end
+
+  def editable_broadcast_comments
+    if system_admin?
+      BroadcastComment.current
+    else
+      broadcast_comments
     end
   end
 

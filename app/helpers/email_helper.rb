@@ -2,6 +2,10 @@
 
 # Helper functions for application emails
 module EmailHelper
+  def emphasis_color
+    '#333'
+  end
+
   def success_color
     '#4bbf74'
   end
@@ -67,6 +71,14 @@ module EmailHelper
 
   def default_style
     hash_to_css_string(
+      font_weight: 'bold',
+      word_break: 'break-word'
+    )
+  end
+
+  def emphasis_style
+    hash_to_css_string(
+      color: emphasis_color,
       font_weight: 'bold',
       word_break: 'break-word'
     )

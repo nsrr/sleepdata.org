@@ -1,0 +1,45 @@
+- @broadcast_comments = @broadcast.broadcast_comments.page(params[:page]).per(200)
+
+- content_for :call_to_action do
+  .broadcast-discussion
+    .container
+      .broadcast-discussion-header
+        - if @broadcast_comments.count > 0
+          - if @broadcast_comments.count == 1
+          - elsif @broadcast_comments.count < @broadcast_comments.total_count
+            top
+          - else
+            all
+          = pluralize(@broadcast_comments.count, 'comment')
+        - else
+          no comments
+
+        %div{ style: 'display: inline-block' }
+          &middot; sorted by
+        .dropdown{ style: 'display: inline-block'}
+          = link_to '#', data: { target: '#', toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' }, id: 'sort-by-dropdown', class: 'text-muted' do
+            - case params[:sort_by] when 'new'
+              new
+            - else
+              best
+            %span.caret
+          %ul.dropdown-menu{ aria: { labelledby: 'status-dropdown' } }
+            %li= link_to 'best', blog_post_path(year: broadcast.publish_date.year, month: broadcast.publish_date.strftime('%m'), slug: broadcast.slug, sort_by: 'best', anchor: 'comments'), style: (params[:sort_by].blank? || params[:sort_by] == 'best') ? 'font-weight:bold;' : ''
+            %li= link_to 'new', blog_post_path(year: broadcast.publish_date.year, month: broadcast.publish_date.strftime('%m'), slug: broadcast.slug, sort_by: 'new', anchor: 'comments'), style: (params[:sort_by] == 'new') ? 'font-weight:bold;' : ''
+
+        %span#write_comment_root_new
+          &middot;
+          = link_to 'reply', async_blog_reply_path(broadcast_id: @broadcast, parent_comment_id: 'root', broadcast_comment_id: 'new'), method: :post, remote: true
+
+
+      #comment_container_root_new{ style: 'display:none' }
+        - broadcast_comment = @broadcast.broadcast_comments.new
+        = render 'broadcast_comments/form', broadcast_comment: broadcast_comment
+
+      - top_level_comments = @broadcast_comments.select { |comment| comment.broadcast_comment_id == nil }
+      - if params[:sort_by] == 'new'
+        - top_level_comments = top_level_comments.sort_by(&:order_newest)
+      - else
+        - top_level_comments = top_level_comments.sort_by(&:order_best)
+      - top_level_comments.each do |broadcast_comment|
+        = render 'broadcast_comments/show', broadcast_comment: broadcast_comment, level: defined?(level) ? level + 1 : 0

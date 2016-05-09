@@ -1,0 +1,29 @@
+%div{ class: (defined?(level) && level == 0 ? 'outer-broadcast-comment' : nil) }
+  .broadcast-comment{ class: (defined?(level) && level.even? ? 'broadcast-comment-even' : 'broadcast-comment-odd' ) }
+    .broadcast-comment-header{ data: { parent_comment_id: broadcast_comment.parent_comment_id, broadcast_comment_id: broadcast_comment.id } }
+      = render 'broadcast_comments/header', broadcast_comment: broadcast_comment, just_voted: false
+
+    .broadcast-comment-body{ style: "#{'display:none' if broadcast_comment.below_threshold?}" }
+      %div{ data: { object: 'broadcast-comment-show', parent_comment_id: broadcast_comment.parent_comment_id, broadcast_comment_id: broadcast_comment.id } }
+        = render 'broadcast_comments/formatted', broadcast_comment: broadcast_comment
+
+      - unless broadcast_comment.deleted?
+        - new_broadcast_comment = @broadcast.broadcast_comments.new(broadcast_comment_id: broadcast_comment.id)
+        - parent_comment_id = new_broadcast_comment.parent_comment_id
+        - broadcast_comment_id = (new_broadcast_comment.new_record? ? 'new' : new_broadcast_comment.id)
+        %div{ id: "write_comment_#{parent_comment_id}_#{broadcast_comment_id}" }
+          %small= link_to 'reply', async_blog_reply_path(broadcast_id: @broadcast, parent_comment_id: parent_comment_id, broadcast_comment_id: broadcast_comment_id), method: :post, remote: true, class: 'text-muted'
+          - if current_user && broadcast_comment.editable_by?(current_user)
+            %small= link_to 'edit', edit_broadcast_comment_path(broadcast_comment, broadcast_id: @broadcast), remote: true, class: 'text-muted'
+            %small= link_to 'delete', broadcast_comment_path(broadcast_comment, broadcast_id: @broadcast), method: :delete, remote: true, data: { confirm: 'Are you sure you want to delete this comment?' }, class: 'text-muted'
+
+
+        %div{ id: "comment_container_#{parent_comment_id}_#{broadcast_comment_id}", style: 'display:none' }
+
+      - child_comments = @broadcast_comments.select { |comment| comment.broadcast_comment_id == broadcast_comment.id }
+      - if params[:sort_by] == 'new'
+        - child_comments = child_comments.sort_by(&:order_newest)
+      - else
+        - child_comments = child_comments.sort_by(&:order_best)
+      - child_comments.each do |child_comment|
+        = render 'broadcast_comments/show', broadcast_comment: child_comment, level: defined?(level) ? level + 1 : 0

@@ -2,13 +2,16 @@
 
 # Publicly available and published blog posts
 class BlogController < ApplicationController
-  before_action :set_broadcast, only: [:show]
+  before_action :find_broadcast_or_redirect, only: [:show]
 
   def blog
-    broadcast_scope = Broadcast.current.published.order(publish_date: :desc)
-    unless params[:a].blank?
-      user_ids = User.current.with_name(params[:a].to_s.split(','))
-      broadcast_scope = broadcast_scope.where(user_id: user_ids.select(:id))
+    broadcast_scope = Broadcast.current.published.order(publish_date: :desc, id: :desc)
+    unless params[:author].blank?
+      @author = User.current.with_name(params[:author]).first
+      broadcast_scope = broadcast_scope.where(user: @author)
+    end
+    unless params[:category].blank?
+      broadcast_scope = broadcast_scope.joins(:category).merge(Category.current.where(slug: params[:category]))
     end
     @broadcasts = broadcast_scope.page(params[:page]).per(40)
 
@@ -19,12 +22,13 @@ class BlogController < ApplicationController
   end
 
   def show
+    @author = @broadcast.user
   end
 
   private
 
-  def set_broadcast
-    @broadcast = Broadcast.current.published.find_by_id(params[:id])
+  def find_broadcast_or_redirect
+    @broadcast = Broadcast.current.published.find_by_slug params[:slug]
     redirect_to blog_path unless @broadcast
   end
 end

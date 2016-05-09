@@ -9,4 +9,7 @@
         = link_to 'Edit', edit_broadcast_path(@broadcast), class: 'btn btn-xs btn-default'
     = render 'blog/show', broadcast: @broadcast
   .col-md-3
-    %h2.brand= link_to 'NSRR Blog', blog_path
+    = render 'blog/menu'
+
+%a.anchor-top{ name: 'comments' }
+= render 'broadcast_comments/index', broadcast: @broadcast

@@ -15,7 +15,6 @@
         %tr
           %th Status
           - Agreement::STATUS.each do |label, status|
-            - status = nil if status == 'started'
             - temp_agreement = Agreement.new(status: status)
             %th= status_helper(temp_agreement)
           %th Total
@@ -23,19 +22,17 @@
         %tr
           %th Total
           - Agreement::STATUS.each do |label, status|
-            - status = nil if status == 'started'
             - count = @agreements.where(status: status).count
-            %th= link_to count, agreements_path(status: status || 'started')
-          %th= link_to @agreements.count, agreements_path
+            %th= link_to count, reviews_path(status: status)
+          %th= link_to @agreements.count, reviews_path
 
       - Tag.review_tags.order(:name).each do |tag|
         %tr
           %td= tag.name
           - Agreement::STATUS.each do |label, status|
-            - status = nil if status == 'started'
             - count = @agreements.where(status: status).with_tag(tag.id).count
-            %td= link_to (count == 0 ? '-' : count), agreements_path(status: status || 'started', tag_id: tag.id)
-          %td= link_to @agreements.with_tag(tag.id).count, agreements_path(tag_id: tag.id)
+            %td= link_to (count == 0 ? '-' : count), reviews_path(status: status, tag_id: tag.id)
+          %td= link_to @agreements.with_tag(tag.id).count, reviews_path(tag_id: tag.id)
 
 .dashboard-container
   .dashboard-title

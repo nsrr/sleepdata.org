@@ -4,12 +4,12 @@
 class BroadcastsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_community_manager
-  before_action :set_broadcast, only: [:show, :edit, :update, :destroy]
+  before_action :find_broadcast_or_redirect, only: [:show, :edit, :update, :destroy]
 
   # GET /broadcasts
   def index
-    @broadcasts = Broadcast.current.order(publish_date: :desc)
-                           .page(params[:page]).per(40)
+    @broadcasts = current_user.editable_broadcasts.order(publish_date: :desc, id: :desc)
+                              .page(params[:page]).per(40)
   end
 
   # GET /broadcasts/1
@@ -36,7 +36,7 @@ class BroadcastsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /broadcasts/1
+  # PATCH /broadcasts/1
   def update
     if @broadcast.update(broadcast_params)
       redirect_to @broadcast, notice: 'Broadcast was successfully updated.'
@@ -48,21 +48,26 @@ class BroadcastsController < ApplicationController
   # DELETE /broadcasts/1
   def destroy
     @broadcast.destroy
-    redirect_to broadcasts_path, notice: 'Broadcast was successfully destroyed.'
+    redirect_to broadcasts_path, notice: 'Broadcast was successfully deleted.'
   end
 
   private
 
-  def set_broadcast
-    @broadcast = Broadcast.current.find_by_id(params[:id])
+  def find_broadcast_or_redirect
+    @broadcast = current_user.editable_broadcasts.find_by_slug params[:id]
+    redirect_without_broadcast
+  end
+
+  def redirect_without_broadcast
+    empty_response_or_root_path(broadcasts_path) unless @broadcast
   end
 
   def broadcast_params
     params[:broadcast] ||= { blank: '1' }
     parse_date_if_key_present(:broadcast, :publish_date)
     params.require(:broadcast).permit(
-      :title, :short_description, :description, :pinned, :archived,
-      :publish_date, :published, :keywords
+      :title, :slug, :short_description, :description, :pinned, :archived,
+      :publish_date, :published, :keywords, :category_id
     )
   end
 end

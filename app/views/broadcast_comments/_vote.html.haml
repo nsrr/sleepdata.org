@@ -1,0 +1,33 @@
+- if !current_user && just_voted
+  %small= link_to 'Login to vote', new_user_session_path
+- else
+  - vote = broadcast_comment.vote(current_user)
+
+  - if vote == true
+    - klass = 'text-success'
+    - icon = 'fa-thumbs-up'
+    - change_to = 'clear'
+  - else
+    - klass = 'text-muted'
+    - icon = 'fa-thumbs-o-up'
+    - change_to = 'up'
+
+  &nbsp;
+
+  = link_to vote_broadcast_comment_path(broadcast_comment, broadcast_id: @broadcast, vote: change_to), method: :post, remote: true, style: 'text-decoration:none', class: klass do
+    %i.fa{ class: "#{icon} #{'just_voted' if just_voted && vote == true}", style: 'width: 16px' }
+
+  &nbsp;
+
+  - if vote == false
+    - klass = 'text-danger'
+    - icon = 'fa-thumbs-down'
+    - change_to = 'clear'
+  - else
+    - klass = 'text-muted'
+    - icon = 'fa-thumbs-o-down'
+    - change_to = 'down'
+
+  = link_to vote_broadcast_comment_path(broadcast_comment, broadcast_id: @broadcast, vote: change_to), method: :post, remote: true, style: 'text-decoration:none', class: klass do
+    %i.fa{ class: "#{icon} #{'just_voted' if just_voted && vote == false}", style: 'width: 16px' }
+

@@ -1,0 +1,3 @@
+$("#comment_container_<%= params[:parent_comment_id] %>_<%= params[:broadcast_comment_id] %>").html("<%=j render 'broadcast_comments/form', broadcast_comment: @broadcast_comment %>");
+fileDragReady();
+showReplyBox("<%= params[:parent_comment_id] %>", "<%= params[:broadcast_comment_id] %>");

@@ -6,7 +6,7 @@
     .broadcast-right-fluid
       .broadcast-box
         .broadcast-header
-          %strong= link_to broadcast.title, blog_post_path(broadcast)
+          %strong= link_to broadcast.title, blog_post_path(broadcast.url_hash)
         .broadcast-body
           = broadcast.short_description
 

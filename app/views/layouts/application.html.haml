@@ -4,9 +4,19 @@
     %meta{ charset: 'utf-8'}
     %meta{ content: 'IE=Edge,chrome=1', http: { equiv: 'X-UA-Compatible' } }
     %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0'}
+    -# General
     %meta{ name: 'description', content: 'National Research Resource Resource offers free web access to large collections of de-identified physiological signals and clinical data elements collected in well-characterized research cohorts and clinical trials. The initial data resource is from the Sleep Heart Health Study.' }
     %meta{ name: 'author', content: '' }
     %meta{ name: 'keywords', content: @keywords.present? ? @keywords : 'sleep data, research datasets, study, sleep apnea, free access, download datasets' }
+    -# For Facebook
+    %meta{ property: 'og:url', content: ENV['website_url'] + '/' }
+    %meta{ property: 'og:title', content: ENV['website_name'] }
+    %meta{ property: 'og:description', content: 'Offering free web access to large collections of de-identified physiological signals and clinical data elements in well-characterized research cohorts and clinical trials.' }
+    %meta{ property: 'og:image', content: ENV['website_url'] + '/assets/' + asset_path('nsrr_logo_256.png').split('/assets/').last }
+    -# For Google+
+    %meta{ itemprop: 'name', content: ENV['website_name'] }
+    %meta{ itemprop: 'description', content: 'Offering free web access to large collections of de-identified physiological signals and clinical data elements in well-characterized research cohorts and clinical trials.' }
+    %meta{ itemprop: 'image', content: ENV['website_url'] + '/assets/' + asset_path('nsrr_logo_256.png').split('/assets/').last }
 
     %title
       = [@title, 'National Sleep Research Resource'].compact.join(' - ').html_safe
@@ -26,7 +36,7 @@
   %body{ class: yield(:body_class) }
     = yield :header
 
-    = render 'layouts/menu'
+    #top-menu= render 'layouts/menu'
     = render 'layouts/flash_messages'
 
     = yield :banner

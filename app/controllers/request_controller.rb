@@ -257,7 +257,7 @@ class RequestController < ApplicationController
   def save_agreement_user
     dataset = current_user.all_viewable_datasets.find_by_param(params[:dataset])
     if dataset
-      agreement = dataset.agreements.where(user_id: current_user.id, status: ['resubmit', 'started', '', nil]).first_or_create(status: 'started')
+      agreement = dataset.agreements.where(user_id: current_user.id, status: ['resubmit', 'started']).first_or_create(status: 'started')
     else
       agreement = current_user.agreements.create(status: 'started')
     end

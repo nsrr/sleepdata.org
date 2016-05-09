@@ -1,0 +1,13 @@
+- @title = "Edit Category: #{@category.name_was}"
+
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = link_to 'Categories', categories_path
+        &middot;
+        = link_to @category.name_was, @category
+        &middot;
+        Edit
+
+= render 'form'

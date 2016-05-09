@@ -12,8 +12,27 @@
 ## 0.20.0
 
 ### Enhancements
+- **General Changes**
+  - Improved meta tags for sharing a link to the NSRR on Facebook and Google+
+- **Agreement Changes**
+  - Emails sent to reviewers for resubmitted agreements now indicate that the
+    agreement is a resubmission
+- **Blog Changes**
+  - Admins can now create blog categories
+  - Blogs can now be assigned a category
+  - Blog posts have a discussion section that is sorted by best or new comments
+  - Comments on blog posts can be up- and down-voted
+  - Comments can be ordered by highest ranked or newest
 - **Gem Changes**
   - Updated to Ruby 2.3.1
+  - Added font-awesome-rails
+
+### Bug Fix
+- Agreement report tables now correctly shows counts of submissions that have
+  been started
+
+### Refactoring
+- Removed deprecated code from domain model
 
 ## 0.19.2 (April 18, 2016)
 
