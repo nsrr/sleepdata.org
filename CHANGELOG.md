@@ -3,7 +3,7 @@
 ### Enhancements
 - **Gem Changes**
   - Updated to rails 5.0.0.beta4
-  - Updated to devise 4.0.1
+  - Updated to devise 4.1.0
 
 ### Refactoring
 - Prefer use of `after_create_commit :fn` instead of
