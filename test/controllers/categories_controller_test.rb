@@ -32,7 +32,7 @@ class CategoriesControllerTest < ActionController::TestCase
   test 'should create category' do
     login(@admin)
     assert_difference('Category.count') do
-      post :create, category: category_params
+      post :create, params: { category: category_params }
     end
     assert_redirected_to category_path(assigns(:category))
   end
@@ -40,7 +40,7 @@ class CategoriesControllerTest < ActionController::TestCase
   test 'should not create category with blank name' do
     login(@admin)
     assert_difference('Category.count', 0) do
-      post :create, category: category_params.merge(name: '')
+      post :create, params: { category: category_params.merge(name: '') }
     end
     assert_template 'new'
     assert_response :success
@@ -48,25 +48,27 @@ class CategoriesControllerTest < ActionController::TestCase
 
   test 'should show category' do
     login(@admin)
-    get :show, id: @category
+    get :show, params: { id: @category }
     assert_response :success
   end
 
   test 'should get edit' do
     login(@admin)
-    get :edit, id: @category
+    get :edit, params: { id: @category }
     assert_response :success
   end
 
   test 'should update category' do
     login(@admin)
-    patch :update, id: @category, category: category_params
+    patch :update, params: { id: @category, category: category_params }
     assert_redirected_to category_path(assigns(:category))
   end
 
   test 'should not update category with blank name' do
     login(@admin)
-    patch :update, id: @category, category: category_params.merge(name: '')
+    patch :update, params: {
+      id: @category, category: category_params.merge(name: '')
+    }
     assert_template 'edit'
     assert_response :success
   end
@@ -74,9 +76,8 @@ class CategoriesControllerTest < ActionController::TestCase
   test 'should destroy category' do
     login(@admin)
     assert_difference('Category.current.count', -1) do
-      delete :destroy, id: @category
+      delete :destroy, params: { id: @category }
     end
-
     assert_redirected_to categories_path
   end
 end
