@@ -6,7 +6,7 @@
 = render 'internal/profile_header', title: @title
 
 .dashboard-container
-  = render 'contour/layouts/per_page', per_page: 40, object_count: @agreements.total_count, pagination_size: 'small'
+  = render 'variables/per_page', per_page: 40, object_count: @agreements.total_count, pagination_size: 'small'
 
   = form_tag reviews_path, method: :get, class: 'form-inline' do
     = text_field_tag 'search', params[:search], class: 'form-control'
