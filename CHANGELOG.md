@@ -14,6 +14,7 @@
   - Comments can be ordered by highest ranked or newest
 - **Gem Changes**
   - Updated to Ruby 2.3.1
+  - Added font-awesome-rails
 
 ### Bug Fix
 - Agreement report tables now correctly shows counts of submissions that have

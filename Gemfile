@@ -20,6 +20,7 @@ gem 'haml',                 '~> 4.0.6'
 gem 'figaro',               '~> 1.1.1'
 gem 'differ',               '~> 0.1.2'
 gem 'hashids',              '~> 1.0.2'
+gem 'font-awesome-rails',   '~> 4.6.2'
 
 # Rails Defaults
 gem 'coffee-rails',         '~> 4.1.0'

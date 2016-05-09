@@ -11,8 +11,8 @@
       %i.text-muted [deleted]
   - else
     - if @broadcast.user == broadcast_comment.user
-      %small
-        %i.fa.fa-moon-o.primary-orange{ data: { toggle: 'tooltip', title: 'Blog Author', container: 'body' } }
+      %small.blog-author-icon
+        %span.glyphicon.glyphicon-leaf{ rel: 'tooltip', data: { title: 'Blog Author', container: 'body' } }
     = link_to broadcast_comment.user.forum_name, '#', data: { object: 'suppress-click' }
   %span.text-muted{ style: 'font-size: 60%' }
     - symbol = '+' if broadcast_comment.rank >= 0
