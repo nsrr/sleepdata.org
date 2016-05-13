@@ -1,5 +1,10 @@
 ## 0.21.0
 
+### Enhancements
+- **Admin Changes**
+  - The y-axis in Downloads by Month admin report now more accurately displays
+    sizes over 1TB
+
 ## 0.20.0 (May 9, 2016)
 
 ### Enhancements

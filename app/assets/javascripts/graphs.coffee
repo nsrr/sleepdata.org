@@ -27,7 +27,8 @@
         title:
           text: $('#downloads-chart-container').data('yaxis')
         labels:
-          formatter: () -> return bytes(this.value, true, 0)
+          formatter: () -> return bytes(this.value, true, (this.value > 1073741824000 ? 1 : 0))
+        tickInterval: 536870912000
       tooltip:
         formatter: () -> return bytes(this.y, true, 1)
       plotOptions:
