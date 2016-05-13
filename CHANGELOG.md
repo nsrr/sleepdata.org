@@ -5,6 +5,10 @@
   - The y-axis in Downloads by Month admin report now more accurately displays
     sizes over 1TB
 
+### Bug Fix
+- Fixed an issue that prevented users from requesting datasets due to the
+  submission status from being incorrectly set
+
 ## 0.20.0 (May 9, 2016)
 
 ### Enhancements

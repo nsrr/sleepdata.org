@@ -89,7 +89,6 @@ class RequestController < ApplicationController
 
   def submissions_launch
     if current_user
-      @agreement = current_user.agreements.new
       save_agreement_user
     else
       @agreement = Agreement.new
@@ -257,11 +256,12 @@ class RequestController < ApplicationController
   def save_agreement_user
     dataset = current_user.all_viewable_datasets.find_by_param(params[:dataset])
     if dataset
-      agreement = dataset.agreements.where(user_id: current_user.id, status: ['resubmit', 'started']).first_or_create(status: 'started')
+      @agreement = dataset.agreements.find_by(user_id: current_user.id, status: ['resubmit', 'started'])
+      @agreement = dataset.agreements.create(user_id: current_user.id) unless @agreement
     else
-      agreement = current_user.agreements.create(status: 'started')
+      @agreement = current_user.agreements.create(status: 'started')
     end
-    redirect_to step_agreement_path(agreement, step: agreement.current_step)
+    redirect_to step_agreement_path(@agreement, step: @agreement.current_step)
   end
 
   def save_dataset_hosting_user
