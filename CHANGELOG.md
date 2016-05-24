@@ -4,6 +4,8 @@
 - **Admin Changes**
   - The y-axis in Downloads by Month admin report now more accurately displays
     sizes over 1TB
+- **General Changes**
+  - Added Data Sharing Language for use in grant submissions
 
 ### Bug Fix
 - Fixed an issue that prevented users from requesting datasets due to the
