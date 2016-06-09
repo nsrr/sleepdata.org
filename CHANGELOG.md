@@ -9,6 +9,15 @@
 - Prefer use of `after_create_commit :fn` instead of
   `after_commit :fn, on: :create`
 
+## 0.22.0
+
+### Enhancements
+- **Admin Changes**
+  - Updated the graph tick interval to be 512MB instead of 500MB
+  - Simplified filters on DAUA review index
+- **Gem Changes**
+  - Updated to kaminari 0.17.0
+
 ## 0.21.0 (June 9, 2016)
 
 ### Enhancements

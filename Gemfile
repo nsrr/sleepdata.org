@@ -13,8 +13,7 @@ gem 'pg',                   '0.18.4'
 
 # Gems used by project
 gem 'contour', github: 'remomueller/contour', ref: 'f077390'
-# gem 'kaminari',             '~> 0.16.3'
-gem 'kaminari', github: 'amatsuda/kaminari', ref: '3974ae5'
+gem 'kaminari',             '~> 0.17.0'
 gem 'carrierwave',          '~> 0.11.0'
 gem 'mini_magick',          '~> 4.5.1'
 gem 'redcarpet',            '~> 3.3.2'
