@@ -3,6 +3,7 @@
 ### Enhancements
 - **Admin Changes**
   - Updated the graph tick interval to be 512MB instead of 500MB
+  - Simplified filters on DAUA review index
 - **Gem Changes**
   - Updated to kaminari 0.17.0
 
