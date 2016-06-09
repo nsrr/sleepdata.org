@@ -1,6 +1,8 @@
 ## 0.22.0
 
 ### Enhancements
+- **Admin Changes**
+  - Updated the graph tick interval to be 512MB instead of 500MB
 - **Gem Changes**
   - Updated to kaminari 0.17.0
 
