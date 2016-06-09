@@ -9,6 +9,19 @@
 - Prefer use of `after_create_commit :fn` instead of
   `after_commit :fn, on: :create`
 
+## 0.21.0 (June 9, 2016)
+
+### Enhancements
+- **Admin Changes**
+  - The y-axis in Downloads by Month admin report now more accurately displays
+    sizes over 1TB
+- **General Changes**
+  - Added Data Sharing Language for use in grant submissions
+
+### Bug Fix
+- Fixed an issue that prevented users from requesting datasets due to the
+  submission status from being incorrectly set
+
 ## 0.20.0 (May 9, 2016)
 
 ### Enhancements

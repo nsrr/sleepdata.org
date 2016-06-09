@@ -21,7 +21,7 @@
         %tr
           %th
             = link_to 'Status', agreements_dataset_path(@dataset, order: (params[:order] == 'agreements.status DESC' ? 'agreements.status' : 'agreements.status DESC'), status: params[:status])
-            .dropdown{ style: 'display: inline-block'}
+            .dropdown{ style: 'display: inline-block' }
               = link_to '#', data: { target: '#', toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' }, id: 'status-dropdown' do
                 %span.glyphicon.glyphicon-filter
               %ul.dropdown-menu{ aria: { labelledby: 'status-dropdown' } }

@@ -210,6 +210,7 @@ Rails.application.routes.draw do
   scope module: :external do
     get :about
     get :aug, path: 'about/academic-user-group'
+    get :datasharing, path: 'about/data-sharing-language'
     get :contact
     get :contributors, path: 'about/contributors'
     get :landing

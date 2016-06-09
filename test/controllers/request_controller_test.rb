@@ -333,4 +333,12 @@ class RequestControllerTest < ActionController::TestCase
     get :dataset_hosting_submitted
     assert_response :success
   end
+
+  test 'should launch a new submission as a regular user' do
+    login(users(:contributor))
+    post :submissions_launch, dataset: datasets(:public)
+    assert_equal 'started', assigns(:agreement).status
+    assert_equal [datasets(:public)], assigns(:agreement).datasets.to_a
+    assert_redirected_to step_agreement_path(assigns(:agreement), step: assigns(:agreement).current_step)
+  end
 end

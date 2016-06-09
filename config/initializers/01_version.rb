@@ -3,7 +3,7 @@
 module WwwSleepdataOrg
   module VERSION #:nodoc:
     MAJOR = 0
-    MINOR = 20
+    MINOR = 21
     TINY = 0
     BUILD = 'rails5' # 'pre', 'beta1', 'beta2', 'rc', 'rc2', nil
 

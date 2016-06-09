@@ -14,8 +14,7 @@
       %h2.faded-header
         via email
       %p
-        = link_to "mailto:#{ENV['support_email']}" do
-          = ENV['support_email']
+        = mail_to ENV['support_email']
 
       %h2.faded-header{ style: 'margin-top: 40px' }
         our address

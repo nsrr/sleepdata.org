@@ -33,4 +33,9 @@ class ExternalControllerTest < ActionController::TestCase
     get :sitemap
     assert_response :success
   end
+
+  test 'should get data sharing language' do
+    get :datasharing
+    assert_response :success
+  end
 end
