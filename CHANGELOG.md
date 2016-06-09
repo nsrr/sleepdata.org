@@ -1,5 +1,9 @@
 ## 0.22.0
 
+### Enhancements
+- **Gem Changes**
+  - Updated to kaminari 0.17.0
+
 ## 0.21.0 (June 9, 2016)
 
 ### Enhancements
