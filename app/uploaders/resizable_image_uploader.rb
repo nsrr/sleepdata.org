@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# encoding: utf-8
 
 # Resizes uploaded images to preset dimensions
 class ResizableImageUploader < CarrierWave::Uploader::Base
