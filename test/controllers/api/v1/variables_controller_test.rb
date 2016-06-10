@@ -8,7 +8,8 @@ class Api::V1::VariablesControllerTest < ActionController::TestCase
     {
       name: 'favorite_flavor',
       display_name: 'Favorite Icecream Flavor',
-      variable_type: 'choices'
+      variable_type: 'choices',
+      labels: %w(food dessert)
     }
   end
 
@@ -83,6 +84,9 @@ class Api::V1::VariablesControllerTest < ActionController::TestCase
         end
       end
     end
+    assert_not_nil assigns(:variable)
+    assert_equal [], assigns(:variable).labels.sort
+    assert_equal %w(dessert food), assigns(:variable).variable_labels.pluck(:name).sort
     assert_response :success
   end
 

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# Represent Spout variable structure for variable pages
+# Represent Spout variable structure for variable pages.
 class Variable < ActiveRecord::Base
-  # TODO: Remove serialize and replace with database relations or make tests to
-  # assure these are stored and retrieved correctly after a Rails5 update
+  # TODO: Remove the following in 0.23.0
   serialize :labels, Array
+  # TODO: End
 
   after_save :set_search_terms
 
@@ -25,19 +25,11 @@ class Variable < ActiveRecord::Base
   belongs_to :dataset_version
   has_many :variable_forms
   has_many :forms, through: :variable_forms
+  has_many :variable_labels, -> { order :name }
 
   # Temporary while "version" is being deprecated
   def api_version
     dataset_version ? dataset_version.version : nil
-  end
-
-  def score(labels)
-    return labels.count + 1 if labels.include?(name)
-    result = (commonly_used? ? 0.5 : 0)
-    labels.each do |label|
-      result += 1 unless (search_terms =~ /\b#{label}/i).nil?
-    end
-    result
   end
 
   def to_param
@@ -109,22 +101,22 @@ class Variable < ActiveRecord::Base
   end
 
   def label_exact_match?(term)
-    labels.each do |label|
-      return true if Variable.exact_match?(label, term)
+    variable_labels.each do |label|
+      return true if Variable.exact_match?(label.name, term)
     end
     false
   end
 
   def label_starts_with?(term)
-    labels.each do |label|
-      return true if Variable.starts_with?(label, term)
+    variable_labels.each do |label|
+      return true if Variable.starts_with?(label.name, term)
     end
     false
   end
 
   def label_partial_match?(term)
-    labels.each do |label|
-      return true if Variable.partial_match?(label, term)
+    variable_labels.each do |label|
+      return true if Variable.partial_match?(label.name, term)
     end
     false
   end
@@ -134,11 +126,11 @@ class Variable < ActiveRecord::Base
   end
 
   def self.starts_with?(string, term)
-    !(/^#{term.to_s.downcase}/ =~ string.to_s.downcase).nil?
+    !(/^#{term.to_s.gsub('\\', '').downcase}/ =~ string.to_s.downcase).nil?
   end
 
   def self.partial_match?(string, term)
-    !(/#{term.to_s.downcase}/ =~ string.to_s.downcase).nil?
+    !(/#{term.to_s.gsub('\\', '').downcase}/ =~ string.to_s.downcase).nil?
   end
 
   def rank_sort_order(search)
@@ -148,7 +140,7 @@ class Variable < ActiveRecord::Base
 
   def set_search_terms
     terms = [name.downcase] + folder.to_s.split('/')
-    terms += labels
+    terms += variable_labels.pluck(:name)
     terms += forms.pluck(:name)
     [display_name, units, calculation, description].each do |json_string|
       terms += json_string.to_s.split(/[^\w\d%]/).reject(&:blank?)

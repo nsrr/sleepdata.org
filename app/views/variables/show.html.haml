@@ -1,5 +1,5 @@
 - @title = "#{@variable.name.upcase} - #{@dataset.slug.upcase} Variables"
-- @keywords = @variable.labels.join(', ')
+- @keywords = @variable.variable_labels.pluck(:name).join(', ')
 
 = render 'variables/header'
 
