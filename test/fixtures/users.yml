@@ -165,13 +165,13 @@ community_manager:
 reviewer_on_public:
   first_name: Reviewer
   last_name: Van Public
-  email: reviewer_on_public
+  email: reviewer_on_public@example.com
   encrypted_password: ""
   username: reviewer_on_public
 
 reviewer_two_on_public:
   first_name: Reviewer Two
   last_name: Van Public
-  email: reviewer_two_on_public
+  email: reviewer_two_on_public@example.com
   encrypted_password: ""
   username: reviewer_two_on_public

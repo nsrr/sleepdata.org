@@ -13,6 +13,8 @@ class AgreementEvent < ActiveRecord::Base
                 ['principal_reviewer_approved', 'principal_reviewer_approved'],
                 ['tags_updated', 'tags_updated']]
 
+  # TODO: Remove serialize and replace with database relations or make tests to
+  # assure these are stored and retrieved correctly after a Rails5 update
   serialize :added_tag_ids, Array
   serialize :removed_tag_ids, Array
 

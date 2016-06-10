@@ -2,8 +2,8 @@
 
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_agreement, only: [:show, :vote, :create_comment, :preview, :show_comment, :edit_comment, :update_comment, :destroy_comment, :update_tags, :transactions]
-  before_action :set_editable_agreement_event, only: [:show_comment, :edit_comment, :update_comment, :destroy_comment]
+  before_action :find_agreement_or_redirect, only: [:show, :vote, :create_comment, :preview, :show_comment, :edit_comment, :update_comment, :destroy_comment, :update_tags, :transactions]
+  before_action :find_editable_agreement_event_or_redirect, only: [:show_comment, :edit_comment, :update_comment, :destroy_comment]
 
   def index
     params[:order] = 'agreements.last_submitted_at DESC' if params[:order].blank?
@@ -126,12 +126,12 @@ class ReviewsController < ApplicationController
 
   private
 
-  def set_agreement
+  def find_agreement_or_redirect
     @agreement = current_user.reviewable_agreements.find_by_id(params[:id])
     empty_response_or_root_path(reviews_path) unless @agreement
   end
 
-  def set_editable_agreement_event
+  def find_editable_agreement_event_or_redirect
     @agreement_event = current_user.all_agreement_events.find_by_id(params[:agreement_event_id])
     empty_response_or_root_path(reviews_path) unless @agreement_event
   end
