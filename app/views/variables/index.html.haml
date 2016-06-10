@@ -42,7 +42,7 @@
             %td= render 'variables/relevance', variable: variable
 
     - if false
-      .center= paginate @variables, theme: 'contour'
+      .center= paginate @variables, theme: 'bootstrap'
 - elsif @dataset.variables.count == 0
   .jumbotron{ style: 'margin-top:30px' }
     %p

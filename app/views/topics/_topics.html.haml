@@ -50,4 +50,4 @@
             = link_to '<span class="glyphicon glyphicon-pushpin"></span>'.html_safe, admin_topic_path(topic, topic: { stickied: '1' }), method: :post, data: { confirm: "Are you sure you want to pin this topic?"}, class: 'btn btn-xs btn-primary'
           = link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, topic, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Topic #{topic.name}?" }
 
-.center= paginate @topics, theme: 'contour'
+.center= paginate @topics, theme: 'bootstrap'

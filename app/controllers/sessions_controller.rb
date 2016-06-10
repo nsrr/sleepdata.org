@@ -2,7 +2,7 @@
 
 # Override for devise sessions controller in order to track a user's location
 # when signing out.
-class SessionsController < Contour::SessionsController
+class SessionsController < Devise::SessionsController
   # The Devise sign_out method deletes the entire session. We need the session
   # :previous_url in order to friendly redirect back to the page the user was
   # on when they were signing out.
