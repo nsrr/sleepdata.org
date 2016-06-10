@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class VariablesController < ApplicationController
-  before_action :set_viewable_dataset
-  before_action :redirect_without_dataset
+  before_action :find_viewable_dataset_or_redirect
   before_action :set_dataset_version
   before_action :set_viewable_variable,     only: [:show, :graphs, :form, :known_issues, :related, :history]
   before_action :redirect_without_variable, only: [:show, :graphs, :form, :known_issues, :related, :history]
