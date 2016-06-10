@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
+# Displays data dictionary information for variables, including associated
+# graphs, forms, known issues, and history.
 class VariablesController < ApplicationController
   before_action :find_viewable_dataset_or_redirect
   before_action :set_dataset_version
-  before_action :set_viewable_variable,     only: [:show, :graphs, :form, :known_issues, :related, :history]
-  before_action :redirect_without_variable, only: [:show, :graphs, :form, :known_issues, :related, :history]
+  before_action :find_viewable_variable_or_redirect, only: [:show, :graphs, :form, :known_issues, :related, :history]
 
   def index
     variable_scope = @dataset.variables.with_folder(params[:folder])
@@ -49,10 +50,11 @@ class VariablesController < ApplicationController
     @dataset_version = @dataset.dataset_version unless @dataset_version
   end
 
-  def set_viewable_variable
+  def find_viewable_variable_or_redirect
     variable_scope = @dataset.variables
     variable_scope = variable_scope.where(dataset_version_id: @dataset_version.id) if @dataset_version
     @variable = variable_scope.find_by_name(params[:id])
+    redirect_without_variable
   end
 
   def redirect_without_variable
