@@ -33,8 +33,8 @@ class ReviewsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:agreement_event)
     assert_equal 'tags_updated', assigns(:agreement_event).event_type
     assert_equal @reviewer.id, assigns(:agreement_event).user_id
-    assert_equal [tags(:student).id, tags(:thesis).id].sort, assigns(:agreement_event).added_tag_ids.sort
-    assert_equal [tags(:publication).id].sort, assigns(:agreement_event).removed_tag_ids.sort
+    assert_equal [tags(:student).id, tags(:thesis).id].sort, assigns(:agreement_event).agreement_event_tags.where(added: true).pluck(:tag_id).sort
+    assert_equal [tags(:publication).id].sort, assigns(:agreement_event).agreement_event_tags.where(added: false).pluck(:tag_id).sort
     assert_template 'agreement_events/index'
     assert_response :success
   end

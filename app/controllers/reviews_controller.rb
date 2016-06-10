@@ -45,18 +45,20 @@ class ReviewsController < ApplicationController
   # POST /reviews/1/update_tags.js
   def update_tags
     submitted_tags = Tag.review_tags.where(id: params[:agreement][:tag_ids])
-    added_tag_ids = []
-    removed_tag_ids = []
+    added_removed_tag_ids = []
     Tag.review_tags.each do |tag|
       if submitted_tags.include?(tag) && !@agreement.tags.include?(tag)
-        added_tag_ids << tag.id
+        added_removed_tag_ids << [tag.id, true]
       elsif !submitted_tags.include?(tag) && @agreement.tags.include?(tag)
-        removed_tag_ids << tag.id
+        added_removed_tag_ids << [tag.id, false]
       end
     end
-    if added_tag_ids.count + removed_tag_ids.count > 0
+    if added_removed_tag_ids.count > 0
       @agreement.update tags: submitted_tags
-      @agreement_event = @agreement.agreement_events.create event_type: 'tags_updated', user_id: current_user.id, event_at: Time.zone.now, added_tag_ids: added_tag_ids, removed_tag_ids: removed_tag_ids
+      @agreement_event = @agreement.agreement_events.create event_type: 'tags_updated', user_id: current_user.id, event_at: Time.zone.now
+      added_removed_tag_ids.each do |tag_id, added|
+        @agreement_event.agreement_event_tags.create tag_id: tag_id, added: added
+      end
     end
     render 'agreement_events/index'
   end

@@ -55,3 +55,10 @@ reviewer_comment:
   comment: My First Comment
   event_type: commented
   event_at: 2016-03-21 16:06:35
+
+submitted_tagged:
+  agreement: submitted_application
+  user: reviewer_on_public
+  # comment:
+  event_type: tags_updated
+  event_at: 2016-03-21 16:08:22

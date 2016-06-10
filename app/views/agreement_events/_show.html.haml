@@ -7,7 +7,7 @@
         %span.glyphicon.glyphicon-list-alt
       .comment-action
         %small.text-muted Comment Deleted
-- elsif agreement_event.is_comment?
+- elsif agreement_event.commented?
   .comment-outer{ data: { agreement_event_id: agreement_event.id } }
     .comment-left-fixed
       = image_tag agreement_event.user.avatar_url(48, 'identicon'), size: '48x48', alt: ''
