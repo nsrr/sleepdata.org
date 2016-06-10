@@ -1,0 +1,7 @@
+gender_gender:
+  variable: gender
+  name: gender
+
+gender_demographics:
+  variable: gender
+  name: demographics

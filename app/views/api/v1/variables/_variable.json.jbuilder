@@ -2,10 +2,14 @@
 
 json.extract! variable,
               :folder, :name, :display_name, :description, :variable_type,
-              :units, :calculation, :commonly_used, :labels, :api_version,
+              :units, :calculation, :commonly_used, :api_version,
               :stats_n, :stats_mean, :stats_stddev, :stats_median, :stats_min,
               :stats_max, :stats_unknown, :stats_total, :known_issues,
               :spout_version
+
+json.labels do
+  json.array!(variable.variable_labels.pluck(:name))
+end
 
 json.domain do
   json.partial! 'api/v1/domains/domain', domain: variable.domain if variable.domain

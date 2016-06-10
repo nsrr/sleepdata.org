@@ -47,6 +47,13 @@ class Api::V1::VariablesController < Api::V1::BaseController
       end
     end
 
+    if params[:variable].key?(:labels)
+      @variable.variable_labels.destroy_all
+      params[:variable][:labels].each do |label|
+        @variable.variable_labels.create name: label
+      end
+    end
+
     if @errors.count > 0
       render json: { errors: @errors }, status: :unprocessable_entity
     else
@@ -78,9 +85,10 @@ class Api::V1::VariablesController < Api::V1::BaseController
   def variable_optional_params
     params.require(:variable).permit(
       :folder, :description, :units, :calculation, :commonly_used, :domain_id,
-      :stats_n, :stats_mean, :stats_stddev, :stats_median, :stats_min, :stats_max, :stats_unknown, :stats_total, :spout_stats,
-      :known_issues, :spout_version,
-      { labels: [] })
+      :stats_n, :stats_mean, :stats_stddev, :stats_median, :stats_min,
+      :stats_max, :stats_unknown, :stats_total, :spout_stats, :known_issues,
+      :spout_version
+    )
   end
 
   # def domain_core_params
