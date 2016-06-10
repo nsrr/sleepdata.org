@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  agreement_id: 1
-  user_id: 1
+submitted_reviewer_two_on_public_rejected:
+  agreement: submitted_application
+  user: reviewer_two_on_public
   approved: false
 
-two:
-  agreement_id: 1
-  user_id: 1
-  approved: false
+submitted_reviewer_three_on_public_approved:
+  agreement: submitted_application
+  user: reviewer_three_on_public
+  approved: true

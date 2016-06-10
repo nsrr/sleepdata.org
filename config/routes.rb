@@ -180,12 +180,6 @@ Rails.application.routes.draw do
 
   resources :reviews do
     member do
-      post :create_comment
-      post :preview
-      post :show_comment
-      get :edit_comment
-      post :update_comment
-      post :destroy_comment
       post :vote
       post :update_tags
       get :transactions
