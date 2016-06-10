@@ -6,6 +6,7 @@
   - Simplified filters on DAUA review index
 - **Gem Changes**
   - Updated to kaminari 0.17.0
+  - Removed dependency on contour
 
 ### Refactoring
 - Removed dependency on database serialize for simpler migration to Rails 5

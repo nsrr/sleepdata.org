@@ -10,11 +10,18 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-//= require contour
+//= require jquery
+//= require jquery_ujs
+// TODO: Check if jquery-ui is needed (along with gem jquery-ui-rails)
+//= require jquery-ui/sortable
+
+//= require bootstrap-sprockets
+
 //= require compatibility/array_prototype_index_of
 //= require compatibility/array_prototype_map
 //= require turbolinks
 
+//= require external/bootstrap-datepicker.js
 //= require external/json2.min.js
 //= require external/flashcanvas.js
 //= require external/jquery.signaturepad.min.js
@@ -43,6 +50,7 @@
 //= require external/jquery.textcomplete
 //= require external/colorpicker
 
+// TODO: Remove wow if no longer needed
 //= require external/wow
 
 //= require extensions/filedrag

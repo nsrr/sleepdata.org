@@ -46,10 +46,5 @@
           = f.check_box :emails_enabled
           Allow the NSRR to send you emails when a topic receives a reply to which you are subscribed, and when someone mentions you on the forum.
 
-    - Contour.spam_fields.each do |name|
-      .form-group.control-special
-        = label_tag "#{resource_name}[#{name}]", name, class: 'control-label'
-        = text_field_tag "#{resource_name}[#{name}]", '', class: 'form-control'
-
     .form-group
       = f.submit 'Create an Account', class: 'btn btn-success'

@@ -52,6 +52,9 @@
   drawChart(chart_type)
   $("[data-chart-name~='#{chart_type}']").show()
 
+@nonStandardClick = (event) ->
+  event.which > 1 or event.metaKey or event.ctrlKey or event.shiftKey or event.altKey
+
 $(document)
   .on('click', '[data-chart-type]', () ->
     toggleVariableButtonClasses(this)

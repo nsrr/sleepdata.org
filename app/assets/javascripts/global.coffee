@@ -34,10 +34,12 @@
     e.clearSelection()
   )
 
+@loadDatepicker = ->
+  $('.datepicker').datepicker('remove')
+  $('.datepicker').datepicker(autoclose: true)
 
 @ready = () ->
-  contourReady()
-  $("[rel=tooltip]").tooltip( trigger: 'hover' )
+  $("[rel=tooltip]").tooltip(trigger: 'hover')
   if $("#collection_form #s, #page_name, #search_form #s, #search, #collection_form #s, #s").val() != ''
     setFocusToField("#collection_form #s, #page_name, #search_form #s, #search, #collection_form #s, #s")
   initializeTurbolinks()
@@ -57,12 +59,16 @@
   fix_ie10_placeholder()
   initializeClipboard()
   initializeFiles()
+  loadDatepicker()
 
 $(window).onbeforeunload = () -> return "You haven't saved your changes." if window.$isDirty
 $(document).ready(ready)
 $(document)
   .on('page:load', ready)
   .on('page:before-change', -> confirm("You haven't saved your changes.") if window.$isDirty)
+  .on('click', '[data-object~="suppress-click"]', () ->
+    false
+  )
   .on('click', '[data-object~="submit"]', () ->
     window.$isDirty = false
     $($(this).data('target')).submit()
