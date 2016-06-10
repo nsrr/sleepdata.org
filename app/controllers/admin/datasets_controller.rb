@@ -24,7 +24,7 @@ class Admin::DatasetsController < ApplicationController
   # DELETE /datasets/1
   def destroy
     @dataset.destroy
-    redirect_to datasets_path
+    redirect_to datasets_path, notice: 'Dataset was successfully deleted.'
   end
 
   private

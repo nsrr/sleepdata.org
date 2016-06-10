@@ -1,15 +1,51 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# Forum Tags
 
 new_release:
   name: New Release
   color: '#ff00ff'
   tag_type: topic
   user: admin
-  deleted: false
 
 meeting:
   name: Meeting
   color: '#00ffff'
   tag_type: topic
   user: admin
-  deleted: false
+
+# Agreement Tags
+
+academic:
+  name: Academic
+  color: '#ffff00'
+  tag_type: agreement
+  user: admin
+
+commercial:
+  name: Commercial
+  color: '#ff00ff'
+  tag_type: agreement
+  user: admin
+
+noncommercial:
+  name: Noncommercial
+  color: '#00ffff'
+  tag_type: agreement
+  user: admin
+
+thesis:
+  name: Thesis
+  color: '#ff0f0f'
+  tag_type: agreement
+  user: admin
+
+student:
+  name: Student
+  color: '#f0f0ff'
+  tag_type: agreement
+  user: admin
+
+publication:
+  name: Publication
+  color: '#0ffff0'
+  tag_type: agreement
+  user: admin

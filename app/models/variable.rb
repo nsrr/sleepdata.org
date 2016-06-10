@@ -2,6 +2,8 @@
 
 # Represent Spout variable structure for variable pages
 class Variable < ApplicationRecord
+  # TODO: Remove serialize and replace with database relations or make tests to
+  # assure these are stored and retrieved correctly after a Rails5 update
   serialize :labels, Array
 
   after_save :set_search_terms
