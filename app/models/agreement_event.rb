@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Details an entry in the agreement history.
 class AgreementEvent < ActiveRecord::Base
   AGREEMENT_EVENTS_PER_PAGE = 20
   EVENT_TYPE = [['user_submitted', 'user_submitted'],
@@ -13,10 +14,10 @@ class AgreementEvent < ActiveRecord::Base
                 ['principal_reviewer_approved', 'principal_reviewer_approved'],
                 ['tags_updated', 'tags_updated']]
 
-  # TODO: Remove serialize and replace with database relations or make tests to
-  # assure these are stored and retrieved correctly after a Rails5 update
+  # TODO: Remove the following in 0.23.0
   serialize :added_tag_ids, Array
   serialize :removed_tag_ids, Array
+  # TODO: End
 
   # Concerns
   include Deletable, Forkable
@@ -30,11 +31,15 @@ class AgreementEvent < ActiveRecord::Base
 
   # Model Validation
   validates :agreement_id, :user_id, :event_type, :event_at, presence: true
-  validates :comment, presence: true, if: :is_comment?
+  validates :comment, presence: true, if: :commented?
 
   # Model Relationships
   belongs_to :agreement
   belongs_to :user
+  has_many :agreement_event_tags
+  # TODO: Rename the following relationships in 0.23.0 to added_tags and removed_tags respectively
+  has_many :rename_added_tags, -> { where 'agreement_event_tags.added = ?', true }, through: :agreement_event_tags, source: :tag
+  has_many :rename_removed_tags, -> { where 'agreement_event_tags.added = ?', false }, through: :agreement_event_tags, source: :tag
 
   # Agreement Event Methods
 
@@ -56,19 +61,17 @@ class AgreementEvent < ActiveRecord::Base
     user == current_user || current_user.system_admin?
   end
 
+  # TODO: Remove the following methods in 0.23.0
   def added_tags
-    @added_tags ||= begin
-      Tag.review_tags.where(id: added_tag_ids)
-    end
+    rename_added_tags
   end
 
   def removed_tags
-    @removed_tags ||= begin
-      Tag.review_tags.where(id: removed_tag_ids)
-    end
+    rename_removed_tags
   end
+  # TODO: End
 
-  def is_comment?
+  def commented?
     event_type == 'commented'
   end
 

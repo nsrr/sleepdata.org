@@ -7,6 +7,9 @@
 - **Gem Changes**
   - Updated to kaminari 0.17.0
 
+### Refactoring
+- Removed dependency on database serialize for simpler migration to Rails 5
+
 ## 0.21.0 (June 9, 2016)
 
 ### Enhancements
