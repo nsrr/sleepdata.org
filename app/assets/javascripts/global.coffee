@@ -17,11 +17,6 @@
     if $(@).val() == $(@).attr('placeholder')
       $(@).val ''
 
-@initializeTurbolinks = () ->
-  # Don't cache pages with Turbolinks
-  Turbolinks.pagesCached(0)
-  Turbolinks.allowLinkExtensions('md')
-
 @initializeClipboard = () ->
   clipboard = new Clipboard('[data-clipboard-target],[data-clipboard-text]')
   clipboard.on('success', (e) ->
@@ -41,7 +36,6 @@
   $("[rel=tooltip]").tooltip(trigger: 'hover')
   if $("#collection_form #s, #page_name, #search_form #s, #search, #collection_form #s, #s").val() != ''
     setFocusToField("#collection_form #s, #page_name, #search_form #s, #search, #collection_form #s, #s")
-  initializeTurbolinks()
   window.$isDirty = false
   variablesReady()
   datasetsReady()
@@ -63,8 +57,8 @@
 $(window).onbeforeunload = () -> return "You haven't saved your changes." if window.$isDirty
 $(document).ready(ready)
 $(document)
-  .on('page:load', ready)
-  .on('page:before-change', -> confirm("You haven't saved your changes.") if window.$isDirty)
+  .on('turbolinks:load', ready)
+  .on('turbolinks:click', -> confirm("You haven't saved your changes.") if window.$isDirty)
   .on('click', '[data-object~="suppress-click"]', () ->
     false
   )
