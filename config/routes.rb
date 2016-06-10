@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  root 'external#landing'
+
   namespace :async do
     namespace :blog do
       post :login
@@ -304,6 +306,4 @@ Rails.application.routes.draw do
   # In case 'failed submission steps are reloaded using get request'
   get '/agreements/:id/final_submission' => 'agreements#proof'
   get '/agreements/:id/update_step' => 'agreements#step'
-
-  root to: 'external#landing'
 end
