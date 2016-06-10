@@ -172,3 +172,10 @@ reviewer_two_on_public:
   email: reviewer_two_on_public@example.com
   encrypted_password: ""
   username: reviewer_two_on_public
+
+reviewer_three_on_public:
+  first_name: Reviewer Three
+  last_name: Van Public
+  email: reviewer_three_on_public@example.com
+  encrypted_password: ""
+  username: reviewer_three_on_public

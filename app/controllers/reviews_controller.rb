@@ -2,9 +2,9 @@
 
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_agreement_or_redirect, only: [:show, :vote, :create_comment, :preview, :show_comment, :edit_comment, :update_comment, :destroy_comment, :update_tags, :transactions]
-  before_action :find_editable_agreement_event_or_redirect, only: [:show_comment, :edit_comment, :update_comment, :destroy_comment]
+  before_action :find_agreement_or_redirect, only: [:show, :vote, :update_tags, :transactions]
 
+  # GET /reviews
   def index
     params[:order] = 'agreements.last_submitted_at DESC' if params[:order].blank?
     @order = scrub_order(Agreement, params[:order], [:id])
@@ -14,16 +14,19 @@ class ReviewsController < ApplicationController
     @agreements = agreement_scope.page(params[:page]).per(40)
   end
 
+  # GET /reviews/1
   def show
   end
 
-  # POST /reviews/1/vote
+  # GET /reviews/1/transactions
+  def transactions
+  end
+
   # POST /reviews/1/vote.js
   def vote
     @review = @agreement.reviews.where(user_id: current_user.id).first_or_create
     original_approval = @review.approved
     @review.update approved: (params[:approved].to_s == '1') if %w(0 1).include?(params[:approved].to_s)
-
     event_type = if @review.approved == original_approval
                    ''
                  elsif @review.approved == true && original_approval == false
@@ -35,59 +38,11 @@ class ReviewsController < ApplicationController
                  elsif @review.approved == false
                    'reviewer_rejected'
                  end
-
     @agreement_event = @agreement.agreement_events.create(event_type: event_type, user_id: current_user.id, event_at: Time.zone.now) if event_type.present?
-
-    respond_to do |format|
-      format.html { redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.count}", notice: 'Review was successfully created.' }
-      format.js { render 'agreement_events/create' }
-    end
+    render 'agreement_events/create'
   end
 
-  # def new
-  #   @review = Review.new
-  # end
-
-  # def edit
-  # end
-
-  # def preview
-  #   @agreement_event = @agreement.agreement_events.new(agreement_event_params)
-  # end
-
-  # def create_comment
-  #   @agreement_event = @agreement.agreement_events.where(user_id: current_user.id, event_at: Time.zone.now, event_type: 'commented').new(agreement_event_params)
-
-  #   if @agreement_event.save
-  #     redirect_to review_path(@agreement) + "#c#{@agreement_event.number}", notice: 'Review was successfully created.'
-  #   else
-  #     redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.count}"
-  #   end
-  # end
-
-  # def show_comment
-  # end
-
-  # def edit_comment
-  # end
-
-  def update_comment
-    if @agreement_event.update(agreement_event_params)
-      redirect_to review_path(@agreement) + "#c#{@agreement_event.number}", notice: 'Comment was successfully updated.'
-    else
-      redirect_to review_path(@agreement) + "#c#{@agreement_event.number}", warning: 'Comment can\'t be blank.'
-    end
-  end
-
-  def destroy_comment
-    @agreement_event.destroy
-
-    respond_to do |format|
-      format.html { redirect_to review_path(@agreement) + "#c#{@agreement_event.number}" }
-      format.json { head :no_content }
-    end
-  end
-
+  # POST /reviews/1/update_tags.js
   def update_tags
     submitted_tags = Tag.review_tags.where(id: params[:agreement][:tag_ids])
     added_tag_ids = []
@@ -99,44 +54,17 @@ class ReviewsController < ApplicationController
         removed_tag_ids << tag.id
       end
     end
-
     if added_tag_ids.count + removed_tag_ids.count > 0
       @agreement.update tags: submitted_tags
       @agreement_event = @agreement.agreement_events.create event_type: 'tags_updated', user_id: current_user.id, event_at: Time.zone.now, added_tag_ids: added_tag_ids, removed_tag_ids: removed_tag_ids
     end
-
-    respond_to do |format|
-      format.html { redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.count}" }
-      format.js { render 'agreement_events/index' }
-    end
+    render 'agreement_events/index'
   end
-
-  # def create
-  #   @review = Review.new(review_params)
-  #   @review.save
-  # end
-
-  # def update
-  #   @review.update(review_params)
-  # end
-
-  # def destroy
-  #   @review.destroy
-  # end
 
   private
 
   def find_agreement_or_redirect
     @agreement = current_user.reviewable_agreements.find_by_id(params[:id])
     empty_response_or_root_path(reviews_path) unless @agreement
-  end
-
-  def find_editable_agreement_event_or_redirect
-    @agreement_event = current_user.all_agreement_events.find_by_id(params[:agreement_event_id])
-    empty_response_or_root_path(reviews_path) unless @agreement_event
-  end
-
-  def agreement_event_params
-    params.require(:agreement_event).permit(:comment)
   end
 end

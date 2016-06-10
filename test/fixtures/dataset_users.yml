@@ -40,6 +40,11 @@ reviewer_two_of_public_dataset:
   user: reviewer_two_on_public
   role: 'reviewer'
 
+reviewer_three_of_public_dataset:
+  dataset: public
+  user: reviewer_three_on_public
+  role: 'reviewer'
+
 admin_reviewer_of_public_dataset:
   dataset: public
   user: admin

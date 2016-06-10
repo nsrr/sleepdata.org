@@ -2,9 +2,12 @@
 
 require 'test_helper'
 
+# Tests to assure that submitted agreements can be reviewed and updated.
 class ReviewsControllerTest < ActionController::TestCase
   setup do
     @reviewer = users(:reviewer_on_public)
+    @reviewer_two = users(:reviewer_two_on_public)
+    @reviewer_three = users(:reviewer_three_on_public)
     @agreement = agreements(:submitted_application)
   end
 
@@ -32,41 +35,62 @@ class ReviewsControllerTest < ActionController::TestCase
     assert_equal @reviewer.id, assigns(:agreement_event).user_id
     assert_equal [tags(:student).id, tags(:thesis).id].sort, assigns(:agreement_event).added_tag_ids.sort
     assert_equal [tags(:publication).id].sort, assigns(:agreement_event).removed_tag_ids.sort
+    assert_template 'agreement_events/index'
+    assert_response :success
   end
 
-  # test 'should get new' do
-  #   get :new
-  #   assert_response :success
-  # end
+  test 'should vote and approve agreement' do
+    login(@reviewer)
+    assert_difference('Review.count') do
+      post :vote, params: { id: @agreement, approved: '1' }, format: 'js'
+    end
+    assert_equal true, assigns(:review).approved
+    assert_equal 'reviewer_approved', assigns(:agreement_event).event_type
+    assert_template 'agreement_events/create'
+    assert_response :success
+  end
 
-  # test 'should create review' do
-  #   assert_difference('Review.count') do
-  #     post :create, params: { review: { agreement_id: @review.agreement_id, approved: @review.approved, user_id: @review.user_id } }
-  #   end
+  test 'should vote and reject agreement' do
+    login(@reviewer)
+    assert_difference('Review.count') do
+      post :vote, params: { id: @agreement, approved: '0' }, format: 'js'
+    end
+    assert_equal false, assigns(:review).approved
+    assert_equal 'reviewer_rejected', assigns(:agreement_event).event_type
+    assert_template 'agreement_events/create'
+    assert_response :success
+  end
 
-  #   assert_redirected_to review_path(assigns(:review))
-  # end
+  test 'should not update unchanged vote' do
+    login(@reviewer_two)
+    assert_difference('Review.count', 0) do
+      post :vote, params: { id: @agreement, approved: '0' }, format: 'js'
+    end
+    assert_equal false, assigns(:review).approved
+    assert_nil assigns(:agreement_event)
+    assert_template 'agreement_events/create'
+    assert_response :success
+  end
 
-  # test 'should show review' do
-  #   get :show, params: { id: @review }
-  #   assert_response :success
-  # end
+  test 'should change vote to approved' do
+    login(@reviewer_two)
+    assert_difference('Review.count', 0) do
+      post :vote, params: { id: @agreement, approved: '1' }, format: 'js'
+    end
+    assert_equal true, assigns(:review).approved
+    assert_equal 'reviewer_changed_from_rejected_to_approved', assigns(:agreement_event).event_type
+    assert_template 'agreement_events/create'
+    assert_response :success
+  end
 
-  # test 'should get edit' do
-  #   get :edit, params: { id: @review }
-  #   assert_response :success
-  # end
-
-  # test 'should update review' do
-  #   patch :update, params: { id: @review, review: { agreement_id: @review.agreement_id, approved: @review.approved, user_id: @review.user_id } }
-  #   assert_redirected_to review_path(assigns(:review))
-  # end
-
-  # test 'should destroy review' do
-  #   assert_difference('Review.count', -1) do
-  #     delete :destroy, params: { id: @review }
-  #   end
-
-  #   assert_redirected_to reviews_path
-  # end
+  test 'should change vote to rejected' do
+    login(@reviewer_three)
+    assert_difference('Review.count', 0) do
+      post :vote, params: { id: @agreement, approved: '0' }, format: 'js'
+    end
+    assert_equal false, assigns(:review).approved
+    assert_equal 'reviewer_changed_from_approved_to_rejected', assigns(:agreement_event).event_type
+    assert_template 'agreement_events/create'
+    assert_response :success
+  end
 end
