@@ -3,12 +3,13 @@
 ### Enhancements
 - **Gem Changes**
   - Updated to rails 5.0.0.rc1
-  - Updated to devise 4.1.0
   - Updated to turbolinks 5
 
 ### Refactoring
 - Prefer use of `after_create_commit :fn` instead of
   `after_commit :fn, on: :create`
+
+## 0.23.0
 
 ## 0.22.0 (June 13, 2016)
 
