@@ -1,4 +1,4 @@
-## 0.22.0
+## 0.22.0 (June 13, 2016)
 
 ### Enhancements
 - **Admin Changes**
