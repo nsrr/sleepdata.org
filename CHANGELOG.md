@@ -2,6 +2,7 @@
 
 ### Refactoring
 - Removed deprecated columns from agreement_events
+- Removed deprecated column from variables
 
 ## 0.22.0 (June 13, 2016)
 
