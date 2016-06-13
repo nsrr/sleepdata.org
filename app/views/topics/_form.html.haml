@@ -10,14 +10,36 @@
           %li= message
 
   .form-group
-    = f.label :name, 'Topic Title', class: 'col-md-2 control-label'
+    = f.label :title, nil, class: 'col-md-2 control-label'
     .col-md-10
-      = f.text_field :name, class: 'form-control', maxlength: 40, autocomplete: 'off'
+      = f.text_field :title, class: 'form-control', maxlength: 40, autocomplete: 'off', data: { object: (@topic.new_record? ? 'create-slug' : ''), target: '#topic_slug' }
       .callout.callout-info
         The maximum length for the title is
         %strong 40 characters.
         - if @topic.new_record?
           Fill in additional details in the description.
+
+  .form-group{ style: "#{'display:none' if @topic.new_record? && !@topic.errors.key?(:slug)}"}
+    = f.label :slug, class: 'control-label'
+    = f.text_field :slug, class: 'form-control'
+    .alert.alert-info{ style: 'margin-top: 10px' }
+      %p
+        The URL slug must start with a lowercase letter
+        = succeed ',' do
+          %code a-z
+        and only contain lowercase
+        letters
+        = succeed ',' do
+          %code a-z
+        numbers
+        = succeed ',' do
+          %code 0-9
+        or dashes
+        = succeed ',' do
+          %code -
+      %p
+        %code.text-muted= "#{ENV['website_url']}/forum/#{@topic.slug}"
+
 
   - if @topic.new_record?
     .form-group
@@ -33,7 +55,7 @@
       .col-md-10
         .row
           = hidden_field_tag 'topic[tag_ids][]', nil
-          - Tag.forum_tags.order( :name ).each do |tag|
+          - Tag.forum_tags.order(:name).each do |tag|
             .col-xs-6.col-sm-4.col-md-3.col-lg-2
               %label.checkbox.tag-checkbox{ class: "#{'tag-selected' if @topic.tags.include?(tag)}", style: "margin-bottom: 10px;background-color: #{tag.color}" }
                 = check_box_tag "topic[tag_ids][]", tag.id, @topic.tags.include?(tag)

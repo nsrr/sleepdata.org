@@ -15,7 +15,7 @@ class UserMailerTest < ActionMailer::TestCase
 
     # Test the body of the sent email contains what we expect it to
     assert_equal [user.email], email.to
-    assert_equal "New Forum Reply: #{post.topic.name}", email.subject
+    assert_equal "New Forum Reply: #{post.topic.title}", email.subject
     assert_match(/Someone posted a reply to the following topic:/, email.encoded)
   end
 

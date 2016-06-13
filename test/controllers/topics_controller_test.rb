@@ -9,6 +9,15 @@ class TopicsControllerTest < ActionController::TestCase
     @admin = users(:admin)
   end
 
+  def topic_params
+    {
+      title: 'New Topic Title',
+      slug: 'new-topic-title',
+      description: 'First Comment on New Topic',
+      tag_ids: [ActiveRecord::FixtureSet.identify(:meeting)]
+    }
+  end
+
   test 'should get markup' do
     get :markup
     assert_response :success
@@ -61,15 +70,16 @@ class TopicsControllerTest < ActionController::TestCase
     login(users(:valid))
     assert_difference('Comment.count') do
       assert_difference('Topic.count') do
-        post :create, params: { topic: { name: 'New Topic Name', description: 'First Comment on New Topic', tag_ids: [ ActiveRecord::FixtureSet.identify(:meeting) ] } }
+        post :create, params: { topic: topic_params }
       end
     end
     assert_not_nil assigns(:topic)
-    assert_equal 'New Topic Name', assigns(:topic).name
+    assert_equal 'New Topic Title', assigns(:topic).title
+    assert_equal 'new-topic-title', assigns(:topic).slug
     assert_equal users(:valid), assigns(:topic).user
     assert_equal 'First Comment on New Topic', assigns(:topic).comments.first.description
     assert_equal users(:valid), assigns(:topic).comments.first.user
-    assert_not_nil assigns(:topic).last_comment_at
+    assert_not_nil assigns(:topic).last_reply_at
     assert_equal [], assigns(:topic).tags
     assert_equal true, assigns(:topic).subscribed?(users(:valid))
     assert_redirected_to topic_path(assigns(:topic))
@@ -78,7 +88,7 @@ class TopicsControllerTest < ActionController::TestCase
   test 'should create topic with tags as core member' do
     login(users(:core))
     assert_difference('Topic.count') do
-      post :create, params: { topic: { name: 'Core Member Topic with Tags', description: 'First Comment on New Topic', tag_ids: [ ActiveRecord::FixtureSet.identify(:meeting) ] } }
+      post :create, params: { topic: topic_params }
     end
     assert_not_nil assigns(:topic)
     assert_equal [tags(:meeting)], assigns(:topic).tags
@@ -88,7 +98,7 @@ class TopicsControllerTest < ActionController::TestCase
   test 'should create topic with tags as AUG member' do
     login(users(:aug))
     assert_difference('Topic.count') do
-      post :create, params: { topic: { name: 'AUG Member Topic with Tags', description: 'First Comment on New Topic', tag_ids: [ ActiveRecord::FixtureSet.identify(:meeting) ] } }
+      post :create, params: { topic: topic_params }
     end
     assert_not_nil assigns(:topic)
     assert_equal [tags(:meeting)], assigns(:topic).tags
@@ -99,7 +109,7 @@ class TopicsControllerTest < ActionController::TestCase
     login(users(:valid))
     assert_difference('Comment.count', 0) do
       assert_difference('Topic.count', 0) do
-        post :create, params: { topic: { name: 'New Topic Name', description: '' } }
+        post :create, params: { topic: topic_params.merge(description: '') }
       end
     end
     assert_not_nil assigns(:topic)
@@ -111,11 +121,11 @@ class TopicsControllerTest < ActionController::TestCase
 
   test 'should not create topic when user exceeds two topics per day' do
     login(users(:valid))
-    topic_one = users(:valid).topics.create(name: 'Topic One', description: 'First Topic of the Day')
-    topic_two = users(:valid).topics.create(name: 'Topic Two', description: 'Second Topic of the Day')
+    topic_one = users(:valid).topics.create(title: 'Topic One', slug: 'topic-one', description: 'First Topic of the Day')
+    topic_two = users(:valid).topics.create(title: 'Topic Two', slug: 'topic-two', description: 'Second Topic of the Day')
     assert_difference('Comment.count', 0) do
       assert_difference('Topic.count', 0) do
-        post :create, params: { topic: { name: 'Third topic of the day', description: 'Spamming Topics' } }
+        post :create, params: { topic: { title: 'Third topic of the day', slug: 'topic-three', description: 'Spamming Topics' } }
       end
     end
     assert_nil assigns(:topic)
@@ -127,7 +137,7 @@ class TopicsControllerTest < ActionController::TestCase
     login(users(:banned))
     assert_difference('Comment.count', 0) do
       assert_difference('Topic.count', 0) do
-        post :create, params: { topic: { name: 'I am trying to post a topic', description: 'Visit my site with advertisements.' } }
+        post :create, params: { topic: { name: 'I am trying to post a topic', slug: 'i-am-trying-to-post-a-topic', description: 'Visit my site with advertisements.' } }
       end
     end
     assert_nil assigns(:topic)
@@ -181,29 +191,29 @@ class TopicsControllerTest < ActionController::TestCase
 
   test 'should update topic' do
     login(users(:valid))
-    patch :update, params: { id: @topic, topic: { name: 'Updated Topic Name' } }
+    patch :update, params: { id: @topic, topic: topic_params.merge(title: 'Updated Topic Title') }
     assert_not_nil assigns(:topic)
-    assert_equal 'Updated Topic Name', assigns(:topic).name
+    assert_equal 'Updated Topic Title', assigns(:topic).title
     assert_redirected_to topic_path(assigns(:topic))
   end
 
-  test 'should not update topic with blank name' do
+  test 'should not update topic with blank title' do
     login(users(:valid))
-    patch :update, params: { id: @topic, topic: { name: '' } }
+    patch :update, params: { id: @topic, topic: topic_params.merge(title: '') }
     assert_template 'edit'
     assert_response :success
   end
 
   test 'should not update topic as another user' do
     login(users(:two))
-    patch :update, params: { id: @topic, topic: { name: 'Updated Topic Name' } }
+    patch :update, params: { id: @topic, topic: topic_params.merge(title: 'Updated Topic Title') }
     assert_nil assigns(:topic)
     assert_redirected_to topics_path
   end
 
   test 'should not update topic as banned user' do
     login(users(:banned))
-    patch :update, params: { id: topics(:banned), topic: { name: 'Updated Banned Topic Name' } }
+    patch :update, params: { id: topics(:banned), topic: topic_params.merge(title: 'Updated Topic Title') }
     assert_nil assigns(:topic)
     assert_redirected_to topics_path
   end
@@ -231,21 +241,21 @@ class TopicsControllerTest < ActionController::TestCase
 
   test 'should sticky a topic as a system admin' do
     login(users(:admin))
-    post :admin, params: { id: @topic, topic: { stickied: '1' } }
+    post :admin, params: { id: @topic, topic: { pinned: '1' } }
     assert_not_nil assigns(:topic)
-    assert_equal true, assigns(:topic).stickied
+    assert_equal true, assigns(:topic).pinned?
     assert_redirected_to topics_path
   end
 
   test 'should not sticky a topic as a regular user' do
     login(users(:valid))
-    post :admin, params: { id: @topic, topic: { stickied: '1' } }
+    post :admin, params: { id: @topic, topic: { pinned: '1' } }
     assert_nil assigns(:topic)
     assert_redirected_to root_path
   end
 
   test 'should not sticky topic as an anonymous user' do
-    post :admin, params: { id: @topic, topic: { stickied: '1' } }
+    post :admin, params: { id: @topic, topic: { pinned: '1' } }
     assert_nil assigns(:topic)
     assert_redirected_to new_user_session_path
   end

@@ -275,6 +275,8 @@ Rails.application.routes.draw do
     member do
       post :admin
       post :subscription
+      get '/edit', action: :edit, as: :edit
+      get '/:page', action: :show, as: :page
     end
     collection do
       get :markup

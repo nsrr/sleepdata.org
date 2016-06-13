@@ -56,6 +56,6 @@ class Comment < ApplicationRecord
   end
 
   def touch_topic!
-    topic.update last_comment_at: Time.zone.now
+    topic.update last_reply_at: Time.zone.now
   end
 end

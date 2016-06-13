@@ -12,12 +12,12 @@ class TopicsController < ApplicationController
   def markup
   end
 
-  # POST /forum/1-my-first-topic/subscription.js
+  # POST /forum/my-first-topic/subscription.js
   def subscription
     @topic.set_subscription!(params[:notify].to_s == '1', current_user)
   end
 
-  # POST /forum/1-my-first-topic/admin
+  # POST /forum/my-first-topic/admin
   def admin
     @topic.update(topic_admin_params)
     redirect_to topics_path
@@ -28,10 +28,10 @@ class TopicsController < ApplicationController
     topic_scope = Topic.current.not_banned.search(params[:s])
     user_ids = User.current.with_name(params[:a].to_s.split(','))
     topic_scope = topic_scope.where(user_id: user_ids) unless params[:a].blank?
-    @topics = topic_scope.order(stickied: :desc, last_comment_at: :desc).page(params[:page]).per(50)
+    @topics = topic_scope.order(pinned: :desc, last_reply_at: :desc).page(params[:page]).per(50)
   end
 
-  # GET /forum/1-my-first-topic
+  # GET /forum/my-first-topic
   def show
     @comments = @topic.comments.order(:id).page(params[:page]).per(Comment::COMMENTS_PER_PAGE)
   end
@@ -41,7 +41,7 @@ class TopicsController < ApplicationController
     @topic = Topic.new
   end
 
-  # GET /forum/1-my-first-topic/edit
+  # GET /forum/my-first-topic/edit
   def edit
   end
 
@@ -50,14 +50,14 @@ class TopicsController < ApplicationController
     @topic = current_user.topics.new(topic_params)
 
     if @topic.save
-      @topic.update_column :last_comment_at, Time.zone.now
+      @topic.update_column :last_reply_at, Time.zone.now
       redirect_to @topic, notice: 'Topic was successfully created.'
     else
       render :new
     end
   end
 
-  # PATCH /forum/1-my-first-topic
+  # PATCH /forum/my-first-topic
   def update
     if @topic.update(topic_params)
       redirect_to @topic, notice: 'Topic was successfully updated.'
@@ -66,7 +66,7 @@ class TopicsController < ApplicationController
     end
   end
 
-  # DELETE /forum/1-my-first-topic
+  # DELETE /forum/my-first-topic
   def destroy
     @topic.destroy
     redirect_to topics_path
@@ -75,17 +75,17 @@ class TopicsController < ApplicationController
   private
 
   def find_viewable_topic_or_redirect
-    @topic = Topic.current.not_banned.find_by_id params[:id]
+    @topic = Topic.current.not_banned.find_by_slug params[:id]
     redirect_without_topic
   end
 
   def find_editable_topic_or_redirect
-    @topic = current_user.all_topics.not_banned.where(locked: false).find_by_id params[:id]
+    @topic = current_user.all_topics.not_banned.where(locked: false).find_by_slug params[:id]
     redirect_without_topic
   end
 
   def redirect_without_topic
-    empty_response_or_root_path(topics_path) unless @topic
+    empty_response_or_root_path topics_path unless @topic
   end
 
   def check_max_topics_per_day_reached
@@ -97,13 +97,13 @@ class TopicsController < ApplicationController
 
   def topic_params
     if current_user.aug_member? || current_user.core_member?
-      params.require(:topic).permit(:name, :description, tag_ids: [])
+      params.require(:topic).permit(:title, :slug, :description, tag_ids: [])
     else
-      params.require(:topic).permit(:name, :description)
+      params.require(:topic).permit(:title, :slug, :description)
     end
   end
 
   def topic_admin_params
-    params.require(:topic).permit(:locked, :stickied)
+    params.require(:topic).permit(:locked, :pinned)
   end
 end

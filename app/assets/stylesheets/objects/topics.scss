@@ -1,6 +1,3 @@
-// scss-lint:disable ImportantRule
-// TODO: Remove dependence on important for overriding borders in input-control
-
 .topics-container {
   margin-left: -40px;
   margin-right: -40px;
@@ -156,10 +153,4 @@
   .contributor {
     background-color: $gray;
   }
-}
-
-.post-description-control {
-  border: none !important;
-  box-shadow: none !important;
-  outline: none;
 }
