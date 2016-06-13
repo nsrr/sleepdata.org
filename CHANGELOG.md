@@ -1,5 +1,8 @@
 ## 0.23.0
 
+### Refactoring
+- Removed deprecated columns from agreement_events
+
 ## 0.22.0 (June 13, 2016)
 
 ### Enhancements
