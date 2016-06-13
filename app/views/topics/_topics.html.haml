@@ -23,13 +23,13 @@
           - if topic.subscribed?(current_user)
             %span.glyphicon.glyphicon-volume-up{ rel: 'tooltip', title: 'Subscribed to Topic', data: { container: 'body', placement: 'right' } }
       %td
-        - if topic.stickied?
+        - if topic.pinned?
           %span.glyphicon.glyphicon-pushpin.text-primary
         - elsif topic.locked?
           %span.glyphicon.glyphicon-lock
       %td
         = image_tag topic.user.avatar_url(18, 'identicon'), size: '18x18', style: 'vertical-align:baseline;min-width:18px', rel: 'tooltip', title: topic.user.forum_name, data: { container: 'body', placement: 'left' }, alt: ''
-        = link_to topic.name, topic
+        = link_to topic.title, topic
       %td.hidden-xs
         - topic.tags.each do |tag|
           %span.label.label-default{ style: "background-color:#{tag.color}" }= tag.name
@@ -44,10 +44,10 @@
             = link_to '<span class="glyphicon glyphicon-lock"></span>'.html_safe, admin_topic_path(topic, topic: { locked: '0' }), method: :post, data: { confirm: "Are you sure you want to unlock this topic?"}, class: 'btn btn-xs btn-default'
           - else
             = link_to '<span class="glyphicon glyphicon-lock"></span>'.html_safe, admin_topic_path(topic, topic: { locked: '1' }), method: :post, data: { confirm: "Are you sure you want to lock this topic?"}, class: 'btn btn-xs btn-primary'
-          - if topic.stickied?
-            = link_to '<span class="glyphicon glyphicon-pushpin"></span>'.html_safe, admin_topic_path(topic, topic: { stickied: '0' }), method: :post, data: { confirm: "Are you sure you want to unpin this topic?"}, class: 'btn btn-xs btn-default'
+          - if topic.pinned?
+            = link_to '<span class="glyphicon glyphicon-pushpin"></span>'.html_safe, admin_topic_path(topic, topic: { pinned: '0' }), method: :post, data: { confirm: "Are you sure you want to unpin this topic?"}, class: 'btn btn-xs btn-default'
           - else
-            = link_to '<span class="glyphicon glyphicon-pushpin"></span>'.html_safe, admin_topic_path(topic, topic: { stickied: '1' }), method: :post, data: { confirm: "Are you sure you want to pin this topic?"}, class: 'btn btn-xs btn-primary'
-          = link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, topic, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Topic #{topic.name}?" }
+            = link_to '<span class="glyphicon glyphicon-pushpin"></span>'.html_safe, admin_topic_path(topic, topic: { pinned: '1' }), method: :post, data: { confirm: "Are you sure you want to pin this topic?"}, class: 'btn btn-xs btn-primary'
+          = link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, topic, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete Topic #{topic.title}?" }
 
 .center= paginate @topics, theme: 'bootstrap'

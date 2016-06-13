@@ -1,10 +1,10 @@
-- @title = "Edit Topic: #{@topic.name_was}"
+- @title = "Edit Topic: #{@topic.title_was}"
 
 - content_for :banner do
   .banner
     .container
       .banner-header.brand
-        = link_to @topic.name_was, @topic
+        = link_to @topic.title_was, @topic
         &middot;
         Edit
 

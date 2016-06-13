@@ -92,31 +92,31 @@ class CommentsController < ApplicationController
   private
 
   def set_topic
-    @topic = Topic.current.find_by_id(params[:topic_id])
+    @topic = Topic.current.find_by_slug params[:topic_id]
   end
 
   def set_commentable_topic
-    @topic = Topic.current.where(locked: false).find_by_id(params[:topic_id])
+    @topic = Topic.current.where(locked: false).find_by_slug params[:topic_id]
   end
 
   def redirect_without_topic
-    empty_response_or_root_path( topics_path ) unless @topic
+    empty_response_or_root_path(topics_path) unless @topic
   end
 
   def set_comment
-    @comment = Comment.current.find_by_id(params[:id])
+    @comment = Comment.current.find_by_id params[:id]
   end
 
   def set_editable_comment
-    @comment = current_user.all_comments.with_unlocked_topic.find_by_id(params[:id])
+    @comment = current_user.all_comments.with_unlocked_topic.find_by_id params[:id]
   end
 
   def set_deletable_comment
-    @comment = current_user.all_comments.find_by_id(params[:id])
+    @comment = current_user.all_comments.find_by_id params[:id]
   end
 
   def redirect_without_comment
-    empty_response_or_root_path( topics_path ) unless @comment
+    empty_response_or_root_path(topics_path) unless @comment
   end
 
   def comment_params

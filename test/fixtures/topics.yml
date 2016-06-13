@@ -1,37 +1,41 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: My First Topic
+  title: My First Topic
+  slug: my-first-topic
   user: valid
-  stickied: false
+  pinned: false
   locked: false
   deleted: false
   created_at: 2014-06-08 12:24:25
-  last_comment_at: 2014-06-08 12:24:25
+  last_reply_at: 2014-06-08 12:24:25
 
 two:
-  name: How do I choose a variable?
+  title: How do I choose a variable?
+  slug: how-do-i-choose-a-variable
   user: valid
-  stickied: false
+  pinned: false
   locked: false
   deleted: false
   created_at: 2014-06-09 12:24:25
-  last_comment_at: 2014-06-09 12:24:25
+  last_reply_at: 2014-06-09 12:24:25
 
 locked:
-  name: This thread is locked
+  title: This thread is locked
+  slug: this-thread-is-locked
   user: valid
-  stickied: false
+  pinned: false
   locked: true
   deleted: false
   created_at: 2014-06-10 12:24:25
-  last_comment_at: 2014-06-10 12:24:25
+  last_reply_at: 2014-06-10 12:24:25
 
 banned:
-  name: I was banned for this Topic
+  title: I was banned for this Topic
+  slug: i-was-banned-for-this-topic
   user: banned
-  stickied: false
+  pinned: false
   locked: false
   deleted: false
   created_at: 2014-06-12 04:35:33
-  last_comment_at: 2014-06-12 04:35:33
+  last_reply_at: 2014-06-12 04:35:33

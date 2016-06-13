@@ -3,7 +3,7 @@ Dear <%= @user.first_name %>,
 Someone posted a reply to the following topic:
 
 
-  <%= @post.topic.name %>
+  <%= @post.topic.title %>
 
   <%= "#{ENV['website_url']}/forum/#{@post.topic.to_param}/comments/#{@post.to_param}" %>
 

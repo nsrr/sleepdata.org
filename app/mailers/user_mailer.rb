@@ -7,7 +7,7 @@ class UserMailer < ApplicationMailer
     @post = post
     @user = user
     @email_to = user.email
-    mail(to: @email_to, subject: "New Forum Reply: #{@post.topic.name}")
+    mail(to: @email_to, subject: "New Forum Reply: #{@post.topic.title}")
   end
 
   def reviewer_digest(user)

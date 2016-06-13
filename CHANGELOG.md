@@ -1,5 +1,9 @@
 ## 0.23.0
 
+### Enhancements
+- **Forum Updates**
+  - Forum topics now track views and have better URL structure
+
 ### Refactoring
 - Removed deprecated columns from agreement_events
 - Removed deprecated column from variables
