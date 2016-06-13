@@ -10,7 +10,6 @@ gem 'pg',                   '0.18.4'
 # Gems used by project
 gem 'devise',               '~> 4.1.1'
 gem 'bootstrap-sass',       '~> 3.3.6'
-gem 'autoprefixer-rails',   '~> 6.3.6'
 gem 'kaminari',             '~> 0.17.0'
 gem 'carrierwave',          '~> 0.11.0'
 gem 'mini_magick',          '~> 4.5.1'
