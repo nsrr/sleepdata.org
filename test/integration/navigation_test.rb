@@ -18,6 +18,12 @@ class NavigationTest < ActionDispatch::IntegrationTest
     assert_equal '/', path
   end
 
+  test 'should get sign up page' do
+    get new_user_registration_path
+    assert_equal new_user_registration_path, path
+    assert_response :success
+  end
+
   test 'deleted users should be not be allowed to login' do
     get new_user_session_path
 
