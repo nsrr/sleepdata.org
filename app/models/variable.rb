@@ -2,10 +2,6 @@
 
 # Represent Spout variable structure for variable pages.
 class Variable < ApplicationRecord
-  # TODO: Remove the following in 0.23.0
-  serialize :labels, Array
-  # TODO: End
-
   after_save :set_search_terms
 
   # Named Scopes

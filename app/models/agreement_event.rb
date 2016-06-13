@@ -14,11 +14,6 @@ class AgreementEvent < ApplicationRecord
                 ['principal_reviewer_approved', 'principal_reviewer_approved'],
                 ['tags_updated', 'tags_updated']]
 
-  # TODO: Remove the following in 0.23.0
-  serialize :added_tag_ids, Array
-  serialize :removed_tag_ids, Array
-  # TODO: End
-
   # Concerns
   include Deletable, Forkable
 
@@ -37,9 +32,8 @@ class AgreementEvent < ApplicationRecord
   belongs_to :agreement
   belongs_to :user
   has_many :agreement_event_tags
-  # TODO: Rename the following relationships in 0.23.0 to added_tags and removed_tags respectively
-  has_many :rename_added_tags, -> { where 'agreement_event_tags.added = ?', true }, through: :agreement_event_tags, source: :tag
-  has_many :rename_removed_tags, -> { where 'agreement_event_tags.added = ?', false }, through: :agreement_event_tags, source: :tag
+  has_many :added_tags, -> { where 'agreement_event_tags.added = ?', true }, through: :agreement_event_tags, source: :tag
+  has_many :removed_tags, -> { where 'agreement_event_tags.added = ?', false }, through: :agreement_event_tags, source: :tag
 
   # Agreement Event Methods
 
@@ -60,16 +54,6 @@ class AgreementEvent < ApplicationRecord
   def deletable_by?(current_user)
     user == current_user || current_user.system_admin?
   end
-
-  # TODO: Remove the following methods in 0.23.0
-  def added_tags
-    rename_added_tags
-  end
-
-  def removed_tags
-    rename_removed_tags
-  end
-  # TODO: End
 
   def commented?
     event_type == 'commented'

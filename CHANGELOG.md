@@ -11,6 +11,10 @@
 
 ## 0.23.0
 
+### Refactoring
+- Removed deprecated columns from agreement_events
+- Removed deprecated column from variables
+
 ## 0.22.0 (June 13, 2016)
 
 ### Enhancements
@@ -19,6 +23,7 @@
   - Simplified filters on DAUA review index
 - **Gem Changes**
   - Updated to kaminari 0.17.0
+  - Updated to devise 4.1.1
   - Removed dependency on contour
 
 ### Refactoring

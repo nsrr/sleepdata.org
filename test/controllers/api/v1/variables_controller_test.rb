@@ -100,7 +100,6 @@ class Api::V1::VariablesControllerTest < ActionController::TestCase
       end
     end
     assert_not_nil assigns(:variable)
-    assert_equal [], assigns(:variable).labels.sort
     assert_equal %w(dessert food), assigns(:variable).variable_labels.pluck(:name).sort
     assert_response :success
   end
