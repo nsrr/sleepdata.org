@@ -29,4 +29,4 @@
   #write_comment_root_new{ style: 'margin-bottom: 20px' }
     = link_to 'Write a Reply', async_parent_reply_path(parent_id: @parent, parent_comment_id: 'root', reply_id: 'new'), method: :post, remote: true, class: 'btn btn-primary'
 
-.centered= paginate @replies, theme: 'bootstrap-small'
+.center= paginate @replies, theme: 'bootstrap-small'

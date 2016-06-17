@@ -1,5 +1,6 @@
 - @title = 'Forum'
 
+-# TODO: Remove unused code
 - if false
   - content_for :banner do
     .banner
@@ -85,4 +86,4 @@
           %span.small= time_ago_in_words(topic.last_reply_at) + ' ago'
 
 
-.centered= paginate @topics, theme: 'bootstrap-small'
+.center= paginate @topics, theme: 'bootstrap-small'
