@@ -46,25 +46,34 @@ class User < ActiveRecord::Base
   validates :username, uniqueness: { case_sensitive: false }, format: { with: /\A[a-z]\w*\Z/i }, allow_blank: true
 
   # Model Relationships
-  has_many :agreements, -> { where deleted: false }
+  has_many :agreements, -> { current }
   has_many :agreement_events
   has_many :answers
   has_many :broadcasts, -> { current }
   has_many :broadcast_comments
-  has_many :challenges, -> { where deleted: false }
-  has_many :comments, -> { where deleted: false }
+  has_many :challenges, -> { current }
   has_many :community_tools, -> { current }
-  has_many :datasets, -> { where deleted: false }
+  has_many :datasets, -> { current }
   has_many :dataset_file_audits
   has_many :hosting_requests, -> { current }
   has_many :images
+  has_many :replies, -> { current }
   has_many :reviews
-  has_many :tags, -> { where deleted: false }
-  has_many :tools
-  has_many :topics, -> { where deleted: false }
   has_many :subscriptions
+  has_many :tags, -> { current }
+  has_many :tools
+  has_many :topics, -> { current }
+  has_many :topic_users
 
   # User Methods
+
+  def read_parent!(parent, current_reply_read_id)
+    # TODO: Allow blog posts to be read as well...
+    return unless parent.is_a?(Topic)
+    topic_user = topic_users.where(topic_id: parent.id).first_or_create
+    topic_user.update current_reply_read_id: [topic_user.current_reply_read_id.to_i, current_reply_read_id].max,
+                      last_reply_read_id: topic_user.current_reply_read_id
+  end
 
   def all_topics
     if system_admin?
@@ -95,6 +104,14 @@ class User < ActiveRecord::Base
       BroadcastComment.current
     else
       broadcast_comments
+    end
+  end
+
+  def editable_replies
+    if system_admin?
+      Reply.current
+    else
+      replies
     end
   end
 

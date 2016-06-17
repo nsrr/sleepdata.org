@@ -9,13 +9,13 @@ class TopicTest < ActiveSupport::TestCase
       user_id: User.first.id,
       title: 'Topic Title',
       slug: 'topic-title',
-      description: 'First Comment'
+      description: 'First Reply'
     }
   end
 
   test 'should save topic' do
     topic = Topic.new(topic_params)
-    assert_difference('Comment.count') do
+    assert_difference('Reply.count') do
       assert_difference('Topic.count') do
         topic.save
       end
@@ -23,13 +23,13 @@ class TopicTest < ActiveSupport::TestCase
     assert_equal 0, topic.errors.count
     assert_equal 'Topic Title', topic.title
     assert_equal User.first.id, topic.user.id
-    assert_equal 'First Comment', topic.comments.first.description
-    assert_equal User.first.id, topic.comments.first.user_id
+    assert_equal 'First Reply', topic.replies.first.description
+    assert_equal User.first.id, topic.replies.first.user_id
   end
 
   test 'should not save topic with blank title' do
     topic = Topic.new(topic_params.merge(title: ''))
-    assert_difference('Comment.count', 0) do
+    assert_difference('Reply.count', 0) do
       assert_difference('Topic.count', 0) do
         topic.save
       end
@@ -40,7 +40,7 @@ class TopicTest < ActiveSupport::TestCase
 
   test 'should not save topic without user' do
     topic = Topic.new(topic_params.merge(user_id: nil))
-    assert_difference('Comment.count', 0) do
+    assert_difference('Reply.count', 0) do
       assert_difference('Topic.count', 0) do
         topic.save
       end
@@ -51,7 +51,7 @@ class TopicTest < ActiveSupport::TestCase
 
   test 'should not save topic without description' do
     topic = Topic.new(topic_params.merge(description: ''))
-    assert_difference('Comment.count', 0) do
+    assert_difference('Reply.count', 0) do
       assert_difference('Topic.count', 0) do
         topic.save
       end

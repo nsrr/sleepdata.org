@@ -1,0 +1,78 @@
+- if reply.new_record?
+  - url = replies_path(chapter_id: @chapter, format: 'js')
+  - method = :post
+- else
+  - url = reply_path(reply, chapter_id: @chapter)
+  - method = :patch
+
+- parent_comment_id = (reply.reply_id || 'root')
+- reply_id = (reply.new_record? ? 'new' : reply.id)
+
+- if current_user
+  = form_for reply, url: url, method: method, remote: true, html: { class: 'form-horizontal', id: "reply-form-#{parent_comment_id}-#{reply_id}" } do |f|
+    - if reply.errors.any?
+      .panel.panel-danger
+        .panel-heading
+          %strong
+            = pluralize reply.errors.count, 'error'
+            prohibited this comment from being saved
+        .panel-body
+          %ul
+            - reply.errors.full_messages.each do |message|
+              %li= message
+
+    = f.hidden_field :reply_id
+
+    .preview-container{ style: "margin-bottom: 20px;#{'border: 0;box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);' if parent_comment_id == 'root'}" }
+      .preview-header
+        .pull-right
+          = render 'replies/rich_text_editor_buttons', target: "#reply_description_#{parent_comment_id}_#{reply_id}"
+        = link_to 'Write', '#', data: { object: 'reply-tab', action: 'write', parent_comment_id: parent_comment_id }, class: 'preview-tab active', tabindex: '-1'
+        = link_to 'Preview', '#', data: { object: 'reply-tab', action: 'preview', parent_comment_id: parent_comment_id, reply_id: reply_id }, class: 'preview-tab', tabindex: '-1'
+      .preview-body{ style: 'min-height: 209px;' }
+        %div{ data: { object: 'reply-tab-content', action: 'write', parent_comment_id: parent_comment_id, reply_id: reply_id } }
+          = f.text_area :description, rows: [[5, reply.description.to_s.count("\n") + 1].max, 25].min, class: 'preview-control filedrag-container', data: { object: 'expandable-text-area dropfile-image', default_rows: 5, upload_url: upload_images_path(update: "#reply_description_#{parent_comment_id}_#{reply_id}", format: 'js'), fallback_url: new_image_path, log_id: "#log_#{parent_comment_id}_#{reply_id}" }, id: "reply_description_#{parent_comment_id}_#{reply_id}"
+          .filedrag{ id: "log_#{parent_comment_id}_#{reply_id}", style: 'margin-bottom: 10px' }
+            Drag images above to insert into comment.
+
+
+          %div.pull-right.hidden-sm.hidden-xs
+            %small.text-muted
+              posting as
+              = current_user.forum_name
+              = link_to 'change', settings_path, tabindex: '-1'
+          - if reply.new_record?
+            = f.submit 'Comment', class: 'btn btn-primary', data: { disable_with: 'Comment' }
+            = link_to 'Cancel', '#', data: { object: 'chapter-no-write-comment', parent_comment_id: parent_comment_id, reply_id: reply_id }
+          - else
+            = f.submit 'Update', class: 'btn btn-primary', data: { disable_with: 'Update Comment' }
+            = link_to 'Cancel', reply_path(reply, chapter_id: @chapter), remote: true, class: 'btn btn-default'
+
+        %div{ data: { object: 'reply-tab-content', action: 'preview', parent_comment_id: parent_comment_id, reply_id: reply_id }, style: 'display:none' }
+
+- else
+  .preview-container{ style: "margin-bottom: 20px;#{'border: 0;box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);' if parent_comment_id == 'root'}" }
+    .preview-header{ style: 'border-bottom: 0px solid #1b244b; background-color: #5999de;color:#fff' }
+      .pull-right
+        = link_to '#', data: { object: 'chapter-no-write-comment', parent_comment_id: parent_comment_id, reply_id: reply_id }, style: 'color:#fff;font-weight:bold;text-decoration:none' do
+          &times;
+      Sign in to leave a reply
+    .preview-body{ style: 'min-height: inherit;border-bottom: 3px solid #ffa400' }
+      = form_tag async_parent_login_path, method: :post, remote: true, class: 'form-inline' do |f|
+        = hidden_field_tag :broadcast_id, @broadcast.to_param
+        = hidden_field_tag :topic_id, @topic.to_param
+        = hidden_field_tag :parent_comment_id, parent_comment_id
+        = hidden_field_tag :reply_id, reply_id
+        .form-group
+          = label_tag :email, nil, class: 'sr-only'
+          = email_field_tag :email, params[:email], class: 'form-control', placeholder: 'Email', data: { title: 'Invalid Email', container: 'body' }
+        .form-group
+          = label_tag :password, nil, class: 'sr-only'
+          = password_field_tag :password, '', class: 'form-control', placeholder: 'Password', data: { title: 'Invalid Password', container: 'body' }
+        .form-group
+          = submit_tag 'Sign In', class: 'btn btn-primary'
+        .form-group
+          %small
+            = link_to 'Forgot Password?', new_user_password_path
+            %br
+            = link_to 'Register New Account', new_user_registration_path

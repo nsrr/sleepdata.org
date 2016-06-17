@@ -1,0 +1,3 @@
+$("#reply_<%= @reply.id %>_options").click();
+$("[data-object~='reply-show'][data-parent-comment-id=<%= @reply.parent_comment_id %>][data-reply-id=<%= @reply.id %>]").html("<%=j render 'replies/edit', reply: @reply %>");
+fileDragReady();

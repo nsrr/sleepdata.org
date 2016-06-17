@@ -1,0 +1,4 @@
+- if reply.deleted?
+  %code.text-muted [deleted]
+- else
+  = simple_markdown(sanitize(reply.description.gsub(/</, "&lt;")).gsub('&gt;', '>'), reply.display_links?, true, 'table table-striped')

@@ -1,3 +1,16 @@
+# TODO: Review all methods to see if each is necessary.
+
+@numberOfHardAndSoftLineBreaks = (element) ->
+  mWidth = 25/3
+  lineWidth = $(element).innerWidth()
+  string = $(element).val()
+  array = string.split('\n')
+  lineBreaks = array.length # Hard Breaks
+  $.each(array, (index, line) ->
+    lineBreaks += Math.floor((mWidth * line.length) / lineWidth) # Soft Wraps
+  )
+  return lineBreaks
+
 $(document)
   .on('click', '[data-object~="view-content-preview"]', () ->
     $('[data-object~="view-content-preview"]').addClass('active')
@@ -14,7 +27,7 @@ $(document)
     false
   )
   .on('input', '[data-object~="expandable-text-area"]', (e) ->
-    numberOfLineBreaks = ($(this).val().match(/\n/g)||[]).length + 1
+    numberOfLineBreaks = numberOfHardAndSoftLineBreaks($(this))
     if numberOfLineBreaks > 25
       $(this).attr('rows', 25)
     else if numberOfLineBreaks > $(this).data('default-rows')

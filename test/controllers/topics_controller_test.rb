@@ -13,7 +13,7 @@ class TopicsControllerTest < ActionController::TestCase
     {
       title: 'New Topic Title',
       slug: 'new-topic-title',
-      description: 'First Comment on New Topic',
+      description: 'First Reply on New Topic',
       tag_ids: [ActiveRecord::FixtureSet.identify(:meeting)]
     }
   end
@@ -68,7 +68,7 @@ class TopicsControllerTest < ActionController::TestCase
 
   test 'should create topic' do
     login(users(:valid))
-    assert_difference('Comment.count') do
+    assert_difference('Reply.count') do
       assert_difference('Topic.count') do
         post :create, topic: topic_params
       end
@@ -78,8 +78,8 @@ class TopicsControllerTest < ActionController::TestCase
     assert_equal 'New Topic Title', assigns(:topic).title
     assert_equal 'new-topic-title', assigns(:topic).slug
     assert_equal users(:valid), assigns(:topic).user
-    assert_equal 'First Comment on New Topic', assigns(:topic).comments.first.description
-    assert_equal users(:valid), assigns(:topic).comments.first.user
+    assert_equal 'First Reply on New Topic', assigns(:topic).replies.first.description
+    assert_equal users(:valid), assigns(:topic).replies.first.user
     assert_not_nil assigns(:topic).last_reply_at
     assert_equal [], assigns(:topic).tags
     assert_equal true, assigns(:topic).subscribed?(users(:valid))
@@ -108,7 +108,7 @@ class TopicsControllerTest < ActionController::TestCase
 
   test 'should not create topic with blank description' do
     login(users(:valid))
-    assert_difference('Comment.count', 0) do
+    assert_difference('Reply.count', 0) do
       assert_difference('Topic.count', 0) do
         post :create, topic: topic_params.merge(description: '')
       end
@@ -120,11 +120,13 @@ class TopicsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  # TODO: Decide on whether or not to remove this restriction.
   test 'should not create topic when user exceeds two topics per day' do
+    skip
     login(users(:valid))
     topic_one = users(:valid).topics.create(title: 'Topic One', slug: 'topic-one', description: 'First Topic of the Day')
     topic_two = users(:valid).topics.create(title: 'Topic Two', slug: 'topic-two', description: 'Second Topic of the Day')
-    assert_difference('Comment.count', 0) do
+    assert_difference('Reply.count', 0) do
       assert_difference('Topic.count', 0) do
         post :create, topic: { title: 'Third topic of the day', slug: 'topic-three', description: 'Spamming Topics' }
       end
@@ -136,7 +138,7 @@ class TopicsControllerTest < ActionController::TestCase
 
   test 'should not create topic as banned user' do
     login(users(:banned))
-    assert_difference('Comment.count', 0) do
+    assert_difference('Reply.count', 0) do
       assert_difference('Topic.count', 0) do
         post :create, topic: { title: 'I am trying to post a topic', slug: 'i-am-trying-to-post-a-topic', description: 'Visit my site with advertisements.' }
       end

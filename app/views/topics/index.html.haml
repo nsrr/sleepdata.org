@@ -1,28 +1,88 @@
 - @title = 'Forum'
 
-- content_for :banner do
-  .banner
-    .container
-      .banner-header.brand
-        = @title
-      .banner-body
-        A place to ask questions, seek advice, and help others.
+- if false
+  - content_for :banner do
+    .banner
+      .container
+        .banner-header.brand
+          = @title
+        .banner-body
+          A place to ask questions, seek advice, and help others.
 
-.row{ style: 'margin-bottom:20px' }
-  .col-xs-6
-    - if current_user
-      - if current_user.topics_created_in_last_day.count >= current_user.max_topics
-        = link_to "#{current_user.max_topics} Topics Per Day Limit Reached", '#', data: { object: 'suppress-click' }, class: 'btn btn-success', disabled: "disabled"
+  .row{ style: 'margin-bottom:20px' }
+    .col-xs-6
+      - if current_user
+        - if current_user.topics_created_in_last_day.count >= current_user.max_topics
+          = link_to "#{current_user.max_topics} Topics Per Day Limit Reached", '#', data: { object: 'suppress-click' }, class: 'btn btn-success', disabled: "disabled"
+        - else
+          = link_to 'Start a New Topic', new_topic_path, class: 'btn btn-success'
       - else
-        = link_to 'Start a New Topic', new_topic_path, class: 'btn btn-success'
-    - else
-      = link_to 'Join the Discussion', new_user_session_path, class: 'btn btn-success'
-  .col-xs-6
-    = form_tag topics_path, method: :get, class: 'form-inline pull-right' do
-      .input-group
-        = text_field_tag 's', params[:s], class: 'form-control', style: 'width:100%', placeholder: 'Search the Forum'
-        %span.input-group-btn
-          = submit_tag 'Search', class: 'btn btn-primary', name: nil
+        = link_to 'Join the Discussion', new_user_session_path, class: 'btn btn-success'
+    .col-xs-6
+      = form_tag topics_path, method: :get, class: 'form-inline pull-right' do
+        .input-group
+          = text_field_tag 's', params[:s], class: 'form-control', style: 'width:100%', placeholder: 'Search the Forum'
+          %span.input-group-btn
+            = submit_tag 'Search', class: 'btn btn-primary', name: nil
 
-.topics-container
-  = render 'topics/topics'
+  .topics-container
+    = render 'topics/topics'
+
+
+
+
+#forum-top-container
+  = render 'layouts/per_page', per_page: 40, object_count: @topics.total_count
+  = link_to 'Start New Topic', async_forum_new_topic_path, method: :post, remote: true, class: 'btn btn-primary'
+
+#new-topic-container{ style: 'display:none;' }
+
+%table.table.table-hover
+  %col
+  %col
+  %col.hidden-xs{ width: '50px' }
+  %col.hidden-xs.hidden-sm{ width: '50px' }
+  %col.hidden-xs.hidden-sm{ width: '150px' }
+  %thead
+    %tr
+      %th.small= link_to 'Topics', topics_path
+      %th
+      = th_sort_field_rev @order, 'reply_count', 'Replies', extra_class: 'small hidden-xs hidden-sm'
+      = th_sort_field_rev @order, 'topics.view_count', 'Views', extra_class: 'small hidden-xs hidden-sm'
+      = th_sort_field_rev @order, 'topics.last_reply_at', 'Last Post', extra_class: 'small hidden-xs hidden-sm'
+  %tbody
+    - @topics.each do |topic|
+      %tr{ class: topic.started_reading?(current_user) ? 'topic-read' : '' }
+        %td
+          .wrapword
+            - if topic.pinned?
+              %span.glyphicon.glyphicon-star.primary-orange
+            = link_to topic.title, topic
+          %small.f300
+            by
+            -# TODO: Remove duplicate image tag after checking that size attribute is not needed
+            -# image_tag topic.user.avatar_url(16, 'identicon'), size: '16x16', alt: ''
+            = image_tag topic.user.avatar_url(16, 'identicon'), alt: '', style: "max-height:#{16+3}px;border-radius:4px", title: topic.user.forum_name, data: { toggle: 'tooltip', container: 'body', placement: 'top' }
+            = topic.user.forum_name
+        %td.nowrap.small.text-right
+          - if topic.last_page > 1
+            %i.fa.fa-comments-o
+            = link_to '1', topic, class: 'btn btn-xs btn-default'
+            \...
+            = link_to topic.last_page, page_topic_path(topic, page: topic.last_page), class: 'btn btn-xs btn-default'
+          - unread_replies = topic.unread_replies(current_user)
+          - next_unread_reply = topic.next_unread_reply(current_user)
+          - if next_unread_reply
+            %br
+            = link_to next_unread_reply do
+              = surround '(', ')' do
+                %b.primary-orange= pluralize unread_replies, 'unread reply'
+        %td.text-muted.hidden-xs.f300
+          %span.small= number_with_delimiter topic.reply_count - 1
+        %td.text-muted.hidden-xs.hidden-sm.f300
+          %span.small= number_with_delimiter topic.view_count
+        %td.text-muted.hidden-xs.hidden-sm.f300
+          %span.small= time_ago_in_words(topic.last_reply_at) + ' ago'
+
+
+.centered= paginate @topics, theme: 'bootstrap-small'

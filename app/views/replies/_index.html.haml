@@ -1,0 +1,32 @@
+- if @broadcast
+  - @parent = @broadcast
+  - write_a_reply_path = broadcast_path(@parent, page: @parent.last_page, anchor: 'write-a-reply')
+  - edit_parent_path = edit_broadcast_path(@parent)
+- elsif @topic
+  - @parent = @topic
+  - write_a_reply_path = topic_path(@parent, page: @parent.last_page, anchor: 'write-a-reply')
+  - edit_parent_path = edit_topic_path(@parent)
+
+%div{ style: 'margin-bottom: 20px' }
+  .pull-right.hidden-xs.hidden-sm{ style: 'margin-top: -20px' }
+    = paginate @replies, theme: 'bootstrap-small'
+  %span.nowrap
+    = link_to 'Write a Reply', write_a_reply_path, class: 'btn btn-primary'
+    - if current_user && @parent.editable_by?(current_user)
+      = link_to 'Edit Title', edit_parent_path, class: 'btn btn-default'
+      -# TODO: rename delete link
+      = link_to 'Delete Topic/Broadcast', @parent, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
+
+- @replies.each do |reply|
+  = render 'replies/show', reply: reply, level: defined?(level) ? level + 1 : 0, include_parent_title: false
+
+- if @page == @parent.last_page
+  #comment_container_root_new{ style: 'display:none' }
+    - reply = @parent.replies.new
+    = render 'replies/form', reply: reply
+
+  %a.anchor{ name: 'write-a-reply' }
+  #write_comment_root_new{ style: 'margin-bottom: 20px' }
+    = link_to 'Write a Reply', async_parent_reply_path(parent_id: @parent, parent_comment_id: 'root', reply_id: 'new'), method: :post, remote: true, class: 'btn btn-primary'
+
+.centered= paginate @replies, theme: 'bootstrap-small'
