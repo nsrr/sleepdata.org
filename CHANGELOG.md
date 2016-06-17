@@ -3,6 +3,8 @@
 ### Enhancements
 - **Forum Updates**
   - Forum topics now track views and have better URL structure
+- **Gem Changes**
+  - Added the pg_search gem for full-text search
 
 ### Refactoring
 - Removed deprecated columns from agreement_events
