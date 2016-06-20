@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     get :roles
     get :stats
     get :sync
+    resources :replies, only: :index
     root action: :dashboard
   end
 

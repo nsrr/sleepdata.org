@@ -1,9 +1,11 @@
 ## 0.23.0
 
 ### Enhancements
-- **Blog Updates**
+- **Admin Changes**
+  - Added admin view for blog post and forum topic replies
+- **Blog Changes**
   - Added view_count column to track blog post views
-- **Forum Updates**
+- **Forum Changes**
   - Forum topics now track views and have better URL structure
   - Users can upvote, downvote, and reply directly to other forum posts
 - **Gem Changes**
