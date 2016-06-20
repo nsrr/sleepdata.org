@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# TODO: Remove controller
+
 class CommentsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :preview]
   before_action :set_topic, only: [:show, :destroy]

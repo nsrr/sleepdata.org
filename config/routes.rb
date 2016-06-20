@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     get :roles
     get :stats
     get :sync
+    get :downloads_by_month
+    get :agreement_reports
     resources :replies, only: :index
     root action: :dashboard
   end
@@ -231,8 +233,6 @@ Rails.application.routes.draw do
 
     # get 'dataset/hosting', action: 'dataset_hosting', as: :dataset_hosting
     # post 'dataset/hosting', action: 'create_hosting_request', as: :create_hosting_request
-
-
     get 'submissions/start', action: 'submissions_start', as: :submissions_start
     post 'submissions/start', action: 'submissions_launch', as: :submissions_launch
     post 'submissions/register', action: 'submissions_register_user', as: :submissions_register_user
@@ -279,11 +279,6 @@ Rails.application.routes.draw do
     collection do
       get :markup
     end
-    # resources :comments do
-    #   collection do
-    #     post :preview
-    #   end
-    # end
   end
 
   resources :replies do
@@ -298,11 +293,6 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: 'sessions' }, path_names: { sign_up: 'join', sign_in: 'login' }, path: ''
 
   resources :users
-
-  # TODO: Move these to modules
-
-  get '/downloads_by_month' => 'welcome#downloads_by_month', as: :downloads_by_month
-  get '/agreement_reports' => 'welcome#agreement_reports', as: :agreement_reports
 
   get '/dua' => 'internal#submissions'
   get '/daua' => 'internal#submissions'

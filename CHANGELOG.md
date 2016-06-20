@@ -17,6 +17,7 @@
 ### Refactoring
 - Removed deprecated columns from agreement_events
 - Removed deprecated column from variables
+- Removed unused controllers and associated views
 
 ## 0.22.0 (June 13, 2016)
 
