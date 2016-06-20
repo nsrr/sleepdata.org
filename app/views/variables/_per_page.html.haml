@@ -6,13 +6,12 @@
 - current_page_min = (page - 1)*per_page + 1
 - current_page_max = page*per_page
 
-- sort_params = params.permit(:search)
+- sort_params = params.permit!
 
 .pull-right
   %ul.pagination{ style: 'margin:3px', class: (defined?(pagination_size) && ['large', 'small'].include?(pagination_size) ? "pagination-#{pagination_size_hash[pagination_size]}" : nil) }
     - if current_page_min > 1
-
-      %li= link_to '&laquo;'.html_safe, url_for(sort_params.merge( page: page - 1 ) ).gsub("%2F","/")
+      %li= link_to '&laquo;'.html_safe, url_for(sort_params.merge(page: page - 1)).gsub('%2F', '/')
     - else
       %li.disabled
         %span &laquo;
@@ -27,7 +26,7 @@
         = number_with_delimiter object_count
 
     - if current_page_max < object_count
-      %li= link_to '&raquo;'.html_safe, url_for(sort_params.merge( page: page + 1 ) ).gsub("%2F","/")
+      %li= link_to '&raquo;'.html_safe, url_for(sort_params.merge(page: page + 1)).gsub('%2F', '/')
     - else
       %li.disabled
         %span &raquo;
