@@ -1,1 +1,1 @@
-$(".broadcast-comment-header[data-parent-comment-id=<%= @broadcast_comment.parent_comment_id %>][data-broadcast-comment-id=<%= @broadcast_comment.id %>]").html("<%=j render 'broadcast_comments/header', broadcast_comment: @broadcast_comment, just_voted: true %>");
+$(".broadcast-comment-header[data-parent-reply-id=<%= @broadcast_comment.parent_reply_id %>][data-broadcast-comment-id=<%= @broadcast_comment.id %>]").html("<%=j render 'broadcast_comments/header', broadcast_comment: @broadcast_comment, just_voted: true %>");

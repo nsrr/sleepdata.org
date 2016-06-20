@@ -38,6 +38,7 @@
   $('.datepicker').datepicker('remove')
   $('.datepicker').datepicker(autoclose: true)
 
+# TODO: Remove unused ready methods
 @ready = () ->
   $("[rel=tooltip]").tooltip(trigger: 'hover')
   if $("#collection_form #s, #page_name, #search_form #s, #search, #collection_form #s, #s").val() != ''
@@ -60,6 +61,7 @@
   initializeClipboard()
   initializeFiles()
   loadDatepicker()
+  repliesReady()
 
 $(window).onbeforeunload = () -> return "You haven't saved your changes." if window.$isDirty
 $(document).ready(ready)

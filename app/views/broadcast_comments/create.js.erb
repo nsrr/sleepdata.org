@@ -1,3 +1,3 @@
-hideReplyBox("<%= @broadcast_comment.parent_comment_id %>", "new");
+hideReplyBox("<%= @broadcast_comment.parent_reply_id %>", "new");
 <% @broadcast_comments = BroadcastComment.none %>
-$("#comment_container_<%= @broadcast_comment.parent_comment_id %>_new").after("<%=j render 'broadcast_comments/show', broadcast_comment: @broadcast_comment, level: @broadcast_comment.computed_level %>");
+$("#comment_container_<%= @broadcast_comment.parent_reply_id %>_new").after("<%=j render 'broadcast_comments/show', broadcast_comment: @broadcast_comment, level: @broadcast_comment.computed_level %>");

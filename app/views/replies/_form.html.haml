@@ -1,15 +1,15 @@
 - if reply.new_record?
-  - url = replies_path(chapter_id: @chapter, format: 'js')
+  - url = replies_path(broadcast_id: @broadcast, topic_id: @topic, format: 'js')
   - method = :post
 - else
-  - url = reply_path(reply, chapter_id: @chapter)
+  - url = reply_path(reply, broadcast_id: @broadcast, topic_id: @topic)
   - method = :patch
 
-- parent_comment_id = (reply.reply_id || 'root')
+- parent_reply_id = (reply.reply_id || 'root')
 - reply_id = (reply.new_record? ? 'new' : reply.id)
 
 - if current_user
-  = form_for reply, url: url, method: method, remote: true, html: { class: 'form-horizontal', id: "reply-form-#{parent_comment_id}-#{reply_id}" } do |f|
+  = form_for reply, url: url, method: method, remote: true, html: { class: 'form-horizontal', id: "reply-form-#{parent_reply_id}-#{reply_id}" } do |f|
     - if reply.errors.any?
       .panel.panel-danger
         .panel-heading
@@ -23,16 +23,16 @@
 
     = f.hidden_field :reply_id
 
-    .preview-container{ style: "margin-bottom: 20px;#{'border: 0;box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);' if parent_comment_id == 'root'}" }
+    .preview-container{ style: "margin-bottom: 20px;#{'border: 0;box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);' if parent_reply_id == 'root'}" }
       .preview-header
         .pull-right
-          = render 'replies/rich_text_editor_buttons', target: "#reply_description_#{parent_comment_id}_#{reply_id}"
-        = link_to 'Write', '#', data: { object: 'reply-tab', action: 'write', parent_comment_id: parent_comment_id }, class: 'preview-tab active', tabindex: '-1'
-        = link_to 'Preview', '#', data: { object: 'reply-tab', action: 'preview', parent_comment_id: parent_comment_id, reply_id: reply_id }, class: 'preview-tab', tabindex: '-1'
+          = render 'replies/rich_text_editor_buttons', target: "#reply_description_#{parent_reply_id}_#{reply_id}"
+        = link_to 'Write', '#', data: { object: 'reply-tab', action: 'write', parent_reply_id: parent_reply_id }, class: 'preview-tab active', tabindex: '-1'
+        = link_to 'Preview', '#', data: { object: 'reply-tab', action: 'preview', parent_reply_id: parent_reply_id, reply_id: reply_id }, class: 'preview-tab', tabindex: '-1'
       .preview-body{ style: 'min-height: 209px;' }
-        %div{ data: { object: 'reply-tab-content', action: 'write', parent_comment_id: parent_comment_id, reply_id: reply_id } }
-          = f.text_area :description, rows: [[5, reply.description.to_s.count("\n") + 1].max, 25].min, class: 'preview-control filedrag-container', data: { object: 'expandable-text-area dropfile-image', default_rows: 5, upload_url: upload_images_path(update: "#reply_description_#{parent_comment_id}_#{reply_id}", format: 'js'), fallback_url: new_image_path, log_id: "#log_#{parent_comment_id}_#{reply_id}" }, id: "reply_description_#{parent_comment_id}_#{reply_id}"
-          .filedrag{ id: "log_#{parent_comment_id}_#{reply_id}", style: 'margin-bottom: 10px' }
+        %div{ data: { object: 'reply-tab-content', action: 'write', parent_reply_id: parent_reply_id, reply_id: reply_id } }
+          = f.text_area :description, rows: [[5, reply.description.to_s.count("\n") + 1].max, 25].min, class: 'preview-control filedrag-container', data: { object: 'expandable-text-area dropfile-image', default_rows: 5, upload_url: upload_images_path(update: "#reply_description_#{parent_reply_id}_#{reply_id}", format: 'js'), fallback_url: new_image_path, log_id: "#log_#{parent_reply_id}_#{reply_id}" }, id: "reply_description_#{parent_reply_id}_#{reply_id}"
+          .filedrag{ id: "log_#{parent_reply_id}_#{reply_id}", style: 'margin-bottom: 10px' }
             Drag images above to insert into comment.
 
 
@@ -43,25 +43,25 @@
               = link_to 'change', settings_path, tabindex: '-1'
           - if reply.new_record?
             = f.submit 'Comment', class: 'btn btn-primary', data: { disable_with: 'Comment' }
-            = link_to 'Cancel', '#', data: { object: 'chapter-no-write-comment', parent_comment_id: parent_comment_id, reply_id: reply_id }
+            = link_to 'Cancel', '#', data: { object: 'parent-no-write-reply', parent_reply_id: parent_reply_id, reply_id: reply_id }
           - else
             = f.submit 'Update', class: 'btn btn-primary', data: { disable_with: 'Update Comment' }
-            = link_to 'Cancel', reply_path(reply, chapter_id: @chapter), remote: true, class: 'btn btn-default'
+            = link_to 'Cancel', reply_path(reply), remote: true, class: 'btn btn-default'
 
-        %div{ data: { object: 'reply-tab-content', action: 'preview', parent_comment_id: parent_comment_id, reply_id: reply_id }, style: 'display:none' }
+        %div{ data: { object: 'reply-tab-content', action: 'preview', parent_reply_id: parent_reply_id, reply_id: reply_id }, style: 'display:none' }
 
 - else
-  .preview-container{ style: "margin-bottom: 20px;#{'border: 0;box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);' if parent_comment_id == 'root'}" }
-    .preview-header{ style: 'border-bottom: 0px solid #1b244b; background-color: #5999de;color:#fff' }
+  .preview-container{ style: "margin-bottom: 20px;#{'border: 0;box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);' if parent_reply_id == 'root'}" }
+    .preview-header{ style: 'background-color: #333;color:#fff' }
       .pull-right
-        = link_to '#', data: { object: 'chapter-no-write-comment', parent_comment_id: parent_comment_id, reply_id: reply_id }, style: 'color:#fff;font-weight:bold;text-decoration:none' do
+        = link_to '#', data: { object: 'parent-no-write-reply', parent_reply_id: parent_reply_id, reply_id: reply_id }, style: 'color:#fff;font-weight:bold;text-decoration:none' do
           &times;
       Sign in to leave a reply
-    .preview-body{ style: 'min-height: inherit;border-bottom: 3px solid #ffa400' }
+    .preview-body{ style: 'min-height: inherit;' }
       = form_tag async_parent_login_path, method: :post, remote: true, class: 'form-inline' do |f|
         = hidden_field_tag :broadcast_id, @broadcast.to_param
         = hidden_field_tag :topic_id, @topic.to_param
-        = hidden_field_tag :parent_comment_id, parent_comment_id
+        = hidden_field_tag :parent_reply_id, parent_reply_id
         = hidden_field_tag :reply_id, reply_id
         .form-group
           = label_tag :email, nil, class: 'sr-only'

@@ -17,7 +17,7 @@ class RepliesController < ApplicationController
     respond_to do |format|
       format.html do
         if @reply.parent.is_a?(Broadcast)
-          redirect_to page_broadcast_path(@reply.parent, page: @reply.page, anchor: @reply.anchor)
+          redirect_to blog_post_path(@reply.parent.url_hash.merge(page: @reply.page, anchor: @reply.anchor))
         elsif @reply.parent.is_a?(Topic)
           redirect_to page_topic_path(@reply.parent, page: @reply.page, anchor: @reply.anchor)
         else
@@ -89,7 +89,7 @@ class RepliesController < ApplicationController
 
   def find_parent_or_redirect
     @topic = Topic.current.find_by_slug params[:topic_id]
-    @broadcast = Broadcast.current.find_by_slug params[:broadcast_id]
+    @broadcast = Broadcast.current.published.find_by_slug params[:broadcast_id]
     @parent = @topic || @broadcast
     empty_response_or_root_path unless @parent
   end

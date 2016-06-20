@@ -67,8 +67,8 @@
 
 //= require components/affix
 
-//= require objects/blog
 //= require objects/images
+//= require objects/replies
 //= require objects/topics
 
 //= require external/clipboard-1.5.9.js

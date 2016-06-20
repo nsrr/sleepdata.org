@@ -1,1 +1,1 @@
-$("[data-object~='reply-tab-content'][data-action='preview'][data-parent-comment-id=<%= params[:parent_comment_id] %>][data-reply-id=<%= params[:reply_id] %>]").html("<%=j render 'replies/formatted', reply: @reply %>");
+$("[data-object~='reply-tab-content'][data-action='preview'][data-parent-reply-id=<%= params[:parent_reply_id] %>][data-reply-id=<%= params[:reply_id] %>]").html("<%=j render 'replies/formatted', reply: @reply %>");

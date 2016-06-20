@@ -4,11 +4,6 @@ Rails.application.routes.draw do
   root 'external#landing'
 
   namespace :async do
-    namespace :blog do
-      post :login
-      post :register
-      post :reply
-    end
     namespace :topic do
       post :login
       post :register

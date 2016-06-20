@@ -6,6 +6,7 @@ class Topic < ActiveRecord::Base
 
   # Concerns
   include Deletable
+  include Replyable
   include PgSearch
   multisearchable against: [:title],
                   unless: :deleted?
@@ -27,8 +28,6 @@ class Topic < ActiveRecord::Base
   # Model Relationships
   belongs_to :user
   has_many :topic_users
-  has_many :replies, -> { order :id }
-  has_many :reply_users
   has_many :subscriptions
   has_many :subscribers, -> { current.where(emails_enabled: true).where(subscriptions: { subscribed: true }) }, through: :subscriptions, source: :user
   has_many :topic_tags
@@ -70,10 +69,6 @@ class Topic < ActiveRecord::Base
 
   def editable_by?(current_user)
     !locked? && !user.banned? && (user == current_user || current_user.system_admin?)
-  end
-
-  def last_page
-    ((replies.where(reply_id: nil).count - 1) / Reply::REPLIES_PER_PAGE) + 1
   end
 
   def get_or_create_subscription(current_user)

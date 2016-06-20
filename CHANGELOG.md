@@ -1,6 +1,8 @@
 ## 0.23.0
 
 ### Enhancements
+- **Blog Updates**
+  - Added view_count column to track blog post views
 - **Forum Updates**
   - Forum topics now track views and have better URL structure
   - Users can upvote, downvote, and reply directly to other forum posts

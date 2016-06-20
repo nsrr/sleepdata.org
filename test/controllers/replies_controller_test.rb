@@ -31,7 +31,7 @@ class RepliesControllerTest < ActionController::TestCase
 
   test 'should preview reply' do
     login(@regular_user)
-    post :preview, parent_comment_id: 'root', reply_id: 'new', reply: reply_params, format: 'js'
+    post :preview, parent_reply_id: 'root', reply_id: 'new', reply: reply_params, format: 'js'
     assert_template 'preview'
     assert_response :success
   end
@@ -64,10 +64,9 @@ class RepliesControllerTest < ActionController::TestCase
 
   # TODO: Add a redirect for a reply on a blog post.
   test 'should show reply to a blog post and redirect to correct page' do
-    skip
     login(@regular_user)
-    get :show, id: @reply_blog_post
-    assert_redirected_to page_broadcast_path(@reply_blog_post.broadcast, page: @reply_blog_post.page, anchor: @reply_blog_post.anchor)
+    get :show, id: replies(:blog_one)
+    assert_redirected_to blog_post_path(broadcasts(:published).url_hash.merge(page: replies(:blog_one).page, anchor: replies(:blog_one).anchor))
   end
 
   test 'should show reply' do

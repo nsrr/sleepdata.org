@@ -47,3 +47,10 @@ six:
   topic: one
   description: Removed the comment above.
   user: valid
+
+blog_one:
+  id: 8
+  broadcast: published
+  # topic:
+  description: Reply to the blog post.
+  user: valid
