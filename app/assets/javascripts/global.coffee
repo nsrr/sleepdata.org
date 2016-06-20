@@ -56,7 +56,6 @@
   initializeTypeahead()
   affixReady()
   fileDragReady()
-  new WOW().init()
   fix_ie10_placeholder()
   initializeClipboard()
   initializeFiles()

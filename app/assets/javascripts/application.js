@@ -50,10 +50,6 @@
 
 //= require external/jquery.textcomplete
 //= require external/colorpicker
-
-// TODO: Remove wow if no longer needed
-//= require external/wow
-
 //= require extensions/filedrag
 //= require extensions/slug
 
