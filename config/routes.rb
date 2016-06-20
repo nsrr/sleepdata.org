@@ -4,16 +4,6 @@ Rails.application.routes.draw do
   root 'external#landing'
 
   namespace :async do
-    namespace :blog do
-      post :login
-      post :register
-      post :reply
-    end
-    namespace :topic do
-      post :login
-      post :register
-      post :reply
-    end
     namespace :forum do
       post :login
       post :new_topic
@@ -24,7 +14,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :broadcast_comments
   resources :community_tools, path: 'community-tools'
   get 'account(/:auth_token)/profile' => 'account#profile'
 
@@ -34,6 +23,9 @@ Rails.application.routes.draw do
     get :roles
     get :stats
     get :sync
+    get :downloads_by_month
+    get :agreement_reports
+    resources :replies, only: :index
     root action: :dashboard
   end
 
@@ -72,15 +64,6 @@ Rails.application.routes.draw do
   end
 
   resources :broadcasts, path: 'editor/blog'
-
-  resources :broadcast_comments do
-    collection do
-      post :preview
-    end
-    member do
-      post :vote
-    end
-  end
 
   scope module: :agreements do
     namespace :representative do
@@ -250,12 +233,14 @@ Rails.application.routes.draw do
 
     # get 'dataset/hosting', action: 'dataset_hosting', as: :dataset_hosting
     # post 'dataset/hosting', action: 'create_hosting_request', as: :create_hosting_request
-
-
     get 'submissions/start', action: 'submissions_start', as: :submissions_start
     post 'submissions/start', action: 'submissions_launch', as: :submissions_launch
     post 'submissions/register', action: 'submissions_register_user', as: :submissions_register_user
     patch 'submissions/sign_in', action: 'submissions_sign_in_user', as: :submissions_sign_in_user
+  end
+
+  scope module: :search do
+    get :search, action: 'index', as: :search
   end
 
   scope module: 'static' do
@@ -294,11 +279,6 @@ Rails.application.routes.draw do
     collection do
       get :markup
     end
-    resources :comments do
-      collection do
-        post :preview
-      end
-    end
   end
 
   resources :replies do
@@ -313,11 +293,6 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: 'sessions' }, path_names: { sign_up: 'join', sign_in: 'login' }, path: ''
 
   resources :users
-
-  # TODO: Move these to modules
-
-  get '/downloads_by_month' => 'welcome#downloads_by_month', as: :downloads_by_month
-  get '/agreement_reports' => 'welcome#agreement_reports', as: :agreement_reports
 
   get '/dua' => 'internal#submissions'
   get '/daua' => 'internal#submissions'

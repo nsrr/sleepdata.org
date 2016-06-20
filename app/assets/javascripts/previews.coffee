@@ -1,5 +1,3 @@
-# TODO: Review all methods to see if each is necessary.
-
 @numberOfHardAndSoftLineBreaks = (element) ->
   mWidth = 25/3
   lineWidth = $(element).innerWidth()

@@ -4,8 +4,12 @@ $box-shadow: 0 0 3px rgba(0, 0, 0, .5);
 
 $comment-unread-even: $brand-white;
 $comment-unread-odd: $brand-gray-lightest;
-$comment-read-even: #e6edf4;
-$comment-read-odd: #e1e7ee; // $comment-unread-odd * $comment-read-even
+$comment-read-even: #eaf8ef;
+$comment-read-odd: #e4f2e9; // $comment-unread-odd * $comment-read-even
+
+.topic-read td {
+  background-color: $comment-read-even;
+}
 
 .reply-inner-container {
   margin-left: 0;
@@ -28,8 +32,7 @@ $comment-read-odd: #e1e7ee; // $comment-unread-odd * $comment-read-even
   }
 }
 
-// TODO: Remove Content-container.
-.content-container {
+.reply-outer-container {
   background-color: $brand-white;
   box-shadow: $box-shadow;
   margin-bottom: 20px;

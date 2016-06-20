@@ -1,0 +1,3 @@
+$("#top-menu").html("<%=j render 'layouts/menu' %>");
+$("#comment_container_<%= params[:parent_reply_id] %>_<%= params[:reply_id] %>").html("<%=j render 'replies/form', reply: @reply %>");
+fileDragReady();

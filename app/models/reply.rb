@@ -37,7 +37,9 @@ class Reply < ApplicationRecord
     deleted? || (topic && topic.deleted?) || (broadcast && broadcast.deleted?)
   end
 
+  # TODO: Make this work for blog posts
   def read?(current_user)
+    return false unless topic
     topic_user = topic.topic_users.find_by user: current_user
     !topic_user.nil? && topic_user.last_reply_read_id.to_i >= id
   end
@@ -107,10 +109,7 @@ class Reply < ApplicationRecord
     end
   end
 
-  # TODO: Rename to parent_reply_id or higher_reply_id
-  # parent_comment_id => parent_reply_id
-  # parent-comment-id => parent-reply-id
-  def parent_comment_id
+  def parent_reply_id
     reply_id || 'root'
   end
 
@@ -131,7 +130,9 @@ class Reply < ApplicationRecord
     end
   end
 
+  # TODO: Launch notifications
   def notify_parent_reply_author
+    return if true
     return if reply.user == user
     notification = reply.user.notifications.where(topic_id: topic_id, broadcast_id: broadcast_id, reply_id: id).first_or_create
     notification.mark_as_unread!
@@ -139,13 +140,12 @@ class Reply < ApplicationRecord
 
   # TODO: Make notifications with topic_id and broadcast_id
   def notify_parent_author
-    return if topic.user == user || broadcast.user == user
+    return if true
+    return if (topic && topic.user == user) || (broadcast && broadcast.user == user)
     notification = topic.user.notifications.where(topic_id: topic_id, broadcast_id: broadcast_id, reply_id: id).first_or_create
     notification.mark_as_unread!
   end
 end
-
-
 
 # TODO: Merge into reply.rb and delete file.
 # # frozen_string_literal: true

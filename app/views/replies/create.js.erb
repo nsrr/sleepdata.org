@@ -1,6 +1,6 @@
-hideTopicReplyBox("<%= @reply.parent_comment_id %>", "new");
-<% if @reply.parent_comment_id == 'root' %>
-$("#comment_container_<%= @reply.parent_comment_id %>_new").before("<%=j render 'replies/show', reply: @reply, level: @reply.computed_level, include_parent_title: false %>");
+hideReplyBox("<%= @reply.parent_reply_id %>", "new");
+<% if @reply.parent_reply_id == 'root' %>
+$("#comment_container_<%= @reply.parent_reply_id %>_new").before("<%=j render 'replies/show', reply: @reply, level: @reply.computed_level, include_parent_title: false %>");
 <% else %>
-$("#comment_container_<%= @reply.parent_comment_id %>_new").after("<%=j render 'replies/show', reply: @reply, level: @reply.computed_level, include_parent_title: false %>");
+$("#comment_container_<%= @reply.parent_reply_id %>_new").after("<%=j render 'replies/show', reply: @reply, level: @reply.computed_level, include_parent_title: false %>");
 <% end %>

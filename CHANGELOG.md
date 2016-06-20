@@ -12,15 +12,23 @@
 ## 0.23.0
 
 ### Enhancements
-- **Forum Updates**
+- **Admin Changes**
+  - Added admin view for blog post and forum topic replies
+- **Blog Changes**
+  - Added view_count column to track blog post views
+- **Forum Changes**
   - Forum topics now track views and have better URL structure
   - Users can upvote, downvote, and reply directly to other forum posts
+- **Search Added**
+  - A site-wide search has been added that searches through blog posts and forum
+    topics
 - **Gem Changes**
   - Added the pg_search gem for full-text search
 
 ### Refactoring
 - Removed deprecated columns from agreement_events
 - Removed deprecated column from variables
+- Removed unused controllers and associated views
 
 ## 0.22.0 (June 13, 2016)
 

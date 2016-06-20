@@ -27,9 +27,9 @@
             %li= link_to 'best', blog_post_path(year: broadcast.publish_date.year, month: broadcast.publish_date.strftime('%m'), slug: broadcast.slug, sort_by: 'best', anchor: 'comments'), style: (params[:sort_by].blank? || params[:sort_by] == 'best') ? 'font-weight:bold;' : ''
             %li= link_to 'new', blog_post_path(year: broadcast.publish_date.year, month: broadcast.publish_date.strftime('%m'), slug: broadcast.slug, sort_by: 'new', anchor: 'comments'), style: (params[:sort_by] == 'new') ? 'font-weight:bold;' : ''
 
-        %span#write_comment_root_new
+        %span#write_reply_root_new
           &middot;
-          = link_to 'reply', async_blog_reply_path(broadcast_id: @broadcast, parent_comment_id: 'root', broadcast_comment_id: 'new'), method: :post, remote: true
+          = link_to 'reply', async_blog_reply_path(broadcast_id: @broadcast, parent_reply_id: 'root', broadcast_comment_id: 'new'), method: :post, remote: true
 
 
       #comment_container_root_new{ style: 'display:none' }

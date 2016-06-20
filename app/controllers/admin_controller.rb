@@ -19,4 +19,11 @@ class AdminController < ApplicationController
 
   def sync
   end
+
+  def agreement_reports
+    @agreements = Agreement.current.regular_members
+  end
+
+  def downloads_by_month
+  end
 end

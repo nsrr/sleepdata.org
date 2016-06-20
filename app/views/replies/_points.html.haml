@@ -1,6 +1,6 @@
 - symbol = '+' if reply.rank >= 0
 = "#{symbol}#{number_with_delimiter(reply.rank)} point#{'s' if reply.rank.abs != 1}"
 &middot;
-%span{ data: { toggle: 'tooltip', container: 'body', title: reply.created_at.strftime('%B %d, %Y at %-l:%M %p') } }
+%span{ rel: 'tooltip', data: { container: 'body', title: reply.created_at.strftime('%B %d, %Y at %-l:%M %p') } }
   = time_ago_in_words reply.created_at
   ago

@@ -1,0 +1,21 @@
+.search-result
+  .search-result-title
+    = link_to broadcast.title, blog_post_path(broadcast.url_hash)
+  .search-result-author
+    Posted by
+    = broadcast.user.forum_name
+    on
+    %i= broadcast.publish_date.strftime '%B %-d, %Y'
+    - if broadcast.category
+      in
+      = link_to broadcast.category.name, blog_category_path(category: broadcast.category)
+  .search-result-body
+    - terms = @search.split(' & ')
+    - description = strip_tags(simple_markdown broadcast.description, true, false).gsub(/\r/, ' ').gsub(/\n/, ' ')
+    - description_array = description.split(/ /).reject(&:blank?)
+    - @ranges = Broadcast.compute_ranges(description_array, terms)
+    - @ranges.first(3).each_with_index do |(min, max), index|
+      - if index == 0 && min != 0
+        \...
+      = highlight description_array[min..max].join(' '), terms.reject { |t| t.size < 3 }, highlighter: '<strong>\1</strong>'
+      \...

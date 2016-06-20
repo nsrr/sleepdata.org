@@ -1,0 +1,21 @@
+// Styling for Search Results
+
+.search-result {
+  margin-bottom: 20px;
+}
+
+.search-result-title {
+  font-size: 18px;
+}
+
+.search-result-author {
+  color: $brand-gray;
+  font-size: 0.9em;
+  font-weight: 300;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.full-search-bar {
+  display: none;
+}

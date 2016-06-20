@@ -12,8 +12,8 @@
   - else
     - if reply.parent_author?
       %small
-        %i.fa.fa-moon-o.primary-orange{ data: { toggle: 'tooltip', title: 'Topic Author', container: 'body' } }
-    = image_tag reply.user.avatar_url(16, 'identicon'), alt: '', style: "max-height:#{16+3}px;border-radius:4px", title: reply.user.forum_name, data: { toggle: 'tooltip', container: 'body', placement: 'top' }, class: 'hidden-md hidden-lg'
+        %i.fa.fa-comment.text-primary{ rel: 'tooltip', data: { title: 'Topic Author', container: 'body' } }
+    = image_tag reply.user.avatar_url(16, 'identicon'), alt: '', style: "max-height:#{16+3}px;border-radius:4px", class: 'hidden-md hidden-lg'
     -# TODO: Create member paths for forum users?
     =# link_to reply.user.forum_name, member_path(reply.user.forum_name)
     = reply.user.forum_name

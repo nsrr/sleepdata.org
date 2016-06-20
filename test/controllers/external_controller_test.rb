@@ -2,6 +2,8 @@
 
 require 'test_helper'
 
+SimpleCov.command_name 'test:controllers'
+
 # Test for publicly available pages
 class ExternalControllerTest < ActionController::TestCase
   test 'should get about' do

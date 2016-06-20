@@ -1,0 +1,40 @@
+- @title = 'Blog and Forum Replies'
+
+= render 'internal/profile_header', title: @title
+
+%table.table.table-striped.table-fixed
+  %col.hidden-xs.hidden-sm{ width: '40px' }
+  %col.hidden-xs.hidden-sm{ width: '67px' }
+  %col.hidden-xs.hidden-sm{ width: '200px' }
+  %col
+  %col.hidden-xs.hidden-sm{ width: '120px' }
+  %col.hidden-xs.hidden-sm{ width: '150px' }
+  %thead
+    %tr
+      %th.hidden-xs.hidden-sm
+      = th_sort_field @order, 'points', 'Points', extra_class: 'text-right hidden-xs hidden-sm'
+      %th.hidden-xs.hidden-sm Location
+      %th Reply
+      %th.hidden-xs.hidden-sm Author
+      = th_sort_field @order, 'replies.created_at', 'Date', extra_class: 'hidden-xs hidden-sm'
+
+  %tbody
+    - @replies.each do |reply|
+      %tr
+        %td.hidden-xs.hidden-sm.center
+          - if reply.deleted?
+            %span.glyphicon.glyphicon-eye-close{ rel: 'tooltip', data: { title: 'Deleted', container: 'body', placement: 'left' } }
+        %td.hidden-xs.hidden-sm.text-right
+          - symbol = '+' if reply.rank >= 0
+          = "#{symbol}#{reply.rank}"
+        %td.hidden-xs.hidden-sm
+          = link_to reply.parent.title, reply
+        %td{ class: reply.deleted? ? 'text-muted' : '', style: reply.deleted? ? 'text-decoration:line-through' : '' }
+          .hidden-md.hidden-lg
+            = link_to reply.parent.title, reply
+          .reply-body{ style: 'font-size: 0.9em;padding:0;margin:0' }
+            = simple_markdown(sanitize(reply.description.gsub(/</, '&lt;')).gsub('&gt;', '>'), reply.user.can_post_links?, true, 'table table-striped')
+        %td.hidden-xs.hidden-sm= link_to reply.user.forum_name, reply.user
+        %td.hidden-xs.hidden-sm= reply.created_at.strftime('%a, %B %d, %Y at %-l:%M %p')
+
+.center= paginate @replies, theme: 'bootstrap'

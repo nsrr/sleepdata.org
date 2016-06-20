@@ -50,10 +50,6 @@
 
 //= require external/jquery.textcomplete
 //= require external/colorpicker
-
-// TODO: Remove wow if no longer needed
-//= require external/wow
-
 //= require extensions/filedrag
 //= require extensions/slug
 
@@ -66,9 +62,10 @@
 
 
 //= require components/affix
+//= require components/search
 
-//= require objects/blog
 //= require objects/images
+//= require objects/replies
 //= require objects/topics
 
 //= require external/clipboard-1.5.9.js

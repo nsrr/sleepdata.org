@@ -48,12 +48,36 @@
               About
 
         - if current_user
-          %form.navbar-form.navbar-right
+          %form.navbar-form.navbar-right.hidden-xs
             = link_to 'Logout', destroy_user_session_path, class: 'btn btn-primary'
-          %ul.nav.navbar-nav.navbar-right.hidden-xs
-            %li{ class: "#{ 'active' if current_page?(dashboard_path) }" }
-              = link_to "#{current_user.first_name}", dashboard_path
         - else
-          %form.navbar-form.navbar-right
+          %form.navbar-form.navbar-right.hidden-xs
+            = link_to 'Sign in', new_user_session_path, class: 'btn btn-primary'
+
+        %div{ style: 'position: relative' }
+          .full-search-bar
+            = form_tag search_path, method: :get, id: 'navigation-search-form', class: 'navbar-form navbar-right hidden-xs hidden-sm', style: 'margin-right: -25px' do
+              .form-group
+                .input-group
+                  = text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search the NSRR', autocomplete: 'off', id: 'navigation-search'
+                  %span.input-group-btn
+                    = link_to '#', data: { object: 'suppress-click' }, class: 'btn btn-primary', name: nil, id: 'navigation-form-search-btn' do
+                      %span.glyphicon.glyphicon-search
+
+        .tiny-search-icon
+          %form.navbar-form.navbar-right.hidden-xs.hidden-sm{ style: 'margin-right: -25px' }
+            = link_to '#', data: { object: 'show-search-bar' }, class: 'btn btn-primary', name: nil do
+              %span.glyphicon.glyphicon-search
+          %ul.nav.navbar-nav.navbar-right
+            - if current_user
+              %ul.nav.navbar-nav.navbar-right.hidden-xs
+                %li
+                  = link_to "#{current_user.first_name}", dashboard_path
+
+        - if current_user
+          %form.navbar-form.navbar-right.visible-xs
+            = link_to 'Logout', destroy_user_session_path, class: 'btn btn-primary'
+        - else
+          %form.navbar-form.navbar-right.visible-xs
             = link_to 'Sign up', new_user_registration_path, class: 'btn btn-primary' unless current_page?(new_user_registration_path)
             = link_to 'Sign in', new_user_session_path, class: 'btn btn-primary'

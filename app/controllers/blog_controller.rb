@@ -23,6 +23,9 @@ class BlogController < ApplicationController
 
   def show
     @author = @broadcast.user
+    @page = (params[:page].to_i > 1 ? params[:page].to_i : 1)
+    @replies = @broadcast.replies.includes(:broadcast).where(reply_id: nil).page(@page).per(Reply::REPLIES_PER_PAGE)
+    @broadcast.increment! :view_count
   end
 
   private
