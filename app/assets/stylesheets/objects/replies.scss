@@ -28,8 +28,7 @@ $comment-read-odd: #e1e7ee; // $comment-unread-odd * $comment-read-even
   }
 }
 
-// TODO: Remove Content-container.
-.content-container {
+.reply-outer-container {
   background-color: $brand-white;
   box-shadow: $box-shadow;
   margin-bottom: 20px;

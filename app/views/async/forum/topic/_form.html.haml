@@ -1,5 +1,5 @@
 - if current_user
-  .content-container
+  .reply-outer-container
     = form_for @topic, html: { class: 'form-vertical' } do |f|
       - if @topic.errors.any?
         .panel.panel-danger

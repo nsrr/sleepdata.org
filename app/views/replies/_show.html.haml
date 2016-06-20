@@ -1,5 +1,5 @@
 %a.anchor-top{ name: reply.anchor }
-%div{ id: "comment-#{reply.id}-container", class: [(level == 0 ? 'content-container' : nil), (level == 0 && reply.read?(current_user) ? 'reply-read' : '')], style: 'position:relative' }
+%div{ id: "comment-#{reply.id}-container", class: [(level == 0 ? 'reply-outer-container' : nil), (level == 0 && reply.read?(current_user) ? 'reply-read' : '')], style: 'position:relative' }
   .reply-container{ class: (level.even? ? 'reply-even' : 'reply-odd' ) }
     - if include_parent_title
       %div{ style: 'margin-bottom: 10px' }
