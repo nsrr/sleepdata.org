@@ -66,6 +66,7 @@
 
 
 //= require components/affix
+//= require components/search
 
 //= require objects/images
 //= require objects/replies

@@ -1,0 +1,25 @@
+- @title = ['Search', @search.gsub(' & ', ' ')].compact.join(' | ')
+
+%h1
+  Search  the NSRR
+
+.row
+  .col-sm-9
+    - if @search_documents.count > 0
+      - @search_documents.each do |document|
+        - case document.searchable.class.to_s when 'Broadcast'
+          = render 'search/broadcast', broadcast: document.searchable
+        - when 'Topic'
+          = render 'search/topic', topic: document.searchable
+        - when 'Reply'
+          = render 'search/reply', reply: document.searchable
+      .center= paginate @search_documents, theme: 'bootstrap'
+    - else
+      %p.lead.center.text-muted
+        No Search Results Found
+      %p.lead.center
+        You may modify your search or return to
+        = succeed '.' do
+          = link_to 'our blog', blog_path
+  .col-sm-3.col-buffer
+    = render 'blog/menu'

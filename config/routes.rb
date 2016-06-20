@@ -239,6 +239,10 @@ Rails.application.routes.draw do
     patch 'submissions/sign_in', action: 'submissions_sign_in_user', as: :submissions_sign_in_user
   end
 
+  scope module: :search do
+    get :search, action: 'index', as: :search
+  end
+
   scope module: 'static' do
     get :demo
     get :map
