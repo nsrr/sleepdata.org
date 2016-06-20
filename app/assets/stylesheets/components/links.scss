@@ -5,3 +5,7 @@
   top: -($header-height);
   width: 0;
 }
+
+.no-underline:hover {
+  text-decoration: none;
+}

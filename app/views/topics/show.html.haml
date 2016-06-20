@@ -1,19 +1,29 @@
 - @title = @topic.title
 
-.content-main-header2
-  %h1
-    = link_to 'Forum', topics_path
-    &middot;
-    = @title
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = @title
+      .banner-body
+        Topic by
+        = @topic.user.forum_name
+
+        - if @topic.tags.count > 0
+          - @topic.tags.each do |tag|
+            %span.label.label-default{ style: "background-color:#{tag.color}" }= tag.name
+
+        = link_to 'Write a Reply', topic_path(@topic, page: @topic.last_page, anchor: 'write-a-reply'), class: 'btn btn-xs btn-primary'
+        - if current_user && @topic.editable_by?(current_user)
+          = succeed ' ' do
+            = link_to edit_topic_path(@topic), class: 'btn btn-xs btn-default' do
+              %span.glyphicon.glyphicon-edit
+              Edit Topic
+          = link_to 'Delete Topic', @topic, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger-inverse'
 
 %div{ style: 'margin-bottom: 20px' }
   .pull-right.hidden-xs.hidden-sm{ style: 'margin-top: -20px' }
     = paginate @replies, theme: 'bootstrap-small'
-  %span.nowrap
-    = link_to 'Write a Reply', topic_path(@topic, page: @topic.last_page, anchor: 'write-a-reply'), class: 'btn btn-primary'
-    - if current_user && @topic.editable_by?(current_user)
-      = link_to 'Edit Title', edit_topic_path(@topic), class: 'btn btn-default'
-      = link_to 'Delete Topic', @topic, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'
 
 = render 'replies/index', parent: @topic
 
@@ -33,71 +43,6 @@
 
 
 - if false
-  - content_for :banner do
-    .banner
-      .container
-        .banner-header.brand
-          = @title
-        .banner-body
-          Topic by
-          = link_to @topic.user.forum_name, topics_path(a: @topic.user.forum_name)
-
-          - if @topic.tags.count > 0
-            - @topic.tags.each do |tag|
-              %span.label.label-default{ style: "background-color:#{tag.color}" }= tag.name
-
-          - if current_user && @topic.editable_by?(current_user)
-            = link_to edit_topic_path(@topic), class: 'btn btn-xs btn-default' do
-              %span.glyphicon.glyphicon-edit
-              Edit Topic
-
-  %div{ style: 'margin-bottom:20px;height: 40px;' }
-    = render 'variables/per_page', per_page: Comment::COMMENTS_PER_PAGE, object_count: @comments.total_count
-
-  %div{ style: 'clear:both' }
-
-  %div
-    - @comments.each_with_index do |comment, index|
-      - current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1)
-      - current_index = ((current_page - 1) * Comment::COMMENTS_PER_PAGE) + index + 1
-      %div{ id: "comment_container_#{comment.id}"}
-        = render 'comments/show', comment: comment, number: comment.number
-
-
-  - if !@topic.locked? && current_user && !current_user.banned?
-    - @comment = @topic.comments.where(user_id: current_user.id).new
-    = form_for [@topic, @comment] do |f|
-      - if @comment.errors.any?
-        .callout.callout-danger
-          %strong
-          = pluralize @comment.errors.count, 'error'
-          prohibited this comment from being saved
-          %ul
-            - @comment.errors.full_messages.each do |message|
-              %li= message
-
-      .comment-outer
-        .comment-left-fixed
-          = image_tag @comment.user.avatar_url(48, 'identicon'), size: '48x48', alt: ''
-
-        .comment-right-fluid
-          .comment-box
-            .comment-header
-              %strong= @comment.user.forum_name
-              = link_to 'Write', '#', data: { object: 'view-comment-write', comment_id: 'new' }, class: 'comment-tab active', tabindex: '-1'
-              = link_to 'Preview', '#', data: { object: 'view-comment-preview', comment_id: 'new', topic_id: @topic.to_param }, class: 'comment-tab', tabindex: '-1'
-              = link_to 'Markup', '#', data: { object: 'view-comment-markup', comment_id: 'new' }, class: 'comment-tab', tabindex: '-1'
-            .comment-body
-              #comment_write_new
-                = f.text_area :description, rows: 7, class: 'comment-control filedrag-container', data: { object: 'expandable-text-area dropfile text-area-autocomplete', default_rows: 7, mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort, upload_url: upload_images_path(update: '#comment_description_new', format: 'js'), fallback_url: new_image_path, log_id: '#comment_log_new' }, id: 'comment_description_new', placeholder: 'Write a comment'
-                #comment_log_new.filedrag
-                  Drag images above to insert into post.
-              #comment_preview_new{ style: 'display:none;min-height: 187px' }
-              #comment_markup_new{ style: 'display:none;min-height: 187px' }
-                = render 'topics/markup'
-
-              = f.submit 'Comment', class: 'btn btn-primary', data: { disable_with: 'Submitting...' }, style: 'margin-top:10px'
-
   - if @topic.locked?
     .well{ style: 'text-align:center;margin-top:20px' }
       .text-muted.center

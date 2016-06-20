@@ -1,36 +1,10 @@
 - @title = 'Forum'
 
--# TODO: Remove unused code
-- if false
-  - content_for :banner do
-    .banner
-      .container
-        .banner-header.brand
-          = @title
-        .banner-body
-          A place to ask questions, seek advice, and help others.
-
-  .row{ style: 'margin-bottom:20px' }
-    .col-xs-6
-      - if current_user
-        - if current_user.topics_created_in_last_day.count >= current_user.max_topics
-          = link_to "#{current_user.max_topics} Topics Per Day Limit Reached", '#', data: { object: 'suppress-click' }, class: 'btn btn-success', disabled: "disabled"
-        - else
-          = link_to 'Start a New Topic', new_topic_path, class: 'btn btn-success'
-      - else
-        = link_to 'Join the Discussion', new_user_session_path, class: 'btn btn-success'
-    .col-xs-6
-      = form_tag topics_path, method: :get, class: 'form-inline pull-right' do
-        .input-group
-          = text_field_tag 's', params[:s], class: 'form-control', style: 'width:100%', placeholder: 'Search the Forum'
-          %span.input-group-btn
-            = submit_tag 'Search', class: 'btn btn-primary', name: nil
-
-  .topics-container
-    = render 'topics/topics'
-
-
-
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = @title
 
 #forum-top-container
   = render 'layouts/per_page', per_page: 40, object_count: @topics.total_count
@@ -84,6 +58,5 @@
           %span.small= number_with_delimiter topic.view_count
         %td.text-muted.hidden-xs.hidden-sm.f300
           %span.small= time_ago_in_words(topic.last_reply_at) + ' ago'
-
 
 .center= paginate @topics, theme: 'bootstrap-small'
