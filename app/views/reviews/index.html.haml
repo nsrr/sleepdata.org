@@ -25,7 +25,7 @@
       %thead
         %tr
           %th
-            = link_to 'Status', reviews_path(order: (params[:order] == 'agreements.status DESC' ? 'agreements.status' : 'agreements.status DESC'), status: params[:status], tag_id: params[:tag_id], search: params[:search])
+            = link_to 'Status', reviews_path(order: (params[:order] == 'agreements.status desc' ? 'agreements.status' : 'agreements.status desc'), status: params[:status], tag_id: params[:tag_id], search: params[:search])
             .dropdown{ style: 'display: inline-block' }
               = link_to '#', data: { target: '#', toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
                 %span.glyphicon.glyphicon-filter
@@ -34,11 +34,11 @@
                 - Agreement::STATUS.each do |label, value|
                   %li= link_to label.titleize, reviews_path(order: params[:order], status: value), style: params[:status] == value ? 'font-weight:bold;' : ''
           %th
-            = link_to 'Agreement', reviews_path(order: (params[:order] == 'agreements.id DESC' ? 'agreements.id' : 'agreements.id DESC'), status: params[:status], tag_id: params[:tag_id], search: params[:search])
+            = link_to 'Agreement', reviews_path(order: (params[:order] == 'agreements.id desc' ? 'agreements.id' : 'agreements.id desc'), status: params[:status], tag_id: params[:tag_id], search: params[:search])
           %th.nowrap
-            = link_to 'Submitted', reviews_path(order: (params[:order] == 'agreements.last_submitted_at DESC' ? 'agreements.last_submitted_at' : nil), status: params[:status], tag_id: params[:tag_id], search: params[:search])
+            = link_to 'Submitted', reviews_path(order: (params[:order] == 'agreements.last_submitted_at desc' ? 'agreements.last_submitted_at' : nil), status: params[:status], tag_id: params[:tag_id], search: params[:search])
           %th.nowrap
-            = link_to 'Expires', reviews_path(order: (params[:order] == 'agreements.expiration_date DESC' ? 'agreements.expiration_date' : 'agreements.expiration_date DESC'), status: params[:status], tag_id: params[:tag_id], search: params[:search])
+            = link_to 'Expires', reviews_path(order: (params[:order] == 'agreements.expiration_date desc' ? 'agreements.expiration_date' : 'agreements.expiration_date desc'), status: params[:status], tag_id: params[:tag_id], search: params[:search])
           %th Reviewers
           %th Datasets
           %th

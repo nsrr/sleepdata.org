@@ -39,7 +39,7 @@ module ApplicationHelper
     sort_field_order = (order == "#{sort_field} desc" || order == "#{sort_field} desc nulls last") ? sort_field : "#{sort_field} desc"
     if order == sort_field
       selected_class = 'sort-selected'
-    elsif order == sort_field + ' desc nulls last'
+    elsif order == "#{sort_field} desc nulls last" || order == "#{sort_field} desc"
       selected_class = 'sort-selected'
     end
     content_tag(:th, class: [selected_class, extra_class]) do
@@ -54,7 +54,7 @@ module ApplicationHelper
     sort_field_order = (order == sort_field) ? "#{sort_field} desc" : sort_field
     if order == sort_field
       selected_class = 'sort-selected'
-    elsif order == sort_field + ' desc nulls last'
+    elsif order == "#{sort_field} desc nulls last" || order == "#{sort_field} desc"
       selected_class = 'sort-selected'
     end
     content_tag(:th, class: [selected_class, extra_class]) do

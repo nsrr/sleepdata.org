@@ -10,7 +10,7 @@ class Editor::DatasetsController < ApplicationController
 
   # GET /datasets/1/agreements
   def agreements
-    params[:order] = 'agreements.id DESC' if params[:order].blank?
+    params[:order] = 'agreements.id desc' if params[:order].blank?
     @order = scrub_order(Agreement, params[:order], [:id])
     agreement_scope = @dataset.agreements.order(@order)
     agreement_scope = agreement_scope.where(status: params[:status]) if params[:status].present?
