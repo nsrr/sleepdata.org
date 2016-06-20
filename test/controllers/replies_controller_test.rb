@@ -45,12 +45,10 @@ class RepliesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  # TODO: Should add test to reply to blog post.
   test 'should create reply to blog post' do
-    skip
     login(@regular_user)
     assert_difference('Reply.count') do
-      post :create, broadcast_id: broadcasts(:one).to_param, reply: reply_params, format: 'js'
+      post :create, broadcast_id: broadcasts(:published).to_param, reply: reply_params, format: 'js'
     end
     assert_template 'create'
     assert_response :success
@@ -62,7 +60,6 @@ class RepliesControllerTest < ActionController::TestCase
     assert_redirected_to page_topic_path(@reply.topic, page: @reply.page, anchor: @reply.anchor)
   end
 
-  # TODO: Add a redirect for a reply on a blog post.
   test 'should show reply to a blog post and redirect to correct page' do
     login(@regular_user)
     get :show, id: replies(:blog_one)

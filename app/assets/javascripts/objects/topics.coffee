@@ -1,5 +1,3 @@
-# TODO: Review all methods to see if each is necessary.
-
 @showForumTopicForm = () ->
   $("#forum-top-container").hide()
   $("#new-topic-container").fadeIn('fast')
@@ -15,9 +13,3 @@ $(document)
     hideForumTopicForm()
     false
   )
-
-@topicsReady = () ->
-  if window.location.hash == '#write-a-reply'
-    $("#write_reply_root_new a").click()
-  else if window.location.hash.substring(1,8) == 'comment'
-    $("#{window.location.hash}-container").addClass('highlighted-reply')

@@ -120,22 +120,6 @@ class TopicsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  # TODO: Decide on whether or not to remove this restriction.
-  test 'should not create topic when user exceeds two topics per day' do
-    skip
-    login(users(:valid))
-    topic_one = users(:valid).topics.create(title: 'Topic One', slug: 'topic-one', description: 'First Topic of the Day')
-    topic_two = users(:valid).topics.create(title: 'Topic Two', slug: 'topic-two', description: 'Second Topic of the Day')
-    assert_difference('Reply.count', 0) do
-      assert_difference('Topic.count', 0) do
-        post :create, topic: { title: 'Third topic of the day', slug: 'topic-three', description: 'Spamming Topics' }
-      end
-    end
-    assert_nil assigns(:topic)
-    assert_equal 'You have exceeded your maximum topics created per day.', flash[:warning]
-    assert_redirected_to topics_path
-  end
-
   test 'should not create topic as banned user' do
     login(users(:banned))
     assert_difference('Reply.count', 0) do

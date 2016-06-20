@@ -11,7 +11,7 @@
 @repliesReady = () ->
   if window.location.hash == '#write-a-reply'
     $("#write_reply_root_new a").click()
-  else if window.location.hash.substring(1,8) == 'comment' # TODO: Check if this should be comment or reply.
+  else if window.location.hash.substring(1,8) == 'comment'
     $("#{window.location.hash}-container").addClass('highlighted-reply')
 
 $(document)
