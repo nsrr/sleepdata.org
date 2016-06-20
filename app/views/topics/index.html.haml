@@ -35,9 +35,7 @@
             = link_to topic.title, topic
           %small.f300
             by
-            -# TODO: Remove duplicate image tag after checking that size attribute is not needed
-            -# image_tag topic.user.avatar_url(16, 'identicon'), size: '16x16', alt: ''
-            = image_tag topic.user.avatar_url(16, 'identicon'), alt: '', style: "max-height:#{16+3}px;border-radius:4px", title: topic.user.forum_name, data: { toggle: 'tooltip', container: 'body', placement: 'top' }
+            = image_tag topic.user.avatar_url(16, 'identicon'), alt: '', style: "max-height:#{16+3}px;border-radius:4px", title: topic.user.forum_name, rel: 'tooltip', data: { container: 'body', placement: 'top' }
             = topic.user.forum_name
         %td.nowrap.small.text-right
           - if topic.last_page > 1
