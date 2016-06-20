@@ -1,0 +1,79 @@
+- if current_user
+  .content-container
+    = form_for @topic, html: { class: 'form-vertical' } do |f|
+      - if @topic.errors.any?
+        .panel.panel-danger
+          .panel-heading
+            %strong
+              = pluralize @topic.errors.count, 'error'
+              prohibited this topic from being saved
+          .panel-body
+            %ul
+              - @topic.errors.full_messages.each do |message|
+                %li= message
+
+      .form-group
+        = f.label :title, 'Topic Subject', class: 'control-label'
+        = f.text_field :title, class: 'form-control', data: { object: (@topic.new_record? ? 'create-slug' : ''), target: '#topic_slug' }
+
+      .form-group{ style: "#{'display:none' if @topic.new_record? && !@topic.errors.key?(:slug)}"}
+        = f.label :slug, class: 'control-label'
+        = f.text_field :slug, class: 'form-control'
+        .alert.alert-info{ style: 'margin-top: 10px' }
+          %p
+            The URL slug must start with a lowercase letter
+            = succeed ',' do
+              %code a-z
+            and only contain lowercase
+            letters
+            = succeed ',' do
+              %code a-z
+            numbers
+            = succeed ',' do
+              %code 0-9
+            or dashes
+            = succeed ',' do
+              %code -
+          %p
+            %code.text-muted= "#{ENV['website_url']}/forum/#{@topic.slug}"
+
+      .form-group
+        = f.label :description, 'Topic Description', class: 'control-label'
+        .preview-container
+          .preview-header
+            .pull-right
+              = render 'replies/rich_text_editor_buttons', target: "#topic_description"
+            = link_to 'Write', '#', data: { object: 'view-content-markdown' }, class: 'preview-tab active', tabindex: '-1'
+            = link_to 'Preview', '#', data: { object: 'view-content-preview', content: '#topic_description' }, class: 'preview-tab', tabindex: '-1'
+          .preview-body
+            #content_markdown
+              = f.text_area :description, rows: [[15, @topic.description.to_s.count("\n") + 1].max, 25].min, class: 'preview-control filedrag-container', data: { object: 'expandable-text-area dropfile-image', default_rows: 15, upload_url: upload_images_path(update: '#topic_description', format: 'js'), fallback_url: new_image_path, log_id: '#log_new' }
+              #log_new.filedrag
+                Drag images above to insert into post.
+            #content_preview.topic{ style: 'display:none' }
+
+      .form-group
+        = f.submit 'Create Topic', class: 'btn btn-primary'
+        = link_to 'Cancel', '#', data: { object: 'close-new-forum-topic' }, class: 'btn btn-default'
+- else
+  .preview-container{ style: "margin-bottom: 20px;border: 0;box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);" }
+    .preview-header{ style: 'background-color: #333;color:#fff' }
+      .pull-right
+        = link_to '#', data: { object: 'close-new-forum-topic' }, style: 'color:#fff;font-weight:bold;text-decoration:none' do
+          &times;
+      Sign in to start a new topic
+    .preview-body{ style: 'min-height: inherit;' }
+      = form_tag async_forum_login_path, method: :post, remote: true, class: 'form-inline' do |f|
+        .form-group
+          = label_tag :email, nil, class: 'sr-only'
+          = email_field_tag :email, params[:email], class: 'form-control', placeholder: 'Email', data: { title: 'Invalid Email', container: 'body' }
+        .form-group
+          = label_tag :password, nil, class: 'sr-only'
+          = password_field_tag :password, '', class: 'form-control', placeholder: 'Password', data: { title: 'Invalid Password', container: 'body' }
+        .form-group
+          = submit_tag 'Sign In', class: 'btn btn-primary'
+        .form-group
+          %small
+            = link_to 'Forgot Password?', new_user_password_path
+            %br
+            = link_to 'Register New Account', new_user_registration_path
