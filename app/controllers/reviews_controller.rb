@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
 
   # GET /reviews
   def index
-    params[:order] = 'agreements.last_submitted_at DESC' if params[:order].blank?
+    params[:order] = 'agreements.last_submitted_at desc' if params[:order].blank?
     @order = scrub_order(Agreement, params[:order], [:id])
     agreement_scope = current_user.reviewable_agreements.search(params[:search]).order(@order)
     agreement_scope = agreement_scope.with_tag(params[:tag_id]) if params[:tag_id].present?
