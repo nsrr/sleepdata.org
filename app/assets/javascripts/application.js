@@ -25,6 +25,7 @@
 //= require external/json2.min.js
 //= require external/flashcanvas.js
 //= require external/jquery.signaturepad.min.js
+//= require external/jquery-fieldselection.js
 
 //= require global
 //= require agreement_events
@@ -68,5 +69,6 @@
 
 //= require objects/blog
 //= require objects/images
+//= require objects/topics
 
 //= require external/clipboard-1.5.9.js

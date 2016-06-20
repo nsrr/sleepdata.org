@@ -9,6 +9,19 @@ Rails.application.routes.draw do
       post :register
       post :reply
     end
+    namespace :topic do
+      post :login
+      post :register
+      post :reply
+    end
+    namespace :forum do
+      post :login
+      post :new_topic
+    end
+    namespace :parent do
+      post :login
+      post :reply
+    end
   end
 
   resources :broadcast_comments
@@ -285,6 +298,15 @@ Rails.application.routes.draw do
       collection do
         post :preview
       end
+    end
+  end
+
+  resources :replies do
+    collection do
+      post :preview
+    end
+    member do
+      post :vote
     end
   end
 

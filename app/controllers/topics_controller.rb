@@ -5,7 +5,6 @@ class TopicsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :admin, :subscription]
   before_action :check_system_admin, only: [:destroy, :admin]
   before_action :check_banned, only: [:create, :edit, :update]
-  before_action :check_max_topics_per_day_reached, only: [:create]
   before_action :find_viewable_topic_or_redirect, only: [:show, :destroy, :admin, :subscription]
   before_action :find_editable_topic_or_redirect, only: [:edit, :update]
 
@@ -25,20 +24,25 @@ class TopicsController < ApplicationController
 
   # GET /forum
   def index
-    topic_scope = Topic.current.not_banned.search(params[:s])
-    user_ids = User.current.with_name(params[:a].to_s.split(','))
-    topic_scope = topic_scope.where(user_id: user_ids) unless params[:a].blank?
-    @topics = topic_scope.order(pinned: :desc, last_reply_at: :desc).page(params[:page]).per(50)
+    @order = scrub_order(Topic, params[:order], 'pinned desc, last_reply_at desc, id desc')
+    if ['reply_count', 'reply_count desc'].include?(params[:order])
+      @order = params[:order]
+    end
+    topic_scope = Topic.current.not_banned
+    @topics = topic_scope.reply_count.order(@order).page(params[:page]).per(40)
   end
 
   # GET /forum/my-first-topic
   def show
-    @comments = @topic.comments.order(:id).page(params[:page]).per(Comment::COMMENTS_PER_PAGE)
+    @page = (params[:page].to_i > 1 ? params[:page].to_i : 1)
+    @replies = @topic.replies.includes(:topic).where(reply_id: nil).page(@page).per(Reply::REPLIES_PER_PAGE)
+    @topic.increment! :view_count
+    current_user.read_parent!(@topic, @replies.last.id) if current_user
   end
 
   # GET /forum/new
   def new
-    @topic = Topic.new
+    @topic = current_user.topics.new
   end
 
   # GET /forum/my-first-topic/edit
@@ -50,7 +54,8 @@ class TopicsController < ApplicationController
     @topic = current_user.topics.new(topic_params)
 
     if @topic.save
-      @topic.update_column :last_reply_at, Time.zone.now
+      # @topic.update_column :last_reply_at, Time.zone.now
+      @topic.touch :last_reply_at
       redirect_to @topic, notice: 'Topic was successfully created.'
     else
       render :new
@@ -69,13 +74,17 @@ class TopicsController < ApplicationController
   # DELETE /forum/my-first-topic
   def destroy
     @topic.destroy
-    redirect_to topics_path
+    redirect_to topics_path, notice: 'Topic was successfully deleted.'
   end
 
   private
 
+  def viewable_topics
+    Topic.current.not_banned
+  end
+
   def find_viewable_topic_or_redirect
-    @topic = Topic.current.not_banned.find_by_slug params[:id]
+    @topic = viewable_topics.find_by_slug params[:id]
     redirect_without_topic
   end
 
@@ -86,13 +95,6 @@ class TopicsController < ApplicationController
 
   def redirect_without_topic
     empty_response_or_root_path topics_path unless @topic
-  end
-
-  def check_max_topics_per_day_reached
-    if current_user.topics_created_in_last_day.count >= current_user.max_topics
-      flash[:warning] = 'You have exceeded your maximum topics created per day.'
-      redirect_to topics_path
-    end
   end
 
   def topic_params

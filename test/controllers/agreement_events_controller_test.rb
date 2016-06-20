@@ -49,7 +49,7 @@ class AgreementEventsControllerTest < ActionController::TestCase
   end
 
   test 'should not create agreement comment as anonymous user' do
-    assert_difference('Comment.count', 0) do
+    assert_difference('AgreementEvent.count', 0) do
       post :create, params: {
         agreement_id: @agreement,
         agreement_event: { comment: 'I am not logged in.' }

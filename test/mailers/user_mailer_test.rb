@@ -6,7 +6,7 @@ require 'test_helper'
 # correct subject line.
 class UserMailerTest < ActionMailer::TestCase
   test 'post replied email' do
-    post = comments(:six)
+    post = replies(:six)
     user = users(:two)
 
     # Send the email, then test that it got queued

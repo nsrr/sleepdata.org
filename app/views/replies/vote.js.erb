@@ -1,0 +1,2 @@
+$("#reply-<%= @reply.id %>-vote").html("<%=j render 'replies/vote', reply: @reply, just_voted: true %>");
+$("#reply-<%= @reply.id %>-points").html("<%=j render 'replies/points', reply: @reply %>");

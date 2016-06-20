@@ -23,6 +23,7 @@ gem 'differ',               '~> 0.1.2'
 gem 'hashids',              '~> 1.0.2'
 gem 'font-awesome-rails',   '~> 4.6.2'
 gem 'jquery-ui-rails',      '~> 5.0.5'
+gem 'pg_search',            '~> 1.0.5'
 
 # Rails Defaults
 gem 'coffee-rails',         '~> 4.1.0'

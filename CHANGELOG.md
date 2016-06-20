@@ -14,6 +14,9 @@
 ### Enhancements
 - **Forum Updates**
   - Forum topics now track views and have better URL structure
+  - Users can upvote, downvote, and reply directly to other forum posts
+- **Gem Changes**
+  - Added the pg_search gem for full-text search
 
 ### Refactoring
 - Removed deprecated columns from agreement_events

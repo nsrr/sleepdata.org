@@ -1,0 +1,13 @@
+one:
+  topic: one
+  # broadcast:
+  reply: one
+  user: user_3
+  vote: 1
+
+two:
+  topic: one
+  # broadcast:
+  reply: one
+  user: user_4
+  vote: 1

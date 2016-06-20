@@ -1,0 +1,21 @@
+- unless reply.deleted?
+  %span.pull-right{ id: "reply-#{reply.id}-vote" }
+    = render 'replies/vote', reply: reply, just_voted: just_voted
+.nowrap.overflow-hidden
+  - if reply.below_threshold?
+    = link_to '[+]', '#', data: { object: 'toggle-reply' }, style: 'text-decoration:none', class: 'text-muted'
+  - else
+    = link_to '[-]', '#', data: { object: 'toggle-reply' }, style: 'text-decoration:none', class: 'text-muted'
+  - if reply.deleted?
+    %small
+      %i.text-muted [deleted]
+  - else
+    - if reply.parent_author?
+      %small
+        %i.fa.fa-moon-o.primary-orange{ data: { toggle: 'tooltip', title: 'Topic Author', container: 'body' } }
+    = image_tag reply.user.avatar_url(16, 'identicon'), alt: '', style: "max-height:#{16+3}px;border-radius:4px", title: reply.user.forum_name, data: { toggle: 'tooltip', container: 'body', placement: 'top' }, class: 'hidden-md hidden-lg'
+    -# TODO: Create member paths for forum users?
+    =# link_to reply.user.forum_name, member_path(reply.user.forum_name)
+    = reply.user.forum_name
+  %span.text-muted{ id: "reply-#{reply.id}-points", style: 'font-size: 60%' }
+    = render 'replies/points', reply: reply
