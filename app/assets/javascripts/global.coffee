@@ -2,14 +2,6 @@
   val = $(element_id).val()
   $(element_id).focus().val('').val(val)
 
-@initializeTypeahead = ->
-  $('[data-object~="typeahead"]').each( () ->
-    $this = $(this)
-    $this.typeahead(
-      local: $this.data('local')
-    )
-  )
-
 # TODO: Might be able to remove this in the future with Turbolinks 5
 # https://github.com/turbolinks/turbolinks-classic/issues/455
 @fix_ie10_placeholder = ->
@@ -17,36 +9,19 @@
     if $(@).val() == $(@).attr('placeholder')
       $(@).val ''
 
-@initializeTurbolinks = ->
-  # Don't cache pages with Turbolinks
-  Turbolinks.pagesCached(0)
-  Turbolinks.allowLinkExtensions('md')
-  Turbolinks.enableProgressBar()
-
-@initializeClipboard = ->
-  clipboard = new Clipboard('[data-clipboard-target],[data-clipboard-text]')
-  clipboard.on('success', (e) ->
-    $(e.trigger).tooltip('show')
-    setTimeout(
-      () -> $(e.trigger).tooltip('destroy'),
-      1000
-    )
-    e.clearSelection()
-  )
-
-@loadDatepicker = ->
-  $('.datepicker').datepicker('remove')
-  $('.datepicker').datepicker(autoclose: true)
-
 @componentsReady = ->
-  affixReady
+  affixReady()
+  graphsReady()
+  mapsReady()
   textAreaAutocompleteReady()
 
-@externalReady = ->
-  initializeClipboard()
-
 @extensionsReady = ->
+  clipboardReady()
+  datepickerReady()
   fileDragReady()
+  tooltipsReady()
+  turbolinksReady()
+  typeaheadReady()
 
 @objectsReady = ->
   agreementsReady()
@@ -57,24 +32,13 @@
   tagsReady()
   variablesReady()
 
-# TODO: Remove unused ready methods
 @ready = ->
-  $("[rel=tooltip]").tooltip(trigger: 'hover')
-  if $("#collection_form #s, #page_name, #search_form #s, #search, #collection_form #s, #s").val() != ''
-    setFocusToField("#collection_form #s, #page_name, #search_form #s, #search, #collection_form #s, #s")
-  initializeTurbolinks()
+  setFocusToField("#collection_form #s, #search, #s") if $("#collection_form #s, #search, #s").val() != ''
   window.$isDirty = false
-  graphsReady()
-  mapsReady()
-  initializeTypeahead()
   fix_ie10_placeholder()
-  loadDatepicker()
-
   componentsReady()
   extensionsReady()
-  externalReady()
   objectsReady()
-
 
 $(window).onbeforeunload = -> return "You haven't saved your changes." if window.$isDirty
 $(document).ready(ready)
@@ -96,12 +60,6 @@ $(document)
   .on('click', '[data-object~="show-target"]', () ->
     $($(this).data('target')).show()
     false
-  )
-  .on('click', '[data-object~="disable-target"]', () ->
-    $($(this).data('input-target')).prop('disabled', true);
-  )
-  .on('click', '[data-object~="enable-target"]', () ->
-    $($(this).data('input-target')).prop('disabled', false);
   )
   .on('click', '[data-object~="toggle-delete-buttons"]', () ->
     $($(this).data('target-show')).show()
