@@ -8,59 +8,53 @@
       .banner-body
         Steps taken by a typical NSRR researcher.
 
-.content-container
-  %h2
-    %span.label.label-success 1
-    Choose a dataset.
+%h2
+  %span.label.label-success 1
+  Choose a dataset.
 
-  .markdown-container
-    %p The SHHS dataset is one of our most popular datasets, and has been around for quite some time. Datasets have different populations and demographics, so picking one here may also be based on your research interest.
+.markdown-container
+  %p The SHHS dataset is one of our most popular datasets, and has been around for quite some time. Datasets have different populations and demographics, so picking one here may also be based on your research interest.
 
-.content-container
-  %h2
-    %span.label.label-success 2
-    Fill out a Data Access and Use Agreement.
+%h2
+  %span.label.label-success 2
+  Fill out a Data Access and Use Agreement.
 
-  .markdown-container
-    %p
-      This process is all built online, and we can
-      = link_to 'help you through', "mailto:#{ENV['support_email']}"
-      the process. Essentially it allows us to affirm that the data downloaded is used for appropriate research, and in certain cases it allows us to guide a user to more appropriate datasets. Being thorough in the process on the intended use of data typically allows this process to go fairly well.
+.markdown-container
+  %p
+    This process is all built online, and we can
+    = link_to 'help you through', "mailto:#{ENV['support_email']}"
+    the process. Essentially it allows us to affirm that the data downloaded is used for appropriate research, and in certain cases it allows us to guide a user to more appropriate datasets. Being thorough in the process on the intended use of data typically allows this process to go fairly well.
 
-.content-container
-  %h2
-    %span.label.label-success 3
-    Download data from the dataset.
+%h2
+  %span.label.label-success 3
+  Download data from the dataset.
 
-  .markdown-container
-    %p
-      Each dataset has many files that can be downloaded. If you are interested in a data dictionary and a dataset of covariates, that's typically in the 'datasets' folder and can be around 30MB or so. If you plan on downloading the associated signal files, we recommend
-      = link_to 'downloading and installing', demo_path + '#download-data'
-      the NSRR downloader gem, which is very easy to use once installed, and it lets you download entire datasets at a time, allowing you to pause and resume, assure files are downloaded correctly, and not repeat files that have already been downloaded.
+.markdown-container
+  %p
+    Each dataset has many files that can be downloaded. If you are interested in a data dictionary and a dataset of covariates, that's typically in the 'datasets' folder and can be around 30MB or so. If you plan on downloading the associated signal files, we recommend
+    = link_to 'downloading and installing', demo_path + '#download-data'
+    the NSRR downloader gem, which is very easy to use once installed, and it lets you download entire datasets at a time, allowing you to pause and resume, assure files are downloaded correctly, and not repeat files that have already been downloaded.
 
-.content-container
-  %h2
-    %span.label.label-success 4
-    Use tools on the site.
+%h2
+  %span.label.label-success 4
+  Use tools on the site.
 
-  .markdown-container
-    %p
-      Depending on your research, you may have already have your own tools to analyze data. If you don't, we have a
-      = link_to 'set of tools', tools_path
-      online, and a
-      = link_to 'forum', topics_path
-      where you can get help with any of our available tools. If you have open source tools yourself, we can also work with you to promote your sleep related tools on the NSRR to help other researchers.
+.markdown-container
+  %p
+    Depending on your research, you may have already have your own tools to analyze data. If you don't, we have a
+    = link_to 'set of tools', tools_path
+    online, and a
+    = link_to 'forum', topics_path
+    where you can get help with any of our available tools. If you have open source tools yourself, we can also work with you to promote your sleep related tools on the NSRR to help other researchers.
 
-.content-container
-  %h2
-    %span.label.label-success 5
-    Create a publication.
+%h2
+  %span.label.label-success 5
+  Create a publication.
 
-  .markdown-container
-    %p The end goal for a lot of researchers, if you do plan on publishing on data from the NSRR, we ask that you reference the NSRR (each dataset gives an example citation), and give us a heads up, and we have staff that can review the publication as well.
+.markdown-container
+  %p The end goal for a lot of researchers, if you do plan on publishing on data from the NSRR, we ask that you reference the NSRR (each dataset gives an example citation), and give us a heads up, and we have staff that can review the publication as well.
 
-.content-container
-  %p That's pretty much the core of the NSRR website. It offers a lot to explore (we highly value transparency), provides some ways to share and interact with other researchers, and promotes robust data. We version our data that we upload so that you can recreate your results in the future with the same exact dataset.
+%p That's pretty much the core of the NSRR website. It offers a lot to explore (we highly value transparency), provides some ways to share and interact with other researchers, and promotes robust data. We version our data that we upload so that you can recreate your results in the future with the same exact dataset.
 
 - content_for :call_to_action do
   .call-to-action

@@ -35,10 +35,12 @@ class ToolsController < ApplicationController
                  else
                    Tool.current.where(public: true)
                  end
+
     tool_scope = tool_scope.where(tool_type: params[:type]) unless params[:type].blank?
     @tools = tool_scope.order(:tool_type, :name).page(params[:page]).per(12)
 
-    community_tool_scope = CommunityTool.current.where(status: 'accepted')
+    @order = scrub_order(CommunityTool, params[:order], 'name')
+    community_tool_scope = CommunityTool.current.order(@order).where(status: 'accepted')
     unless params[:a].blank?
       user_ids = User.current.with_name(params[:a].to_s.split(','))
       community_tool_scope = community_tool_scope.where(user_id: user_ids.select(:id))

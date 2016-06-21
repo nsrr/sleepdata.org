@@ -9,54 +9,51 @@
         = image_tag 'physiomimi_logo.png', class: 'img-thumbnail'
 
 %a.anchor-top{ name: 'search-across-datasets' }
-.content-container
-  %h2
-    Search Across Datasets
+%h2
+  Search Across Datasets
 
-  %p
-    Create powerful queries across datasets available on the NSRR.
+%p
+  Create powerful queries across datasets available on the NSRR.
 
-  .center{ style: 'max-width: 1200px;margin: 40px auto 0px auto;' }
-    = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-02-querybuilder-browse.png', class: 'img-responsive'
+.center{ style: 'max-width: 1200px;margin: 40px auto 0px auto;' }
+  = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-02-querybuilder-browse.png', class: 'img-responsive'
 
 
 %a.anchor-top{ name: 'graphical-exploration' }
-.content-container
-  %h2
-    Dynamically Plot Variables
+%h2
+  Dynamically Plot Variables
 
-  .row
-    .col-md-6
-      %p.hidden-xs.hidden-sm.text-right{ style: 'margin-top:80px;' }
-        Select two variables and click
-        %strong Graph Distribution.
-      %p.visible-xs.visible-sm.text-right
-        Select two variables and click
-        %strong Graph Distribution.
-    .col-md-6
-      = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-08-xy-dropdown.png', class: 'img-responsive'
+.row
+  .col-md-6
+    %p.hidden-xs.hidden-sm.text-right{ style: 'margin-top:80px;' }
+      Select two variables and click
+      %strong Graph Distribution.
+    %p.visible-xs.visible-sm.text-right
+      Select two variables and click
+      %strong Graph Distribution.
+  .col-md-6
+    = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-08-xy-dropdown.png', class: 'img-responsive'
 
-  .row{ style: 'margin-top: 20px' }
-    .col-md-6
-      %p.visible-xs.visible-sm.text-right
-        %strong Find interesting correlations?
-        %br
-        Download complete datasets for offline analysis from the
-        = succeed '.' do
-          = link_to 'NSRR website', ENV['website_url']
+.row{ style: 'margin-top: 20px' }
+  .col-md-6
+    %p.visible-xs.visible-sm.text-right
+      %strong Find interesting correlations?
+      %br
+      Download complete datasets for offline analysis from the
+      = succeed '.' do
+        = link_to 'NSRR website', ENV['website_url']
 
-      = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-09-xy-plot.png', class: 'img-responsive hidden-xs hidden-sm'
-    .col-md-6
-      %p.hidden-xs.hidden-sm{ style: 'margin-top:80px;' }
-        %strong Find interesting correlations?
-        Download complete datasets for offline analysis from the
-        = succeed '.' do
-          = link_to 'NSRR website', ENV['website_url']
+    = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-09-xy-plot.png', class: 'img-responsive hidden-xs hidden-sm'
+  .col-md-6
+    %p.hidden-xs.hidden-sm{ style: 'margin-top:80px;' }
+      %strong Find interesting correlations?
+      Download complete datasets for offline analysis from the
+      = succeed '.' do
+        = link_to 'NSRR website', ENV['website_url']
 
-      = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-09-xy-plot.png', class: 'img-responsive visible-xs visible-sm'
+    = image_tag 'https://sleepdata.org/tools/physiomimi/images/tutorial/nsrrphy-09-xy-plot.png', class: 'img-responsive visible-xs visible-sm'
 
 %a.anchor-top{ name: 'get-started-now' }
-
 - content_for :call_to_action do
   .call-to-action
     .call-to-action-header
