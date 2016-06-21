@@ -143,4 +143,14 @@ class ApplicationController < ActionController::Base
     return unless params[object].key?(key)
     params[object][key] = parse_date(params[object][key]) if params[object].key?(key)
   end
+
+  def dataset_params
+    params[:dataset] ||= { blank: '1' }
+    params[:dataset][:release_date] = parse_date(params[:dataset][:release_date])
+    params.require(:dataset).permit(
+      :name, :description, :slug, :logo, :logo_cache, :public,
+      :all_files_public, :git_repository, :release_date, :info_what, :info_who,
+      :info_when, :info_funded_by, :info_citation, :info_size
+      )
+  end
 end
