@@ -31,20 +31,15 @@
 //= require external/flashcanvas.js
 //= require external/google_analytics
 //= require external/highcharts-4.1.9.src.js
-//= require external/highmaps-1.1.9-modules-map.src.js
-//= require external/highmaps-1.1.9-modules-data.src.js
 //= require external/jquery-fieldselection.js
 //= require external/jquery.signaturepad.min.js
 //= require external/jquery.textcomplete
 //= require external/json2.min.js
-//= require external/us-all.js
-//= require external/world.js
 
 // Components
 //= require components/affix
 //= require components/cookies
 //= require components/graphs
-//= require components/maps
 //= require components/previews
 //= require components/search
 //= require components/text_area_autocomplete

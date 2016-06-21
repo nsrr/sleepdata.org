@@ -12,7 +12,6 @@
 @componentsReady = ->
   affixReady()
   graphsReady()
-  mapsReady()
   textAreaAutocompleteReady()
 
 @extensionsReady = ->
