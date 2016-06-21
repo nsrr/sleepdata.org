@@ -12,8 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
-// TODO: Check if jquery-ui is needed (along with gem jquery-ui-rails)
-//= require jquery-ui/sortable
 //= require bootstrap-sprockets
 //= require turbolinks
 

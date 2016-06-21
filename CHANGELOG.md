@@ -13,6 +13,7 @@
     topics
 - **Gem Changes**
   - Added the pg_search gem for full-text search
+  - Removed dependency on jquery-ui-rails
 
 ### Refactoring
 - Removed deprecated columns from agreement_events
