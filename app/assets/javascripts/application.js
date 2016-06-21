@@ -28,15 +28,11 @@
 //= require external/jquery-fieldselection.js
 
 //= require global
-//= require agreement_events
-//= require agreements
 //= require datasets
 //= require comments
 //= require reviews
-//= require tags
 //= require requests
 //= require previews
-//= require files
 
 //= require external/highcharts-4.1.9.src.js
 //= require variables
@@ -55,17 +51,23 @@
 
 //= require cookies
 
-//= require challenges
-
 //= require google_analytics
 
 
 
 //= require components/affix
 //= require components/search
-
-//= require objects/images
-//= require objects/replies
-//= require objects/topics
+//= require components/text_area_autocomplete
 
 //= require external/clipboard-1.5.9.js
+
+//= require objects/agreement_events
+//= require objects/agreements
+//= require objects/challenges
+//= require objects/files
+//= require objects/images
+//= require objects/replies
+//= require objects/tags
+//= require objects/topics
+
+

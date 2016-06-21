@@ -1,4 +1,4 @@
-@agreementsReady = () ->
+@agreementsReady = ->
   $('[data-object~="signature"]').each((index, element) ->
     sig = $($(this).data('signature-target')).val() if $($(this).data('signature-target')).val()
     $(this).signaturePad(drawOnly: true, lineWidth: 0, validateFields: false, output: $(this).data('signature-target')).regenerate(sig)

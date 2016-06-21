@@ -38,6 +38,22 @@
   $('.datepicker').datepicker('remove')
   $('.datepicker').datepicker(autoclose: true)
 
+@componentsReady = ->
+  affixReady
+  textAreaAutocompleteReady()
+
+@externalReady = ->
+  initializeClipboard()
+
+@extensionsReady = ->
+  fileDragReady()
+
+@objectsReady = ->
+  challengesReady()
+  filesReady()
+  repliesReady()
+  tagsReady()
+
 # TODO: Remove unused ready methods
 @ready = () ->
   $("[rel=tooltip]").tooltip(trigger: 'hover')
@@ -48,19 +64,17 @@
   variablesReady()
   datasetsReady()
   agreementsReady()
-  commentsReady()
-  tagsReady()
   graphsReady()
   mapsReady()
-  challengesReady()
   initializeTypeahead()
-  affixReady()
-  fileDragReady()
   fix_ie10_placeholder()
-  initializeClipboard()
-  initializeFiles()
   loadDatepicker()
-  repliesReady()
+
+  componentsReady()
+  extensionsReady()
+  externalReady()
+  objectsReady()
+
 
 $(window).onbeforeunload = () -> return "You haven't saved your changes." if window.$isDirty
 $(document).ready(ready)

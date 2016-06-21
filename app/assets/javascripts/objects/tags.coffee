@@ -18,7 +18,7 @@
     )
   )
 
-@tagsReady = () ->
+@tagsReady = ->
   loadColorSelectors()
 
 $(document)
