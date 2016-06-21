@@ -34,7 +34,7 @@ class Editor::DatasetsController < ApplicationController
   def create_access
     user_email = params[:user_email].to_s.strip
     if user = User.current.find_by_email(user_email.split('[').last.to_s.split(']').first)
-      @dataset_user = @dataset.dataset_users.where( user_id: user.id, role: params[:role] ).first_or_create
+      @dataset_user = @dataset.dataset_users.where(user_id: user.id, role: params[:role]).first_or_create
       redirect_to collaborators_dataset_path(@dataset, dataset_user_id: @dataset_user ? @dataset_user.id : nil)
     else
       redirect_to collaborators_dataset_path(@dataset), alert: "User '<code>#{user_email}</code>' was not found."
