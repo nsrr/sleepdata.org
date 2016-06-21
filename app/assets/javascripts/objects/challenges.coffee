@@ -1,4 +1,4 @@
-@challengesReady = () ->
+@challengesReady = ->
   # $('#affix-container').height($("#affix-img").height())
   affix_height = 30
   border_adjustment = 1

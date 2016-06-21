@@ -8,7 +8,7 @@
   $("#comment_container_#{parent_reply_id}_#{reply_id}").hide()
   $("#write_reply_#{parent_reply_id}_#{reply_id}").show()
 
-@repliesReady = () ->
+@repliesReady = ->
   if window.location.hash == '#write-a-reply'
     $("#write_reply_root_new a").click()
   else if window.location.hash.substring(1,8) == 'comment'

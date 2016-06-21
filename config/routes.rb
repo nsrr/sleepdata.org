@@ -202,11 +202,14 @@ Rails.application.routes.draw do
   scope module: :external do
     get :about
     get :aug, path: 'about/academic-user-group'
-    get :datasharing, path: 'about/data-sharing-language'
     get :contact
     get :contributors, path: 'about/contributors'
+    get :datasharing, path: 'about/data-sharing-language'
+    get :demo
     get :landing
     get :sitemap
+    get :version
+
     post :preview
   end
 
@@ -241,12 +244,6 @@ Rails.application.routes.draw do
 
   scope module: :search do
     get :search, action: 'index', as: :search
-  end
-
-  scope module: 'static' do
-    get :demo
-    get :map
-    get :version
   end
 
   resources :tags

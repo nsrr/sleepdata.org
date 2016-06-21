@@ -1,8 +1,8 @@
-@showForumTopicForm = () ->
+@showForumTopicForm = ->
   $("#forum-top-container").hide()
   $("#new-topic-container").fadeIn('fast')
 
-@hideForumTopicForm = () ->
+@hideForumTopicForm = ->
   $('[name=password]').tooltip('destroy')
   $("#new-topic-container").html('')
   $("#new-topic-container").hide()

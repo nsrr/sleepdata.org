@@ -14,58 +14,54 @@
 //= require jquery_ujs
 // TODO: Check if jquery-ui is needed (along with gem jquery-ui-rails)
 //= require jquery-ui/sortable
-
 //= require bootstrap-sprockets
-
-//= require compatibility/array_prototype_index_of
-//= require compatibility/array_prototype_map
 //= require turbolinks
 
-//= require external/bootstrap-datepicker.js
-//= require external/json2.min.js
-//= require external/flashcanvas.js
-//= require external/jquery.signaturepad.min.js
-//= require external/jquery-fieldselection.js
+// Compatibility
+//= require compatibility/array_prototype_index_of
+//= require compatibility/array_prototype_map
 
+// Main JS initializer
 //= require global
-//= require agreement_events
-//= require agreements
-//= require datasets
-//= require comments
-//= require reviews
-//= require tags
-//= require requests
-//= require previews
-//= require files
 
-//= require external/highcharts-4.1.9.src.js
-//= require variables
-//= require graphs
-
-//= require external/highmaps-1.1.9-modules-map.src.js
-//= require external/highmaps-1.1.9-modules-data.src.js
-//= require external/us-all.js
-//= require external/world.js
-//= require maps
-
-//= require external/jquery.textcomplete
+// External
+//= require external/bootstrap-datepicker.js
+//= require external/clipboard-1.5.9.js
 //= require external/colorpicker
+//= require external/flashcanvas.js
+//= require external/google_analytics
+//= require external/highcharts-4.1.9.src.js
+//= require external/jquery-fieldselection.js
+//= require external/jquery.signaturepad.min.js
+//= require external/jquery.textcomplete
+//= require external/json2.min.js
+
+// Components
+//= require components/affix
+//= require components/cookies
+//= require components/graphs
+//= require components/previews
+//= require components/search
+//= require components/text_area_autocomplete
+
+// Extensions
+//= require extensions/clipboard
+//= require extensions/datepicker
 //= require extensions/filedrag
 //= require extensions/slug
+//= require extensions/tooltips
+//= require extensions/turbolinks
+//= require extensions/typeahead
 
-//= require cookies
-
-//= require challenges
-
-//= require google_analytics
-
-
-
-//= require components/affix
-//= require components/search
-
+// Objects
+//= require objects/agreement_events
+//= require objects/agreements
+//= require objects/challenges
+//= require objects/datasets
+//= require objects/files
 //= require objects/images
 //= require objects/replies
+//= require objects/requests
+//= require objects/tags
 //= require objects/topics
-
-//= require external/clipboard-1.5.9.js
+//= require objects/variables

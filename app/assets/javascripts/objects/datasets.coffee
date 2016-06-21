@@ -3,7 +3,7 @@
 @downloadFile = (index,element) ->
   $('[data-object~="autodownload"]')[index].click()
 
-@datasetsReady = () ->
+@datasetsReady = ->
   $('[data-object~="autodownload"]').each((index, element) ->
     setTimeout((() -> downloadFile(index, element)), 500)
   )
