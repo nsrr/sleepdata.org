@@ -1,4 +1,4 @@
-@loadColorSelectors = () ->
+@loadColorSelectors = ->
   $('[data-object~="color-selector"]').each( () ->
     $this = $(this)
     $this.ColorPicker(

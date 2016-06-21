@@ -1,4 +1,0 @@
-- if broadcast_comment.deleted?
-  %code.text-muted [deleted]
-- else
-  = simple_markdown(sanitize(broadcast_comment.description.gsub(/</, "&lt;")).gsub('&gt;', '>'), broadcast_comment.user.can_post_links?, true, 'table table-striped')

@@ -50,7 +50,6 @@ class User < ActiveRecord::Base
   has_many :agreement_events
   has_many :answers
   has_many :broadcasts, -> { current }
-  has_many :broadcast_comments
   has_many :challenges, -> { current }
   has_many :community_tools, -> { current }
   has_many :datasets, -> { current }
@@ -96,14 +95,6 @@ class User < ActiveRecord::Base
       Broadcast.current
     else
       broadcasts
-    end
-  end
-
-  def editable_broadcast_comments
-    if system_admin?
-      BroadcastComment.current
-    else
-      broadcast_comments
     end
   end
 

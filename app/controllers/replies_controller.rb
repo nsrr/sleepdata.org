@@ -63,6 +63,7 @@ class RepliesController < ApplicationController
     if @reply.save
       @reply.create_notifications!
       @reply.parent.touch(:last_reply_at)
+      @reply.parent.get_or_create_subscription(current_user)
       current_user.read_parent!(@parent, @reply.id)
       render :create
     else

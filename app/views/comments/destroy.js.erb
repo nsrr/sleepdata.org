@@ -1,3 +1,0 @@
-$("#comment_container_<%= @comment.id %>").hide();
-$("#comment_container_<%= @comment.id %>").html("<%=j render 'comments/show', comment: @comment, number: @comment.number %>");
-$("#comment_container_<%= @comment.id %>").show('fade');

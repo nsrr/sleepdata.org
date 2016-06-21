@@ -7,7 +7,7 @@
   value += " #{s[e]}" if label
   value
 
-@draw_downloads_by_month = () ->
+@draw_downloads_by_month = ->
   if $('#downloads-chart-container').length > 0
     $('#downloads-chart-container').highcharts(
       credits:
@@ -39,5 +39,5 @@
       series: $('#downloads-chart-container').data('series')
     )
 
-@graphsReady = () ->
+@graphsReady = ->
   draw_downloads_by_month()

@@ -25,7 +25,6 @@
   createCookie name, "", -1
   return
 
-
 $(document)
   .on('click', '[data-object~="set-cookie"]', () ->
     createCookie($(this).data('cookie-key'), $(this).data('cookie-value'))

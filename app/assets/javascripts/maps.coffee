@@ -80,7 +80,7 @@
     }]
   )
 
-@mapsReady = () ->
+@mapsReady = ->
   $('[data-object~="draw-map"]').each((index, element) ->
     drawMap(element)
   )

@@ -2,7 +2,7 @@
   val = $(element_id).val()
   $(element_id).focus().val('').val(val)
 
-@initializeTypeahead = () ->
+@initializeTypeahead = ->
   $('[data-object~="typeahead"]').each( () ->
     $this = $(this)
     $this.typeahead(
@@ -17,13 +17,13 @@
     if $(@).val() == $(@).attr('placeholder')
       $(@).val ''
 
-@initializeTurbolinks = () ->
+@initializeTurbolinks = ->
   # Don't cache pages with Turbolinks
   Turbolinks.pagesCached(0)
   Turbolinks.allowLinkExtensions('md')
   Turbolinks.enableProgressBar()
 
-@initializeClipboard = () ->
+@initializeClipboard = ->
   clipboard = new Clipboard('[data-clipboard-target],[data-clipboard-text]')
   clipboard.on('success', (e) ->
     $(e.trigger).tooltip('show')
@@ -49,21 +49,21 @@
   fileDragReady()
 
 @objectsReady = ->
+  agreementsReady()
   challengesReady()
+  datasetsReady()
   filesReady()
   repliesReady()
   tagsReady()
+  variablesReady()
 
 # TODO: Remove unused ready methods
-@ready = () ->
+@ready = ->
   $("[rel=tooltip]").tooltip(trigger: 'hover')
   if $("#collection_form #s, #page_name, #search_form #s, #search, #collection_form #s, #s").val() != ''
     setFocusToField("#collection_form #s, #page_name, #search_form #s, #search, #collection_form #s, #s")
   initializeTurbolinks()
   window.$isDirty = false
-  variablesReady()
-  datasetsReady()
-  agreementsReady()
   graphsReady()
   mapsReady()
   initializeTypeahead()
@@ -76,7 +76,7 @@
   objectsReady()
 
 
-$(window).onbeforeunload = () -> return "You haven't saved your changes." if window.$isDirty
+$(window).onbeforeunload = -> return "You haven't saved your changes." if window.$isDirty
 $(document).ready(ready)
 $(document)
   .on('page:load', ready)
