@@ -1,33 +1,4 @@
-.topics-container {
-  margin-left: -40px;
-  margin-right: -40px;
-  padding: 0;
-}
-
-@media screen and (min-width: $screen-sm-min) {
-  .topics-container {
-    margin: 0;
-  }
-}
-
-.posts-container {
-  padding-top: 10px;
-}
-
-@media screen and (min-width: $screen-sm-min) {
-  .posts-container {
-    padding: 20px;
-    padding-top: 30px;
-  }
-}
-
-@media screen and (min-width: $screen-md-min) {
-  .posts-container {
-    padding: 40px;
-    padding-top: 50px;
-  }
-}
-
+// TODO: Remove topics.scss
 .post-avatar {
   height: 55px;
   margin: 0 10px;
