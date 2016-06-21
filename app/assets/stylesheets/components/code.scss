@@ -9,7 +9,8 @@
   }
 }
 
-.code-command, .code-command-blank {
+.code-command,
+.code-command-blank {
   border: 1px solid $gray-lighter;
   border-radius: 5px;
   font-family: Monaco, Menlo, Consolas, 'Courier New', monospace;
@@ -20,7 +21,8 @@
 }
 
 @media screen and (min-width: 768px) {
-  .code-command, .code-command-blank {
+  .code-command,
+  .code-command-blank {
     font-size: 21px;
   }
 }

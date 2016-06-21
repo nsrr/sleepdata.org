@@ -18,8 +18,8 @@
 
   .reply-avatar {
     display: block;
-    position: absolute;
     left: -70px;
+    position: absolute;
   }
 }
 
@@ -40,11 +40,11 @@
   }
 
   .reply-container {
-    margin-top: 10px;
     border: 1px solid $brand-gray-lighter;
     border-radius: 4px 0 0 4px;
-    padding: 10px;
     margin-right: -11px;
+    margin-top: 10px;
+    padding: 10px;
   }
 }
 
@@ -89,22 +89,22 @@
   word-wrap: break-word;
 
   img {
+    cursor: pointer;
     max-height: 100px;
     max-width: 100%;
-    cursor: pointer;
-  }
 
-  img.large-view {
-    max-height: none;
+    &.large-view {
+      max-height: none;
+    }
   }
 
   blockquote {
-    font-size: $font-size-base;
-    margin: 0 0 11px 0;
-    padding: 0 10px;
     border: 0;
     border-left: 2px solid $brand-gray-lighter;
-    color: #999;
+    color: $blockquote-gray;
+    font-size: $font-size-base;
+    margin: 0 0 11px;
+    padding: 0 10px;
   }
 }
 

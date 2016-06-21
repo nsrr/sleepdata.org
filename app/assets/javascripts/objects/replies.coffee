@@ -89,3 +89,6 @@ $(document)
     console.log selection
     false
   )
+  .on('click', '.reply-body img', () ->
+    $(this).toggleClass('large-view')
+  )

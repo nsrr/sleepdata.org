@@ -15,7 +15,7 @@
   &nbsp;
 
   = link_to vote_reply_path(reply, vote: change_to), method: :post, remote: true, style: 'text-decoration:none;outline:none', class: klass, tabindex: '-1' do
-    %i.fa{ class: "#{icon} #{'just_voted' if just_voted && vote == true}", style: 'width: 16px' }
+    %i.fa{ class: "#{icon} #{'just-voted' if just_voted && vote == true}", style: 'width: 16px' }
 
   &nbsp;
 
@@ -29,4 +29,4 @@
     - change_to = 'down'
 
   = link_to vote_reply_path(reply, vote: change_to), method: :post, remote: true, style: 'text-decoration:none;outline:none', class: klass, tabindex: '-1' do
-    %i.fa{ class: "#{icon} #{'just_voted' if just_voted && vote == false}", style: 'width: 16px' }
+    %i.fa{ class: "#{icon} #{'just-voted' if just_voted && vote == false}", style: 'width: 16px' }
