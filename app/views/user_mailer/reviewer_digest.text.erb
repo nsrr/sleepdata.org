@@ -10,12 +10,6 @@ Agreements
 
 <%= review.agreement.name_with_id %> - <%= "#{ENV['website_url']}/reviews/#{review.agreement.to_param}" %>
 
-<% if false %>
-  <% comments.sort_by(&:id).each do |comment| %>
-  <%= @comment = comment; render 'digest_comment' %>
-  <% end %>
-<% end %>
-
 <% end %>
 <% end %>
 

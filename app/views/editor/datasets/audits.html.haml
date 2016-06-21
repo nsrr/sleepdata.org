@@ -83,20 +83,19 @@
 .center
   = paginate paginated_audits, theme: "bootstrap-small"
 
-.content-container
-  %h2 Page Views
+%h2 Page Views
 
-  - @page_views = @dataset.dataset_page_audits.group_by(&:page_path).collect{|page_path, audits| [page_path, audits.count]}.sort { |a,b| b[1] <=> a[1] }
-  %table.table.table-striped
-    %thead
-      %tr
-        %th Page Path
-        %th Page Views
-      %tr.success
-        %th Total
-        %th= number_with_delimiter( @page_views.sum{|p| p[1]} )
+- @page_views = @dataset.dataset_page_audits.group_by(&:page_path).collect{|page_path, audits| [page_path, audits.count]}.sort { |a,b| b[1] <=> a[1] }
+%table.table.table-striped
+  %thead
+    %tr
+      %th Page Path
+      %th Page Views
+    %tr.success
+      %th Total
+      %th= number_with_delimiter( @page_views.sum{|p| p[1]} )
 
-    - @page_views.each do |page_path, page_view_count|
-      %tr
-        %td= page_path
-        %td= number_with_delimiter( page_view_count )
+  - @page_views.each do |page_path, page_view_count|
+    %tr
+      %td= page_path
+      %td= number_with_delimiter( page_view_count )

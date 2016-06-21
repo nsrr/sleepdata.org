@@ -4,11 +4,6 @@
 
 = render 'variables/folder_breadcrumb', folder: params[:folder]
 
-- if false
-  %p
-    DATASET VERSION:
-    %span.label.label-danger= @dataset_version.inspect
-
 = form_tag dataset_variables_path(@dataset), method: :get, class: 'form-inline', id: 'collection_form' do
   .input-group
     = text_field_tag 's', params[:s], class: 'form-control', placeholder: "Search #{@dataset.slug.upcase}"
@@ -17,32 +12,28 @@
       = link_to 'Reset', dataset_variables_path(@dataset), class: 'btn btn-default'
 
 - if @variables.count > 0
-  .content-container
-    %table.table.table-striped
-      %thead
-        %tr
-          %th
-          %th Name
-          %th.nowrap Display Name
-          %th Folder
-          - unless params[:s].blank?
-            %th Relevance
+  %table.table.table-striped
+    %thead
+      %tr
+        %th
+        %th Name
+        %th.nowrap Display Name
+        %th Folder
+        - unless params[:s].blank?
+          %th Relevance
 
-      - @variables.sort { |a,b| a.rank_sort_order(params[:s]) <=> b.rank_sort_order(params[:s]) }.each do |variable|
-        %tr
-          %td
-            - if variable.commonly_used?
-              %span.glyphicon.glyphicon-star.text-warning
-          %td= link_to variable.name, dataset_variable_path(variable.dataset, variable)
-          %td
-            = variable.display_name
-            %small.text-muted.variable-description{ colspan: 2 }= simple_markdown_no_lists variable.description
-          %td= variable.folder
-          - unless params[:s].blank?
-            %td= render 'variables/relevance', variable: variable
-
-    - if false
-      .center= paginate @variables, theme: 'bootstrap'
+    - @variables.sort { |a,b| a.rank_sort_order(params[:s]) <=> b.rank_sort_order(params[:s]) }.each do |variable|
+      %tr
+        %td
+          - if variable.commonly_used?
+            %span.glyphicon.glyphicon-star.text-warning
+        %td= link_to variable.name, dataset_variable_path(variable.dataset, variable)
+        %td
+          = variable.display_name
+          %small.text-muted.variable-description{ colspan: 2 }= simple_markdown_no_lists variable.description
+        %td= variable.folder
+        - unless params[:s].blank?
+          %td= render 'variables/relevance', variable: variable
 - elsif @dataset.variables.count == 0
   .jumbotron{ style: 'margin-top:30px' }
     %p

@@ -68,7 +68,7 @@
           %form.navbar-form.navbar-right.hidden-xs.hidden-sm{ style: 'margin-right: -25px' }
             = link_to '#', data: { object: 'show-search-bar' }, class: 'btn btn-primary', name: nil do
               %span.glyphicon.glyphicon-search
-          %ul.nav.navbar-nav.navbar-right
+          %ul.nav.navbar-nav.navbar-right{ style: 'max-height: 50px' }
             - if current_user
               %ul.nav.navbar-nav.navbar-right.hidden-xs
                 %li

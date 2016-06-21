@@ -2,29 +2,28 @@
 
 = render 'datasets/header'
 
-= form_tag search_dataset_path(@dataset), method: :get, class: 'form-inline' do
+= form_tag search_dataset_path(@dataset), method: :get, class: 'form-inline', style: 'margin-bottom: 20px' do
   .input-group
     = text_field_tag 's', params[:s], class: 'form-control', placeholder: "Search #{@dataset.slug.upcase}"
     .input-group-btn
       = submit_tag 'Search', class: 'btn btn-primary', name: nil
       = link_to 'Reset', search_dataset_path(@dataset), class: 'btn btn-default'
 
-.content-container
-  - if @results.blank?
-    .jumbotron
-      %p
-        To search across the documentation, type your search term in the box above.
-        If you are searching for variables, you will want to view the
-        = link_to 'Variables', dataset_variables_path(@dataset, s: params[:s])
-        instead.
-  - else
-    %table.table.table-striped
-      - @results.each do |result|
-        - page_path = result.split(':').first
-        - path = (page_path ? page_path.gsub(@dataset.pages_folder + '/', '') : nil)
-        - line = result.split(':')[1..-1].join(':')
-        %tr
-          %td= link_to path, pages_dataset_path( @dataset ) + '/' + path.to_s + "?s=#{@term}"
-          %td
-          %td
-            = highlight(strip_tags(simple_markdown(line)), @term, sanitize: false)
+- if @results.blank?
+  .jumbotron
+    %p
+      To search across the documentation, type your search term in the box above.
+      If you are searching for variables, you will want to view the
+      = link_to 'Variables', dataset_variables_path(@dataset, s: params[:s])
+      instead.
+- else
+  %table.table.table-striped
+    - @results.each do |result|
+      - page_path = result.split(':').first
+      - path = (page_path ? page_path.gsub(@dataset.pages_folder + '/', '') : nil)
+      - line = result.split(':')[1..-1].join(':')
+      %tr
+        %td= link_to path, pages_dataset_path( @dataset ) + '/' + path.to_s + "?s=#{@term}"
+        %td
+        %td
+          = highlight(strip_tags(simple_markdown(line)), @term, sanitize: false)

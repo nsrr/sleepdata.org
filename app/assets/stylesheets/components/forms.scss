@@ -2,7 +2,7 @@
   background-color: $brand-white;
   border: 1px solid $brand-primary-text;
   color: $brand-black;
-  margin: 0 auto;
+  margin: 0 auto 20px;
   max-width: 400px;
   padding: 20px;
 }
@@ -27,4 +27,8 @@
     border-radius: 0;
     font-size: 24px;
   }
+}
+
+.sign-up-form-button-container {
+  margin: 20px 0 0;
 }

@@ -3,49 +3,49 @@
 editor_public_access:
   dataset: public
   user: editor
-  role: 'editor'
+  role: editor
 
 editor_mixed_access:
   dataset: mixed
   user: editor_mixed
-  role: 'editor'
+  role: editor
 
 viewer_mixed_access:
   dataset: mixed
   user: valid
-  role: 'viewer'
+  role: viewer
 
 viewer_of_private_dataset:
   dataset: private_documentation
   user: has_approved_agreement_for_a_b_not_c
-  role: 'viewer'
+  role: viewer
 
 viewer_of_private_dataset_two:
   dataset: private
   user: two
-  role: 'viewer'
+  role: viewer
 
 editor_of_private_dataset:
   dataset: private
   user: editor_on_private
-  role: 'editor'
+  role: editor
 
 reviewer_of_public_dataset:
   dataset: public
   user: reviewer_on_public
-  role: 'reviewer'
+  role: reviewer
 
 reviewer_two_of_public_dataset:
   dataset: public
   user: reviewer_two_on_public
-  role: 'reviewer'
+  role: reviewer
 
 reviewer_three_of_public_dataset:
   dataset: public
   user: reviewer_three_on_public
-  role: 'reviewer'
+  role: reviewer
 
 admin_reviewer_of_public_dataset:
   dataset: public
   user: admin
-  role: 'reviewer'
+  role: reviewer

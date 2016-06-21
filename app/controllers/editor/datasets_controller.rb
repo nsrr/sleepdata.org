@@ -34,7 +34,7 @@ class Editor::DatasetsController < ApplicationController
   def create_access
     user_email = params[:user_email].to_s.strip
     if user = User.current.find_by_email(user_email.split('[').last.to_s.split(']').first)
-      @dataset_user = @dataset.dataset_users.where( user_id: user.id, role: params[:role] ).first_or_create
+      @dataset_user = @dataset.dataset_users.where(user_id: user.id, role: params[:role]).first_or_create
       redirect_to collaborators_dataset_path(@dataset, dataset_user_id: @dataset_user ? @dataset_user.id : nil)
     else
       redirect_to collaborators_dataset_path(@dataset), alert: "User '<code>#{user_email}</code>' was not found."
@@ -96,15 +96,5 @@ class Editor::DatasetsController < ApplicationController
 
   def find_editable_dataset_or_redirect
     super(:id)
-  end
-
-  def dataset_params
-    params[:dataset] ||= { blank: '1' }
-    params[:dataset][:release_date] = parse_date(params[:dataset][:release_date])
-    params.require(:dataset).permit(
-      :name, :description, :slug, :logo, :logo_cache, :public,
-      :all_files_public, :git_repository, :release_date, :info_what, :info_who,
-      :info_when, :info_funded_by, :info_citation, :info_size
-      )
   end
 end

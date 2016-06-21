@@ -7,7 +7,8 @@ class CommunityToolsController < ApplicationController
 
   # GET /community-tools
   def index
-    @community_tools = CommunityTool.current.page(params[:page]).per(40)
+    @order = scrub_order(CommunityTool, params[:order], 'community_tools.name')
+    @community_tools = CommunityTool.current.order(@order).page(params[:page]).per(40)
   end
 
   # GET /community-tools/1

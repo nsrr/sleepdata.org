@@ -19,9 +19,12 @@
       = link_to '(Forgot password?)', new_password_path(resource_name), tabindex: '-1'
       = f.password_field :password, class: 'form-control', autocomplete: 'off'
 
-    .form-group
-      = f.submit 'Sign in', class: 'btn btn-success'
+    .form-group.sign-up-form-button-container
+      = f.submit 'Sign in', class: 'btn btn-success btn-block'
 
+.sign-up-form.center
+  New to the NSRR?
+  = link_to 'Create an account.', new_user_registration_path
 
 - if devise_mapping.confirmable?
   .center{ style: 'margin-bottom:20px' }

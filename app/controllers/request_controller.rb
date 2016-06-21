@@ -97,7 +97,7 @@ class RequestController < ApplicationController
   end
 
   def submissions_register_user
-    @agreement = Agreement.new # TODO: Set dataset IDS
+    @agreement = Agreement.new
     unless current_user
       user = User.new(user_params)
       if user.save
@@ -114,7 +114,7 @@ class RequestController < ApplicationController
   end
 
   def submissions_sign_in_user
-    @agreement = Agreement.new # TODO: Set dataset IDS
+    @agreement = Agreement.new
     unless current_user
       user = User.find_by_email params[:email]
       if user && user.valid_password?(params[:password])
@@ -201,8 +201,7 @@ class RequestController < ApplicationController
   #   unless current_user
   #     user = User.new(user_params)
   #     if user.save
-  #       # TODO: Send email of account creation with temporary password
-  #       # UserMailer.hosting_request_account_created(params[:user][:password]).deliver!
+  #       UserMailer.hosting_request_account_created(params[:user][:password]).deliver!
   #       sign_in(:user, user)
   #     else
   #       @errors = user.errors

@@ -10,37 +10,36 @@
 
 - @signal_map.each_with_index do |range, index|
   - signal = index + 1
-  .content-container
-    %h3
-      Signal
-      = signal
-      = link_to 'edit answers', signal_challenge_path(@challenge, signal), class: 'btn btn-xs btn-default'
+  %h3
+    Signal
+    = signal
+    = link_to 'edit answers', signal_challenge_path(@challenge, signal), class: 'btn btn-xs btn-default'
 
-    = image_tag images_challenge_path(@challenge, path: @challenge.signal_name(signal)), style: 'width: 100%;'
+  = image_tag images_challenge_path(@challenge, path: @challenge.signal_name(signal)), style: 'width: 100%;'
 
-    %table.table.table-fixed
-      %thead
-        %tr
-          - range.each do |letter|
-            %th.center=letter
-      %tbody
-        %tr
-          - range.each do |letter|
-            - number = format('%02d', signal)
-            - question_name = "signal#{number}#{letter.downcase}"
-            - question = @challenge.questions.find_by_name(question_name)
-            - answer = @challenge.answers.where(question_id: question.id, user_id: current_user.id).first_or_create
-            %td{ style: 'text-align:center' }
-              - case answer.response when 'yes'
-                %span.label.label-success Y
-              - when 'no'
-                %span.label.label-danger N
-              - when 'intermediate'
-                %span.label.label-warning I
-              - when 'unscorable'
-                %span.label.label-default U
-              - else
-                %span.label{ style: "background-color: #FFF;color:#333;" } -
+  %table.table.table-fixed
+    %thead
+      %tr
+        - range.each do |letter|
+          %th.center=letter
+    %tbody
+      %tr
+        - range.each do |letter|
+          - number = format('%02d', signal)
+          - question_name = "signal#{number}#{letter.downcase}"
+          - question = @challenge.questions.find_by_name(question_name)
+          - answer = @challenge.answers.where(question_id: question.id, user_id: current_user.id).first_or_create
+          %td{ style: 'text-align:center' }
+            - case answer.response when 'yes'
+              %span.label.label-success Y
+            - when 'no'
+              %span.label.label-danger N
+            - when 'intermediate'
+              %span.label.label-warning I
+            - when 'unscorable'
+              %span.label.label-default U
+            - else
+              %span.label{ style: "background-color: #FFF;color:#333;" } -
 
 
 - content_for :call_to_action do

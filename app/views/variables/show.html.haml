@@ -126,18 +126,3 @@
                           = render 'variables/table_cell', cell: cell, type: :td
 
 .visible-xs= render 'variables/menu'
-
-- if false
-  - content_for :call_to_action do
-    .call-to-action
-      .call-to-action-header
-        Ready to begin your analysis?
-      .call-to-action-body
-        .center{ style: 'margin-top:20px;margin-bottom:20px' }
-          = link_to 'Download Dataset', files_dataset_path(@dataset, path: 'datasets'), class: 'btn btn-lg btn-call-to-action'
-        %p.center{ style: 'margin-top:50px;' }
-          Email us at
-          = mail_to 'support@sleepdata.org'
-          if you have any questions or
-          = succeed '!' do
-            = link_to 'visit our forum', topics_path

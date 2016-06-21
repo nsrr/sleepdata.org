@@ -42,26 +42,22 @@
           - a.datasets.order(:release_date, :name).each do |dataset|
             = render 'datasets/mini', dataset: dataset
 
-.content-container
-  #agreement_events
-    = render 'agreement_events/index'
+#agreement_events
+  = render 'agreement_events/index'
 
-  #agreement_events_new_form
-    - @agreement_event = @agreement.agreement_events.where(user_id: current_user.id).new
-    = render 'agreement_events/form'
+#agreement_events_new_form
+  - @agreement_event = @agreement.agreement_events.where(user_id: current_user.id).new
+  = render 'agreement_events/form'
 
-.content-container
-  - steps = (1..5)
+- (1..5).each do |step|
+  .markdown-container
+    %h2
+      Step
+      = step
 
-  - steps.each do |step|
-    .markdown-container
-      %h2
-        Step
-        = step
+    - unless @agreement.step_valid?(step)
+      .callout.callout-danger
+        %strong Attention
+        This step is not complete.
 
-      - unless @agreement.step_valid?(step)
-        .callout.callout-danger
-          %strong Attention
-          This step is not complete.
-
-      = render "agreements/proof/step#{step}"
+    = render "agreements/proof/step#{step}"

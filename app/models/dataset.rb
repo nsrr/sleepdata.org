@@ -34,8 +34,6 @@ class Dataset < ApplicationRecord
   has_many :forms
   has_many :variables
   has_many :variable_forms
-  has_many :dataset_contributors
-  has_many :contributors, -> { where deleted: false }, through: :dataset_contributors, source: :user
   has_many :requests
   has_many :agreements, -> { where deleted: false }, through: :requests
 

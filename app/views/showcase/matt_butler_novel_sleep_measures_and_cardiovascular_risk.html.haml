@@ -12,136 +12,131 @@
       .banner-body
         11th June 2015
 
-.content-container
-  %p.lead
-    Today, the NSRR team is taking a moment to discuss the latest sleep
-    research with Matt Butler.
-    Thank you Matt for providing us with insight into your research!
+%p.lead
+  Today, the NSRR team is taking a moment to discuss the latest sleep
+  research with Matt Butler.
+  Thank you Matt for providing us with insight into your research!
 
-.content-container
-  %h2
-    Can you tell us a little about your group?
+%h2
+  Can you tell us a little about your group?
 
-  .post-avatar
-    = image_tag 'showcase/matt-butler.png', size: '50x50', class: 'img-thumbnail', style: "min-height:55px;min-width:55px;border-radius:0px;"
-  .post-container
-    .post-header
-      Matt Butler
-    .post-body
-      %p
-        Circadian disruptions and sleep disorders alter temporal patterns of
-        physiology and behavior, and they increase the risk for cardiovascular
-        disease, metabolic diseases including diabetes, and mood disorders. At
-        the Oregon Institute of Occupational Health Science, my laboratory's
-        goals are to determine the mechanisms by which this occurs through
-        controlled physiology experiments (basic and clinical) as well as
-        through prospective analyses in long term human sleep study cohorts.
-
-.content-container
-  %h2
-    How were you introduced to the NSRR?
-  .post-avatar
-    = image_tag 'showcase/matt-butler.png', size: '50x50', class: 'img-thumbnail', style: "min-height:55px;min-width:55px;border-radius:0px;"
-  .post-container
-    .post-header
-      Matt Butler
-    .post-body
-      %p
-        As a postdoctoral fellow in Steven Shea's laboratory at the Brigham
-        and Women's Hospital, I found a circadian rhythm in the duration of
-        apneas and hypopneas. This largely explains the common observation
-        that respiratory events get longer through the night. This led
-        naturally to the question of whether long or short apneas are bad for
-        health. We approached Dr. Redline about answering this, and by chance,
-        this coincided closely with the launch of the National Sleep Research
-        Resource (NSRR). I became an NSRR early adopter: I provided feedback
-        on my experiences with the NSRR and the
-        = link_to 'Sleep Heart Health Study', dataset_path('shhs')
-        data as I worked on the preliminary analyses that led to this grant
-        award from the American Sleep Medicine Foundation.
-
-.content-container
-  %h2
-    Can you tell us about the research you have done?
-  .post-avatar
-    = image_tag 'showcase/matt-butler.png', size: '50x50', class: 'img-thumbnail', style: "min-height:55px;min-width:55px;border-radius:0px;"
-  .post-container
-    .post-header
-      Matt Butler
-    .post-body
-      %p
-        Obstructive sleep apnea (OSA) is a common sleep disorder which
-        increases the risks for cardiovascular disease. Currently, it is
-        diagnosed by the mean number of events per hour of sleep
-        (apnea-hypopnea index, AHI). This metric fails to capture the wide
-        variability in the severity and timing of events, and importantly, it
-        is a poor predictor of risk in women. We used the NSRR to examine the
-        overnight sequence of events and the health outcomes for subjects in
-        the Sleep Heart Health Study, and we found that event duration
-        predicts mortality
-        = succeed '.' do
-          = link_to '(Table 1)', "#table1"
-        We are now testing whether event
-        duration can outperform AHI in predicting risk, especially in women.
-        Concurrently, we are investigating the information provided by the
-        clustering of events in time, as the intervals between events can vary
-        dramatically, even for a particular AHI
-        = succeed '.' do
-          = link_to '(Figure 1)', "#fig1"
-
-        %a.anchor-top{ name: 'table1' }
-        .table-responsive
-          %table.table.table-bordered
-            %thead
-              %tr
-                %th.center Event duration quartiles (sec)
-                %th.center Hazard Ratio
-                %th.center Confidence Interval
-                %th.center p value
-            %tbody
-              %tr
-                %td.center
-                  %strong 24.0 - 57.6
-                %td.center 1.0
-                %td.center
-                %td.center Ref.
-              %tr
-                %td.center
-                  %strong 20.6 - 24.0
-                %td.center 0.98
-                %td.center 0.79 - 1.09
-                %td.center n.s.
-              %tr
-                %td.center
-                  %strong 17.7 - 20.6
-                %td.center 1.17
-                %td.center 1.0 - 1.36
-                %td.center
-                  %strong p<0.05
-              %tr
-                %td.center
-                  %strong 11.1 - 17.7
-                %td.center 1.26
-                %td.center 1.07 - 1.48
-                %td.center
-                  %strong p<0.01
-        %p
-          %strong Table 1:
-          Mortality hazard ratios by event duration quartiles,
-          adjusted for age, sex, BMI, race, smoking, and AHI.
-
-.content-container
-  %a.anchor-top{ name: 'fig1' }
-  .center
-    = image_tag 'showcase/matt-butler-graph.png', style: 'max-width: 100%'
-  .markdown-container
+.post-avatar
+  = image_tag 'showcase/matt-butler.png', size: '50x50', class: 'img-thumbnail', style: "min-height:55px;min-width:55px;border-radius:0px;"
+.post-container
+  .post-header
+    Matt Butler
+  .post-body
     %p
-      %strong Figure 1.
-      Decile plot (cross hatches show 10% intervals) of the inter-event
-      interval (IEI) distribution for 8 subjects with AHI of 40-41. The IEI
-      coefficient of variation (IEI-CV) varied from 0.4 to 3.6. The two left
-      subjects have a maximum IEI of ~2 min, whereas the two right subjects
-      have a maximum IEI of >10 min and ~25% of all intervals are >2min.
+      Circadian disruptions and sleep disorders alter temporal patterns of
+      physiology and behavior, and they increase the risk for cardiovascular
+      disease, metabolic diseases including diabetes, and mood disorders. At
+      the Oregon Institute of Occupational Health Science, my laboratory's
+      goals are to determine the mechanisms by which this occurs through
+      controlled physiology experiments (basic and clinical) as well as
+      through prospective analyses in long term human sleep study cohorts.
+
+%h2
+  How were you introduced to the NSRR?
+.post-avatar
+  = image_tag 'showcase/matt-butler.png', size: '50x50', class: 'img-thumbnail', style: "min-height:55px;min-width:55px;border-radius:0px;"
+.post-container
+  .post-header
+    Matt Butler
+  .post-body
+    %p
+      As a postdoctoral fellow in Steven Shea's laboratory at the Brigham
+      and Women's Hospital, I found a circadian rhythm in the duration of
+      apneas and hypopneas. This largely explains the common observation
+      that respiratory events get longer through the night. This led
+      naturally to the question of whether long or short apneas are bad for
+      health. We approached Dr. Redline about answering this, and by chance,
+      this coincided closely with the launch of the National Sleep Research
+      Resource (NSRR). I became an NSRR early adopter: I provided feedback
+      on my experiences with the NSRR and the
+      = link_to 'Sleep Heart Health Study', dataset_path('shhs')
+      data as I worked on the preliminary analyses that led to this grant
+      award from the American Sleep Medicine Foundation.
+
+%h2
+  Can you tell us about the research you have done?
+.post-avatar
+  = image_tag 'showcase/matt-butler.png', size: '50x50', class: 'img-thumbnail', style: "min-height:55px;min-width:55px;border-radius:0px;"
+.post-container
+  .post-header
+    Matt Butler
+  .post-body
+    %p
+      Obstructive sleep apnea (OSA) is a common sleep disorder which
+      increases the risks for cardiovascular disease. Currently, it is
+      diagnosed by the mean number of events per hour of sleep
+      (apnea-hypopnea index, AHI). This metric fails to capture the wide
+      variability in the severity and timing of events, and importantly, it
+      is a poor predictor of risk in women. We used the NSRR to examine the
+      overnight sequence of events and the health outcomes for subjects in
+      the Sleep Heart Health Study, and we found that event duration
+      predicts mortality
+      = succeed '.' do
+        = link_to '(Table 1)', "#table1"
+      We are now testing whether event
+      duration can outperform AHI in predicting risk, especially in women.
+      Concurrently, we are investigating the information provided by the
+      clustering of events in time, as the intervals between events can vary
+      dramatically, even for a particular AHI
+      = succeed '.' do
+        = link_to '(Figure 1)', "#fig1"
+
+      %a.anchor-top{ name: 'table1' }
+      .table-responsive
+        %table.table.table-bordered
+          %thead
+            %tr
+              %th.center Event duration quartiles (sec)
+              %th.center Hazard Ratio
+              %th.center Confidence Interval
+              %th.center p value
+          %tbody
+            %tr
+              %td.center
+                %strong 24.0 - 57.6
+              %td.center 1.0
+              %td.center
+              %td.center Ref.
+            %tr
+              %td.center
+                %strong 20.6 - 24.0
+              %td.center 0.98
+              %td.center 0.79 - 1.09
+              %td.center n.s.
+            %tr
+              %td.center
+                %strong 17.7 - 20.6
+              %td.center 1.17
+              %td.center 1.0 - 1.36
+              %td.center
+                %strong p<0.05
+            %tr
+              %td.center
+                %strong 11.1 - 17.7
+              %td.center 1.26
+              %td.center 1.07 - 1.48
+              %td.center
+                %strong p<0.01
+      %p
+        %strong Table 1:
+        Mortality hazard ratios by event duration quartiles,
+        adjusted for age, sex, BMI, race, smoking, and AHI.
+
+%a.anchor-top{ name: 'fig1' }
+.center
+  = image_tag 'showcase/matt-butler-graph.png', style: 'max-width: 100%'
+.markdown-container
+  %p
+    %strong Figure 1.
+    Decile plot (cross hatches show 10% intervals) of the inter-event
+    interval (IEI) distribution for 8 subjects with AHI of 40-41. The IEI
+    coefficient of variation (IEI-CV) varied from 0.4 to 3.6. The two left
+    subjects have a maximum IEI of ~2 min, whereas the two right subjects
+    have a maximum IEI of >10 min and ~25% of all intervals are >2min.
 
 - content_for :call_to_action do
   .banner

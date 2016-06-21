@@ -41,13 +41,14 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
     assert_difference('DatasetUser.count', 0) do
       post :create_access, params: {
         id: @dataset,
-        user_email: "#{users(:two).name} [#{users(:two).email}]"
+        user_email: "#{users(:reviewer_on_public).name} [#{users(:reviewer_on_public).email}]",
+        role: 'reviewer'
       }
     end
     assert_not_nil assigns(:dataset_user)
     assert_equal nil, assigns(:dataset_user).approved
-    assert_equal false, assigns(:dataset_user).editor
-    assert_equal users(:two), assigns(:dataset_user).user
+    assert_equal 'reviewer', assigns(:dataset_user).role
+    assert_equal users(:reviewer_on_public), assigns(:dataset_user).user
     assert_redirected_to collaborators_dataset_path(assigns(:dataset), dataset_user_id: assigns(:dataset_user).id)
   end
 
