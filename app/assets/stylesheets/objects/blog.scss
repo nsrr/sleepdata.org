@@ -11,9 +11,9 @@
     a {
       border-left: 2px solid transparent;
       display: block;
+      overflow: hidden;
       padding: 7px 15px;
       position: relative;
-      overflow: hidden;
       text-overflow: ellipsis;
     }
 
@@ -47,8 +47,8 @@
 }
 
 .author-box {
-  padding-left: 15px;
   font-weight: 300;
+  padding-left: 15px;
 
   .author-key {
     font-size: 85%;
@@ -60,8 +60,8 @@
 
   .author-value {
     color: $brand-gray;
-    padding-left: 5px;
     margin-bottom: 10px;
+    padding-left: 5px;
   }
 }
 
@@ -70,7 +70,7 @@
   font-weight: bold;
 }
 
-.just_voted {
+.just-voted {
   animation: pulsate 300ms linear 1;
 }
 
