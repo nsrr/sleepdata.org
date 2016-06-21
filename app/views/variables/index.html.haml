@@ -4,11 +4,6 @@
 
 = render 'variables/folder_breadcrumb', folder: params[:folder]
 
-- if false
-  %p
-    DATASET VERSION:
-    %span.label.label-danger= @dataset_version.inspect
-
 = form_tag dataset_variables_path(@dataset), method: :get, class: 'form-inline', id: 'collection_form' do
   .input-group
     = text_field_tag 's', params[:s], class: 'form-control', placeholder: "Search #{@dataset.slug.upcase}"
@@ -40,9 +35,6 @@
           %td= variable.folder
           - unless params[:s].blank?
             %td= render 'variables/relevance', variable: variable
-
-    - if false
-      .center= paginate @variables, theme: 'bootstrap'
 - elsif @dataset.variables.count == 0
   .jumbotron{ style: 'margin-top:30px' }
     %p

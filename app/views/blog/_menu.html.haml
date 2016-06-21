@@ -3,14 +3,6 @@
 - else
   - params[:category]
 
-- if false
-  = form_tag blog_path, method: :get, id: 'search-form', style: 'margin-bottom:20px' do
-    .input-group
-      = text_field_tag 's', params[:s], class: 'form-control', style: 'width:100%', placeholder: 'Search the NSRR'
-      %span.input-group-btn
-        = link_to '#', data: { object: 'submit', target: '#search-form' }, class: 'btn btn-primary', name: nil do
-          %span.glyphicon.glyphicon-search
-
 %ul.blog-menu
   %li.blog-menu-header Blog
   %li= link_to 'All Posts', blog_path, class: "#{'active' if current_category.blank? && (!@author && !@broadcast)}"
