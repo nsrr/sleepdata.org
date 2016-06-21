@@ -20,8 +20,6 @@ class Tool < ActiveRecord::Base
   # Model Relationships
   belongs_to :user
   has_many :tool_users
-  has_many :tool_contributors
-  has_many :contributors, -> { where deleted: false }, through: :tool_contributors, source: :user
 
   # Tool Methods
 

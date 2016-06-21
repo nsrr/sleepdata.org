@@ -9,14 +9,6 @@
   .small-spacer
   .center= image_tag logo_path, style: 'max-width: 100%'
 
-  - if @object.contributors.size > 0
-    - size = 24
-    .small-spacer
-    %h4.center Contributors
-    - @object.contributors.order(:last_name, :first_name).each do |u|
-      = image_tag u.avatar_url(size, 'identicon'), class: 'img-thumbnail', rel: 'tooltip', title: u.name, data: { container: 'body', placement: 'bottom' }, style: "height:#{size+10}px;width:#{size+10}px;margin-left:10px;margin-bottom:10px"
-    %div{ style: 'clear:both' }
-
 - if current_user && @object.editable_by?(current_user)
   .small-spacer
   .center
