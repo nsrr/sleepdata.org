@@ -53,30 +53,22 @@
 .markdown-container,
 .mono-container {
   background-color: $body-bg;
+  border: 1px solid $gray-lighter;
+  box-shadow: 2px 2px 5px $brand-shadow;
   font-size: 14px;
   font-weight: 300;
+  margin: 20px;
+  padding: 20px;
 
   img {
     max-width: 100%;
   }
 }
 
-.markdown-container,
-.mono-container {
-  border: 1px solid $gray-lighter;
-  box-shadow: 2px 2px 5px $brand-shadow;
-  margin: 20px;
-  padding: 20px;
-}
-
 @media screen and (min-width: $screen-sm-min) {
   .markdown-container,
   .mono-container {
     font-size: 16px;
-  }
-
-  .markdown-container,
-  .mono-container {
     padding: 30px;
   }
 }
@@ -85,10 +77,6 @@
   .markdown-container,
   .mono-container {
     font-size: 18px;
-  }
-
-  .markdown-container,
-  .mono-container {
     padding: 40px;
   }
 }
