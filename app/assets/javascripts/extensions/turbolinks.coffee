@@ -1,5 +1,5 @@
 @turbolinksReady = ->
-  # Don't cache pages with Turbolinks
-  Turbolinks.pagesCached(0)
-  Turbolinks.allowLinkExtensions('md')
-  Turbolinks.enableProgressBar()
+  # # Don't cache pages with Turbolinks
+  # TODO: Clear cache on tablet handoff.
+  # Turbolinks.clearCache()
+  # Turbolinks.allowLinkExtensions('md')
