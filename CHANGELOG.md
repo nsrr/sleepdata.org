@@ -23,6 +23,8 @@
   - Users can upvote, downvote, and reply directly to other forum posts
   - Users now receive in-app notifications when a new reply is added to a forum
     topic to which they are subscribed
+- **General Changes**
+  - Added a sitemap for better indexing on Google and Bing
 - **Search Added**
   - A site-wide search has been added that searches through blog posts and forum
     topics

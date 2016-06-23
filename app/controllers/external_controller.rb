@@ -47,4 +47,14 @@ class ExternalController < ApplicationController
   # POST /preview
   def preview
   end
+
+  # GET /sitemap.xml.gz
+  def sitemap_xml
+    sitemap_xml = File.join(CarrierWave::Uploader::Base.root, 'sitemaps', 'sitemap.xml.gz')
+    if File.exist?(sitemap_xml)
+      send_file sitemap_xml
+    else
+      head :ok
+    end
+  end
 end
