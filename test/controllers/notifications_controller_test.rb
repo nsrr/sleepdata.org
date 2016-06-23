@@ -17,14 +17,14 @@ class NotificationsControllerTest < ActionController::TestCase
 
   test 'should get all read index' do
     login(@regular_user)
-    get :index, all: '1'
+    get :index, params: { all: '1' }
     assert_response :success
     assert_not_nil assigns(:notifications)
   end
 
   test 'should show blog post reply notification' do
     login(@regular_user)
-    get :show, id: notifications(:broadcast_reply_one)
+    get :show, params: { id: notifications(:broadcast_reply_one) }
     assert_not_nil assigns(:notification)
     assert_equal true, assigns(:notification).read
     assert_redirected_to notifications(:broadcast_reply_one).reply
@@ -32,7 +32,7 @@ class NotificationsControllerTest < ActionController::TestCase
 
   test 'should show forum topic reply notification' do
     login(@regular_user)
-    get :show, id: notifications(:topic_reply_one)
+    get :show, params: { id: notifications(:topic_reply_one) }
     assert_not_nil assigns(:notification)
     assert_equal true, assigns(:notification).read
     assert_redirected_to notifications(:topic_reply_one).reply
@@ -40,7 +40,7 @@ class NotificationsControllerTest < ActionController::TestCase
 
   test 'should show blank notification and redirect' do
     login(@regular_user)
-    get :show, id: notifications(:blank)
+    get :show, params: { id: notifications(:blank) }
     assert_not_nil assigns(:notification)
     assert_equal true, assigns(:notification).read
     assert_redirected_to notifications_path
@@ -48,14 +48,16 @@ class NotificationsControllerTest < ActionController::TestCase
 
   test 'should not show notification without valid id' do
     login(@regular_user)
-    get :show, id: -1
+    get :show, params: { id: -1 }
     assert_nil assigns(:notification)
     assert_redirected_to notifications_path
   end
 
   test 'should update notification' do
     login(@regular_user)
-    patch :update, id: notifications(:broadcast_reply_one), notification: { read: true }, format: 'js'
+    patch :update, params: {
+      id: notifications(:broadcast_reply_one), notification: { read: true }
+    }, format: 'js'
     assert_not_nil assigns(:notification)
     assert_equal true, assigns(:notification).read
     assert_template 'show'
@@ -64,7 +66,9 @@ class NotificationsControllerTest < ActionController::TestCase
 
   test 'should mark all as read' do
     login(@regular_user)
-    patch :mark_all_as_read, broadcast_id: broadcasts(:published).id, format: 'js'
+    patch :mark_all_as_read, params: {
+      broadcast_id: broadcasts(:published).id
+    }, format: 'js'
     assert_equal 0, @regular_user.notifications.where(broadcast_id: broadcasts(:published), read: false).count
     assert_template 'mark_all_as_read'
     assert_response :success

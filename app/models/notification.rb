@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Tracks if a user has seen replies to blog posts and forum topics.
-class Notification < ActiveRecord::Base
+class Notification < ApplicationRecord
   # Model Validation
   validates :user_id, presence: true
 
