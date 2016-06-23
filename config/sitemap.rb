@@ -35,8 +35,11 @@ SitemapGenerator::Sitemap.create do
   end
 
   Dataset.release_scheduled.each do |dataset|
-    add "/datasets/#{dataset.slug}", changefreq: 'weekly'
-    add "/datasets/#{dataset.slug}/files", changefreq: 'weekly'
-    add "/datasets/#{dataset.slug}/variables", changefreq: 'weekly'
+    add "/datasets/#{dataset.to_param}", changefreq: 'weekly'
+    add "/datasets/#{dataset.to_param}/files", changefreq: 'weekly'
+    add "/datasets/#{dataset.to_param}/variables", changefreq: 'weekly'
+    dataset.variables.where(dataset_version: dataset.dataset_version).find_each do |variable|
+      add "/datasets/#{dataset.to_param}/variables/#{variable.to_param}", changefreq: 'monthly'
+    end
   end
 end
