@@ -3,6 +3,7 @@
 ### Enhancements
 - **Admin Changes**
   - Added admin view for blog post and forum topic replies
+  - Improved speed of dataset audits page
 - **Blog Changes**
   - Added view_count column to track blog post views
 - **Forum Changes**

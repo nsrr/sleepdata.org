@@ -6,7 +6,7 @@
   .breadcrumb-container
     .container{ style: 'position: relative;' }
       .hidden-xs{ style: 'position: absolute; top: -5.5px; right: 15px' }
-        = render 'variables/per_page', per_page: 100, object_count: @audits.count, pagination_size: 'small'
+        = render 'variables/per_page', per_page: 20, object_count: @audits.total_count, pagination_size: 'small'
       %ol
         %li= link_to @dataset.slug, @dataset
         %li audits
@@ -45,15 +45,13 @@
             %span.text-muted -
         %th
 
-    - paginated_audits = @audits.page(params[:page]).per( 100 )
-
-    - paginated_audits.each do |audit|
+    - @audits.each do |audit|
       %tr
         %td= audit.file_path
         %td= number_to_human_size audit.file_size
         %td
           - if audit.user_id.to_s == params[:user_id]
-            = link_to audits_dataset_path(@dataset, medium: params[:medium], remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: "Remove Filter", placement: 'left' } do
+            = link_to audits_dataset_path(@dataset, medium: params[:medium], remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: 'Remove Filter', placement: 'left' } do
               %span.glyphicon.glyphicon-remove
           - else
             = link_to audits_dataset_path(@dataset, medium: params[:medium], user_id: audit.user_id.to_s, remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: "Filter by #{ audit.user ? audit.user.name : 'Anonymous' }", placement: 'left' } do
@@ -64,7 +62,7 @@
             %span.text-muted Anonymous
         %td
           - if audit.remote_ip.to_s == params[:remote_ip]
-            = link_to audits_dataset_path(@dataset, user_id: params[:user_id], medium: params[:medium]), rel: 'tooltip', data: { title: "Remove Filter", placement: 'left' } do
+            = link_to audits_dataset_path(@dataset, user_id: params[:user_id], medium: params[:medium]), rel: 'tooltip', data: { title: 'Remove Filter', placement: 'left' } do
               %span.glyphicon.glyphicon-remove
           - else
             = link_to audits_dataset_path(@dataset, remote_ip: audit.remote_ip.to_s, user_id: params[:user_id], medium: params[:medium]), rel: 'tooltip', data: { title: "Filter by #{audit.remote_ip}", placement: 'left' } do
@@ -72,7 +70,7 @@
           = audit.remote_ip
         %td
           - if audit.medium.to_s == params[:medium]
-            = link_to audits_dataset_path(@dataset, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: "Remove Filter", placement: 'left' } do
+            = link_to audits_dataset_path(@dataset, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: 'Remove Filter', placement: 'left' } do
               %span.glyphicon.glyphicon-remove
           - else
             = link_to audits_dataset_path(@dataset, medium: audit.medium.to_s, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: "Filter by #{audit.medium}", placement: 'left' } do
@@ -81,11 +79,11 @@
         %td= audit.created_at.strftime('%b %d, %Y &middot; %I:%M %p').html_safe
 
 .center
-  = paginate paginated_audits, theme: "bootstrap-small"
+  = paginate @audits, theme: 'bootstrap-small'
 
 %h2 Page Views
 
-- @page_views = @dataset.dataset_page_audits.group_by(&:page_path).collect{|page_path, audits| [page_path, audits.count]}.sort { |a,b| b[1] <=> a[1] }
+- @page_views = @dataset.dataset_page_audits.group(:page_path).count.to_a.sort_by(&:second)
 %table.table.table-striped
   %thead
     %tr
@@ -93,9 +91,9 @@
       %th Page Views
     %tr.success
       %th Total
-      %th= number_with_delimiter( @page_views.sum{|p| p[1]} )
+      %th= number_with_delimiter(@page_views.sum { |p| p[1] })
 
-  - @page_views.each do |page_path, page_view_count|
+  - @page_views.reverse.each do |page_path, page_view_count|
     %tr
       %td= page_path
-      %td= number_with_delimiter( page_view_count )
+      %td= number_with_delimiter page_view_count
