@@ -29,7 +29,7 @@ class Topic < ActiveRecord::Base
   belongs_to :user
   has_many :topic_users
   has_many :subscriptions
-  has_many :subscribers, -> { current.where(emails_enabled: true).where(subscriptions: { subscribed: true }) }, through: :subscriptions, source: :user
+  has_many :subscribers, -> { current.where(subscriptions: { subscribed: true }) }, through: :subscriptions, source: :user
   has_many :topic_tags
   has_many :tags, -> { current.order(:name) }, through: :topic_tags
 

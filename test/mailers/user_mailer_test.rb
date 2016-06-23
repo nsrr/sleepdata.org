@@ -5,20 +5,6 @@ require 'test_helper'
 # Tests that mail views are rendered corretly, sent to correct user, and have a
 # correct subject line.
 class UserMailerTest < ActionMailer::TestCase
-  test 'post replied email' do
-    post = replies(:six)
-    user = users(:two)
-
-    # Send the email, then test that it got queued
-    email = UserMailer.post_replied(post, user).deliver_now
-    assert !ActionMailer::Base.deliveries.empty?
-
-    # Test the body of the sent email contains what we expect it to
-    assert_equal [user.email], email.to
-    assert_equal "New Forum Reply: #{post.topic.title}", email.subject
-    assert_match(/Someone posted a reply to the following topic:/, email.encoded)
-  end
-
   test 'reviewer digest email' do
     valid = users(:valid)
 

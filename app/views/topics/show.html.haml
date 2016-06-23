@@ -21,13 +21,19 @@
               Edit Topic
           = link_to 'Delete Topic', @topic, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger-inverse'
 
+  - if current_user
+    %div{ style: 'background-color: #ededed' }
+      .container
+        #topic-subscription= render 'topics/subscribe_unsubscribe', topic: @topic
+
+
 %div{ style: 'margin-bottom: 20px' }
   .pull-right.hidden-xs.hidden-sm{ style: 'margin-top: -20px' }
     = paginate @replies, theme: 'bootstrap-small'
 
-= render 'replies/index', parent: @topic
+%div{ style: 'clear:both' }
 
-- async_write_a_reply_path = async_parent_reply_path(topic_id: @topic, parent_reply_id: 'root', reply_id: 'new')
+= render 'replies/index', parent: @topic
 
 - if @page == @topic.last_page
   #comment_container_root_new{ style: 'display:none' }
@@ -36,11 +42,10 @@
 
   %a.anchor{ name: 'write-a-reply' }
   #write_reply_root_new{ style: 'margin-bottom: 20px' }
+    - async_write_a_reply_path = async_parent_reply_path(topic_id: @topic, parent_reply_id: 'root', reply_id: 'new')
     = link_to 'Write a Reply', async_write_a_reply_path, method: :post, remote: true, class: 'btn btn-primary'
 
 .center= paginate @replies, theme: 'bootstrap-small'
-
-
 
 - if false
   - if @topic.locked?

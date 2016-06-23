@@ -2,14 +2,6 @@
 
 # Sends out application emails to users
 class UserMailer < ApplicationMailer
-  def post_replied(post, user)
-    setup_email
-    @post = post
-    @user = user
-    @email_to = user.email
-    mail(to: @email_to, subject: "New Forum Reply: #{@post.topic.title}")
-  end
-
   def reviewer_digest(user)
     setup_email
     @user = user

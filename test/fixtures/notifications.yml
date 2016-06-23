@@ -1,0 +1,20 @@
+broadcast_reply_one:
+  user: valid
+  read: false
+  broadcast: published
+  # topic:
+  reply_id: 8
+
+topic_reply_one:
+  user: valid
+  read: false
+  # broadcast:
+  topic: one
+  reply_id: 1
+
+blank:
+  user: valid
+  read: false
+  # broadcast:
+  # topic:
+  # reply_id:
