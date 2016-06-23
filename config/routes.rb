@@ -213,6 +213,12 @@ Rails.application.routes.draw do
     post :preview
   end
 
+  resources :notifications do
+    collection do
+      patch :mark_all_as_read
+    end
+  end
+
   scope module: 'request' do
     get 'contribute/tool', to: redirect('contribute/tool/start')
     get 'contribute/tool/start', action: 'contribute_tool_start', as: :contribute_tool_start

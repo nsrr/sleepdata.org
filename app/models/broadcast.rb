@@ -49,6 +49,9 @@ class Broadcast < ApplicationRecord
     1
   end
 
+  def subscribers
+    User.none
+  end
 
   # TODO: Refactor or remove into search module
   def self.compute_ranges(description_array, terms)

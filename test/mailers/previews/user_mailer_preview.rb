@@ -2,12 +2,6 @@
 
 # Allows emails to be viewed at /rails/mailers
 class UserMailerPreview < ActionMailer::Preview
-  def post_replied
-    post = Post.first
-    user = User.first
-    UserMailer.post_replied(post, user)
-  end
-
   def reviewer_digest
     user = User.first
     UserMailer.reviewer_digest(user)

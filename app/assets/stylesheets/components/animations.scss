@@ -1,3 +1,13 @@
+@keyframes wiggle {
+  25% {
+    transform: rotate(7deg);
+  }
+
+  75% {
+    transform: rotate(-7deg);
+  }
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

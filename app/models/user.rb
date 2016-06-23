@@ -56,6 +56,7 @@ class User < ApplicationRecord
   has_many :dataset_file_audits
   has_many :hosting_requests, -> { current }
   has_many :images
+  has_many :notifications
   has_many :replies, -> { current }
   has_many :reviews
   has_many :subscriptions
@@ -214,6 +215,10 @@ class User < ApplicationRecord
 
   def forum_name
     username.blank? ? name : username
+  end
+
+  def unread_notifications?
+    notifications.where(read: false).count > 0
   end
 
   # Overriding Devise built-in active_for_authentication? method

@@ -1,0 +1,55 @@
+- @title = 'Notifications'
+
+- content_for :banner do
+  .banner
+    .container
+      .banner-header.brand
+        = @title
+
+.row
+  .col-md-3.col-buffer
+    = link_to 'Unread', notifications_path, class: "btn btn-block #{current_page?(notifications_path) && params[:all] != '1' ? 'btn-primary' : 'btn-default'}"
+    = link_to 'All', notifications_path(all: '1'), class: "btn btn-block #{current_page?(notifications_path) && params[:all] == '1' ? 'btn-primary' : 'btn-default'}"
+  .col-md-9
+    - if @notifications.count > 0
+      - @notifications.where.not(broadcast_id: nil).order(created_at: :desc).includes(:broadcast, :reply).group_by(&:broadcast).each do |broadcast, notifications|
+        %table.table.table-fixed
+          %col{ width: '32px' }
+          %col{ }
+          %col.hidden-xs{ width: '32px' }
+          %col.hidden-xs{ width: '165px' }
+          %col{ width: '32px' }
+          %thead
+            %tr
+              %th{ colspan: 2 }= link_to broadcast.title, blog_post_path(broadcast.url_hash), class: 'link-unstyled'
+              %th.hidden-xs
+              %th.hidden-xs
+              %th
+                = link_to mark_all_as_read_notifications_path(broadcast_id: broadcast.id), method: :patch, remote: true, class: 'text-muted' do
+                  %span.glyphicon.glyphicon-ok
+          %tbody
+            - notifications.each do |notification|
+              %tr{ id: "notification_#{notification.id}"}
+                = render 'notifications/show', notification: notification
+      - @notifications.where.not(topic_id: nil).order(created_at: :desc).includes(:topic, :reply).group_by(&:topic).each do |topic, notifications|
+        %table.table.table-fixed
+          %col{ width: '32px' }
+          %col{ }
+          %col.hidden-xs{ width: '32px' }
+          %col.hidden-xs{ width: '165px' }
+          %col{ width: '32px' }
+          %thead
+            %tr
+              %th{ colspan: 2 }= link_to topic.title, topic, class: 'link-unstyled'
+              %th.hidden-xs
+              %th.hidden-xs
+              %th
+                = link_to mark_all_as_read_notifications_path(topic_id: topic.id), method: :patch, remote: true, class: 'text-muted' do
+                  %span.glyphicon.glyphicon-ok
+          %tbody
+            - notifications.each do |notification|
+              %tr{ id: "notification_#{notification.id}"}
+                = render 'notifications/show', notification: notification
+    - else
+      .jumbotron.jumbotron-action
+        %p.center You have no unread notifications!
