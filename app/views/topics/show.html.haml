@@ -13,7 +13,7 @@
           - @topic.tags.each do |tag|
             %span.label.label-default{ style: "background-color:#{tag.color}" }= tag.name
 
-        = link_to 'Write a Reply', topic_path(@topic, page: @topic.last_page, anchor: 'write-a-reply'), class: 'btn btn-xs btn-primary'
+        = link_to 'Write a Reply', page_topic_path(@topic, page: @topic.last_page, anchor: 'write-a-reply'), method: :get, class: 'btn btn-xs btn-primary'
         - if current_user && @topic.editable_by?(current_user)
           = succeed ' ' do
             = link_to edit_topic_path(@topic), class: 'btn btn-xs btn-default' do

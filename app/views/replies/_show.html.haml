@@ -37,7 +37,7 @@
               - if reply.parent.replies.first == reply
                 - method = :get
                 - remote = nil
-                - async_write_a_reply_path = topic_path(reply.parent, page: reply.parent.last_page, anchor: 'write-a-reply')
+                - async_write_a_reply_path = page_topic_path(reply.parent, page: reply.parent.last_page, anchor: 'write-a-reply')
 
             %small= link_to 'reply', async_write_a_reply_path, method: method, remote: remote, class: 'text-muted'
             %small= link_to 'link', reply, class: 'text-muted'
