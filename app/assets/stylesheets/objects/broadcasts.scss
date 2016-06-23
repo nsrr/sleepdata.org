@@ -121,6 +121,7 @@
 }
 
 .broadcast-body {
+  @include scale-images;
   padding: 10px;
 }
 
@@ -154,4 +155,13 @@
 
 .broadcast-alert .broadcast-header::after {
   border-right-color: $brand-warning;
+}
+
+.broadcast-replies-header {
+  background-color: $brand-gray-lighter;
+  border: 2px solid $brand-primary;
+  border-radius: 4px;
+  box-shadow: $box-shadow;
+  margin: 20px 0;
+  padding: 20px;
 }

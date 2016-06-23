@@ -17,13 +17,13 @@ class Editor::DatasetsController < ApplicationController
     @agreements = agreement_scope.page(params[:page]).per(40)
   end
 
-  # GET/POST/PATCH /datasets/1/audits
+  # GET /datasets/1/audits
   def audits
-    audit_scope = @dataset.dataset_file_audits.order(created_at: :desc)
+    audit_scope = @dataset.dataset_file_audits.order(id: :desc)
     audit_scope = audit_scope.where(user_id: params[:user_id].blank? ? nil : params[:user_id]) if params.key?(:user_id)
     audit_scope = audit_scope.where(medium: params[:medium].blank? ? nil : params[:medium]) if params.key?(:medium)
     audit_scope = audit_scope.where(remote_ip: params[:remote_ip].blank? ? nil : params[:remote_ip]) if params.key?(:remote_ip)
-    @audits = audit_scope
+    @audits = audit_scope.page(params[:page]).per(20)
   end
 
   # GET /datasets/1/collaborators

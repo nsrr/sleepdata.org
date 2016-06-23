@@ -14,8 +14,10 @@
 ### Enhancements
 - **Admin Changes**
   - Added admin view for blog post and forum topic replies
+  - Improved speed of dataset audits page
 - **Blog Changes**
   - Added view_count column to track blog post views
+  - Improved the blog index to show extracts of the blog posts
 - **Forum Changes**
   - Forum topics now track views and have better URL structure
   - Users can upvote, downvote, and reply directly to other forum posts
