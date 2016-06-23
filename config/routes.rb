@@ -293,6 +293,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get 'sitemap.xml.gz' => 'external#sitemap_xml'
+
   devise_for :users, controllers: { sessions: 'sessions' }, path_names: { sign_up: 'join', sign_in: 'login' }, path: ''
 
   resources :users

@@ -17,6 +17,13 @@ SHELL=/bin/bash
 0 1 * * 3 source /etc/profile.d/rvm.sh && cd /var/www/www.sleepdata.org && /usr/local/rvm/gems/ruby-2.3.1/bin/bundle exec rake weekly_reviewer_digest RAILS_ENV=production
 ```
 
+Refreshing Sitemap
+
+```
+SHELL=/bin/bash
+0 1 * * * source /etc/profile.d/rvm.sh && cd /var/www/www.sleepdata.org && /usr/local/rvm/gems/ruby-2.3.1/bin/bundle exec rake sitemap:refresh RAILS_ENV=production
+```
+
 ## Installing Mini Magick - Image Upload Resizing
 
 In order to make full use of the `mini_magick` gem, the underlying ImageMagick library and binaries needs to be compiled.
