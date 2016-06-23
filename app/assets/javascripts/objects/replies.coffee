@@ -74,7 +74,10 @@ $(document)
     selection = $($(this).data('target')).getSelection()
     return false unless selection?
     original_text = $($(this).data('target')).val()
-    substitute = "[#{selection.text}](url)"
+    if selection.text == ""
+      substitute = "[Example Link Text](http://example.com)"
+    else
+      substitute = "[#{selection.text}](http://example.com)"
     new_string = original_text.substring(0, selection.start) + substitute + original_text.substring(selection.end)
     $($(this).data('target')).val(new_string)
     false
