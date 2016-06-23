@@ -6,6 +6,8 @@
   width: 0;
 }
 
+.no-underline:focus,
 .no-underline:hover {
+  outline: none;
   text-decoration: none;
 }
