@@ -1,5 +1,9 @@
 ## 0.24.0
 
+### Refactoring
+- Removed unused database tables `broadcast_comments` and
+  `broadcast_comment_users`
+
 ## 0.23.0 (June 24, 2016)
 
 ### Enhancements
