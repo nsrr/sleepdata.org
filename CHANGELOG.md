@@ -9,7 +9,7 @@
 - Prefer use of `after_create_commit :fn` instead of
   `after_commit :fn, on: :create`
 
-## 0.23.0
+## 0.23.0 (June 24, 2016)
 
 ### Enhancements
 - **Admin Changes**
