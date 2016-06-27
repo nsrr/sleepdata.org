@@ -1,4 +1,4 @@
-class AddBroadcastIdToReplies < ActiveRecord::Migration
+class AddBroadcastIdToReplies < ActiveRecord::Migration[4.2]
   def change
     add_column :replies, :broadcast_id, :integer
     add_index :replies, :broadcast_id

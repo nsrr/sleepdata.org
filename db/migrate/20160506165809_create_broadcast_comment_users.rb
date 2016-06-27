@@ -1,4 +1,4 @@
-class CreateBroadcastCommentUsers < ActiveRecord::Migration
+class CreateBroadcastCommentUsers < ActiveRecord::Migration[4.2]
   def change
     create_table :broadcast_comment_users do |t|
       t.integer :broadcast_id

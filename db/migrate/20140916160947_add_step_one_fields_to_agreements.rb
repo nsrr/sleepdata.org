@@ -1,4 +1,4 @@
-class AddStepOneFieldsToAgreements < ActiveRecord::Migration
+class AddStepOneFieldsToAgreements < ActiveRecord::Migration[4.2]
   def change
     add_column :agreements, :current_step, :integer, null: false, default: 0
 

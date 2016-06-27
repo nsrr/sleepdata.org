@@ -1,4 +1,4 @@
-class AddInformationToDatasets < ActiveRecord::Migration
+class AddInformationToDatasets < ActiveRecord::Migration[4.2]
   def change
     add_column :datasets, :info_what, :string
     add_column :datasets, :info_who, :text

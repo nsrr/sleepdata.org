@@ -1,4 +1,4 @@
-class CreateVariableForms < ActiveRecord::Migration
+class CreateVariableForms < ActiveRecord::Migration[4.2]
   def change
     create_table :variable_forms do |t|
       t.integer :variable_id

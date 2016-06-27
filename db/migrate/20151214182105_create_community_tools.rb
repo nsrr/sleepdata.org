@@ -1,4 +1,4 @@
-class CreateCommunityTools < ActiveRecord::Migration
+class CreateCommunityTools < ActiveRecord::Migration[4.2]
   def change
     create_table :community_tools do |t|
       t.string :url

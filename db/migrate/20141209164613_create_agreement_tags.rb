@@ -1,4 +1,4 @@
-class CreateAgreementTags < ActiveRecord::Migration
+class CreateAgreementTags < ActiveRecord::Migration[4.2]
   def change
     create_table :agreement_tags do |t|
       t.integer :agreement_id

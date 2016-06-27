@@ -1,4 +1,4 @@
-class CreatePgSearchDocuments < ActiveRecord::Migration
+class CreatePgSearchDocuments < ActiveRecord::Migration[4.2]
   def change
     create_table :pg_search_documents do |t|
       t.text :content

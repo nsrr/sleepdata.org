@@ -1,4 +1,4 @@
-class RemoveAddedAndRemovedTagIdsFromAgreementEvents < ActiveRecord::Migration
+class RemoveAddedAndRemovedTagIdsFromAgreementEvents < ActiveRecord::Migration[4.2]
   def up
     remove_column :agreement_events, :added_tag_ids
     remove_column :agreement_events, :removed_tag_ids

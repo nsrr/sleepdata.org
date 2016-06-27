@@ -1,4 +1,4 @@
-class CreateAgreementTransactions < ActiveRecord::Migration
+class CreateAgreementTransactions < ActiveRecord::Migration[4.2]
   def change
     create_table :agreement_transactions do |t|
       t.string :transaction_type

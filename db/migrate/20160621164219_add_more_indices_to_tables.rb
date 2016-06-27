@@ -1,4 +1,4 @@
-class AddMoreIndicesToTables < ActiveRecord::Migration
+class AddMoreIndicesToTables < ActiveRecord::Migration[4.2]
   def change
     add_index :challenges, :slug, unique: true
     add_index :challenges, :public

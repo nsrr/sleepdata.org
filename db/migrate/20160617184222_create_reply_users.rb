@@ -1,4 +1,4 @@
-class CreateReplyUsers < ActiveRecord::Migration
+class CreateReplyUsers < ActiveRecord::Migration[4.2]
   def change
     create_table :reply_users do |t|
       t.integer :broadcast_id

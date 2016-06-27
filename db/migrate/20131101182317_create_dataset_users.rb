@@ -1,4 +1,4 @@
-class CreateDatasetUsers < ActiveRecord::Migration
+class CreateDatasetUsers < ActiveRecord::Migration[4.2]
   def change
     create_table :dataset_users do |t|
       t.integer :dataset_id

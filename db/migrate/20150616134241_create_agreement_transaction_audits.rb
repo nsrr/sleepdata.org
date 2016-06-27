@@ -1,4 +1,4 @@
-class CreateAgreementTransactionAudits < ActiveRecord::Migration
+class CreateAgreementTransactionAudits < ActiveRecord::Migration[4.2]
   def change
     create_table :agreement_transaction_audits do |t|
       t.integer :agreement_transaction_id

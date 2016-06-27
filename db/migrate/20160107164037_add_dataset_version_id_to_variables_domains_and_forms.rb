@@ -1,4 +1,4 @@
-class AddDatasetVersionIdToVariablesDomainsAndForms < ActiveRecord::Migration
+class AddDatasetVersionIdToVariablesDomainsAndForms < ActiveRecord::Migration[4.2]
   def change
     add_column :domains, :dataset_version_id, :integer
     add_column :forms, :dataset_version_id, :integer

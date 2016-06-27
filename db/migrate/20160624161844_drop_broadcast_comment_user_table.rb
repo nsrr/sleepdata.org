@@ -1,4 +1,4 @@
-class DropBroadcastCommentUserTable < ActiveRecord::Migration
+class DropBroadcastCommentUserTable < ActiveRecord::Migration[4.2]
   def up
     remove_index :broadcast_comment_users, :vote
     remove_index :broadcast_comment_users, name: 'index_blog_comment_votes'

@@ -1,4 +1,4 @@
-class DropBroadcastCommentTable < ActiveRecord::Migration
+class DropBroadcastCommentTable < ActiveRecord::Migration[4.2]
   def up
     remove_index :broadcast_comments, :deleted
     remove_index :broadcast_comments, :broadcast_comment_id

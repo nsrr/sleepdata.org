@@ -1,4 +1,4 @@
-class CreateHostingRequests < ActiveRecord::Migration
+class CreateHostingRequests < ActiveRecord::Migration[4.2]
   def change
     create_table :hosting_requests do |t|
       t.integer :user_id

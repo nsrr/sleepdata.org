@@ -1,4 +1,4 @@
-class DropDatasetContributorsTable < ActiveRecord::Migration
+class DropDatasetContributorsTable < ActiveRecord::Migration[4.2]
   def up
     drop_table :dataset_contributors
   end

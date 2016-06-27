@@ -1,4 +1,4 @@
-class AddDulyAuthorizedSignaturePrintToAgreements < ActiveRecord::Migration
+class AddDulyAuthorizedSignaturePrintToAgreements < ActiveRecord::Migration[4.2]
   def change
     add_column :agreements, :duly_authorized_representative_signature, :text
     add_column :agreements, :duly_authorized_representative_signature_print, :string

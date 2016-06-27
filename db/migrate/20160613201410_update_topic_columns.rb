@@ -1,4 +1,4 @@
-class UpdateTopicColumns < ActiveRecord::Migration
+class UpdateTopicColumns < ActiveRecord::Migration[4.2]
   def up
     rename_column :topics, :stickied, :pinned
     rename_column :topics, :last_comment_at, :last_reply_at

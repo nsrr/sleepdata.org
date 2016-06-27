@@ -1,4 +1,4 @@
-class AddStatsToVariables < ActiveRecord::Migration
+class AddStatsToVariables < ActiveRecord::Migration[4.2]
   def change
     add_column :variables, :stats_n, :integer
     add_column :variables, :stats_mean, :float

@@ -1,4 +1,4 @@
-class AddIndexToAudits < ActiveRecord::Migration
+class AddIndexToAudits < ActiveRecord::Migration[4.2]
   def change
     add_index :dataset_file_audits, :dataset_id
     add_index :dataset_file_audits, :user_id

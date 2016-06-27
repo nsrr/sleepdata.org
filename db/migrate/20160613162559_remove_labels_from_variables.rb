@@ -1,4 +1,4 @@
-class RemoveLabelsFromVariables < ActiveRecord::Migration
+class RemoveLabelsFromVariables < ActiveRecord::Migration[4.2]
   def up
     remove_column :variables, :labels
   end

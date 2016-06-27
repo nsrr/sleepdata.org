@@ -1,4 +1,4 @@
-class RemoveLists < ActiveRecord::Migration
+class RemoveLists < ActiveRecord::Migration[4.2]
   def change
     drop_table :lists do |t|
       t.string :name

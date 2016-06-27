@@ -1,4 +1,4 @@
-class CreateToolUsers < ActiveRecord::Migration
+class CreateToolUsers < ActiveRecord::Migration[4.2]
   def change
     create_table :tool_users do |t|
       t.integer :tool_id

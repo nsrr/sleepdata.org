@@ -1,4 +1,4 @@
-class DropPublicFiles < ActiveRecord::Migration
+class DropPublicFiles < ActiveRecord::Migration[4.2]
   def change
     drop_table :public_files do |t|
       t.integer :dataset_id

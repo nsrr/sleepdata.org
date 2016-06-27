@@ -1,4 +1,4 @@
-class CreateTopicTags < ActiveRecord::Migration
+class CreateTopicTags < ActiveRecord::Migration[4.2]
   def change
     create_table :topic_tags, id: false do |t|
       t.integer :topic_id

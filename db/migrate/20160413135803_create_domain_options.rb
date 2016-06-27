@@ -1,4 +1,4 @@
-class CreateDomainOptions < ActiveRecord::Migration
+class CreateDomainOptions < ActiveRecord::Migration[4.2]
   def change
     create_table :domain_options do |t|
       t.integer :domain_id

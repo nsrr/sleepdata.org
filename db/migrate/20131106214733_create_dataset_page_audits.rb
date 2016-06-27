@@ -1,4 +1,4 @@
-class CreateDatasetPageAudits < ActiveRecord::Migration
+class CreateDatasetPageAudits < ActiveRecord::Migration[4.2]
   def change
     create_table :dataset_page_audits do |t|
       t.integer :dataset_id

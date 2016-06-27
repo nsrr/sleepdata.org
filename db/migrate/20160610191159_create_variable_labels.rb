@@ -1,4 +1,4 @@
-class CreateVariableLabels < ActiveRecord::Migration
+class CreateVariableLabels < ActiveRecord::Migration[4.2]
   def change
     create_table :variable_labels do |t|
       t.integer :variable_id

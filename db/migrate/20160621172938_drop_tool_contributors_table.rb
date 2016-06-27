@@ -1,4 +1,4 @@
-class DropToolContributorsTable < ActiveRecord::Migration
+class DropToolContributorsTable < ActiveRecord::Migration[4.2]
   def up
     drop_table :tool_contributors
   end

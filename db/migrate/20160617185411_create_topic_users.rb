@@ -1,4 +1,4 @@
-class CreateTopicUsers < ActiveRecord::Migration
+class CreateTopicUsers < ActiveRecord::Migration[4.2]
   def change
     create_table :topic_users do |t|
       t.integer :topic_id
