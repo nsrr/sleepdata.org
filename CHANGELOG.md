@@ -1,5 +1,8 @@
 ## 0.24.0
 
+### Bug Fix
+- Added missing typeahead.js library
+
 ### Refactoring
 - Removed unused database tables `broadcast_comments` and
   `broadcast_comment_users`
