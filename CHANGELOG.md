@@ -8,6 +8,7 @@
   - Updated to coffee-rails 4.2
   - Updated to jbuilder 2.5
   - Updated to simplecov 0.12.0
+  - Updated to carrierwave 0.11.2
 
 ### Refactoring
 - Prefer use of `after_create_commit :fn` instead of
