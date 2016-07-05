@@ -7,6 +7,7 @@
   - Updated to turbolinks 5
   - Updated to coffee-rails 4.2
   - Updated to jbuilder 2.5
+  - Updated to simplecov 0.12.0
 
 ### Refactoring
 - Prefer use of `after_create_commit :fn` instead of
