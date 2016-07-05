@@ -6,6 +6,7 @@
   - Updated to devise 4.2.0
   - Updated to turbolinks 5
   - Updated to coffee-rails 4.2
+  - Updated to jbuilder 2.5
 
 ### Refactoring
 - Prefer use of `after_create_commit :fn` instead of
