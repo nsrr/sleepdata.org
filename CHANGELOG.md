@@ -5,6 +5,7 @@
   - Updated to rails 5.0.0
   - Updated to devise 4.2.0
   - Updated to turbolinks 5
+  - Updated to coffee-rails 4.2
 
 ### Refactoring
 - Prefer use of `after_create_commit :fn` instead of
