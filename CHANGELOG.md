@@ -1,4 +1,4 @@
-## rails5 branch
+## 0.24.0
 
 ### Enhancements
 - **Gem Changes**
@@ -10,18 +10,14 @@
   - Updated to simplecov 0.12.0
   - Updated to carrierwave 0.11.2
 
-### Refactoring
-- Prefer use of `after_create_commit :fn` instead of
-  `after_commit :fn, on: :create`
-
-## 0.24.0
-
 ### Bug Fix
 - Added missing typeahead.js library
 
 ### Refactoring
 - Removed unused database tables `broadcast_comments` and
   `broadcast_comment_users`
+- Prefer use of `after_create_commit :fn` instead of
+  `after_commit :fn, on: :create`
 
 ## 0.23.0 (June 24, 2016)
 
