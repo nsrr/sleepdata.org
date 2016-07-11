@@ -17,7 +17,7 @@ gem 'redcarpet',            '~> 3.3.2'
 gem 'geocoder',             '~> 1.3.1'
 gem 'maxminddb',            '~> 0.1.11'
 gem 'chunky_png',           '~> 1.3.4'
-gem 'haml',                 '~> 4.0.6'
+gem 'haml',                 '~> 4.0.7'
 gem 'figaro',               '~> 1.1.1'
 gem 'differ',               '~> 0.1.2'
 gem 'hashids',              '~> 1.0.2'
@@ -31,7 +31,7 @@ gem 'sass-rails',           '~> 5.0'
 gem 'uglifier',             '>= 1.3.0'
 
 gem 'jbuilder',             '~> 2.5'
-gem 'jquery-rails',         '~> 4.1.0'
+gem 'jquery-rails',         '~> 4.1.1'
 gem 'turbolinks',           '~> 5'
 
 # Testing
