@@ -1,4 +1,4 @@
-## 0.24.1
+## 0.24.1 (July 11, 2016)
 
 ### Enhancements
 - **Configuration Changes**
