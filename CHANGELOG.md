@@ -1,5 +1,9 @@
 ## 0.24.1
 
+### Enhancements
+- **Configuration Changes**
+  - Updated Rails 5 configuration files
+
 ## 0.24.0 (July 6, 2016)
 
 ### Enhancements
