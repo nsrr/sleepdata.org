@@ -178,7 +178,7 @@ class Agreement < ApplicationRecord
   end
 
   def daua_approved_send_emails(current_user, agreement_event)
-    UserMailer.daua_approved(self, current_user).deliver_later if EMAILS_ENABLED
+    UserMailer.daua_approved(self, current_user).deliver_now if EMAILS_ENABLED
     notify_admins_on_daua_progress(current_user, agreement_event)
   end
 
@@ -195,21 +195,21 @@ class Agreement < ApplicationRecord
   end
 
   def daua_ask_for_resubmit_send_emails(current_user, agreement_event)
-    UserMailer.sent_back_for_resubmission(self, current_user).deliver_later if EMAILS_ENABLED
+    UserMailer.sent_back_for_resubmission(self, current_user).deliver_now if EMAILS_ENABLED
     notify_admins_on_daua_progress(current_user, agreement_event)
   end
 
   def notify_admins_on_daua_progress(current_user, agreement_event)
     other_admins = User.system_admins.where.not(id: current_user.id)
     other_admins.each do |admin|
-      UserMailer.daua_progress_notification(self, admin, agreement_event).deliver_later if EMAILS_ENABLED
+      UserMailer.daua_progress_notification(self, admin, agreement_event).deliver_now if EMAILS_ENABLED
     end
   end
 
   def daua_submitted
     add_reviewers!
     reviews.each do |review|
-      UserMailer.daua_submitted(review.user, self).deliver_later if EMAILS_ENABLED
+      UserMailer.daua_submitted(review.user, self).deliver_now if EMAILS_ENABLED
     end
   end
 
@@ -292,7 +292,7 @@ class Agreement < ApplicationRecord
   end
 
   def send_daua_signed_email
-    UserMailer.daua_signed(self).deliver_later if EMAILS_ENABLED
+    UserMailer.daua_signed(self).deliver_now if EMAILS_ENABLED
   end
 
   def authorized_signature_date

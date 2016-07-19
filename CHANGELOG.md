@@ -1,5 +1,8 @@
 ## 0.24.2
 
+### Bug Fix
+- Fixed emails in forked processes from not being sent
+
 ## 0.24.1 (July 11, 2016)
 
 ### Enhancements

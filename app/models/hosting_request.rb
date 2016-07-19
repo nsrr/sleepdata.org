@@ -40,6 +40,6 @@ class HostingRequest < ApplicationRecord
   end
 
   def send_hosting_request_notification
-    UserMailer.hosting_request_submitted(self).deliver_later if EMAILS_ENABLED
+    UserMailer.hosting_request_submitted(self).deliver_now if EMAILS_ENABLED
   end
 end

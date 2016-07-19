@@ -236,7 +236,7 @@ class User < ApplicationRecord
   end
 
   def send_welcome_email_with_password(pw)
-    RegistrationMailer.send_welcome_email_with_password(self, pw).deliver_later if EMAILS_ENABLED
+    RegistrationMailer.send_welcome_email_with_password(self, pw).deliver_now if EMAILS_ENABLED
   end
 
   def update_location

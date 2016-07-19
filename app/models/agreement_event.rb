@@ -70,7 +70,7 @@ class AgreementEvent < ApplicationRecord
     users = User.current.where.not(username: [nil, ''])
     users.each do |user|
       next if (/@#{user.username}\b/i =~ comment.to_s).nil?
-      UserMailer.mentioned_in_agreement_comment(self, user).deliver_later
+      UserMailer.mentioned_in_agreement_comment(self, user).deliver_now
     end
   end
 end
