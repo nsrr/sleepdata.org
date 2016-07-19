@@ -86,7 +86,7 @@ class AgreementsController < ApplicationController
       render 'proof'
     elsif AgreementTransaction.save_agreement!(@agreement, hash, current_user, request.remote_ip, 'agreement_update')
       @agreement.agreement_events.create event_type: event_type, user_id: current_user.id, event_at: current_time
-      @agreement.daua_submitted
+      @agreement.daua_submitted_in_background
       redirect_to complete_agreement_path(@agreement)
     else
       redirect_to submissions_path

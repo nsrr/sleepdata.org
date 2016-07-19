@@ -206,6 +206,10 @@ class Agreement < ApplicationRecord
     end
   end
 
+  def daua_submitted_in_background
+    fork_process(:daua_submitted)
+  end
+
   def daua_submitted
     add_reviewers!
     reviews.each do |review|

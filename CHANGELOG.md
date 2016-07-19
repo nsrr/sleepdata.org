@@ -1,5 +1,9 @@
 ## 0.24.2
 
+### Enhancement
+- **Agreement Changes**
+  - Emails are now sent in background when submitting a DAUA
+
 ### Bug Fix
 - Fixed emails in forked processes from not being sent
 
