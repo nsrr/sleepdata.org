@@ -1,5 +1,9 @@
 ## 0.25.0
 
+### Enhancements
+- **Agreement Changes**
+  - Made the language for selecting multiple datasets more specific
+
 ## 0.24.2 (July 19, 2016)
 
 ### Enhancement
