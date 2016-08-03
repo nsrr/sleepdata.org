@@ -22,6 +22,6 @@ $(document).ready ->
     ga "send", 'pageview'
     return
 
-$(document).on "page:change", ->
+$(document).on "turbolinks:load", ->
   ga "send", "pageview", window.location.pathname
   return
