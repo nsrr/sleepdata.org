@@ -12,6 +12,7 @@
   authenticity token
 - Fixed a bug that prevented back navigation after opening a PDF
 - Fixed an issue displaying images in documentation
+- Fixed an issue loading Google Analytics
 
 ## 0.24.2 (July 19, 2016)
 
