@@ -4,6 +4,10 @@
 - **Agreement Changes**
   - Made the language for selecting multiple datasets more specific
 
+### Bug Fix
+- Fixed a bug that prevented users from logging in correctly with an expired
+  authenticity token
+
 ## 0.24.2 (July 19, 2016)
 
 ### Enhancement

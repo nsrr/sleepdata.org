@@ -3,11 +3,9 @@
 # Main web application controller for NSRR website. Keeps track of user's
 # location for friendly forwarding.
 class ApplicationController < ActionController::Base
-  before_action :configure_permitted_parameters, if: :devise_controller?
-
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
+  skip_before_action :verify_authenticity_token, if: :devise_login?
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
   before_action :store_location
   before_action :set_cache_buster
@@ -50,6 +48,10 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def devise_login?
+    params[:controller] == 'sessions' && params[:action] == 'create'
+  end
 
   def store_location_in_session
     session[:previous_url] = request.fullpath
