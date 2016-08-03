@@ -52,20 +52,20 @@ class DatasetsControllerTest < ActionController::TestCase
   end
 
   test 'should get inline image for public dataset' do
-    get :images, params: { id: @dataset, path: 'rails.png', inline: '1', format: 'html' }
+    get :images, params: { id: @dataset, path: 'rails.png', inline: '1' }
     assert_not_nil assigns(:image_file)
-    assert_template 'images'
+    assert_template 'images.html.haml'
   end
 
   test 'should download image for public dataset' do
-    get :images, params: { id: @dataset, path: 'rails.png', format: 'html' }
+    get :images, params: { id: @dataset, path: 'rails.png' }
     assert_not_nil assigns(:image_file)
     assert_kind_of String, response.body
     assert_equal File.binread( File.join(assigns(:dataset).root_folder, 'images', 'rails.png') ), response.body
   end
 
   test 'should not download non-existent image for public dataset' do
-    get :images, params: { id: @dataset, path: 'where-is-rails.png', format: 'html' }
+    get :images, params: { id: @dataset, path: 'where-is-rails.png' }
     assert_nil assigns(:image_file)
     assert_response :success
   end
