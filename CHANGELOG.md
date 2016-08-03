@@ -4,6 +4,9 @@
 - **Agreement Changes**
   - Made the language for selecting multiple datasets more specific
 
+### Refactoring
+- Updated kaminari pagination views to use haml
+
 ### Bug Fix
 - Fixed a bug that prevented users from logging in correctly with an expired
   authenticity token
