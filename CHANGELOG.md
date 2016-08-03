@@ -10,6 +10,7 @@
 ### Bug Fix
 - Fixed a bug that prevented users from logging in correctly with an expired
   authenticity token
+- Fixed a bug that prevented back navigation after opening a PDF
 
 ## 0.24.2 (July 19, 2016)
 

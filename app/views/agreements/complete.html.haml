@@ -11,7 +11,7 @@
             %span.glyphicon.glyphicon-th-list
             Review My Submissions
         .col-xs-12.col-sm-3
-          = link_to print_agreement_path(@agreement), target: '_blank', class: 'btn btn-primary btn-block' do
+          = link_to print_agreement_path(@agreement), class: 'btn btn-primary btn-block', data: { turbolinks: false } do
             %span.glyphicon.glyphicon-print
             Print Copy of Agreement
 

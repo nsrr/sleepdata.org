@@ -17,7 +17,7 @@
           Transactions
         - if current_user.all_agreements.where(id: @agreement.id).count > 0
           &nbsp;
-          = link_to print_agreement_path(@agreement), class: 'btn btn-default btn-xs' do
+          = link_to print_agreement_path(@agreement), class: 'btn btn-default btn-xs', data: { turbolinks: false } do
             %span.glyphicon.glyphicon-print
             Print
 

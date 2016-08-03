@@ -33,7 +33,7 @@
             = precede '#' do
               = agreement.agreement_number
 
-          = link_to print_agreement_path(agreement), target: '_blank', class: 'btn btn-xs btn-default' do
+          = link_to print_agreement_path(agreement), class: 'btn btn-xs btn-default', data: { turbolinks: false } do
             %span.glyphicon.glyphicon-print
             Print
 
