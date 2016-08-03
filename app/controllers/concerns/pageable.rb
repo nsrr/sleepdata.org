@@ -32,7 +32,7 @@ module Pageable
     if @image_file and params[:inline] != '1'
       send_file File.join( @object.root_folder, 'images', @image_file )
     elsif @image_file
-      render 'documentation/images'
+      render 'documentation/images.html.haml'
     else
       head :ok
     end
