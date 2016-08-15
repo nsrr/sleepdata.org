@@ -9,12 +9,13 @@
 ### Refactoring
 - Updated kaminari pagination views to use haml
 
-### Bug Fix
+### Bug Fixes
 - Fixed a bug that prevented users from logging in correctly with an expired
   authenticity token
 - Fixed a bug that prevented back navigation after opening a PDF
 - Fixed an issue displaying images in documentation
 - Fixed an issue loading Google Analytics
+- Rails model errors are now again correctly styled using Bootstrap CSS classes
 
 ## 0.24.2 (July 19, 2016)
 

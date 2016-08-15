@@ -26,6 +26,11 @@ module WwwSleepdataOrg
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rails time:zones" for a list of tasks for finding time zone names. Default is UTC.
-    Rails.application.config.time_zone = 'Eastern Time (US & Canada)'
+    config.time_zone = 'Eastern Time (US & Canada)'
+
+    # Overwrite Rails errors to use Bootstrap CSS classes
+    config.action_view.field_error_proc = Proc.new do |html_tag, instance|
+      "<span class=\"has-error\">#{html_tag}</span>".html_safe
+    end
   end
 end
