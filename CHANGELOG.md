@@ -3,6 +3,8 @@
 ### Enhancements
 - **Agreement Changes**
   - Made the language for selecting multiple datasets more specific
+- **Gem Changes**
+  - Updated to rails 5.0.0.1
 
 ### Refactoring
 - Updated kaminari pagination views to use haml
