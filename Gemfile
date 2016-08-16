@@ -43,6 +43,5 @@ group :test do
 end
 
 group :development do
-  # Access an IRB console on exceptions page and /console in development
   gem 'web-console', '~> 3.0'
 end
