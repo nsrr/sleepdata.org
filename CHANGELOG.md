@@ -3,6 +3,8 @@
 ### Enhancements
 - **Agreement Changes**
   - Made the language for selecting multiple datasets more specific
+- **Blog Changes**
+  - Limit the number of blog posts shown in the sidebar
 - **Gem Changes**
   - Updated to rails 5.0.0.1
 

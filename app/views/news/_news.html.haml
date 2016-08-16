@@ -1,4 +1,4 @@
-- Broadcast.current.published.where(archived: false).order(pinned: :desc, publish_date: :desc).each do |broadcast|
+- Broadcast.current.published.where(archived: false).order(pinned: :desc, publish_date: :desc).limit(limit).each do |broadcast|
   .broadcast-outer
     .broadcast-left-fixed
       %div{ style: 'position: absolute;right: 10px;top: 12px;' }
