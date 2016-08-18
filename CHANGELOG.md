@@ -18,6 +18,7 @@
 - Fixed an issue displaying images in documentation
 - Fixed an issue loading Google Analytics
 - Rails model errors are now again correctly styled using Bootstrap CSS classes
+- Fixed a bug that prevented images from being attached to forum replies
 
 ## 0.24.2 (July 19, 2016)
 

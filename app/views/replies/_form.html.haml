@@ -31,7 +31,7 @@
         = link_to 'Preview', '#', data: { object: 'reply-tab', action: 'preview', parent_reply_id: parent_reply_id, reply_id: reply_id }, class: 'preview-tab', tabindex: '-1'
       .preview-body{ style: 'min-height: 209px;' }
         %div{ data: { object: 'reply-tab-content', action: 'write', parent_reply_id: parent_reply_id, reply_id: reply_id } }
-          = f.text_area :description, rows: [[5, reply.description.to_s.count("\n") + 1].max, 25].min, class: 'preview-control filedrag-container', data: { object: 'expandable-text-area dropfile-image', default_rows: 5, upload_url: upload_images_path(update: "#reply_description_#{parent_reply_id}_#{reply_id}", format: 'js'), fallback_url: new_image_path, log_id: "#log_#{parent_reply_id}_#{reply_id}" }, id: "reply_description_#{parent_reply_id}_#{reply_id}"
+          = f.text_area :description, rows: [[5, reply.description.to_s.count("\n") + 1].max, 25].min, class: 'preview-control filedrag-container', data: { object: 'expandable-text-area dropfile', default_rows: 5, upload_url: upload_images_path(update: "#reply_description_#{parent_reply_id}_#{reply_id}", format: 'js'), fallback_url: new_image_path, log_id: "#log_#{parent_reply_id}_#{reply_id}" }, id: "reply_description_#{parent_reply_id}_#{reply_id}"
           .filedrag{ id: "log_#{parent_reply_id}_#{reply_id}", style: 'margin-bottom: 10px' }
             Drag images above to insert into comment.
 
