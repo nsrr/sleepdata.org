@@ -8,21 +8,21 @@ gem 'rails',                '5.0.0.1'
 gem 'pg',                   '0.18.4'
 
 # Gems used by project
-gem 'devise',               '~> 4.2.0'
 gem 'bootstrap-sass',       '~> 3.3.6'
-gem 'kaminari',             '~> 0.17.0'
 gem 'carrierwave',          '~> 0.11.2'
-gem 'mini_magick',          '~> 4.5.1'
-gem 'redcarpet',            '~> 3.3.2'
-gem 'geocoder',             '~> 1.3.1'
-gem 'maxminddb',            '~> 0.1.11'
 gem 'chunky_png',           '~> 1.3.4'
-gem 'haml',                 '~> 4.0.7'
-gem 'figaro',               '~> 1.1.1'
+gem 'devise',               '~> 4.2.0'
 gem 'differ',               '~> 0.1.2'
-gem 'hashids',              '~> 1.0.2'
+gem 'figaro',               '~> 1.1.1'
 gem 'font-awesome-rails',   '~> 4.6.2'
+gem 'geocoder',             '~> 1.3.1'
+gem 'haml',                 '~> 4.0.7'
+gem 'hashids',              '~> 1.0.2'
+gem 'kaminari',             '~> 0.17.0'
+gem 'maxminddb',            '~> 0.1.11'
+gem 'mini_magick',          '~> 4.5.1'
 gem 'pg_search',            '~> 1.0.5'
+gem 'redcarpet',            '~> 3.3.2'
 gem 'sitemap_generator',    '~> 5.1.0'
 
 # Rails Defaults
@@ -38,8 +38,8 @@ gem 'turbolinks',           '~> 5'
 group :test do
   # Pretty printed test output
   gem 'minitest'
-  gem 'simplecov',          '~> 0.12.0', require: false
   gem 'rails-controller-testing'
+  gem 'simplecov', '~> 0.12.0', require: false
 end
 
 group :development do
