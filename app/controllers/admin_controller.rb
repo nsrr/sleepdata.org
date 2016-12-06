@@ -8,9 +8,6 @@ class AdminController < ApplicationController
   def dashboard
   end
 
-  def location
-  end
-
   def roles
   end
 

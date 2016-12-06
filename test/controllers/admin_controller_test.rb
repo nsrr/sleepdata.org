@@ -21,23 +21,6 @@ class AdminControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_path
   end
 
-  test 'should get location for admin' do
-    login(users(:admin))
-    get :location
-    assert_response :success
-  end
-
-  test 'should not get location for regular user' do
-    login(users(:valid))
-    get :location
-    assert_redirected_to root_path
-  end
-
-  test 'should not get location for public user' do
-    get :location
-    assert_redirected_to new_user_session_path
-  end
-
   test 'should get roles for admin' do
     login(users(:admin))
     get :roles

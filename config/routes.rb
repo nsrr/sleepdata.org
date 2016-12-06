@@ -19,7 +19,6 @@ Rails.application.routes.draw do
 
   namespace :admin do
     get :dashboard
-    get :location
     get :roles
     get :stats
     get :sync

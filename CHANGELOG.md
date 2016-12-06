@@ -13,6 +13,7 @@
   - Updated to font-awesome-rails 4.7.0
   - Updated to mini_magick 4.6.0
   - Updated to sitemap_generator 5.2.0
+  - Removed geocoder
 
 ### Refactoring
 - Updated kaminari pagination views to use haml
