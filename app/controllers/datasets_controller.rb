@@ -89,7 +89,7 @@ class DatasetsController < ApplicationController
                     else
                       Dataset.current.where(public: true)
                     end
-    @datasets = dataset_scope.order(@order).page(params[:page]).per(18)
+    @datasets = dataset_scope.order(@order).page(params[:page]).per(24)
   end
 
   # GET /datasets/1
