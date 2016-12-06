@@ -10,6 +10,7 @@
   - Updated to Ruby 2.3.3
   - Updated to jquery-rails 4.2.1
   - Updated to font-awesome-rails 4.7.0
+  - Updated to mini_magick 4.6.0
 
 ### Refactoring
 - Updated kaminari pagination views to use haml
