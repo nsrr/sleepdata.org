@@ -9,6 +9,7 @@
   - Updated to rails 5.0.0.1
   - Updated to Ruby 2.3.3
   - Updated to jquery-rails 4.2.1
+  - Updated to font-awesome-rails 4.7.0
 
 ### Refactoring
 - Updated kaminari pagination views to use haml
