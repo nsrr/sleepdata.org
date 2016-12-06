@@ -215,7 +215,7 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_equal 3, manifest.size
 
     assert_equal 'another_folder', manifest[0]['file_name']
-    assert_equal nil, manifest[0]['checksum']
+    assert_nil manifest[0]['checksum']
     assert_equal false, manifest[0]['is_file']
     assert_not_nil manifest[0]['file_size']
     assert_equal 'wecare', manifest[0]['dataset']

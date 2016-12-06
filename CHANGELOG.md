@@ -7,6 +7,7 @@
   - Limit the number of blog posts shown in the sidebar
 - **Gem Changes**
   - Updated to rails 5.0.0.1
+  - Updated to Ruby 2.3.3
 
 ### Refactoring
 - Updated kaminari pagination views to use haml

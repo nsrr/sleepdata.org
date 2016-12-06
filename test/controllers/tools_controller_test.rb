@@ -2,6 +2,7 @@
 
 require 'test_helper'
 
+# Allows users to view and explore tools.
 class ToolsControllerTest < ActionController::TestCase
   setup do
     @tool = tools(:one)
@@ -39,12 +40,10 @@ class ToolsControllerTest < ActionController::TestCase
     assert_difference('ToolUser.count') do
       get :request_access, params: { id: @tool }
     end
-
     assert_not_nil assigns(:tool_user)
-    assert_equal nil, assigns(:tool_user).approved
+    assert_nil assigns(:tool_user).approved
     assert_equal false, assigns(:tool_user).editor
     assert_equal users(:valid), assigns(:tool_user).user
-
     assert_redirected_to submissions_path
   end
 
@@ -53,24 +52,25 @@ class ToolsControllerTest < ActionController::TestCase
     assert_difference('ToolUser.count', 0) do
       get :request_access, params: { id: @tool }
     end
-
     assert_not_nil assigns(:tool_user)
-    assert_equal nil, assigns(:tool_user).approved
+    assert_nil assigns(:tool_user).approved
     assert_equal false, assigns(:tool_user).editor
     assert_equal users(:two), assigns(:tool_user).user
-
     assert_redirected_to submissions_path
   end
 
   test 'should approve access request to tool' do
     login(users(:editor))
-    patch :set_access, params: { id: @tool, tool_user_id: tool_users(:pending_public_access).id, approved: true, editor: false }
-
+    patch :set_access, params: {
+      id: @tool,
+      tool_user_id: tool_users(:pending_public_access).id,
+      approved: true,
+      editor: false
+    }
     assert_not_nil assigns(:tool_user)
     assert_equal true, assigns(:tool_user).approved
     assert_equal false, assigns(:tool_user).editor
     assert_equal users(:two), assigns(:tool_user).user
-
     assert_redirected_to requests_tool_path(assigns(:tool), tool_user_id: assigns(:tool_user).id)
   end
 
@@ -79,12 +79,10 @@ class ToolsControllerTest < ActionController::TestCase
     assert_difference('ToolUser.count') do
       post :create_access, params: { id: @tool, user_id: users(:aug).id }
     end
-
     assert_not_nil assigns(:tool_user)
-    assert_equal nil, assigns(:tool_user).approved
+    assert_nil assigns(:tool_user).approved
     assert_equal false, assigns(:tool_user).editor
     assert_equal users(:aug), assigns(:tool_user).user
-
     assert_redirected_to requests_tool_path(assigns(:tool), tool_user_id: assigns(:tool_user).id)
   end
 
@@ -93,12 +91,10 @@ class ToolsControllerTest < ActionController::TestCase
     assert_difference('ToolUser.count', 0) do
       post :create_access, params: { id: @tool, user_id: users(:two).id }
     end
-
     assert_not_nil assigns(:tool_user)
-    assert_equal nil, assigns(:tool_user).approved
+    assert_nil assigns(:tool_user).approved
     assert_equal false, assigns(:tool_user).editor
     assert_equal users(:two), assigns(:tool_user).user
-
     assert_redirected_to requests_tool_path(assigns(:tool), tool_user_id: assigns(:tool_user).id)
   end
 
@@ -119,7 +115,6 @@ class ToolsControllerTest < ActionController::TestCase
     assert_difference('Tool.count') do
       post :create, params: { tool: tool_params.merge(slug: 'new-tool') }
     end
-
     assert_redirected_to tool_path(assigns(:tool))
   end
 
@@ -130,7 +125,6 @@ class ToolsControllerTest < ActionController::TestCase
         tool: tool_params.merge(name: '', slug: 'new-tool')
       }
     end
-    assert assigns(:tool).errors.size > 0
     assert_equal ["can't be blank"], assigns(:tool).errors[:name]
     assert_template 'new'
     assert_response :success
@@ -163,7 +157,6 @@ class ToolsControllerTest < ActionController::TestCase
     # Should be fixed when rack beyond 2.0.0.alpha is released
     login(users(:admin))
     patch :update, params: { id: @tool, tool: tool_params.merge(name: '') }
-    assert assigns(:tool).errors.size > 0
     assert_equal ["can't be blank"], assigns(:tool).errors[:name]
     assert_template 'edit'
     assert_response :success
@@ -174,31 +167,24 @@ class ToolsControllerTest < ActionController::TestCase
     assert_difference('Tool.current.count', -1) do
       delete :destroy, params: { id: @tool }
     end
-
     assert_redirected_to tools_path
   end
 
   test 'should get logo from tool as anonymous user' do
     get :logo, params: { id: @tool }
-
     assert_not_nil response
-
     assert_kind_of String, response.body
-    assert_equal File.binread( File.join(CarrierWave::Uploader::Base.root, assigns(:tool).logo.url) ), response.body
+    assert_equal File.binread(File.join(CarrierWave::Uploader::Base.root, assigns(:tool).logo.url)), response.body
   end
 
   test 'should show public page in subfolder to anonymous user' do
-    # assert_difference('ToolPageAudit.count') do
-      get :pages, params: { id: @tool, path: 'subfolder/MORE_INFO.txt', format: 'html' }
-    # end
+    get :pages, params: { id: @tool, path: 'subfolder/MORE_INFO.txt', format: 'html' }
     assert_response :success
   end
 
   test 'should show public page in subfolder to logged in user' do
     login(users(:valid))
-    # assert_difference('ToolPageAudit.count') do
-      get :pages, params: { id: @tool, path: 'subfolder/MORE_INFO.txt', format: 'html' }
-    # end
+    get :pages, params: { id: @tool, path: 'subfolder/MORE_INFO.txt', format: 'html' }
     assert_response :success
   end
 

@@ -164,7 +164,6 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:agreement)
     assert_equal 1, assigns(:agreement).current_step
     assert_equal 'individual', assigns(:agreement).data_user_type
-    assert assigns(:agreement).errors.size > 0
     assert_equal ["can't be blank"], assigns(:agreement).errors[:individual_institution_name]
     assert_equal ["can't be blank"], assigns(:agreement).errors[:individual_title]
     assert_equal ["can't be blank"], assigns(:agreement).errors[:individual_telephone]
@@ -180,7 +179,6 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:agreement)
     assert_equal 1, assigns(:agreement).current_step
     assert_equal 'organization', assigns(:agreement).data_user_type
-    assert assigns(:agreement).errors.size > 0
     assert_equal ["can't be blank"], assigns(:agreement).errors[:organization_business_name]
     assert_equal ["can't be blank"], assigns(:agreement).errors[:organization_contact_name]
     assert_equal ["can't be blank"], assigns(:agreement).errors[:organization_contact_title]
@@ -403,7 +401,6 @@ class AgreementsControllerTest < ActionController::TestCase
     login(users(:admin))
     patch :update, params: { id: @agreement, agreement: { approval_date: '', expiration_date: '', reviewer_signature: '[]', status: 'approved' } }
     assert_not_nil assigns(:agreement)
-    assert assigns(:agreement).errors.size > 0
     assert_equal ["can't be blank"], assigns(:agreement).errors[:approval_date]
     assert_equal ["can't be blank"], assigns(:agreement).errors[:expiration_date]
     assert_equal ["can't be blank"], assigns(:agreement).errors[:edges_in_reviewer_signature]
@@ -414,7 +411,6 @@ class AgreementsControllerTest < ActionController::TestCase
     login(users(:admin))
     patch :update, params: { id: @agreement, agreement: { status: 'resubmit', comments: '' } }
     assert_not_nil assigns(:agreement)
-    assert assigns(:agreement).errors.size > 0
     assert_equal ["can't be blank"], assigns(:agreement).errors[:comments]
     assert_template 'reviews/show'
   end

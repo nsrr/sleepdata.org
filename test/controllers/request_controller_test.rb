@@ -162,7 +162,6 @@ class RequestControllerTest < ActionController::TestCase
     login(users(:valid))
     post :contribute_tool_set_description, params: { id: community_tools(:started), community_tool: { name: '', description: '' } }
     assert_not_nil assigns(:community_tool)
-    assert assigns(:community_tool).errors.size > 0
     assert_equal ["can't be blank"], assigns(:community_tool).errors[:name]
     assert_equal ["can't be blank"], assigns(:community_tool).errors[:description]
     assert_template :contribute_tool_description

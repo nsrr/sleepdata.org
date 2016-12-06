@@ -23,8 +23,8 @@ class Api::V1::AccountControllerTest < ActionController::TestCase
     assert_not_nil response
     profile = JSON.parse(response.body)
     assert_equal false, profile['authenticated']
-    assert_equal nil,   profile['first_name']
-    assert_equal nil,   profile['last_name']
+    assert_nil   profile['first_name']
+    assert_nil   profile['last_name']
     assert_response :success
   end
 end

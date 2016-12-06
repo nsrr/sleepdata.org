@@ -38,7 +38,6 @@ class Admin::DatasetsControllerTest < ActionController::TestCase
     assert_difference('Dataset.count', 0) do
       post :create, params: { dataset: dataset_params }
     end
-
     assert_redirected_to new_user_session_path
   end
 
@@ -47,7 +46,6 @@ class Admin::DatasetsControllerTest < ActionController::TestCase
     assert_difference('Dataset.count', 0) do
       post :create, params: { dataset: dataset_params }
     end
-
     assert_redirected_to root_path
   end
 
@@ -56,10 +54,7 @@ class Admin::DatasetsControllerTest < ActionController::TestCase
     assert_difference('Dataset.count', 0) do
       post :create, params: { dataset: dataset_params.merge(name: '') }
     end
-
-    assert assigns(:dataset).errors.size > 0
     assert_equal ["can't be blank"], assigns(:dataset).errors[:name]
-
     assert_template 'new'
   end
 
@@ -68,10 +63,7 @@ class Admin::DatasetsControllerTest < ActionController::TestCase
     assert_difference('Dataset.count', 0) do
       post :create, params: { dataset: dataset_params.merge(slug: 'wecare') }
     end
-
-    assert assigns(:dataset).errors.size > 0
     assert_equal ['has already been taken'], assigns(:dataset).errors[:slug]
-
     assert_template 'new'
   end
 
@@ -80,7 +72,6 @@ class Admin::DatasetsControllerTest < ActionController::TestCase
     assert_difference('Dataset.current.count', -1) do
       delete :destroy, params: { id: @dataset }
     end
-
     assert_redirected_to datasets_path
   end
 end

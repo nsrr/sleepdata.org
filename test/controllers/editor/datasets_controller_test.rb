@@ -46,7 +46,7 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
       }
     end
     assert_not_nil assigns(:dataset_user)
-    assert_equal nil, assigns(:dataset_user).approved
+    assert_nil assigns(:dataset_user).approved
     assert_equal 'reviewer', assigns(:dataset_user).role
     assert_equal users(:reviewer_on_public), assigns(:dataset_user).user
     assert_redirected_to collaborators_dataset_path(assigns(:dataset), dataset_user_id: assigns(:dataset_user).id)
@@ -180,7 +180,6 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
       id: @dataset,
       dataset: { name: '', description: @dataset.description, public: @dataset.public, slug: @dataset.slug }
     }
-    assert assigns(:dataset).errors.size > 0
     assert_equal ["can't be blank"], assigns(:dataset).errors[:name]
     assert_template 'edit'
     assert_response :success
@@ -192,7 +191,6 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
       id: @dataset,
       dataset: { name: '', description: @dataset.description, public: @dataset.public, slug: 'private' }
     }
-    assert assigns(:dataset).errors.size > 0
     assert_equal ['has already been taken'], assigns(:dataset).errors[:slug]
     assert_template 'edit'
     assert_response :success

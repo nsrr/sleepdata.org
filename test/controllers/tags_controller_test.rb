@@ -32,7 +32,6 @@ class TagsControllerTest < ActionController::TestCase
       post :create, params: { tag: { name: 'Meeting', color: @tag.color, tag_type: 'topic' } }
     end
     assert_not_nil assigns(:tag)
-    assert assigns(:tag).errors.size > 0
     assert_equal ['has already been taken'], assigns(:tag).errors[:name]
     assert_template 'new'
   end
@@ -55,7 +54,6 @@ class TagsControllerTest < ActionController::TestCase
   test 'should not update tag with blank name' do
     patch :update, params: { id: @tag, tag: { name: '', color: @tag.color, tag_type: 'topic' } }
     assert_not_nil assigns(:tag)
-    assert assigns(:tag).errors.size > 0
     assert_equal ["can't be blank"], assigns(:tag).errors[:name]
     assert_template 'edit'
   end

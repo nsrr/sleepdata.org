@@ -63,7 +63,11 @@ class ExternalControllerTest < ActionController::TestCase
     assert_equal WwwSleepdataOrg::VERSION::MAJOR, version['version']['major']
     assert_equal WwwSleepdataOrg::VERSION::MINOR, version['version']['minor']
     assert_equal WwwSleepdataOrg::VERSION::TINY, version['version']['tiny']
-    assert_equal WwwSleepdataOrg::VERSION::BUILD, version['version']['build']
+    if WwwSleepdataOrg::VERSION::BUILD.nil?
+      assert_nil version['version']['build']
+    else
+      assert_equal WwwSleepdataOrg::VERSION::BUILD, version['version']['build']
+    end
     assert_response :success
   end
 end

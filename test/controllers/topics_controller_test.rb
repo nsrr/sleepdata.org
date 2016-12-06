@@ -113,7 +113,6 @@ class TopicsControllerTest < ActionController::TestCase
       end
     end
     assert_not_nil assigns(:topic)
-    assert assigns(:topic).errors.size > 0
     assert_equal ["can't be blank"], assigns(:topic).errors[:description]
     assert_template 'new'
     assert_response :success
