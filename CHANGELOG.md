@@ -6,8 +6,9 @@
 - **Blog Changes**
   - Limit the number of blog posts shown in the sidebar
 - **Gem Changes**
-  - Updated to rails 5.0.0.1
   - Updated to Ruby 2.3.3
+  - Updated to rails 5.0.0.1
+  - Updated to pg 0.19.0
   - Updated to jquery-rails 4.2.1
   - Updated to font-awesome-rails 4.7.0
   - Updated to mini_magick 4.6.0
