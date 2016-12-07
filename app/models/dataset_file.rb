@@ -38,6 +38,11 @@ class DatasetFile < ApplicationRecord
     destroy unless file_exist?
   end
 
+  def destroy
+    super
+    update_column :file_checksum_md5, nil
+  end
+
   def generate_checksum_md5!
     checksum = if is_file
                  if file_checksum_md5.nil?
