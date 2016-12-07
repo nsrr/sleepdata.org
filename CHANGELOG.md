@@ -1,4 +1,4 @@
-## 0.25.1
+## 0.25.1 (December 7, 2016)
 
 ### Bug Fixes
 - Fixed an incorrect redirect that would occur when navigating to a URL of a
