@@ -1,4 +1,4 @@
-## 0.25.0
+## 0.25.0 (December 7, 2016)
 
 ### Enhancements
 - **Agreement Changes**
