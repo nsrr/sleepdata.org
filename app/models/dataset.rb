@@ -163,7 +163,7 @@ class Dataset < ApplicationRecord
     clean_folder_path = nil
     # Navigate to relative folder
     folders.each do |folder|
-      dataset_file = dataset_files.find_by(full_path: [clean_folder_path, folder].compact.join('/'), is_file: false)
+      dataset_file = dataset_files.current.find_by(full_path: [clean_folder_path, folder].compact.join('/'), is_file: false)
       if dataset_file
         clean_folder_path = [clean_folder_path, dataset_file.file_name].compact.join('/')
       else

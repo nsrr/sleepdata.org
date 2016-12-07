@@ -1,5 +1,9 @@
 ## 0.25.1
 
+### Bug Fixes
+- Fixed an incorrect redirect that would occur when navigating to a URL of a
+  dataset file path that had been deleted
+
 ## 0.25.0 (December 7, 2016)
 
 ### Enhancements

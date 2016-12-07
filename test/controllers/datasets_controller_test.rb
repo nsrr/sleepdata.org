@@ -76,6 +76,11 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test 'should not get redirect up a level for deleted subfolder from public dataset as anonymous user' do
+    get :files, params: { id: @dataset, path: 'deleted_subfolder' }
+    assert_redirected_to files_dataset_path(@dataset, path: '')
+  end
+
   test 'should get folder from public dataset as regular user' do
     login(users(:valid))
     get :files, params: { id: @dataset, path: 'subfolder' }

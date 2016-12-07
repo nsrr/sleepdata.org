@@ -46,6 +46,19 @@ public_subfolder:
   # publicly_available: false
   # archived: false
 
+public_deleted_subfolder:
+  dataset: public
+  full_path: "deleted_subfolder"
+  folder: ""
+  file_name: deleted_subfolder
+  is_file: false
+  file_size: 204
+  file_time: 2016-03-28 11:25:27
+  # file_checksum_md5:
+  # publicly_available: false
+  # archived: false
+  deleted: true
+
 public_subfolder_another_folder:
   dataset: public
   full_path: "subfolder/another_folder"
