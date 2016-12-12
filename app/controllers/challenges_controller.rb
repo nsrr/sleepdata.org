@@ -82,7 +82,7 @@ class ChallengesController < ApplicationController
   # DELETE /challenges/1
   def destroy
     @challenge.destroy
-    redirect_to challenges_path, notice: 'Challenge was successfully destroyed.'
+    redirect_to challenges_path, notice: 'Challenge was successfully deleted.'
   end
 
   def images

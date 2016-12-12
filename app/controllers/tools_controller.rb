@@ -36,7 +36,7 @@ class ToolsController < ApplicationController
                    Tool.current.where(public: true)
                  end
 
-    tool_scope = tool_scope.where(tool_type: params[:type]) unless params[:type].blank?
+    # tool_scope = tool_scope.where(tool_type: params[:type]) unless params[:type].blank?
     @tools = tool_scope.order(:tool_type, :name).page(params[:page]).per(12)
 
     @order = scrub_order(CommunityTool, params[:order], 'name')
@@ -46,6 +46,8 @@ class ToolsController < ApplicationController
       community_tool_scope = community_tool_scope.where(user_id: user_ids.select(:id))
     end
 
+    community_tool_scope = community_tool_scope.where(tag_script: true) if params[:type] == 'script'
+    community_tool_scope = community_tool_scope.where(tag_tutorial: true) if params[:type] == 'tutorial'
     @community_tools = community_tool_scope.search(params[:s]).page(params[:page]).per(40)
   end
 

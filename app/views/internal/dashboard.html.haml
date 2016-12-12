@@ -74,9 +74,9 @@
             %tr
               %th
                 Name
-              %th
+              %th.center
                 Actions
-          - current_user.community_tools.each do |community_tool|
+          - current_user.community_tools.order(:name).each do |community_tool|
             %tr
               %td{ style: 'overflow:hidden;text-overflow: ellipsis;'}
                 - if %w(started submitted).include?(community_tool.status)
@@ -99,6 +99,8 @@
         %p Do you have a tool you would like to share with the NSRR research community?
 
       = link_to 'Contribute a Tool', contribute_tool_start_path, class: 'btn btn-xs btn-call-to-action btn-block'
+
+
     - if false
       .dashboard-container
         .dashboard-title

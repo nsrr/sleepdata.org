@@ -38,5 +38,19 @@
 
   .form-group
     .col-md-offset-2.col-md-10
+      .checkbox
+        %label
+          = f.check_box :tag_script
+          Script
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      .checkbox
+        %label
+          = f.check_box :tag_tutorial
+          Tutorial
+
+  .form-group
+    .col-md-offset-2.col-md-10
       = f.submit nil, class: 'btn btn-primary'
       = cancel

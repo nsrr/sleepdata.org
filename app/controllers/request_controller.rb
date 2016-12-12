@@ -58,12 +58,12 @@ class RequestController < ApplicationController
   end
 
   def contribute_tool_description
-    @community_tool = current_user.community_tools.where(status: 'started').find_by_id params[:id]
+    @community_tool = current_user.community_tools.where(status: %w(started accepted)).find_by(id: params[:id])
     redirect_to dashboard_path, alert: 'This tool does not exist.' unless @community_tool
   end
 
   def contribute_tool_set_description
-    @community_tool = current_user.community_tools.where(status: 'started').find_by_id params[:id]
+    @community_tool = current_user.community_tools.where(status: %w(started accepted)).find_by(id: params[:id])
     unless @community_tool
       redirect_to dashboard_path, alert: 'This tool does not exist.'
       return

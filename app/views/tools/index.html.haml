@@ -36,18 +36,35 @@
           = link_to 'Reset', tools_path, class: 'btn btn-default'
 
   %table.table.table-striped
+    %col{ width: '75%' }
+    %col{ width: '25%' }
+    %col{ width: '1px' }
     %thead
       %tr
         = th_sort_field @order, 'community_tools.name', 'Name'
-        %th URL
         %th User
+        %th.nowrap
+          Type
+          .dropdown{ style: 'display: inline-block' }
+            = link_to '#', data: { target: '#', toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
+              %span.glyphicon.glyphicon-filter
+            %ul.dropdown-menu.dropdown-menu-right
+              %li= link_to 'All', tools_path(order: params[:order]), type: params[:type].blank? ? 'font-weight:bold;' : ''
+              - [['Script', 'script'], ['Tutorial', 'tutorial']].each do |label, value|
+                %li= link_to label, tools_path(order: params[:order], type: value), style: params[:type] == value ? 'font-weight:bold;' : ''
 
     %tbody
       - @community_tools.each do |community_tool|
         %tr
           %td= link_to community_tool.name, community_show_tool_path(community_tool)
-          %td= community_tool.url
           %td= community_tool.user.forum_name
+          %td.center
+            - if community_tool.tag_script?
+              %span.label.label-default Script
+            - if community_tool.tag_tutorial?
+              %span.label.label-info Tutorial
+            - unless community_tool.tag_script? || community_tool.tag_tutorial?
+              %span.label.label-success Program
 
   .center= paginate @community_tools, theme: 'bootstrap'
 

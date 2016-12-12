@@ -11,23 +11,42 @@
           New Community Tool
 
 %table.table.table-striped
+  %col
+  %col
+  %col
+  %col
+  %col{ width: '1px' }
   %thead
     %tr
       %th Name
-      %th URL
       %th User
       %th Status
+      %th Type
       %th Actions
 
   %tbody
     - @community_tools.each do |community_tool|
       %tr
         %td= link_to community_tool.name, community_tool
-        %td= community_tool.url
         %td= community_tool.user.name
-        %td= community_tool.status
         %td
-          = link_to 'Edit', edit_community_tool_path(community_tool), class: 'btn btn-xs btn-default'
-          = link_to 'Destroy', community_tool, method: :delete, data: { confirm: "Are you sure you want to delete #{community_tool.name}?" }, class: 'btn btn-xs btn-danger-inverse'
+          - case community_tool.status
+          - when 'started'
+            %span.label.label-warning= community_tool.status
+          - when 'submitted'
+            %span.label.label-info= community_tool.status
+          - when 'accepted'
+            %span.label.label-success= community_tool.status
+          - when 'rejected'
+            %span.label.label-danger= community_tool.status
+          - else
+            %span.label.label-default= community_tool.status
+        %td
+          - if community_tool.tag_script?
+            %span.label.label-info Script
+          - if community_tool.tag_tutorial?
+            %span.label.label-info Tutorial
+        %td
+          = render 'layouts/edit_delete_dropdown', edit_url: edit_community_tool_path(community_tool), delete_url: community_tool, delete_confirmation: "Delete #{community_tool.name}?"
 
 .center= paginate @community_tools, theme: 'bootstrap'

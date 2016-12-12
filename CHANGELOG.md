@@ -3,6 +3,8 @@
 ### Enhancements
 - **Dashboard Changes**
   - Added a quick view of Data Access and Use Agreement submissions
+- **Community Tool Changes**
+  - Tools can now be marked as scripts or tutorials
 - **Gem Changes**
   - Updated to rails 5.0.1.rc2
 

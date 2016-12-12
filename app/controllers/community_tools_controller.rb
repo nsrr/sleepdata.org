@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Allows admins to review community submitted tools.
 class CommunityToolsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_system_admin
@@ -12,8 +13,7 @@ class CommunityToolsController < ApplicationController
   end
 
   # GET /community-tools/1
-  def show
-  end
+  def show; end
 
   # GET /community-tools/new
   def new
@@ -21,8 +21,7 @@ class CommunityToolsController < ApplicationController
   end
 
   # GET /community-tools/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /community-tools
   def create
@@ -46,18 +45,18 @@ class CommunityToolsController < ApplicationController
   # DELETE /community-tools/1
   def destroy
     @community_tool.destroy
-    redirect_to community_tools_path, notice: 'Community tool was successfully destroyed.'
+    redirect_to community_tools_path, notice: 'Community tool was successfully deleted.'
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_community_tool
-    @community_tool = CommunityTool.current.find_by_id params[:id]
+    @community_tool = CommunityTool.current.find_by(id: params[:id])
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def community_tool_params
-    params.require(:community_tool).permit(:name, :url, :description, :status)
+    params.require(:community_tool).permit(
+      :name, :url, :description, :status, :tag_script, :tag_tutorial
+    )
   end
 end

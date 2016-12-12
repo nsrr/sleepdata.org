@@ -46,7 +46,7 @@ class HostingRequestsController < ApplicationController
   # DELETE /hosting_requests/1
   def destroy
     @hosting_request.destroy
-    redirect_to hosting_requests_path, notice: 'Hosting request was successfully destroyed.'
+    redirect_to hosting_requests_path, notice: 'Hosting request was successfully deleted.'
   end
 
   private
