@@ -1,6 +1,8 @@
 ## 0.26.0
 
 ### Enhancements
+- **Dashboard Changes**
+  - Added a quick view of Data Access and Use Agreement submissions
 - **Gem Changes**
   - Updated to rails 5.0.1.rc2
 

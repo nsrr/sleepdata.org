@@ -26,6 +26,47 @@
 
     .dashboard-container
       .dashboard-title
+        %strong DAUAs
+      - if current_user.agreements.present?
+        %table.table
+          %col{ width: '1px' }
+          %col
+          %col
+          %thead
+            %tr
+              %th Status
+              %th
+                Name
+              %th.center
+                Datasets
+          - current_user.agreements.order(id: :desc).each do |agreement|
+            %tr
+              %td
+                - if agreement.under_review?
+                  %span.label.label-warning under review
+                - elsif agreement.approved?
+                  %span.label.label-success approved
+                - elsif agreement.status == 'expired'
+                  %span.label.label-default expired
+                - elsif agreement.status == 'closed'
+                  %span.label.label-danger closed
+                - else
+                  %span.label.label-info started
+
+              %td.nowrap
+                = link_to submissions_path do
+                  Agreement
+                  = "##{agreement.agreement_number}"
+              %td
+                - agreement.datasets.order(:release_date).each do |dataset|
+                  %code= dataset.slug
+      - else
+        %p Do you have a tool you would like to share with the NSRR research community?
+
+      = link_to 'Manage My DAUAs', submissions_path, class: 'btn btn-xs btn-call-to-action btn-block'
+
+    .dashboard-container
+      .dashboard-title
         %strong Tool Contributions
       - if current_user.community_tools.present?
         %table.table.table-fixed
