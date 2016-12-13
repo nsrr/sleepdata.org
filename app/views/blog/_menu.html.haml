@@ -11,10 +11,15 @@
 
 
   - if current_user && current_user.community_manager?
+    %li.blog-menu-header Contributor
     %li
       = link_to new_broadcast_path do
-        %span.glyphicon.glyphicon-plus
+        %span.glyphicon.glyphicon-pencil
         New Blog Post
+    %li
+      = link_to broadcasts_path do
+        %span.glyphicon.glyphicon-eye-open
+        View Drafts
 
   - if @author
     %li.blog-menu-header Author

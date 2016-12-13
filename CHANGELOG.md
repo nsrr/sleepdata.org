@@ -1,6 +1,8 @@
 ## 0.26.0
 
 ### Enhancements
+- **Blog Changes**
+  - Improved layout of administrative blog overview index
 - **Dashboard Changes**
   - Added a quick view of Data Access and Use Agreement submissions
 - **Community Tool Changes**

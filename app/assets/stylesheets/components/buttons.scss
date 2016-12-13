@@ -1,5 +1,22 @@
 // Buttons
 
+.btn-accent {
+  background-color: $a200;
+  border: 1px solid $a400;
+  color: $a200-text;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active,
+  &.disabled,
+  &[disabled] {
+    background-color: $a400;
+    border: 1px solid $a700;
+    color: $a200-text;
+  }
+}
+
 .btn-danger-inverse {
   background-color: $body-bg;
   border: 1px solid $btn-danger-border;

@@ -1,0 +1,45 @@
+.per-page {
+  display: none;
+  font-size: $font-size-base;
+  font-weight: normal;
+  position: absolute;
+  right: 0;
+  top: -20px;
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .per-page {
+    display: block;
+  }
+}
+
+.banner-header {
+  .per-page {
+    display: inline-block;
+    height: 28px;
+    margin: 0;
+    position: relative;
+    text-shadow: none;
+    top: 0;
+
+    ul {
+      margin: 0;
+    }
+  }
+
+  .pull-right {
+    height: 28px;
+  }
+}
+
+@media screen and (min-width: $screen-md-min) {
+  .banner-header {
+    .per-page {
+      height: 29px;
+    }
+
+    .pull-right {
+      height: 29px;
+    }
+  }
+}
