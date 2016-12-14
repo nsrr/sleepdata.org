@@ -65,3 +65,7 @@ $(document)
     $($(this).data('target-hide')).hide()
     false
   )
+  .on('click', '[data-object~="toggle-visibility"]', ->
+    $($(this).data('target')).toggle()
+    false
+  )

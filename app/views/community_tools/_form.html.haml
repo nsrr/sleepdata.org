@@ -15,7 +15,36 @@
       = f.text_field :name, class: 'form-control'
 
   .form-group
-    = f.label :url, 'URL', class: 'col-md-2 control-label'
+    = f.label :slug, 'URL Slug', class: 'col-md-2 control-label'
+    .col-md-10
+      .input-group
+        = f.text_field :slug, class: 'form-control', autocomplete: 'off'
+        %span.input-group-btn
+          = link_to '#', class: 'btn btn-info', data: { object: 'toggle-visibility', target: '#slug-info' }, tabindex: '-1' do
+            %span.glyphicon.glyphicon-info-sign
+      = render 'layouts/errors', object: @community_tool, key: :slug
+      #slug-info.callout.callout-info{ style: 'display: none;' }
+        %strong Naming convention
+        %ul
+          %li
+            Must be a lowercase letter
+            %code a-z
+            followed by lowercase letters
+            = succeed ',' do
+              %code a-z
+            numbers
+            = succeed ',' do
+              %code 0-9
+            or dashes
+            = succeed '.' do
+              %code -
+        %p
+          Ex:
+          %code edf-viewer
+
+
+  .form-group
+    = f.label :url, 'Repository URL', class: 'col-md-2 control-label'
     .col-md-10
       = f.text_field :url, class: 'form-control'
 

@@ -1,5 +1,7 @@
 - if notification.reply
   = render 'notifications/show/reply', notification: notification
+- elsif notification.community_tool_review
+  = render 'notifications/show/community_tool_review', notification: notification
 - else
   %td{ colspan: 3 }
 

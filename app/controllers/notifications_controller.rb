@@ -30,25 +30,29 @@ class NotificationsController < ApplicationController
 
   # PATCH /notifications/mark_all_as_read
   def mark_all_as_read
-    if @broadcast
-      @notifications = current_user.notifications.where(broadcast_id: @broadcast.id)
-    elsif @topic
-      @notifications = current_user.notifications.where(topic_id: @topic.id)
-    else
-      @notifications = Notification.none
-    end
+    @notifications = \
+      if @broadcast
+        current_user.notifications.where(broadcast_id: @broadcast.id)
+      elsif @topic
+        current_user.notifications.where(topic_id: @topic.id)
+      elsif @community_tool
+        current_user.notifications.where(community_tool_id: @community_tool.id)
+      else
+        Notification.none
+      end
     @notifications.update_all read: true
   end
 
   private
 
   def set_broadcast_or_topic
-    @broadcast = Broadcast.current.published.find_by_id params[:broadcast_id]
-    @topic = Topic.current.find_by_id params[:topic_id]
+    @broadcast = Broadcast.current.published.find_by(id: params[:broadcast_id])
+    @topic = Topic.current.find_by(id: params[:topic_id])
+    @community_tool = CommunityTool.current.find_by(id: params[:community_tool_id])
   end
 
   def find_notification_or_redirect
-    @notification = current_user.notifications.find_by_id params[:id]
+    @notification = current_user.notifications.find_by(id: params[:id])
     redirect_to notifications_path unless @notification
   end
 
@@ -58,6 +62,7 @@ class NotificationsController < ApplicationController
 
   def notification_redirect_path
     return @notification.reply if @notification.reply
+    return community_tool_community_tool_review_path(@notification.community_tool, @notification.community_tool_review) if @notification.community_tool && @notification.community_tool_review
     notifications_path
   end
 end

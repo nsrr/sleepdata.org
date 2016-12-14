@@ -8,6 +8,7 @@
 - **Community Tool Changes**
   - Tools can now be marked as scripts or tutorials
   - Tools can now be reviewed and rated
+  - Tool reviews create notifications for tool creators
 - **Gem Changes**
   - Updated to rails 5.0.1.rc2
 

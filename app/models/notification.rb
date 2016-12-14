@@ -10,6 +10,8 @@ class Notification < ApplicationRecord
   belongs_to :broadcast
   belongs_to :topic
   belongs_to :reply
+  belongs_to :community_tool
+  belongs_to :community_tool_review
 
   # Notification Methods
 

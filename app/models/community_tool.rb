@@ -6,7 +6,7 @@ class CommunityTool < ApplicationRecord
   STATUS = %w(started submitted accepted rejected)
 
   # Concerns
-  include Deletable
+  include Deletable, Sluggable
 
   # Callbacks
   after_touch :recalculate_rating!

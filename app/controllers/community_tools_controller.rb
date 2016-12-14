@@ -51,12 +51,12 @@ class CommunityToolsController < ApplicationController
   private
 
   def set_community_tool
-    @community_tool = CommunityTool.current.find_by(id: params[:id])
+    @community_tool = CommunityTool.current.find_by_param(params[:id])
   end
 
   def community_tool_params
     params.require(:community_tool).permit(
-      :name, :url, :description, :status, :tag_script, :tag_tutorial
+      :name, :url, :description, :slug, :status, :tag_script, :tag_tutorial
     )
   end
 end

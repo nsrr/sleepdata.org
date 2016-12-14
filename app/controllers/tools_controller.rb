@@ -58,7 +58,7 @@ class ToolsController < ApplicationController
 
   # GET /community/tools/1
   def community_show
-    @community_tool = CommunityTool.current.where(status: 'accepted').find_by_id params[:id]
+    @community_tool = CommunityTool.current.where(status: 'accepted').find_by_param(params[:id])
     empty_response_or_root_path(tools_path) unless @community_tool
   end
 
