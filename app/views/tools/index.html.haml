@@ -42,7 +42,7 @@
     %col{ width: '1px' }
     %thead
       %tr
-        = th_sort_field @order, 'community_tools.rating', 'Rating', extra_class: 'center'
+        = th_sort_field_rev @order, 'community_tools.rating', 'Rating', extra_class: 'center'
         = th_sort_field @order, 'community_tools.name', 'Name'
         %th User
         %th.nowrap
