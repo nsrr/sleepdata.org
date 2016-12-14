@@ -38,13 +38,13 @@
   %table.table.table-striped
     %col{ width: '1px' }
     %col{ width: '75%' }
-    %col{ width: '25%' }
+    %col.hidden-xs{ width: '25%' }
     %col{ width: '1px' }
     %thead
       %tr
         = th_sort_field_rev @order, 'community_tools.rating', 'Rating', extra_class: 'center'
         = th_sort_field @order, 'community_tools.name', 'Name'
-        %th User
+        %th.hidden-xs User
         %th.nowrap
           Type
           .dropdown{ style: 'display: inline-block' }
@@ -58,9 +58,9 @@
     %tbody
       - @community_tools.each do |community_tool|
         %tr
-          %td= render 'community_tools/rating', rating: community_tool.rating
+          %td.center= render 'community_tools/rating', rating: community_tool.rating
           %td= link_to community_tool.name, community_show_tool_path(community_tool)
-          %td= community_tool.user.forum_name
+          %td.hidden-xs= community_tool.user.forum_name
           %td.center
             - if community_tool.tag_script?
               %span.label.label-default Script
