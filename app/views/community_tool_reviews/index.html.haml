@@ -1,0 +1,32 @@
+- @title = "Reviews - #{@community_tool.name} "
+
+- content_for :banner do
+  .dataset-banner
+    .container
+      .dataset-header.brand
+        Reviews
+  .breadcrumb-container
+    .container
+      %ol
+        %li= link_to @community_tool.name, community_show_tool_path(@community_tool)
+        %li= render 'community_tools/rating', rating: @community_tool.rating
+
+
+%div{ style: 'margin-bottom: 20px;' }
+  = link_to 'Write a review', new_community_tool_community_tool_review_path(@community_tool), class: 'btn btn-primary'
+
+%table.table
+  %col{ width: '1px' }
+  %col
+  %thead
+    %tr
+      %th.center Rating
+      %th Review
+
+  %tbody
+    - @community_tool_reviews.each do |community_tool_review|
+      %tr
+        %td= render 'community_tools/rating', rating: community_tool_review.rating
+        %td
+          %i= community_tool_review.user.forum_name
+          = simple_markdown community_tool_review.review

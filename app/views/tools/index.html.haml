@@ -36,11 +36,13 @@
           = link_to 'Reset', tools_path, class: 'btn btn-default'
 
   %table.table.table-striped
+    %col{ width: '1px' }
     %col{ width: '75%' }
     %col{ width: '25%' }
     %col{ width: '1px' }
     %thead
       %tr
+        = th_sort_field @order, 'community_tools.rating', 'Rating', extra_class: 'center'
         = th_sort_field @order, 'community_tools.name', 'Name'
         %th User
         %th.nowrap
@@ -56,6 +58,7 @@
     %tbody
       - @community_tools.each do |community_tool|
         %tr
+          %td= render 'community_tools/rating', rating: community_tool.rating
           %td= link_to community_tool.name, community_show_tool_path(community_tool)
           %td= community_tool.user.forum_name
           %td.center

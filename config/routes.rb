@@ -14,7 +14,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :community_tools, path: 'community-tools'
   get 'account(/:auth_token)/profile' => 'account#profile'
 
   namespace :admin do
@@ -110,6 +109,10 @@ Rails.application.routes.draw do
       get :review
       get :submitted
     end
+  end
+
+  resources :community_tools, path: 'community-tools' do
+    resources :community_tool_reviews, path: 'reviews'
   end
 
   scope module: :editor do

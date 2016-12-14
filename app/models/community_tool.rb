@@ -8,6 +8,9 @@ class CommunityTool < ApplicationRecord
   # Concerns
   include Deletable
 
+  # Callbacks
+  after_touch :recalculate_rating!
+
   # Named Scopes
 
   scope :search, -> (arg) { where('name ~* ?', arg.to_s.split(/\s/).collect { |l| l.to_s.gsub(/[^\w\d%]/, '') }.collect { |l| "(#{l})" }.join('|')) }
@@ -21,6 +24,7 @@ class CommunityTool < ApplicationRecord
 
   # Model Relationships
   belongs_to :user
+  has_many :community_tool_reviews, -> { order(rating: :desc, id: :desc) }
 
   # Community Tool Methods
 
@@ -32,6 +36,11 @@ class CommunityTool < ApplicationRecord
     %w(http https ftp).include?(URI.parse(url).scheme)
   rescue
     false
+  end
+
+  def recalculate_rating!
+    ratings = community_tool_reviews.where.not(rating: nil).pluck(:rating)
+    update rating: ratings.present? ? ratings.inject(&:+).to_f / ratings.count : nil
   end
 
   def readme_content

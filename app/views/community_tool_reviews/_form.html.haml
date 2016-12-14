@@ -1,0 +1,19 @@
+= form_for [@community_tool, community_tool_review], html: { class: 'form-horizontal' } do |f|
+
+  .form-group
+    = f.label :rating, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      .control-label{ style: 'text-align: left;' }
+        = render 'community_tool_reviews/rating', f: f, community_tool_review: community_tool_review
+        = render 'layouts/errors', object: community_tool_review, key: :rating
+
+  .form-group
+    = f.label :review, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_area :review, rows: 7, class: 'form-control'
+      = render 'layouts/errors', object: community_tool_review, key: :review
+
+  .form-group
+    .col-md-10.col-md-offset-2
+      = f.submit community_tool_review.new_record? ? 'Write Review' : 'Update Review', class: 'btn btn-primary'
+      = link_to 'Cancel', community_show_tool_path(@community_tool), class: 'btn btn-default'

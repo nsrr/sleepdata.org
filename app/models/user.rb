@@ -51,6 +51,7 @@ class User < ApplicationRecord
   has_many :broadcasts, -> { current }
   has_many :challenges, -> { current }
   has_many :community_tools, -> { current }
+  has_many :community_tool_reviews
   has_many :datasets, -> { current }
   has_many :dataset_file_audits
   has_many :hosting_requests, -> { current }

@@ -1,0 +1,14 @@
+- @title = "Update Review - #{@community_tool.name}"
+
+- content_for :banner do
+  .dataset-banner
+    .container
+      .dataset-header.brand
+        Update Review
+  .breadcrumb-container
+    .container
+      %ol
+        %li= link_to @community_tool.name, community_show_tool_path(@community_tool)
+
+= render 'form', community_tool_review: @community_tool_review
+

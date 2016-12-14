@@ -22,7 +22,7 @@ $brand-primary:         $cg4-green-bg;
 $brand-success:         $cg4-green-bg;
 $brand-info:            $cg4-blue-bg;
 $brand-warning:         $cg4-yellow-bg;
-$brand-danger:          $cg4-red-bg;
+// $brand-danger:          $cg4-red-bg;
 $brand-white:           $cg4-white;
 $brand-black:           $cg4-black;
 $blockquote-gray:       #999;
@@ -42,6 +42,11 @@ $comment-unread-even: $brand-white;
 $comment-unread-odd: $brand-gray-lightest;
 $comment-read-even: #eaf8ef;
 $comment-read-odd: #e4f2e9; // $comment-unread-odd * $comment-read-even
+
+
+$red: #d32f2f;
+
+$brand-danger: $red;
 
 // //== Scaffolding
 // //

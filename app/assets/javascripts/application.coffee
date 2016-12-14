@@ -43,6 +43,7 @@
 #= require components/cookies
 #= require components/graphs
 #= require components/previews
+#= require components/ratings
 #= require components/search
 #= require components/text_area_autocomplete
 

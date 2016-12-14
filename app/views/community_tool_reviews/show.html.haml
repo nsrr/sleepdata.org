@@ -1,0 +1,17 @@
+- @title = "Review - #{@community_tool.name}"
+
+- content_for :banner do
+  .dataset-banner
+    .container
+      .dataset-header.brand
+        Reviews
+  .breadcrumb-container
+    .container
+      %ol
+        %li= link_to @community_tool.name, community_show_tool_path(@community_tool)
+        %li= render 'community_tools/rating', rating: @community_tool.rating
+
+
+= render 'community_tools/rating', rating: @community_tool_review.rating
+%i= @community_tool_review.user.forum_name
+= simple_markdown @community_tool_review.review
