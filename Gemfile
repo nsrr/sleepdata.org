@@ -24,6 +24,9 @@ gem 'pg_search',            '~> 1.0.5'
 gem 'redcarpet',            '~> 3.3.2'
 gem 'sitemap_generator',    '~> 5.2.0'
 
+# Currently 1.12.1 is broken, using prior version
+gem 'coffee-script-source', '~> 1.11.1'
+
 # Rails Defaults
 gem 'coffee-rails',         '~> 4.2'
 gem 'sass-rails',           '~> 5.0'
