@@ -6,7 +6,7 @@
       - elsif rating > position
         %i.fa.fa-star-half-o.text-warning{ aria: { hidden: 'true' } }
       - else
-        %i.fa.fa-star-o{ aria: { hidden: 'true' } }
+        %i.fa.fa-star-o.text-muted{ aria: { hidden: 'true' } }
   - else
     - (0..4).each do |position|
       %i.fa.fa-star-o.text-muted{ aria: { hidden: 'true' } }
