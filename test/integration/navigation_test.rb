@@ -38,7 +38,6 @@ class NavigationTest < ActionDispatch::IntegrationTest
 
   test 'deleted users should be not be allowed to login' do
     get new_user_session_path
-
     sign_in_as(@deleted, '123456')
     assert_equal new_user_session_path, path
     assert_equal I18n.t('devise.failure.inactive'), flash[:alert]
@@ -47,21 +46,16 @@ class NavigationTest < ActionDispatch::IntegrationTest
   test 'friendly url forwarding after login' do
     get datasets_path
     get new_user_session_path
-
     sign_in_as(@valid, '123456')
     assert_equal datasets_path, path
-    assert_equal I18n.t('devise.sessions.signed_in'), flash[:notice]
   end
 
   test 'friendly url forwarding after logout' do
     get datasets_path
     sign_in_as(@valid, '123456')
-
     get datasets_path
     get destroy_user_session_path
-
     assert_redirected_to datasets_path
-    assert_equal I18n.t('devise.sessions.signed_out'), flash[:notice]
   end
 
   test 'blog rss should not be stored in friendly forwarding after login' do
@@ -69,6 +63,5 @@ class NavigationTest < ActionDispatch::IntegrationTest
     get new_user_session_path
     sign_in_as(@valid, '123456')
     assert_equal root_path, path
-    assert_equal I18n.t('devise.sessions.signed_in'), flash[:notice]
   end
 end
