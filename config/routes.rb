@@ -195,7 +195,7 @@ Rails.application.routes.draw do
     get :dashboard
     get :profile
     get :submissions
-    # TODO ENABLE THESE
+    # TODO: ENABLE THESE
     # get :settings
     # get :tools
     get :token
@@ -227,8 +227,6 @@ Rails.application.routes.draw do
     post 'contribute/tool/start', action: 'contribute_tool_set_location', as: :contribute_tool_set_location
     post 'contribute/tool', action: 'contribute_tool_register_user', as: :contribute_tool_register_user
     patch 'contribute/tool', action: 'contribute_tool_sign_in_user', as: :contribute_tool_sign_in_user
-    get 'contribute/tool/submitted', action: 'contribute_tool_submitted', as: :contribute_tool_submitted
-    get 'contribute/tool/location', action: 'contribute_tool_location', as: :contribute_tool_location
     get 'contribute/tool/description/:id', action: 'contribute_tool_description', as: :contribute_tool_description
     post 'contribute/tool/description/:id', action: 'contribute_tool_set_description', as: :contribute_tool_set_description
     # post 'contribute/tool/submit', action: 'contribute_tool_submit', as: :contribute_tool_submit

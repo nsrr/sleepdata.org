@@ -3,7 +3,7 @@
 # This controller handles easy registration/sign in of users as part of a tool
 # contribution or request, or a dataset hosting request.
 class RequestController < ApplicationController
-  before_action :authenticate_user!, only: [:contribute_tool_description, :contribute_tool_set_description, :contribute_tool_submitted, :dataset_hosting_submitted]
+  before_action :authenticate_user!, only: [:contribute_tool_description, :contribute_tool_set_description, :dataset_hosting_submitted]
 
   def contribute_tool_start
     @community_tool = CommunityTool.new
