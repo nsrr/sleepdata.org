@@ -50,6 +50,8 @@
     .col-md-10
       .preview-container
         .preview-header
+          .pull-right
+            = render 'replies/rich_text_editor_buttons', target: "#broadcast_description"
           = link_to 'Write', '#', data: { object: 'view-content-markdown' }, class: 'preview-tab active', tabindex: '-1'
           = link_to 'Preview', '#', data: { object: 'view-content-preview', content: '#broadcast_description' }, class: 'preview-tab', tabindex: '-1'
         .preview-body

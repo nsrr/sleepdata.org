@@ -3,6 +3,7 @@
 ### Enhancements
 - **Blog Changes**
   - Improved layout of administrative blog overview index
+  - Added Rich Text Editor buttons
 - **Dashboard Changes**
   - Added a quick view of Data Access and Use Agreement submissions
 - **Community Tool Changes**
