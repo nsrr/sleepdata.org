@@ -16,7 +16,7 @@ class CommunityTool < ApplicationRecord
   validates :name, :description, presence: true, if: :published?
   validates :name, uniqueness: { scope: :user_id, case_sensitive: false }, if: :published?
   validates :url, format: URI.regexp(%w(http https ftp))
-  validates :slug, uniqueness: { scope: :deleted, case_sensitive: false }, allow_nil: true
+  validates :slug, uniqueness: { case_sensitive: false }, allow_nil: true
   validates :slug, format: { with: /\A[a-z][a-z0-9\-]*\Z/ }, allow_nil: true
 
   # Model Relationships

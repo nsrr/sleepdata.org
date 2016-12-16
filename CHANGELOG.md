@@ -11,6 +11,9 @@
   - Tools can now be reviewed and rated
   - Tool reviews create notifications for tool creators
   - Tool submission process simplified
+- **General Changes**
+  - Improved friendly forwarding when navigating between internal and external
+    pages while signing in and signing out
 - **Gem Changes**
   - Updated to rails 5.0.1.rc2
 

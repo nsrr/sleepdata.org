@@ -11,36 +11,22 @@ class ApplicationController < ActionController::Base
   before_action :set_cache_buster
 
   def store_location
-    if (!request.post? &&
-        params[:controller] != 'internal' &&
-        params[:action] != 'download' &&
-        params[:action] != 'logo' &&
-        params[:action] != 'files' &&
-        params[:action] != 'variable_chart' &&
-        params[:action] != 'images' &&
-        params[:action] != 'image' &&
-        params[:action] != 'reset_index' &&
-        params[:action] != 'contribute_tool_description' &&
-        params[:format] != 'atom' &&
-        !request.fullpath.match("#{request.script_name}/login") &&
-        !request.fullpath.match("#{request.script_name}/join") &&
-        !request.fullpath.match("#{request.script_name}/password") &&
-        !request.fullpath.match("#{request.script_name}/sign_out") &&
-        !request.xhr?) # don't store ajax calls
-      store_location_in_session
+    if !request.post? && !request.xhr? && params[:format] != 'atom'
+      if internal_action?(params[:controller], params[:action])
+        store_internal_location_in_session
+      end
+      if external_action?(params[:controller], params[:action])
+        store_external_location_in_session
+      end
     end
   end
 
   def after_sign_in_path_for(resource)
-    session[:previous_url] || root_path
+    session[:previous_internal_url] || session[:previous_external_url] || root_path
   end
 
-  # def after_sign_up_path_for(resource)
-  #   session[:previous_url] || root_path
-  # end
-
   def after_sign_out_path_for(resource_or_scope)
-    session[:previous_url] || root_path
+    session[:previous_external_url] || root_path
   end
 
   def configure_permitted_parameters
@@ -49,12 +35,71 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def internal_controllers
+    {
+      admin: [],
+      agreement_events: [],
+      agreements: [],
+      broadcasts: [],
+      categories: [],
+      challenges: [:signal, :new, :edit],
+      community_tool_reviews: [],
+      community_tools: [],
+      datasets: [:index, :show, :new, :edit],
+      hosting_requests: [],
+      images: [:index, :show, :new, :edit],
+      internal: [],
+      notifications: [],
+      request: [:contribute_tool_description],
+      reviews: [],
+      tags: [],
+      tools: [:index, :show, :new, :edit],
+      topics: [:new, :edit],
+      users: []
+    }
+  end
+
+  def internal_action?(controller, action)
+    internal_controllers[controller.to_sym] && (
+      internal_controllers[controller.to_sym].empty? ||
+      internal_controllers[controller.to_sym].include?(action)
+    )
+  end
+
+  def external_controllers
+    {
+      blog: [],
+      challenges: [:index, :show],
+      community_tool_reviews: [:index, :show],
+      datasets: [:index, :show],
+      external: [],
+      replies: [:show],
+      search: [],
+      showcase: [],
+      tools: [:index, :show],
+      topics: [:index, :show],
+      variables: []
+    }
+  end
+
+  def external_action?(controller, action)
+    external_controllers[controller.to_sym] && (
+      external_controllers[controller.to_sym].empty? ||
+      external_controllers[controller.to_sym].include?(action.to_sym)
+    )
+  end
+
   def devise_login?
     params[:controller] == 'sessions' && params[:action] == 'create'
   end
 
-  def store_location_in_session
-    session[:previous_url] = request.fullpath
+  def store_internal_location_in_session
+    session[:previous_internal_url] = request.fullpath
+  end
+
+  def store_external_location_in_session
+    session[:previous_external_url] = request.fullpath
+    session[:previous_internal_url] = nil
   end
 
   def check_community_manager

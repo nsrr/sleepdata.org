@@ -4,7 +4,6 @@
 class CategoriesController < ApplicationController
   before_action :authenticate_user!
   before_action :check_system_admin
-
   before_action :find_category_or_redirect, only: [:show, :edit, :update, :destroy]
 
   # GET /categories
@@ -54,7 +53,7 @@ class CategoriesController < ApplicationController
   private
 
   def find_category_or_redirect
-    @category = Category.current.find_by_param params[:id]
+    @category = Category.current.find_by_param(params[:id])
     redirect_without_category
   end
 

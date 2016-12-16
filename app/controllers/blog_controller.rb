@@ -32,7 +32,7 @@ class BlogController < ApplicationController
   private
 
   def find_broadcast_or_redirect
-    @broadcast = Broadcast.current.published.find_by_slug params[:slug]
+    @broadcast = Broadcast.current.published.find_by(slug: params[:slug])
     redirect_to blog_path unless @broadcast
   end
 
