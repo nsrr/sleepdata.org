@@ -6,23 +6,17 @@
     Where is your tool hosted?
 
   = form_for @community_tool, url: contribute_tool_set_location_path, method: :post, html: { class: 'form-horizontal', id: 'contribute_tool_form' } do |f|
-
     .form-group
       = f.label :url, 'URL', class: 'col-md-2 control-label'
       .col-md-10
         = f.text_field :url, class: 'form-control', placeholder: 'https://github.com/...'
         - if @community_tool.errors[:url].present?
-          .callout.callout-danger{ style: 'margin-top: 10px; margin-bottom: -15px' }
-            - if @community_tool.errors[:url] == ["has already been taken"]
-              This URL has already been submitted.
-            - else
-              Please enter a valid URL.
+          %small.text-danger{ style: 'position: absolute;'} Please enter a valid URL.
 
 .center{ style: 'margin-bottom: 20px' }
   = link_to '#', data: { object: 'submit', target: '#contribute_tool_form' }, class: 'btn btn-primary btn-lg ', style: 'width:100%; max-width: 400px;' do
     Continue
     %span.glyphicon.glyphicon-arrow-right
-
 
 .jumbotron
   %h1.center Contribute a Tool
@@ -32,14 +26,22 @@
     providing a tool that you've developed to push the field forward!
 
   %p
-    %strong Snippets
-    Simple tools can have a significant and positive influence on research.
-    Don't hesitate to provide a tool that has helped you streamline your
-    research. Some of the best tools focus on doing one thing well!
-
-  %p
-    %strong Toolkits
+    %strong Programs
     Complex tools can solve numerous problems when going through specific
     research workflows. These tools typically require more description about
     their use to get other researchers started, and may have a steeper learning
     curve.
+
+  %p
+    %strong Scripts
+    Simple tools can have a significant and positive influence on research.
+    Don't hesitate to provide a tool that has helped you streamline your
+    research. Some of the best tools focus on doing one thing well.
+
+  %p
+    %strong Tutorials
+    Adding tutorials for advanced tools can allow new users to learn more
+    quickly. Highlighting certain strengths and uses for existing tools is a
+    great benefit to our community as a whole. Your tutorial should contain all
+    the files needed, as well as be highly reproducible following the steps
+    provided.

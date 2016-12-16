@@ -3,7 +3,7 @@ require 'test_helper'
 class CommunityToolReviewsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @community_tool_review = community_tool_reviews(:one)
-    @community_tool = community_tools(:accepted)
+    @community_tool = community_tools(:published)
     @regular_user = users(:valid)
     @no_reviews_user = users(:aug)
   end

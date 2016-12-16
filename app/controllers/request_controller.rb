@@ -58,24 +58,30 @@ class RequestController < ApplicationController
   end
 
   def contribute_tool_description
-    @community_tool = current_user.community_tools.where(status: %w(started accepted)).find_by(id: params[:id])
+    @community_tool = current_user.community_tools.find_by_param(params[:id])
     redirect_to dashboard_path, alert: 'This tool does not exist.' unless @community_tool
   end
 
   def contribute_tool_set_description
-    @community_tool = current_user.community_tools.where(status: %w(started accepted)).find_by(id: params[:id])
+    @community_tool = current_user.community_tools.find_by_param(params[:id])
     unless @community_tool
       redirect_to dashboard_path, alert: 'This tool does not exist.'
       return
     end
 
-    status = (params[:draft] == '1' ? 'started' : 'submitted')
-
-    if @community_tool.update(name: params[:community_tool][:name], description: params[:community_tool][:description], status: status)
-      if status == 'started'
-        redirect_to dashboard_path, notice: 'Draft saved successfully.'
+    already_published = @community_tool.published?
+    published = \
+      if already_published
+        true
       else
-        redirect_to contribute_tool_submitted_path
+        (params[:draft] == '1' ? false : true)
+      end
+
+    if @community_tool.update(name: params[:community_tool][:name], description: params[:community_tool][:description], published: published)
+      if published
+        redirect_to community_show_tool_path(@community_tool), notice: already_published ? 'Tool updated successfully.' : 'Tool published successfully.'
+      else
+        redirect_to dashboard_path, notice: 'Draft saved successfully.'
       end
     else
       render :contribute_tool_description

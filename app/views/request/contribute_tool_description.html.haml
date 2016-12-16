@@ -6,37 +6,34 @@
     About Your Tool
 
   = form_for @community_tool, url: contribute_tool_set_description_path, method: :post, html: { class: 'form-vertical', id: 'contribute_tool_form' } do |f|
-    - if @community_tool.errors.any?
-      .callout.callout-danger
-        %strong
-          = pluralize @community_tool.errors.count, 'error'
-          prohibited this tool from being submitted
-
-        %ul
-          - @community_tool.errors.full_messages.each do |message|
-            %li= message
-
     = hidden_field_tag :draft, 0
 
     .form-group
       = f.label :name, nil, class: 'control-label'
       = f.text_field :name, class: 'form-control'
+      = render 'layouts/errors', object: @community_tool, key: :name
 
     .form-group
       = f.label :description, nil, class: 'control-label'
       .preview-container
         .preview-header
+          .pull-right
+            = render 'replies/rich_text_editor_buttons', target: "#community_tool_description"
           = link_to 'Write', '#', data: { object: 'view-content-markdown' }, class: 'preview-tab active', tabindex: '-1'
           = link_to 'Preview', '#', data: { object: 'view-content-preview', content: '#community_tool_description' }, class: 'preview-tab', tabindex: '-1'
         .preview-body
           #content_markdown
             = f.text_area :description, rows: [[15, @community_tool.description.to_s.count("\n") + 1].max, 25].min, class: 'preview-control', data: { object: 'expandable-text-area', default_rows: 15 }
           #content_preview.markdown-container-new{ style: 'display:none' }
-
+      = render 'layouts/errors', object: @community_tool, key: :description
 
 .center{ style: 'margin-bottom: 20px' }
-  = link_to '#', data: { object: 'submit-tool-draft', target: '#contribute_tool_form' }, class: 'btn btn-default btn-lg ', style: 'width:100%; max-width: 400px;' do
-    Save Draft
-  = link_to '#', data: { object: 'submit', target: '#contribute_tool_form' }, class: 'btn btn-primary btn-lg ', style: 'width:100%; max-width: 400px;' do
-    Submit
-    %span.glyphicon.glyphicon-arrow-right
+  - if @community_tool.published_was
+    = link_to 'Update Tool', '#', data: { object: 'submit', target: '#contribute_tool_form' }, class: 'btn btn-primary btn-lg ', style: 'width:100%; max-width: 400px;'
+  - else
+    = succeed ' ' do
+      = link_to '#', data: { object: 'submit-tool-draft', target: '#contribute_tool_form' }, class: 'btn btn-default btn-lg ', style: 'width:100%; max-width: 400px;' do
+        Save Draft
+    = link_to '#', data: { object: 'submit', target: '#contribute_tool_form' }, class: 'btn btn-primary btn-lg ', style: 'width:100%; max-width: 400px;' do
+      Publish Tool
+      %span.glyphicon.glyphicon-arrow-right

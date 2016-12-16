@@ -9,6 +9,7 @@
   - Tools can now be marked as scripts or tutorials
   - Tools can now be reviewed and rated
   - Tool reviews create notifications for tool creators
+  - Tool submission process simplified
 - **Gem Changes**
   - Updated to rails 5.0.1.rc2
 

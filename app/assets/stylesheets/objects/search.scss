@@ -19,3 +19,54 @@
 .full-search-bar {
   display: none;
 }
+
+
+
+// New Simple Search container
+.search-bar-container {
+  position: relative;
+}
+
+.full-search-bar {
+  display: none;
+}
+
+.search-container-relative {
+  position: relative;
+}
+
+.search-container {
+  @include remove-last-child-bottom-margin;
+  background-color: $jumbotron-bg;
+  border-radius: 3px;
+  box-shadow: 0 0 20px $standard-shadow-color;
+  color: $text-color;
+  left: 0;
+  margin: 0;
+  opacity: 0;
+  padding: 10px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  transform: translateY(-20px);
+  transition-duration: .25s;
+  transition-property: opacity, position, transform;
+  transition-timing-function: ease-out;
+  visibility: hidden;
+
+  .btn {
+    transition-property: none;
+  }
+
+  &.search-container-visible {
+    margin: 0 0 20px;
+    opacity: 1;
+    position: relative;
+    transform: translateY(0);
+    visibility: inherit;
+
+    .btn {
+      transition-property: background-color;
+    }
+  }
+}

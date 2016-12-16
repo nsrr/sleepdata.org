@@ -6,21 +6,18 @@ class CommunityTool < ApplicationRecord
   STATUS = %w(started submitted accepted rejected)
 
   # Concerns
-  include Deletable, Sluggable
+  include Deletable, Sluggable, Searchable
 
   # Callbacks
   after_touch :recalculate_rating!
 
-  # Named Scopes
-
-  scope :search, -> (arg) { where('name ~* ?', arg.to_s.split(/\s/).collect { |l| l.to_s.gsub(/[^\w\d%]/, '') }.collect { |l| "(#{l})" }.join('|')) }
-
   # Model Validation
   validates :user_id, :url, :status, presence: true
-  validates :url, uniqueness: { scope: :deleted, case_sensitive: false }
-  validates :name, :description, presence: true, unless: :started?
-  validates :name, uniqueness: { scope: [:user_id, :deleted], case_sensitive: false }, unless: :started?
+  validates :name, :description, presence: true, if: :published?
+  validates :name, uniqueness: { scope: :user_id, case_sensitive: false }, if: :published?
   validates :url, format: URI.regexp(%w(http https ftp))
+  validates :slug, uniqueness: { scope: :deleted, case_sensitive: false }, allow_nil: true
+  validates :slug, format: { with: /\A[a-z][a-z0-9\-]*\Z/ }, allow_nil: true
 
   # Model Relationships
   belongs_to :user
@@ -28,9 +25,18 @@ class CommunityTool < ApplicationRecord
 
   # Community Tool Methods
 
-  # def name
-  #   "Tool ##{id}"
-  # end
+  def draft?
+    !published?
+  end
+
+  def destroy
+    update name: nil, slug: nil
+    super
+  end
+
+  def editable_by?(current_user)
+    current_user && (current_user.system_admin? || current_user == user)
+  end
 
   def safe_url?
     %w(http https ftp).include?(URI.parse(url).scheme)

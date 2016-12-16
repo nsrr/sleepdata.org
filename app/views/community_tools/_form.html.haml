@@ -1,18 +1,9 @@
 = form_for @community_tool, html: { class: 'form-horizontal' } do |f|
-  - if @community_tool.errors.any?
-    .callout.callout-danger
-      %strong
-        = pluralize @community_tool.errors.count, 'error'
-        prohibited this tool from being saved
-
-      %ul
-        - @community_tool.errors.full_messages.each do |message|
-          %li= message
-
   .form-group
     = f.label :name, nil, class: 'col-md-2 control-label'
     .col-md-10
       = f.text_field :name, class: 'form-control'
+      = render 'layouts/errors', object: @community_tool, key: :name
 
   .form-group
     = f.label :slug, 'URL Slug', class: 'col-md-2 control-label'
@@ -42,17 +33,19 @@
           Ex:
           %code edf-viewer
 
-
   .form-group
     = f.label :url, 'Repository URL', class: 'col-md-2 control-label'
     .col-md-10
       = f.text_field :url, class: 'form-control'
+      = render 'layouts/errors', object: @community_tool, key: :url
 
   .form-group
     = f.label :description, nil, class: 'col-md-2 control-label'
     .col-md-10
       .preview-container
         .preview-header
+          .pull-right
+            = render 'replies/rich_text_editor_buttons', target: "#community_tool_description"
           = link_to 'Write', '#', data: { object: 'view-content-markdown' }, class: 'preview-tab active', tabindex: '-1'
           = link_to 'Preview', '#', data: { object: 'view-content-preview', content: '#community_tool_description' }, class: 'preview-tab', tabindex: '-1'
         .preview-body
@@ -61,9 +54,18 @@
           #content_preview.markdown-container-new{ style: 'display:none' }
 
   .form-group
-    = f.label :status, nil, class: 'col-md-2 control-label'
-    .col-md-10
-      = f.select :status, CommunityTool::STATUS, {}, class: 'form-control'
+    .col-md-offset-2.col-md-10
+      .checkbox
+        %label
+          = f.check_box :published
+          Published
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      .checkbox
+        %label
+          = f.check_box :tag_program
+          Program
 
   .form-group
     .col-md-offset-2.col-md-10

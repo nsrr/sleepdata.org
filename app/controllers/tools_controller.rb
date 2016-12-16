@@ -1,11 +1,23 @@
 # frozen_string_literal: true
 
+# Allows users to view and create tools.
 class ToolsController < ApplicationController
-  before_action :authenticate_user!,        only: [:new, :create, :edit, :update, :destroy, :requests, :request_access, :set_access, :create_access, :pull_changes, :sync]
-  before_action :check_system_admin,        only: [:new, :create, :destroy]
-  before_action :set_viewable_tool,         only: [:show, :logo, :images, :pages, :request_access]
-  before_action :set_editable_tool,         only: [:edit, :update, :destroy, :requests, :set_access, :create_access, :pull_changes, :sync]
-  before_action :redirect_without_tool,     only: [:show, :logo, :images, :pages, :requests, :request_access, :set_access, :create_access, :edit, :update, :destroy, :pull_changes, :sync]
+  before_action :authenticate_user!, only: [
+    :new, :create, :edit, :update, :destroy, :requests, :request_access,
+    :set_access, :create_access, :pull_changes, :sync
+  ]
+  before_action :check_system_admin, only: [:new, :create, :destroy]
+  before_action :set_viewable_tool, only: [
+    :show, :logo, :images, :pages, :request_access
+  ]
+  before_action :set_editable_tool, only: [
+    :edit, :update, :destroy, :requests, :set_access, :create_access,
+    :pull_changes, :sync
+  ]
+  before_action :redirect_without_tool, only: [
+    :show, :logo, :images, :pages, :requests, :request_access, :set_access,
+    :create_access, :edit, :update, :destroy, :pull_changes, :sync
+  ]
 
   # Concerns
   include Pageable
@@ -39,16 +51,17 @@ class ToolsController < ApplicationController
     # tool_scope = tool_scope.where(tool_type: params[:type]) unless params[:type].blank?
     @tools = tool_scope.order(:tool_type, :name).page(params[:page]).per(12)
 
-    @order = scrub_order(CommunityTool, params[:order], 'name')
-    community_tool_scope = CommunityTool.current.order(@order).where(status: 'accepted')
+    @order = scrub_order(CommunityTool, params[:order], 'community_tools.name')
+    community_tool_scope = CommunityTool.current.order(@order).where(published: true)
     unless params[:a].blank?
       user_ids = User.current.with_name(params[:a].to_s.split(','))
       community_tool_scope = community_tool_scope.where(user_id: user_ids.select(:id))
     end
 
+    community_tool_scope = community_tool_scope.where(tag_program: true) if params[:type] == 'program'
     community_tool_scope = community_tool_scope.where(tag_script: true) if params[:type] == 'script'
     community_tool_scope = community_tool_scope.where(tag_tutorial: true) if params[:type] == 'tutorial'
-    @community_tools = community_tool_scope.search(params[:s]).page(params[:page]).per(40)
+    @community_tools = community_tool_scope.search(params[:search]).page(params[:page]).per(20)
   end
 
   # GET /tools/1
@@ -58,7 +71,7 @@ class ToolsController < ApplicationController
 
   # GET /community/tools/1
   def community_show
-    @community_tool = CommunityTool.current.where(status: 'accepted').find_by_param(params[:id])
+    @community_tool = CommunityTool.current.where(published: true).find_by_param(params[:id])
     empty_response_or_root_path(tools_path) unless @community_tool
   end
 

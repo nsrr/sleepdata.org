@@ -11,6 +11,16 @@
       = simple_markdown @community_tool.description
 
   .col-sm-3
+    - if @community_tool.editable_by?(current_user)
+      %p
+        %strong Actions
+        %br
+        - if current_user == @community_tool.user
+          = link_to 'Edit Tool', contribute_tool_description_path(@community_tool), class: 'btn btn-xs btn-primary'
+        - if current_user.system_admin?
+          = link_to edit_community_tool_path(@community_tool), class: 'btn btn-xs btn-default' do
+            %span.glyphicon.glyphicon-cog
+
     %p
       %strong Author
       %br

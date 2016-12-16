@@ -118,12 +118,12 @@ class RequestControllerTest < ActionController::TestCase
 
   test 'should get contribute tool description as regular user' do
     login(users(:valid))
-    get :contribute_tool_description, params: { id: community_tools(:started) }
+    get :contribute_tool_description, params: { id: community_tools(:draft) }
     assert_response :success
   end
 
   test 'should not get contribute tool description as public user' do
-    get :contribute_tool_description, params: { id: community_tools(:started) }
+    get :contribute_tool_description, params: { id: community_tools(:draft) }
     assert_redirected_to new_user_session_path
   end
 
@@ -133,21 +133,23 @@ class RequestControllerTest < ActionController::TestCase
     assert_redirected_to dashboard_path
   end
 
-  test 'should set description and submit tool as regular user' do
+  test 'should set description and publish tool as regular user' do
     login(users(:valid))
-    post :contribute_tool_set_description, params: { id: community_tools(:started), community_tool: { name: 'Tool Name', description: 'Tool Description' } }
+    post :contribute_tool_set_description, params: { id: community_tools(:draft), community_tool: { name: 'Tool Name', description: 'Tool Description' } }
     assert_not_nil assigns(:community_tool)
     assert_equal 'Tool Name', assigns(:community_tool).name
     assert_equal 'Tool Description', assigns(:community_tool).description
-    assert_redirected_to contribute_tool_submitted_path
+    assert_equal true, assigns(:community_tool).published?
+    assert_redirected_to community_show_tool_path(community_tools(:draft))
   end
 
   test 'should set description and save draft tool as regular user' do
     login(users(:valid))
-    post :contribute_tool_set_description, params: { id: community_tools(:started), community_tool: { name: 'Tool Name - DRAFT', description: '' }, draft: '1' }
+    post :contribute_tool_set_description, params: { id: community_tools(:draft), community_tool: { name: 'Tool Name - DRAFT', description: '' }, draft: '1' }
     assert_not_nil assigns(:community_tool)
     assert_equal 'Tool Name - DRAFT', assigns(:community_tool).name
     assert_equal '', assigns(:community_tool).description
+    assert_equal false, assigns(:community_tool).published?
     assert_redirected_to dashboard_path
   end
 
@@ -160,7 +162,7 @@ class RequestControllerTest < ActionController::TestCase
 
   test 'should not submit tool as regular user without description' do
     login(users(:valid))
-    post :contribute_tool_set_description, params: { id: community_tools(:started), community_tool: { name: '', description: '' } }
+    post :contribute_tool_set_description, params: { id: community_tools(:draft), community_tool: { name: '', description: '' } }
     assert_not_nil assigns(:community_tool)
     assert_equal ["can't be blank"], assigns(:community_tool).errors[:name]
     assert_equal ["can't be blank"], assigns(:community_tool).errors[:description]
@@ -169,7 +171,7 @@ class RequestControllerTest < ActionController::TestCase
   end
 
   test 'should not set description and submit tool as public user' do
-    post :contribute_tool_set_description, params: { id: community_tools(:started), community_tool: { name: 'Tool Name', description: 'Tool Description' } }
+    post :contribute_tool_set_description, params: { id: community_tools(:draft), community_tool: { name: 'Tool Name', description: 'Tool Description' } }
     assert_nil assigns(:community_tool)
     assert_redirected_to new_user_session_path
   end

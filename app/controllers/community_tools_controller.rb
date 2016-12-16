@@ -55,8 +55,11 @@ class CommunityToolsController < ApplicationController
   end
 
   def community_tool_params
+    params[:community_tool] ||= { blank: '1' }
+    params[:community_tool].delete(:slug) if params[:community_tool][:slug].blank?
     params.require(:community_tool).permit(
-      :name, :url, :description, :slug, :status, :tag_script, :tag_tutorial
+      :name, :url, :description, :slug, :published,
+      :tag_program, :tag_script, :tag_tutorial
     )
   end
 end

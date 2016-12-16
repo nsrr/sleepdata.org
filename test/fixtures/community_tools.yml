@@ -1,22 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-accepted:
-  name: Accepted Tool
-  url: http://example.com/accepted
+published:
+  name: Published Tool
+  url: http://example.com/published
   description: MyText
   user: valid
-  status: accepted
+  published: true
 
-submitted:
-  name: Submitted Tool
-  url: http://example.com/submitted
-  description: MyText
-  user: valid
-  status: submitted
-
-started:
+draft:
   # name:
-  url: http://example.com/started
+  url: http://example.com/draft
   # description:
   user: valid
-  status: started
+  published: false

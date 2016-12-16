@@ -518,8 +518,8 @@ $state-warning-text:             $cg4-yellow-text;
 $state-warning-bg:               lighten($cg4-yellow-bg, 25%);
 // $state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%) !default;
 
-$state-danger-text:              $cg4-red-text;
-$state-danger-bg:                $cg4-red-bg;
+$state-danger-text:              $brand-danger;// #a94442 !default;
+// $state-danger-bg:                #f2dede !default;
 // $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !default;
 
 

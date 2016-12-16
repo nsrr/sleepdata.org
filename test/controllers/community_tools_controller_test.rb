@@ -5,7 +5,7 @@ require 'test_helper'
 # Test for admin side of community tools
 class CommunityToolsControllerTest < ActionController::TestCase
   setup do
-    @community_tool = community_tools(:submitted)
+    @community_tool = community_tools(:published)
     login(users(:admin))
   end
 

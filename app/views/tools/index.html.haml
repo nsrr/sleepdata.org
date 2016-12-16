@@ -18,14 +18,15 @@
       .banner-header.brand
         Community Tools
 
-        - if current_user && current_user.system_admin?
-          = link_to 'Review Submitted Tools', community_tools_path, class: 'btn btn-xs btn-default'
+= render 'search/simple', url: tools_path(@project)
 
 - if @community_tools.count == 0
-  %p.lead
-    We're working on expanding our available tools from the community.
-  %p.lead
-    Feel like helping us out? Contribute a tool below!
+  .jumbotron
+    %p.lead
+      We didn't find any tools matching your search criteria.
+      = link_to 'Back to Tools', tools_path
+    %p.lead
+      Feel like helping us out? Contribute a tool below!
 - else
   - if false
     = form_tag tools_path, method: :get, class: 'form-inline' do
@@ -40,20 +41,32 @@
     %col{ width: '75%' }
     %col.hidden-xs{ width: '25%' }
     %col{ width: '1px' }
+    - if current_user && current_user.system_admin?
+      %col{ width: '1px' }
     %thead
       %tr
         = th_sort_field_rev @order, 'community_tools.rating', 'Rating', extra_class: 'center'
-        = th_sort_field @order, 'community_tools.name', 'Name'
-        %th.hidden-xs User
+        %th{ class: params[:order] == 'community_tools.name desc' || params[:order].blank? ? 'sort-selected' : nil }
+          - case params[:order]
+          - when 'community_tools.name desc'
+            = link_to 'Name', tools_path
+          - else
+            = link_to 'Name', tools_path(order: 'community_tools.name desc')
+
+          = render 'search/toggle'
+        %th.hidden-xs
+          User
         %th.nowrap
           Type
           .dropdown{ style: 'display: inline-block' }
             = link_to '#', data: { target: '#', toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
               %span.glyphicon.glyphicon-filter
             %ul.dropdown-menu.dropdown-menu-right
-              %li= link_to 'All', tools_path(order: params[:order]), type: params[:type].blank? ? 'font-weight:bold;' : ''
-              - [['Script', 'script'], ['Tutorial', 'tutorial']].each do |label, value|
+              %li= link_to 'All', tools_path(order: params[:order]), style: params[:type].blank? ? 'font-weight:bold;' : ''
+              - [['Program', 'program'], ['Script', 'script'], ['Tutorial', 'tutorial']].each do |label, value|
                 %li= link_to label, tools_path(order: params[:order], type: value), style: params[:type] == value ? 'font-weight:bold;' : ''
+        - if current_user && current_user.system_admin?
+          %th Actions
 
     %tbody
       - @community_tools.each do |community_tool|
@@ -62,12 +75,17 @@
           %td= link_to community_tool.name, community_show_tool_path(community_tool)
           %td.hidden-xs= community_tool.user.forum_name
           %td.center
+            - if community_tool.tag_program?
+              %span.label.label-success Program
             - if community_tool.tag_script?
-              %span.label.label-default Script
+              %span.label.label-warning Script
             - if community_tool.tag_tutorial?
               %span.label.label-info Tutorial
-            - unless community_tool.tag_script? || community_tool.tag_tutorial?
-              %span.label.label-success Program
+            - unless community_tool.tag_program? || community_tool.tag_script? || community_tool.tag_tutorial?
+              / %span.label.label-default Unsorted
+          - if current_user && current_user.system_admin?
+            %td
+              = render 'layouts/edit_delete_dropdown', edit_url: edit_community_tool_path(community_tool), delete_url: community_tool, delete_confirmation: "Delete #{community_tool.name}?"
 
   .center= paginate @community_tools, theme: 'bootstrap'
 

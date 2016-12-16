@@ -30,11 +30,7 @@
   %tbody
     - @broadcasts.each do |broadcast|
       %tr
-        %td.center
-          - if broadcast.published?
-            %span.label.label-info{ rel: 'tooltip', data: { container: 'body', placement: 'top', title: 'Published' } } P
-          - else
-            %span.label.label-warning{ rel: 'tooltip', data: { container: 'body', placement: 'top', title: 'Draft' } } D
+        %td.center= render 'layouts/draft_published', published: broadcast.published?
         %td= link_to broadcast.title, broadcast
         %td.nowrap.hidden-xs= broadcast.publish_date.strftime '%a %b %-d, %Y'
         %td.center.hidden-xs.hidden-sm= simple_check broadcast.pinned
