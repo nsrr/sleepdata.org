@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-# This controller tests simultaneous registration and form submission
+# This controller tests simultaneous registration and form submission.
 class RequestControllerTest < ActionController::TestCase
   test 'should get contribute tool start as public user' do
     get :contribute_tool_start
@@ -69,7 +69,10 @@ class RequestControllerTest < ActionController::TestCase
   test 'should not contribute tool and register user with existing email address' do
     assert_difference('User.count', 0) do
       assert_difference('CommunityTool.count', 0) do
-        post :contribute_tool_register_user, params: { community_tool: { url: 'http://example.com' }, user: { first_name: 'First Name', last_name: 'Last Name', email: 'valid@example.com' } }
+        post :contribute_tool_register_user, params: {
+          community_tool: { url: 'http://example.com' },
+          user: { first_name: 'First Name', last_name: 'Last Name', email: 'valid@example.com' }
+        }
       end
     end
     assert_not_nil assigns(:community_tool)
@@ -82,7 +85,10 @@ class RequestControllerTest < ActionController::TestCase
     users(:valid).update password: 'password'
     assert_difference('User.count', 0) do
       assert_difference('CommunityTool.count') do
-        patch :contribute_tool_sign_in_user, params: { community_tool: { url: 'http://example.com' }, email: 'valid@example.com', password: 'password' }
+        patch :contribute_tool_sign_in_user, params: {
+          community_tool: { url: 'http://example.com' },
+          email: 'valid@example.com', password: 'password'
+        }
       end
     end
     assert_not_nil assigns(:community_tool)
@@ -95,7 +101,9 @@ class RequestControllerTest < ActionController::TestCase
     login(users(:valid))
     assert_difference('User.count', 0) do
       assert_difference('CommunityTool.count') do
-        patch :contribute_tool_sign_in_user, params: { community_tool: { url: 'http://example.com' }, email: '', password: '' }
+        patch :contribute_tool_sign_in_user, params: {
+          community_tool: { url: 'http://example.com' }, email: '', password: ''
+        }
       end
     end
     assert_not_nil assigns(:community_tool)
@@ -107,7 +115,10 @@ class RequestControllerTest < ActionController::TestCase
   test 'should not contribute tool and sign in user with invalid email and password' do
     assert_difference('User.count', 0) do
       assert_difference('CommunityTool.count', 0) do
-        patch :contribute_tool_sign_in_user, params: { community_tool: { url: 'http://example.com' }, email: 'valid@example.com', password: '' }
+        patch :contribute_tool_sign_in_user, params: {
+          community_tool: { url: 'http://example.com' },
+          email: 'valid@example.com', password: ''
+        }
       end
     end
     assert_not_nil assigns(:community_tool)
@@ -135,34 +146,48 @@ class RequestControllerTest < ActionController::TestCase
 
   test 'should set description and publish tool as regular user' do
     login(users(:valid))
-    post :contribute_tool_set_description, params: { id: community_tools(:draft), community_tool: { name: 'Tool Name', description: 'Tool Description' } }
+    post :contribute_tool_set_description, params: {
+      id: community_tools(:draft),
+      community_tool: { name: 'Tool Name', description: 'Tool Description' }
+    }
     assert_not_nil assigns(:community_tool)
     assert_equal 'Tool Name', assigns(:community_tool).name
     assert_equal 'Tool Description', assigns(:community_tool).description
     assert_equal true, assigns(:community_tool).published?
+    assert_equal Time.zone.today, assigns(:community_tool).publish_date
     assert_redirected_to community_show_tool_path(community_tools(:draft))
   end
 
   test 'should set description and save draft tool as regular user' do
     login(users(:valid))
-    post :contribute_tool_set_description, params: { id: community_tools(:draft), community_tool: { name: 'Tool Name - DRAFT', description: '' }, draft: '1' }
+    post :contribute_tool_set_description, params: {
+      id: community_tools(:draft),
+      community_tool: { name: 'Tool Name - DRAFT', description: '' },
+      draft: '1'
+    }
     assert_not_nil assigns(:community_tool)
     assert_equal 'Tool Name - DRAFT', assigns(:community_tool).name
     assert_equal '', assigns(:community_tool).description
     assert_equal false, assigns(:community_tool).published?
+    assert_nil assigns(:community_tool).publish_date
     assert_redirected_to dashboard_path
   end
 
   test 'should not set description and submit tool as regular user with invalid id' do
     login(users(:valid))
-    post :contribute_tool_set_description, params: { id: -1, community_tool: { name: 'Tool Name', description: 'Tool Description' } }
+    post :contribute_tool_set_description, params: {
+      id: -1,
+      community_tool: { name: 'Tool Name', description: 'Tool Description' }
+    }
     assert_nil assigns(:community_tool)
     assert_redirected_to dashboard_path
   end
 
   test 'should not submit tool as regular user without description' do
     login(users(:valid))
-    post :contribute_tool_set_description, params: { id: community_tools(:draft), community_tool: { name: '', description: '' } }
+    post :contribute_tool_set_description, params: {
+      id: community_tools(:draft), community_tool: { name: '', description: '' }
+    }
     assert_not_nil assigns(:community_tool)
     assert_equal ["can't be blank"], assigns(:community_tool).errors[:name]
     assert_equal ["can't be blank"], assigns(:community_tool).errors[:description]
@@ -171,7 +196,10 @@ class RequestControllerTest < ActionController::TestCase
   end
 
   test 'should not set description and submit tool as public user' do
-    post :contribute_tool_set_description, params: { id: community_tools(:draft), community_tool: { name: 'Tool Name', description: 'Tool Description' } }
+    post :contribute_tool_set_description, params: {
+      id: community_tools(:draft),
+      community_tool: { name: 'Tool Name', description: 'Tool Description' }
+    }
     assert_nil assigns(:community_tool)
     assert_redirected_to new_user_session_path
   end

@@ -57,8 +57,9 @@ class CommunityToolsController < ApplicationController
   def community_tool_params
     params[:community_tool] ||= { blank: '1' }
     params[:community_tool].delete(:slug) if params[:community_tool][:slug].blank?
+    parse_date_if_key_present(:community_tool, :publish_date)
     params.require(:community_tool).permit(
-      :name, :url, :description, :slug, :published,
+      :name, :url, :description, :slug, :published, :publish_date,
       :tag_program, :tag_script, :tag_tutorial
     )
   end

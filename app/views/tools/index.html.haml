@@ -41,6 +41,7 @@
     %col{ width: '75%' }
     %col.hidden-xs{ width: '25%' }
     %col{ width: '1px' }
+    %col.hidden-xs.hidden-sm
     - if current_user && current_user.system_admin?
       %col{ width: '1px' }
     %thead
@@ -55,7 +56,7 @@
 
           = render 'search/toggle'
         %th.hidden-xs
-          User
+          Author
         %th.nowrap
           Type
           .dropdown{ style: 'display: inline-block' }
@@ -65,8 +66,10 @@
               %li= link_to 'All', tools_path(order: params[:order]), style: params[:type].blank? ? 'font-weight:bold;' : ''
               - [['Program', 'program'], ['Script', 'script'], ['Tutorial', 'tutorial']].each do |label, value|
                 %li= link_to label, tools_path(order: params[:order], type: value), style: params[:type] == value ? 'font-weight:bold;' : ''
+        = th_sort_field_rev @order, 'community_tools.publish_date', 'Published', extra_class: 'hidden-xs hidden-sm center'
         - if current_user && current_user.system_admin?
-          %th Actions
+          %th.center
+            %span.hidden-xs Actions
 
     %tbody
       - @community_tools.each do |community_tool|
@@ -76,13 +79,14 @@
           %td.hidden-xs= community_tool.user.forum_name
           %td.center
             - if community_tool.tag_program?
-              %span.label.label-success Program
+              %span.label.label-accent Program
             - if community_tool.tag_script?
-              %span.label.label-warning Script
+              %span.label.label-accent Script
             - if community_tool.tag_tutorial?
-              %span.label.label-info Tutorial
+              %span.label.label-accent Tutorial
             - unless community_tool.tag_program? || community_tool.tag_script? || community_tool.tag_tutorial?
               / %span.label.label-default Unsorted
+          %td.hidden-xs.hidden-sm.nowrap.center= community_tool.publish_date
           - if current_user && current_user.system_admin?
             %td
               = render 'layouts/edit_delete_dropdown', edit_url: edit_community_tool_path(community_tool), delete_url: community_tool, delete_confirmation: "Delete #{community_tool.name}?"
