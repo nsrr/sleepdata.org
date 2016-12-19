@@ -1,6 +1,7 @@
 @drawRating = (rating) ->
   $('[data-object~="star-rating"]').each( ->
     if $(this).data('position') < rating
+      $(this).removeClass('text-muted')
       $(this).removeClass('fa-star-o')
       $(this).addClass('fa-star')
       $(this).addClass('text-warning')
@@ -8,6 +9,7 @@
       $(this).removeClass('text-warning')
       $(this).removeClass('fa-star')
       $(this).addClass('fa-star-o')
+      $(this).addClass('text-muted')
   )
 
 $(document)
