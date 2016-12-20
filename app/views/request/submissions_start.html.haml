@@ -1,31 +1,33 @@
 - content_for :body_class do
   brand-background
 
-- content_for :banner do
-  .jumbotron{ style: 'margin-bottom:0;border-radius: 0;background-color: transparent' }
+- content_for :header do
+  / .background-gradient
+  .header-container
     .container
-      %h1.center
+      %h1.page-heading.center
         Looking to
         %span.glyphicon.glyphicon-cloud-download
         download data?
 
-.lead
-  %p.center
-    Proceed through
-    %strong
-      a few short steps
-    of the submission review process.
-  %p.center
-    Save your progress whenever, "Submit your Application" when ready!
-  %p.center
-    %br
-    = link_to submissions_launch_path(dataset: params[:dataset]), method: :post, class: 'btn btn-lg btn-call-to-action btn-shadow' do
-      Click here to start!
-      %span.glyphicon.glyphicon-arrow-right
+.dashboard-container
+  .lead
+    %p.center
+      Proceed through
+      %strong
+        a few short steps
+      of the submission review process.
+    %p.center
+      Save your progress whenever, "Submit your Application" when ready!
+    %p.center
+      %br
+      = link_to submissions_launch_path(dataset: params[:dataset]), method: :post, class: 'btn btn-lg btn-call-to-action btn-shadow' do
+        Click here to start!
+        %span.glyphicon.glyphicon-arrow-right
 
-.lead{ style: 'margin-top: 80px;' }
+  .lead{ style: 'margin-top: 80px;' }
 
-  %p.center
-    We're here to help! Send your questions to
-    = succeed '.' do
-      = mail_to 'support@sleepdata.org'
+    %p.center
+      We're here to help! Send your questions to
+      = succeed '.' do
+        = mail_to 'support@sleepdata.org'

@@ -1,19 +1,19 @@
+- @title = 'DAUA'
 - steps = ['Data User Name', 'Specific Purpose', 'Stipulations', 'Signature', 'IRB Review', 'Proof']
 
-- content_for :banner do
-  .banner
+- content_for :header do
+  / .background-gradient
+  .header-container
     .container
-      .banner-header.brand.center
+      %h1.page-heading.brand.center
         Brigham and Women's Hospital
-      .banner-body.hidden-xs
-        %hr{ style: 'border-color: #777;' }
-        .row{ style: 'margin-bottom: -20px' }
-          - steps.each_with_index do |label, index|
-            .col-sm-4.col-lg-2.col-buffer
-              - url = @agreement.new_record? ? '#' : step_agreement_path(@agreement, step: index+1)
-              .btn.btn-block{ style: 'border-color: transparent; background-color: transparent;box-shadow: none;cursor:default' }
-                %span{ style: 'color: #fff;' }
-                  %span.glyphicon{ class: "glyphicon-#{step_helper_2(@agreement, index + 1)}" }
-                = link_to label, url, class: '', data: { object: "#{'suppress-click' if @agreement.new_record?}" }, style: 'color: #fff;'
+      .row{ style: 'margin-bottom: 0; margin-top: 20px;' }
+        - steps.each_with_index do |label, index|
+          .col-sm-4.col-lg-2
+            - url = @agreement.new_record? ? '#' : step_agreement_path(@agreement, step: index+1)
+            .btn.btn-block{ style: 'border-color: transparent; background-color: transparent;box-shadow: none;cursor:default' }
+              %span{ style: 'color: #fff;' }
+                %span.glyphicon{ class: "glyphicon-#{step_helper_2(@agreement, index + 1)}" }
+              = link_to label, url, class: '', data: { object: "#{'suppress-click' if @agreement.new_record?}" }, style: 'color: #fff;'
 
 = hidden_field_tag 'isdirty', '1'
