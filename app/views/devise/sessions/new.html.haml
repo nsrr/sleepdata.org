@@ -11,16 +11,16 @@
 
   = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-vertical' }) do |f|
     .form-group
-      = f.label :email, class: 'control-label'
+      = render 'layouts/label_or_errors', f: f, object: resource, key: :email
       = f.email_field :email, class: 'form-control'
 
     .form-group
-      = f.label :password, class: 'control-label'
+      = render 'layouts/label_or_errors', f: f, object: resource, key: :password
       = link_to '(Forgot password?)', new_password_path(resource_name), tabindex: '-1'
       = f.password_field :password, class: 'form-control', autocomplete: 'off'
 
-    .form-group.sign-up-form-button-container
-      = f.submit 'Sign in', class: 'btn btn-success btn-block'
+    .form-group.submit-btn-container
+      = f.submit 'Sign in', class: 'btn btn-primary btn-block btn-shadow'
 
 .sign-up-form.center
   New to the NSRR?

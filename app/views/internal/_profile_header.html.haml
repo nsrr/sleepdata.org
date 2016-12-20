@@ -1,5 +1,9 @@
-.profile-breadcrumb
-  = link_to admin_dashboard_path do
-    Admin Dashboard
-  &middot;
-  %strong= title
+- @breadcrumbs = [['Admin Dashboard', admin_dashboard_path]]
+
+- content_for :header do
+  / .background-gradient
+  .header-container
+    .container
+      %h1.page-heading
+        =# render 'layouts/side_nav_header_button'
+        = title

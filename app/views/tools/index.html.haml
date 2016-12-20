@@ -1,22 +1,23 @@
 - @title = 'Tools'
 
 - if false
-  %p.lead Popular Tools
-  %p.lead Search for Tool
-  %p.lead Submit a Tool
   %p.lead Bookmark a Tool
   %p.lead Popular Requests
   %p.lead Researcher Helped Solve a Request
   %p.lead Researcher Submitted a Tool Requested that's Highly Rated
-  %p.lead "Tool URL no longer available"
   %p.lead Tool Description
   %p.lead Tool Discussion
 
-- content_for :banner do
-  .banner
+- content_for :header do
+  / .background-gradient
+  .header-container
     .container
-      .banner-header.brand
-        Community Tools
+      %h1.page-heading
+        .pull-right
+          = link_to plus_or('Contribute a Tool'), contribute_tool_start_path, class: 'btn btn-accent btn-shadow'
+          = render 'layouts/per_page', per_page: 20, object_count: @community_tools.total_count
+        =# render 'layouts/side_nav_header_button'
+        = @title
 
 = render 'search/simple', url: tools_path(@project)
 
@@ -103,4 +104,4 @@
     .call-to-action-body
       Submit a link to your tool code repository and help other researchers.
     .call-to-action-body
-      = link_to 'Contribute a Tool', contribute_tool_start_path, class: 'btn btn-call-to-action'
+      = link_to 'Contribute a Tool', contribute_tool_start_path, class: 'btn btn-call-to-action btn-shadow'

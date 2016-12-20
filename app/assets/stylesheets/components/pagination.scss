@@ -13,6 +13,39 @@
   }
 }
 
+.page-heading {
+  .per-page {
+    display: inline-block;
+    height: 28px;
+    margin: 0;
+    position: relative;
+    text-shadow: none;
+    top: 0;
+
+    ul {
+      margin: 0;
+    }
+  }
+
+  .pull-right {
+    height: 28px;
+  }
+}
+
+@media screen and (min-width: $screen-md-min) {
+  .page-heading {
+    .per-page {
+      height: 29px;
+    }
+
+    .pull-right {
+      height: 29px;
+    }
+  }
+}
+
+
+// TODO: Deprecated, remove
 .banner-header {
   .per-page {
     display: inline-block;

@@ -10,19 +10,9 @@
     Reset Password
 
   = form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: 'form-vertical' }) do |f|
-    - if resource.errors.any?
-      .callout.callout-danger
-        %strong
-          Please enter a valid email
-
-        %ul
-          - resource.errors.full_messages.each do |message|
-            %li= message
-
-
     .form-group
-      = f.label :email, class: 'control-label'
+      = render 'layouts/label_or_errors', f: f, object: resource, key: :email
       = f.email_field :email, class: 'form-control'
 
-    .form-group.sign-up-form-button-container
-      = f.submit "Send me reset password instructions", class: 'btn btn-success btn-block'
+    .form-group.submit-btn-container
+      = f.submit 'Send me reset password instructions', class: 'btn btn-primary btn-block btn-shadow'

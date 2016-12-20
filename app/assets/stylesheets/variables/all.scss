@@ -1,6 +1,7 @@
 // Variables
 
-@import 'variables/colors';
+@import 'variables/colors_deprecated'; // TODO: Remove reference to colors.
 @import 'variables/bootstrap';
+@import 'variables/colors';
 @import 'variables/shadows';
 @import 'variables/structure';

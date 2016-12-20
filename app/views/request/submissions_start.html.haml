@@ -1,5 +1,8 @@
+- content_for :body_class do
+  brand-background
+
 - content_for :banner do
-  .jumbotron{ style: 'margin-bottom:0;border-radius: 0;' }
+  .jumbotron{ style: 'margin-bottom:0;border-radius: 0;background-color: transparent' }
     .container
       %h1.center
         Looking to
@@ -8,26 +11,21 @@
 
 .lead
   %p.center
-    You are about to start a simple process to gain access to terabytes of data on the NSRR.
-
+    Proceed through
+    %strong
+      a few short steps
+    of the submission review process.
   %p.center
-    This
-    %strong
-      quick
-    process guides you through
-    %strong
-      several short steps
-    of the NSRR Data Access and Use Agreement and IRB review process. You can
-    also save your progress, so you can "Submit your Application" when you feel
-    you're ready!
+    Save your progress whenever, "Submit your Application" when ready!
   %p.center
     %br
-    = link_to submissions_launch_path(dataset: params[:dataset]), method: :post, class: 'btn btn-lg btn-call-to-action' do
+    = link_to submissions_launch_path(dataset: params[:dataset]), method: :post, class: 'btn btn-lg btn-call-to-action btn-shadow' do
       Click here to start!
       %span.glyphicon.glyphicon-arrow-right
 
-  %hr.divider-md
+.lead{ style: 'margin-top: 80px;' }
 
   %p.center
-    If you need any help with this process, email us at:
-    = mail_to 'support@sleepdata.org'
+    We're here to help! Send your questions to
+    = succeed '.' do
+      = mail_to 'support@sleepdata.org'

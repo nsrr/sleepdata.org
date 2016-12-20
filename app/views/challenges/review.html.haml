@@ -49,9 +49,9 @@
         Almost done, answer a short survey on the next page!
 
       .call-to-action-body
-        = link_to 'Proceed to Survey', @challenge.survey_url, class: 'btn btn-call-to-action btn-lg'
+        = link_to 'Proceed to Survey', @challenge.survey_url, class: 'btn btn-call-to-action btn-lg btn-shadow'
     - else
       .call-to-action-header
         Almost done, continue below!
       .call-to-action-body
-        = link_to 'Complete Challenge', submitted_challenge_path(@challenge), class: 'btn btn-call-to-action btn-lg'
+        = link_to 'Complete Challenge', submitted_challenge_path(@challenge), class: 'btn btn-call-to-action btn-lg btn-shadow'

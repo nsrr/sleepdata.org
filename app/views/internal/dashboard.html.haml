@@ -1,5 +1,5 @@
 - content_for :body_class do
-  gray-background
+  brand-background
 
 .row
   .col-md-3
@@ -63,7 +63,7 @@
       - else
         %p Do you have a tool you would like to share with the NSRR research community?
 
-      = link_to 'Manage My DAUAs', submissions_path, class: 'btn btn-xs btn-call-to-action btn-block'
+      = link_to 'Manage My DAUAs', submissions_path, class: 'btn btn-xs btn-call-to-action btn-block btn-shadow'
 
     .dashboard-container
       .dashboard-title
@@ -96,7 +96,7 @@
       - else
         %p Do you have a tool you would like to share with the NSRR research community?
 
-      = link_to 'Contribute a Tool', contribute_tool_start_path, class: 'btn btn-xs btn-call-to-action btn-block'
+      = link_to 'Contribute a Tool', contribute_tool_start_path, class: 'btn btn-xs btn-call-to-action btn-block btn-shadow'
 
 
     - if false

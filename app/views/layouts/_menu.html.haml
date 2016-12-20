@@ -1,4 +1,4 @@
-- header = current_page?(root_path) || content_for?(:header)
+- header = current_page?(root_path) || content_for?(:header_old)
 
 %div{ class: header ? 'navbar-outer' : nil }
   %nav.navbar.navbar-default{ class: (header ? nil : 'navbar-fixed-top affix'), data: { object: (header ? 'navbar-affix' : nil) } }
@@ -10,6 +10,7 @@
           %span.icon-bar
           %span.icon-bar
         = link_to 'NSRR', root_path, class: 'navbar-brand brand'
+        = link_to @menu_title || @title, '#top', data: { object: 'remove-collapse-in scroll-anchor', target: '.navbar-full-menu' }, class: 'navbar-brand page-title' if @menu_title || @title
       .collapse.navbar-collapse.navbar-full-menu
         %ul.nav.navbar-nav
           - if current_user
@@ -42,17 +43,17 @@
             = link_to topics_path do
               %span.glyphicon.glyphicon-pushpin
               Forum
-          %li{ class: "#{ 'active' if current_page?(about_path) || current_page?(aug_path) }" }
-            = link_to about_path do
-              %span.glyphicon.glyphicon-leaf
-              About
+          %li{ class: "#{ 'active' if current_page?(blog_path) }" }
+            = link_to blog_path do
+              %span.glyphicon.glyphicon-bullhorn
+              Blog
 
         - if current_user
           %form.navbar-form.navbar-right.hidden-xs
-            = link_to 'Logout', destroy_user_session_path, class: 'btn btn-primary'
+            = link_to 'Logout', destroy_user_session_path, class: 'btn btn-primary-dark'
         - else
           %form.navbar-form.navbar-right.hidden-xs
-            = link_to 'Sign in', new_user_session_path, class: 'btn btn-primary'
+            = link_to 'Sign in', new_user_session_path, class: 'btn btn-primary-dark'
 
         %div{ style: 'position: relative' }
           .full-search-bar
@@ -61,12 +62,12 @@
                 .input-group
                   = text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search the NSRR', autocomplete: 'off', id: 'navigation-search'
                   %span.input-group-btn
-                    = link_to '#', data: { object: 'suppress-click' }, class: 'btn btn-primary', name: nil, id: 'navigation-form-search-btn' do
+                    = link_to '#', data: { object: 'suppress-click' }, class: 'btn btn-primary-dark', name: nil, id: 'navigation-form-search-btn' do
                       %span.glyphicon.glyphicon-search
 
         .tiny-search-icon
           %form.navbar-form.navbar-right.hidden-xs.hidden-sm{ style: 'margin-right: -25px' }
-            = link_to '#', data: { object: 'show-search-bar' }, class: 'btn btn-primary', name: nil do
+            = link_to '#', data: { object: 'show-search-bar' }, class: 'btn btn-primary-dark', name: nil do
               %span.glyphicon.glyphicon-search
           %ul.nav.navbar-nav.navbar-right{ style: 'max-height: 50px' }
             - if current_user
@@ -79,8 +80,8 @@
 
         - if current_user
           %form.navbar-form.navbar-right.visible-xs
-            = link_to 'Logout', destroy_user_session_path, class: 'btn btn-primary'
+            = link_to 'Logout', destroy_user_session_path, class: 'btn btn-primary-dark'
         - else
           %form.navbar-form.navbar-right.visible-xs
-            = link_to 'Sign up', new_user_registration_path, class: 'btn btn-primary' unless current_page?(new_user_registration_path)
-            = link_to 'Sign in', new_user_session_path, class: 'btn btn-primary'
+            = link_to 'Sign up', new_user_registration_path, class: 'btn btn-primary-dark' unless current_page?(new_user_registration_path)
+            = link_to 'Sign in', new_user_session_path, class: 'btn btn-primary-dark'

@@ -5,3 +5,8 @@
 .brand {
   @include brand;
 }
+
+.bg-accent {
+  background-color: $a100;
+  background-color: $a200-text;
+}

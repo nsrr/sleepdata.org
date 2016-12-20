@@ -14,6 +14,7 @@
 - **General Changes**
   - Improved friendly forwarding when navigating between internal and external
     pages while signing in and signing out
+  - Updated the user interface across the site
 - **Gem Changes**
   - Updated to rails 5.0.1.rc2
 

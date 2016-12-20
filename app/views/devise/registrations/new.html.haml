@@ -9,34 +9,24 @@
   .sign-up-form-title
     Create your account
   = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'form-vertical', autocomplete: 'off' }) do |f|
-    - if resource.errors.any?
-      .callout.callout-danger
-        %strong
-          = pluralize resource.errors.count, 'error'
-          prohibited this registration from being saved
-
-        %ul
-          - resource.errors.full_messages.each do |message|
-            %li= message
-
     .form-group
-      = f.label :first_name, class: 'control-label'
+      = render 'layouts/label_or_errors', f: f, object: resource, key: :first_name
       = f.text_field :first_name, class: 'form-control'
 
     .form-group
-      = f.label :last_name, class: 'control-label'
+      = render 'layouts/label_or_errors', f: f, object: resource, key: :last_name
       = f.text_field :last_name, class: 'form-control'
 
     .form-group
-      = f.label :email, class: 'control-label'
+      = render 'layouts/label_or_errors', f: f, object: resource, key: :email
       = f.email_field :email, class: 'form-control'
 
     .form-group
-      = f.label :password, class: 'control-label'
+      = render 'layouts/label_or_errors', f: f, object: resource, key: :password
       = f.password_field :password, class: 'form-control', autocomplete: 'off'
 
     .form-group
-      = f.label :password_confirmation, class: 'control-label'
+      = render 'layouts/label_or_errors', f: f, object: resource, key: :password_confirmation
       = f.password_field :password_confirmation, class: 'form-control', autocomplete: 'off'
 
     .form-group
@@ -44,7 +34,7 @@
       .checkbox
         %label
           = f.check_box :emails_enabled
-          Allow the NSRR to send you emails when a topic receives a reply to which you are subscribed, and when someone mentions you on the forum.
+          Allow the NSRR to send you emails?
 
-    .form-group.sign-up-form-button-container
-      = f.submit 'Create an Account', class: 'btn btn-success btn-block'
+    .form-group.submit-btn-container
+      = f.submit 'Create an Account', class: 'btn btn-primary btn-block btn-shadow'

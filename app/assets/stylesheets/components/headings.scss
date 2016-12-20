@@ -1,0 +1,113 @@
+.page-heading {
+  font-weight: normal !important;
+  position: relative;
+  text-shadow: 0 2px 3px $standard-shadow-color;
+  word-break: break-word;
+
+  .btn,
+  .dropdown-menu {
+    text-shadow: none;
+  }
+
+  // TODO: Check pages that have links in page-heading
+  // > a {
+  //   color: $breadcrumb-link-color;
+  // }
+
+  // > a:hover {
+  //   color: darken($breadcrumb-link-color, 10%);
+  // }
+}
+
+.header-container {
+  background-color: $header-bg;
+  color: $brand-white;
+  padding: 20px 0;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+  .dropdown,
+  .pull-right {
+    line-height: 33px; // h1 font size * 1.1
+    position: relative;
+    z-index: 1;
+  }
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .header-container {
+    h1 {
+      font-size: 38px;
+    }
+
+    .dropdown,
+    .pull-right {
+      line-height: 41.8px; // h1 font size * 1.1
+    }
+  }
+}
+
+@media screen and (min-width: $screen-md-min) {
+  .header-container {
+    h1 {
+      font-size: 41px;
+    }
+
+    .dropdown,
+    .pull-right {
+      line-height: 45.1px; // h1 font size * 1.1
+    }
+  }
+}
+
+.header-container-offthehook {
+  h1 {
+    visibility: hidden;
+  }
+}
+
+.navbar-header {
+  .navbar-brand {
+    display: block;
+
+    &.page-title {
+      display: none;
+    }
+  }
+
+  &.navbar-page-title {
+    .navbar-brand {
+      display: none;
+
+      &.page-title {
+        color: $brand-white;
+        display: block;
+        max-width: 300px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .navbar-header.navbar-page-title {
+    .navbar-brand {
+      &.page-title {
+        max-width: initial;
+      }
+    }
+  }
+}

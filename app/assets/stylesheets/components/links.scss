@@ -6,6 +6,17 @@
   width: 0;
 }
 
+.link-unstyled {
+  color: $text-color;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $text-color;
+    text-decoration: none;
+  }
+}
+
 .no-underline:focus,
 .no-underline:hover {
   outline: none;

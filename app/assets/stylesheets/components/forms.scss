@@ -1,7 +1,6 @@
 .sign-up-form {
-  background-color: $brand-white;
-  border: 1px solid $brand-primary-text;
-  color: $brand-black;
+  background-color: $panel-bg;
+  border: 1px solid $brand-primary;
   margin: 0 auto 20px;
   max-width: 400px;
   padding: 20px;
@@ -9,12 +8,13 @@
 
 .sign-up-form-title {
   @include brand;
-  background-color: $brand-black;
+
+  background-color: $brand-primary;
   color: $brand-white;
   font-size: 18px;
-  font-weight: bold;
   margin: -20px -20px 20px;
   padding: 10px 20px;
+  text-shadow: 0 2px 3px $standard-shadow-color;
 }
 
 @media screen and (min-width: $screen-sm-min) {
@@ -29,6 +29,6 @@
   }
 }
 
-.sign-up-form-button-container {
+.submit-btn-container {
   margin: 20px 0 0;
 }

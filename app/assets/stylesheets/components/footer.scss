@@ -1,5 +1,3 @@
-// Defines a sticky footer
-
 .footer-container {
   background-color: $brand-black;
   bottom: 0;
@@ -8,6 +6,15 @@
   height: $footer-height;
   position: absolute;
   width: 100%;
+
+  a {
+    color: $breadcrumb-link-color;
+    transition: color .4s ease-out;
+  }
+
+  a:hover {
+    color: $brand-white;
+  }
 }
 
 .footer {

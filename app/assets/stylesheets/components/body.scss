@@ -1,5 +1,3 @@
-// General styles for html and body elements to account for header and footer
-
 html {
   min-height: 100%;
   position: relative;
@@ -10,16 +8,20 @@ body {
   padding-top: $header-height + 1px; // Includes 1px border bottom of menu
 }
 
-.brand-background {
-  background-color: $brand-primary;
-  color: $brand-white;
-}
-
-.gray-background {
-  background-color: $brand-gray-lightest;
-}
-
 .body-content {
   padding-bottom: 20px;
   padding-top: 20px;
+}
+
+::selection {
+  background-color: $brand-accent;
+  color: $text-color;
+}
+
+:focus {
+  outline-color: $brand-accent !important;
+}
+
+.brand-background {
+  background-color: $p50;
 }

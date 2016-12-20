@@ -1,11 +1,13 @@
-- content_for :header do
+- content_for :header_old do
   .logo-header
     .call-to-action
       .call-to-action-header.brand
         National Sleep Research Resource
       .call-to-action-body
-        Explore a rich collection of sleep research data collected in children and
-        adults across the U.S.
+        - if false
+          Explore a rich collection of sleep research data collected in children and
+          adults across the U.S.
+        Free research data, tools, and documentation.
 
 .row
   .col-md-9
@@ -22,19 +24,19 @@
 - content_for :call_to_action do
   .call-to-action
     .call-to-action-header
-      Start your
-      research
-      today!
+      Start your research today!
 
     - if current_user
       .call-to-action-body
-        You will need a completed Data Access and Use Agreement to download data.
+        You will need a completed Data Access and Use Agreement to download
+        data.
 
       %div.center{ style: 'margin-top:20px;margin-bottom:20px' }
-        = link_to 'My DAUAs', submissions_path, class: 'btn btn-call-to-action btn-lg'
+        = link_to 'My DAUAs', submissions_path, class: 'btn btn-call-to-action btn-lg btn-shadow'
     - else
       .call-to-action-body
-        You will need an account and a completed Data Access and Use Agreement to download data.
+        You will need an account and a completed Data Access and Use Agreement
+        to download data.
 
       %div.center{ style: 'margin-top:20px;margin-bottom:20px' }
-        = link_to 'Sign Up', new_user_registration_path, class: 'btn btn-call-to-action btn-lg'
+        = link_to 'Sign Up', new_user_registration_path, class: 'btn btn-call-to-action btn-lg btn-shadow'

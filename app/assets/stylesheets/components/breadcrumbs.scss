@@ -19,3 +19,23 @@
     }
   }
 }
+
+
+.breadcrumbs-container {
+  background-color: $header-bg;
+  margin: 0;
+
+  .breadcrumb {
+    background-color: $p600;
+    box-shadow: inset 0 0 5px $dropdown-border, 0 0 0 $dropdown-border;
+
+    a {
+      color: $breadcrumb-link-color;
+      transition: color .4s ease-out;
+    }
+
+    a:hover {
+      color: $brand-white;
+    }
+  }
+}

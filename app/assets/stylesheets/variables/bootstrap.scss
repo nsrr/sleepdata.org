@@ -18,14 +18,14 @@
 // $gray-light:             lighten(#070, 46.7%) !default; // #777
 // $gray-lighter:           lighten(#070, 93.5%) !default; // #eee
 
-$brand-primary:         $cg4-green-bg;
+// TODO: REMOVE OLD COLOR DEFINITIONS
+// $brand-primary:         $cg4-green-bg;
 $brand-success:         $cg4-green-bg;
 $brand-info:            $cg4-blue-bg;
 $brand-warning:         $cg4-yellow-bg;
 // $brand-danger:          $cg4-red-bg;
-$brand-white:           $cg4-white;
-$brand-black:           $cg4-black;
 $blockquote-gray:       #999;
+$brand-white:           #fff;
 $brand-gray:            #ccc;
 $brand-gray-lighter:    #ededed;
 $brand-gray-lightest:   #f9f9f9;
@@ -42,11 +42,20 @@ $comment-unread-even: $brand-white;
 $comment-unread-odd: $brand-gray-lightest;
 $comment-read-even: #eaf8ef;
 $comment-read-odd: #e4f2e9; // $comment-unread-odd * $comment-read-even
+// END TODO: REMOVE OLD COLOR DEFINITIONS
 
+// NEW Colors
+$brand-black: $p900;
+$brand-white: #fff;
+$brand-gray: #ccc;
 
-$red: #d32f2f;
+$brand-danger: #d32f2f; // RED
 
-$brand-danger: $red;
+$brand-primary: $p500 !default;
+$brand-accent: $a200 !default;
+$brand-accent-text: $a200-text !default;
+$brand-muted: $p300 !default;
+
 
 // //== Scaffolding
 // //
@@ -58,7 +67,7 @@ $body-bg:               $brand-white; // #fff !default;
 // $text-color:            $gray-dark !default;
 
 // //** Global textual link color.
-$link-color:            $cg4-blue-bg;// $brand-primary !default;
+$link-color:            $a700 !default;// $brand-primary !default;
 // //** Link hover color set via `darken()` function.
 // $link-hover-color:      darken($link-color, 15%) !default;
 
@@ -373,28 +382,28 @@ $input-border-focus: $brand-primary;
 // $navbar-padding-vertical:          (($navbar-height - $line-height-computed) / 2) !default;
 // $navbar-collapse-max-height:       340px !default;
 
-$navbar-default-color:             $cg4-black; // #777 !default;
-$navbar-default-bg:                $cg4-green-bg;
+$navbar-default-color:             $brand-white;
+$navbar-default-bg:                $p600 !default;
 // $navbar-default-border:            darken($navbar-default-bg, 6.5%) !default;
 
-// // Navbar links
-$navbar-default-link-color:        $cg4-black; // #777 !default;
-$navbar-default-link-hover-color:  darken($navbar-default-link-color, 10%); // #333 !default;
+// Navbar links
+$navbar-default-link-color:                $brand-white;
+$navbar-default-link-hover-color:          $brand-white;
 // $navbar-default-link-hover-bg:             transparent !default;
-$navbar-default-link-active-color: $cg4-black; //        #555 !default;
+$navbar-default-link-active-color:         $brand-white !default;
 // $navbar-default-link-active-bg:            darken($navbar-default-bg, 6.5%) !default;
 // $navbar-default-link-disabled-color:       #ccc !default;
 // $navbar-default-link-disabled-bg:          transparent !default;
 
-// // Navbar brand label
-// $navbar-default-brand-color:               $navbar-default-link-color !default;
-// $navbar-default-brand-hover-color:         darken($navbar-default-brand-color, 10%) !default;
+// Navbar brand label
+$navbar-default-brand-color:               $navbar-default-link-color;
+$navbar-default-brand-hover-color:         $navbar-default-link-hover-color;
 // $navbar-default-brand-hover-bg:            transparent !default;
 
 // // Navbar toggle
-$navbar-default-toggle-hover-bg:           darken($navbar-default-bg, 6.5%); // #ddd !default;
-$navbar-default-toggle-icon-bar-bg:        $cg4-green-text; // #888 !default;
-$navbar-default-toggle-border-color:       $cg4-green-text; // #ddd !default;
+$navbar-default-toggle-hover-bg:           $p700 !default;
+$navbar-default-toggle-icon-bar-bg:        $p300 !default;
+$navbar-default-toggle-border-color:       $p800 !default;
 
 
 // // Inverted navbar

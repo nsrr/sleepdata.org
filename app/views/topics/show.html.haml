@@ -46,31 +46,3 @@
     = link_to 'Write a Reply', async_write_a_reply_path, method: :post, remote: true, class: 'btn btn-primary'
 
 .center= paginate @replies, theme: 'bootstrap-small'
-
-- if false
-  - if @topic.locked?
-    .well{ style: 'text-align:center;margin-top:20px' }
-      .text-muted.center
-        This topic is locked
-        %span.glyphicon.glyphicon-lock
-  - elsif current_user
-    - if current_user.banned?
-      .well{ style: 'text-align:center;margin-top:20px' }
-        .text-muted.center
-          You have been
-          %span.label.label-banned banned
-          from commenting on this forum.
-    #topic-subscription= render 'topics/subscribe_unsubscribe', topic: @topic
-  - else
-    - content_for :call_to_action do
-      .call-to-action
-        .call-to-action-header
-          Join the discussion today!
-
-        .call-to-action-body
-          = link_to 'Create an Account', new_user_registration_path, class: 'btn btn-call-to-action btn-lg'
-
-        .call-to-action-body
-          Already have an account?
-          = link_to 'Sign in', new_user_session_path
-          and contribute to the conversation.

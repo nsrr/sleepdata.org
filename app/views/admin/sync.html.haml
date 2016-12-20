@@ -1,16 +1,9 @@
 - @title = 'Sync Status'
 
 - content_for :body_class do
-  gray-background
+  brand-background
 
 = render 'internal/profile_header', title: @title
 
-.dashboard-container
-  .dashboard-title
-    %strong= @title
-
-  - Dataset.current.order(:name).each do |dataset|
-    = render 'documentation/sync', local_commit: dataset.local_commit, remote_commit: dataset.remote_commit, object: dataset, back: 'sync'
-
-  - Tool.current.order(:name).each do |tool|
-    = render 'documentation/sync', local_commit: tool.local_commit, remote_commit: tool.remote_commit, object: tool, back: 'sync'
+- Dataset.current.order(:name).each do |dataset|
+  = render 'documentation/sync', local_commit: dataset.local_commit, remote_commit: dataset.remote_commit, object: dataset, back: 'sync'

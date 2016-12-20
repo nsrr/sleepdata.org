@@ -1,7 +1,7 @@
 - @title = 'Stats'
 
 - content_for :body_class do
-  gray-background
+  brand-background
 
 = render 'internal/profile_header', title: @title
 
@@ -18,10 +18,10 @@
           %th.center Core Team member signups
           %th.center Total Signups
       %tr
-        %td.center= User.current.where(core_member: false, aug_member: false).count
-        %td.center= User.current.where(aug_member: true).count
-        %td.center= User.current.where(core_member: true).count
-        %td.center= User.current.count
+        %td.center= number_with_delimiter User.current.where(core_member: false, aug_member: false).count
+        %td.center= number_with_delimiter User.current.where(aug_member: true).count
+        %td.center= number_with_delimiter User.current.where(core_member: true).count
+        %td.center= number_with_delimiter User.current.count
 
 .dashboard-container
   .dashboard-title
@@ -35,9 +35,9 @@
           %th.center= link_to 'Regular member DAUAs submitted', reviews_path(status: ['submitted', 'approved', 'resubmit', 'expired'], user_type: 'regular')
           %th.center= link_to 'Regular member DAUAs approved', reviews_path(status: ['approved', 'expired'], user_type: 'regular')
       %tr
-        %td.center= User.current.where(core_member: false, aug_member: false).count
-        %td.center= Agreement.current.regular_members.where(status: ['submitted', 'approved', 'resubmit', 'expired']).count
-        %td.center= Agreement.current.regular_members.where(status: ['approved', 'expired']).count
+        %td.center= number_with_delimiter User.current.where(core_member: false, aug_member: false).count
+        %td.center= number_with_delimiter Agreement.current.regular_members.where(status: ['submitted', 'approved', 'resubmit', 'expired']).count
+        %td.center= number_with_delimiter Agreement.current.regular_members.where(status: ['approved', 'expired']).count
 
     - regular_members_files = DatasetFileAudit.regular_members.group(:dataset_id).count
     - regular_members_file_sizes = DatasetFileAudit.regular_members.group(:dataset_id).sum(:file_size)
@@ -79,7 +79,7 @@
         %tr
           %th Total
           %th.center= pluralize number_with_delimiter(regular_members_files.values.sum), 'file'
-          %th.center.success= number_to_human_size regular_members_file_sizes.values.sum
+          %th.center.bg-accent= number_to_human_size regular_members_file_sizes.values.sum
           %th.center= pluralize number_with_delimiter(aug_or_core_members_files.values.sum), 'file'
           %th.center= number_to_human_size aug_or_core_members_file_sizes.values.sum
           %th.center= pluralize number_with_delimiter(regular_members_files.values.sum + aug_or_core_members_files.values.sum + public_downloads_files.values.sum), 'file'

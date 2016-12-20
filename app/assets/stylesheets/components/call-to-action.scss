@@ -1,5 +1,5 @@
 .call-to-action {
-  background-color: $brand-success;
+  background-color: $p700;
   color: $brand-white;
   padding: 40px;
 
@@ -15,7 +15,7 @@
     &:not(.btn).active,
     &:not(.btn).disabled,
     &:not(.btn)[disabled] {
-      color: $cg4-green-text;
+      color: $link-color;
       font-weight: bold;
     }
   }
@@ -56,11 +56,19 @@
 .btn-call-to-action {
   backface-visibility: hidden; // Fix for transition flickering
   background-color: $brand-white;
-  border-color: $brand-primary;
+  border-color: $brand-accent;
   border-radius: 40px;
-  color: $brand-primary;
+  color: $brand-accent;
   overflow: hidden;
   transition: all .4s ease; // Fade to color for Chrome and Safari
+}
+
+.call-to-action {
+  .btn-call-to-action {
+    background-color: $a100;
+    border-color: $brand-accent;
+    color: $brand-accent-text;
+  }
 }
 
 .btn-call-to-action:hover,
@@ -69,9 +77,9 @@
 .btn-call-to-action.active,
 .btn-call-to-action.disabled,
 .btn-call-to-action[disabled] {
-  background-color: $brand-primary-text;
-  border-color: $brand-primary-text;
-  color: $brand-white;
+  background-color: $a400;
+  border: 1px solid $a700;
+  color: $a200-text;
 }
 
 .btn-call-to-danger {
@@ -119,9 +127,9 @@
 .btn-call-to-info {
   backface-visibility: hidden; // Fix for transition flickering
   background-color: $brand-white;
-  border-color: $btn-info-border;
+  border-color: $btn-primary-border;
   border-radius: 40px;
-  color: $btn-info-border;
+  color: $btn-primary-border;
   overflow: hidden;
   transition: all .4s ease; // Fade to color for Chrome and Safari
 }
@@ -132,7 +140,7 @@
 .btn-call-to-info.active,
 .btn-call-to-info.disabled,
 .btn-call-to-info[disabled] {
-  background-color: $brand-info-text;
-  border-color: $brand-info-text;
+  background-color: $brand-primary-text;
+  border-color: $brand-primary-text;
   color: $brand-white;
 }

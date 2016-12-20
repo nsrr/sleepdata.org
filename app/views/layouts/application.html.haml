@@ -23,7 +23,7 @@
     %meta{ name: 'turbolinks-cache-control', content: 'no-cache' }
 
     %title
-      = [@title, 'National Sleep Research Resource'].compact.join(' - ').html_safe
+      = [@title, (@breadcrumbs || []).reverse.collect(&:first), 'National Sleep Research Resource'].flatten.compact.uniq.join(' - ').html_safe
 
     = favicon_link_tag
     = auto_discovery_link_tag(:rss, "#{ENV['website_url']}/blog.atom")
@@ -37,11 +37,17 @@
     = stylesheet_link_tag 'application', media: 'all', data: { turbolinks_track: 'reload' }
     = javascript_include_tag 'application', data: { turbolinks_track: 'reload' }
     = javascript_tag "var root_url='#{request.script_name + '/'}';"
-  %body{ class: yield(:body_class) }
-    = yield :header
+  %body#top{ class: yield(:body_class) }
+    = yield :header_old
 
     #top-menu= render 'layouts/menu'
+
+    %div{ class: @side_nav ? 'header-slide' : '' }
+      = yield :header
+    = render 'layouts/breadcrumbs'
+
     = render 'layouts/flash_messages'
+
 
     = yield :banner
 
