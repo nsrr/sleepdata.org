@@ -1,30 +1,25 @@
 - @title = @topic.title
 
-- content_for :banner do
-  .banner
+- content_for :header do
+  / .background-gradient
+  .header-container
     .container
-      .banner-header.brand
+      %h1.page-heading
+        .pull-right
+          = link_to reply_or('Write a Reply'), page_topic_path(@topic, page: @topic.last_page, anchor: 'write-a-reply'), method: :get, class: 'btn btn-accent btn-shadow'
+        =# render 'layouts/side_nav_header_button'
         = @title
-      .banner-body
-        Topic by
-        = @topic.user.forum_name
+  .breadcrumb-container{ style: 'margin-bottom: 0;' }
+    .container
+      Topic by
+      = @topic.user.forum_name
 
-        - if @topic.tags.count > 0
-          - @topic.tags.each do |tag|
-            %span.label.label-default{ style: "background-color:#{tag.color}" }= tag.name
+      - if @topic.tags.count > 0
+        - @topic.tags.each do |tag|
+          %span.label.label-default{ style: "background-color:#{tag.color}" }= tag.name
 
-        = link_to 'Write a Reply', page_topic_path(@topic, page: @topic.last_page, anchor: 'write-a-reply'), method: :get, class: 'btn btn-xs btn-primary'
-        - if current_user && @topic.editable_by?(current_user)
-          = succeed ' ' do
-            = link_to edit_topic_path(@topic), class: 'btn btn-xs btn-default' do
-              %span.glyphicon.glyphicon-edit
-              Edit Topic
-          = link_to 'Delete Topic', @topic, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger-inverse'
-
-  - if current_user
-    %div{ style: 'background-color: #ededed' }
-      .container
-        #topic-subscription= render 'topics/subscribe_unsubscribe', topic: @topic
+      - if current_user && @topic.editable_by?(current_user)
+        .pull-right= render 'layouts/edit_delete_dropdown', edit_url: edit_topic_path(@topic), delete_url: @topic, delete_confirmation: "Delete #{@topic.title}?"
 
 
 %div{ style: 'margin-bottom: 20px' }
@@ -46,3 +41,9 @@
     = link_to 'Write a Reply', async_write_a_reply_path, method: :post, remote: true, class: 'btn btn-primary'
 
 .center= paginate @replies, theme: 'bootstrap-small'
+
+- if current_user
+  - content_for :call_to_action do
+    %div{ style: 'background-color: #ededed' }
+      .container
+        #topic-subscription= render 'topics/subscribe_unsubscribe', topic: @topic

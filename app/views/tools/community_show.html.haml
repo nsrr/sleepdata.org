@@ -1,9 +1,12 @@
 - @title = @community_tool.name
 
-- content_for :banner do
-  .dataset-banner
+- content_for :header do
+  / .background-gradient
+  .header-container
     .container
-      .dataset-header.brand= @community_tool.name
+      %h1.page-heading
+        =# render 'layouts/side_nav_header_button'
+        = @title
 
 .row
   .col-sm-9

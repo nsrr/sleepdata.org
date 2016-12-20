@@ -2,6 +2,10 @@
 
 # Helps simplify links across screen sizes for headers.
 module HeaderHelper
+  def reply_or(label)
+    label_or(label, reply_tag)
+  end
+
   def plus_or(label)
     label_or(label, plus_tag)
   end
@@ -16,5 +20,9 @@ module HeaderHelper
 
   def plus_tag
     content_tag :i, nil, class: %w(fa fa-plus), aria: { hidden: 'true' }
+  end
+
+  def reply_tag
+    content_tag :i, nil, class: %w(fa fa-reply), aria: { hidden: 'true' }
   end
 end

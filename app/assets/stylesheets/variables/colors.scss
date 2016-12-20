@@ -2,3 +2,8 @@ $breadcrumb-link-color: $a100 !default;
 $header-bg: $p500 !default;
 
 $notification-link-color: $brand-accent !default;
+
+$comment-unread-even: $brand-white;
+$comment-unread-odd: $brand-gray-lightest;
+$comment-read-even: $p50;
+$comment-read-odd: #dbeceb; // $comment-unread-odd * $comment-read-even

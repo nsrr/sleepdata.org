@@ -5,11 +5,11 @@
       .dataset-body.hidden-xs
         .row
           .col-sm-4.col-buffer
-            = link_to 'Documentation', @dataset, class: "btn btn-block btn-#{params[:action] == 'pages' || current_page?(@dataset) ? 'primary' : 'default'}"
+            = link_to 'Documentation', @dataset, class: "btn btn-block btn-#{params[:action] == 'pages' || current_page?(@dataset) ? 'accent' : 'default'}"
           .col-sm-4.col-buffer
-            = link_to 'Files', files_dataset_path(@dataset), class: "btn btn-block btn-#{params[:action] == 'files' ? 'primary' : 'default'}"
+            = link_to 'Files', files_dataset_path(@dataset), class: "btn btn-block btn-#{params[:action] == 'files' ? 'accent' : 'default'}"
           .col-sm-4
-            = link_to 'Variables', dataset_variables_path(@dataset), class: "btn btn-block btn-#{params[:controller] == 'variables' ? 'primary' : 'default'}"
+            = link_to 'Variables', dataset_variables_path(@dataset), class: "btn btn-block btn-#{params[:controller] == 'variables' ? 'accent' : 'default'}"
 
   - if @variable && @dataset.dataset_version && @variable.dataset_version_id != @dataset.dataset_version_id
     .flash-alert
