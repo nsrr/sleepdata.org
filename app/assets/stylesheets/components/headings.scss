@@ -9,14 +9,13 @@
     text-shadow: none;
   }
 
-  // TODO: Check pages that have links in page-heading
-  // > a {
-  //   color: $breadcrumb-link-color;
-  // }
+  > a {
+    color: $breadcrumb-link-color;
+  }
 
-  // > a:hover {
-  //   color: darken($breadcrumb-link-color, 10%);
-  // }
+  > a:hover {
+    color: darken($breadcrumb-link-color, 10%);
+  }
 }
 
 .header-container {

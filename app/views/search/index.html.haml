@@ -1,7 +1,11 @@
 - @title = ['Search', @search.gsub(' & ', ' ')].compact.join(' | ')
 
-%h1
-  Search  the NSRR
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        =# render 'layouts/side_nav_header_button'
+        Search the NSRR
 
 .row
   .col-sm-9

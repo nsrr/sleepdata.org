@@ -8,6 +8,7 @@ class Topic < ApplicationRecord
   include Deletable
   include Replyable
   include PgSearch
+  include Sluggable
   multisearchable against: [:title],
                   unless: :deleted?
 
@@ -38,10 +39,6 @@ class Topic < ApplicationRecord
     super
     update_pg_search_document
     replies.each(&:update_pg_search_document)
-  end
-
-  def to_param
-    slug_was.to_s
   end
 
   def started_reading?(current_user)

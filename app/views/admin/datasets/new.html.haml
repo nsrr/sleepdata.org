@@ -1,11 +1,5 @@
 - @title = 'New Dataset'
 
-- content_for :banner do
-  .banner
-    .container
-      .banner-header.brand
-        = link_to 'Datasets', datasets_path
-        &middot;
-        = @title
+= render 'layouts/simple_header'
 
 = render 'datasets/form'

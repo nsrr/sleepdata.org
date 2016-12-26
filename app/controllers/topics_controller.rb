@@ -84,12 +84,12 @@ class TopicsController < ApplicationController
   end
 
   def find_viewable_topic_or_redirect
-    @topic = viewable_topics.find_by_slug params[:id]
+    @topic = viewable_topics.find_by_param params[:id]
     redirect_without_topic
   end
 
   def find_editable_topic_or_redirect
-    @topic = current_user.all_topics.not_banned.where(locked: false).find_by_slug params[:id]
+    @topic = current_user.all_topics.not_banned.where(locked: false).find_by_param params[:id]
     redirect_without_topic
   end
 
