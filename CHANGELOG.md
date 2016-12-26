@@ -20,6 +20,7 @@
   - Updated to rails 5.0.1
   - Updated to carrierwave 1.0.0
   - Updated to pg_search 2.0.1
+  - Updated to redcarpet 3.4.0
 
 ### Bug Fix
 - Fixed an issue displaying images associated to tools
