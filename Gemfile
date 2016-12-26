@@ -20,7 +20,7 @@ gem 'hashids',              '~> 1.0.2'
 gem 'kaminari',             '~> 0.17.0'
 gem 'maxminddb',            '~> 0.1.11'
 gem 'mini_magick',          '~> 4.6.0'
-gem 'pg_search',            '~> 1.0.5'
+gem 'pg_search',            '~> 2.0.1'
 gem 'redcarpet',            '~> 3.3.2'
 gem 'sitemap_generator',    '~> 5.2.0'
 

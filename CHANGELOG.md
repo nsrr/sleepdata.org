@@ -19,6 +19,7 @@
   - Updated to Ruby 2.4.0
   - Updated to rails 5.0.1
   - Updated to carrierwave 1.0.0
+  - Updated to pg_search 2.0.1
 
 ### Bug Fix
 - Fixed an issue displaying images associated to tools
