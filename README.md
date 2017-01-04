@@ -5,7 +5,7 @@ www.sleepdata.org
 [![Dependency Status](https://gemnasium.com/nsrr/www.sleepdata.org.svg)](https://gemnasium.com/nsrr/www.sleepdata.org)
 [![Code Climate](https://codeclimate.com/github/nsrr/www.sleepdata.org/badges/gpa.svg)](https://codeclimate.com/github/nsrr/www.sleepdata.org)
 
-The application that runs www.sleepdata.org. Using Rails 5.0+ and Ruby 2.3+.
+The application that runs www.sleepdata.org. Using Rails 5.0+ and Ruby 2.4+.
 
 
 ## Setting up Daily Digest Emails
