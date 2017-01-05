@@ -26,13 +26,15 @@ SHELL=/bin/bash
 
 ## Installing Mini Magick - Image Upload Resizing
 
-In order to make full use of the `mini_magick` gem, the underlying ImageMagick library and binaries needs to be compiled.
+In order to make full use of the `mini_magick` gem, the underlying ImageMagick
+library and binaries needs to be compiled.
 
 The following instructions are specific to CentOS and Mac OS X systems.
 
 ### Installing JPEG and PNG libraries
 
-In order for ImageMagick to be able to handle JPEGs, the jpeg development libraries need to be installed first.
+In order for ImageMagick to be able to handle JPEGs, the jpeg development
+libraries need to be installed first.
 
 On CentOS:
 
@@ -42,14 +44,18 @@ sudo yum -y install libjpeg libjpeg-devel libpng libpng-devel
 
 On Mac OS X:
 
-Download and install the prebuilt JPG and PNG DMG here: http://ethan.tira-thompson.com/Mac_OS_X_Ports.html
+Download and install the prebuilt JPG and PNG DMG here:
+http://ethan.tira-thompson.com/Mac_OS_X_Ports.html
 
-Alternatively, you can compile them from source yourself. Mac libjpeg and libpng can be found here: http://www.libpng.org/pub/png/libpng.html, http://www.ijg.org/files/
+Alternatively, you can compile them from source yourself. Mac libjpeg and libpng
+can be found here: http://www.libpng.org/pub/png/libpng.html,
+http://www.ijg.org/files/
 
 
 ### Installing ImageMagick
 
-Installing ImageMagick from source: http://www.imagemagick.org/script/install-source.php
+Installing ImageMagick from source:
+http://www.imagemagick.org/script/install-source.php
 
 ```
 cd ~/code/source
@@ -84,7 +90,8 @@ identify --version
   Delegates: jng jpeg png xml zlib
 ```
 
-To check that PNG and JPEG support were successfully enabled, run the following command:
+To check that PNG and JPEG support were successfully enabled, run the following
+command:
 
 ```
 identify -list format
