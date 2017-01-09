@@ -17,15 +17,14 @@
     .active,
     a:hover,
     a:focus {
-      background-color: $brand-info-text;
-      border-color: $brand-info;
-      color: $brand-white;
+      background-color: $a100;
+      border-color: $a200;
+      color: $a200-text;
       text-decoration: none;
     }
 
     &.left-menu-header {
       @include brand;
-      color: $brand-info-text;
       font-size: 85%;
       font-weight: normal;
       letter-spacing: 1px;

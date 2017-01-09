@@ -31,8 +31,6 @@ $brand-gray-lighter:    #ededed;
 $brand-gray-lightest:   #f9f9f9;
 
 $brand-primary-text:    $cg4-green-text;
-$brand-success-text:    $cg4-green-text;
-$brand-info-text:       $cg4-blue-text;
 $brand-warning-text:    $cg4-yellow-text;
 $brand-danger-text:     $cg4-red-text;
 
@@ -63,7 +61,7 @@ $body-bg:               $brand-white; // #fff !default;
 // $text-color:            $gray-dark !default;
 
 // //** Global textual link color.
-$link-color:            $a700 !default;// $brand-primary !default;
+$link-color:            $a700 !default; // $brand-primary !default;
 // //** Link hover color set via `darken()` function.
 // $link-hover-color:      darken($link-color, 15%) !default;
 

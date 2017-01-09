@@ -1,12 +1,12 @@
 - @title = 'Version'
 
-- content_for :body_class do
-  brand-background
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading= @title
 
-- content_for :banner do
-  .call-to-action
-    .call-to-action-header.brand
-      National Sleep Research Resource
-    .call-to-action-body
+.text-center{ style: 'margin-top:40px' }
+  %p.lead
+    %span.transparent-stamp
       Version
       %strong= WwwSleepdataOrg::VERSION::STRING
