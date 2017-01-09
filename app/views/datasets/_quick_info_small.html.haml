@@ -1,0 +1,21 @@
+.row
+  - if dataset.info_what.present?
+    %div{ class: "#{"col-sm-#{12 / dataset.info_count}"}" }
+      %span.glyphicon.glyphicon-education
+      What
+      %p= dataset.info_what
+  - if dataset.info_who.present?
+    %div{ class: "#{"col-sm-#{12 / dataset.info_count}"}" }
+      %span.glyphicon.glyphicon-user
+      Who
+      %p= dataset.info_who
+  - if dataset.info_when.present?
+    %div{ class: "#{"col-sm-#{12 / dataset.info_count}"}" }
+      %span.glyphicon.glyphicon-calendar
+      When
+      %p= dataset.info_when
+  - if dataset.info_funded_by.present?
+    %div{ class: "#{"col-sm-#{12 / dataset.info_count}"}" }
+      %span.glyphicon.glyphicon-piggy-bank
+      Funding
+      %p= dataset.info_funded_by
