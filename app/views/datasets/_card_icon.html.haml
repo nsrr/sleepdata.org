@@ -1,0 +1,55 @@
+- title = 'NO TITLE'
+- icon = 'glyphicon-question-sign'
+- color = 'red'
+- url = submissions_path
+
+- if dataset.release_date && dataset.release_date <= Date.today
+  - agreements = (current_user ? dataset.agreements.where(user_id: current_user.id) : Agreement.none)
+  - if agreement = agreements.find_by(status: 'approved')
+    - title = 'Data Access Approved'
+    - icon = 'glyphicon-ok'
+    - color = '#C8E6C9'
+    - url = files_dataset_path(dataset)
+  - elsif agreement = agreements.find_by(status: 'submitted')
+    - title = 'Submitted for Review'
+    - icon = 'glyphicon-user'
+    - color = '#ededed'
+    - url = submissions_path
+
+  - elsif agreement = agreements.find_by(status: 'resubmit')
+    - title = 'Changes Required<br>Resubmit Your DAUA'
+    - icon = 'glyphicon-exclamation-sign'
+    - color = '#ededed'
+    - url = submissions_path
+  - elsif agreement = agreements.expired.first
+    - title = 'Request Expired<br>Renew Access'
+    - icon = 'glyphicon-share-alt'
+    - color = '#ededed'
+    - url = submissions_start_path(dataset: dataset)
+  - elsif agreement = agreements.find_by(status: 'started')
+    - title = 'Request Started<br>Complete Your DAUA'
+    - icon = 'glyphicon-shopping-cart'
+    - color = '#00B0FF' #$a400;
+    - if agreement.fully_filled_out?
+      - url = proof_agreement_path(agreement)
+    - else
+      - url = step_agreement_path(agreement, step: agreement.current_step)
+  - else
+    - title = 'Request Access'
+    - icon = 'glyphicon-shopping-cart'
+    - color = '#66BB6A'
+    - url = submissions_start_path(dataset: dataset)
+- elsif dataset.release_date
+  - title = "Coming Soon<br>#{dataset.release_date.strftime('%B %e, %Y')}"
+  - icon = 'glyphicon-gift'
+  - color = '#ededed'
+  - url = dataset
+- else
+  - title = 'Preview'
+  - icon = 'glyphicon-gift'
+  - color = '#ededed'
+  - url = dataset
+
+%div{ style: "width: 42px;height: 42px;background-color: #{color};border-radius: 4px 0 0 0;float: left;text-align: center;" }
+  = link_to url do
+    %span.glyphicon{ class: [icon], style: 'color: white;line-height: 42px;', rel: 'tooltip', data: { container: 'body', placement: 'right', title: title, html: 'true' } }

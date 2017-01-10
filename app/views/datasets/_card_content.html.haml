@@ -1,0 +1,35 @@
+- case dataset.slug
+- when 'shhs'
+  - age = '40 - 89'
+  - subjects = '5,804'
+  - timeframe = '1995 - 2010'
+  - data = "Polysomnography\nPhenotype"
+- when 'chat'
+  - age = '5 - 10'
+  - subjects = '1,232'
+  - timeframe = '2007 - 2012'
+  - data = "Polysomnography\nPhenotype"
+- when 'heartbeat'
+  - age = '45 - 75'
+  - subjects = '318'
+  - timeframe = '2010 - 2012'
+  - data = "Polysomnography\nPhenotype"
+- else
+  - age = 'TBD'
+  - subjects = 'TBD'
+  - timeframe = 'TBD'
+  - data = 'TBD'
+
+.dataset-info-container
+  %div
+    %div.center{ style: 'color: #ccc;' } Age (years)
+    %div.center{ style: 'color: #333; font-size: 24px;'}= age
+  %div
+    %div.center{ style: 'color: #ccc;' } Subjects
+    %div.center{ style: 'color: #333; font-size: 24px;'}= subjects
+  %div
+    %div.center{ style: 'color: #ccc;' } Timeframe
+    %div.center{ style: 'color: #333; font-size: 24px;'}= timeframe
+  %div
+    %div.center{ style: 'color: #ccc;' } Data
+    %div.center{ style: 'color: #333; font-size: 14px;'}= simple_format data

@@ -1,5 +1,8 @@
 - @title = 'Datasets'
 
+- content_for :body_class do
+  brand-background
+
 - content_for :header do
   .header-container
     .container
@@ -11,39 +14,50 @@
         = @title
 
 - @datasets.each do |dataset|
-  %div{ style: 'margin-bottom: 20px;' }
+  %div{ style: 'margin-bottom: 20px;box-shadow: 0 1px 5px rgba(0,0,0,.15);border-radius: 4px;background-color: white;overflow: hidden;' }
     %div{ style: 'border: 1px solid #ededed;border-radius: 4px 4px 0 0;' }
-      %div{ style: 'width: 42px;height: 42px;background-color: #C8E6C9;border-radius: 4px 0 0 0;float: left;text-align: center;' }
-        %span.glyphicon.glyphicon-grain{ style: 'color: white;line-height: 42px;'}
+      = render 'datasets/card_icon', dataset: dataset
       %div{ style: 'padding: 10px;margin-left: 42px;' }
         .pull-right
+          %span{ style: 'color: #ccc;' }
+            %span.hidden-xs Reviews
+            = surround '(', ')' do
+              = link_to number_with_delimiter(rand(100)), dataset
           = render 'community_tools/rating', rating: (rand(10) + 1.0) / 2
-          = surround '(', ')' do
-            = link_to rand(100), dataset
         = link_to dataset.name, dataset
 
     %div{ style: 'border-left: 1px solid #ededed;border-right: 1px solid #ededed;padding: 10px;' }
+      - logo_size = '100px'
       - if dataset.logo.size > 0
-        %div{ style: 'width: 140px;float: left;' }
-          = link_to image_tag(logo_dataset_path(dataset), style: 'max-width:100%;max-height:140px'), dataset
-      %div{ style: 'margin-left: 140px;' }
-        .row{ style: 'margin: 0;' }
-          .col-xs-12
-            = render 'datasets/quick_info_small', dataset: dataset
+        %div{ style: "width: #{logo_size};float: left;margin-left: -10px;border-right: 1px solid #ededed;padding-right:10px;padding-left:10px;" }
+          = link_to image_tag(logo_dataset_path(dataset), style: "max-width: 100%;max-height: #{logo_size};"), dataset
+      %div{ style: "margin-left: #{logo_size};min-height: #{'80px'};" }
+        = render 'datasets/card_content', dataset: dataset
+
+        - if false
+          .row{ style: 'margin: 0;' }
+            .col-xs-12
+              = render 'datasets/quick_info_small', dataset: dataset
     %div{ style: 'background-color: #ededed;border: 1px solid #ededed;padding: 10px;border-radius: 0 0 4px 4px;' }
-      .pull-right
-        = render 'datasets/request_small', dataset: dataset, expanded: false
-      = link_to dataset, class: 'no-underline' do
-        %span.hidden-xs View
-        Docs
-      %span.text-muted|
-      = link_to files_dataset_path(dataset), class: 'no-underline' do
-        %span.hidden-xs View
-        Files
-      %span.text-muted|
-      = link_to dataset_variables_path(dataset), class: 'no-underline' do
-        %span.hidden-xs View
-        Variables
+      - if false
+        .pull-right
+          = render 'datasets/request_small', dataset: dataset, expanded: false
+
+      .dataset-card-footer
+        .dataset-card-footer-entry
+          = link_to dataset, class: 'no-underline' do
+            %span.hidden-xs View
+            Docs
+        .dataset-card-footer-spacer|
+        .dataset-card-footer-entry
+          = link_to files_dataset_path(dataset), class: 'no-underline' do
+            %span.hidden-xs View
+            Files
+        .dataset-card-footer-spacer|
+        .dataset-card-footer-entry
+          = link_to dataset_variables_path(dataset), class: 'no-underline' do
+            %span.hidden-xs View
+            Variables
 
 
 .row
