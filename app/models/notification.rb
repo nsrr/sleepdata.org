@@ -12,6 +12,8 @@ class Notification < ApplicationRecord
   belongs_to :reply
   belongs_to :community_tool
   belongs_to :community_tool_review
+  belongs_to :dataset
+  belongs_to :dataset_review
 
   # Notification Methods
 

@@ -1,0 +1,19 @@
+= form_for [@dataset, dataset_review], html: { class: 'form-horizontal' } do |f|
+
+  .form-group
+    = f.label :rating, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      .control-label{ style: 'text-align: left;' }
+        = render 'dataset_reviews/rating', f: f, dataset_review: dataset_review
+        = render 'layouts/errors', object: dataset_review, key: :rating
+
+  .form-group
+    = f.label :review, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_area :review, rows: 7, class: 'form-control'
+      = render 'layouts/errors', object: dataset_review, key: :review
+
+  .form-group
+    .col-md-10.col-md-offset-2
+      = f.submit dataset_review.new_record? ? 'Write Review' : 'Update Review', class: 'btn btn-primary'
+      = link_to 'Cancel', @dataset, class: 'btn btn-default'

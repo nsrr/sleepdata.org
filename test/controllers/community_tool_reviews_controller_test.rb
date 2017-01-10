@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 
+# Tests to assure members can review community tools.
 class CommunityToolReviewsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @community_tool_review = community_tool_reviews(:one)

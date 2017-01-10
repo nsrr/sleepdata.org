@@ -7,6 +7,7 @@ class Dataset < ApplicationRecord
 
   # Callbacks
   after_create_commit :create_folders
+  after_touch :recalculate_rating!
 
   # Concerns
   include Deletable, Documentable, Gitable, Forkable
@@ -38,6 +39,12 @@ class Dataset < ApplicationRecord
   has_many :agreements, -> { where deleted: false }, through: :requests
 
   has_many :dataset_files
+  has_many :dataset_reviews, -> { order(rating: :desc, id: :desc) }
+
+  def recalculate_rating!
+    ratings = dataset_reviews.where.not(rating: nil).pluck(:rating)
+    update rating: ratings.present? ? ratings.inject(&:+).to_f / ratings.count : nil
+  end
 
   def chartable_variables
     variables.order('commonly_used desc', :folder, :name)

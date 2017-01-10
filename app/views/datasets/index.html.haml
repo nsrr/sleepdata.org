@@ -22,8 +22,8 @@
           %span{ style: 'color: #ccc;' }
             %span.hidden-xs Reviews
             = surround '(', ')' do
-              = link_to number_with_delimiter(rand(100)), dataset
-          = render 'community_tools/rating', rating: (rand(10) + 1.0) / 2
+              = link_to number_with_delimiter(dataset.dataset_reviews.count), dataset_dataset_reviews_path(dataset)
+          = render 'datasets/rating', rating: dataset.rating
         = link_to dataset.name, dataset
 
     %div{ style: 'border-left: 1px solid #ededed;border-right: 1px solid #ededed;padding: 10px;' }

@@ -11,6 +11,9 @@
   - Tools can now be reviewed and rated
   - Tool reviews create notifications for tool creators
   - Tool submission process simplified
+- **Dataset Changes**
+  - Improved layout of the datasets index
+  - Datasets can now be reviewed and rated
 - **General Changes**
   - Improved friendly forwarding when navigating between internal and external
     pages while signing in and signing out

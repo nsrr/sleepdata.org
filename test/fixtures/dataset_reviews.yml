@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  dataset: public
+  user: valid
+  rating: 5
+  review: This dataset is great.
+
+two:
+  dataset: public
+  user: two
+  rating: 1
+  review: This dataset is terrible.

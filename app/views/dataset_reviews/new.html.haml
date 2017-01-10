@@ -1,0 +1,13 @@
+- @title = "Write a review - #{@dataset.name}"
+
+- content_for :banner do
+  .dataset-banner
+    .container
+      .dataset-header.brand
+        Write a review
+  .breadcrumb-container
+    .container
+      %ol
+        %li= link_to @dataset.name, @dataset
+
+= render 'form', dataset_review: @dataset_review

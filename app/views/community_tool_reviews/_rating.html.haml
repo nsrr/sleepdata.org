@@ -5,8 +5,8 @@
 %span.nowrap
   - (0..4).each do |position|
     - if rating > position + 0.5
-      %i.fa.fa-star.text-warning{ aria: { hidden: 'true' }, data: { object: 'star-rating', position: position }, style: 'cursor: pointer;' }
+      %i.fa.fa-star.text-warning{ aria: { hidden: 'true' }, data: { object: 'star-rating', position: position, target: '#community_tool_review_rating' }, style: 'cursor: pointer;' }
     - elsif rating > position
-      %i.fa.fa-star-half-o.text-warning{ aria: { hidden: 'true' }, data: { object: 'star-rating', position: position }, style: 'cursor: pointer;' }
+      %i.fa.fa-star-half-o.text-warning{ aria: { hidden: 'true' }, data: { object: 'star-rating', position: position, target: '#community_tool_review_rating' }, style: 'cursor: pointer;' }
     - else
-      %i.fa.fa-star-o.text-muted{ aria: { hidden: 'true' }, data: { object: 'star-rating', position: position }, style: 'cursor: pointer;' }
+      %i.fa.fa-star-o.text-muted{ aria: { hidden: 'true' }, data: { object: 'star-rating', position: position, target: '#community_tool_review_rating' }, style: 'cursor: pointer;' }

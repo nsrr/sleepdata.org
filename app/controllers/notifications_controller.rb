@@ -37,6 +37,8 @@ class NotificationsController < ApplicationController
         current_user.notifications.where(topic_id: @topic.id)
       elsif @community_tool
         current_user.notifications.where(community_tool_id: @community_tool.id)
+      elsif @dataset
+        current_user.notifications.where(dataset_id: @dataset.id)
       else
         Notification.none
       end
@@ -49,6 +51,7 @@ class NotificationsController < ApplicationController
     @broadcast = Broadcast.current.published.find_by(id: params[:broadcast_id])
     @topic = Topic.current.find_by(id: params[:topic_id])
     @community_tool = CommunityTool.current.find_by(id: params[:community_tool_id])
+    @dataset = Dataset.current.find_by(id: params[:dataset_id])
   end
 
   def find_notification_or_redirect
@@ -63,6 +66,7 @@ class NotificationsController < ApplicationController
   def notification_redirect_path
     return @notification.reply if @notification.reply
     return community_tool_community_tool_review_path(@notification.community_tool, @notification.community_tool_review) if @notification.community_tool && @notification.community_tool_review
+    return dataset_dataset_review_path(@notification.dataset, @notification.dataset_review) if @notification.dataset && @notification.dataset_review
     notifications_path
   end
 end

@@ -72,6 +72,25 @@
             - notifications.each do |notification|
               %tr{ id: "notification_#{notification.id}"}
                 = render 'notifications/show', notification: notification
+      - @notifications.where.not(dataset_id: nil).order(created_at: :desc).includes(:dataset, :dataset_review).group_by(&:dataset).each do |dataset, notifications|
+        %table.table.table-fixed
+          %col{ width: '32px' }
+          %col{ }
+          %col.hidden-xs{ width: '32px' }
+          %col.hidden-xs{ width: '165px' }
+          %col{ width: '32px' }
+          %thead
+            %tr
+              %th{ colspan: 2 }= link_to dataset.name, dataset, class: 'link-unstyled'
+              %th.hidden-xs
+              %th.hidden-xs
+              %th
+                = link_to mark_all_as_read_notifications_path(dataset_id: dataset.id), method: :patch, remote: true, class: 'text-muted' do
+                  %span.glyphicon.glyphicon-ok
+          %tbody
+            - notifications.each do |notification|
+              %tr{ id: "notification_#{notification.id}"}
+                = render 'notifications/show', notification: notification
     - else
       .jumbotron.jumbotron-action
         %p.center You have no unread notifications!

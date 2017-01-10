@@ -139,6 +139,8 @@ Rails.application.routes.draw do
   end
 
   resources :datasets, only: [:show, :index] do
+    resources :dataset_reviews, path: 'reviews'
+
     member do
       get :logo
       get :request_access

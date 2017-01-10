@@ -1,0 +1,32 @@
+- @title = "Reviews - #{@dataset.name} "
+
+- content_for :banner do
+  .dataset-banner
+    .container
+      .dataset-header.brand
+        Reviews
+  .breadcrumb-container
+    .container
+      %ol
+        %li= link_to @dataset.name, @dataset
+        %li= render 'datasets/rating', rating: @dataset.rating
+
+
+%div{ style: 'margin-bottom: 20px;' }
+  = link_to 'Write a review', new_dataset_dataset_review_path(@dataset), class: 'btn btn-primary'
+
+%table.table
+  %col{ width: '1px' }
+  %col
+  %thead
+    %tr
+      %th.center Rating
+      %th Review
+
+  %tbody
+    - @dataset_reviews.each do |dataset_review|
+      %tr
+        %td= render 'datasets/rating', rating: dataset_review.rating
+        %td
+          %i= dataset_review.user.forum_name
+          = simple_markdown dataset_review.review

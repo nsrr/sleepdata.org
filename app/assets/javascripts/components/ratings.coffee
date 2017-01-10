@@ -15,7 +15,7 @@
 $(document)
   .on('click', '[data-object~="star-rating"]', ->
     rating = $(this).data('position') + 1
-    $('#community_tool_review_rating').val(rating)
+    $($(this).data('target')).val(rating)
     drawRating(rating)
     false
   )
@@ -25,6 +25,6 @@ $(document)
     drawRating(rating)
   )
   .on('mouseleave', '[data-object~="star-rating"]', ->
-    rating = $('#community_tool_review_rating').val()
+    rating = $($(this).data('target')).val()
     drawRating(rating)
   )

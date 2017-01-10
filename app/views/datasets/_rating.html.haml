@@ -1,0 +1,18 @@
+%span.nowrap.hidden-xs
+  - if rating
+    - (0..4).each do |position|
+      - if rating > position + 0.5
+        %i.fa.fa-star.text-warning{ aria: { hidden: 'true' } }
+      - elsif rating > position
+        %i.fa.fa-star-half-o.text-warning{ aria: { hidden: 'true' } }
+      - else
+        %i.fa.fa-star-o.text-muted{ aria: { hidden: 'true' } }
+  - else
+    - (0..4).each do |position|
+      %i.fa.fa-star-o.text-muted{ aria: { hidden: 'true' } }
+%span.nowrap.hidden-sm.hidden-md.hidden-lg
+  - if rating
+    = rating.round(1)
+    %i.fa.fa-star.text-warning{ aria: { hidden: 'true' } }
+  - else
+    %i.fa.fa-star-o.text-muted{ aria: { hidden: 'true' } }

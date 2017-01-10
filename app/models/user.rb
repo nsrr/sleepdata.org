@@ -54,6 +54,7 @@ class User < ApplicationRecord
   has_many :community_tool_reviews
   has_many :datasets, -> { current }
   has_many :dataset_file_audits
+  has_many :dataset_reviews
   has_many :hosting_requests, -> { current }
   has_many :images
   has_many :notifications
