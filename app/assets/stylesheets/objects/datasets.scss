@@ -75,6 +75,10 @@
   justify-content: space-around;
   flex-direction: row;
   flex-wrap: wrap;
+
+  div {
+    flex: 1;
+  }
 }
 
 @media screen and (min-width: $screen-sm-min) {
@@ -97,6 +101,33 @@
   display: flex;
 }
 
+.dataset-card-header-icon {
+  text-align: center;
+  width: 42px;
+  line-height: 42px;
+
+  a {
+    color: $brand-white;
+  }
+}
+
+.card-icon-primary {
+  background-color: $p100;
+}
+
+.card-icon-accent {
+  background-color: $a100;
+}
+
+.card-icon-default {
+  background-color: $brand-gray-lighter;
+}
+
+.dataset-card-header-ratings {
+  flex: 1;
+  padding: 10px;
+}
+
 .dataset-card-body {
   transition: all 1s;
   max-height: auto;
@@ -114,6 +145,33 @@
   }
 }
 
+.dataset-card-logo {
+  margin: auto;
+  width: 100px;
+
+  img {
+    max-height: 100px;
+    max-width: 100%;
+  }
+}
+
+.dataset-card {
+  .dataset-card-logo {
+    img {
+      opacity: 0.2;
+      transition: opacity .4s ease-out;
+    }
+  }
+
+  &:hover {
+    .dataset-card-logo {
+      img {
+        opacity: 1;
+      }
+    }
+  }
+}
+
 .dataset-card-flipped {
   .dataset-card-body {
     .not-flipped {
@@ -126,8 +184,43 @@
   }
 }
 
+.dataset-info-item {
+  padding: 10px 10px 0 10px;
+}
 
-.dataset-card-footer {
+.dataset-info-header {
+  font-size: 12px;
+  text-align: center;
+  color: $brand-gray;
+}
+
+.dataset-info-content {
+  font-size: 16px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.dataset-info-content-small {
+  font-size: 12px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .dataset-info-header {
+    font-size: 14px;
+  }
+
+  .dataset-info-content {
+    font-size: 24px;
+  }
+
+  .dataset-info-content-small {
+    font-size: 14px;
+  }
+}
+
+.dataset-card-footer-links {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
@@ -139,11 +232,11 @@
 }
 
 .dataset-card-footer-spacer {
-  color: #ccc;
+  color: $brand-gray;
 }
 
 @media screen and (min-width: $screen-sm-min) {
-  .dataset-card-footer {
+  .dataset-card-footer-links {
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-end;

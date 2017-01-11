@@ -21,15 +21,15 @@
   - data = 'TBD'
 
 .dataset-info-container
-  %div
-    %div.center{ style: 'color: #ccc;' } Age (years)
-    %div.center{ style: 'color: #333; font-size: 24px;'}= age
-  %div
-    %div.center{ style: 'color: #ccc;' } Subjects
-    %div.center{ style: 'color: #333; font-size: 24px;'}= subjects
-  %div
-    %div.center{ style: 'color: #ccc;' } Timeframe
-    %div.center{ style: 'color: #333; font-size: 24px;'}= timeframe
-  %div
-    %div.center{ style: 'color: #ccc;' } Data
-    %div.center{ style: 'color: #333; font-size: 14px;'}= simple_format data
+  .dataset-info-item
+    .dataset-info-header AGES
+    .dataset-info-content= age
+  .dataset-info-item
+    .dataset-info-header SUBJECTS
+    .dataset-info-content= subjects
+  .dataset-info-item
+    .dataset-info-header TIMEFRAME
+    .dataset-info-content= timeframe
+  .dataset-info-item
+    .dataset-info-header DATA
+    .dataset-info-content-small= simple_format data
