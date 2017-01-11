@@ -1,4 +1,8 @@
-/ %p.lead.center{ style: 'color: #ccc;' } Standing on the shoulders of giants.
+- content_for :body_class do
+  brand-background
+
+- content_for :header do
+  .background-gradient
 
 - register_visible = (@sign_in != true)
 - target = (register_visible ? '#form_register' : '#form_sign_in')

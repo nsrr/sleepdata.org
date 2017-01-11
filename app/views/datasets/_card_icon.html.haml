@@ -28,7 +28,7 @@
     - url = submissions_start_path(dataset: dataset)
   - elsif agreement = agreements.find_by(status: 'started')
     - title = 'Request Started<br>Complete Your DAUA'
-    - icon = 'glyphicon-shopping-cart'
+    - icon = 'glyphicon-cloud-download'
     - color = '#00B0FF' #$a400;
     - if agreement.fully_filled_out?
       - url = proof_agreement_path(agreement)
@@ -36,7 +36,7 @@
       - url = step_agreement_path(agreement, step: agreement.current_step)
   - else
     - title = 'Request Access'
-    - icon = 'glyphicon-shopping-cart'
+    - icon = 'glyphicon-cloud-download'
     - color = '#66BB6A'
     - url = submissions_start_path(dataset: dataset)
 - elsif dataset.release_date
@@ -50,6 +50,6 @@
   - color = '#ededed'
   - url = dataset
 
-%div{ style: "width: 42px;height: 42px;background-color: #{color};border-radius: 4px 0 0 0;float: left;text-align: center;" }
+%div{ style: "width: 42px;background-color: #{color};text-align: center;" }
   = link_to url do
-    %span.glyphicon{ class: [icon], style: 'color: white;line-height: 42px;', rel: 'tooltip', data: { container: 'body', placement: 'right', title: title, html: 'true' } }
+    %span.glyphicon{ class: [icon], style: 'color: white;line-height: 42px;', rel: 'tooltip', data: { container: 'body', placement: 'bottom', title: title, html: 'true' } }

@@ -15,7 +15,7 @@
     &:not(.btn).active,
     &:not(.btn).disabled,
     &:not(.btn)[disabled] {
-      color: $link-color;
+      color: $a100;
       font-weight: bold;
     }
   }

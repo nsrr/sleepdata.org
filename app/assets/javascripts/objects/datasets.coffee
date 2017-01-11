@@ -1,5 +1,3 @@
-# JS for dataset pages
-
 @downloadFile = (index,element) ->
   $('[data-object~="autodownload"]')[index].click()
 
@@ -9,11 +7,19 @@
   )
 
 $(document)
-  .on('click', '[data-object~="toggle-page-list"]', () ->
+  .on('click', '[data-object~="toggle-page-list"]', ->
     $('.page-list-container').toggle()
     $('#show-page-button').toggle()
     $('#hide-page-button').toggle()
     $('#documentation-content').toggleClass('col-sm-12 col-sm-9')
     $('#sidebar-content').toggleClass('col-sm-3')
+    false
+  )
+  .on('click', '[data-object~="flip-card"]', ->
+    $($(this).data('target')).toggleClass('dataset-card-flipped')
+    if $($(this).data('target')).hasClass('dataset-card-flipped')
+      $(this).html('Details <span class="glyphicon glyphicon-menu-up"></span>')
+    else
+      $(this).html('Details <span class="glyphicon glyphicon-menu-down"></span>')
     false
   )

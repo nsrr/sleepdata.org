@@ -4,6 +4,7 @@
   brand-background
 
 - content_for :header do
+  .background-gradient
   .header-container
     .container
       %h1.page-heading
@@ -14,10 +15,10 @@
         = @title
 
 - @datasets.each do |dataset|
-  %div{ style: 'margin-bottom: 20px;box-shadow: 0 1px 5px rgba(0,0,0,.15);border-radius: 4px;background-color: white;overflow: hidden;' }
-    %div{ style: 'border: 1px solid #ededed;border-radius: 4px 4px 0 0;' }
+  .dataset-card{ id: "dataset-card-#{dataset.id}" }
+    .dataset-card-header
       = render 'datasets/card_icon', dataset: dataset
-      %div{ style: 'padding: 10px;margin-left: 42px;' }
+      %div{ style: 'padding: 10px;flex: 1' }
         .pull-right
           %span{ style: 'color: #ccc;' }
             %span.hidden-xs Reviews
@@ -26,44 +27,34 @@
           = render 'datasets/rating', rating: dataset.rating
         = link_to dataset.name, dataset
 
-    %div{ style: 'border-left: 1px solid #ededed;border-right: 1px solid #ededed;padding: 10px;' }
-      - logo_size = '100px'
-      - if dataset.logo.size > 0
-        %div{ style: "width: #{logo_size};float: left;margin-left: -10px;border-right: 1px solid #ededed;padding-right:10px;padding-left:10px;" }
-          = link_to image_tag(logo_dataset_path(dataset), style: "max-width: 100%;max-height: #{logo_size};"), dataset
-      %div{ style: "margin-left: #{logo_size};min-height: #{'80px'};" }
+    .dataset-card-body
+      .not-flipped
+        - logo_size = '100px'
+        - if dataset.logo.size > 0
+          %div{ style: "width: #{logo_size};margin: auto;" }
+            = link_to image_tag(logo_dataset_path(dataset), style: "max-width: 100%;max-height: #{logo_size};"), dataset
         = render 'datasets/card_content', dataset: dataset
-
-        - if false
-          .row{ style: 'margin: 0;' }
-            .col-xs-12
-              = render 'datasets/quick_info_small', dataset: dataset
-    %div{ style: 'background-color: #ededed;border: 1px solid #ededed;padding: 10px;border-radius: 0 0 4px 4px;' }
-      - if false
-        .pull-right
-          = render 'datasets/request_small', dataset: dataset, expanded: false
-
+      .already-flipped
+        = simple_markdown(dataset.description)
+    %div{ style: 'background-color: #ededed;padding: 10px;' }
+      - if dataset.description.present?
+        .pull-left
+          = link_to '#', data: { object: 'flip-card', target: "#dataset-card-#{dataset.id}" } do
+            Details
+            %span.glyphicon.glyphicon-menu-down
       .dataset-card-footer
+        %span.hidden-xs{ style: 'color: #ccc;' } View
         .dataset-card-footer-entry
           = link_to dataset, class: 'no-underline' do
-            %span.hidden-xs View
             Docs
         .dataset-card-footer-spacer|
         .dataset-card-footer-entry
           = link_to files_dataset_path(dataset), class: 'no-underline' do
-            %span.hidden-xs View
             Files
         .dataset-card-footer-spacer|
         .dataset-card-footer-entry
           = link_to dataset_variables_path(dataset), class: 'no-underline' do
-            %span.hidden-xs View
             Variables
-
-
-.row
-  - @datasets.each do |dataset|
-    .col-xs-12.col-sm-6.col-md-4.col-lg-3
-      = render 'datasets/panel', dataset: dataset
 
 .center= paginate @datasets, theme: 'bootstrap'
 
