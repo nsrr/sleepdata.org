@@ -14,27 +14,27 @@
     .center{ style: 'font-weight: bold; font-size: 20px;margin-bottom: 10px;' }
       What are you interested in?
     .container
-      %div{ style: 'display: flex;flex-wrap: wrap;margin-bottom: 20px;' }
-        .box-shadow{ style: 'flex: 1 1 0;margin: 5px;background-color: white;border-radius: 4px;padding: 10px;' }
+      .landing-box-container
+        .box-shadow.landing-box
           .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Adults', datasets_path
           %p.center.nowrap
             %i.fa.fa-male{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
             %i.fa.fa-female{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
-        .box-shadow{ style: 'flex: 1 1 0;margin: 5px;background-color: white;border-radius: 4px;padding: 10px;' }
+        .box-shadow.landing-box
           .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Children', datasets_path
           %p.center.nowrap
             %i.fa.fa-child{ aria: { hidden: 'true' }, style: 'font-size: 48px;' }
             %i.fa.fa-child{ aria: { hidden: 'true' }, style: 'font-size: 56px;' }
             %i.fa.fa-child{ aria: { hidden: 'true' }, style: 'font-size: 64px;' }
-        .box-shadow{ style: 'flex: 1 1 0;margin: 5px;background-color: white;border-radius: 4px;padding: 10px;' }
+        .box-shadow.landing-box
           .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Phenotypes', datasets_path
           %p.center
             %i.fa.fa-table{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
-        .box-shadow{ style: 'flex: 1 1 0;margin: 5px;background-color: white;border-radius: 4px;padding: 10px;' }
+        .box-shadow.landing-box
           .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Polysomnography', datasets_path
           %p.center
             %i.fa.fa-heartbeat{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
-        .box-shadow{ style: 'flex: 1 1 0;margin: 5px;background-color: white;border-radius: 4px;padding: 10px;' }
+        .box-shadow.landing-box
           .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Actigraphy', datasets_path
           %p.center
             %i.fa.fa-clock-o{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }

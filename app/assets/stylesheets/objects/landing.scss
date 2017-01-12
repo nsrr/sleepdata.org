@@ -16,3 +16,17 @@
   top: 0;
   z-index: -3;
 }
+
+.landing-box-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.landing-box {
+  background-color: $brand-white;
+  border-radius: 4px;
+  flex: 1 1 auto;
+  margin: 5px;
+  padding: 10px;
+}
