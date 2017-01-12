@@ -24,9 +24,43 @@
 }
 
 .landing-box {
-  background-color: $brand-white;
-  border-radius: 4px;
-  flex: 1 1 auto;
+  flex: 1 1 178px;
   margin: 5px;
-  padding: 10px;
+  z-index: 1;
+
+  position: relative;
+  perspective: 1000;
+  height: 158px;
+
+  .landing-face {
+    backface-visibility: hidden;
+    background-color: $brand-white;
+    box-shadow: 0 1px 5px $box-shadow-color;
+    border-radius: 4px;
+    padding: 10px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+  }
+
+  .landing-front {
+    transform: rotateY(0deg);
+  }
+
+  .landing-back {
+    transform: rotateY(-180deg);
+    height: auto;
+    min-height: 100%;
+  }
+
+  &:hover {
+    .landing-front {
+      transform: rotateY(180deg);
+    }
+    .landing-back {
+      transform: rotateY(0deg);
+    }
+  }
 }

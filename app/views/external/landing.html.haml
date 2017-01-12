@@ -15,29 +15,51 @@
       What are you interested in?
     .container
       .landing-box-container
-        .box-shadow.landing-box
-          .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Adults', datasets_path
-          %p.center.nowrap
-            %i.fa.fa-male{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
-            %i.fa.fa-female{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
-        .box-shadow.landing-box
-          .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Children', datasets_path
-          %p.center.nowrap
-            %i.fa.fa-child{ aria: { hidden: 'true' }, style: 'font-size: 48px;' }
-            %i.fa.fa-child{ aria: { hidden: 'true' }, style: 'font-size: 56px;' }
-            %i.fa.fa-child{ aria: { hidden: 'true' }, style: 'font-size: 64px;' }
-        .box-shadow.landing-box
-          .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Phenotypes', datasets_path
-          %p.center
-            %i.fa.fa-table{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
-        .box-shadow.landing-box
-          .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Polysomnography', datasets_path
-          %p.center
-            %i.fa.fa-heartbeat{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
-        .box-shadow.landing-box
-          .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Actigraphy', datasets_path
-          %p.center
-            %i.fa.fa-clock-o{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
+        .landing-box
+          .landing-face.landing-back
+            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Adults', datasets_path
+            %p These are for people 18 and over.
+          .landing-face.landing-front
+            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Adults', datasets_path
+            %p.center.nowrap
+              %i.fa.fa-male{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
+              %i.fa.fa-female{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
+        .landing-box
+          .landing-face.landing-back
+            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Children', datasets_path
+            %p
+              About the children.
+          .landing-face.landing-front
+            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Children', datasets_path
+            %p.center.nowrap
+              %i.fa.fa-child{ aria: { hidden: 'true' }, style: 'font-size: 48px;' }
+              %i.fa.fa-child{ aria: { hidden: 'true' }, style: 'font-size: 56px;' }
+              %i.fa.fa-child{ aria: { hidden: 'true' }, style: 'font-size: 64px;' }
+        .landing-box
+          .landing-face.landing-back
+            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Phenotypes', datasets_path
+            %p CSVs, covariates, etc!
+          .landing-face.landing-front
+            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Phenotypes', datasets_path
+            %p.center
+              %i.fa.fa-table{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
+        .landing-box
+          .landing-face.landing-back
+            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Polysomnography', datasets_path
+            %p PSGs, EEGs, ECGs.
+          .landing-face.landing-front
+            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Polysomnography', datasets_path
+            %p.center
+              %i.fa.fa-heartbeat{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
+        .landing-box
+          .landing-face.landing-back
+            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Actigraphy', datasets_path
+            %p
+              Watches, activity, wearables.
+          .landing-face.landing-front
+            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Actigraphy', datasets_path
+            %p.center
+              %i.fa.fa-clock-o{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
       .center{ style: 'font-weight: bold; font-size: 20px;margin-bottom: 20px;' }
         Not sure yet? View our
         = link_to 'most popular', datasets_path
