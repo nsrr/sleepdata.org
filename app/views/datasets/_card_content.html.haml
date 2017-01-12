@@ -1,35 +1,25 @@
-- case dataset.slug
-- when 'shhs'
-  - age = '40 - 89'
-  - subjects = '5,804'
-  - timeframe = '1995 - 2010'
-  - data = "Polysomnography\nPhenotype"
-- when 'chat'
-  - age = '5 - 10'
-  - subjects = '1,232'
-  - timeframe = '2007 - 2012'
-  - data = "Polysomnography\nPhenotype"
-- when 'heartbeat'
-  - age = '45 - 75'
-  - subjects = '318'
-  - timeframe = '2010 - 2012'
-  - data = "Polysomnography\nPhenotype"
-- else
-  - age = 'TBD'
-  - subjects = 'TBD'
-  - timeframe = 'TBD'
-  - data = 'TBD'
-
 .dataset-info-container
   .dataset-info-item
-    .dataset-info-header AGES
-    .dataset-info-content= age
+    - if dataset.subjects.positive?
+      .dataset-info-header SUBJECTS
+      .dataset-info-content= number_with_delimiter dataset.subjects
   .dataset-info-item
-    .dataset-info-header SUBJECTS
-    .dataset-info-content= subjects
+    - if dataset.subjects.positive?
+      .dataset-info-header AGES
+      .dataset-info-content= "#{dataset.age_min} - #{dataset.age_max}"
   .dataset-info-item
-    .dataset-info-header TIMEFRAME
-    .dataset-info-content= timeframe
+    - if dataset.time_frame.present?
+      .dataset-info-header TIMEFRAME
+      .dataset-info-content= dataset.time_frame
   .dataset-info-item
     .dataset-info-header DATA
-    .dataset-info-content-small= simple_format data
+    .dataset-info-content-small
+      - if dataset.polysomnography?
+        Polysomnography
+        %br
+      - if dataset.actigraphy?
+        Actigraphy
+        %br
+      - if dataset.phenotype?
+        Phenotype
+        %br

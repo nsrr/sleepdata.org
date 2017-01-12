@@ -116,6 +116,47 @@
       = f.text_field :info_funded_by, class: 'form-control'
 
   .form-group
+    = f.label :subjects, 'Subjects (count)', class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :subjects, class: 'form-control'
+
+  .form-group
+    = f.label :age_min, 'Age Minimum', class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :age_min, class: 'form-control'
+
+  .form-group
+    = f.label :age_max, 'Age Maximum', class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :age_max, class: 'form-control'
+
+  .form-group
+    = f.label :time_frame, 'Time Frame', class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :time_frame, class: 'form-control'
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      .checkbox
+        %label
+          = f.check_box :phenotype
+          Phenotype
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      .checkbox
+        %label
+          = f.check_box :polysomnography
+          Polysomnography
+
+  .form-group
+    .col-md-offset-2.col-md-10
+      .checkbox
+        %label
+          = f.check_box :actigraphy
+          Actigraphy
+
+  .form-group
     .col-md-offset-2.col-md-10
       = f.submit nil, class: 'btn btn-primary'
       = cancel
