@@ -4,39 +4,110 @@
       .call-to-action-header.brand
         National Sleep Research Resource
       .call-to-action-body
-        - if false
-          Explore a rich collection of sleep research data collected in children and
-          adults across the U.S.
-        Free research data, tools, and documentation.
+        Free research data and tools.
 
-.row
-  .col-md-9
-
-    = render 'external/datasets'
-
-    = render 'external/variables'
-
-    = render 'external/tools'
-
-  .col-md-3
-    = render 'news/news', limit: 7
+- content_for :body_class do
+  brand-background
 
 - content_for :call_to_action do
-  .call-to-action
-    .call-to-action-header
-      Start your research today!
+  %div{ style: 'margin-bottom: 20px;' }
+    .center{ style: 'font-weight: bold; font-size: 20px;margin-bottom: 10px;' }
+      What are you interested in?
+    .container
+      %div{ style: 'display: flex;flex-wrap: wrap;margin-bottom: 20px;' }
+        .box-shadow{ style: 'flex: 1 1 0;margin-left: 5px; margin-right: 5px;margin-top: 5px;background-color: white;border-radius: 4px;padding: 10px;' }
+          .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Adults', datasets_path
+          %p.center.nowrap
+            %i.fa.fa-male{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
+            %i.fa.fa-female{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
+        .box-shadow{ style: 'flex: 1 1 0;margin-left: 5px; margin-right: 5px;margin-top: 5px;background-color: white;border-radius: 4px;padding: 10px;' }
+          .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Children', datasets_path
+          %p.center.nowrap
+            %i.fa.fa-child{ aria: { hidden: 'true' }, style: 'font-size: 48px;' }
+            %i.fa.fa-child{ aria: { hidden: 'true' }, style: 'font-size: 56px;' }
+            %i.fa.fa-child{ aria: { hidden: 'true' }, style: 'font-size: 64px;' }
+        .box-shadow{ style: 'flex: 1 1 0;margin-left: 5px; margin-right: 5px;margin-top: 5px;background-color: white;border-radius: 4px;padding: 10px;' }
+          .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Phenotypes', datasets_path
+          %p.center
+            %i.fa.fa-table{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
+        .box-shadow{ style: 'flex: 1 1 0;margin-left: 5px; margin-right: 5px;margin-top: 5px;background-color: white;border-radius: 4px;padding: 10px;' }
+          .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Polysomnography', datasets_path
+          %p.center
+            %i.fa.fa-heartbeat{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
+        .box-shadow{ style: 'flex: 1 1 0;margin-left: 5px; margin-right: 5px;margin-top: 5px;background-color: white;border-radius: 4px;padding: 10px;' }
+          .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Actigraphy', datasets_path
+          %p.center
+            %i.fa.fa-clock-o{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
+      .center{ style: 'font-weight: bold; font-size: 20px;margin-bottom: 20px;' }
+        Not sure yet? View our
+        = link_to 'most popular', datasets_path
+        datasets.
 
-    - if current_user
-      .call-to-action-body
-        You will need a completed Data Access and Use Agreement to download
-        data.
+  %div{ style: 'margin-top: 150px;' }
+    .center{ style: 'font-weight: bold; font-size: 20px;margin-bottom: 10px;' }
+      = link_to 'Tools', tools_path
+      for your data.
 
-      %div.center{ style: 'margin-top:20px;margin-bottom:20px' }
-        = link_to 'My DAUAs', submissions_path, class: 'btn btn-call-to-action btn-lg btn-shadow'
-    - else
-      .call-to-action-body
-        You will need an account and a completed Data Access and Use Agreement
-        to download data.
+  %div{ style: 'min-height: 185px;' }
 
-      %div.center{ style: 'margin-top:20px;margin-bottom:20px' }
-        = link_to 'Sign Up', new_user_registration_path, class: 'btn btn-call-to-action btn-lg btn-shadow'
+  .center{ style: 'font-weight: bold; font-size: 20px;padding: 20px 0;background-image: linear-gradient(180deg, #e8f5e9, #c8e6c9, #a5d6a7);' }
+    Proudly serving the sleep research community
+    in collaboration with the
+    = succeed '.' do
+      = link_to 'NHLBI', 'https://www.ncbi.nlm.nih.gov/pubmed/27070134', class: 'brand'
+  %div{ style: 'background-color: #a5d6a7;' }
+    -# #80D8FF;
+    .container{ style: 'padding: 20px;' }
+      .row
+        .col-sm-3
+          .center
+            %span.glyphicon.glyphicon-hdd{ style: 'font-size: 128px;' }
+        .col-sm-3
+          .center.hidden-sm.hidden-md.hidden-lg
+            %h1.brand 4.1 TB
+            Stored on the Resource
+          .hidden-xs
+            %h1.brand 4.1 TB
+            Stored on the Resource
+        .col-sm-3.hidden-xs
+          .center.hidden-sm.hidden-md.hidden-lg
+            %h1.brand 60 TB
+            Shared with Researchers
+          .hidden-xs{ style: 'text-align: right;'}
+            %h1.brand 60 TB
+            Shared with Researchers
+        .col-sm-3.hidden-xs
+          .center
+            %span.glyphicon.glyphicon-globe{ style: 'font-size: 128px;' }
+
+- if false
+  .row
+    .col-md-9
+
+      = render 'external/datasets'
+
+      = render 'external/variables'
+
+      = render 'external/tools'
+
+    .col-md-3
+      = render 'news/news', limit: 7
+
+- if false
+  - content_for :call_to_action do
+    .call-to-action
+      .call-to-action-header
+        Start your research today!
+
+      - if current_user
+        .call-to-action-body
+          Complete a Data Access and Use Agreement to download data.
+
+        %div.center{ style: 'margin-top:20px;margin-bottom:20px' }
+          = link_to 'My DAUAs', submissions_path, class: 'btn btn-call-to-action btn-lg btn-shadow'
+      - else
+        .call-to-action-body
+          Complete a Data Access and Use Agreement to download data.
+
+        %div.center{ style: 'margin-top:20px;margin-bottom:20px' }
+          = link_to 'Sign Up', new_user_registration_path, class: 'btn btn-call-to-action btn-lg btn-shadow'
