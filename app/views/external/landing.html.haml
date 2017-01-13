@@ -65,32 +65,58 @@
 - content_for :call_to_action do
   %div{ style: 'background-color: #c8e6c9;padding-top: 10px;' }
     .container
-      %h3{ style: 'font-weight: bold' } Tools
-      .row
-        .col-sm-4.col-buffer
-          .landing-box-header{ style: 'text-align: left' } Popular
-          %ul.list-unstyled
-            %li.nowrap.overflow-hidden= link_to 'EDF Viewer', tools_path
-            %li.nowrap.overflow-hidden
-              = link_to 'https://www.physionet.org/pn4/sleep-edfx/Polyman/' do
-                Polyman
-                %span.glyphicon.glyphicon-new-window
-            %li.nowrap.overflow-hidden
-              = link_to 'http://www.teuniz.net/edfbrowser/' do
-                EDFbrowser
-                %span.glyphicon.glyphicon-new-window
+      %i.fa.fa-tool.icon-lg{ aria: { hidden: 'true' } }
+      .landing-sentence
+        Want to do more with the data? We've got
+        = link_to 'tools', tools_path
+        for that.
+      .landing-box-container
+        .landing-box
+          .landing-face.landing-face-unstyled
+            .landing-box-header EDF Visualization
+            %ul.list-unstyled
+              %li.nowrap.overflow-hidden Altamira
+              %li.nowrap.overflow-hidden EDF Viewer
+              %li.nowrap.overflow-hidden
+                = link_to 'https://www.physionet.org/pn4/sleep-edfx/Polyman/' do
+                  Polyman
+                  %span.glyphicon.glyphicon-new-window
+              %li.nowrap.overflow-hidden
+                = link_to 'http://www.teuniz.net/edfbrowser/' do
+                  EDFbrowser
+                  %span.glyphicon.glyphicon-new-window
+        .landing-box
+          .landing-face.landing-face-unstyled
+            .landing-box-header Signal Processing
+            %ul.list-unstyled
+              %li.nowrap.overflow-hidden SpiSOP
+              %li.nowrap.overflow-hidden Data Chromatix
+              %li.nowrap.overflow-hidden SpectralTrainFig
 
-        .col-sm-4.col-buffer
-          .landing-box-header{ style: 'text-align: left' } Newest
-          %ul.list-unstyled
-            - CommunityTool.current.where(published: true).order(publish_date: :desc).limit(3).each do |community_tool|
-              %li.nowrap.overflow-hidden= link_to community_tool.name, community_show_tool_path(community_tool)
+        .landing-box
+          .landing-face.landing-face-unstyled
+            .landing-box-header Popular
+            %ul.list-unstyled
+              - CommunityTool.current.where(published: true).where.not(rating: nil).order('rating desc nulls last').limit(3).each do |community_tool|
+                %li.nowrap.overflow-hidden= link_to community_tool.name, community_show_tool_path(community_tool)
 
-        .col-sm-4.col-buffer
-          .landing-box-header{ style: 'text-align: left' } Tutorials
-          %ul.list-unstyled
-            %li.nowrap.overflow-hidden= link_to 'Get Started Scripting', community_show_tool_path('ruby-scripts-tutorial-01')
-            %li.nowrap.overflow-hidden= link_to 'All Tutorials', tools_path(type: 'tutorial')
+        .landing-box
+          .landing-face.landing-face-unstyled
+            .landing-box-header Newest
+            %ul.list-unstyled
+              - CommunityTool.current.where(published: true).order(publish_date: :desc).limit(3).each do |community_tool|
+                %li.nowrap.overflow-hidden= link_to community_tool.name, community_show_tool_path(community_tool)
+
+        .landing-box
+          .landing-face.landing-face-unstyled
+            .landing-box-header Tutorials
+            %ul.list-unstyled
+              %li.nowrap.overflow-hidden= link_to 'Get Started Scripting', community_show_tool_path('ruby-scripts-tutorial-01')
+              %li.nowrap.overflow-hidden= link_to 'All Tutorials', tools_path(type: 'tutorial')
+
+      .landing-sentence
+        Know of another great tool?
+        = link_to 'Tell us about it.', contribute_tool_start_path
 
   %div{ style: 'background-color: #e8f5e9;' }
     .container
