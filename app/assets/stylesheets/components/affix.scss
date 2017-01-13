@@ -3,14 +3,12 @@
 }
 
 // Container to maintain height of document when transitioning relative div to
-// a fixed div
+// a fixed div.
 .navbar-outer {
   height: $header-height;
 
   .navbar {
     border-width: 1px 0;
-    // border-width: 0;
-    transition: all .2s ease;
     z-index: $zindex-navbar-fixed;
   }
 }

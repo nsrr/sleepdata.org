@@ -4,16 +4,13 @@
   brand-background
 
 - content_for :header do
-  .background-gradient
   .header-container
     .container
       %h1.page-heading
         .pull-right
           = link_to plus_or('Create Dataset'), new_dataset_path, class: 'btn btn-accent btn-shadow' if current_user && current_user.system_admin?
           = render 'layouts/per_page', per_page: 24, object_count: @datasets.total_count
-        =# render 'layouts/side_nav_header_button'
         = @title
-
 
 %div{ style: 'margin-bottom: 20px;display: flex;' }
   %div{ style: 'margin: auto; flex: 1; text-align: center' }

@@ -25,6 +25,10 @@ class CommunityTool < ApplicationRecord
 
   # Community Tool Methods
 
+    def self.searchable_attributes
+      %w(name description series)
+    end
+
   def draft?
     !published?
   end

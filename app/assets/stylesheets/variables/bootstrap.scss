@@ -70,6 +70,20 @@ $link-color:            $a700 !default; // $brand-primary !default;
 // //
 // //## Font, line-height, and color for body text, headings, and more.
 
+// $font-family-sans-serif:
+//   // Safari for OS X and iOS (San Francisco)
+//   -apple-system,
+//   // Chrome >= 56 for OS X (San Francisco), Windows, Linux and Android
+//   system-ui,
+//   // Chrome < 56 for OS X (San Francisco)
+//   BlinkMacSystemFont,
+//   // Windows
+//   "Segoe UI",
+//   // Android
+//   "Roboto",
+//   // Basic web fallback
+//   "Helvetica Neue", Arial, sans-serif !default;
+
 $font-family-sans-serif:  'Open Sans', sans-serif;
 // $font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
 // //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.

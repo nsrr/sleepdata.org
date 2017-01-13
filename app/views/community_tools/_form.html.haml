@@ -34,6 +34,11 @@
           %code edf-viewer
 
   .form-group
+    = f.label :series, nil, class: 'col-md-2 control-label'
+    .col-md-10
+      = f.text_field :series, class: 'form-control'
+
+  .form-group
     = f.label :url, 'Repository URL', class: 'col-md-2 control-label'
     .col-md-10
       = f.text_field :url, class: 'form-control'

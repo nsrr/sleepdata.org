@@ -60,7 +60,7 @@ class CommunityToolsController < ApplicationController
     parse_date_if_key_present(:community_tool, :publish_date)
     params.require(:community_tool).permit(
       :name, :url, :description, :slug, :published, :publish_date,
-      :tag_program, :tag_script, :tag_tutorial
+      :tag_program, :tag_script, :tag_tutorial, :series
     )
   end
 end

@@ -9,80 +9,108 @@
 - content_for :body_class do
   brand-background
 
+.landing-sentence
+  What interests you?
+.landing-box-container
+  .landing-box
+    .landing-face.landing-back
+      .landing-box-header= link_to 'Adults', datasets_path
+      %p These are for people 18 and over.
+    .landing-face.landing-front
+      .landing-box-header= link_to 'Adults', datasets_path
+      %p.center.nowrap
+        %i.fa.fa-male.icon-lg{ aria: { hidden: 'true' } }
+        %i.fa.fa-female.icon-lg{ aria: { hidden: 'true' } }
+  .landing-box
+    .landing-face.landing-back
+      .landing-box-header= link_to 'Children', datasets_path
+      %p
+        About the children.
+    .landing-face.landing-front
+      .landing-box-header= link_to 'Children', datasets_path
+      %p.center.nowrap
+        %i.fa.fa-child.icon-child-sm{ aria: { hidden: 'true' } }
+        %i.fa.fa-child.icon-child-md{ aria: { hidden: 'true' } }
+        %i.fa.fa-child.icon-child-lg{ aria: { hidden: 'true' } }
+  .landing-box
+    .landing-face.landing-back
+      .landing-box-header= link_to 'Phenotypes', datasets_path
+      %p CSVs, covariates, etc!
+    .landing-face.landing-front
+      .landing-box-header= link_to 'Phenotypes', datasets_path
+      %p.center
+        %i.fa.fa-table.icon-lg{ aria: { hidden: 'true' } }
+  .landing-box
+    .landing-face.landing-back
+      .landing-box-header= link_to 'Polysomnography', datasets_path
+      %p PSGs, EEGs, ECGs.
+    .landing-face.landing-front
+      .landing-box-header= link_to 'Polysomnography', datasets_path
+      %p.center
+        %i.fa.fa-heartbeat.icon-lg{ aria: { hidden: 'true' } }
+  .landing-box
+    .landing-face.landing-back
+      .landing-box-header= link_to 'Actigraphy', datasets_path
+      %p
+        Watches, activity, wearables.
+    .landing-face.landing-front
+      .landing-box-header= link_to 'Actigraphy', datasets_path
+      %p.center
+        %i.fa.fa-clock-o.icon-lg{ aria: { hidden: 'true' } }
+.landing-sentence
+  Not sure? View our
+  = link_to 'most popular', datasets_path
+  datasets.
+
 - content_for :call_to_action do
-  %div{ style: 'margin-bottom: 20px;' }
-    .center{ style: 'font-weight: bold; font-size: 20px;margin-bottom: 10px;' }
-      What are you interested in?
+  %div{ style: 'background-color: #c8e6c9;padding-top: 10px;' }
     .container
-      .landing-box-container
-        .landing-box
-          .landing-face.landing-back
-            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Adults', datasets_path
-            %p These are for people 18 and over.
-          .landing-face.landing-front
-            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Adults', datasets_path
-            %p.center.nowrap
-              %i.fa.fa-male{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
-              %i.fa.fa-female{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
-        .landing-box
-          .landing-face.landing-back
-            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Children', datasets_path
-            %p
-              About the children.
-          .landing-face.landing-front
-            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Children', datasets_path
-            %p.center.nowrap
-              %i.fa.fa-child{ aria: { hidden: 'true' }, style: 'font-size: 48px;' }
-              %i.fa.fa-child{ aria: { hidden: 'true' }, style: 'font-size: 56px;' }
-              %i.fa.fa-child{ aria: { hidden: 'true' }, style: 'font-size: 64px;' }
-        .landing-box
-          .landing-face.landing-back
-            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Phenotypes', datasets_path
-            %p CSVs, covariates, etc!
-          .landing-face.landing-front
-            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Phenotypes', datasets_path
-            %p.center
-              %i.fa.fa-table{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
-        .landing-box
-          .landing-face.landing-back
-            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Polysomnography', datasets_path
-            %p PSGs, EEGs, ECGs.
-          .landing-face.landing-front
-            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Polysomnography', datasets_path
-            %p.center
-              %i.fa.fa-heartbeat{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
-        .landing-box
-          .landing-face.landing-back
-            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Actigraphy', datasets_path
-            %p
-              Watches, activity, wearables.
-          .landing-face.landing-front
-            .center{ style: 'margin-bottom: 10px; font-variant: small-caps; font-size: 18px;' }= link_to 'Actigraphy', datasets_path
-            %p.center
-              %i.fa.fa-clock-o{ aria: { hidden: 'true' }, style: 'font-size: 92px;' }
-      .center{ style: 'font-weight: bold; font-size: 20px;margin-bottom: 20px;' }
-        Not sure yet? View our
-        = link_to 'most popular', datasets_path
-        datasets.
+      %h3{ style: 'font-weight: bold' } Tools
+      .row
+        .col-sm-4.col-buffer
+          .landing-box-header{ style: 'text-align: left' } Popular
+          %ul.list-unstyled
+            %li.nowrap.overflow-hidden= link_to 'EDF Viewer', tools_path
+            %li.nowrap.overflow-hidden
+              = link_to 'https://www.physionet.org/pn4/sleep-edfx/Polyman/' do
+                Polyman
+                %span.glyphicon.glyphicon-new-window
+            %li.nowrap.overflow-hidden
+              = link_to 'http://www.teuniz.net/edfbrowser/' do
+                EDFbrowser
+                %span.glyphicon.glyphicon-new-window
 
-  %div{ style: 'margin-top: 150px;' }
-    .center{ style: 'font-weight: bold; font-size: 20px;margin-bottom: 10px;' }
-      = link_to 'Tools', tools_path
-      for your data.
+        .col-sm-4.col-buffer
+          .landing-box-header{ style: 'text-align: left' } Newest
+          %ul.list-unstyled
+            - CommunityTool.current.where(published: true).order(publish_date: :desc).limit(3).each do |community_tool|
+              %li.nowrap.overflow-hidden= link_to community_tool.name, community_show_tool_path(community_tool)
 
-  %div{ style: 'min-height: 185px;' }
+        .col-sm-4.col-buffer
+          .landing-box-header{ style: 'text-align: left' } Tutorials
+          %ul.list-unstyled
+            %li.nowrap.overflow-hidden= link_to 'Get Started Scripting', community_show_tool_path('ruby-scripts-tutorial-01')
+            %li.nowrap.overflow-hidden= link_to 'All Tutorials', tools_path(type: 'tutorial')
 
-  .center{ style: 'font-weight: bold; font-size: 20px;padding: 20px 0;background-image: linear-gradient(180deg, #e8f5e9, #c8e6c9, #a5d6a7);' }
-    A
-    = link_to 'NHLBI', 'https://www.ncbi.nlm.nih.gov/pubmed/27070134', class: 'brand'
-    resource for the sleep research community.
-  %div{ style: 'background-color: #a5d6a7;' }
-    -# #80D8FF;
+  %div{ style: 'background-color: #e8f5e9;' }
+    .container
+      %h3{ style: 'font-weight: bold' } Blog
+      - Broadcast.current.published.where(archived: false).order(pinned: :desc, publish_date: :desc).limit(9).each do |broadcast|
+        .dashboard-container{ style: 'border: 0' }
+          %h2.broadcast-title= link_to broadcast.title, blog_post_path(broadcast.url_hash)
+          = render 'blog/extract', broadcast: broadcast
+
+  .landing-sentence.landing-sentence-gradient
+    .container
+      A
+      = link_to 'NHLBI', 'https://www.ncbi.nlm.nih.gov/pubmed/27070134', class: 'brand'
+      resource for the sleep research community.
+  .landing-stats
     .container{ style: 'padding: 20px;' }
       .row
         .col-sm-3
           .center
-            %span.glyphicon.glyphicon-hdd{ style: 'font-size: 128px;' }
+            %span.glyphicon.glyphicon-hdd.icon-xl
         .col-sm-3
           .center.hidden-sm.hidden-md.hidden-lg
             %h1.brand 4.1 TB
@@ -99,7 +127,7 @@
             Shared with Researchers
         .col-sm-3.hidden-xs
           .center
-            %span.glyphicon.glyphicon-globe{ style: 'font-size: 128px;' }
+            %span.glyphicon.glyphicon-globe.icon-xl
 
 - if false
   .row

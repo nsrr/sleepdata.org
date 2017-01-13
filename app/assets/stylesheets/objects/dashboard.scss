@@ -11,6 +11,19 @@
   margin-bottom: 20px;
   overflow: hidden;
   padding: 20px;
+
+  h2 {
+    margin-top: 0;
+  }
+
+  .broadcast {
+    margin-bottom: 0;
+
+    img {
+      border: 0;
+      max-height: 200px;
+    }
+  }
 }
 
 .dashboard-title {
