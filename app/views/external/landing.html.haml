@@ -91,9 +91,11 @@
       %div{ style: 'font-weight: bold;font-variant: small-caps;margin-bottom: 10px;' }
         Signal Processing
       %div{ style: 'margin-left: 20px;' }
-        SpiSOP &middot;
-        Data Chromatix &middot;
-        SpectralTrainFig
+        = link_to 'SpiSOP', community_show_tool_path('spisop')
+        &middot;
+        = link_to 'Data Chromatix', community_show_tool_path('data-chromatix')
+        &middot;
+        = link_to 'SpectralTrainFig', community_show_tool_path('spectraltrainfig')
 
     .box-shadow{ style: 'font-size: 18px;background-color: #c8e6c9;padding: 20px;margin-bottom: 10px;position: relative;overflow: hidden; padding-right: 100px;' }
       %div{ style: 'position: absolute;right: -20px; top: 0;' }
