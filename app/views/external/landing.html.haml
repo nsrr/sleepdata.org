@@ -165,10 +165,7 @@
   %div{ style: 'background-color: #e8f5e9;margin-bottom: 20px;' }
     .container
       %h3{ style: 'font-weight: bold' } News
-      - Broadcast.current.published.where(archived: false).order(pinned: :desc, publish_date: :desc).limit(3).each do |broadcast|
-        .dashboard-container{ style: 'border: 0' }
-          %h2.broadcast-title= link_to broadcast.title, blog_post_path(broadcast.url_hash)
-          = render 'blog/extract', broadcast: broadcast
+      = render 'blog/landing_blog'
 
   .landing-sentence.landing-sentence-gradient
     .container

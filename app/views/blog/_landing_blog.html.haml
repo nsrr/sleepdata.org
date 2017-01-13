@@ -1,0 +1,14 @@
+- Broadcast.current.published.where(archived: false).order(pinned: :desc, publish_date: :desc).each do |broadcast|
+  .box-shadow.dashboard-container{ style: 'border: 0' }
+    %div{ style: 'font-size: 18px;font-weight: bold;' }= broadcast.title
+    = render 'blog/author_and_category', broadcast: broadcast
+    .broadcast
+      %p
+        = strip_tags(simple_markdown broadcast.description, true, false).gsub(/\r/, ' ').gsub(/\n/, ' ').truncate(500, separator: '.', omission: '.').html_safe
+        = link_to 'Keep reading', blog_post_path(broadcast.url_hash), class: 'nowrap'
+        %i.fa.fa-arrow-right.primary-blue
+      %p
+        = link_to blog_post_path(broadcast.url_hash.merge(anchor: 'comments')), class: 'comments-link' do
+          Comments
+          = surround '(', ')' do
+            = broadcast.replies.count
