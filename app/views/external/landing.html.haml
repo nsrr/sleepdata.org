@@ -15,7 +15,8 @@
   .landing-box
     .landing-face.landing-back
       .landing-box-header= link_to 'Adults', datasets_path
-      %p These are for people 18 and over.
+      %p
+        Browse through data collected on ages 18 and up.
     .landing-face.landing-front
       .landing-box-header= link_to 'Adults', datasets_path
       %p.center.nowrap
@@ -25,17 +26,18 @@
     .landing-face.landing-back
       .landing-box-header= link_to 'Children', datasets_path
       %p
-        About the children.
+        Browse data collected on infants, adolescents, and teenagers.
     .landing-face.landing-front
       .landing-box-header= link_to 'Children', datasets_path
-      %p.center.nowrap
+      %p.center.nowrap{ style: 'line-height: 120px' }
         %i.fa.fa-child.icon-child-sm{ aria: { hidden: 'true' } }
         %i.fa.fa-child.icon-child-md{ aria: { hidden: 'true' } }
         %i.fa.fa-child.icon-child-lg{ aria: { hidden: 'true' } }
   .landing-box
     .landing-face.landing-back
       .landing-box-header= link_to 'Phenotypes', datasets_path
-      %p CSVs, covariates, etc!
+      %p
+        Browse curated covariates and associated data dictionaries.
     .landing-face.landing-front
       .landing-box-header= link_to 'Phenotypes', datasets_path
       %p.center
@@ -43,7 +45,9 @@
   .landing-box
     .landing-face.landing-back
       .landing-box-header= link_to 'Polysomnography', datasets_path
-      %p PSGs, EEGs, ECGs.
+      %p
+        Browse raw signals comprised of EEGs, ECGs, oxygen, light, and position
+        channels.
     .landing-face.landing-front
       .landing-box-header= link_to 'Polysomnography', datasets_path
       %p.center
@@ -52,13 +56,15 @@
     .landing-face.landing-back
       .landing-box-header= link_to 'Actigraphy', datasets_path
       %p
-        Watches, activity, wearables.
+        Browse data collected on wearable watches and similar devices.
     .landing-face.landing-front
       .landing-box-header= link_to 'Actigraphy', datasets_path
       %p.center
         %i.fa.fa-clock-o.icon-lg{ aria: { hidden: 'true' } }
 .landing-sentence{ style: 'font-weight: normal;' }
-  Not sure? View our
+  Not sure?
+  %br.hidden-sm.hidden-md.hidden-lg
+  View our
   = link_to 'most popular', datasets_path(order: 'datasets.rating desc')
   datasets.
 
@@ -112,6 +118,7 @@
 
     .landing-sentence.hidden-md.hidden-lg{ style: 'text-align: left;font-weight: normal;' }
       Know of another great tool?
+      %br.hidden-sm.hidden-md.hidden-lg
       = link_to 'Tell us about it.', contribute_tool_start_path
 
 
