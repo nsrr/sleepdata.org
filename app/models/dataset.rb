@@ -50,6 +50,10 @@ class Dataset < ApplicationRecord
     variables.order('commonly_used desc', :folder, :name)
   end
 
+  def current_variables
+    variables.where(dataset_version_id: dataset_version)
+  end
+
   def editors
     User.where(id: [user_id] + dataset_users.where(role: 'editor').pluck(:user_id))
   end

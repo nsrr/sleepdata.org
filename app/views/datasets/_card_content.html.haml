@@ -1,25 +1,27 @@
 .dataset-info-container
-  .dataset-info-item
-    - if dataset.subjects.positive?
+  - if dataset.subjects.positive?
+    .dataset-info-item
       .dataset-info-header SUBJECTS
       .dataset-info-content= number_with_delimiter dataset.subjects
-  .dataset-info-item
-    - if dataset.subjects.positive?
+    .dataset-info-item
       .dataset-info-header AGES
       .dataset-info-content= "#{dataset.age_min} - #{dataset.age_max}"
-  .dataset-info-item
-    - if dataset.time_frame.present?
-      .dataset-info-header TIMEFRAME
-      .dataset-info-content= dataset.time_frame
-  .dataset-info-item
-    .dataset-info-header DATA
-    .dataset-info-content-small
-      - if dataset.polysomnography?
-        Polysomnography
-        %br
-      - if dataset.actigraphy?
-        Actigraphy
-        %br
-      - if dataset.phenotype?
-        Phenotypes
-        %br
+    .dataset-info-item
+      - if dataset.time_frame.present?
+        .dataset-info-header TIMEFRAME
+        .dataset-info-content= dataset.time_frame
+    .dataset-info-item
+      .dataset-info-header DATA
+      .dataset-info-content-small
+        - if dataset.polysomnography?
+          Polysomnography
+          %br
+        - if dataset.actigraphy?
+          Actigraphy
+          %br
+        - if dataset.phenotype?
+          Phenotypes
+          %br
+  - else
+    .dataset-info-item.text-muted
+      Update in progress.

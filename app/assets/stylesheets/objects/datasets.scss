@@ -163,6 +163,12 @@
   }
 }
 
+@media screen and (min-width: $screen-sm-min) {
+  .dataset-card-logo {
+    margin-left: 10px;
+  }
+}
+
 .dataset-card-flipped {
   .dataset-card-body {
     .not-flipped {
@@ -207,25 +213,34 @@
   }
 }
 
+.dataset-card-footer {
+  background-color: $brand-gray-lighter;
+  padding: 10px;
+}
+
+.dataset-card-footer-request {
+  box-shadow: 0 -5px 5px -5px $brand-gray;
+}
+
 .dataset-card-footer-links {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
-}
 
-.dataset-card-footer-entry {
-  padding-left: 10px;
-  padding-right: 10px;
-}
+  .dataset-card-footer-entry {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 
-.dataset-card-footer-spacer {
-  color: $brand-gray;
+  .dataset-card-footer-spacer {
+    color: $brand-gray;
+  }
 }
 
 @media screen and (min-width: $screen-sm-min) {
   .dataset-card-footer-links {
     display: flex;
     flex-flow: row wrap;
-    justify-content: flex-end;
+    justify-content: flex-start;
   }
 }

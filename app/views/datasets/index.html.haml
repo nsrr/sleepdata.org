@@ -84,7 +84,6 @@
   - @datasets.each do |dataset|
     .dataset-card{ id: "dataset-card-#{dataset.id}" }
       .dataset-card-header
-        = render 'datasets/card_icon', dataset: dataset
         .dataset-card-header-ratings
           .pull-right
             %span{ style: 'color: #ccc;' }
@@ -93,6 +92,10 @@
                 = link_to number_with_delimiter(dataset.dataset_reviews.count), dataset_dataset_reviews_path(dataset)
             = render 'datasets/rating', rating: dataset.rating
           = link_to dataset.name, dataset
+          - if dataset.description.present?
+            = link_to '#', data: { object: 'flip-card', target: "#dataset-card-#{dataset.id}" }, style: 'font-size: 10px' do
+              details
+              %span.glyphicon.glyphicon-menu-down.text-muted
 
       .dataset-card-body
         .not-flipped
@@ -102,25 +105,32 @@
           = render 'datasets/card_content', dataset: dataset
         .already-flipped
           = simple_markdown(dataset.description)
-      %div{ style: 'background-color: #ededed;padding: 10px;' }
-        - if dataset.description.present?
-          .pull-left
-            = link_to '#', data: { object: 'flip-card', target: "#dataset-card-#{dataset.id}" } do
-              Details
-              %span.glyphicon.glyphicon-menu-down
+      .dataset-card-footer
+        .pull-right.hidden-xs= render 'datasets/card_footer_request', dataset: dataset
         .dataset-card-footer-links
           %span.hidden-xs{ style: 'color: #ccc;' } View
           .dataset-card-footer-entry
             = link_to dataset, class: 'no-underline' do
-              Docs
-          .dataset-card-footer-spacer|
-          .dataset-card-footer-entry
-            = link_to files_dataset_path(dataset), class: 'no-underline' do
-              Files
-          .dataset-card-footer-spacer|
-          .dataset-card-footer-entry
-            = link_to dataset_variables_path(dataset), class: 'no-underline' do
-              Variables
+              %small Docs
+          - unless dataset.dataset_files.where(is_file: true).count.zero?
+            .dataset-card-footer-spacer|
+            .dataset-card-footer-entry
+              = link_to files_dataset_path(dataset), class: 'no-underline' do
+                %small.hidden-sm.hidden-md.hidden-lg Files
+                %small.hidden-xs
+                  = pluralize number_with_delimiter(dataset.dataset_files.where(is_file: true).count), 'File'
+                  &middot;
+                  = number_to_human_size dataset.dataset_files.where(is_file: true).sum(:file_size)
+          - unless dataset.current_variables.count.zero?
+            .dataset-card-footer-spacer|
+            .dataset-card-footer-entry
+              = link_to dataset_variables_path(dataset), class: 'no-underline' do
+                %small.hidden-sm.hidden-md.hidden-lg Variables
+                %small.hidden-xs
+                  = pluralize number_with_delimiter(dataset.current_variables.count), 'Variable'
+      .dataset-card-footer.dataset-card-footer-request.hidden-sm.hidden-md.hidden-lg
+        .center= render 'datasets/card_footer_request', dataset: dataset
+
 
   .center= paginate @datasets, theme: 'bootstrap'
 

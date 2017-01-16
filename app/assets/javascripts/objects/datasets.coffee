@@ -18,8 +18,8 @@ $(document)
   .on('click', '[data-object~="flip-card"]', ->
     $($(this).data('target')).toggleClass('dataset-card-flipped')
     if $($(this).data('target')).hasClass('dataset-card-flipped')
-      $(this).html('Details <span class="glyphicon glyphicon-menu-up"></span>')
+      $(this).html('details <span class="glyphicon glyphicon-menu-up text-muted"></span>')
     else
-      $(this).html('Details <span class="glyphicon glyphicon-menu-down"></span>')
+      $(this).html('details <span class="glyphicon glyphicon-menu-down text-muted"></span>')
     false
   )
