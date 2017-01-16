@@ -78,8 +78,8 @@
 
 - if @datasets.count.zero?
   .lead.center{ style: 'margin-top: 40px' }
-    We were unable to find any datasets matching your search criteria.
-    = link_to 'Reset Criteria.', datasets_path
+    No datasets found matching search criteria.
+    = link_to 'Back to index.', datasets_path
 - else
   - @datasets.each do |dataset|
     .dataset-card{ id: "dataset-card-#{dataset.id}" }
