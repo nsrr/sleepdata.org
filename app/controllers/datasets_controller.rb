@@ -89,6 +89,15 @@ class DatasetsController < ApplicationController
                     else
                       Dataset.current.where(public: true)
                     end
+    if params[:ages]
+      (min_age, max_age) = params[:ages].split('-').collect { |s| parse_integer(s) }
+      dataset_scope = dataset_scope.where('age_min <= ?', max_age) if max_age.present?
+      dataset_scope = dataset_scope.where('age_max >= ?', min_age) if min_age.present?
+    end
+    dataset_scope = dataset_scope.where(phenotype: true) if params[:data] == 'phenotypes'
+    dataset_scope = dataset_scope.where(polysomnography: true) if params[:data] == 'polysomnography'
+    dataset_scope = dataset_scope.where(actigraphy: true) if params[:data] == 'actigraphy'
+
     @datasets = dataset_scope.order(@order).page(params[:page]).per(24)
   end
 
@@ -105,5 +114,11 @@ class DatasetsController < ApplicationController
 
   def find_dataset_file
     @dataset_file = @dataset.dataset_files.current.find_by(full_path: params[:path])
+  end
+
+  def parse_integer(string)
+    Integer(format('%d', string))
+  rescue
+    nil
   end
 end
