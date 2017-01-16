@@ -49,11 +49,11 @@
           - when 'polysomnography'
             Polysomnography
           - else
-            All Data Types
+            All Data
 
         %span.caret
       %ul.dropdown-menu
-        %li= link_to 'All Data Types', datasets_path(filtered_params.merge(data: nil)), style: params[:data].blank? ? 'font-weight: bold' : nil
+        %li= link_to 'All Data', datasets_path(filtered_params.merge(data: nil)), style: params[:data].blank? ? 'font-weight: bold' : nil
         %li= link_to 'Phenotypes', datasets_path(filtered_params.merge(data: 'phenotypes')), style: params[:data] == 'phenotypes' ? 'font-weight: bold' : nil
         %li= link_to 'Actigraphy', datasets_path(filtered_params.merge(data: 'actigraphy')), style: params[:data] == 'actigraphy' ? 'font-weight: bold' : nil
         %li= link_to 'Polysomnography', datasets_path(filtered_params.merge(data: 'polysomnography')), style: params[:data] == 'polysomnography' ? 'font-weight: bold' : nil
@@ -87,13 +87,15 @@
         .dataset-card-header-ratings
           .pull-right
             %span{ style: 'color: #ccc;' }
-              %span.hidden-xs Reviews
-              = surround '(', ')' do
-                = link_to number_with_delimiter(dataset.dataset_reviews.count), dataset_dataset_reviews_path(dataset)
+              = link_to number_with_delimiter(dataset.dataset_reviews.count), dataset_dataset_reviews_path(dataset)
+              %span.hidden-xs
+                = "Review#{'s' if dataset.dataset_reviews.count != 1}"
+              %i.fa.fa-comments.hidden-sm.hidden-md.hidden-lg
             = render 'datasets/rating', rating: dataset.rating
           = link_to dataset.name, dataset
           - if dataset.description.present?
-            = link_to '#', data: { object: 'flip-card', target: "#dataset-card-#{dataset.id}" }, style: 'font-size: 10px' do
+            %br.hidden-sm.hidden-md.hidden-lg
+            = link_to '#', data: { object: 'flip-card', target: "#dataset-card-#{dataset.id}" }, style: 'font-size: 10px;' do
               details
               %span.glyphicon.glyphicon-menu-down.text-muted
 
