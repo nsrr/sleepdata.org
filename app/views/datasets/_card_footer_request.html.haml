@@ -1,0 +1,33 @@
+- if dataset.release_date && dataset.release_date <= Date.today
+  - agreements = (current_user ? dataset.agreements.where(user_id: current_user.id) : Agreement.none)
+  - if agreement = agreements.find_by(status: 'approved')
+    - title = 'Data Access Approved'
+    - url = files_dataset_path(dataset)
+  - elsif agreement = agreements.find_by(status: 'submitted')
+    - title = 'Submitted for Review'
+    - url = submissions_path
+  - elsif agreement = agreements.find_by(status: 'resubmit')
+    - title = 'Resubmit Your DAUA'
+    - url = submissions_path
+  - elsif agreement = agreements.expired.first
+    - title = 'Renew Access'
+    - url = submissions_start_path(dataset: dataset)
+  - elsif agreement = agreements.find_by(status: 'started')
+    - title = 'Complete Your DAUA'
+    - if agreement.fully_filled_out?
+      - url = proof_agreement_path(agreement)
+    - else
+      - url = step_agreement_path(agreement, step: agreement.current_step)
+  - else
+    - title = 'Request Access'
+    - url = submissions_start_path(dataset: dataset)
+- elsif dataset.release_date
+  - title = 'Coming Soon'
+  - url = dataset
+- else
+  - title = 'Preview'
+  - url = dataset
+
+= link_to url do
+  = title
+  %span.glyphicon.glyphicon-arrow-right
