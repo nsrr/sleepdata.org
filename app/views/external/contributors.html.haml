@@ -1,13 +1,15 @@
 - @title = 'Past Contributors'
 
-- content_for :banner do
-  .challenge-header
-    .banner
-      .container
-        .banner-header.brand
-          Past Contributors
+- content_for :body_class do
+  brand-background
 
-%p.lead.center.text-muted
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        = @title
+
+%p.lead.center
   A special thanks to our past contributors.
 
 .center
