@@ -3,20 +3,19 @@
 - content_for :body_class do
   brand-background
 
-.landing-sentence.brand{ style: 'margin-top: 40px;font-size: 28px;margin-bottom: 20px;' }
-  The National Sleep Research Resource
+.about-header
+  The National Sleep
+  %br.hidden-sm.hidden-md.hidden-lg
+  Research Resource
 
-%div{ style: 'margin-bottom: 20px;' }
-  %p{ style: 'max-width: 64rem;margin-left: auto;margin-right: auto;line-height: 1.5em;' }
-    The
-    National Sleep Research Resource
-    (NSRR) offers free access to large collections of de-identified
-    physiological signals and clinical data elements collected in
-    well-characterized research cohorts and clinical trials.
+.about-section
+  %p
+    The National Sleep Research Resource (NSRR) offers free access to large
+    collections of de-identified physiological signals and clinical data
+    elements collected in well-characterized research cohorts and clinical
+    trials.
 
-  %p{ style: 'max-width: 64rem;margin-left: auto;margin-right: auto;line-height: 1.5em;' }
-
-  %p{ style: 'max-width: 64rem;margin-left: auto;margin-right: auto;line-height: 1.5em;' }
+  %p
     The NSRR encourages interested researchers, educators, and trainees to
     = succeed '.' do
       = link_to 'join its community', new_user_registration_path
@@ -31,50 +30,50 @@
     %br
     The National Sleep Research Resource.
 
-%hr{ style: 'border-color: #a5d6a7;width: 60%;margin: 40px auto;max-width: 64rem;' }
+%hr.about-divider
 
-.landing-sentence.brand{ style: 'font-size: 24px;margin-bottom: 40px;color: #388e3c;' }
+.about-subheader
   Collaborators
 
-.landing-sentence{ style: 'font-size: 20px;margin-bottom: 20px;' }
+.about-section-title
   PhysioNet
 
-%div{ style: 'margin-bottom: 20px;' }
-  %p{ style: 'max-width: 64rem;margin-left: auto;margin-right: auto;line-height: 1.5em;' }
+.about-section
+  %p
     = link_to 'https://www.physionet.org/' do
       PhysioNet
-    provides access to large and diverse collections of recorded
-    physiologic signals (PhysioBank) and related
-    open-source software (PhysioToolkit). PhysioBank currently includes over 200
-    annotated polysomnograms in 4 collections, and more than 60 other databases,
-    including the MIMIC and MIMIC II Waveform and Clinical Databases collected
-    from over 30,000 ICU patients, and a wide range of specialized data sets
-    from clinical and research studies.
+    provides access to large and diverse collections of recorded physiologic
+    signals (PhysioBank) and related open-source software (PhysioToolkit).
+    PhysioBank currently includes over 200 annotated polysomnograms in 4
+    collections, and more than 60 other databases, including the MIMIC and MIMIC
+    II Waveform and Clinical Databases collected from over 30,000 ICU patients,
+    and a wide range of specialized data sets from clinical and research
+    studies.
 
-.landing-sentence{ style: 'font-size: 20px;margin-bottom: 20px;' }
+.about-section-title
   dbGaP
 
-%div{ style: 'margin-bottom: 20px;' }
-  %p{ style: 'max-width: 64rem;margin-left: auto;margin-right: auto;line-height: 1.5em;' }
+.about-section
+  %p
     The
     = link_to 'https://www.ncbi.nlm.nih.gov/gap' do
       Database of Genotypes and Phenotypes
-    (dbGaP) is a National Institutes of
-    Health (NIH) sponsored repository charged to archive, curate and distribute
-    information produced by studies investigating the interaction of genotype
-    and phenotype.
+    (dbGaP) is a National Institutes of Health (NIH) sponsored repository
+    charged to archive, curate and distribute information produced by studies
+    investigating the interaction of genotype and phenotype.
 
-.landing-sentence{ style: 'font-size: 20px;margin-bottom: 20px;' }
+.about-section-title
   BioLINCC
 
-%div{ style: 'margin-bottom: 60px;' }
-  %p{ style: 'max-width: 64rem;margin-left: auto;margin-right: auto;line-height: 1.5em;' }
+.about-section
+  %p
     The
     = link_to 'https://biolincc.nhlbi.nih.gov/home/' do
-      National Heart, Lung and Blood Institute (NHLBI) Biologic Specimen and Data Repository
-    is the coming together of two entities: the NHLBI Biologic
-    Specimen Repository (NHLBI Biorepository), managed by the NHLBI, Division of
-    Blood Diseases and Resources (DBDR), Transfusion Medicine and Cellular
+      National Heart, Lung and Blood Institute (NHLBI) Biologic Specimen and
+      Data Repository
+    is the coming together of two entities: the NHLBI Biologic Specimen
+    Repository (NHLBI Biorepository), managed by the NHLBI, Division of Blood
+    Diseases and Resources (DBDR), Transfusion Medicine and Cellular
     Therapeutics Branch, and the NHLBI Data Repository, managed by the NHLBI,
     Division of Prevention and Population Sciences (DPPS), Epidemiology Branch.
     These two programs have always had a similar mission, namely to enhance and

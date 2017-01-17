@@ -1,13 +1,60 @@
-.user-panel {
-  background-color: $brand-white;
-  border: 1px solid $brand-gray;
-  box-shadow: 0 1px 2px $brand-shadow;
-  margin: 40px auto 20px;
-  min-height: 140px;
-  padding: 20px 20px 10px;
+.about-header {
+  @include brand;
 
-  h4 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .about-header {
+    font-size: 28px;
     margin-bottom: 20px;
-    margin-top: 0;
+    margin-top: 40px;
   }
+}
+
+.about-subheader {
+  @include brand;
+
+  color: $p700;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .about-subheader {
+    font-size: 24px;
+  }
+}
+
+
+.about-section {
+  margin-bottom: 20px;
+
+  p {
+    line-height: 1.5em;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 64rem;
+    text-align: justify;
+  }
+}
+
+.about-section-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  margin-top: 40px;
+  text-align: center;
+}
+
+.about-divider {
+  border-color: $p200;
+  margin: 40px auto;
+  max-width: 64rem;
 }
