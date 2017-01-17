@@ -397,7 +397,7 @@ $navbar-default-bg:                $p600 !default;
 // Navbar links
 $navbar-default-link-color:                $brand-white;
 $navbar-default-link-hover-color:          $brand-white;
-// $navbar-default-link-hover-bg:             transparent !default;
+$navbar-default-link-hover-bg:             darken($navbar-default-bg, 6.5%);
 $navbar-default-link-active-color:         $brand-white !default;
 // $navbar-default-link-active-bg:            darken($navbar-default-bg, 6.5%) !default;
 // $navbar-default-link-disabled-color:       #ccc !default;

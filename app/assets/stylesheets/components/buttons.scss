@@ -37,7 +37,7 @@
 .btn-primary-dark {
   background-color: $navbar-default-bg;
   border: 1px solid darken($navbar-default-bg, 6.5%);
-  color: $brand-muted;
+  color: $brand-white;
 
   &:hover,
   &:focus,
@@ -47,7 +47,7 @@
   &[disabled] {
     background-color: darken($navbar-default-bg, 6.5%);
     border: 1px solid darken($navbar-default-bg, 6.5%);
-    color: $brand-muted;
+    color: $brand-white;
   }
 }
 
