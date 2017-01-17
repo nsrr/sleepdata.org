@@ -94,10 +94,8 @@ class DatasetsController < ApplicationController
       dataset_scope = dataset_scope.where('age_min <= ?', max_age) if max_age.present?
       dataset_scope = dataset_scope.where('age_max >= ?', min_age) if min_age.present?
     end
-    dataset_scope = dataset_scope.where(phenotype: true) if params[:data] == 'phenotypes'
     dataset_scope = dataset_scope.where(polysomnography: true) if params[:data] == 'polysomnography'
     dataset_scope = dataset_scope.where(actigraphy: true) if params[:data] == 'actigraphy'
-
     @datasets = dataset_scope.order(@order).page(params[:page]).per(24)
   end
 

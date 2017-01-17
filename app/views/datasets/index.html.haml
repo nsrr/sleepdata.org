@@ -42,8 +42,6 @@
         %span.hidden-sm.hidden-md.hidden-lg.glyphicon.glyphicon-cog
         %span.hidden-xs
           - case params[:data]
-          - when 'phenotypes'
-            Phenotypes
           - when 'actigraphy'
             Actigraphy
           - when 'polysomnography'
@@ -54,7 +52,6 @@
         %span.caret
       %ul.dropdown-menu
         %li= link_to 'All Data', datasets_path(filtered_params.merge(data: nil)), style: params[:data].blank? ? 'font-weight: bold' : nil
-        %li= link_to 'Phenotypes', datasets_path(filtered_params.merge(data: 'phenotypes')), style: params[:data] == 'phenotypes' ? 'font-weight: bold' : nil
         %li= link_to 'Actigraphy', datasets_path(filtered_params.merge(data: 'actigraphy')), style: params[:data] == 'actigraphy' ? 'font-weight: bold' : nil
         %li= link_to 'Polysomnography', datasets_path(filtered_params.merge(data: 'polysomnography')), style: params[:data] == 'polysomnography' ? 'font-weight: bold' : nil
   %div{ style: 'margin: auto; flex: 1; text-align: center' }
