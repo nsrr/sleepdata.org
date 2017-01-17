@@ -14,32 +14,15 @@
 .landing-box-container
   .landing-box
     .landing-face.landing-back
-      .landing-box-header= link_to 'Polysomnography', datasets_path(data: 'polysomnography')
+      .landing-box-header= link_to 'Children', datasets_path(ages: '0-17')
       %p
-        Browse raw signals comprised of EEGs, ECGs, oxygen, light, and position
-        channels.
+        Browse data collected on infants, adolescents, and teenagers.
     .landing-face.landing-front
-      .landing-box-header= link_to 'Polysomnography', datasets_path(data: 'polysomnography')
-      %p.center
-        %i.fa.fa-heartbeat.icon-lg{ aria: { hidden: 'true' } }
-  .landing-box
-    .landing-face.landing-back
-      .landing-box-header= link_to 'Actigraphy', datasets_path(data: 'actigraphy')
-      %p
-        Browse data collected on wearable watches and similar devices.
-    .landing-face.landing-front
-      .landing-box-header= link_to 'Actigraphy', datasets_path(data: 'actigraphy')
-      %p.center
-        %i.fa.fa-clock-o.icon-lg{ aria: { hidden: 'true' } }
-  .landing-box
-    .landing-face.landing-back
-      .landing-box-header= link_to 'Phenotypes', datasets_path(data: 'phenotypes')
-      %p
-        Browse curated covariates and associated data dictionaries.
-    .landing-face.landing-front
-      .landing-box-header= link_to 'Phenotypes', datasets_path(data: 'phenotypes')
-      %p.center
-        %i.fa.fa-table.icon-lg{ aria: { hidden: 'true' } }
+      .landing-box-header= link_to 'Children', datasets_path(ages: '0-17')
+      %p.center.nowrap{ style: 'line-height: 120px' }
+        %i.fa.fa-child.icon-child-sm{ aria: { hidden: 'true' } }
+        %i.fa.fa-child.icon-child-md{ aria: { hidden: 'true' } }
+        %i.fa.fa-child.icon-child-lg{ aria: { hidden: 'true' } }
   .landing-box
     .landing-face.landing-back
       .landing-box-header= link_to 'Adults', datasets_path(ages: '18-90')
@@ -52,15 +35,35 @@
         %i.fa.fa-female.icon-lg{ aria: { hidden: 'true' } }
   .landing-box
     .landing-face.landing-back
-      .landing-box-header= link_to 'Children', datasets_path(ages: '0-17')
+      .landing-box-header= link_to 'Phenotypes', datasets_path(data: 'phenotypes')
       %p
-        Browse data collected on infants, adolescents, and teenagers.
+        Browse data from questionnaires and standardized instruments with
+        associated data dictionaries.
     .landing-face.landing-front
-      .landing-box-header= link_to 'Children', datasets_path(ages: '0-17')
-      %p.center.nowrap{ style: 'line-height: 120px' }
-        %i.fa.fa-child.icon-child-sm{ aria: { hidden: 'true' } }
-        %i.fa.fa-child.icon-child-md{ aria: { hidden: 'true' } }
-        %i.fa.fa-child.icon-child-lg{ aria: { hidden: 'true' } }
+      .landing-box-header= link_to 'Phenotypes', datasets_path(data: 'phenotypes')
+      %p.center
+        %i.fa.fa-table.icon-lg{ aria: { hidden: 'true' } }
+  .landing-box
+    .landing-face.landing-back
+      .landing-box-header= link_to 'Actigraphy', datasets_path(data: 'actigraphy')
+      %p
+        Browse minute-by-minute activity data collected on wearable watches and
+        similar devices.
+    .landing-face.landing-front
+      .landing-box-header= link_to 'Actigraphy', datasets_path(data: 'actigraphy')
+      %p.center
+        %i.fa.fa-clock-o.icon-lg{ aria: { hidden: 'true' } }
+  .landing-box
+    .landing-face.landing-back
+      .landing-box-header= link_to 'Polysomnography', datasets_path(data: 'polysomnography')
+      %p
+        Browse raw signals comprised of EEGs, ECGs, oxygen, and position
+        channels.
+    .landing-face.landing-front
+      .landing-box-header= link_to 'Polysomnography', datasets_path(data: 'polysomnography')
+      %p.center
+        %i.fa.fa-heartbeat.icon-lg{ aria: { hidden: 'true' } }
+
 .landing-sentence{ style: 'font-weight: normal;' }
   Not sure?
   %br.hidden-sm.hidden-md.hidden-lg
