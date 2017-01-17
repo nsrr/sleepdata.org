@@ -16,11 +16,11 @@
           - if current_user
             %li.visible-xs{ class: "#{ 'active' if current_page?(dashboard_path) }" }
               = link_to dashboard_path do
-                %span.glyphicon.glyphicon-blackboard
+                %i.fa.fa-home{ aria: { hidden: 'true' } }
                 = current_user.first_name
           %li{ class: "#{ 'active' if %w(datasets variables).include?(params[:controller]) }" }
             = link_to datasets_path do
-              %span.glyphicon.glyphicon-cloud
+              %i.fa.fa-database{ aria: { hidden: 'true' } }
               Datasets
           - if @dataset && !@dataset.new_record?
             %li.visible-xs{ style: 'margin-left: 20px', class: "#{ 'active' if %w(datasets).include?(params[:controller]) && (params[:action] == 'pages' || current_page?(@dataset)) }" }
@@ -37,15 +37,15 @@
                 Variables
           %li{ class: "#{ 'active' if params[:controller] == 'tools' }" }
             = link_to tools_path do
-              %span.glyphicon.glyphicon-wrench
+              %i.fa.fa-cubes{ aria: { hidden: 'true' } }
               Tools
           %li{ class: "#{ 'active' if params[:controller] == 'topics' }" }
             = link_to topics_path do
-              %span.glyphicon.glyphicon-pushpin
+              %i.fa.fa-comments-o{ aria: { hidden: 'true' } }
               Forum
           %li{ class: "#{ 'active' if current_page?(blog_path) }" }
             = link_to blog_path do
-              %span.glyphicon.glyphicon-bullhorn
+              %i.fa.fa-rss{ aria: { hidden: 'true' } }
               Blog
 
         - if current_user
