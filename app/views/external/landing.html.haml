@@ -85,10 +85,12 @@
       %div{ style: 'font-weight: bold;font-variant: small-caps;margin-bottom: 10px;' }
         EDF Visualization
       %div{ style: 'margin-left: 20px;' }
-        = link_to 'EDFbrowser', 'http://www.teuniz.net/edfbrowser/'
-        &middot;
-        = link_to 'https://www.physionet.org/pn4/sleep-edfx/Polyman/' do
-          Polyman
+        - edf_viewer_tools = [['EDF Viewer', community_show_tool_path('edf-viewer')], ['EDFbrowser', 'http://www.teuniz.net/edfbrowser/'], ['Polyman', 'https://www.physionet.org/pn4/sleep-edfx/Polyman/'], ['Altamira', community_show_tool_path('altamira')]]
+        - edf_viewer_tools.each_with_index do |(name, url), index|
+          = link_to name, url
+          - if index < edf_viewer_tools.count - 1
+            %br.hidden-sm.hidden-md.hidden-lg
+            %span.hidden-xs &middot;
     .box-shadow{ style: 'font-size: 18px;background-color: #c8e6c9;padding: 20px;margin-bottom: 10px;position: relative;overflow: hidden; padding-right: 100px;' }
       %div{ style: 'position: absolute;right: -57px; top: -34px;' }
         %i.fa.fa-heartbeat{ aria: { hidden: 'true' }, style: 'font-size: 168px;color: #e8f5e9;' }
@@ -96,11 +98,12 @@
       %div{ style: 'font-weight: bold;font-variant: small-caps;margin-bottom: 10px;' }
         Signal Processing
       %div{ style: 'margin-left: 20px;' }
-        = link_to 'Data Chromatix', community_show_tool_path('data-chromatix')
-        &middot;
-        = link_to 'SpectralTrainFig', community_show_tool_path('spectraltrainfig')
-        &middot;
-        = link_to 'SpiSOP', community_show_tool_path('spisop')
+        - signal_tools = [['Data Chromatix', community_show_tool_path('data-chromatix')], ['HRV Toolkit', community_show_tool_path('hrv-toolkit')], ['SpectralTrainFig', community_show_tool_path('spectraltrainfig')], ['SpiSOP', community_show_tool_path('spisop')]]
+        - signal_tools.each_with_index do |(name, url), index|
+          = link_to name, url
+          - if index < signal_tools.count - 1
+            %br.hidden-sm.hidden-md.hidden-lg
+            %span.hidden-xs &middot;
 
     .box-shadow{ style: 'font-size: 18px;background-color: #c8e6c9;padding: 20px;margin-bottom: 10px;position: relative;overflow: hidden; padding-right: 100px;' }
       %div{ style: 'position: absolute;right: -20px; top: 0;' }
