@@ -1,175 +1,83 @@
 - @title = 'About'
 
-- content_for :banner do
-  .banner
-    .container
-      .banner-header.brand
-        About the National Sleep Research Resource
+- content_for :body_class do
+  brand-background
 
-%div
-  %p
+.landing-sentence.brand{ style: 'margin-top: 40px;font-size: 28px;margin-bottom: 20px;' }
+  The National Sleep Research Resource
+
+%div{ style: 'margin-bottom: 20px;' }
+  %p{ style: 'max-width: 64rem;margin-left: auto;margin-right: auto;line-height: 1.5em;' }
     The
-    = link_to 'National Sleep Research Resource', root_path
-    (NSRR) offers free web access to large collections of de-identified
+    National Sleep Research Resource
+    (NSRR) offers free access to large collections of de-identified
     physiological signals and clinical data elements collected in
-    well-characterized research cohorts and clinical trials. The initial data
-    resource is from the
-    = succeed '.' do
-      = link_to 'Sleep Heart Health Study', dataset_path('shhs')
-    Over time,
-    = link_to 'many more studies', datasets_path
-    will be added.
-  %p
-    Using the
-    = succeed ',' do
-      = link_to 'tools provided', tools_path
-    the researcher can search across thousands of data elements, identify those
-    data of most relevance for given needs, explore the statistical
-    distributions of each, and download the
-    = succeed '.' do
-      = link_to 'data as CSV files', files_dataset_path('shhs', path: 'datasets')
-    Data include demographic, physiological, clinical, and other data types
-    collected by each study.
-  %p
-    Physiologic signals from overnight polysomnograms (sleep studies) are
-    available by downloading
-    = succeed '.' do
-      = link_to 'European Data Format (EDF) files', 'http://www.edfplus.info/'
-    The researcher can load summary measures of
-    = succeed '.' do
-      = link_to 'standardly scored sleep data', 'http://www.ncbi.nlm.nih.gov/pubmed/11300121'
-    Specific scored annotations can be accessed by downloading
-    = link_to 'XML files', files_dataset_path('shhs')
-    and can be viewed offline using the
-    = succeed '.' do
-      = link_to 'EDF Viewer', tool_path('edf-viewer')
-  %p
-    Additional signal processing and data exploration tools are available on the
-    PhysioNet website,
-    = succeed '.' do
-      = link_to 'http://physionet.org/', 'http://physionet.org/'
-    Since 1999, PhysioNet has provided free web access to large and diverse
-    collections of recorded physiologic signals (PhysioBank) and related
-    open-source software (PhysioToolkit). PhysioBank currently includes over 200
-    annotated polysomnograms in 4 collections, and more than 60 other databases,
-    including the MIMIC and MIMIC II Waveform and Clinical Databases collected
-    from over 30,000 ICU patients, and a wide range of specialized data sets
-    from clinical and research studies. PhysioToolkit software is compatible
-    with the NSRR's EDF PSGs and many other data formats, and runs on all
-    popular platforms; it includes software for viewing, analyzing, and
-    simulating physiologic time series and signals.
-  %p
+    well-characterized research cohorts and clinical trials.
+
+  %p{ style: 'max-width: 64rem;margin-left: auto;margin-right: auto;line-height: 1.5em;' }
+
+  %p{ style: 'max-width: 64rem;margin-left: auto;margin-right: auto;line-height: 1.5em;' }
     The NSRR encourages interested researchers, educators, and trainees to
     = succeed '.' do
-      = link_to 'join its user community as members', new_user_registration_path
+      = link_to 'join its community', new_user_registration_path
     Members can contribute their own data and tools for sharing, provide
     information and feedback on ways to improve sleep and physiological signal
     data exchange and analysis, and offer ideas on how to make NSRR and other
     resources work best for the scientific community.
 
-%h1 Who We Are
-%p
-  An interdisciplinary group, including sleep physicians, informaticians,
-  mathematicians, and other research staff are working to build the NSRR,
-  alongside a highly-talented
-  = succeed '.' do
-    = link_to 'Academic User Group', aug_path
-  Also, a big thanks to our
-  = succeed '.' do
-    = link_to 'past contributors', contributors_path
+%p.center{ style: 'max-width: 64rem;margin-left: auto;margin-right: auto;line-height: 1.5em;font-style: italic;' }
+  = link_to 'https://www.ncbi.nlm.nih.gov/pubmed/27070134' do
+    Scaling Up Scientific Discovery in Sleep Medicine:
+    %br
+    The National Sleep Research Resource.
 
-- first_half = @users.collect.with_index { |u, i| [u, i] }.select { |u, i| i < (@users.size + 1) / 2 }.collect { |u, i| u }
-- second_half = @users.collect.with_index { |u, i| [u, i] }.select { |u, i| i >= (@users.size + 1) / 2 }.collect { |u, i| u }
+%hr{ style: 'border-color: #a5d6a7;width: 60%;margin: 40px auto;max-width: 64rem;' }
 
-.row
-  .col-xs-12.col-sm-6
-    - first_half.each do |user|
-      = render 'users/user_panel', user: user
+.landing-sentence{ style: 'font-size: 24px;margin-bottom: 40px;color: #4caf50;' }
+  Collaborators
 
-  .col-xs-12.col-sm-6
-    - second_half.each do |user|
-      = render 'users/user_panel', user: user
+.landing-sentence{ style: 'font-size: 20px;margin-bottom: 20px;' }
+  PhysioNet
 
-.row
-  .col-xs-12.col-sm-4
-    %h4.center Beth Israel Deaconess Medical Center
-  .col-xs-12.col-sm-4
-    %h4.center Brigham and Women's Hospital
-  .col-xs-12.col-sm-4
-    %h4.center Case Western Reserve University
+%div{ style: 'margin-bottom: 20px;' }
+  %p{ style: 'max-width: 64rem;margin-left: auto;margin-right: auto;line-height: 1.5em;' }
+    = link_to 'https://www.physionet.org/' do
+      PhysioNet
+    provides access to large and diverse collections of recorded
+    physiologic signals (PhysioBank) and related
+    open-source software (PhysioToolkit). PhysioBank currently includes over 200
+    annotated polysomnograms in 4 collections, and more than 60 other databases,
+    including the MIMIC and MIMIC II Waveform and Clinical Databases collected
+    from over 30,000 ICU patients, and a wide range of specialized data sets
+    from clinical and research studies.
 
-.center
-  %p
-    The NSRR is supported by Grant Number HL114473 from the National Heart,
-    Lung, and Blood Institute, NIH.
-  %p.text-muted{ style: 'font-size:0.8em' }
-    The contents of this web site are solely the responsibility of the authors
-    and do not necessarily represent the official views of the the National
-    Heart, Lung, and Blood Institute, or NIH.
+.landing-sentence{ style: 'font-size: 20px;margin-bottom: 20px;' }
+  dbGaP
 
-.center{ style: 'margin-top:60px' }
-  = image_tag 'nsrr_logo_256.png', size: '256x256', alt: 'NSRR'
+%div{ style: 'margin-bottom: 20px;' }
+  %p{ style: 'max-width: 64rem;margin-left: auto;margin-right: auto;line-height: 1.5em;' }
+    The
+    = link_to 'https://www.ncbi.nlm.nih.gov/gap' do
+      Database of Genotypes and Phenotypes
+    (dbGaP) is a National Institutes of
+    Health (NIH) sponsored repository charged to archive, curate and distribute
+    information produced by studies investigating the interaction of genotype
+    and phenotype.
 
-%h3 National Sleep Research Resource At A Glance
+.landing-sentence{ style: 'font-size: 20px;margin-bottom: 20px;' }
+  BioLINCC
 
-%p{ style: 'font-size: 16px; font-weight: 200; line-height: 1.4;' }
-  Since 1994, NIH has supported the standardized collection of polysomnography
-  (PSG) studies as part of landmark multi-center studies which have used
-  well-defined methods for data collection and quality assurance. Across
-  studies, information on disease risk factors and outcomes, cardiovascular and
-  neurocognitive function, and genetic and biochemical marker data, are
-  available for children and adults representing diverse backgrounds. These data
-  could serve as an invaluable national resource, providing opportunities to
-  engage the scientific community, including trainees, in efforts to discover
-  predictive bio-physiological signals for disease incidence and progression and
-  to address critical questions regarding disease susceptibility and subgroup
-  differences not possible using data from single cohorts. Improved access to
-  those data would add value to already funded projects, ensuring maximal and
-  enduring impact. Optimal use of such data requires the systematic organization
-  and structuring of these data and access to procedures and computational tools
-  for easy but secure access and curation of well-defined data subsets. The
-  NHLBI National Sleep Research Resource (NSRR) will meet these compelling
-  needs, thus leveraging the NIH’s investments in the collection of sleep data
-  in well characterized cohort studies and clinical trials to create a unique
-  national resource of reliably-scored, well-annotated research PSGs from at
-  least 15 major NHLBI cohorts or clinical trials (~ 50,000 sleep studies). The
-  NSRR also will include: a) a database of quantitative metrics of heart rate,
-  breathing, oxygenation, and brain neurophysiological signals derived from each
-  study; b) linked data on clinical, physiological and biochemical parameters;
-  c) a tool set to allow the user to search and access de-identified research
-  data using a secure, cloud platform; d) an open-source suite of tools for
-  offline analyses for signal processing, file structure editing, data
-  harmonization and statistic generation; and e) user support for resource
-  usage. NSRR will be a scalable and expandable resource constructed by
-  capitalizing on major advances in informatics, developed with leading-edge
-  agile software engineering methodology, user-centered interface design and an
-  ontology-driven architecture.
-
-%h3 Meet the PIs
-
-%img.img-thumbnail{ alt: '', src: '//gravatar.com/avatar/a1430bb27ab123f550ea55148bdd371e.png?&amp;s=80&amp;r=pg&amp;d=identicon', style: 'min-height:90px;min-width:90px;float:right;margin-left:10px;margin-top:10px' }
-%blockquote
-  The project represents efforts to use big data in powerful and cost-effective
-  ways, leveraging prior investments in research data collection, with a goal of
-  enhancing clinical and translational work in human sleep medicine and
-  physiology. The resource will provide opportunities for investigators to
-  address critical questions regarding subgroup susceptibility to sleep
-  disorders; the impact of sleep disorders on important clinical outcomes; the
-  role of sleep disorders as mediators in the pathogenesis of cardiopulmonary
-  diseases; and genetic susceptibility to sleep disorders.
-
-  %small{ style: 'margin-top:10px' }
-    Susan Redline, MD, MPH, Principal Investigator on the NSSR project.
-
-%img.img-thumbnail{ alt: '', src: '//gravatar.com/avatar/6864e31a84d33cca40ac8056f178e9a8.png?&amp;s=80&amp;r=pg&amp;d=identicon', style: 'min-height:90px;min-width:90px;float:right;margin-left:10px;margin-top:10px' }
-%blockquote
-  Large, curated high-quality data sets like this will enable investigators to
-  ask 'what if' questions in merely a couple clicks of the mouse.
-  %br
-  \...
-  %br
-  The larger the population, the more complete patient characteristics you
-  capture, and the more valuable [the data resource] is.
-  = link_to 'Read Press Release', 'http://www.cleveland.com/healthfit/index.ssf/2013/10/cwru_researcher_helping_to_est.html'
-  %small{ style: 'margin-top:10px' }
-    GQ Zhang, PhD, Principal Investigator on the NSRR project.
+%div{ style: 'margin-bottom: 60px;' }
+  %p{ style: 'max-width: 64rem;margin-left: auto;margin-right: auto;line-height: 1.5em;' }
+    The
+    = link_to 'https://biolincc.nhlbi.nih.gov/home/' do
+      National Heart, Lung and Blood Institute (NHLBI) Biologic Specimen and Data Repository
+    is the coming together of two entities: the NHLBI Biologic
+    Specimen Repository (NHLBI Biorepository), managed by the NHLBI, Division of
+    Blood Diseases and Resources (DBDR), Transfusion Medicine and Cellular
+    Therapeutics Branch, and the NHLBI Data Repository, managed by the NHLBI,
+    Division of Prevention and Population Sciences (DPPS), Epidemiology Branch.
+    These two programs have always had a similar mission, namely to enhance and
+    facilitate further research in cardiovascular, pulmonary and hematologic
+    conditions by providing access to qualified investigators to stored
+    biospecimen and data collections.
