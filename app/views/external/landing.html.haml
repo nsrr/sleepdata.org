@@ -187,11 +187,12 @@
           .center
             %span.glyphicon.glyphicon-hdd.icon-xl
         .col-sm-3
+          - total_stored = DatasetFile.current.where(is_file: true).sum(:file_size)
           .center.hidden-sm.hidden-md.hidden-lg
-            %h1.brand 4.1 TB
+            %h1.brand= number_to_human_size total_stored
             Stored on the Resource
           .hidden-xs
-            %h1.brand 4.1 TB
+            %h1.brand= number_to_human_size total_stored
             Stored on the Resource
         .col-sm-3.hidden-xs
           .center.hidden-sm.hidden-md.hidden-lg
