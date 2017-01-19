@@ -1,5 +1,8 @@
 - @title = 'Tools'
 
+- content_for :body_class do
+  brand-background
+
 - if false
   %p.lead Bookmark a Tool
   %p.lead Popular Requests
@@ -9,7 +12,6 @@
   %p.lead Tool Discussion
 
 - content_for :header do
-  / .background-gradient
   .header-container
     .container
       %h1.page-heading
@@ -37,65 +39,63 @@
           = submit_tag 'Search', class: 'btn btn-primary', name: nil
           = link_to 'Reset', tools_path, class: 'btn btn-default'
 
-  %table.table.table-striped
-    %col{ width: '1px' }
-    %col{ width: '75%' }
-    %col.hidden-xs{ width: '25%' }
-    %col{ width: '1px' }
-    %col.hidden-xs.hidden-sm
-    - if current_user && current_user.system_admin?
+  .dashboard-container.box-shadow
+    %table.table.table-striped
       %col{ width: '1px' }
-    %thead
-      %tr
-        = th_sort_field_rev @order, 'community_tools.rating', 'Rating', extra_class: 'center'
-        %th{ class: params[:order] == 'community_tools.name desc' || params[:order].blank? ? 'sort-selected' : nil }
-          - case params[:order]
-          - when 'community_tools.name desc'
-            = link_to 'Name', tools_path
-          - else
-            = link_to 'Name', tools_path(order: 'community_tools.name desc')
-
-          = render 'search/toggle'
-        %th.hidden-xs
-          Author
-        %th.nowrap
-          Type
-          .dropdown{ style: 'display: inline-block' }
-            = link_to '#', data: { target: '#', toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
-              %span.glyphicon.glyphicon-filter
-            %ul.dropdown-menu.dropdown-menu-right
-              %li= link_to 'All', tools_path(order: params[:order]), style: params[:type].blank? ? 'font-weight:bold;' : ''
-              - [['Program', 'program'], ['Script', 'script'], ['Tutorial', 'tutorial']].each do |label, value|
-                %li= link_to label, tools_path(order: params[:order], type: value), style: params[:type] == value ? 'font-weight:bold;' : ''
-        = th_sort_field_rev @order, 'community_tools.publish_date', 'Published', extra_class: 'hidden-xs hidden-sm center'
-        - if current_user && current_user.system_admin?
-          %th.center
-            %span.hidden-xs Actions
-
-    %tbody
-      - @community_tools.each do |community_tool|
+      %col{ width: '75%' }
+      %col.hidden-xs{ width: '25%' }
+      %col{ width: '1px' }
+      %col.hidden-xs.hidden-sm
+      - if current_user && current_user.system_admin?
+        %col{ width: '1px' }
+      %thead
         %tr
-          %td.center= render 'community_tools/rating', rating: community_tool.rating
-          %td= link_to community_tool.name, community_show_tool_path(community_tool)
-          %td.hidden-xs= community_tool.user.forum_name
-          %td.center
-            - if community_tool.tag_program?
-              %span.label.label-accent Program
-            - if community_tool.tag_script?
-              %span.label.label-accent Script
-            - if community_tool.tag_tutorial?
-              %span.label.label-accent Tutorial
-            - unless community_tool.tag_program? || community_tool.tag_script? || community_tool.tag_tutorial?
-              / %span.label.label-default Unsorted
-          %td.hidden-xs.hidden-sm.nowrap.center= community_tool.publish_date
+          = th_sort_field_rev @order, 'community_tools.rating', 'Rating', extra_class: 'center'
+          %th{ class: params[:order] == 'community_tools.name desc' || params[:order].blank? ? 'sort-selected' : nil }
+            - case params[:order]
+            - when 'community_tools.name desc'
+              = link_to 'Name', tools_path
+            - else
+              = link_to 'Name', tools_path(order: 'community_tools.name desc')
+
+            = render 'search/toggle'
+          %th.hidden-xs
+            Author
+          %th.nowrap
+            Type
+            .dropdown{ style: 'display: inline-block' }
+              = link_to '#', data: { target: '#', toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
+                %span.glyphicon.glyphicon-filter
+              %ul.dropdown-menu.dropdown-menu-right
+                %li= link_to 'All', tools_path(order: params[:order]), style: params[:type].blank? ? 'font-weight:bold;' : ''
+                - [['Program', 'program'], ['Script', 'script'], ['Tutorial', 'tutorial']].each do |label, value|
+                  %li= link_to label, tools_path(order: params[:order], type: value), style: params[:type] == value ? 'font-weight:bold;' : ''
+          = th_sort_field_rev @order, 'community_tools.publish_date', 'Published', extra_class: 'hidden-xs hidden-sm center'
           - if current_user && current_user.system_admin?
-            %td
-              = render 'layouts/edit_delete_dropdown', edit_url: edit_community_tool_path(community_tool), delete_url: community_tool, delete_confirmation: "Delete #{community_tool.name}?"
+            %th.center
+              %span.hidden-xs Actions
+
+      %tbody
+        - @community_tools.each do |community_tool|
+          %tr
+            %td.center= render 'community_tools/rating', rating: community_tool.rating
+            %td= link_to community_tool.name, community_show_tool_path(community_tool)
+            %td.hidden-xs= community_tool.user.forum_name
+            %td.center
+              - if community_tool.tag_program?
+                %span.label.label-accent Program
+              - if community_tool.tag_script?
+                %span.label.label-accent Script
+              - if community_tool.tag_tutorial?
+                %span.label.label-accent Tutorial
+              - unless community_tool.tag_program? || community_tool.tag_script? || community_tool.tag_tutorial?
+                / %span.label.label-default Unsorted
+            %td.hidden-xs.hidden-sm.nowrap.center= community_tool.publish_date
+            - if current_user && current_user.system_admin?
+              %td
+                = render 'layouts/edit_delete_dropdown', edit_url: edit_community_tool_path(community_tool), delete_url: community_tool, delete_confirmation: "Delete #{community_tool.name}?"
 
   .center= paginate @community_tools, theme: 'bootstrap'
-
-%hr
-= render 'tools/tools'
 
 - content_for :call_to_action do
   .call-to-action
@@ -104,4 +104,4 @@
     .call-to-action-body
       Submit a link to your tool code repository and help other researchers.
     .call-to-action-body
-      = link_to 'Contribute a Tool', contribute_tool_start_path, class: 'btn btn-call-to-action btn-shadow'
+      = link_to 'Contribute a Tool', contribute_tool_start_path, class: 'btn btn-accent btn-shadow'

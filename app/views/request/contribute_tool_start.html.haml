@@ -1,5 +1,13 @@
-%p.lead.center{ style: 'color: #ccc;' } Standing on the shoulders of giants.
+- @title = 'Contribute a Tool'
 
+- content_for :body_class do
+  brand-background
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        = @title
 
 .sign-up-form{ style: 'margin-bottom: 20px' }
   .sign-up-form-title
@@ -18,12 +26,9 @@
     Continue
     %span.glyphicon.glyphicon-arrow-right
 
-.jumbotron
-  %h1.center Contribute a Tool
-
+.jumbotron{ style: 'background-color: transparent;' }
   %p
-    We know starting research is hard. Help others follow your footsteps by
-    providing a tool that you've developed to push the field forward!
+    The following tools are welcome on the NSRR.
 
   %p
     %strong Programs

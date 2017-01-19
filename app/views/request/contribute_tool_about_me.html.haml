@@ -1,4 +1,7 @@
-%p.lead.center{ style: 'color: #ccc;' } Standing on the shoulders of giants.
+- content_for :body_class do
+  brand-background
+
+%p.lead.center Contribute a Tool
 
 - register_visible = (@sign_in != true)
 - target = (register_visible ? '#form_register' : '#form_sign_in')
@@ -64,10 +67,3 @@
   = link_to '#', data: { object: 'submit', target: target }, class: 'btn btn-primary btn-lg ', style: 'width:100%; max-width: 400px;', id: 'sign-up-sign-in-button' do
     = button_text
     %span.glyphicon.glyphicon-arrow-right
-
-
-.jumbotron
-  %p
-    Attribution is a core tenet of the NSRR. Please register an account so that
-    we can recognize your contribution. Your email will not be visible to other
-    members.

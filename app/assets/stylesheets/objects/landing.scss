@@ -6,17 +6,6 @@
   }
 }
 
-.background-gradient {
-  background-color: $p50;
-  background-image: linear-gradient(142deg, $p50, $a100);
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: -3;
-}
-
 .landing-box-container {
   display: flex;
   flex-direction: row-reverse;
