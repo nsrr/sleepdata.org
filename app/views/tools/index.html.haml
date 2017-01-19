@@ -97,11 +97,12 @@
 
   .center= paginate @community_tools, theme: 'bootstrap'
 
-- content_for :call_to_action do
-  .call-to-action
-    .call-to-action-body
-      %strong Are you a tool developer?
-    .call-to-action-body
-      Submit a link to your tool code repository and help other researchers.
-    .call-to-action-body
-      = link_to 'Contribute a Tool', contribute_tool_start_path, class: 'btn btn-accent btn-shadow'
+- if params[:search].blank?
+  - content_for :call_to_action do
+    .call-to-action
+      .call-to-action-body
+        %strong Are you a tool developer?
+      .call-to-action-body
+        Submit a link to your tool code repository and help other researchers.
+      .call-to-action-body
+        = link_to 'Contribute a Tool', contribute_tool_start_path, class: 'btn btn-accent btn-shadow'
