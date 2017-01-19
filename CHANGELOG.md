@@ -19,6 +19,7 @@
     pages while signing in and signing out
   - Updated the user interface across the site
   - Updated the about page
+  - Added an invisible reCAPTCHA to sign up page
 - **Gem Changes**
   - Updated to Ruby 2.4.0
   - Updated to rails 5.0.1

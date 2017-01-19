@@ -8,7 +8,7 @@
 .sign-up-form
   .sign-up-form-title
     Create your account
-  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'form-vertical', autocomplete: 'off' }) do |f|
+  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'form-vertical', autocomplete: 'off', id: 'recaptcha-form' }) do |f|
     .form-group
       = render 'layouts/label_or_errors', f: f, object: resource, key: :first_name
       = f.text_field :first_name, class: 'form-control'
@@ -37,4 +37,10 @@
           Allow the NSRR to send you emails?
 
     .form-group.submit-btn-container
-      = f.submit 'Create an Account', class: 'btn btn-primary btn-block btn-shadow'
+      - if RECAPTCHA_ENABLED
+        %button.g-recaptcha.btn.btn-primary.btn-block.btn-shadow{ data: { sitekey: ENV['recaptcha_site_key'], callback: 'recaptchaFormSubmit' } } Create an Account
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+      - else
+        = f.submit 'Create an Account', class: 'btn btn-primary btn-block btn-shadow'
+
+
