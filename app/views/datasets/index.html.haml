@@ -130,14 +130,13 @@
       .dataset-card-footer.dataset-card-footer-request.hidden-sm.hidden-md.hidden-lg
         .center= render 'datasets/card_footer_request', dataset: dataset
 
-
   .center= paginate @datasets, theme: 'bootstrap'
 
   - content_for :call_to_action do
     .call-to-action
-      .call-to-action-header
-        Would you like to contribute a dataset?
       .call-to-action-body
-        We can help you host your dataset on the NSRR, start by
-        = link_to 'filling out a short form', dataset_hosting_start_path
-        to learn more about the process.
+        %strong Would you like to contribute a dataset?
+      .call-to-action-body
+        The NSRR can host your dataset,
+        = link_to 'let us know about your dataset', dataset_hosting_start_path
+        to start the process.
