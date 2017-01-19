@@ -12,6 +12,10 @@
   overflow: hidden;
   padding: 20px;
 
+  &.box-shadow {
+    border: 0;
+  }
+
   .broadcast {
     margin-bottom: 0;
 
