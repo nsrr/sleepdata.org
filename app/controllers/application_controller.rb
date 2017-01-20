@@ -201,4 +201,23 @@ class ApplicationController < ActionController::Base
       :age_min, :age_max, :time_frame, :polysomnography, :actigraphy
     )
   end
+
+  def verify_recaptcha
+    url = URI.parse('https://www.google.com/recaptcha/api/siteverify')
+    http = Net::HTTP.new(url.host, url.port)
+    if url.scheme == 'https'
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+    end
+    post_params = [
+      "secret=#{ENV['recaptcha_secret_key']}",
+      "response=#{params['g-recaptcha-response']}",
+      "remoteip=#{request.remote_ip}"
+    ]
+    response = http.start do |h|
+      h.post(url.path, post_params.join('&'))
+    end
+    json = JSON.parse(response.body)
+    json['success']
+  end
 end

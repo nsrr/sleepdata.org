@@ -27,7 +27,11 @@ class RequestController < ApplicationController
     @community_tool = CommunityTool.new(community_tool_params)
     unless current_user
       user = User.new(user_params)
-      if user.save
+      if RECAPTCHA_ENABLED && !verify_recaptcha
+        @registration_errors = { recaptcha: 'reCAPTCHA verification failed.' }
+        render :contribute_tool_about_me
+        return
+      elsif user.save
         user.send_welcome_email_with_password_in_background(params[:user][:password])
         sign_in(:user, user)
       else
@@ -107,7 +111,11 @@ class RequestController < ApplicationController
     @agreement = Agreement.new
     unless current_user
       user = User.new(user_params)
-      if user.save
+      if RECAPTCHA_ENABLED && !verify_recaptcha
+        @registration_errors = { recaptcha: 'reCAPTCHA verification failed.' }
+        render :submissions_about_me
+        return
+      elsif user.save
         user.send_welcome_email_with_password_in_background(params[:user][:password])
         sign_in(:user, user)
       else
@@ -159,7 +167,11 @@ class RequestController < ApplicationController
     @hosting_request = HostingRequest.new(hosting_request_params)
     unless current_user
       user = User.new(user_params)
-      if user.save
+      if RECAPTCHA_ENABLED && !verify_recaptcha
+        @registration_errors = { recaptcha: 'reCAPTCHA verification failed.' }
+        render :dataset_hosting_about_me
+        return
+      elsif user.save
         user.send_welcome_email_with_password_in_background(params[:user][:password])
         sign_in(:user, user)
       else
