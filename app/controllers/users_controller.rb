@@ -18,7 +18,8 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.current.search(params[:search]).order(current_sign_in_at: :desc).page(params[:page]).per(40)
+    @order = scrub_order(User, params[:order], 'users.current_sign_in_at desc')
+    @users = User.current.search(params[:search]).order(@order).page(params[:page]).per(40)
   end
 
   def edit
