@@ -36,9 +36,11 @@
     %p
       %strong Rating
       %br
-      = render 'community_tools/rating', rating: @community_tool.rating
-      = surround '(', ')' do
-        = link_to number_with_delimiter(@community_tool.community_tool_reviews.count), community_tool_community_tool_reviews_path(@community_tool)
+      = link_to community_tool_community_tool_reviews_path(@community_tool) do
+        = render 'community_tools/rating', rating: @community_tool.rating
+      %br
+      = link_to community_tool_community_tool_reviews_path(@community_tool) do
+        = pluralize(number_with_delimiter(@community_tool.community_tool_reviews.count), 'Review')
       %br
       = link_to 'Write a review', new_community_tool_community_tool_review_path(@community_tool)
 

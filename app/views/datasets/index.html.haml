@@ -88,7 +88,8 @@
               %span.hidden-xs
                 = "Review#{'s' if dataset.dataset_reviews.count != 1}"
               %i.fa.fa-comments.hidden-sm.hidden-md.hidden-lg
-            = render 'datasets/rating', rating: dataset.rating
+            = link_to dataset_dataset_reviews_path(dataset) do
+              = render 'datasets/rating', rating: dataset.rating
           = link_to dataset.name, dataset
           - if dataset.description.present?
             %br.hidden-sm.hidden-md.hidden-lg
