@@ -3,6 +3,7 @@
 ### Enhancements
 - **Agreement Changes**
   - Removed additional confirmation step when voting for reviewers
+  - Added a new admin table displaying approved DAUAs by dataset
 - **Blog Changes**
   - Improved layout of administrative blog overview index
   - Added Rich Text Editor buttons

@@ -5,7 +5,7 @@
 
 = render 'internal/profile_header', title: @title
 
-.dashboard-container
+.dashboard-container.box-shadow
   .dashboard-title
     %strong Signup Statistics
 
@@ -23,7 +23,7 @@
         %td.center= number_with_delimiter User.current.where(core_member: true).count
         %td.center= number_with_delimiter User.current.count
 
-.dashboard-container
+.dashboard-container.box-shadow
   .dashboard-title
     %strong Agreement Statistics
 
@@ -39,20 +39,20 @@
         %td.center= number_with_delimiter Agreement.current.regular_members.where(status: ['submitted', 'approved', 'resubmit', 'expired']).count
         %td.center= number_with_delimiter Agreement.current.regular_members.where(status: ['approved', 'expired']).count
 
-    - regular_members_files = DatasetFileAudit.regular_members.group(:dataset_id).count
-    - regular_members_file_sizes = DatasetFileAudit.regular_members.group(:dataset_id).sum(:file_size)
-    - aug_or_core_members_files = DatasetFileAudit.aug_or_core_members.group(:dataset_id).count
-    - aug_or_core_members_file_sizes = DatasetFileAudit.aug_or_core_members.group(:dataset_id).sum(:file_size)
-    - public_downloads_files = DatasetFileAudit.public_downloads.group(:dataset_id).count
-    - public_downloads_file_sizes = DatasetFileAudit.public_downloads.group(:dataset_id).sum(:file_size)
+- regular_members_files = DatasetFileAudit.regular_members.group(:dataset_id).count
+- regular_members_file_sizes = DatasetFileAudit.regular_members.group(:dataset_id).sum(:file_size)
+- aug_or_core_members_files = DatasetFileAudit.aug_or_core_members.group(:dataset_id).count
+- aug_or_core_members_file_sizes = DatasetFileAudit.aug_or_core_members.group(:dataset_id).sum(:file_size)
+- public_downloads_files = DatasetFileAudit.public_downloads.group(:dataset_id).count
+- public_downloads_file_sizes = DatasetFileAudit.public_downloads.group(:dataset_id).sum(:file_size)
 
-.dashboard-container
+.dashboard-container.box-shadow
   .dashboard-title
     %strong Download Statistics
 
   .table-responsive
     %table.table.table-striped
-      %col{ width: "1%" }
+      %col{ width: '1%' }
       %thead
         %tr
           %th
@@ -84,3 +84,22 @@
           %th.center= number_to_human_size aug_or_core_members_file_sizes.values.sum
           %th.center= pluralize number_with_delimiter(regular_members_files.values.sum + aug_or_core_members_files.values.sum + public_downloads_files.values.sum), 'file'
           %th.center= number_to_human_size regular_members_file_sizes.values.sum + aug_or_core_members_file_sizes.values.sum + public_downloads_file_sizes.values.sum
+
+.dashboard-container.box-shadow
+  .dashboard-title
+    %strong Approved Users per Dataset
+
+  .table-responsive
+    %table.table.table-striped
+      %col
+      %col
+      %thead
+        %tr
+          %th Dataset
+          %th.center Approved Regular Members
+      %tbody
+        - Dataset.current.order(:release_date, :name).each do |dataset|
+          %tr
+            %td= dataset.name
+            %td.center= number_with_delimiter dataset.agreements.regular_members.where(status: 'approved').group(:user_id).count.count
+
