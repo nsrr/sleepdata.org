@@ -10,22 +10,26 @@
     Sign in
 
   = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'form-vertical' }) do |f|
-    .form-group
-      = render 'layouts/label_or_errors', f: f, object: resource, key: :email
-      = f.email_field :email, class: 'form-control'
+    .form-group{ class: flash[:alert].present? ? 'has-error' : '' }
+      = f.label :email, class: 'control-label'
+      = f.text_field :email, class: 'form-control'
 
-    .form-group
-      = render 'layouts/label_or_errors', f: f, object: resource, key: :password
+    .form-group{ class: flash[:alert].present? ? 'has-error' : '' }
+      = f.label :password, class: 'control-label'
       = link_to '(Forgot password?)', new_password_path(resource_name), tabindex: '-1'
       = f.password_field :password, class: 'form-control', autocomplete: 'off'
+      - if flash[:alert].present?
+        %small.text-danger= flash[:alert].html_safe
 
     .form-group.submit-btn-container
       = f.submit 'Sign in', class: 'btn btn-primary btn-block btn-shadow'
+
+    - flash[:alert] = nil
 
 .sign-up-form.center
   New to the NSRR?
   = link_to 'Create an account.', new_user_registration_path
 
 - if devise_mapping.confirmable?
-  .center{ style: 'margin-bottom:20px' }
+  .center{ style: 'margin-bottom: 20px;' }
     = link_to "Didn't receive confirmation instructions?", new_confirmation_path(resource_name)

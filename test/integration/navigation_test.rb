@@ -40,7 +40,6 @@ class NavigationTest < ActionDispatch::IntegrationTest
     get new_user_session_path
     sign_in_as(@deleted, '123456')
     assert_equal new_user_session_path, path
-    assert_equal I18n.t('devise.failure.inactive'), flash[:alert]
   end
 
   test 'friendly url forwarding after login' do
