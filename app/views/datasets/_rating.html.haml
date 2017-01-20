@@ -1,18 +1,23 @@
-%span.nowrap.hidden-xs
+.star-ratings.nowrap.hidden-xs
   - if rating
     - (0..4).each do |position|
       - if rating > position + 0.5
-        %i.fa.fa-star.text-warning{ aria: { hidden: 'true' } }
+        - icon_class = 'fa-star text-warning'
       - elsif rating > position
-        %i.fa.fa-star-half-o.text-warning{ aria: { hidden: 'true' } }
+        - icon_class = 'fa-star-half-o text-warning'
       - else
-        %i.fa.fa-star-o.text-muted{ aria: { hidden: 'true' } }
+        - icon_class = 'fa-star-o text-muted'
+      .star-rating
+        %i.fa{ class: icon_class, aria: { hidden: 'true' } }
   - else
     - (0..4).each do |position|
-      %i.fa.fa-star-o.text-muted{ aria: { hidden: 'true' } }
-%span.nowrap.hidden-sm.hidden-md.hidden-lg
+      .star-rating
+        %i.fa.fa-star-o.text-muted{ aria: { hidden: 'true' } }
+.star-ratings.hidden-sm.hidden-md.hidden-lg
   - if rating
-    = rating.round(1)
-    %i.fa.fa-star.text-warning{ aria: { hidden: 'true' } }
+    .star-rating
+      = rating.round(1)
+      %i.fa.fa-star.text-warning{ aria: { hidden: 'true' } }
   - else
-    %i.fa.fa-star-o.text-muted{ aria: { hidden: 'true' } }
+    .star-rating
+      %i.fa.fa-star-o.text-muted{ aria: { hidden: 'true' } }

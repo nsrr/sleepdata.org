@@ -1,0 +1,15 @@
+.star-ratings {
+  display: inline-block;
+  font-size: 0;
+}
+
+.star-rating {
+  font-size: $font-size-base;
+  cursor: pointer;
+  display: inline-block;
+  padding-right: 4px;
+
+  i {
+    font-size: $font-size-base;
+  }
+}

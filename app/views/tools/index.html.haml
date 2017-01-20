@@ -27,9 +27,12 @@
   .jumbotron
     %p.lead
       We didn't find any tools matching your search criteria.
-      = link_to 'Back to Tools', tools_path
+      = succeed '.' do
+        = link_to 'Back to tools', tools_path
     %p.lead
-      Feel like helping us out? Contribute a tool below!
+      Feel like helping us out?
+      = succeed '.' do
+        = link_to 'Contribute a tool', contribute_tool_start_path
 - else
   - if false
     = form_tag tools_path, method: :get, class: 'form-inline' do

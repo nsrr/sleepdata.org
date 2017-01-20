@@ -1,15 +1,16 @@
 @drawRating = (rating) ->
   $('[data-object~="star-rating"]').each( ->
+    icon = $(this).find('i')
     if $(this).data('position') < rating
-      $(this).removeClass('text-muted')
-      $(this).removeClass('fa-star-o')
-      $(this).addClass('fa-star')
-      $(this).addClass('text-warning')
+      icon.removeClass('text-muted')
+      icon.removeClass('fa-star-o')
+      icon.addClass('fa-star')
+      icon.addClass('text-warning')
     else
-      $(this).removeClass('text-warning')
-      $(this).removeClass('fa-star')
-      $(this).addClass('fa-star-o')
-      $(this).addClass('text-muted')
+      icon.removeClass('text-warning')
+      icon.removeClass('fa-star')
+      icon.addClass('fa-star-o')
+      icon.addClass('text-muted')
   )
 
 $(document)

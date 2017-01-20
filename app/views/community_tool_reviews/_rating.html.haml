@@ -2,11 +2,14 @@
 
 - rating = community_tool_review.rating
 
-%span.nowrap
+.star-ratings.nowrap
   - (0..4).each do |position|
     - if rating > position + 0.5
-      %i.fa.fa-star.text-warning{ aria: { hidden: 'true' }, data: { object: 'star-rating', position: position, target: '#community_tool_review_rating' }, style: 'cursor: pointer;' }
+      - icon_class = 'fa-star text-warning'
     - elsif rating > position
-      %i.fa.fa-star-half-o.text-warning{ aria: { hidden: 'true' }, data: { object: 'star-rating', position: position, target: '#community_tool_review_rating' }, style: 'cursor: pointer;' }
+      - icon_class = 'fa-star-half-o text-warning'
     - else
-      %i.fa.fa-star-o.text-muted{ aria: { hidden: 'true' }, data: { object: 'star-rating', position: position, target: '#community_tool_review_rating' }, style: 'cursor: pointer;' }
+      - icon_class = 'fa-star-o text-muted'
+
+    .star-rating{ data: { object: 'star-rating', position: position, target: '#community_tool_review_rating' } }
+      %i.fa{ class: icon_class, aria: { hidden: 'true' } }
