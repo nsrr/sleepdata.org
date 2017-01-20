@@ -9,7 +9,6 @@
       %h1.page-heading
         .pull-right
           = link_to reply_or('Write a Reply'), page_topic_path(@topic, page: @topic.last_page, anchor: 'write-a-reply'), method: :get, class: 'btn btn-accent btn-shadow'
-        =# render 'layouts/side_nav_header_button'
         = @title
   .breadcrumb-container{ style: 'margin-bottom: 0;' }
     .container
@@ -44,4 +43,5 @@
 
 .center= paginate @replies, theme: 'bootstrap-small'
 
-#topic-subscription= render 'topics/subscribe_unsubscribe', topic: @topic
+- if current_user
+  #topic-subscription= render 'topics/subscribe_unsubscribe', topic: @topic
