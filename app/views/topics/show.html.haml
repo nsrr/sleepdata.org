@@ -44,8 +44,4 @@
 
 .center= paginate @replies, theme: 'bootstrap-small'
 
-- if current_user
-  - content_for :call_to_action do
-    %div{ style: 'background-color: #ededed' }
-      .container
-        #topic-subscription= render 'topics/subscribe_unsubscribe', topic: @topic
+#topic-subscription= render 'topics/subscribe_unsubscribe', topic: @topic
