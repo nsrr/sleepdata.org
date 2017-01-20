@@ -1,6 +1,8 @@
 ## 0.26.0
 
 ### Enhancements
+- **Agreement Changes**
+  - Removed additional confirmation step when voting for reviewers
 - **Blog Changes**
   - Improved layout of administrative blog overview index
   - Added Rich Text Editor buttons
