@@ -36,6 +36,10 @@
           = f.check_box :emails_enabled
           Allow the NSRR to send you emails?
 
+    - if resource.errors && resource.errors[:recaptcha].present?
+      .form-group.center
+        %small.text-danger= resource.errors[:recaptcha].join(' ')
+
     .form-group.submit-btn-container
       - if RECAPTCHA_ENABLED
         %button.g-recaptcha.btn.btn-primary.btn-block.btn-shadow{ data: { sitekey: ENV['recaptcha_site_key'], callback: 'recaptchaFormSubmit' } } Create an Account
