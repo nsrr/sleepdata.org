@@ -12,21 +12,21 @@ class ExternalController < ApplicationController
     @users = User.aug_members.order(:last_name, :first_name)
   end
 
-  # GET /contact
-  def contact
-  end
+  # # GET /contact
+  # def contact
+  # end
 
-  # GET /about/contributors
-  def contributors
-  end
+  # # GET /about/contributors
+  # def contributors
+  # end
 
-  # GET /about/data-sharing-language
-  def datasharing
-  end
+  # # GET /about/data-sharing-language
+  # def datasharing
+  # end
 
-  # GET /demo
-  def demo
-  end
+  # # GET /demo
+  # def demo
+  # end
 
   # GET /landing
   def landing
@@ -35,18 +35,18 @@ class ExternalController < ApplicationController
     @tools = Tool.current.where(slug: ['physiomimi', 'edf-viewer', 'block-edf-loader']).order(:name)
   end
 
-  # GET /sitemap
-  def sitemap
-  end
+  # # GET /sitemap
+  # def sitemap
+  # end
 
-  # GET /version
-  # GET /version.json
-  def version
-  end
+  # # GET /version
+  # # GET /version.json
+  # def version
+  # end
 
-  # POST /preview
-  def preview
-  end
+  # # POST /preview
+  # def preview
+  # end
 
   # GET /sitemap.xml.gz
   def sitemap_xml
@@ -57,4 +57,8 @@ class ExternalController < ApplicationController
       head :ok
     end
   end
+
+  # # GET /voting
+  # def voting
+  # end
 end

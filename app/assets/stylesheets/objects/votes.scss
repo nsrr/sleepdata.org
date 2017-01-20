@@ -1,0 +1,27 @@
+.vote-info .vote-expanded-info {
+  display: none;
+}
+
+.no-touch {
+  .vote-info:hover .vote-expanded-info {
+    display: inline-block;
+  }
+}
+
+.voting-container {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+  div {
+    flex: 1;
+    margin: 10px;
+  }
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  .voting-container {
+    flex-direction: row;
+  }
+}

@@ -18,6 +18,7 @@
   clipboardReady()
   datepickerReady()
   fileDragReady()
+  notouchReady()
   tooltipsReady()
   turbolinksReady()
   typeaheadReady()

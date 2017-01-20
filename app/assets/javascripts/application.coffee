@@ -53,6 +53,7 @@
 #= require extensions/clipboard
 #= require extensions/datepicker
 #= require extensions/filedrag
+#= require extensions/notouch
 #= require extensions/recaptcha
 #= require extensions/slug
 #= require extensions/tooltips

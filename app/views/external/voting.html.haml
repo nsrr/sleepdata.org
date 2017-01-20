@@ -1,0 +1,47 @@
+- @title = 'Forum Voting'
+
+- content_for :body_class do
+  brand-background
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading= @title
+
+%p.center
+  Help promote content on the NSRR forum by following these guidelines for voting.
+
+.voting-container
+  .dashboard-container.box-shadow
+    %p
+      %strong
+        When to Upvote
+        %i.fa.fa-arrow-up.text-success
+
+    %p
+      Upvote replies that are:
+
+      %ul
+        %li On Topic
+        %li Constructive
+        %li Informative
+
+  .dashboard-container.box-shadow
+    %p
+      %strong
+        When to Downvote
+        %i.fa.fa-arrow-down.text-danger
+
+    %p
+      Downvote replies that are:
+
+      %ul
+        %li Hurtful
+        %li Off Topic
+        %li Spam
+        %li Contain Misinformation
+        %li Product Advertisement
+
+    %p
+      %strong DO NOT
+      downvote simply because you disagree.

@@ -213,6 +213,7 @@ Rails.application.routes.draw do
     get :landing
     get :sitemap
     get :version
+    get :voting
 
     post :preview
   end

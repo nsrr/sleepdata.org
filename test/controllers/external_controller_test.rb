@@ -4,7 +4,7 @@ require 'test_helper'
 
 SimpleCov.command_name 'test:controllers'
 
-# Test for publicly available pages
+# Tests to assure public pages are displayed correctly.
 class ExternalControllerTest < ActionController::TestCase
   test 'should get about' do
     get :about
@@ -68,6 +68,11 @@ class ExternalControllerTest < ActionController::TestCase
     else
       assert_equal WwwSleepdataOrg::VERSION::BUILD, version['version']['build']
     end
+    assert_response :success
+  end
+
+  test 'should get voting' do
+    get :voting
     assert_response :success
   end
 end

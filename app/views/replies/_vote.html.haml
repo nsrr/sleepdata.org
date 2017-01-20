@@ -1,32 +1,38 @@
 - if !current_user && just_voted
   %small= link_to 'Login to vote', new_user_session_path
 - else
-  - vote = reply.vote(current_user)
+  .vote-info
+    .vote-expanded-info
+      %small
+        Was this reply useful?
+        = link_to 'Learn more...', voting_path
 
-  - if vote == true
-    - klass = 'text-success'
-    - icon = 'fa-thumbs-up'
-    - change_to = 'clear'
-  - else
-    - klass = 'text-muted'
-    - icon = 'fa-thumbs-o-up'
-    - change_to = 'up'
+    - vote = reply.vote(current_user)
 
-  &nbsp;
+    - if vote == true
+      - klass = 'text-success'
+      - icon = 'fa-arrow-up'
+      - change_to = 'clear'
+    - else
+      - klass = 'text-muted'
+      - icon = 'fa-arrow-up'
+      - change_to = 'up'
 
-  = link_to vote_reply_path(reply, vote: change_to), method: :post, remote: true, style: 'text-decoration:none;outline:none', class: klass, tabindex: '-1' do
-    %i.fa{ class: "#{icon} #{'just-voted' if just_voted && vote == true}", style: 'width: 16px' }
+    &nbsp;
 
-  &nbsp;
+    = link_to vote_reply_path(reply, vote: change_to), method: :post, remote: true, style: 'text-decoration:none;outline:none', class: klass, tabindex: '-1' do
+      %i.fa{ class: "#{icon} #{'just-voted' if just_voted && vote == true}", style: 'width: 16px' }
 
-  - if vote == false
-    - klass = 'text-danger'
-    - icon = 'fa-thumbs-down'
-    - change_to = 'clear'
-  - else
-    - klass = 'text-muted'
-    - icon = 'fa-thumbs-o-down'
-    - change_to = 'down'
+    &nbsp;
 
-  = link_to vote_reply_path(reply, vote: change_to), method: :post, remote: true, style: 'text-decoration:none;outline:none', class: klass, tabindex: '-1' do
-    %i.fa{ class: "#{icon} #{'just-voted' if just_voted && vote == false}", style: 'width: 16px' }
+    - if vote == false
+      - klass = 'text-danger'
+      - icon = 'fa-arrow-down'
+      - change_to = 'clear'
+    - else
+      - klass = 'text-muted'
+      - icon = 'fa-arrow-down'
+      - change_to = 'down'
+
+    = link_to vote_reply_path(reply, vote: change_to), method: :post, remote: true, style: 'text-decoration:none;outline:none', class: klass, tabindex: '-1' do
+      %i.fa{ class: "#{icon} #{'just-voted' if just_voted && vote == false}", style: 'width: 16px' }
