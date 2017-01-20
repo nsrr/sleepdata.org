@@ -8,14 +8,14 @@
 - steps = (1..5)
 
 - steps.each do |step|
-  .markdown-container
-    %h2
+  .dashboard-container.box-shadow
+    %div{ style: 'font-size: 20px;border-bottom: 1px solid #ededed;padding-bottom: 10px;margin-bottom: 20px;' }
       Step
       = step
-      = link_to "Edit Step #{step}", step_agreement_path(@agreement, step: step), class: 'btn btn-xs btn-primary'
+      = link_to "Edit Step #{step}", step_agreement_path(@agreement, step: step), class: 'btn btn-xs btn-accent btn-shadow'
 
     - unless @agreement.step_valid?(step)
-      .callout.callout-danger
+      .text-danger{ style: 'margin-bottom: 20px;' }
         %strong Attention
         This step is not complete. Please edit the missing information.
 

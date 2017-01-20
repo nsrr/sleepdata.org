@@ -1,53 +1,63 @@
-%dl.dl-horizontal
-  %dt Data User
-  %dd= @agreement.data_user
+%table.table.table-striped.table-borderless.table-hover
+  %col{ width: '25%' }
+  %col{ width: '75%' }
+  %tr
+    %th.text-right Data User
+    %td= @agreement.data_user
 
   - if @agreement.data_user_type == 'individual'
-    %dt Application Type
-    %dd
-      An
-      = succeed ',' do
-        %strong individual
-      requesting Data/Datasets under this DAUA on behalf of himself/herself as
-      follows:
+    %tr
+      %th.text-right Application Type
+      %td
+        An
+        = succeed ',' do
+          %strong individual
+        requesting Data/Datasets under this DAUA on behalf of himself/herself as
+        follows:
 
-    %dt Institution
-    %dd= @agreement.individual_institution_name
-    %dt Full Name
-    %dd= @agreement.user.name
-    %dt Professional Title
-    %dd= @agreement.individual_title
-    %dt Telephone
-    %dd= @agreement.individual_telephone
-    %dt Contact Email
-    %dd= @agreement.user.email
-    %dt Address
-    %dd
-      = simple_format @agreement.individual_address
+    %tr
+      %th.text-right Institution
+      %td= @agreement.individual_institution_name
+    %tr
+      %th.text-right Full Name
+      %td= @agreement.user.name
+    %tr
+      %th.text-right Professional Title
+      %td= @agreement.individual_title
+    %tr
+      %th.text-right Telephone
+      %td= @agreement.individual_telephone
+    %tr
+      %th.text-right Contact Email
+      %td= @agreement.user.email
+    %tr
+      %th.text-right Address
+      %td= simple_format @agreement.individual_address
   - elsif @agreement.data_user_type == 'organization'
-    %dt Application Type
-    %dd
-      An
-      = succeed ',' do
-        %strong organization / corporation
-      requesting Data/Datasets under this DAUA on behalf of itself and its
-      employees, with a principal place of business and primary business contact
-      as follows:
-    %dt Organization
-    %dd
-      = @agreement.organization_business_name
-    %dt Contact Name
-    %dd
-      = @agreement.organization_contact_name
-    %dt Contact Title
-    %dd
-      = @agreement.organization_contact_title
-    %dt Contact Telephone
-    %dd
-      = @agreement.organization_contact_telephone
-    %dt Contact Email
-    %dd
-      = @agreement.organization_contact_email
-    %dt Organization Address
-    %dd
-      = simple_format @agreement.organization_address
+    %tr
+      %th.text-right Application Type
+      %td
+        An
+        = succeed ',' do
+          %strong organization / corporation
+        requesting Data/Datasets under this DAUA on behalf of itself and its
+        employees, with a principal place of business and primary business contact
+        as follows:
+    %tr
+      %th.text-right Organization
+      %td= @agreement.organization_business_name
+    %tr
+      %th.text-right Contact Name
+      %td= @agreement.organization_contact_name
+    %tr
+      %th.text-right Contact Title
+      %td= @agreement.organization_contact_title
+    %tr
+      %th.text-right Contact Telephone
+      %td= @agreement.organization_contact_telephone
+    %tr
+      %th.text-right Contact Email
+      %td= @agreement.organization_contact_email
+    %tr
+      %th.text-right Organization Address
+      %td= simple_format @agreement.organization_address

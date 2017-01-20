@@ -1,13 +1,17 @@
-%dl.dl-horizontal
-  %dt IRB Evidence
-  %dd
-    - if @agreement.irb_evidence_type == 'has_evidence'
-      - if @agreement.irb.size > 0
-        = link_to download_irb_agreement_path(@agreement), target: '_blank' do
-          %span.glyphicon.glyphicon-file
-          = @agreement.irb.to_s.split('/').last
-        %tt= number_to_human_size @agreement.irb.size
-    - else
-      Has requested the
-      %strong NSRR Internal Review Committee
-      to conduct the review.
+%table.table.table-striped.table-borderless.table-hover
+  %col{ width: '25%' }
+  %col{ width: '75%' }
+
+  %tr
+    %th.text-right IRB Evidence
+    %td
+      - if @agreement.irb_evidence_type == 'has_evidence'
+        - if @agreement.irb.size > 0
+          = link_to download_irb_agreement_path(@agreement), target: '_blank' do
+            %span.glyphicon.glyphicon-file
+            = @agreement.irb.to_s.split('/').last
+          %tt= number_to_human_size @agreement.irb.size
+      - else
+        Has requested the
+        %strong NSRR Internal Review Committee
+        to conduct the review.

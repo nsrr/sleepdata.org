@@ -1,22 +1,31 @@
-%dl.dl-horizontal
+%table.table.table-striped.table-borderless.table-hover
+  %col{ width: '25%' }
+  %col{ width: '75%' }
 
   - if @agreement.unauthorized_to_sign?
-    %dt Duly Authorized Representative Signature
-    %dd{ data: { object: "signature-display", signature_target: ".output-read" } }
-      = hidden_field_tag 'agreement_duly_authorized_representative_signature', @agreement.duly_authorized_representative_signature, class: 'output-read'
-      %canvas.pad-display{ width: "300", height: "55" }
-    %dt By (print name)
-    %dd= @agreement.duly_authorized_representative_signature_print
-    %dt Professional Title
-    %dd= @agreement.duly_authorized_representative_title
-    %dt Date Signed
-    %dd= @agreement.duly_authorized_representative_signature_date ? @agreement.duly_authorized_representative_signature_date.strftime("%-d %B %Y") : ""
+    %tr
+      %th.text-right Duly Authorized Representative Signature
+      %td{ data: { object: 'signature-display', signature_target: '.output-read' } }
+        = hidden_field_tag 'agreement_duly_authorized_representative_signature', @agreement.duly_authorized_representative_signature, class: 'output-read'
+        %canvas.pad-display{ width: 300, height: 55 }
+    %tr
+      %th.text-right By (print name)
+      %td= @agreement.duly_authorized_representative_signature_print
+    %tr
+      %th.text-right Professional Title
+      %td= @agreement.duly_authorized_representative_title
+    %tr
+      %th.text-right Date Signed
+      %td= @agreement.duly_authorized_representative_signature_date.strftime('%-d %B %Y') if @agreement.duly_authorized_representative_signature_date
   - else
-    %dt Signature
-    %dd{ data: { object: "signature-display", signature_target: ".output-read" } }
-      = hidden_field_tag 'agreement_signature', @agreement.signature, class: 'output-read'
-      %canvas.pad-display{ width: "300", height: "55" }
-    %dt By (print name)
-    %dd= @agreement.signature_print
-    %dt Date Signed
-    %dd= @agreement.signature_date ? @agreement.signature_date.strftime("%-d %B %Y") : ""
+    %tr
+      %th.text-right Signature
+      %td{ data: { object: 'signature-display', signature_target: '.output-read' } }
+        = hidden_field_tag 'agreement_signature', @agreement.signature, class: 'output-read'
+        %canvas.pad-display{ width: 300, height: 55 }
+    %tr
+      %th.text-right By (print name)
+      %td= @agreement.signature_print
+    %tr
+      %th.text-right Date Signed
+      %td= @agreement.signature_date.strftime('%-d %B %Y') if @agreement.signature_date

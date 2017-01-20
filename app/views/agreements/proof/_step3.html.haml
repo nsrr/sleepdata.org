@@ -1,29 +1,34 @@
-%dl.dl-horizontal
-  %dt Posting Permission
-  %dd
-    - case @agreement.posting_permission when 'all'
-      Data User gives BWH permission to post
-      %strong Data User's name
-      and a summary of
-      %strong Data User's Specific Purpose
-      on https://sleepdata.org
-    - when 'name_only'
-      Data User gives BWH permission to post
-      %strong Data User's name
-      on https://sleepdata.org
-    - when 'none'
-      Data User
-      %strong does not give permission
-      to post Data User's name or a summary of Data User's Specific Purpose on
-      https://sleepdata.org
+%table.table.table-striped.table-borderless.table-hover
+  %col{ width: '25%' }
+  %col{ width: '75%' }
 
-  %dt Terms and Conditions
-  %dd
-    - if @agreement.has_read_step3?
-      %span.text-success
-        %span.glyphicon.glyphicon-ok
-        Has read and accepted the Step 3 terms and conditions.
-    - else
-      %span.text-danger
-        %span.glyphicon.glyphicon-remove
-        Has NOT read and accepted the Step 3 terms and conditions.
+  %tr
+    %th.text-right Posting Permission
+    %td
+      - case @agreement.posting_permission when 'all'
+        Data User gives BWH permission to post
+        %strong Data User's name
+        and a summary of
+        %strong Data User's Specific Purpose
+        on https://sleepdata.org
+      - when 'name_only'
+        Data User gives BWH permission to post
+        %strong Data User's name
+        on https://sleepdata.org
+      - when 'none'
+        Data User
+        %strong does not give permission
+        to post Data User's name or a summary of Data User's Specific Purpose on
+        https://sleepdata.org
+
+  %tr
+    %th.text-right Terms and Conditions
+    %td
+      - if @agreement.has_read_step3?
+        %span.text-success
+          %span.glyphicon.glyphicon-ok
+          Has read and accepted the Step 3 terms and conditions.
+      - else
+        %span.text-danger
+          %span.glyphicon.glyphicon-remove
+          Has NOT read and accepted the Step 3 terms and conditions.

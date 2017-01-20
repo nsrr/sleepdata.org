@@ -1,57 +1,65 @@
 - @title = @agreement.name
 
-- content_for :banner do
-  .banner
+- content_for :body_class do
+  brand-background
+
+- content_for :header do
+  .header-container
     .container
-      .banner-header.brand
+      %h1.page-heading
         = @title
-      .banner-body
-        .pull-right
-          = render 'reviews/tags', agreement: @agreement
-        = link_to reviews_path, class: 'btn btn-default btn-xs' do
-          %span.glyphicon.glyphicon-arrow-left
-          Back to Reviews
+  .breadcrumb-container{ style: 'margin-bottom: 0;' }
+    .container
+      .pull-right.hidden-xs
+        = render 'reviews/tags', agreement: @agreement
+      = link_to reviews_path, class: 'btn btn-default btn-xs' do
+        %span.glyphicon.glyphicon-arrow-left
+        Back to Reviews
+      &nbsp;
+      = link_to transactions_review_path(@agreement), class: 'btn btn-default btn-xs' do
+        %span.glyphicon.glyphicon-th-list
+        Transactions
+      - if current_user.all_agreements.where(id: @agreement.id).count > 0
         &nbsp;
-        = link_to transactions_review_path(@agreement), class: 'btn btn-default btn-xs' do
-          %span.glyphicon.glyphicon-th-list
-          Transactions
-        - if current_user.all_agreements.where(id: @agreement.id).count > 0
-          &nbsp;
-          = link_to print_agreement_path(@agreement), class: 'btn btn-default btn-xs', data: { turbolinks: false } do
-            %span.glyphicon.glyphicon-print
-            Print
+        = link_to print_agreement_path(@agreement), class: 'btn btn-default btn-xs', data: { turbolinks: false } do
+          %span.glyphicon.glyphicon-print
+          Print
 
-.pull-right
-  = render 'reviews/reviewers', agreement: @agreement
+.dashboard-container.box-shadow
+  .pull-right
+    = render 'reviews/reviewers', agreement: @agreement
 
-- other_agreements = @agreement.user.agreements.where.not(id: @agreement.id).where(status: %w(submitted resubmit approved expired))
-- if other_agreements.count > 0
-  .callout.callout-info
-    %p
-      This user has
-      = other_agreements.count
-      other
-      = succeed ':' do
-        = "agreement#{'s' if other_agreements.count > 1}"
+  - other_agreements = @agreement.user.agreements.where.not(id: @agreement.id).where(status: %w(submitted resubmit approved expired))
+  - if other_agreements.count > 0
+    %div{ style: 'clear: both;' }
+    .comment_outer
+      .comment-right-fluid
+        %div{ style: 'padding: 20px;' }
+          %p
+            This user has
+            = other_agreements.count
+            other
+            = succeed ':' do
+              = "agreement#{'s' if other_agreements.count > 1}"
 
-    %ul.list-unstyled
-      - other_agreements.each do |a|
-        %li{ style: 'padding-bottom: 5px' }
-          = status_helper(a)
-          = link_to a.name_with_id, review_path(a), class: 'callout-link'
-          - a.datasets.order(:release_date, :name).each do |dataset|
-            = render 'datasets/mini', dataset: dataset
+          %ul.list-unstyled
+            - other_agreements.each do |a|
+              %li{ style: 'padding-bottom: 5px' }
+                = status_helper(a)
+                = link_to a.name_with_id, review_path(a), class: 'callout-link'
+                - a.datasets.order(:release_date, :name).each do |dataset|
+                  = render 'datasets/mini', dataset: dataset
 
-#agreement_events
-  = render 'agreement_events/index'
+  #agreement_events
+    = render 'agreement_events/index'
 
-#agreement_events_new_form
-  - @agreement_event = @agreement.agreement_events.where(user_id: current_user.id).new
-  = render 'agreement_events/form'
+  #agreement_events_new_form
+    - @agreement_event = @agreement.agreement_events.where(user_id: current_user.id).new
+    = render 'agreement_events/form'
 
-- (1..5).each do |step|
-  .markdown-container
-    %h2
+.dashboard-container.box-shadow
+  - (1..5).each do |step|
+    %div{ style: 'font-size: 20px;border-bottom: 1px solid #ededed;padding-bottom: 10px;margin-bottom: 20px;' }
       Step
       = step
 

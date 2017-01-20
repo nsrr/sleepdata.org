@@ -1,43 +1,50 @@
-%dl.dl-horizontal
-  %dt Title of Project
-  %dd= @agreement.title_of_project
+%table.table.table-striped.table-borderless.table-hover
+  %col{ width: '25%' }
+  %col{ width: '75%' }
 
-  %dt Specific Purpose
-  %dd
-    = simple_format @agreement.specific_purpose
+  %tr
+    %th.text-right Title of Project
+    %td= @agreement.title_of_project
 
-  %dt Datasets
-  %dd
-    %ul.list-unstyled
-      - @agreement.datasets.each do |dataset|
-        %li= dataset.name
+  %tr
+    %th.text-right Specific Purpose
+    %td= simple_format @agreement.specific_purpose
 
-  %dt Intended Use of Data
-  %dd
-    = simple_format @agreement.intended_use_of_data
+  %tr
+    %th.text-right Datasets
+    %td
+      %ul.list-unstyled
+        - @agreement.datasets.each do |dataset|
+          %li= dataset.name
 
-  %dt Please describe where data will be stored and secured
-  %dd
-    = simple_format @agreement.data_secured_location
+  %tr
+    %th.text-right Intended Use of Data
+    %td= simple_format @agreement.intended_use_of_data
 
-  %dt Secure Password Protected Device
-  %dd
-    - if @agreement.secured_device?
-      %span.text-success
-        %span.glyphicon.glyphicon-ok
-        Has attested that data will be stored on a secure password protected device.
-    - else
-      %span.text-danger
-        %span.glyphicon.glyphicon-remove
-        Has NOT attested that data will be stored on a secure password protected device.
+  %tr
+    %th.text-right Please describe where data will be stored and secured
+    %td= simple_format @agreement.data_secured_location
 
-  %dt Human Subjects Protections Training
-  %dd
-    - if @agreement.human_subjects_protections_trained?
-      %span.text-success
-        %span.glyphicon.glyphicon-ok
-        Has attested to completing a Human Subjects Protections Training Course.
-    - else
-      %span.text-danger
-        %span.glyphicon.glyphicon-remove
-        Has NOT attested to completing a Human Subjects Protections Training Course.
+  %tr
+    %th.text-right Secure Password Protected Device
+    %td
+      - if @agreement.secured_device?
+        %span.text-success
+          %span.glyphicon.glyphicon-ok
+          Has attested that data will be stored on a secure password protected device.
+      - else
+        %span.text-danger
+          %span.glyphicon.glyphicon-remove
+          Has NOT attested that data will be stored on a secure password protected device.
+
+  %tr
+    %th.text-right Human Subjects Protections Training
+    %td
+      - if @agreement.human_subjects_protections_trained?
+        %span.text-success
+          %span.glyphicon.glyphicon-ok
+          Has attested to completing a Human Subjects Protections Training Course.
+      - else
+        %span.text-danger
+          %span.glyphicon.glyphicon-remove
+          Has NOT attested to completing a Human Subjects Protections Training Course.
