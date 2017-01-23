@@ -25,18 +25,18 @@
 - else
   .dashboard-container.box-shadow
     %table.table.table-striped.table-borderless.table-hover
-      %table.table
-        %col{ width: '1px' }
-        %col
-        %thead
-          %tr
-            %th.center Rating
-            %th Review
+      %col{ width: '1px' }
+      %col
+      %thead
+        %tr
+          %th.center Rating
+          %th Review
 
-        %tbody
-          - @dataset_reviews.each do |dataset_review|
-            %tr
-              %td= render 'datasets/rating', rating: dataset_review.rating
-              %td
-                %i= link_to dataset_review.user.forum_name, dataset_dataset_review_path(@dataset, dataset_review)
-                = simple_markdown dataset_review.review
+      %tbody
+        - @dataset_reviews.each do |dataset_review|
+          %tr
+            %td= render 'datasets/rating', rating: dataset_review.rating
+            %td
+              %i= link_to dataset_review.user.forum_name, dataset_dataset_review_path(@dataset, dataset_review)
+              = simple_markdown dataset_review.review
+  .center= paginate @dataset_reviews, theme: 'bootstrap'
