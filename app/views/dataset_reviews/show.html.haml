@@ -1,5 +1,8 @@
 - @title = "Review - #{@dataset.name}"
 
+- content_for :body_class do
+  brand-background
+
 - content_for :header do
   .header-container
     .container
@@ -11,6 +14,7 @@
         %li= link_to @dataset.name, @dataset
         %li= render 'datasets/rating', rating: @dataset.rating
 
-= render 'datasets/rating', rating: @dataset_review.rating
-%i= @dataset_review.user.forum_name
-= simple_markdown @dataset_review.review
+.dashboard-container.box-shadow
+  = render 'datasets/rating', rating: @dataset_review.rating
+  %i= @dataset_review.user.forum_name
+  = simple_markdown @dataset_review.review

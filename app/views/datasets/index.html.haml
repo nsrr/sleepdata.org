@@ -83,10 +83,9 @@
       .dataset-card-header
         .dataset-card-header-ratings
           .pull-right
-            %span{ style: 'color: #ccc;' }
-              = link_to number_with_delimiter(dataset.dataset_reviews.count), dataset_dataset_reviews_path(dataset)
-              %span.hidden-xs
-                = "Review#{'s' if dataset.dataset_reviews.count != 1}"
+            = link_to dataset_dataset_reviews_path(dataset) do
+              = number_with_delimiter(dataset.dataset_reviews.count)
+              %span.hidden-xs= "Review#{'s' if dataset.dataset_reviews.count != 1}"
               %i.fa.fa-comments.hidden-sm.hidden-md.hidden-lg
             = link_to dataset_dataset_reviews_path(dataset) do
               = render 'datasets/rating', rating: dataset.rating

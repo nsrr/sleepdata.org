@@ -1,13 +1,19 @@
 - @title = "Edit Tool: #{@community_tool.name_was}"
 
-- content_for :banner do
-  .banner
-    .container
-      .banner-header.brand
-        = link_to 'Community Tools', community_tools_path
-        &middot;
-        = link_to @community_tool.name_was, @community_tool
-        &middot;
-        Edit
+- content_for :body_class do
+  brand-background
 
-= render 'form'
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        = @community_tool.name_was
+  .breadcrumb-container{ style: 'margin-bottom: 0;' }
+    .container
+      %ol
+        %li= link_to 'Tools', community_tools_path
+        %li= link_to @community_tool.name_was, @community_tool
+        %li Edit
+
+.dashboard-container.box-shadow
+  = render 'form'

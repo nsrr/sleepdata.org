@@ -1,11 +1,17 @@
-- @title = 'New Community Tool'
+- @title = 'New Tool'
 
-- content_for :banner do
-  .banner
+- content_for :body_class do
+  brand-background
+
+- content_for :header do
+  .header-container
     .container
-      .banner-header.brand
-        = link_to 'Community Tools', community_tools_path
-        &middot;
-        New
+      %h1.page-heading
+        = @title
+  .breadcrumb-container{ style: 'margin-bottom: 0;' }
+    .container
+      %ol
+        %li= link_to 'Tools', community_tools_path
 
-= render 'form'
+.dashboard-container.box-shadow
+  = render 'form'

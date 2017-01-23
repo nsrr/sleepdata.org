@@ -18,7 +18,6 @@
         .pull-right
           = link_to plus_or('Contribute a Tool'), contribute_tool_start_path, class: 'btn btn-accent btn-shadow'
           = render 'layouts/per_page', per_page: 20, object_count: @community_tools.total_count
-        =# render 'layouts/side_nav_header_button'
         = @title
 
 = render 'search/simple', url: tools_path(@project)

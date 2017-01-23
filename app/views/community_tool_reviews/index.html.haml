@@ -1,9 +1,15 @@
-- @title = "Reviews - #{@community_tool.name} "
+- @title = "Reviews - #{@community_tool.name}"
+
+- content_for :body_class do
+  brand-background
 
 - content_for :header do
   .header-container
     .container
       %h1.page-heading
+        .pull-right
+          = link_to pencil_or('Write a review'), new_community_tool_community_tool_review_path(@community_tool), class: 'btn btn-accent btn-shadow'
+          = render 'layouts/per_page', per_page: 40, object_count: @community_tool_reviews.total_count
         Reviews
   .breadcrumb-container{ style: 'margin-bottom: 0;' }
     .container
@@ -11,21 +17,25 @@
         %li= link_to @community_tool.name, community_show_tool_path(@community_tool)
         %li= render 'community_tools/rating', rating: @community_tool.rating
 
-%div{ style: 'margin-bottom: 20px;' }
-  = link_to 'Write a review', new_community_tool_community_tool_review_path(@community_tool), class: 'btn btn-primary'
+- if @community_tool_reviews.count.zero?
+  .lead.center{ style: 'margin-top: 40px' }
+    No reviews for this tool.
+    = succeed '.' do
+      = link_to 'Write a review', new_community_tool_community_tool_review_path(@community_tool)
+- else
+  .dashboard-container.box-shadow
+    %table.table.table-striped.table-borderless.table-hover
+      %col{ width: '1px' }
+      %col
+      %thead
+        %tr
+          %th.center Rating
+          %th Review
 
-%table.table
-  %col{ width: '1px' }
-  %col
-  %thead
-    %tr
-      %th.center Rating
-      %th Review
-
-  %tbody
-    - @community_tool_reviews.each do |community_tool_review|
-      %tr
-        %td= render 'community_tools/rating', rating: community_tool_review.rating
-        %td
-          %i= community_tool_review.user.forum_name
-          = simple_markdown community_tool_review.review
+      %tbody
+        - @community_tool_reviews.each do |community_tool_review|
+          %tr
+            %td= render 'community_tools/rating', rating: community_tool_review.rating
+            %td
+              %i= link_to community_tool_review.user.forum_name, community_tool_community_tool_review_path(@community_tool, community_tool_review)
+              = simple_markdown community_tool_review.review
