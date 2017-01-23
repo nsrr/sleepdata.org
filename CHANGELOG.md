@@ -35,6 +35,7 @@
 
 ### Bug Fix
 - Fixed an issue displaying images associated to tools
+- Fixed dataset collaborator autocomplete from rendering dropdown multiple times
 
 ## 0.25.1 (December 7, 2016)
 

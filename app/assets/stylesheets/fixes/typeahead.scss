@@ -3,27 +3,10 @@
   background-color: $input-bg;
   border-radius: 4px;
   color: $input-color;
-  display: block;
-  vertical-align: middle;
-
-  input {
-    background-color: $input-bg;
-  }
-
-  .tt-query,
-  .tt-hint {
-    margin-bottom: 0;
-  }
-
-  .tt-query {
-    border-bottom-left-radius: 4px;
-    border-top-left-radius: 4px;
-    // Fix for typeahead boxes jumping downwards when typing first letter.
-    display: inline-block;
-  }
+  width: 100%;
 }
 
-.tt-dropdown-menu {
+.tt-menu {
   background-clip: padding-box;
   background-color: $dropdown-bg;
   border: 1px solid $dropdown-fallback-border;
@@ -36,28 +19,14 @@
 }
 
 .tt-suggestion {
-  display: block;
   padding: 3px 20px;
 
-  &.tt-is-under-cursor {
-    background-color: $brand-info;
+  &.tt-cursor {
+    background-color: $brand-primary;
     color: $brand-white;
 
     a {
       color: $brand-white;
     }
   }
-
-  p {
-    margin: 0;
-  }
-}
-
-.tt-hint {
-  display: none;
-}
-
-.input-group .twitter-typeahead:not(:first-child) > .form-control {
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
 }

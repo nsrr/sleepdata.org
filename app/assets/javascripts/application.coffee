@@ -36,7 +36,7 @@
 #= require external/jquery.signaturepad.min.js
 #= require external/jquery.textcomplete
 #= require external/json2.min.js
-#= require external/typeahead.js
+#= require external/typeahead-0.11.1-corejavascript.src.js
 
 # Components
 #= require components/affix
