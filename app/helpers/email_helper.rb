@@ -7,23 +7,19 @@ module EmailHelper
   end
 
   def success_color
-    '#4bbf74'
+    '#00c853' # $a700; Green
   end
 
   def warning_color
-    '#f0ad4e'
+    '#ffd600' # $a700; Yellow
   end
 
   def danger_color
-    '#d9534f'
-  end
-
-  def text_color
-    '#3a3b3c'
+    '#d50000' # $a700; Red
   end
 
   def background_color
-    '#4bbf74'
+    '#43a047'
   end
 
   def banner_color
@@ -31,7 +27,7 @@ module EmailHelper
   end
 
   def link_color
-    '#439fe0'
+    '#0091ea'
   end
 
   def center_style
