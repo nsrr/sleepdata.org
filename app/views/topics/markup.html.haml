@@ -1,217 +1,223 @@
 - @title = 'Forum Post Markup'
 
-- content_for :banner do
-  .banner
+- content_for :body_class do
+  brand-background
+
+- content_for :header do
+  .header-container
     .container
-      .banner-header.brand
+      %h1.page-heading
         = @title
-      .banner-body
-        Looking to spice up your forum post? Learn more below!
 
-%a.anchor-top{ name: 'inline-code' }
-%h2
-  Inline Code
-  %a.anchor-link{ href: '#inline-code' }
+%p.lead.center
+  Looking to spice up your forum post? Learn more below!
 
-.codeblocks-container.code-input-file.p
-  The following text is `inline code`.
+.dashboard-container.box-shadow
+  %a.anchor-top{ name: 'inline-code' }
+  %h2
+    Inline Code
+    %a.anchor-link{ href: '#inline-code' }
 
-%p
-  The following text is
-  = succeed '.' do
-    %code inline code
+  .codeblocks-container.code-input-file.p
+    The following text is `inline code`.
 
-%a.anchor-top{ name: 'code-block' }
-%h2
-  Code Block
-  %a.anchor-link{ href: '#code-block' }
+  %p
+    The following text is
+    = succeed '.' do
+      %code inline code
 
-.codeblocks-container.code-input-file.p
-  ```
-  %br
-  \# Write code block
-  %br
-  def add(a,b)
-  %br
-  &nbsp;&nbsp;return a+b
-  %br
-  end
-  %br
-  ```
-%pre
-  \# Write code block
-  def add(a,b)
-  &nbsp;&nbsp;return a+b
-  end
+.dashboard-container.box-shadow
+  %a.anchor-top{ name: 'code-block' }
+  %h2
+    Code Block
+    %a.anchor-link{ href: '#code-block' }
 
-%a.anchor-top{ name: 'highlight' }
-%h2
-  Highlight
-  %a.anchor-link{ href: '#highlight' }
+  .codeblocks-container.code-input-file.p
+    ```
+    %br
+    \# Write code block
+    %br
+    def add(a,b)
+    %br
+    &nbsp;&nbsp;return a+b
+    %br
+    end
+    %br
+    ```
+  %pre
+    \# Write code block
+    def add(a,b)
+    &nbsp;&nbsp;return a+b
+    end
 
-.codeblocks-container.code-input-file.p
-  The following text is ==highlighted==.
+.dashboard-container.box-shadow
+  %a.anchor-top{ name: 'highlight' }
+  %h2
+    Highlight
+    %a.anchor-link{ href: '#highlight' }
 
-%p
-  The following text is
-  = succeed '.' do
-    %mark highlighted
+  .codeblocks-container.code-input-file.p
+    The following text is ==highlighted==.
 
-%a.anchor-top{ name: 'superscript' }
-%h2
-  Superscript
-  %a.anchor-link{ href: '#superscript' }
+  %p
+    The following text is
+    = succeed '.' do
+      %mark highlighted
 
-.codeblocks-container.code-input-file.p
-  This is the 2^(nd) time.
+.dashboard-container.box-shadow
+  %a.anchor-top{ name: 'superscript' }
+  %h2
+    Superscript
+    %a.anchor-link{ href: '#superscript' }
 
-%p
-  This is the 2<sup>nd</sup> time.
+  .codeblocks-container.code-input-file.p
+    This is the 2^(nd) time.
 
-%a.anchor-top{ name: 'quotes' }
-%h2
-  Quotes
-  %a.anchor-link{ href: '#quotes' }
+  %p
+    This is the 2<sup>nd</sup> time.
 
-.codeblocks-container.code-input-file.p
-  > This is a quote.
+.dashboard-container.box-shadow
+  %a.anchor-top{ name: 'quotes' }
+  %h2
+    Quotes
+    %a.anchor-link{ href: '#quotes' }
 
-%p
-  %blockquote This is a quote.
+  .codeblocks-container.code-input-file.p
+    > This is a quote.
 
-%a.anchor-top{ name: 'underline' }
-%h2
-  Underline
-  %a.anchor-link{ href: '#underline' }
+  %p
+    %blockquote This is a quote.
 
-.codeblocks-container.code-input-file.p
-  The following text is _underlined_.
+.dashboard-container.box-shadow
+  %a.anchor-top{ name: 'underline' }
+  %h2
+    Underline
+    %a.anchor-link{ href: '#underline' }
 
-%p
-  The following text is
-  = succeed '.' do
-    %u underlined
+  .codeblocks-container.code-input-file.p
+    The following text is _underlined_.
 
-%a.anchor-top{ name: 'strikethrough' }
-%h2
-  Strikethrough
-  %a.anchor-link{ href: '#strikethrough' }
+  %p
+    The following text is
+    = succeed '.' do
+      %u underlined
 
-.codeblocks-container.code-input-file.p
-  This is ~~removed~~.
+.dashboard-container.box-shadow
+  %a.anchor-top{ name: 'strikethrough' }
+  %h2
+    Strikethrough
+    %a.anchor-link{ href: '#strikethrough' }
 
-%p
-  This is
-  = succeed '.' do
-    %del removed
+  .codeblocks-container.code-input-file.p
+    This is ~~removed~~.
 
-%a.anchor-top{ name: 'horizontal-rule' }
-%h2
-  Horizontal Rule
-  %a.anchor-link{ href: '#horizontal-rule' }
+  %p
+    This is
+    = succeed '.' do
+      %del removed
 
-.codeblocks-container.code-input-file.p
-  Here is some text...
-  %br
-  \---
-  %br
-  \...and some more text.
+.dashboard-container.box-shadow
+  %a.anchor-top{ name: 'horizontal-rule' }
+  %h2
+    Horizontal Rule
+    %a.anchor-link{ href: '#horizontal-rule' }
 
-%p
-  Here is some text...
+  .codeblocks-container.code-input-file.p
+    Here is some text...
+    %br
+    \---
+    %br
+    \...and some more text.
+
+  %p
+    Here is some text...
+    %hr
+    \...and some more text.
+
+.dashboard-container.box-shadow
+  %a.anchor-top{ name: 'footnotes' }
+  %h2
+    Footnotes
+    %a.anchor-link{ href: '#footnotes' }
+
+  .codeblocks-container.code-input-file.p
+    This is a sentence.[^1]
+    %br
+    This is another sentence.[^2]
+    %br
+    [^1]: This is a footnote.
+    %br
+    [^2]: This is a second footnote.
+
+  %a.anchor-top{ name: 'fnref1' }
+  %p This is a sentence.<sup><a href="#fn1" rel="footnote">1</a></sup>
+  %a.anchor-top{ name: 'fnref2' }
+  %p This is another sentence.<sup><a href="#fn2" rel="footnote">2</a></sup>
+  .footnotes
   %hr
-  \...and some more text.
+  %ol
+    %li
+      %a.anchor-top{ name: 'fn1' }
+      %p This is a footnote.&nbsp;<a href="#fnref1" rev="footnote">&#8617;</a>
+    %li
+      %a.anchor-top{ name: 'fn2' }
+      %p
+        This is a second footnote.&nbsp;<a href="#fnref2" rev="footnote">&#8617;</a>
 
-%a.anchor-top{ name: 'footnotes' }
-%h2
-  Footnotes
-  %a.anchor-link{ href: '#footnotes' }
+.dashboard-container.box-shadow
+  %a.anchor-top{ name: 'links' }
+  %h2
+    Links
+    %a.anchor-link{ href: '#links' }
 
-.codeblocks-container.code-input-file.p
-  This is a sentence.[^1]
-  %br
-  This is another sentence.[^2]
-  %br
-  [^1]: This is a footnote.
-  %br
-  [^2]: This is a second footnote.
+  .codeblocks-container.code-input-file.p
+    Here is a [link](https://sleepdata.org).
 
-%a.anchor-top{ name: 'fnref1' }
-%p This is a sentence.<sup><a href="#fn1" rel="footnote">1</a></sup>
-%a.anchor-top{ name: 'fnref2' }
-%p This is another sentence.<sup><a href="#fn2" rel="footnote">2</a></sup>
-.footnotes
-%hr
-%ol
-  %li
-    %a.anchor-top{ name: 'fn1' }
-    %p This is a footnote.&nbsp;<a href="#fnref1" rev="footnote">&#8617;</a>
-  %li
-    %a.anchor-top{ name: 'fn2' }
-    %p
-      This is a second footnote.&nbsp;<a href="#fnref2" rev="footnote">&#8617;</a>
-
-%a.anchor-top{ name: 'links' }
-%h2
-  Links*
-  %a.anchor-link{ href: '#links' }
-
-.codeblocks-container.code-input-file.p
-  Here is a [link](https://sleepdata.org).
-
-%p
-  Here is a
-  = link_to('link', 'https://sleepdata.org', target: '_blank') + '.'
-
-.callout.callout-info
   %p
-    %strong *
-    The ability to post links is earned.
+    Here is a
+    = link_to('link', 'https://sleepdata.org', target: '_blank') + '.'
 
-%a.anchor-top{ name: 'images' }
-%h2
-  Images*
-  %a.anchor-link{ href: '#images' }
+.dashboard-container.box-shadow
+  %a.anchor-top{ name: 'images' }
+  %h2
+    Images
+    %a.anchor-link{ href: '#images' }
 
-.codeblocks-container.code-input-file.p
-  The current build status is ![Build Status](https://travis-ci.org/nsrr/www.sleepdata.org.svg)
+  .codeblocks-container.code-input-file.p
+    The current build status is ![Build Status](https://travis-ci.org/nsrr/www.sleepdata.org.svg)
 
-%p
-  The current build status is
-  = image_tag 'https://travis-ci.org/nsrr/www.sleepdata.org.svg', alt: 'Build Status'
-
-.callout.callout-info
   %p
-    %strong *
-    The ability to post images is earned.
+    The current build status is
+    = image_tag 'https://travis-ci.org/nsrr/www.sleepdata.org.svg', alt: 'Build Status'
 
-%a.anchor-top{ name: 'tables' }
-%h2
-  Tables
-  %a.anchor-link{ href: '#tables' }
+.dashboard-container.box-shadow
+  %a.anchor-top{ name: 'tables' }
+  %h2
+    Tables
+    %a.anchor-link{ href: '#tables' }
 
-.codeblocks-container.code-input-file.p
-  | Header 1 | Header 2 | Header 3&nbsp;|
-  %br
-  |:---------|:--------:|---------:|
-  %br
-  |&nbsp;Row&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Center&nbsp;&nbsp;&nbsp;|&nbsp;Right&nbsp;&nbsp;&nbsp;&nbsp;|
-  %br
-  |&nbsp;Row&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Center&nbsp;&nbsp;&nbsp;|&nbsp;Right&nbsp;&nbsp;&nbsp;&nbsp;|
+  .codeblocks-container.code-input-file.p
+    | Header 1 | Header 2 | Header 3&nbsp;|
+    %br
+    |:---------|:--------:|---------:|
+    %br
+    |&nbsp;Row&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Center&nbsp;&nbsp;&nbsp;|&nbsp;Right&nbsp;&nbsp;&nbsp;&nbsp;|
+    %br
+    |&nbsp;Row&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;Center&nbsp;&nbsp;&nbsp;|&nbsp;Right&nbsp;&nbsp;&nbsp;&nbsp;|
 
-%p
-  %table.table.table-striped
-    %thead
-      %tr
-        %th Header 1
-        %th.text-center Header 2
-        %th.text-right Header 3
-    %tbody
-      %tr
-        %td Row 1
-        %td.text-center Center
-        %td.text-right Right
-      %tr
-        %td Row 2
-        %td.text-center Center
-        %td.text-right Right
+  %p
+    %table.table.table-striped
+      %thead
+        %tr
+          %th Header 1
+          %th.text-center Header 2
+          %th.text-right Header 3
+      %tbody
+        %tr
+          %td Row 1
+          %td.text-center Center
+          %td.text-right Right
+        %tr
+          %td Row 2
+          %td.text-center Center
+          %td.text-right Right

@@ -1,9 +1,12 @@
 - @title = 'New Topic'
 
-- content_for :banner do
-  .banner
+- content_for :body_class do
+  brand-background
+
+- content_for :header do
+  .header-container
     .container
-      .banner-header.brand
+      %h1.page-heading
         = @title
 
 = render 'form'
