@@ -1,128 +1,139 @@
 - @title = @user.name
 
-- content_for :banner do
-  .banner
+- content_for :body_class do
+  brand-background
+
+- content_for :header do
+  .header-container
     .container
-      .banner-header.brand
-        = link_to 'Users', users_path
-        &middot;
+      %h1.page-heading
+        .pull-right
+          = render 'layouts/edit_delete_dropdown', edit_url: edit_user_path(@user), delete_url: @user, delete_confirmation: "Delete #{@user.name}?"
         = @title
-      .banner-body
-        = link_to 'Edit User', edit_user_path(@user), class: 'btn btn-xs btn-default'
-        = link_to 'Delete User', @user, method: :delete, class: 'btn btn-xs btn-danger-inverse', data: { confirm: "Are you sure you want to delete User #{@user.name}?" } unless current_user == @user
+  .breadcrumb-container{ style: 'margin-bottom: 0;' }
+    .container
+      %ol
+        %li= link_to 'Users', users_path
 
-%dl.dl-horizontal
-  %dt
-    Email
-  %dd
-    = @user.email
+.dashboard-container.box-shadow
+  %table.table.table-striped.table-borderless
+    %col{ width: '25%' }
+    %col{ width: '75%' }
+    %tr
+      %th.text-right
+        Email
+      %td= @user.email
 
-  %dt
-    Forum Username
-  %dd
-    = link_to @user.username, topics_path(a: @user.username) if @user.username.present?
+    %tr
+      %th.text-right
+        Forum Username
+      %td= link_to @user.username, topics_path(a: @user.username) if @user.username.present?
 
-  %dt
-    Emails Enabled
-  %dd
-    = simple_check @user.emails_enabled?
+    %tr
+      %th.text-right
+        Emails Enabled
+      %td= simple_check @user.emails_enabled?
 
-  %dt
-    Degree
-  %dd
-    = @user.degree
+    %tr
+      %th.text-right
+        Degree
+      %td= @user.degree
 
-  %dt
-    Core Team Member
-  %dd
-    = simple_check @user.core_member?
+    %tr
+      %th.text-right
+        Core Team Member
+      %td= simple_check @user.core_member?
 
-  %dt
-    Contributor
-  %dd
-    = simple_check @user.contributor?
+    %tr
+      %th.text-right
+        Contributor
+      %td= simple_check @user.contributor?
 
-  %dt
-    AUG Member
-  %dd
-    = simple_check @user.aug_member?
+    %tr
+      %th.text-right
+        AUG Member
+      %td= simple_check @user.aug_member?
 
-  %dt
-    Community Manager
-  %dd
-    = simple_check @user.community_manager?
+    %tr
+      %th.text-right
+        Community Manager
+      %td= simple_check @user.community_manager?
 
-  %dt
-    Research Summary
-  %dd{ style: 'line-height: inherit' }
-    = simple_markdown @user.research_summary
+    %tr
+      %th.text-right
+        Research Summary
+      %td= simple_markdown @user.research_summary
 
-  - if current_user.system_admin?
-    %dt
-      System Admin
-    %dd
-      = simple_check @user.system_admin?
+    - if current_user.system_admin?
+      %tr
+        %th.text-right
+          System Admin
+        %td
+          = simple_check @user.system_admin?
 
-    %dt
-      Banned
-    %dd
-      = simple_check @user.banned?
-      - if @user.banned?
-        %span.label{ style: "background-color:#333;" }
-          Banned from Forum
+      %tr
+        %th.text-right
+          Banned
+        %td
+          = simple_check @user.banned?
+          - if @user.banned?
+            %span.label{ style: "background-color:#333;" }
+              Banned from Forum
+    %tr
+      %th.text-right
+        User Avatar
+      %td
+        = image_tag @user.avatar_url, class: 'img-rounded'
 
-  %dt
-    User Avatar
-  %dd
-    = image_tag @user.avatar_url, class: 'img-rounded'
+    %tr
+      %th.text-right
+        Agreements
+      %td
+        %table.table.table-condensed.table-striped
+          %thead
+            %tr
+              %th ID
+              %th Status
+              %th Datasets
+          %tbody
+            - @user.agreements.order(id: :desc).each do |a|
+              %tr
+                %td= link_to "##{a.id}", review_path(a)
+                %td= status_helper(a)
+                %td
+                  - a.datasets.order(:release_date, :name).each do |dataset|
+                    = render 'datasets/mini', dataset: dataset
 
-  %dt
-    Agreements
-  %dd
-    %table.table.table-condensed.table-striped
-      %thead
-        %tr
-          %th ID
-          %th Status
-          %th Datasets
-      %tbody
-        - @user.agreements.order(id: :desc).each do |a|
-          %tr
-            %td= link_to "##{a.id}", review_path(a)
-            %td= status_helper(a)
-            %td
-              - a.datasets.order(:release_date, :name).each do |dataset|
-                = render 'datasets/mini', dataset: dataset
-
-  - download_sizes = []
-  - download_counts = []
-  %dt
-    Total Downloads
-  %dd
-    %table.table.table-striped
-      %thead
-        %tr
-          %th
-            Dataset
-          %th{ style: "text-align:center", colspan: "2" }
-            Files Downloaded
-      - Dataset.current.order(:release_date, :name).each do |dataset|
-        - download_size = dataset.dataset_file_audits.where( user_id: @user.id ).sum( :file_size )
-        - download_count = dataset.dataset_file_audits.where( user_id: @user.id ).count
-        - if download_size > 0
-          - download_sizes << download_size
-          - download_counts << download_count
-          %tr
-            %td
-              = dataset.name
-            %td
-              = pluralize number_with_delimiter(download_count), 'file'
-            %td
-              = number_to_human_size download_size
-      %tfoot
-        %th
-          Total
-        %th
-          = pluralize number_with_delimiter(download_counts.sum), 'file'
-        %th
-          = number_to_human_size(download_sizes.sum)
+    %tr
+      %th.text-right
+        Total Downloads
+      %td
+        - download_sizes = []
+        - download_counts = []
+        %table.table.table-striped
+          %thead
+            %tr
+              %th
+                Dataset
+              %th{ style: "text-align:center", colspan: "2" }
+                Files Downloaded
+          - Dataset.current.order(:release_date, :name).each do |dataset|
+            - download_size = dataset.dataset_file_audits.where( user_id: @user.id ).sum( :file_size )
+            - download_count = dataset.dataset_file_audits.where( user_id: @user.id ).count
+            - if download_size > 0
+              - download_sizes << download_size
+              - download_counts << download_count
+              %tr
+                %td
+                  = dataset.name
+                %td
+                  = pluralize number_with_delimiter(download_count), 'file'
+                %td
+                  = number_to_human_size download_size
+          %tfoot
+            %th
+              Total
+            %th
+              = pluralize number_with_delimiter(download_counts.sum), 'file'
+            %th
+              = number_to_human_size(download_sizes.sum)

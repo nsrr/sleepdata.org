@@ -14,32 +14,33 @@
         = @title
         = link_to 'Go To Blog', blog_path, class: 'btn btn-xs btn-default'
 
-%table.table
-  %col{ width: '1px' }
-  %col
-  %col.hidden-xs
-  %col.hidden-xs.hidden-sm
-  %col.hidden-xs.hidden-sm
-  %col{ width: '1px' }
+.dashboard-container.box-shadow
+  %table.table.table-striped.table-borderless.table-hover
+    %col{ width: '1px' }
+    %col
+    %col.hidden-xs
+    %col.hidden-xs.hidden-sm
+    %col.hidden-xs.hidden-sm
+    %col{ width: '1px' }
 
-  %thead
-    %tr
-      %th
-      %th Title
-      %th.hidden-xs Publish date
-      %th.center.hidden-xs.hidden-sm Pinned
-      %th.center.hidden-xs.hidden-sm Archived
-      %th.center
-        %span.hidden-xs Actions
-
-  %tbody
-    - @broadcasts.each do |broadcast|
+    %thead
       %tr
-        %td.center= render 'layouts/draft_published', published: broadcast.published?
-        %td= link_to broadcast.title, broadcast
-        %td.nowrap.hidden-xs= broadcast.publish_date.strftime '%a %b %-d, %Y'
-        %td.center.hidden-xs.hidden-sm= simple_check broadcast.pinned
-        %td.center.hidden-xs.hidden-sm= simple_check broadcast.archived
-        %td= render 'layouts/edit_delete_dropdown', edit_url: edit_broadcast_path(broadcast), delete_url: broadcast, delete_confirmation: "Delete #{broadcast.title}?"
+        %th
+        %th Title
+        %th.hidden-xs Publish date
+        %th.center.hidden-xs.hidden-sm Pinned
+        %th.center.hidden-xs.hidden-sm Archived
+        %th.center
+          %span.hidden-xs Actions
+
+    %tbody
+      - @broadcasts.each do |broadcast|
+        %tr
+          %td.center= render 'layouts/draft_published', published: broadcast.published?
+          %td= link_to broadcast.title, broadcast
+          %td.nowrap.hidden-xs= broadcast.publish_date.strftime '%a %b %-d, %Y'
+          %td.center.hidden-xs.hidden-sm= simple_check broadcast.pinned
+          %td.center.hidden-xs.hidden-sm= simple_check broadcast.archived
+          %td= render 'layouts/edit_delete_dropdown', edit_url: edit_broadcast_path(broadcast), delete_url: broadcast, delete_confirmation: "Delete #{broadcast.title}?"
 
 .center= paginate @broadcasts, theme: 'bootstrap'

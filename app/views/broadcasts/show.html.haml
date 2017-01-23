@@ -1,13 +1,18 @@
 - @title = @broadcast.title
 
-- content_for :banner do
-  .banner
+- content_for :body_class do
+  brand-background
+
+- content_for :header do
+  .header-container
     .container
-      .banner-header.brand
-        = link_to 'Blog Posts', broadcasts_path
-        &middot;
-        = @broadcast.title
-      .banner-body
+      %h1.page-heading
+        .pull-right
+          = render 'layouts/edit_delete_dropdown', edit_url: edit_broadcast_path(@broadcast), delete_url: @broadcast, delete_confirmation: "Delete #{@broadcast.title}?"
+        = @title
+  .breadcrumb-container{ style: 'margin-bottom: 0;' }
+    .container
+      .pull-right
         - if @broadcast.published?
           - if @broadcast.publish_date <= Time.zone.today
             %span.label.label-info Published
@@ -18,44 +23,42 @@
               = @broadcast.publish_date.strftime('%a, %B %-d, %Y')
         - else
           %span.label.label-warning DRAFT
-        &nbsp;
-        = link_to edit_broadcast_path(@broadcast), class: 'btn btn-xs btn-default' do
-          %span.glyphicon.glyphicon-edit
-          Edit Blog Post
+      %ol
+        %li= link_to 'Blog Posts', broadcasts_path
 
-.row
-  .col-sm-9
-    .broadcast
-      = simple_markdown @broadcast.description, false
+.dashboard-container.box-shadow
+  .row
+    .col-sm-9
+      .broadcast
+        = simple_markdown @broadcast.description, false
 
-  .col-sm-3
-    %p
-      %strong Short Description
-      %br
-      = @broadcast.short_description
+    .col-sm-3
+      %p
+        %strong Short Description
+        %br
+        = @broadcast.short_description
 
-    %p
-      %strong Keywords
-      %br
-      = @broadcast.keywords
+      %p
+        %strong Keywords
+        %br
+        = @broadcast.keywords
 
-    %p
-      %strong Creator
-      %br
-      = @broadcast.user.name
+      %p
+        %strong Creator
+        %br
+        = @broadcast.user.name
 
-    %p
-      %strong Publish date
-      %br
-      = @broadcast.publish_date
+      %p
+        %strong Publish date
+        %br
+        = @broadcast.publish_date
 
-    %p
-      %strong Pinned
-      %br
-      = simple_check @broadcast.pinned
+      %p
+        %strong Pinned
+        %br
+        = simple_check @broadcast.pinned
 
-    %p
-      %strong Archived
-      %br
-      = simple_check @broadcast.archived
-
+      %p
+        %strong Archived
+        %br
+        = simple_check @broadcast.archived

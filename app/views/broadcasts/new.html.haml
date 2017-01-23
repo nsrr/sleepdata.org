@@ -1,11 +1,17 @@
 - @title = 'New Blog Post'
 
-- content_for :banner do
-  .banner
-    .container
-      .banner-header.brand
-        = link_to 'Blog Posts', broadcasts_path
-        &middot;
-        New
+- content_for :body_class do
+  brand-background
 
-= render 'form'
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        = @title
+  .breadcrumb-container{ style: 'margin-bottom: 0;' }
+    .container
+      %ol
+        %li= link_to 'Blog Posts', broadcasts_path
+
+.dashboard-container.box-shadow
+  = render 'form'
