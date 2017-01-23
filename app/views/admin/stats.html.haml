@@ -10,7 +10,7 @@
     %strong Signup Statistics
 
   .table-responsive
-    %table.table.table-striped
+    %table.table.table-striped.table-borderless.table-hover
       %thead
         %tr
           %th.center Regular member signups
@@ -28,7 +28,7 @@
     %strong Agreement Statistics
 
   .table-responsive
-    %table.table.table-striped
+    %table.table.table-striped.table-borderless.table-hover
       %thead
         %tr
           %th.center Regular member signups
@@ -51,7 +51,7 @@
     %strong Download Statistics
 
   .table-responsive
-    %table.table.table-striped
+    %table.table.table-striped.table-borderless.table-hover
       %col{ width: '1%' }
       %thead
         %tr
@@ -68,7 +68,10 @@
         - public_downloads_files[dataset.id] ||= 0
         - public_downloads_file_sizes[dataset.id] ||= 0
         %tr
-          %td.nowrap= link_to dataset.name, audits_dataset_path(dataset)
+          %td.nowrap
+            = link_to audits_dataset_path(dataset) do
+              .hidden-xs.hidden-sm= dataset.name
+              .hidden-md.hidden-lg= dataset.slug
           %td.center= pluralize number_with_delimiter(regular_members_files[dataset.id] ||= 0), 'file'
           %td.center= number_to_human_size(regular_members_file_sizes[dataset.id] ||= 0)
           %td.center= pluralize number_with_delimiter(aug_or_core_members_files[dataset.id] ||= 0), 'file'
@@ -90,7 +93,7 @@
     %strong Approved Users per Dataset
 
   .table-responsive
-    %table.table.table-striped
+    %table.table.table-striped.table-borderless.table-hover
       %col
       %col
       %thead
@@ -100,6 +103,9 @@
       %tbody
         - Dataset.current.order(:release_date, :name).each do |dataset|
           %tr
-            %td= dataset.name
+            %td
+              = link_to dataset do
+                .hidden-xs.hidden-sm= dataset.name
+                .hidden-md.hidden-lg= dataset.slug
             %td.center= number_with_delimiter dataset.agreements.regular_members.where(status: 'approved').group(:user_id).count.count
 

@@ -14,6 +14,10 @@ module HeaderHelper
     label_or(label, generic_tag('fa-pencil'))
   end
 
+  def download_or(label)
+    label_or(label, generic_tag('fa-download'))
+  end
+
   def label_or(label, small_label)
     span_xs_sm = content_tag :span, class: 'hidden-md hidden-lg' do
       small_label

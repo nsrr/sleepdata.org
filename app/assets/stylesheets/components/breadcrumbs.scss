@@ -1,5 +1,6 @@
 .breadcrumb-container {
-  background-color: $breadcrumb-bg;
+  background-color: $p100;
+  border-bottom: 1px solid $p200;
   list-style: none;
   margin: 0 0 20px;
   padding: 20px 0;
@@ -13,7 +14,7 @@
     }
 
     > li+li::before {
-      color: $brand-gray;
+      color: $p50;
       content: '/ ';
       padding: 0 5px;
     }

@@ -5,7 +5,7 @@
 
 = render 'internal/profile_header', title: @title
 
-.dashboard-container
+.dashboard-container.box-shadow
   .dashboard-title
     %strong= @title
 
@@ -34,7 +34,7 @@
             %td= link_to (count == 0 ? '-' : count), reviews_path(status: status, tag_id: tag.id)
           %td= link_to @agreements.with_tag(tag.id).count, reviews_path(tag_id: tag.id)
 
-.dashboard-container
+.dashboard-container.box-shadow
   .dashboard-title
     %strong= @title
   .table-responsive
