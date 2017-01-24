@@ -53,6 +53,12 @@ $(document)
     $($(this).data('target')).submit()
     false
   )
+  .on('click', '[data-object~="submit-and-disable"]', ->
+    window.$isDirty = false
+    $(this).prop('disabled', true)
+    $($(this).data('target')).submit()
+    false
+  )
   .on('click', '[data-object~="hide-target"]', () ->
     $($(this).data('target')).hide()
     false

@@ -29,7 +29,7 @@
         Back to Submissions
     .col-sm-6
       - if @agreement.fully_filled_out?
-        = link_to '#', data: { object: 'submit', target: '#final_submission_form' }, class: 'btn btn-lg btn-primary btn-block' do
+        = link_to '#', data: { object: 'submit-and-disable', target: '#final_submission_form' }, class: 'btn btn-lg btn-primary btn-block' do
           %span.glyphicon.glyphicon-cloud-upload
           Submit Application
       - else

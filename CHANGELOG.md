@@ -6,6 +6,7 @@
   - Added a new admin table displaying approved DAUAs by dataset
   - Voting on a review now updates overall reviewers votes as well
   - Signatures are now displayed with other information at top of review
+  - DAUAs can no longer accidentally be submitted twice by double-clicking
 - **Blog Changes**
   - Improved layout of administrative blog overview index
   - Added Rich Text Editor buttons
