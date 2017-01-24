@@ -6,7 +6,7 @@ agreement
   %abbr{ rel: 'tooltip', data: { title: agreement_event.event_at.strftime("%-d %B %Y, %-l:%M %p"), container: 'body', placement: 'right' } }= "#{time_ago_in_words(agreement_event.event_at)} ago"
 
 .row{ style: 'padding-top: 20px'}
-  .col-sm-6.col-buffer
+  .col-md-6.col-buffer
     %div{ style: 'padding: 0 20px;' }
       %strong= agreement_event.agreement.title_of_project
       %div{ style: 'font-style:italic;padding-top:5px' }
@@ -23,7 +23,7 @@ agreement
           = link_to download_irb_agreement_path(agreement_event.agreement), target: '_blank' do
             = agreement_event.agreement.irb.to_s.split('/').last
 
-  .col-sm-3.col-buffer
+  .col-md-3.col-buffer
     %div{ style: 'padding-left: 20px;' }
       - if @agreement.data_user_type == 'individual'
         %p
@@ -34,7 +34,7 @@ agreement
           %strong= @agreement.organization_business_name
         %p= simple_format @agreement.organization_address
 
-  .col-sm-3
+  .col-md-3.col-buffer
     %div{ style: 'padding-left: 20px;' }
       - if @agreement.data_user_type == 'individual'
         %p
@@ -54,3 +54,7 @@ agreement
           = @agreement.organization_contact_telephone
           %br
           = @agreement.organization_contact_email
+
+.center{ data: { object: 'signature-display', signature_target: '.top-output-read' } }
+  = hidden_field_tag 'agreement_signature', @agreement.signature, class: 'top-output-read'
+  %canvas.pad-display{ width: 300, height: 55 }

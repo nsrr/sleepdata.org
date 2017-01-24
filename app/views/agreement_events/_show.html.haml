@@ -47,7 +47,7 @@
   .comment-outer
     .comment-left-fixed
     .comment-right-fluid
-      .well
+      .well{ style: 'background-color: transparent;' }
         = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event, current_index: nil # TODO Remove current_index
 - else
   .comment-outer

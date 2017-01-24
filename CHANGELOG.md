@@ -5,6 +5,7 @@
   - Removed additional confirmation step when voting for reviewers
   - Added a new admin table displaying approved DAUAs by dataset
   - Voting on a review now updates overall reviewers votes as well
+  - Signatures are now displayed with other information at top of review
 - **Blog Changes**
   - Improved layout of administrative blog overview index
   - Added Rich Text Editor buttons
