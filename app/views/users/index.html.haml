@@ -19,26 +19,25 @@
 .dashboard-container.box-shadow
   %table.table.table-striped.table-borderless.table-hover
     %col
+    %col.hidden-xs
+    %col.hidden-xs
     %col
-    %col.hidden-xs
-    %col.hidden-xs
     %thead
       %tr
         = th_sort_field @order, 'users.last_name', 'Name'
-        = th_sort_field_rev @order, 'users.current_sign_in_at', 'Recent Activity'
-        = th_sort_field_rev @order, 'users.sign_in_count', 'Sign in Count', extra_class: 'text-right hidden-xs'
-        = th_sort_field_rev @order, 'users.system_admin', 'System Admin', extra_class: 'center hidden-xs'
-
+        = th_sort_field @order, 'users.email', 'Email', extra_class: 'hidden-xs'
+        = th_sort_field_rev @order, 'users.current_sign_in_at', 'Recent Activity', extra_class: 'hidden-xs'
+        = th_sort_field_rev @order, 'users.sign_in_count', 'Sign in Count', extra_class: 'text-right'
     - @users.each do |user|
       %tr{ class: "#{'banned' if current_user.system_admin? && user.banned?}" }
         %td.nowrap
           = image_tag user.avatar_url(18), style: 'min-width: 18px;', size: '18x18', alt: ''
           = link_to user.name, user
-        %td
+        %td.hidden-xs= user.email
+        %td.hidden-xs
           - if user.current_sign_in_at
             = time_ago_in_words(user.current_sign_in_at)
             ago
-        %td.text-right.hidden-xs= number_with_delimiter user.sign_in_count
-        %td.center.hidden-xs= simple_check user.system_admin?
+        %td.text-right= number_with_delimiter(user.sign_in_count)
 
 .center= paginate @users, theme: 'bootstrap'
