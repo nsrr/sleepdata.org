@@ -94,5 +94,4 @@
               %tr{ id: "notification_#{notification.id}"}
                 = render 'notifications/show', notification: notification
     - else
-      .jumbotron.jumbotron-action
-        %p.center You have no unread notifications!
+      .center.lead{ style: 'margin-top: 20px;' } You have no unread notifications!
