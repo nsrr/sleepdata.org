@@ -1,10 +1,19 @@
-- @title = "#{@dataset.name_was} Edit"
+- @title = "Edit Dataset: #{@dataset.name_was}"
+
+- content_for :body_class do
+  brand-background
 
 - content_for :header do
   .header-container
     .container
       %h1.page-heading
-        = link_to @dataset.name_was, @dataset
-        Edit
+        = @dataset.name_was
+  .breadcrumb-container{ style: 'margin-bottom: 0;' }
+    .container
+      %ol
+        %li= link_to 'Datasets', datasets_path
+        %li= link_to @dataset.name_was, @dataset
+        %li Edit
 
-= render 'datasets/form'
+.dashboard-container.box-shadow
+  = render 'datasets/form'

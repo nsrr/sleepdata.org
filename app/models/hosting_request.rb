@@ -3,7 +3,7 @@
 # Allows users to request to have their data hosted on the NSRR
 class HostingRequest < ApplicationRecord
   # Concerns
-  include Deletable, Forkable
+  include Deletable, Forkable, Searchable
 
   # Callbacks
   after_create_commit :send_hosting_request_notification_in_background
@@ -17,6 +17,9 @@ class HostingRequest < ApplicationRecord
   belongs_to :user
 
   # Model Methods
+  def self.searchable_attributes
+    %w(institution_name description)
+  end
 
   def name
     "Hosting Request ID ##{id}"
@@ -27,6 +30,7 @@ class HostingRequest < ApplicationRecord
   end
 
   def send_email_in_background
+    # Blank...
   end
 
   def send_email(generated_password)

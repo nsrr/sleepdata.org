@@ -53,7 +53,7 @@ class TagsController < ApplicationController
   private
 
   def find_tag_or_redirect
-    @tag = Tag.current.find_by_id params[:id]
+    @tag = Tag.current.find_by(id: params[:id])
     redirect_without_tag
   end
 

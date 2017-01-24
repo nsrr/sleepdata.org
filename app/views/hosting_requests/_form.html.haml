@@ -1,14 +1,4 @@
 = form_for @hosting_request, html: { class: 'form-horizontal' } do |f|
-  - if @hosting_request.errors.any?
-    .callout.callout-danger
-      %strong
-        = pluralize @hosting_request.errors.count, 'error'
-        prohibited this hosting request from being saved
-
-      %ul
-        - @hosting_request.errors.full_messages.each do |message|
-          %li= message
-
   .form-group
     = f.label :user_id, nil, class: 'col-md-2 control-label'
     .col-md-10
@@ -20,18 +10,24 @@
     = f.label :institution_name, nil, class: 'col-md-2 control-label'
     .col-md-10
       = f.text_field :institution_name, class: 'form-control'
+      = render 'layouts/errors', object: @hosting_request, key: :institution_name
 
   .form-group
     = f.label :description, nil, class: 'col-md-2 control-label'
     .col-md-10
       .preview-container
         .preview-header
+          .pull-right
+            = render 'replies/rich_text_editor_buttons', target: "#hosting_request_description"
           = link_to 'Write', '#', data: { object: 'view-content-markdown' }, class: 'preview-tab active', tabindex: '-1'
           = link_to 'Preview', '#', data: { object: 'view-content-preview', content: '#hosting_request_description' }, class: 'preview-tab', tabindex: '-1'
         .preview-body
           #content_markdown
-            = f.text_area :description, rows: [[5, @hosting_request.description.to_s.count("\n") + 1].max, 25].min, class: 'preview-control', data: { object: 'expandable-text-area', default_rows: 5 }
+            = f.text_area :description, rows: [[15, @hosting_request.description.to_s.count("\n") + 1].max, 25].min, class: 'preview-control filedrag-container', data: { object: 'expandable-text-area dropfile', default_rows: 15, upload_url: upload_images_path(update: '#hosting_request_description', format: 'js'), fallback_url: new_image_path, log_id: '#log_new' }
+            #log_new.filedrag
+              Drag images above to insert into post.
           #content_preview.markdown-container-new{ style: 'display:none' }
+      = render 'layouts/errors', object: @hosting_request, key: :description
 
   .form-group
     .col-md-offset-2.col-md-10

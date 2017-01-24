@@ -74,9 +74,10 @@
         %li= link_to 'Popular', datasets_path(filtered_params.merge(order: 'datasets.rating desc')), style: params[:order] == 'datasets.rating desc' ? 'font-weight: bold' : nil
 
 - if @datasets.count.zero?
-  .lead.center{ style: 'margin-top: 40px' }
+  .lead.center{ style: 'margin-top: 40px;' }
     No datasets found matching search criteria.
-    = link_to 'Back to index.', datasets_path
+    = succeed '.' do
+      = link_to 'Back to index', datasets_path
 - else
   - @datasets.each do |dataset|
     .dataset-card{ id: "dataset-card-#{dataset.id}" }

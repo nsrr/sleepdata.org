@@ -18,7 +18,7 @@
         %li= render 'community_tools/rating', rating: @community_tool.rating
 
 - if @community_tool_reviews.count.zero?
-  .lead.center{ style: 'margin-top: 40px' }
+  .lead.center{ style: 'margin-top: 40px;' }
     No reviews for this tool.
     = succeed '.' do
       = link_to 'Write a review', new_community_tool_community_tool_review_path(@community_tool)

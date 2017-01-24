@@ -1,321 +1,331 @@
-- shhs_dataset_version = '0.8.0' # 'SHHS'
-- nsrr_gem_version = '0.2.0'
+- shhs_dataset_version = '0.11.0' # 'SHHS'
+- nsrr_gem_version = '0.4.0'
 - @title = 'Demo'
 
-- content_for :banner do
-  .banner
+- content_for :body_class do
+  brand-background
+
+- content_for :header do
+  .header-container
     .container
-      .banner-header.brand
+      %h1.page-heading
         NSRR Demo
-      .banner-body
-        Learn how to
-        %strong= link_to 'download data', '#download-data'
-        and
-        %strong= link_to 'run simple statistics', '#statistics'
-        and
-        = succeed '.' do
-          %strong= link_to 'open signal files', '#extract-edf-signal'
+  .breadcrumb-container{ style: 'margin-bottom: 0;' }
+    .container
+      Learn how to
+      %strong= link_to 'download data', '#download-data', data: { object: 'scroll-anchor-keep-link' }
+      and
+      %strong= link_to 'run simple statistics', '#statistics', data: { object: 'scroll-anchor-keep-link' }
+      and
+      = succeed '.' do
+        %strong= link_to 'open signal files', '#extract-edf-signal', data: { object: 'scroll-anchor-keep-link' }
 
-
-%a.anchor-top{ name: 'download-data' }
+%a.anchor-top{ name: 'download-data', id: 'download-data' }
 %h2
   Download Data
 
-%p
-  Downloading files is
-  %strong EASY
-  with the NSRR downloader tool
-  = link_to('<sup>[1]</sup>'.html_safe, "#1") + "."
+.dashboard-container.box-shadow
+  %p
+    Downloading files is
+    %strong EASY
+    with the NSRR downloader tool
+    = link_to('<sup>[1]</sup>'.html_safe, "#1") + "."
 
-.codeblocks-container.code-input
-  %code
-    gem install nsrr
+  .codeblocks-container.code-input
+    %code
+      gem install nsrr
 
-.codeblocks-container.code-output.p
-  = "Fetching: nsrr-#{nsrr_gem_version}.gem"
-  %br
-  = "Successfully installed nsrr-#{nsrr_gem_version}"
-  %br
-  1 gem installed
+  .codeblocks-container.code-output.p
+    = "Fetching: nsrr-#{nsrr_gem_version}.gem"
+    %br
+    = "Successfully installed nsrr-#{nsrr_gem_version}"
+    %br
+    1 gem installed
 
-.codeblocks-container.code-input
-  %code
-    nsrr download shhs/edfs
+  .codeblocks-container.code-input
+    %code
+      nsrr download shhs/edfs
 
-.codeblocks-container.code-output.p
-  Get Token:
-  %span.code-link https://sleepdata.org/token
-  %br
-  Enter Token:
-  %br
-  &nbsp;&nbsp;&nbsp;&nbsp;create shhs/edfs
-  %br
-  &nbsp;&nbsp;&nbsp;&nbsp;create shhs/edfs/shhs1
-  %br
-  %span.code-green
-    downloaded
-  shhs1-200001.edf
-  %br
-  %span.code-green
-    downloaded
-  shhs1-200002.edf
-  %br
-  %span.code-green
-    downloaded
-  shhs1-200003.edf
-  %br
-  %span.code-green
-    downloaded
-  shhs1-200004.edf
-  %br
-  %span.code-green
-    downloaded
-  shhs1-200005.edf
-  %br
-  \...
-  %br
-  Finished in 15.623997 seconds.
-  %br
-  2 folders created,
-  %span.code-green
-    5 files downloaded, 187 MiBs downloaded,
-  0 files skipped, 0 files failed
+  .codeblocks-container.code-output.p
+    Get Token:
+    %span.code-link https://sleepdata.org/token
+    %br
+    Enter Token:
+    %br
+    &nbsp;&nbsp;&nbsp;&nbsp;create shhs/edfs
+    %br
+    &nbsp;&nbsp;&nbsp;&nbsp;create shhs/edfs/shhs1
+    %br
+    %span.code-green
+      downloaded
+    shhs1-200001.edf
+    %br
+    %span.code-green
+      downloaded
+    shhs1-200002.edf
+    %br
+    %span.code-green
+      downloaded
+    shhs1-200003.edf
+    %br
+    %span.code-green
+      downloaded
+    shhs1-200004.edf
+    %br
+    %span.code-green
+      downloaded
+    shhs1-200005.edf
+    %br
+    \...
+    %br
+    Finished in 15.623997 seconds.
+    %br
+    2 folders created,
+    %span.code-green
+      5 files downloaded, 187 MiBs downloaded,
+    0 files skipped, 0 files failed
 
-%a.anchor-top{ name: 'statistics' }
-.row
-  .col-md-6.col-buffer
-    = image_tag 'nsrr-rdi3p-age-gender.png', class: 'img-responsive'
-  .col-md-6
-    %h2
-      Generate Statistics
-    %p
-      Datasets are stored in
-      %strong CSVs
-      described by Data Dictionaries
-      = link_to('<sup>[2]</sup>'.html_safe, "#2") + "."
+%a.anchor-top{ name: 'statistics', id: 'statistics' }
+%h2
+  Generate Statistics
+.dashboard-container.box-shadow
+  .row
+    .col-md-6.col-buffer
+      = image_tag 'nsrr-rdi3p-age-gender.png', class: 'img-responsive'
+    .col-md-6
 
-.codeblocks-container.code-input
-  %code
-    nsrr download shhs/datasets --shallow
+      %p
+        Datasets are stored in
+        %strong CSVs
+        described by Data Dictionaries
+        = link_to('<sup>[2]</sup>'.html_safe, "#2") + "."
 
-.codeblocks-container.code-output.p
-  Get Token:
-  %span.code-link https://sleepdata.org/token
-  %br
-  Enter Token:
-  %br
-  &nbsp;&nbsp;&nbsp;&nbsp;create shhs/datasets
-  %br
-  %span.code-green
-    downloaded
-  = "shhs-cvd-dataset-#{shhs_dataset_version}.csv"
-  %br
-  %span.code-green
-    downloaded
-  = "shhs-data-dictionary-#{shhs_dataset_version}-domains.csv"
-  %br
-  %span.code-green
-    downloaded
-  = "shhs-data-dictionary-#{shhs_dataset_version}-forms.csv"
-  %br
-  %span.code-green
-    downloaded
-  = "shhs-data-dictionary-#{shhs_dataset_version}-variables.csv"
-  %br
-  %span.code-green
-    downloaded
-  = "shhs-interim-followup-dataset-#{shhs_dataset_version}.csv"
-  %br
-  %span.code-green
-    downloaded
-  = "shhs1-dataset-#{shhs_dataset_version}.csv"
-  %br
-  %span.code-green
-    downloaded
-  = "shhs2-dataset-#{shhs_dataset_version}.csv"
-  %br
-  Finished in 3.507907 seconds.
-  %br
-  1 folder created,
-  %span.code-green
-    7 files downloaded, 35 MiBs downloaded,
-  0 files skipped, 0 files failed
+  .codeblocks-container.code-input
+    %code
+      nsrr download shhs/datasets --shallow
 
-.codeblocks-container.code-input
-  %code
-    open shhs/datasets/generate-statistics.rb
+  .codeblocks-container.code-output.p
+    Get Token:
+    %span.code-link https://sleepdata.org/token
+    %br
+    Enter Token:
+    %br
+    &nbsp;&nbsp;&nbsp;&nbsp;create shhs/datasets
+    %br
+    %span.code-green
+      downloaded
+    = "shhs-cvd-dataset-#{shhs_dataset_version}.csv"
+    %br
+    %span.code-green
+      downloaded
+    = "shhs-data-dictionary-#{shhs_dataset_version}-domains.csv"
+    %br
+    %span.code-green
+      downloaded
+    = "shhs-data-dictionary-#{shhs_dataset_version}-forms.csv"
+    %br
+    %span.code-green
+      downloaded
+    = "shhs-data-dictionary-#{shhs_dataset_version}-variables.csv"
+    %br
+    %span.code-green
+      downloaded
+    = "shhs-interim-followup-dataset-#{shhs_dataset_version}.csv"
+    %br
+    %span.code-green
+      downloaded
+    = "shhs1-dataset-#{shhs_dataset_version}.csv"
+    %br
+    %span.code-green
+      downloaded
+    = "shhs2-dataset-#{shhs_dataset_version}.csv"
+    %br
+    Finished in 3.507907 seconds.
+    %br
+    1 folder created,
+    %span.code-green
+      7 files downloaded, 35 MiBs downloaded,
+    0 files skipped, 0 files failed
 
-.codeblocks-container.code-input-file.p
-  %span.code-comment
-    \# generate-statistics.rb
-  %br
-  %span.code-keyword
-    require
-  %span.code-string
-    'csv'
-  %br
-  csv
-  %span.code-keyword =
-  = surround 'File.open(', ')' do
-    %span.code-string= "'shhs1-dataset-#{shhs_dataset_version}.csv'"
-  %br
-  mcount
-  %span.code-keyword =
-  fcount
-  %span.code-keyword =
-  %span.code-number 0
-  %br
-  CSV.parse(csv,
-  = succeed ')' do
-    %span.code-symbol headers: true
-  do
-  = surround '|', '|' do
-    %span.code-block-iterator row
-  %br
-  %span.code-keyword &nbsp;&nbsp;case
-  = surround 'row[', ']' do
-    %span.code-string 'gender'
-  %br
-  %span.code-keyword &nbsp;&nbsp;when
-  %span.code-string '1'
-  %br
-  &nbsp;&nbsp;&nbsp;&nbsp;mcount
-  %span.code-keyword +=
-  %span.code-number 1
-  %br
-  %span.code-keyword &nbsp;&nbsp;when
-  %span.code-string '2'
-  %br
-  &nbsp;&nbsp;&nbsp;&nbsp;fcount
-  %span.code-keyword +=
-  %span.code-number 1
-  %br
-  %span.code-keyword &nbsp;&nbsp;end
-  %br
-  %span.code-keyword end
-  %br
-  puts
-  %span.code-string "There are
-  %span.code-string-escaped \#{mcount}
-  %span.code-string male participants in SHHS 1."
-  %br
-  puts
-  %span.code-string "There are
-  %span.code-string-escaped \#{fcount}
-  %span.code-string female participants in SHHS 1."
+  .codeblocks-container.code-input
+    %code
+      open shhs/datasets/generate-statistics.rb
 
-.codeblocks-container.code-input
-  %code
-    ruby shhs/datasets/generate-statistics.rb
+  .codeblocks-container.code-input-file.p
+    %span.code-comment
+      \# generate-statistics.rb
+    %br
+    %span.code-keyword
+      require
+    %span.code-string
+      'csv'
+    %br
+    csv
+    %span.code-keyword =
+    = surround 'File.open(', ')' do
+      %span.code-string= "'shhs1-dataset-#{shhs_dataset_version}.csv'"
+    %br
+    mcount
+    %span.code-keyword =
+    fcount
+    %span.code-keyword =
+    %span.code-number 0
+    %br
+    CSV.parse(csv,
+    = succeed ')' do
+      %span.code-symbol headers: true
+    do
+    = surround '|', '|' do
+      %span.code-block-iterator row
+    %br
+    %span.code-keyword &nbsp;&nbsp;case
+    = surround 'row[', ']' do
+      %span.code-string 'gender'
+    %br
+    %span.code-keyword &nbsp;&nbsp;when
+    %span.code-string '1'
+    %br
+    &nbsp;&nbsp;&nbsp;&nbsp;mcount
+    %span.code-keyword +=
+    %span.code-number 1
+    %br
+    %span.code-keyword &nbsp;&nbsp;when
+    %span.code-string '2'
+    %br
+    &nbsp;&nbsp;&nbsp;&nbsp;fcount
+    %span.code-keyword +=
+    %span.code-number 1
+    %br
+    %span.code-keyword &nbsp;&nbsp;end
+    %br
+    %span.code-keyword end
+    %br
+    puts
+    %span.code-string "There are
+    %span.code-string-escaped \#{mcount}
+    %span.code-string male participants in SHHS 1."
+    %br
+    puts
+    %span.code-string "There are
+    %span.code-string-escaped \#{fcount}
+    %span.code-string female participants in SHHS 1."
 
-.codeblocks-container.code-output.p
-  There are 2765 male participants in SHHS 1.
-  %br
-  There are 3039 female participants in SHHS 1.
+  .codeblocks-container.code-input
+    %code
+      ruby shhs/datasets/generate-statistics.rb
 
-%p
-  Compare results to
-  = link_to 'https://sleepdata.org/datasets/shhs/variables/gender', 'https://sleepdata.org/datasets/shhs/variables/gender'
+  .codeblocks-container.code-output.p
+    There are 2765 male participants in SHHS 1.
+    %br
+    There are 3039 female participants in SHHS 1.
+
+  %p
+    Compare results to
+    = link_to 'https://sleepdata.org/datasets/shhs/variables/gender', 'https://sleepdata.org/datasets/shhs/variables/gender'
 
 
-%a.anchor-top{ name: 'extract-edf-signal' }
+%a.anchor-top{ name: 'extract-edf-signal', id: 'extract-edf-signal' }
 %h2
   Extract Signals from EDFs
   = link_to('<sup>[3]</sup>'.html_safe, "#3") + "."
 
-.codeblocks-container.code-input
-  %code
-    gem install edfize
+.dashboard-container.box-shadow
+  .codeblocks-container.code-input
+    %code
+      gem install edfize
 
-.codeblocks-container.code-input-file.p
-  %span.code-keyword
-    require
-  %span.code-string
-    'rubygems'
-  %br
-  %span.code-keyword
-    require
-  %span.code-string
-    'edfize'
-  %br
-  %span.code-comment # Loads the file and reads the EDF Header
-  %br
-  edf
-  %span.code-keyword =
-  = surround 'Edfize::Edf.new(', ')' do
-    %span.code-string 'shhs1-200001.edf'
-  %br
-  %span.code-comment # Loads the data section of the EDF into Signal objects
-  %br
-  edf.load_signals
-  %br
-  %span.code-comment # Print out information on the signals
-  %br
-  puts
-  %span.code-string "EDF
-  %span.code-string-escaped \#{edf.filename}
-  %span.code-string contains
-  %span.code-string-escaped \#{edf.signals.count}
-  %span.code-string signal
-  %span.code-string-escaped \#{'s' unless edf.signals.count == 1}
-  %span.code-string :
-  %span.code-string-escaped \n\n
-  %span.code-string "
-  %br
-  %br
-  edf.signals.each do |signal|
-  %br
-  &nbsp;&nbsp;puts
-  %span.code-string "Signal Label :
-  %span.code-string-escaped \#{signal.label}
-  %span.code-string "
-  %br
-  &nbsp;&nbsp;puts
-  %span.code-string "Samples Per Data Record  :
-  %span.code-string-escaped \#{signal.samples_per_data_record}
-  %span.code-string "
-  %br
-  &nbsp;&nbsp;puts
-  %span.code-string "First 10 Physical Values :
-  %span.code-string-escaped \#{(signal.physical_values[0..10] + ['...']).inspect}
-  %span.code-string-escaped \n\n
-  %span.code-string "
-  %br
-  end
-
-.codeblocks-container.code-output.p
-  EDF shhs1-200001.edf contains 14 signals:
-  %br
-  Signal Label             : SaO2
-  %br
-  Samples Per Data Record  : 1
-  %br
-  First 10 Physical Values : [95.31242847333486, 95.31242847333486, 95.31242847333486, 95.31242847333486, 95.31242847333486, 95.31242847333486, 95.31242847333486, 95.31242847333486, 94.14053559166858, 94.14053559166858, 94.14053559166858, "..."]
-
-%p
-  Full output of this code snippet can be found here:
-  = link_to 'https://github.com/sleepepi/edfize', 'https://github.com/sleepepi/edfize#example-of-how-to-load-and-analyze-edfs-in-a-ruby-script'
-
-%h2
-  References
-%ol
-  %li
-    %a.anchor-top{ name: '1' }
-    The NSRR downloader is built using
-    = link_to 'Ruby', 'https://ruby-lang.org'
-    and greatly simplifies downloading large amounts of files from the NSRR website.
+  .codeblocks-container.code-input-file.p
+    %span.code-keyword
+      require
+    %span.code-string
+      'rubygems'
     %br
-    Instructions on installing Ruby on Windows and on Linux/Mac can be found here:
-    = link_to 'https://github.com/nsrr/nsrr-gem', 'https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites'
-  %li
-    %a.anchor-top{ name: '2' }
-    The NSRR maintains its data dictionaries using the
-    = succeed '.' do
-      = link_to 'Spout Data Dictionary Management Tool', tool_path('spout')
-    Spout creates a framework that simplifies data dictionary management and creation, and allows researchers to identify documentation gaps between the dataset and the data dictionary.
-  %li
-    %a.anchor-top{ name: '3' }
-    = link_to 'Edfize', 'https://github.com/sleepepi/edfize'
-    is a Ruby gem that provides access to signals and epochs in EDF polysomnographs. Edfize is used by
-    = link_to 'Altamira Web EDF Viewer', ENV['altamira_url']
-    to render EDFs in your web browser.
+    %span.code-keyword
+      require
+    %span.code-string
+      'edfize'
+    %br
+    %span.code-comment # Loads the file and reads the EDF Header
+    %br
+    edf
+    %span.code-keyword =
+    = surround 'Edfize::Edf.new(', ')' do
+      %span.code-string 'shhs1-200001.edf'
+    %br
+    %span.code-comment # Loads the data section of the EDF into Signal objects
+    %br
+    edf.load_signals
+    %br
+    %span.code-comment # Print out information on the signals
+    %br
+    puts
+    %span.code-string "EDF
+    %span.code-string-escaped \#{edf.filename}
+    %span.code-string contains
+    %span.code-string-escaped \#{edf.signals.count}
+    %span.code-string signal
+    %span.code-string-escaped \#{'s' unless edf.signals.count == 1}
+    %span.code-string :
+    %span.code-string-escaped \n\n
+    %span.code-string "
+    %br
+    %br
+    edf.signals.each do |signal|
+    %br
+    &nbsp;&nbsp;puts
+    %span.code-string "Signal Label :
+    %span.code-string-escaped \#{signal.label}
+    %span.code-string "
+    %br
+    &nbsp;&nbsp;puts
+    %span.code-string "Samples Per Data Record  :
+    %span.code-string-escaped \#{signal.samples_per_data_record}
+    %span.code-string "
+    %br
+    &nbsp;&nbsp;puts
+    %span.code-string "First 10 Physical Values :
+    %span.code-string-escaped \#{(signal.physical_values[0..10] + ['...']).inspect}
+    %span.code-string-escaped \n\n
+    %span.code-string "
+    %br
+    end
+
+  .codeblocks-container.code-output.p
+    EDF shhs1-200001.edf contains 14 signals:
+    %br
+    Signal Label             : SaO2
+    %br
+    Samples Per Data Record  : 1
+    %br
+    First 10 Physical Values : [95.31242847333486, 95.31242847333486, 95.31242847333486, 95.31242847333486, 95.31242847333486, 95.31242847333486, 95.31242847333486, 95.31242847333486, 94.14053559166858, 94.14053559166858, 94.14053559166858, "..."]
+
+  %p
+    Full output of this code snippet can be found here:
+    = link_to 'https://github.com/sleepepi/edfize', 'https://github.com/sleepepi/edfize#example-of-how-to-load-and-analyze-edfs-in-a-ruby-script'
+
+- content_for :call_to_action do
+  .landing-sentence-gradient
+    .container
+      %h2
+        References
+      %ol
+        %li
+          %a.anchor-top{ name: '1' }
+          The NSRR downloader is built using
+          = link_to 'Ruby', 'https://ruby-lang.org'
+          and greatly simplifies downloading large amounts of files from the NSRR website.
+          %br
+          Instructions on installing Ruby on Windows and on Linux/Mac can be found here:
+          = link_to 'https://github.com/nsrr/nsrr-gem', 'https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites'
+        %li
+          %a.anchor-top{ name: '2' }
+          The NSRR maintains its data dictionaries using the
+          = succeed '.' do
+            = link_to 'Spout Data Dictionary Management Tool', tool_path('spout')
+          Spout creates a framework that simplifies data dictionary management and creation, and allows researchers to identify documentation gaps between the dataset and the data dictionary.
+        %li
+          %a.anchor-top{ name: '3' }
+          = link_to 'Edfize', 'https://github.com/sleepepi/edfize'
+          is a Ruby gem that provides access to signals and epochs in EDF polysomnographs. Edfize is used by
+          = link_to 'Altamira Web EDF Viewer', ENV['altamira_url']
+          to render EDFs in your web browser.

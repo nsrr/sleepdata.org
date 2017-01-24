@@ -1,31 +1,45 @@
 - @title = 'Categories'
 
-- content_for :banner do
-  .banner
+- content_for :body_class do
+  brand-background
+
+- content_for :header do
+  .header-container
     .container
-      .banner-header.brand
+      %h1.page-heading
+        .pull-right
+          = link_to plus_or('New Category'), new_category_path, class: 'btn btn-accent btn-shadow'
+          = render 'layouts/per_page', per_page: 40, object_count: @categories.total_count
         = @title
-      .banner-body
-        = link_to 'Create Category', new_category_path, class: 'btn btn-xs btn-primary'
+        = render 'search/toggle'
 
+= render 'search/simple', url: categories_path
 
-= render 'variables/per_page', per_page: 40, object_count: @categories.total_count
+- if @categories.count.zero?
+  .lead.center{ style: 'margin-top: 40px;' }
+    No categories found matching search criteria.
+    = succeed '.' do
+      = link_to 'Back to index', categories_path
+- else
+  .dashboard-container.box-shadow
+    %table.table.table-striped.table-borderless.table-hover
+      %col
+      %col
+      %col{ width: '1px' }
+      %thead
+        %tr
+          = th_sort_field @order, 'categories.name', 'Name'
+          = th_sort_field @order, 'categories.slug', 'Slug'
+          %th.center
+            %span.hidden-xs Actions
 
-%table.table.table-striped.table-fixed
-  %thead
-    %tr
-      = th_sort_field @order, 'categories.name', 'Name'
-      = th_sort_field @order, 'categories.slug', 'Slug'
-      %th Actions
+      %tbody
+        - @categories.each do |category|
+          %tr
+            %td= link_to category.name, category
+            %td
+              %code= category.slug
+            %td
+              = render 'layouts/edit_delete_dropdown', edit_url: edit_category_path(category), delete_url: category, delete_confirmation: "Delete #{category.name}?"
 
-  %tbody
-    - @categories.each do |category|
-      %tr
-        %td= link_to category.name, category
-        %td
-          %code= category.slug
-        %td.nowrap
-          = link_to 'Edit', edit_category_path(category), class: 'btn btn-xs btn-default'
-          = link_to 'Delete', category, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger-inverse'
-
-.center= paginate @categories, theme: 'bootstrap'
+  .center= paginate @categories, theme: 'bootstrap'

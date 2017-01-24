@@ -18,7 +18,7 @@
         %li= render 'datasets/rating', rating: @dataset.rating
 
 - if @dataset_reviews.count.zero?
-  .lead.center{ style: 'margin-top: 40px' }
+  .lead.center{ style: 'margin-top: 40px;' }
     No reviews for this dataset.
     = succeed '.' do
       = link_to 'Write a review', new_dataset_dataset_review_path(@dataset)

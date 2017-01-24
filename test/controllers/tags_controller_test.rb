@@ -23,7 +23,6 @@ class TagsControllerTest < ActionController::TestCase
     assert_difference('Tag.count') do
       post :create, params: { tag: { name: 'Blog', color: @tag.color, tag_type: 'topic' } }
     end
-
     assert_redirected_to tag_path(assigns(:tag))
   end
 

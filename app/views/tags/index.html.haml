@@ -1,17 +1,47 @@
 - @title = 'Tags'
 
-- content_for :banner do
-  .banner
+- content_for :body_class do
+  brand-background
+
+- content_for :header do
+  .header-container
     .container
-      .banner-header.brand
+      %h1.page-heading
+        .pull-right
+          = link_to plus_or('New Tag'), new_tag_path, class: 'btn btn-accent btn-shadow'
+          = render 'layouts/per_page', per_page: 40, object_count: @tags.total_count
         = @title
-      .banner-body
-        = link_to 'Create Tag', new_tag_path, class: 'btn btn-xs btn-primary'
+        = render 'search/toggle'
 
-= form_tag tags_path, method: :get, class: 'form-inline' do
-  = hidden_field_tag :order, params[:order]
-  = text_field_tag 'search', params[:search], class: 'form-control'
-  = submit_tag 'Search', class: 'btn btn-primary', name: nil
-  = link_to 'Reset', tags_path, class: 'btn btn-default'
+= render 'search/simple', url: tags_path
 
-= render 'tags/tags'
+- if @tags.count.zero?
+  .lead.center{ style: 'margin-top: 40px;' }
+    No tags found matching search criteria.
+    = succeed '.' do
+      = link_to 'Back to index', tags_path
+- else
+  .dashboard-container.box-shadow
+    %table.table.table-striped.table-borderless.table-hover
+      %col
+      %col
+      %col.hidden-xs
+      %col{ width: '1px' }
+      %thead
+        %tr
+          = th_sort_field @order, 'tags.name', 'Name'
+          = th_sort_field @order, 'tags.color', 'Color'
+          = th_sort_field @order, 'tags.tag_type', 'Type', extra_class: 'hidden-xs'
+          %th.center
+            %span.hidden-xs Actions
+      %tbody
+        - @tags.each do |tag|
+          %tr
+            %td= link_to tag.name, tag
+            %td
+              %span.label{ style: "background-color: #{tag.color};" }= tag.color
+            %td.hidden-xs= tag.type_name
+            %td
+              = render 'layouts/edit_delete_dropdown', edit_url: edit_tag_path(tag), delete_url: tag, delete_confirmation: "Delete #{tag.name}?"
+
+  .center= paginate @tags, theme: 'bootstrap'

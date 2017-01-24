@@ -8,7 +8,8 @@ class CategoriesController < ApplicationController
 
   # GET /categories
   def index
-    @categories = Category.current.order(:name).page(params[:page]).per(40)
+    @order = scrub_order(Category, params[:order], 'categories.name')
+    @categories = Category.current.search(params[:search]).order(@order).page(params[:page]).per(40)
   end
 
   # GET /categories/1

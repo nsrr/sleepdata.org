@@ -1,13 +1,19 @@
 - @title = "Edit Tag: #{@tag.name_was}"
 
-- content_for :banner do
-  .banner
-    .container
-      .banner-header.brand
-        = link_to 'Tags', tags_path
-        &middot;
-        = link_to @tag.name_was, @tag
-        &middot;
-        Edit
+- content_for :body_class do
+  brand-background
 
-= render 'form'
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        = @tag.name_was
+  .breadcrumb-container{ style: 'margin-bottom: 0;' }
+    .container
+      %ol
+        %li= link_to 'Tags', tags_path
+        %li= link_to @tag.name_was, @tag
+        %li Edit
+
+.dashboard-container.box-shadow
+  = render 'form'

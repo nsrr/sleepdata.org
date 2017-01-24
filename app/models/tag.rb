@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Allows forum posts and agreements to be tagged
+# Allows forum posts and agreements to be tagged.
 class Tag < ApplicationRecord
   TYPE = [%w(Forum topic), %w(Review agreement)]
 
@@ -26,7 +26,6 @@ class Tag < ApplicationRecord
   has_many :agreement_events, -> { where deleted: false }
 
   # Model Methods
-
   def self.searchable_attributes
     %w(name)
   end
