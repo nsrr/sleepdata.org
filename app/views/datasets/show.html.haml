@@ -2,8 +2,8 @@
 = render 'datasets/header'
 
 - if @dataset.info_count > 0
-  = content_for :banner do
-    .dataset-info
+  - content_for :header do
+    .header-container{ style: 'padding: 0;' }
       .container
         .row
           .col-md-9

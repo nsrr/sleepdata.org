@@ -38,5 +38,6 @@
             %td= render 'datasets/rating', rating: dataset_review.rating
             %td
               %i= link_to dataset_review.user.forum_name, dataset_dataset_review_path(@dataset, dataset_review)
+              %small.text-muted= dataset_review.created_at.strftime('- %b %-d, %Y')
               = simple_markdown dataset_review.review
   .center= paginate @dataset_reviews, theme: 'bootstrap'

@@ -1,4 +1,4 @@
-- if @object.class == Dataset
+- if @object.is_a?(Dataset)
   - pages_path = pages_dataset_path(@object)
 - else
   - pages_path = pages_tool_path(@object)
@@ -29,14 +29,17 @@
           %span.glyphicon{ class: "glyphicon-#{is_file ? 'file' : 'folder-close'}" }
           = page_name
 
-  - if @object.class == Dataset
-    - logo_path = logo_dataset_path(@object)
-    - edit_path = edit_dataset_path(@object)
-  - else
-    - logo_path = logo_tool_path(@object)
-    - edit_path = edit_tool_path(@object)
-
   = render 'documentation/logo_and_admin'
+
+  - if @object.is_a?(Dataset)
+    .small-spacer
+    %div{ style: 'padding: 0 20px;' }
+      %strong Rating
+      = render 'datasets/rating', rating: @dataset.rating
+      %br
+      = link_to pluralize(number_with_delimiter(@dataset.dataset_reviews.count), 'Review'), dataset_dataset_reviews_path(@dataset)
+      %br
+      = link_to 'Write a review', new_dataset_dataset_review_path(@dataset)
 
   - if current_user && @object.editable_by?(current_user)
     - if @object.is_a? Dataset
