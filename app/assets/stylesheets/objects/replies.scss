@@ -89,11 +89,12 @@
   word-wrap: break-word;
 
   img {
-    cursor: pointer;
+    cursor: zoom-in;
     max-height: 100px;
     max-width: 100%;
 
     &.large-view {
+      cursor: zoom-out;
       max-height: none;
     }
   }
