@@ -101,7 +101,7 @@
 
   .center= paginate @community_tools, theme: 'bootstrap'
 
-- if params[:search].blank?
+- if params[:search].blank? && @community_tools.count > 10
   - content_for :call_to_action do
     .call-to-action
       .call-to-action-body
