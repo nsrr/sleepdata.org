@@ -48,6 +48,15 @@
   p {
     line-height: 25.6px;
   }
+
+  blockquote {
+    border: 0;
+    border-left: 2px solid $brand-gray-lighter;
+    color: $blockquote-gray;
+    font-size: $font-size-base;
+    margin: 0 0 11px;
+    padding: 0 10px;
+  }
 }
 
 .markdown-container,

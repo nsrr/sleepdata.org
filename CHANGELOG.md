@@ -24,6 +24,7 @@
   - Updated the user interface across the site
   - Updated the about page
   - Added an invisible reCAPTCHA to sign up page
+  - Improved the display of blockquotes
 - **Gem Changes**
   - Updated to Ruby 2.4.0
   - Updated to rails 5.0.1
