@@ -82,9 +82,10 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
         id: datasets(:mixed),
         path: 'NOT_PUBLIC_YET.txt',
         public: '1'
-      }
+      }, format: 'js'
     end
-    assert_redirected_to files_dataset_path(assigns(:dataset), path: '')
+    assert_template 'set_public_file'
+    assert_response :success
   end
 
   test 'should set file as private as editor' do
@@ -94,9 +95,10 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
         id: datasets(:mixed),
         path: dataset_files(:mixed_public_file_txt).full_path,
         public: '0'
-      }
+      }, format: 'js'
     end
-    assert_redirected_to files_dataset_path(assigns(:dataset), path: '')
+    assert_template 'set_public_file'
+    assert_response :success
   end
 
   test 'should set file in subfolder as public as editor' do
@@ -106,9 +108,10 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
         id: datasets(:mixed),
         path: 'subfolder/IN_SUBFOLDER_NOT_PUBLIC_YET.txt',
         public: '1'
-      }
+      }, format: 'js'
     end
-    assert_redirected_to files_dataset_path(assigns(:dataset), path: 'subfolder')
+    assert_template 'set_public_file'
+    assert_response :success
   end
 
   test 'should set file in subfolder as private as editor' do
@@ -118,9 +121,10 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
         id: datasets(:mixed),
         path: 'subfolder/IN_SUBFOLDER_PUBLIC_FILE.txt',
         public: '0'
-      }
+      }, format: 'js'
     end
-    assert_redirected_to files_dataset_path(assigns(:dataset), path: 'subfolder')
+    assert_template 'set_public_file'
+    assert_response :success
   end
 
   test 'should not set file as public as viewer' do
@@ -130,9 +134,10 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
         id: datasets(:mixed),
         path: 'NOT_PUBLIC_YET.txt',
         public: '1'
-      }
+      }, format: 'js'
     end
-    assert_redirected_to datasets_path
+    assert_template nil
+    assert_response :success
   end
 
   test 'should not set file as public as anonymous' do
@@ -141,9 +146,10 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
         id: datasets(:mixed),
         path: 'NOT_PUBLIC_YET.txt',
         public: '1'
-      }
+      }, format: 'js'
     end
-    assert_redirected_to new_user_session_path
+    assert_template nil
+    assert_response :unauthorized
   end
 
   test 'should get sync' do

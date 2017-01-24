@@ -60,14 +60,10 @@ class Editor::DatasetsController < ApplicationController
     redirect_to files_dataset_path(@dataset, path: @dataset.find_file_folder(params[:path]))
   end
 
-  # POST /datasets/1/set_public_file
-  # TODO: Make this AJAX
+  # POST /datasets/1/set_public_file.js
   def set_public_file
     @dataset_file = @dataset.dataset_files.find_by(full_path: params[:path], is_file: true)
-    if @dataset_file
-      @dataset_file.update publicly_available: (params[:public].to_s == '1')
-    end
-    redirect_to files_dataset_path(@dataset, path: @dataset.find_file_folder(params[:path]))
+    @dataset_file.update publicly_available: (params[:public].to_s == '1') if @dataset_file
   end
 
   # Handled by Pageable

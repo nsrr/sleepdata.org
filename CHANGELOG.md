@@ -20,6 +20,7 @@
 - **Dataset Changes**
   - Improved layout of the datasets index
   - Datasets can now be reviewed and rated
+  - Dataset files can be toggled between private and public more easily
 - **General Changes**
   - Improved friendly forwarding when navigating between internal and external
     pages while signing in and signing out

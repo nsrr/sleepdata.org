@@ -1,0 +1,5 @@
+<% if @dataset_file %>
+  $("#dataset-file-<%= @dataset_file.id %>-container").html("<%=j render 'dataset_files/dataset_file', dataset_file: @dataset_file %>");
+<% end %>
+
+tooltipsReady();

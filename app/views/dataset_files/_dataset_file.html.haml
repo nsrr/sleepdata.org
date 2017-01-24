@@ -1,0 +1,23 @@
+- is_public = dataset_file.publicly_available?
+- url = files_dataset_path(@dataset) + "#{'/m/browser' if dataset_file.is_file?}" + '/' + dataset_file.full_path
+%td
+  %span.glyphicon{ class: "glyphicon-#{dataset_file.is_file? ? 'file' : 'folder-close'}" }
+%td
+  = link_to_if (!dataset_file.is_file? || dataset_file.downloadable_by_user?(current_user)), dataset_file.file_name, url, data: { object: "#{'autodownload' if dataset_file.is_file? && dataset_file.file_name == params[:f]}" }
+  - if ENV['altamira_url'].present? && /\.edf$/i =~ dataset_file.file_name && dataset_file.is_file? && dataset_file.downloadable_by_user?(current_user)
+    = link_to "#{ENV['altamira_url']}?slug=#{@dataset.slug}&path=#{dataset_file.full_path}&auto=.", class: 'btn btn-xs btn-default hidden-xs hidden-sm' do
+      %span.glyphicon.glyphicon-eye-open
+      Preview Online
+%td.hidden-xs.hidden-sm= dataset_file.file_time.strftime('%Y-%m-%d %H:%M:%S') if dataset_file.is_file? && dataset_file.file_time
+%td.hidden-xs.text-right.nowrap
+  = number_to_human_size(dataset_file.file_size) if dataset_file.is_file?
+  - if dataset_file.is_file?
+    - if dataset_file.publicly_available?
+      %span.glyphicon.glyphicon-globe
+    - if current_user && @dataset.editors.pluck(:id).include?(current_user.id)
+      - if dataset_file.publicly_available?
+        = link_to set_public_file_dataset_path(@dataset, public: '0', path: dataset_file.full_path), method: :post, remote: true do
+          %span.glyphicon.glyphicon-eye-close{ rel: 'tooltip', data: { container: 'body', placement: 'top', title: 'Make File Private' } }
+      - else
+        = link_to set_public_file_dataset_path(@dataset, public: '1', path: dataset_file.full_path), method: :post, remote: true do
+          %span.glyphicon.glyphicon-globe{ rel: 'tooltip', data: { container: 'body', placement: 'top', title: 'Make File Public' } }
