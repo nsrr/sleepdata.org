@@ -7,31 +7,31 @@
   .header-container
     .container
       %h1.page-heading
+        .pull-right
+          = link_to transactions_review_path(@agreement), class: 'btn btn-default btn-xs' do
+            %span.glyphicon.glyphicon-th-list
+            Transactions
+          - if current_user.all_agreements.where(id: @agreement.id).count > 0
+            &nbsp;
+            = link_to print_agreement_path(@agreement), class: 'btn btn-default btn-xs', data: { turbolinks: false } do
+              %span.glyphicon.glyphicon-print
+              Print
+
         = @title
   .breadcrumb-container{ style: 'margin-bottom: 0;' }
     .container
       .pull-right.hidden-xs
         = render 'reviews/tags', agreement: @agreement
-      = link_to reviews_path, class: 'btn btn-default btn-xs' do
-        %span.glyphicon.glyphicon-arrow-left
-        Back to Reviews
-      &nbsp;
-      = link_to transactions_review_path(@agreement), class: 'btn btn-default btn-xs' do
-        %span.glyphicon.glyphicon-th-list
-        Transactions
-      - if current_user.all_agreements.where(id: @agreement.id).count > 0
-        &nbsp;
-        = link_to print_agreement_path(@agreement), class: 'btn btn-default btn-xs', data: { turbolinks: false } do
-          %span.glyphicon.glyphicon-print
-          Print
+      %ol
+        %li
+          = link_to 'Reviews', reviews_path
 
 .dashboard-container.box-shadow
   .pull-right
-    = render 'reviews/reviewers', agreement: @agreement
-
+    #agreement-reviewers= render 'reviews/reviewers', agreement: @agreement
+  %div{ style: 'clear: both;' } &nbsp;
   - other_agreements = @agreement.user.agreements.where.not(id: @agreement.id).where(status: %w(submitted resubmit approved expired))
   - if other_agreements.count > 0
-    %div{ style: 'clear: both;' }
     .comment_outer
       .comment-right-fluid
         %div{ style: 'padding: 20px;' }
