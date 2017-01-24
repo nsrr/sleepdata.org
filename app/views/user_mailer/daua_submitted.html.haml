@@ -13,8 +13,5 @@
       submitted
   a Data Access and Use Agreement.
 
-%p{ style: p_style }
-  You can review the Data Access and Use Agreement here:
-
 %p{ style: center_style }
-  = link_to "#{ENV['website_url']}/reviews/#{@agreement.id}", "#{ENV['website_url']}/reviews/#{@agreement.id}", style: link_style
+  = link_to 'Review DAUA', "#{ENV['website_url']}/reviews/#{@agreement.id}", style: link_style
