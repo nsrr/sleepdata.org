@@ -1,5 +1,14 @@
-.topic-read td {
-  background-color: $comment-read-even;
+.topic-read {
+  color: $p700;
+  font-style: italic;
+
+  &:hover,
+  &:focus,
+  &.focus,
+  &:active,
+  &.active {
+    color: darken($p700, 15%);
+  }
 }
 
 .reply-inner-container {

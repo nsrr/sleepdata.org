@@ -3,7 +3,7 @@
   .reply-container{ class: (level.even? ? 'reply-even' : 'reply-odd' ) }
     - if include_parent_title
       %div{ style: 'margin-bottom: 10px' }
-        %small.f300
+        %small
           Reply to
           = link_to reply.parent.title, reply
     .reply-inner-container
