@@ -1,0 +1,28 @@
+.token-container {
+  font-size: 20px;
+  font-weight: 300;
+  margin-bottom: 20px;
+  text-align: center;
+  margin-top: 40px;
+}
+
+@media screen and (min-width: $screen-md-min) {
+  .token-container {
+    font-size: 24px;
+  }
+}
+
+.code-token {
+  background-color: $p700;
+  border-radius: 4px 0 0 4px;
+  color: $brand-white;
+}
+
+.code-copy {
+  background-color: $p100;
+  border-radius: 0 4px 4px 0;
+
+  a {
+    text-decoration: none;
+  }
+}

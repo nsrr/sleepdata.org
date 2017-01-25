@@ -3,14 +3,15 @@
 - content_for :body_class do
   brand-background
 
-- content_for :banner do
-  .call-to-action
-    .call-to-action-header.brand
-      My
-      = @title
-    .call-to-action-body
-      %code.code-dark{ style: 'border-radius: 4px 0 0 4px;' }>
-        = current_user.id_and_auth_token
-      %code{ style: 'border-radius: 0 4px 4px 0;' }
-        = link_to '#', data: { object: 'suppress-click', clipboard_text: current_user.id_and_auth_token, placement: 'bottom', container: 'body', title: 'Copied!', trigger: 'manual' }, style: 'text-decoration: none' do
-          %span.glyphicon.glyphicon-copy
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        My Token
+
+.token-container
+  %code.code-token>
+    = current_user.id_and_auth_token
+  %code.code-copy
+    = link_to '#', data: { object: 'suppress-click', clipboard_text: current_user.id_and_auth_token, placement: 'bottom', container: 'body', title: 'Copied!', trigger: 'manual' } do
+      %span.glyphicon.glyphicon-copy
