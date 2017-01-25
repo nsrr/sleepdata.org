@@ -4,23 +4,6 @@ require 'test_helper'
 
 # Tests for admin controller
 class AdminControllerTest < ActionController::TestCase
-  test 'should get dashboard for admin' do
-    login(users(:admin))
-    get :dashboard
-    assert_response :success
-  end
-
-  test 'should not get dashboard for regular user' do
-    login(users(:valid))
-    get :dashboard
-    assert_redirected_to root_path
-  end
-
-  test 'should not get dashboard for public user' do
-    get :dashboard
-    assert_redirected_to new_user_session_path
-  end
-
   test 'should get roles for admin' do
     login(users(:admin))
     get :roles

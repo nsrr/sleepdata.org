@@ -16,5 +16,44 @@
         20
 
 .dashboard-container
-  %span.glyphicon.glyphicon-cog
-  = link_to 'Settings', settings_path
+  .dashboard-title
+    %strong My Dashboard
+  %ul.list-unstyled
+    %li= link_to 'Overview', dashboard_path
+    %li= link_to 'Data Access Requests', submissions_path
+    %li= link_to 'Settings', settings_path
+    %li= link_to 'Token', token_path
+    - if current_user.community_manager?
+      %li= link_to 'Blog Posts', broadcasts_path
+
+  - if current_user.system_admin?
+    %hr
+
+    .dashboard-title
+      %strong Administrative
+
+    %ul.list-unstyled
+      %li= link_to 'Agreements', reviews_path
+      %li= link_to 'Hosting Requests', hosting_requests_path
+      %li= link_to 'Replies', admin_replies_path
+      %li= link_to 'Users', users_path
+
+    %hr
+
+    .dashboard-title
+      %strong Reports
+
+    %ul.list-unstyled
+      %li= link_to 'Usage Statistics', admin_stats_path
+      %li= link_to 'Downloads By Month', admin_downloads_by_month_path(user_type: 'regular')
+      %li= link_to 'Agreement Reports', admin_agreement_reports_path
+
+    %hr
+
+    .dashboard-title
+      %strong Configuration
+
+    %ul.list-unstyled
+      %li= link_to 'Dataset Roles', admin_roles_path
+      %li= link_to 'Documentation Sync', admin_sync_path
+      %li= link_to 'Tags', tags_path

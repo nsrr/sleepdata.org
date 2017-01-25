@@ -5,30 +5,17 @@
   .col-md-3
     = render 'internal/profile'
 
-    = render 'internal/sidebar/admin'
-
-    = render 'internal/sidebar/datasets'
+    =# render 'internal/sidebar/datasets'
 
 
   .col-md-6
-    .dashboard-container
-      .dashboard-title
-        %strong Personal Dashboard
-      %p
-        Welcome to your personal dashboard! From here you can view and manage
-        your dataset requests and download files, and contribute new tools for
-        research.
-      %p
-        If you need any help, you may send us an email at
-        = succeed '.' do
-          = mail_to 'support@sleepdata.org'
-        Thanks for being part of our growing community!
+    - if current_user.agreements.present?
+      .dashboard-container
+        .dashboard-title
+          %strong My Submissions
+          %small= link_to 'view all', submissions_path
 
-    .dashboard-container
-      .dashboard-title
-        %strong DAUAs
-      - if current_user.agreements.present?
-        %table.table
+        %table.table.table-striped.table-borderless.table-hover
           %col{ width: '1px' }
           %col
           %col
@@ -60,16 +47,24 @@
               %td
                 - agreement.datasets.order(:release_date).each do |dataset|
                   %code= dataset.slug
-      - else
-        %p Do you have a tool you would like to share with the NSRR research community?
-
-      = link_to 'Manage My DAUAs', submissions_path, class: 'btn btn-xs btn-call-to-action btn-block btn-shadow'
+    - else
+      .dashboard-container
+        .dashboard-title
+          %strong Data Access Requests
+        %p
+          Access data by requesting access to one or more
+          = succeed '.' do
+            = link_to 'datasets', datasets_path
+        %p
+          If you need any help, you may send us an email at
+          = succeed '.' do
+            = mail_to 'support@sleepdata.org'
 
     .dashboard-container
       .dashboard-title
         %strong Tool Contributions
       - if current_user.community_tools.present?
-        %table.table.table-fixed
+        %table.table.table-striped.table-borderless.table-hover
           %thead
             %tr
               %th
@@ -86,17 +81,20 @@
                   = link_to community_tool.name, community_show_tool_path(community_tool)
               %td
                 - if community_tool.draft?
-                  = link_to 'Continue Draft', contribute_tool_description_path(community_tool), class: "btn btn-xs btn-call-to-info btn-block"
+                  = link_to 'Continue Draft', contribute_tool_description_path(community_tool), class: 'btn btn-xs btn-accent btn-block'
                 - else
-                  .row
-                    .col-xs-6{ style: 'padding-right: 1px;' }
-                      = link_to 'View', community_show_tool_path(community_tool), class: "btn btn-xs btn-call-to-action btn-block"
-                    .col-xs-6{ style: 'padding-left: 1px;' }
-                      = link_to 'Edit', contribute_tool_description_path(community_tool), class: "btn btn-xs btn-call-to-action btn-block"
+                  = link_to 'Edit', contribute_tool_description_path(community_tool), class: 'btn btn-xs btn-default btn-block'
       - else
         %p Do you have a tool you would like to share with the NSRR research community?
 
-      = link_to 'Contribute a Tool', contribute_tool_start_path, class: 'btn btn-xs btn-call-to-action btn-block btn-shadow'
+      = link_to 'Contribute a Tool', contribute_tool_start_path, class: 'btn btn-xs btn-accent btn-block btn-shadow'
+
+
+    .dashboard-container
+      .center
+        Email us at
+        = mail_to 'support@sleepdata.org'
+        with any questions!
 
 
     - if false

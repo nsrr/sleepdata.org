@@ -16,8 +16,9 @@ Rails.application.routes.draw do
 
   get 'account(/:auth_token)/profile' => 'account#profile'
 
+  get 'admin', to: redirect('dashboard')
+
   namespace :admin do
-    get :dashboard
     get :roles
     get :stats
     get :sync

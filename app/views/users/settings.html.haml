@@ -1,103 +1,81 @@
 - @title = 'My Settings'
-- content_for :banner do
-  .banner
-    .container
-      .banner-header.brand
-        = @title
+
+- content_for :body_class do
+  brand-background
 
 .row
+  .col-md-3
+    = render 'internal/profile'
   .col-md-6
-    .panel.panel-info
-      .panel-heading
-        %span.glyphicon.glyphicon-cog
-        My Settings
-      .panel-body
-        = form_for current_user, url: update_settings_path, html: { class: 'form-horizontal' } do |f|
-          - if current_user.errors.any?
-            .callout.callout-danger
-              %strong
-                = pluralize current_user.errors.count, 'error'
-                prohibited settings from being saved
+    .dashboard-container
+      .dashboard-title
+        %strong My Settings
 
-              %ul
-                - current_user.errors.full_messages.each do |message|
-                  %li= message
+      = form_for current_user, url: update_settings_path, html: { class: 'form-horizontal' } do |f|
+        - if current_user.errors.any?
+          .callout.callout-danger
+            %strong
+              = pluralize current_user.errors.count, 'error'
+              prohibited settings from being saved
 
-          .form-group
-            = f.label :first_name, nil, class: 'col-md-3 control-label'
-            .col-md-9
-              = f.text_field :first_name, class: 'form-control'
+            %ul
+              - current_user.errors.full_messages.each do |message|
+                %li= message
 
-          .form-group
-            = f.label :last_name, nil, class: 'col-md-3 control-label'
-            .col-md-9
-              = f.text_field :last_name, class: 'form-control'
+        .form-group
+          = f.label :first_name, nil, class: 'col-md-3 control-label'
+          .col-md-9
+            = f.text_field :first_name, class: 'form-control'
 
-          .form-group
-            = f.label :email, nil, class: 'col-md-3 control-label'
-            .col-md-9
-              = f.text_field :email, class: 'form-control'
+        .form-group
+          = f.label :last_name, nil, class: 'col-md-3 control-label'
+          .col-md-9
+            = f.text_field :last_name, class: 'form-control'
 
-          .form-group
-            .col-md-offset-3.col-md-9
-              = submit_tag 'Save Changes', class: 'btn btn-primary'
-    .panel.panel-info
-      .panel-heading
-        %span.glyphicon.glyphicon-cog
-        My Dataset Requests
-      .panel-body
-        %table.table.table-condensed.table-striped
-          %thead
-            %tr
-              %th.hidden-xs{ colspan: '2' } Dataset
-              %th.visible-xs Dataset
-              %th Status
-          %tbody
-            - current_user.all_viewable_datasets.order(:release_date, :name).each do |d|
-              %tr
-                %td
-                  = render 'datasets/mini', dataset: d
-                %td.hidden-xs
-                  = link_to d.name, d
-                %td
-                  = render 'datasets/request', dataset: d, expanded: false
+        .form-group
+          = f.label :email, nil, class: 'col-md-3 control-label'
+          .col-md-9
+            = f.text_field :email, class: 'form-control'
 
-  .col-md-6
-    .panel.panel-info
-      .panel-heading
-        %span.glyphicon.glyphicon-user
-        My Forum Settings
-      .panel-body
-        = form_for current_user, url: update_settings_path, html: { class: 'form-horizontal' } do |f|
-          .form-group
-            = label 'gravatar', 'Forum Avatar', class: 'col-md-3 control-label'
-            .col-md-9
-              = image_tag current_user.avatar_url(80, 'identicon'), class: 'img-rounded'
+        .form-group
+          .col-md-offset-3.col-md-9
+            = submit_tag 'Save Changes', class: 'btn btn-primary'
+
+    .dashboard-container
+      .dashboard-title
+        %strong My Forum Settings
+      = form_for current_user, url: update_settings_path, html: { class: 'form-horizontal' } do |f|
+        .form-group
+          = label 'gravatar', 'Forum Avatar', class: 'col-md-3 control-label'
+          .col-md-9
+            = image_tag current_user.avatar_url(80, 'identicon'), class: 'img-rounded'
+            .callout.callout-info
+              %strong Note:
+              You can change your avatar at
+              = link_to 'gravatar.com', 'http://gravatar.com', target: '_blank'
+
+
+        .form-group
+          = f.label :username, 'Forum Username', class: 'col-md-3 control-label'
+          .col-md-9
+            = f.text_field :username, class: 'form-control', placeholder: current_user.name
+
+        .form-group
+          %label.col-md-3.control-label Receive Forum Emails
+          .col-md-9
+            .checkbox
+              %label
+                = f.check_box :emails_enabled
+                Allow the NSRR to send you emails when a topic receives a reply to which you are subscribed, and when someone mentions you on the forum. Unchecking this box will disable forum emails.
               .callout.callout-info
                 %strong Note:
-                You can change your avatar at
-                = link_to 'gravatar.com', 'http://gravatar.com', target: '_blank'
+                You will still receive emails for:
+                %ul
+                  %li Progress updates for Data Access and Use Agreements
+                  %li Password reset emails
 
-
-          .form-group
-            = f.label :username, 'Forum Username', class: 'col-md-3 control-label'
-            .col-md-9
-              = f.text_field :username, class: 'form-control', placeholder: current_user.name
-
-          .form-group
-            %label.col-md-3.control-label Receive Forum Emails
-            .col-md-9
-              .checkbox
-                %label
-                  = f.check_box :emails_enabled
-                  Allow the NSRR to send you emails when a topic receives a reply to which you are subscribed, and when someone mentions you on the forum. Unchecking this box will disable forum emails.
-                .callout.callout-info
-                  %strong Note:
-                  You will still receive emails for:
-                  %ul
-                    %li Progress updates for Data Access and Use Agreements
-                    %li Password reset emails
-
-          .form-group
-            .col-md-offset-3.col-md-9
-              = submit_tag 'Save Changes', class: 'btn btn-primary'
+        .form-group
+          .col-md-offset-3.col-md-9
+            = submit_tag 'Save Changes', class: 'btn btn-primary'
+  .col-md-3
+    = render 'internal/sidebar/blog_posts'

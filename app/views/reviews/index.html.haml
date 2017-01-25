@@ -12,11 +12,6 @@
           = render 'layouts/per_page', per_page: 40, object_count: @agreements.total_count
         = @title
 
-  .breadcrumb-container{ style: 'margin-bottom: 0;' }
-    .container
-      %ol
-        %li= link_to 'Admin Dashboard', admin_dashboard_path
-
 = render 'search/simple', url: reviews_path
 
 .dashboard-container.box-shadow

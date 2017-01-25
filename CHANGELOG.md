@@ -12,6 +12,7 @@
   - Added Rich Text Editor buttons
 - **Dashboard Changes**
   - Added a quick view of Data Access and Use Agreement submissions
+  - Updated layout of dashboard
 - **Community Tool Changes**
   - Tools can now be marked as scripts or tutorials
   - Tools can now be reviewed and rated
