@@ -68,6 +68,14 @@ class User < ApplicationRecord
 
   # User Methods
 
+  def reviewed_tool?(tool)
+    tool.community_tool_reviews.find_by(user_id: id).present?
+  end
+
+  def reviewed_dataset?(dataset)
+    dataset.dataset_reviews.find_by(user_id: id).present?
+  end
+
   def read_parent!(parent, current_reply_read_id)
     # TODO: Allow blog posts to be read as well...
     return unless parent.is_a?(Topic)

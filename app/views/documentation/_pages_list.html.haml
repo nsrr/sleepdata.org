@@ -39,7 +39,11 @@
       %br
       = link_to pluralize(number_with_delimiter(@dataset.dataset_reviews.count), 'Review'), dataset_dataset_reviews_path(@dataset)
       %br
-      = link_to 'Write a review', new_dataset_dataset_review_path(@dataset)
+      - if current_user && current_user.reviewed_dataset?(@dataset)
+        - link_text = 'Update my review'
+      - else
+        - link_text = 'Write a review'
+      = link_to link_text, new_dataset_dataset_review_path(@dataset)
 
   - if current_user && @object.editable_by?(current_user)
     - if @object.is_a? Dataset

@@ -8,7 +8,11 @@
     .container
       %h1.page-heading
         .pull-right
-          = link_to pencil_or('Write a review'), new_community_tool_community_tool_review_path(@community_tool), class: 'btn btn-accent btn-shadow'
+          - if current_user && current_user.reviewed_tool?(@community_tool)
+            - link_text = 'Update my review'
+          - else
+            - link_text = 'Write a review'
+          = link_to pencil_or(link_text), new_community_tool_community_tool_review_path(@community_tool), class: 'btn btn-accent btn-shadow'
           = render 'layouts/per_page', per_page: 40, object_count: @community_tool_reviews.total_count
         Reviews
   .breadcrumb-container{ style: 'margin-bottom: 0;' }

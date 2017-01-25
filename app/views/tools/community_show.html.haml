@@ -41,7 +41,11 @@
       = link_to community_tool_community_tool_reviews_path(@community_tool) do
         = pluralize(number_with_delimiter(@community_tool.community_tool_reviews.count), 'Review')
       %br
-      = link_to 'Write a review', new_community_tool_community_tool_review_path(@community_tool)
+      - if current_user && current_user.reviewed_tool?(@community_tool)
+        - link_text = 'Update my review'
+      - else
+        - link_text = 'Write a review'
+      = link_to link_text, new_community_tool_community_tool_review_path(@community_tool)
 
     %p
       %strong Source
