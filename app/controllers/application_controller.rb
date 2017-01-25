@@ -43,9 +43,10 @@ class ApplicationController < ActionController::Base
       broadcasts: [],
       categories: [],
       challenges: [:signal, :new, :edit],
-      community_tool_reviews: [],
+      community_tool_reviews: [:new, :edit, :create, :update, :destroy],
       community_tools: [],
       datasets: [:index, :show, :new, :edit],
+      dataset_reviews: [:new, :edit, :create, :update, :destroy],
       hosting_requests: [],
       images: [:index, :show, :new, :edit],
       internal: [],
@@ -62,7 +63,7 @@ class ApplicationController < ActionController::Base
   def internal_action?(controller, action)
     internal_controllers[controller.to_sym] && (
       internal_controllers[controller.to_sym].empty? ||
-      internal_controllers[controller.to_sym].include?(action)
+      internal_controllers[controller.to_sym].include?(action.to_sym)
     )
   end
 
@@ -71,12 +72,14 @@ class ApplicationController < ActionController::Base
       blog: [],
       challenges: [:index, :show],
       community_tool_reviews: [:index, :show],
+      community_tools: [:index, :show],
       datasets: [:index, :show],
+      dataset_reviews: [:index, :show],
       external: [],
       replies: [:show],
       search: [],
       showcase: [],
-      tools: [:index, :show],
+      tools: [:index, :show, :community_show],
       topics: [:index, :show],
       variables: []
     }
