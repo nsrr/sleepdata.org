@@ -39,7 +39,7 @@ class DatasetReviewsControllerTest < ActionDispatch::IntegrationTest
         dataset_review: review_params
       }
     end
-    assert_redirected_to @dataset
+    assert_redirected_to dataset_dataset_reviews_path(@dataset)
   end
 
   test 'should not create new review for existing review' do
@@ -67,7 +67,7 @@ class DatasetReviewsControllerTest < ActionDispatch::IntegrationTest
   test 'should update review' do
     login(@regular_user)
     patch dataset_dataset_review_path(@dataset, @dataset_review), params: { dataset_review: review_params }
-    assert_redirected_to @dataset
+    assert_redirected_to dataset_dataset_reviews_path(@dataset)
   end
 
   test 'should destroy review' do

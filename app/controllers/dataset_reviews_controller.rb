@@ -32,7 +32,7 @@ class DatasetReviewsController < ApplicationController
     @dataset_review = @dataset.dataset_reviews.where(user_id: current_user.id).new(dataset_review_params)
     if @dataset_review.save
       @dataset_review.create_notification!
-      redirect_to @dataset, notice: 'Review was successfully created.'
+      redirect_to dataset_dataset_reviews_path(@dataset), notice: 'Review was successfully created.'
     else
       render :new
     end
@@ -42,7 +42,7 @@ class DatasetReviewsController < ApplicationController
   def update
     if @dataset_review.update(dataset_review_params)
       @dataset_review.create_notification!
-      redirect_to @dataset, notice: 'Review was successfully updated.'
+      redirect_to dataset_dataset_reviews_path(@dataset), notice: 'Review was successfully updated.'
     else
       render :edit
     end

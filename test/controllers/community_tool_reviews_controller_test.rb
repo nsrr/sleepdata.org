@@ -39,7 +39,7 @@ class CommunityToolReviewsControllerTest < ActionDispatch::IntegrationTest
         community_tool_review: review_params
       }
     end
-    assert_redirected_to community_show_tool_path(@community_tool)
+    assert_redirected_to community_tool_community_tool_reviews_path(@community_tool)
   end
 
   test 'should not create new review for existing review' do
@@ -67,7 +67,7 @@ class CommunityToolReviewsControllerTest < ActionDispatch::IntegrationTest
   test 'should update review' do
     login(@regular_user)
     patch community_tool_community_tool_review_path(@community_tool, @community_tool_review), params: { community_tool_review: review_params }
-    assert_redirected_to community_show_tool_path(@community_tool)
+    assert_redirected_to community_tool_community_tool_reviews_path(@community_tool)
   end
 
   test 'should destroy review' do

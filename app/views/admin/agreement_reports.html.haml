@@ -60,8 +60,8 @@
             = Date::ABBR_MONTHNAMES[month]
             = year
           %td
-            - count = agreement_events.select{|ae| ae.event_type == 'user_submitted'}.count
+            - count = agreement_events.select { |ae| ae.event_type == 'user_submitted' }.count
             = count == 0 ? '-' : count
           %td
-            - count = agreement_events.select{|ae| ae.event_type == 'principal_reviewer_approved'}.count
+            - count = agreement_events.select { |ae| ae.event_type == 'principal_reviewer_approved' }.count
             = count == 0 ? '-' : count
