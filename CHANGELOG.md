@@ -1,6 +1,8 @@
 ## 0.26.0
 
 ### Enhancements
+- **Admin Changes**
+  - Improved user management for admins on user index
 - **Agreement Changes**
   - Removed additional confirmation step when voting for reviewers
   - Added a new admin table displaying approved DAUAs by dataset

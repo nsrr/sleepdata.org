@@ -10,6 +10,15 @@ class UsersControllerTest < ActionController::TestCase
     @user = users(:valid)
   end
 
+  def user_hash
+    {
+      first_name: 'New',
+      last_name: 'User',
+      email: 'new_user@example.com',
+      system_admin: false
+    }
+  end
+
   test 'should get settings for valid user' do
     login(users(:valid))
     get :settings
@@ -68,21 +77,20 @@ class UsersControllerTest < ActionController::TestCase
     assert_redirected_to users_path
   end
 
-  test 'should destroy user for system admin' do
+  test 'should destroy user for admin' do
     login(users(:admin))
     assert_difference('User.current.count', -1) do
       delete :destroy, params: { id: @user }
     end
-
     assert_redirected_to users_path
   end
 
-  def user_hash
-    {
-      first_name: 'New',
-      last_name: 'User',
-      email: 'new_user@example.com',
-      system_admin: false
-    }
+  test 'should destroy user for admin with ajax' do
+    login(users(:admin))
+    assert_difference('User.current.count', -1) do
+      delete :destroy, params: { id: @user }, format: 'js'
+    end
+    assert_template 'destroy'
+    assert_response :success
   end
 end
