@@ -1,5 +1,13 @@
 - @title = 'New Image'
 
-%h1= @title
+- content_for :body_class do
+  brand-background
 
-= render 'form'
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        = @title
+
+.dashboard-container.box-shadow
+  = render 'form'
