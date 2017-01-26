@@ -80,101 +80,57 @@
     .landing-sentence{ style: 'text-align: left;font-weight: normal;' }
       Want to do more with the data?
 
-    .box-shadow{ style: 'font-size: 18px;background-color: #c8e6c9;padding: 20px;margin-bottom: 10px;position: relative;overflow: hidden; padding-right: 100px;' }
-      %div{ style: 'position: absolute;right: 0; top: 0;' }
-        %i.fa.fa-line-chart{ aria: { hidden: 'true' }, style: 'font-size: 100px;color: #e8f5e9;' }
-      %div{ style: 'font-weight: bold;font-variant: small-caps;margin-bottom: 10px;' }
-        EDF Visualization
-      %div{ style: 'margin-left: 20px;' }
-        - edf_viewer_tools = [['EDF Viewer', community_show_tool_path('edf-viewer')], ['EDFbrowser', 'http://www.teuniz.net/edfbrowser/'], ['Polyman', 'https://www.physionet.org/pn4/sleep-edfx/Polyman/'], ['Altamira', community_show_tool_path('altamira')]]
-        - edf_viewer_tools.each_with_index do |(name, url), index|
-          = link_to name, url
-          - if index < edf_viewer_tools.count - 1
-            %br.hidden-sm.hidden-md.hidden-lg
-            %span.hidden-xs &middot;
-    .box-shadow{ style: 'font-size: 18px;background-color: #c8e6c9;padding: 20px;margin-bottom: 10px;position: relative;overflow: hidden; padding-right: 100px;' }
-      %div{ style: 'position: absolute;right: -57px; top: -34px;' }
-        %i.fa.fa-heartbeat{ aria: { hidden: 'true' }, style: 'font-size: 168px;color: #e8f5e9;' }
+    .landing-tool-box.box-shadow
+      .landing-tool-right
+        .landing-tool-icon
+          %i.fa.fa-line-chart{ aria: { hidden: 'true' } }
+      .landing-tool-left
+        .landing-tool-header
+          EDF Visualization
+        .landing-tool-links
+          - edf_viewer_tools = [['EDF Viewer', community_show_tool_path('edf-viewer')], ['EDFbrowser', 'http://www.teuniz.net/edfbrowser/'], ['Polyman', 'https://www.physionet.org/pn4/sleep-edfx/Polyman/'], ['Altamira', community_show_tool_path('altamira')]]
+          - edf_viewer_tools.each_with_index do |(name, url), index|
+            = link_to name, url
+            - if index < edf_viewer_tools.count - 1
+              %br.hidden-sm.hidden-md.hidden-lg
+              %span.hidden-xs &middot;
+    .landing-tool-box.box-shadow
+      .landing-tool-right
+        .landing-tool-icon
+          %i.fa.fa-heartbeat{ aria: { hidden: 'true' } }
+      .landing-tool-left
+        .landing-tool-header
+          Signal Processing
+        .landing-tool-links
+          - signal_tools = [['Data Chromatix', community_show_tool_path('data-chromatix')], ['HRV Toolkit', community_show_tool_path('hrv-toolkit')], ['SpectralTrainFig', community_show_tool_path('spectraltrainfig')], ['SpiSOP', community_show_tool_path('spisop')]]
+          - signal_tools.each_with_index do |(name, url), index|
+            = link_to name, url
+            - if index < signal_tools.count - 1
+              %br.hidden-sm.hidden-md.hidden-lg
+              %span.hidden-xs &middot;
+    .landing-tool-box.box-shadow
+      .landing-tool-right
+        .landing-tool-icon
+          %i.fa.fa-graduation-cap{ aria: { hidden: 'true' } }
+      .landing-tool-left
+        .landing-tool-header
+          Learn
+        .landing-tool-links
+          - tutorials = CommunityTool.current.where(published: true, tag_tutorial: true).order('rating desc nulls last').limit(3)
+          - tutorials.each do |community_tool|
+            %div
+              = link_to community_tool.name, community_show_tool_path(community_tool)
+              - if community_tool.rating
+                %small.text-muted= community_tool.rating.round(1)
+                %i.fa.fa-star.text-warning{ aria: { hidden: 'true' } }
 
-      %div{ style: 'font-weight: bold;font-variant: small-caps;margin-bottom: 10px;' }
-        Signal Processing
-      %div{ style: 'margin-left: 20px;' }
-        - signal_tools = [['Data Chromatix', community_show_tool_path('data-chromatix')], ['HRV Toolkit', community_show_tool_path('hrv-toolkit')], ['SpectralTrainFig', community_show_tool_path('spectraltrainfig')], ['SpiSOP', community_show_tool_path('spisop')]]
-        - signal_tools.each_with_index do |(name, url), index|
-          = link_to name, url
-          - if index < signal_tools.count - 1
-            %br.hidden-sm.hidden-md.hidden-lg
-            %span.hidden-xs &middot;
-
-    .box-shadow{ style: 'font-size: 18px;background-color: #c8e6c9;padding: 20px;margin-bottom: 10px;position: relative;overflow: hidden; padding-right: 100px;' }
-      %div{ style: 'position: absolute;right: -20px; top: 0;' }
-        %i.fa.fa-graduation-cap{ aria: { hidden: 'true' }, style: 'font-size: 100px;color: #e8f5e9;' }
-
-      %div{ style: 'font-weight: bold;font-variant: small-caps;margin-bottom: 10px;' }
-        Learn
-      %div{ style: 'margin-left: 20px;' }
-        - tutorials = CommunityTool.current.where(published: true, tag_tutorial: true).order('rating desc nulls last').limit(3)
-        - tutorials.each do |community_tool|
-          %div
-            = link_to community_tool.name, community_show_tool_path(community_tool)
-            - if community_tool.rating
-              %small.text-muted= community_tool.rating.round(1)
-              %i.fa.fa-star.text-warning{ aria: { hidden: 'true' } }
 
     .landing-sentence.hidden-md.hidden-lg{ style: 'text-align: left;font-weight: normal;' }
       Know of another great tool?
       %br.hidden-sm.hidden-md.hidden-lg
       = link_to 'Tell us about it.', contribute_tool_start_path
 
-
-      - if false
-        .landing-box-container
-          .landing-box
-            .landing-face.landing-face-unstyled
-              .landing-box-header EDF Visualization
-              %ul.list-unstyled
-                %li.nowrap.overflow-hidden Altamira
-                %li.nowrap.overflow-hidden EDF Viewer
-                %li.nowrap.overflow-hidden
-                  = link_to 'https://www.physionet.org/pn4/sleep-edfx/Polyman/' do
-                    Polyman
-                    %span.glyphicon.glyphicon-new-window
-                %li.nowrap.overflow-hidden
-                  = link_to 'http://www.teuniz.net/edfbrowser/' do
-                    EDFbrowser
-                    %span.glyphicon.glyphicon-new-window
-          .landing-box
-            .landing-face.landing-face-unstyled
-              .landing-box-header Signal Processing
-              %ul.list-unstyled
-                %li.nowrap.overflow-hidden SpiSOP
-                %li.nowrap.overflow-hidden Data Chromatix
-                %li.nowrap.overflow-hidden SpectralTrainFig
-
-          .landing-box
-            .landing-face.landing-face-unstyled
-              .landing-box-header Popular
-              %ul.list-unstyled
-                - CommunityTool.current.where(published: true).where.not(rating: nil).order('rating desc nulls last').limit(3).each do |community_tool|
-                  %li.nowrap.overflow-hidden= link_to community_tool.name, community_show_tool_path(community_tool)
-
-          .landing-box
-            .landing-face.landing-face-unstyled
-              .landing-box-header Newest
-              %ul.list-unstyled
-                - CommunityTool.current.where(published: true).order(publish_date: :desc).limit(3).each do |community_tool|
-                  %li.nowrap.overflow-hidden= link_to community_tool.name, community_show_tool_path(community_tool)
-
-          .landing-box
-            .landing-face.landing-face-unstyled
-              .landing-box-header Tutorials
-              %ul.list-unstyled
-                %li.nowrap.overflow-hidden= link_to 'Get Started Scripting', community_show_tool_path('ruby-scripts-tutorial-01')
-                %li.nowrap.overflow-hidden= link_to 'All Tutorials', tools_path(type: 'tutorial')
-
-
-
-  %div{ style: 'background-color: #e8f5e9;margin-bottom: 20px;' }
+  .landing-news-container
     .container
       %h3{ style: 'font-weight: bold' } News
       = render 'blog/landing_blog'
