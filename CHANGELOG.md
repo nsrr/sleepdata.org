@@ -42,6 +42,7 @@
   - Added autoprefixer-rails
   - Updated to kaminari 1.0.1
   - Updated to simplecov 0.13.0
+  - Updated to hashids 1.0.3
 
 ### Bug Fix
 - Fixed an issue displaying images associated to tools
