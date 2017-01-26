@@ -1,17 +1,18 @@
-- @title = 'Hosting Request Submitted'
+- @title = 'Submission Complete'
 
-- content_for :banner do
-  .dataset-banner
+- content_for :body_class do
+  brand-background
+
+- content_for :header do
+  .header-container
     .container
-      .dataset-header.brand= @title
+      %h1.page-heading.center{ style: 'margin-bottom: 20px;' }
+        = @title
+      .center
+        %p.lead
+          Thank you for your submission, your dataset hosting request was submitted successfully.
 
-  .call-to-action
-    .call-to-action-header
-      Success!
-    .call-to-action-body
-      Thank you for your submission, your dataset hosting request was submitted successfully.
-
-.markdown-container
+.dashboard-container-narrow
   %p
     Dear
     = succeed ',' do
@@ -35,10 +36,10 @@
 
 .row
   .col-xs-12.col-sm-3.col-sm-offset-3.col-buffer
-    = link_to datasets_path, class: 'btn btn-default btn-block' do
-      %span.glyphicon.glyphicon-cloud
+    = link_to datasets_path, class: 'btn btn-default btn-block btn-shadow' do
+      %i.fa.fa-database{ aria: { hidden: 'true' } }
       Back to Datasets
   .col-xs-12.col-sm-3
-    = link_to dashboard_path, class: 'btn btn-primary btn-block' do
-      %span.glyphicon.glyphicon-home
+    = link_to dashboard_path, class: 'btn btn-primary btn-block btn-shadow' do
+      %i.fa.fa-home{ aria: { hidden: 'true' } }
       Go to My Dashboard

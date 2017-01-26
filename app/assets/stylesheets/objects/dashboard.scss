@@ -81,3 +81,22 @@
   margin-top: -20px;
   padding: 10px 20px;
 }
+
+.dashboard-container-narrow {
+  @include remove-last-child-bottom-margin;
+
+  background-color: $brand-white;
+  box-shadow: 0 1px 5px $box-shadow-color;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 64rem;
+  padding: 20px;
+  line-height: 1.5em;
+}
+
+.dashboard-container-title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}

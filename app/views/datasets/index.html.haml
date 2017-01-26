@@ -136,8 +136,8 @@
   - content_for :call_to_action do
     .call-to-action
       .call-to-action-body
-        %strong Would you like to contribute a dataset?
+        %strong Do you own a dataset?
       .call-to-action-body
-        The NSRR can host your dataset,
-        = link_to 'let us know about your dataset', dataset_hosting_start_path
-        to start the process.
+        Share your data with the NSRR community.
+      .call-to-action-body
+        = link_to 'Contribute a Dataset', dataset_hosting_start_path, class: 'btn btn-accent btn-shadow'

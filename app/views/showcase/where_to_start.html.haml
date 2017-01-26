@@ -1,64 +1,78 @@
 - @title = 'Where to Start'
 
-- content_for :banner do
-  .banner
+- content_for :body_class do
+  brand-background
+
+- content_for :header do
+  .header-container
     .container
-      .banner-header.brand
+      %h1.page-heading
         = @title
-      .banner-body
-        Steps taken by a typical NSRR researcher.
 
-%h2
-  %span.label.label-success 1
-  Choose a dataset.
+%p.lead.center
+  Steps taken by a typical NSRR researcher.
 
-.markdown-container
-  %p The SHHS dataset is one of our most popular datasets, and has been around for quite some time. Datasets have different populations and demographics, so picking one here may also be based on your research interest.
-
-%h2
-  %span.label.label-success 2
-  Fill out a Data Access and Use Agreement.
-
-.markdown-container
+.dashboard-container-narrow
+  .dashboard-container-title
+    1. Choose a dataset.
   %p
-    This process is all built online, and we can
-    = link_to 'help you through', "mailto:#{ENV['support_email']}"
-    the process. Essentially it allows us to affirm that the data downloaded is used for appropriate research, and in certain cases it allows us to guide a user to more appropriate datasets. Being thorough in the process on the intended use of data typically allows this process to go fairly well.
+    The
+    = link_to 'SHHS dataset', datasets_path('shhs')
+    is one of our most popular datasets. Datasets have different populations and
+    demographics, so pick one based on your research interest.
 
-%h2
-  %span.label.label-success 3
-  Download data from the dataset.
+.dashboard-container-narrow
+  .dashboard-container-title
+    2. Fill out a Data Access and Use Agreement.
 
-.markdown-container
   %p
-    Each dataset has many files that can be downloaded. If you are interested in a data dictionary and a dataset of covariates, that's typically in the 'datasets' folder and can be around 30MB or so. If you plan on downloading the associated signal files, we recommend
+    We've streamlined the data request process to quickly get you access to a
+    number of rich datasets. The process allows us to aid you in selecting a
+    dataset appropriate for your research. You can
+    = mail_to ENV['support_email'], 'email us'
+    if you need help with this process.
+
+.dashboard-container-narrow
+  .dashboard-container-title
+    3. Download data from the dataset.
+
+  %p
+    Dataset files are structured in a similar manner across all of our datasets.
+    For example, the
+    %code datasets
+    folder typically contains demographics, anthropometry, questionnaires,
+    outcomes, in CSV spreadsheets. For downloading large signal files, we
+    recommend
     = link_to 'downloading and installing', demo_path + '#download-data'
-    the NSRR downloader gem, which is very easy to use once installed, and it lets you download entire datasets at a time, allowing you to pause and resume, assure files are downloaded correctly, and not repeat files that have already been downloaded.
+    the NSRR downloader gem, which lets you download entire datasets at a time,
+    allows you to pause and resume, and checks file integrity after download.
 
-%h2
-  %span.label.label-success 4
-  Use tools on the site.
+.dashboard-container-narrow
+  .dashboard-container-title
+    4. Use tools on the site.
 
-.markdown-container
   %p
-    Depending on your research, you may have already have your own tools to analyze data. If you don't, we have a
-    = link_to 'set of tools', tools_path
-    online, and a
+    You may already have tools to analyze data. If you don't, we have a list of
+    = succeed ',' do
+      = link_to 'community contributed tools', tools_path
+    and a
     = link_to 'forum', topics_path
-    where you can get help with any of our available tools. If you have open source tools yourself, we can also work with you to promote your sleep related tools on the NSRR to help other researchers.
+    to get help with any of the hosted tools and data. We also encourage you to
+    share any tools you may have that could help other researchers on the NSRR.
 
-%h2
-  %span.label.label-success 5
-  Create a publication.
+.dashboard-container-narrow
+  .dashboard-container-title
+    5. Publish your results in a journal.
 
-.markdown-container
-  %p The end goal for a lot of researchers, if you do plan on publishing on data from the NSRR, we ask that you reference the NSRR (each dataset gives an example citation), and give us a heads up, and we have staff that can review the publication as well.
-
-%p That's pretty much the core of the NSRR website. It offers a lot to explore (we highly value transparency), provides some ways to share and interact with other researchers, and promotes robust data. We version our data that we upload so that you can recreate your results in the future with the same exact dataset.
+  %p
+    If you plan on publishing using data from the NSRR, please remember to cite
+    the NSRR, and
+    = mail_to ENV['support_email'], 'let us know'
+    so we can better track publications linked to our resource.
 
 - content_for :call_to_action do
   .call-to-action
     .call-to-action-header
       Ready to get started?
     .call-to-action-body
-      = link_to 'Explore Available Datasets', datasets_path, class: 'btn btn-call-to-action btn-lg btn-shadow'
+      = link_to 'Explore Available Datasets', datasets_path, class: 'btn btn-accent btn-lg btn-shadow'

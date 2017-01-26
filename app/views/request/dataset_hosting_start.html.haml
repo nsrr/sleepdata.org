@@ -1,41 +1,43 @@
-%p.lead.center{ style: 'color: #ccc;' } Empower others in research.
+- @title = 'Dataset Hosting Request'
 
-- content_for :banner do
-  .banner
+- content_for :body_class do
+  brand-background
+
+- content_for :header do
+  .header-container
     .container
-      .banner-header.brand
-        Dataset Hosting Request
-      .banner-body
-        Tell us about the type of data you would like hosted.
+      %h1.page-heading
+        = @title
 
-= form_for @hosting_request, url: dataset_hosting_set_description_path, method: :post, html: { class: 'form-horizontal', id: 'dataset_hosting_form' } do |f|
-  .form-group
-    = f.label :description, 'Description', class: 'col-md-2 control-label'
-    .col-md-10
-      = f.text_area :description, rows: 7, class: 'form-control', placeholder: 'Describe the dataset you would like hosted.'
-      - if @hosting_request.errors[:description].present?
-        .callout.callout-danger{ style: 'margin-top: 10px;' }
-          Please describe your dataset you wish to have hosted.
+%p.lead
+  Tell us about the type of data you would like hosted.
 
-  .form-group
-    = f.label :institution_name, 'Institution Name', class: 'col-md-2 control-label'
-    .col-md-10
-      = f.text_field :institution_name, class: 'form-control'
-      - if @hosting_request.errors[:institution_name].present?
-        .callout.callout-danger{ style: 'margin-top: 10px;' }
-          Please provide the name of your institution.
+.dashboard-container.box-shadow
+  = form_for @hosting_request, url: dataset_hosting_set_description_path, method: :post, html: { class: 'form-horizontal', id: 'dataset_hosting_form' } do |f|
+    .form-group
+      = f.label :institution_name, 'Institution Name', class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_field :institution_name, class: 'form-control'
+        - if @hosting_request.errors[:institution_name].present?
+          %small.text-danger
+            Please provide the name of your institution.
 
-  .form-group
-    .col-md-offset-2.col-md-10
-      = f.submit 'Continue', class: 'btn btn-primary btn-lg'
+    .form-group
+      = f.label :description, 'Description', class: 'col-md-2 control-label'
+      .col-md-10
+        = f.text_area :description, rows: 7, class: 'form-control', placeholder: 'Describe the dataset you would like hosted.'
+        - if @hosting_request.errors[:description].present?
+          %small.text-danger
+            Please describe your dataset you wish to have hosted.
 
-.jumbotron
-  %h1.center Hosting on the NSRR
+    .form-group
+      .col-md-offset-2.col-md-10
+        = f.submit 'Continue', class: 'btn btn-primary btn-lg btn-shadow'
 
-  %p
-    The NSRR is looking to expand the wealth of data researchers can access by
-    allowing community users to upload novel datasets.
+%p.lead
+  Share a novel dataset to better serve the research community.
 
-  %p
-    We're excited to start working with you on getting your dataset hosted on
-    the NSRR.
+%p.lead
+  You may also use the
+  = link_to 'NSRR Data Sharing language', datasharing_path
+  in your grant to fulfill NIH data-sharing requirements.

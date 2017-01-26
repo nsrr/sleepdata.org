@@ -1,50 +1,52 @@
-- content_for :banner do
-  .call-to-action.dark
-    .call-to-action-header
-      Brigham and Women's Hospital
-      %br
-      National Sleep Research Resource
-    .call-to-action-body
-      .row
-        .col-xs-12.col-sm-3.col-sm-offset-3.col-buffer
-          = link_to submissions_path, class: 'btn btn-default btn-block' do
-            %span.glyphicon.glyphicon-th-list
-            Review My Submissions
-        .col-xs-12.col-sm-3
-          = link_to print_agreement_path(@agreement), class: 'btn btn-primary btn-block', data: { turbolinks: false } do
-            %span.glyphicon.glyphicon-print
-            Print Copy of Agreement
+- @title = 'Submission Complete'
 
-  .call-to-action
-    .call-to-action-header
-      Success!
-    .call-to-action-body
-      Thank you for your submission, your DAUA was submitted successfully.
+- content_for :body_class do
+  brand-background
 
-.markdown-container
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading.center{ style: 'margin-bottom: 20px;' }
+        = @title
+      .center
+        %p.lead
+          Thank you for your submission, your DAUA was submitted successfully.
+
+.dashboard-container-narrow
   %p
     Dear
     = succeed ',' do
       = current_user.first_name
 
-  %p Once your DAUA is approved, you will be able to download data from the datasets you requested.
+  %p
+    Once your DAUA is approved, you will be able to download data from the datasets you requested.
 
   %p
-    Don't know where to start? You can take a look at our
+    New to the NSRR? Get started with our
     = link_to 'Where to Start', showcase_show_path('where-to-start')
-    guide as well.
+    guide.
 
   %p
-    You can learn how to download data by using the NSRR Ruby gem here:
+    Learn how to download data using the NSRR gem:
     = link_to 'NSRR Demo', demo_path
 
   %p
-    Also, don't forget you can
-    = link_to 'post on the forum', topics_path
+    Also, post any questions on the
+    = link_to 'forum', topics_path
     or contact us directly at
     = mail_to ENV['support_email']
-    if you need any help getting started!
+    if you need any help!
 
   %p Welcome aboard!
 
   %p The NSRR Team
+
+.row
+  .col-xs-12.col-sm-3.col-sm-offset-3.col-buffer
+    = link_to submissions_path, class: 'btn btn-default btn-block btn-shadow' do
+      %span.glyphicon.glyphicon-th-list
+      Review My Submissions
+  .col-xs-12.col-sm-3
+    = link_to print_agreement_path(@agreement), class: 'btn btn-primary btn-block btn-shadow', data: { turbolinks: false } do
+      %span.glyphicon.glyphicon-print
+      Print Copy of Agreement
