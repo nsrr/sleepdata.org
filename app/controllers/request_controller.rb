@@ -285,6 +285,7 @@ class RequestController < ApplicationController
   def save_dataset_hosting_user
     @hosting_request.user_id = current_user.id
     if @hosting_request.save
+      @hosting_request.hosting_request_submitted_in_background
       redirect_to dataset_hosting_submitted_path
     else
       render :dataset_hosting_start

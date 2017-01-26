@@ -5,9 +5,6 @@ class HostingRequest < ApplicationRecord
   # Concerns
   include Deletable, Forkable, Searchable
 
-  # Callbacks
-  after_create_commit :send_hosting_request_notification_in_background
-
   # Named Scopes
 
   # Model Validation
@@ -15,6 +12,7 @@ class HostingRequest < ApplicationRecord
 
   # Model Relationships
   belongs_to :user
+  has_many :notifications
 
   # Model Methods
   def self.searchable_attributes
@@ -29,21 +27,26 @@ class HostingRequest < ApplicationRecord
     name
   end
 
-  def send_email_in_background
-    # Blank...
+  def hosting_request_submitted_in_background
+    fork_process(:hosting_request_submitted)
   end
 
-  def send_email(generated_password)
-    # Sent with generated_password
+  def destroy
+    notifications.destroy_all
+    super
   end
 
   protected
 
-  def send_hosting_request_notification_in_background
-    fork_process(:send_hosting_request_notification)
+  def hosting_request_submitted
+    create_notifications!
+    UserMailer.hosting_request_submitted(self).deliver_now if EMAILS_ENABLED
   end
 
-  def send_hosting_request_notification
-    UserMailer.hosting_request_submitted(self).deliver_now if EMAILS_ENABLED
+  def create_notifications!
+    User.system_admins.each do |u|
+      notification = u.notifications.where(hosting_request_id: id).first_or_create
+      notification.mark_as_unread!
+    end
   end
 end

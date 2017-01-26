@@ -125,6 +125,7 @@
 - **Admin Changes**
   - Added admin view for blog post and forum topic replies
   - Improved speed of dataset audits page
+  - Admins now receive notifications when a dataset hosting request is submitted
 - **Blog Changes**
   - Added view_count column to track blog post views
   - Improved the blog index to show extracts of the blog posts
