@@ -4,9 +4,9 @@
   brand-background
 
 .row
-  .col-md-3
+  .col-sm-3.col-md-3
     = render 'internal/profile'
-  .col-md-6
+  .col-sm-9.col-md-6
     .dashboard-container
       .dashboard-title
         %strong My Settings
@@ -77,5 +77,5 @@
         .form-group
           .col-md-offset-3.col-md-9
             = submit_tag 'Save Changes', class: 'btn btn-primary'
-  .col-md-3
+  .hidden-xs.hidden-sm.col-md-3
     = render 'internal/sidebar/blog_posts'

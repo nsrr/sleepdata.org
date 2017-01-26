@@ -2,10 +2,10 @@
   brand-background
 
 .row
-  .col-md-3
+  .col-sm-3
     = render 'internal/profile'
 
-  .col-md-9
+  .col-sm-9
     .dashboard-container
       .dashboard-title
         %strong Dataset Access Requests
@@ -24,16 +24,33 @@
     - current_user.agreements.order(id: :desc).each do |agreement|
       .dashboard-container
         .dashboard-title
+          - if agreement.deletable?
+            .pull-right
+              = link_to destroy_submission_agreement_path(agreement), class: 'btn btn-xs btn-danger-inverse', method: :delete, data: { confirm: "Delete Agreement ##{agreement.agreement_number}?" } do
+                %span.glyphicon.glyphicon-trash
+                %span.hidden-xs Delete
+
           %strong
             Agreement
             = precede '#' do
               = agreement.agreement_number
 
-          = link_to print_agreement_path(agreement), class: 'btn btn-xs btn-default', data: { turbolinks: false } do
-            %span.glyphicon.glyphicon-print
-            Print
+          = succeed ' ' do
+            = link_to print_agreement_path(agreement), class: 'btn btn-xs btn-default', data: { turbolinks: false } do
+              %span.glyphicon.glyphicon-print
+              %span.hidden-xs Print
 
-        %table.table.table-striped
+          - if agreement.submittable?
+            - if agreement.fully_filled_out?
+              = link_to proof_agreement_path(agreement), class: 'btn btn-xs btn-accent' do
+                Resume
+                %span.glyphicon.glyphicon-arrow-right
+            - else
+              = link_to step_agreement_path(agreement, step: agreement.current_step), class: 'btn btn-xs btn-accent' do
+                Resume
+                %span.glyphicon.glyphicon-arrow-right
+
+        %table.table.table-striped.table-borderless
           - if agreement.under_review?
             %tr
               %td.text-right
@@ -79,13 +96,6 @@
                 Your data access request has been
                 = succeed '.' do
                   %strong closed
-            %tr
-              %td.text-right
-                %strong Actions
-              %td
-                = link_to destroy_submission_agreement_path(agreement), class: 'btn btn-xs btn-danger-inverse', method: :delete, data: { confirm: "Are you sure you want to delete Agreement ##{agreement.agreement_number}?" } do
-                  %span.glyphicon.glyphicon-trash
-                  Delete
           - else
             %tr
               %td.text-right
@@ -98,23 +108,12 @@
               %td
                 - (1..6).each do |step|
                   - current_step = (step == 1 ? 2 : agreement.current_step)
-                  = link_to step, step_agreement_path(agreement, step: step), class: "btn btn-#{step_helper(agreement, step, current_step)}"
-            %tr
-              %td.text-right
-                %strong Actions
-              %td
-                - if agreement.fully_filled_out?
-                  = link_to proof_agreement_path(agreement), class: 'btn btn-xs btn-success' do
-                    Continue
-                    %span.glyphicon.glyphicon-arrow-right
-                - else
-                  = link_to step_agreement_path(agreement, step: agreement.current_step), class: 'btn btn-xs btn-success' do
-                    Continue
-                    %span.glyphicon.glyphicon-arrow-right
-                &nbsp;
-                = link_to destroy_submission_agreement_path(agreement), class: 'btn btn-xs btn-danger-inverse', method: :delete, data: { confirm: "Are you sure you want to delete Agreement ##{agreement.agreement_number}?" } do
-                  %span.glyphicon.glyphicon-trash
-                  Delete
+                  - if agreement.step_valid?(step) && step != 6 && step != current_step
+                    = succeed ' ' do
+                      = link_to step_agreement_path(agreement, step: step), class: 'btn btn-default' do
+                        %i.fa.fa-check-circle.text-success
+                  - else
+                    = link_to step, step_agreement_path(agreement, step: step), class: "btn btn-#{step_helper(agreement, step, current_step)}"
 
           - if agreement.datasets.count > 0
             %tr

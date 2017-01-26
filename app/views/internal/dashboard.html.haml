@@ -2,13 +2,10 @@
   brand-background
 
 .row
-  .col-md-3
+  .col-sm-3.col-md-3
     = render 'internal/profile'
 
-    =# render 'internal/sidebar/datasets'
-
-
-  .col-md-6
+  .col-sm-9.col-md-6
     - if current_user.agreements.present?
       .dashboard-container
         .dashboard-title
@@ -107,5 +104,5 @@
       .dashboard-container
         .dashboard-title
           %strong My Forum Posts/Topics
-  .col-md-3
+  .hidden-xs.hidden-sm.col-md-3
     = render 'internal/sidebar/blog_posts'

@@ -159,6 +159,14 @@ class Agreement < ApplicationRecord
     data_user_type == 'organization'
   end
 
+  def submittable?
+    %w(started resubmit).include?(status)
+  end
+
+  def deletable?
+    %w(closed started resubmit).include?(status)
+  end
+
   def close_daua!(current_user)
     agreement_events.create event_type: 'principal_reviewer_closed', user_id: current_user.id, event_at: Time.zone.now
   end
@@ -230,6 +238,7 @@ class Agreement < ApplicationRecord
     dup_agreement.current_step = step
     dup_agreement.irb = irb
     dup_agreement.datasets = datasets
+    dup_agreement.full_mode = nil
     dup_agreement.valid?
   end
 
