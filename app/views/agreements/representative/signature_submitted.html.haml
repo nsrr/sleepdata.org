@@ -1,20 +1,24 @@
-- content_for :banner do
-  .challenge-header
-    .banner
-      .container
-        .banner-header.brand
-          %span.glyphicon.glyphicon-list-alt
-          Success!
-  .call-to-action
-    .call-to-action-body
-      Thank you for making use of the NSRR online DAUA process.
+- @title = 'Submission Complete'
 
-%p.lead.center
-  If you have any questions regarding this process, you can contact us at:
-  = mail_to ENV['support_email']
+- content_for :body_class do
+  brand-background
 
-.row{ style: 'margin-top:20px' }
-  .col-sm-offset-3.col-sm-6
-    = link_to root_path, class: 'btn btn-lg btn-default btn-block' do
-      %span.glyphicon.glyphicon-arrow-left
-      Back to the NSRR Home Page
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading.center{ style: 'margin-bottom: 20px;' }
+        = @title
+      .center
+        %p.lead
+          Thank you for using the online DAUA process.
+
+.dashboard-container-narrow
+  %p.center
+    If you have any questions regarding this process, you can contact us at:
+  %p.center
+    = mail_to ENV['support_email']
+
+.center
+  = link_to about_path, class: 'btn btn-lg btn-link' do
+    About the NSRR
+    %span.glyphicon.glyphicon-arrow-right

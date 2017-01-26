@@ -9,7 +9,7 @@
       %h1.page-heading
         = @title
 
-%p.lead
+%p.lead.center
   Tell us about the type of data you would like hosted.
 
 .dashboard-container.box-shadow
@@ -34,10 +34,11 @@
       .col-md-offset-2.col-md-10
         = f.submit 'Continue', class: 'btn btn-primary btn-lg btn-shadow'
 
-%p.lead
-  Share a novel dataset to better serve the research community.
+.dashboard-container-narrow
+  %p
+    Share a novel dataset to better serve the research community.
 
-%p.lead
-  You may also use the
-  = link_to 'NSRR Data Sharing language', datasharing_path
-  in your grant to fulfill NIH data-sharing requirements.
+  %p
+    You may also use the
+    = link_to 'NSRR Data Sharing language', datasharing_path
+    in your grant to fulfill NIH data-sharing requirements.

@@ -244,8 +244,6 @@ Rails.application.routes.draw do
     patch 'dataset/hosting', action: 'dataset_hosting_sign_in_user', as: :dataset_hosting_sign_in_user
     get 'dataset/hosting/submitted', action: 'dataset_hosting_submitted', as: :dataset_hosting_submitted
 
-    # get 'dataset/hosting', action: 'dataset_hosting', as: :dataset_hosting
-    # post 'dataset/hosting', action: 'create_hosting_request', as: :create_hosting_request
     get 'submissions/start', action: 'submissions_start', as: :submissions_start
     post 'submissions/start', action: 'submissions_launch', as: :submissions_launch
     post 'submissions/register', action: 'submissions_register_user', as: :submissions_register_user

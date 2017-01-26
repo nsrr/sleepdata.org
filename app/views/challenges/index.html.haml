@@ -1,36 +1,42 @@
 - @title = 'Challenges'
 
-- content_for :banner do
-  .challenge-header
-    .banner
-      .container
-        .banner-header
-          %span.brand= @title
-          - if current_user and current_user.system_admin?
-            = link_to 'Create Challenge', new_challenge_path, class: 'btn btn-xs btn-primary'
-        .banner-body
-          Participate in exciting challenges to test your mettle!
+- content_for :body_class do
+  brand-background
 
-%p.lead
-  Our second challenge is now available!
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        - if current_user && current_user.system_admin?
+          .pull-right
+            = link_to plus_or('New Challenge'), new_challenge_path, class: 'btn btn-accent btn-shadow'
+        = @title
+.center
+  %p.lead
+    Participate in exciting challenges to test your mettle!
 
-%p.lead
-  Learn more about the
-  = succeed '!' do
-    = link_to 'Flow Limitation Challenge - Part 2', challenge_path('flow-limitation-2')
+.dashboard-container-narrow
+  .dashboard-container-title New Challenge!
+
+  %p
+    Our second challenge is now available.
+
+  %p
+    Learn more about the
+    = succeed '!' do
+      = link_to 'Flow Limitation Challenge - Part 2', challenge_path('flow-limitation-2')
 
 
-- if @challenges.size > 1 && false
-  Other available challenges can be found here:
-  %ul
-    - @challenges.each do |challenge|
-      %li= link_to challenge.name, challenge
+  - if @challenges.size > 1 && false
+    Other available challenges can be found here:
+    %ul
+      - @challenges.each do |challenge|
+        %li= link_to challenge.name, challenge
 
-.content-spacer
+.dashboard-container-narrow
+  .dashboard-container-title Older Challenges
 
-%h2 Older Challenges
+  %p The following challenges are no longer active.
 
-%p.lead The following challenges are no longer active.
-
-%p
-  = link_to 'Flow Limitation Challenge', challenge_path('flow-limitation')
+  %p
+    = link_to 'Flow Limitation Challenge', challenge_path('flow-limitation')

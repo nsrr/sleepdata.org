@@ -5,7 +5,7 @@
 - path = params[:path]
 - page = [params[:page].to_i - 1, 0].max
 
-- content_for :banner do
+- content_for :header do
   #breadcrumb= render 'datasets/files_breadcrumb', path: path, page: page, file_count: @dataset_files.total_count
 
 - if @root_dataset_file && @root_dataset_file.description.present?

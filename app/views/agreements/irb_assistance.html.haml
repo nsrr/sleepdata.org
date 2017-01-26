@@ -1,13 +1,19 @@
-- content_for :banner do
-  .banner
-    .container
-      .banner-header.brand.center
-        Brigham and Women's Hospital
-      .banner-body.center
-        Basic Information On Submitting a Proposed NSRR Project to Your Local
-        IRB
+- @title = 'IRB Assistance'
 
-.markdown-container
+- content_for :body_class do
+  brand-background
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading.brand.center{ style: 'margin-bottom: 20px;' }
+        Brigham and Women's Hospital
+      .center
+        %p.lead
+          Basic Information On Submitting a Proposed NSRR Project to Your Local
+          IRB
+
+.dashboard-container-narrow
   %p
     We are required to obtain evidence that your project/purpose has been
     %strong
@@ -54,6 +60,6 @@
     full IRB review and that approval letter would be attached to the DAUA.
 
 .center
-  = link_to 'JavaScript:window.close()', class: 'btn btn-default btn-lg' do
+  = link_to 'JavaScript:window.close()', class: 'btn btn-default btn-lg btn-shadow' do
     %span.glyphicon.glyphicon-arrow-left
     Back to my Submission
