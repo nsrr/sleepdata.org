@@ -88,7 +88,7 @@
         .landing-tool-header
           EDF Visualization
         .landing-tool-links
-          - edf_viewer_tools = [['EDF Viewer', community_show_tool_path('edf-viewer')], ['EDFbrowser', 'http://www.teuniz.net/edfbrowser/'], ['Polyman', 'https://www.physionet.org/pn4/sleep-edfx/Polyman/'], ['Altamira', community_show_tool_path('altamira')]]
+          - edf_viewer_tools = [['EDF Viewer', community_show_tool_path('edf-viewer')], ['EDFbrowser', community_show_tool_path('edfbrowser')], ['Polyman', community_show_tool_path('polyman')], ['Altamira', community_show_tool_path('altamira')]]
           - edf_viewer_tools.each_with_index do |(name, url), index|
             = link_to name, url
             - if index < edf_viewer_tools.count - 1
