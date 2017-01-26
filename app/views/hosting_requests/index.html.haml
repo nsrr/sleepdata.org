@@ -26,6 +26,7 @@
       %col
       %col.hidden-xs
       %col
+      %col.hidden-xs{ width: '1px' }
       %col{ width: '1px' }
       %thead
         %tr
@@ -33,6 +34,7 @@
           %th Institution Name
           %th.hidden-xs Description
           %th User
+          %th.center.hidden-xs Reviewed
           %th.center
             %span.hidden-xs Actions
 
@@ -43,5 +45,6 @@
             %td= link_to hosting_request.institution_name, hosting_request
             %td.hidden-xs= hosting_request.description
             %td= link_to hosting_request.user.name, hosting_request.user
+            %td.center.hidden-xs= simple_check hosting_request.reviewed?
             %td
               = render 'layouts/edit_delete_dropdown', edit_url: edit_hosting_request_path(hosting_request), delete_url: hosting_request, delete_confirmation: "Delete #{hosting_request.name}?"

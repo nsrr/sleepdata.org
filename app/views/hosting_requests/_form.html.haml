@@ -31,5 +31,12 @@
 
   .form-group
     .col-md-offset-2.col-md-10
+      .checkbox
+        %label
+          = f.check_box :reviewed
+          Reviewed
+
+  .form-group
+    .col-md-offset-2.col-md-10
       = f.submit nil, class: 'btn btn-primary'
       = cancel

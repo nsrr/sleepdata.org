@@ -3,6 +3,7 @@
 ### Enhancements
 - **Admin Changes**
   - Improved user management for admins on user index
+  - Dataset hosting requests can now be marked as reviewed
 - **Agreement Changes**
   - Removed additional confirmation step when voting for reviewers
   - Added a new admin table displaying approved DAUAs by dataset

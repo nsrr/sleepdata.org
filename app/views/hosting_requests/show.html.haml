@@ -31,3 +31,7 @@
       %tr
         %th.text-right Description
         %td.markdown-container-new= simple_markdown @hosting_request.description
+
+      %tr
+        %th.text-right Reviewed
+        %td= simple_check @hosting_request.reviewed?

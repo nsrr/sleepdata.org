@@ -12,7 +12,8 @@ class HostingRequestsControllerTest < ActionController::TestCase
   def hosting_request_params
     {
       institution_name: @hosting_request.institution_name,
-      description: @hosting_request.description
+      description: @hosting_request.description,
+      reviewed: '1'
     }
   end
 

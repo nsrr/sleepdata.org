@@ -9,7 +9,8 @@ class HostingRequestsController < ApplicationController
   # GET /hosting-requests
   def index
     @order = scrub_order(HostingRequest, params[:order], 'hosting_requests.institution_name')
-    @hosting_requests = HostingRequest.current.search(params[:search]).order(@order).page(params[:page]).per(40)
+    @hosting_requests = HostingRequest.current.search(params[:search])
+                                      .order(@order).page(params[:page]).per(40)
   end
 
   # GET /hosting-requests/1
@@ -62,6 +63,8 @@ class HostingRequestsController < ApplicationController
   end
 
   def hosting_request_params
-    params.require(:hosting_request).permit(:description, :institution_name)
+    params.require(:hosting_request).permit(
+      :institution_name, :description, :reviewed
+    )
   end
 end
