@@ -88,7 +88,7 @@
         .landing-tool-header
           EDF Visualization
         .landing-tool-links
-          - edf_viewer_tools = [['EDF Viewer', community_show_tool_path('edf-viewer')], ['EDFbrowser', community_show_tool_path('edfbrowser')], ['Polyman', community_show_tool_path('polyman')], ['Altamira', community_show_tool_path('altamira')]]
+          - edf_viewer_tools = [['EDF Viewer', community_show_tool_path('nsrr-edf-viewer')], ['EDFbrowser', community_show_tool_path('teuniz-edfbrowser')], ['Polyman', community_show_tool_path('physionet-polyman')], ['Altamira', community_show_tool_path('remomueller-altamira')]]
           - edf_viewer_tools.each_with_index do |(name, url), index|
             = link_to name, url
             - if index < edf_viewer_tools.count - 1
@@ -102,7 +102,7 @@
         .landing-tool-header
           Signal Processing
         .landing-tool-links
-          - signal_tools = [['Data Chromatix', community_show_tool_path('data-chromatix')], ['HRV Toolkit', community_show_tool_path('hrv-toolkit')], ['SpectralTrainFig', community_show_tool_path('spectraltrainfig')], ['SpiSOP', community_show_tool_path('spisop')]]
+          - signal_tools = [['Data Chromatix', community_show_tool_path('saramariani-data-chromatix')], ['HRV Toolkit', community_show_tool_path('physionet-hrv-toolkit')], ['SpectralTrainFig', community_show_tool_path('nsrr-spectraltrainfig')], ['SpiSOP', community_show_tool_path('frederikdweber-spisop')]]
           - signal_tools.each_with_index do |(name, url), index|
             = link_to name, url
             - if index < signal_tools.count - 1
