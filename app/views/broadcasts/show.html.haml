@@ -26,13 +26,9 @@
       %ol
         %li= link_to 'Blog Posts', broadcasts_path
 
-.dashboard-container.box-shadow
-  .row
-    .col-sm-9
-      .broadcast
-        = simple_markdown @broadcast.description, false
-
-    .col-sm-3
+.row
+  .col-md-3.col-md-push-9
+    .dashboard-container.box-shadow
       %p
         %strong Short Description
         %br
@@ -62,3 +58,6 @@
         %strong Archived
         %br
         = simple_check @broadcast.archived
+  .col-md-9.col-md-pull-3
+    .dashboard-container.box-shadow
+      .broadcast= simple_markdown @broadcast.description, false
