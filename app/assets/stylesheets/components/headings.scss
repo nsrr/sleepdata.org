@@ -87,6 +87,20 @@
     }
     .navbar-show-scrolled {
       display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 80%;
+    }
+  }
+}
+
+@media screen and (min-width: $screen-sm-min) {
+  #top-menu {
+    &.navbar-scrolled {
+      .navbar-show-scrolled {
+        max-width: initial;
+      }
     }
   }
 }
