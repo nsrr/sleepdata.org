@@ -78,5 +78,5 @@
 
   .form-group
     .col-md-10.col-md-offset-2
-      = f.submit nil, class: 'btn btn-primary'
-      = cancel
+      = f.submit @broadcast.new_record? ? 'Create Blog Post' : 'Update Blog Post', class: 'btn btn-primary'
+      = link_to 'Cancel', (@broadcast.new_record? ? broadcasts_path : @broadcast), class: 'btn btn-default'
