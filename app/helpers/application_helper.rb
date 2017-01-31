@@ -9,8 +9,7 @@ module ApplicationHelper
     content_tag(:span, '', class: "glyphicon #{checked ? 'glyphicon-ok' : 'glyphicon-unchecked'}")
   end
 
-  def simple_markdown_no_lists(text, target_blank: true, table_class: '', allow_links: true, allow_lists: true)
-    allow_lists = false
+  def simple_markdown_new(text, target_blank: true, table_class: '', allow_links: true, allow_lists: true)
     simple_markdown(text, target_blank, table_class, allow_links, allow_lists)
   end
 

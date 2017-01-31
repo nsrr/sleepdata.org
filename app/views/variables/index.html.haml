@@ -30,7 +30,7 @@
         %td= link_to variable.name, dataset_variable_path(variable.dataset, variable)
         %td
           = variable.display_name
-          %small.text-muted.variable-description{ colspan: 2 }= simple_markdown_no_lists variable.description
+          %small.text-muted.variable-description{ colspan: 2 }= simple_markdown_new(variable.description, allow_lists: false)
         %td= variable.folder
         - unless params[:s].blank?
           %td= render 'variables/relevance', variable: variable
