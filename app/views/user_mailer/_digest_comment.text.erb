@@ -1,1 +1,1 @@
-#<%= @comment.number %>  <%= strip_tags(simple_markdown @comment.description).truncate(100) %>    - <%= @comment.user.forum_name %>
+#<%= @comment.number %>  <%= strip_tags(simple_markdown_new(@comment.description)).truncate(100) %>    - <%= @comment.user.forum_name %>

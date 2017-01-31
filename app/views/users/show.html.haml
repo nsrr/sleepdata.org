@@ -62,7 +62,7 @@
     %tr
       %th.text-right
         Research Summary
-      %td= simple_markdown @user.research_summary
+      %td= simple_markdown_new(@user.research_summary)
 
     - if current_user.system_admin?
       %tr

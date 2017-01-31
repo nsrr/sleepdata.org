@@ -10,10 +10,6 @@ module ApplicationHelper
   end
 
   def simple_markdown_new(text, target_blank: true, table_class: '', allow_links: true, allow_lists: true)
-    simple_markdown(text, target_blank, table_class, allow_links, allow_lists)
-  end
-
-  def simple_markdown(text, target_blank = true, table_class = '', allow_links = true, allow_lists = true)
     result = ''
     markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, no_intra_emphasis: true, fenced_code_blocks: true, autolink: true, strikethrough: true, superscript: true, tables: true, lax_spacing: true, space_after_headers: true, underline: true, highlight: true, footnotes: true)
     result = text.to_s

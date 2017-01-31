@@ -7,4 +7,4 @@
     in
     = link_to broadcast.category.name, blog_category_path(category: broadcast.category)
 
-.broadcast= simple_markdown broadcast.description, false
+.broadcast= simple_markdown_new(broadcast.description, target_blank: false)

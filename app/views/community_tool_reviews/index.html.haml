@@ -43,5 +43,5 @@
             %td
               %i= link_to community_tool_review.user.forum_name, community_tool_community_tool_review_path(@community_tool, community_tool_review)
               %small.text-muted= community_tool_review.created_at.strftime('- %b %-d, %Y')
-              = simple_markdown community_tool_review.review
+              = simple_markdown_new(community_tool_review.review)
   .center= paginate @community_tool_reviews, theme: 'bootstrap'

@@ -37,7 +37,7 @@
             .hidden-md.hidden-lg
               = link_to reply.parent.title, reply
             .reply-body{ style: 'font-size: 0.9em;padding:0;margin:0' }
-              = simple_markdown(sanitize(reply.description.gsub(/</, '&lt;')).gsub('&gt;', '>'), reply.user.can_post_links?, true, 'table table-striped')
+              = simple_markdown_new(sanitize(reply.description.gsub(/</, '&lt;')).gsub('&gt;', '>'), table_class: 'table table-striped', allow_links: reply.user.can_post_links?)
           %td.hidden-xs.hidden-sm= link_to reply.user.forum_name, reply.user
           %td.hidden-xs.hidden-sm= reply.created_at.strftime('%a, %B %d, %Y at %-l:%M %p')
 
