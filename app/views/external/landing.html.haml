@@ -12,7 +12,7 @@
 %h3.center{ style: 'font-weight: bold' }
   What interests you?
 .landing-box-container
-  .landing-box
+  .landing-box{ data: { link: datasets_path(ages: '0-17') } }
     .landing-face.landing-back
       .landing-box-header= link_to 'Children', datasets_path(ages: '0-17')
       %p
@@ -23,7 +23,7 @@
         %i.fa.fa-child.icon-child-sm{ aria: { hidden: 'true' } }
         %i.fa.fa-child.icon-child-md{ aria: { hidden: 'true' } }
         %i.fa.fa-child.icon-child-lg{ aria: { hidden: 'true' } }
-  .landing-box
+  .landing-box{ data: { link: datasets_path(ages: '18-90') } }
     .landing-face.landing-back
       .landing-box-header= link_to 'Adults', datasets_path(ages: '18-90')
       %p
@@ -33,7 +33,7 @@
       %p.center.nowrap
         %i.fa.fa-male.icon-lg{ aria: { hidden: 'true' } }
         %i.fa.fa-female.icon-lg{ aria: { hidden: 'true' } }
-  .landing-box
+  .landing-box{ data: { link: datasets_path } }
     .landing-face.landing-back
       .landing-box-header= link_to 'Datasets', datasets_path
       %p
@@ -42,7 +42,7 @@
       .landing-box-header= link_to 'Datasets', datasets_path
       %p.center
         %i.fa.fa-table.icon-lg{ aria: { hidden: 'true' } }
-  .landing-box
+  .landing-box{ data: { link: datasets_path(data: 'actigraphy') } }
     .landing-face.landing-back
       .landing-box-header= link_to 'Actigraphy', datasets_path(data: 'actigraphy')
       %p
@@ -52,7 +52,7 @@
       .landing-box-header= link_to 'Actigraphy', datasets_path(data: 'actigraphy')
       %p.center
         %i.fa.fa-clock-o.icon-lg{ aria: { hidden: 'true' } }
-  .landing-box
+  .landing-box{ data: { link: datasets_path(data: 'polysomnography') } }
     .landing-face.landing-back
       .landing-box-header= link_to 'Polysomnography', datasets_path(data: 'polysomnography')
       %p
