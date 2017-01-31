@@ -30,7 +30,10 @@
     %p
       %strong Date Added
       %br
-      = @community_tool.created_at.strftime '%B %-d, %Y'
+      - if @community_tool.publish_date
+        = @community_tool.publish_date.strftime('%B %-d, %Y')
+      - else
+        = @community_tool.created_at.strftime('%B %-d, %Y')
 
     %p
       %strong Rating
