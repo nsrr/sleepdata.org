@@ -5,7 +5,7 @@ module WwwSleepdataOrg
     MAJOR = 0
     MINOR = 26
     TINY = 0
-    BUILD = 'rc5' # 'pre', 'beta1', 'beta2', 'rc', 'rc2', nil
+    BUILD = nil # 'pre', 'beta1', 'beta2', 'rc', 'rc2', nil
 
     STRING = [MAJOR, MINOR, TINY, BUILD].compact.join('.').freeze
   end
