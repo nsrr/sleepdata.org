@@ -1,5 +1,8 @@
 ## 0.26.1
 
+### Bug Fix
+- Fixed a bug that incorrectly displayed file counts and file sizes for datasets
+
 ## 0.26.0 (February 6, 2017)
 
 ### Enhancements

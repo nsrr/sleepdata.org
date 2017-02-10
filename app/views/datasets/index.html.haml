@@ -112,15 +112,15 @@
           .dataset-card-footer-entry
             = link_to dataset, class: 'no-underline' do
               %small Docs
-          - unless dataset.dataset_files.where(is_file: true).count.zero?
+          - unless dataset.dataset_files.current.where(is_file: true).count.zero?
             .dataset-card-footer-spacer|
             .dataset-card-footer-entry
               = link_to files_dataset_path(dataset), class: 'no-underline' do
                 %small.hidden-sm.hidden-md.hidden-lg Files
                 %small.hidden-xs
-                  = pluralize number_with_delimiter(dataset.dataset_files.where(is_file: true).count), 'File'
+                  = pluralize number_with_delimiter(dataset.dataset_files.current.where(is_file: true).count), 'File'
                   &middot;
-                  = number_to_human_size dataset.dataset_files.where(is_file: true).sum(:file_size)
+                  = number_to_human_size dataset.dataset_files.current.where(is_file: true).sum(:file_size)
           - unless dataset.current_variables.count.zero?
             .dataset-card-footer-spacer|
             .dataset-card-footer-entry
