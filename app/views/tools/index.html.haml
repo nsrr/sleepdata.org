@@ -20,7 +20,7 @@
           = render 'layouts/per_page', per_page: 20, object_count: @community_tools.total_count
         = @title
 
-= render 'search/simple', url: tools_path(@project)
+= render 'search/simple', url: tools_path
 
 - if @community_tools.count == 0
   .jumbotron
@@ -33,14 +33,6 @@
       = succeed '.' do
         = link_to 'Contribute a tool', contribute_tool_start_path
 - else
-  - if false
-    = form_tag tools_path, method: :get, class: 'form-inline' do
-      .input-group
-        = text_field_tag 's', params[:s], class: 'form-control', placeholder: 'Search Tools'
-        .input-group-btn
-          = submit_tag 'Search', class: 'btn btn-primary', name: nil
-          = link_to 'Reset', tools_path, class: 'btn btn-default'
-
   .dashboard-container.box-shadow
     %table.table.table-striped.table-borderless.table-hover
       %col{ width: '1px' }

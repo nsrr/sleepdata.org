@@ -1,39 +1,43 @@
 - @title = "#{"#{params[:folder].gsub('/', ' - ')} - " if params[:folder].present?} #{@dataset.slug.upcase} Variables"
 
+- content_for :body_class do
+  brand-background
+
 = render 'datasets/header'
 
 = render 'variables/folder_breadcrumb', folder: params[:folder]
 
-= form_tag dataset_variables_path(@dataset), method: :get, class: 'form-inline', id: 'collection_form' do
-  .input-group
-    = text_field_tag 's', params[:s], class: 'form-control', placeholder: "Search #{@dataset.slug.upcase}"
-    .input-group-btn
-      = submit_tag 'Search', class: 'btn btn-primary', name: nil
-      = link_to 'Reset', dataset_variables_path(@dataset), class: 'btn btn-default'
+= render 'search/simple', url: dataset_variables_path(@dataset)
 
 - if @variables.count > 0
-  %table.table.table-striped
-    %thead
-      %tr
-        %th
-        %th Name
-        %th.nowrap Display Name
-        %th Folder
-        - unless params[:s].blank?
-          %th Relevance
+  .dashboard-container.box-shadow
+    %table.table.table-striped
+      %thead
+        %tr
+          %th
+          %th
+            Name
+            = render 'search/toggle'
+          %th.hidden-xs.nowrap Display Name
+          %th.hidden-xs.hidden-sm Folder
+          - unless params[:search].blank?
+            %th Relevance
 
-    - @variables.sort { |a,b| a.rank_sort_order(params[:s]) <=> b.rank_sort_order(params[:s]) }.each do |variable|
-      %tr
-        %td
-          - if variable.commonly_used?
-            %span.glyphicon.glyphicon-star.text-warning
-        %td= link_to variable.name, dataset_variable_path(variable.dataset, variable)
-        %td
-          = variable.display_name
-          %small.text-muted.variable-description{ colspan: 2 }= simple_markdown_new(variable.description, allow_lists: false)
-        %td= variable.folder
-        - unless params[:s].blank?
-          %td= render 'variables/relevance', variable: variable
+      - @variables.sort { |a,b| a.rank_sort_order(params[:search]) <=> b.rank_sort_order(params[:search]) }.each do |variable|
+        %tr
+          %td
+            - if variable.commonly_used?
+              %span.glyphicon.glyphicon-star.text-warning
+          %td
+            = link_to variable.name, dataset_variable_path(variable.dataset, variable)
+            .hidden-sm.hidden-md.hidden-lg
+              = variable.display_name
+          %td.hidden-xs
+            = variable.display_name
+            %small.text-muted.variable-description= simple_markdown_new(variable.description, allow_lists: false)
+          %td.hidden-xs.hidden-sm= variable.folder
+          - unless params[:search].blank?
+            %td= render 'variables/relevance', variable: variable
 - elsif @dataset.variables.count == 0
   .jumbotron{ style: 'margin-top:30px' }
     %p
@@ -47,7 +51,7 @@
     %p
       No variables found matching
       = succeed '.' do
-        %code= params[:s]
+        %code= params[:search]
     %p
       Please contact us directly at
       = mail_to 'support@sleepdata.org'

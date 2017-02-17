@@ -10,11 +10,11 @@ class VariablesController < ApplicationController
   def index
     variable_scope = @dataset.variables.with_folder(params[:folder])
     variable_scope = variable_scope.where(dataset_version_id: @dataset_version.id) if @dataset_version
-    if params[:s].blank?
+    if params[:search].blank?
       @variables = variable_scope.page(params[:page]).per(100).order('commonly_used desc', :folder, :name)
       @total_count = @variables.total_count
     else
-      @variables = variable_scope.search(params[:s])
+      @variables = variable_scope.search(params[:search])
       @total_count = @variables.count
     end
     @folders = variable_scope

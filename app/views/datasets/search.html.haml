@@ -14,7 +14,7 @@
     %p
       To search across the documentation, type your search term in the box above.
       If you are searching for variables, you will want to view the
-      = link_to 'Variables', dataset_variables_path(@dataset, s: params[:s])
+      = link_to 'Variables', dataset_variables_path(@dataset, search: params[:search])
       instead.
 - else
   %table.table.table-striped

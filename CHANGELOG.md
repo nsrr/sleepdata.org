@@ -8,6 +8,8 @@
   - Improved styling of several pages for mobile devices
 - **Agreement Changes**
   - Improved display of DAUA review index
+- **Variables Changes**
+  - Improved search display and results on variables index
 
 ### Bug Fix
 - Fixed a bug that incorrectly displayed file counts and file sizes for datasets

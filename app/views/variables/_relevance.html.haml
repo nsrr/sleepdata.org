@@ -1,5 +1,5 @@
-- relevance = variable.relevance(params[:s])
-- max_score = Variable.max_score(params[:s])
+- relevance = variable.relevance(params[:search])
+- max_score = Variable.max_score(params[:search])
 - if relevance > 0 && max_score > 0
   - percent = [relevance * 100 / max_score, 100].min
   - status = 'danger'

@@ -36,7 +36,7 @@
   variablesReady()
 
 @ready = ->
-  setFocusToField("#collection_form #s, #search, #s") if $("#collection_form #s, #search, #s").val() != ''
+  setFocusToField("#search, #s") if $("#search, #s").val() != ''
   window.$isDirty = false
   fix_ie10_placeholder()
   componentsReady()

@@ -37,7 +37,7 @@
         %li= link_to @dataset.slug, @dataset
 
         %li= link_to_if !folder.blank?, 'variables', dataset_variables_path(@dataset)
-        - s = (params[:s].blank? ? nil : params[:s])
+        - s = (params[:search].blank? ? nil : params[:search])
         - unless folder.blank?
           - folder.to_s.split('/')[0..(@variable ? -1 : -2)].each_with_index do |partial_folder, index|
             - full_folder = folder.to_s.split('/')[0..index].join('/')
