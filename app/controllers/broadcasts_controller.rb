@@ -30,7 +30,7 @@ class BroadcastsController < ApplicationController
     @broadcast = current_user.broadcasts.new(broadcast_params)
 
     if @broadcast.save
-      redirect_to @broadcast, notice: 'Broadcast was successfully created.'
+      redirect_to @broadcast, notice: 'Blog post was successfully created.'
     else
       render :new
     end
@@ -39,7 +39,7 @@ class BroadcastsController < ApplicationController
   # PATCH /broadcasts/1
   def update
     if @broadcast.update(broadcast_params)
-      redirect_to @broadcast, notice: 'Broadcast was successfully updated.'
+      redirect_to @broadcast, notice: 'Blog post was successfully updated.'
     else
       render :edit
     end
@@ -48,7 +48,7 @@ class BroadcastsController < ApplicationController
   # DELETE /broadcasts/1
   def destroy
     @broadcast.destroy
-    redirect_to broadcasts_path, notice: 'Broadcast was successfully deleted.'
+    redirect_to broadcasts_path, notice: 'Blog post was successfully deleted.'
   end
 
   private
