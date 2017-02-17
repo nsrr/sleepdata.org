@@ -1,5 +1,9 @@
 ## 0.26.1
 
+### Enhancements
+- **General Changes**
+  - Login cookies are now cross subdomain and work between www and non-www URLs
+
 ### Bug Fix
 - Fixed a bug that incorrectly displayed file counts and file sizes for datasets
 
