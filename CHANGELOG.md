@@ -5,6 +5,8 @@
   - Login cookies are now cross subdomain and work between www and non-www URLs
   - Added a team page
   - Grant number is now on the about page
+- **Agreement Changes**
+  - Improved display of DAUA review index
 
 ### Bug Fix
 - Fixed a bug that incorrectly displayed file counts and file sizes for datasets
