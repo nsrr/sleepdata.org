@@ -61,4 +61,8 @@
       - else
         .call-to-action-body
           To download files:
-          = link_to 'Fill out a Data Access and Use Agreement', submissions_start_path(dataset: @dataset), class: 'btn btn-lg btn-call-to-action btn-shadow'
+        .call-to-action-body
+          = link_to submissions_start_path(dataset: @dataset), class: 'btn btn-accent btn-shadow' do
+            Fill out a
+            %span.hidden-xs Data Access and Use Agreement
+            %span.hidden-sm.hidden-md.hidden-lg DAUA

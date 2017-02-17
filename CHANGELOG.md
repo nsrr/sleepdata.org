@@ -5,6 +5,7 @@
   - Login cookies are now cross subdomain and work between www and non-www URLs
   - Added a team page
   - Grant number is now on the about page
+  - Improved styling of several pages for mobile devices
 - **Agreement Changes**
   - Improved display of DAUA review index
 
