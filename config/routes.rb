@@ -213,6 +213,7 @@ Rails.application.routes.draw do
     get :demo
     get :landing
     get :sitemap
+    get :team
     get :version
     get :voting
 

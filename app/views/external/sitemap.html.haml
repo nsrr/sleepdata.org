@@ -1,65 +1,80 @@
 - @title = 'Site Map'
-%h1.brand NSRR Site Map
 
-.content-spacer
+- content_for :body_class do
+  brand-background
 
-%h2.brand About NSRR
+.about-header
+  NSRR Site Map
 
-.row
-  .col-md-3
-    %h3 Team
-    %ul
-      %li= link_to 'NSRR Info', about_path
-      %li= link_to 'Academic User Group', aug_path
-  .col-md-3
-    %h3 News
-    %ul
-      %li= link_to 'Blog', blog_path
-  .col-md-3
-    %h3 Learn
-    %ul
-      %li= link_to 'Challenges', challenges_path
-      %li= link_to 'Demo', demo_path
-      %li= link_to 'Showcase', showcase_path
-  .col-md-3
-    %h3 Support
-    %ul
-      %li= link_to 'Contact Us', contact_path
-      %li= link_to 'Forum', topics_path
+.about-section-title
+  About NSRR
 
-.content-spacer
+.dashboard-container.box-shadow
+  .row
+    .col-md-3
+      %strong
+        Team
+      %ul
+        %li= link_to 'NSRR Info', about_path
+        %li= link_to 'Team', team_path
+        %li= link_to 'Academic User Group', aug_path
+        %li= link_to 'Past Contributors', contributors_path
+    .col-md-3
+      %strong
+        News
+      %ul
+        %li= link_to 'Blog', blog_path
+    .col-md-3
+      %strong
+        Learn
+      %ul
+        %li= link_to 'Challenges', challenges_path
+        %li= link_to 'Demo', demo_path
+        %li= link_to 'Showcase', showcase_path
+    .col-md-3
+      %strong
+        Support
+      %ul
+        %li= link_to 'Contact Us', contact_path
+        %li= link_to 'Forum', topics_path
 
-%h2.brand Resources
+.about-section-title
+  Resources
 
-.row
-  .col-md-6
-    %h3= link_to 'Datasets', datasets_path
-    %ul
-      - Dataset.current.where(public: true).order(:name).each do |dataset|
-        %li= link_to dataset.name, dataset
-  .col-md-6
-    %h3= link_to 'Tools', tools_path
-    %ul
-      - Tool.current.where(public: true).order(:name).each do |tool|
-        %li= link_to tool.name, tool
+.dashboard-container.box-shadow
+  .row
+    .col-md-6
+      %strong
+        = link_to 'Datasets', datasets_path
+      %ul
+        - Dataset.current.where(public: true).order(:name).each do |dataset|
+          %li= link_to dataset.name, dataset
+    .col-md-6
+      %strong
+        = link_to 'Tools', tools_path
+      %ul
+        - CommunityTool.current.where(published: true).order(:name).each do |community_tool|
+          %li= link_to community_tool.name, community_show_tool_path(community_tool)
 
-.content-spacer
 
-%h2.brand Account
-.row
-  .col-md-6
-    %h3 New Account
-    %ul
-      %li= link_to 'Register a New Account', new_user_registration_path
+.about-section-title
+  Account
 
-  .col-md-6
-    %h3 My Account
-    %ul
-      %li= link_to 'My Dashboard', dashboard_path
-      %li= link_to 'My Data Access and Use Agreements', submissions_path
-      %li= link_to 'Change My Forum Username', settings_path
-      %li= link_to 'Change My Email Address', settings_path
-      %li= link_to 'Update My Personal Information', settings_path
-      %li= link_to 'Reset My Password', new_user_password_path
+.dashboard-container.box-shadow
+  .row
+    .col-md-6
+      %strong
+        New Account
+      %ul
+        %li= link_to 'Register a New Account', new_user_registration_path
 
-.content-spacer
+    .col-md-6
+      %strong
+        My Account
+      %ul
+        %li= link_to 'My Dashboard', dashboard_path
+        %li= link_to 'My Data Access and Use Agreements', submissions_path
+        %li= link_to 'Change My Forum Username', settings_path
+        %li= link_to 'Change My Email Address', settings_path
+        %li= link_to 'Update My Personal Information', settings_path
+        %li= link_to 'Reset My Password', new_user_password_path

@@ -3,16 +3,18 @@
 - content_for :body_class do
   brand-background
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        = @title
+.about-header
+  = @title
 
 %p.lead.center
-  The NSRR team is thrilled to have the support and guidance of the diverse
-  Academic User Group.
+  A special thanks to our AUG members.
+
+.dashboard-container-narrow
+  .row
+    - @users.order(:first_name, :last_name).each do |user|
+      .col-sm-6.col-buffer.center= user.name
 
 .center
-  - @users.order(:first_name, :last_name).each do |user|
-    %p= user.name
+  = link_to 'Team', team_path
+  &middot;
+  = link_to 'Past Contributors', contributors_path

@@ -39,6 +39,10 @@ class ExternalController < ApplicationController
   # def sitemap
   # end
 
+  # # GET /team
+  # def team
+  # end
+
   # # GET /version
   # # GET /version.json
   # def version
