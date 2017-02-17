@@ -1,57 +1,62 @@
-- content_for :banner do
-  .banner
-    .container.center
-      .banner-body
-        Presenting the
-      .banner-header.brand
-        NSRR Cross Dataset Query Interface
-      .banner-body
-        = image_tag 'physiomimi_logo.png', class: 'img-thumbnail'
+- @title = 'NSRR Cross Dataset Query Interface'
+
+- content_for :body_class do
+  brand-background
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        = @title
+
+.center= image_tag 'physiomimi_logo.png', class: 'img-thumbnail box-shadow'
 
 %a.anchor-top{ name: 'search-across-datasets' }
-%h2
-  Search Across Datasets
+.about-section-title
+  Search across datasets.
 
-%p
-  Create powerful queries across datasets available on the NSRR.
+.dashboard-container.box-shadow
+  %p
+    Create powerful queries across datasets available on the NSRR.
 
-.center{ style: 'max-width: 1200px;margin: 40px auto 0px auto;' }
-  = image_tag 'https://sleepdata.org/image/Bn5Mnx', class: 'img-responsive'
+  .center{ style: 'max-width: 1200px;margin: 40px auto 0px auto;' }
+    = image_tag 'https://sleepdata.org/image/Bn5Mnx', class: 'img-responsive'
 
 
 %a.anchor-top{ name: 'graphical-exploration' }
-%h2
-  Dynamically Plot Variables
+.about-section-title
+  Dynamically plot variables.
 
-.row
-  .col-md-6
-    %p.hidden-xs.hidden-sm.text-right{ style: 'margin-top:80px;' }
-      Select two variables and click
-      %strong Graph Distribution.
-    %p.visible-xs.visible-sm.text-right
-      Select two variables and click
-      %strong Graph Distribution.
-  .col-md-6
-    = image_tag 'https://sleepdata.org/image/Eba5b7', class: 'img-responsive'
+.dashboard-container.box-shadow
+  .row
+    .col-md-6
+      %p.hidden-xs.hidden-sm.text-right{ style: 'margin-top:80px;' }
+        Select two variables and click
+        %strong Graph Distribution.
+      %p.visible-xs.visible-sm.text-center
+        Select two variables and click
+        %strong Graph Distribution.
+    .col-md-6
+      = image_tag 'https://sleepdata.org/image/Eba5b7', class: 'img-responsive'
 
-.row{ style: 'margin-top: 20px' }
-  .col-md-6
-    %p.visible-xs.visible-sm.text-right
-      %strong Find interesting correlations?
-      %br
-      Download complete datasets for offline analysis from the
-      = succeed '.' do
-        = link_to 'NSRR website', ENV['website_url']
+.about-section-title
+  Find interesting correlations.
+.dashboard-container.box-shadow
+  .row{ style: 'margin-top: 20px' }
+    .col-md-6
+      %p.visible-xs.visible-sm.text-center
+        Download complete datasets for offline analysis from the
+        = succeed '.' do
+          = link_to 'NSRR website', ENV['website_url']
 
-    = image_tag 'https://sleepdata.org/image/2eq5ex', class: 'img-responsive hidden-xs hidden-sm'
-  .col-md-6
-    %p.hidden-xs.hidden-sm{ style: 'margin-top:80px;' }
-      %strong Find interesting correlations?
-      Download complete datasets for offline analysis from the
-      = succeed '.' do
-        = link_to 'NSRR website', ENV['website_url']
+      = image_tag 'https://sleepdata.org/image/2eq5ex', class: 'img-responsive hidden-xs hidden-sm'
+    .col-md-6
+      %p.hidden-xs.hidden-sm{ style: 'margin-top:80px;' }
+        Download complete datasets for offline analysis from the
+        = succeed '.' do
+          = link_to 'NSRR website', ENV['website_url']
 
-    = image_tag 'https://sleepdata.org/image/2eq5ex', class: 'img-responsive visible-xs visible-sm'
+      = image_tag 'https://sleepdata.org/image/2eq5ex', class: 'img-responsive visible-xs visible-sm'
 
 %a.anchor-top{ name: 'get-started-now' }
 - content_for :call_to_action do
@@ -59,7 +64,7 @@
     .call-to-action-header
       Start your cross dataset exploration now.
     .call-to-action-body
-      = link_to 'Start a Query', 'https://www.x-search.net/queries/builder', class: 'btn btn-call-to-action btn-lg'
+      = link_to 'Start a Query', 'https://www.x-search.net/queries/builder', class: 'btn btn-accent btn-shadow'
 
     .call-to-action-body
       Not sure yet?

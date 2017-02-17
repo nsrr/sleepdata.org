@@ -2,6 +2,7 @@
 
 require 'test_helper'
 
+# Assure that showcase pages display for public users.
 class ShowcaseControllerTest < ActionController::TestCase
   test 'should get showcase for logged out user' do
     get :index
@@ -26,11 +27,6 @@ class ShowcaseControllerTest < ActionController::TestCase
 
   test 'should get search-nsrr for logged out user' do
     get :show, params: { slug: 'search-nsrr' }
-    assert_response :success
-  end
-
-  test 'should get shaun-purcell-genetics-of-sleep-spindles for logged out user' do
-    get :show, params: { slug: 'shaun-purcell-genetics-of-sleep-spindles' }
     assert_response :success
   end
 end

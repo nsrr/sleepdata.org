@@ -2,8 +2,9 @@
 
 # Provides several pages that showcase different aspects of the NSRR
 class ShowcaseController < ApplicationController
-  def index
-  end
+  # # GET /showcase
+  # def index
+  # end
 
   def show
     if showcases.include? params[:slug]
@@ -16,7 +17,6 @@ class ShowcaseController < ApplicationController
   private
 
   def showcases
-    %w(search-nsrr where-to-start shaun-purcell-genetics-of-sleep-spindles
-       matt-butler-novel-sleep-measures-and-cardiovascular-risk)
+    %w(search-nsrr where-to-start)
   end
 end
