@@ -27,7 +27,7 @@ module AgreementsHelper
 
   def step_helper_2(agreement, step)
     if step != 6 && agreement.step_valid?(step)
-      'check agreement-step-completed'
+      'check text-success'
     else
       'unchecked'
     end

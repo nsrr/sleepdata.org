@@ -8,6 +8,7 @@
   - Improved styling of several pages for mobile devices
 - **Agreement Changes**
   - Improved display of DAUA review index
+  - Improved progress display for DAUAs
 - **Variables Changes**
   - Improved search display and results on variables index
 
