@@ -41,6 +41,11 @@
       %span.hidden-xs National Heart, Lung, and Blood Institute,
       %span.hidden-sm.hidden-md.hidden-lg NHLBI,
       NIH.
+  %p{ style: 'text-align: center;' }
+    %small.text-muted
+      Proudly made by
+      = succeed '.' do
+        = link_to 'the NSRR team', team_path
 
 %hr.about-divider
 
@@ -79,10 +84,8 @@
 
 .about-section.about-section-bottom
   %p
-    The
-    = link_to 'https://biolincc.nhlbi.nih.gov/home/' do
-      National Heart, Lung and Blood Institute (NHLBI) Biologic Specimen and
-      Data Repository
+    The National Heart, Lung and Blood Institute (NHLBI)
+    = link_to 'Biologic Specimen and Data Repository Information Coordinating Center', 'https://biolincc.nhlbi.nih.gov/home/'
     is the coming together of two entities: the NHLBI Biologic Specimen
     Repository (NHLBI Biorepository), managed by the NHLBI, Division of Blood
     Diseases and Resources (DBDR), Transfusion Medicine and Cellular

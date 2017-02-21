@@ -1,5 +1,9 @@
 ## 0.26.2
 
+### Enhancements
+- **General Changes**
+  - Added link to team page from about page
+
 ## 0.26.1 (February 20, 2017)
 
 ### Enhancements
