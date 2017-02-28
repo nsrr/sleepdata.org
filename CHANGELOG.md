@@ -1,5 +1,9 @@
 ## 0.26.3
 
+### Enhancements
+- **General Changes**
+  - Added a users export task
+
 ## 0.26.2 (February 21, 2017)
 
 ### Enhancements
