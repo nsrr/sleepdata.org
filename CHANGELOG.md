@@ -3,6 +3,7 @@
 ### Enhancements
 - **Gem Changes**
   - Updated to pg 0.20.0
+  - Updated to sitemap_generator 5.3.1
 
 ## 0.26.3 (February 28, 2017)
 
