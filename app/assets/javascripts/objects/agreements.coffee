@@ -13,7 +13,7 @@ $(document)
   .on('click', '[data-object~="select_radio_button"]', () ->
     $($(this).data('target')).prop('checked', true)
   )
-  .on('click', '[data-object~="select_checkbox_panel"]', (evt) ->
+  .on('click', '[data-object~="select_checkbox_panel"]', (event) ->
     if event.target.tagName and event.target.tagName.toLowerCase() != 'input'
       $($(this).data('target')).prop('checked', !$($(this).data('target')).prop('checked'))
 

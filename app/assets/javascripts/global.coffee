@@ -5,13 +5,6 @@
   val = $(element_id).val()
   $(element_id).focus().val('').val(val)
 
-# TODO: Might be able to remove this in the future with Turbolinks 5
-# https://github.com/turbolinks/turbolinks-classic/issues/455
-@fix_ie10_placeholder = ->
-  $('textarea').each ->
-    if $(@).val() == $(@).attr('placeholder')
-      $(@).val ''
-
 @componentsReady = ->
   affixReady()
   graphsReady()
@@ -35,18 +28,25 @@
   tagsReady()
   variablesReady()
 
-@ready = ->
+@turbolinksReady = ->
   setFocusToField("#search, #s") if $("#search, #s").val() != ''
   window.$isDirty = false
-  fix_ie10_placeholder()
   componentsReady()
   extensionsReady()
   objectsReady()
 
+# These functions only get called on the initial page visit (no turbolinks).
+# Browsers that don't support turbolinks will initialize all functions in
+# turbolinks on page load. Those that do support Turbolinks won't call these
+# methods here, but instead will wait for `turbolinks:load` event to prevent
+# running the functions twice.
+@initialLoadReady = ->
+  turbolinksReady() unless Turbolinks.supported
+
 $(window).onbeforeunload = -> return "You haven't saved your changes." if window.$isDirty
-$(document).ready(ready)
+$(document).ready(initialLoadReady)
 $(document)
-  .on('turbolinks:load', ready)
+  .on('turbolinks:load', turbolinksReady)
   .on('turbolinks:before-visit', (event) ->
     event.preventDefault() if window.$isDirty and !confirm("You haven't saved your changes.")
   )
