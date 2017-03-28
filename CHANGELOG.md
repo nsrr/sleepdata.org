@@ -8,6 +8,9 @@
   - Updated to sitemap_generator 5.3.1
   - Updated to simplecov 0.14.1
 
+### Bug Fixes
+- Page navigation is now properly canceled when navigating away from a form
+
 ## 0.26.3 (February 28, 2017)
 
 ### Enhancements
