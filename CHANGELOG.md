@@ -2,6 +2,7 @@
 
 ### Enhancements
 - **Gem Changes**
+  - Updated to Ruby 2.4.1
   - Updated to rails 5.0.2
   - Updated to pg 0.20.0
   - Updated to sitemap_generator 5.3.1
