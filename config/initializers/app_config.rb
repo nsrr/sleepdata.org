@@ -2,3 +2,4 @@
 
 require 'csv'
 require 'digest/md5'
+require 'net/http'
