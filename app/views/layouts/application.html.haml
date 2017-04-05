@@ -17,9 +17,7 @@
     %meta{ itemprop: 'name', content: ENV['website_name'] }
     %meta{ itemprop: 'description', content: 'Offering free web access to large collections of de-identified physiological signals and clinical data elements in well-characterized research cohorts and clinical trials.' }
     %meta{ itemprop: 'image', content: ENV['website_url'] + '/assets/' + asset_path('nsrr_logo_256.png').split('/assets/').last }
-
     -# Don't cache any pages
-    -# TODO: determine if caching should be allowed
     %meta{ name: 'turbolinks-cache-control', content: 'no-cache' }
 
     %title
