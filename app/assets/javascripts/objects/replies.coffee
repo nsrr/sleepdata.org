@@ -15,7 +15,7 @@
     $("#{window.location.hash}-container").addClass('highlighted-reply')
 
 $(document)
-  .on('click', '[data-object~="toggle-reply"]', () ->
+  .on('click', '[data-object~="toggle-reply"]', ->
     $(this).closest('.reply-header').siblings('.reply-body,.reply-avatar-container').toggle()
     if $(this).html() == '[-]'
       $(this).html('[+]')
@@ -23,13 +23,13 @@ $(document)
       $(this).html('[-]')
     false
   )
-  .on('click', '[data-object~="parent-no-write-reply"]', () ->
+  .on('click', '[data-object~="parent-no-write-reply"]', ->
     parent_reply_id = $(this).data('parent-reply-id')
     reply_id = $(this).data('reply-id')
     hideReplyBox(parent_reply_id, reply_id)
     false
   )
-  .on('click', '[data-object~="reply-tab"]', () ->
+  .on('click', '[data-object~="reply-tab"]', ->
     parent_reply_id = $(this).data('parent-reply-id')
     reply_id = $(this).data('reply-id')
     action = $(this).data('action')
@@ -39,7 +39,7 @@ $(document)
     $("[data-object~='reply-tab-content'][data-parent-reply-id=#{parent_reply_id}][data-action=#{action}]").show()
     false
   )
-  .on('click', '[data-object~="reply-tab"][data-action~="preview"]', () ->
+  .on('click', '[data-object~="reply-tab"][data-action~="preview"]', ->
     parent_reply_id = $(this).data('parent-reply-id')
     reply_id = $(this).data('reply-id')
     input = "#reply_description_#{parent_reply_id}_#{reply_id}"
@@ -50,7 +50,7 @@ $(document)
     $.post("#{root_url}replies/preview", params, null, 'script')
     false
   )
-  .on('click', '[data-object~="bold-selection"]', () ->
+  .on('click', '[data-object~="bold-selection"]', ->
     selection = $($(this).data('target')).getSelection()
     return false unless selection?
     return false if selection.length == 0
@@ -60,7 +60,7 @@ $(document)
     $($(this).data('target')).val(new_string)
     false
   )
-  .on('click', '[data-object~="italic-selection"]', () ->
+  .on('click', '[data-object~="italic-selection"]', ->
     selection = $($(this).data('target')).getSelection()
     return false unless selection?
     return false if selection.length == 0
@@ -70,7 +70,7 @@ $(document)
     $($(this).data('target')).val(new_string)
     false
   )
-  .on('click', '[data-object~="link-selection"]', () ->
+  .on('click', '[data-object~="link-selection"]', ->
     selection = $($(this).data('target')).getSelection()
     return false unless selection?
     original_text = $($(this).data('target')).val()
@@ -82,16 +82,15 @@ $(document)
     $($(this).data('target')).val(new_string)
     false
   )
-  .on('click', '[data-object~="quote-selection"]', () ->
+  .on('click', '[data-object~="quote-selection"]', ->
     selection = $($(this).data('target')).getSelection()
     return false unless selection?
     original_text = $($(this).data('target')).val()
     substitute = "> #{selection.text}"
     new_string = original_text.substring(0, selection.start) + substitute + original_text.substring(selection.end)
     $($(this).data('target')).val(new_string)
-    console.log selection
     false
   )
-  .on('click', '.reply-body img', () ->
+  .on('click', '.reply-body img', ->
     $(this).toggleClass('large-view')
   )
