@@ -30,21 +30,22 @@ class NotificationsController < ApplicationController
 
   # PATCH /notifications/mark_all_as_read
   def mark_all_as_read
-    @notifications = \
+    notification_ids = \
       if @broadcast
-        current_user.notifications.where(broadcast_id: @broadcast.id)
+        current_user.notifications.where(broadcast_id: @broadcast.id, read: false).pluck(:id)
       elsif @topic
-        current_user.notifications.where(topic_id: @topic.id)
+        current_user.notifications.where(topic_id: @topic.id, read: false).pluck(:id)
       elsif @community_tool
-        current_user.notifications.where(community_tool_id: @community_tool.id)
+        current_user.notifications.where(community_tool_id: @community_tool.id, read: false).pluck(:id)
       elsif @dataset
-        current_user.notifications.where(dataset_id: @dataset.id)
+        current_user.notifications.where(dataset_id: @dataset.id, read: false).pluck(:id)
       elsif @hosting_request
-        current_user.notifications.where(hosting_request_id: @hosting_request.id)
+        current_user.notifications.where(hosting_request_id: @hosting_request.id, read: false).pluck(:id)
       else
-        Notification.none
+        []
       end
-    @notifications.update_all read: true
+    current_user.notifications.where(id: notification_ids).update_all(read: true)
+    @notifications = current_user.notifications.where(id: notification_ids)
   end
 
   private

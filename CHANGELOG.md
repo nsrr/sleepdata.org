@@ -3,6 +3,8 @@
 ### Enhancements
 - **General Changes**
   - Improved loading JavaScript during Turbolinks page transitions
+- **Notification Changes**
+  - Minor improvements to marking notifications as read
 - **Gem Changes**
   - Updated to Ruby 2.4.1
   - Updated to rails 5.0.2

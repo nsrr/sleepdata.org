@@ -6,6 +6,17 @@
   width: 0;
 }
 
+.link-muted {
+  color: $text-muted;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: $text-muted;
+    text-decoration: none;
+  }
+}
+
 .link-unstyled {
   color: $text-color;
 
