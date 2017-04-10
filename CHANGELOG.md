@@ -4,6 +4,9 @@
 - **General Changes**
   - Improved loading JavaScript during Turbolinks page transitions
   - Changed human verification from "Invisible" to "I'm not a robot" ReCAPTCHA
+- **Dataset Changes**
+  - Datasets that have all files public no longer redirect users to the DAUA
+    process, and can no longer be selected during the DAUA process
 - **Notification Changes**
   - Minor improvements to marking notifications as read
 - **Gem Changes**
