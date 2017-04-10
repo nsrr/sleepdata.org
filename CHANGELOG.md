@@ -3,6 +3,7 @@
 ### Enhancements
 - **General Changes**
   - Improved loading JavaScript during Turbolinks page transitions
+  - Changed human verification from "Invisible" to "I'm not a robot" ReCAPTCHA
 - **Notification Changes**
   - Minor improvements to marking notifications as read
 - **Gem Changes**

@@ -36,12 +36,19 @@
           = f.check_box :emails_enabled
           Allow the NSRR to send you emails?
 
+    - invisible_recaptcha = false
+    - if RECAPTCHA_ENABLED && !invisible_recaptcha
+      .form-group
+        %label.control-label Human Verification
+        .g-recaptcha{ data: { sitekey: ENV['recaptcha_site_key'] } }
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     - if resource.errors && resource.errors[:recaptcha].present?
       .form-group.center
         %small.text-danger= resource.errors[:recaptcha].join(' ')
 
     .form-group.submit-btn-container
-      - if RECAPTCHA_ENABLED
+      - if RECAPTCHA_ENABLED && invisible_recaptcha
         %button.g-recaptcha.btn.btn-primary.btn-block.btn-shadow{ data: { sitekey: ENV['recaptcha_site_key'], callback: 'recaptchaFormSubmit' } } Create an Account
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
       - else
