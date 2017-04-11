@@ -9,6 +9,8 @@
     process, and can no longer be selected during the DAUA process
 - **Notification Changes**
   - Minor improvements to marking notifications as read
+  - Clicking on notification for forum or blog replies now jumps directly to the
+    reply
 - **Gem Changes**
   - Updated to Ruby 2.4.1
   - Updated to rails 5.0.2
