@@ -33,18 +33,17 @@ class RepliesController < ApplicationController
   end
 
   def vote
-    if current_user
-      @reply_user = @reply.parent.reply_users.where(
-        user_id: current_user.id, reply: @reply.id
-      ).first_or_create
-      case params[:vote]
-      when 'up'
-        @reply_user.up_vote!
-      when 'down'
-        @reply_user.down_vote!
-      else
-        @reply_user.remove_vote!
-      end
+    return unless current_user
+    @reply_user = @reply.parent.reply_users.where(
+      user_id: current_user.id, reply: @reply.id
+    ).first_or_create
+    case params[:vote]
+    when 'up'
+      @reply_user.up_vote!
+    when 'down'
+      @reply_user.down_vote!
+    else
+      @reply_user.remove_vote!
     end
   end
 
@@ -53,9 +52,9 @@ class RepliesController < ApplicationController
   #   @reply = Reply.new
   # end
 
-  # GET /replies/1/edit.js
-  def edit
-  end
+  # # GET /replies/1/edit.js
+  # def edit
+  # end
 
   # POST /replies
   def create
@@ -89,19 +88,19 @@ class RepliesController < ApplicationController
   private
 
   def find_parent_or_redirect
-    @topic = Topic.current.find_by_slug params[:topic_id]
-    @broadcast = Broadcast.current.published.find_by_slug params[:broadcast_id]
+    @topic = Topic.current.find_by(slug: params[:topic_id])
+    @broadcast = Broadcast.current.published.find_by(slug: params[:broadcast_id])
     @parent = @topic || @broadcast
     empty_response_or_root_path unless @parent
   end
 
   def find_viewable_reply_or_redirect
-    @reply = Reply.current.find_by_id params[:id]
+    @reply = Reply.current.find_by(id: params[:id])
     redirect_without_reply
   end
 
   def find_editable_reply_or_redirect
-    @reply = current_user.editable_replies.find_by_id params[:id]
+    @reply = current_user.editable_replies.find_by(id: params[:id])
     redirect_without_reply
   end
 
