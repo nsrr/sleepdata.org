@@ -14,7 +14,7 @@
         %li= link_to @dataset.name, @dataset
         %li= render 'datasets/rating', rating: @dataset.rating
 
-.dashboard-container.box-shadow
+.dashboard-container
   = render 'datasets/rating', rating: @dataset_review.rating
   %i= @dataset_review.user.forum_name
   %small.text-muted= @dataset_review.created_at.strftime('- %b %-d, %Y')

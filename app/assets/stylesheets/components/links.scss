@@ -1,9 +1,12 @@
-.anchor-top {
-  display: block;
-  height: 0;
-  position: relative;
-  top: -($header-height);
-  width: 0;
+.link-accent {
+  color: $p500;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: darken($p500, 15%);
+    text-decoration: none;
+  }
 }
 
 .link-muted {

@@ -24,7 +24,7 @@
 %h2
   Download Data
 
-.dashboard-container.box-shadow
+.dashboard-container
   %p
     Downloading files is
     %strong EASY
@@ -88,7 +88,7 @@
 %a.anchor-top{ name: 'statistics', id: 'statistics' }
 %h2
   Generate Statistics
-.dashboard-container.box-shadow
+.dashboard-container
   .row
     .col-md-6.col-buffer
       = image_tag 'nsrr-rdi3p-age-gender.png', class: 'img-responsive'
@@ -229,7 +229,7 @@
   Extract Signals from EDFs
   = link_to('<sup>[3]</sup>'.html_safe, "#3") + "."
 
-.dashboard-container.box-shadow
+.dashboard-container
   .codeblocks-container.code-input
     %code
       gem install edfize

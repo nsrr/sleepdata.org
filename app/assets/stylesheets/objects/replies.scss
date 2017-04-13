@@ -1,40 +1,6 @@
-.topic-read {
-  color: $p700;
-  font-style: italic;
-
-  &:hover,
-  &:focus,
-  &.focus,
-  &:active,
-  &.active {
-    color: darken($p700, 15%);
-  }
-}
-
-.reply-inner-container {
-  margin-left: 0;
-  position: relative;
-}
-
-.reply-avatar {
-  display: none;
-}
-
-@media screen and (min-width: $screen-md-min) {
-  .reply-inner-container {
-    margin-left: 70px;
-  }
-
-  .reply-avatar {
-    display: block;
-    left: -70px;
-    position: absolute;
-  }
-}
-
 .reply-outer-container {
   background-color: $brand-white;
-  box-shadow: $box-shadow;
+  box-shadow: 0 1px 5px $box-shadow-color;
   margin-bottom: 20px;
   padding: 20px;
 }
@@ -49,8 +15,6 @@
   }
 
   .reply-container {
-    border: 1px solid $brand-gray-lighter;
-    border-radius: 4px 0 0 4px;
     margin-right: -11px;
     margin-top: 10px;
     padding: 10px;
@@ -66,20 +30,12 @@
   }
 }
 
+.reply-unread {
+  border-left: 4px solid $a100;
+}
+
 .reply-read {
-  background-color: $comment-read-even;
-
-  .reply-container.reply-even {
-    background-color: $comment-read-even;
-  }
-
-  .reply-container.reply-odd {
-    background-color: $comment-read-odd;
-  }
-
-  blockquote {
-    border-color: $brand-gray;
-  }
+  border-left: 4px solid $p50;
 }
 
 .highlighted-reply {
@@ -121,5 +77,30 @@
 @media screen and (min-width: $screen-sm-min) {
   .reply-body {
     padding-left: 20px;
+  }
+}
+
+.reply-inner-container {
+  margin-left: 0;
+  position: relative;
+}
+
+.reply-avatar {
+  display: none;
+
+  img {
+    cursor: default;
+  }
+}
+
+@media screen and (min-width: $screen-md-min) {
+  .reply-avatar {
+    display: block;
+    left: -70px;
+    position: absolute;
+  }
+
+  .reply-inner-container {
+    margin-left: 70px;
   }
 }

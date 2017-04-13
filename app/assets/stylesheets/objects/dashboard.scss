@@ -1,18 +1,24 @@
-.dashboard-container,
-.profile-bottom {
-  background-color: $brand-white;
-  border: 1px solid $brand-gray;
-}
-
 .dashboard-container {
   @include remove-last-child-bottom-margin;
+  @include scale-images;
 
+  background-color: $dashboard-bg;
   border-radius: 4px;
+  box-shadow: 0 1px 5px $box-shadow-color;
+  color: $text-color;
   margin-bottom: 20px;
   padding: 20px;
+  position: relative;
 
-  &.box-shadow {
-    border: 0;
+  > div,
+  > table {
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  + .center > .pagination {
+    margin-top: 0;
   }
 
   .broadcast {
@@ -32,6 +38,11 @@
 .dashboard-notification {
   background-color: $brand-warning;
   border-color: darken($brand-warning, 20%);
+}
+
+.profile-bottom {
+  background-color: $brand-white;
+  border: 1px solid $brand-gray;
 }
 
 .profile-container {

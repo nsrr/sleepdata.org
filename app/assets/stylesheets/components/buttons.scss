@@ -1,11 +1,9 @@
-// Buttons
-
 .btn {
   transition: all .25s ease-out;
 }
 
 .btn-shadow {
-  box-shadow: 0 7px 30px $standard-shadow-color;
+  box-shadow: 0 5px 15px $standard-shadow-color;
 
   &:hover,
   &:focus,
@@ -13,7 +11,7 @@
   &.active,
   &.disabled,
   &[disabled] {
-    box-shadow: 0 7px 15px $standard-shadow-hover-color;
+    box-shadow: 0 5px 8px $standard-shadow-hover-color;
   }
 }
 

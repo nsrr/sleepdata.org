@@ -3,6 +3,14 @@
 .preview-container {
   border: 1px solid $input-border;
   border-radius: 2px;
+
+  &.preview-container-forum {
+    border: 1px solid $brand-gray-lighter;
+    border-radius: 0;
+    box-shadow: 0 1px 5px $box-shadow-color;
+    margin-bottom: 20px;
+    border-left: 4px solid $a100;
+  }
 }
 
 .preview-header {
@@ -10,6 +18,15 @@
   border-bottom: 1px solid $brand-gray;
   padding: 10px 10px 5px;
   position: relative;
+}
+
+.preview-container-login {
+  margin-bottom: 20px;
+
+  .preview-header {
+    background-color: $p500;
+    color: $brand-white;
+  }
 }
 
 .preview-body {

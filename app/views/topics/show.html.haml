@@ -8,19 +8,29 @@
     .container
       %h1.page-heading
         .pull-right
-          = link_to reply_or('Write a Reply'), page_topic_path(@topic, page: @topic.last_page, anchor: 'write-a-reply'), method: :get, class: 'btn btn-accent btn-shadow'
+          = link_to pencil_or('Write a Reply'), page_topic_path(@topic, page: @topic.last_page, anchor: 'write-a-reply'), method: :get, class: 'btn btn-accent btn-shadow'
+          - if current_user && @topic.editable_by?(current_user)
+            - edit_url = edit_topic_path(@topic)
+            - delete_url = @topic
+            - delete_confirmation = "Delete \"#{@topic.title}\"?"
+            %span.dropdown
+              = link_to '#', class: 'btn btn-default btn-shadow dropdown-toggle', data: { toggle: 'dropdown' } do
+                %span.hidden-sm.hidden-md.hidden-lg.glyphicon.glyphicon-cog
+                %span.hidden-xs Actions
+                %strong.caret
+
+              %ul.dropdown-menu.dropdown-menu-right
+                %li
+                  = link_to edit_url do
+                    %span.glyphicon.glyphicon-edit
+                    Edit
+                %li.divider{ role: 'separator' }
+                %li
+                  = link_to delete_url, method: :delete, data: { confirm: delete_confirmation } do
+                    .text-danger
+                      %span.glyphicon.glyphicon-trash
+                      Delete
         = @title
-  .breadcrumb-container{ style: 'margin-bottom: 0;' }
-    .container
-      Topic by
-      = @topic.user.forum_name
-
-      - if @topic.tags.count > 0
-        - @topic.tags.each do |tag|
-          %span.label.label-default{ style: "background-color:#{tag.color}" }= tag.name
-
-      - if current_user && @topic.editable_by?(current_user)
-        .pull-right= render 'layouts/edit_delete_dropdown', edit_url: edit_topic_path(@topic), delete_url: @topic, delete_confirmation: "Delete #{@topic.title}?"
 
 %div{ style: 'margin-bottom: 20px' }
   .pull-right.hidden-xs.hidden-sm{ style: 'margin-top: -20px' }
@@ -38,7 +48,7 @@
   %a.anchor{ name: 'write-a-reply' }
   #write_reply_root_new{ style: 'margin-bottom: 20px' }
     - async_write_a_reply_path = async_parent_reply_path(topic_id: @topic, parent_reply_id: 'root', reply_id: 'new')
-    = link_to 'Write a Reply', async_write_a_reply_path, method: :post, remote: true, class: 'btn btn-primary'
+    = link_to 'Write a Reply', async_write_a_reply_path, method: :post, remote: true, class: 'btn btn-primary btn-shadow'
 
 .center= paginate @replies, theme: 'bootstrap-small'
 

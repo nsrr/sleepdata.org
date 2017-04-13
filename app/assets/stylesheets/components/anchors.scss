@@ -1,0 +1,10 @@
+// Anchors
+
+.anchor-top {
+  display: block;
+  height: 0;
+  position: relative;
+  top: -($header-height) - 10px;
+  width: 0;
+  visibility: hidden;
+}

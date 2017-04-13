@@ -38,10 +38,11 @@ class Reply < ApplicationRecord
   end
 
   # TODO: Make this work for blog posts
-  def read?(current_user)
+  def unread?(current_user)
+    return false unless current_user
     return false unless topic
     topic_user = topic.topic_users.find_by user: current_user
-    !topic_user.nil? && topic_user.last_reply_read_id.to_i >= id
+    topic_user.nil? || (topic_user && topic_user.last_reply_read_id.to_i < id)
   end
 
   def display_links?

@@ -1,3 +1,38 @@
+.table-borderless {
+  .topic-line-read {
+    border-left: 4px solid transparent !important;
+  }
+
+  .topic-line-unread {
+    border-left: 4px solid $a100 !important;
+  }
+}
+
+.topic-read {
+  color: $a400;
+
+  &:hover,
+  &:focus,
+  &.focus,
+  &:active,
+  &.active {
+    color: darken($a400, 15%);
+  }
+}
+
+.topic-unread {
+  color: $a700;
+
+  &:hover,
+  &:focus,
+  &.focus,
+  &:active,
+  &.active {
+    color: darken($a700, 15%);
+  }
+}
+
+
 // TODO: Remove topics.scss
 .post-avatar {
   height: 55px;

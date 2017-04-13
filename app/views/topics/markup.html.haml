@@ -12,7 +12,7 @@
 %p.lead.center
   Looking to spice up your forum post? Learn more below!
 
-.dashboard-container.box-shadow
+.dashboard-container
   %a.anchor-top{ name: 'inline-code' }
   %h2
     Inline Code
@@ -26,7 +26,7 @@
     = succeed '.' do
       %code inline code
 
-.dashboard-container.box-shadow
+.dashboard-container
   %a.anchor-top{ name: 'code-block' }
   %h2
     Code Block
@@ -50,7 +50,7 @@
     &nbsp;&nbsp;return a+b
     end
 
-.dashboard-container.box-shadow
+.dashboard-container
   %a.anchor-top{ name: 'highlight' }
   %h2
     Highlight
@@ -64,7 +64,7 @@
     = succeed '.' do
       %mark highlighted
 
-.dashboard-container.box-shadow
+.dashboard-container
   %a.anchor-top{ name: 'superscript' }
   %h2
     Superscript
@@ -76,7 +76,7 @@
   %p
     This is the 2<sup>nd</sup> time.
 
-.dashboard-container.box-shadow
+.dashboard-container
   %a.anchor-top{ name: 'quotes' }
   %h2
     Quotes
@@ -88,7 +88,7 @@
   %p
     %blockquote This is a quote.
 
-.dashboard-container.box-shadow
+.dashboard-container
   %a.anchor-top{ name: 'underline' }
   %h2
     Underline
@@ -102,7 +102,7 @@
     = succeed '.' do
       %u underlined
 
-.dashboard-container.box-shadow
+.dashboard-container
   %a.anchor-top{ name: 'strikethrough' }
   %h2
     Strikethrough
@@ -116,7 +116,7 @@
     = succeed '.' do
       %del removed
 
-.dashboard-container.box-shadow
+.dashboard-container
   %a.anchor-top{ name: 'horizontal-rule' }
   %h2
     Horizontal Rule
@@ -134,7 +134,7 @@
     %hr
     \...and some more text.
 
-.dashboard-container.box-shadow
+.dashboard-container
   %a.anchor-top{ name: 'footnotes' }
   %h2
     Footnotes
@@ -164,7 +164,7 @@
       %p
         This is a second footnote.&nbsp;<a href="#fnref2" rev="footnote">&#8617;</a>
 
-.dashboard-container.box-shadow
+.dashboard-container
   %a.anchor-top{ name: 'links' }
   %h2
     Links
@@ -177,7 +177,7 @@
     Here is a
     = link_to('link', 'https://sleepdata.org', target: '_blank') + '.'
 
-.dashboard-container.box-shadow
+.dashboard-container
   %a.anchor-top{ name: 'images' }
   %h2
     Images
@@ -190,7 +190,7 @@
     The current build status is
     = image_tag 'https://travis-ci.org/nsrr/www.sleepdata.org.svg', alt: 'Build Status'
 
-.dashboard-container.box-shadow
+.dashboard-container
   %a.anchor-top{ name: 'tables' }
   %h2
     Tables

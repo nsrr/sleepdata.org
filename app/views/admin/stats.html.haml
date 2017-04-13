@@ -5,7 +5,7 @@
 
 = render 'internal/profile_header', title: @title
 
-.dashboard-container.box-shadow
+.dashboard-container
   .dashboard-title
     %strong Signup Statistics
 
@@ -23,7 +23,7 @@
         %td.center= number_with_delimiter User.current.where(core_member: true).count
         %td.center= number_with_delimiter User.current.count
 
-.dashboard-container.box-shadow
+.dashboard-container
   .dashboard-title
     %strong Agreement Statistics
 
@@ -46,7 +46,7 @@
 - public_downloads_files = DatasetFileAudit.public_downloads.group(:dataset_id).count
 - public_downloads_file_sizes = DatasetFileAudit.public_downloads.group(:dataset_id).sum(:file_size)
 
-.dashboard-container.box-shadow
+.dashboard-container
   .dashboard-title
     %strong Download Statistics
 
@@ -88,7 +88,7 @@
           %th.center= pluralize number_with_delimiter(regular_members_files.values.sum + aug_or_core_members_files.values.sum + public_downloads_files.values.sum), 'file'
           %th.center= number_to_human_size regular_members_file_sizes.values.sum + aug_or_core_members_file_sizes.values.sum + public_downloads_file_sizes.values.sum
 
-.dashboard-container.box-shadow
+.dashboard-container
   .dashboard-title
     %strong Approved Users per Dataset
 

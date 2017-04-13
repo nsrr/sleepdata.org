@@ -12,7 +12,7 @@
 %p.lead.center
   Tell us about the type of data you would like hosted.
 
-.dashboard-container.box-shadow
+.dashboard-container
   = form_for @hosting_request, url: dataset_hosting_set_description_path, method: :post, html: { class: 'form-horizontal', id: 'dataset_hosting_form' } do |f|
     .form-group
       = f.label :institution_name, 'Institution Name', class: 'col-md-2 control-label'

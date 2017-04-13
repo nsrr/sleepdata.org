@@ -68,6 +68,10 @@ class User < ApplicationRecord
 
   # User Methods
 
+  def shadow_banned?
+    false
+  end
+
   def reviewed_tool?(tool)
     tool.community_tool_reviews.find_by(user_id: id).present?
   end

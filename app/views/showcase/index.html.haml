@@ -9,7 +9,7 @@
       %h1.page-heading
         = @title
 
-.dashboard-container.box-shadow
+.dashboard-container
   .row
     .col-sm-4.hidden-xs.center
       %div.img-thumbnail.img-responsive.box-shadow{ style: 'padding: 15px;' }
@@ -29,7 +29,7 @@
         Take a look at our
         = link_to('NSRR overview', showcase_show_path('where-to-start')) + '!'
 
-.dashboard-container.box-shadow
+.dashboard-container
   .row
     .col-sm-4.hidden-xs.center
       = image_tag 'physiomimi_logo.png', class: 'img-thumbnail img-responsive box-shadow', style: 'padding: 15px;'
@@ -40,7 +40,7 @@
         Learn about the
         = link_to('NSRR Cross Dataset Query Tool', showcase_show_path('search-nsrr')) + '.'
 
-.dashboard-container.box-shadow
+.dashboard-container
   .row
     .col-sm-4.hidden-xs.center
       = image_tag 'nsrr-rdi3p-age-gender.png', class: 'img-thumbnail img-responsive box-shadow', style: 'padding: 15px;'

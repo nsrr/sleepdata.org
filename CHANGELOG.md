@@ -9,6 +9,8 @@
 - **Dataset Changes**
   - Datasets that have all files public no longer redirect users to the DAUA
     process, and can no longer be selected during the DAUA process
+- **Forum Changes**
+  - Improved forum styling
 - **Notification Changes**
   - Minor improvements to marking notifications as read
   - Clicking on notification for forum or blog replies now jumps directly to the
