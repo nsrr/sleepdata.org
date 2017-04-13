@@ -20,6 +20,8 @@
           = render 'layouts/per_page', per_page: 20, object_count: @community_tools.total_count
         = @title
 
+= render 'layouts/survey_link'
+
 = render 'search/simple', url: tools_path
 
 - if @community_tools.count == 0

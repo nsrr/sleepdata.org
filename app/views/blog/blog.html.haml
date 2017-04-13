@@ -1,5 +1,7 @@
 - @title = ['Blog', @category ? @category.name : nil, @author ? @author.forum_name : nil].compact.join(' | ')
 
+= render 'layouts/survey_link'
+
 .row
   .col-sm-9
     - @broadcasts.each do |broadcast|

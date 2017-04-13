@@ -1,0 +1,7 @@
+- if ENV['survey_url'].present?
+  - content_for :banner do
+    .flash-notice
+      .lead.center
+        Please fill out our
+        = succeed '.' do
+          = link_to 'short survey', ENV['survey_url']
