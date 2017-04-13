@@ -2,7 +2,7 @@
 
 require 'test_helper'
 
-# Tests JSON API for account authentication
+# Tests JSON API for account authentication.
 class AccountControllerTest < ActionController::TestCase
   test 'should get profile as valid user' do
     get :profile, params: { auth_token: users(:valid).id_and_auth_token, format: 'json' }

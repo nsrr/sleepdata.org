@@ -1,16 +1,15 @@
 # frozen_string_literal: true
 
-# Verify recaptcha.
+# Adds a recaptcha on registration.
 class RegistrationsController < Devise::RegistrationsController
   prepend_before_action :check_captcha, only: [:create]
 
   private
 
   def check_captcha
-    if RECAPTCHA_ENABLED && !verify_recaptcha
-      self.resource = resource_class.new sign_up_params
-      resource.errors.add(:recaptcha, 'reCAPTCHA verification failed.')
-      respond_with_navigational(resource) { render :new }
-    end
+    return unless RECAPTCHA_ENABLED && !verify_recaptcha
+    self.resource = resource_class.new sign_up_params
+    resource.errors.add(:recaptcha, 'reCAPTCHA verification failed.')
+    respond_with_navigational(resource) { render :new }
   end
 end

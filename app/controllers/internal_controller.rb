@@ -1,24 +1,30 @@
 # frozen_string_literal: true
 
-# Displays personal member pages
+# Displays personal member pages.
 class InternalController < ApplicationController
   before_action :authenticate_user!
 
-  def dashboard
-  end
+  # # GET /dashboard
+  # def dashboard
+  # end
 
+  # # GET /settings
   # def settings
   # end
 
-  def submissions
-  end
+  # # GET /submissions
+  # def submissions
+  # end
 
+  # # GET /tools
   # def tools
   # end
 
-  def profile
-  end
+  # # GET /profile
+  # def profile
+  # end
 
-  def token
-  end
+  # # GET /token
+  # def token
+  # end
 end

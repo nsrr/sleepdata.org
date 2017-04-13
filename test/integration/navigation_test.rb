@@ -36,7 +36,7 @@ class NavigationTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_path
   end
 
-  test 'deleted users should be not be allowed to login' do
+  test 'should not login deleted user' do
     get new_user_session_path
     sign_in_as(@deleted, '123456')
     assert_equal new_user_session_path, path
