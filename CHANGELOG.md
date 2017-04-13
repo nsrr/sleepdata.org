@@ -15,6 +15,7 @@
   - Minor improvements to marking notifications as read
   - Clicking on notification for forum or blog replies now jumps directly to the
     reply
+  - Improved styling of notifications link in menu bar
 - **Gem Changes**
   - Updated to Ruby 2.4.1
   - Updated to rails 5.0.2

@@ -90,8 +90,8 @@
           %ul.nav.navbar-nav.navbar-right{ style: 'max-height: 50px;padding-right: 5px;' }
             - if current_user
               %ul.nav.navbar-nav.navbar-right.hidden-xs
-                %li.hidden-xs
-                  = link_to notifications_path, class: "#{'notifications-link' if current_user.unread_notifications?}" do
+                %li.hidden-xs{ class: current_page?(notifications_path) ? 'active' : nil }
+                  = link_to notifications_path, class: "notifications-link #{'notifications-link-active' if current_user.unread_notifications?}" do
                     %span.glyphicon.glyphicon-bell
                 %li
                   = link_to "#{current_user.first_name}", dashboard_path

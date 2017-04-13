@@ -9,10 +9,18 @@
 }
 
 .navbar-default .navbar-nav .notifications-link span {
-  animation: pulse-notification 2s ease-in infinite alternate;
-  color: $notification-link-color;
+  color: $brand-muted;
 }
 
 .navbar-default .navbar-nav .notifications-link:hover span {
+  color: darken($brand-muted, 15%);
+}
+
+.navbar-default .navbar-nav .notifications-link-active span {
+  animation: pulse-notifications 2s ease-in infinite alternate;
+  color: $notification-link-color;
+}
+
+.navbar-default .navbar-nav .notifications-link-active:hover span {
   color: darken($notification-link-color, 15%);
 }
