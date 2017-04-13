@@ -17,6 +17,7 @@
   - Updated to rails 5.0.2
   - Updated to pg 0.20.0
   - Updated to jquery-rails 4.3.1
+  - Updated to mini_magick 4.7.0
   - Updated to sitemap_generator 5.3.1
   - Updated to simplecov 0.14.1
 
