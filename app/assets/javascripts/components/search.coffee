@@ -18,3 +18,7 @@ $(document)
     setFocusToField($(this).data('target'))
     false
   )
+  .on('mousedown', '#navigation-form-search-btn-mobile', ->
+    $('#navigation-search-form-mobile').submit() unless $('#navigation-search-mobile').val() == ''
+    false
+  )

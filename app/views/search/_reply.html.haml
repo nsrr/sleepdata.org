@@ -1,13 +1,13 @@
 .search-result
   .search-result-title
-    = link_to reply.parent.title, reply
+    = link_to reply.parent.title, reply, data: { turbolinks: false }
   .search-result-author
     Reply by
     = reply.user.forum_name
     on
     %i= reply.created_at.strftime '%B %-d, %Y'
     on
-    = link_to 'Forum', reply
+    = link_to 'Forum', reply, data: { turbolinks: false }
   .search-result-body
     - terms = @search.split(' & ')
     - description = strip_tags(simple_markdown_new(reply.description)).gsub(/\r/, ' ').gsub(/\n/, ' ')
