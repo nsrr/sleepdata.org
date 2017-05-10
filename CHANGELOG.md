@@ -13,6 +13,7 @@
     process, and can no longer be selected during the DAUA process
 - **Email Changes**
   - Improved formatting of Data Access and Use Agreement resubmission emails
+  - Simplified text for links in emails
 - **Forum Changes**
   - Improved forum styling
 - **Notification Changes**

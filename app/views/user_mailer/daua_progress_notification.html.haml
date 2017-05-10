@@ -37,4 +37,4 @@
   You can review the DAUA here:
 
 %p{ style: center_style }
-  = link_to "#{ENV['website_url']}/reviews/#{@agreement.id}", "#{ENV['website_url']}/reviews/#{@agreement.id}", style: link_style
+  = link_to 'Review DAUA', "#{ENV['website_url']}/reviews/#{@agreement.to_param}", style: link_style

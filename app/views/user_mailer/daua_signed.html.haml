@@ -13,7 +13,7 @@
   You can now finalize and submit your Data Access and Use Agreement here:
 
 %p{ style: center_style }
-  = link_to "#{ENV['website_url']}/daua", "#{ENV['website_url']}/daua", style: link_style
+  = link_to 'Continue Submission', "#{ENV['website_url']}/agreements/#{@agreement.to_param}/step?step=4", style: link_style
 
 %p{ style: p_style }
   You can reply directly to this email if you have any questions.

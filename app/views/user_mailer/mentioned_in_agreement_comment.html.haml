@@ -22,4 +22,4 @@
       %td{ colspan: 3, style: 'padding-bottom:10px' }
 
 %p{ style: center_style }
-  = link_to "#{ENV['website_url']}/reviews/#{@agreement_event.agreement.to_param}", "#{ENV['website_url']}/reviews/#{@agreement_event.agreement.to_param}#c#{@agreement_event.number}", style: link_style
+  = link_to 'View DAUA', "#{ENV['website_url']}/reviews/#{@agreement_event.agreement.to_param}#c#{@agreement_event.number}", style: link_style

@@ -8,8 +8,9 @@
   %span{ style: default_style } submitted
   a Dataset Hosting Request.
 
-%p{ style: p_style }
-  You can view the Dataset Hosting Request here:
+%blockquote{ style: blockquote_style }
+  %p{ style: p_style }= @hosting_request.institution_name
+  = simple_markdown_new(@hosting_request.description)
 
 %p{ style: center_style }
-  = link_to "#{ENV['website_url']}/hosting-requests/#{@hosting_request.id}", "#{ENV['website_url']}/hosting-requests/#{@hosting_request.id}", style: link_style
+  = link_to 'View Hosting Request', "#{ENV['website_url']}/hosting-requests/#{@hosting_request.id}", style: link_style
