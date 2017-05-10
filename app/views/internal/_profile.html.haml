@@ -3,7 +3,7 @@
     .profile-image-container
       = image_tag current_user.avatar_url(100, 'identicon'), size: '100x100', class: 'profile-image', alt: ''
   .profile-bottom
-    .center{ style: 'font-weight: 600;margin-bottom: 10px;' }= current_user.name
+    .center{ style: 'font-weight: 600;margin-bottom: 10px;' }= current_user.name_was
     .center{ style: 'margin-bottom: 10px;' }
       %small.text-muted
         Member since

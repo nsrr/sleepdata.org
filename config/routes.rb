@@ -307,6 +307,8 @@ Rails.application.routes.draw do
 
   get '/settings' => 'users#settings', as: :settings
   patch '/settings' => 'users#update_settings', as: :update_settings
+  get '/change_password', to: redirect('settings'), as: :change_password_settings
+  patch '/change_password' => 'users#change_password', as: :change_password
 
   get '/daua/irb-assistance' => 'agreements#irb_assistance', as: :irb_assistance
 

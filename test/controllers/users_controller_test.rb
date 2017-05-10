@@ -5,9 +5,11 @@ require 'test_helper'
 SimpleCov.command_name 'test:controllers'
 
 # Tests to make sure users can be modified by administrators.
-class UsersControllerTest < ActionController::TestCase
+class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:valid)
+    @regular_user = users(:valid)
+    @admin = users(:admin)
   end
 
   def user_hash
@@ -20,77 +22,116 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test 'should get settings for valid user' do
-    login(users(:valid))
-    get :settings
+    login(@regular_user)
+    get settings_path
     assert_response :success
   end
 
   test 'should not get settings for anonymous user' do
-    get :settings
+    get settings_path
     assert_redirected_to new_user_session_path
   end
 
   test 'should get index for system admin' do
-    login(users(:admin))
-    get :index
+    login(@admin)
+    get users_path
     assert_not_nil assigns(:users)
     assert_response :success
   end
 
   test 'should not get index for non-system admin' do
-    login(users(:valid))
-    get :index
+    login(@regular_user)
+    get users_path
     assert_nil assigns(:users)
     assert_equal 'You do not have sufficient privileges to access that page.', flash[:alert]
     assert_redirected_to root_path
   end
 
   test 'should show user for system admin' do
-    login(users(:admin))
-    get :show, params: { id: @user }
+    login(@admin)
+    get user_path(@user)
     assert_response :success
   end
 
   test 'should get edit for system admin' do
-    login(users(:admin))
-    get :edit, params: { id: @user }
+    login(@admin)
+    get edit_user_path(@user)
     assert_response :success
   end
 
   test 'should update user for system admin' do
-    login(users(:admin))
-    patch :update, params: { id: @user, user: user_hash }
+    login(@admin)
+    patch user_path(@user), params: { user: user_hash }
     assert_redirected_to user_path(assigns(:user))
   end
 
   test 'should not update user with blank name' do
-    login(users(:admin))
-    patch :update, params: { id: @user, user: user_hash.merge(first_name: '', last_name: '') }
+    login(@admin)
+    patch user_path(@user), params: { user: user_hash.merge(first_name: '', last_name: '') }
     assert_not_nil assigns(:user)
     assert_template 'edit'
   end
 
   test 'should not update user with invalid id' do
-    login(users(:admin))
-    patch :update, params: { id: -1, user: user_hash }
+    login(@admin)
+    patch user_path(-1), params: { user: user_hash }
     assert_nil assigns(:user)
     assert_redirected_to users_path
   end
 
   test 'should destroy user for admin' do
-    login(users(:admin))
+    login(@admin)
     assert_difference('User.current.count', -1) do
-      delete :destroy, params: { id: @user }
+      delete user_path(@user)
     end
     assert_redirected_to users_path
   end
 
   test 'should destroy user for admin with ajax' do
-    login(users(:admin))
+    login(@admin)
     assert_difference('User.current.count', -1) do
-      delete :destroy, params: { id: @user }, format: 'js'
+      delete user_path(@user, format: 'js')
     end
     assert_template 'destroy'
+    assert_response :success
+  end
+
+  test 'should change password' do
+    sign_in_as(@regular_user, 'password')
+    patch change_password_path, params: {
+      user: {
+        current_password: 'password',
+        password: 'newpassword',
+        password_confirmation: 'newpassword'
+      }
+    }
+    assert_equal 'Your password has been changed.', flash[:notice]
+    assert_redirected_to settings_path
+  end
+
+  test 'should not change password as user with invalid current password' do
+    sign_in_as(@regular_user, 'password')
+    patch change_password_path, params: {
+      user: {
+        current_password: 'invalid',
+        password: 'newpassword',
+        password_confirmation: 'newpassword'
+      }
+    }
+    assert_template 'settings'
+    assert_response :success
+  end
+
+  test 'should not change password with new password mismatch' do
+    sign_in_as(@regular_user, 'password')
+    patch change_password_path, params: {
+      user: {
+        current_password: 'password',
+        password: 'newpassword',
+        password_confirmation: 'mismatched'
+      }
+    }
+    assert_template 'settings'
     assert_response :success
   end
 end

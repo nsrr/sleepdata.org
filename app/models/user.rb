@@ -177,7 +177,7 @@ class User < ApplicationRecord
   end
 
   def avatar_url(size = 80, default = 'mm')
-    gravatar_id = Digest::MD5.hexdigest(email.to_s.downcase)
+    gravatar_id = Digest::MD5.hexdigest(email_was.to_s.downcase)
     "//gravatar.com/avatar/#{gravatar_id}.png?&s=#{size}&r=pg&d=#{default}"
   end
 

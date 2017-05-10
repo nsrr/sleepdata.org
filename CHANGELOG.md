@@ -6,6 +6,8 @@
   - Changed human verification from "Invisible" to "I'm not a robot" ReCAPTCHA
   - Added a "Complete a Survey" link to several pages
   - Improved menu on mobile
+- **Account Changes**
+  - Users can now change their password on the account settings page
 - **Dataset Changes**
   - Datasets that have all files public no longer redirect users to the DAUA
     process, and can no longer be selected during the DAUA process
