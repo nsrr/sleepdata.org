@@ -34,6 +34,7 @@
 
 ### Bug Fixes
 - Page navigation is now properly canceled when navigating away from a form
+- Fixed a bug preventing admins from pinning and unpinning forum topics
 
 ## 0.26.3 (February 28, 2017)
 

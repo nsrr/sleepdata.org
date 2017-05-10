@@ -98,7 +98,9 @@ class TopicsController < ApplicationController
   end
 
   def topic_params
-    if current_user.aug_member? || current_user.core_member?
+    if current_user.system_admin?
+      params.require(:topic).permit(:title, :slug, :description, :pinned, :locked, tag_ids: [])
+    elsif current_user.aug_member? || current_user.core_member?
       params.require(:topic).permit(:title, :slug, :description, tag_ids: [])
     else
       params.require(:topic).permit(:title, :slug, :description)
