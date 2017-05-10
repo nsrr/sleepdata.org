@@ -30,32 +30,33 @@
   - if current_user.community_manager?
     %li= link_to 'Blog Posts', broadcasts_path, class: current_page?(broadcasts_path) ? 'active' : nil
 
-  - if current_user.system_admin?
+  - if current_user.system_admin? || current_user.reviewable_agreements.count > 0
     %li.blog-menu-header Administrative
 
     %li
       = link_to reviews_path, class: current_page?(reviews_path) ? 'active' : nil do
-        - submitted_agreement_count = Agreement.current.where(status: 'submitted').count
+        - submitted_agreement_count = current_user.digest_reviews.count
         - if submitted_agreement_count.positive?
           %span.label.label-primary= submitted_agreement_count
         Agreements
-    %li
-      = link_to hosting_requests_path, class: current_page?(hosting_requests_path) ? 'active' : nil do
-        - hosting_request_count = HostingRequest.current.where(reviewed: false).count
-        - if hosting_request_count.positive?
-          %span.label.label-primary= hosting_request_count
-        Hosting Requests
-    %li= link_to 'Replies', admin_replies_path, class: current_page?(admin_replies_path) ? 'active' : nil
-    %li= link_to 'Users', users_path, class: current_page?(users_path) ? 'active' : nil
+    - if current_user.system_admin?
+      %li
+        = link_to hosting_requests_path, class: current_page?(hosting_requests_path) ? 'active' : nil do
+          - hosting_request_count = HostingRequest.current.where(reviewed: false).count
+          - if hosting_request_count.positive?
+            %span.label.label-primary= hosting_request_count
+          Hosting Requests
+      %li= link_to 'Replies', admin_replies_path, class: current_page?(admin_replies_path) ? 'active' : nil
+      %li= link_to 'Users', users_path, class: current_page?(users_path) ? 'active' : nil
 
-    %li.blog-menu-header Reports
+      %li.blog-menu-header Reports
 
-    %li= link_to 'Usage Statistics', admin_stats_path, class: current_page?(admin_stats_path) ? 'active' : nil
-    %li= link_to 'Downloads By Month', admin_downloads_by_month_path(user_type: 'regular')
-    %li= link_to 'Agreement Reports', admin_agreement_reports_path, class: current_page?(admin_agreement_reports_path) ? 'active' : nil
+      %li= link_to 'Usage Statistics', admin_stats_path, class: current_page?(admin_stats_path) ? 'active' : nil
+      %li= link_to 'Downloads By Month', admin_downloads_by_month_path(user_type: 'regular')
+      %li= link_to 'Agreement Reports', admin_agreement_reports_path, class: current_page?(admin_agreement_reports_path) ? 'active' : nil
 
-    %li.blog-menu-header Configuration
+      %li.blog-menu-header Configuration
 
-    %li= link_to 'Dataset Roles', admin_roles_path, class: current_page?(admin_roles_path) ? 'active' : nil
-    %li= link_to 'Documentation Sync', admin_sync_path, class: current_page?(admin_sync_path) ? 'active' : nil
-    %li= link_to 'Tags', tags_path, class: current_page?(tags_path) ? 'active' : nil
+      %li= link_to 'Dataset Roles', admin_roles_path, class: current_page?(admin_roles_path) ? 'active' : nil
+      %li= link_to 'Documentation Sync', admin_sync_path, class: current_page?(admin_sync_path) ? 'active' : nil
+      %li= link_to 'Tags', tags_path, class: current_page?(tags_path) ? 'active' : nil
