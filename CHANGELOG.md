@@ -9,6 +9,8 @@
 - **Dataset Changes**
   - Datasets that have all files public no longer redirect users to the DAUA
     process, and can no longer be selected during the DAUA process
+- **Email Changes**
+  - Improved formatting of Data Access and Use Agreement resubmission emails
 - **Forum Changes**
   - Improved forum styling
 - **Notification Changes**
