@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 # To run task
-# bundle exec rake sitemap:refresh:no_ping
+# rails sitemap:refresh:no_ping
 # Or production
-# bundle exec rake sitemap:refresh RAILS_ENV=production
+# rails sitemap:refresh RAILS_ENV=production
 # https://www.google.com/webmasters/tools/
 
 require 'rubygems'
