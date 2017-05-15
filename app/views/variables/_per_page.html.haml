@@ -1,10 +1,9 @@
 - pagination_size_hash = { 'large' => 'lg', 'small' => 'sm' }
-- pagination_size =
 - per_page = 20 unless defined?(per_page) && per_page
 - object_count = 0 unless defined?(object_count) && object_count
 - page = params[:page].blank? ? 1 : params[:page].to_i
-- current_page_min = (page - 1)*per_page + 1
-- current_page_max = page*per_page
+- current_page_min = (page - 1) * per_page + 1
+- current_page_max = page * per_page
 
 - sort_params = params.permit!
 
