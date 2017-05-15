@@ -8,6 +8,8 @@
   - Improved menu on mobile
 - **Account Changes**
   - Users can now change their password on the account settings page
+- **Agreement Changes**
+  - Improved the process of renewing an existing DAUA
 - **Dashboard Changes**
   - DAUA Reviewers now have a link to the reviews index on their dashboard
 - **Dataset Changes**

@@ -105,9 +105,16 @@ class Agreement < ApplicationRecord
   # Agreement Methods
 
   def copyable_attributes
-    ignore_list = %w(id deleted created_at updated_at reviewer_signature
-                     approval_date expiration_date comments has_read_step3
-                     has_read_step5 current_step dua executed_dua)
+    ignore_list = %w(
+      id deleted created_at updated_at reviewer_signature approval_date
+      expiration_date comments has_read_step3 has_read_step5 current_step dua
+      executed_dua duly_authorized_representative_token status signature
+      signature_print signature_date last_submitted_at printed_file
+      duly_authorized_representative_signature
+      duly_authorized_representative_signature_print
+      duly_authorized_representative_signature_date
+      duly_authorized_representative_title
+    )
     attributes.reject { |key, _val| ignore_list.include?(key.to_s) }
   end
 
