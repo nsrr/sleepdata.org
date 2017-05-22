@@ -1,5 +1,9 @@
 ## 0.28.0
 
+### Enhancements
+- **Forum Changes**
+  - Added time abbreviations for months and years on forum index
+
 ## 0.27.0 (May 16, 2017)
 
 ### Enhancements
