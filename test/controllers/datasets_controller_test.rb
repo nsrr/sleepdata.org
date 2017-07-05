@@ -124,6 +124,13 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get inline file preview for pdf file in public dataset" do
+    get :files, params: { id: @dataset, path: "previews/blank.pdf", inline: "1" }
+    assert_not_nil assigns(:dataset_file)
+    assert_template nil
+    assert_response :success
+  end
+
   test "should display no files if root files folder does not exists" do
     get :files, params: { id: datasets(:public_with_no_files_folder) }
     assert_template "files"
