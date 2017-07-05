@@ -3,6 +3,8 @@
 ### Enhancements
 - **Forum Changes**
   - Added time abbreviations for months and years on forum index
+- **Gem Changes**
+  - Updated to rails 5.1.2
 
 ## 0.27.0 (May 16, 2017)
 
