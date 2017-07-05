@@ -31,7 +31,18 @@ class DatasetFile < ApplicationRecord
   end
 
   def pdf?
-    file_name.split('.').last.to_s.casecmp('pdf') == 0
+    file_name.split(".").last.to_s.casecmp("pdf").zero?
+  end
+
+  def md?
+    file_name.split(".").last.to_s.casecmp("md").zero?
+  end
+
+  def image?
+    file_name.split(".").last.to_s.casecmp("png").zero? ||
+      file_name.split(".").last.to_s.casecmp("jpg").zero? ||
+      file_name.split(".").last.to_s.casecmp("jpeg").zero? ||
+      file_name.split(".").last.to_s.casecmp("gif").zero?
   end
 
   def verify_file!

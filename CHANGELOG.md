@@ -1,6 +1,9 @@
 ## 0.28.0
 
 ### Enhancements
+- **Dataset Changes**
+  - `md`, `pdf`, and image files are now displayed in browser when clicked on
+    the files index
 - **Forum Changes**
   - Added time abbreviations for months and years on forum index
 - **Gem Changes**

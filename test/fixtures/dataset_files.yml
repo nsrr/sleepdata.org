@@ -34,6 +34,42 @@ public_datasets_rails_png:
   # publicly_available: false
   # archived: false
 
+public_previews_rails_png:
+  dataset: public
+  full_path: "previews/rails.png"
+  folder: "previews/"
+  file_name: rails.png
+  is_file: true
+  file_size: 6646
+  file_time: 2017-07-05 17:34:06
+  file_checksum_md5: 9c0a079bdd7701d7e729bd956823d153
+  # publicly_available: false
+  # archived: false
+
+public_previews_markup_md:
+  dataset: public
+  full_path: "previews/markup.md"
+  folder: "previews/"
+  file_name: markup.md
+  is_file: true
+  file_size: 69
+  file_time: 2017-07-05 17:38:18
+  file_checksum_md5: 64443745e9dbf0d5d310661618701813
+  # publicly_available: false
+  # archived: false
+
+public_previews_blank_pdf:
+  dataset: public
+  full_path: "previews/blank.pdf"
+  folder: "previews/"
+  file_name: blank.pdf
+  is_file: true
+  file_size: 10892
+  file_time: 2014-02-18 21:12:29
+  file_checksum_md5: 79c69e449b0d0cd0f6819ef452940e21
+  # publicly_available: false
+  # archived: false
+
 public_subfolder:
   dataset: public
   full_path: "subfolder"

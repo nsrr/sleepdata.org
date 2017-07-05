@@ -22,7 +22,7 @@ class DatasetsController < ApplicationController
 
   # GET /datasets/1/search
   def search
-    @term = params[:s].to_s.gsub(/[^\w]/, '')
+    @term = params[:s].to_s.gsub(/[^\w]/, "")
     @results = []
     @results = `grep -i -R #{@term} #{@dataset.pages_folder}`.split("\n") unless @term.blank?
   end
@@ -31,7 +31,7 @@ class DatasetsController < ApplicationController
   def json_manifest
     path = @dataset.find_file_folder(params[:path])
     if path == params[:path].to_s
-      folder = path.blank? ? '' : "#{path}/"
+      folder = path.blank? ? "" : "#{path}/"
       @dataset_files = @dataset.non_root_dataset_files.where(folder: folder).order_by_type
     else
       render json: []
@@ -44,7 +44,7 @@ class DatasetsController < ApplicationController
 
   def folder_progress
     path = params[:path]
-    folder = path.blank? ? '' : "#{path}/"
+    folder = path.blank? ? "" : "#{path}/"
     @dataset_files = @dataset.non_root_dataset_files.where(folder: folder).order_by_type.page(params[:page]).per(100)
   end
 
@@ -57,18 +57,20 @@ class DatasetsController < ApplicationController
         file_size: @dataset_file.file_size,
         remote_ip: request.remote_ip
       )
-      if params[:inline] == '1' && @dataset_file.pdf?
-        send_file @dataset_file.filesystem_path, type: 'application/pdf', disposition: 'inline'
+      if params[:inline] == "1" && @dataset_file.pdf?
+        send_file @dataset_file.filesystem_path, type: "application/pdf", disposition: "inline"
+      elsif params[:preview] == "1" && (@dataset_file.md? || @dataset_file.pdf? || @dataset_file.image?)
+        render "dataset_files/show", formats: :html
       else
         send_file @dataset_file.filesystem_path
       end
     elsif (@dataset_file && !@dataset_file.is_file?) || params[:path].blank?
       path = params[:path]
-      folder = path.blank? ? '' : "#{path}/"
+      folder = path.blank? ? "" : "#{path}/"
       @dataset_files = @dataset.non_root_dataset_files.where(folder: folder).order_by_type.page(params[:page]).per(100)
       @root_dataset_file = @dataset.dataset_files.find_by(full_path: path.to_s)
       current_user ? store_external_location_in_session : store_internal_location_in_session
-      render 'files'
+      render :files
     else
       redirect_to files_dataset_path(@dataset, path: @dataset.find_file_folder(params[:path]))
     end
@@ -83,26 +85,26 @@ class DatasetsController < ApplicationController
   # GET /datasets
   # GET /datasets.json
   def index
-    @order = scrub_order(Dataset, params[:order], 'release_date, name')
+    @order = scrub_order(Dataset, params[:order], "release_date, name")
     dataset_scope = if current_user
                       current_user.all_viewable_datasets
                     else
                       Dataset.current.where(public: true)
                     end
     if params[:ages]
-      (min_age, max_age) = params[:ages].split('-').collect { |s| parse_integer(s) }
-      dataset_scope = dataset_scope.where('age_min <= ?', max_age) if max_age.present?
-      dataset_scope = dataset_scope.where('age_max >= ?', min_age) if min_age.present?
+      (min_age, max_age) = params[:ages].split("-").collect { |s| parse_integer(s) }
+      dataset_scope = dataset_scope.where("age_min <= ?", max_age) if max_age.present?
+      dataset_scope = dataset_scope.where("age_max >= ?", min_age) if min_age.present?
     end
-    dataset_scope = dataset_scope.where(polysomnography: true) if params[:data] == 'polysomnography'
-    dataset_scope = dataset_scope.where(actigraphy: true) if params[:data] == 'actigraphy'
+    dataset_scope = dataset_scope.where(polysomnography: true) if params[:data] == "polysomnography"
+    dataset_scope = dataset_scope.where(actigraphy: true) if params[:data] == "actigraphy"
     @datasets = dataset_scope.order(@order).page(params[:page]).per(24)
   end
 
-  # GET /datasets/1
-  # GET /datasets/1.json
-  def show
-  end
+  # # GET /datasets/1
+  # # GET /datasets/1.json
+  # def show
+  # end
 
   private
 
@@ -115,7 +117,7 @@ class DatasetsController < ApplicationController
   end
 
   def parse_integer(string)
-    Integer(format('%d', string))
+    Integer(format("%d", string))
   rescue
     nil
   end
