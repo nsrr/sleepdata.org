@@ -4,6 +4,8 @@
 - **Dataset Changes**
   - `md`, `pdf`, and image files are now displayed in browser when clicked on
     the files index
+- **Variable Changes**
+  - Improved ranking and display of variables when using search terms
 - **Forum Changes**
   - Added time abbreviations for months and years on forum index
 - **Gem Changes**

@@ -1,7 +1,7 @@
 - content_for :header do
   .breadcrumb-container
     .container{ style: "position: relative;" }
-      - if defined?(@total_count)
+      - if defined?(total_count)
         - per_page = 100
         - page = params[:page].blank? ? 1 : params[:page].to_i
         - sort_params = params.permit(:s, :search, :folder)
@@ -19,10 +19,10 @@
                 %b{ style: "font-size: 0.95em;" }
                   = number_with_delimiter current_page_min
                   to
-                  = number_with_delimiter [current_page_max, @total_count].min
+                  = number_with_delimiter [current_page_max, total_count].min
                 of
-                = number_with_delimiter @total_count
-            - if current_page_max < @total_count
+                = number_with_delimiter total_count
+            - if current_page_max < total_count
               %li= link_to "&raquo;".html_safe, url_for(sort_params.merge(page: page + 1)).gsub("%2F", "/")
             - else
               %li.disabled

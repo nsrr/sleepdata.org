@@ -7,53 +7,59 @@ class VariablesController < ApplicationController
   before_action :set_dataset_version
   before_action :find_viewable_variable_or_redirect, only: [:show, :graphs, :form, :known_issues, :related, :history]
 
+  # GET /datasets/:dataset_id/variables
   def index
     variable_scope = @dataset.variables.with_folder(params[:folder])
     variable_scope = variable_scope.where(dataset_version_id: @dataset_version.id) if @dataset_version
-    if params[:search].blank?
-      @variables = variable_scope.page(params[:page]).per(100).order('commonly_used desc', :folder, :name)
-      @total_count = @variables.total_count
-    else
-      @variables = variable_scope.search(params[:search])
-      @total_count = @variables.count
-    end
+    variable_scope = \
+      if params[:search].blank?
+        variable_scope.order("commonly_used desc", :folder, :name)
+      else
+        variable_scope.search_full_text(params[:search])
+      end
+    @variables = variable_scope.page(params[:page]).per(100)
     @folders = variable_scope
                .pluck(:folder).uniq
-               .collect { |f| f.gsub(%r{^#{params[:folder]}(/)?}, '').split('/').first }
+               .collect { |f| f.gsub(%r{^#{params[:folder]}(/)?}, "").split("/").first }
                .uniq.compact.sort
   end
 
-  def show
-  end
+  # # GET /datasets/:dataset_id/variables/:id
+  # def show
+  # end
 
-  def graphs
-  end
+  # # GET /datasets/:dataset_id/variables/:id/graphs
+  # def graphs
+  # end
 
   def form
-    @form = @variable.forms.find_by_name params[:name]
+    @form = @variable.forms.find_by(name: params[:name])
     redirect_to [@dataset, @variable] unless @form
   end
 
-  def related
-  end
+  # # GET /datasets/:dataset_id/variables/:id/related
+  # def related
+  # end
 
-  def known_issues
-  end
+  # # GET /datasets/:dataset_id/variables/:id/known_issues
+  # def known_issues
+  # end
 
-  def history
-  end
+  # # GET /datasets/:dataset_id/variables/:id/history
+  # def history
+  # end
 
   private
 
   def set_dataset_version
-    @dataset_version = @dataset.dataset_versions.find_by_version params[:v]
+    @dataset_version = @dataset.dataset_versions.find_by(version: params[:v])
     @dataset_version = @dataset.dataset_version unless @dataset_version
   end
 
   def find_viewable_variable_or_redirect
     variable_scope = @dataset.variables
     variable_scope = variable_scope.where(dataset_version_id: @dataset_version.id) if @dataset_version
-    @variable = variable_scope.find_by_name(params[:id])
+    @variable = variable_scope.find_by(name: params[:id])
     redirect_without_variable
   end
 

@@ -3,33 +3,29 @@
 - content_for :body_class do
   brand-background
 
-= render 'datasets/header'
+= render "datasets/header"
 
-= render 'variables/folder_breadcrumb', folder: params[:folder]
+= render "variables/folder_breadcrumb", folder: params[:folder], total_count: @variables.total_count
 
-= render 'search/simple', url: dataset_variables_path(@dataset)
+= render "search/simple", url: dataset_variables_path(@dataset)
 
-- if @variables.count > 0
+- if @variables.present?
   .dashboard-container
     %table.table.table-striped
       %col{ width: "32px" }
       %col
       %col
       %col
-      - if params[:search].present?
-        %col
       %thead
         %tr
           %th
           %th
             Name
-            = render 'search/toggle'
+            = render "search/toggle"
           %th.hidden-xs.nowrap Display Name
           %th.hidden-xs.hidden-sm Folder
-          - if params[:search].present?
-            %th Relevance
 
-      - @variables.sort { |a,b| a.rank_sort_order(params[:search]) <=> b.rank_sort_order(params[:search]) }.each do |variable|
+      - @variables.each do |variable|
         %tr
           %td
             - if variable.commonly_used?
@@ -42,23 +38,21 @@
             = variable.display_name
             %small.text-muted.variable-description= simple_markdown_new(variable.description, allow_lists: false)
           %td.hidden-xs.hidden-sm= variable.folder
-          - if params[:search].present?
-            %td= render 'variables/relevance', variable: variable
-- elsif @dataset.variables.count == 0
-  .jumbotron{ style: 'margin-top:30px' }
+- elsif @dataset.variables.count.zero?
+  .jumbotron{ style: "margin-top: 30px;" }
     %p
       We have not yet generated graphs for variables in this dataset.
     %p
       Please contact us directly at
-      = mail_to 'support@sleepdata.org'
+      = mail_to "support@sleepdata.org"
       with any questions.
 - else
-  .jumbotron{ style: 'margin-top:30px' }
+  .jumbotron{ style: "margin-top: 30px;" }
     %p
       No variables found matching
-      = succeed '.' do
+      = succeed "." do
         %code= params[:search]
     %p
       Please contact us directly at
-      = mail_to 'support@sleepdata.org'
+      = mail_to "support@sleepdata.org"
       with any questions.
