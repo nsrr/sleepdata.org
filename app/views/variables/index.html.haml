@@ -12,6 +12,12 @@
 - if @variables.count > 0
   .dashboard-container
     %table.table.table-striped
+      %col{ width: "32px" }
+      %col
+      %col
+      %col
+      - if params[:search].present?
+        %col
       %thead
         %tr
           %th
@@ -20,7 +26,7 @@
             = render 'search/toggle'
           %th.hidden-xs.nowrap Display Name
           %th.hidden-xs.hidden-sm Folder
-          - unless params[:search].blank?
+          - if params[:search].present?
             %th Relevance
 
       - @variables.sort { |a,b| a.rank_sort_order(params[:search]) <=> b.rank_sort_order(params[:search]) }.each do |variable|
@@ -36,7 +42,7 @@
             = variable.display_name
             %small.text-muted.variable-description= simple_markdown_new(variable.description, allow_lists: false)
           %td.hidden-xs.hidden-sm= variable.folder
-          - unless params[:search].blank?
+          - if params[:search].present?
             %td= render 'variables/relevance', variable: variable
 - elsif @dataset.variables.count == 0
   .jumbotron{ style: 'margin-top:30px' }
