@@ -43,7 +43,7 @@ class Dataset < ApplicationRecord
 
   def recalculate_rating!
     ratings = dataset_reviews.where.not(rating: nil).pluck(:rating)
-    update rating: ratings.present? ? ratings.inject(&:+).to_f / ratings.count : nil
+    update rating: ratings.present? ? ratings.inject(&:+).to_f / ratings.count : 3
   end
 
   def chartable_variables

@@ -40,9 +40,10 @@
       %br
       = link_to community_tool_community_tool_reviews_path(@community_tool) do
         = render 'community_tools/rating', rating: @community_tool.rating
-      %br
-      = link_to community_tool_community_tool_reviews_path(@community_tool) do
-        = pluralize(number_with_delimiter(@community_tool.community_tool_reviews.count), 'Review')
+      - if @community_tool.community_tool_reviews.count.positive?
+        %br
+        = link_to community_tool_community_tool_reviews_path(@community_tool) do
+          = pluralize(number_with_delimiter(@community_tool.community_tool_reviews.count), 'Review')
       %br
       - if current_user && current_user.reviewed_tool?(@community_tool)
         - link_text = 'Update my review'

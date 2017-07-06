@@ -1,6 +1,8 @@
 ## 0.28.0
 
 ### Enhancements
+- **General Changes**
+  - Default ratings are now set at 3 stars for unreviewed datasets and tools
 - **Dataset Changes**
   - `md`, `pdf`, and image files are now displayed in browser when clicked on
     the files index

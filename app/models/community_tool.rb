@@ -50,7 +50,7 @@ class CommunityTool < ApplicationRecord
 
   def recalculate_rating!
     ratings = community_tool_reviews.where.not(rating: nil).pluck(:rating)
-    update rating: ratings.present? ? ratings.inject(&:+).to_f / ratings.count : nil
+    update rating: ratings.present? ? ratings.inject(&:+).to_f / ratings.count : 3
   end
 
   def readme_content
