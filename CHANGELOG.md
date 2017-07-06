@@ -14,6 +14,7 @@
 
 ### Bug Fix
 - Pagination now works correctly when navigating through variable folders
+- Logging in no longer clears the menu header in certain situations
 
 ## 0.27.0 (May 16, 2017)
 
