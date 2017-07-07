@@ -157,11 +157,20 @@
             %h1.brand= number_to_human_size total_stored
             Stored on the Resource
         .col-sm-3.hidden-xs
+          - quarter = Quarter.order(regular_total_file_size: :desc).first
           .center.hidden-sm.hidden-md.hidden-lg
-            %h1.brand 80 TB
+            %h1.brand
+              - if quarter
+                = number_to_human_size quarter.regular_total_file_size, precision: 0, significant: false
+              - else
+                0 MB
             Shared with Researchers
           .hidden-xs.text-right
-            %h1.brand 80 TB
+            %h1.brand
+              - if quarter
+                = number_to_human_size quarter.regular_total_file_size, precision: 0, significant: false
+              - else
+                0 MB
             Shared with Researchers
         .col-sm-3.hidden-xs
           .center
