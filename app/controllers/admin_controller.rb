@@ -5,19 +5,29 @@ class AdminController < ApplicationController
   before_action :authenticate_user!
   before_action :check_system_admin
 
-  def roles
-  end
-
-  def stats
-  end
-
-  def sync
-  end
-
+  # GET /admin/agreement-reports
   def agreement_reports
     @agreements = Agreement.current.regular_members
   end
 
-  def downloads_by_month
+  # # GET /admin/roles
+  # def roles
+  # end
+
+  # # GET /admin/stats
+  # def stats
+  # end
+
+  # # GET /admin/sync
+  # def sync
+  # end
+
+  # # GET /admin/downloads-by-month
+  # def downloads_by_month
+  # end
+
+  # GET /admin/downloads-by-quarter
+  def downloads_by_quarter
+    @year = params[:year].to_i.positive? ? params[:year].to_i : Time.zone.today.year
   end
 end

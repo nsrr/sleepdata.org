@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  year: 2014
+  quarter_number: 1
+  regular_files: 0
+  regular_file_size: 0
+  regular_total_files: 0
+  regular_total_file_size: 0
+
+two:
+  year: 2014
+  quarter_number: 2
+  regular_files: 100
+  regular_file_size: 1_000
+  regular_total_files: 100
+  regular_total_file_size: 1_000

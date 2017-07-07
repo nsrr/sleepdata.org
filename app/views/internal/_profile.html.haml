@@ -53,6 +53,7 @@
 
       %li= link_to 'Usage Statistics', admin_stats_path, class: current_page?(admin_stats_path) ? 'active' : nil
       %li= link_to 'Downloads By Month', admin_downloads_by_month_path(user_type: 'regular')
+      %li= link_to 'Downloads By Quarter', admin_downloads_by_quarter_path
       %li= link_to 'Agreement Reports', admin_agreement_reports_path, class: current_page?(admin_agreement_reports_path) ? 'active' : nil
 
       %li.blog-menu-header Configuration

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root 'external#landing'
+  root "external#landing"
 
   namespace :async do
     namespace :forum do
@@ -14,16 +14,17 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'account(/:auth_token)/profile' => 'account#profile'
+  get "account(/:auth_token)/profile" => "account#profile"
 
-  get 'admin', to: redirect('dashboard')
+  get "admin", to: redirect("dashboard")
 
   namespace :admin do
     get :roles
     get :stats
     get :sync
-    get :downloads_by_month
-    get :agreement_reports
+    get :downloads_by_month, path: "downloads-by-month"
+    get :downloads_by_quarter, path: "downloads-by-quarter"
+    get :agreement_reports, path: "agreement-reports"
     resources :replies, only: :index
     root action: :dashboard
   end
@@ -55,21 +56,21 @@ Rails.application.routes.draw do
 
   scope module: :blog do
     get :blog
-    get 'blog/category/:category', action: 'blog', as: :blog_category
-    get 'blog/author/:author', action: 'blog', as: :blog_author
-    get 'blog/:slug', action: 'show'
-    get 'blog/:year/:month/:slug', action: 'show', as: :blog_post
+    get "blog/category/:category", action: "blog", as: :blog_category
+    get "blog/author/:author", action: "blog", as: :blog_author
+    get "blog/:slug", action: "show"
+    get "blog/:year/:month/:slug", action: "show", as: :blog_post
     get :blog_archive
   end
 
-  resources :broadcasts, path: 'editor/blog'
+  resources :broadcasts, path: "editor/blog"
 
   scope module: :agreements do
     namespace :representative do
-      get ':representative_token/signature-requested', action: 'signature_requested', as: :signature_requested
-      get ':representative_token/submit-signature', action: 'signature_requested'
-      patch ':representative_token/submit-signature', action: 'submit_signature', as: :submit_signature
-      get 'signature-submitted', action: 'signature_submitted', as: :signature_submitted
+      get ":representative_token/signature-requested", action: "signature_requested", as: :signature_requested
+      get ":representative_token/submit-signature", action: "signature_requested"
+      patch ":representative_token/submit-signature", action: "submit_signature", as: :submit_signature
+      get "signature-submitted", action: "signature_submitted", as: :signature_submitted
     end
   end
 
@@ -93,7 +94,7 @@ Rails.application.routes.draw do
       delete :destroy_submission
     end
 
-    resources :agreement_events, path: 'events' do
+    resources :agreement_events, path: "events" do
       collection do
         post :preview
       end
@@ -104,16 +105,16 @@ Rails.application.routes.draw do
 
   resources :challenges do
     member do
-      get 'images/*path', action: 'images', as: :images, format: false
-      get 'signal/:signal', action: 'signal', as: :signal
-      post 'signal/:signal', action: 'update_signal', as: :update_signal
+      get "images/*path", action: "images", as: :images, format: false
+      get "signal/:signal", action: "signal", as: :signal
+      post "signal/:signal", action: "update_signal", as: :update_signal
       get :review
       get :submitted
     end
   end
 
-  resources :community_tools, path: 'community-tools' do
-    resources :community_tool_reviews, path: 'reviews'
+  resources :community_tools, path: "community-tools" do
+    resources :community_tool_reviews, path: "reviews"
   end
 
   scope module: :editor do
@@ -126,8 +127,8 @@ Rails.application.routes.draw do
         post :remove_access
         post :pull_changes
         post :set_public_file
-        post 'reset_index(/*path)', action: 'reset_index', as: :reset_index, format: false
-        get 'reset_index(/*path)',
+        post "reset_index(/*path)", action: "reset_index", as: :reset_index, format: false
+        get "reset_index(/*path)",
             to: redirect { |path_params, _req| "datasets/#{path_params[:id]}/files/#{path_params[:path]}" },
             format: false
         get :sync
@@ -140,20 +141,20 @@ Rails.application.routes.draw do
   end
 
   resources :datasets, only: [:show, :index] do
-    resources :dataset_reviews, path: 'reviews'
+    resources :dataset_reviews, path: "reviews"
 
     member do
       get :logo
       get :request_access
       patch :set_access
-      get '(/a/:auth_token)/json_manifest(/*path)', action: 'json_manifest', as: :json_manifest, format: false
-      get '(/a/:auth_token)/manifest(/*path)', action: 'manifest', as: :manifest, format: false
-      get 'files((/a/:auth_token)(/m/:medium)/*path)', action: 'files', as: :files, format: false
-      get 'access(/*path)', action: 'access', as: :access, format: false
-      get 'search', action: 'search', as: :search
-      get 'images/*path', action: 'images', as: :images, format: false
-      get 'pages(/*path)', action: 'pages', as: :pages, format: false
-      get '/a/:auth_token/editor', action: 'editor', as: :editor
+      get "(/a/:auth_token)/json_manifest(/*path)", action: "json_manifest", as: :json_manifest, format: false
+      get "(/a/:auth_token)/manifest(/*path)", action: "manifest", as: :manifest, format: false
+      get "files((/a/:auth_token)(/m/:medium)/*path)", action: "files", as: :files, format: false
+      get "access(/*path)", action: "access", as: :access, format: false
+      get "search", action: "search", as: :search
+      get "images/*path", action: "images", as: :images, format: false
+      get "pages(/*path)", action: "pages", as: :pages, format: false
+      get "/a/:auth_token/editor", action: "editor", as: :editor
       post :folder_progress
     end
 
@@ -162,16 +163,16 @@ Rails.application.routes.draw do
         get :form
         get :graphs
         get :history
-        get :known_issues, path: 'known-issues'
+        get :known_issues, path: "known-issues"
         get :related
       end
     end
   end
 
-  get '/a/:auth_token/datasets' => 'datasets#index'
-  get '/a/:auth_token/datasets/:id' => 'datasets#show'
+  get "/a/:auth_token/datasets" => "datasets#index"
+  get "/a/:auth_token/datasets/:id" => "datasets#show"
 
-  resources :hosting_requests, path: 'hosting-requests'
+  resources :hosting_requests, path: "hosting-requests"
 
   resources :images do
     collection do
@@ -179,7 +180,7 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/image/:id' => 'images#download', as: 'download_image'
+  get "/image/:id" => "images#download", as: "download_image"
 
   resources :reviews do
     member do
@@ -189,9 +190,9 @@ Rails.application.routes.draw do
     end
   end
 
-  scope module: 'showcase' do
-    get :showcase, action: 'index', as: :showcase
-    get 'showcase(/:slug)', action: 'show', as: :showcase_show
+  scope module: "showcase" do
+    get :showcase, action: "index", as: :showcase
+    get "showcase(/:slug)", action: "show", as: :showcase_show
   end
 
   scope module: :internal do
@@ -206,16 +207,17 @@ Rails.application.routes.draw do
 
   scope module: :external do
     get :about
-    get :aug, path: 'about/academic-user-group'
+    get :aug, path: "about/academic-user-group"
     get :contact
-    get :contributors, path: 'about/contributors'
-    get :datasharing, path: 'about/data-sharing-language'
+    get :contributors, path: "about/contributors"
+    get :datasharing, path: "about/data-sharing-language"
     get :demo
     get :landing
     get :sitemap
     get :team
     get :version
     get :voting
+    get :sitemap_xml, path: "sitemap.xml.gz"
 
     post :preview
   end
@@ -226,33 +228,33 @@ Rails.application.routes.draw do
     end
   end
 
-  scope module: 'request' do
-    get 'contribute/tool', to: redirect('contribute/tool/start')
-    get 'contribute/tool/start', action: 'contribute_tool_start', as: :contribute_tool_start
-    post 'contribute/tool/start', action: 'contribute_tool_set_location', as: :contribute_tool_set_location
-    post 'contribute/tool', action: 'contribute_tool_register_user', as: :contribute_tool_register_user
-    patch 'contribute/tool', action: 'contribute_tool_sign_in_user', as: :contribute_tool_sign_in_user
-    get 'contribute/tool/description/:id', action: 'contribute_tool_description', as: :contribute_tool_description
-    post 'contribute/tool/description/:id', action: 'contribute_tool_set_description', as: :contribute_tool_set_description
-    # post 'contribute/tool/submit', action: 'contribute_tool_submit', as: :contribute_tool_submit
+  scope module: "request" do
+    get "contribute/tool", to: redirect("contribute/tool/start")
+    get "contribute/tool/start", action: "contribute_tool_start", as: :contribute_tool_start
+    post "contribute/tool/start", action: "contribute_tool_set_location", as: :contribute_tool_set_location
+    post "contribute/tool", action: "contribute_tool_register_user", as: :contribute_tool_register_user
+    patch "contribute/tool", action: "contribute_tool_sign_in_user", as: :contribute_tool_sign_in_user
+    get "contribute/tool/description/:id", action: "contribute_tool_description", as: :contribute_tool_description
+    post "contribute/tool/description/:id", action: "contribute_tool_set_description", as: :contribute_tool_set_description
+    # post "contribute/tool/submit", action: "contribute_tool_submit", as: :contribute_tool_submit
 
-    get 'tool/request', action: 'tool_request', as: :tool_request
+    get "tool/request", action: "tool_request", as: :tool_request
 
-    get 'dataset/hosting', to: redirect('dataset/hosting/start')
-    get 'dataset/hosting/start', action: 'dataset_hosting_start', as: :dataset_hosting_start
-    post 'dataset/hosting/start', action: 'dataset_hosting_set_description', as: :dataset_hosting_set_description
-    post 'dataset/hosting', action: 'dataset_hosting_register_user', as: :dataset_hosting_register_user
-    patch 'dataset/hosting', action: 'dataset_hosting_sign_in_user', as: :dataset_hosting_sign_in_user
-    get 'dataset/hosting/submitted', action: 'dataset_hosting_submitted', as: :dataset_hosting_submitted
+    get "dataset/hosting", to: redirect("dataset/hosting/start")
+    get "dataset/hosting/start", action: "dataset_hosting_start", as: :dataset_hosting_start
+    post "dataset/hosting/start", action: "dataset_hosting_set_description", as: :dataset_hosting_set_description
+    post "dataset/hosting", action: "dataset_hosting_register_user", as: :dataset_hosting_register_user
+    patch "dataset/hosting", action: "dataset_hosting_sign_in_user", as: :dataset_hosting_sign_in_user
+    get "dataset/hosting/submitted", action: "dataset_hosting_submitted", as: :dataset_hosting_submitted
 
-    get 'submissions/start', action: 'submissions_start', as: :submissions_start
-    post 'submissions/start', action: 'submissions_launch', as: :submissions_launch
-    post 'submissions/register', action: 'submissions_register_user', as: :submissions_register_user
-    patch 'submissions/sign_in', action: 'submissions_sign_in_user', as: :submissions_sign_in_user
+    get "submissions/start", action: "submissions_start", as: :submissions_start
+    post "submissions/start", action: "submissions_launch", as: :submissions_launch
+    post "submissions/register", action: "submissions_register_user", as: :submissions_register_user
+    patch "submissions/sign_in", action: "submissions_sign_in_user", as: :submissions_sign_in_user
   end
 
   scope module: :search do
-    get :search, action: 'index', as: :search
+    get :search, action: "index", as: :search
   end
 
   resources :tags
@@ -267,20 +269,20 @@ Rails.application.routes.draw do
       post :create_access
       patch :set_access
 
-      get 'images/*path', action: 'images', as: :images, format: false
-      get 'pages(/*path)', action: 'pages', as: :pages, format: false
+      get "images/*path", action: "images", as: :images, format: false
+      get "pages(/*path)", action: "pages", as: :pages, format: false
       post :pull_changes
     end
   end
 
-  get 'community/tools/:id' => 'tools#community_show', as: :community_show_tool
+  get "community/tools/:id" => "tools#community_show", as: :community_show_tool
 
-  resources :topics, path: 'forum' do
+  resources :topics, path: "forum" do
     member do
       post :admin
       post :subscription
-      get '/edit', action: :edit, as: :edit
-      get '/:page', action: :show, as: :page
+      get "/edit", action: :edit, as: :edit
+      get "/:page", action: :show, as: :page
     end
     collection do
       get :markup
@@ -296,23 +298,28 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'sitemap.xml.gz' => 'external#sitemap_xml'
-
-  devise_for :users, controllers: { sessions: 'sessions', registrations: 'registrations' }, path_names: { sign_up: 'join', sign_in: 'login' }, path: ''
+  devise_for :users,
+             controllers: {
+               sessions: "sessions", registrations: "registrations"
+             },
+             path_names: {
+               sign_up: "join", sign_in: "login"
+             },
+             path: ""
 
   resources :users
 
-  get '/dua' => 'internal#submissions'
-  get '/daua' => 'internal#submissions'
+  get "/dua" => "internal#submissions"
+  get "/daua" => "internal#submissions"
 
-  get '/settings' => 'users#settings', as: :settings
-  patch '/settings' => 'users#update_settings', as: :update_settings
-  get '/change_password', to: redirect('settings'), as: :change_password_settings
-  patch '/change_password' => 'users#change_password', as: :change_password
+  get "/settings" => "users#settings", as: :settings
+  patch "/settings" => "users#update_settings", as: :update_settings
+  get "/change_password", to: redirect("settings"), as: :change_password_settings
+  patch "/change_password" => "users#change_password", as: :change_password
 
-  get '/daua/irb-assistance' => 'agreements#irb_assistance', as: :irb_assistance
+  get "/daua/irb-assistance" => "agreements#irb_assistance", as: :irb_assistance
 
-  # In case 'failed submission steps are reloaded using get request'
-  get '/agreements/:id/final_submission' => 'agreements#proof'
-  get '/agreements/:id/update_step' => 'agreements#step'
+  # In case "failed submission steps are reloaded using get request"
+  get "/agreements/:id/final_submission" => "agreements#proof"
+  get "/agreements/:id/update_step" => "agreements#step"
 end

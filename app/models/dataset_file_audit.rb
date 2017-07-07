@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Tracks the number of files downloaded per dataset and by user
+# Tracks the number of files downloaded per dataset and by user.
 class DatasetFileAudit < ApplicationRecord
   # Model Relationships
   belongs_to :dataset
@@ -17,6 +17,6 @@ class DatasetFileAudit < ApplicationRecord
   # Model Methods
 
   def self.year(year)
-    where 'extract(year from dataset_file_audits.created_at) = ?', year
+    where "extract(year from dataset_file_audits.created_at) = ?", year
   end
 end

@@ -1,0 +1,34 @@
+- @title = "Downloads By Quarter"
+
+- content_for :body_class do
+  brand-background
+
+= render "internal/profile_header", title: @title
+
+.dashboard-container
+  %table.table.table-striped.table-borderless.table-hover
+    %thead
+      %tr
+        %th Quarter
+        %th.center{ colspan: 2 } Files Downloaded
+        %th.center{ colspan: 2 } Cumulative
+    %tbody
+      - (2013..Time.zone.today.year).reverse_each do |year|
+        - (1..4).reverse_each do |quarter_number|
+          - quarter = Quarter.retrieve(year, quarter_number)
+          - next if quarter.future?
+          %tr
+            %td
+              Year
+              = year - 2012
+              Quarter
+              = quarter.quarter_number
+              %small
+                Ending
+                = quarter.end_date.strftime("%b %Y")
+                - if quarter.current?
+                  %span.text-primary{ rel: "tooltip", data: { title: "Current Quarter", container: "body", placement: "right" } } *
+            %td.text-right= pluralize number_with_delimiter(quarter.regular_files), "file"
+            %td= number_to_human_size quarter.regular_file_size
+            %td.text-right= pluralize number_with_delimiter(quarter.regular_total_files), "file"
+            %td= number_to_human_size quarter.regular_total_file_size
