@@ -15,6 +15,7 @@
 - **Gem Changes**
   - Updated to rails 5.1.2
   - Updated to pg 0.21.0
+  - Updated to mini_magick 4.8.0
 
 ### Bug Fix
 - Pagination now works correctly when navigating through variable folders
