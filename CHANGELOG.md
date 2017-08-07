@@ -1,6 +1,8 @@
 ## 0.29.0
 
 ### Enhancements
+- **General Changes**
+  - Added page to guide researchers through Data Sharing process
 - **Gem Changes**
   - Updated to rails 5.1.3
   - Updated to haml 5.0.2

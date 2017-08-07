@@ -1,0 +1,50 @@
+- @title = "Share"
+- @keywords = "share sleep data, share datasets online, free online data sharing, contribute data, data resource, data research warehouse"
+
+- content_for :body_class do
+  brand-background
+
+.about-header
+  The National Sleep
+  %br.hidden-sm.hidden-md.hidden-lg
+  Research Resource
+
+.about-section
+  %p
+    The National Sleep Research Resource (NSRR) is an NHLBI-funded resource designed to host and share data from major sleep cohort studies and clinical trials. All shared study data must be de-identified using the HIPAA Safe Harbor method and must adhere to the data sharing language stated in the participant informed consent. Records and files from participants who did not consent to data sharing must be redacted before submitting to the NSRR.
+
+    The NSRR creates a unique space to share and link covariate data, complex physiological data, and quantitative signal (e.g. EEG, ECG) processing results. The NSRR team will guide you through the process of preparing and uploading your datasets to the NSRR.
+
+%hr.about-divider
+
+.about-section
+  %p
+    %strong What you will do:
+  %ul
+    %li Compile documentation (e.g. manuals, questionnaires) about the data to be shared
+    %li Prepare final datasets with data dictionaries and descriptions about dataset contents
+    %li Remove all identifiers from dataset files and raw data files
+    %li Upload files to NSRR through Secure File Transfer Protocol (SFTP)
+
+  %p
+    %strong What we will do:
+  %ul
+    %li Assist you during each step of the submission process
+    %li Review uploaded data to ensure all identifiers have been removed
+    %li Establish an institutional data use agreement (if needed)
+    %li Ensure that only the users you want to access your data receive access
+    %li Create a repository for your dataset to organize documentation and data files
+    %li Write a blog post to advertise your dataset and provide periodic updates on usage
+
+  - url = "https://tryslice.io/survey"
+  %p
+    To begin the data submission process, please submit
+    = succeed "." do
+      = link_to "this form", url
+    An NSRR representative will reach out to you within two (2) business days.
+
+%hr.about-divider
+
+.about-section
+  %p
+    = link_to "Start sharing", url, class: "btn btn-block btn-lg btn-primary btn-shadow"

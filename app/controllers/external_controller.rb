@@ -35,6 +35,10 @@ class ExternalController < ApplicationController
     @tools = Tool.current.where(slug: ['physiomimi', 'edf-viewer', 'block-edf-loader']).order(:name)
   end
 
+  # # GET /share
+  # def share
+  # end
+
   # # GET /sitemap
   # def sitemap
   # end

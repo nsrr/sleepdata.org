@@ -213,6 +213,7 @@ Rails.application.routes.draw do
     get :datasharing, path: "about/data-sharing-language"
     get :demo
     get :landing
+    get :share
     get :sitemap
     get :team
     get :version
