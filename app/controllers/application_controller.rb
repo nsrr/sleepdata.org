@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   before_action :set_cache_buster
 
   def store_location
-    if !request.post? && !request.xhr? && params[:format] != 'atom'
+    if !request.post? && !request.xhr? && params[:format] != "atom"
       if internal_action?(params[:controller], params[:action])
         store_internal_location_in_session
       end
@@ -45,7 +45,7 @@ class ApplicationController < ActionController::Base
     {
       admin: [],
       agreement_events: [],
-      agreements: [],
+      agreements: [:step, :new_step, :proof],
       broadcasts: [],
       categories: [],
       challenges: [:signal, :new, :edit],
@@ -99,7 +99,7 @@ class ApplicationController < ActionController::Base
   end
 
   def devise_login?
-    params[:controller] == 'sessions' && params[:action] == 'create'
+    params[:controller] == "sessions" && params[:action] == "create"
   end
 
   def store_internal_location_in_session
@@ -112,32 +112,32 @@ class ApplicationController < ActionController::Base
   end
 
   def check_community_manager
-    redirect_to root_path, alert: 'You do not have sufficient privileges to access that page.' unless current_user.community_manager?
+    redirect_to root_path, alert: "You do not have sufficient privileges to access that page." unless current_user.community_manager?
   end
 
   def check_system_admin
-    redirect_to root_path, alert: 'You do not have sufficient privileges to access that page.' unless current_user.system_admin?
+    redirect_to root_path, alert: "You do not have sufficient privileges to access that page." unless current_user.system_admin?
   end
 
   def scrub_order(model, params_order, default_order)
-    (params_column, params_direction) = params_order.to_s.strip.downcase.split(' ')
-    direction = (params_direction == 'desc' ? 'desc nulls last' : nil)
+    (params_column, params_direction) = params_order.to_s.strip.downcase.split(" ")
+    direction = (params_direction == "desc" ? "desc nulls last" : nil)
     column_name = model.column_names.collect { |c| "#{model.table_name}.#{c}" }.select { |c| c == params_column }.first
-    order = column_name.blank? ? default_order : [column_name, direction].compact.join(' ')
+    order = column_name.blank? ? default_order : [column_name, direction].compact.join(" ")
     order
   end
 
   def check_banned
     return unless current_user.banned?
-    flash[:warning] = 'You do not have permission to post on the forum.'
+    flash[:warning] = "You do not have permission to post on the forum."
     empty_response_or_root_path(@topic || topics_path)
   end
 
-  def parse_date(date_string, default_date = '')
-    if date_string.to_s.split('/').last.size == 2
-      Date.strptime(date_string, '%m/%d/%y')
+  def parse_date(date_string, default_date = "")
+    if date_string.to_s.split("/").last.size == 2
+      Date.strptime(date_string, "%m/%d/%y")
     else
-      Date.strptime(date_string, '%m/%d/%Y')
+      Date.strptime(date_string, "%m/%d/%Y")
     end
   rescue
     default_date
@@ -153,8 +153,8 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user_from_token!
-    user_id               = params[:auth_token].to_s.split('-').first.to_i
-    auth_token            = params[:auth_token].to_s.gsub(/^#{user_id}-/, '')
+    user_id               = params[:auth_token].to_s.split("-").first.to_i
+    auth_token            = params[:auth_token].to_s.gsub(/^#{user_id}-/, "")
     user                  = user_id && User.find_by_id(user_id)
 
     # Notice how we use Devise.secure_compare to compare the token
@@ -185,9 +185,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_cache_buster
-    response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
-    response.headers['Pragma'] = 'no-cache'
-    response.headers['Expires'] = 'Fri, 01 Jan 1990 00:00:00 GMT'
+    response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "Fri, 01 Jan 1990 00:00:00 GMT"
   end
 
   def check_key_and_set_default_value(object, key, default_value)
@@ -201,7 +201,7 @@ class ApplicationController < ActionController::Base
   end
 
   def dataset_params
-    params[:dataset] ||= { blank: '1' }
+    params[:dataset] ||= { blank: "1" }
     params[:dataset][:release_date] = parse_date(params[:dataset][:release_date])
     params.require(:dataset).permit(
       :name, :description, :slug, :logo, :logo_cache, :public,
@@ -212,9 +212,9 @@ class ApplicationController < ActionController::Base
   end
 
   def verify_recaptcha
-    url = URI.parse('https://www.google.com/recaptcha/api/siteverify')
+    url = URI.parse("https://www.google.com/recaptcha/api/siteverify")
     http = Net::HTTP.new(url.host, url.port)
-    if url.scheme == 'https'
+    if url.scheme == "https"
       http.use_ssl = true
       http.verify_mode = OpenSSL::SSL::VERIFY_NONE
     end
@@ -224,9 +224,9 @@ class ApplicationController < ActionController::Base
       "remoteip=#{request.remote_ip}"
     ]
     response = http.start do |h|
-      h.post(url.path, post_params.join('&'))
+      h.post(url.path, post_params.join("&"))
     end
     json = JSON.parse(response.body)
-    json['success']
+    json["success"]
   end
 end

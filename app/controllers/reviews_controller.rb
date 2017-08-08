@@ -6,7 +6,7 @@ class ReviewsController < ApplicationController
 
   # GET /reviews
   def index
-    params[:order] = 'agreements.last_submitted_at desc' if params[:order].blank?
+    params[:order] = "agreements.last_submitted_at desc" if params[:order].blank?
     @order = scrub_order(Agreement, params[:order], [:id])
     agreement_scope = current_user.reviewable_agreements.search(params[:search]).order(@order)
     agreement_scope = agreement_scope.with_tag(params[:tag_id]) if params[:tag_id].present?
@@ -26,20 +26,20 @@ class ReviewsController < ApplicationController
   def vote
     @review = @agreement.reviews.where(user_id: current_user.id).first_or_create
     original_approval = @review.approved
-    @review.update approved: (params[:approved].to_s == '1') if %w(0 1).include?(params[:approved].to_s)
+    @review.update approved: (params[:approved].to_s == "1") if %w(0 1).include?(params[:approved].to_s)
     event_type = if @review.approved == original_approval
-                   ''
+                   ""
                  elsif @review.approved == true && original_approval == false
-                   'reviewer_changed_from_rejected_to_approved'
+                   "reviewer_changed_from_rejected_to_approved"
                  elsif @review.approved == false && original_approval == true
-                   'reviewer_changed_from_approved_to_rejected'
+                   "reviewer_changed_from_approved_to_rejected"
                  elsif @review.approved == true
-                   'reviewer_approved'
+                   "reviewer_approved"
                  elsif @review.approved == false
-                   'reviewer_rejected'
+                   "reviewer_rejected"
                  end
     @agreement_event = @agreement.agreement_events.create(event_type: event_type, user_id: current_user.id, event_at: Time.zone.now) if event_type.present?
-    render 'agreement_events/create'
+    render "agreement_events/create"
   end
 
   # POST /reviews/1/update_tags.js
@@ -55,12 +55,12 @@ class ReviewsController < ApplicationController
     end
     if added_removed_tag_ids.count > 0
       @agreement.update tags: submitted_tags
-      @agreement_event = @agreement.agreement_events.create event_type: 'tags_updated', user_id: current_user.id, event_at: Time.zone.now
+      @agreement_event = @agreement.agreement_events.create event_type: "tags_updated", user_id: current_user.id, event_at: Time.zone.now
       added_removed_tag_ids.each do |tag_id, added|
         @agreement_event.agreement_event_tags.create tag_id: tag_id, added: added
       end
     end
-    render 'agreement_events/index'
+    render "agreement_events/index"
   end
 
   private

@@ -16,32 +16,35 @@ class AgreementsController < ApplicationController
   before_action :set_agreement,                  only: [:destroy, :download, :update]
   before_action :redirect_without_agreement,     only: [:destroy, :download, :update, :download_irb, :print]
 
+  # GET /agreements/1/step
   def step
     if @step && @step > 0 && @step < 6
       render "agreements/wizard/step#{@step}"
     elsif @step == 6
-      render 'agreements/proof'
+      render :proof
     else
       redirect_to step_agreement_path(@agreement, step: 1)
     end
   end
 
+  # GET /agreements/new_step
   def new_step
     @step = 1
     @agreement = current_user.agreements.new(data_user: current_user.name)
     render "agreements/wizard/step#{@step}"
   end
 
+  # GET /agreements/1/renew
   def renew
     @step = 1
-    @agreement = current_user.agreements.create( @agreement.copyable_attributes )
+    @agreement = current_user.agreements.create(@agreement.copyable_attributes)
     render "agreements/wizard/step#{@step}"
   end
 
   # POST /agreements
   def create_step
     @agreement = current_user.agreements.new(step_params)
-    if AgreementTransaction.save_agreement!(@agreement, step_params, current_user, request.remote_ip, 'agreement_create')
+    if AgreementTransaction.save_agreement!(@agreement, step_params, current_user, request.remote_ip, "agreement_create")
       if @agreement.draft_mode?
         redirect_to submissions_path
       else
@@ -52,8 +55,9 @@ class AgreementsController < ApplicationController
     end
   end
 
+  # PATCH /agreements/1/update_step
   def update_step
-    if AgreementTransaction.save_agreement!(@agreement, step_params, current_user, request.remote_ip, 'agreement_update')
+    if AgreementTransaction.save_agreement!(@agreement, step_params, current_user, request.remote_ip, "agreement_update")
       if @agreement.draft_mode?
         redirect_to submissions_path
       elsif @agreement.fully_filled_out? || @agreement.current_step == 5
@@ -68,23 +72,25 @@ class AgreementsController < ApplicationController
     end
   end
 
+  # GET /agreements/1/proof
   def proof
     @step = 6
   end
 
+  # PATCH /agreements/1/final_submission
   def final_submission
     current_time = Time.zone.now
-    if @agreement.status == 'resubmit'
-      hash = { status: 'submitted', resubmitted_at: current_time, last_submitted_at: current_time }
-      event_type = 'user_resubmitted'
+    if @agreement.status == "resubmit"
+      hash = { status: "submitted", resubmitted_at: current_time, last_submitted_at: current_time }
+      event_type = "user_resubmitted"
     else
-      hash = { status: 'submitted', submitted_at: current_time, last_submitted_at: current_time }
-      event_type = 'user_submitted'
+      hash = { status: "submitted", submitted_at: current_time, last_submitted_at: current_time }
+      event_type = "user_submitted"
     end
 
     if !@agreement.fully_filled_out?
-      render 'proof'
-    elsif AgreementTransaction.save_agreement!(@agreement, hash, current_user, request.remote_ip, 'agreement_update')
+      render "proof"
+    elsif AgreementTransaction.save_agreement!(@agreement, hash, current_user, request.remote_ip, "agreement_update")
       @agreement.agreement_events.create event_type: event_type, user_id: current_user.id, event_at: current_time
       @agreement.daua_submitted_in_background
       redirect_to complete_agreement_path(@agreement)
@@ -94,51 +100,51 @@ class AgreementsController < ApplicationController
   end
 
   # GET /agreements
-  # GET /agreements.json
   def index
     redirect_to reviews_path
   end
 
+  # GET /agreements/export
   def export
     @csv_string = CSV.generate do |csv|
       csv << [
-        'Status',
-        'Last Submitted Date',
-        'Approval Date',
-        'Expiration Date',
-        'Approved By',
-        'Rejected By',
-        'Agreement',
-        'Data User',
-        'Data User Type',
-        'Individual Institution Name',
-        'Individual Name',
-        'Individual Title',
-        'Individual Telephone',
-        'Individual Fax',
-        'Individual Email',
-        'Individual Address',
-        'Organization Business Name',
-        'Organization Contact Name',
-        'Organization Contact Title',
-        'Organization Contact Telephone',
-        'Organization Contact Fax',
-        'Organization Contact Email',
-        'Organization Address',
-        'Title of Project',
-        'Specific Purpose',
-        'Datasets',
-        'Posting Permission',
-        'Unauthorized to Sign',
-        'Signature Print',
-        'Signature Date',
-        'Duly Authorized Representative Signature Print',
-        'Duly Authorized Representative Signature Date',
-        'IRB Evidence Type',
-        'Intended Use of Data',
-        'Data Secured Location',
-        'Secured Device',
-        'Human Subjects Protections Trained'
+        "Status",
+        "Last Submitted Date",
+        "Approval Date",
+        "Expiration Date",
+        "Approved By",
+        "Rejected By",
+        "Agreement",
+        "Data User",
+        "Data User Type",
+        "Individual Institution Name",
+        "Individual Name",
+        "Individual Title",
+        "Individual Telephone",
+        "Individual Fax",
+        "Individual Email",
+        "Individual Address",
+        "Organization Business Name",
+        "Organization Contact Name",
+        "Organization Contact Title",
+        "Organization Contact Telephone",
+        "Organization Contact Fax",
+        "Organization Contact Email",
+        "Organization Address",
+        "Title of Project",
+        "Specific Purpose",
+        "Datasets",
+        "Posting Permission",
+        "Unauthorized to Sign",
+        "Signature Print",
+        "Signature Date",
+        "Duly Authorized Representative Signature Print",
+        "Duly Authorized Representative Signature Date",
+        "IRB Evidence Type",
+        "Intended Use of Data",
+        "Data Secured Location",
+        "Secured Device",
+        "Human Subjects Protections Trained"
       ] + Tag.review_tags.order(:name).pluck(:name)
 
       Agreement.current.includes(agreement_tags: :tag).each do |a|
@@ -147,8 +153,8 @@ class AgreementsController < ApplicationController
           a.last_submitted_at,
           a.approval_date,
           a.expiration_date,
-          a.reviews.where(approved: true).collect{|r| r.user.initials}.join(','),
-          a.reviews.where(approved: false).collect{|r| r.user.initials}.join(','),
+          a.reviews.where(approved: true).collect{|r| r.user.initials}.join(","),
+          a.reviews.where(approved: false).collect{|r| r.user.initials}.join(","),
           a.name,
           a.data_user,
           a.data_user_type,
@@ -168,7 +174,7 @@ class AgreementsController < ApplicationController
           a.organization_address,
           a.title_of_project,
           a.specific_purpose,
-          a.datasets.pluck(:name).sort.join(', '),
+          a.datasets.pluck(:name).sort.join(", "),
           a.posting_permission,
           a.unauthorized_to_sign,
           a.signature_print,
@@ -190,53 +196,45 @@ class AgreementsController < ApplicationController
 
     send_data(
       @csv_string,
-      type: 'text/csv; charset=iso-8859-1; header=present',
+      type: "text/csv; charset=iso-8859-1; header=present",
       disposition: "attachment; filename=\"Agreements List - #{Time.zone.now.strftime('%Y.%m.%d %Ih%M %p')}.csv\""
     )
   end
 
   # GET /agreements/1
-  # GET /agreements/1.json
   def show
     redirect_to reviews_path
   end
-
-  # # GET /agreements/new
-  # def new
-  #   @agreement = Agreement.new
-  # end
-
-  # # GET /agreements/1/edit
-  # def edit
-  # end
 
   # PATCH /agreements/1
   # PATCH /agreements/1.js
   def update
     original_status = @agreement.status
-    if AgreementTransaction.save_agreement!(@agreement, agreement_review_params, current_user, request.remote_ip, 'agreement_update')
-      if original_status != 'approved' && @agreement.status == 'approved'
+    if AgreementTransaction.save_agreement!(@agreement, agreement_review_params, current_user, request.remote_ip, "agreement_update")
+      if original_status != "approved" && @agreement.status == "approved"
         @agreement.daua_approved_email(current_user)
-      elsif original_status != 'resubmit' && @agreement.status == 'resubmit'
+      elsif original_status != "resubmit" && @agreement.status == "resubmit"
         @agreement.sent_back_for_resubmission_email(current_user)
-      elsif original_status != 'closed' && @agreement.status == 'closed'
+      elsif original_status != "closed" && @agreement.status == "closed"
         @agreement.close_daua!(current_user)
-      elsif original_status != 'expired' && @agreement.status == 'expired'
+      elsif original_status != "expired" && @agreement.status == "expired"
         @agreement.expire_daua!(current_user)
       end
       respond_to do |format|
-        format.html { redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.last.number}", notice: 'Agreement was successfully updated.' }
-        format.js { render 'agreement_events/index' }
+        format.html { redirect_to review_path(@agreement) + "#c#{@agreement.agreement_events.last.number}", notice: "Agreement was successfully updated." }
+        format.js { render "agreement_events/index" }
       end
     else
-      render 'reviews/show'
+      render "reviews/show"
     end
   end
 
+  # GET /agreements/1/download_irb
   def download_irb
-    send_file File.join(CarrierWave::Uploader::Base.root, @agreement.irb.url), disposition: 'inline'
+    send_file File.join(CarrierWave::Uploader::Base.root, @agreement.irb.url), disposition: "inline"
   end
 
+  # GET /agreements/1/print
   def print
     @agreement.generate_printed_pdf!
     if @agreement.printed_file.size > 0
@@ -246,20 +244,21 @@ class AgreementsController < ApplicationController
     end
   end
 
+  # GET /agreements/1/download
   def download
     send_file File.join(
       CarrierWave::Uploader::Base.root,
-      (params[:executed] == '1' ? @agreement.executed_dua.url : @agreement.dua.url)
-    ), disposition: 'inline'
+      (params[:executed] == "1" ? @agreement.executed_dua.url : @agreement.dua.url)
+    ), disposition: "inline"
   end
 
+  # DELETE /agreements/1/destroy_submission
   def destroy_submission
     @agreement.destroy
     redirect_to submissions_path
   end
 
   # DELETE /agreements/1
-  # DELETE /agreements/1.json
   def destroy
     @agreement.destroy
 
@@ -314,7 +313,7 @@ class AgreementsController < ApplicationController
   end
 
   def daua_submission_params
-    params[:agreement] ||= { dua: '', remove_dua: '1' }
+    params[:agreement] ||= { dua: "", remove_dua: "1" }
     params.require(:agreement).permit(:dua, :remove_dua)
   end
 
