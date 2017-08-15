@@ -5,6 +5,7 @@
   - Added page to guide researchers through Data Sharing process
 - **Gem Changes**
   - Updated to rails 5.1.3
+  - Updated to pg_search 2.1.0
   - Updated to haml 5.0.2
   - Updated to simplecov 0.15.0
 
