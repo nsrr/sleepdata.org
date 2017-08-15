@@ -14,27 +14,37 @@
 %h3.center{ style: 'font-weight: bold' }
   What interests you?
 .landing-box-container
-  .landing-box{ data: { link: datasets_path(ages: '0-17') } }
+  .landing-box{ data: { link: share_path } }
     .landing-face.landing-back
-      .landing-box-header= link_to 'Children', datasets_path(ages: '0-17')
+      .landing-box-header= link_to 'Share', share_path
       %p
-        Research participants under the age of 18.
-    .landing-face.landing-front
-      .landing-box-header= link_to 'Children', datasets_path(ages: '0-17')
-      %p.center.nowrap{ style: 'line-height: 120px' }
-        %i.fa.fa-child.icon-child-sm{ aria: { hidden: 'true' } }
-        %i.fa.fa-child.icon-child-md{ aria: { hidden: 'true' } }
-        %i.fa.fa-child.icon-child-lg{ aria: { hidden: 'true' } }
-  .landing-box{ data: { link: datasets_path(ages: '18-90') } }
-    .landing-face.landing-back
-      .landing-box-header= link_to 'Adults', datasets_path(ages: '18-90')
-      %p
-        Research participants ages 18 and up.
-    .landing-face.landing-front
-      .landing-box-header= link_to 'Adults', datasets_path(ages: '18-90')
-      %p.center.nowrap
-        %i.fa.fa-male.icon-lg{ aria: { hidden: 'true' } }
-        %i.fa.fa-female.icon-lg{ aria: { hidden: 'true' } }
+        Share your research data on the NSRR.
+    .landing-face.landing-front.landing-face-share
+      .landing-box-header= link_to 'Share', share_path
+      %p.center
+        %i.fa.fa-handshake-o.icon-lg{ aria: { hidden: 'true' } }
+  - if false
+    .landing-box{ data: { link: datasets_path(ages: '0-17') } }
+      .landing-face.landing-back
+        .landing-box-header= link_to 'Children', datasets_path(ages: '0-17')
+        %p
+          Research participants under the age of 18.
+      .landing-face.landing-front
+        .landing-box-header= link_to 'Children', datasets_path(ages: '0-17')
+        %p.center.nowrap{ style: 'line-height: 120px' }
+          %i.fa.fa-child.icon-child-sm{ aria: { hidden: 'true' } }
+          %i.fa.fa-child.icon-child-md{ aria: { hidden: 'true' } }
+          %i.fa.fa-child.icon-child-lg{ aria: { hidden: 'true' } }
+    .landing-box{ data: { link: datasets_path(ages: '18-90') } }
+      .landing-face.landing-back
+        .landing-box-header= link_to 'Adults', datasets_path(ages: '18-90')
+        %p
+          Research participants ages 18 and up.
+      .landing-face.landing-front
+        .landing-box-header= link_to 'Adults', datasets_path(ages: '18-90')
+        %p.center.nowrap
+          %i.fa.fa-male.icon-lg{ aria: { hidden: 'true' } }
+          %i.fa.fa-female.icon-lg{ aria: { hidden: 'true' } }
   .landing-box{ data: { link: datasets_path } }
     .landing-face.landing-back
       .landing-box-header= link_to 'Datasets', datasets_path

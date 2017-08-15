@@ -36,6 +36,18 @@
     height: 100%;
     transition: transform 1s;
     transform-style: preserve-3d;
+
+    &.landing-face-share {
+      background-color: $brand-primary;
+
+      a {
+        color: $brand-white;
+      }
+
+      i {
+        color: $brand-white;
+      }
+    }
   }
 
   .landing-face-unstyled {
