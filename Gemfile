@@ -39,7 +39,7 @@ group :test do
   gem "artifice"
   gem "minitest"
   gem "rails-controller-testing"
-  gem "simplecov", "~> 0.14.1", require: false
+  gem "simplecov", "~> 0.15.0", require: false
 end
 
 group :development do
