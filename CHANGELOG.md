@@ -3,6 +3,7 @@
 ### Enhancements
 - **General Changes**
   - Added page to guide researchers through Data Sharing process
+  - Added default ratings for tools and datasets
 - **Gem Changes**
   - Updated to rails 5.1.3
   - Updated to pg_search 2.1.0
