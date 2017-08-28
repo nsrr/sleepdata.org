@@ -1,4 +1,4 @@
-## 0.29.0
+## 0.29.0 (August 28, 2017)
 
 ### Enhancements
 - **General Changes**
