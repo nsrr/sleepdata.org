@@ -1,20 +1,16 @@
-.footer
-  .row
-    .col-xs-6.nowrap
-      &copy;
-      = Date.today.year
-      %span.visible-xs-inline.visible-sm-inline
-        NSRR
-      %span.hidden-xs.hidden-sm
-        National Sleep Research Resource
-      |
-      = link_to 'About', about_path
-    .col-xs-6.nowrap.text-right
-      = link_to 'Contact Us', contact_path, class: 'hidden-xs'
-      = link_to '<span class="glyphicon glyphicon-envelope"></span>'.html_safe, contact_path, class: 'hidden-sm hidden-md hidden-lg'
-      |
-      Funded By
-      %span.visible-xs-inline.visible-sm-inline
-        NHLBI
-      %span.hidden-xs.hidden-sm
-        National Heart, Lung, and Blood Institute
+.footer-container
+  .container
+    .footer
+      .nowrap
+        &copy;
+        = Time.zone.today.year
+        .d-inline.d-md-none= link_to "NSRR", about_path
+        .d-none.d-md-inline= link_to "National Sleep Research Resource", about_path
+        .float-right
+          = link_to "Contact Us", contact_path
+          |
+          Funded By
+          %span.d-inline.d-lg-none
+            NHLBI
+          %span.d-none.d-lg-inline
+            National Heart, Lung, and Blood Institute

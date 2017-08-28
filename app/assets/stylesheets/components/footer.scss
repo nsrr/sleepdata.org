@@ -1,23 +1,31 @@
 .footer-container {
-  background-color: $brand-black;
+  background-color: $p100-grey;
   bottom: 0;
-  color: $brand-white;
-  font-weight: 300;
   height: $footer-height;
   position: absolute;
   width: 100%;
 
+  .footer {
+    height: $footer-height;
+    padding: 40px 0;
+  }
+
   a {
-    color: $breadcrumb-link-color;
+    color: $p400-grey;
     transition: color .4s ease-out;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.active,
+    &.disabled,
+    &[disabled] {
+      // color: $p500-teal;
+      color: red;
+    }
   }
 
-  a:hover {
-    color: $brand-white;
+  img {
+    @include ignore-selection;
   }
-}
-
-.footer {
-  height: $footer-height;
-  padding: 40px 0;
 }

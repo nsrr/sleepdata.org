@@ -1,0 +1,48 @@
+%li.nav-item.dropdown.d-none.d-lg-block
+  = link_to "#", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" }, class: "nav-link dropdown-toggle", id: "navbarDropdownMenuLink" do
+    = current_user.name
+  .dropdown-menu.dropdown-menu-right{ aria: { labelledby: "navbarDropdownMenuLink" } }
+    = link_to dashboard_path, class: "dropdown-item" do
+      %i.fa.fa-home
+      Dashboard
+
+    = link_to settings_path, class: "dropdown-item" do
+      %i.fa.fa-cogs
+      Settings
+
+    .dropdown-divider
+    - if current_user.admin?
+      = link_to users_path, class: "dropdown-item dropdown-item-success" do
+        %i.fa.fa-user-md
+        Admin
+      .dropdown-divider
+    = link_to destroy_user_session_path, class: "dropdown-item" do
+      %i.fa.fa-sign-out
+      Sign out
+
+%li.nav-item.d-lg-none{ class: current_page?(settings_path) ? "active" : nil }
+  = link_to settings_path, class: "nav-link" do
+    %i.fa.fa-cogs
+    Settings
+  - if current_page?(settings_path)
+    %span.sr-only (current)
+
+%li.nav-item.d-lg-none{ class: current_page?(dashboard_path) ? "active" : nil }
+  = link_to dashboard_path, class: "nav-link" do
+    %i.fa.fa-home
+    Dashboard
+  - if current_page?(dashboard_path)
+    %span.sr-only (current)
+
+- if current_user.admin?
+  %li.nav-item.d-lg-none{ class: current_page?(users_path) ? "active" : nil }
+    = link_to users_path, class: "nav-link text-success" do
+      %i.fa.fa-user-md
+      Admin
+    - if current_page?(users_path)
+      %span.sr-only (current)
+
+%li.nav-item.d-lg-none
+  = link_to destroy_user_session_path, class: "nav-link" do
+    %i.fa.fa-sign-out
+    Sign out

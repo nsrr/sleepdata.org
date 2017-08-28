@@ -1,40 +1,35 @@
 !!!
-%html
+%html{ lang: "en" }
   %head
-    %meta{ charset: 'utf-8'}
-    %meta{ content: 'IE=Edge,chrome=1', http: { equiv: 'X-UA-Compatible' } }
-    %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0' }
+    %meta{ charset: "utf-8" }
+    %meta{ content: "IE=Edge,chrome=1", http: { equiv: "X-UA-Compatible" } }
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1, shrink-to-fit=no" }
     -# General
-    %meta{ name: 'description', content: 'National Research Resource Resource offers free web access to large collections of de-identified physiological signals and clinical data elements collected in well-characterized research cohorts and clinical trials. The initial data resource is from the Sleep Heart Health Study.' }
-    %meta{ name: 'author', content: '' }
-    %meta{ name: 'keywords', content: @keywords.present? ? @keywords : 'sleep data, research datasets, study, sleep apnea, free access, download datasets' }
+    %meta{ name: "description", content: "National Research Resource Resource offers free web access to large collections of de-identified physiological signals and clinical data elements collected in well-characterized research cohorts and clinical trials. The initial data resource is from the Sleep Heart Health Study." }
+    %meta{ name: "author", content: "" }
+    %meta{ name: "keywords", content: @keywords.present? ? @keywords : "sleep data, research datasets, study, sleep apnea, free access, download datasets" }
     -# For Facebook
-    %meta{ property: 'og:url', content: ENV['website_url'] + '/' }
-    %meta{ property: 'og:title', content: ENV['website_name'] }
-    %meta{ property: 'og:description', content: 'Offering free web access to large collections of de-identified physiological signals and clinical data elements in well-characterized research cohorts and clinical trials.' }
-    %meta{ property: 'og:image', content: ENV['website_url'] + '/assets/' + asset_path('nsrr_logo_256.png').split('/assets/').last }
+    %meta{ property: "og:url", content: ENV["website_url"] + "/" }
+    %meta{ property: "og:title", content: ENV["website_name"] }
+    %meta{ property: "og:description", content: "Offering free web access to large collections of de-identified physiological signals and clinical data elements in well-characterized research cohorts and clinical trials." }
+    %meta{ property: "og:image", content: ENV["website_url"] + "/assets/" + asset_path("nsrr_logo_256.png").split("/assets/").last }
     -# For Google+
-    %meta{ itemprop: 'name', content: ENV['website_name'] }
-    %meta{ itemprop: 'description', content: 'Offering free web access to large collections of de-identified physiological signals and clinical data elements in well-characterized research cohorts and clinical trials.' }
-    %meta{ itemprop: 'image', content: ENV['website_url'] + '/assets/' + asset_path('nsrr_logo_256.png').split('/assets/').last }
+    %meta{ itemprop: "name", content: ENV["website_name"] }
+    %meta{ itemprop: "description", content: "Offering free web access to large collections of de-identified physiological signals and clinical data elements in well-characterized research cohorts and clinical trials." }
+    %meta{ itemprop: "image", content: ENV["website_url"] + "/assets/" + asset_path("nsrr_logo_256.png").split("/assets/").last }
     -# Don't cache any pages
-    %meta{ name: 'turbolinks-cache-control', content: 'no-cache' }
+    %meta{ name: "turbolinks-cache-control", content: "no-cache" }
 
     %title
-      = [@title, (@breadcrumbs || []).reverse.collect(&:first), 'National Sleep Research Resource'].flatten.compact.uniq.join(' - ').html_safe
+      = [@title, (@breadcrumbs || []).reverse.collect(&:first), "National Sleep Research Resource"].flatten.compact.uniq.join(" - ").html_safe
 
     = favicon_link_tag
     = auto_discovery_link_tag(:rss, "#{ENV['website_url']}/blog.atom")
     = csrf_meta_tags
 
-    / HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries
-    /[if lt IE 9]
-      %script{ src: '//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js' }
-      %script{ src: '//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js' }
-
-    = stylesheet_link_tag 'application', media: 'all', data: { turbolinks_track: 'reload' }
-    = javascript_include_tag 'application', data: { turbolinks_track: 'reload' }
-    = javascript_tag "var root_url='#{request.script_name + '/'}';"
+    = stylesheet_link_tag "application", media: "all", data: { turbolinks_track: "reload" }
+    = javascript_include_tag "application", data: { turbolinks_track: "reload" }
+    = javascript_tag "var root_url='#{request.script_name + "/"}';"
   %body#top{ class: yield(:body_class) }
     = yield :header_old
 
@@ -54,6 +49,4 @@
 
     = yield :call_to_action
 
-    .footer-container
-      .container
-        = render 'layouts/footer'
+    = render 'layouts/footer'

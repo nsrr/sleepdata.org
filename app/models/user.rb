@@ -88,6 +88,10 @@ class User < ApplicationRecord
                       last_reply_read_id: topic_user.current_reply_read_id
   end
 
+  def admin?
+    system_admin?
+  end
+
   def all_topics
     if system_admin?
       Topic.current
