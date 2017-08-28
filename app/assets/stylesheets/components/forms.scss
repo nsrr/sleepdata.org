@@ -1,30 +1,25 @@
 .sign-up-form {
-  background-color: $panel-bg;
-  border: 1px solid $brand-primary;
+  background-color: $brand-white;
+  border: 1px solid $p100-grey;
   margin: 0 auto 20px;
   max-width: 400px;
   padding: 20px;
 }
 
 .sign-up-form-title {
-  @include brand;
-
-  background-color: $brand-primary;
-  color: $brand-white;
+  background-color: $p100-grey;
   font-size: 18px;
   margin: -20px -20px 20px;
   padding: 10px 20px;
-  text-shadow: 0 2px 3px $standard-shadow-color;
+  text-align: center;
 }
 
-@media screen and (min-width: $screen-sm-min) {
+@include media-breakpoint-up(sm) {
   .sign-up-form {
-    border-radius: 5px;
     overflow: hidden;
   }
 
   .sign-up-form-title {
-    border-radius: 0;
     font-size: 24px;
   }
 }

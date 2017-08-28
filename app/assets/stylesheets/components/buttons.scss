@@ -33,8 +33,8 @@
 }
 
 .btn-primary-dark {
-  background-color: $navbar-default-bg;
-  border: 1px solid darken($navbar-default-bg, 6.5%);
+  background-color: $navbar-dark-color;
+  border: 1px solid darken($navbar-dark-color, 6.5%);
   color: $brand-white;
 
   &:hover,
@@ -43,76 +43,77 @@
   &.active,
   &.disabled,
   &[disabled] {
-    background-color: darken($navbar-default-bg, 6.5%);
-    border: 1px solid darken($navbar-default-bg, 6.5%);
+    background-color: darken($navbar-dark-color, 6.5%);
+    border: 1px solid darken($navbar-dark-color, 6.5%);
     color: $brand-white;
   }
 }
 
-.btn-danger-inverse {
-  background-color: $body-bg;
-  border: 1px solid $btn-danger-border;
-  color: $btn-danger-bg;
-}
+// TODO: Replace with btn-outline-*
+// .btn-danger-inverse {
+//   background-color: $body-bg;
+//   border: 1px solid $btn-danger-border;
+//   color: $btn-danger-bg;
+// }
 
-.btn-danger-inverse:hover,
-.btn-danger-inverse:focus,
-.btn-danger-inverse:active,
-.btn-danger-inverse.active,
-.btn-danger-inverse.disabled,
-.btn-danger-inverse[disabled] {
-  background-color: $btn-danger-bg;
-  border: 1px solid $btn-danger-border;
-  color: $body-bg;
-}
+// .btn-danger-inverse:hover,
+// .btn-danger-inverse:focus,
+// .btn-danger-inverse:active,
+// .btn-danger-inverse.active,
+// .btn-danger-inverse.disabled,
+// .btn-danger-inverse[disabled] {
+//   background-color: $btn-danger-bg;
+//   border: 1px solid $btn-danger-border;
+//   color: $body-bg;
+// }
 
-.btn-primary-inverse {
-  background-color: $brand-white;
-  border: 1px solid $btn-primary-border;
-  color: $btn-primary-bg;
-}
+// .btn-primary-inverse {
+//   background-color: $brand-white;
+//   border: 1px solid $btn-primary-border;
+//   color: $btn-primary-bg;
+// }
 
-.btn-primary-inverse:hover,
-.btn-primary-inverse:focus,
-.btn-primary-inverse:active,
-.btn-primary-inverse.active,
-.btn-primary-inverse.disabled,
-.btn-primary-inverse[disabled] {
-  background-color: $btn-primary-bg;
-  border: 1px solid $btn-primary-border;
-  color: $brand-white;
-}
+// .btn-primary-inverse:hover,
+// .btn-primary-inverse:focus,
+// .btn-primary-inverse:active,
+// .btn-primary-inverse.active,
+// .btn-primary-inverse.disabled,
+// .btn-primary-inverse[disabled] {
+//   background-color: $btn-primary-bg;
+//   border: 1px solid $btn-primary-border;
+//   color: $brand-white;
+// }
 
-.btn-info-inverse {
-  background-color: $brand-white;
-  border: 1px solid $btn-info-border;
-  color: $btn-info-bg;
-}
+// .btn-info-inverse {
+//   background-color: $brand-white;
+//   border: 1px solid $btn-info-border;
+//   color: $btn-info-bg;
+// }
 
-.btn-info-inverse:hover,
-.btn-info-inverse:focus,
-.btn-info-inverse:active,
-.btn-info-inverse.active,
-.btn-info-inverse.disabled,
-.btn-info-inverse[disabled] {
-  background-color: $btn-info-bg;
-  border: 1px solid $btn-info-border;
-  color: $brand-white;
-}
+// .btn-info-inverse:hover,
+// .btn-info-inverse:focus,
+// .btn-info-inverse:active,
+// .btn-info-inverse.active,
+// .btn-info-inverse.disabled,
+// .btn-info-inverse[disabled] {
+//   background-color: $btn-info-bg;
+//   border: 1px solid $btn-info-border;
+//   color: $brand-white;
+// }
 
-.btn-success-inverse {
-  background-color: $brand-white;
-  border: 1px solid $btn-success-border;
-  color: $btn-success-bg;
-}
+// .btn-success-inverse {
+//   background-color: $brand-white;
+//   border: 1px solid $btn-success-border;
+//   color: $btn-success-bg;
+// }
 
-.btn-success-inverse:hover,
-.btn-success-inverse:focus,
-.btn-success-inverse:active,
-.btn-success-inverse.active,
-.btn-success-inverse.disabled,
-.btn-success-inverse[disabled] {
-  background-color: $btn-success-bg;
-  border: 1px solid $btn-success-border;
-  color: $brand-white;
-}
+// .btn-success-inverse:hover,
+// .btn-success-inverse:focus,
+// .btn-success-inverse:active,
+// .btn-success-inverse.active,
+// .btn-success-inverse.disabled,
+// .btn-success-inverse[disabled] {
+//   background-color: $btn-success-bg;
+//   border: 1px solid $btn-success-border;
+//   color: $brand-white;
+// }

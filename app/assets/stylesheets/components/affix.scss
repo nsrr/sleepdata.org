@@ -9,7 +9,7 @@
 
   .navbar {
     border-width: 1px 0;
-    z-index: $zindex-navbar-fixed;
+    z-index: $zindex-fixed;
   }
 }
 
@@ -22,11 +22,11 @@
     position: fixed;
     right: 0;
     top: 0;
-    z-index: $zindex-navbar-fixed;
+    z-index: $zindex-fixed;
   }
 }
 
-@media screen and (min-width: $screen-sm-min) {
+@include media-breakpoint-up(sm) {
   .navbar-outer {
     .navbar-collapse {
       padding-left: 0;

@@ -31,12 +31,12 @@
       width: 23%;
 
       &:hover {
-        background: $gray-lighter;
+        background: $p200-grey;
       }
     }
 
     tr td .old {
-      color: $gray-light;
+      color: $p600-grey;
     }
   }
 
@@ -54,7 +54,7 @@
   }
 
   .day:hover {
-    background: $gray-lighter;
+    background: $p200-grey;
     cursor: pointer;
   }
 
@@ -82,7 +82,7 @@
 }
 
 .datepicker-dropdown::before {
-  border-bottom: 7px solid $brand-gray;
+  border-bottom: 7px solid $p400-grey;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
   content: '';
@@ -114,13 +114,13 @@
 
 .datepicker .old,
 .datepicker .new {
-  color: $gray-light;
+  color: $p600-grey;
 }
 
 .datepicker .disabled,
 .datepicker .disabled:hover {
   background: none;
-  color: $gray-light;
+  color: $p600-grey;
   cursor: default;
 }
 
@@ -128,23 +128,23 @@
 .datepicker .today:hover,
 .datepicker .today.disabled,
 .datepicker .today.disabled:hover {
-  background-color: $btn-info-bg;
-  border-color: $btn-info-border;
+  // background-color: $btn-info-bg;
+  // border-color: $btn-info-border;
 }
 
 .datepicker .active,
 .datepicker .active:hover,
 .datepicker .active.disabled,
 .datepicker .active.disabled:hover {
-  background-color: $btn-info-bg;
-  border-color: $btn-info-border;
-  color: $btn-info-color;
+  // background-color: $btn-info-bg;
+  // border-color: $btn-info-border;
+  // color: $btn-info-color;
 }
 
 .datepicker table tr td .disabled,
 .datepicker table tr td .disabled:hover {
   background: none;
-  color: $gray-light;
+  color: $p600-grey;
   cursor: default;
 }
 
@@ -152,9 +152,9 @@
 .datepicker table tr td .active:hover,
 .datepicker table tr td .active.disabled,
 .datepicker table tr td .active.disabled:hover {
-  background-color: $btn-info-bg;
-  border-color: $btn-info-border;
-  color: $btn-info-color;
+  // background-color: $btn-info-bg;
+  // border-color: $btn-info-border;
+  // color: $btn-info-color;
 }
 
 .datepicker thead tr:first-child th,
@@ -164,7 +164,7 @@
 
 .datepicker thead tr:first-child th:hover,
 .datepicker tfoot tr:first-child th:hover {
-  background: $gray-lighter;
+  background: $p200-grey;
 }
 
 .input-append.date .add-on i,

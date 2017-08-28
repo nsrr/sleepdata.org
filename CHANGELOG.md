@@ -1,5 +1,9 @@
 ## Bootstrap 4
 
+### Enhancements
+- **Gem Changes**
+  - Updated to bootstrap 4.0.0.beta
+
 ## 0.30.0
 
 ### Enhancements

@@ -1,11 +1,39 @@
+// Branding
+$brand-white: #fff;
+$brand-black: #333;
+$brand-primary: $p500-green;
+$link-color: $p500-light-blue;
+// $brand-success: $p500-teal;
+// $brand-warning: $p500-amber;
+$brand-accent: $a200-light-blue !default;
+$brand-accent-text: $a200-light-blue-text !default;
+$text-color: $brand-black;
+
+// Shadows and backdrops
+$standard-shadow-color: rgba(0, 0, 0, .3);
+$standard-shadow-hover-color: rgba(0, 0, 0, .2);
+$box-shadow: 0 0 3px rgba(0, 0, 0, .5);
+$box-shadow-color: rgba(0, 0, 0, .15);
+
+
+
+
+// OLD COLORS
 $breadcrumb-link-color: $a100 !default;
 $header-bg: $p500 !default;
 
 $notification-link-color: $brand-accent !default;
 
 $comment-unread-even: $brand-white;
-$comment-unread-odd: $brand-gray-lightest;
+$comment-unread-odd: $p50-grey;
 $comment-read-even: $p100;
 $comment-read-odd: $p50; // $comment-unread-odd * $comment-read-even
 
 $dashboard-bg: $brand-white !default;
+
+$gold: #fdd017;
+$silver: #bcc6cc;
+$bronze: #cd7f32;
+
+$alert-warning-bg: $p50-green;
+$alert-warning-text: $brand-black;

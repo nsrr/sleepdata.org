@@ -9,10 +9,9 @@
 .tt-menu {
   background-clip: padding-box;
   background-color: $dropdown-bg;
-  border: 1px solid $dropdown-fallback-border;
-  border-color: $dropdown-border;
+  border: 1px solid $dropdown-border-color;
   border-radius: 6px;
-  box-shadow: 0 5px 10px $dropdown-border;
+  box-shadow: 0 5px 10px $dropdown-border-color;
   margin-top: 2px;
   min-width: 160px;
   padding: 5px 0;

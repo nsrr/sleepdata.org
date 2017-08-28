@@ -17,7 +17,7 @@
   position: relative;
 }
 
-@media screen and (min-width: $screen-sm-min) {
+@include media-breakpoint-up(sm) {
   .comment-left-fixed {
     display: block;
   }
@@ -29,7 +29,7 @@
 
 .comment-box {
   @include scale-images;
-  border: 1px solid $brand-gray;
+  border: 1px solid $p400-grey;
   border-radius: 2px;
 }
 
@@ -38,8 +38,8 @@
 }
 
 .comment-header {
-  background-color: $brand-gray-lightest;
-  border-bottom: 1px solid $brand-gray;
+  background-color: $p50-grey;
+  border-bottom: 1px solid $p400-grey;
   padding: 10px;
   position: relative;
 
@@ -68,7 +68,7 @@
 
   &.active {
     background-color: $brand-white;
-    border-color: $brand-gray;
+    border-color: $p400-grey;
     color: $text-color;
   }
 }
@@ -102,7 +102,7 @@
 
 .comment-header::before {
   border-bottom: 7px solid transparent;
-  border-right: 7px solid $brand-gray;
+  border-right: 7px solid $p400-grey;
   border-top: 7px solid transparent;
   content: '';
   height: 0;
@@ -114,7 +114,7 @@
 
 .comment-header::after {
   border-bottom: 7px solid transparent;
-  border-right: 7px solid $brand-gray-lightest;
+  border-right: 7px solid $p50-grey;
   border-top: 7px solid transparent;
   content: '';
   height: 0;
@@ -130,7 +130,7 @@
   position: absolute;
 }
 
-@media screen and (min-width: $screen-sm-min) {
+@include media-breakpoint-up(sm) {
   .comment-icon {
     display: block;
   }

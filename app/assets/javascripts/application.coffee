@@ -13,14 +13,11 @@
 # (https://github.com/rails/sprockets#sprockets-directives)
 # for details about supported directives.
 #
-#= require jquery
-#= require jquery_ujs
-#= require bootstrap-sprockets
+#= require jquery3
+#= require rails-ujs
 #= require turbolinks
-
-# Compatibility
-#= require compatibility/array_prototype_index_of
-#= require compatibility/array_prototype_map
+#= require popper
+#= require bootstrap
 
 # Main JS initializer
 #= require global

@@ -8,7 +8,7 @@
   }
 
   img {
-    border: 1px solid $gray-lighter;
+    border: 1px solid $p200-grey;
     display: block;
     height: auto;
     margin: 10px auto 16px;
@@ -26,7 +26,7 @@
   h4,
   h5,
   h6 {
-    border-bottom: 1px solid $brand-gray;
+    border-bottom: 1px solid $p400-grey;
     font-weight: 600;
     margin-bottom: 12px;
     margin-top: 40px;
@@ -53,8 +53,8 @@
 
   blockquote {
     border: 0;
-    border-left: 2px solid $brand-gray-lighter;
-    color: $blockquote-gray;
+    border-left: 2px solid $p200-grey;
+    color: $p500-grey;
     font-size: $font-size-base;
     margin: 0 0 11px;
     padding: 0 10px;
@@ -62,13 +62,13 @@
 }
 
 .broadcast-title {
-  border-bottom: 1px solid $brand-gray;
+  border-bottom: 1px solid $p400-grey;
   font-size: 28px;
   font-weight: 600;
   padding-bottom: 9.5px;
 }
 
-@media screen and (min-width: $screen-sm-min) {
+@include media-breakpoint-up(sm) {
   .broadcast-title {
     font-size: 34px;
   }
@@ -95,15 +95,16 @@
   width: 32px;
 }
 
-.broadcast-alert .broadcast-left-fixed {
-  color: $brand-warning-text;
-}
+// TOOD: Remove broadcast-alert
+// .broadcast-alert .broadcast-left-fixed {
+//   color: $brand-warning-text;
+// }
 
 .broadcast-right-fluid {
   position: relative;
 }
 
-@media screen and (min-width: $screen-sm-min) {
+@include media-breakpoint-up(sm) {
   .broadcast-left-fixed {
     display: block;
   }
@@ -115,14 +116,15 @@
 
 .broadcast-box {
   background-color: $brand-white;
-  border: 1px solid $brand-gray;
+  border: 1px solid $p400-grey;
   border-radius: 2px;
 }
 
-.broadcast-alert .broadcast-box {
-  background-color: $brand-warning;
-  border-color: darken($brand-warning, 20%);
-}
+// TOOD: Remove broadcast-alert
+// .broadcast-alert .broadcast-box {
+//   background-color: $brand-warning;
+//   border-color: darken($brand-warning, 20%);
+// }
 
 .broadcast-header {
   padding: 10px 10px 0;
@@ -136,7 +138,7 @@
 
 .broadcast-header::before {
   border-bottom: 7px solid transparent;
-  border-right: 7px solid $brand-gray;
+  border-right: 7px solid $p400-grey;
   border-top: 7px solid transparent;
   content: '';
   height: 0;
@@ -146,9 +148,10 @@
   width: 0;
 }
 
-.broadcast-alert .broadcast-header::before {
-  border-right-color: darken($brand-warning, 20%);
-}
+// TOOD: Remove broadcast-alert
+// .broadcast-alert .broadcast-header::before {
+//   border-right-color: darken($brand-warning, 20%);
+// }
 
 .broadcast-header::after {
   border-bottom: 7px solid transparent;
@@ -162,12 +165,13 @@
   width: 0;
 }
 
-.broadcast-alert .broadcast-header::after {
-  border-right-color: $brand-warning;
-}
+// TOOD: Remove broadcast-alert
+// .broadcast-alert .broadcast-header::after {
+//   border-right-color: $brand-warning;
+// }
 
 .broadcast-replies-header {
-  background-color: $brand-gray-lighter;
+  background-color: $p200-grey;
   border: 2px solid $brand-primary;
   border-radius: 4px;
   box-shadow: $box-shadow;

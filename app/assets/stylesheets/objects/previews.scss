@@ -1,11 +1,12 @@
 // Defines the style of description fields that can be previewed.
 
+// TODO: Restyle preview-container
 .preview-container {
-  border: 1px solid $input-border;
+  // border: 1px solid $input-border;
   border-radius: 2px;
 
   &.preview-container-forum {
-    border: 1px solid $brand-gray-lighter;
+    border: 1px solid $p200-grey;
     border-radius: 0;
     box-shadow: 0 1px 5px $box-shadow-color;
     margin-bottom: 20px;
@@ -14,8 +15,8 @@
 }
 
 .preview-header {
-  background-color: $brand-gray-lightest;
-  border-bottom: 1px solid $brand-gray;
+  background-color: $p50-grey;
+  border-bottom: 1px solid $p400-grey;
   padding: 10px 10px 5px;
   position: relative;
 }
@@ -76,7 +77,7 @@
 
   &.active {
     background-color: $brand-white;
-    border-color: $brand-gray;
+    border-color: $p400-grey;
     color: $text-color;
   }
 }

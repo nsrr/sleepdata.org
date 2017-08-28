@@ -16,13 +16,13 @@
   margin-bottom: 20px;
 }
 
-@media screen and (min-width: $screen-sm-min) {
+@include media-breakpoint-up(sm) {
   .dataset-header {
     font-size: 30px;
   }
 }
 
-@media screen and (min-width: $screen-md-min) {
+@include media-breakpoint-up(md) {
   .dataset-header {
     font-size: 44px;
   }
@@ -49,13 +49,13 @@
   white-space: nowrap;
 }
 
-@media screen and (min-width: $screen-sm-min) {
+@include media-breakpoint-up(sm) {
   .info-header {
     font-size: 20px;
   }
 }
 
-@media screen and (min-width: $screen-md-min) {
+@include media-breakpoint-up(md) {
   .info-header {
     font-size: 24px;
     margin-bottom: 20px;
@@ -63,7 +63,7 @@
 }
 
 .markdown-container-new.folder-callout {
-  border: 2px solid $gray-lighter;
+  border: 2px solid $p200-grey;
   color: $text-muted;
   margin: 0 32px 40px;
   padding: 20px;
@@ -83,7 +83,7 @@
 
 }
 
-@media screen and (min-width: $screen-sm-min) {
+@include media-breakpoint-up(sm) {
   .dataset-info-container {
     display: flex;
     flex-direction: row;
@@ -103,7 +103,7 @@
 }
 
 .dataset-card-header {
-  border-bottom: 1px solid $brand-gray-lighter;
+  border-bottom: 1px solid $p200-grey;
   display: flex;
 }
 
@@ -126,7 +126,7 @@
 }
 
 .card-icon-default {
-  background-color: $brand-gray-lighter;
+  background-color: $p200-grey;
 }
 
 .dataset-card-header-ratings {
@@ -163,7 +163,7 @@
   }
 }
 
-@media screen and (min-width: $screen-sm-min) {
+@include media-breakpoint-up(sm) {
   .dataset-card-logo {
     margin-left: 10px;
   }
@@ -184,7 +184,7 @@
 .dataset-info-header {
   font-size: 12px;
   text-align: center;
-  color: $brand-gray;
+  color: $p400-grey;
 }
 
 .dataset-info-content {
@@ -199,7 +199,7 @@
   white-space: nowrap;
 }
 
-@media screen and (min-width: $screen-sm-min) {
+@include media-breakpoint-up(sm) {
   .dataset-info-header {
     font-size: 14px;
   }
@@ -214,12 +214,12 @@
 }
 
 .dataset-card-footer {
-  background-color: $brand-gray-lighter;
+  background-color: $p200-grey;
   padding: 10px;
 }
 
 .dataset-card-footer-request {
-  box-shadow: 0 -5px 5px -5px $brand-gray;
+  box-shadow: 0 -5px 5px -5px $p400-grey;
 }
 
 .dataset-card-footer-links {
@@ -233,11 +233,11 @@
   }
 
   .dataset-card-footer-spacer {
-    color: $brand-gray;
+    color: $p400-grey;
   }
 }
 
-@media screen and (min-width: $screen-sm-min) {
+@include media-breakpoint-up(sm) {
   .dataset-card-footer-links {
     display: flex;
     flex-flow: row wrap;

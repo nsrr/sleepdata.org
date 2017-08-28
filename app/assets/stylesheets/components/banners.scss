@@ -23,13 +23,13 @@
   margin-bottom: 20px;
 }
 
-@media screen and (min-width: $screen-sm-min) {
+@include media-breakpoint-up(sm) {
   .banner-header {
     font-size: 30px;
   }
 }
 
-@media screen and (min-width: $screen-md-min) {
+@include media-breakpoint-up(md) {
   .banner-header {
     font-size: 44px;
   }

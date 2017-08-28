@@ -35,14 +35,15 @@
   text-align: center;
 }
 
-.dashboard-notification {
-  background-color: $brand-warning;
-  border-color: darken($brand-warning, 20%);
-}
+// TODO: Restyled dashboard notification
+// .dashboard-notification {
+//   background-color: $brand-warning;
+//   border-color: darken($brand-warning, 20%);
+// }
 
 .profile-bottom {
   background-color: $brand-white;
-  border: 1px solid $brand-gray;
+  border: 1px solid $p400-grey;
 }
 
 .profile-container {
@@ -79,10 +80,10 @@
 
 .profile-breadcrumb {
   background-color: $brand-white;
-  border-bottom: 1px solid $brand-gray;
-  border-left: 1px solid $brand-gray;
+  border-bottom: 1px solid $p400-grey;
+  border-left: 1px solid $p400-grey;
   border-radius: 0 0 4px 4px;
-  border-right: 1px solid $brand-gray;
+  border-right: 1px solid $p400-grey;
   margin-bottom: 20px;
   margin-top: -20px;
   padding: 10px 20px;

@@ -9,11 +9,11 @@
 }
 
 .navbar-default .navbar-nav .notifications-link span {
-  color: $brand-muted;
+  color: $p300-green;
 }
 
 .navbar-default .navbar-nav .notifications-link:hover span {
-  color: darken($brand-muted, 15%);
+  color: darken($p300-green, 15%);
 }
 
 .navbar-default .navbar-nav .notifications-link-active span {

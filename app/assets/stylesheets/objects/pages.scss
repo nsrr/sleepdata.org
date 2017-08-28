@@ -16,7 +16,7 @@
   h4,
   h5,
   h6 {
-    border-bottom: 1px solid $brand-gray;
+    border-bottom: 1px solid $p400-grey;
     font-weight: 600;
     margin-bottom: 12px;
     margin-top: 40px;
@@ -51,19 +51,20 @@
 
   blockquote {
     border: 0;
-    border-left: 2px solid $brand-gray-lighter;
-    color: $blockquote-gray;
+    border-left: 2px solid $p200-grey;
+    color: $p500-grey;
     font-size: $font-size-base;
     margin: 0 0 11px;
     padding: 0 10px;
   }
 }
 
+// TODO: Restyle backdrop shadow.
 .markdown-container,
 .mono-container {
   background-color: $body-bg;
-  border: 1px solid $gray-lighter;
-  box-shadow: 2px 2px 5px $brand-shadow;
+  border: 1px solid $p200-grey;
+  // box-shadow: 2px 2px 5px $brand-shadow;
   font-size: 14px;
   font-weight: 300;
   margin: 20px;
@@ -74,7 +75,7 @@
   }
 }
 
-@media screen and (min-width: $screen-sm-min) {
+@include media-breakpoint-up(sm) {
   .markdown-container,
   .mono-container {
     font-size: 16px;
@@ -82,7 +83,7 @@
   }
 }
 
-@media screen and (min-width: $screen-md-min) {
+@include media-breakpoint-up(md) {
   .markdown-container,
   .mono-container {
     font-size: 18px;
@@ -90,7 +91,7 @@
   }
 }
 
-@media screen and (min-width: $screen-lg-min) {
+@include media-breakpoint-up(lg) {
   .markdown-container,
   .mono-container {
     padding: 60px;

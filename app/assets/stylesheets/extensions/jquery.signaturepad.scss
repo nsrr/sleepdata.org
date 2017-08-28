@@ -10,9 +10,9 @@
 .pad,
 .pad-display {
   background-color: $input-bg;
-  border: 1px solid $dropdown-fallback-border;
+  border: 1px solid $dropdown-border-color;
   border-radius: $input-border-radius;
-  box-shadow: inset 0 1px 1px $dropdown-border;
+  box-shadow: inset 0 1px 1px $dropdown-border-color;
 
   // For cross browser compatibility, this should be an absolute URL
   // In IE the cursor is relative to the HTML document
@@ -39,7 +39,7 @@
 
 .typeItDesc,
 .drawItDesc {
-  border-top: 3px solid $input-border;
+  border-top: 3px solid $input-border-color;
   color: $text-color;
   display: none;
   font: italic normal 1em/1.375 Georgia,Times,serif;

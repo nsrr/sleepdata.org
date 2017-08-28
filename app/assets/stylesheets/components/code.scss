@@ -11,7 +11,7 @@
 
 .code-command,
 .code-command-blank {
-  border: 1px solid $gray-lighter;
+  border: 1px solid $p200-grey;
   border-radius: 5px;
   font-family: Monaco, Menlo, Consolas, 'Courier New', monospace;
   font-size: 16px;
@@ -28,7 +28,7 @@
 }
 
 .code-command::before {
-  color: $gray-lighter;
+  color: $p200-grey;
   content: '\e205';
   font-family: 'Glyphicons Halflings';
 }
