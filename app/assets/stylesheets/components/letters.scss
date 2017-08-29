@@ -1,7 +1,16 @@
+.letter-grey {
+  display: inline-block;
+  opacity: 1;
+  transition: opacity .75s ease-out;
+
+  &.start {
+    opacity: 0.25;
+  }
+}
+
 .letter {
   display: inline-block;
   opacity: 1;
-  // text-shadow: 2px 1px 5px $purple-bg;
   transition: transform .75s cubic-bezier(.31, 1.22, .61, 1.26), opacity .75s ease-out;
 
   &.start {
@@ -11,7 +20,8 @@
 }
 
 .letter,
-.shift {
+.shift,
+.letter-grey {
   &.delay1 {
     transition-delay: 0s;
   }
@@ -34,6 +44,22 @@
 
   &.delay6 {
     transition-delay: 1.75s;
+  }
+
+  &.delay7 {
+    transition-delay: 2s;
+  }
+
+  &.delay8 {
+    transition-delay: 2.25s;
+  }
+
+  &.delay9 {
+    transition-delay: 2.5s;
+  }
+
+  &.delay10 {
+    transition-delay: 2.75s;
   }
 }
 
