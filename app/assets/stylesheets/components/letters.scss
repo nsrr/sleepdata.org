@@ -1,0 +1,62 @@
+.letter {
+  display: inline-block;
+  opacity: 1;
+  // text-shadow: 2px 1px 5px $purple-bg;
+  transition: transform .75s cubic-bezier(.31, 1.22, .61, 1.26), opacity .75s ease-out;
+
+  &.start {
+    opacity: 0;
+    transform: scale(.2);
+  }
+}
+
+.letter,
+.shift {
+  &.delay1 {
+    transition-delay: 0s;
+  }
+
+  &.delay2 {
+    transition-delay: .25s;
+  }
+
+  &.delay3 {
+    transition-delay: .5s;
+  }
+
+  &.delay4 {
+    transition-delay: .75s;
+  }
+
+  &.delay5 {
+    transition-delay: 1.25s;
+  }
+
+  &.delay6 {
+    transition-delay: 1.75s;
+  }
+}
+
+.shift-up.start {
+  opacity: 0;
+  transform: translateY(40px) scale(.2);
+}
+
+.shift-down.start {
+  transform: translateY(-40px) scale(.2);
+}
+
+.shift {
+  opacity: 1;
+  transition: transform .75s cubic-bezier(.31, 1.22, .61, 1.26), opacity .75s ease-out;
+}
+
+.shift-left.start {
+  opacity: 0;
+  transform: translateX(200px);
+}
+
+.shift-right.start {
+  opacity: 0;
+  transform: translateX(-200px);
+}

@@ -7,6 +7,7 @@
 
 @componentsReady = ->
   graphsReady()
+  lettersReady()
   textAreaAutocompleteReady()
 
 @extensionsReady = ->

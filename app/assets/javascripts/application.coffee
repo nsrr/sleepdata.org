@@ -39,6 +39,7 @@
 #= require components/cookies
 #= require components/graphs
 #= require components/headings
+#= require components/letters
 #= require components/links
 #= require components/previews
 #= require components/ratings
