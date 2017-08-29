@@ -1,55 +1,55 @@
-- @title = 'Join Research Community'
+- @title = "Join Research Community"
 
-- content_for :body_class do
-  brand-background
+.background-fixed-image
+  .page-box.last-box.color-overlay
 
-%p.lead.center Join our community.
+    %p.lead.center.text-white Join our community.
 
-.sign-up-form
-  .sign-up-form-title
-    Create your account
-  = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'form-vertical', autocomplete: 'off', id: 'recaptcha-form' }) do |f|
-    .form-group
-      = render 'layouts/label_or_errors', f: f, object: resource, key: :first_name
-      = f.text_field :first_name, class: 'form-control'
+    .sign-up-form
+      .sign-up-form-title
+        Create your account
+      = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "form-vertical", autocomplete: "off", id: "recaptcha-form" }) do |f|
+        .form-group
+          = render "layouts/label_or_errors", f: f, object: resource, key: :first_name
+          = f.text_field :first_name, class: "form-control"
 
-    .form-group
-      = render 'layouts/label_or_errors', f: f, object: resource, key: :last_name
-      = f.text_field :last_name, class: 'form-control'
+        .form-group
+          = render "layouts/label_or_errors", f: f, object: resource, key: :last_name
+          = f.text_field :last_name, class: "form-control"
 
-    .form-group
-      = render 'layouts/label_or_errors', f: f, object: resource, key: :email
-      = f.email_field :email, class: 'form-control'
+        .form-group
+          = render "layouts/label_or_errors", f: f, object: resource, key: :email
+          = f.email_field :email, class: "form-control"
 
-    .form-group
-      = render 'layouts/label_or_errors', f: f, object: resource, key: :password
-      = f.password_field :password, class: 'form-control', autocomplete: 'off'
+        .form-group
+          = render "layouts/label_or_errors", f: f, object: resource, key: :password
+          = f.password_field :password, class: "form-control", autocomplete: "off"
 
-    .form-group
-      = render 'layouts/label_or_errors', f: f, object: resource, key: :password_confirmation
-      = f.password_field :password_confirmation, class: 'form-control', autocomplete: 'off'
+        .form-group
+          = render "layouts/label_or_errors", f: f, object: resource, key: :password_confirmation
+          = f.password_field :password_confirmation, class: "form-control", autocomplete: "off"
 
-    .form-group
-      %label.control-label Receive Forum Emails
-      .checkbox
-        %label
-          = f.check_box :emails_enabled
-          Allow the NSRR to send you emails?
+        .form-group
+          %label.control-label Receive Forum Emails
+          .checkbox
+            %label
+              = f.check_box :emails_enabled
+              Allow the NSRR to send you emails?
 
-    - invisible_recaptcha = false
-    - if RECAPTCHA_ENABLED && !invisible_recaptcha
-      .form-group
-        %label.control-label Human Verification
-        .g-recaptcha{ data: { sitekey: ENV['recaptcha_site_key'] } }
-        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        - invisible_recaptcha = false
+        - if RECAPTCHA_ENABLED && !invisible_recaptcha
+          .form-group
+            %label.control-label Human Verification
+            .g-recaptcha{ data: { sitekey: ENV["recaptcha_site_key"] } }
+            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
-    - if resource.errors && resource.errors[:recaptcha].present?
-      .form-group.center
-        %small.text-danger= resource.errors[:recaptcha].join(' ')
+        - if resource.errors && resource.errors[:recaptcha].present?
+          .form-group.center
+            %small.text-danger= resource.errors[:recaptcha].join(" ")
 
-    .form-group.submit-btn-container
-      - if RECAPTCHA_ENABLED && invisible_recaptcha
-        %button.g-recaptcha.btn.btn-primary.btn-block.btn-shadow{ data: { sitekey: ENV['recaptcha_site_key'], callback: 'recaptchaFormSubmit' } } Create an Account
-        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-      - else
-        = f.submit 'Create an Account', class: 'btn btn-primary btn-block btn-shadow'
+        .form-group.submit-btn-container
+          - if RECAPTCHA_ENABLED && invisible_recaptcha
+            %button.g-recaptcha.btn.btn-primary.btn-block.btn-shadow{ data: { sitekey: ENV["recaptcha_site_key"], callback: "recaptchaFormSubmit" } } Create an Account
+            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+          - else
+            = f.submit "Create an Account", class: "btn btn-primary btn-block btn-shadow"

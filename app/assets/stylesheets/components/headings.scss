@@ -18,7 +18,26 @@
   }
 }
 
+$p500-green-rgba: rgba(76, 175, 80, .8);
+
 .header-container {
+  background-image: asset-url("221_old.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+
+  &::before {
+    background-color: $p500-green-rgba;
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+
   background-color: $header-bg;
   color: $brand-white;
   padding: 20px 0;

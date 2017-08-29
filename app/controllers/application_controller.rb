@@ -10,8 +10,6 @@ class ApplicationController < ActionController::Base
   before_action :store_location
   before_action :set_cache_buster
 
-  layout "full_page"
-
   def store_location
     if !request.post? && !request.xhr? && params[:format] != "atom"
       if internal_action?(params[:controller], params[:action])

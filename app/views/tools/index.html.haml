@@ -1,4 +1,4 @@
-- @title = 'Tools'
+- @title = "Tools"
 
 - content_for :body_class do
   brand-background
@@ -16,84 +16,84 @@
     .container
       %h1.page-heading
         .pull-right
-          = link_to plus_or('Contribute a Tool'), contribute_tool_start_path, class: 'btn btn-accent btn-shadow'
-          = render 'layouts/per_page', per_page: 20, object_count: @community_tools.total_count
+          = link_to plus_or("Contribute a Tool"), contribute_tool_start_path, class: "btn btn-accent btn-shadow"
+          = render "layouts/per_page", per_page: 20, object_count: @community_tools.total_count
         = @title
 
-= render 'layouts/survey_link'
+= render "layouts/survey_link"
 
-= render 'search/simple', url: tools_path
+= render "search/simple", url: tools_path
 
 - if @community_tools.count == 0
   .jumbotron
     %p.lead
       We didn't find any tools matching your search criteria.
-      = succeed '.' do
-        = link_to 'Back to tools', tools_path
+      = succeed "." do
+        = link_to "Back to tools", tools_path
     %p.lead
       Feel like helping us out?
-      = succeed '.' do
-        = link_to 'Contribute a tool', contribute_tool_start_path
+      = succeed "." do
+        = link_to "Contribute a tool", contribute_tool_start_path
 - else
   .dashboard-container
     %table.table.table-striped.table-borderless.table-hover
-      %col{ width: '1px' }
-      %col{ width: '75%' }
-      %col.hidden-xs{ width: '25%' }
-      %col{ width: '1px' }
-      %col.hidden-xs.hidden-sm
+      %col{ width: "1px" }
+      %col{ width: "75%" }
+      %col.d-none.d-sm-table{ width: "25%" }
+      %col{ width: "1px" }
+      %col.d-none.d-md-table
       - if current_user && current_user.system_admin?
-        %col{ width: '1px' }
+        %col{ width: "1px" }
       %thead
         %tr
-          = th_sort_field_rev @order, 'community_tools.rating', 'Rating', extra_class: 'center'
-          %th{ class: params[:order] == 'community_tools.name desc' || params[:order].blank? ? 'sort-selected' : nil }
+          = th_sort_field_rev @order, "community_tools.rating", "Rating", extra_class: "center"
+          %th{ class: params[:order] == "community_tools.name desc" || params[:order].blank? ? "sort-selected" : nil }
             - case params[:order]
-            - when 'community_tools.name desc'
-              = link_to 'Name', tools_path
+            - when "community_tools.name desc"
+              = link_to "Name", tools_path
             - else
-              = link_to 'Name', tools_path(order: 'community_tools.name desc')
+              = link_to "Name", tools_path(order: "community_tools.name desc")
 
-            = render 'search/toggle'
-          %th.hidden-xs
+            = render "search/toggle"
+          %th.d-none.d-sm-block
             Author
           %th.nowrap
             Type
-            .dropdown{ style: 'display: inline-block' }
-              = link_to '#', data: { target: '#', toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' } do
+            .dropdown{ style: "display: inline-block" }
+              = link_to "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" } do
                 %span.glyphicon.glyphicon-filter
               %ul.dropdown-menu.dropdown-menu-right
-                %li= link_to 'All', tools_path(order: params[:order]), style: params[:type].blank? ? 'font-weight:bold;' : ''
-                - [['Program', 'program'], ['Script', 'script'], ['Tutorial', 'tutorial']].each do |label, value|
-                  %li= link_to label, tools_path(order: params[:order], type: value), style: params[:type] == value ? 'font-weight:bold;' : ''
-          = th_sort_field_rev @order, 'community_tools.publish_date', 'Published', extra_class: 'hidden-xs hidden-sm center'
+                %li= link_to "All", tools_path(order: params[:order]), style: params[:type].blank? ? "font-weight:bold;" : ""
+                - [["Program", "program"], ["Script", "script"], ["Tutorial", "tutorial"]].each do |label, value|
+                  %li= link_to label, tools_path(order: params[:order], type: value), style: params[:type] == value ? "font-weight:bold;" : ""
+          = th_sort_field_rev @order, "community_tools.publish_date", "Published", extra_class: "d-none d-md-block center"
           - if current_user && current_user.system_admin?
             %th.center
-              %span.hidden-xs Actions
+              .d-none.d-sm-inline-block Actions
 
       %tbody
         - @community_tools.each do |community_tool|
           %tr
             %td.center
               = link_to community_tool_community_tool_reviews_path(community_tool) do
-                = render 'community_tools/rating', rating: community_tool.rating
+                = render "community_tools/rating", rating: community_tool.rating
             %td= link_to community_tool.name, community_show_tool_path(community_tool)
-            %td.hidden-xs= community_tool.user.forum_name
+            %td.d-none.d-sm-block= community_tool.user.forum_name
             %td.center
               - if community_tool.tag_program?
-                %span.label.label-accent Program
+                %span.badge.badge-pill.badge-light Program
               - if community_tool.tag_script?
-                %span.label.label-accent Script
+                %span.badge.badge-pill.badge-light Script
               - if community_tool.tag_tutorial?
-                %span.label.label-accent Tutorial
+                %span.badge.badge-pill.badge-light Tutorial
               - unless community_tool.tag_program? || community_tool.tag_script? || community_tool.tag_tutorial?
-                / %span.label.label-default Unsorted
-            %td.hidden-xs.hidden-sm.nowrap.center= community_tool.publish_date
+                / %span.badge.badge-pill.badge-default Unsorted
+            %td.d-none.d-md-block.nowrap.center= community_tool.publish_date
             - if current_user && current_user.system_admin?
               %td
-                = render 'layouts/edit_delete_dropdown', edit_url: edit_community_tool_path(community_tool), delete_url: community_tool, delete_confirmation: "Delete #{community_tool.name}?"
+                = render "layouts/edit_delete_dropdown", edit_url: edit_community_tool_path(community_tool), delete_url: community_tool, delete_confirmation: "Delete #{community_tool.name}?"
 
-  .center= paginate @community_tools, theme: 'bootstrap'
+  .center= paginate @community_tools, theme: "bootstrap"
 
 - if params[:search].blank? && @community_tools.count > 10
   - content_for :call_to_action do
@@ -103,4 +103,4 @@
       .call-to-action-body
         Share your tool with the NSRR community.
       .call-to-action-body
-        = link_to 'Contribute a Tool', contribute_tool_start_path, class: 'btn btn-accent btn-shadow'
+        = link_to "Contribute a Tool", contribute_tool_start_path, class: "btn btn-accent btn-shadow"

@@ -1,9 +1,11 @@
 .background-fixed-image.background-fixed-image-fixed-height
   .color-overlay.center-both{ style: "height: 100%;" }
-    .container
-      .text-center.text-white
-        %h1{ style: "font-weight: 300; font-size: 3rem;" } National Sleep Research Resource
-        %p.lead.mb-0{ style: "font-weight: 300; font-size: 1.5rem;" } Free research data and tools.
+    .container.text-center
+      %h1.landing-title.mb-3
+        National Sleep
+        %br.d-block.d-sm-none
+        Research Resource
+      .landing-text Free research data and tools.
 
 #top-menu= render "layouts/menu"
 

@@ -1,4 +1,4 @@
-.star-ratings.nowrap.hidden-xs
+.star-ratings.nowrap.d-none.d-sm-block
   - if rating
     - (0..4).each do |position|
       - if rating > position + 0.5
@@ -13,7 +13,7 @@
     - (0..4).each do |position|
       .star-rating
         %i.fa.fa-star-o.text-muted{ aria: { hidden: 'true' } }
-.star-ratings.hidden-sm.hidden-md.hidden-lg
+.star-ratings.d-block.d-sm-none
   - if rating
     .star-rating
       = rating.round(1)

@@ -3,6 +3,7 @@
 # Adds a recaptcha on registration.
 class RegistrationsController < Devise::RegistrationsController
   prepend_before_action :check_captcha, only: [:create]
+  layout "full_page"
 
   private
 

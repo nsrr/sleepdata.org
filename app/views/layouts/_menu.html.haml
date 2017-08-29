@@ -21,7 +21,10 @@
   .background-special
     %nav.navbar.navbar-expand-lg.navbar-dark.color-overlay2
       .container
-        = link_to current_user ? dashboard_path : landing_path, class: "navbar-brand" do
+        - if false
+          = link_to landing_path, class: "navbar-brand" do
+            NSRR
+        - else
           = render "layouts/logo"
 
         %button.navbar-toggler{ type: "button", data: { toggle: "collapse", target: "#menu-body" }, aria: { controls: "menu-body", expanded: "false", label: "Toggle navigation" } }

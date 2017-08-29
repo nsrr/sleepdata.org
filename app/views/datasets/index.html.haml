@@ -1,85 +1,85 @@
-- @title = 'Datasets'
-
-- content_for :body_class do
-  brand-background
+- @title = "Datasets"
 
 - content_for :header do
   .header-container
     .container
       %h1.page-heading
         .pull-right
-          = link_to plus_or('New Dataset'), new_dataset_path, class: 'btn btn-accent btn-shadow' if current_user && current_user.system_admin?
-          = render 'layouts/per_page', per_page: 24, object_count: @datasets.total_count
+          = link_to plus_or("New Dataset"), new_dataset_path, class: "btn btn-accent btn-shadow" if current_user && current_user.system_admin?
+          = render "layouts/per_page", per_page: 24, object_count: @datasets.total_count
         = @title
 
-= render 'layouts/survey_link'
+= render "layouts/survey_link"
 
 - filtered_params = params.permit(:ages, :data, :order)
 
-%div{ style: 'margin-bottom: 20px;display: flex;' }
-  %div{ style: 'margin: auto; flex: 1; text-align: center' }
-    %div.center{ style: 'font-size: 10px;' } AGES
+%div{ style: "margin-bottom: 20px;display: flex;" }
+  %div{ style: "margin: auto; flex: 1; text-align: center" }
+    %div.center{ style: "font-size: 10px;" } AGES
     .btn-group
-      = link_to '#', class: 'btn btn-default dropdown-toggle', data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' } do
-        %span.hidden-sm.hidden-md.hidden-lg.glyphicon.glyphicon-cog
-        %span.hidden-xs
+      = link_to "#", class: "btn btn-outline-dark dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do
+        .d-inline-block.d-sm-none
+          %i.fa.fa-cog
+        .d-none.d-sm-inline-block
           - case params[:ages]
-          - when '0-17'
+          - when "0-17"
             Children
-          - when '18-90'
+          - when "18-90"
             Adults
-          - when '', nil
+          - when "", nil
             All Ages
           - else
             = params[:ages]
         %span.caret
-      %ul.dropdown-menu
-        %li= link_to 'All Ages', datasets_path(filtered_params.merge(ages: nil)), style: params[:ages].blank? ? 'font-weight: bold' : nil
-        %li= link_to 'Children', datasets_path(filtered_params.merge(ages: '0-17')), style: params[:ages] == '0-17' ? 'font-weight: bold' : nil
-        %li= link_to 'Adults', datasets_path(filtered_params.merge(ages: '18-90')), style: params[:ages] == '18-90' ? 'font-weight: bold' : nil
-  %div{ style: 'margin: auto; flex: 1; text-align: center' }
-    %div.center{ style: 'font-size: 10px;' } DATA
+      .dropdown-menu
+        = link_to "All Ages", datasets_path(filtered_params.merge(ages: nil)), style: params[:ages].blank? ? "font-weight: bold" : nil, class: "dropdown-item"
+        = link_to "Children", datasets_path(filtered_params.merge(ages: "0-17")), style: params[:ages] == "0-17" ? "font-weight: bold" : nil, class: "dropdown-item"
+        = link_to "Adults", datasets_path(filtered_params.merge(ages: "18-90")), style: params[:ages] == "18-90" ? "font-weight: bold" : nil, class: "dropdown-item"
+  %div{ style: "margin: auto; flex: 1; text-align: center" }
+    %div.center{ style: "font-size: 10px;" } DATA
     .btn-group
-      = link_to '#', class: 'btn btn-default dropdown-toggle', data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' } do
-        %span.hidden-sm.hidden-md.hidden-lg.glyphicon.glyphicon-cog
-        %span.hidden-xs
+      = link_to "#", class: "btn btn-outline-dark dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do
+        .d-inline-block.d-sm-none
+          %i.fa.fa-cog
+        .d-none.d-sm-inline-block
           - case params[:data]
-          - when 'actigraphy'
+          - when "actigraphy"
             Actigraphy
-          - when 'polysomnography'
+          - when "polysomnography"
             Polysomnography
           - else
             All Data
 
         %span.caret
-      %ul.dropdown-menu
-        %li= link_to 'All Data', datasets_path(filtered_params.merge(data: nil)), style: params[:data].blank? ? 'font-weight: bold' : nil
-        %li= link_to 'Actigraphy', datasets_path(filtered_params.merge(data: 'actigraphy')), style: params[:data] == 'actigraphy' ? 'font-weight: bold' : nil
-        %li= link_to 'Polysomnography', datasets_path(filtered_params.merge(data: 'polysomnography')), style: params[:data] == 'polysomnography' ? 'font-weight: bold' : nil
-  %div{ style: 'margin: auto; flex: 1; text-align: center' }
-    %div.center{ style: 'font-size: 10px;' } SORT
+      .dropdown-menu
+        = link_to "All Data", datasets_path(filtered_params.merge(data: nil)), style: params[:data].blank? ? "font-weight: bold" : nil, class: "dropdown-item"
+        = link_to "Actigraphy", datasets_path(filtered_params.merge(data: "actigraphy")), style: params[:data] == "actigraphy" ? "font-weight: bold" : nil, class: "dropdown-item"
+        = link_to "Polysomnography", datasets_path(filtered_params.merge(data: "polysomnography")), style: params[:data] == "polysomnography" ? "font-weight: bold" : nil, class: "dropdown-item"
+  %div{ style: "margin: auto; flex: 1; text-align: center" }
+    %div.center{ style: "font-size: 10px;" } SORT
     .btn-group
-      = link_to '#', class: 'btn btn-default dropdown-toggle', data: { toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' } do
-        %span.hidden-sm.hidden-md.hidden-lg.glyphicon.glyphicon-cog
-        %span.hidden-xs
+      = link_to "#", class: "btn btn-outline-dark dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do
+        .d-inline-block.d-sm-none
+          %i.fa.fa-cog
+        .d-none.d-sm-inline-block
           - case params[:order]
-          - when 'datasets.release_date desc'
+          - when "datasets.release_date desc"
             Newest
-          - when 'datasets.rating desc'
+          - when "datasets.rating desc"
             Popular
           - else
             Publish Date
         %span.caret
-      %ul.dropdown-menu.dropdown-menu-right
-        %li= link_to 'Publish Date', datasets_path(filtered_params.merge(order: nil)), style: params[:order].blank? ? 'font-weight: bold' : nil
-        %li= link_to 'Newest', datasets_path(filtered_params.merge(order: 'datasets.release_date desc')), style: params[:order] == 'datasets.release_date desc' ? 'font-weight: bold' : nil
-        %li= link_to 'Popular', datasets_path(filtered_params.merge(order: 'datasets.rating desc')), style: params[:order] == 'datasets.rating desc' ? 'font-weight: bold' : nil
+      .dropdown-menu.dropdown-menu-right
+        = link_to "Publish Date", datasets_path(filtered_params.merge(order: nil)), style: params[:order].blank? ? "font-weight: bold" : nil, class: "dropdown-item"
+        = link_to "Newest", datasets_path(filtered_params.merge(order: "datasets.release_date desc")), style: params[:order] == "datasets.release_date desc" ? "font-weight: bold" : nil, class: "dropdown-item"
+        = link_to "Popular", datasets_path(filtered_params.merge(order: "datasets.rating desc")), style: params[:order] == "datasets.rating desc" ? "font-weight: bold" : nil, class: "dropdown-item"
 
 - if @datasets.count.zero?
-  .lead.center{ style: 'margin-top: 40px;' }
+  .lead.center{ style: "margin-top: 40px;" }
     No datasets found matching search criteria.
-    = succeed '.' do
-      = link_to 'Back to index', datasets_path
+    = succeed "." do
+      = link_to "Back to index", datasets_path
 - else
   - @datasets.each do |dataset|
     .dataset-card{ id: "dataset-card-#{dataset.id}" }
@@ -89,52 +89,53 @@
             - if dataset.dataset_reviews.count.positive?
               = link_to dataset_dataset_reviews_path(dataset) do
                 = number_with_delimiter(dataset.dataset_reviews.count)
-                %span.hidden-xs= "Review#{'s' if dataset.dataset_reviews.count != 1}"
-                %i.fa.fa-comments.hidden-sm.hidden-md.hidden-lg
+                .d-none.d-sm-inline-block= "Review#{"s" if dataset.dataset_reviews.count != 1}"
+                .d-inline-block.d-sm-none
+                  %i.fa.fa-comments
             = link_to dataset_dataset_reviews_path(dataset) do
-              = render 'datasets/rating', rating: dataset.rating
+              = render "datasets/rating", rating: dataset.rating
           = link_to dataset.name, dataset
           - if dataset.description.present?
-            %br.hidden-sm.hidden-md.hidden-lg
-            = link_to '#', data: { object: 'flip-card', target: "#dataset-card-#{dataset.id}" }, style: 'font-size: 10px;' do
+            %br.d-block.d-sm-none
+            = link_to "#", data: { object: "flip-card", target: "#dataset-card-#{dataset.id}" }, style: "font-size: 10px;" do
               details
-              %span.glyphicon.glyphicon-menu-down.text-muted
+              %i.fa.fa-caret-down.text-muted
 
       .dataset-card-body
         .not-flipped
           .dataset-card-logo
             - if dataset.logo.size > 0
               = link_to image_tag(logo_dataset_path(dataset)), dataset
-          = render 'datasets/card_content', dataset: dataset
+          = render "datasets/card_content", dataset: dataset
         .already-flipped
           = simple_markdown_new(dataset.description)
       .dataset-card-footer
-        .pull-right.hidden-xs= render 'datasets/card_footer_request', dataset: dataset
+        .pull-right.d-none.d-sm-block= render "datasets/card_footer_request", dataset: dataset
         .dataset-card-footer-links
-          %span.hidden-xs{ style: 'color: #ccc;' } View
+          %span.d-none.d-sm-inline-block{ style: "color: #ccc;" } View
           .dataset-card-footer-entry
-            = link_to dataset, class: 'no-underline' do
+            = link_to dataset, class: "no-underline" do
               %small Docs
           - unless dataset.dataset_files.current.where(is_file: true).count.zero?
             .dataset-card-footer-spacer|
             .dataset-card-footer-entry
-              = link_to files_dataset_path(dataset), class: 'no-underline' do
-                %small.hidden-sm.hidden-md.hidden-lg Files
-                %small.hidden-xs
-                  = pluralize number_with_delimiter(dataset.dataset_files.current.where(is_file: true).count), 'File'
+              = link_to files_dataset_path(dataset), class: "no-underline" do
+                %small.d-inline-block.d-sm-none Files
+                %small.d-none.d-sm-inline-block
+                  = pluralize number_with_delimiter(dataset.dataset_files.current.where(is_file: true).count), "File"
                   &middot;
                   = number_to_human_size dataset.dataset_files.current.where(is_file: true).sum(:file_size)
           - unless dataset.current_variables.count.zero?
             .dataset-card-footer-spacer|
             .dataset-card-footer-entry
-              = link_to dataset_variables_path(dataset), class: 'no-underline' do
-                %small.hidden-sm.hidden-md.hidden-lg Variables
-                %small.hidden-xs
-                  = pluralize number_with_delimiter(dataset.current_variables.count), 'Variable'
-      .dataset-card-footer.dataset-card-footer-request.hidden-sm.hidden-md.hidden-lg
-        .center= render 'datasets/card_footer_request', dataset: dataset
+              = link_to dataset_variables_path(dataset), class: "no-underline" do
+                %small.d-inline-block.d-sm-none Variables
+                %small.d-none.d-sm-inline-block
+                  = pluralize number_with_delimiter(dataset.current_variables.count), "Variable"
+      .dataset-card-footer.dataset-card-footer-request.d-block.d-sm-none
+        .center= render "datasets/card_footer_request", dataset: dataset
 
-  .center= paginate @datasets, theme: 'bootstrap'
+  .center= paginate @datasets, theme: "bootstrap"
 
   - content_for :call_to_action do
     .call-to-action
