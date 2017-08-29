@@ -1,6 +1,8 @@
 ## Bootstrap 4
 
 ### Enhancements
+- **General Changes**
+  - Improved landing page styling
 - **Gem Changes**
   - Updated to bootstrap 4.0.0.beta
 

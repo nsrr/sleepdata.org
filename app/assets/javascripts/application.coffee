@@ -36,7 +36,6 @@
 #= require external/typeahead-0.11.1-corejavascript.src.js
 
 # Components
-#= require components/affix
 #= require components/cookies
 #= require components/graphs
 #= require components/headings

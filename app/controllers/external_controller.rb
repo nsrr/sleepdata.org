@@ -28,11 +28,24 @@ class ExternalController < ApplicationController
   # def demo
   # end
 
+  def landing2
+    flash[:notice] = "Example notice."
+    render layout: "layouts/full_page_custom_header"
+  end
+
+  # Accounts for header, but header is defined in view file.
+  def landing_custom_header
+    render layout: "layouts/full_page_custom_header"
+  end
+
+  def landing_no_header
+    # render layout: "layouts/full_page"
+    render layout: "layouts/full_page_no_header"
+  end
+
   # GET /landing
   def landing
-    @datasets = Dataset.release_scheduled
-    @variables = Variable.latest.where(commonly_used: true).order('RANDOM()').limit(10)
-    @tools = Tool.current.where(slug: ['physiomimi', 'edf-viewer', 'block-edf-loader']).order(:name)
+    render layout: "layouts/full_page_custom_header"
   end
 
   # # GET /share
@@ -58,7 +71,7 @@ class ExternalController < ApplicationController
 
   # GET /sitemap.xml.gz
   def sitemap_xml
-    sitemap_xml = File.join(CarrierWave::Uploader::Base.root, 'sitemaps', 'sitemap.xml.gz')
+    sitemap_xml = File.join(CarrierWave::Uploader::Base.root, "sitemaps", "sitemap.xml.gz")
     if File.exist?(sitemap_xml)
       send_file sitemap_xml
     else

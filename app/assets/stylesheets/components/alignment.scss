@@ -1,10 +1,6 @@
-.center,
-.text-center {
+// TODO: Remove ".center" class (replace with .text-center from bootstrap)
+.center {
   text-align: center;
-}
-
-.text-right {
-  text-align: right;
 }
 
 .nowrap {
@@ -18,4 +14,16 @@
 
 .breakword {
   word-break: break-word;
+}
+
+.center-vertically {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.center-both {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

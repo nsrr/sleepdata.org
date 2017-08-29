@@ -1,13 +1,58 @@
-.landing-container
-  .landing-header
-    %h2
-      Begin analysis.
-    %p.lead
-      Analyze data using
-      = succeed '.' do
-        = link_to 'tools contributed by the research community', tools_path
-  .landing-body
-    .row
-      - @tools.each do |tool|
-        .col-xs-12.col-sm-6.col-md-4
-          = render 'tools/panel', tool: tool
+.mb-5
+  %h3{ style: "font-weight: bold" } Tools
+  .d-none.d-lg-block.pull-right
+    .landing-sentence{ style: "text-align: left;font-weight: normal;" }
+      Know of another great tool?
+      = link_to "Tell us about it.", contribute_tool_start_path
+
+  .landing-sentence{ style: "text-align: left;font-weight: normal;" }
+    Want to do more with the data?
+
+  .landing-tool-box.box-shadow
+    .landing-tool-right
+      .landing-tool-icon
+        %i.fa.fa-line-chart{ aria: { hidden: "true" } }
+    .landing-tool-left
+      .landing-tool-header
+        EDF Visualization
+      .landing-tool-links
+        - edf_viewer_tools = [["EDF Viewer", community_show_tool_path("nsrr-edf-viewer")], ["EDFbrowser", community_show_tool_path("teuniz-edfbrowser")], ["Polyman", community_show_tool_path("physionet-polyman")], ["Altamira", community_show_tool_path("remomueller-altamira")]]
+        - edf_viewer_tools.each_with_index do |(name, url), index|
+          = link_to name, url
+          - if index < edf_viewer_tools.count - 1
+            %br.d-block.d-sm-none
+            %span.d-none.d-sm-inline &middot;
+  .landing-tool-box.box-shadow
+    .landing-tool-right
+      .landing-tool-icon
+        %i.fa.fa-heartbeat{ aria: { hidden: "true" } }
+    .landing-tool-left
+      .landing-tool-header
+        Signal Processing
+      .landing-tool-links
+        - signal_tools = [["Data Chromatix", community_show_tool_path("saramariani-data-chromatix")], ["HRV Toolkit", community_show_tool_path("physionet-hrv-toolkit")], ["SpectralTrainFig", community_show_tool_path("nsrr-spectraltrainfig")], ["SpiSOP", community_show_tool_path("frederikdweber-spisop")]]
+        - signal_tools.each_with_index do |(name, url), index|
+          = link_to name, url
+          - if index < signal_tools.count - 1
+            %br.d-block.d-sm-none
+            %span.d-none.d-sm-inline &middot;
+  .landing-tool-box.box-shadow
+    .landing-tool-right
+      .landing-tool-icon
+        %i.fa.fa-graduation-cap{ aria: { hidden: "true" } }
+    .landing-tool-left
+      .landing-tool-header
+        Learn
+      .landing-tool-links
+        - tutorials = CommunityTool.current.where(published: true, tag_tutorial: true).order("rating desc nulls last").limit(3)
+        - tutorials.each do |community_tool|
+          %div
+            = link_to community_tool.name, community_show_tool_path(community_tool)
+            - if community_tool.rating
+              %small.text-muted= community_tool.rating.round(1)
+              %i.fa.fa-star.text-warning{ aria: { hidden: "true" } }
+
+  .landing-sentence.d-block.d-lg-none.text-left{ style: "font-weight: normal;" }
+    Know of another great tool?
+    %br.d-block.d-sm-none
+    = link_to "Tell us about it.", contribute_tool_start_path

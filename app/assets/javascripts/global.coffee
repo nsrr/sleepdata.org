@@ -6,7 +6,6 @@
   $(element_id).focus().val('').val(val)
 
 @componentsReady = ->
-  affixReady()
   graphsReady()
   textAreaAutocompleteReady()
 

@@ -1,6 +1,5 @@
-- header = current_page?(root_path) || content_for?(:header_old)
-
 - if false
+  - header = current_page?(root_path) || content_for?(:header_old) || current_page?(landing_no_header_path)
   %div{ class: header ? 'navbar-outer' : nil }
     %nav.navbar.navbar-default{ class: (header ? nil : 'navbar-fixed-top affix'), data: { object: (header ? 'navbar-affix' : nil) } }
       .container
@@ -19,31 +18,14 @@
           = render "layouts/menu_body"
 
 - else
-  %div{ class: header ? 'navbar-outer' : nil }
-    %nav.navbar.fixed-top.navbar-expand-lg.navbar-light.background-p50-green
+  .background-special
+    %nav.navbar.navbar-expand-lg.navbar-dark.color-overlay2
       .container
         = link_to current_user ? dashboard_path : landing_path, class: "navbar-brand" do
           = render "layouts/logo"
 
-        %button.navbar-toggler{ type: "button", data: { toggle: "collapse", target: "#navbarNav" }, aria: { controls: "navbarNav", expanded: "false", label: "Toggle navigation" } }
+        %button.navbar-toggler{ type: "button", data: { toggle: "collapse", target: "#menu-body" }, aria: { controls: "menu-body", expanded: "false", label: "Toggle navigation" } }
           %span.navbar-toggler-icon
 
-        #navbarNav.collapse.navbar-collapse
-          %ul.navbar-nav.mr-auto
-            = render "menu/item", title: "Datasets", path: datasets_path, icon: "database"
-            = render "menu/item", title: "Tools", path: tools_path, icon: "cubes"
-            = render "menu/item", title: "Forum", path: topics_path, icon: "comments-o"
-            = render "menu/item", title: "Blog", path: blog_path, icon: "rss"
-            = render "menu/item_icon", title: "Search", path: search_path, icon: "search", color: "default"
-
-          %ul.navbar-nav
-
-            - if current_user
-              = render "menu/dropdown_account"
-            - else
-              %li.nav-item{ class: current_page?(new_user_session_path) ? "active" : nil }
-                = link_to new_user_session_path, class: "nav-link" do
-                  %i.fa.fa-lock
-                  Sign in
-                - if current_page?(new_user_session_path)
-                  %span.sr-only (current)
+        #menu-body.collapse.navbar-collapse
+          = render "layouts/menu_body"

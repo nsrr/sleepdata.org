@@ -1,0 +1,51 @@
+.page-box {
+  min-height: 960px;
+  padding: 20px 0;
+  position: relative;
+}
+
+@include media-breakpoint-up(md) {
+  .page-box {
+    padding: 30px 0;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .page-box {
+    padding: 40px 0;
+  }
+}
+
+.full-page {
+  .page-box {
+    min-height: calc(100vh - #{$header-height});
+
+    &.last-box {
+      min-height: calc(100vh - #{$header-height} - #{$footer-height});
+    }
+  }
+}
+
+.full-page-no-header {
+  .page-box {
+    min-height: 100vh;
+
+    &.last-box {
+      min-height: calc(100vh - #{$footer-height});
+    }
+  }
+}
+
+.full-page-no-header-no-footer {
+  .page-box {
+    min-height: 100vh;
+
+    &.last-box {
+      min-height: 100vh;
+    }
+  }
+}
+
+.page-box-no-padding {
+  padding: 0;
+}

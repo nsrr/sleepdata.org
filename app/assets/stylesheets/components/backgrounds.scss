@@ -17,3 +17,47 @@
 .background-p200-green {
   background-color: $p200-green;
 }
+
+.background-p600-green {
+  background-color: $p600-green;
+}
+
+.background-fixed-image {
+  background-image: asset-url("221_old.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.background-fixed-image-fixed-height {
+  height: 200px;
+}
+
+$p700-green-rgba: rgba(56, 142, 60, .8);
+
+.color-overlay {
+  background-color: $p700-green-rgba;
+}
+
+.background-special {
+  background-image: asset-url("221_old.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+$p600-green-rgba: rgba(67, 160, 71, .9);
+
+.color-overlay2 {
+  background-color: $p600-green-rgba;
+  box-shadow: 0 5px 10px 0 $box-shadow-color;
+}
+
+#top-menu {
+  position: sticky;
+  top: 0;
+  z-index: $zindex-fixed;
+}

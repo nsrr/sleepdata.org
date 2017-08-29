@@ -1,87 +1,107 @@
-%ul.nav.navbar-nav.navbar-hide-scrolled.hidden-xs
-  %li{ class: "#{ 'active' if %w(datasets variables dataset_reviews).include?(params[:controller]) }" }
-    = link_to datasets_path do
-      %i.fa.fa-database{ aria: { hidden: 'true' } }
-      Datasets
-  %li{ class: "#{'active' if %w(tools community_tools community_tool_reviews).include?(params[:controller])}" }
-    = link_to tools_path do
-      %i.fa.fa-cubes{ aria: { hidden: 'true' } }
-      Tools
-  %li{ class: "#{'active' if params[:controller] == 'topics'}" }
-    = link_to topics_path do
-      %i.fa.fa-comments-o{ aria: { hidden: 'true' } }
-      Forum
-  %li{ class: "#{'active' if current_page?(blog_path)}" }
-    = link_to blog_path do
-      %i.fa.fa-rss{ aria: { hidden: 'true' } }
-      Blog
+%ul.navbar-nav.mr-auto
+  = render "menu/item", title: "Datasets", path: datasets_path, icon: "database"
+  = render "menu/item", title: "Tools", path: tools_path, icon: "cubes"
+  = render "menu/item", title: "Forum", path: topics_path, icon: "comments-o"
+  = render "menu/item", title: "Blog", path: blog_path, icon: "rss"
+  = render "menu/item_icon", title: "Search", path: search_path, icon: "search", color: "default"
 
-.hidden-sm.hidden-md.hidden-lg
-  = form_tag search_path, method: :get, id: 'navigation-search-form-mobile', class: 'navbar-form' do
-    .form-group2
-      .input-group
-        = text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search NSRR', autocomplete: 'off', id: 'navigation-search-mobile'
-        %span.input-group-btn
-          = link_to '#', data: { object: 'suppress-click' }, class: 'btn btn-primary-dark', name: nil, id: 'navigation-form-search-btn-mobile' do
-            %span.glyphicon.glyphicon-search
-
-%ul.nav.navbar-nav.hidden-sm.hidden-md.hidden-lg
+%ul.navbar-nav
   - if current_user
-    %li{ class: "#{ 'active' if current_page?(dashboard_path) }" }
-      = link_to dashboard_path do
-        %i.fa.fa-home{ aria: { hidden: 'true' } }
-        = current_user.first_name
-  %li{ class: "#{ 'active' if %w(datasets variables dataset_reviews).include?(params[:controller]) }" }
-    = link_to datasets_path do
-      %i.fa.fa-database{ aria: { hidden: 'true' } }
-      Datasets
-  %li{ class: "#{'active' if %w(tools community_tools community_tool_reviews).include?(params[:controller])}" }
-    = link_to tools_path do
-      %i.fa.fa-cubes{ aria: { hidden: 'true' } }
-      Tools
-  %li{ class: "#{'active' if params[:controller] == 'topics'}" }
-    = link_to topics_path do
-      %i.fa.fa-comments-o{ aria: { hidden: 'true' } }
-      Forum
-  %li{ class: "#{'active' if current_page?(blog_path)}" }
-    = link_to blog_path do
-      %i.fa.fa-rss{ aria: { hidden: 'true' } }
-      Blog
+    = render "menu/dropdown_account"
+  - else
+    %li.nav-item{ class: current_page?(new_user_session_path) ? "active" : nil }
+      = link_to new_user_session_path, class: "nav-link" do
+        %i.fa.fa-lock
+        Sign in
+      - if current_page?(new_user_session_path)
+        %span.sr-only (current)
 
-- if current_user
-  %form.navbar-form.navbar-right.hidden-xs
-    = link_to 'Logout', destroy_user_session_path, class: 'btn btn-primary-dark'
-- else
-  %form.navbar-form.navbar-right.hidden-xs
-    = link_to 'Sign in', new_user_session_path, class: 'btn btn-primary-dark'
 
-%div{ style: 'position: relative' }
-  .full-search-bar
-    = form_tag search_path, method: :get, id: 'navigation-search-form', class: 'navbar-form navbar-right hidden-xs hidden-sm', style: 'margin-right: -25px' do
-      .form-group
+- if false
+  %ul.nav.navbar-nav.navbar-hide-scrolled.hidden-xs
+    %li{ class: "#{ 'active' if %w(datasets variables dataset_reviews).include?(params[:controller]) }" }
+      = link_to datasets_path do
+        %i.fa.fa-database{ aria: { hidden: 'true' } }
+        Datasets
+    %li{ class: "#{'active' if %w(tools community_tools community_tool_reviews).include?(params[:controller])}" }
+      = link_to tools_path do
+        %i.fa.fa-cubes{ aria: { hidden: 'true' } }
+        Tools
+    %li{ class: "#{'active' if params[:controller] == 'topics'}" }
+      = link_to topics_path do
+        %i.fa.fa-comments-o{ aria: { hidden: 'true' } }
+        Forum
+    %li{ class: "#{'active' if current_page?(blog_path)}" }
+      = link_to blog_path do
+        %i.fa.fa-rss{ aria: { hidden: 'true' } }
+        Blog
+
+  .hidden-sm.hidden-md.hidden-lg
+    = form_tag search_path, method: :get, id: 'navigation-search-form-mobile', class: 'navbar-form' do
+      .form-group2
         .input-group
-          = text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search the NSRR', autocomplete: 'off', id: 'navigation-search'
+          = text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search NSRR', autocomplete: 'off', id: 'navigation-search-mobile'
           %span.input-group-btn
-            = link_to '#', data: { object: 'suppress-click' }, class: 'btn btn-primary-dark', name: nil, id: 'navigation-form-search-btn' do
+            = link_to '#', data: { object: 'suppress-click' }, class: 'btn btn-primary-dark', name: nil, id: 'navigation-form-search-btn-mobile' do
               %span.glyphicon.glyphicon-search
 
-.tiny-search-icon
-  %form.navbar-form.navbar-right.hidden-xs.hidden-sm{ style: 'margin-right: -25px' }
-    = link_to '#', data: { object: 'show-search-bar' }, class: 'btn btn-primary-dark', name: nil do
-      %span.glyphicon.glyphicon-search
-  %ul.nav.navbar-nav.navbar-right{ style: 'max-height: 50px;padding-right: 5px;' }
+  %ul.nav.navbar-nav.hidden-sm.hidden-md.hidden-lg
     - if current_user
-      %ul.nav.navbar-nav.navbar-right.hidden-xs
-        %li.hidden-xs{ class: current_page?(notifications_path) ? 'active' : nil }
-          = link_to notifications_path, class: "notifications-link #{'notifications-link-active' if current_user.unread_notifications?}" do
-            %span.glyphicon.glyphicon-bell
-        %li
-          = link_to "#{current_user.first_name}", dashboard_path
+      %li{ class: "#{ 'active' if current_page?(dashboard_path) }" }
+        = link_to dashboard_path do
+          %i.fa.fa-home{ aria: { hidden: 'true' } }
+          = current_user.first_name
+    %li{ class: "#{ 'active' if %w(datasets variables dataset_reviews).include?(params[:controller]) }" }
+      = link_to datasets_path do
+        %i.fa.fa-database{ aria: { hidden: 'true' } }
+        Datasets
+    %li{ class: "#{'active' if %w(tools community_tools community_tool_reviews).include?(params[:controller])}" }
+      = link_to tools_path do
+        %i.fa.fa-cubes{ aria: { hidden: 'true' } }
+        Tools
+    %li{ class: "#{'active' if params[:controller] == 'topics'}" }
+      = link_to topics_path do
+        %i.fa.fa-comments-o{ aria: { hidden: 'true' } }
+        Forum
+    %li{ class: "#{'active' if current_page?(blog_path)}" }
+      = link_to blog_path do
+        %i.fa.fa-rss{ aria: { hidden: 'true' } }
+        Blog
 
-- if current_user
-  %form.navbar-form.navbar-right.visible-xs
-    = link_to 'Logout', destroy_user_session_path, class: 'btn btn-primary-dark'
-- else
-  %form.navbar-form.navbar-right.visible-xs
-    = link_to 'Sign up', new_user_registration_path, class: 'btn btn-primary-dark' unless current_page?(new_user_registration_path)
-    = link_to 'Sign in', new_user_session_path, class: 'btn btn-primary-dark'
+  - if current_user
+    %form.navbar-form.navbar-right.hidden-xs
+      = link_to 'Logout', destroy_user_session_path, class: 'btn btn-primary-dark'
+  - else
+    %form.navbar-form.navbar-right.hidden-xs
+      = link_to 'Sign in', new_user_session_path, class: 'btn btn-primary-dark'
+
+  %div{ style: 'position: relative' }
+    .full-search-bar
+      = form_tag search_path, method: :get, id: 'navigation-search-form', class: 'navbar-form navbar-right hidden-xs hidden-sm', style: 'margin-right: -25px' do
+        .form-group
+          .input-group
+            = text_field_tag :search, params[:search], class: 'form-control', placeholder: 'Search the NSRR', autocomplete: 'off', id: 'navigation-search'
+            %span.input-group-btn
+              = link_to '#', data: { object: 'suppress-click' }, class: 'btn btn-primary-dark', name: nil, id: 'navigation-form-search-btn' do
+                %span.glyphicon.glyphicon-search
+
+  .tiny-search-icon
+    %form.navbar-form.navbar-right.hidden-xs.hidden-sm{ style: 'margin-right: -25px' }
+      = link_to '#', data: { object: 'show-search-bar' }, class: 'btn btn-primary-dark', name: nil do
+        %span.glyphicon.glyphicon-search
+    %ul.nav.navbar-nav.navbar-right{ style: 'max-height: 50px;padding-right: 5px;' }
+      - if current_user
+        %ul.nav.navbar-nav.navbar-right.hidden-xs
+          %li.hidden-xs{ class: current_page?(notifications_path) ? 'active' : nil }
+            = link_to notifications_path, class: "notifications-link #{'notifications-link-active' if current_user.unread_notifications?}" do
+              %span.glyphicon.glyphicon-bell
+          %li
+            = link_to "#{current_user.first_name}", dashboard_path
+
+  - if current_user
+    %form.navbar-form.navbar-right.visible-xs
+      = link_to 'Logout', destroy_user_session_path, class: 'btn btn-primary-dark'
+  - else
+    %form.navbar-form.navbar-right.visible-xs
+      = link_to 'Sign up', new_user_registration_path, class: 'btn btn-primary-dark' unless current_page?(new_user_registration_path)
+      = link_to 'Sign in', new_user_session_path, class: 'btn btn-primary-dark'

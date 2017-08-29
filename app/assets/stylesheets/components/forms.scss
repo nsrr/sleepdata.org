@@ -1,5 +1,5 @@
 .sign-up-form {
-  background-color: $brand-white;
+  background-color: $p50-grey;
   border: 1px solid $p100-grey;
   margin: 0 auto 20px;
   max-width: 400px;
@@ -8,10 +8,10 @@
 
 .sign-up-form-title {
   background-color: $p100-grey;
+  // color: $brand-white;
   font-size: 18px;
   margin: -20px -20px 20px;
   padding: 10px 20px;
-  text-align: center;
 }
 
 @include media-breakpoint-up(sm) {

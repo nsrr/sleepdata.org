@@ -4,8 +4,20 @@ html {
 }
 
 body {
-  margin-bottom: $footer-height;
-  padding-top: $header-height + 1px; // Includes 1px border bottom of menu
+  &.full-page {
+    margin-bottom: $footer-height;
+    // padding-top: $header-height;
+  }
+
+  &.full-page-no-header {
+    margin-bottom: $footer-height;
+    // padding-top: 0;
+  }
+
+  &.full-page-no-header-no-footer {
+    margin-bottom: 0;
+    // padding-top: 0;
+  }
 }
 
 .body-content {
@@ -13,15 +25,17 @@ body {
   padding-top: 20px;
 }
 
+$p200-orange-rgba: rgba(255, 204, 128, .99);
+
 ::selection {
-  background-color: $brand-accent;
+  background-color: $p200-orange-rgba;
   color: $text-color;
 }
 
 :focus {
-  outline-color: $brand-accent !important;
+  outline-color: $p200-orange !important;
 }
 
-.brand-background {
-  background-color: $p50;
-}
+// .brand-background {
+//   background-color: $p50;
+// }
