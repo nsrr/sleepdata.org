@@ -26,7 +26,7 @@ $p500-green-rgba: rgba(76, 175, 80, .8);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-
+  position: relative;
 
   &::before {
     background-color: $p500-green-rgba;

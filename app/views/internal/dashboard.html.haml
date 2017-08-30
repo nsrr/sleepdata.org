@@ -78,13 +78,13 @@
                   = link_to community_tool.name, community_show_tool_path(community_tool)
               %td
                 - if community_tool.draft?
-                  = link_to 'Continue Draft', contribute_tool_description_path(community_tool), class: 'btn btn-xs btn-accent btn-block'
+                  = link_to 'Continue Draft', contribute_tool_description_path(community_tool), class: 'btn btn-sm btn-accent btn-block'
                 - else
-                  = link_to 'Edit', contribute_tool_description_path(community_tool), class: 'btn btn-xs btn-default btn-block'
+                  = link_to 'Edit', contribute_tool_description_path(community_tool), class: 'btn btn-sm btn-light btn-block'
       - else
         %p Do you have a tool you would like to share with the NSRR research community?
 
-      = link_to 'Contribute a Tool', contribute_tool_start_path, class: 'btn btn-xs btn-accent btn-block btn-shadow'
+      = link_to 'Contribute a Tool', contribute_tool_start_path, class: 'btn btn-sm btn-accent btn-block btn-shadow'
 
 
     .dashboard-container

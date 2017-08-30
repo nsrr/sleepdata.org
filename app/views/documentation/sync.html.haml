@@ -17,5 +17,5 @@
     = render 'documentation/sync', local_commit: @local_commit, remote_commit: @remote_commit, object: @object, back: ''
   #sidebar-content.hidden-xs{ class: "#{cookies[:hide_page_list] == '1' ? '' : 'col-sm-3'}"}
     - @page_path = ''
-    = render 'documentation/pages_list', pages_path: ''
+    .menu-sticky= render 'documentation/pages_list', pages_path: ''
 

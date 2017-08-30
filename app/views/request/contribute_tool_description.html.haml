@@ -36,8 +36,8 @@
     = link_to 'Update Tool', '#', data: { object: 'submit', target: '#contribute_tool_form' }, class: 'btn btn-primary btn-lg ', style: 'width:100%; max-width: 400px;'
   - else
     = succeed ' ' do
-      = link_to '#', data: { object: 'submit-tool-draft', target: '#contribute_tool_form' }, class: 'btn btn-default btn-lg ', style: 'width:100%; max-width: 400px;' do
+      = link_to '#', data: { object: 'submit-tool-draft', target: '#contribute_tool_form' }, class: 'btn btn-light btn-lg ', style: 'width:100%; max-width: 400px;' do
         Save Draft
     = link_to '#', data: { object: 'submit', target: '#contribute_tool_form' }, class: 'btn btn-primary btn-lg ', style: 'width:100%; max-width: 400px;' do
       Publish Tool
-      %span.glyphicon.glyphicon-arrow-right
+      %i.fa.fa-caret-right

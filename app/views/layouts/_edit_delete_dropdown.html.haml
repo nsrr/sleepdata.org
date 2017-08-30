@@ -1,17 +1,15 @@
 .dropdown
-  = link_to '#', class: 'btn btn-default btn-xs dropdown-toggle', data: { toggle: 'dropdown' } do
-    %span.hidden-sm.hidden-md.hidden-lg.glyphicon.glyphicon-cog
-    %span.hidden-xs Actions
+  = link_to "#", class: "btn btn-light btn-sm dropdown-toggle", data: { toggle: "dropdown" } do
+    .d-inline-block.d-sm-none
+      %i.fa.fa-cog
+    .d-none.d-sm-inline-block Actions
     %strong.caret
 
-  %ul.dropdown-menu.dropdown-menu-right
-    %li
-      = link_to edit_url do
-        %span.glyphicon.glyphicon-edit
-        Edit
-    %li.divider{ role: 'separator' }
-    %li
-      = link_to delete_url, method: :delete, data: { confirm: delete_confirmation } do
-        .text-danger
-          %span.glyphicon.glyphicon-trash
-          Delete
+  .dropdown-menu.dropdown-menu-right
+    = link_to edit_url, class: "dropdown-item" do
+      %i.fa.fa-pencil
+      Edit
+    .dropdown-divider
+    = link_to delete_url, method: :delete, data: { confirm: delete_confirmation }, class: "dropdown-item text-danger" do
+      %i.fa.fa-trash
+      Delete

@@ -3,7 +3,7 @@
 - else
   - pages_path = pages_tool_path(@object)
 
-.page-list-container{ style: "#{'display:none' if cookies[:hide_page_list] == '1'}" }
+.page-list-container{ style: "#{"display:none" if cookies[:hide_page_list] == "1"}" }
   %ul.left-menu
     - page = [params[:page].to_i, 0].max
     - if @path.blank?
@@ -13,45 +13,45 @@
       %li.left-menu-header
         = @object.slug
       %li
-        - @path.to_s.split('/')[-1..-1].each_with_index do |folder, index|
-          - url = pages_path + '/' + @path.to_s.split('/')[0..-2].join('/')
-          = link_to url, class: (@path == params[:path] ? 'active' : nil) do
-            %span.glyphicon.glyphicon-level-up
+        - @path.to_s.split("/")[-1..-1].each_with_index do |folder, index|
+          - url = pages_path + "/" + @path.to_s.split("/")[0..-2].join("/")
+          = link_to url, class: (@path == params[:path] ? "active" : nil) do
+            %i.fa.fa-level-up
             = folder
 
 
     - @object.pages(@path)[0..(page*100+100 - 1)].each do |page_name, page|
       - is_file = File.file?(page)
       - folder = @object.page_path(page)
-      - url = pages_path + '/' + folder
+      - url = pages_path + "/" + folder
       %li.nowrap
-        = link_to url, class: "overflow-hidden #{(page_name == File.basename(@page_path) ? 'active' : nil)}" do
-          %span.glyphicon{ class: "glyphicon-#{is_file ? 'file' : 'folder-close'}" }
+        = link_to url, class: "overflow-hidden #{(page_name == File.basename(@page_path) ? "active" : nil)}" do
+          %fa.fa{ class: is_file ? "fa-file-o" : "fa-folder-open" }
           = page_name
 
-  = render 'documentation/logo_and_admin'
+  = render "documentation/logo_and_admin"
 
   - if @object.is_a?(Dataset)
     .small-spacer
-    %div{ style: 'padding: 0 20px;' }
+    %div{ style: "padding: 0 20px;" }
       %strong Rating
-      = render 'datasets/rating', rating: @dataset.rating
+      = render "datasets/rating", rating: @dataset.rating
       - if @dataset.dataset_reviews.count.positive?
         %br
-        = link_to pluralize(number_with_delimiter(@dataset.dataset_reviews.count), 'Review'), dataset_dataset_reviews_path(@dataset)
+        = link_to pluralize(number_with_delimiter(@dataset.dataset_reviews.count), "Review"), dataset_dataset_reviews_path(@dataset)
       %br
       - if current_user && current_user.reviewed_dataset?(@dataset)
-        - link_text = 'Update my review'
+        - link_text = "Update my review"
       - else
-        - link_text = 'Write a review'
+        - link_text = "Write a review"
       = link_to link_text, new_dataset_dataset_review_path(@dataset)
 
   - if current_user && @object.editable_by?(current_user)
     - if @object.is_a? Dataset
       .small-spacer
-      = render 'datasets/links'
+      = render "datasets/links"
     - elsif @object.is_a? Tool
       .small-spacer
       .center
-        = link_to 'Sync', sync_tool_path(@object), class: 'btn btn-xs btn-default'
+        = link_to "Sync", sync_tool_path(@object), class: "btn btn-sm btn-light"
     .small-spacer

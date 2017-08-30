@@ -141,14 +141,14 @@
 
   .row
     .col-sm-4
-      = link_to submissions_path, class: 'btn btn-lg btn-default btn-block' do
-        %span.glyphicon.glyphicon-arrow-left
+      = link_to submissions_path, class: 'btn btn-lg btn-light btn-block' do
+        %i.fa.fa-caret-left
         Back to my Submissions
     .col-sm-4
-      = link_to '#', data: { object: 'submit-draft', target: '#create_step_form' }, class: 'btn btn-lg btn-warning btn-block' do
-        %span.glyphicon.glyphicon-floppy-disk
+      = link_to '#', data: { object: 'submit-draft', target: '#create_step_form' }, class: 'btn btn-lg btn-outline-success btn-block' do
+        %i.fa.fa-floppy-o
         Save Draft
     .col-sm-4
-      = link_to '#', data: { object: 'submit', target: '#create_step_form' }, class: 'btn btn-lg btn-primary btn-block' do
+      = link_to '#', data: { object: 'submit', target: '#create_step_form' }, class: 'btn btn-lg btn-success btn-block' do
         Save and Continue
-        %span.glyphicon.glyphicon-arrow-right
+        %i.fa.fa-caret-right

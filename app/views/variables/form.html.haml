@@ -21,7 +21,7 @@
     - elsif @form.viewable_by_user?(current_user)
       %div{ style: 'position:relative' }
         %div{ style: 'position:absolute; top: -30px; right: 0' }
-          = link_to direct_download, class: 'btn btn-default btn-xs' do
+          = link_to direct_download, class: 'btn btn-light btn-sm' do
             %span.glyphicon.glyphicon-save
             = @form.code_book
       - if @form.pdf?

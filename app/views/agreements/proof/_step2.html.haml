@@ -30,11 +30,11 @@
     %td
       - if @agreement.secured_device?
         %span.text-success
-          %span.glyphicon.glyphicon-ok
+          %i.fa.fa-check-square-o
           Has attested that data will be stored on a secure password protected device.
       - else
         %span.text-danger
-          %span.glyphicon.glyphicon-remove
+          %i.fa.fa-ban
           Has NOT attested that data will be stored on a secure password protected device.
 
   %tr
@@ -42,9 +42,9 @@
     %td
       - if @agreement.human_subjects_protections_trained?
         %span.text-success
-          %span.glyphicon.glyphicon-ok
+          %i.fa.fa-check-square-o
           Has attested to completing a Human Subjects Protections Training Course.
       - else
         %span.text-danger
-          %span.glyphicon.glyphicon-remove
+          %i.fa.fa-ban
           Has NOT attested to completing a Human Subjects Protections Training Course.

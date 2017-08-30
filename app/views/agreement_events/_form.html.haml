@@ -8,8 +8,8 @@
       .comment-header
         - unless @agreement_event.new_record?
           .pull-right
-            = link_to 'Cancel', agreement_agreement_event_path(@agreement, @agreement_event), remote: true, method: :get, class: 'btn btn-default btn-xs'
-            = link_to "##{@agreement_event.number}", "#c#{@agreement_event.number}", class: 'btn btn-link btn-xs'
+            = link_to 'Cancel', agreement_agreement_event_path(@agreement, @agreement_event), remote: true, method: :get, class: 'btn btn-light btn-sm'
+            = link_to "##{@agreement_event.number}", "#c#{@agreement_event.number}", class: 'btn btn-link btn-sm'
         %strong= @agreement_event.user.forum_name
         = link_to (@agreement_event.new_record? ? 'Write' : 'Edit'), '#', data: { object: 'view-agreement-event', action: 'write', agreement_event_id: agreement_event_id }, class: 'comment-tab active', tabindex: '-1'
         = link_to 'Preview', '#', data: { object: 'view-agreement-event view-agreement-event-preview', action: 'preview', agreement_event_id: agreement_event_id, agreement_id: @agreement_event.agreement_id }, class: 'comment-tab', tabindex: '-1'

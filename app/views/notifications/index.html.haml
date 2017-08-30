@@ -12,9 +12,9 @@
   .col-sm-2
     .row
       .col-xs-6.col-sm-12
-        = link_to 'Unread', notifications_path, class: "btn btn-block btn-shadow #{current_page?(notifications_path) && params[:all] != '1' ? 'btn-primary' : 'btn-default' }", style: 'margin-bottom: 10px'
+        = link_to 'Unread', notifications_path, class: "btn btn-block btn-shadow #{current_page?(notifications_path) && params[:all] != '1' ? 'btn-primary' : 'btn-light' }", style: 'margin-bottom: 10px'
       .col-xs-6.col-sm-12
-        = link_to 'All', notifications_path(all: '1'), class: "btn btn-block btn-shadow #{current_page?(notifications_path) && params[:all] == '1' ? 'btn-primary' : 'btn-default' }"
+        = link_to 'All', notifications_path(all: '1'), class: "btn btn-block btn-shadow #{current_page?(notifications_path) && params[:all] == '1' ? 'btn-primary' : 'btn-light' }"
   .col-sm-10
     - if @notifications.count > 0
       - @notifications.where.not(broadcast_id: nil).order(created_at: :desc).includes(:broadcast, :reply).group_by(&:broadcast).each do |broadcast, notifications|
@@ -31,7 +31,7 @@
               %th.hidden-xs
               %th
                 = link_to mark_all_as_read_notifications_path(broadcast_id: broadcast.id), method: :patch, remote: true, class: 'text-muted' do
-                  %span.glyphicon.glyphicon-ok
+                  %i.fa.fa-check
           %tbody
             - notifications.each do |notification|
               %tr{ id: "notification_#{notification.id}"}
@@ -50,7 +50,7 @@
               %th.hidden-xs
               %th
                 = link_to mark_all_as_read_notifications_path(topic_id: topic.id), method: :patch, remote: true, class: 'text-muted' do
-                  %span.glyphicon.glyphicon-ok
+                  %i.fa.fa-check
           %tbody
             - notifications.each do |notification|
               %tr{ id: "notification_#{notification.id}"}
@@ -69,7 +69,7 @@
               %th.hidden-xs
               %th
                 = link_to mark_all_as_read_notifications_path(community_tool_id: community_tool.id), method: :patch, remote: true, class: 'text-muted' do
-                  %span.glyphicon.glyphicon-ok
+                  %i.fa.fa-check
           %tbody
             - notifications.each do |notification|
               %tr{ id: "notification_#{notification.id}"}
@@ -88,7 +88,7 @@
               %th.hidden-xs
               %th
                 = link_to mark_all_as_read_notifications_path(dataset_id: dataset.id), method: :patch, remote: true, class: 'text-muted' do
-                  %span.glyphicon.glyphicon-ok
+                  %i.fa.fa-check
           %tbody
             - notifications.each do |notification|
               %tr{ id: "notification_#{notification.id}"}
@@ -107,7 +107,7 @@
               %th.hidden-xs
               %th
                 = link_to mark_all_as_read_notifications_path(hosting_request_id: hosting_request.id), method: :patch, remote: true, class: 'text-muted' do
-                  %span.glyphicon.glyphicon-ok
+                  %i.fa.fa-check
           %tbody
             - notifications.each do |notification|
               %tr{ id: "notification_#{notification.id}"}

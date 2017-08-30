@@ -4,7 +4,7 @@
 .code-container
   %span.code-command-blank
     = link_to '#', data: { object: 'suppress-click', clipboard_text: "nsrr download #{@local_folder}", placement: 'bottom', container: 'body', title: 'Copied!', trigger: 'manual' }, style: 'text-decoration: none' do
-      %span.glyphicon.glyphicon-copy
+      %i.fa.fa-clipboard
     nsrr download
     = @local_folder
 

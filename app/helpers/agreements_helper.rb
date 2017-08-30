@@ -15,32 +15,32 @@ module AgreementsHelper
 
   def step_helper(agreement, step, selected_step)
     if step == selected_step
-      'accent'
+      "btn-dark"
     elsif step == 6
-      'default'
+      "btn-light"
     elsif agreement.step_valid?(step)
-      'primary'
+      "btn-dark"
     else
-      'default'
+      "btn-light"
     end
   end
 
   def step_helper_2(agreement, step)
     if step != 6 && agreement.step_valid?(step)
-      'check text-success'
+      "fa-check-square-o"
     else
-      'unchecked'
+      "fa-square-o"
     end
   end
 
   def status_hash
     {
-      'started' => 'warning',
-      'submitted' => 'info',
-      'approved' => 'success',
-      'resubmit' => 'danger',
-      'expired' => 'default',
-      'closed' => 'danger'
+      "started" => "warning",
+      "submitted" => "info",
+      "approved" => "success",
+      "resubmit" => "danger",
+      "expired" => "default",
+      "closed" => "danger"
     }
   end
 end

@@ -3,14 +3,14 @@
     .container
       %h1.page-heading
         = @dataset.name
-      .hidden-xs{ style: 'margin-top: 20px;' }
+      .hidden-xs{ style: "margin-top: 20px;" }
         .row
           .col-sm-4.col-buffer
-            = link_to 'Documentation', @dataset, class: "btn btn-block btn-#{params[:action] == 'pages' || current_page?(@dataset) ? 'accent' : 'default'}"
+            = link_to "Documentation", @dataset, class: "btn btn-block #{params[:action] == "pages" || current_page?(@dataset) ? "btn-light" : "btn-outline-dark"}"
           .col-sm-4.col-buffer
-            = link_to 'Files', files_dataset_path(@dataset), class: "btn btn-block btn-#{params[:action] == 'files' ? 'accent' : 'default'}"
+            = link_to "Files", files_dataset_path(@dataset), class: "btn btn-block #{params[:action] == "files" ? "btn-light" : "btn-outline-dark"}"
           .col-sm-4
-            = link_to 'Variables', dataset_variables_path(@dataset), class: "btn btn-block btn-#{params[:controller] == 'variables' ? 'accent' : 'default'}"
+            = link_to "Variables", dataset_variables_path(@dataset), class: "btn btn-block #{params[:controller] == "variables" ? "btn-light" : "btn-outline-dark"}"
 
   - if @variable && @dataset.dataset_version && @variable.dataset_version_id != @dataset.dataset_version_id
     .flash-alert
@@ -21,5 +21,5 @@
         for historical purposes only. The latest version
         %code= "v#{@dataset.dataset_version.version}"
         is
-        = succeed '.' do
-          = link_to 'available here', [@dataset, @variable], class: 'alert-link'
+        = succeed "." do
+          = link_to "available here", [@dataset, @variable], class: "alert-link"

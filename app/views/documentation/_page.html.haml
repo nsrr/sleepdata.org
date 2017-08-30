@@ -5,39 +5,45 @@
 
 - content_for :header do
   .breadcrumb-container
-    .container{ style: 'position: relative;' }
-      .hidden-xs{ style: 'position: absolute; top: -5.5px; right: 15px' }
-        %ul#show-page-button.pagination.pagination-sm{ style: "margin: 0; #{'display:none' if cookies[:hide_page_list] != '1'}" }
-          %li= link_to '&laquo; Show Menu'.html_safe, '#', data: { object: 'set-cookie toggle-page-list', cookie_key: 'hide_page_list', cookie_value: '0' }
-        %ul#hide-page-button.pagination.pagination-sm{ style: "margin: 0; #{'display:none' if cookies[:hide_page_list] == '1'}" }
-          %li= link_to 'Hide Menu &raquo;'.html_safe, '#', data: { object: 'set-cookie toggle-page-list', cookie_key: 'hide_page_list', cookie_value: '1' }
+    .container{ style: "position: relative;" }
+      .hidden-xs{ style: "position: absolute; top: -5.5px; right: 15px" }
+        %ul#show-page-button.pagination.pagination-sm.m-0{ style: "#{"display:none" if cookies[:hide_page_list] != "1"}" }
+          %li.page-item
+            = link_to "#", data: { object: "set-cookie toggle-page-list", cookie_key: "hide_page_list", cookie_value: "0" }, class: "page-link" do
+              %i.fa.fa-caret-left
+              Show Menu
+        %ul#hide-page-button.pagination.pagination-sm.m-0{ style: "#{"display:none" if cookies[:hide_page_list] == "1"}" }
+          %li.page-item
+            = link_to "#", data: { object: "set-cookie toggle-page-list", cookie_key: "hide_page_list", cookie_value: "1" }, class: "page-link" do
+              Hide Menu
+              %i.fa.fa-caret-right
       %ol
         %li= link_to object.slug, object
-        %li= link_to_if !@path.blank?, 'pages', pages_path
+        %li= link_to_if !@path.blank?, "pages", pages_path
         - unless @path.blank?
-          - @path.to_s.split('/')[0..-2].each_with_index do |folder, index|
-            - url = pages_path + '/' + @path.to_s.split('/')[0..index].join('/')
+          - @path.to_s.split("/")[0..-2].each_with_index do |folder, index|
+            - url = pages_path + "/" + @path.to_s.split("/")[0..index].join("/")
             %li= link_to folder, url
-          %li= @path.to_s.split('/').last
+          %li= @path.to_s.split("/").last
 
 - if @page_path && File.file?(@page_path) && File.size(@page_path) < 1.megabyte
   .row
-    #documentation-content{ class: "#{cookies[:hide_page_list] == '1' ? 'col-sm-12' : 'col-sm-9'}"}
-      = render 'documentation/render_page', page_path: @page_path, path: @path
-    #sidebar-content.hidden-xs{ class: "#{cookies[:hide_page_list] == '1' ? '' : 'col-sm-3'}"}
-      - @path = @path.to_s.split('/')[0..-2].join('/')
-      = render 'documentation/pages_list', pages_path: pages_path
+    #documentation-content{ class: "#{cookies[:hide_page_list] == "1" ? "col-sm-12" : "col-sm-9"}"}
+      = render "documentation/render_page", page_path: @page_path, path: @path
+    #sidebar-content.hidden-xs{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-sm-3"}"}
+      - @path = @path.to_s.split("/")[0..-2].join("/")
+      .menu-sticky= render "documentation/pages_list", pages_path: pages_path
 - elsif @page_path && File.directory?(@page_path)
   .row
-    #documentation-content{ class: "#{cookies[:hide_page_list] == '1' ? 'col-sm-12' : 'col-sm-9'}"}
-      - if File.exist?(File.join(@page_path, 'README.md'))
-        = render 'documentation/render_page', page_path: File.join(@page_path, 'README.md'), path: 'README.md'
+    #documentation-content{ class: "#{cookies[:hide_page_list] == "1" ? "col-sm-12" : "col-sm-9"}"}
+      - if File.exist?(File.join(@page_path, "README.md"))
+        = render "documentation/render_page", page_path: File.join(@page_path, "README.md"), path: "README.md"
       - elsif object.pages(@path).find { |_name, f| File.file?(f) }
         - first_page = object.pages(@path).find { |_name, f| File.file?(f) }
-        = render 'documentation/render_page', page_path: first_page[1], path: first_page[0]
+        = render "documentation/render_page", page_path: first_page[1], path: first_page[0]
       - elsif object.pages(@path).size == 0
-        = render 'documentation/nodoc'
-    #sidebar-content.hidden-xs{ class: "#{cookies[:hide_page_list] == '1' ? '' : 'col-sm-3'}"}
-      = render 'documentation/pages_list', pages_path: pages_path
+        = render "documentation/nodoc"
+    #sidebar-content.hidden-xs{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-sm-3"}"}
+      .menu-sticky= render "documentation/pages_list", pages_path: pages_path
 - else
-  = render 'documentation/nodoc'
+  = render "documentation/nodoc"

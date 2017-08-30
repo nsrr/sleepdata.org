@@ -1,16 +1,22 @@
+.page-box-padding,
+.page-box {
+  padding: 20px 0;
+}
+
 .page-box {
   min-height: 960px;
-  padding: 20px 0;
   position: relative;
 }
 
 @include media-breakpoint-up(md) {
+  .page-box-padding,
   .page-box {
     padding: 30px 0;
   }
 }
 
 @include media-breakpoint-up(lg) {
+  .page-box-padding,
   .page-box {
     padding: 40px 0;
   }

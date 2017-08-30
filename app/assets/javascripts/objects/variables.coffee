@@ -38,7 +38,7 @@
     $('#chart-container').html('')
 
 @toggleVariableButtonClasses = (element) ->
-  $('[data-object~="variable-chart-button"]').removeClass('btn-primary').addClass('btn-default')
+  $('[data-object~="variable-chart-button"]').removeClass('btn-primary').addClass('btn-light')
   $("[data-object~='variable-chart-button'][data-chart-type~='#{$(element).data('chart-type')}']").addClass('btn-primary')
 
 @variablesReady = ->

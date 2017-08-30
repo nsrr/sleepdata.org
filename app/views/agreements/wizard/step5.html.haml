@@ -1,8 +1,8 @@
-= render 'agreements/wizard/daua_progress'
+= render "agreements/wizard/daua_progress"
 
 %h2.center.brand EVIDENCE OF IRB REVIEW
 
-= form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, multipart: true, html: { class: 'form-vertical', id: 'update_step_form' } do |f|
+= form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, multipart: true, html: { class: "form-vertical", id: "update_step_form" } do |f|
   - if @agreement.errors.any?
     .callout.callout-danger
       %strong
@@ -34,7 +34,7 @@
           .form-group
             .radio
               %label
-                = f.radio_button :irb_evidence_type, 'has_evidence'
+                = f.radio_button :irb_evidence_type, "has_evidence"
                 Please attach evidence of IRB review. It is expected the
                 document attached shows the IRB has either a) performed a review
                 of the project and issued an approval, or b) declared that the
@@ -43,18 +43,18 @@
           .form-group
             - if @agreement.irb.size > 0
               .callout.callout-default
-                = link_to download_irb_agreement_path(@agreement), target: '_blank' do
-                  %span.glyphicon.glyphicon-file
-                  = @agreement.irb.to_s.split('/').last
+                = link_to download_irb_agreement_path(@agreement), target: "_blank" do
+                  %i.fa.fa-file-o
+                  = @agreement.irb.to_s.split("/").last
                 %tt= number_to_human_size @agreement.irb.size
 
-            = f.label :irb, 'Evidence of IRB review (PDF)', class: 'control-label'
+            = f.label :irb, "Evidence of IRB review (PDF)", class: "control-label"
 
-            = f.file_field :irb, class: 'form-control'
+            = f.file_field :irb, class: "form-control"
             .callout.callout-info
               %strong IRB Information
               %br
-              = link_to irb_assistance_path, target: '_blank' do
+              = link_to irb_assistance_path, target: "_blank" do
                 %span.glyphicon.glyphicon-link
                 IRB Submission Information for the NSRR
 
@@ -66,8 +66,8 @@
           .form-group
             .radio
               %label
-                = f.radio_button :irb_evidence_type, 'no_evidence'
-                I don't have IRB Review, and would like the NSRR Internal Review
+                = f.radio_button :irb_evidence_type, "no_evidence"
+                I don"t have IRB Review, and would like the NSRR Internal Review
                 Committee to conduct the review.
                 %strong Please allow 2 to 3 weeks for review.
                 Select this to fill out the online request form if you would
@@ -78,14 +78,14 @@
 
   .row
     .col-sm-4
-      = link_to step_agreement_path(@agreement, step: @step-1), class: 'btn btn-lg btn-default btn-block' do
-        %span.glyphicon.glyphicon-arrow-left
+      = link_to step_agreement_path(@agreement, step: @step-1), class: "btn btn-lg btn-light btn-block" do
+        %i.fa.fa-caret-left
         Back to Previous Step
     .col-sm-4
-      = link_to '#', data: { object: 'submit-draft', target: '#update_step_form' }, class: 'btn btn-lg btn-warning btn-block' do
-        %span.glyphicon.glyphicon-floppy-disk
+      = link_to "#", data: { object: "submit-draft", target: "#update_step_form" }, class: "btn btn-lg btn-outline-success btn-block" do
+        %i.fa.fa-floppy-o
         Save Draft
     .col-sm-4
-      = link_to '#', data: { object: 'submit', target: '#update_step_form' }, class: 'btn btn-lg btn-primary btn-block' do
-        %span.glyphicon.glyphicon-floppy-disk
+      = link_to "#", data: { object: "submit", target: "#update_step_form" }, class: "btn btn-lg btn-success btn-block" do
         Save and Continue
+        %i.fa.fa-caret-right

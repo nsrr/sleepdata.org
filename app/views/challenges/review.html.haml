@@ -13,7 +13,7 @@
   %h3
     Signal
     = signal
-    = link_to 'edit answers', signal_challenge_path(@challenge, signal), class: 'btn btn-xs btn-default'
+    = link_to 'edit answers', signal_challenge_path(@challenge, signal), class: 'btn btn-sm btn-light'
 
   = image_tag images_challenge_path(@challenge, path: @challenge.signal_name(signal)), style: 'width: 100%;'
 

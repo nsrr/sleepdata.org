@@ -1,1 +1,16 @@
-menu.scss
+.menu-sticky {
+  position: sticky;
+  top: $header-height + 20px;
+}
+
+@include media-breakpoint-up(md) {
+  .menu-sticky {
+    top: $header-height + 30px;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .menu-sticky {
+    top: $header-height + 40px;
+  }
+}

@@ -7,7 +7,7 @@
     = text_field_tag 's', params[:s], class: 'form-control', placeholder: "Search #{@dataset.slug.upcase}"
     .input-group-btn
       = submit_tag 'Search', class: 'btn btn-primary', name: nil
-      = link_to 'Reset', search_dataset_path(@dataset), class: 'btn btn-default'
+      = link_to 'Reset', search_dataset_path(@dataset), class: 'btn btn-light'
 
 - if @results.blank?
   .jumbotron

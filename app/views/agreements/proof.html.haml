@@ -12,7 +12,7 @@
     %div{ style: 'font-size: 20px;border-bottom: 1px solid #ededed;padding-bottom: 10px;margin-bottom: 20px;' }
       Step
       = step
-      = link_to "Edit Step #{step}", step_agreement_path(@agreement, step: step), class: 'btn btn-xs btn-accent btn-shadow'
+      = link_to "Edit Step #{step}", step_agreement_path(@agreement, step: step), class: 'btn btn-sm btn-accent btn-shadow'
 
     - unless @agreement.step_valid?(step)
       .text-danger{ style: 'margin-bottom: 20px;' }
@@ -24,15 +24,15 @@
 = form_for @agreement, url: final_submission_agreement_path(@agreement), method: :patch, html: { class: 'form-horizontal', id: 'final_submission_form' } do |f|
   .row
     .col-sm-6
-      = link_to submissions_path, class: 'btn btn-lg btn-default btn-block' do
-        %span.glyphicon.glyphicon-arrow-left
+      = link_to submissions_path, class: 'btn btn-lg btn-light btn-block' do
+        %i.fa.fa-caret-left
         Back to Submissions
     .col-sm-6
       - if @agreement.fully_filled_out?
         = link_to '#', data: { object: 'submit-and-disable', target: '#final_submission_form' }, class: 'btn btn-lg btn-primary btn-block' do
-          %span.glyphicon.glyphicon-cloud-upload
+          %i.fa.fa-cloud-upload
           Submit Application
       - else
-        = link_to '#', data: { object: 'suppress-click' }, class: 'btn btn-lg btn-warning btn-block', disabled: true do
-          %span.glyphicon.glyphicon-warning-sign
+        = link_to '#', data: { object: 'suppress-click' }, class: 'btn btn-lg btn-warning btn-block disabled', disabled: true do
+          %i.fa.fa-exclamation-triangle
           Complete All Steps Before Submitting

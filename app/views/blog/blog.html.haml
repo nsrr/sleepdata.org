@@ -1,12 +1,12 @@
-- @title = ['Blog', @category ? @category.name : nil, @author ? @author.forum_name : nil].compact.join(' | ')
+- @title = ["Blog", @category ? @category.name : nil, @author ? @author.forum_name : nil].compact.join(" | ")
 
-= render 'layouts/survey_link'
+= render "layouts/survey_link"
 
 .row
   .col-sm-9
     - @broadcasts.each do |broadcast|
       %h2.broadcast-title= link_to broadcast.title, blog_post_path(broadcast.url_hash)
-      = render 'blog/extract', broadcast: broadcast
-    .center= paginate @broadcasts, theme: 'bootstrap'
+      = render "blog/extract", broadcast: broadcast
+    .center= paginate @broadcasts, theme: "bootstrap"
   .col-sm-3
-    = render 'blog/menu'
+    .menu-sticky= render "blog/menu"

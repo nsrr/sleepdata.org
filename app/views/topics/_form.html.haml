@@ -72,4 +72,4 @@
 
     .form-group
       = f.submit (@topic.new_record? ? 'Create Topic' : 'Update Topic'), class: 'btn btn-primary'
-      = link_to 'Cancel', (@topic.new_record? ? topics_path : @topic), class: 'btn btn-default'
+      = link_to 'Cancel', (@topic.new_record? ? topics_path : @topic), class: 'btn btn-light'

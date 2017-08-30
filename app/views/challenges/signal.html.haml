@@ -13,7 +13,7 @@
             = @challenge.signal_count
             - last_question = @challenge.questions.order(:name).last
             - if current_user.answers.where(challenge_id: @challenge.id, question_id: last_question.id).where.not(response: nil).count > 0
-              = link_to 'Return to Review', review_challenge_path(@challenge), class: 'btn btn-xs btn-default'
+              = link_to 'Return to Review', review_challenge_path(@challenge), class: 'btn btn-sm btn-light'
 
   #affix-container{ style: 'height: 300px; width: 100%;' }
     .container{ style: 'top: 51px;background-color: #fff;', data: { object: 'signal-affix' } }
@@ -39,22 +39,22 @@
             = letter
           %td
             %p{ data: { toggle: 'buttons' } }
-              %label.btn.challenge-btn-default-to-success{ class: "#{'active' if answer.response == 'yes'}", style: 'min-width:77px' }
+              %label.btn.challenge-btn-light-to-success{ class: "#{'active' if answer.response == 'yes'}", style: 'min-width:77px' }
                 = radio_button_tag question_name, 'yes', answer.response == 'yes'
                 Yes
-              %label.btn.challenge-btn-default-to-danger{ class: "#{'active' if answer.response == 'no'}", style: 'min-width:77px' }
+              %label.btn.challenge-btn-light-to-danger{ class: "#{'active' if answer.response == 'no'}", style: 'min-width:77px' }
                 = radio_button_tag question_name, 'no', answer.response == 'no'
                 No
-              %label.btn.challenge-btn-default-to-warning{ class: "#{'active' if answer.response == 'intermediate'}", style: 'min-width:160px' }
+              %label.btn.challenge-btn-light-to-warning{ class: "#{'active' if answer.response == 'intermediate'}", style: 'min-width:160px' }
                 = radio_button_tag question_name, 'intermediate', answer.response == 'intermediate'
                 Intermediate
-              %label.btn.challenge-btn-default-to-dark{ class: "#{'active' if answer.response == 'unscorable'}", style: 'min-width:160px' }
+              %label.btn.challenge-btn-light-to-dark{ class: "#{'active' if answer.response == 'unscorable'}", style: 'min-width:160px' }
                 = radio_button_tag question_name, 'unscorable', answer.response == 'unscorable'
                 Unscorable / Artifact
 
   .center
     - unless @signal == 1
-      = link_to signal_challenge_path(@challenge, signal: @signal - 1), class: 'btn btn-default btn-lg' do
+      = link_to signal_challenge_path(@challenge, signal: @signal - 1), class: 'btn btn-light btn-lg' do
         &laquo; Previous Signal
       &nbsp;
     = link_to '#', class: 'btn btn-primary btn-lg', data: { object: 'submit', target: '#signal-form' } do

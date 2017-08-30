@@ -14,4 +14,4 @@
     = current_user.id_and_auth_token
   %code.code-copy
     = link_to '#', data: { object: 'suppress-click', clipboard_text: current_user.id_and_auth_token, placement: 'bottom', container: 'body', title: 'Copied!', trigger: 'manual' } do
-      %span.glyphicon.glyphicon-copy
+      %i.fa.fa-clipboard

@@ -1,14 +1,14 @@
 - agreement.reviews.each do |review|
   - case review.approved when true
-    - glyphicon = 'thumbs-up'
-    - label = 'success'
+    - fa = "fa-thumbs-up"
+    - badge = "badge-success"
   - when false
-    - glyphicon = 'thumbs-down'
-    - label = 'danger'
+    - fa = "fa-thumbs-down"
+    - badge = "badge-danger"
   - else
-    - glyphicon = 'flash'
-    - label = 'default'
-  %span.label{ class: "label-#{label}" }
+    - fa = "fa-bolt"
+    - badge = "badge-light"
+  %span.badge{ class: badge }
     = review.user.initials
-    %span.glyphicon{ class: "glyphicon-#{glyphicon}" }
+    %i.fa{ class: fa }
   &nbsp;

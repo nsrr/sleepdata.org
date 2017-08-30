@@ -10,7 +10,7 @@
         .pull-right
           = render 'layouts/edit_delete_dropdown', edit_url: edit_user_path(@user), delete_url: @user, delete_confirmation: "Delete #{@user.name}?"
         = @title
-  .breadcrumb-container{ style: 'margin-bottom: 0;' }
+  .breadcrumb-container.mb-0
     .container
       %ol
         %li= link_to 'Users', users_path
@@ -89,7 +89,7 @@
       %th.text-right
         Agreements
       %td
-        %table.table.table-condensed.table-striped
+        %table.table.table-sm.table-striped
           %thead
             %tr
               %th ID

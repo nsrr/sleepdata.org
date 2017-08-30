@@ -2,7 +2,7 @@
 
 module ApplicationHelper
   def cancel
-    link_to 'Cancel', URI.parse(request.referer.to_s).path.blank? ? root_path : (URI.parse(request.referer.to_s).path), class: 'btn btn-default'
+    link_to 'Cancel', URI.parse(request.referer.to_s).path.blank? ? root_path : (URI.parse(request.referer.to_s).path), class: 'btn btn-light'
   end
 
   def simple_check(checked)

@@ -10,7 +10,7 @@
         .pull-right
           = render 'layouts/edit_delete_dropdown', edit_url: edit_tag_path(@tag), delete_url: @tag, delete_confirmation: "Delete #{@tag.name}?"
         = @title
-  .breadcrumb-container{ style: 'margin-bottom: 0;' }
+  .breadcrumb-container.mb-0
     .container
       .pull-right
         %span.label.label-default{ style: "background-color: #{@tag.color};" }

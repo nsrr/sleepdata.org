@@ -10,7 +10,7 @@
         .pull-right
           = render 'layouts/edit_delete_dropdown', edit_url: edit_category_path(@category), delete_url: @category, delete_confirmation: "Delete #{@category.name}?"
         = @title
-  .breadcrumb-container{ style: 'margin-bottom: 0;' }
+  .breadcrumb-container.mb-0
     .container
       %ol
         %li= link_to 'Categories', categories_path

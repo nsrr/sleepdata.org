@@ -9,8 +9,8 @@
   }
 }
 
-.code-command,
 .code-command-blank {
+  background-color: $p100-grey;
   border: 1px solid $p200-grey;
   border-radius: 5px;
   font-family: Monaco, Menlo, Consolas, 'Courier New', monospace;
@@ -21,16 +21,9 @@
 }
 
 @media screen and (min-width: 768px) {
-  .code-command,
   .code-command-blank {
     font-size: 21px;
   }
-}
-
-.code-command::before {
-  color: $p200-grey;
-  content: '\e205';
-  font-family: 'Glyphicons Halflings';
 }
 
 .code-dark {

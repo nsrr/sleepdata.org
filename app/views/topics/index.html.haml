@@ -46,12 +46,12 @@
                     %fa.fa.fa-comments-o
               - elsif topic.last_page > 1
                 %span.hidden-xs
-                  = link_to "1", topic, class: "btn btn-xs btn-default"
+                  = link_to "1", topic, class: "btn btn-sm btn-light"
                   \...
-                  = link_to topic.last_page, page_topic_path(topic, page: topic.last_page), class: "btn btn-xs btn-default"
+                  = link_to topic.last_page, page_topic_path(topic, page: topic.last_page), class: "btn btn-sm btn-light"
             =# image_tag topic.user.avatar_url(16, "identicon"), alt: "", style: "max-height:#{16+3}px;border-radius:4px", title: topic.user.forum_name, rel: "tooltip", data: { container: "body", placement: "top" }
             - if current_user && current_user.system_admin? && topic.user.shadow_banned?
-              %span.glyphicon.glyphicon-eye-close.text-muted
+              %i.fa.fa-eye-slash.text-muted
             - if topic.pinned?
               %span.glyphicon.glyphicon-pushpin.text-muted
             - if next_unread_reply

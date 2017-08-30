@@ -3,7 +3,7 @@
 
 .row
   .col-sm-3
-    = render 'internal/profile'
+    = render "internal/profile"
 
   .col-sm-9
     .dashboard-container
@@ -15,10 +15,10 @@
         submit and complete a newly started agreement.
       %p
         If you need any help, you may send us an email at
-        = succeed '.' do
-          = mail_to 'support@sleepdata.org'
+        = succeed "." do
+          = mail_to "support@sleepdata.org"
 
-      = link_to 'Start A New Data Access Request', submissions_start_path, class: 'btn btn-primary btn-block'
+      = link_to "Start A New Data Access Request", submissions_start_path, class: "btn btn-primary btn-block"
 
 
     - current_user.agreements.order(id: :desc).each do |agreement|
@@ -26,29 +26,29 @@
         .dashboard-title
           - if agreement.deletable?
             .pull-right
-              = link_to destroy_submission_agreement_path(agreement), class: 'btn btn-xs btn-danger-inverse', method: :delete, data: { confirm: "Delete Agreement ##{agreement.agreement_number}?" } do
-                %span.glyphicon.glyphicon-trash
+              = link_to destroy_submission_agreement_path(agreement), class: "btn btn-sm btn-outline-danger", method: :delete, data: { confirm: "Delete Agreement ##{agreement.agreement_number}?" } do
+                %i.fa.fa-trash
                 %span.hidden-xs Delete
 
           %strong
             Agreement
-            = precede '#' do
+            = precede "#" do
               = agreement.agreement_number
 
-          = succeed ' ' do
-            = link_to print_agreement_path(agreement), class: 'btn btn-xs btn-default', data: { turbolinks: false } do
-              %span.glyphicon.glyphicon-print
+          = succeed " " do
+            = link_to print_agreement_path(agreement), class: "btn btn-sm btn-light", data: { turbolinks: false } do
+              %i.fa.fa-print
               %span.hidden-xs Print
 
           - if agreement.submittable?
             - if agreement.fully_filled_out?
-              = link_to proof_agreement_path(agreement), class: 'btn btn-xs btn-accent' do
+              = link_to proof_agreement_path(agreement), class: "btn btn-sm btn-accent" do
                 Resume
-                %span.glyphicon.glyphicon-arrow-right
+                %i.fa.fa-caret-right
             - else
-              = link_to step_agreement_path(agreement, step: agreement.current_step), class: 'btn btn-xs btn-accent' do
+              = link_to step_agreement_path(agreement, step: agreement.current_step), class: "btn btn-sm btn-accent" do
                 Resume
-                %span.glyphicon.glyphicon-arrow-right
+                %i.fa.fa-caret-right
 
         %table.table.table-striped.table-borderless
           - if agreement.under_review?
@@ -57,7 +57,7 @@
                 %strong Status
               %td
                 This submission is currently
-                = succeed '.' do
+                = succeed "." do
                   %strong under review
           - elsif agreement.approved?
             %tr
@@ -65,36 +65,36 @@
                 %strong Status
               %td
                 Your data access request was
-                = succeed '.' do
+                = succeed "." do
                   %strong approved
-                  = agreement.approval_date.strftime('on %-d %B %Y') if agreement.approval_date
+                  = agreement.approval_date.strftime("on %-d %B %Y") if agreement.approval_date
             %tr
               %td.text-right
                 %strong Status
               %td
                 - if agreement.expiration_date
                   This agreement expires
-                  = succeed '.' do
-                    = agreement.expiration_date.strftime('on %-d %B %Y')
-          - elsif agreement.status == 'expired'
+                  = succeed "." do
+                    = agreement.expiration_date.strftime("on %-d %B %Y")
+          - elsif agreement.status == "expired"
             %tr
               %td.text-right
                 %strong Status
               %td
                 Your data access request
-                = succeed '.' do
+                = succeed "." do
                   %strong expired
-                  = agreement.expiration_date.strftime(' on %-d %B %Y') if agreement.expiration_date
+                  = agreement.expiration_date.strftime(" on %-d %B %Y") if agreement.expiration_date
                 = link_to renew_agreement_path(agreement) do
                   Renew
-                  %span.glyphicon.glyphicon-arrow-right
-          - elsif agreement.status == 'closed'
+                  %i.fa.fa-caret-right
+          - elsif agreement.status == "closed"
             %tr
               %td.text-right
                 %strong Status
               %td
                 Your data access request has been
-                = succeed '.' do
+                = succeed "." do
                   %strong closed
           - else
             %tr
@@ -109,11 +109,11 @@
                 - (1..6).each do |step|
                   - current_step = (step == 1 ? 2 : agreement.current_step)
                   - if agreement.step_valid?(step) && step != 6 && step != current_step
-                    = succeed ' ' do
-                      = link_to step_agreement_path(agreement, step: step), class: 'btn btn-default' do
+                    = succeed " " do
+                      = link_to step_agreement_path(agreement, step: step), class: "btn btn-dark" do
                         %i.fa.fa-check-circle.text-success
                   - else
-                    = link_to step, step_agreement_path(agreement, step: step), class: "btn btn-#{step_helper(agreement, step, current_step)}"
+                    = link_to step, step_agreement_path(agreement, step: step), class: "btn #{step_helper(agreement, step, current_step)}"
 
           - if agreement.datasets.count > 0
             %tr
@@ -122,7 +122,7 @@
               %td
                 - agreement.datasets.order(:release_date).each do |dataset|
                   = dataset.slug
-          - if agreement.under_review? || agreement.approved? || agreement.status == 'expired'
+          - if agreement.under_review? || agreement.approved? || agreement.status == "expired"
             %tr
               - if agreement.resubmitted_at
                 %td.text-right
@@ -135,7 +135,7 @@
                 %td
                   = agreement.submitted_at.strftime("%-d %B %Y, %-l:%M %p (%H:%M)")
 
-        - if agreement.status == 'resubmit'
+        - if agreement.status == "resubmit"
           %p.text-danger
             = agreement.comments
 

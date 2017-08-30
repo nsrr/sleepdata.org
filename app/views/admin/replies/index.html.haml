@@ -25,7 +25,7 @@
         %tr
           %td.hidden-xs.hidden-sm.center
             - if reply.deleted?
-              %span.glyphicon.glyphicon-eye-close{ rel: 'tooltip', data: { title: 'Deleted', container: 'body', placement: 'left' } }
+              %i.fa.fa-eye-slash{ rel: 'tooltip', data: { title: 'Deleted', container: 'body', placement: 'left' } }
           %td.hidden-xs.hidden-sm.center
             - symbol = '+' if reply.rank >= 0
             = "#{symbol}#{reply.rank}"

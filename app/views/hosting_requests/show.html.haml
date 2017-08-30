@@ -10,7 +10,7 @@
         .pull-right
           = render 'layouts/edit_delete_dropdown', edit_url: edit_hosting_request_path(@hosting_request), delete_url: @hosting_request, delete_confirmation: "Delete #{@hosting_request.name}?"
         = @title
-  .breadcrumb-container{ style: 'margin-bottom: 0;' }
+  .breadcrumb-container.mb-0
     .container
       %ol
         %li= link_to 'Hosting Requests', hosting_requests_path
