@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 json.version do
-  json.string WwwSleepdataOrg::VERSION::STRING
-  json.major WwwSleepdataOrg::VERSION::MAJOR
-  json.minor WwwSleepdataOrg::VERSION::MINOR
-  json.tiny WwwSleepdataOrg::VERSION::TINY
-  json.build WwwSleepdataOrg::VERSION::BUILD
+  json.string SleepData::VERSION::STRING
+  json.major SleepData::VERSION::MAJOR
+  json.minor SleepData::VERSION::MINOR
+  json.tiny SleepData::VERSION::TINY
+  json.build SleepData::VERSION::BUILD
 end

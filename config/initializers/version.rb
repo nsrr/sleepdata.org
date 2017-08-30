@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module WwwSleepdataOrg
+module SleepData
   module VERSION #:nodoc:
     MAJOR = 0
     MINOR = 30
