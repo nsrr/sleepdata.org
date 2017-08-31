@@ -14,8 +14,13 @@ class UserMailer < ApplicationMailer
     @reviewer = reviewer
     @agreement = agreement
     @email_to = reviewer.email
-    mail(to: reviewer.email,
-         subject: "#{agreement.user.name} #{@agreement.resubmitted? ? "Resubmitted" : "Submitted"} a Data Access and Use Agreement")
+    subject = \
+      if @agreement.resubmitted?
+        "#{agreement.user.name} Resubmitted a Data Access and Use Agreement"
+      else
+        "#{agreement.user.name} Submitted a Data Access and Use Agreement"
+      end
+    mail(to: reviewer.email, subject: subject)
   end
 
   def daua_approved(agreement, admin)
