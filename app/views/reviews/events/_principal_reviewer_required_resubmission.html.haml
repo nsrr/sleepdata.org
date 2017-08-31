@@ -7,4 +7,4 @@ agreement for resubmission
 
 - if agreement_event.comment.present?
   %div{ style: 'padding: 20px 20px 0;font-style:italic' }
-    = simple_markdown_new(sanitize(agreement_event.comment), table_class: 'table table-striped')
+    = simple_markdown(sanitize(agreement_event.comment), table_class: 'table table-striped')

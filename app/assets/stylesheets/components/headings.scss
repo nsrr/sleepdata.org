@@ -54,24 +54,12 @@ $p500-green-rgba: rgba(76, 175, 80, .8);
   h1 {
     font-size: 30px;
   }
-
-  .dropdown,
-  .pull-right {
-    line-height: 33px; // h1 font size * 1.1
-    position: relative;
-    z-index: 1;
-  }
 }
 
 @include media-breakpoint-up(sm) {
   .header-container {
     h1 {
       font-size: 38px;
-    }
-
-    .dropdown,
-    .pull-right {
-      line-height: 41.8px; // h1 font size * 1.1
     }
   }
 }
@@ -80,11 +68,6 @@ $p500-green-rgba: rgba(76, 175, 80, .8);
   .header-container {
     h1 {
       font-size: 41px;
-    }
-
-    .dropdown,
-    .pull-right {
-      line-height: 45.1px; // h1 font size * 1.1
     }
   }
 }

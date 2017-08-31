@@ -22,7 +22,7 @@
     = succeed '.' do
       = @agreement_event.user.name if @agreement_event.user
 
-  %blockquote{ style: blockquote_style }= simple_markdown_new(@agreement.comments)
+  %blockquote{ style: blockquote_style }= simple_markdown(@agreement.comments)
 - else
   %p{ style: p_style }
     = succeed "'s" do

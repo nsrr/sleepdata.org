@@ -1,97 +1,16 @@
-= form_for user, html: { class: 'form-horizontal' } do |f|
-  - if user.errors.any?
-    .callout.callout-danger
-      %strong
-        = pluralize user.errors.count, 'error'
-        prohibited this user from being saved
-      %ul
-        - user.errors.full_messages.each do |message|
-          %li
-            = message
-
-  .form-group
-    = f.label :first_name, nil, class: 'col-md-2 control-label'
-    .col-md-10
-      = f.text_field :first_name, class: 'form-control'
-
-  .form-group
-    = f.label :last_name, nil, class: 'col-md-2 control-label'
-    .col-md-10
-      = f.text_field :last_name, class: 'form-control'
-
-  .form-group
-    = f.label :email, nil, class: 'col-md-2 control-label'
-    .col-md-10
-      = f.text_field :email, class: 'form-control'
-
-  .form-group
-    = f.label :username, 'Forum Username', class: 'col-md-2 control-label'
-    .col-md-10
-      = f.text_field :username, class: 'form-control'
-
-  .form-group
-    .col-md-10.col-md-offset-2
-      .checkbox
-        %label
-          = f.check_box :emails_enabled
-          Emails Enabled
-
+= form_with model: user, local: true do |form|
+  = render "forms/horizontal/text_field", form: form, object: user, key: :first_name
+  = render "forms/horizontal/text_field", form: form, object: user, key: :last_name
+  = render "forms/horizontal/email_field", form: form, object: user, key: :email
+  = render "forms/horizontal/text_field", form: form, object: user, key: :username, key_name: "Forum Username"
+  = render "forms/horizontal/check_box", form: form, object: user, key: :emails_enabled
   - if current_user.system_admin?
-    .form-group
-      = f.label :degree, nil, class: 'col-md-2 control-label'
-      .col-md-10
-        = f.text_field :degree, class: 'form-control'
-
-    .form-group
-      .col-md-10.col-md-offset-2
-        .checkbox
-          %label
-            = f.check_box :core_member
-            Core NSRR Member
-
-    .form-group
-      .col-md-10.col-md-offset-2
-        .checkbox
-          %label
-            = f.check_box :contributor
-            Contributor
-
-    .form-group
-      .col-md-10.col-md-offset-2
-        .checkbox
-          %label
-            = f.check_box :aug_member
-            AUG Member
-
-    .form-group
-      .col-md-10.col-md-offset-2
-        .checkbox
-          %label
-            = f.check_box :community_manager
-            Community Manager
-        .callout.callout-danger
-          Community managers can create blog posts
-
-    .form-group
-      .col-md-10.col-md-offset-2
-        .checkbox
-          %label
-            = f.check_box :system_admin
-            System Admin
-
-    .form-group
-      .col-md-10.col-md-offset-2
-        .checkbox
-          %label
-            = f.check_box :banned
-            Banned from posting on forum
-
-  .form-group
-    = f.label :research_summary, nil, class: 'col-md-2 control-label'
-    .col-md-10
-      = f.text_area :research_summary, rows: 7, class: 'form-control'
-
-  .form-group
-    .col-md-10.col-md-offset-2
-      = f.submit nil, class: 'btn btn-primary'
-      = cancel
+    = render "forms/horizontal/text_field", form: form, object: user, key: :degree
+    = render "forms/horizontal/check_box", form: form, object: user, key: :core_member, key_name: "Core NSRR member"
+    = render "forms/horizontal/check_box", form: form, object: user, key: :contributor
+    = render "forms/horizontal/check_box", form: form, object: user, key: :aug_member, key_name: "AUG member"
+    = render "forms/horizontal/check_box", form: form, object: user, key: :community_manager, help_text: "Community managers can create blog posts."
+    = render "forms/horizontal/check_box", form: form, object: user, key: :system_admin
+    = render "forms/horizontal/check_box", form: form, object: user, key: :banned, key_name: "Shadow banned", help_text: "Hides forum posts by this user."
+  = render "forms/horizontal/text_area", form: form, object: user, key: :research_summary
+  = render "forms/horizontal/submit", form: form, object: user

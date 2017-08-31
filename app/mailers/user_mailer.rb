@@ -6,7 +6,7 @@ class UserMailer < ApplicationMailer
     setup_email
     @user = user
     @email_to = user.email
-    mail(to: user.email, subject: "Reviewer Digest for #{Time.zone.today.strftime('%a %d %b %Y')}")
+    mail(to: user.email, subject: "Reviewer Digest for #{Time.zone.today.strftime("%a %d %b %Y")}")
   end
 
   def daua_submitted(reviewer, agreement)
@@ -15,7 +15,7 @@ class UserMailer < ApplicationMailer
     @agreement = agreement
     @email_to = reviewer.email
     mail(to: reviewer.email,
-         subject: "#{agreement.user.name} #{@agreement.resubmitted? ? 'Resubmitted' : 'Submitted'} a Data Access and Use Agreement")
+         subject: "#{agreement.user.name} #{@agreement.resubmitted? ? "Resubmitted" : "Submitted"} a Data Access and Use Agreement")
   end
 
   def daua_approved(agreement, admin)
@@ -23,7 +23,7 @@ class UserMailer < ApplicationMailer
     @agreement = agreement
     @email_to = agreement.user.email
     mail(to: agreement.user.email,
-         subject: 'Your DAUA Submission has been Approved',
+         subject: "Your DAUA Submission has been Approved",
          reply_to: admin.email)
   end
 
@@ -32,7 +32,7 @@ class UserMailer < ApplicationMailer
     @agreement = agreement
     @email_to = agreement.user.email
     mail(to: agreement.user.email,
-         subject: 'Your DAUA has been Signed by your Duly Authorized Representative')
+         subject: "Your DAUA has been Signed by your Duly Authorized Representative")
   end
 
   def daua_progress_notification(agreement, admin, agreement_event)
@@ -50,7 +50,7 @@ class UserMailer < ApplicationMailer
     @agreement = agreement
     @email_to = agreement.user.email
     mail(to: agreement.user.email,
-         subject: 'Please Resubmit your DAUA',
+         subject: "Please Resubmit your DAUA",
          reply_to: admin.email)
   end
 
@@ -66,7 +66,7 @@ class UserMailer < ApplicationMailer
   def hosting_request_submitted(hosting_request)
     setup_email
     @hosting_request = hosting_request
-    @email_to = ENV['support_email']
+    @email_to = ENV["support_email"]
     mail(to: @email_to,
          subject: "#{hosting_request.user.name} - Dataset Hosting Request")
   end

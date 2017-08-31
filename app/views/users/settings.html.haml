@@ -1,51 +1,51 @@
-- @title = 'My Settings'
+- @title = "My Settings"
 
 - content_for :body_class do
   brand-background
 
 .row
   .col-sm-3.col-md-3
-    = render 'internal/profile'
+    = render "internal/profile"
   .col-sm-9.col-md-6
     .dashboard-container
       .dashboard-title
         %strong My Settings
 
-      = form_for current_user, url: update_settings_path, html: { class: 'form-vertical' } do |f|
+      = form_for current_user, url: update_settings_path, html: { class: "form-vertical" } do |form|
         .form-group
-          = render 'layouts/label_or_errors', f: f, object: current_user, key: :first_name
-          = f.text_field :first_name, class: 'form-control'
+          = render "layouts/label_or_errors", form: form, object: current_user, key: :first_name
+          = form.text_field :first_name, class: "form-control"
 
         .form-group
-          = render 'layouts/label_or_errors', f: f, object: current_user, key: :last_name
-          = f.text_field :last_name, class: 'form-control'
+          = render "layouts/label_or_errors", form: form, object: current_user, key: :last_name
+          = form.text_field :last_name, class: "form-control"
 
         .form-group
-          = render 'layouts/label_or_errors', f: f, object: current_user, key: :email
-          = f.text_field :email, class: 'form-control'
+          = render "layouts/label_or_errors", form: form, object: current_user, key: :email
+          = form.text_field :email, class: "form-control"
 
         .form-group.submit-btn-container
-          = submit_tag 'Save Changes', class: 'btn btn-primary'
+          = form.submit "Save Changes", class: "btn btn-primary"
 
     .dashboard-container
       .dashboard-title
         %strong My Forum Settings
-      = form_for current_user, url: update_settings_path, html: { class: 'form-vertical' } do |f|
+      = form_for current_user, url: update_settings_path, html: { class: "form-vertical" } do |form|
         .form-group
-          = render 'layouts/label_or_errors', f: f, object: current_user, key: :email, key_name: 'Forum Username'
-          = f.text_field :username, class: 'form-control', placeholder: current_user.name
+          = render "layouts/label_or_errors", form: form, object: current_user, key: :email, key_name: "Forum Username"
+          = form.text_field :username, class: "form-control", placeholder: current_user.name
 
         .form-group
           .callout.callout-info
             %strong Note:
             You can change your avatar at
-            = link_to 'gravatar.com', 'http://gravatar.com', target: '_blank'
+            = link_to "gravatar.com", "http://gravatar.com", target: "_blank"
 
         .form-group
           %label.control-label Receive Forum Emails
           .checkbox
             %label
-              = f.check_box :emails_enabled
+              = form.check_box :emails_enabled
               Allow the NSRR to send you emails when a topic receives a reply to which you are subscribed, and when someone mentions you on the forum. Unchecking this box will disable forum emails.
             .callout.callout-info
               %strong Note:
@@ -55,26 +55,26 @@
                 %li Password reset emails
 
         .form-group.submit-btn-container
-          = submit_tag 'Save Changes', class: 'btn btn-primary'
+          = form.submit "Save Changes", class: "btn btn-primary"
 
     .dashboard-container
       .dashboard-title
         %strong Change Password
-      = form_for current_user, url: change_password_path, method: :patch, html: { class: 'form-vertical' } do |f|
+      = form_for current_user, url: change_password_path, method: :patch, html: { class: "form-vertical" } do |form|
         .form-group
-          = render 'layouts/label_or_errors', f: f, object: current_user, key: :current_password, key_name: 'Current Password'
-          = f.password_field :current_password, class: 'form-control', autocomplete: 'off'
+          = render "layouts/label_or_errors", form: form, object: current_user, key: :current_password, key_name: "Current Password"
+          = form.password_field :current_password, class: "form-control", autocomplete: "off"
 
         .form-group
-          = render 'layouts/label_or_errors', f: f, object: current_user, key: :password, key_name: 'New Password'
-          = f.password_field :password, class: 'form-control', autocomplete: 'off'
+          = render "layouts/label_or_errors", form: form, object: current_user, key: :password, key_name: "New Password"
+          = form.password_field :password, class: "form-control", autocomplete: "off"
 
         .form-group
-          = render 'layouts/label_or_errors', f: f, object: current_user, key: :password_confirmation, key_name: 'Password Confirmation'
-          = f.password_field :password_confirmation, class: 'form-control', autocomplete: 'off'
+          = render "layouts/label_or_errors", form: form, object: current_user, key: :password_confirmation, key_name: "Password Confirmation"
+          = form.password_field :password_confirmation, class: "form-control", autocomplete: "off"
 
         .form-group.submit-btn-container
-          = submit_tag 'Update Password', class: 'btn btn-primary'
+          = form.submit "Update Password", class: "btn btn-primary"
 
   .hidden-xs.hidden-sm.col-md-3
-    = render 'internal/sidebar/blog_posts'
+    = render "internal/sidebar/blog_posts"

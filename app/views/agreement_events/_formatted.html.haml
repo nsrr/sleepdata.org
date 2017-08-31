@@ -1,1 +1,1 @@
-= simple_markdown_new(sanitize(agreement_event.comment.gsub(/</, "&lt;")).gsub('&gt;', '>'), table_class: 'table table-striped', allow_links: agreement_event.user.can_post_links?)
+= simple_markdown(sanitize(agreement_event.comment.gsub(/</, "&lt;")).gsub('&gt;', '>'), table_class: 'table table-striped', allow_links: agreement_event.user.can_post_links?)

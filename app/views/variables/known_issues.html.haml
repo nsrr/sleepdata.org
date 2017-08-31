@@ -9,7 +9,7 @@
     %h1.variable-header.brand Known Issues
 
     - if @variable.known_issues.present?
-      = simple_markdown_new(@variable.known_issues)
+      = simple_markdown(@variable.known_issues)
     - else
       %p.lead This variable has no known issues.
 

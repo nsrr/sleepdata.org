@@ -1,7 +1,4 @@
-- @title = 'New Dataset'
-
-- content_for :body_class do
-  brand-background
+- @title = "New Dataset"
 
 - content_for :header do
   .header-container
@@ -9,5 +6,4 @@
       %h1.page-heading
         = @title
 
-.dashboard-container
-  = render 'datasets/form'
+= render "datasets/form", dataset: @dataset

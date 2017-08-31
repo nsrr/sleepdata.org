@@ -1,6 +1,6 @@
 .breadcrumb-container {
-  background-color: $p100;
-  border-bottom: 1px solid $p200;
+  background-color: $p100-grey;
+  border-bottom: 1px solid $p200-grey;
   list-style: none;
   margin: 0 0 20px;
   padding: 20px 0;
@@ -14,7 +14,7 @@
     }
 
     > li+li::before {
-      color: $p50;
+      color: $p300-grey;
       content: '/ ';
       padding: 0 5px;
     }
@@ -27,7 +27,7 @@
   margin: 0;
 
   .breadcrumb {
-    background-color: $p600;
+    background-color: $p600-grey;
     box-shadow: inset 0 0 5px $dropdown-border-color, 0 0 0 $dropdown-border-color;
 
     a {

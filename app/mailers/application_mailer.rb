@@ -5,11 +5,12 @@ class ApplicationMailer < ActionMailer::Base
   default from: "NSRR Sleep Data <#{ActionMailer::Base.smtp_settings[:email]}>"
   add_template_helper(ApplicationHelper)
   add_template_helper(EmailHelper)
-  layout 'mailer'
+  add_template_helper(MarkdownHelper)
+  layout "mailer"
 
   protected
 
   def setup_email
-    # attachments.inline['nsrr-logo.png'] = File.read('app/assets/images/nsrr_logo_64.png') rescue nil
+    # attachments.inline["nsrr-logo.png"] = File.read("app/assets/images/nsrr_logo_64.png") rescue nil
   end
 end

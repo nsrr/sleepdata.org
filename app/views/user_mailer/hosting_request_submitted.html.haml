@@ -10,7 +10,7 @@
 
 %blockquote{ style: blockquote_style }
   %p{ style: p_style }= @hosting_request.institution_name
-  = simple_markdown_new(@hosting_request.description)
+  = simple_markdown(@hosting_request.description)
 
 %p{ style: center_style }
   = link_to 'View Hosting Request', "#{ENV['website_url']}/hosting-requests/#{@hosting_request.id}", style: link_style

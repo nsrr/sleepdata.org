@@ -39,4 +39,4 @@
           %td.center.d-none.d-md-table-cell= simple_check broadcast.archived
           %td= render "layouts/edit_delete_dropdown", edit_url: edit_broadcast_path(broadcast), delete_url: broadcast, delete_confirmation: "Delete #{broadcast.title}?"
 
-.center= paginate @broadcasts, theme: "bootstrap"
+.center-horizontally= paginate @broadcasts, theme: "bootstrap"

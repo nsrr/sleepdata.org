@@ -45,4 +45,4 @@
           %td
             = render 'layouts/edit_delete_dropdown', edit_url: edit_community_tool_path(community_tool), delete_url: community_tool, delete_confirmation: "Delete #{community_tool.name}?"
 
-  .center= paginate @community_tools, theme: 'bootstrap'
+  .center-horizontally= paginate @community_tools, theme: 'bootstrap'

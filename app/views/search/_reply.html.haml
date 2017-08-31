@@ -10,7 +10,7 @@
     = link_to 'Forum', reply, data: { turbolinks: false }
   .search-result-body
     - terms = @search.split(' & ')
-    - description = strip_tags(simple_markdown_new(reply.description)).gsub(/\r/, ' ').gsub(/\n/, ' ')
+    - description = strip_tags(simple_markdown(reply.description)).gsub(/\r/, ' ').gsub(/\n/, ' ')
     - description_array = description.split(/ /).reject(&:blank?)
     - @ranges = Broadcast.compute_ranges(description_array, terms)
     - @ranges.first(3).each_with_index do |(min, max), index|

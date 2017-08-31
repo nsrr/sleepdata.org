@@ -24,7 +24,7 @@
             = render "search/topic", topic: document.searchable
           - when "Reply"
             = render "search/reply", reply: document.searchable
-      .center= paginate @search_documents, theme: "bootstrap"
+      .center-horizontally= paginate @search_documents, theme: "bootstrap"
     - else
       %p.lead.center
         No Search Results Found

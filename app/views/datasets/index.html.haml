@@ -108,7 +108,7 @@
               = link_to image_tag(logo_dataset_path(dataset)), dataset
           = render "datasets/card_content", dataset: dataset
         .already-flipped
-          = simple_markdown_new(dataset.description)
+          = simple_markdown(dataset.description)
       .dataset-card-footer
         .pull-right.d-none.d-sm-block= render "datasets/card_footer_request", dataset: dataset
         .dataset-card-footer-links
@@ -135,7 +135,7 @@
       .dataset-card-footer.dataset-card-footer-request.d-block.d-sm-none
         .center= render "datasets/card_footer_request", dataset: dataset
 
-  .center= paginate @datasets, theme: "bootstrap"
+  .center-horizontally= paginate @datasets, theme: "bootstrap"
 
   - content_for :call_to_action do
     .call-to-action

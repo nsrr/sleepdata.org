@@ -206,7 +206,7 @@ class ApplicationController < ActionController::Base
     params.require(:dataset).permit(
       :name, :description, :slug, :logo, :logo_cache, :public,
       :all_files_public, :git_repository, :release_date, :info_what, :info_who,
-      :info_when, :info_funded_by, :info_citation, :info_size, :subjects,
+      :info_when, :info_funded_by, :info_citation, :subjects,
       :age_min, :age_max, :time_frame, :polysomnography, :actigraphy
     )
   end

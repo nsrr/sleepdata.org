@@ -5,18 +5,19 @@
 
 - content_for :header do
   .breadcrumb-container
-    .container{ style: "position: relative;" }
-      .hidden-xs{ style: "position: absolute; top: -5.5px; right: 15px" }
-        %ul#show-page-button.pagination.pagination-sm.m-0{ style: "#{"display:none" if cookies[:hide_page_list] != "1"}" }
-          %li.page-item
-            = link_to "#", data: { object: "set-cookie toggle-page-list", cookie_key: "hide_page_list", cookie_value: "0" }, class: "page-link" do
-              %i.fa.fa-caret-left
-              Show Menu
-        %ul#hide-page-button.pagination.pagination-sm.m-0{ style: "#{"display:none" if cookies[:hide_page_list] == "1"}" }
-          %li.page-item
-            = link_to "#", data: { object: "set-cookie toggle-page-list", cookie_key: "hide_page_list", cookie_value: "1" }, class: "page-link" do
-              Hide Menu
-              %i.fa.fa-caret-right
+    .container
+      .d-none.d-sm-block.float-right
+
+        #show-page-button{ style: "#{"display:none" if cookies[:hide_page_list] != "1"}" }
+          = link_to "#", data: { object: "set-cookie toggle-page-list", cookie_key: "hide_page_list", cookie_value: "0" }, class: "btn btn-sm btn-light" do
+            %i.fa.fa-caret-left
+            Show Menu
+
+        #hide-page-button{ style: "#{"display:none" if cookies[:hide_page_list] == "1"}" }
+          = link_to "#", data: { object: "set-cookie toggle-page-list", cookie_key: "hide_page_list", cookie_value: "1" }, class: "btn btn-sm btn-light" do
+            Hide Menu
+            %i.fa.fa-caret-right
+
       %ol
         %li= link_to object.slug, object
         %li= link_to_if !@path.blank?, "pages", pages_path

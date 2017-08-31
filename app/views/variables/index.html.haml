@@ -36,7 +36,7 @@
               = variable.display_name
           %td.hidden-xs
             = variable.display_name
-            %small.text-muted.variable-description= simple_markdown_new(variable.description, allow_lists: false)
+            %small.text-muted.variable-description= simple_markdown(variable.description, allow_lists: false)
           %td.hidden-xs.hidden-sm= variable.folder
 - elsif @dataset.variables.count.zero?
   .jumbotron{ style: "margin-top: 30px;" }

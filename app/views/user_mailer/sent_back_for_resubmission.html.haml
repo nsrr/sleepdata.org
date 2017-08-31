@@ -6,7 +6,7 @@
 %p{ style: p_style }
   Your Data Access and Use Agreement submission was missing required information.
 
-%blockquote{ style: blockquote_style }= simple_markdown_new(@agreement.comments)
+%blockquote{ style: blockquote_style }= simple_markdown(@agreement.comments)
 
 %p{ style: p_style }
   Please review the above comments, make the appropriate changes, and resubmit your DAUA here:

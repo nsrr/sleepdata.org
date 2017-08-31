@@ -63,6 +63,6 @@
           %td.text-muted.hidden-xs.hidden-sm.center
             %span.small= number_to_human topic.view_count, precision: 2
           %td.text-muted.hidden-xs.hidden-sm.center
-            %span.small= time_ago_in_words(topic.last_reply_at).gsub("about ", "").gsub("less than ", "").gsub("almost ", "").gsub("over ", "").gsub("minutes", "mins").gsub("minute", "min").gsub("hours", "hrs").gsub("hour", "hr").gsub("months", "mos").gsub("month", "mo").gsub("years", "yrs").gsub("year", "yr") + " ago"
+            %span.small= abbreviated_time(topic.last_reply_at)
 
-.center= paginate @topics, theme: "bootstrap-small"
+.center-horizontally= paginate @topics, theme: "bootstrap-small"

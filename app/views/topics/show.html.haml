@@ -50,7 +50,7 @@
     - async_write_a_reply_path = async_parent_reply_path(topic_id: @topic, parent_reply_id: 'root', reply_id: 'new')
     = link_to 'Write a Reply', async_write_a_reply_path, method: :post, remote: true, class: 'btn btn-primary btn-shadow'
 
-.center= paginate @replies, theme: 'bootstrap-small'
+.center-horizontally= paginate @replies, theme: 'bootstrap-small'
 
 - if current_user
   #topic-subscription= render 'topics/subscribe_unsubscribe', topic: @topic

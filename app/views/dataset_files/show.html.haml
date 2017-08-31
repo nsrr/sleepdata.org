@@ -13,7 +13,7 @@
 
 - if @dataset_file.md?
   .markdown-container-new
-    = highlight(simple_markdown_new(File.read(@dataset_file.filesystem_path), target_blank: false, table_class: "table table-striped table-hover"), @term, sanitize: false)
+    = highlight(simple_markdown(File.read(@dataset_file.filesystem_path), target_blank: false, table_class: "table table-striped table-hover"), @term, sanitize: false)
 - elsif @dataset_file.pdf?
   .embed-responsive{ style: "padding-bottom: 100.00%;" }
     %object.white-background{ data: inline_url, type: "application/pdf" }

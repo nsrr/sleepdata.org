@@ -22,7 +22,7 @@
       - if @variable.description.present?
         %tr
           %td{ style: 'font-weight: bold' } Description
-          %td.variable-description= simple_markdown_new(@variable.description, allow_lists: false)
+          %td.variable-description= simple_markdown(@variable.description, allow_lists: false)
 
       - if @variable.calculation.present?
         %tr

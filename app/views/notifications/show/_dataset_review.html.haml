@@ -4,7 +4,7 @@
 %td.nowrap{ class: "#{'text-muted' if notification.read?}" }
   .overflow-hidden
     = link_to notification, class: "#{notification.read? ? 'link-muted' : 'link-unstyled' }" do
-      = strip_tags(simple_markdown_new(notification.dataset_review.review)).html_safe
+      = strip_tags(simple_markdown(notification.dataset_review.review)).html_safe
 
 %td.hidden-xs
   = image_tag notification.dataset_review.user.avatar_url(18, 'identicon'), size: '18x18', alt: ''

@@ -3,7 +3,7 @@
 .broadcast
   = first_image(broadcast)
   %p
-    = strip_tags(simple_markdown_new(broadcast.description)).gsub(/\r/, ' ').gsub(/\n/, ' ').truncate(500, separator: '.', omission: '.').html_safe
+    = strip_tags(simple_markdown(broadcast.description)).gsub(/\r/, ' ').gsub(/\n/, ' ').truncate(500, separator: '.', omission: '.').html_safe
     = link_to 'Keep reading', blog_post_path(broadcast.url_hash), class: 'nowrap'
     %i.fa.fa-arrow-right.primary-blue
   %p

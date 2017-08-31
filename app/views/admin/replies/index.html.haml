@@ -32,10 +32,10 @@
           %td.breakword{ class: reply.deleted? ? 'text-muted' : nil, style: reply.deleted? ? 'text-decoration: line-through;' : nil }
             = link_to reply.parent.title, reply
             .reply-body{ style: 'font-size: 0.9em;padding:0;margin:0' }
-              = simple_markdown_new(sanitize(reply.description.gsub(/</, '&lt;')).gsub('&gt;', '>'), table_class: 'table table-striped', allow_links: reply.user.can_post_links?)
+              = simple_markdown(sanitize(reply.description.gsub(/</, '&lt;')).gsub('&gt;', '>'), table_class: 'table table-striped', allow_links: reply.user.can_post_links?)
           %td.hidden-xs.hidden-sm= link_to reply.user.forum_name, reply.user
           %td.hidden-xs.hidden-sm
             %abbr{ rel: 'tooltip', data: { title: reply.created_at.strftime('%-l:%M %p'), container: 'body', placement: 'left' } }
               = reply.created_at.strftime('%b %-d, %Y')
 
-.center= paginate @replies, theme: 'bootstrap'
+.center-horizontally= paginate @replies, theme: 'bootstrap'

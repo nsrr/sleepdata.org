@@ -7,7 +7,7 @@ atom_feed(root_url: "#{ENV['website_url']}/blog") do |feed|
                url: "#{ENV['website_url']}/blog/#{broadcast.to_param}",
                published: broadcast.publish_date) do |entry|
       entry.title(broadcast.title)
-      entry.content(simple_markdown_new(broadcast.description, target_blank: false), type: 'html')
+      entry.content(simple_markdown(broadcast.description, target_blank: false), type: 'html')
       entry.summary broadcast.short_description
       entry.author do |author|
         author.name(broadcast.user.forum_name)

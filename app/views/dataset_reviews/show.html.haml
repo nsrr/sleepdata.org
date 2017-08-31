@@ -18,4 +18,4 @@
   = render 'datasets/rating', rating: @dataset_review.rating
   %i= @dataset_review.user.forum_name
   %small.text-muted= @dataset_review.created_at.strftime('- %b %-d, %Y')
-  = simple_markdown_new(@dataset_review.review)
+  = simple_markdown(@dataset_review.review)
