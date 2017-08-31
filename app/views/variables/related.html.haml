@@ -15,7 +15,7 @@
           %tr
             %td
               - if variable.commonly_used?
-                %span.glyphicon.glyphicon-star.text-warning
+                %i.fa.fa-star.text-warning
             %td= link_to variable.name, dataset_variable_path(variable.dataset, variable)
             %td
               = variable.display_name

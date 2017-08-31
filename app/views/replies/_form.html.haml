@@ -48,7 +48,7 @@
             = f.submit 'Update', class: 'btn btn-primary', data: { disable_with: 'Update Comment' }
             = link_to 'Cancel', reply_path(reply), remote: true, class: 'btn btn-light'
 
-        %div{ data: { object: 'reply-tab-content', action: 'preview', parent_reply_id: parent_reply_id, reply_id: reply_id }, style: 'display:none' }
+        %div{ data: { object: 'reply-tab-content', action: 'preview', parent_reply_id: parent_reply_id, reply_id: reply_id }, style: 'display: none;' }
 
 - else
   .preview-container.preview-container-login

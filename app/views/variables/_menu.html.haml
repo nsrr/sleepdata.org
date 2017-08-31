@@ -10,7 +10,7 @@
   %li.left-menu-header{ style: 'word-break: break-word;' }
     = @variable.name
     - if @variable.commonly_used?
-      %span.glyphicon.glyphicon-star.text-warning
+      %i.fa.fa-star.text-warning
   %li
     = link_to 'Overview', dataset_variable_path(@dataset, @variable, v: params[:v]), class: (params[:action] == 'show' ? 'active' : nil)
   - if params[:action] == 'graphs' || charts.size > 0

@@ -95,7 +95,7 @@
   width: 32px;
 }
 
-// TOOD: Remove broadcast-alert
+// TODO: Remove broadcast-alert
 // .broadcast-alert .broadcast-left-fixed {
 //   color: $brand-warning-text;
 // }
@@ -120,7 +120,7 @@
   border-radius: 2px;
 }
 
-// TOOD: Remove broadcast-alert
+// TODO: Remove broadcast-alert
 // .broadcast-alert .broadcast-box {
 //   background-color: $brand-warning;
 //   border-color: darken($brand-warning, 20%);
@@ -148,7 +148,7 @@
   width: 0;
 }
 
-// TOOD: Remove broadcast-alert
+// TODO: Remove broadcast-alert
 // .broadcast-alert .broadcast-header::before {
 //   border-right-color: darken($brand-warning, 20%);
 // }
@@ -165,16 +165,13 @@
   width: 0;
 }
 
-// TOOD: Remove broadcast-alert
+// TODO: Remove broadcast-alert
 // .broadcast-alert .broadcast-header::after {
 //   border-right-color: $brand-warning;
 // }
 
 .broadcast-replies-header {
-  background-color: $p200-grey;
-  border: 2px solid $brand-primary;
-  border-radius: 4px;
-  box-shadow: $box-shadow;
+  background-color: $p100-grey;
   margin: 20px 0;
   padding: 20px;
 }

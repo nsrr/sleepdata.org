@@ -15,7 +15,7 @@
     .col-md-10
       = f.text_field :name, class: 'form-control', data: { object: (@category.new_record? ? 'create-slug' : ''), target: '#category_slug' }
 
-  .form-group{ style: "#{'display:none' if @category.new_record? && !@category.errors.key?(:slug)}"}
+  .form-group{ style: "#{'display: none;' if @category.new_record? && !@category.errors.key?(:slug)}"}
     = f.label :slug, class: 'col-md-2 control-label'
     .col-md-10
       = f.text_field :slug, class: 'form-control'

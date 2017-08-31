@@ -23,7 +23,7 @@
               %span{ id: "agreement-event-#{agreement_event.id}-request-delete" }
                 = link_to "#", class: "btn btn-sm btn-outline-danger", data: { object: "toggle-delete-buttons", target_show: "#agreement-event-#{agreement_event.id}-confirm-delete", target_hide: "#agreement-event-#{agreement_event.id}-request-delete" } do
                   %i.fa.fa-trash
-              %span{ id: "agreement-event-#{agreement_event.id}-confirm-delete", style: "display:none" }
+              %span{ id: "agreement-event-#{agreement_event.id}-confirm-delete", style: "display: none;" }
                 = link_to "Cancel", "#", class: "btn btn-sm btn-light", data: { object: "toggle-delete-buttons", target_show: "#agreement-event-#{agreement_event.id}-request-delete", target_hide: "#agreement-event-#{agreement_event.id}-confirm-delete" }
                 = link_to "Confirm Delete", [agreement_event.agreement, agreement_event], method: :delete, remote: true, class: "btn btn-sm btn-outline-danger"
             = link_to "##{number}", "#c#{number}", class: "btn btn-link btn-sm"
@@ -47,8 +47,7 @@
   .comment-outer
     .comment-left-fixed
     .comment-right-fluid
-      .well{ style: "background-color: transparent;" }
-        = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event, current_index: nil # TODO Remove current_index
+      = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event, current_index: nil # TODO Remove current_index
 - else
   .comment-outer
     .comment-left-fixed

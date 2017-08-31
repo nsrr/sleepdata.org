@@ -12,7 +12,7 @@
         = f.text_field :slug, class: 'form-control', autocomplete: 'off'
         %span.input-group-btn
           = link_to '#', class: 'btn btn-info', data: { object: 'toggle-visibility', target: '#slug-info' }, tabindex: '-1' do
-            %span.glyphicon.glyphicon-info-sign
+            %i.fa.fa-info-circle
       = render 'layouts/errors', object: @community_tool, key: :slug
       #slug-info.callout.callout-info{ style: 'display: none;' }
         %strong Naming convention
@@ -59,7 +59,7 @@
             #log_new.filedrag
               Drag images above to insert into post.
 
-          #content_preview.markdown-container-new{ style: 'display:none' }
+          #content_preview.markdown-container-new{ style: 'display: none;' }
 
   .form-group
     .col-md-offset-2.col-md-10

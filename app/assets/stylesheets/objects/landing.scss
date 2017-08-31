@@ -71,7 +71,7 @@
     transform-style: preserve-3d;
 
     &.landing-face-share {
-      background-color: $brand-primary;
+      background-color: $brand-success;
 
       a {
         color: $brand-white;
@@ -137,7 +137,8 @@
 }
 
 .landing-tool-box {
-  background-color: $p100;
+  background-color: $brand-white;
+  border-radius: 4px;
   display: flex;
   flex-direction: row-reverse;
   font-size: 18px;
@@ -170,7 +171,7 @@
 }
 
 .landing-tool-icon {
-  color: $p50;
+  color: $p200-grey;
   height: 100px;
 
   i {

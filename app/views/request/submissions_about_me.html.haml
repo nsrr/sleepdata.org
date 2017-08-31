@@ -3,7 +3,7 @@
 
 - register_visible = (@sign_in != true)
 
-#sign-up-form{ style: "#{'display:none' unless register_visible}" }
+#sign-up-form{ style: "#{'display: none;' unless register_visible}" }
   .sign-up-form
     .sign-up-form-title
       About Yourself
@@ -40,7 +40,7 @@
     = succeed '.' do
       = link_to 'I already have an account', '#', data: { object: 'toggle-sign-up' }, tabindex: '-1'
 
-#sign-in-form{ style: "#{'display:none' if register_visible}" }
+#sign-in-form{ style: "#{'display: none;' if register_visible}" }
   .sign-up-form
     .sign-up-form-title
       About Yourself

@@ -7,15 +7,15 @@
         - sort_params = params.permit(:s, :search, :folder)
         - current_page_min = (page - 1) * per_page + 1
         - current_page_max = page * per_page
-        .hidden-xs{ style: "position: absolute; top: -5.5px; right: 15px;" }
+        .d-none.d-sm-block{ style: "position: absolute; top: -5.5px; right: 15px;" }
           %ul.pagination.pagination-sm{ style: "margin: 0" }
             - if current_page_min > 1
-              %li= link_to "&laquo;".html_safe, url_for(sort_params.merge(page: page - 1)  ).gsub("%2F","/")
+              %li.page-item= link_to "&laquo;".html_safe, url_for(sort_params.merge(page: page - 1)  ).gsub("%2F","/"), class: "page-link"
             - else
-              %li.disabled
-                %span &laquo
-            %li
-              %span{ style: "color: #333;" }
+              %li.page-item.disabled
+                %span.page-link &laquo
+            %li.page-item
+              %span.page-link{ style: "color: #333;" }
                 %b{ style: "font-size: 0.95em;" }
                   = number_with_delimiter current_page_min
                   to
@@ -23,15 +23,13 @@
                 of
                 = number_with_delimiter total_count
             - if current_page_max < total_count
-              %li= link_to "&raquo;".html_safe, url_for(sort_params.merge(page: page + 1)).gsub("%2F", "/")
+              %li.page-item= link_to "&raquo;".html_safe, url_for(sort_params.merge(page: page + 1)).gsub("%2F", "/"), class: "page-link"
             - else
-              %li.disabled
-                %span &raquo;
+              %li.page-item.disabled
+                %span.page-link &raquo;
       - if @variable && @variable.dataset_version
-        .hidden-xs{ style: "position: absolute; top: -5.5px; right: 15px" }
-          %ul.pagination.pagination-sm{ style: "margin: 0" }
-            %li
-              = link_to "v#{@variable.dataset_version.version}", files_dataset_path(@dataset, path: "datasets/archive/#{@variable.dataset_version.version}")
+        .d-none.d-sm-block.float-right
+          = link_to "v#{@variable.dataset_version.version}", files_dataset_path(@dataset, path: "datasets/archive/#{@variable.dataset_version.version}"), class: "btn btn-sm btn-light"
 
       %ol
         %li= link_to @dataset.slug, @dataset

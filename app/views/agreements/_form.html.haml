@@ -18,7 +18,7 @@
     .col-md-9
       = f.select :status, Agreement::STATUS, {}, class: 'form-control'
 
-  #approval-container{ style: "#{'display:none' unless @agreement.status == 'approved'}" }
+  #approval-container{ style: "#{'display: none;' unless @agreement.status == 'approved'}" }
     .form-group
       = f.label :reviewer_signature, 'Signature of Reviewer', class: 'col-md-3 control-label'
       .col-md-9{ style: 'position:relative' }
@@ -37,7 +37,7 @@
       .col-md-9
         = f.text_field :expiration_date, class: 'datepicker form-control', value: @agreement.expiration_date ? @agreement.expiration_date.strftime('%m/%d/%Y') : (Date.today + 3.years).strftime('%m/%d/%Y')
 
-  #resubmit-container{ style: "#{'display:none' unless @agreement.status == 'resubmit'}" }
+  #resubmit-container{ style: "#{'display: none;' unless @agreement.status == 'resubmit'}" }
     .form-group
       = f.label :comments, nil, class: 'col-md-3 control-label'
       .col-md-9

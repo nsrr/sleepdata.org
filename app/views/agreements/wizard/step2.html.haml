@@ -60,7 +60,7 @@
                     - else
                       = image_tag('project-default-logo.png', style: 'max-width:100%;max-height:70px')
 
-      #too-many-datasets{ style: "#{'display:none' if @agreement.datasets.count < 2}" }
+      #too-many-datasets{ style: "#{'display: none;' if @agreement.datasets.count < 2}" }
         .alert.alert-warning
           %strong Heads Up!
           Make sure you have only selected the datasets appropriate for your

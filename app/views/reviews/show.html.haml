@@ -21,38 +21,41 @@
       .pull-right.hidden-xs
         = render "reviews/tags", agreement: @agreement
       %ol
-        %li= link_to "Reviews", reviews_path
+        %li
+          = link_to reviews_path, class: "btn btn-sm btn-light" do
+            %i.fa.fa-caret-left
+            Reviews
+        %span#agreement-reviewers= render "reviews/reviewers", agreement: @agreement
 
-.dashboard-container
-  .pull-right
-    #agreement-reviewers= render "reviews/reviewers", agreement: @agreement
-  %div{ style: "clear: both;" } &nbsp;
-  - other_agreements = @agreement.user.agreements.where.not(id: @agreement.id).where(status: %w(submitted resubmit approved expired))
-  - if other_agreements.count > 0
-    .comment_outer
-      .comment-right-fluid
-        %div{ style: "padding: 20px;" }
-          %p
-            This user has
-            = other_agreements.count
-            other
-            = succeed ":" do
-              = "agreement#{"s" if other_agreements.count > 1}"
+.float-right
 
-          %ul.list-unstyled
-            - other_agreements.each do |a|
-              %li{ style: "padding-bottom: 5px" }
-                = status_helper(a)
-                = link_to a.name_with_id, review_path(a), class: "callout-link"
-                - a.datasets.order(:release_date, :name).each do |dataset|
-                  = render "datasets/mini", dataset: dataset
+%div{ style: "clear: both;" } &nbsp;
+- other_agreements = @agreement.user.agreements.where.not(id: @agreement.id).where(status: %w(submitted resubmit approved expired))
+- if other_agreements.count > 0
+  .comment_outer
+    .comment-right-fluid
+      %div{ style: "padding: 20px;" }
+        %p
+          This user has
+          = other_agreements.count
+          other
+          = succeed ":" do
+            = "agreement#{"s" if other_agreements.count > 1}"
 
-  #agreement_events
-    = render "agreement_events/index"
+        %ul.list-unstyled
+          - other_agreements.each do |a|
+            %li{ style: "padding-bottom: 5px;" }
+              = status_helper(a)
+              = link_to a.name_with_id, review_path(a), class: "callout-link"
+              - a.datasets.order(:release_date, :name).each do |dataset|
+                = render "datasets/mini", dataset: dataset
 
-  #agreement_events_new_form
-    - @agreement_event = @agreement.agreement_events.where(user_id: current_user.id).new
-    = render "agreement_events/form"
+#agreement_events
+  = render "agreement_events/index"
+
+#agreement_events_new_form
+  - @agreement_event = @agreement.agreement_events.where(user_id: current_user.id).new
+  = render "agreement_events/form"
 
 .dashboard-container
   - (1..5).each do |step|

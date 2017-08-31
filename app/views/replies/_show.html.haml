@@ -1,30 +1,30 @@
 %a.anchor-top{ name: reply.anchor }
-%div{ id: "comment-#{reply.id}-container", class: [(level == 0 ? 'reply-outer-container' : nil), (reply.unread?(current_user) ? 'reply-unread' : 'reply-read')], style: 'position:relative' }
-  .reply-container{ class: (level.even? ? 'reply-even' : 'reply-odd') }
+%div{ id: "comment-#{reply.id}-container", class: [(level == 0 ? "reply-outer-container" : nil), (reply.unread?(current_user) ? "reply-unread" : "reply-read")], style: "position:relative" }
+  .reply-container{ class: (level.even? ? "reply-even" : "reply-odd") }
     - if include_parent_title
-      %div{ style: 'margin-bottom: 10px' }
+      %div{ style: "margin-bottom: 10px" }
         %small
           Reply to
           = link_to reply.parent.title, reply, data: { turbolinks: false }
     .reply-inner-container
-      .reply-avatar-container{ style: "#{'display:none' if reply.below_threshold?}" }
+      .reply-avatar-container{ style: "#{"display: none;" if reply.below_threshold?}" }
         .reply-avatar
           - size = 50
           - if reply.deleted?
-            = image_tag reply.user.avatar_url(size, 'mm'), alt: '', style: "max-height:#{(size*2)+5}px;max-width:#{size+5}px;"
+            = image_tag reply.user.avatar_url(size, "mm"), alt: "", style: "max-height:#{(size*2)+5}px;max-width:#{size+5}px;"
           - else
-            = image_tag reply.user.avatar_url(size, 'identicon'), alt: '', style: "max-height:#{(size*2)+5}px;max-width:#{size+5}px;", title: reply.user.forum_name, rel: 'tooltip', data: { container: 'body', placement: 'top' }
-            .center.text-muted{ style: 'font-size: 9px;margin-top:5px' }
-              = pluralize(number_with_delimiter(reply.user.replies.count), 'post')
+            = image_tag reply.user.avatar_url(size, "identicon"), alt: "", style: "max-height:#{(size*2)+5}px;max-width:#{size+5}px;", title: reply.user.forum_name, rel: "tooltip", data: { container: "body", placement: "top" }
+            .center.text-muted{ style: "font-size: 9px;margin-top:5px" }
+              = pluralize(number_with_delimiter(reply.user.replies.count), "post")
       .reply-header{ data: { parent_reply_id: reply.parent_reply_id, reply_id: reply.id } }
-        = render 'replies/header', reply: reply, just_voted: false
-      .reply-body{ style: "#{'display:none' if reply.below_threshold?}" }
-        %div{ data: { object: 'reply-show', parent_reply_id: reply.parent_reply_id, reply_id: reply.id } }
-          = render 'replies/formatted', reply: reply
+        = render "replies/header", reply: reply, just_voted: false
+      .reply-body{ style: "#{"display: none;" if reply.below_threshold?}" }
+        %div{ data: { object: "reply-show", parent_reply_id: reply.parent_reply_id, reply_id: reply.id } }
+          = render "replies/formatted", reply: reply
         - unless reply.deleted?
           - new_reply = reply.parent.replies.new(reply_id: reply.id)
           - parent_reply_id = new_reply.parent_reply_id
-          - reply_id = (new_reply.new_record? ? 'new' : new_reply.id)
+          - reply_id = (new_reply.new_record? ? "new" : new_reply.id)
           %div{ id: "write_reply_#{parent_reply_id}_#{reply_id}" }
             - if reply.parent.is_a?(Broadcast)
               - async_write_a_reply_path = async_parent_reply_path(broadcast_id: reply.parent, parent_reply_id: parent_reply_id, reply_id: reply_id)
@@ -37,20 +37,20 @@
               - if reply.parent.replies.first == reply
                 - method = :get
                 - remote = nil
-                - async_write_a_reply_path = page_topic_path(reply.parent, page: reply.parent.last_page, anchor: 'write-a-reply')
+                - async_write_a_reply_path = page_topic_path(reply.parent, page: reply.parent.last_page, anchor: "write-a-reply")
 
-            %small= link_to 'reply', async_write_a_reply_path, method: method, remote: remote, class: 'text-muted'
-            %small= link_to 'link', reply, class: 'text-muted', data: { turbolinks: false }
+            %small= link_to "reply", async_write_a_reply_path, method: method, remote: remote, class: "text-muted"
+            %small= link_to "link", reply, class: "text-muted", data: { turbolinks: false }
             - if current_user && reply.editable_by?(current_user)
-              %small= link_to 'edit', edit_reply_path(reply), remote: true, class: 'text-muted'
-              %small= link_to 'delete', reply_path(reply), method: :delete, remote: true, data: { confirm: 'Are you sure you want to delete this comment?' }, class: 'text-muted'
-          %div{ id: "comment_container_#{parent_reply_id}_#{reply_id}", style: 'display:none' }
+              %small= link_to "edit", edit_reply_path(reply), remote: true, class: "text-muted"
+              %small= link_to "delete", reply_path(reply), method: :delete, remote: true, data: { confirm: "Are you sure you want to delete this comment?" }, class: "text-muted"
+          %div{ id: "comment_container_#{parent_reply_id}_#{reply_id}", style: "display: none;" }
         - reply_scope = reply.parent.replies.where(reply_id: reply.id)
-        - if params[:sort_by] == 'new'
+        - if params[:sort_by] == "new"
           - reply_scope = reply_scope.order(id: :desc)
-        - elsif params[:sort_by] == 'best'
+        - elsif params[:sort_by] == "best"
           - reply_scope = reply_scope.order(:id)
         - else
           - reply_scope = reply_scope.order(:id)
         - reply_scope.each do |child_comment|
-          = render 'replies/show', reply: child_comment, level: level + 1, include_parent_title: false
+          = render "replies/show", reply: child_comment, level: level + 1, include_parent_title: false

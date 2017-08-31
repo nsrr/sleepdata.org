@@ -8,49 +8,47 @@
     .container
       %h1.page-heading
         .pull-right
-          = link_to pencil_or('Write a Reply'), page_topic_path(@topic, page: @topic.last_page, anchor: 'write-a-reply'), method: :get, class: 'btn btn-accent btn-shadow'
+          = link_to pencil_or("Write a Reply"), page_topic_path(@topic, page: @topic.last_page, anchor: "write-a-reply"), method: :get, class: "btn btn-accent btn-shadow"
           - if current_user && @topic.editable_by?(current_user)
             - edit_url = edit_topic_path(@topic)
             - delete_url = @topic
             - delete_confirmation = "Delete \"#{@topic.title}\"?"
             %span.dropdown
-              = link_to '#', class: 'btn btn-light btn-shadow dropdown-toggle', data: { toggle: 'dropdown' } do
-                %span.hidden-sm.hidden-md.hidden-lg.glyphicon.glyphicon-cog
-                %span.hidden-xs Actions
+              = link_to "#", class: "btn btn-light btn-shadow dropdown-toggle", data: { toggle: "dropdown" } do
+                .d-inline-block.d-sm-none
+                  %i.fa.fa-cog
+                .d-none.d-sm-inline-block Actions
                 %strong.caret
 
-              %ul.dropdown-menu.dropdown-menu-right
-                %li
-                  = link_to edit_url do
-                    %i.fa.fa-pencil
-                    Edit
-                %li.divider{ role: 'separator' }
-                %li
-                  = link_to delete_url, method: :delete, data: { confirm: delete_confirmation } do
-                    .text-danger
-                      %i.fa.fa-trash
-                      Delete
+              .dropdown-menu.dropdown-menu-right
+                = link_to edit_url, class: "dropdown-item" do
+                  %i.fa.fa-pencil
+                  Edit
+                .dropdown-divider
+                = link_to delete_url, method: :delete, data: { confirm: delete_confirmation }, class: "dropdown-item text-danger" do
+                  %i.fa.fa-trash
+                  Delete
         = @title
 
-%div{ style: 'margin-bottom: 20px' }
-  .pull-right.hidden-xs.hidden-sm{ style: 'margin-top: -20px' }
-    = paginate @replies, theme: 'bootstrap-small'
+%div{ style: "margin-bottom: 20px;" }
+  .pull-right.hidden-xs.hidden-sm{ style: "margin-top: -20px;" }
+    = paginate @replies, theme: "bootstrap-small"
 
-%div{ style: 'clear:both' }
+%div{ style: "clear: both;" }
 
-= render 'replies/index', parent: @topic
+= render "replies/index", parent: @topic
 
 - if @page == @topic.last_page
-  #comment_container_root_new{ style: 'display:none' }
+  #comment_container_root_new{ style: "display: none;" }
     - reply = @topic.replies.new
-    = render 'replies/form', reply: reply
+    = render "replies/form", reply: reply
 
-  %a.anchor{ name: 'write-a-reply' }
-  #write_reply_root_new{ style: 'margin-bottom: 20px' }
-    - async_write_a_reply_path = async_parent_reply_path(topic_id: @topic, parent_reply_id: 'root', reply_id: 'new')
-    = link_to 'Write a Reply', async_write_a_reply_path, method: :post, remote: true, class: 'btn btn-primary btn-shadow'
+  %a.anchor{ name: "write-a-reply" }
+  #write_reply_root_new{ style: "margin-bottom: 20px" }
+    - async_write_a_reply_path = async_parent_reply_path(topic_id: @topic, parent_reply_id: "root", reply_id: "new")
+    = link_to "Write a Reply", async_write_a_reply_path, method: :post, remote: true, class: "btn btn-primary btn-shadow"
 
-.center-horizontally= paginate @replies, theme: 'bootstrap-small'
+.center-horizontally= paginate @replies, theme: "bootstrap-small"
 
 - if current_user
-  #topic-subscription= render 'topics/subscribe_unsubscribe', topic: @topic
+  #topic-subscription= render "topics/subscribe_unsubscribe", topic: @topic

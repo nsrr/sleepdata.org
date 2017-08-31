@@ -1,8 +1,5 @@
 - @title = "#{"#{params[:folder].gsub('/', ' - ')} - " if params[:folder].present?} #{@dataset.slug.upcase} Variables"
 
-- content_for :body_class do
-  brand-background
-
 = render "datasets/header"
 
 = render "variables/folder_breadcrumb", folder: params[:folder], total_count: @variables.total_count
@@ -10,34 +7,33 @@
 = render "search/simple", url: dataset_variables_path(@dataset)
 
 - if @variables.present?
-  .dashboard-container
-    %table.table.table-striped
-      %col{ width: "32px" }
-      %col
-      %col
-      %col
-      %thead
-        %tr
-          %th
-          %th
-            Name
-            = render "search/toggle"
-          %th.hidden-xs.nowrap Display Name
-          %th.hidden-xs.hidden-sm Folder
+  %table.table.table-striped.table-hover
+    %col{ width: "32px" }
+    %col
+    %col.d-none.d-sm-table
+    %col.d-none.d-md-table
+    %thead
+      %tr.table-dark
+        %th
+        %th
+          Name
+          = render "search/toggle"
+        %th.d-none.d-sm-table-cell.nowrap Display Name
+        %th.d-none.d-md-table-cell Folder
 
-      - @variables.each do |variable|
-        %tr
-          %td
-            - if variable.commonly_used?
-              %span.glyphicon.glyphicon-star.text-warning
-          %td
-            = link_to variable.name, dataset_variable_path(variable.dataset, variable)
-            .hidden-sm.hidden-md.hidden-lg
-              = variable.display_name
-          %td.hidden-xs
+    - @variables.each do |variable|
+      %tr
+        %td
+          - if variable.commonly_used?
+            %i.fa.fa-star.text-warning
+        %td
+          = link_to variable.name, dataset_variable_path(variable.dataset, variable)
+          .d-block.d-sm-none
             = variable.display_name
-            %small.text-muted.variable-description= simple_markdown(variable.description, allow_lists: false)
-          %td.hidden-xs.hidden-sm= variable.folder
+        %td.d-none.d-sm-table-cell
+          = variable.display_name
+          %small.text-muted.variable-description= simple_markdown(variable.description, allow_lists: false)
+        %td.d-none.d-md-table-cell= variable.folder
 - elsif @dataset.variables.count.zero?
   .jumbotron{ style: "margin-top: 30px;" }
     %p

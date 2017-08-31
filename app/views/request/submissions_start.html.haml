@@ -6,27 +6,26 @@
     .container
       %h1.page-heading.center
         Looking to
-        %span.glyphicon.glyphicon-cloud-download
+        %i.fa.fa-cloud-download
         download data?
 
-.dashboard-container
-  .lead
-    %p.center
-      Proceed through
-      %strong
-        a few short steps
-      of the submission review process.
-    %p.center
-      Save your progress whenever, "Submit your Application" when ready!
-    %p.center
-      %br
-      = link_to submissions_launch_path(dataset: params[:dataset]), method: :post, class: 'btn btn-lg btn-accent btn-shadow' do
-        Click here to start!
-        %i.fa.fa-caret-right
+.jumbotron
+  %p.center
+    Proceed through
+    %strong
+      a few short steps
+    of the submission review process.
+  %p.center
+    Save your progress whenever, "Submit your Application" when ready!
+  %p.center
+    %br
+    = link_to submissions_launch_path(dataset: params[:dataset]), method: :post, class: "btn btn-lg btn-accent btn-shadow" do
+      Click to start!
+      %i.fa.fa-caret-right
 
-  .lead{ style: 'margin-top: 80px;' }
+  %div{ style: "margin-top: 80px;" }
 
     %p.center
       We're here to help! Send your questions to
-      = succeed '.' do
-        = mail_to 'support@sleepdata.org'
+      = succeed "." do
+        = mail_to "support@sleepdata.org"

@@ -102,7 +102,7 @@
 
     - if json && json['tables']
       - (json['tables'] || []).each do |key, tables|
-        %div{ style: 'display:none', data: { chart_name: key } }
+        %div{ style: 'display: none;', data: { chart_name: key } }
           - [tables].flatten.each do |table|
             - if table.is_a? Hash
               %h3.brand.center= table['title']

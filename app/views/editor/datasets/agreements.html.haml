@@ -1,46 +1,46 @@
 - @title = "Agreements - #{@dataset.name}"
 
-= render 'datasets/header'
+= render "datasets/header"
 
 - content_for :header do
   .breadcrumb-container
-    .container{ style: 'position: relative;' }
-      .hidden-xs{ style: 'position: absolute; top: -5.5px; right: 15px' }
-        = render 'variables/per_page', per_page: 100, object_count: @agreements.total_count, pagination_size: 'small'
+    .container{ style: "position: relative;" }
+      .hidden-xs{ style: "position: absolute; top: -5.5px; right: 15px" }
+        = render "variables/per_page", per_page: 100, object_count: @agreements.total_count, pagination_size: "small"
       %ol
         %li= link_to @dataset.slug, @dataset
         %li agreements
-        - if params[:order] != 'agreements.id desc' || params[:status].present?
-          %li= link_to 'Reset Filters', agreements_dataset_path(@dataset)
+        - if params[:order] != "agreements.id desc" || params[:status].present?
+          %li= link_to "Reset Filters", agreements_dataset_path(@dataset)
 
 .row
   .col-sm-9
     %table.table.table-striped
-      %col{ width: '100px' }
+      %col{ width: "100px" }
       %thead
         %tr
           %th
-            = link_to 'Status', agreements_dataset_path(@dataset, order: (params[:order] == 'agreements.status desc' ? 'agreements.status' : 'agreements.status desc'), status: params[:status])
-            .dropdown{ style: 'display: inline-block' }
-              = link_to '#', data: { target: '#', toggle: 'dropdown' }, role: 'button', aria: { haspopup: 'true', expanded: 'false' }, id: 'status-dropdown' do
-                %span.glyphicon.glyphicon-filter
-              %ul.dropdown-menu{ aria: { labelledby: 'status-dropdown' } }
-                %li= link_to 'All', agreements_dataset_path(@dataset, order: params[:order]), style: params[:status].blank? ? 'font-weight:bold;' : ''
+            = link_to "Status", agreements_dataset_path(@dataset, order: (params[:order] == "agreements.status desc" ? "agreements.status" : "agreements.status desc"), status: params[:status])
+            .dropdown{ style: "display: inline-block" }
+              = link_to "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" }, id: "status-dropdown" do
+                %i.fa.fa-filter
+              .dropdown-menu{ aria: { labelledby: "status-dropdown" } }
+                = link_to "All", agreements_dataset_path(@dataset, order: params[:order]), style: params[:status].blank? ? "font-weight:bold;" : "", class: "dropdown-item"
                 - Agreement::STATUS.each do |label, value|
-                  %li= link_to label.titleize, agreements_dataset_path(@dataset, order: params[:order], status: value), style: params[:status] == value ? 'font-weight:bold;' : ''
-          %th= link_to 'Agreement', agreements_dataset_path(@dataset, order: (params[:order] == 'agreements.id desc' ? 'agreements.id' : 'agreements.id desc'), status: params[:status])
+                  = link_to label.titleize, agreements_dataset_path(@dataset, order: params[:order], status: value), style: params[:status] == value ? "font-weight:bold;" : "", class: "dropdown-item"
+          %th= link_to "Agreement", agreements_dataset_path(@dataset, order: (params[:order] == "agreements.id desc" ? "agreements.id" : "agreements.id desc"), status: params[:status])
       %tbody
         - @agreements.each do |agreement|
           %tr
             %td= status_helper(agreement)
             %td.nowrap
-              = image_tag agreement.user.avatar_url(18), style: 'vertical-align:text-bottom;width:18px'
+              = image_tag agreement.user.avatar_url(18), style: "vertical-align:text-bottom;width:18px"
               = link_to agreement.name_with_id, review_path(agreement)
 
     .center
-      = paginate @agreements, theme: 'bootstrap-small'
+      = paginate @agreements, theme: "bootstrap-small"
 
   .col-sm-3
     - @object = @dataset
-    = render 'documentation/logo_and_admin'
-    = render 'datasets/links'
+    = render "documentation/logo_and_admin"
+    = render "datasets/links"

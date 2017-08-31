@@ -3,27 +3,27 @@
     %div{ class: "#{"col-sm-#{12 / dataset.info_count}"}" }
       .info-container
         .info-header
-          %span.glyphicon.glyphicon-education
+          %i.fa.fa-graduation-cap
           What
         %p= dataset.info_what
   - if dataset.info_who.present?
     %div{ class: "#{"col-sm-#{12 / dataset.info_count}"}" }
       .info-container
         .info-header
-          %span.glyphicon.glyphicon-user
+          %i.fa.fa-users
           Who
         %p= dataset.info_who
   - if dataset.info_when.present?
     %div{ class: "#{"col-sm-#{12 / dataset.info_count}"}" }
       .info-container
         .info-header
-          %span.glyphicon.glyphicon-calendar
+          %i.fa.fa-calendar
           When
         %p= dataset.info_when
   - if dataset.info_funded_by.present?
     %div{ class: "#{"col-sm-#{12 / dataset.info_count}"}" }
       .info-container
         .info-header
-          %span.glyphicon.glyphicon-piggy-bank
+          %i.fa.fa-university
           Funding
         %p= dataset.info_funded_by

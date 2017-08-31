@@ -8,49 +8,92 @@
   .landing-sentence{ style: "text-align: left;font-weight: normal;" }
     Want to do more with the data?
 
-  .landing-tool-box.box-shadow
-    .landing-tool-right
-      .landing-tool-icon
-        %i.fa.fa-line-chart{ aria: { hidden: "true" } }
-    .landing-tool-left
-      .landing-tool-header
+  .card-deck
+    .card.bg-dark.text-white.mb-3{ style: "min-width: 20rem;" }
+      .card-header
+        .text-center{ style: "height: 144px;" }
+          %img{ src: "data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTYuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjEyOHB4IiBoZWlnaHQ9IjEyOHB4IiB2aWV3Qm94PSIwIDAgNDEgNDEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQxIDQxOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxnPgoJPHBhdGggZD0iTTQxLDIxLjQzN2MwLDEuMTA0LTAuODk2LDItMiwyaC02LjgxMmwtMi41NjIsMTAuNTk1Yy0wLjIxNywwLjkwMS0xLjAyMiwxLjUzLTEuOTQyLDEuNTNjLTAuMDI3LDAtMC4wNTYsMC0wLjA4NC0wLjAwMiAgIGMtMC45NTMtMC4wMzktMS43NDYtMC43NDYtMS44OTQtMS42ODhsLTEuMjg3LTguMjI5bC0xLjI2NSwzLjIxNWMtMC4zMjksMC44NC0xLjE4LDEuMzU0LTIuMDc4LDEuMjU4ICAgYy0wLjg5Ny0wLjEtMS42MTctMC43ODUtMS43NTgtMS42NzhsLTEuNDM4LTkuMTJsLTIuNTQyLDEzLjgxNWMtMC4xNjMsMC44ODctMC44OTcsMS41NTMtMS43OTQsMS42MzEgICBjLTAuODk3LDAuMDc2LTEuNzM2LTAuNDUzLTIuMDQ4LTEuMjk5TDcuNzg1LDIzLjQzOEgyYy0xLjEwNCwwLTItMC44OTYtMi0yYzAtMS4xMDQsMC44OTYtMiwyLTJoNy4xNzggICBjMC44MzcsMCwxLjU4NSwwLjUyMSwxLjg3NSwxLjMwNmwxLjY2OCw0LjUwNmwzLjM0NC0xOC4xNzRjMC4xNzUtMC45NSwxLjAwMy0xLjYzOCwxLjk2Ni0xLjYzOGMwLjAwOSwwLDAuMDE4LDAsMC4wMjYsMCAgIGMwLjk3NSwwLjAxMywxLjc5OCwwLjcyNiwxLjk1LDEuNjg4bDIuMTE2LDEzLjQyMWwxLjI3MS0zLjIzM2MwLjMzLTAuODQsMS4xODUtMS4zNTQsMi4wOC0xLjI1NiAgIGMwLjg5NiwwLjA5OSwxLjYxNiwwLjc4NywxLjc1NiwxLjY3OWwwLjg3MSw1LjU3bDAuNTY1LTIuMzM5YzAuMjE3LTAuODk4LDEuMDIxLTEuNTMsMS45NDItMS41M0gzOSAgIEM0MC4xMDQsMTkuNDM2LDQxLDIwLjMzMSw0MSwyMS40Mzd6IiBmaWxsPSIjRkZGRkZGIi8+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPGc+CjwvZz4KPC9zdmc+Cg==", style: "height: 100%;user-select: none;" }
+          / %i.fa.fa-line-chart
         EDF Visualization
-      .landing-tool-links
+      .card-body
         - edf_viewer_tools = [["EDF Viewer", community_show_tool_path("nsrr-edf-viewer")], ["EDFbrowser", community_show_tool_path("teuniz-edfbrowser")], ["Polyman", community_show_tool_path("physionet-polyman")], ["Altamira", community_show_tool_path("remomueller-altamira")]]
         - edf_viewer_tools.each_with_index do |(name, url), index|
           = link_to name, url
           - if index < edf_viewer_tools.count - 1
             %br.d-block.d-sm-none
             %span.d-none.d-sm-inline &middot;
-  .landing-tool-box.box-shadow
-    .landing-tool-right
-      .landing-tool-icon
-        %i.fa.fa-heartbeat{ aria: { hidden: "true" } }
-    .landing-tool-left
-      .landing-tool-header
+
+    .card.bg-dark.text-white.mb-3{ style: "min-width: 20rem;" }
+      .card-header
+        .text-center{ style: "font-size: 6rem;" }
+          %i.fa.fa-heartbeat
         Signal Processing
-      .landing-tool-links
+      .card-body
         - signal_tools = [["Data Chromatix", community_show_tool_path("saramariani-data-chromatix")], ["HRV Toolkit", community_show_tool_path("physionet-hrv-toolkit")], ["SpectralTrainFig", community_show_tool_path("nsrr-spectraltrainfig")], ["SpiSOP", community_show_tool_path("frederikdweber-spisop")]]
         - signal_tools.each_with_index do |(name, url), index|
           = link_to name, url
           - if index < signal_tools.count - 1
             %br.d-block.d-sm-none
             %span.d-none.d-sm-inline &middot;
-  .landing-tool-box.box-shadow
-    .landing-tool-right
-      .landing-tool-icon
-        %i.fa.fa-graduation-cap{ aria: { hidden: "true" } }
-    .landing-tool-left
-      .landing-tool-header
+
+    .card.bg-dark.text-white.mb-3{ style: "min-width: 20rem;" }
+      .card-header
+        .text-center{ style: "font-size: 6rem;" }
+          %i.fa.fa-graduation-cap
         Learn
-      .landing-tool-links
+      .card-body
         - tutorials = CommunityTool.current.where(published: true, tag_tutorial: true).order("rating desc nulls last").limit(3)
         - tutorials.each do |community_tool|
-          %div
-            = link_to community_tool.name, community_show_tool_path(community_tool)
+          %div.nowrap.overflow-hidden
             - if community_tool.rating
               %small.text-muted= community_tool.rating.round(1)
               %i.fa.fa-star.text-warning{ aria: { hidden: "true" } }
+            = link_to community_tool.name, community_show_tool_path(community_tool)
+
+  - if false
+    .landing-tool-box.box-shadow
+      .landing-tool-right
+        .landing-tool-icon
+          %i.fa.fa-line-chart{ aria: { hidden: "true" } }
+      .landing-tool-left
+        .landing-tool-header
+          EDF Visualization
+        .landing-tool-links
+          - edf_viewer_tools = [["EDF Viewer", community_show_tool_path("nsrr-edf-viewer")], ["EDFbrowser", community_show_tool_path("teuniz-edfbrowser")], ["Polyman", community_show_tool_path("physionet-polyman")], ["Altamira", community_show_tool_path("remomueller-altamira")]]
+          - edf_viewer_tools.each_with_index do |(name, url), index|
+            = link_to name, url
+            - if index < edf_viewer_tools.count - 1
+              %br.d-block.d-sm-none
+              %span.d-none.d-sm-inline &middot;
+    .landing-tool-box.box-shadow
+      .landing-tool-right
+        .landing-tool-icon
+          %i.fa.fa-heartbeat{ aria: { hidden: "true" } }
+      .landing-tool-left
+        .landing-tool-header
+          Signal Processing
+        .landing-tool-links
+          - signal_tools = [["Data Chromatix", community_show_tool_path("saramariani-data-chromatix")], ["HRV Toolkit", community_show_tool_path("physionet-hrv-toolkit")], ["SpectralTrainFig", community_show_tool_path("nsrr-spectraltrainfig")], ["SpiSOP", community_show_tool_path("frederikdweber-spisop")]]
+          - signal_tools.each_with_index do |(name, url), index|
+            = link_to name, url
+            - if index < signal_tools.count - 1
+              %br.d-block.d-sm-none
+              %span.d-none.d-sm-inline &middot;
+    .landing-tool-box.box-shadow
+      .landing-tool-right
+        .landing-tool-icon
+          %i.fa.fa-graduation-cap{ aria: { hidden: "true" } }
+      .landing-tool-left
+        .landing-tool-header
+          Learn
+        .landing-tool-links
+          - tutorials = CommunityTool.current.where(published: true, tag_tutorial: true).order("rating desc nulls last").limit(3)
+          - tutorials.each do |community_tool|
+            %div
+              = link_to community_tool.name, community_show_tool_path(community_tool)
+              - if community_tool.rating
+                %small.text-muted= community_tool.rating.round(1)
+                %i.fa.fa-star.text-warning{ aria: { hidden: "true" } }
 
   .landing-sentence.d-block.d-lg-none.text-left{ style: "font-weight: normal;" }
     Know of another great tool?

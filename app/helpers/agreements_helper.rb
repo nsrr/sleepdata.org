@@ -9,7 +9,7 @@ module AgreementsHelper
   def status_helper(agreement)
     content_tag(
       :span, agreement.status,
-      class: "label label-#{status_hash[agreement.status]}"
+      class: "badge badge-#{status_hash[agreement.status]}"
     )
   end
 
@@ -36,10 +36,10 @@ module AgreementsHelper
   def status_hash
     {
       "started" => "warning",
-      "submitted" => "info",
+      "submitted" => "primary",
       "approved" => "success",
       "resubmit" => "danger",
-      "expired" => "default",
+      "expired" => "light",
       "closed" => "danger"
     }
   end

@@ -6,7 +6,7 @@
           %li.page-item
             - url = files_dataset_path(@dataset) + "#{"/m/browser" if @dataset_file.is_file?}" + "/" + @dataset_file.full_path
             = link_to url, class: "page-link" do
-              %span.glyphicon.glyphicon-save
+              %i.fa.fa-download
               Download
       - else
         = render "datasets/reset_folder_index", path: path

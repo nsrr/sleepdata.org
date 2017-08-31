@@ -17,7 +17,8 @@
     - if @variable.dataset_version
       - download_url = files_dataset_path(@dataset) + "/datasets/archive/#{@variable.dataset_version.version}"
       = link_to download_url, class: 'btn btn-light' do
+        %i.fa.fa-file-text-o
         View Change Log
-        %span.glyphicon.glyphicon-new-window
+
 
 .visible-xs= render 'variables/menu'

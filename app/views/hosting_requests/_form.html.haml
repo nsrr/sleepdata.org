@@ -26,7 +26,7 @@
             = f.text_area :description, rows: [[15, @hosting_request.description.to_s.count("\n") + 1].max, 25].min, class: 'preview-control filedrag-container', data: { object: 'expandable-text-area dropfile', default_rows: 15, upload_url: upload_images_path(update: '#hosting_request_description', format: 'js'), fallback_url: new_image_path, log_id: '#log_new' }
             #log_new.filedrag
               Drag images above to insert into post.
-          #content_preview.markdown-container-new{ style: 'display:none' }
+          #content_preview.markdown-container-new{ style: 'display: none;' }
       = render 'layouts/errors', object: @hosting_request, key: :description
 
   .form-group

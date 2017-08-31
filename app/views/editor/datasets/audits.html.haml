@@ -26,20 +26,20 @@
         %th= number_to_human_size @audits.sum(:file_size)
         %th
           - if params.key?(:user_id)
-            %span.glyphicon.glyphicon-filter
+            %i.fa.fa-filter
             - user = User.find_by_id(params[:user_id])
             = user ? user.name : 'Anonymous'
           - else
             %span.text-muted -
         %th
           - if params.key?(:remote_ip)
-            %span.glyphicon.glyphicon-filter
+            %i.fa.fa-filter
             = params[:remote_ip].blank? ? 'blank' : params[:remote_ip]
           - else
             %span.text-muted -
         %th
           - if params.key?(:medium)
-            %span.glyphicon.glyphicon-filter
+            %i.fa.fa-filter
             = params[:medium].blank? ? 'blank' : params[:medium]
           - else
             %span.text-muted -
@@ -52,10 +52,10 @@
         %td
           - if audit.user_id.to_s == params[:user_id]
             = link_to audits_dataset_path(@dataset, medium: params[:medium], remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: 'Remove Filter', placement: 'left' } do
-              %span.glyphicon.glyphicon-remove
+              %i.fa.fa-times
           - else
             = link_to audits_dataset_path(@dataset, medium: params[:medium], user_id: audit.user_id.to_s, remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: "Filter by #{ audit.user ? audit.user.name : 'Anonymous' }", placement: 'left' } do
-              %span.glyphicon.glyphicon-filter
+              %i.fa.fa-filter
           - if audit.user
             = audit.user.name if audit.user
           - else
@@ -63,18 +63,18 @@
         %td
           - if audit.remote_ip.to_s == params[:remote_ip]
             = link_to audits_dataset_path(@dataset, user_id: params[:user_id], medium: params[:medium]), rel: 'tooltip', data: { title: 'Remove Filter', placement: 'left' } do
-              %span.glyphicon.glyphicon-remove
+              %i.fa.fa-times
           - else
             = link_to audits_dataset_path(@dataset, remote_ip: audit.remote_ip.to_s, user_id: params[:user_id], medium: params[:medium]), rel: 'tooltip', data: { title: "Filter by #{audit.remote_ip}", placement: 'left' } do
-              %span.glyphicon.glyphicon-filter
+              %i.fa.fa-filter
           = audit.remote_ip
         %td
           - if audit.medium.to_s == params[:medium]
             = link_to audits_dataset_path(@dataset, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: 'Remove Filter', placement: 'left' } do
-              %span.glyphicon.glyphicon-remove
+              %i.fa.fa-times
           - else
             = link_to audits_dataset_path(@dataset, medium: audit.medium.to_s, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: "Filter by #{audit.medium}", placement: 'left' } do
-              %span.glyphicon.glyphicon-filter
+              %i.fa.fa-filter
           = audit.medium
         %td= audit.created_at.strftime('%b %d, %Y &middot; %I:%M %p').html_safe
 

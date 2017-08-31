@@ -61,11 +61,11 @@
             Type
             .dropdown{ style: "display: inline-block" }
               = link_to "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" } do
-                %span.glyphicon.glyphicon-filter
-              %ul.dropdown-menu.dropdown-menu-right
-                %li= link_to "All", tools_path(order: params[:order]), style: params[:type].blank? ? "font-weight:bold;" : ""
+                %i.fa.fa-filter
+              .dropdown-menu.dropdown-menu-right
+                = link_to "All", tools_path(order: params[:order]), style: params[:type].blank? ? "font-weight:bold;" : "", class: "dropdown-item"
                 - [["Program", "program"], ["Script", "script"], ["Tutorial", "tutorial"]].each do |label, value|
-                  %li= link_to label, tools_path(order: params[:order], type: value), style: params[:type] == value ? "font-weight:bold;" : ""
+                  = link_to label, tools_path(order: params[:order], type: value), style: params[:type] == value ? "font-weight:bold;" : "", class: "dropdown-item"
           = th_sort_field_rev @order, "community_tools.publish_date", "Published", extra_class: "d-none d-md-block center"
           - if current_user && current_user.system_admin?
             %th.center
