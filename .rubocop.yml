@@ -36,6 +36,10 @@ Style/StringLiterals:
   Enabled: true
   EnforcedStyle: double_quotes
 
+Style/StringLiteralsInInterpolation:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
 # Allow perl backrefs.
 Style/PerlBackrefs:
   Enabled: false
