@@ -9,7 +9,7 @@
       %h1.page-heading
         - if current_user && current_user.system_admin?
           .pull-right
-            = link_to plus_or('New Challenge'), new_challenge_path, class: 'btn btn-accent btn-shadow'
+            = link_to plus_or('New Challenge'), new_challenge_path, class: 'btn btn-primary btn-shadow'
         = @title
 .center
   %p.lead

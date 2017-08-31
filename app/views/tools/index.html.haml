@@ -16,7 +16,7 @@
     .container
       %h1.page-heading
         .pull-right
-          = link_to plus_or("Contribute a Tool"), contribute_tool_start_path, class: "btn btn-accent btn-shadow"
+          = link_to plus_or("Contribute a Tool"), contribute_tool_start_path, class: "btn btn-primary btn-shadow"
           = render "layouts/per_page", per_page: 20, object_count: @community_tools.total_count
         = @title
 
@@ -103,4 +103,4 @@
       .call-to-action-body
         Share your tool with the NSRR community.
       .call-to-action-body
-        = link_to "Contribute a Tool", contribute_tool_start_path, class: "btn btn-accent btn-shadow"
+        = link_to "Contribute a Tool", contribute_tool_start_path, class: "btn btn-primary btn-shadow"

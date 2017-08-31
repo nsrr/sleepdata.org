@@ -1,6 +1,3 @@
-- content_for :body_class do
-  brand-background
-
 - content_for :header do
   .header-container
     .container
@@ -19,7 +16,7 @@
     Save your progress whenever, "Submit your Application" when ready!
   %p.center
     %br
-    = link_to submissions_launch_path(dataset: params[:dataset]), method: :post, class: "btn btn-lg btn-accent btn-shadow" do
+    = link_to submissions_launch_path(dataset: params[:dataset]), method: :post, class: "btn btn-lg btn-primary btn-shadow" do
       Click to start!
       %i.fa.fa-caret-right
 

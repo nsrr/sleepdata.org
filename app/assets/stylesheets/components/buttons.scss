@@ -3,7 +3,7 @@
 }
 
 .btn-shadow {
-  box-shadow: 0 5px 15px $standard-shadow-color;
+  box-shadow: 0 0 15px $standard-shadow-color;
 
   &:hover,
   &:focus,
@@ -11,92 +11,6 @@
   &.active,
   &.disabled,
   &[disabled] {
-    box-shadow: 0 5px 8px $standard-shadow-hover-color;
+    box-shadow: 0 0 8px $standard-shadow-hover-color;
   }
 }
-
-.btn-accent {
-  background-color: $a200;
-  border: 1px solid $a400;
-  color: $a200-text;
-
-  &:hover,
-  &:focus,
-  &:active,
-  &.active,
-  &.disabled,
-  &[disabled] {
-    background-color: $a400;
-    border: 1px solid $a700;
-    color: $a200-text;
-  }
-}
-
-.btn-primary-dark {
-  background-color: $navbar-dark-color;
-  border: 1px solid darken($navbar-dark-color, 6.5%);
-  color: $brand-white;
-
-  &:hover,
-  &:focus,
-  &:active,
-  &.active,
-  &.disabled,
-  &[disabled] {
-    background-color: darken($navbar-dark-color, 6.5%);
-    border: 1px solid darken($navbar-dark-color, 6.5%);
-    color: $brand-white;
-  }
-}
-
-// TODO: Replace with btn-outline-*
-// .btn-primary-inverse {
-//   background-color: $brand-white;
-//   border: 1px solid $btn-primary-border;
-//   color: $btn-primary-bg;
-// }
-
-// .btn-primary-inverse:hover,
-// .btn-primary-inverse:focus,
-// .btn-primary-inverse:active,
-// .btn-primary-inverse.active,
-// .btn-primary-inverse.disabled,
-// .btn-primary-inverse[disabled] {
-//   background-color: $btn-primary-bg;
-//   border: 1px solid $btn-primary-border;
-//   color: $brand-white;
-// }
-
-// .btn-info-inverse {
-//   background-color: $brand-white;
-//   border: 1px solid $btn-info-border;
-//   color: $btn-info-bg;
-// }
-
-// .btn-info-inverse:hover,
-// .btn-info-inverse:focus,
-// .btn-info-inverse:active,
-// .btn-info-inverse.active,
-// .btn-info-inverse.disabled,
-// .btn-info-inverse[disabled] {
-//   background-color: $btn-info-bg;
-//   border: 1px solid $btn-info-border;
-//   color: $brand-white;
-// }
-
-// .btn-success-inverse {
-//   background-color: $brand-white;
-//   border: 1px solid $btn-success-border;
-//   color: $btn-success-bg;
-// }
-
-// .btn-success-inverse:hover,
-// .btn-success-inverse:focus,
-// .btn-success-inverse:active,
-// .btn-success-inverse.active,
-// .btn-success-inverse.disabled,
-// .btn-success-inverse[disabled] {
-//   background-color: $btn-success-bg;
-//   border: 1px solid $btn-success-border;
-//   color: $brand-white;
-// }

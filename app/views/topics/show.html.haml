@@ -8,7 +8,7 @@
     .container
       %h1.page-heading
         .pull-right
-          = link_to pencil_or("Write a Reply"), page_topic_path(@topic, page: @topic.last_page, anchor: "write-a-reply"), method: :get, class: "btn btn-accent btn-shadow"
+          = link_to pencil_or("Write a Reply"), page_topic_path(@topic, page: @topic.last_page, anchor: "write-a-reply"), method: :get, class: "btn btn-primary btn-shadow"
           - if current_user && @topic.editable_by?(current_user)
             - edit_url = edit_topic_path(@topic)
             - delete_url = @topic

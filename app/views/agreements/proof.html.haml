@@ -12,7 +12,7 @@
     %div{ style: 'font-size: 20px;border-bottom: 1px solid #ededed;padding-bottom: 10px;margin-bottom: 20px;' }
       Step
       = step
-      = link_to "Edit Step #{step}", step_agreement_path(@agreement, step: step), class: 'btn btn-sm btn-accent btn-shadow'
+      = link_to "Edit Step #{step}", step_agreement_path(@agreement, step: step), class: 'btn btn-sm btn-primary btn-shadow'
 
     - unless @agreement.step_valid?(step)
       .text-danger{ style: 'margin-bottom: 20px;' }

@@ -8,7 +8,7 @@
     .container
       %h1.page-heading
         .pull-right
-          %span#forum-top-container= link_to "Start New Topic", async_forum_new_topic_path, method: :post, remote: true, class: "btn btn-accent btn-shadow"
+          %span#forum-top-container= link_to "Start New Topic", async_forum_new_topic_path, method: :post, remote: true, class: "btn btn-primary btn-shadow"
           = render "layouts/per_page", per_page: 40, object_count: @topics.total_count
         = @title
         = render "search/toggle"

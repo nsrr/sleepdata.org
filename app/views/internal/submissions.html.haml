@@ -42,11 +42,11 @@
 
           - if agreement.submittable?
             - if agreement.fully_filled_out?
-              = link_to proof_agreement_path(agreement), class: "btn btn-sm btn-accent" do
+              = link_to proof_agreement_path(agreement), class: "btn btn-sm btn-primary" do
                 Resume
                 %i.fa.fa-caret-right
             - else
-              = link_to step_agreement_path(agreement, step: agreement.current_step), class: "btn btn-sm btn-accent" do
+              = link_to step_agreement_path(agreement, step: agreement.current_step), class: "btn btn-sm btn-primary" do
                 Resume
                 %i.fa.fa-caret-right
 
