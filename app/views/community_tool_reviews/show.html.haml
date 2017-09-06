@@ -12,10 +12,10 @@
     .container
       %ol
         %li= link_to @community_tool.name, community_show_tool_path(@community_tool)
-        %li= render 'community_tools/rating', rating: @community_tool.rating
+        %li= render "community_tools/rating", rating: @community_tool.rating
 
 .dashboard-container
-  = render 'community_tools/rating', rating: @community_tool_review.rating
+  = render "community_tools/rating", rating: @community_tool_review.rating
   %i= @community_tool_review.user.forum_name
-  %small.text-muted= @community_tool_review.created_at.strftime('- %b %-d, %Y')
+  %small.text-muted= @community_tool_review.created_at.strftime("- %b %-d, %Y")
   = simple_markdown(@community_tool_review.review)
