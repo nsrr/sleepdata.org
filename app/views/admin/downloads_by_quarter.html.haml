@@ -10,8 +10,8 @@
     %thead
       %tr
         %th Quarter
-        %th.center{ colspan: 2 } Files Downloaded
-        %th.center{ colspan: 2 } Cumulative
+        %th.text-center{ colspan: 2 } Files Downloaded
+        %th.text-center{ colspan: 2 } Cumulative
     %tbody
       - (2013..Time.zone.today.year).reverse_each do |year|
         - (1..4).reverse_each do |quarter_number|

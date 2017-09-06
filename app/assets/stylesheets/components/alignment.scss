@@ -14,6 +14,10 @@
 
 .breakword {
   word-break: break-word;
+
+  code {
+    white-space: pre-wrap;
+  }
 }
 
 .center-vertically {

@@ -20,7 +20,7 @@
 
 = render "internal/profile_header", title: @title
 
-%div.center{ style: "margin-bottom: 20px;" }
+.text-center{ style: "margin-bottom: 20px;" }
   - @year = (params[:year] || Date.today.year).to_i
   = link_to admin_downloads_by_month_path(year: @year - 1, user_type: params[:user_type]), class: "btn btn-sm btn-light" do
     %i.fa.fa-caret-left
@@ -50,7 +50,7 @@
 
   #downloads-chart-container{ data: { series: series.to_json, categories: Date::ABBR_MONTHNAMES.last(12).to_json, title: "#{@year} Downloads", subtitle: user_type, yaxis: "File Size" } }
 
-%div.center{ style: "margin-bottom: 20px;" }
+.text-center{ style: "margin-bottom: 20px;" }
   = link_to "All Members", admin_downloads_by_month_path(year: @year), class: "btn btn-sm #{ !["regular", "core", "aug"].include?(params[:user_type]) ? "btn-primary" : "btn-light"}"
   = link_to "Regular Members", admin_downloads_by_month_path(year: @year, user_type: "regular"), class: "btn btn-sm #{ params[:user_type] == "regular" ? "btn-primary" : "btn-light"}"
   = link_to "AUG Members", admin_downloads_by_month_path(year: @year, user_type: "aug"), class: "btn btn-sm #{ params[:user_type] == "aug" ? "btn-primary" : "btn-light"}"

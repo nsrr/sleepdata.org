@@ -1,9 +1,9 @@
-- @title = 'Stats'
+- @title = "Stats"
 
 - content_for :body_class do
   brand-background
 
-= render 'internal/profile_header', title: @title
+= render "internal/profile_header", title: @title
 
 .dashboard-container
   .dashboard-title
@@ -13,15 +13,15 @@
     %table.table.table-striped.table-borderless.table-hover
       %thead
         %tr
-          %th.center Regular member signups
-          %th.center AUG member signups
-          %th.center Core Team member signups
-          %th.center Total Signups
+          %th.text-center Regular member signups
+          %th.text-center AUG member signups
+          %th.text-center Core Team member signups
+          %th.text-center Total Signups
       %tr
-        %td.center= number_with_delimiter User.current.where(core_member: false, aug_member: false).count
-        %td.center= number_with_delimiter User.current.where(aug_member: true).count
-        %td.center= number_with_delimiter User.current.where(core_member: true).count
-        %td.center= number_with_delimiter User.current.count
+        %td.text-center= number_with_delimiter User.current.where(core_member: false, aug_member: false).count
+        %td.text-center= number_with_delimiter User.current.where(aug_member: true).count
+        %td.text-center= number_with_delimiter User.current.where(core_member: true).count
+        %td.text-center= number_with_delimiter User.current.count
 
 .dashboard-container
   .dashboard-title
@@ -31,13 +31,13 @@
     %table.table.table-striped.table-borderless.table-hover
       %thead
         %tr
-          %th.center Regular member signups
-          %th.center= link_to 'Regular member DAUAs submitted', reviews_path(status: ['submitted', 'approved', 'resubmit', 'expired'], user_type: 'regular')
-          %th.center= link_to 'Regular member DAUAs approved', reviews_path(status: ['approved', 'expired'], user_type: 'regular')
+          %th.text-center Regular member signups
+          %th.text-center= link_to "Regular member DAUAs submitted", reviews_path(status: ["submitted", "approved", "resubmit", "expired"], user_type: "regular")
+          %th.text-center= link_to "Regular member DAUAs approved", reviews_path(status: ["approved", "expired"], user_type: "regular")
       %tr
-        %td.center= number_with_delimiter User.current.where(core_member: false, aug_member: false).count
-        %td.center= number_with_delimiter Agreement.current.regular_members.where(status: ['submitted', 'approved', 'resubmit', 'expired']).count
-        %td.center= number_with_delimiter Agreement.current.regular_members.where(status: ['approved', 'expired']).count
+        %td.text-center= number_with_delimiter User.current.where(core_member: false, aug_member: false).count
+        %td.text-center= number_with_delimiter Agreement.current.regular_members.where(status: ["submitted", "approved", "resubmit", "expired"]).count
+        %td.text-center= number_with_delimiter Agreement.current.regular_members.where(status: ["approved", "expired"]).count
 
 - regular_members_files = DatasetFileAudit.regular_members.group(:dataset_id).count
 - regular_members_file_sizes = DatasetFileAudit.regular_members.group(:dataset_id).sum(:file_size)
@@ -52,18 +52,18 @@
 
   .table-responsive
     %table.table.table-striped.table-borderless.table-hover
-      %col{ width: '1%' }
+      %col{ width: "1%" }
       %thead
         %tr
           %th
-          %th.center{ colspan: 2 } Regular Members
-          %th.center{ colspan: 2 } AUG + Core Members
-          %th.center{ colspan: 2 } Total
+          %th.text-center{ colspan: 2 } Regular Members
+          %th.text-center{ colspan: 2 } AUG + Core Members
+          %th.text-center{ colspan: 2 } Total
         %tr
           %th Dataset
-          %th.center{ colspan: 2 } Files Downloaded
-          %th.center{ colspan: 2 } Files Downloaded
-          %th.center{ colspan: 2 } Files Downloaded
+          %th.text-center{ colspan: 2 } Files Downloaded
+          %th.text-center{ colspan: 2 } Files Downloaded
+          %th.text-center{ colspan: 2 } Files Downloaded
       - Dataset.current.order(:release_date, :name).each do |dataset|
         - public_downloads_files[dataset.id] ||= 0
         - public_downloads_file_sizes[dataset.id] ||= 0
@@ -72,21 +72,21 @@
             = link_to audits_dataset_path(dataset) do
               .hidden-xs.hidden-sm= dataset.name
               .hidden-md.hidden-lg= dataset.slug
-          %td.center= pluralize number_with_delimiter(regular_members_files[dataset.id] ||= 0), 'file'
-          %td.center= number_to_human_size(regular_members_file_sizes[dataset.id] ||= 0)
-          %td.center= pluralize number_with_delimiter(aug_or_core_members_files[dataset.id] ||= 0), 'file'
-          %td.center= number_to_human_size(aug_or_core_members_file_sizes[dataset.id] ||= 0)
-          %td.center= pluralize number_with_delimiter(regular_members_files[dataset.id] + aug_or_core_members_files[dataset.id] + public_downloads_files[dataset.id]), 'file'
-          %td.center= number_to_human_size regular_members_file_sizes[dataset.id] + aug_or_core_members_file_sizes[dataset.id] + public_downloads_file_sizes[dataset.id]
+          %td.text-center= pluralize number_with_delimiter(regular_members_files[dataset.id] ||= 0), "file"
+          %td.text-center= number_to_human_size(regular_members_file_sizes[dataset.id] ||= 0)
+          %td.text-center= pluralize number_with_delimiter(aug_or_core_members_files[dataset.id] ||= 0), "file"
+          %td.text-center= number_to_human_size(aug_or_core_members_file_sizes[dataset.id] ||= 0)
+          %td.text-center= pluralize number_with_delimiter(regular_members_files[dataset.id] + aug_or_core_members_files[dataset.id] + public_downloads_files[dataset.id]), "file"
+          %td.text-center= number_to_human_size regular_members_file_sizes[dataset.id] + aug_or_core_members_file_sizes[dataset.id] + public_downloads_file_sizes[dataset.id]
       %tfoot
         %tr
           %th Total
-          %th.center= pluralize number_with_delimiter(regular_members_files.values.sum), 'file'
-          %th.center.bg-accent= number_to_human_size regular_members_file_sizes.values.sum
-          %th.center= pluralize number_with_delimiter(aug_or_core_members_files.values.sum), 'file'
-          %th.center= number_to_human_size aug_or_core_members_file_sizes.values.sum
-          %th.center= pluralize number_with_delimiter(regular_members_files.values.sum + aug_or_core_members_files.values.sum + public_downloads_files.values.sum), 'file'
-          %th.center= number_to_human_size regular_members_file_sizes.values.sum + aug_or_core_members_file_sizes.values.sum + public_downloads_file_sizes.values.sum
+          %th.text-center= pluralize number_with_delimiter(regular_members_files.values.sum), "file"
+          %th.text-center.bg-accent= number_to_human_size regular_members_file_sizes.values.sum
+          %th.text-center= pluralize number_with_delimiter(aug_or_core_members_files.values.sum), "file"
+          %th.text-center= number_to_human_size aug_or_core_members_file_sizes.values.sum
+          %th.text-center= pluralize number_with_delimiter(regular_members_files.values.sum + aug_or_core_members_files.values.sum + public_downloads_files.values.sum), "file"
+          %th.text-center= number_to_human_size regular_members_file_sizes.values.sum + aug_or_core_members_file_sizes.values.sum + public_downloads_file_sizes.values.sum
 
 .dashboard-container
   .dashboard-title
@@ -99,7 +99,7 @@
       %thead
         %tr
           %th Dataset
-          %th.center Approved Regular Members
+          %th.text-center Approved Regular Members
       %tbody
         - Dataset.current.order(:release_date, :name).each do |dataset|
           %tr
@@ -107,5 +107,5 @@
               = link_to dataset do
                 .hidden-xs.hidden-sm= dataset.name
                 .hidden-md.hidden-lg= dataset.slug
-            %td.center= number_with_delimiter dataset.agreements.regular_members.where(status: 'approved').group(:user_id).count.count
+            %td.text-center= number_with_delimiter dataset.agreements.regular_members.where(status: "approved").group(:user_id).count.count
 
