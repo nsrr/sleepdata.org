@@ -3,6 +3,8 @@
 ### Enhancements
 - **General Changes**
   - Improved landing page styling
+- **Organizations Added**
+  - Organizations are used to group datasets, DAUA templates, and reviewers
 - **Gem Changes**
   - Updated to bootstrap 4.0.0.beta
 

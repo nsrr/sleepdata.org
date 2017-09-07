@@ -1,0 +1,24 @@
+- @title = "Organizations"
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        .float-right
+          = link_to plus_or("New Organization"), new_organization_path, class: "btn btn-primary btn-shadow"
+        = @title
+
+%table.table.table-striped.table-borderless
+  %col
+  %col{ width: "1px" }
+  %thead
+    %tr
+      %th.th-sticky Name
+      %th.th-sticky.text-center Actions
+
+  %tbody
+    - @organizations.each do |organization|
+      %tr.tr-align-middle
+        %td= link_to organization.name, organization
+        %td.text-center
+          = render "layouts/edit_delete_dropdown", edit_url: edit_organization_path(organization), delete_url: organization, delete_confirmation: "Delete #{organization.name}?"

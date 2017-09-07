@@ -182,6 +182,8 @@ Rails.application.routes.draw do
 
   get "/image/:id" => "images#download", as: "download_image"
 
+  resources :organizations
+
   resources :reviews do
     member do
       post :vote

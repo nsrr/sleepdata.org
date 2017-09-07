@@ -1,0 +1,15 @@
+.form-label-elegant {
+  color: $p400-grey;
+  font-weight: 300;
+  border-bottom: 2px solid $p100-grey;
+}
+
+@include media-breakpoint-up(md) {
+  .form-label-elegant {
+    @include float-right;
+  }
+}
+
+.form-control-plaintext {
+  @include remove-last-child-bottom-margin;
+}

@@ -1,0 +1,49 @@
+- @title = @organization.name
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        .pull-right
+          = render "layouts/edit_delete_dropdown", edit_url: edit_organization_path(@organization), delete_url: @organization, delete_confirmation: "Delete #{@organization.name}?"
+        = @title
+  .breadcrumb-container.mb-0.p-2
+    .container
+      .float-right
+        .dropdown
+          = link_to "#", class: "btn btn-light btn-sm dropdown-toggle", data: { toggle: "dropdown" } do
+            .d-inline-block.d-sm-none
+              %i.fa.fa-cog
+            .d-none.d-sm-inline-block Actions
+            %strong.caret
+
+          .dropdown-menu.dropdown-menu-right
+            = link_to edit_organization_path(@organization), class: "dropdown-item" do
+              %i.fa.fa-pencil
+              Edit
+            .dropdown-divider
+            = link_to @organization, method: :delete, data: { confirm: "Delete #{@organization.name}?" }, class: "dropdown-item text-danger" do
+              %i.fa.fa-trash
+              Delete
+
+      %ol
+        %li= link_to "Organizations", organizations_path
+        %li
+          .dropdown.d-inline-block
+            = link_to "#", class: "btn btn-light btn-sm dropdown-toggle", data: { toggle: "dropdown" } do
+              .d-inline-block.d-sm-none
+                %i.fa.fa-cog
+              .d-none.d-sm-inline-block Actions
+              %strong.caret
+
+            .dropdown-menu.p-0
+              = link_to edit_organization_path(@organization), class: "dropdown-item", style: "padding: 0.25rem .5rem;" do
+                %i.fa.fa-pencil
+                Edit
+              .dropdown-divider.m-0
+              = link_to @organization, method: :delete, data: { confirm: "Delete #{@organization.name}?" }, class: "dropdown-item text-danger", style: "padding: 0.25rem .5rem;" do
+                %i.fa.fa-trash
+                Delete
+
+= render "forms/horizontal/show/text", object: @organization, key: :name
+= render "forms/horizontal/show/text", object: @organization, key: :slug

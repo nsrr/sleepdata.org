@@ -1,0 +1,15 @@
+- @title = "Edit Organization: #{@organization.name_was}"
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        = @organization.name_was
+  .breadcrumb-container.mb-0.p-2
+    .container
+      %ol
+        %li= link_to "Organizations", organizations_path
+        %li= link_to @organization.name_was, @organization
+        %li Edit
+
+= render "organizations/form", organization: @organization

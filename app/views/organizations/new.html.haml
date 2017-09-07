@@ -1,0 +1,9 @@
+- @title = "New Organization"
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        = @title
+
+= render "organizations/form", organization: @organization

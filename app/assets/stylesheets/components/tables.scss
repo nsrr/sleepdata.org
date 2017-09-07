@@ -14,3 +14,17 @@
     border-bottom-color: $link-color;
   }
 }
+
+.th-sticky {
+  position: sticky;
+  top: 55px;
+  background-color: $p50-grey;
+  z-index: $zindex-sticky;
+}
+
+.tr-align-middle {
+  td,
+  th {
+    vertical-align: middle;
+  }
+}

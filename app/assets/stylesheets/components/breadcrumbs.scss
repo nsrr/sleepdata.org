@@ -15,12 +15,15 @@
 
     > li+li::before {
       color: $p300-grey;
-      content: '/ ';
+      content: '\203A ';
       padding: 0 5px;
     }
   }
-}
 
+  .btn {
+    line-height: initial;
+  }
+}
 
 .breadcrumbs-container {
   background-color: $header-bg;
