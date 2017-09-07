@@ -13,21 +13,21 @@ class Reply < ApplicationRecord
   multisearchable against: [:description],
                   unless: :deleted_or_parent_deleted?
 
-  # Named Scopes
+  # Scopes
   scope :points, -> { select('replies.*, COALESCE(SUM(reply_users.vote), 0)  points').joins('LEFT JOIN reply_users ON reply_users.reply_id = replies.id').group('replies.id') }
 
-  # Model Validation
+  # Validations
   validates :description, :user_id, presence: true
   # validates :topic_id, :broadcast_id, presence: true
 
-  # Model Relationships
+  # Relationships
   belongs_to :user
   belongs_to :broadcast
   belongs_to :topic
   belongs_to :reply
   has_many :reply_users
 
-  # Model Methods
+  # Methods
   def destroy
     super
     update_pg_search_document

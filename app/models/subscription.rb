@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 
 class Subscription < ApplicationRecord
-
-  # Model Validation
+  # Validations
   validates_presence_of :topic_id, :user_id
 
-  # Model Relationships
+  # Relationships
   belongs_to :topic
   belongs_to :user
-
 end

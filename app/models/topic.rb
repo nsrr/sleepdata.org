@@ -15,18 +15,18 @@ class Topic < ApplicationRecord
   # Callbacks
   after_create_commit :create_first_reply
 
-  # Named Scopes
+  # Scopes
   scope :not_banned, -> { joins(:user).merge(User.where(banned: false)) }
   scope :reply_count, -> { select('topics.*, COUNT(replies.id) reply_count').joins(:replies).group('topics.id') }
 
-  # Model Validation
+  # Validations
   validates :title, :slug, :user_id, presence: true
   validates :title, length: { maximum: 40 }
   validates :description, presence: true, if: :new_record?
   validates :slug, uniqueness: { scope: :deleted } # TODO: Uniqueness can't be constrained to deleted topics
   validates :slug, format: { with: /\A(?!\Anew\Z)[a-z][a-z0-9\-]*\Z/ }
 
-  # Model Relationships
+  # Relationships
   belongs_to :user
   has_many :topic_users
   has_many :subscriptions
@@ -34,7 +34,7 @@ class Topic < ApplicationRecord
   has_many :topic_tags
   has_many :tags, -> { current.order(:name) }, through: :topic_tags
 
-  # Model Methods
+  # Methods
   def destroy
     super
     update_pg_search_document

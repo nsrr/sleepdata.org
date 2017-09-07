@@ -12,18 +12,18 @@ class Dataset < ApplicationRecord
   # Concerns
   include Deletable, Documentable, Gitable, Forkable
 
-  # Named Scopes
+  # Scopes
   scope :release_scheduled, -> { current.where(public: true).where.not(release_date: nil) }
   scope :with_editor, -> (arg) { where('datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)', arg, arg, 'editor').references(:dataset_users) }
   scope :with_reviewer, -> (arg) { where('datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)', arg, 'reviewer').references(:dataset_users) }
   scope :with_viewer_or_editor, -> (arg) { where('datasets.public = ? or datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role IN (?))', true, arg, arg, %w(viewer editor)).references(:dataset_users) }
 
-  # Model Validation
+  # Validations
   validates :name, :slug, :user_id, presence: true
   validates :slug, uniqueness: { scope: :deleted, case_sensitive: false }
-  validates :slug, format: { with: /\A[a-z][a-z0-9\-]*\Z/ }
+  validates :slug, format: { with: /\A(?!\Anew\Z)[a-z][a-z0-9\-]*\Z/ }
 
-  # Model Relationships
+  # Relationships
   belongs_to :user
   belongs_to :dataset_version
   has_many :dataset_versions

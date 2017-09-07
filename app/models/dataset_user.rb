@@ -2,12 +2,12 @@
 
 # Allows users to be set as editors, viewers, and reviewers of a dataset.
 class DatasetUser < ApplicationRecord
-  ROLES = [['Editor', 'editor'], ['Viewer', 'viewer'], ['Reviewer', 'reviewer']]
+  ROLES = [["Editor", "editor"], ["Viewer", "viewer"], ["Reviewer", "reviewer"]]
 
-  # Model Validation
+  # Validations
   validates :user_id, :role, presence: true
 
-  # Model Relationships
+  # Relationships
   belongs_to :dataset
   belongs_to :user
 end

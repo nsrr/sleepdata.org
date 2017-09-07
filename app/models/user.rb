@@ -13,7 +13,7 @@ class User < ApplicationRecord
   # Callbacks
   before_save :ensure_authentication_token
 
-  # Named Scopes
+  # Scopes
   scope :aug_members, -> { current.where(aug_member: true) }
   scope :core_members, -> { current.where(core_member: true) }
   scope :system_admins, -> { current.where(system_admin: true) }
@@ -40,11 +40,11 @@ class User < ApplicationRecord
     current.where(aug_member: false, core_member: false)
   end
 
-  # Model Validation
+  # Validations
   validates :first_name, :last_name, presence: true
   validates :username, uniqueness: { case_sensitive: false }, format: { with: /\A[a-z]\w*\Z/i }, allow_blank: true
 
-  # Model Relationships
+  # Relationships
   has_many :agreements, -> { current }
   has_many :agreement_events
   has_many :answers
@@ -66,7 +66,7 @@ class User < ApplicationRecord
   has_many :topics, -> { current }
   has_many :topic_users
 
-  # User Methods
+  # Methods
 
   def shadow_banned?
     false

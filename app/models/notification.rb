@@ -2,10 +2,10 @@
 
 # Tracks if a user has seen replies to blog posts and forum topics.
 class Notification < ApplicationRecord
-  # Model Validation
+  # Validations
   validates :user_id, presence: true
 
-  # Model Relationships
+  # Relationships
   belongs_to :user
   belongs_to :broadcast
   belongs_to :topic
@@ -16,7 +16,7 @@ class Notification < ApplicationRecord
   belongs_to :dataset_review
   belongs_to :hosting_request
 
-  # Notification Methods
+  # Methods
 
   def mark_as_unread!
     update created_at: Time.zone.now, read: false

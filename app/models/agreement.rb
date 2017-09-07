@@ -46,7 +46,7 @@ class Agreement < ApplicationRecord
   # Concerns
   include Deletable, Latexable, Forkable
 
-  # Named Scopes
+  # Scopes
   scope :search, lambda { |arg| where( 'agreements.user_id in (select users.id from users where LOWER(users.first_name) LIKE ? or LOWER(users.last_name) LIKE ? or LOWER(users.email) LIKE ? )', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ).references(:users) }
   scope :expired, -> { where("agreements.expiration_date IS NOT NULL and agreements.expiration_date < ?", Date.today) }
   scope :not_expired, -> { where("agreements.expiration_date IS NULL or agreements.expiration_date >= ?", Date.today) }
@@ -55,7 +55,7 @@ class Agreement < ApplicationRecord
   scope :submittable, -> { where(status: %w(started resubmit)) }
   scope :deletable, -> { where(status: %w(started resubmit closed)) }
 
-  # Model Validation
+  # Validations
   validates :user_id, :status, presence: true
   validates :duly_authorized_representative_token, uniqueness: true, allow_nil: true
 
@@ -91,7 +91,7 @@ class Agreement < ApplicationRecord
 
   validates :irb, presence: true, if: :step5_and_has_evidence?
 
-  # Model Relationships
+  # Relationships
   belongs_to :user
   has_many :requests
   has_many :datasets, -> { where deleted: false }, through: :requests
@@ -102,7 +102,7 @@ class Agreement < ApplicationRecord
   has_many :agreement_transactions, -> { order(id: :desc) }
   has_many :agreement_transaction_audits
 
-  # Agreement Methods
+  # Methods
 
   def copyable_attributes
     ignore_list = %w(

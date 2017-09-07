@@ -5,19 +5,19 @@ class Challenge < ApplicationRecord
   # Concerns
   include Deletable
 
-  # Named Scopes
+  # Scopes
 
-  # Model Validation
+  # Validations
   validates :name, :slug, :user_id, presence: true
   validates :slug, uniqueness: { scope: :deleted, case_sensitive: false }
-  validates :slug, format: { with: /\A[a-z][a-z0-9\-]*\Z/ }
+  validates :slug, format: { with: /\A(?!\Anew\Z)[a-z][a-z0-9\-]*\Z/ }
 
-  # Model Relationships
+  # Relationships
   belongs_to :user
   has_many :questions, -> { where deleted: false }
   has_many :answers
 
-  # Challenge Methods
+  # Methods
 
   def to_param
     slug

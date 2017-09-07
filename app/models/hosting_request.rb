@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-# Allows users to request to have their data hosted on the NSRR
+# Allows users to request to have their data hosted.
 class HostingRequest < ApplicationRecord
   # Concerns
   include Deletable, Forkable, Searchable
 
-  # Named Scopes
+  # Scopes
 
-  # Model Validation
+  # Validations
   validates :user_id, :description, :institution_name, presence: true
 
-  # Model Relationships
+  # Relationships
   belongs_to :user
   has_many :notifications
 
-  # Model Methods
+  # Methods
   def self.searchable_attributes
     %w(institution_name description)
   end

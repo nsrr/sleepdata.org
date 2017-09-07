@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Tracks file and folder information
+# Tracks file and folder information.
 class DatasetFile < ApplicationRecord
   # Concerns
   include Deletable
@@ -8,15 +8,15 @@ class DatasetFile < ApplicationRecord
   # Scopes
   scope :order_by_type, -> { order(:is_file, :file_name) }
 
-  # Model Validation
+  # Validations
   validates :dataset_id, :file_size, :file_time, presence: true
   validates :full_path, uniqueness: { scope: :dataset_id, case_sensitive: false }
   validates :file_size, numericality: { greater_than_or_equal_to: 0 }
 
-  # Model Relationships
+  # Relationships
   belongs_to :dataset
 
-  # Model Methods
+  # Methods
 
   def downloadable_by_user?(current_user)
     publicly_available? || dataset.grants_file_access_to?(current_user)

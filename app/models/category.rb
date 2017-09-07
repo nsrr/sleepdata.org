@@ -5,15 +5,15 @@ class Category < ApplicationRecord
   # Concerns
   include Deletable, Searchable, Sluggable
 
-  # Model Validation
+  # Validations
   validates :name, :slug, presence: true
   validates :slug, uniqueness: { scope: :deleted }
   validates :slug, format: { with: /\A(?!\Anew\Z)[a-z][a-z0-9\-]*\Z/ }
 
-  # Model Relationships
+  # Relationships
   has_many :broadcasts, -> { current }
 
-  # Model Methods
+  # Methods
   def self.searchable_attributes
     %w(name)
   end

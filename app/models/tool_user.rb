@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class ToolUser < ApplicationRecord
-
-  # Model Relationships
+  # Relationships
   belongs_to :tool
   belongs_to :user
-
 end

@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
 class AgreementTransaction < ApplicationRecord
-
   TRANSACTION_TYPE = ['agreement_create', 'agreement_update', 'public_agreement_update', 'agreement_rollback']
 
-  # Model Validation
+  # Validations
   validates_presence_of :agreement_id, :transaction_type
 
-  # Model Relationships
+  # Relationships
   belongs_to :agreement
   belongs_to :user
   has_many :agreement_transaction_audits, -> { order :id }
 
-  # Model Methods
+  # Methods
 
   def self.save_agreement!(agreement, params, current_user, remote_ip, transaction_type)
     original_dataset_ids = agreement.dataset_ids.sort
@@ -48,5 +47,4 @@ class AgreementTransaction < ApplicationRecord
       end
     end
   end
-
 end

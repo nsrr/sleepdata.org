@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-# Allows models to have replies
+# Allows models to have replies.
 module Replyable
   extend ActiveSupport::Concern
 
   included do
-    # Model Relationships
+    # Relationships
     has_many :replies, -> { order :id }
     has_many :reply_users
   end

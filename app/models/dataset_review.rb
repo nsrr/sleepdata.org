@@ -2,17 +2,17 @@
 
 # Allows users to rate and review a dataset.
 class DatasetReview < ApplicationRecord
-  # Model Validation
+  # Validations
   validates :user_id, :dataset_id, :rating, :review, presence: true
   validates :dataset_id, uniqueness: { scope: :user_id }
-  validates :rating, inclusion: { in: 1..5, message: 'must be between 1 and 5 stars' }
+  validates :rating, inclusion: { in: 1..5, message: "must be between 1 and 5 stars" }
 
-  # Model Relationships
+  # Relationships
   belongs_to :dataset, touch: true
   belongs_to :user
   has_many :notifications
 
-  # Model Methods
+  # Methods
 
   def create_notification!
     notification = dataset.user.notifications

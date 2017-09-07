@@ -7,15 +7,15 @@ class Tag < ApplicationRecord
   # Concerns
   include Deletable, Searchable
 
-  # Named Scopes
+  # Scopes
   scope :forum_tags, -> { current.where(tag_type: 'topic') }
   scope :review_tags, -> { current.where(tag_type: 'agreement') }
 
-  # Model Validation
+  # Validations
   validates :name, :color, :user_id, :tag_type, presence: true
   validates :name, uniqueness: { scope: [:deleted, :tag_type], case_sensitive: false }
 
-  # Model Relationships
+  # Relationships
   belongs_to :user
   has_many :topic_tags
   has_many :topics, -> { where deleted: false }, through: :topic_tags
@@ -25,7 +25,7 @@ class Tag < ApplicationRecord
 
   has_many :agreement_events, -> { where deleted: false }
 
-  # Model Methods
+  # Methods
   def self.searchable_attributes
     %w(name)
   end

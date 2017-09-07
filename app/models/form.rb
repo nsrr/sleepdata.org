@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-# Represents the PDF or CRF on which a variable was captured
+# Represents the PDF or CRF on which a variable was captured.
 class Form < ApplicationRecord
-  # Model Validation
+  # Validations
   validates :name, :dataset_id, :dataset_version_id, presence: true
   validates :name, format: { with: /\A[a-z]\w*\Z/i }
   validates :name, uniqueness: { scope: [:dataset_id, :dataset_version_id], case_sensitive: false }
 
-  # Model Relationships
+  # Relationships
   belongs_to :dataset
   belongs_to :dataset_version
   has_many :variable_forms

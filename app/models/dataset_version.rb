@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class DatasetVersion < ApplicationRecord
-  # Model Validation
+  # Validations
   validates :dataset_id, :version, presence: true
   validates :version, uniqueness: { scope: :dataset_id, case_sensitive: false }
 
-  # Model Relationships
+  # Relationships
   belongs_to :dataset
 end

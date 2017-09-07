@@ -9,19 +9,19 @@ class Broadcast < ApplicationRecord
   multisearchable against: [:title, :short_description, :keywords, :description],
                   unless: :deleted?
 
-  # Named Scopes
+  # Scopes
   scope :published, -> { current.where(published: true).where('publish_date <= ?', Time.zone.today) }
 
-  # Model Validation
+  # Validations
   validates :title, :slug, :description, :user_id, :publish_date, presence: true
   validates :slug, uniqueness: { scope: :deleted }
   validates :slug, format: { with: /\A(?!\Anew\Z)[a-z][a-z0-9\-]*\Z/ }
 
-  # Model Relationships
+  # Relationships
   belongs_to :user
   belongs_to :category
 
-  # Model Methods
+  # Methods
   def destroy
     super
     update_pg_search_document

@@ -20,22 +20,22 @@ class AgreementEvent < ApplicationRecord
   # Callbacks
   after_create_commit :email_mentioned_users_in_background
 
-  # Named Scopes
+  # Scopes
   scope :with_current_agreement, -> { joins(:agreement).merge(Agreement.current) }
   scope :regular_members, -> { joins(:agreement).merge(Agreement.regular_members) }
 
-  # Model Validation
+  # Validations
   validates :agreement_id, :user_id, :event_type, :event_at, presence: true
   validates :comment, presence: true, if: :commented?
 
-  # Model Relationships
+  # Relationships
   belongs_to :agreement
   belongs_to :user
   has_many :agreement_event_tags
   has_many :added_tags, -> { where 'agreement_event_tags.added = ?', true }, through: :agreement_event_tags, source: :tag
   has_many :removed_tags, -> { where 'agreement_event_tags.added = ?', false }, through: :agreement_event_tags, source: :tag
 
-  # Agreement Event Methods
+  # Methods
 
   def banned_or_deleted?
     user.banned? || deleted?

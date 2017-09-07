@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Encapsulate blog and forum embedded images
+# Encapsulate blog and forum embedded images.
 class Image < ApplicationRecord
   # Uploaders
   mount_uploader :image, ResizableImageUploader
@@ -8,13 +8,13 @@ class Image < ApplicationRecord
   # Concerns
   include Hashable
 
-  # Model Validation
+  # Validations
   validates :user_id, :image, presence: true
 
-  # Model Relationships
+  # Relationships
   belongs_to :user
 
-  # Model Methods
+  # Methods
 
   def name
     image_identifier
