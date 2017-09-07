@@ -8,17 +8,17 @@
     .container
       %h1.page-heading
         .pull-right
-          = render 'layouts/edit_delete_dropdown', edit_url: edit_category_path(@category), delete_url: @category, delete_confirmation: "Delete #{@category.name}?"
+          = render "layouts/edit_delete_dropdown", edit_url: edit_category_path(@category), delete_url: @category, delete_confirmation: "Delete #{@category.name}?"
         = @title
   .breadcrumb-container.mb-0
     .container
       %ol
-        %li= link_to 'Categories', categories_path
+        %li= link_to "Categories", categories_path
 
 .dashboard-container
   %table.table.table-striped.table-borderless.table-hover
-    %col{ width: '25%' }
-    %col{ width: '75%' }
+    %col{ width: "25%" }
+    %col{ width: "75%" }
     %tbody
       %tr
         %th.text-right Name

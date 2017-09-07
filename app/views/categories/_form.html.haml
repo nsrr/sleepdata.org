@@ -1,9 +1,9 @@
-= form_for @category, html: { class: 'form-horizontal' } do |f|
+= form_for @category, html: { class: "form-horizontal" } do |f|
   - if @category.errors.any?
     .panel.panel-danger
       .panel-heading
         %strong
-          = pluralize @category.errors.count, 'error'
+          = pluralize @category.errors.count, "error"
           prohibited this category from being saved
       .panel-body
         %ul
@@ -11,16 +11,16 @@
             %li= message
 
   .form-group
-    = f.label :name, class: 'col-md-2 control-label'
+    = f.label :name, class: "col-md-2 control-label"
     .col-md-10
-      = f.text_field :name, class: 'form-control', data: { object: (@category.new_record? ? 'create-slug' : ''), target: '#category_slug' }
+      = f.text_field :name, class: "form-control", data: { object: (@category.new_record? ? "create-slug" : ""), target: "#category_slug" }
 
-  .form-group{ style: "#{'display: none;' if @category.new_record? && !@category.errors.key?(:slug)}"}
-    = f.label :slug, class: 'col-md-2 control-label'
+  .form-group{ style: "#{"display: none;" if @category.new_record? && !@category.errors.key?(:slug)}"}
+    = f.label :slug, class: "col-md-2 control-label"
     .col-md-10
-      = f.text_field :slug, class: 'form-control'
+      = f.text_field :slug, class: "form-control"
 
   .form-group
     .col-md-10.col-md-offset-2
-      = f.submit nil, class: 'btn btn-primary'
-      = link_to 'Cancel', @category.new_record? ? categories_path : @category, class: 'btn btn-light'
+      = f.submit nil, class: "btn btn-primary"
+      = link_to "Cancel", @category.new_record? ? categories_path : @category, class: "btn btn-light"

@@ -11,9 +11,9 @@
   .breadcrumb-container.mb-0
     .container
       %ol
-        %li= link_to 'Categories', categories_path
+        %li= link_to "Categories", categories_path
         %li= link_to @category.name_was, @category
         %li Edit
 
 .dashboard-container
-  = render 'form'
+  = render "form"
