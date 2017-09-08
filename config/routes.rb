@@ -215,7 +215,6 @@ Rails.application.routes.draw do
     get :datasharing, path: "about/data-sharing-language"
     get :demo
     get :landing
-    get :landing2
     get :landing_custom_header
     get :landing_no_header
     get :share

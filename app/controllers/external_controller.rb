@@ -28,11 +28,6 @@ class ExternalController < ApplicationController
   # def demo
   # end
 
-  def landing2
-    flash[:notice] = "Example notice."
-    render layout: "layouts/full_page_custom_header"
-  end
-
   # Accounts for header, but header is defined in view file.
   def landing_custom_header
     render layout: "layouts/full_page_custom_header"
