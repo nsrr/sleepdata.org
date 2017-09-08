@@ -51,11 +51,11 @@
           %h1.mt-4= number_to_human_size total_stored
           Stored on the Resource
       .col-sm-3.d-none.d-sm-block
-        - quarter = Quarter.order(regular_total_file_size: :desc).first
+        - month = QuarterMonth.order(regular_total_file_size: :desc).first
         .d-none.d-sm-block.text-right
           %h1.mt-4
-            - if quarter
-              = number_to_human_size quarter.regular_total_file_size, precision: 0, significant: false
+            - if month
+              = number_to_human_size month.regular_total_file_size, precision: 0, significant: false
             - else
               0 MB
           Shared with Researchers

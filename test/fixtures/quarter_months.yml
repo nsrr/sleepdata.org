@@ -1,0 +1,55 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  quarter: one
+  year: 2013
+  month_number: 10
+  regular_files: 0
+  regular_file_size: 0
+  regular_total_files: 0
+  regular_total_file_size: 0
+
+two:
+  quarter: one
+  year: 2013
+  month_number: 11
+  regular_files: 100
+  regular_file_size: 1_000
+  regular_total_files: 100
+  regular_total_file_size: 1_000
+
+three:
+  quarter: one
+  year: 2013
+  month_number: 12
+  regular_files: 200
+  regular_file_size: 2_000
+  regular_total_files: 200
+  regular_total_file_size: 2_000
+
+four:
+  quarter: two
+  year: 2014
+  month_number: 1
+  regular_files: 300
+  regular_file_size: 3_000
+  regular_total_files: 300
+  regular_total_file_size: 3_000
+
+five:
+  quarter: two
+  year: 2014
+  month_number: 2
+  regular_files: 400
+  regular_file_size: 4_000
+  regular_total_files: 400
+  regular_total_file_size: 4_000
+
+six:
+  quarter: two
+  year: 2014
+  month_number: 3
+  regular_files: 500
+  regular_file_size: 5_000
+  regular_total_files: 500
+  regular_total_file_size: 5_000

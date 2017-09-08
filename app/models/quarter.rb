@@ -2,14 +2,44 @@
 
 # Caches quarterly downloads for dataset file audits.
 class Quarter < ApplicationRecord
+  # Relationships
+  has_many :quarter_months
+
+  # Methods
   def self.retrieve(year, quarter_number)
     quarter = find_by(year: year, quarter_number: quarter_number)
-    return quarter if quarter
-    quarter = new(year: year, quarter_number: quarter_number)
+    quarter = new(year: year, quarter_number: quarter_number) unless quarter
     return quarter if quarter.future?
-    quarter.recompute!
-    quarter.save unless quarter.current?
+    quarter.save
+    quarter.compute_months!
     quarter
+  end
+
+  # The use of collect is intentional to also account for unsaved current
+  # QuarterMonths, as opposed to pluck which would only sum records saved in the
+  # database.
+  def regular_files
+    quarter_months.collect(&:regular_files).sum.to_i
+  end
+
+  def regular_file_size
+    quarter_months.collect(&:regular_file_size).sum.to_i
+  end
+
+  def regular_total_files
+    quarter_months.collect(&:regular_total_files).max.to_i
+  end
+
+  def regular_total_file_size
+    quarter_months.collect(&:regular_total_file_size).max.to_i
+  end
+
+  def regular_total_files_with_temp
+    regular_total_files + quarter_months.select(&:current?).collect(&:regular_files).sum.to_i
+  end
+
+  def regular_total_file_size_with_temp
+    regular_total_file_size + quarter_months.select(&:current?).collect(&:regular_file_size).sum.to_i
   end
 
   def start_date
@@ -28,24 +58,16 @@ class Quarter < ApplicationRecord
     end_date >= Time.zone.today
   end
 
-  def dfa_regular
-    DatasetFileAudit.regular_members
-  end
-
-  def recompute!
-    recompute_regular_files!
-    recompute_regular_total_files!
-  end
-
-  def recompute_regular_files!
-    scope = dfa_regular.where(created_at: start_date..end_date)
-    self.regular_files = scope.count
-    self.regular_file_size = scope.sum(:file_size)
-  end
-
-  def recompute_regular_total_files!
-    scope = dfa_regular.where("DATE(dataset_file_audits.created_at) <= ?", end_date)
-    self.regular_total_files = scope.count
-    self.regular_total_file_size = scope.sum(:file_size)
+  def compute_months!
+    (0..2).each do |shift|
+      month_number = (start_date + shift.month).month
+      month_year = (start_date + shift.month).year
+      month = quarter_months.find_by(year: month_year, month_number: month_number)
+      next if month
+      month = quarter_months.new(year: month_year, month_number: month_number)
+      next if month.future?
+      month.recompute!
+      month.save unless month.current?
+    end
   end
 end

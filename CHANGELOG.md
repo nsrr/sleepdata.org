@@ -3,6 +3,8 @@
 ### Enhancements
 - **General Changes**
   - Improved landing page styling
+- **Admin Changes**
+  - Improved Downloads by Quarter report loading speed
 - **Organizations Added**
   - Organizations are used to group datasets, DAUA templates, and reviewers
 - **Gem Changes**
