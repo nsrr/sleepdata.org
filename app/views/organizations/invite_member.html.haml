@@ -1,0 +1,11 @@
+
+
+.card
+  .card-body
+    %h4.card-title Invite Member
+    %p.card-text
+      Invite a member by sending them an email. You can set their role next.
+
+    = form_with url: invite_member_organization_path(@organization), method: :post, local: true do |form|
+      = render "forms/vertical/text_field", form: form, object: User.new, key: :email
+      = render "forms/vertical/submit", form: form, object: @organization

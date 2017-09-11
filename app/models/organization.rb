@@ -12,6 +12,9 @@ class Organization < ApplicationRecord
   validates :slug, uniqueness: { scope: :deleted }
   validates :slug, format: { with: /\A(?!\Anew\Z)[a-z][a-z0-9\-]*\Z/ }
 
+  # Relationships
+  has_many :datasets
+
   # Methods
   def self.searchable_attributes
     %w(name)

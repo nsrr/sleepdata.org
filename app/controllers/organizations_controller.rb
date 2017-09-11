@@ -4,7 +4,12 @@
 class OrganizationsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_system_admin
-  before_action :find_organization_or_redirect, only: [:show, :edit, :update, :destroy]
+  before_action :find_organization_or_redirect, only: [
+    :show, :edit, :update, :destroy,
+    :datasets,
+    :people, :invite_member, :add_member,
+    :legal_templates, :legal_template_one, :legal_template_two
+  ]
 
   # GET /organizations
   def index
@@ -14,6 +19,29 @@ class OrganizationsController < ApplicationController
   # # GET /organizations/1
   # def show
   # end
+
+  # GET /organizations/1/datasets
+  def datasets
+    @datasets = @organization.datasets
+  end
+
+  # # GET /organizations/1/legal/templates
+  # def legal_templates
+  # end
+
+  # GET /organizations/1/people
+  def people
+    @users = User.where(id: current_user.id)
+  end
+
+  # # GET /organizations/1/people/invite
+  # def invite_member
+  # end
+
+  # POST /organizations/1/people/invite
+  def add_member
+    redirect_to people_organization_path(@organization)
+  end
 
   # GET /organizations/new
   def new

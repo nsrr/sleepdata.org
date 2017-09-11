@@ -1,0 +1,61 @@
+.dashboard-container.background-p100-grey
+  .float-right
+    %small= Time.zone.today.strftime("%a %b %-d, %Y")
+  %h5
+    = @organization.name
+
+  %h6 DATA ACCESS AND USE AGREEMENT
+
+  .special-highlight{ style: "font-weight: 300;" }
+    = simple_markdown "This Data Access and Use Agreement (the **\"DAUA\"**) is made by and between The Brigham and Women's Hospital, Inc., through its Division of Sleep and Circadian Disorders (**\"BWH\"**) and ::text:data_user:: ==____________== (**\"Data User\"**)."
+
+    = simple_markdown "**WHEREAS**, BWH is receiving support from the National Heart, Lung, and Blood Institute (**\"NHLBI\"**) to establish and operate a web-based collection of existing de-identified sleep study and related covariate data originating from past NHLBI-funded research studies (the **\"Data\"**), such collection known as the National Sleep Research Resource (**\"NSRR\"**); and"
+
+  %h6
+    Use of Access
+  %p.text-muted
+    %em
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+  %p
+    %mark
+      \::checkbox:i_agree::
+      %i.fa.fa-check-square-o
+      %strong I agree
+
+
+.dashboard-container.background-p100-grey
+  .float-right
+    %small Page 2 of 2
+  %h6
+    Terms of Signature
+  %p.text-muted
+    %em
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+  %h6
+    Sign of Project
+  %p.text-muted
+    %em
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+      quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+      cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+      proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+  %p
+    %i.fa.fa-check-square-o
+    %strong I agree
+
+= link_to @organization.name, @organization

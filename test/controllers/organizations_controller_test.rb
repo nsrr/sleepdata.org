@@ -51,6 +51,12 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should show organization datasets" do
+    login(@admin)
+    get datasets_organization_url(@organization)
+    assert_response :success
+  end
+
   test "should get edit" do
     login(@admin)
     get edit_organization_url(@organization)

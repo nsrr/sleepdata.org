@@ -182,7 +182,17 @@ Rails.application.routes.draw do
 
   get "/image/:id" => "images#download", as: "download_image"
 
-  resources :organizations
+  resources :organizations, path: "orgs" do
+    member do
+      get :datasets
+      get :people
+      get :invite_member, path: "people/invite"
+      post :add_member, path: "people/invite"
+      get :legal_templates, path: "legal/templates"
+      get :legal_template_one, path: "legal/templates/1"
+      get :legal_template_two, path: "legal/templates/2"
+    end
+  end
 
   resources :reviews do
     member do

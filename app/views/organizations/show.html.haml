@@ -37,6 +37,15 @@
               %strong.caret
 
             .dropdown-menu.p-0
+              = link_to datasets_organization_path(@organization), class: "dropdown-item", style: "padding: 0.25rem .5rem;" do
+                %i.fa.fa-database
+                Datasets
+              = link_to people_organization_path(@organization), class: "dropdown-item", style: "padding: 0.25rem .5rem;" do
+                %i.fa.fa-users
+                People
+              = link_to legal_templates_organization_path(@organization), class: "dropdown-item", style: "padding: 0.25rem .5rem;" do
+                %i.fa.fa-gavel
+                Legal Templates
               = link_to edit_organization_path(@organization), class: "dropdown-item", style: "padding: 0.25rem .5rem;" do
                 %i.fa.fa-pencil
                 Edit

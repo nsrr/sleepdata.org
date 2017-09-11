@@ -14,9 +14,9 @@ class Dataset < ApplicationRecord
 
   # Scopes
   scope :release_scheduled, -> { current.where(public: true).where.not(release_date: nil) }
-  scope :with_editor, -> (arg) { where('datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)', arg, arg, 'editor').references(:dataset_users) }
-  scope :with_reviewer, -> (arg) { where('datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)', arg, 'reviewer').references(:dataset_users) }
-  scope :with_viewer_or_editor, -> (arg) { where('datasets.public = ? or datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role IN (?))', true, arg, arg, %w(viewer editor)).references(:dataset_users) }
+  scope :with_editor, -> (arg) { where("datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)", arg, arg, "editor").references(:dataset_users) }
+  scope :with_reviewer, -> (arg) { where("datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)", arg, "reviewer").references(:dataset_users) }
+  scope :with_viewer_or_editor, -> (arg) { where("datasets.public = ? or datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role IN (?))", true, arg, arg, %w(viewer editor)).references(:dataset_users) }
 
   # Validations
   validates :name, :slug, :user_id, presence: true
@@ -26,6 +26,7 @@ class Dataset < ApplicationRecord
   # Relationships
   belongs_to :user
   belongs_to :dataset_version
+  belongs_to :organization, optional: true
   has_many :dataset_versions
   has_many :dataset_file_audits
   has_many :dataset_page_audits
@@ -46,7 +47,7 @@ class Dataset < ApplicationRecord
   end
 
   def chartable_variables
-    variables.order('commonly_used desc', :folder, :name)
+    variables.order("commonly_used desc", :folder, :name)
   end
 
   def current_variables
@@ -54,28 +55,28 @@ class Dataset < ApplicationRecord
   end
 
   def editors
-    User.where(id: [user_id] + dataset_users.where(role: 'editor').pluck(:user_id))
+    User.where(id: [user_id] + dataset_users.where(role: "editor").pluck(:user_id))
   end
 
   def reviewers
-    User.where(id: dataset_users.where(role: 'reviewer').select(:user_id))
+    User.where(id: dataset_users.where(role: "reviewer").select(:user_id))
   end
 
   def viewers
-    User.where(id: [user_id] + dataset_users.where(role: 'viewer').pluck(:user_id))
+    User.where(id: [user_id] + dataset_users.where(role: "viewer").pluck(:user_id))
   end
 
   def grants_file_access_to?(current_user)
     user_id = (current_user ? current_user.id : nil)
-    all_files_public? || (agreements.where(status: 'approved', user_id: user_id).not_expired.count > 0)
+    all_files_public? || (agreements.where(status: "approved", user_id: user_id).not_expired.count > 0)
   end
 
   def to_param
-    slug
+    slug_was
   end
 
   def self.find_by_param(input)
-    find_by_slug(input)
+    find_by(slug: input)
   end
 
   def folder_name
@@ -83,11 +84,11 @@ class Dataset < ApplicationRecord
   end
 
   def root_folder
-    File.join(CarrierWave::Uploader::Base.root, 'datasets', folder_name)
+    File.join(CarrierWave::Uploader::Base.root, "datasets", folder_name)
   end
 
   def files_folder
-    File.join(root_folder, 'files')
+    File.join(root_folder, "files")
   end
 
   def reset_index_in_background!(path, recompute: false)
@@ -96,11 +97,10 @@ class Dataset < ApplicationRecord
 
   def reset_index!(params_path, recompute: false)
     full_path = find_file(params_path)
-    if full_path && File.directory?(full_path)
-      path = full_path.gsub(%r{^#{files_folder}/}, '')
-      # FileUtils.mkpath(full_path) # TODO: Potentially add this.
-      generate_new_files_in_folder_with_lock(path, recompute: recompute)
-    end
+    return unless full_path && File.directory?(full_path)
+    path = full_path.gsub(%r{^#{files_folder}/}, "")
+    # FileUtils.mkpath(full_path) # TODO: Potentially add this.
+    generate_new_files_in_folder_with_lock(path, recompute: recompute)
   end
 
   def generate_new_files_in_folder_with_lock(path, recompute: false)
@@ -108,27 +108,27 @@ class Dataset < ApplicationRecord
     prune_existing_dataset_files(path, recompute: recompute)
     generate_new_files_in_folder(path)
   ensure
-    lock_file = File.join(files_folder, path.to_s, '.sleepdata.md5inprogress')
+    lock_file = File.join(files_folder, path.to_s, ".sleepdata.md5inprogress")
     File.delete(lock_file) if File.exist?(lock_file) && File.file?(lock_file)
   end
 
   def lock_folder!(location = nil)
-    lock_file = File.join(files_folder, location.to_s, '.sleepdata.md5inprogress')
-    File.write(lock_file, '')
+    lock_file = File.join(files_folder, location.to_s, ".sleepdata.md5inprogress")
+    File.write(lock_file, "")
   end
 
   def prune_existing_dataset_files(path, recompute: false)
-    folder = path.blank? ? '' : "#{path}/"
+    folder = path.blank? ? "" : "#{path}/"
     dataset_files.where(folder: folder).update_all file_checksum_md5: nil if recompute
     dataset_files.where(folder: folder).find_each(&:verify_file!)
   end
 
   def non_root_dataset_files
-    dataset_files.current.where.not(file_name: '')
+    dataset_files.current.where.not(file_name: "")
   end
 
   def all_files(path)
-    Dir.glob(File.join(files_folder, path.to_s)) + Dir.glob(File.join(files_folder, path.to_s, '*'))
+    Dir.glob(File.join(files_folder, path.to_s)) + Dir.glob(File.join(files_folder, path.to_s, "*"))
   end
 
   def generate_new_files_in_folder(path)
@@ -138,9 +138,9 @@ class Dataset < ApplicationRecord
   end
 
   def find_or_create_dataset_file(file)
-    full_path = file.gsub(%r{^#{files_folder}/}, '')
+    full_path = file.gsub(%r{^#{files_folder}/}, "")
     file_name = File.basename(full_path)
-    folder = full_path.gsub(/#{file_name}$/, '')
+    folder = full_path.gsub(/#{file_name}$/, "")
     file_size = File.size(file)
     file_time = File.mtime(file)
     is_file = File.file?(file)
@@ -160,22 +160,22 @@ class Dataset < ApplicationRecord
   end
 
   def current_folder_locked?(location)
-    lock_file = File.join(files_folder, location.to_s, '.sleepdata.md5inprogress')
+    lock_file = File.join(files_folder, location.to_s, ".sleepdata.md5inprogress")
     File.exist?(lock_file)
   end
 
   def file_path(file)
-    file.gsub(files_folder + '/', '')
+    file.gsub(files_folder + "/", "")
   end
 
   def find_file_folder(path)
-    folders = path.to_s.split('/').collect(&:strip)
+    folders = path.to_s.split("/").collect(&:strip)
     clean_folder_path = nil
     # Navigate to relative folder
     folders.each do |folder|
-      dataset_file = dataset_files.current.find_by(full_path: [clean_folder_path, folder].compact.join('/'), is_file: false)
+      dataset_file = dataset_files.current.find_by(full_path: [clean_folder_path, folder].compact.join("/"), is_file: false)
       if dataset_file
-        clean_folder_path = [clean_folder_path, dataset_file.file_name].compact.join('/')
+        clean_folder_path = [clean_folder_path, dataset_file.file_name].compact.join("/")
       else
         break
       end
@@ -184,10 +184,10 @@ class Dataset < ApplicationRecord
   end
 
   def find_file(path)
-    folders = path.to_s.split('/')[0..-2].collect(&:strip)
-    name = path.to_s.split('/').last.to_s.strip
-    clean_folder_path = find_file_folder(folders.join('/'))
-    entries = Dir.entries(File.join(files_folder, clean_folder_path)).reject { |e| e.first == '.' }
+    folders = path.to_s.split("/")[0..-2].collect(&:strip)
+    name = path.to_s.split("/").last.to_s.strip
+    clean_folder_path = find_file_folder(folders.join("/"))
+    entries = Dir.entries(File.join(files_folder, clean_folder_path)).reject { |e| e.first == "." }
     clean_file_name = entries.find { |e| e == name }
     File.join(files_folder, clean_folder_path, clean_file_name.to_s)
   end
