@@ -1,0 +1,40 @@
+.agreement-heading {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  font-variant: small-caps;
+  line-height: initial;
+}
+
+@include media-breakpoint-up(sm) {
+  .agreement-heading {
+    font-size: 1.5rem;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .agreement-heading {
+    font-size: 1.75rem;
+  }
+}
+
+.agreement-helper {
+  border-bottom: 2px solid transparent;
+  font-weight: 300;
+  display:none;
+  position: absolute;
+  margin-right: 15px;
+  top: 0;
+
+  &.agreement-helper-success {
+    border-color: $p500-green;
+    color: $p400-grey;
+
+    .fa-check-square-o {
+      color: $p500-green;
+    }
+  }
+
+  &.agreement-helper-highlight {
+    background-color: $mark-bg;
+  }
+}

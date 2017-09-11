@@ -1,0 +1,21 @@
+.input-success {
+  background-color: $p50-green;
+}
+
+.input-highlight {
+  background-color: $mark-bg;
+}
+
+.input-expandable {
+  border: 0;
+  min-width: 100px;
+  max-width: 100%;
+
+  &.form-control {
+    min-width: 100%;
+
+    &:focus {
+      box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.5);
+    }
+  }
+}

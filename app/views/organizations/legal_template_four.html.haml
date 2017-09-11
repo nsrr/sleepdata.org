@@ -1,0 +1,74 @@
+#top-menu
+  .background-special
+    %nav.navbar.navbar-expand-lg.navbar-dark.color-overlay-grey
+      = link_to @organization.name, "#top-menu", class: "navbar-brand"
+
+.page-box.last-box.page-box-no-padding
+  .container-fluid
+    .row.flex-xl-nowrap
+      = render "organizations/legal_template_menu"
+
+      .d-none.d-xl-block.col-xl-2.bd-toc-fixed
+        #title_of_project_help_text.agreement-helper
+        #specific_purpose_help_text.agreement-helper
+        #intended_use_of_data_help_text.agreement-helper
+        #data_secured_help_text.agreement-helper
+        #security_help_text.agreement-helper
+        #hipaa_help_text.agreement-helper
+
+      %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
+        .page-box-padding
+          .dashboard-container2
+            #width-test{ style: "position: fixed;top: 0;overflow: hidden;height: 0" }
+            .float-right
+              %small= Time.zone.today.strftime("%a %b %-d, %Y")
+
+            .agreement-heading Specific Purpose
+
+            #remove-extra-div
+              = render "agreements/show/step2/part1"
+
+              .form-group
+                = label_tag :title_of_project, nil, class: "form-control-label"
+                = text_field_tag :title_of_project, "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: "title_of_project", help_text: "Title of Project" }
+
+              .form-group
+                = label_tag :specific_purpose, nil, class: "form-control-label"
+                = text_area_tag :specific_purpose, "", rows: 7, class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: "specific_purpose", help_text: "Specific Purpose" }
+
+              .form-group
+                = label_tag :intended_use_of_data, nil, class: "form-control-label"
+                = text_field_tag :intended_use_of_data, "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: "intended_use_of_data", help_text: "Intended Use Of Data" }
+                %small.text-muted Examples Publication; thesis work; other education; algorithm for commercial use; preliminary data for a grant.
+
+              .form-group
+                = label_tag :data_secured, "Please describe where data will be stored and secured", class: "form-control-label"
+                = text_field_tag :data_secured, "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: "data_secured", help_text: "Data Storage and Security" }
+
+              .form-group
+                %label Security
+                %br
+                = label_tag :security, class: "custom-control custom-checkbox" do
+                  = check_box_tag :security, "1", false, class: "custom-control-input", placeholder: "<required>", id: "security", data: { object: "text-input-expandable", help_element: "security", help_text: "Security" }
+                  %span.custom-control-indicator
+                  %span.custom-control-description
+                    I attest that data will be stored on a secure password protected device.
+
+              .d-block
+                %strong HIPAA Training
+              .d-block
+                = label_tag :hipaa, class: "custom-control custom-checkbox" do
+                  = check_box_tag :hipaa, "1", false, class: "custom-control-input", id: "hipaa", data: { object: "text-input-expandable", help_element: "hipaa", help_text: "HIPAA Training" }
+                  %span.custom-control-indicator
+                  %span.custom-control-description
+                    I attest that I have completed a Human Subjects Protections Training Course.
+
+            .mt-5.mb-3.float-right
+              = succeed " " do
+                = link_to dashboard_path, class: "btn btn-light", tabindex: "-1" do
+                  %i.fa.fa-save
+                  Save Draft
+
+              = link_to legal_template_five_organization_path(@organization), class: "btn btn-primary" do
+                Proceed
+                %i.fa.fa-caret-right

@@ -55,8 +55,20 @@ $p600-green-rgba: rgba(67, 160, 71, .9);
   box-shadow: 0 5px 10px 0 $box-shadow-color;
 }
 
+$p600-grey-rgba: rgba(117, 117, 117, .8);
+
+.color-overlay-grey {
+  background-color: $p600-grey-rgba;
+  color: $p600-grey;
+  box-shadow: 0 5px 10px 0 $box-shadow-color;
+}
+
 #top-menu {
   position: sticky;
   top: 0;
   z-index: $zindex-fixed;
+}
+
+.background-mark {
+  background-color: $mark-bg;
 }

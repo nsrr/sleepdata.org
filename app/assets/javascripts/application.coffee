@@ -37,6 +37,7 @@
 
 # Components
 #= require components/cookies
+#= require components/expandable_text_input
 #= require components/graphs
 #= require components/headings
 #= require components/letters
