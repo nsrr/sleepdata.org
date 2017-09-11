@@ -34,10 +34,8 @@
   height: 200px;
 }
 
-$p700-green-rgba: rgba(56, 142, 60, .8);
-
 .color-overlay {
-  background-color: $p700-green-rgba;
+  background-color: rgba($p700-green, .8);
 }
 
 .background-special {
@@ -48,17 +46,13 @@ $p700-green-rgba: rgba(56, 142, 60, .8);
   background-size: cover;
 }
 
-$p600-green-rgba: rgba(67, 160, 71, .9);
-
 .color-overlay2 {
-  background-color: $p600-green-rgba;
+  background-color: rgba($p600-green, .9);
   box-shadow: 0 5px 10px 0 $box-shadow-color;
 }
 
-$p600-grey-rgba: rgba(117, 117, 117, .8);
-
 .color-overlay-grey {
-  background-color: $p600-grey-rgba;
+  background-color: rgba($p600-grey, .8);
   color: $p600-grey;
   box-shadow: 0 5px 10px 0 $box-shadow-color;
 }

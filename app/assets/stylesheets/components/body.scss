@@ -20,10 +20,8 @@ body {
   }
 }
 
-$p200-orange-rgba: rgba(255, 204, 128, .99);
-
 ::selection {
-  background-color: $p200-orange-rgba;
+  background-color: rgba($p200-orange, .99);
   color: $text-color;
 }
 

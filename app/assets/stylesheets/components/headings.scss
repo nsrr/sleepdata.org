@@ -18,8 +18,6 @@
   }
 }
 
-$p500-green-rgba: rgba(76, 175, 80, .8);
-
 .header-container {
   background-image: asset-url("221_old.jpg");
   background-attachment: fixed;
@@ -29,7 +27,7 @@ $p500-green-rgba: rgba(76, 175, 80, .8);
   position: relative;
 
   &::before {
-    background-color: $p500-green-rgba;
+    background-color: rgba($p500-green, .8);
     content: " ";
     position: absolute;
     top: 0;
