@@ -10,6 +10,7 @@
 - **Gem Changes**
   - Updated to rails 5.1.4
   - Updated to bootstrap 4.0.0.beta
+  - Updated to haml 5.0.3
 
 ## 0.30.0
 
