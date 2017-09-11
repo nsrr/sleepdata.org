@@ -30,6 +30,10 @@
             - group.dig(:docs).each_with_index do |doc, doc_index|
               %li{ class: current_page?(doc.dig(:url)) ? "active" : nil }
                 %a{ href: doc.dig(:url) }
+                  - if doc_index == 0
+                    %i.fa.fa-check-square-o.text-success
+                  - else
+                    %i.fa.fa-square-o
                   = doc.dig(:name)
 
                 - if false
