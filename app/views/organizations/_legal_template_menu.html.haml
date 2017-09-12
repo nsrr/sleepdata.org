@@ -1,45 +1,30 @@
-.col-12.col-md-3.col-xl-2.bd-sidebar
-  - if true
-    .bd-search.d-flex.align-items-center
+.col-12.col-md-3.col-xl-2.sidebar-wrapper
+  .sidebar
+    .sidebar-header.d-flex.align-items-center
       .mr-auto
         %strong= @organization.name
-      %button.btn-link.bd-search-docs-toggle.d-md-none.p-0.ml-3{ type: "button", data: { toggle: "collapse", target: "#bd-docs-nav" }, aria: { controls: "bd-docs-nav", expanded: "false", label: "Toggle docs navigation" } }
-        %svg{ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 30 30", width: "30", height: "30", focusable: "false" }
-          %title Menu
-          %path{ stroke: "currentColor", stroke_width: "2", stroke_linecap: "round", stroke_miterlimit: "10", d: "M4 7h22M4 15h22M4 23h22" }
-  - else
-    = form_tag search_path, method: :get, class: "bd-search d-flex align-items-center" do
-      = text_field_tag :search, params[:search], id: "search-input", class: "form-control", placeholder: "Search...", aria: { label: "Search for..." }, autocomplete: "off"
-      %button.btn-link.bd-search-docs-toggle.d-md-none.p-0.ml-3{ type: "button", data: { toggle: "collapse", target: "#bd-docs-nav" }, aria: { controls: "bd-docs-nav", expanded: "false", label: "Toggle docs navigation" } }
-        %svg{ xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 30 30", width: "30", height: "30", focusable: "false" }
-          %title Menu
-          %path{ stroke: "currentColor", stroke_width: "2", stroke_linecap: "round", stroke_miterlimit: "10", d: "M4 7h22M4 15h22M4 23h22" }
 
-  - groups = [{name: "DAUA", url: dashboard_path, docs: [{ name: "Part 1", url: legal_template_three_organization_path(@organization) },{ name: "Part 2", url: legal_template_four_organization_path(@organization) },{ name: "Part 3", url: legal_template_five_organization_path(@organization) }] }]
-  - random_number = rand(groups.size)
+      %button.btn-link.sidebar-header-toggle.d-md-none.p-0.ml-3{ type: "button", data: { toggle: "collapse", target: "#sidebar-nav-wrapper" }, aria: { controls: "sidebar-nav-wrapper", expanded: "false", label: "Toggle docs navigation" } }
+        %i.fa.fa-bars.fa-2x
 
-  %nav.collapse.bd-links#bd-docs-nav
-    - groups.each_with_index do |group, group_index|
-      .bd-toc-item{ class: random_number == group_index || true ? "active" : nil }
-        %a.bd-toc-link{ href: group.dig(:url) }
-          = group.dig(:name)
+    - groups = [{name: "DAUA", url: legal_templates_organization_path(@organization), docs: [{ name: "Part 1", url: legal_template_three_organization_path(@organization) },{ name: "Part 2", url: legal_template_four_organization_path(@organization) },{ name: "Part 3", url: legal_template_five_organization_path(@organization) }] }]
+    - random_number = rand(groups.size)
 
-        - if group.dig(:docs).present?
-          - random_docs_number = rand(group.dig(:docs).size)
-          %ul.nav.bd-sidenav
-            - group.dig(:docs).each_with_index do |doc, doc_index|
-              %li{ class: current_page?(doc.dig(:url)) ? "active" : nil }
-                %a{ href: doc.dig(:url) }
-                  - if doc_index == 0
-                    %i.fa.fa-check-square-o.text-success
-                  - else
-                    %i.fa.fa-square-o
-                  = doc.dig(:name)
+    #sidebar-nav-wrapper.sidebar-nav-wrapper.collapse
+      %nav.sidebar-nav
+        - groups.each_with_index do |group, group_index|
+          .sidebar-nav-group{ class: random_number == group_index || true ? "active" : nil }
+            %a.sidebar-nav-group-link{ href: group.dig(:url) }
+              = group.dig(:name)
 
-                - if false
-                  %ul.nav
-                    - (0..9).each_with_index do |section, section_index|
-                      %li{ class: section_index == 1 ? "active bd-sidenav-active" : nil }
-                        %a{ href: root_path }
-                          section.title
-                          = section
+            - if group.dig(:docs).present?
+              - random_docs_number = rand(group.dig(:docs).size)
+              %ul.nav.sidebar-nav-group-items
+                - group.dig(:docs).each_with_index do |doc, doc_index|
+                  %li{ class: current_page?(doc.dig(:url)) ? "active" : nil }
+                    %a{ href: doc.dig(:url) }
+                      - if doc_index == 0
+                        %i.fa.fa-check-square-o.text-success
+                      - else
+                        %i.fa.fa-square-o
+                      = doc.dig(:name)

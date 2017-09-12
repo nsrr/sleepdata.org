@@ -3,14 +3,15 @@
     %nav.navbar.navbar-expand-lg.navbar-dark.color-overlay-grey
       = link_to @organization.name, "#top-menu", class: "navbar-brand"
 
-.page-box.last-box.page-box-no-padding
-  .container-fluid
-    .row.flex-xl-nowrap
-      = render "organizations/legal_template_menu"
+.container-fluid
+  .row.flex-xl-nowrap
+    = render "organizations/legal_template_menu"
 
-      .d-none.d-xl-block.col-xl-2.bd-toc-fixed
-        Stuff
+    #agreement-helper-drawer.d-none.d-xl-block.col-xl.sidebar-drawer
 
-      %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
-        .page-box-padding
-          More Stuff
+    %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
+      .page-box.last-box
+        .float-right
+          %small= Time.zone.today.strftime("%a %b %-d, %Y")
+
+        .agreement-heading Data Access And Use Agreement

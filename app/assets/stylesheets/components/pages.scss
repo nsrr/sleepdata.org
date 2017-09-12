@@ -4,6 +4,8 @@
 }
 
 .page-box {
+  @include remove-last-child-bottom-margin;
+
   min-height: 960px;
   position: relative;
 }

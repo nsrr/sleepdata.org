@@ -3,46 +3,44 @@
     %nav.navbar.navbar-expand-lg.navbar-dark.color-overlay-grey
       = link_to @organization.name, "#top-menu", class: "navbar-brand"
 
-.page-box.last-box.page-box-no-padding
-  .container-fluid
-    .row.flex-xl-nowrap
-      = render "organizations/legal_template_menu"
+.container-fluid
+  .row.flex-xl-nowrap
+    = render "organizations/legal_template_menu"
 
-      #agreement-helper-drawer.d-none.d-xl-block.col-xl-2.bd-toc-fixed
+    #agreement-helper-drawer.d-none.d-xl-block.col-xl.sidebar-drawer
 
-      %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
-        .page-box-padding
-          .dashboard-container2
-            #width-test{ style: "position: fixed;top: 0;overflow: hidden;height: 0" }
-            .float-right
-              %small= Time.zone.today.strftime("%a %b %-d, %Y")
+    %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
+      .page-box.last-box
+        #width-test{ style: "position: fixed;top: 0;overflow: hidden;height: 0" }
+        .float-right
+          %small= Time.zone.today.strftime("%a %b %-d, %Y")
 
-            .agreement-heading Data Access And Use Agreement
+        .agreement-heading Data Access And Use Agreement
 
-            #remove-extra-div
-              %p
-                This Data Access and Use Agreement
-                = surround "(the ", ")" do
-                  %strong "DAUA"
-                is made by and between The Brigham and Women's Hospital, Inc.,
-                through its Division of Sleep and Circadian Disorders
-                = surround "(", ")" do
-                  %strong "BWH"
-                and
-                = text_field_tag :full_name, "", class: "input-expandable", placeholder: "<Type Full Name>", data: { object: "text-input-expandable", help_element: "full_name", help_text: "Full Name" }
-                = surround "(the ", ")." do
-                  %strong "Data User"
+        #remove-extra-div
+          %p
+            This Data Access and Use Agreement
+            = surround "(the ", ")" do
+              %strong "DAUA"
+            is made by and between The Brigham and Women's Hospital, Inc.,
+            through its Division of Sleep and Circadian Disorders
+            = surround "(", ")" do
+              %strong "BWH"
+            and
+            = text_field_tag :full_name, "", class: "input-expandable", placeholder: "<Type Full Name>", data: { object: "text-input-expandable", help_element: "full_name", help_text: "Full Name" }
+            = surround "(the ", ")." do
+              %strong "Data User"
 
-              = render "agreements/show/step1/part2"
+          = render "agreements/show/step1/part2"
 
-              = text_field_tag :institution, "", class: "input-expandable", placeholder: "<Type Institution>", data: { object: "text-input-expandable", help_element: "institution", help_text: "Institution" }
+          = text_field_tag :institution, "", class: "input-expandable", placeholder: "<Type Institution>", data: { object: "text-input-expandable", help_element: "institution", help_text: "Institution" }
 
-            .mt-5.mb-3.float-right
-              = succeed " " do
-                = link_to dashboard_path, class: "btn btn-light", tabindex: "-1" do
-                  %i.fa.fa-save
-                  Save Draft
+        .mt-5.mb-3.float-right
+          = succeed " " do
+            = link_to dashboard_path, class: "btn btn-light", tabindex: "-1" do
+              %i.fa.fa-save
+              Save Draft
 
-              = link_to legal_template_four_organization_path(@organization), class: "btn btn-primary" do
-                Proceed
-                %i.fa.fa-caret-right
+          = link_to legal_template_four_organization_path(@organization), class: "btn btn-primary" do
+            Proceed
+            %i.fa.fa-caret-right
