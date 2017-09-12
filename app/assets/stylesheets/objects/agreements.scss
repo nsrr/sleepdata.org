@@ -3,26 +3,23 @@
   margin-bottom: 1rem;
   font-variant: small-caps;
   line-height: initial;
-}
 
-@include media-breakpoint-up(sm) {
-  .agreement-heading {
+  @include media-breakpoint-up(sm) {
     font-size: 1.5rem;
   }
-}
 
-@include media-breakpoint-up(lg) {
-  .agreement-heading {
+  @include media-breakpoint-up(lg) {
     font-size: 1.75rem;
   }
 }
 
 .agreement-helper {
   border-bottom: 2px solid transparent;
-  font-weight: 300;
+  cursor: pointer;
   display:none;
-  position: absolute;
+  font-weight: 300;
   margin-right: 15px;
+  position: absolute;
   top: 0;
 
   &.agreement-helper-success {
