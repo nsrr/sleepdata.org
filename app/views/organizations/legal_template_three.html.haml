@@ -8,11 +8,7 @@
     .row.flex-xl-nowrap
       = render "organizations/legal_template_menu"
 
-      .d-none.d-xl-block.col-xl-2.bd-toc-fixed
-        #full_name_help_text.agreement-helper
-          Full Name
-        #institution_name_help_text.agreement-helper
-          Institution
+      #agreement-helper-drawer.d-none.d-xl-block.col-xl-2.bd-toc-fixed
 
       %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
         .page-box-padding
@@ -39,7 +35,7 @@
 
               = render "agreements/show/step1/part2"
 
-              = text_field_tag :institution, "", class: "input-expandable", placeholder: "<Type Institution>", data: { object: "text-input-expandable", help_element: "institution_name", help_text: "Institution" }
+              = text_field_tag :institution, "", class: "input-expandable", placeholder: "<Type Institution>", data: { object: "text-input-expandable", help_element: "institution", help_text: "Institution" }
 
             .mt-5.mb-3.float-right
               = succeed " " do

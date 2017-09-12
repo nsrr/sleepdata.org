@@ -8,13 +8,7 @@
     .row.flex-xl-nowrap
       = render "organizations/legal_template_menu"
 
-      .d-none.d-xl-block.col-xl-2.bd-toc-fixed
-        #title_of_project_help_text.agreement-helper
-        #specific_purpose_help_text.agreement-helper
-        #intended_use_of_data_help_text.agreement-helper
-        #data_secured_help_text.agreement-helper
-        #security_help_text.agreement-helper
-        #hipaa_help_text.agreement-helper
+      #agreement-helper-drawer.d-none.d-xl-block.col-xl-2.bd-toc-fixed
 
       %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
         .page-box-padding
@@ -49,14 +43,14 @@
                 %label Security
                 %br
                 = label_tag :security, class: "custom-control custom-checkbox" do
-                  = check_box_tag :security, "1", false, class: "custom-control-input", placeholder: "<required>", id: "security", data: { object: "text-input-expandable", help_element: "security", help_text: "Security" }
+                  = check_box_tag :security, "1", false, class: "custom-control-input", id: "security", data: { object: "text-input-expandable", help_element: "security", help_text: "Security" }
                   %span.custom-control-indicator
                   %span.custom-control-description
                     I attest that data will be stored on a secure password protected device.
 
-              .d-block
-                %strong HIPAA Training
-              .d-block
+              .form-group
+                %label HIPAA Training
+                %br
                 = label_tag :hipaa, class: "custom-control custom-checkbox" do
                   = check_box_tag :hipaa, "1", false, class: "custom-control-input", id: "hipaa", data: { object: "text-input-expandable", help_element: "hipaa", help_text: "HIPAA Training" }
                   %span.custom-control-indicator
