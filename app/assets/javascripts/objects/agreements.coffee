@@ -7,22 +7,7 @@
     sig = $($(this).data('signature-target')).val() if $($(this).data('signature-target')).val()
     $(this).signaturePad(displayOnly: true, output: $(this).data('signature-target')).regenerate(sig)
   )
-  agreementHelpers()
   false
-
-@agreementHelpers = ->
-  $drawer = $("#agreement-helper-drawer")
-  return if $drawer.length == 0
-  $('[data-help-element]').each((index, element) ->
-    $label = $("<label>"
-      "id": "#{$(this).data("help-element")}_help_text"
-      "class": "agreement-helper"
-      "for": $(this).data("help-element") unless $(this).is(":checkbox")
-    )
-    $drawer.append($label)
-  )
-  resetHelpTexts()
-
 
 $(document)
   .on('click', '[data-object~="select_radio_button"]', () ->

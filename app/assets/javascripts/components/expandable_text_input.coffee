@@ -23,6 +23,18 @@
   help_element.css("top", $(element).offset().top - 56)
   help_element.fadeIn()
 
+@agreementHelpers = ->
+  $drawer = $("#agreement-helper-drawer")
+  return if $drawer.length == 0
+  $('[data-help-element]').each((index, element) ->
+    $label = $("<label>"
+      "id": "#{$(this).data("help-element")}_help_text"
+      "class": "agreement-helper"
+      "for": $(this).data("help-element") unless $(this).is(":checkbox")
+    )
+    $drawer.append($label)
+  )
+  resetHelpTexts()
 
 @resetHelpTexts = ->
   $('[data-object~="text-input-expandable"]').each(->
@@ -33,6 +45,7 @@
   $('[data-object~="text-input-expandable"]').each(->
     setInputSize($(this))
   )
+  agreementHelpers()
 
 $(window).resize(-> resetHelpTexts())
 
