@@ -12,8 +12,9 @@
     %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
       .page-box.last-box
         #width-test{ style: "position: fixed;top: 0;overflow: hidden;height: 0" }
-        .float-right
-          %small= Time.zone.today.strftime("%a %b %-d, %Y")
+        - if false
+          .float-right
+            %small= Time.zone.today.strftime("%a %b %-d, %Y")
 
         .agreement-heading Data Access And Use Agreement
 
@@ -33,7 +34,15 @@
 
           = render "agreements/show/step1/part2"
 
-          = text_field_tag :institution, "", class: "input-expandable form-control-inline", placeholder: "<Type Institution>", data: { object: "text-input-expandable", help_element: "institution", help_text: "Institution" }
+          - [{variable: "institution", type: "string" }, {variable: "professional_title", type: "string", example: "ex: Associate Professor, Data Manager, Student" }, { variable: "telephone", type: "string" }, { variable: "email", type: "string" }, { variable: "address", type: "text" }].each do |hash|
+            .form-group
+              = label_tag hash[:variable], hash[:label], class: "form-control-label"
+              - if hash[:type] == "text"
+                = text_area_tag hash[:variable], "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: hash[:variable], help_text: hash[:label] || hash[:variable].titleize }, rows: 7
+              - else
+                = text_field_tag hash[:variable], "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: hash[:variable], help_text: hash[:label] || hash[:variable].titleize }
+              - if hash[:example].present?
+                %small.text-muted= hash[:example]
 
         .mt-5.mb-3.float-right
           = succeed " " do

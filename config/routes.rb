@@ -194,6 +194,9 @@ Rails.application.routes.draw do
       get :legal_template_three, path: "legal/templates/3"
       get :legal_template_four, path: "legal/templates/4"
       get :legal_template_five, path: "legal/templates/5"
+      get :legal_template_six, path: "legal/templates/6"
+      get :legal_template_seven, path: "legal/templates/7"
+      get :legal_template_eight, path: "legal/templates/8"
     end
   end
 

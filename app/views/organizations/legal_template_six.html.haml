@@ -1,0 +1,30 @@
+#top-menu
+  .background-special
+    %nav.navbar.navbar-expand-lg.navbar-dark.color-overlay-grey
+      = link_to @organization.name, "#top-menu", class: "navbar-brand"
+
+.container-fluid
+  .row.flex-xl-nowrap
+    = render "organizations/legal_template_menu"
+
+    #agreement-helper-drawer.d-none.d-xl-block.col-xl.sidebar-drawer
+
+    %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
+      .page-box.last-box
+        - if false
+          .float-right
+            %small= Time.zone.today.strftime("%a %b %-d, %Y")
+
+        .agreement-heading Data Access And Use Agreement
+
+        #remove-extra-div
+
+        .mt-5.mb-3.float-right
+          = succeed " " do
+            = link_to dashboard_path, class: "btn btn-light", tabindex: "-1" do
+              %i.fa.fa-save
+              Save Draft
+
+          = link_to legal_template_seven_organization_path(@organization), class: "btn btn-primary" do
+            Proceed
+            %i.fa.fa-caret-right
