@@ -8,6 +8,7 @@
 - **Organizations Added**
   - Organizations are used to group datasets, DAUA templates, and reviewers
 - **Gem Changes**
+  - Updated to ruby 2.4.2
   - Updated to rails 5.1.4
   - Updated to bootstrap 4.0.0.beta
   - Updated to haml 5.0.3
