@@ -7,6 +7,7 @@
     $("#width-test").text($(element).prop("placeholder"))
     $(element).addClass("input-highlight")
   standard_width = 3
+  standard_width += 6 if $(element).hasClass("form-control-inline")
   standard_width += 20 if $(element).hasClass("form-control")
   $(element).css("width", $("#width-test").width() + standard_width)
   resetHelpTexts()

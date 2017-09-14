@@ -13,3 +13,17 @@
 .form-control-plaintext {
   @include remove-last-child-bottom-margin;
 }
+
+.form-control-inline {
+  border-radius: 0.25rem;
+  line-height: 1.25;
+  padding: 0 .25rem;
+
+  &:focus {
+    box-shadow: 0 0 0 3px rgba($brand-primary, 0.5);
+    color: $gray-700;
+    background-color: $brand-white;
+    border-color: lighten($brand-primary, 25%);;
+    outline: none;
+  }
+}

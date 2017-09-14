@@ -27,13 +27,13 @@
             = surround "(", ")" do
               %strong "BWH"
             and
-            = text_field_tag :full_name, "", class: "input-expandable", placeholder: "<Type Full Name>", data: { object: "text-input-expandable", help_element: "full_name", help_text: "Full Name" }
+            = text_field_tag :full_name, "", class: "input-expandable form-control-inline", placeholder: "<Type Full Name>", data: { object: "text-input-expandable", help_element: "full_name", help_text: "Full Name" }
             = surround "(the ", ")." do
               %strong "Data User"
 
           = render "agreements/show/step1/part2"
 
-          = text_field_tag :institution, "", class: "input-expandable", placeholder: "<Type Institution>", data: { object: "text-input-expandable", help_element: "institution", help_text: "Institution" }
+          = text_field_tag :institution, "", class: "input-expandable form-control-inline", placeholder: "<Type Institution>", data: { object: "text-input-expandable", help_element: "institution", help_text: "Institution" }
 
         .mt-5.mb-3.float-right
           = succeed " " do
