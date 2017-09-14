@@ -5,6 +5,9 @@
   - Improved landing page styling
 - **Admin Changes**
   - Improved Downloads by Quarter report loading speed
+- **Agreement Changes**
+  - Agreements now use [SignaturePad](https://github.com/szimek/signature_pad)
+    for capturing signatures
 - **Organizations Added**
   - Organizations are used to group datasets, DAUA templates, and reviewers
 - **Gem Changes**

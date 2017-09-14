@@ -1,0 +1,62 @@
+.signature-form {
+  // background-color: red; // $brand-white;
+
+  h1 {
+    background-color: $p100-grey;
+    margin: 0;
+    padding: 20px;
+  }
+
+  .signature-form-description {
+    padding: 20px 20px 0;
+  }
+
+  .m-signature-pad {
+    padding: 20px;
+  }
+
+  .signature-form-footer {
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
+
+.m-signature-pad--body {
+  border: 1px solid $p100-grey;
+  margin: 0 auto;
+  min-height: 354px;
+  position: relative;
+
+  canvas {
+    @include ignore-selection;
+
+    background-color: $brand-white;
+    border-radius: 4px;
+    box-shadow: $box-shadow;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+}
+
+.sign-with-finger {
+  display: block;
+}
+
+.sign-with-mouse {
+  display: none;
+}
+
+// https://www.w3.org/TR/mediaqueries-4/#mf-interaction
+@media (hover) {
+  .sign-with-finger {
+    display: none;
+  }
+
+  .sign-with-mouse {
+    display: block;
+  }
+}

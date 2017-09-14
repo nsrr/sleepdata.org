@@ -18,6 +18,36 @@
         .agreement-heading Data Access And Use Agreement
 
         #remove-extra-div
+          = hidden_field_tag :data_uri
+
+          #signature-pad.signature-form{ data: { object: "text-input-expandable", help_element: "signature-pad", help_text: "Signature" } }
+            .float-right{ style: "padding-right: 20px;margin-top: -10px;" }
+              = link_to "#", data: { action: "clear" }, class: "small" do
+                %i.fa.fa-eraser
+                %span Clear
+                %span.d-none.d-sm-inline Signature
+            .m-signature-pad
+              %div{ class: "m-signature-pad--body" }
+                %div{ style: "margin-top: 15px;margin-left: 15px;" }
+                  %small.form-text{ style: "color: #bdbdbd;font-style: italic;" } Sign here
+                %canvas
+              .text-center.sign-with-mouse
+                %small.text-muted
+                  Sign by holding the left mouse button down in the signature box.
+                  Press
+                  %strong Clear Signature
+                  to try again.
+              .text-center.sign-with-finger
+                %small.text-muted
+                  Sign using your finger in the signature box.
+                  Press
+                  %strong Clear Signature
+                  to try again.
+
+            - if false
+              = link_to "#", class: "btn btn-lg btn-success btn-shadow", data: { object: "submit-signature", target: "#profile-form"  } do
+                Save Draft / Proceed
+                %i.fa.fa-caret-right
 
         .mt-5.mb-3.float-right
           = succeed " " do

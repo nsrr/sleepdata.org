@@ -15,7 +15,8 @@
   clipboardReady()
   datepickerReady()
   fileDragReady()
-  notouchReady()
+  notouchReady() # TODO: Remove, replace with scss for @media (hover) queries
+  signaturesReady()
   tooltipsReady()
   turbolinksReady()
   typeaheadReady()

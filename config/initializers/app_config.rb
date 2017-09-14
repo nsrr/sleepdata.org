@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
-require 'csv'
-require 'digest/md5'
-require 'net/http'
+# For saving signatures.
+require "base64"
+
+require "csv"
+require "digest/md5"
+require "net/http"

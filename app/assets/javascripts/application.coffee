@@ -26,13 +26,14 @@
 #= require external/bootstrap-datepicker.js
 #= require external/clipboard-1.5.9.js
 #= require external/colorpicker
-#= require external/flashcanvas.js
+# require external/flashcanvas.js # TODO: Remove line
 #= require external/google_analytics
 #= require external/highcharts-4.1.9.src.js
 #= require external/jquery-fieldselection.js
-#= require external/jquery.signaturepad.min.js
+# require external/jquery.signaturepad.min.js # TODO: Remove line
 #= require external/jquery.textcomplete
-#= require external/json2.min.js
+# require external/json2.min.js # TODO: Remove line
+#= require external/signature_pad-2.3.1.src.js
 #= require external/typeahead-0.11.1-corejavascript.src.js
 
 # Components
@@ -53,6 +54,7 @@
 #= require extensions/filedrag
 #= require extensions/notouch
 #= require extensions/recaptcha
+#= require extensions/signatures
 #= require extensions/slug
 #= require extensions/tooltips
 #= require extensions/turbolinks
