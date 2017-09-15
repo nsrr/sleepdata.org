@@ -13,6 +13,7 @@
       window.$signaturePad.clear()
       event.stopPropagation()
       event.preventDefault()
+      resetHelpTexts()
       return
   if savePNGButton?
     savePNGButton.addEventListener 'click', (event) ->
@@ -53,4 +54,7 @@ $(document)
       $("#data_uri").val(window.$signaturePad.toDataURL())
       $($(this).data("target")).submit()
     false
+  )
+  .on("touchend mouseup", ".signature-pad canvas", (event) ->
+    resetHelpTexts()
   )
