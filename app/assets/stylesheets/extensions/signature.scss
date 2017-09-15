@@ -8,6 +8,13 @@
 }
 
 .signature-pad-body {
+  .signature-pad-body-sign-here {
+    @include ignore-selection;
+    color: $p400-grey;
+    font-style: italic;
+    margin: 1rem;
+  }
+
   background-color: $brand-white;
   border: 1px solid $p100-grey;
   border-radius: 4px;
