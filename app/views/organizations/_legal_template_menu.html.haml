@@ -7,7 +7,7 @@
       %button.btn-link.sidebar-header-toggle.d-md-none.p-0.ml-3{ type: "button", data: { toggle: "collapse", target: "#sidebar-nav-wrapper" }, aria: { controls: "sidebar-nav-wrapper", expanded: "false", label: "Toggle docs navigation" } }
         %i.fa.fa-bars.fa-2x
 
-    - groups = [{name: "DAUA", url: legal_templates_organization_path(@organization), docs: [{ name: "Part 1", url: legal_template_three_organization_path(@organization) },{ name: "Part 2", url: legal_template_four_organization_path(@organization) },{ name: "Part 3", url: legal_template_five_organization_path(@organization) },{ name: "Part 4", url: legal_template_six_organization_path(@organization) },{ name: "Part 5", url: legal_template_seven_organization_path(@organization) },{ name: "Part 6", url: legal_template_eight_organization_path(@organization) }] }]
+    - groups = [{name: "DAUA", url: legal_template_three_organization_path(@organization), docs: [{ name: "Page 1", url: legal_template_three_organization_path(@organization) },{ name: "Page 2", url: legal_template_four_organization_path(@organization) },{ name: "Page 3", url: legal_template_five_organization_path(@organization) },{ name: "Page 4", url: legal_template_six_organization_path(@organization) }] }, {name: "Riders", url: legal_template_seven_organization_path(@organization), docs: [{ name: "IRB Review", url: legal_template_seven_organization_path(@organization) }] }, {name: "Proof", url: legal_template_eight_organization_path(@organization), docs: [{ name: "Review", url: legal_template_eight_organization_path(@organization) }] }]
     - random_number = rand(groups.size)
 
     #sidebar-nav-wrapper.sidebar-nav-wrapper.collapse
