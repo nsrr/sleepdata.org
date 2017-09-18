@@ -9,7 +9,7 @@
   - Agreements now use [SignaturePad](https://github.com/szimek/signature_pad)
     for capturing signatures
 - **Organizations Added**
-  - Organizations are used to group datasets, DAUA templates, and reviewers
+  - Organizations are used to group datasets, legal documents, and reviewers
   - Organization editors can now create legal documents
 - **Legal Documents Added*
   - Legal documents create frameworks for data access and use agreements
