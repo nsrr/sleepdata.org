@@ -1,0 +1,18 @@
+- @title = @legal_document.name
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        = @title
+
+= render "forms/horizontal/show/text", object: @legal_document, key: :name
+= render "forms/horizontal/show/text", object: @legal_document, key: :slug
+= render "forms/horizontal/show/text", object: @legal_document, key: :commercial_type_name, key_name: "Commerical type"
+= render "forms/horizontal/show/text", object: @legal_document, key: :data_user_type_name, key_name: "Data user type"
+= render "forms/horizontal/show/text", object: @legal_document, key: :attestation_type_name, key_name: "Attestation type"
+= render "forms/horizontal/show/text", object: @legal_document, key: :approval_process_name, key_name: "Approval process"
+
+#width-test{ style: "position: fixed;top: 0;overflow: hidden;height: 0" }
+- @legal_document.legal_document_pages.each do |legal_document_page|
+  = render "legal_document_pages/preview", legal_document_page: legal_document_page

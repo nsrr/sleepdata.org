@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  legal_document_id: 1
+  legal_document_page_id: 1
+  position: 1
+  display_name: MyString
+  name: MyString
+  variable_type: MyString
+  field_note: MyString
+  required: false
+  deleted: false
+
+two:
+  legal_document_id: 1
+  legal_document_page_id: 1
+  position: 1
+  display_name: MyString
+  name: MyString
+  variable_type: MyString
+  field_note: MyString
+  required: false
+  deleted: false

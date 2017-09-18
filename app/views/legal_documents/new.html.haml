@@ -1,0 +1,9 @@
+- @title = "New Legal Document"
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        = @title
+
+= render "legal_documents/form", legal_document: @legal_document

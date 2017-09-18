@@ -112,12 +112,7 @@ class OrganizationsController < ApplicationController
   private
 
   def find_organization_or_redirect
-    @organization = Organization.current.find_by_param(params[:id])
-    redirect_without_organization
-  end
-
-  def redirect_without_organization
-    empty_response_or_root_path(organizations_path) unless @organization
+    super(:id)
   end
 
   def organization_params

@@ -8,12 +8,13 @@ class Organization < ApplicationRecord
   include Sluggable
 
   # Validations
-  validates :name, :slug, presence: true
-  validates :slug, uniqueness: { scope: :deleted }
+  validates :name, presence: true
+  validates :slug, uniqueness: true
   validates :slug, format: { with: /\A(?!\Anew\Z)[a-z][a-z0-9\-]*\Z/ }
 
   # Relationships
-  has_many :datasets
+  has_many :datasets, -> { current }
+  has_many :legal_documents, -> { current }
 
   # Methods
   def self.searchable_attributes

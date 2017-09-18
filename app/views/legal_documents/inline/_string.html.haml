@@ -1,0 +1,6 @@
+- key = variable.name
+- label = variable.display_name.present? ? variable.display_name : variable.name.titleize
+- help_element = key
+- help_text = label || key.titleize
+
+= text_field_tag key, "", class: "input-expandable form-control-inline", placeholder: "<Type #{label}>", data: { object: "text-input-expandable", help_element: help_element, help_text: help_text }

@@ -1,0 +1,6 @@
+- case variable.variable_type
+- when "check_box"
+  = render "legal_documents/outline/check_box", variable: variable
+- else
+  = render "legal_documents/inline/string", variable: variable
+  %span>

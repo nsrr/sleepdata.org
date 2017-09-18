@@ -183,6 +183,10 @@ Rails.application.routes.draw do
   get "/image/:id" => "images#download", as: "download_image"
 
   resources :organizations, path: "orgs" do
+    resources :legal_documents, path: "legal-documents" do
+      resources :legal_document_pages, path: "pages"
+    end
+
     member do
       get :datasets
       get :people

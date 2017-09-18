@@ -1,0 +1,15 @@
+- @title = "Edit Legal Document Page: #{@legal_document_page.title_was}"
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        = @legal_document_page.title_was
+  .breadcrumb-container.mb-0.p-2
+    .container
+      %ol
+        %li= link_to "Legal Document Pages", organization_legal_document_legal_document_pages_path(@organization, @legal_document)
+        %li= link_to @legal_document_page.title_was, [@organization, @legal_document, @legal_document_page]
+        %li Edit
+
+= render "legal_document_pages/form", legal_document_page: @legal_document_page

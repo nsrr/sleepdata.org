@@ -1,0 +1,18 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  legal_document: one
+  position: 1
+  rider: false
+  title: Data Access and Use Agreement
+  content: This agreement is made by and between Organization ("Org") and <full_name> (the "Data User").
+
+two:
+  legal_document: one
+  position: 2
+  rider: false
+  title: Specific Purpose
+  content:
+    Please describe your specific purpose,
+    <specific_purpose:text>
+

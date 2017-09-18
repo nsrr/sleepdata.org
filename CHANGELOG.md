@@ -10,6 +10,63 @@
     for capturing signatures
 - **Organizations Added**
   - Organizations are used to group datasets, DAUA templates, and reviewers
+  - Organization editors can now create legal documents
+- **Legal Documents Added*
+  - Legal documents create frameworks for data access and use agreements
+  - Organizations can create multiple legal documents for different user types
+  - Legal documents are defined by:
+    - Commercial Type:
+      - `both`, `commerical`, and `noncommercial`
+      - Users are asked whether they are commercial or noncommercial unless
+        `both` is selected, and this is saved on the per-user level
+      - Users can change their commercial type per agreement if needed
+    - Data User Type:
+      - `both`, `individual`, `organization`
+      - Individuals vs organizations may be required to specify different types
+        of data in agreements
+      - Similar to "Commerical Type", users are asked if they are entering an
+        agreement as an individual as an organization, and this setting is also
+        saved for future agreements
+      - Users can change their data user type per agreement if needed
+    - Attestation Type:
+      - `none`, `checkbox`, `signature`
+      - Legal documents that require no attestation simply store that the user
+        has viewed the agreement at a certain timestamp
+      - Legal documents that require a checkbox explicitely ask the user to
+        check a checkbox to attest that they have read, answered truthfully and
+        to the best of their knowledge, and agree to the legal document
+      - Legal documents that require a signature require that the user signs
+        attesting that they have read, answered truthfully and to the best of
+        their knowledge, and agree to the legal document
+        - Users who can't sign can have a Duly Authorized Representative sign
+          on their behalf for these types of legal documents
+      - All three types of legal documents track when a user has attested by
+        either submitting, checking, or signing the agreement
+    - Approval Process:
+      - `immediate` and `committee`
+      - Legal documents that have an immediate approval process simply require
+        the data user to complete and submit the agreement
+      - Immediate approval agreements can still have time limits placed on the
+        duration of the agreement after which a renewal is required
+      - Legal documents that require committee approval get sent to the
+        organization committee for review
+      - An organization primary reviewer can approve these agreements, or ask
+        users to make changes and resubmit
+    - Legal documents that require no attestation or checkbox attestation and
+      have and immediate approval process can be filled out directly using the
+      NSRR downloader
+    - For the NSRR downloader, checkbox attestation is replaced by typing "Yes"
+      or "No" instead of checking a checkbox
+  - Legal documents consist of one or more pages with content and data collected
+    from data users
+  - Legal documents can also contain optional riders and supporting
+    documentation uploads
+  - Organization editors can create and modify legal documents and assign them
+    to one or more datasets
+  - Multiple legal documents can be assigned to datasets to cover the different
+    commerical/noncommercial and individual/organization user types
+  - Legal documents are versioned when they are published, and subsequent
+    changes to the agreements only affect new users
 - **Gem Changes**
   - Updated to ruby 2.4.2
   - Updated to rails 5.1.4

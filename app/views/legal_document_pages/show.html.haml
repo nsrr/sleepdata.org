@@ -1,0 +1,15 @@
+- @title = @legal_document_page.title
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        = @title
+
+= render "forms/horizontal/show/generic", title: "Legal document", content: link_to(@legal_document.name, organization_legal_document_path(@organization, @legal_document))
+= render "forms/horizontal/show/text", object: @legal_document_page, key: :position
+= render "forms/horizontal/show/check_box", object: @legal_document_page, key: :rider
+
+#width-test{ style: "position: fixed;top: 0;overflow: hidden;height: 0" }
+
+= render "legal_document_pages/preview", legal_document_page: @legal_document_page

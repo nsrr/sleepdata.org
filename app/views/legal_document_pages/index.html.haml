@@ -1,0 +1,32 @@
+- @title = "Legal Document Pages"
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        .float-right
+          = link_to plus_or("New Legal Document Page"), new_organization_legal_document_legal_document_page_path(@organization, @legal_document), class: "btn btn-primary btn-shadow"
+        = @title
+
+%table.table.table-striped.table-borderless
+  %col{ width: "1px" }
+  %col
+  %col
+  %col
+  %col
+  %col{ width: "1px" }
+  %thead
+    %tr
+      %th.th-sticky Position
+      %th.th-sticky Title
+      %th.th-sticky.text-center Rider
+      %th.th-sticky.text-center Actions
+
+  %tbody
+    - @legal_document_pages.each do |legal_document_page|
+      %tr.tr-align-middle
+        %td= legal_document_page.position
+        %td= link_to legal_document_page.title, [@organization, @legal_document, legal_document_page]
+        %td.text-center= simple_check legal_document_page.rider
+        %td.text-center
+          = render "layouts/edit_delete_dropdown", edit_url: edit_organization_legal_document_legal_document_page_path(@organization, @legal_document, legal_document_page), delete_url: [@organization, @legal_document, @legal_document_page], delete_confirmation: "Delete #{legal_document_page.title}?"

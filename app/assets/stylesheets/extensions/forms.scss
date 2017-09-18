@@ -2,6 +2,7 @@
   color: $p400-grey;
   font-weight: 300;
   border-bottom: 2px solid $p100-grey;
+  white-space: nowrap;
 }
 
 @include media-breakpoint-up(md) {

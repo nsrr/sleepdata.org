@@ -1,0 +1,16 @@
+- key = variable.name
+- label = variable.display_name.present? ? variable.display_name : variable.name.titleize
+- help_element = key
+- help_text = label || key.titleize
+
+.form-group
+  = label_tag key, label, class: "form-control-label"
+  %br
+  = label_tag key, class: "custom-control custom-checkbox" do
+    = check_box_tag key, "1", false, class: "custom-control-input", id: key, data: { object: "text-input-expandable", help_element: help_element, help_text: help_text }
+    %span.custom-control-indicator
+    - if variable.description.present?
+      %span.custom-control-description= variable.description
+  - if variable.field_note.present?
+    %br
+    %small.text-muted= variable.field_note

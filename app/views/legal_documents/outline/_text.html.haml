@@ -1,0 +1,10 @@
+- key = variable.name
+- label = variable.display_name.present? ? variable.display_name : variable.name.titleize
+- help_element = key
+- help_text = label || key.titleize
+
+.form-group
+  = label_tag key, label, class: "form-control-label"
+  = text_area_tag key, "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: help_element, help_text: help_text }, rows: 7
+  - if variable.field_note.present?
+    %small.text-muted= variable.field_note
