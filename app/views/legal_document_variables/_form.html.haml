@@ -1,0 +1,16 @@
+.card.legal-document-variable-container{ id: "legal-document-variable-#{legal_document_variable.id}-container", data: { legal_document_variable_id: legal_document_variable.id } }
+  .card-header
+    = link_to polymorphic_path([@organization, @legal_document, legal_document_variable]), remote: true, class: "close" do
+      &times;
+    %strong
+      %i.fa.fa-edit
+      = legal_document_variable.name_was
+  .card-body
+    = form_with model: [@organization, @legal_document, legal_document_variable] do |form|
+      = render "forms/vertical/text_field", form: form, object: legal_document_variable, key: :name
+      = render "forms/vertical/text_field", form: form, object: legal_document_variable, key: :display_name
+      = render "forms/vertical/select", form: form, object: legal_document_variable, key: :variable_type, options: LegalDocumentVariable::VARIABLE_TYPES
+      = render "forms/vertical/text_field", form: form, object: legal_document_variable, key: :description, help_text: "<b>Check boxes only.</b> Set description to provide text next to check boxes.".html_safe
+      = render "forms/vertical/text_field", form: form, object: legal_document_variable, key: :field_note, help_text: "Field notes display below the input field."
+      = render "forms/vertical/check_box", form: form, object: legal_document_variable, key: :required
+      = render "forms/vertical/submit", form: form, object: [@organization, @legal_document, legal_document_variable], submit_text: legal_document_variable.new_record? ? "Create Variable" : "Update Variable", remote: true

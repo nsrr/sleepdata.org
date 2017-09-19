@@ -1,0 +1,6 @@
+breakdownVariableEditing();
+<% @legal_document_page = @legal_document_variable.legal_document_page %>
+<% if @legal_document_page %>
+  $("#legal-document-page-<%= @legal_document_page.id %>").html("<%=j render "legal_document_pages/preview", legal_document_page: @legal_document_page %>");
+<% end %>
+scrollToVariableEditLink("<%= @legal_document_variable.id %>");

@@ -1,0 +1,3 @@
+prepareVariableEditing();
+$("#legal-document-variable").html("<%=j render "legal_document_variables/form", legal_document_variable: @legal_document_variable %>");
+setVariableEditTop("<%= @legal_document_variable.id %>");
