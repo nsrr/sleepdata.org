@@ -6,8 +6,10 @@
 }
 
 @include media-breakpoint-up(md) {
-  .form-label-elegant {
-    @include float-right;
+  .col-form-label {
+    .form-label-elegant {
+      @include float-right;
+    }
   }
 }
 
