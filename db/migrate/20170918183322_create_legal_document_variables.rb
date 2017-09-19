@@ -5,12 +5,12 @@ class CreateLegalDocumentVariables < ActiveRecord::Migration[5.1]
       t.integer :legal_document_page_id
       t.integer :position
       t.string :name
-      t.string :variable_type
       t.string :display_name
+      t.string :variable_type, null: false, default: "string"
       t.text :description
       t.string :field_note
-      t.boolean :required
-      t.boolean :deleted
+      t.boolean :required, null: false, default: false
+      t.boolean :deleted, null: false, default: false
       t.index :legal_document_id
       t.index :legal_document_page_id
       t.index :position
