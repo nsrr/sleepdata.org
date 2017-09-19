@@ -12,4 +12,7 @@
 
 #width-test{ style: "position: fixed;top: 0;overflow: hidden;height: 0" }
 
-= render "legal_document_pages/preview", legal_document_page: @legal_document_page
+.row
+  #legal-document-preview.col-12.col-md
+    %div{ id: "legal-document-page-#{@legal_document_page.id}" }= render "legal_document_pages/preview", legal_document_page: @legal_document_page
+  #legal-document-variable.col-12.col-md.d-none

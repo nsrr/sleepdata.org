@@ -4,7 +4,8 @@
       = legal_document_page.title
       = link_to "edit", edit_organization_legal_document_legal_document_page_path(@organization, @legal_document, legal_document_page), class: "btn btn-sm btn-light", style: "font-variant: initial;"
     #remove-extra-div
-      = legal_markdown legal_document_page
-  .background-p50-grey
-    .p-5
-      %small= highlight(simple_format(legal_document_page.content.to_s), /\#{(\d+)}/)
+      = legal_markdown legal_document_page, editable: true
+  - if false
+    .background-p50-grey
+      .p-5
+        %small= highlight(simple_format(legal_document_page.content.to_s), /\#{(\d+)}/)

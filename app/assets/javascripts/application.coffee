@@ -41,6 +41,7 @@
 #= require components/expandable_text_input
 #= require components/graphs
 #= require components/headings
+#= require components/legal_documents
 #= require components/letters
 #= require components/links
 #= require components/previews

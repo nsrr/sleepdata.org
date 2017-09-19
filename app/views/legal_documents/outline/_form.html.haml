@@ -1,5 +1,5 @@
 - case variable.variable_type
 - when "check_box", "text"
-  = render "legal_documents/outline/#{variable.variable_type}", variable: variable
+  = render "legal_documents/outline/#{variable.variable_type}", variable: variable, editable: editable
 - else
-  = render "legal_documents/outline/string", variable: variable
+  = render "legal_documents/outline/string", variable: variable, editable: editable

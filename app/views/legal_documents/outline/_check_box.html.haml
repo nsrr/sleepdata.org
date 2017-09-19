@@ -4,10 +4,12 @@
 - help_text = label || key.titleize
 
 .form-group
-  = label_tag key, label, class: "form-control-label"
+  = label_tag key, class: "form-control-label" do
+    = label
+    = render "legal_document_variables/edit_link", variable: variable if editable
   %br
   = label_tag key, class: "custom-control custom-checkbox" do
-    = check_box_tag key, "1", false, class: "custom-control-input", id: key, data: { object: "text-input-expandable", help_element: help_element, help_text: help_text }
+    = check_box_tag key, "1", false, class: "custom-control-input", id: key, data: { object: "text-input-expandable", help_element: help_element, help_text: help_text }, disabled: editable
     %span.custom-control-indicator
     - if variable.description.present?
       %span.custom-control-description= variable.description

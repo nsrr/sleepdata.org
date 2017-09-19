@@ -185,6 +185,7 @@ Rails.application.routes.draw do
   resources :organizations, path: "orgs" do
     resources :legal_documents, path: "legal-documents" do
       resources :legal_document_pages, path: "pages"
+      resources :legal_document_variables, path: "variables"
     end
 
     member do

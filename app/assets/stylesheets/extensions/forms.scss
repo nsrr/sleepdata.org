@@ -29,4 +29,10 @@
     border-color: lighten($brand-primary, 25%);;
     outline: none;
   }
+
+  &:disabled,
+  [readonly] {
+    background-color: $gray-200;
+    opacity: 1;
+  }
 }
