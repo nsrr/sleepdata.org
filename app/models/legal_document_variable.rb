@@ -6,7 +6,8 @@ class LegalDocumentVariable < ApplicationRecord
   VARIABLE_TYPES = [
     ["String", "string"],
     ["Text", "text"],
-    ["Check box", "check_box"]
+    ["Check box", "check_box"],
+    ["Radio", "radio"]
   ]
 
   # Concerns

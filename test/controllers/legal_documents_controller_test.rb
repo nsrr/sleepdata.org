@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class LegalDocumentsControllerTest < ActionDispatch::IntegrationTest
   setup do
@@ -32,7 +32,7 @@ class LegalDocumentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create legal document" do
     login(@admin)
-    assert_difference('LegalDocument.count') do
+    assert_difference("LegalDocument.count") do
       post organization_legal_documents_url(@organization), params: { legal_document: legal_document_params }
     end
     assert_redirected_to organization_legal_document_url(@organization, LegalDocument.last)
@@ -58,7 +58,7 @@ class LegalDocumentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should destroy legal document" do
     login(@admin)
-    assert_difference('LegalDocument.current.count', -1) do
+    assert_difference("LegalDocument.current.count", -1) do
       delete organization_legal_document_url(@organization, @legal_document)
     end
     assert_redirected_to organization_legal_documents_url(@organization)

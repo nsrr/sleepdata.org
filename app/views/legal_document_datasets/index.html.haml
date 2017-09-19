@@ -1,0 +1,30 @@
+- @title = "Legal Document Datasets"
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        .float-right
+          = link_to plus_or("New Legal Document Dataset"), new_organization_legal_document_dataset_path(@organization), class: "btn btn-primary btn-shadow"
+        = @title
+
+%table.table.table-striped.table-borderless
+  %col
+  %col
+  %col
+  %col
+  %col
+  %col{ width: "1px" }
+  %thead
+    %tr
+      %th.th-sticky Legal Document
+      %th.th-sticky Dataset
+      %th.th-sticky.text-center Actions
+
+  %tbody
+    - @legal_document_datasets.each do |legal_document_dataset|
+      %tr.tr-align-middle
+        %td= link_to legal_document_dataset.legal_document.name, [@organization, legal_document_dataset]
+        %td= legal_document_dataset.dataset.name
+        %td.text-center
+          = render "layouts/edit_delete_dropdown", edit_url: edit_organization_legal_document_dataset_path(@organization, legal_document_dataset), delete_url: [@organization, legal_document_dataset], delete_confirmation: "Delete #{legal_document_dataset.name}?"

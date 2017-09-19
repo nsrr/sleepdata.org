@@ -203,6 +203,8 @@ Rails.application.routes.draw do
       get :legal_template_seven, path: "legal/templates/7"
       get :legal_template_eight, path: "legal/templates/8"
     end
+
+    resources :legal_document_datasets, path: "legal-document-datasets"
   end
 
   resources :reviews do

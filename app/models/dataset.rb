@@ -36,10 +36,11 @@ class Dataset < ApplicationRecord
   has_many :variables
   has_many :variable_forms
   has_many :requests
-  has_many :agreements, -> { where deleted: false }, through: :requests
-
+  has_many :agreements, -> { current }, through: :requests
   has_many :dataset_files
   has_many :dataset_reviews, -> { order(rating: :desc, id: :desc) }
+  has_many :legal_document_datasets
+  has_many :legal_documents, through: :legal_document_datasets
 
   def recalculate_rating!
     ratings = dataset_reviews.where.not(rating: nil).pluck(:rating)

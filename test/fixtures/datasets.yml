@@ -1,5 +1,3 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 public:
   name: We Care
   description: The We Care Clinical Trial dataset

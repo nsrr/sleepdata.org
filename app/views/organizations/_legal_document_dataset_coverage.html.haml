@@ -1,0 +1,6 @@
+- legal_documents = dataset.legal_documents.where(commercial_type: commercial_types, data_user_type: data_user_types)
+- if legal_documents.present?
+  - legal_documents.each do |legal_document|
+    = link_to legal_document.slug, [@organization, legal_document]
+- else
+  %i.fa.fa-exclamation-triangle.text-muted

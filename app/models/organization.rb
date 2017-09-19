@@ -15,6 +15,7 @@ class Organization < ApplicationRecord
   # Relationships
   has_many :datasets, -> { current }
   has_many :legal_documents, -> { current }
+  has_many :legal_document_datasets
 
   # Methods
   def self.searchable_attributes

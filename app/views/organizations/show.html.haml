@@ -45,7 +45,10 @@
                 People
               = link_to legal_templates_organization_path(@organization), class: "dropdown-item", style: "padding: 0.25rem .5rem;" do
                 %i.fa.fa-gavel
-                Legal Templates
+                Legal Templates (UI test)
+              = link_to organization_legal_documents_path(@organization), class: "dropdown-item", style: "padding: 0.25rem .5rem;" do
+                %i.fa.fa-gavel
+                Legal Documents
               = link_to edit_organization_path(@organization), class: "dropdown-item", style: "padding: 0.25rem .5rem;" do
                 %i.fa.fa-pencil
                 Edit
@@ -56,3 +59,39 @@
 
 = render "forms/horizontal/show/text", object: @organization, key: :name
 = render "forms/horizontal/show/text", object: @organization, key: :slug
+
+%table.table.table-inverse.table-striped
+  %col{ width: "1px" }
+  %col
+  %col
+  %col
+  %col
+  %thead.thead-inverse
+    %tr
+      %th.th-sticky{ style: "border-bottom: 0;" }
+      %th.th-sticky.text-center{ colspan: 2, style: "border-bottom: 0;" } Noncommerical
+      %th.th-sticky.text-center{ colspan: 2, style: "border-bottom: 0;" } Commercial
+    %tr
+      %th.th-sticky{ style: "top: 104px;border-top: 0;" } Dataset
+      %th.th-sticky.text-center{ style: "top: 104px;border-top: 0;" } Individual
+      %th.th-sticky.text-center{ style: "top: 104px;border-top: 0;" } Organization
+      %th.th-sticky.text-center{ style: "top: 104px;border-top: 0;" } Individual
+      %th.th-sticky.text-center{ style: "top: 104px;border-top: 0;" } Organization
+
+  %tbody
+    - @organization.datasets.each do |dataset|
+      %tr
+        %td= dataset.slug
+        %td.text-center
+          = render "organizations/legal_document_dataset_coverage", dataset: dataset, commercial_types: ["both", "noncommercial"], data_user_types: ["both", "individual"]
+        %td.text-center
+          = render "organizations/legal_document_dataset_coverage", dataset: dataset, commercial_types: ["both", "noncommercial"], data_user_types: ["both", "organization"]
+        %td.text-center
+          = render "organizations/legal_document_dataset_coverage", dataset: dataset, commercial_types: ["both", "commercial"], data_user_types: ["both", "individual"]
+        %td.text-center
+          = render "organizations/legal_document_dataset_coverage", dataset: dataset, commercial_types: ["both", "commercial"], data_user_types: ["both", "organization"]
+
+
+
+
+

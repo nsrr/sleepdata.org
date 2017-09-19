@@ -37,6 +37,8 @@ class LegalDocument < ApplicationRecord
   belongs_to :organization
   has_many :legal_document_pages
   has_many :legal_document_variables, -> { current }
+  has_many :legal_document_datasets
+  has_many :datasets, through: :legal_document_datasets
 
   # Methods
   def self.searchable_attributes

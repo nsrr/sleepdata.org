@@ -1,0 +1,9 @@
+one:
+  organization: one
+  legal_document: one
+  dataset: public
+
+two:
+  organization: one
+  legal_document: one
+  dataset: private

@@ -49,7 +49,7 @@
           = render "agreements/show/step3/part3"
 
           .form-group
-            %label HIPAA Training
+            %label Terms and Conditions
             %br
             = label_tag :accept_tac, class: "custom-control custom-checkbox" do
               = check_box_tag :accept_tac, "1", false, class: "custom-control-input", id: "accept_tac", data: { object: "text-input-expandable", help_element: "accept_tac", help_text: "Terms and Conditions" }

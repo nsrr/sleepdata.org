@@ -1,0 +1,4 @@
+= form_with model: [@organization, legal_document_dataset], local: true do |form|
+  = render "forms/horizontal/select", form: form, object: legal_document_dataset, key: :legal_document_id, options: @organization.legal_documents.pluck(:name, :id)
+  = render "forms/horizontal/select", form: form, object: legal_document_dataset, key: :dataset_id, options: @organization.datasets.pluck(:name, :id)
+  = render "forms/horizontal/submit", form: form, object: [@organization, legal_document_dataset]
