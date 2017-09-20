@@ -32,9 +32,9 @@
       - `none`, `checkbox`, `signature`
       - Legal documents that require no attestation simply store that the user
         has viewed the agreement at a certain timestamp
-      - Legal documents that require a checkbox explicitely ask the user to
-        check a checkbox to attest that they have read, answered truthfully and
-        to the best of their knowledge, and agree to the legal document
+      - Legal documents that require a checkbox explicitly ask the user to check
+        a checkbox to attest that they have read, answered truthfully and to the
+        best of their knowledge, and agree to the legal document
       - Legal documents that require a signature require that the user signs
         attesting that they have read, answered truthfully and to the best of
         their knowledge, and agree to the legal document
