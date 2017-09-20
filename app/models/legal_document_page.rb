@@ -29,7 +29,7 @@ class LegalDocumentPage < ApplicationRecord
   end
 
   def content=(content)
-    content.to_s.gsub!(/\<([\w\:]+)\>/m) { |m| variable_creation($1) } if legal_document
+    content = content.to_s.gsub(/\<([\w\:]+)\>/m) { |m| variable_creation($1) } if legal_document
     self[:content] = content.try(:strip)
   end
 
