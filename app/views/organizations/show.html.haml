@@ -79,7 +79,7 @@
       %th.th-sticky.text-center{ style: "top: 104px;border-top: 0;" } Organization
 
   %tbody
-    - @organization.datasets.each do |dataset|
+    - @organization.datasets.order(:release_date, :name).each do |dataset|
       %tr
         %td= dataset.slug
         %td.text-center

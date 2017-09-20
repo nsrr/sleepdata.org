@@ -11,8 +11,8 @@
 
         #remove-extra-div
 
-          - [{ variable: "attest_check", label: "Attest Check", type: "check_box", description: "I attest that I checked this box." }].each do |hash|
-            - if hash[:type] == "check_box"
+          - [{ variable: "attest_check", label: "Attest Check", type: "checkbox", description: "I attest that I checked this box." }].each do |hash|
+            - if hash[:type] == "checkbox"
               .form-group
                 = label_tag hash[:variable], hash[:label], class: "form-control-label"
                 %br

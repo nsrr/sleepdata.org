@@ -15,7 +15,7 @@ class LegalDocumentVariablesControllerTest < ActionDispatch::IntegrationTest
     {
       position: "1",
       name: "updated_name",
-      variable_type: "check_box",
+      variable_type: "checkbox",
       display_name: "Updated Name",
       description: "Please check this check box.",
       field_note: "Field note info.",

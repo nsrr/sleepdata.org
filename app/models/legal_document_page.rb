@@ -21,7 +21,7 @@ class LegalDocumentPage < ApplicationRecord
     content.to_s.gsub(/\#{(\d+)}/) do
       v = legal_document.legal_document_variables.find_by(id: $1)
       if v
-        "<#{v.name}>"
+        "<#{v.name}#{":#{v.variable_type}" unless v.variable_type == "string"}>"
       else
         "\#{#{$1}}"
       end
