@@ -53,3 +53,8 @@
   %i.fa.fa-check-circle.text-success.hidden-xs
 - if under_review
   %i.fa.fa-comments-o.text-muted.hidden-xs
+
+- if dataset.organization
+  = link_to agreement_start_path(dataset_id: dataset) do
+    START
+    %i.fa.fa-caret-right

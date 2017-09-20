@@ -1,0 +1,33 @@
+.container-fluid
+  .row.flex-xl-nowrap
+    = render "gears/legal_document_menu"
+
+    #agreement-helper-drawer.d-none.d-xl-block.col-xl.sidebar-drawer
+
+    %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
+      .page-box.last-box
+        .agreement-heading Attest
+
+
+        #remove-extra-div
+
+
+          - [{variable: "attest_check", label: "Attest Check", type: "check_box" }].each do |hash|
+            .form-group
+              = label_tag hash[:variable], hash[:label], class: "form-control-label"
+              - if hash[:type] == "text"
+                = text_area_tag hash[:variable], "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: hash[:variable], help_text: hash[:label] || hash[:variable].titleize }, rows: 7
+              - else
+                = text_field_tag hash[:variable], "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: hash[:variable], help_text: hash[:label] || hash[:variable].titleize }
+              - if hash[:example].present?
+                %small.text-muted= hash[:example]
+
+        .mt-5.mb-3.float-right
+          = succeed " " do
+            = link_to dashboard_path, class: "btn btn-light", tabindex: "-1" do
+              %i.fa.fa-save
+              Save Draft
+
+          = link_to agreement_page_path(page: params[:page].to_i + 1, dataset_id: @dataset, legal_document_id: @legal_document), class: "btn btn-primary" do
+            Proceed
+            %i.fa.fa-caret-right

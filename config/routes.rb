@@ -250,6 +250,14 @@ Rails.application.routes.draw do
     post :preview
   end
 
+  # TODO: Remove
+  scope module: :gears do
+    get :agreement_start, path: "agreement/start"
+    get :agreement_page, path: "agreement/page/:page"
+    get :agreement_signature, path: "agreement/signature"
+    get :agreement_attest, path: "agreement/attest"
+  end
+
   resources :notifications do
     collection do
       patch :mark_all_as_read

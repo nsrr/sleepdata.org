@@ -68,6 +68,14 @@ class User < ApplicationRecord
 
   # Methods
 
+  def commercial_type
+    "noncommercial"
+  end
+
+  def data_user_type
+    "individual"
+  end
+
   def shadow_banned?
     false
   end
