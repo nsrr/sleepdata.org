@@ -11,16 +11,31 @@
 
         #remove-extra-div
 
+          - [{ variable: "attest_check", label: "Attest Check", type: "check_box", description: "I attest that I checked this box." }].each do |hash|
+            - if hash[:type] == "check_box"
+              .form-group
+                = label_tag hash[:variable], hash[:label], class: "form-control-label"
+                %br
+                = label_tag hash[:variable], class: "custom-control custom-checkbox" do
+                  = check_box_tag hash[:variable], "1", false, class: "custom-control-input", id: hash[:variable], data: { object: "text-input-expandable", help_element: hash[:variable], help_text: hash[:label] || hash[:variable].titleize }
+                  %span.custom-control-indicator
+                  - if hash[:description].present?
+                    %span.custom-control-description= hash[:description]
+                - if hash[:example].present?
+                  %br
+                  %small.text-muted= hash[:example]
 
-          - [{variable: "attest_check", label: "Attest Check", type: "check_box" }].each do |hash|
-            .form-group
-              = label_tag hash[:variable], hash[:label], class: "form-control-label"
-              - if hash[:type] == "text"
-                = text_area_tag hash[:variable], "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: hash[:variable], help_text: hash[:label] || hash[:variable].titleize }, rows: 7
-              - else
-                = text_field_tag hash[:variable], "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: hash[:variable], help_text: hash[:label] || hash[:variable].titleize }
-              - if hash[:example].present?
-                %small.text-muted= hash[:example]
+            - else
+              .form-group
+                = label_tag hash[:variable], hash[:label], class: "form-control-label"
+                - if hash[:type] == "text"
+                  = text_area_tag hash[:variable], "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: hash[:variable], help_text: hash[:label] || hash[:variable].titleize }, rows: 7
+                - else
+                  = text_field_tag hash[:variable], "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: hash[:variable], help_text: hash[:label] || hash[:variable].titleize }
+                - if hash[:example].present?
+                  %small.text-muted= hash[:example]
+
+
 
         .mt-5.mb-3.float-right
           = succeed " " do

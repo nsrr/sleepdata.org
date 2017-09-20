@@ -5,7 +5,7 @@ class LegalDocument < ApplicationRecord
   # Constants
   COMMERCIAL_TYPES = [
     ["Both", "both"],
-    ["Noncommerical Only", "noncommercial"],
+    ["Noncommercial Only", "noncommercial"],
     ["Commercial Only", "commercial"]
   ]
   DATA_USER_TYPES = [
