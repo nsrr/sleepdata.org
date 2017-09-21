@@ -2,10 +2,6 @@
   .container
     .footer
       .nowrap
-        &copy;
-        = Time.zone.today.year
-        .d-inline.d-md-none= link_to "NSRR", about_path
-        .d-none.d-md-inline= link_to "National Sleep Research Resource", about_path
         .float-right
           = link_to "Contact Us", contact_path
           |
@@ -14,3 +10,8 @@
             NHLBI
           %span.d-none.d-lg-inline
             National Heart, Lung, and Blood Institute
+
+        &copy;
+        = Time.zone.today.year
+        .d-inline.d-md-none= link_to "NSRR", about_path
+        .d-none.d-md-inline= link_to "National Sleep Research Resource", about_path
