@@ -226,4 +226,16 @@ class Dataset < ApplicationRecord
   def create_folders
     FileUtils.mkdir_p files_folder
   end
+
+  def legal_document_for_user(current_user)
+    legal_documents.published.find_by(data_user_type: ["both", current_user.data_user_type], commercial_type: ["both", current_user.commercial_type])
+  end
+
+  def specify_data_user_type?(current_user)
+    current_user.data_user_type.blank? && legal_documents.published.present? && legal_documents.published.where(data_user_type: "both").count.zero?
+  end
+
+  def specify_commercial_type?(current_user)
+    current_user.commercial_type.blank? && legal_documents.published.present? && legal_documents.published.where(commercial_type: "both").count.zero?
+  end
 end

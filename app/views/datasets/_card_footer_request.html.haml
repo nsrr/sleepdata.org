@@ -54,7 +54,7 @@
 - if under_review
   %i.fa.fa-comments-o.text-muted.hidden-xs
 
-- if dataset.organization
+- if dataset.organization && !dataset.legal_documents.published.count.zero?
   = link_to agreement_start_path(dataset_id: dataset) do
     START
     %i.fa.fa-caret-right

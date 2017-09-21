@@ -6,6 +6,28 @@ class GearsController < ApplicationController
 
   # /agreement/start
   def agreement_start
+    legal_document = @dataset.legal_document_for_user(current_user)
+    if legal_document
+      redirect_to agreement_page_path(page: 1, dataset_id: @dataset, legal_document_id: legal_document)
+    elsif @dataset.specify_data_user_type?(current_user)
+      redirect_to assign_data_user_type_path(dataset_id: @dataset)
+    elsif @dataset.specify_commercial_type?(current_user)
+      redirect_to assign_commercial_type_path(dataset_id: @dataset)
+    else
+      redirect_to no_legal_doc_found_path(dataset_id: @dataset)
+    end
+  end
+
+  # POST /gears/individual-or-organization
+  def update_data_user_type
+    current_user.update data_user_type: params[:data_user_type] if %w(individual organization).include?(params[:data_user_type])
+    redirect_to agreement_start_path(dataset_id: @dataset)
+  end
+
+  # POST /gears/noncommercial-or-commercial
+  def update_commercial_type
+    current_user.update commerical_type: params[:commerical_type] if %w(noncommercial commercial).include?(params[:commerical_type])
+    redirect_to agreement_start_path(dataset_id: @dataset)
   end
 
   # /agreement/page/:page

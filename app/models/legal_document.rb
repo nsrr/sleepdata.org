@@ -28,6 +28,9 @@ class LegalDocument < ApplicationRecord
   include Searchable
   include Sluggable
 
+  # Scopes
+  scope :published, -> { current } # TODO: Don't allow "draft" legal docs
+
   # Validations
   validates :name, presence: true
   validates :slug, uniqueness: { scope: :organization_id }

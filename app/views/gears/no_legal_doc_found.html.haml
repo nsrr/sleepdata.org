@@ -1,0 +1,46 @@
+- if @dataset.legal_documents.published.count > 0
+  .jumbotron
+    .d-flex.mb-5
+      .pl-3.pr-4.d-flex.flex-column.justify-content-center
+        %i.fa.fa-gavel.fa-2x{ style: "font-size: 4rem;" }
+      %div.d-flex.flex-column.justify-content-center
+        .lead
+          %strong Sorry!
+          = link_to @dataset.name, @dataset
+          does not have any data sharing agreements
+
+          - if @dataset.legal_documents.published.where(commercial_type: %w(both commercial)).count.zero?
+            for
+            = link_to "commercial entities", assign_commercial_type_path(dataset_id: @dataset)
+          - elsif @dataset.legal_documents.published.where(commercial_type: %w(both noncommercial)).count.zero?
+            for
+            = link_to "noncommercial entities", assign_commercial_type_path(dataset_id: @dataset)
+          - elsif @dataset.legal_documents.published.where(data_user_type: %w(both organization)).count.zero?
+            for
+            = link_to "organizations", assign_data_user_type_path(dataset_id: @dataset)
+          - elsif @dataset.legal_documents.published.where(data_user_type: %w(both individual)).count.zero?
+            for
+            = link_to "individuals", assign_data_user_type_path(dataset_id: @dataset)
+
+          at this time.
+
+    .text-center
+      = link_to datasets_path, class: "btn btn-light" do
+        %i.fa.fa-caret-left
+        Back to datasets
+
+- else
+  .jumbotron
+    .d-flex.mb-5
+      .pl-3.pr-4.d-flex.flex-column.justify-content-center
+        %i.fa.fa-gavel.fa-2x{ style: "font-size: 4rem;" }
+      %div.d-flex.flex-column.justify-content-center
+        .lead
+          %strong Sorry!
+          = link_to @dataset.name, @dataset
+          is not currently processing any data access and use agreements.
+
+    .text-center
+      = link_to datasets_path, class: "btn btn-light" do
+        %i.fa.fa-caret-left
+        Back to datasets

@@ -252,6 +252,11 @@ Rails.application.routes.draw do
 
   # TODO: Remove
   scope module: :gears do
+    get :assign_commercial_type, path: "gears/noncommercial-or-commercial"
+    post :update_commercial_type, path: "gears/noncommercial-or-commercial"
+    get :assign_data_user_type, path: "gears/individual-or-organization"
+    post :update_data_user_type, path: "gears/individual-or-organization"
+    get :no_legal_doc_found, path: "gears/no-legal-doc-found"
     get :agreement_start, path: "agreement/start"
     get :agreement_page, path: "agreement/page/:page"
     get :agreement_signature, path: "agreement/signature"

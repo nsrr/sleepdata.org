@@ -1,0 +1,35 @@
+.fa-hover {
+  text-shadow: 0 2px 3px $brand-white;
+  transform: scale(1);
+}
+
+.link-card {
+  color: $text-color;
+  min-width: 300px;
+
+  &:hover,
+  &:focus,
+  &:active {
+    text-decoration: none;
+
+    .fa-hover {
+      text-shadow: 0 2px 3px $standard-shadow-color;
+      transform: scale(1.25);
+      border-radius: 6rem;
+    }
+  }
+
+  .fa-hover {
+    transition: transform .25s ease-out;
+  }
+
+  .card {
+    transition: box-shadow .25s ease-in-out;
+
+    @media (hover) {
+      &:hover {
+        box-shadow: 0 1px 5px $box-shadow-color;
+      }
+    }
+  }
+}
