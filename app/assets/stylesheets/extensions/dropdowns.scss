@@ -1,0 +1,16 @@
+.dropdown-sm {
+  margin: -3px 0;
+
+  .dropdown-menu {
+    padding: 0;
+
+    .dropdown-divider {
+      margin: 0;
+    }
+  }
+
+  .dropdown-item {
+    font-size: 0.9rem;
+    padding: 0.25rem .5rem;
+  }
+}

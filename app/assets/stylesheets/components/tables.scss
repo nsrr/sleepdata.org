@@ -15,11 +15,22 @@
   }
 }
 
-.th-sticky {
-  position: sticky;
-  top: 55px;
-  background-color: $p50-grey;
-  z-index: $zindex-sticky;
+.table-sticky {
+  position: relative;
+  z-index: 1;
+
+  th {
+    background-color: $p50-grey;
+    position: sticky;
+    top: $header-height - 1px;
+    z-index: $zindex-sticky;
+  }
+
+  .thead-inverse {
+    th {
+      background-color: $gray-900;
+    }
+  }
 }
 
 .tr-align-middle {

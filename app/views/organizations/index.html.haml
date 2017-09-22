@@ -8,13 +8,13 @@
           = link_to plus_or("New Organization"), new_organization_path, class: "btn btn-primary btn-shadow"
         = @title
 
-%table.table.table-striped.table-borderless
+%table.table.table-striped.table-borderless.table-sticky
   %col
   %col{ width: "1px" }
   %thead
     %tr
-      %th.th-sticky Name
-      %th.th-sticky.text-center Actions
+      %th Name
+      %th.text-center Actions
 
   %tbody
     - @organizations.each do |organization|

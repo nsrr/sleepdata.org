@@ -1,4 +1,5 @@
 class GearsController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_viewable_dataset_or_redirect
   before_action :find_legal_document_or_redirect, only: [
     :agreement_page, :agreement_signature, :agreement_attest

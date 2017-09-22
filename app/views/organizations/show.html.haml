@@ -4,63 +4,44 @@
   .header-container
     .container
       %h1.page-heading
-        .pull-right
-          = render "layouts/edit_delete_dropdown", edit_url: edit_organization_path(@organization), delete_url: @organization, delete_confirmation: "Delete #{@organization.name}?"
         = @title
   .breadcrumb-container.mb-0.p-2
     .container
-      .float-right
-        .dropdown
-          = link_to "#", class: "btn btn-light btn-sm dropdown-toggle", data: { toggle: "dropdown" } do
-            .d-inline-block.d-sm-none
-              %i.fa.fa-cog
-            .d-none.d-sm-inline-block Actions
-            %strong.caret
-
-          .dropdown-menu.dropdown-menu-right
-            = link_to edit_organization_path(@organization), class: "dropdown-item" do
-              %i.fa.fa-pencil
-              Edit
-            .dropdown-divider
-            = link_to @organization, method: :delete, data: { confirm: "Delete #{@organization.name}?" }, class: "dropdown-item text-danger" do
-              %i.fa.fa-trash
-              Delete
-
       %ol
         %li= link_to "Organizations", organizations_path
         %li
-          .dropdown.d-inline-block
+          .dropdown.dropdown-sm.d-inline-block
             = link_to "#", class: "btn btn-light btn-sm dropdown-toggle", data: { toggle: "dropdown" } do
               .d-inline-block.d-sm-none
                 %i.fa.fa-cog
               .d-none.d-sm-inline-block Actions
               %strong.caret
 
-            .dropdown-menu.p-0
-              = link_to datasets_organization_path(@organization), class: "dropdown-item", style: "padding: 0.25rem .5rem;" do
+            .dropdown-menu
+              = link_to datasets_organization_path(@organization), class: "dropdown-item" do
                 %i.fa.fa-database
                 Datasets
-              = link_to people_organization_path(@organization), class: "dropdown-item", style: "padding: 0.25rem .5rem;" do
+              = link_to people_organization_path(@organization), class: "dropdown-item" do
                 %i.fa.fa-users
                 People
-              = link_to legal_templates_organization_path(@organization), class: "dropdown-item", style: "padding: 0.25rem .5rem;" do
+              = link_to legal_templates_organization_path(@organization), class: "dropdown-item" do
                 %i.fa.fa-gavel
                 Legal Templates (UI test)
-              = link_to organization_legal_documents_path(@organization), class: "dropdown-item", style: "padding: 0.25rem .5rem;" do
+              = link_to organization_legal_documents_path(@organization), class: "dropdown-item" do
                 %i.fa.fa-gavel
                 Legal Documents
-              = link_to edit_organization_path(@organization), class: "dropdown-item", style: "padding: 0.25rem .5rem;" do
+              = link_to edit_organization_path(@organization), class: "dropdown-item" do
                 %i.fa.fa-pencil
                 Edit
-              .dropdown-divider.m-0
-              = link_to @organization, method: :delete, data: { confirm: "Delete #{@organization.name}?" }, class: "dropdown-item text-danger", style: "padding: 0.25rem .5rem;" do
+              .dropdown-divider
+              = link_to @organization, method: :delete, data: { confirm: "Delete #{@organization.name}?" }, class: "dropdown-item text-danger" do
                 %i.fa.fa-trash
                 Delete
 
 = render "forms/horizontal/show/text", object: @organization, key: :name
 = render "forms/horizontal/show/text", object: @organization, key: :slug
 
-%table.table.table-inverse.table-striped
+%table.table.table-inverse.table-striped.table-sticky
   %col{ width: "1px" }
   %col
   %col
@@ -68,15 +49,15 @@
   %col
   %thead.thead-inverse
     %tr
-      %th.th-sticky{ style: "border-bottom: 0;" }
-      %th.th-sticky.text-center{ colspan: 2, style: "border-bottom: 0;" } Noncommercial
-      %th.th-sticky.text-center{ colspan: 2, style: "border-bottom: 0;" } Commercial
+      %th{ style: "border-bottom: 0;" }
+      %th.text-center{ colspan: 2, style: "border-bottom: 0;" } Noncommercial
+      %th.text-center{ colspan: 2, style: "border-bottom: 0;" } Commercial
     %tr
-      %th.th-sticky{ style: "top: 104px;border-top: 0;" } Dataset
-      %th.th-sticky.text-center{ style: "top: 104px;border-top: 0;" } Individual
-      %th.th-sticky.text-center{ style: "top: 104px;border-top: 0;" } Organization
-      %th.th-sticky.text-center{ style: "top: 104px;border-top: 0;" } Individual
-      %th.th-sticky.text-center{ style: "top: 104px;border-top: 0;" } Organization
+      %th{ style: "top: 104px;border-top: 0;" } Dataset
+      %th.text-center{ style: "top: 104px;border-top: 0;" } Individual
+      %th.text-center{ style: "top: 104px;border-top: 0;" } Organization
+      %th.text-center{ style: "top: 104px;border-top: 0;" } Individual
+      %th.text-center{ style: "top: 104px;border-top: 0;" } Organization
 
   %tbody
     - @organization.datasets.order(:release_date, :name).each do |dataset|

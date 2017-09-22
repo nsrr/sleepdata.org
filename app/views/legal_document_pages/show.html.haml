@@ -5,6 +5,29 @@
     .container
       %h1.page-heading
         = @title
+  .breadcrumb-container.mb-0.p-2
+    .container
+      %ol
+        %li= link_to @organization.slug.upcase, @organization
+        %li= link_to "Legal Docs", organization_legal_documents_path(@organization)
+        %li= link_to @legal_document.name, [@organization, @legal_document]
+        %li= @legal_document_page.title
+        %li
+          .dropdown.dropdown-sm.d-inline-block
+            = link_to "#", class: "btn btn-light btn-sm dropdown-toggle", data: { toggle: "dropdown" } do
+              .d-inline-block.d-sm-none
+                %i.fa.fa-cog
+              .d-none.d-sm-inline-block Actions
+              %strong.caret
+
+            .dropdown-menu
+              = link_to edit_organization_legal_document_legal_document_page_path(@organization, @legal_document, @legal_document_page), class: "dropdown-item" do
+                %i.fa.fa-pencil
+                Edit
+              .dropdown-divider
+              = link_to [@organization, @legal_document, @legal_document_page], method: :delete, data: { confirm: "Delete #{@legal_document_page.title}?" }, class: "dropdown-item text-danger" do
+                %i.fa.fa-trash
+                Delete
 
 = render "forms/horizontal/show/generic", title: "Legal document", content: link_to(@legal_document.name, [@organization, @legal_document])
 = render "forms/horizontal/show/text", object: @legal_document_page, key: :position

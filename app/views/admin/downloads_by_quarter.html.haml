@@ -2,12 +2,12 @@
 
 = render "internal/profile_header", title: @title
 
-%table.table.table-striped.table-borderless.table-hover
+%table.table.table-striped.table-borderless.table-hover.table-sticky
   %thead
     %tr
-      %th.th-sticky Quarter
-      %th.th-sticky.text-center{ colspan: 2 } Files Downloaded
-      %th.th-sticky.text-center{ colspan: 2 } Cumulative
+      %th Quarter
+      %th.text-center{ colspan: 2 } Files Downloaded
+      %th.text-center{ colspan: 2 } Cumulative
   %tbody
     - (2013..Time.zone.today.year).reverse_each do |year|
       - (1..4).reverse_each do |quarter_number|

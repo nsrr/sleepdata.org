@@ -8,7 +8,7 @@
           = link_to plus_or("New Legal Document Dataset"), new_organization_legal_document_dataset_path(@organization), class: "btn btn-primary btn-shadow"
         = @title
 
-%table.table.table-striped.table-borderless
+%table.table.table-striped.table-borderless.table-sticky
   %col
   %col
   %col
@@ -17,9 +17,9 @@
   %col{ width: "1px" }
   %thead
     %tr
-      %th.th-sticky Legal Document
-      %th.th-sticky Dataset
-      %th.th-sticky.text-center Actions
+      %th Legal Document
+      %th Dataset
+      %th.text-center Actions
 
   %tbody
     - @legal_document_datasets.each do |legal_document_dataset|

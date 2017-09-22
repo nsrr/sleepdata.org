@@ -7,8 +7,15 @@
         .float-right
           = link_to plus_or("New Legal Document Page"), new_organization_legal_document_legal_document_page_path(@organization, @legal_document), class: "btn btn-primary btn-shadow"
         = @title
+  .breadcrumb-container.mb-0.p-2
+    .container
+      %ol
+        %li= link_to @organization.slug.upcase, @organization
+        %li= link_to "Legal Docs", organization_legal_documents_path(@organization)
+        %li= link_to @legal_document.name, [@organization, @legal_document]
+        %li Pages
 
-%table.table.table-striped.table-borderless
+%table.table.table-striped.table-borderless.table-sticky
   %col{ width: "1px" }
   %col
   %col
@@ -17,10 +24,10 @@
   %col{ width: "1px" }
   %thead
     %tr
-      %th.th-sticky Position
-      %th.th-sticky Title
-      %th.th-sticky.text-center Rider
-      %th.th-sticky.text-center Actions
+      %th Position
+      %th Title
+      %th.text-center Rider
+      %th.text-center Actions
 
   %tbody
     - @legal_document_pages.each do |legal_document_page|
