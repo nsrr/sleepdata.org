@@ -103,6 +103,10 @@ class FinalLegalDocument < ApplicationRecord
   end
 
   def version
+    "v#{[version_major, version_minor, version_tiny].join(".")}"
+  end
+
+  def full_version
     [version_major, version_minor, version_tiny, version_md5].join(".")
   end
 end

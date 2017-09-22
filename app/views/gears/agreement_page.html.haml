@@ -18,6 +18,6 @@
               %i.fa.fa-save
               Save Draft
 
-          = link_to agreement_page_path(page: params[:page].to_i + 1, dataset_id: @dataset, legal_document_id: @legal_document), class: "btn btn-primary" do
+          = link_to agreement_page_path(page: params[:page].to_i + 1, dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document), class: "btn btn-primary" do
             Proceed
             %i.fa.fa-caret-right

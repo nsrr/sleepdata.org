@@ -2,21 +2,18 @@
   .sidebar
     .sidebar-header.d-flex.align-items-center
       .mr-auto
-        %strong= @legal_document.organization.name
+        %strong= @final_legal_document.legal_document.organization.name
 
       %button.btn-link.sidebar-header-toggle.d-md-none.p-0.ml-3{ type: "button", data: { toggle: "collapse", target: "#sidebar-nav-wrapper" }, aria: { controls: "sidebar-nav-wrapper", expanded: "false", label: "Toggle docs navigation" } }
         %i.fa.fa-bars.fa-2x
 
-    -# groups = [{name: "DAUA", url: legal_template_three_organization_path(@organization), docs: [{ name: "Page 1", url: legal_template_three_organization_path(@organization) },{ name: "Page 2", url: legal_template_four_organization_path(@organization) },{ name: "Page 3", url: legal_template_five_organization_path(@organization) },{ name: "Page 4", url: legal_template_six_organization_path(@organization) }] }, {name: "Riders", url: legal_template_seven_organization_path(@organization), docs: [{ name: "IRB Review", url: legal_template_seven_organization_path(@organization) }] }, {name: "Proof", url: legal_template_eight_organization_path(@organization), docs: [{ name: "Review", url: legal_template_eight_organization_path(@organization) }] }]
-
-    - pages = @legal_document.legal_document_pages.where(rider: false).collect { |p| { name: "Page #{p.position}", url: agreement_page_path(page: p.position, dataset_id: @dataset, legal_document_id: @legal_document) } }
-    - riders = @legal_document.legal_document_pages.where(rider: true).collect { |p| { name: p.title, url: agreement_page_path(page: p.position, dataset_id: @dataset, legal_document_id: @legal_document) } }
+    - pages = @final_legal_document.final_legal_document_pages.where(rider: false).collect { |p| { name: "Page #{p.position}", url: agreement_page_path(page: p.position, dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document) } }
+    - riders = @final_legal_document.final_legal_document_pages.where(rider: true).collect { |p| { name: p.title, url: agreement_page_path(page: p.position, dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document) } }
     - groups = []
-    - groups << { name: "DAUA", url: agreement_page_path(page: 1, dataset_id: @dataset, legal_document_id: @legal_document), docs: pages } if pages.present?
-    - groups << { name: "Attestation", url: agreement_attest_path(dataset_id: @dataset, legal_document_id: @legal_document), docs: [{ name: "Attest", url: agreement_attest_path(dataset_id: @dataset, legal_document_id: @legal_document) }] } if @legal_document.attestation_type == "checkbox"
-    - groups << { name: "Attestation", url: agreement_signature_path(dataset_id: @dataset, legal_document_id: @legal_document), docs:[{ name: "Signature", url: agreement_signature_path(dataset_id: @dataset, legal_document_id: @legal_document) }] } if @legal_document.attestation_type == "signature"
+    - groups << { name: "DAUA", url: agreement_page_path(page: 1, dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document), docs: pages } if pages.present?
+    - groups << { name: "Attestation", url: agreement_attest_path(dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document), docs: [{ name: "Attest", url: agreement_attest_path(dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document) }] } if @final_legal_document.attestation_type == "checkbox"
+    - groups << { name: "Attestation", url: agreement_signature_path(dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document), docs:[{ name: "Signature", url: agreement_signature_path(dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document) }] } if @final_legal_document.attestation_type == "signature"
     - groups << { name: "Riders", url: riders.first[:url], docs: riders } if riders.present?
-
 
 
     - random_number = rand(groups.size)
@@ -39,3 +36,8 @@
                       - else
                         %i.fa.fa-square-o
                       = doc.dig(:name)
+        .sidebar-nav-group
+          %a.sidebar-nav-group-link
+            %small.text-muted
+              %span= @final_legal_document.version
+              %span.small>= ".#{@final_legal_document.version_md5.first(7)}"

@@ -57,12 +57,12 @@ class GearsController < ApplicationController
   private
 
   def find_legal_document_or_redirect
-    @legal_document = LegalDocument.current.find_by_param(params[:legal_document_id])
-    empty_response_or_root_path(datasets_path) unless @legal_document
+    @legal_document_temp = LegalDocument.current.find_by_param(params[:legal_document_id])
+    empty_response_or_root_path(datasets_path) unless @legal_document_temp
   end
 
   def find_final_legal_document_or_redirect
-    @final_legal_document = @legal_document.current_final_legal_document
+    @final_legal_document = @legal_document_temp.current_final_legal_document
     empty_response_or_root_path(datasets_path) unless @final_legal_document
   end
 end
