@@ -17,8 +17,8 @@
     = javascript_include_tag "application", data: { turbolinks_track: "reload" }
     = javascript_tag "var root_url='#{request.script_name + '/'}';"
   %body#top.full-page{ class: yield(:body_class) }
-    #top-menu= render "layouts/menu"
     = render "layouts/flash_bar"
+    #top-menu= render "layouts/menu"
     = yield :header
     .page-box-padding
       .container= yield
