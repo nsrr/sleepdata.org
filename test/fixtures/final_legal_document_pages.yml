@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  final_legal_document_id: 1
+  position: 1
+  rider: false
+  title: MyString
+  content: MyText
+  deleted: false
+
+two:
+  final_legal_document_id: 1
+  position: 1
+  rider: false
+  title: MyString
+  content: MyText
+  deleted: false

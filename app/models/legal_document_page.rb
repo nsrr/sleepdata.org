@@ -7,7 +7,7 @@ class LegalDocumentPage < ApplicationRecord
   include Searchable
 
   # Validations
-  validates :title, presence: true
+  validates :title, :content, presence: true
 
   # Relationships
   belongs_to :legal_document

@@ -8,9 +8,9 @@
       .page-box.last-box
         #width-test{ style: "position: fixed;top: 0;overflow: hidden;height: 0" }
 
-        .agreement-heading= @legal_document_page.title
+        .agreement-heading= @final_legal_document_page.title
 
-        #remove-extra-div= legal_markdown @legal_document_page
+        #remove-extra-div= legal_markdown @final_legal_document_page
 
         .mt-5.mb-3.float-right
           = succeed " " do

@@ -4,6 +4,9 @@ class GearsController < ApplicationController
   before_action :find_legal_document_or_redirect, only: [
     :agreement_page, :agreement_signature, :agreement_attest
   ]
+  before_action :find_final_legal_document_or_redirect, only: [
+    :agreement_page, :agreement_signature, :agreement_attest
+  ]
 
   # /agreement/start
   def agreement_start
@@ -33,8 +36,8 @@ class GearsController < ApplicationController
 
   # /agreement/page/:page
   def agreement_page
-    @legal_document_page = @legal_document.legal_document_pages.find_by(position: params[:page])
-    if @legal_document_page
+    @final_legal_document_page = @final_legal_document.final_legal_document_pages.find_by(position: params[:page])
+    if @final_legal_document_page
       render layout: "layouts/full_page"
     else
       redirect_to agreement_start_path(dataset_id: @dataset)
@@ -56,5 +59,10 @@ class GearsController < ApplicationController
   def find_legal_document_or_redirect
     @legal_document = LegalDocument.current.find_by_param(params[:legal_document_id])
     empty_response_or_root_path(datasets_path) unless @legal_document
+  end
+
+  def find_final_legal_document_or_redirect
+    @final_legal_document = @legal_document.current_final_legal_document
+    empty_response_or_root_path(datasets_path) unless @final_legal_document
   end
 end
