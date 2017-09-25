@@ -1,88 +1,44 @@
-.letter-grey {
-  display: inline-block;
-  opacity: 1;
-  transition: opacity .75s ease-out;
+@keyframes fade-letters-grey {
+  0% {
+    opacity: .25;
+  }
 
-  &.start {
-    opacity: 0.25;
+  100% {
+    opacity: 1;
   }
 }
 
-.letter {
-  display: inline-block;
-  opacity: 1;
-  transition: transform .75s cubic-bezier(.31, 1.22, .61, 1.26), opacity .75s ease-out;
-
-  &.start {
+@keyframes fade-letters {
+  0% {
     opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-letters {
+  0% {
     transform: scale(.2);
   }
-}
 
-.letter,
-.shift,
-.letter-grey {
-  &.delay1 {
-    transition-delay: 0s;
-  }
-
-  &.delay2 {
-    transition-delay: .25s;
-  }
-
-  &.delay3 {
-    transition-delay: .5s;
-  }
-
-  &.delay4 {
-    transition-delay: .75s;
-  }
-
-  &.delay5 {
-    transition-delay: 1.25s;
-  }
-
-  &.delay6 {
-    transition-delay: 1.75s;
-  }
-
-  &.delay7 {
-    transition-delay: 2s;
-  }
-
-  &.delay8 {
-    transition-delay: 2.25s;
-  }
-
-  &.delay9 {
-    transition-delay: 2.5s;
-  }
-
-  &.delay10 {
-    transition-delay: 2.75s;
+  100% {
+    transform: scale(1);
   }
 }
 
-.shift-up.start {
+.animated-letter-grey {
+  animation: fade-letters-grey 750ms ease-out;
+  animation-fill-mode: forwards;
+  display: inline-block;
+  opacity: .25;
+}
+
+.animated-letter {
+  animation: fade-letters 750ms ease-out, scale-letters 750ms cubic-bezier(.31, 1.22, .61, 1.26);
+  animation-fill-mode: forwards;
+  display: inline-block;
   opacity: 0;
-  transform: translateY(40px) scale(.2);
-}
-
-.shift-down.start {
-  transform: translateY(-40px) scale(.2);
-}
-
-.shift {
-  opacity: 1;
-  transition: transform .75s cubic-bezier(.31, 1.22, .61, 1.26), opacity .75s ease-out;
-}
-
-.shift-left.start {
-  opacity: 0;
-  transform: translateX(200px);
-}
-
-.shift-right.start {
-  opacity: 0;
-  transform: translateX(-200px);
+  transform: scale(.2);
 }

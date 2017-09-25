@@ -8,7 +8,6 @@
 @componentsReady = ->
   expandableInputReady()
   graphsReady()
-  lettersReady()
   textAreaAutocompleteReady()
 
 @extensionsReady = ->
