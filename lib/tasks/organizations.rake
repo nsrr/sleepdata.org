@@ -6,8 +6,12 @@ namespace :organizations do
     bwh = find_or_create_organization
     associate_datasets(bwh)
     create_legal_documents(bwh)
-    migrate_old_agreements(bwh)
-    assign_user_defaults
+    if true
+      migrate_old_agreements(bwh)
+    else
+      puts "==SKIPPED: Migrate old agreements"
+    end
+    assign_user_defaults(bwh)
   end
 end
 
@@ -166,7 +170,7 @@ def migrate_old_agreements(bwh)
 
   puts "=====TODO: Match existing agreements to legal doc formats"
   # TODO: Match existing agreements to legal doc formats
-  Agreement.limit(1).each do |agreement|
+  Agreement.all.each do |agreement|
     if agreement.data_user_type == "individual"
       final = standard_i.current_final_legal_document
       agreement.update(final_legal_document_id: final.id)
@@ -234,9 +238,24 @@ def update_agreement_variable(agreement, original_attribute, final_legal_documen
   end
 end
 
-def assign_user_defaults
+def assign_user_defaults(bwh)
+  standard_i = bwh.legal_documents.find_by(slug: "standard-i")
+  standard_o = bwh.legal_documents.find_by(slug: "standard-o")
+  final_i = standard_i.current_final_legal_document
+  final_o = standard_o.current_final_legal_document
+
+  User.all.each do |user|
+    has_individual = user.agreements.where(final_legal_document_id: final_i.id).count.positive?
+    has_organization = user.agreements.where(final_legal_document_id: final_o.id).count.positive?
+    if has_individual && !has_organization
+      user.update data_user_type: "individual"
+    elsif !has_individual && has_organization
+      user.update data_user_type: "organization"
+    end
+  end
+  puts " ASSIGNED: #{User.where(data_user_type: "individual").count} individual"
+  puts " ASSIGNED: #{User.where(data_user_type: "organization").count} organization"
+
   puts "=====TODO: Assign user defaults to commercial / non-commercial"
   # TODO: Assign user defaults to commercial / non-commercial
-  puts "=====TODO: Assign user defaults to individual / organization"
-  # TODO: Assign user defaults to individual / organization
 end
