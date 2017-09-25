@@ -109,4 +109,8 @@ class FinalLegalDocument < ApplicationRecord
   def full_version
     [version_major, version_minor, version_tiny, version_md5].join(".")
   end
+
+  def version_md5_short
+    [version_major, version_minor, version_tiny, version_md5.first(7)].join(".")
+  end
 end

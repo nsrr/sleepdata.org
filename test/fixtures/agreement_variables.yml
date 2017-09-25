@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  agreement: one
+  final_legal_document_variable: one
+  value: MyText
+
+two:
+  agreement: one
+  final_legal_document_variable: two
+  value: MyText

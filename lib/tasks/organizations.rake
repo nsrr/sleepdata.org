@@ -17,34 +17,22 @@ def find_or_create_organization
   if Organization.count > org_count
     puts " CREATED: #{bwh.name}"
   else
-    puts "   FOUND: #{bwh.name}"
+    puts "    FOUND: #{bwh.name}"
   end
   bwh
 end
 
 def associate_datasets(bwh)
   Dataset.where.not(slug: %w(learn wecare)).update_all organization_id: bwh.id
-  puts "   ADDED: #{bwh.datasets.count} dataset#{"s" if bwh.datasets.count != 1} to #{bwh.name}"
+  puts "    ADDED: #{bwh.datasets.count} dataset#{"s" if bwh.datasets.count != 1} to #{bwh.name}"
 end
 
 def create_legal_documents(bwh)
   create_standard_i(bwh)
   create_standard_o(bwh)
-  puts "   ADDED: #{bwh.legal_documents.count} legal document#{"s" if bwh.legal_documents.count != 1} to #{bwh.name}"
+  puts "    ADDED: #{bwh.legal_documents.count} legal document#{"s" if bwh.legal_documents.count != 1} to #{bwh.name}"
   assign_legal_docs_to_datasets(bwh)
   publish_legal_documents(bwh)
-end
-
-def migrate_old_agreements(bwh)
-  puts "====TODO: Match existing agreements to legal doc formats"
-  # TODO: Match existing agreements to legal doc formats
-end
-
-def assign_user_defaults
-  puts "====TODO: Assign user defaults to commercial / non-commercial"
-  # TODO: Assign user defaults to commercial / non-commercial
-  puts "====TODO: Assign user defaults to individual / organization"
-  # TODO: Assign user defaults to individual / organization
 end
 
 def create_standard_i(bwh)
@@ -67,7 +55,11 @@ def create_standard_i(bwh)
 
   standard_i.legal_document_pages.where(position: 2).first_or_create(
     title: "Specific Purpose",
-    readable_content: "2. Data User will describe to BWH via the electronic registration process for NSRR Data access at https://sleepdata.org the specific sleep research use for the Data / Datasets proposed by Data User (the **\"Specific Purpose\"**). The Specific Purpose as described in the online application process is:\n\n<project_title>\n\n<specific_purpose:text>\n\n<intended_use>\n\n<security:checkbox>\n\n<hipaa_training:checkbox>\n\nFor avoidance of doubt, permissible uses may include use of the Data / Datasets for research evaluation and testing of a product or technology but will not extend to proposals that include or incorporate the Data / Datasets into such product. BWH will provide the Data / Datasets requested by the Data User upon BWH's approval, in its sole discretion, of the Specific Purpose, its receipt of this DAUA signed by Data User (or of Data User's Duly Authorized Representative, if an organization), and the submission by Data User of any additional information or documentation required by NSRR policies and procedures as applicable to the request (including, when required, submission of evidence of approval of the Specific Purpose by Data User's Institutional Review Board). The requirements described in this Section 2 will apply regardless of whether Data User has been previously approved by NHLBI to access complementary data from databases or other resources controlled by NHLBI (including but not limited to BioLINCC). Data User acknowledges that other researchers are permitted to access the Data / Dataset on the same terms as Data User, so that duplication of research may occur."
+    readable_content: "2. Data User will describe to BWH via the electronic registration process for NSRR Data access at https://sleepdata.org the specific sleep research use for the Data / Datasets proposed by Data User (the **\"Specific Purpose\"**). The Specific Purpose as described in the online application process is:\n\n<project_title>\n\n<specific_purpose:text>\n\n<intended_use>\n\n<data_storage>\n\n<security:checkbox>\n\n<hipaa_training:checkbox>\n\nFor avoidance of doubt, permissible uses may include use of the Data / Datasets for research evaluation and testing of a product or technology but will not extend to proposals that include or incorporate the Data / Datasets into such product. BWH will provide the Data / Datasets requested by the Data User upon BWH's approval, in its sole discretion, of the Specific Purpose, its receipt of this DAUA signed by Data User (or of Data User's Duly Authorized Representative, if an organization), and the submission by Data User of any additional information or documentation required by NSRR policies and procedures as applicable to the request (including, when required, submission of evidence of approval of the Specific Purpose by Data User's Institutional Review Board). The requirements described in this Section 2 will apply regardless of whether Data User has been previously approved by NHLBI to access complementary data from databases or other resources controlled by NHLBI (including but not limited to BioLINCC). Data User acknowledges that other researchers are permitted to access the Data / Dataset on the same terms as Data User, so that duplication of research may occur."
+  )
+
+  standard_i.legal_document_variables.find_by(name: "data_storage").update(
+    field_note: "Please describe where data will be stored and secured."
   )
 
   standard_i.legal_document_variables.find_by(name: "security").update(
@@ -108,7 +100,11 @@ def create_standard_o(bwh)
 
   standard_o.legal_document_pages.where(position: 2).first_or_create(
     title: "Specific Purpose",
-    readable_content: "2. Data User will describe to BWH via the electronic registration process for NSRR Data access at https://sleepdata.org the specific sleep research use for the Data / Datasets proposed by Data User (the **\"Specific Purpose\"**). The Specific Purpose as described in the online application process is:\n\n<project_title>\n\n<specific_purpose:text>\n\n<intended_use>\n\n<security:checkbox>\n\n<hipaa_training:checkbox>\n\nFor avoidance of doubt, permissible uses may include use of the Data / Datasets for research evaluation and testing of a product or technology but will not extend to proposals that include or incorporate the Data / Datasets into such product. BWH will provide the Data / Datasets requested by the Data User upon BWH's approval, in its sole discretion, of the Specific Purpose, its receipt of this DAUA signed by Data User (or of Data User's Duly Authorized Representative, if an organization), and the submission by Data User of any additional information or documentation required by NSRR policies and procedures as applicable to the request (including, when required, submission of evidence of approval of the Specific Purpose by Data User's Institutional Review Board). The requirements described in this Section 2 will apply regardless of whether Data User has been previously approved by NHLBI to access complementary data from databases or other resources controlled by NHLBI (including but not limited to BioLINCC). Data User acknowledges that other researchers are permitted to access the Data / Dataset on the same terms as Data User, so that duplication of research may occur."
+    readable_content: "2. Data User will describe to BWH via the electronic registration process for NSRR Data access at https://sleepdata.org the specific sleep research use for the Data / Datasets proposed by Data User (the **\"Specific Purpose\"**). The Specific Purpose as described in the online application process is:\n\n<project_title>\n\n<specific_purpose:text>\n\n<intended_use>\n\n<data_storage>\n\n<security:checkbox>\n\n<hipaa_training:checkbox>\n\nFor avoidance of doubt, permissible uses may include use of the Data / Datasets for research evaluation and testing of a product or technology but will not extend to proposals that include or incorporate the Data / Datasets into such product. BWH will provide the Data / Datasets requested by the Data User upon BWH's approval, in its sole discretion, of the Specific Purpose, its receipt of this DAUA signed by Data User (or of Data User's Duly Authorized Representative, if an organization), and the submission by Data User of any additional information or documentation required by NSRR policies and procedures as applicable to the request (including, when required, submission of evidence of approval of the Specific Purpose by Data User's Institutional Review Board). The requirements described in this Section 2 will apply regardless of whether Data User has been previously approved by NHLBI to access complementary data from databases or other resources controlled by NHLBI (including but not limited to BioLINCC). Data User acknowledges that other researchers are permitted to access the Data / Dataset on the same terms as Data User, so that duplication of research may occur."
+  )
+
+  standard_o.legal_document_variables.find_by(name: "data_storage").update(
+    field_note: "Please describe where data will be stored and secured."
   )
 
   standard_o.legal_document_variables.find_by(name: "security").update(
@@ -139,10 +135,108 @@ def assign_legal_docs_to_datasets(bwh)
       ).first_or_create
     end
   end
-  puts "   ADDED: #{legal_documents.count} legal document#{"s" if legal_documents.count != 1} to #{bwh.datasets.count} dataset#{"s" if bwh.datasets.count != 1}"
+  puts "    ADDED: #{legal_documents.count} legal document#{"s" if legal_documents.count != 1} to #{bwh.datasets.count} dataset#{"s" if bwh.datasets.count != 1}"
 end
 
 def publish_legal_documents(bwh)
-  puts "====TODO: Publish legal docs"
-  # TODO: Publish legal docs
+  standard_i = bwh.legal_documents.find_by(slug: "standard-i")
+  final_i = standard_i.current_final_legal_document
+  if final_i
+    puts "    FOUND: #{standard_i.name} #{final_i.version_md5_short}"
+  else
+    standard_i.publish!
+    final_i = standard_i.current_final_legal_document
+    puts "PUBLISHED: #{standard_i.name} #{final_i.version_md5_short}"
+  end
+
+  standard_o = bwh.legal_documents.find_by(slug: "standard-o")
+  final_o = standard_o.current_final_legal_document
+  if final_o
+    puts "    FOUND: #{standard_o.name} #{final_o.version_md5_short}"
+  else
+    standard_o.publish!
+    final_o = standard_o.current_final_legal_document
+    puts "PUBLISHED: #{standard_o.name} #{final_o.version_md5_short}"
+  end
+end
+
+def migrate_old_agreements(bwh)
+  standard_i = bwh.legal_documents.find_by(slug: "standard-i")
+  standard_o = bwh.legal_documents.find_by(slug: "standard-o")
+
+  puts "=====TODO: Match existing agreements to legal doc formats"
+  # TODO: Match existing agreements to legal doc formats
+  Agreement.limit(1).each do |agreement|
+    if agreement.data_user_type == "individual"
+      final = standard_i.current_final_legal_document
+      agreement.update(final_legal_document_id: final.id)
+      update_individual_variables(agreement, final)
+    else
+      final = standard_o.current_final_legal_document
+      agreement.update(final_legal_document_id: final.id)
+      update_organization_variables(agreement, final)
+    end
+  end
+end
+
+def update_individual_variables(agreement, final)
+  [
+    [:data_user, "full_name"],
+    [:individual_institution_name, "institution"],
+    [:individual_title, "professional_title"],
+    [:individual_telephone, "telephone"],
+    [:individual_address, "address"],
+    [:title_of_project, "project_title"],
+    [:specific_purpose, "specific_purpose"],
+    [:intended_use_of_data, "intended_use"],
+    [:data_secured_location, "data_storage"],
+    [:secured_device, "security"],
+    [:human_subjects_protections_trained, "hipaa_training"],
+    # [:posting_permission, "posting_permission"],
+    [:has_read_step3, "terms_and_conditions"]
+  ].each do |original_attribute, variable_name|
+    update_agreement_variable(agreement, original_attribute, final, variable_name)
+  end
+end
+
+def update_organization_variables(agreement, final)
+  [
+    [:organization_business_name, "organization_name"],
+    [:organization_contact_name, "contact_name"],
+    [:organization_contact_title, "contact_title"],
+    [:organization_contact_telephone, "contact_telephone"],
+    [:organization_contact_email, "contact_email"],
+    [:organization_address, "organization_address"],
+    [:title_of_project, "project_title"],
+    [:specific_purpose, "specific_purpose"],
+    [:intended_use_of_data, "intended_use"],
+    [:data_secured_location, "data_storage"],
+    [:secured_device, "security"],
+    [:human_subjects_protections_trained, "hipaa_training"],
+    # [:posting_permission, "posting_permission"],
+    [:has_read_step3, "terms_and_conditions"]
+  ].each do |original_attribute, variable_name|
+    update_agreement_variable(agreement, original_attribute, final, variable_name)
+  end
+end
+
+def update_agreement_variable(agreement, original_attribute, final_legal_document, variable_name)
+  variable = final_legal_document.final_legal_document_variables.find_by(name: variable_name)
+  if variable.nil?
+    puts "============#{variable_name} not found."
+  else
+    agreement_variable = agreement.agreement_variables.where(final_legal_document_variable_id: variable.id).first_or_create
+    if variable.variable_type == "checkbox"
+      agreement_variable.update value: (agreement.send(original_attribute) ? "1" : "0")
+    else
+      agreement_variable.update value: agreement.send(original_attribute)
+    end
+  end
+end
+
+def assign_user_defaults
+  puts "=====TODO: Assign user defaults to commercial / non-commercial"
+  # TODO: Assign user defaults to commercial / non-commercial
+  puts "=====TODO: Assign user defaults to individual / organization"
+  # TODO: Assign user defaults to individual / organization
 end

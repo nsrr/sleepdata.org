@@ -93,6 +93,8 @@ class Agreement < ApplicationRecord
 
   # Relationships
   belongs_to :user
+  belongs_to :final_legal_document
+  has_many :agreement_variables
   has_many :requests
   has_many :datasets, -> { where deleted: false }, through: :requests
   has_many :reviews, -> { joins(:user).order('lower(substring(users.first_name from 1 for 1)), lower(substring(users.last_name from 1 for 1))') }
