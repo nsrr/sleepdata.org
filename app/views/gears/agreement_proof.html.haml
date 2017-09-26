@@ -12,14 +12,19 @@
         = form_with url: agreement_submit_path(dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document), method: :post, local: true, id: "final-legal-document-form"
 
         - @final_legal_document.final_legal_document_variables.each do |variable|
-          %div
-            - agreement_variable = @agreement.agreement_variables.find_by(final_legal_document_variable_id: variable.id)
-            - value = (agreement_variable ? agreement_variable.value : "")
-            = render "forms/horizontal/show/generic", title: variable.name, content: value
+          - agreement_variable = @agreement.agreement_variables.find_by(final_legal_document_variable_id: variable.id)
+          - value = (agreement_variable ? agreement_variable.value : "")
+
+          - if variable.variable_type == "checkbox"
+            - content = simple_check(value == "1")
+          - else
+            - content = (agreement_variable ? agreement_variable.value : "")
+          - display_name = variable.display_name.present? ? variable.display_name : variable.name.titleize
+          = render "forms/horizontal/show/generic", title: display_name, content: content
 
         - if @final_legal_document.attestation_type == "signature"
           - if @agreement.signature_file.path
-            - content = image_tag(agreement_signature_show_path(dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document), style: "max-width: 100%; height: auto;")
+            - content = image_tag(agreement_signature_show_path(dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document), class: "img-signature", alt: "")
           - else
             - content = "<div class=\"text-muted\">No signature</div>".html_safe
           = render "forms/horizontal/show/generic", title: "Signature", content: content

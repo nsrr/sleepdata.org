@@ -2,7 +2,7 @@
 
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_agreement_or_redirect, only: [:show, :vote, :update_tags, :transactions]
+  before_action :find_agreement_or_redirect, only: [:show, :show2, :signature, :vote, :update_tags, :transactions]
 
   # GET /reviews
   def index
@@ -16,6 +16,21 @@ class ReviewsController < ApplicationController
 
   # GET /reviews/1
   def show
+  end
+
+  # GET /reviews/1/show2
+  def show2
+    render layout: "layouts/full_page"
+  end
+
+  # GET /reviews/1/signature
+  def signature
+    signature_file = File.join(CarrierWave::Uploader::Base.root, @agreement.signature_file.url)
+    if File.exist?(signature_file)
+      send_file signature_file
+    else
+      head :ok
+    end
   end
 
   # GET /reviews/1/transactions

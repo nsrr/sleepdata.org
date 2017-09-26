@@ -19,14 +19,14 @@
 
 #new-topic-container{ style: "display:none;" }
 
-%table.table.table-striped.table-borderless
+%table.table.table-striped.table-borderless.table-sticky
   %col
   %col.hidden-xs{ width: "50px" }
   %col.hidden-xs.hidden-sm{ width: "50px" }
   %col.hidden-xs.hidden-sm{ width: "150px" }
   %thead
     %tr.table-light
-      %th.small= link_to "Topics", topics_path
+      %th.small{ style: "border-left: 4px solid transparent;" }= link_to "Topics", topics_path
       = th_sort_field_rev @order, "reply_count", "Replies", extra_class: "small hidden-xs center"
       = th_sort_field_rev @order, "topics.view_count", "Views", extra_class: "small hidden-xs hidden-sm center"
       = th_sort_field_rev @order, "topics.last_reply_at", "Last Post", extra_class: "small hidden-xs hidden-sm center"

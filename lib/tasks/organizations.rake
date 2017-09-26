@@ -182,6 +182,7 @@ def migrate_old_agreements(bwh)
       agreement.update(final_legal_document_id: final.id)
       update_organization_variables(agreement, final)
     end
+    migrate_signature(agreement)
   end
 end
 
@@ -237,6 +238,25 @@ def update_agreement_variable(agreement, original_attribute, final_legal_documen
     else
       agreement_variable.update value: agreement.send(original_attribute)
     end
+  end
+end
+
+def migrate_signature(agreement)
+  file = Tempfile.new("signature_#{agreement.id}.png")
+  string = agreement.signature
+  begin
+    json = JSON.parse(string)
+    if json.present?
+      Agreement.create_signature_png(string, file)
+      file.define_singleton_method(:original_filename) do
+        "signature_#{agreement.id}.png"
+      end
+      agreement.signature_file = file
+      agreement.save
+    end
+  ensure
+    file.close
+    file.unlink # deletes the temp file
   end
 end
 

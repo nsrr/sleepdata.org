@@ -6,3 +6,10 @@
     margin-top: 0 !important;
   }
 }
+
+.legal-document-variable-missing-content {
+  border-bottom: 1px dotted $p500-red;
+  display: inline-block;
+  width: 10rem;
+  max-width: 100%;
+}

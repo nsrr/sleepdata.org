@@ -78,7 +78,12 @@ class GearsController < ApplicationController
 
   # GET /agreement/signature/show
   def agreement_signature_show
-    send_file File.join(CarrierWave::Uploader::Base.root, @agreement.signature_file.url)
+    signature_file = File.join(CarrierWave::Uploader::Base.root, @agreement.signature_file.url)
+    if File.exist?(signature_file)
+      send_file signature_file
+    else
+      head :ok
+    end
   end
 
   # POST /agreement/signature

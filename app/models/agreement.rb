@@ -303,7 +303,7 @@ class Agreement < ApplicationRecord
   def self.create_signature_png(signature, filename)
     canvas = ChunkyPNG::Canvas.new(300, 55)
     (JSON.parse(signature) rescue []).each do |hash|
-      canvas.line(hash['mx'], hash['my'], hash['lx'], hash['ly'], ChunkyPNG::Color.parse('#145394'))
+      canvas.line(hash['mx'], hash['my'], hash['lx'], hash['ly'], ChunkyPNG::Color.parse('#000000'))
     end
     png = canvas.to_image
     png.save(filename)

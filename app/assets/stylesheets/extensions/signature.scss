@@ -49,3 +49,10 @@
     display: block;
   }
 }
+
+.img-signature {
+  @include ignore-selection;
+
+  height: auto;
+  max-width: 100%;
+}
