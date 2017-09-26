@@ -245,7 +245,7 @@ def migrate_signature(agreement)
   file = Tempfile.new("signature_#{agreement.id}.png")
   string = agreement.signature
   begin
-    json = JSON.parse(string)
+    json = JSON.parse(string.to_s)
     if json.present?
       Agreement.create_signature_png(string, file)
       file.define_singleton_method(:original_filename) do
