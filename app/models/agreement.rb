@@ -36,6 +36,10 @@ class Agreement < ApplicationRecord
   mount_uploader :irb, PDFUploader
   mount_uploader :printed_file, PDFUploader
 
+  mount_uploader :signature_file, SignatureUploader
+  mount_uploader :duly_authorized_representative_signature_file, SignatureUploader
+  mount_uploader :reviewer_signature_file, SignatureUploader
+
   # Callbacks
   after_create_commit :set_token
 
@@ -319,6 +323,23 @@ class Agreement < ApplicationRecord
 
   def authorized_signature_date
     unauthorized_to_sign? ? duly_authorized_representative_signature_date : signature_date
+  end
+
+  def save_signature!(attribute, data_uri)
+    file = Tempfile.new("#{attribute}.png")
+    begin
+      encoded_image = data_uri.split(",")[1]
+      decoded_image = Base64.decode64(encoded_image)
+      File.open(file, "wb") { |f| f.write(decoded_image) }
+      file.define_singleton_method(:original_filename) do
+        "#{attribute}.png"
+      end
+      self.send("#{attribute}=", file)
+      save
+    ensure
+      file.close
+      file.unlink # deletes the temp file
+    end
   end
 
   protected

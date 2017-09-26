@@ -261,8 +261,14 @@ Rails.application.routes.draw do
     get :no_legal_doc_found, path: "gears/no-legal-doc-found"
     get :agreement_start, path: "agreement/start"
     get :agreement_page, path: "agreement/page/:page"
+    post :update_agreement_page, path: "agreement/page/:page"
     get :agreement_signature, path: "agreement/signature"
+    post :update_agreement_signature, path: "agreement/signature"
+    get :agreement_signature_show, path: "agreement/signature/show"
     get :agreement_attest, path: "agreement/attest"
+    post :update_agreement_attest, path: "agreement/attest"
+    get :agreement_proof, path: "agreement/proof"
+    post :agreement_submit, path: "agreement/proof"
   end
 
   resources :notifications do

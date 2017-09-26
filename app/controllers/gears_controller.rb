@@ -2,14 +2,19 @@ class GearsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_viewable_dataset_or_redirect
   before_action :find_legal_document_or_redirect, only: [
-    :agreement_page, :agreement_signature, :agreement_attest
+    :agreement_page, :update_agreement_page, :agreement_signature,
+    :update_agreement_signature, :agreement_signature_show, :agreement_attest,
+    :update_agreement_attest, :agreement_proof, :agreement_submit
   ]
   before_action :find_final_legal_document_or_redirect, only: [
-    :agreement_page, :agreement_signature, :agreement_attest
+    :agreement_page, :update_agreement_page, :agreement_signature,
+    :update_agreement_signature, :agreement_signature_show, :agreement_attest,
+    :update_agreement_attest, :agreement_proof, :agreement_submit
   ]
 
   # /agreement/start
   def agreement_start
+    @agreement = current_user.agreements.find_by(id: params[:agreement_id])
     legal_document = @dataset.legal_document_for_user(current_user)
     if legal_document
       redirect_to agreement_page_path(page: 1, dataset_id: @dataset, legal_document_id: legal_document)
@@ -34,7 +39,7 @@ class GearsController < ApplicationController
     redirect_to agreement_start_path(dataset_id: @dataset)
   end
 
-  # /agreement/page/:page
+  # GET /agreement/page/:page
   def agreement_page
     @final_legal_document_page = @final_legal_document.final_legal_document_pages.find_by(position: params[:page])
     if @final_legal_document_page
@@ -44,14 +49,64 @@ class GearsController < ApplicationController
     end
   end
 
-  # /agreement/signature
+  # POST /agreement/page/:page
+  def update_agreement_page
+    @final_legal_document_page = @final_legal_document.final_legal_document_pages.find_by(position: params[:page])
+    @next_page = @final_legal_document.final_legal_document_pages.find_by(position: @final_legal_document_page.position + 1)
+    @final_legal_document.final_legal_document_variables.each do |variable|
+      if params.key?(variable.name)
+        agreement_variable = @agreement.agreement_variables.where(final_legal_document_variable_id: variable.id).first_or_create
+        agreement_variable.update value: params[variable.name.to_sym]
+      end
+    end
+
+    if @next_page
+      redirect_to agreement_page_path(page: @next_page.position, dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document)
+    elsif @final_legal_document.attestation_type == "signature"
+      redirect_to agreement_signature_path(dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document)
+    elsif @final_legal_document.attestation_type == "checkbox"
+      redirect_to agreement_attest_path(dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document)
+    else # attestation_type == "none"
+      redirect_to agreement_proof_path(dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document)
+    end
+  end
+
+  # GET /agreement/signature
   def agreement_signature
     render layout: "layouts/full_page"
   end
 
-  # /agreement/attest
+  # GET /agreement/signature/show
+  def agreement_signature_show
+    send_file File.join(CarrierWave::Uploader::Base.root, @agreement.signature_file.url)
+  end
+
+  # POST /agreement/signature
+  def update_agreement_signature
+    @agreement.save_signature!(:signature_file, params[:data_uri])
+    redirect_to agreement_proof_path(dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document)
+  end
+
+  # GET /agreement/attest
   def agreement_attest
     render layout: "layouts/full_page"
+  end
+
+  # POST /agreement/attest
+  def update_agreement_attest
+    # TODO: Save "attestation"
+    redirect_to agreement_proof_path(dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document)
+  end
+
+  # GET /agreement/proof
+  def agreement_proof
+    render layout: "layouts/full_page"
+  end
+
+  # POST /agreement/proof
+  def agreement_submit
+    # TODO: Submit agreement
+    redirect_to complete_agreement_path(@agreement)
   end
 
   private
@@ -63,6 +118,9 @@ class GearsController < ApplicationController
 
   def find_final_legal_document_or_redirect
     @final_legal_document = @legal_document_temp.current_final_legal_document
-    empty_response_or_root_path(datasets_path) unless @final_legal_document
+    @agreement = @dataset.agreements.find_by(user_id: current_user.id, status: ["resubmit", "started"])
+    @agreement = @dataset.agreements.create(user_id: current_user.id) unless @agreement
+    @agreement.update(final_legal_document: @final_legal_document) if @agreement && @final_legal_document
+    empty_response_or_root_path(datasets_path) unless @final_legal_document && @agreement
   end
 end

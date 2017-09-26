@@ -8,6 +8,6 @@
   = label_tag key, class: "form-control-label" do
     = label
     = render "legal_document_variables/edit_link", variable: variable if editable
-  = text_area_tag key, "", class: "form-control input-expandable", placeholder: placeholder, data: { object: "text-input-expandable", help_element: help_element, help_text: help_text }, rows: 7, disabled: editable
+  = text_area_tag key, value, class: "form-control input-expandable", placeholder: placeholder, data: { object: "text-input-expandable", help_element: help_element, help_text: help_text }, rows: 7, disabled: editable
   - if variable.field_note.present?
     %small.text-muted= variable.field_note

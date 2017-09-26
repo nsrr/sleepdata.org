@@ -10,14 +10,15 @@
 
         .agreement-heading= @final_legal_document_page.title
 
-        #remove-extra-div= legal_markdown @final_legal_document_page
+        = form_with url: update_agreement_page_path(page: @final_legal_document_page.position, dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document), method: :post, local: true, id: "final-legal-document-form" do |form|
+          = legal_markdown @final_legal_document_page
 
         .mt-5.mb-3.float-right
           = succeed " " do
-            = link_to dashboard_path, class: "btn btn-light", tabindex: "-1" do
+            = link_to "#", class: "btn btn-light", tabindex: "-1", data: { object: "submit-and-disable", target: "#final-legal-document-form" } do
               %i.fa.fa-save
               Save Draft
 
-          = link_to agreement_page_path(page: params[:page].to_i + 1, dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document), class: "btn btn-primary" do
+          = link_to "#", class: "btn btn-primary", data: { object: "submit-and-disable", target: "#final-legal-document-form" } do
             Proceed
             %i.fa.fa-caret-right
