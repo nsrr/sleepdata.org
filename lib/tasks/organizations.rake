@@ -71,6 +71,7 @@ def create_standard_i(bwh)
   )
 
   standard_i.legal_document_variables.find_by(name: "hipaa_training").update(
+    display_name: "HIPAA Training",
     description: "I attest that I have completed a Human Subjects Protections Training Course."
   )
 
@@ -116,6 +117,7 @@ def create_standard_o(bwh)
   )
 
   standard_o.legal_document_variables.find_by(name: "hipaa_training").update(
+    display_name: "HIPAA Training",
     description: "I attest that I have completed a Human Subjects Protections Training Course."
   )
 
