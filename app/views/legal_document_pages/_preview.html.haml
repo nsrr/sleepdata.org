@@ -3,5 +3,4 @@
     .agreement-heading
       = legal_document_page.title
       = link_to "edit", edit_organization_legal_document_legal_document_page_path(@organization, @legal_document, legal_document_page), class: "btn btn-sm btn-light", style: "font-variant: initial;"
-    #remove-extra-div
-      = legal_markdown legal_document_page, editable: true
+    = legal_markdown legal_document_page, editable: true

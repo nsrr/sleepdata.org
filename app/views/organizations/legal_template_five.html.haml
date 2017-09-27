@@ -17,45 +17,44 @@
 
         .agreement-heading Data Access And Use Agreement
 
-        #remove-extra-div
-          - @agreement = Agreement.new(data_user_type: "organization")
-          = render "agreements/show/step3/part1"
-          = render "agreements/show/step3/part2"
+        - @agreement = Agreement.new(data_user_type: "organization")
+        = render "agreements/show/step3/part1"
+        = render "agreements/show/step3/part2"
 
 
-          .form-group
-            Posting Permission (check one):
-            .custom-controls-stacked{ id: "posting_permission", data: { object: "text-input-expandable", help_element: "posting_permission", help_text: "Posting Permission" } }
-              = label_tag :posting_permission_1, class: "custom-control custom-radio" do
-                = radio_button_tag :posting_permission, "1", false, class: "custom-control-input"
-                %span.custom-control-indicator
-                %span.custom-control-description
-                  Data User gives BWH permission to post Data User's name and a
-                  summary of Data User's Specific Purpose on
-                  https://sleepdata.org
-              = label_tag :posting_permission_2, class: "custom-control custom-radio" do
-                = radio_button_tag :posting_permission, "2", false, class: "custom-control-input"
-                %span.custom-control-indicator
-                %span.custom-control-description
-                  Data User gives BWH permission to post Data User's name on https://sleepdata.org
-              = label_tag :posting_permission_3, class: "custom-control custom-radio" do
-                = radio_button_tag :posting_permission, "3", false, class: "custom-control-input"
-                %span.custom-control-indicator
-                %span.custom-control-description
-                  Data User does not give permission to post Data User's name or
-                  a summary of Data User's Specific Purpose on
-                  https://sleepdata.org
-
-          = render "agreements/show/step3/part3"
-
-          .form-group
-            %label Terms and Conditions
-            %br
-            = label_tag :accept_tac, class: "custom-control custom-checkbox" do
-              = check_box_tag :accept_tac, "1", false, class: "custom-control-input", id: "accept_tac", data: { object: "text-input-expandable", help_element: "accept_tac", help_text: "Terms and Conditions" }
+        .form-group
+          Posting Permission (check one):
+          .custom-controls-stacked{ id: "posting_permission", data: { object: "text-input-expandable", help_element: "posting_permission", help_text: "Posting Permission" } }
+            = label_tag :posting_permission_1, class: "custom-control custom-radio" do
+              = radio_button_tag :posting_permission, "1", false, class: "custom-control-input"
               %span.custom-control-indicator
               %span.custom-control-description
-                I have read and fully understand and accept the above terms and conditions.
+                Data User gives BWH permission to post Data User's name and a
+                summary of Data User's Specific Purpose on
+                https://sleepdata.org
+            = label_tag :posting_permission_2, class: "custom-control custom-radio" do
+              = radio_button_tag :posting_permission, "2", false, class: "custom-control-input"
+              %span.custom-control-indicator
+              %span.custom-control-description
+                Data User gives BWH permission to post Data User's name on https://sleepdata.org
+            = label_tag :posting_permission_3, class: "custom-control custom-radio" do
+              = radio_button_tag :posting_permission, "3", false, class: "custom-control-input"
+              %span.custom-control-indicator
+              %span.custom-control-description
+                Data User does not give permission to post Data User's name or
+                a summary of Data User's Specific Purpose on
+                https://sleepdata.org
+
+        = render "agreements/show/step3/part3"
+
+        .form-group
+          %label Terms and Conditions
+          %br
+          = label_tag :accept_tac, class: "custom-control custom-checkbox" do
+            = check_box_tag :accept_tac, "1", false, class: "custom-control-input", id: "accept_tac", data: { object: "text-input-expandable", help_element: "accept_tac", help_text: "Terms and Conditions" }
+            %span.custom-control-indicator
+            %span.custom-control-description
+              I have read and fully understand and accept the above terms and conditions.
 
         .mt-5.mb-3.float-right
           = succeed " " do
