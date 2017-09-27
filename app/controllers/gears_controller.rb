@@ -2,13 +2,15 @@ class GearsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_viewable_dataset_or_redirect
   before_action :find_legal_document_or_redirect, only: [
-    :agreement_page, :update_agreement_page, :agreement_signature,
-    :update_agreement_signature, :agreement_signature_show, :agreement_attest,
+    :agreement_page, :update_agreement_page, :agreement_attest_signature,
+    :update_agreement_attest_signature, :agreement_signature,
+    :agreement_duly_authorized_representative_signature, :agreement_attest,
     :update_agreement_attest, :agreement_proof, :agreement_submit
   ]
   before_action :find_final_legal_document_or_redirect, only: [
-    :agreement_page, :update_agreement_page, :agreement_signature,
-    :update_agreement_signature, :agreement_signature_show, :agreement_attest,
+    :agreement_page, :update_agreement_page, :agreement_attest_signature,
+    :update_agreement_attest_signature, :agreement_signature,
+    :agreement_duly_authorized_representative_signature, :agreement_attest,
     :update_agreement_attest, :agreement_proof, :agreement_submit
   ]
 
@@ -63,7 +65,7 @@ class GearsController < ApplicationController
     if @next_page
       redirect_to agreement_page_path(page: @next_page.position, dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document)
     elsif @final_legal_document.attestation_type == "signature"
-      redirect_to agreement_signature_path(dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document)
+      redirect_to agreement_attest_signature_path(dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document)
     elsif @final_legal_document.attestation_type == "checkbox"
       redirect_to agreement_attest_path(dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document)
     else # attestation_type == "none"
@@ -71,8 +73,8 @@ class GearsController < ApplicationController
     end
   end
 
-  # GET /agreement/signature
-  def agreement_signature
+  # GET /agreement/attest/signature
+  def agreement_attest_signature
     render layout: "layouts/full_page"
   end
 
@@ -86,8 +88,28 @@ class GearsController < ApplicationController
     end
   end
 
-  # POST /agreement/signature
-  def update_agreement_signature
+  # GET /agreement/duly_authorized_representative_signature
+  def agreement_duly_authorized_representative_signature
+    signature_file = File.join(CarrierWave::Uploader::Base.root, @agreement.duly_authorized_representative_signature_file.url)
+    if File.exist?(signature_file)
+      send_file signature_file
+    else
+      head :ok
+    end
+  end
+
+  # GET /agreement/reviewer_signature
+  def agreement_reviewer_signature
+    signature_file = File.join(CarrierWave::Uploader::Base.root, @agreement.reviewer_signature_file.url)
+    if File.exist?(signature_file)
+      send_file signature_file
+    else
+      head :ok
+    end
+  end
+
+  # POST /agreement/attest/signature
+  def update_agreement_attest_signature
     @agreement.save_signature!(:signature_file, params[:data_uri])
     redirect_to agreement_proof_path(dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document)
   end

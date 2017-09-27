@@ -58,6 +58,14 @@
               %br
               = @agreement.organization_contact_email
 
-    .center{ data: { object: "signature-display", signature_target: ".top-output-read" } }
-      = hidden_field_tag "agreement_signature", @agreement.signature, class: "top-output-read"
-      %canvas.pad-display{ width: 300, height: 55 }
+    .text-center
+      - if @agreement.unauthorized_to_sign?
+        - if @agreement.duly_authorized_representative_signature_file.path
+          = image_tag(duly_authorized_representative_signature_review_path(@agreement), class: "img-signature", alt: "")
+        - else
+          .text-muted No signature
+      - else
+        - if @agreement.signature_file.path
+          = image_tag(signature_review_path(@agreement), class: "img-signature", alt: "")
+        - else
+          .text-muted No signature

@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
+# Allows reviewers to view agreements.
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_agreement_or_redirect, only: [:show, :show2, :signature, :vote, :update_tags, :transactions]
+  before_action :find_agreement_or_redirect, only: [
+    :show, :show2, :signature, :duly_authorized_representative_signature, :vote,
+    :update_tags, :transactions
+  ]
 
   # GET /reviews
   def index
@@ -26,6 +30,16 @@ class ReviewsController < ApplicationController
   # GET /reviews/1/signature
   def signature
     signature_file = File.join(CarrierWave::Uploader::Base.root, @agreement.signature_file.url)
+    if File.exist?(signature_file)
+      send_file signature_file
+    else
+      head :ok
+    end
+  end
+
+  # GET /reviews/1/duly_authorized_representative_signature
+  def duly_authorized_representative_signature
+    signature_file = File.join(CarrierWave::Uploader::Base.root, @agreement.duly_authorized_representative_signature_file.url)
     if File.exist?(signature_file)
       send_file signature_file
     else

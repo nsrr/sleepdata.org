@@ -26,11 +26,9 @@
 #= require external/bootstrap-datepicker.js
 #= require external/clipboard-1.5.9.js
 #= require external/colorpicker
-# require external/flashcanvas.js # TODO: Remove line
 #= require external/google_analytics
 #= require external/highcharts-4.1.9.src.js
 #= require external/jquery-fieldselection.js
-# require external/jquery.signaturepad.min.js # TODO: Remove line
 #= require external/jquery.textcomplete
 # require external/json2.min.js # TODO: Remove line
 #= require external/signature_pad-2.3.1.src.js

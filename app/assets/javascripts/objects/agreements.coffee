@@ -1,19 +1,8 @@
-@agreementsReady = ->
-  $('[data-object~="signature"]').each((index, element) ->
-    sig = $($(this).data('signature-target')).val() if $($(this).data('signature-target')).val()
-    $(this).signaturePad(drawOnly: true, lineWidth: 0, validateFields: false, output: $(this).data('signature-target')).regenerate(sig)
-  )
-  $('[data-object~="signature-display"]').each((index, element) ->
-    sig = $($(this).data('signature-target')).val() if $($(this).data('signature-target')).val()
-    $(this).signaturePad(displayOnly: true, output: $(this).data('signature-target')).regenerate(sig)
-  )
-  false
+# TODO: Remove all of this?
 
 $(document)
-  .on('click', '[data-object~="select_radio_button"]', () ->
-    $($(this).data('target')).prop('checked', true)
-  )
   .on('click', '[data-object~="select_checkbox_panel"]', (event) ->
+    # TODO: Remove this method
     if event.target.tagName and event.target.tagName.toLowerCase() != 'input'
       $($(this).data('target')).prop('checked', !$($(this).data('target')).prop('checked'))
 
@@ -28,17 +17,19 @@ $(document)
     else
       $('#too-many-datasets').show()
   )
-  .on('click', '[data-object~="submit-draft"]', () ->
+  .on('click', '[data-object~="submit-draft"]', ->
+    # TODO: Remove (rewrite) this method
     window.$isDirty = false
     $('#agreement_draft_mode').val('1')
     $($(this).data('target')).submit()
     false
   )
-  .on('change', ':input', () ->
+  .on('change', ':input', ->
+    # TODO: Potentially remove this
     if $('#isdirty').val() == '1'
       window.$isDirty = true
   )
-  .on('change', '#agreement_status', () ->
+  .on('change', '#agreement_status', ->
     $('#resubmit-container').hide()
     $('#approval-container').hide()
     $('#agreement_approval_date, #agreement_expiration_date').prop('disabled', true)

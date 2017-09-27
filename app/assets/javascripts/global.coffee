@@ -20,7 +20,6 @@
   typeaheadReady()
 
 @objectsReady = ->
-  agreementsReady()
   challengesReady()
   datasetsReady()
   filesReady()

@@ -10,7 +10,7 @@
   standard_width = 3
   standard_width += 6 if $(element).hasClass("form-control-inline")
   standard_width += 20 if $(element).hasClass("form-control")
-  $(element).css("width", $widthTest.width() + standard_width)
+  $(element).css("width", $widthTest.width() + standard_width) unless $(element).hasClass("signature-pad-body")
   resetHelpTexts()
 
 @resetHelpText = (element) ->

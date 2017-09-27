@@ -213,6 +213,7 @@ Rails.application.routes.draw do
     member do
       get :show2
       get :signature
+      get :duly_authorized_representative_signature
       post :vote
       post :update_tags
       get :transactions
@@ -264,9 +265,11 @@ Rails.application.routes.draw do
     get :agreement_start, path: "agreement/start"
     get :agreement_page, path: "agreement/page/:page"
     post :update_agreement_page, path: "agreement/page/:page"
-    get :agreement_signature, path: "agreement/signature"
-    post :update_agreement_signature, path: "agreement/signature"
-    get :agreement_signature_show, path: "agreement/signature/show"
+    get :agreement_attest_signature, path: "agreement/attest/signature"
+    post :update_agreement_attest_signature, path: "agreement/attest/signature"
+    get :agreement_signature_show, path: "agreement/signature"
+    get :agreement_duly_authorized_representative_signature, path: "agreement/duly_authorized_representative_signature"
+    get :agreement_reviewer_signature, path: "agreement/reviewer/signature"
     get :agreement_attest, path: "agreement/attest"
     post :update_agreement_attest, path: "agreement/attest"
     get :agreement_proof, path: "agreement/proof"

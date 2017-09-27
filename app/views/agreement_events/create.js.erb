@@ -7,5 +7,3 @@
 <% @agreement_event = @agreement.agreement_events.where(user_id: current_user.id).new %>
 $("#agreement_events_new_form").html("<%=j render 'agreement_events/form' %>");
 $("#agreement-reviewers").html("<%=j render 'reviews/reviewers', agreement: @agreement %>");
-
-agreementsReady();

@@ -8,7 +8,7 @@
       .page-box.last-box
         .agreement-heading Signature
 
-        = form_with url: update_agreement_signature_path(dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document), method: :post, local: true, id: "final-legal-document-form" do |form|
+        = form_with url: update_agreement_attest_signature_path(dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document), method: :post, local: true, id: "final-legal-document-form" do |form|
           = hidden_field_tag :data_uri
 
           #signature-pad.signature-pad

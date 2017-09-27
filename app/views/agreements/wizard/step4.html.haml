@@ -99,9 +99,11 @@
 
             .form-group
               = f.label :duly_authorized_representative_signature, 'Signature of Duly Authorized Representative', class: 'control-label'
-              %div{ data: { object: "signature-display", signature_target: ".output-read" } }
-                = hidden_field_tag 'duly_authorized_representative_signature', @agreement.duly_authorized_representative_signature, class: 'output-read'
-                %canvas.pad-display{ width: "300", height: "55" }
+
+              - if @agreement.duly_authorized_representative_signature_file.path
+                = image_tag(agreement_duly_authorized_representative_signature_show_path(dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document), class: "img-signature", alt: "")
+              - else
+                .text-muted No signature
 
             .form-group
               = f.label :duly_authorized_representative_signature_print, 'Duly Authorized Representative (print name)', class: 'control-label'
