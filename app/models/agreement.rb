@@ -97,7 +97,7 @@ class Agreement < ApplicationRecord
 
   # Relationships
   belongs_to :user
-  belongs_to :final_legal_document
+  belongs_to :final_legal_document, optional: true
   has_many :agreement_variables
   has_many :requests
   has_many :datasets, -> { where deleted: false }, through: :requests

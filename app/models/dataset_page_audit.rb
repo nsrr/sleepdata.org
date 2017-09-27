@@ -3,5 +3,5 @@
 class DatasetPageAudit < ApplicationRecord
   # Relationships
   belongs_to :dataset
-  belongs_to :user
+  belongs_to :user, optional: true
 end

@@ -8,7 +8,7 @@ class AgreementTransaction < ApplicationRecord
 
   # Relationships
   belongs_to :agreement
-  belongs_to :user
+  belongs_to :user, optional: true
   has_many :agreement_transaction_audits, -> { order :id }
 
   # Methods

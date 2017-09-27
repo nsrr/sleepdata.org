@@ -22,9 +22,9 @@ class Reply < ApplicationRecord
 
   # Relationships
   belongs_to :user
-  belongs_to :broadcast
-  belongs_to :topic
-  belongs_to :reply
+  belongs_to :broadcast, optional: true
+  belongs_to :topic, optional: true
+  belongs_to :reply, optional: true
   has_many :reply_users
 
   # Methods

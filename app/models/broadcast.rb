@@ -19,7 +19,7 @@ class Broadcast < ApplicationRecord
 
   # Relationships
   belongs_to :user
-  belongs_to :category
+  belongs_to :category, optional: true
 
   # Methods
   def destroy

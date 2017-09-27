@@ -13,7 +13,7 @@ class LegalDocumentDatasetsControllerTest < ActionDispatch::IntegrationTest
   def legal_document_dataset_params
     {
       legal_document_id: legal_documents(:one).id,
-      dataset_id: datasets(:public_with_no_files_folder)
+      dataset_id: datasets(:public_with_no_files_folder).id
     }
   end
 

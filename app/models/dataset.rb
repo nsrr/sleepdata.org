@@ -25,7 +25,7 @@ class Dataset < ApplicationRecord
 
   # Relationships
   belongs_to :user
-  belongs_to :dataset_version
+  belongs_to :dataset_version, optional: true
   belongs_to :organization, optional: true
   has_many :dataset_versions
   has_many :dataset_file_audits

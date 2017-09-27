@@ -4,7 +4,7 @@
 class DatasetFileAudit < ApplicationRecord
   # Relationships
   belongs_to :dataset
-  belongs_to :user
+  belongs_to :user, optional: true
 
   # Scopes
   scope :all_members, -> { joins(:user).merge(User.current) }

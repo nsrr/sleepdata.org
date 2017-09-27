@@ -31,7 +31,7 @@ class Variable < ApplicationRecord
 
   # Relationships
   belongs_to :dataset
-  belongs_to :domain
+  belongs_to :domain, optional: true
   belongs_to :dataset_version
   has_many :variable_forms
   has_many :forms, through: :variable_forms
