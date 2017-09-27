@@ -64,36 +64,36 @@ class Agreement < ApplicationRecord
   validates :duly_authorized_representative_token, uniqueness: true, allow_nil: true
 
   validates :reviewer_signature, :approval_date, :expiration_date, presence: true, if: :approved?
-  # validates :reviewer_signature, length: { minimum: 20, tokenizer: lambda { |str| (JSON.parse(str) rescue []) }, too_short: "can't be blank" }, if: :approved?
-  validates :edges_in_reviewer_signature, length: { minimum: 20, too_short: "can't be blank" }, if: :approved?
+  # validates :edges_in_reviewer_signature, length: { minimum: 20, too_short: "can't be blank" }, if: :approved?
 
   validates :comments, presence: true, if: :resubmission_required?
 
-  validates :data_user, presence: true, if: :step1?
-  validates :data_user_type, presence: true, if: :step1?
-  validates :data_user_type, inclusion: { in: %w(individual organization), message: '"%{value}" is not a valid data user type' }, if: :step1?
-  validates :individual_institution_name, :individual_title, :individual_telephone, :individual_address, presence: true, if: :step1_and_individual?
-  validates :organization_business_name, :organization_contact_name, :organization_contact_title, :organization_contact_telephone, :organization_contact_email, :organization_address, presence: true, if: :step1_and_organization?
+  # TODO: Remove validations
+  # validates :data_user, presence: true, if: :step1?
+  # validates :data_user_type, presence: true, if: :step1?
+  # validates :data_user_type, inclusion: { in: %w(individual organization), message: '"%{value}" is not a valid data user type' }, if: :step1?
+  # validates :individual_institution_name, :individual_title, :individual_telephone, :individual_address, presence: true, if: :step1_and_individual?
+  # validates :organization_business_name, :organization_contact_name, :organization_contact_title, :organization_contact_telephone, :organization_contact_email, :organization_address, presence: true, if: :step1_and_organization?
 
-  validates :title_of_project, :specific_purpose, presence: true, if: :step2?
-  validates :words_in_specific_purpose, length: { minimum: 20, too_short: 'is lacking sufficient detail and must be at least %{count} words.' }, if: :step2?
-  validates :datasets, presence: true, if: :step2?
-  validates :intended_use_of_data, :data_secured_location, :secured_device, :human_subjects_protections_trained, presence: true, if: :step2?
+  # validates :title_of_project, :specific_purpose, presence: true, if: :step2?
+  # validates :words_in_specific_purpose, length: { minimum: 20, too_short: 'is lacking sufficient detail and must be at least %{count} words.' }, if: :step2?
+  # validates :datasets, presence: true, if: :step2?
+  # validates :intended_use_of_data, :data_secured_location, :secured_device, :human_subjects_protections_trained, presence: true, if: :step2?
 
-  validates :has_read_step3, presence: true, if: :step3?
-  validates :posting_permission, presence: true, if: :step3?
-  validates :posting_permission, inclusion: { in: %w(all name_only none), message: '"%{value}" is not a valid posting permission' }, if: :step3?
+  # validates :has_read_step3, presence: true, if: :step3?
+  # validates :posting_permission, presence: true, if: :step3?
+  # validates :posting_permission, inclusion: { in: %w(all name_only none), message: '"%{value}" is not a valid posting permission' }, if: :step3?
 
-  validates :signature, :signature_print, :signature_date, presence: true, if: :step4_and_authorized?
-  validates :edges_in_signature, length: { minimum: 20, too_short: "can't be blank" }, if: :step4_and_authorized?
+  # validates :signature, :signature_print, :signature_date, presence: true, if: :step4_and_authorized?
+  # validates :edges_in_signature, length: { minimum: 20, too_short: "can't be blank" }, if: :step4_and_authorized?
 
-  validates :duly_authorized_representative_signature, :duly_authorized_representative_signature_print, :duly_authorized_representative_signature_date, :duly_authorized_representative_title, presence: true, if: :step4_and_not_authorized?
-  validates :edges_in_duly_authorized_representative_signature, length: { minimum: 20, too_short: "can't be blank" }, if: :step4_and_not_authorized?
+  # validates :duly_authorized_representative_signature, :duly_authorized_representative_signature_print, :duly_authorized_representative_signature_date, :duly_authorized_representative_title, presence: true, if: :step4_and_not_authorized?
+  # validates :edges_in_duly_authorized_representative_signature, length: { minimum: 20, too_short: "can't be blank" }, if: :step4_and_not_authorized?
 
-  validates :irb_evidence_type, presence: true, if: :step5?
-  validates :irb_evidence_type, inclusion: { in: %w(has_evidence no_evidence), message: '"%{value}" is not a valid evidence type' }, if: :step5?
+  # validates :irb_evidence_type, presence: true, if: :step5?
+  # validates :irb_evidence_type, inclusion: { in: %w(has_evidence no_evidence), message: '"%{value}" is not a valid evidence type' }, if: :step5?
 
-  validates :irb, presence: true, if: :step5_and_has_evidence?
+  # validates :irb, presence: true, if: :step5_and_has_evidence?
 
   # Relationships
   belongs_to :user

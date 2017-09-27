@@ -4,14 +4,16 @@ class GearsController < ApplicationController
   before_action :find_legal_document_or_redirect, only: [
     :agreement_page, :update_agreement_page, :agreement_attest_signature,
     :update_agreement_attest_signature, :agreement_signature,
-    :agreement_duly_authorized_representative_signature, :agreement_attest,
-    :update_agreement_attest, :agreement_proof, :agreement_submit
+    :agreement_duly_authorized_representative_signature,
+    :agreement_reviewer_signature, :agreement_attest, :update_agreement_attest,
+    :agreement_proof, :agreement_submit
   ]
   before_action :find_final_legal_document_or_redirect, only: [
     :agreement_page, :update_agreement_page, :agreement_attest_signature,
     :update_agreement_attest_signature, :agreement_signature,
-    :agreement_duly_authorized_representative_signature, :agreement_attest,
-    :update_agreement_attest, :agreement_proof, :agreement_submit
+    :agreement_duly_authorized_representative_signature,
+    :agreement_reviewer_signature, :agreement_attest, :update_agreement_attest,
+    :agreement_proof, :agreement_submit
   ]
 
   # /agreement/start
@@ -78,8 +80,8 @@ class GearsController < ApplicationController
     render layout: "layouts/full_page"
   end
 
-  # GET /agreement/signature/show
-  def agreement_signature_show
+  # GET /agreement/signature
+  def agreement_signature
     signature_file = File.join(CarrierWave::Uploader::Base.root, @agreement.signature_file.url)
     if File.exist?(signature_file)
       send_file signature_file
