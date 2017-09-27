@@ -33,8 +33,6 @@
 = render "forms/horizontal/show/text", object: @legal_document_page, key: :position
 = render "forms/horizontal/show/check_box", object: @legal_document_page, key: :rider
 
-#width-test{ style: "position: fixed;top: 0;overflow: hidden;height: 0" }
-
 .row
   #legal-document-preview.col-12.col-md
     %div{ id: "legal-document-page-#{@legal_document_page.id}" }= render "legal_document_pages/preview", legal_document_page: @legal_document_page

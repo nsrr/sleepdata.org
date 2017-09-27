@@ -6,8 +6,6 @@
 
     %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
       .page-box.last-box
-        #width-test{ style: "position: fixed;top: 0;overflow: hidden;height: 0" }
-
         .agreement-heading= @final_legal_document_page.title
 
         = form_with url: update_agreement_page_path(page: @final_legal_document_page.position, dataset_id: @dataset, legal_document_id: @final_legal_document.legal_document), method: :post, local: true, id: "final-legal-document-form" do |form|

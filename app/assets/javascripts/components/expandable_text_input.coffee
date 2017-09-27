@@ -1,15 +1,16 @@
 @setInputSize = (element) ->
   $(element).removeClass("input-success input-highlight")
+  $widthTest = getWidthTestElement()
   if ($(element).hasClass("signature-pad-body") && window.$signaturePad? && !window.$signaturePad.isEmpty()) || ($(element).is(":checkbox") && $(element).is(":checked")) || !$(element).is(":checkbox") && $(element).val().length > 0
-    $("#width-test").text($(element).val())
+    $widthTest.text($(element).val())
     $(element).addClass("input-success")
   else
-    $("#width-test").text($(element).prop("placeholder"))
+    $widthTest.text($(element).prop("placeholder"))
     $(element).addClass("input-highlight")
   standard_width = 3
   standard_width += 6 if $(element).hasClass("form-control-inline")
   standard_width += 20 if $(element).hasClass("form-control")
-  $(element).css("width", $("#width-test").width() + standard_width)
+  $(element).css("width", $widthTest.width() + standard_width)
   resetHelpTexts()
 
 @resetHelpText = (element) ->
@@ -49,6 +50,18 @@
     setInputSize($(this))
   )
   agreementHelpers()
+
+@getWidthTestElement = ->
+  if $("#width-test").length > 0
+    $widthTest = $("#width-test")
+  else
+    $widthTest = $("<div>"
+      "id": "width-test"
+      "class": "width-test"
+    )
+    $("body").prepend($widthTest)
+    $widthTest = $("#width-test")
+  return $widthTest
 
 $(window).resize(-> resetHelpTexts())
 
