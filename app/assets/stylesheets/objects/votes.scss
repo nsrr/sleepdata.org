@@ -1,27 +1,27 @@
-.vote-info .vote-expanded-info {
-  display: none;
-}
+.vote-info {
+  .vote-expanded-info {
+    display: none;
+  }
 
-.no-touch {
-  .vote-info:hover .vote-expanded-info {
-    display: inline-block;
+  @media (hover) {
+    &:hover .vote-expanded-info {
+      display: inline-block;
+    }
   }
 }
 
 .voting-container {
   display: flex;
-  justify-content: space-around;
   flex-direction: column;
   flex-wrap: wrap;
+  justify-content: space-around;
+
+  @include media-breakpoint-up(sm) {
+    flex-direction: row;
+  }
 
   div {
     flex: 1;
     margin: 10px;
-  }
-}
-
-@include media-breakpoint-up(sm) {
-  .voting-container {
-    flex-direction: row;
   }
 }
