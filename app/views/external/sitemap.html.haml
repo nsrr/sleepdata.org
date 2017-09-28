@@ -47,7 +47,7 @@
       %strong
         = link_to 'Datasets', datasets_path
       %ul
-        - Dataset.current.where(public: true).order(:name).each do |dataset|
+        - Dataset.released.order(:name).each do |dataset|
           %li= link_to dataset.name, dataset
     .col-md-6
       %strong

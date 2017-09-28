@@ -5,19 +5,19 @@
 
     %p.lead
       View over
-      = pluralize(number_with_delimiter(Variable.latest.count), 'covariate')
+      = pluralize(number_with_delimiter(Variable.latest.count), "covariate")
       across
-      = succeed '.' do
-        = link_to pluralize(Dataset.current.where(public: true).count, 'public dataset'), datasets_path
+      = succeed "." do
+        = link_to pluralize(Dataset.released.count, "public dataset"), datasets_path
 
   .landing-body
     %table.table
       %col
       %col
-      %col{ width: '50px' }
+      %col{ width: "50px" }
 
       - @variables.each do |variable|
         %tr
           %td= link_to variable.name, dataset_variable_path(variable.dataset, variable)
           %td= variable.display_name
-          %td= render 'datasets/mini', dataset: variable.dataset
+          %td= render "datasets/mini", dataset: variable.dataset

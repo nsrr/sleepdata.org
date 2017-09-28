@@ -8,6 +8,10 @@
 - **Agreement Changes**
   - Agreements now use [SignaturePad](https://github.com/szimek/signature_pad)
     for capturing signatures
+- **Dataset Changes**
+  - Dataset status has been simplified:
+    - `released`, also the same as `listed`, `public`, and
+    - `unreleased`, also the same as `unlisted`, `private`
 - **Organizations Added**
   - Organizations are used to group datasets, legal documents, and reviewers
   - Organization editors can now create legal documents

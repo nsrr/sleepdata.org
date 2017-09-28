@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-editor_public_access:
-  dataset: public
+editor_released_access:
+  dataset: released
   user: editor
   role: editor
 
@@ -20,32 +20,32 @@ viewer_of_private_dataset:
   user: has_approved_agreement_for_a_b_not_c
   role: viewer
 
-viewer_of_private_dataset_two:
-  dataset: private
+viewer_of_unreleased_dataset_two:
+  dataset: unreleased
   user: two
   role: viewer
 
-editor_of_private_dataset:
-  dataset: private
+editor_of_unreleased_dataset:
+  dataset: unreleased
   user: editor_on_private
   role: editor
 
-reviewer_of_public_dataset:
-  dataset: public
+reviewer_of_released_dataset:
+  dataset: released
   user: reviewer_on_public
   role: reviewer
 
-reviewer_two_of_public_dataset:
-  dataset: public
+reviewer_two_of_released_dataset:
+  dataset: released
   user: reviewer_two_on_public
   role: reviewer
 
-reviewer_three_of_public_dataset:
-  dataset: public
+reviewer_three_of_released_dataset:
+  dataset: released
   user: reviewer_three_on_public
   role: reviewer
 
-admin_reviewer_of_public_dataset:
-  dataset: public
+admin_reviewer_of_released_dataset:
+  dataset: released
   user: admin
   role: reviewer

@@ -1,9 +1,9 @@
 one:
   organization: one
   legal_document: one
-  dataset: public
+  dataset: released
 
 two:
   organization: one
   legal_document: one
-  dataset: private
+  dataset: unreleased

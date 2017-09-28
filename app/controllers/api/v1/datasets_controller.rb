@@ -38,7 +38,7 @@ class Api::V1::DatasetsController < Api::V1::ViewerController
     if current_user
       current_user.all_viewable_datasets
     else
-      Dataset.current.where(public: true)
+      Dataset.released
     end
   end
 end

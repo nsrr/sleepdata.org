@@ -169,7 +169,7 @@ class ApplicationController < ActionController::Base
     viewable_datasets = if current_user
                           current_user.all_viewable_datasets
                         else
-                          Dataset.current.where(public: true)
+                          Dataset.released
                         end
     @dataset = viewable_datasets.find_by_slug(params[id])
     redirect_without_dataset

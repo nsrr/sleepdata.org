@@ -212,7 +212,7 @@ class AgreementsControllerTest < ActionController::TestCase
     assert_equal 2, assigns(:agreement).current_step
     assert_equal "Title of Project", assigns(:agreement).title_of_project
     assert_equal "My Specific Purpose Needs to be More than 20 words in order to be sufficiently describe what I will do with the data.", assigns(:agreement).specific_purpose
-    assert_equal [datasets(:public).id], assigns(:agreement).datasets.pluck(:id)
+    assert_equal [datasets(:released).id], assigns(:agreement).datasets.pluck(:id)
     assert_equal "Publication", assigns(:agreement).intended_use_of_data
     assert_equal "Securly Stored", assigns(:agreement).data_secured_location
     assert_equal true, assigns(:agreement).secured_device

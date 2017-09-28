@@ -5,8 +5,8 @@ require "test_helper"
 # Tests to assure that variables can be viewed.
 class VariablesControllerTest < ActionController::TestCase
   setup do
-    @dataset = datasets(:public)
-    @variable = datasets(:public).variables.first
+    @dataset = datasets(:released)
+    @variable = datasets(:released).variables.first
   end
 
   test "should get index for public dataset" do
@@ -31,9 +31,9 @@ class VariablesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should show private variable to logged in user" do
+  test "should show unreleased variable to logged in user" do
     login(users(:admin))
-    get :show, params: { id: variables(:private), dataset_id: datasets(:private) }
+    get :show, params: { id: variables(:private), dataset_id: datasets(:unreleased) }
     assert_not_nil assigns(:dataset)
     assert_not_nil assigns(:variable)
     assert_response :success
@@ -46,16 +46,16 @@ class VariablesControllerTest < ActionController::TestCase
     assert_redirected_to dataset_variables_path(assigns(:dataset))
   end
 
-  test "should not show private variable to public user" do
-    get :show, params: { id: variables(:private), dataset_id: datasets(:private) }
+  test "should not show unreleased variable to public user" do
+    get :show, params: { id: variables(:private), dataset_id: datasets(:unreleased) }
     assert_nil assigns(:dataset)
     assert_nil assigns(:variable)
     assert_redirected_to datasets_path
   end
 
-  test "should not show private variable to logged in user" do
+  test "should not show unreleased variable to logged in user" do
     login(users(:valid))
-    get :show, params: { id: variables(:private), dataset_id: datasets(:private) }
+    get :show, params: { id: variables(:private), dataset_id: datasets(:unreleased) }
     assert_nil assigns(:dataset)
     assert_nil assigns(:variable)
     assert_redirected_to datasets_path

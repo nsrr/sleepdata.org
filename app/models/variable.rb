@@ -21,7 +21,7 @@ class Variable < ApplicationRecord
 
   # Scopes
   scope :with_folder, ->(arg) { where "folder ~* ?", "(^#{arg})" }
-  scope :latest, -> { joins(:dataset).where("variables.dataset_version_id = datasets.dataset_version_id").merge(Dataset.current.where(public: true)) }
+  scope :latest, -> { joins(:dataset).where("variables.dataset_version_id = datasets.dataset_version_id").merge(Dataset.released) }
 
   # Validations
   validates :name, :display_name, :variable_type, :dataset_id, :dataset_version_id, presence: true

@@ -6,11 +6,11 @@ one:
   display_name: Gender
   # description:
   variable_type: choices
-  dataset: public
+  dataset: released
   domain: gender
   # units:
   version: 0.1.0
-  dataset_version: public_one
+  dataset_version: released_one
   # calculation:
   commonly_used: true
   search_terms: gender demographics
@@ -21,11 +21,11 @@ two:
   display_name: Public Variable Two
   # description:
   variable_type: string
-  dataset: public
+  dataset: released
   # domain:
   # units:
   version: 0.1.0
-  dataset_version: public_one
+  dataset_version: released_one
   # calculation:
   commonly_used: false
   search_terms: variable two
@@ -36,8 +36,8 @@ private:
   display_name: Top Secret
   # description:
   variable_type: string
-  dataset: private
-  dataset_version: private_one
+  dataset: unreleased
+  dataset_version: unreleased_one
   # domain:
   # units:
   # version:

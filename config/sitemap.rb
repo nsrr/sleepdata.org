@@ -38,7 +38,7 @@ SitemapGenerator::Sitemap.create do
     end
   end
 
-  Dataset.release_scheduled.each do |dataset|
+  Dataset.released.each do |dataset|
     add "/datasets/#{dataset.to_param}", changefreq: "weekly"
     add "/datasets/#{dataset.to_param}/files", changefreq: "weekly"
     add "/datasets/#{dataset.to_param}/variables", changefreq: "weekly"

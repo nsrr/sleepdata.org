@@ -1,5 +1,5 @@
 gender:
   folder: ''
   name: 'gender'
-  dataset: public
+  dataset: released
   version: 0.1.0

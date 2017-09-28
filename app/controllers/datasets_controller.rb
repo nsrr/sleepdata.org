@@ -89,7 +89,7 @@ class DatasetsController < ApplicationController
     dataset_scope = if current_user
                       current_user.all_viewable_datasets
                     else
-                      Dataset.current.where(public: true)
+                      Dataset.released
                     end
     if params[:ages]
       (min_age, max_age) = params[:ages].split("-").collect { |s| parse_integer(s) }

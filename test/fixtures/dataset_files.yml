@@ -1,5 +1,5 @@
 public_root:
-  dataset: public
+  dataset: released
   full_path: ""
   folder: ""
   file_name: ""
@@ -11,7 +11,7 @@ public_root:
   # archived: false
 
 public_datasets:
-  dataset: public
+  dataset: released
   full_path: "datasets"
   folder: ""
   file_name: datasets
@@ -23,7 +23,7 @@ public_datasets:
   # archived: false
 
 public_datasets_rails_png:
-  dataset: public
+  dataset: released
   full_path: "datasets/rails.png"
   folder: "datasets/"
   file_name: rails.png
@@ -35,7 +35,7 @@ public_datasets_rails_png:
   # archived: false
 
 public_previews_rails_png:
-  dataset: public
+  dataset: released
   full_path: "previews/rails.png"
   folder: "previews/"
   file_name: rails.png
@@ -47,7 +47,7 @@ public_previews_rails_png:
   # archived: false
 
 public_previews_markup_md:
-  dataset: public
+  dataset: released
   full_path: "previews/markup.md"
   folder: "previews/"
   file_name: markup.md
@@ -59,7 +59,7 @@ public_previews_markup_md:
   # archived: false
 
 public_previews_blank_pdf:
-  dataset: public
+  dataset: released
   full_path: "previews/blank.pdf"
   folder: "previews/"
   file_name: blank.pdf
@@ -71,7 +71,7 @@ public_previews_blank_pdf:
   # archived: false
 
 public_subfolder:
-  dataset: public
+  dataset: released
   full_path: "subfolder"
   folder: ""
   file_name: subfolder
@@ -83,7 +83,7 @@ public_subfolder:
   # archived: false
 
 public_deleted_subfolder:
-  dataset: public
+  dataset: released
   full_path: "deleted_subfolder"
   folder: ""
   file_name: deleted_subfolder
@@ -96,7 +96,7 @@ public_deleted_subfolder:
   deleted: true
 
 public_subfolder_another_folder:
-  dataset: public
+  dataset: released
   full_path: "subfolder/another_folder"
   folder: "subfolder/"
   file_name: another_folder
@@ -108,7 +108,7 @@ public_subfolder_another_folder:
   # archived: false
 
 public_subfolder_another_folder_3_txt:
-  dataset: public
+  dataset: released
   full_path: "subfolder/another_folder/3.txt"
   folder: "subfolder/another_folder/"
   file_name: 3.txt
@@ -120,7 +120,7 @@ public_subfolder_another_folder_3_txt:
   # archived: false
 
 public_subfolder_1_txt:
-  dataset: public
+  dataset: released
   full_path: "subfolder/1.txt"
   folder: "subfolder/"
   file_name: 1.txt
@@ -132,7 +132,7 @@ public_subfolder_1_txt:
   # archived: false
 
 public_subfolder_2_txt:
-  dataset: public
+  dataset: released
   full_path: "subfolder/2.txt"
   folder: "subfolder/"
   file_name: 2.txt
@@ -144,7 +144,7 @@ public_subfolder_2_txt:
   # archived: false
 
 public_download_me_txt:
-  dataset: public
+  dataset: released
   full_path: "DOWNLOAD_ME.txt"
   folder: ""
   file_name: DOWNLOAD_ME.txt
@@ -156,7 +156,7 @@ public_download_me_txt:
   # archived: false
 
 private_root:
-  dataset: private
+  dataset: unreleased
   full_path: ""
   folder: ""
   file_name: ""
@@ -168,7 +168,7 @@ private_root:
   # archived: false
 
 private_hidden_file_txt:
-  dataset: private
+  dataset: unreleased
   full_path: "HIDDEN_FILE.txt"
   folder: ""
   file_name: HIDDEN_FILE.txt

@@ -8,14 +8,14 @@ class AgreementEventsController < ApplicationController
     :show, :edit, :update, :destroy
   ]
 
-  # GET /agreement/1/events/1/edit.js
-  def edit
-  end
+  # # GET /agreement/1/events/1/edit.js
+  # def edit
+  # end
 
   # POST /agreement/1/events.js
   def create
     @agreement_event = @agreement.agreement_events
-                                 .where(user_id: current_user.id, event_at: Time.zone.now, event_type: 'commented')
+                                 .where(user_id: current_user.id, event_at: Time.zone.now, event_type: "commented")
                                  .new(agreement_event_params)
     if @agreement_event.save
       render :create
@@ -26,7 +26,7 @@ class AgreementEventsController < ApplicationController
 
   # POST /agreements/1/preview.js
   def preview
-    @agreement_event = @agreement.agreement_events.find_by_id params[:agreement_event_id]
+    @agreement_event = @agreement.agreement_events.find_by(id: params[:agreement_event_id])
     if @agreement_event
       @agreement_event.comment = params[:agreement_event][:comment]
     else
@@ -35,9 +35,9 @@ class AgreementEventsController < ApplicationController
     end
   end
 
-  # GET /agreements/1/events/1.js
-  def show
-  end
+  # # GET /agreements/1/events/1.js
+  # def show
+  # end
 
   # PATCH /agreement/1/events/1.js
   def update
@@ -56,12 +56,12 @@ class AgreementEventsController < ApplicationController
   private
 
   def find_agreement_or_redirect
-    @agreement = current_user.reviewable_agreements.find_by_id(params[:agreement_id])
+    @agreement = current_user.reviewable_agreements.find_by(id: params[:agreement_id])
     empty_response_or_root_path(reviews_path) unless @agreement
   end
 
   def find_editable_agreement_event_or_redirect
-    @agreement_event = current_user.all_agreement_events.find_by_id(params[:id])
+    @agreement_event = current_user.all_agreement_events.find_by(id: params[:id])
     empty_response_or_root_path(reviews_path) unless @agreement_event
   end
 

@@ -2,15 +2,15 @@
 
 one:
   agreement: filled_out_application_with_attached_irb_file
-  dataset: public
+  dataset: released
 
 two:
   agreement: submitted_application
-  dataset: public
+  dataset: released
 
 three:
   agreement: approved_application_for_private_dataset
-  dataset: private
+  dataset: unreleased
 
 
 # The following dataset requests agreements test a variety of scenarios for file downloading and documentation viewing
