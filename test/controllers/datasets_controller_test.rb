@@ -132,7 +132,7 @@ class DatasetsControllerTest < ActionController::TestCase
   end
 
   test "should display no files if root files folder does not exists" do
-    get :files, params: { id: datasets(:public_with_no_files_folder) }
+    get :files, params: { id: datasets(:released_with_no_files_folder) }
     assert_template "files"
     assert_response :success
   end

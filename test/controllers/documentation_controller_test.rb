@@ -14,165 +14,165 @@ class DocumentationControllerTest < ActionController::TestCase
 
   test "should view documentation on public documentation dataset with approved agreement" do
     login(users(:has_approved_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:public_documentation), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released_documentation), path: "PUBLICLY_VIEWABLE.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should view documentation on private documentation dataset with approved agreement" do
     login(users(:has_approved_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:private_documentation), path: "ACCESS_REQUIRED.md", format: "html" }
+    get :pages, params: { id: datasets(:unreleased_documentation), path: "ACCESS_REQUIRED.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should view documentation on no access dataset without approved agreement" do
     login(users(:has_approved_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:public_documentation_no_access), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released_documentation_no_access), path: "PUBLICLY_VIEWABLE.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should view documentation on public documentation dataset with approved but expired agreement" do
     login(users(:has_approved_but_expired_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:public_documentation), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released_documentation), path: "PUBLICLY_VIEWABLE.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should not view documentation on private documentation dataset with approved but expired agreement" do
     login(users(:has_approved_but_expired_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:private_documentation), path: "ACCESS_REQUIRED.md", format: "html" }
+    get :pages, params: { id: datasets(:unreleased_documentation), path: "ACCESS_REQUIRED.md", format: "html" }
     assert_nil assigns(:dataset)
     assert_redirected_to datasets_path
   end
 
   test "should view documentation on no access dataset without approved but expired agreement" do
     login(users(:has_approved_but_expired_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:public_documentation_no_access), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released_documentation_no_access), path: "PUBLICLY_VIEWABLE.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should view documentation on public documentation dataset with submitted agreement" do
     login(users(:has_submitted_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:public_documentation), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released_documentation), path: "PUBLICLY_VIEWABLE.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should not view documentation on private documentation dataset with submitted agreement" do
     login(users(:has_submitted_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:private_documentation), path: "ACCESS_REQUIRED.md", format: "html" }
+    get :pages, params: { id: datasets(:unreleased_documentation), path: "ACCESS_REQUIRED.md", format: "html" }
     assert_nil assigns(:dataset)
     assert_redirected_to datasets_path
   end
 
   test "should view documentation on no access dataset without submitted agreement" do
     login(users(:has_submitted_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:public_documentation_no_access), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released_documentation_no_access), path: "PUBLICLY_VIEWABLE.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should view documentation on public documentation dataset with started agreement" do
     login(users(:has_started_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:public_documentation), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released_documentation), path: "PUBLICLY_VIEWABLE.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should not view documentation on private documentation dataset with started agreement" do
     login(users(:has_started_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:private_documentation), path: "ACCESS_REQUIRED.md", format: "html" }
+    get :pages, params: { id: datasets(:unreleased_documentation), path: "ACCESS_REQUIRED.md", format: "html" }
     assert_nil assigns(:dataset)
     assert_redirected_to datasets_path
   end
 
   test "should view documentation on no access dataset without started agreement" do
     login(users(:has_started_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:public_documentation_no_access), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released_documentation_no_access), path: "PUBLICLY_VIEWABLE.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should view documentation on public documentation dataset with resubmit agreement" do
     login(users(:has_resubmit_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:public_documentation), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released_documentation), path: "PUBLICLY_VIEWABLE.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should not view documentation on private documentation dataset with resubmit agreement" do
     login(users(:has_resubmit_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:private_documentation), path: "ACCESS_REQUIRED.md", format: "html" }
+    get :pages, params: { id: datasets(:unreleased_documentation), path: "ACCESS_REQUIRED.md", format: "html" }
     assert_nil assigns(:dataset)
     assert_redirected_to datasets_path
   end
 
   test "should view documentation on no access dataset without resubmit agreement" do
     login(users(:has_resubmit_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:public_documentation_no_access), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released_documentation_no_access), path: "PUBLICLY_VIEWABLE.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should view documentation on public documentation dataset with approved but deleted agreement" do
     login(users(:has_approved_but_deleted_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:public_documentation), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released_documentation), path: "PUBLICLY_VIEWABLE.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should not view documentation on private documentation dataset with approved but deleted agreement" do
     login(users(:has_approved_but_deleted_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:private_documentation), path: "ACCESS_REQUIRED.md", format: "html" }
+    get :pages, params: { id: datasets(:unreleased_documentation), path: "ACCESS_REQUIRED.md", format: "html" }
     assert_nil assigns(:dataset)
     assert_redirected_to datasets_path
   end
 
   test "should view documentation on no access dataset without approved but deleted agreement" do
     login(users(:has_approved_but_deleted_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:public_documentation_no_access), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released_documentation_no_access), path: "PUBLICLY_VIEWABLE.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should view documentation on public documentation dataset without any agreement" do
     login(users(:has_no_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:public_documentation), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released_documentation), path: "PUBLICLY_VIEWABLE.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should not view documentation on private documentation dataset without any agreement" do
     login(users(:has_no_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:private_documentation), path: "ACCESS_REQUIRED.md", format: "html" }
+    get :pages, params: { id: datasets(:unreleased_documentation), path: "ACCESS_REQUIRED.md", format: "html" }
     assert_nil assigns(:dataset)
     assert_redirected_to datasets_path
   end
 
   test "should view documentation on no access dataset without any agreement" do
     login(users(:has_no_agreement_for_a_b_not_c))
-    get :pages, params: { id: datasets(:public_documentation_no_access), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released_documentation_no_access), path: "PUBLICLY_VIEWABLE.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should view documentation on public documentation dataset as anonymous user" do
-    get :pages, params: { id: datasets(:public_documentation), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released_documentation), path: "PUBLICLY_VIEWABLE.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should not view documentation on private documentation dataset as anonymous user" do
-    get :pages, params: { id: datasets(:private_documentation), path: "ACCESS_REQUIRED.md", format: "html" }
+    get :pages, params: { id: datasets(:unreleased_documentation), path: "ACCESS_REQUIRED.md", format: "html" }
     assert_nil assigns(:dataset)
     assert_redirected_to datasets_path
   end
 
   test "should view documentation on no access dataset as anonymous user" do
-    get :pages, params: { id: datasets(:public_documentation_no_access), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released_documentation_no_access), path: "PUBLICLY_VIEWABLE.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end

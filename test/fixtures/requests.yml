@@ -17,48 +17,48 @@ three:
 
 approved_a:
   agreement: approved_for_a_b_not_c
-  dataset: public_documentation
+  dataset: released_documentation
 
 approved_b:
   agreement: approved_for_a_b_not_c
-  dataset: private_documentation
+  dataset: unreleased_documentation
 
 approved_but_expired_a:
   agreement: approved_but_expired_for_a_b_not_c
-  dataset: public_documentation
+  dataset: released_documentation
 
 approved_but_expired_b:
   agreement: approved_but_expired_for_a_b_not_c
-  dataset: private_documentation
+  dataset: unreleased_documentation
 
 submitted_a:
   agreement: submitted_for_a_b_not_c
-  dataset: public_documentation
+  dataset: released_documentation
 
 submitted_b:
   agreement: submitted_for_a_b_not_c
-  dataset: private_documentation
+  dataset: unreleased_documentation
 
 started_a:
   agreement: started_for_a_b_not_c
-  dataset: public_documentation
+  dataset: released_documentation
 
 started_b:
   agreement: started_for_a_b_not_c
-  dataset: private_documentation
+  dataset: unreleased_documentation
 
 resubmit_a:
   agreement: resubmit_for_a_b_not_c
-  dataset: public_documentation
+  dataset: released_documentation
 
 resubmit_b:
   agreement: resubmit_for_a_b_not_c
-  dataset: private_documentation
+  dataset: unreleased_documentation
 
 approved_but_deleted_a:
   agreement: approved_but_deleted_for_a_b_not_c
-  dataset: public_documentation
+  dataset: released_documentation
 
 approved_but_deleted_b:
   agreement: approved_but_deleted_for_a_b_not_c
-  dataset: private_documentation
+  dataset: unreleased_documentation

@@ -263,8 +263,8 @@ mixed_public_file_txt:
   publicly_available: true
   # archived: false
 
-private_documentation_root:
-  dataset: private_documentation
+unreleased_documentation_root:
+  dataset: unreleased_documentation
   full_path: ""
   folder: ""
   file_name: ""
@@ -275,8 +275,8 @@ private_documentation_root:
   # publicly_available: false
   # archived: false
 
-private_documentation_access_required_txt:
-  dataset: private_documentation
+unreleased_documentation_access_required_txt:
+  dataset: unreleased_documentation
   full_path: "ACCESS_REQUIRED.txt"
   folder: ""
   file_name: ACCESS_REQUIRED.txt
@@ -287,8 +287,8 @@ private_documentation_access_required_txt:
   # publicly_available: false
   # archived: false
 
-public_documentation_root:
-  dataset: public_documentation
+released_documentation_root:
+  dataset: released_documentation
   full_path: ""
   folder: ""
   file_name: ""
@@ -299,8 +299,8 @@ public_documentation_root:
   # publicly_available: false
   # archived: false
 
-public_documentation_access_required_txt:
-  dataset: public_documentation
+released_documentation_access_required_txt:
+  dataset: released_documentation
   full_path: "ACCESS_REQUIRED.txt"
   folder: ""
   file_name: ACCESS_REQUIRED.txt
@@ -311,8 +311,8 @@ public_documentation_access_required_txt:
   # publicly_available: false
   # archived: false
 
-public_documentation_no_access_root:
-  dataset: public_documentation_no_access
+released_documentation_no_access_root:
+  dataset: released_documentation_no_access
   full_path: ""
   folder: ""
   file_name: ""
@@ -323,8 +323,8 @@ public_documentation_no_access_root:
   # publicly_available: false
   # archived: false
 
-public_documentation_no_access_access_required_txt:
-  dataset: public_documentation_no_access
+released_documentation_no_access_access_required_txt:
+  dataset: released_documentation_no_access
   full_path: "ACCESS_REQUIRED.txt"
   folder: ""
   file_name: ACCESS_REQUIRED.txt

@@ -16,7 +16,7 @@ viewer_mixed_access:
   role: viewer
 
 viewer_of_private_dataset:
-  dataset: private_documentation
+  dataset: unreleased_documentation
   user: has_approved_agreement_for_a_b_not_c
   role: viewer
 
