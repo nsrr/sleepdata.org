@@ -8,14 +8,6 @@
   .dropdown-menu {
     text-shadow: none;
   }
-
-  > a {
-    color: $breadcrumb-link-color;
-  }
-
-  > a:hover {
-    color: darken($breadcrumb-link-color, 10%);
-  }
 }
 
 .header-container {

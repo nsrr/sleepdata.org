@@ -70,8 +70,8 @@
         %tr
           %td.nowrap
             = link_to audits_dataset_path(dataset) do
-              .hidden-xs.hidden-sm= dataset.name
-              .hidden-md.hidden-lg= dataset.slug
+              .d-none.d-md-inline-block= dataset.name
+              .d-inline-block.d-md-none= dataset.slug
           %td.text-center= pluralize number_with_delimiter(regular_members_files[dataset.id] ||= 0), "file"
           %td.text-center= number_to_human_size(regular_members_file_sizes[dataset.id] ||= 0)
           %td.text-center= pluralize number_with_delimiter(aug_or_core_members_files[dataset.id] ||= 0), "file"
@@ -105,7 +105,7 @@
           %tr
             %td
               = link_to dataset do
-                .hidden-xs.hidden-sm= dataset.name
-                .hidden-md.hidden-lg= dataset.slug
+                .d-none.d-md-inline-block= dataset.name
+                .d-inline-block.d-md-none= dataset.slug
             %td.text-center= number_with_delimiter dataset.agreements.regular_members.where(status: "approved").group(:user_id).count.count
 

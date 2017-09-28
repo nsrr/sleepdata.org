@@ -41,18 +41,19 @@
   - url = dataset
 
 - if approved
-  %i.fa.fa-check-circle.text-success.hidden-sm.hidden-md.hidden-lg
+  %i.fa.fa-check-circle.text-success.d-inline-block.d-sm-none
 - if under_review
-  %i.fa.fa-comments-o.text-muted.hidden-sm.hidden-md.hidden-lg
+  %i.fa.fa-comments-o.text-muted.d-inline-block.d-sm-none
 = link_to url do
   = title
   - if arrow
     %i.fa.fa-caret-right
 - if approved
-  %i.fa.fa-check-circle.text-success.hidden-xs
+  %i.fa.fa-check-circle.text-success.d-none.d-sm-inline-block
 - if under_review
-  %i.fa.fa-comments-o.text-muted.hidden-xs
+  %i.fa.fa-comments-o.text-muted.d-none.d-sm-inline-block
 
+-# TODO: Remove
 - if false
   - if dataset.organization && !dataset.legal_documents.published.count.zero?
     = link_to agreement_start_path(dataset_id: dataset) do

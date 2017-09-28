@@ -1,11 +1,8 @@
 - @title = "Blog and Forum Replies"
 
-- content_for :body_class do
-  brand-background
-
 = render "internal/profile_header", title: @title
 
-%table.table.table-striped.table-borderless.table-hover
+%table.table.table-striped.table-borderless.table-sticky
   %col.d-none.d-md-table{ width: "40px" }
   %col.d-none.d-md-table{ width: "67px" }
   %col

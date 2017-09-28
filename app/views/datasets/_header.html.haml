@@ -3,7 +3,7 @@
     .container
       %h1.page-heading
         = @dataset.name
-      .hidden-xs{ style: "margin-top: 20px;" }
+      .d-none.d-sm-block{ style: "margin-top: 20px;" }
         .row
           .col-sm-4.col-buffer
             = link_to "Documentation", @dataset, class: "btn btn-block #{params[:action] == "pages" || current_page?(@dataset) ? "btn-light" : "btn-outline-dark"}"

@@ -31,7 +31,7 @@
   .row
     #documentation-content{ class: "#{cookies[:hide_page_list] == "1" ? "col-sm-12" : "col-sm-9"}"}
       = render "documentation/render_page", page_path: @page_path, path: @path
-    #sidebar-content.hidden-xs{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-sm-3"}"}
+    #sidebar-content.d-none.d-sm-block{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-sm-3"}"}
       - @path = @path.to_s.split("/")[0..-2].join("/")
       .menu-sticky= render "documentation/pages_list", pages_path: pages_path
 - elsif @page_path && File.directory?(@page_path)
@@ -44,7 +44,7 @@
         = render "documentation/render_page", page_path: first_page[1], path: first_page[0]
       - elsif object.pages(@path).size == 0
         = render "documentation/nodoc"
-    #sidebar-content.hidden-xs{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-sm-3"}"}
+    #sidebar-content.d-none.d-sm-block{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-sm-3"}"}
       .menu-sticky= render "documentation/pages_list", pages_path: pages_path
 - else
   = render "documentation/nodoc"

@@ -1,47 +1,43 @@
-- @title = 'Tags'
-
-- content_for :body_class do
-  brand-background
+- @title = "Tags"
 
 - content_for :header do
   .header-container
     .container
       %h1.page-heading
         .pull-right
-          = link_to plus_or('New Tag'), new_tag_path, class: 'btn btn-primary btn-shadow'
-          = render 'layouts/per_page', per_page: 40, object_count: @tags.total_count
+          = link_to plus_or("New Tag"), new_tag_path, class: "btn btn-primary btn-shadow"
+          = render "layouts/per_page", per_page: 40, object_count: @tags.total_count
         = @title
-        = render 'search/toggle'
+        = render "search/toggle"
 
-= render 'search/simple', url: tags_path
+= render "search/simple", url: tags_path
 
 - if @tags.count.zero?
-  .lead.center{ style: 'margin-top: 40px;' }
+  .lead.center{ style: "margin-top: 40px;" }
     No tags found matching search criteria.
-    = succeed '.' do
-      = link_to 'Back to index', tags_path
+    = succeed "." do
+      = link_to "Back to index", tags_path
 - else
-  .dashboard-container
-    %table.table.table-striped.table-borderless.table-hover
-      %col
-      %col
-      %col.hidden-xs
-      %col{ width: '1px' }
-      %thead
+  %table.table.table-striped.table-borderless.table-hover.table-sticky
+    %col
+    %col
+    %col.hidden-xs
+    %col{ width: "1px" }
+    %thead
+      %tr
+        = th_sort_field @order, "tags.name", "Name"
+        = th_sort_field @order, "tags.color", "Color"
+        = th_sort_field @order, "tags.tag_type", "Type", extra_class: "hidden-xs"
+        %th.center
+          .d-none.d-sm-inline-block Actions
+    %tbody
+      - @tags.each do |tag|
         %tr
-          = th_sort_field @order, 'tags.name', 'Name'
-          = th_sort_field @order, 'tags.color', 'Color'
-          = th_sort_field @order, 'tags.tag_type', 'Type', extra_class: 'hidden-xs'
-          %th.center
-            %span.hidden-xs Actions
-      %tbody
-        - @tags.each do |tag|
-          %tr
-            %td= link_to tag.name, tag
-            %td
-              %span.label{ style: "background-color: #{tag.color};" }= tag.color
-            %td.hidden-xs= tag.type_name
-            %td
-              = render 'layouts/edit_delete_dropdown', edit_url: edit_tag_path(tag), delete_url: tag, delete_confirmation: "Delete #{tag.name}?"
+          %td= link_to tag.name, tag
+          %td
+            %span.label{ style: "background-color: #{tag.color};" }= tag.color
+          %td.hidden-xs= tag.type_name
+          %td
+            = render "layouts/edit_delete_dropdown", edit_url: edit_tag_path(tag), delete_url: tag, delete_confirmation: "Delete #{tag.name}?"
 
-  .center-horizontally= paginate @tags, theme: 'bootstrap'
+  .center-horizontally= paginate @tags, theme: "bootstrap"

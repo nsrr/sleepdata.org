@@ -18,25 +18,24 @@
     = succeed "." do
       = link_to "Back to index", categories_path
 - else
-  .dashboard-container
-    %table.table.table-striped.table-borderless.table-hover
-      %col
-      %col
-      %col{ width: "1px" }
-      %thead
-        %tr
-          = th_sort_field @order, "categories.name", "Name"
-          = th_sort_field @order, "categories.slug", "Slug"
-          %th.center
-            %span.hidden-xs Actions
+  %table.table.table-striped.table-borderless.table-hover.table-sticky
+    %col
+    %col
+    %col{ width: "1px" }
+    %thead
+      %tr
+        = th_sort_field @order, "categories.name", "Name"
+        = th_sort_field @order, "categories.slug", "Slug"
+        %th.center
+          .d-none.d-sm-inline-block Actions
 
-      %tbody
-        - @categories.each do |category|
-          %tr
-            %td= link_to category.name, category
-            %td
-              %code= category.slug
-            %td
-              = render "layouts/edit_delete_dropdown", edit_url: edit_category_path(category), delete_url: category, delete_confirmation: "Delete #{category.name}?"
+    %tbody
+      - @categories.each do |category|
+        %tr
+          %td= link_to category.name, category
+          %td
+            .badge.badge-light= category.slug
+          %td
+            = render "layouts/edit_delete_dropdown", edit_url: edit_category_path(category), delete_url: category, delete_confirmation: "Delete #{category.name}?"
 
   .center-horizontally= paginate @categories, theme: "bootstrap"
