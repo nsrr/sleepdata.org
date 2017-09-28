@@ -1,4 +1,4 @@
-public_root:
+released_root:
   dataset: released
   full_path: ""
   folder: ""
@@ -7,10 +7,10 @@ public_root:
   file_size: 204
   file_time: 2016-03-28 15:54:44
   # file_checksum_md5:
-  # publicly_available: false
+  publicly_available: true
   # archived: false
 
-public_datasets:
+released_datasets:
   dataset: released
   full_path: "datasets"
   folder: ""
@@ -22,7 +22,7 @@ public_datasets:
   # publicly_available: false
   # archived: false
 
-public_datasets_rails_png:
+released_datasets_rails_png:
   dataset: released
   full_path: "datasets/rails.png"
   folder: "datasets/"
@@ -31,10 +31,10 @@ public_datasets_rails_png:
   file_size: 6646
   file_time: 2016-03-28 11:25:23
   file_checksum_md5: 9c0a079bdd7701d7e729bd956823d153
-  # publicly_available: false
+  publicly_available: true
   # archived: false
 
-public_previews_rails_png:
+released_previews_rails_png:
   dataset: released
   full_path: "previews/rails.png"
   folder: "previews/"
@@ -43,10 +43,10 @@ public_previews_rails_png:
   file_size: 6646
   file_time: 2017-07-05 17:34:06
   file_checksum_md5: 9c0a079bdd7701d7e729bd956823d153
-  # publicly_available: false
+  publicly_available: true
   # archived: false
 
-public_previews_markup_md:
+released_previews_markup_md:
   dataset: released
   full_path: "previews/markup.md"
   folder: "previews/"
@@ -55,10 +55,10 @@ public_previews_markup_md:
   file_size: 69
   file_time: 2017-07-05 17:38:18
   file_checksum_md5: 64443745e9dbf0d5d310661618701813
-  # publicly_available: false
+  publicly_available: true
   # archived: false
 
-public_previews_blank_pdf:
+released_previews_blank_pdf:
   dataset: released
   full_path: "previews/blank.pdf"
   folder: "previews/"
@@ -67,10 +67,10 @@ public_previews_blank_pdf:
   file_size: 10892
   file_time: 2014-02-18 21:12:29
   file_checksum_md5: 79c69e449b0d0cd0f6819ef452940e21
-  # publicly_available: false
+  publicly_available: true
   # archived: false
 
-public_subfolder:
+released_subfolder:
   dataset: released
   full_path: "subfolder"
   folder: ""
@@ -82,7 +82,7 @@ public_subfolder:
   # publicly_available: false
   # archived: false
 
-public_deleted_subfolder:
+released_deleted_subfolder:
   dataset: released
   full_path: "deleted_subfolder"
   folder: ""
@@ -95,7 +95,7 @@ public_deleted_subfolder:
   # archived: false
   deleted: true
 
-public_subfolder_another_folder:
+released_subfolder_another_folder:
   dataset: released
   full_path: "subfolder/another_folder"
   folder: "subfolder/"
@@ -107,7 +107,7 @@ public_subfolder_another_folder:
   # publicly_available: false
   # archived: false
 
-public_subfolder_another_folder_3_txt:
+released_subfolder_another_folder_3_txt:
   dataset: released
   full_path: "subfolder/another_folder/3.txt"
   folder: "subfolder/another_folder/"
@@ -116,10 +116,10 @@ public_subfolder_another_folder_3_txt:
   file_size: 6
   file_time: 2015-03-23 11:39:47
   file_checksum_md5: 91b04d56b31de6895ebb48a299f6579b
-  # publicly_available: false
+  publicly_available: true
   # archived: false
 
-public_subfolder_1_txt:
+released_subfolder_1_txt:
   dataset: released
   full_path: "subfolder/1.txt"
   folder: "subfolder/"
@@ -128,10 +128,10 @@ public_subfolder_1_txt:
   file_size: 6
   file_time: 2014-02-18 16:12:29
   file_checksum_md5: 39061daa34ca3de20df03a88c52530ea
-  # publicly_available: false
+  publicly_available: true
   # archived: false
 
-public_subfolder_2_txt:
+released_subfolder_2_txt:
   dataset: released
   full_path: "subfolder/2.txt"
   folder: "subfolder/"
@@ -140,10 +140,10 @@ public_subfolder_2_txt:
   file_size: 6
   file_time: 2014-02-18 16:12:29
   file_checksum_md5: 85c8f17e86771eb8480a44349e13127b
-  # publicly_available: false
+  publicly_available: true
   # archived: false
 
-public_download_me_txt:
+released_download_me_txt:
   dataset: released
   full_path: "DOWNLOAD_ME.txt"
   folder: ""
@@ -152,10 +152,10 @@ public_download_me_txt:
   file_size: 16
   file_time: 2014-02-18 16:12:29
   file_checksum_md5: be3aad0b46648b4867534a1b10ec6ed1
-  # publicly_available: false
+  publicly_available: true
   # archived: false
 
-private_root:
+unreleased_root:
   dataset: unreleased
   full_path: ""
   folder: ""
@@ -167,7 +167,7 @@ private_root:
   # publicly_available: false
   # archived: false
 
-private_hidden_file_txt:
+unreleased_hidden_file_txt:
   dataset: unreleased
   full_path: "HIDDEN_FILE.txt"
   folder: ""

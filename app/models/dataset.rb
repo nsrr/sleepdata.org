@@ -67,9 +67,8 @@ class Dataset < ApplicationRecord
     User.where(id: [user_id] + dataset_users.where(role: "viewer").pluck(:user_id))
   end
 
-  def grants_file_access_to?(current_user)
-    user_id = (current_user ? current_user.id : nil)
-    all_files_public? || (agreements.where(status: "approved", user_id: user_id).not_expired.count > 0)
+  def approved_request?(current_user)
+    agreements.where(status: "approved", user: current_user).not_expired.count.positive?
   end
 
   def to_param

@@ -6,7 +6,6 @@
   = render "forms/horizontal/text_area", form: form, object: dataset, key: :info_citation, key_name: "Citation"
   = render "forms/horizontal/text_field", form: form, object: dataset, key: :git_repository, key_name: "Documentation repository", help_text: "Ex: https://github.com/<repository-name>.git"
   = render "forms/horizontal/check_box", form: form, object: dataset, key: :public, key_name: "Public documentation"
-  = render "forms/horizontal/check_box", form: form, object: dataset, key: :all_files_public, key_name: "Set all files public"
   = render "forms/horizontal/date_field", form: form, object: dataset, key: :release_date
   %hr
   .form-group.row

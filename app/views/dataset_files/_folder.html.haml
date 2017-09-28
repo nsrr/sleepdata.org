@@ -11,58 +11,58 @@
         %tr{ class: "#{"warning" if dataset_file.file_name == params[:f]} #{"info" if current_user_is_editor && dataset_file.file_checksum_md5.blank? && dataset_file.is_file?}", id: "dataset-file-#{dataset_file.id}-container" }
           = render "dataset_files/dataset_file", dataset_file: dataset_file
 
-- if @dataset.grants_file_access_to?(current_user)
-  = render "datasets/download_command"
-- else
-  - content_for :call_to_action do
-    .call-to-action
-      - agreements = (current_user ? @dataset.agreements.where(user_id: current_user.id) : Agreement.none)
-      - if agreement = agreements.find_by(status: "submitted")
-        .call-to-action-body
-          We are currently reviewing your
+= render "datasets/download_command"
+
+-# TODO: Don't show "fill out DAUA if all files (in folder?) are public."
+- content_for :footer do
+  .call-to-action
+    - agreements = (current_user ? @dataset.agreements.where(user_id: current_user.id) : Agreement.none)
+    - if agreement = agreements.find_by(status: "submitted")
+      .call-to-action-body
+        We are currently reviewing your
+        = status_helper_simple(agreement)
+        = succeed "." do
+          = link_to "DAUA", submissions_path
+      .call-to-action-body
+        Please contact us directly at
+        = mail_to "support@sleepdata.org"
+        with any questions.
+    - elsif agreement = agreements.find_by(status: "resubmit")
+      .call-to-action-body
+        You are required to
+        = status_helper_simple(agreement)
+        your DAUA.
+      .call-to-action-body
+        Please make the changes requested by the reviewer and
+        = succeed "." do
+          = link_to "resubmit your DAUA", submissions_path
+    - elsif agreement = agreements.expired.first
+      - agreement.update status: "expired"
+      .call-to-action-body
+        Your DAUA has
+        = succeed "." do
           = status_helper_simple(agreement)
-          = succeed "." do
-            = link_to "DAUA", submissions_path
-        .call-to-action-body
-          Please contact us directly at
-          = mail_to "support@sleepdata.org"
-          with any questions.
-      - elsif agreement = agreements.find_by(status: "resubmit")
-        .call-to-action-body
-          You are required to
-          = status_helper_simple(agreement)
-          your DAUA.
-        .call-to-action-body
-          Please make the changes requested by the reviewer and
-          = succeed "." do
-            = link_to "resubmit your DAUA", submissions_path
-      - elsif agreement = agreements.expired.first
-        - agreement.update status: "expired"
-        .call-to-action-body
-          Your DAUA has
-          = succeed "." do
-            = status_helper_simple(agreement)
-        .call-to-action-body
-          You will need to
-          = link_to "renew your DAUA", submissions_path
-          to continue downloading files.
-      - elsif agreement = agreements.find_by(status: "started")
-        .call-to-action-body
-          Please complete your
-          - if agreement.fully_filled_out?
-            = link_to "DAUA", proof_agreement_path(agreement)
-          - else
-            = link_to "DAUA", step_agreement_path(agreement, step: agreement.current_step)
-          to gain file access.
-        .call-to-action-body
-          You may contact us directly at
-          = mail_to "support@sleepdata.org"
-          with any questions regarding the process.
-      - else
-        .call-to-action-body
-          To download files:
-        .call-to-action-body
-          = link_to submissions_start_path(dataset: @dataset), class: "btn btn-primary btn-shadow" do
-            Fill out a
-            %span.hidden-xs Data Access and Use Agreement
-            %span.hidden-sm.hidden-md.hidden-lg DAUA
+      .call-to-action-body
+        You will need to
+        = link_to "renew your DAUA", submissions_path
+        to continue downloading files.
+    - elsif agreement = agreements.find_by(status: "started")
+      .call-to-action-body
+        Please complete your
+        - if agreement.fully_filled_out?
+          = link_to "DAUA", proof_agreement_path(agreement)
+        - else
+          = link_to "DAUA", step_agreement_path(agreement, step: agreement.current_step)
+        to gain file access.
+      .call-to-action-body
+        You may contact us directly at
+        = mail_to "support@sleepdata.org"
+        with any questions regarding the process.
+    - else
+      .call-to-action-body
+        To download files:
+      .call-to-action-body
+        = link_to submissions_start_path(dataset: @dataset), class: "btn btn-primary btn-shadow" do
+          Fill out a
+          %span.hidden-xs Data Access and Use Agreement
+          %span.hidden-sm.hidden-md.hidden-lg DAUA

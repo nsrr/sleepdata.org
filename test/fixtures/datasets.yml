@@ -1,5 +1,6 @@
 # TODO: Rename databases to indicate released[public|listed] unreleased[private|unlisted]
 
+# All files are marked as public.
 released:
   name: We Care
   description: The We Care Clinical Trial dataset
@@ -7,7 +8,6 @@ released:
   logo: wecare_logo.png
   user: admin
   released: true
-  all_files_public: true
   deleted: false
   release_date: 2014-03-25
   dataset_version: released_one
@@ -19,7 +19,6 @@ unreleased:
   logo: rails.png
   user: admin
   released: false
-  all_files_public: false
   deleted: false
   release_date: 2145-01-01
   dataset_version: unreleased_one
@@ -31,7 +30,6 @@ released_with_no_files_folder:
   logo: rails.png
   user: admin
   released: true
-  all_files_public: true
   deleted: false
   release_date: 2014-06-20
 
@@ -42,7 +40,6 @@ mixed:
   logo: rails.png
   user: admin
   released: true
-  all_files_public: false
   deleted: false
   release_date: 2014-07-08
 
@@ -56,7 +53,6 @@ released_documentation:
   logo: rails.png
   user: admin
   released: true
-  all_files_public: false
   deleted: false
   release_date: 2014-09-30
 
@@ -67,7 +63,6 @@ unreleased_documentation:
   logo: rails.png
   user: admin
   released: false
-  all_files_public: false
   deleted: false
   release_date: 2014-09-30
 
@@ -78,6 +73,5 @@ released_documentation_no_access:
   logo: rails.png
   user: admin
   released: true
-  all_files_public: false
   deleted: false
   release_date: 2014-09-30

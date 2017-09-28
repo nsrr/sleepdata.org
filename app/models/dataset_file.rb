@@ -18,8 +18,9 @@ class DatasetFile < ApplicationRecord
 
   # Methods
 
+  # TODO: Change to accommodate commercial/noncommercial based on user and file setting.
   def downloadable_by_user?(current_user)
-    publicly_available? || dataset.grants_file_access_to?(current_user)
+    publicly_available? || dataset.approved_request?(current_user)
   end
 
   def file_exist?
@@ -39,10 +40,8 @@ class DatasetFile < ApplicationRecord
   end
 
   def image?
-    file_name.split(".").last.to_s.casecmp("png").zero? ||
-      file_name.split(".").last.to_s.casecmp("jpg").zero? ||
-      file_name.split(".").last.to_s.casecmp("jpeg").zero? ||
-      file_name.split(".").last.to_s.casecmp("gif").zero?
+    extension = file_name.split(".").last.to_s.downcase
+    %(png jpg jpeg gif).include?(extension)
   end
 
   def verify_file!
@@ -55,13 +54,14 @@ class DatasetFile < ApplicationRecord
   end
 
   def generate_checksum_md5!
-    checksum = if is_file
-                 if file_checksum_md5.nil?
-                   Digest::MD5.file(filesystem_path).hexdigest
-                 else
-                   file_checksum_md5
-                 end
-               end
+    checksum = \
+      if is_file
+        if file_checksum_md5.nil?
+          Digest::MD5.file(filesystem_path).hexdigest
+        else
+          file_checksum_md5
+        end
+      end
     update file_checksum_md5: checksum
   end
 end
