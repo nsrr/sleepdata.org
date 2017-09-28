@@ -37,7 +37,7 @@ released_with_no_files_folder:
 
 mixed:
   name: Mixed
-  description: A Public dataset with some public and some private files
+  description: A released dataset with some public and some private files
   slug: mixed
   logo: rails.png
   user: admin
@@ -50,8 +50,8 @@ mixed:
 # The following datasets all have files that are only accessible via valid agreements
 
 released_documentation:
-  name: (A) Public Documentation with Private Files
-  description: Publicly viewable documentation with only private files
+  name: (A) Released dataset with documentation and private files
+  description: Released documentation with only private files
   slug: released_documentation
   logo: rails.png
   user: admin
@@ -61,8 +61,8 @@ released_documentation:
   release_date: 2014-09-30
 
 unreleased_documentation:
-  name: (B) Private Documentation with Private Files
-  description: Privately viewable documentation and private files
+  name: (B) Unreleased documentation with private files
+  description: Unreleased documentation and private files
   slug: unreleased_documentation
   logo: rails.png
   user: admin
@@ -72,7 +72,7 @@ unreleased_documentation:
   release_date: 2014-09-30
 
 released_documentation_no_access:
-  name: (C) Public Documentation With No File Access
+  name: (C) Released documentation with no file access
   description: This repository has private files but has not given anyone access to them
   slug: released_documentation_no_access
   logo: rails.png
