@@ -67,7 +67,7 @@ class Dataset < ApplicationRecord
     User.where(id: [user_id] + dataset_users.where(role: "viewer").pluck(:user_id))
   end
 
-  def approved_request?(current_user)
+  def approved_data_request?(current_user)
     agreements.where(status: "approved", user: current_user).not_expired.count.positive?
   end
 

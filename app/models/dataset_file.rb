@@ -20,7 +20,7 @@ class DatasetFile < ApplicationRecord
 
   # TODO: Change to accommodate commercial/noncommercial based on user and file setting.
   def downloadable_by_user?(current_user)
-    publicly_available? || dataset.approved_request?(current_user)
+    publicly_available? || dataset.approved_data_request?(current_user)
   end
 
   def file_exist?
