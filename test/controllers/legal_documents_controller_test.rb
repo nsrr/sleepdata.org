@@ -13,7 +13,7 @@ class LegalDocumentsControllerTest < ActionDispatch::IntegrationTest
       slug: "daua",
       commercial_type: "noncommercial",
       data_user_type: "individual",
-      attestation_type: "checkbox",
+      attestation_type: "signature",
       approval_process: "committee"
     }
   end

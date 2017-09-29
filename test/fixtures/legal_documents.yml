@@ -6,7 +6,7 @@ one:
   slug: daua-nc-i
   commercial_type: noncommercial
   data_user_type: individual
-  attestation_type: checkbox
+  attestation_type: signature
   approval_process: immediate
 
 two:
@@ -15,5 +15,5 @@ two:
   slug: daua-c-o
   commercial_type: commercial
   data_user_type: organization
-  attestation_type: signature
+  attestation_type: checkbox
   approval_process: committee
