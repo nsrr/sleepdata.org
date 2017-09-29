@@ -1,7 +1,4 @@
-- @title = 'Our Team'
-
-- content_for :body_class do
-  brand-background
+- @title = "Our Team"
 
 .about-header
   = @title
@@ -21,10 +18,10 @@
   - @users = User.core_members.order(:last_name, :first_name)
   .row
     - @users.each do |user|
-      - unless ['Susan Redline', 'GQ Zhang'].include?(user.name)
+      - unless ["Susan Redline", "GQ Zhang"].include?(user.name)
         .col-sm-6.col-buffer.center= user.name
 
 .center
-  = link_to 'Past Contributors', contributors_path
+  = link_to "Past Contributors", contributors_path
   &middot;
-  = link_to 'Academic User Group', aug_path
+  = link_to "Academic User Group", aug_path

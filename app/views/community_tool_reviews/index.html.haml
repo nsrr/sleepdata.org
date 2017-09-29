@@ -1,35 +1,32 @@
 - @title = "Reviews - #{@community_tool.name}"
 
-- content_for :body_class do
-  brand-background
-
 - content_for :header do
   .header-container
     .container
       %h1.page-heading
         .pull-right
           - if current_user && current_user.reviewed_tool?(@community_tool)
-            - link_text = 'Update my review'
+            - link_text = "Update my review"
           - else
-            - link_text = 'Write a review'
-          = link_to pencil_or(link_text), new_community_tool_community_tool_review_path(@community_tool), class: 'btn btn-primary btn-shadow'
-          = render 'layouts/per_page', per_page: 40, object_count: @community_tool_reviews.total_count
+            - link_text = "Write a review"
+          = link_to pencil_or(link_text), new_community_tool_community_tool_review_path(@community_tool), class: "btn btn-primary btn-shadow"
+          = render "layouts/per_page", per_page: 40, object_count: @community_tool_reviews.total_count
         Reviews
   .breadcrumb-container.mb-0
     .container
       %ol
         %li= link_to @community_tool.name, community_show_tool_path(@community_tool)
-        %li= render 'community_tools/rating', rating: @community_tool.rating
+        %li= render "community_tools/rating", rating: @community_tool.rating
 
 - if @community_tool_reviews.count.zero?
-  .lead.center{ style: 'margin-top: 40px;' }
+  .lead.center{ style: "margin-top: 40px;" }
     No reviews for this tool.
-    = succeed '.' do
-      = link_to 'Write a review', new_community_tool_community_tool_review_path(@community_tool)
+    = succeed "." do
+      = link_to "Write a review", new_community_tool_community_tool_review_path(@community_tool)
 - else
   .dashboard-container
     %table.table.table-striped.table-borderless.table-hover
-      %col{ width: '1px' }
+      %col{ width: "1px" }
       %col
       %thead
         %tr
@@ -39,9 +36,9 @@
       %tbody
         - @community_tool_reviews.each do |community_tool_review|
           %tr
-            %td= render 'community_tools/rating', rating: community_tool_review.rating
+            %td= render "community_tools/rating", rating: community_tool_review.rating
             %td
               %i= link_to community_tool_review.user.forum_name, community_tool_community_tool_review_path(@community_tool, community_tool_review)
-              %small.text-muted= community_tool_review.created_at.strftime('- %b %-d, %Y')
+              %small.text-muted= community_tool_review.created_at.strftime("- %b %-d, %Y")
               = simple_markdown(community_tool_review.review)
-  .center-horizontally= paginate @community_tool_reviews, theme: 'bootstrap'
+  .center-horizontally= paginate @community_tool_reviews, theme: "bootstrap"

@@ -1,7 +1,4 @@
-- @title = 'Contribute a Tool'
-
-- content_for :body_class do
-  brand-background
+- @title = "Contribute a Tool"
 
 - content_for :header do
   .header-container
@@ -9,24 +6,24 @@
       %h1.page-heading
         = @title
 
-.sign-up-form{ style: 'margin-bottom: 20px' }
+.sign-up-form{ style: "margin-bottom: 20px" }
   .sign-up-form-title
     Where is your tool hosted?
 
-  = form_for @community_tool, url: contribute_tool_set_location_path, method: :post, html: { class: 'form-horizontal', id: 'contribute_tool_form' } do |f|
+  = form_for @community_tool, url: contribute_tool_set_location_path, method: :post, html: { class: "form-horizontal", id: "contribute_tool_form" } do |f|
     .form-group
-      = f.label :url, 'URL', class: 'col-md-2 control-label'
+      = f.label :url, "URL", class: "col-md-2 control-label"
       .col-md-10
-        = f.text_field :url, class: 'form-control', placeholder: 'https://github.com/...'
+        = f.text_field :url, class: "form-control", placeholder: "https://github.com/..."
         - if @community_tool.errors[:url].present?
-          %small.text-danger{ style: 'position: absolute;'} Please enter a valid URL.
+          %small.text-danger{ style: "position: absolute;"} Please enter a valid URL.
 
-.center{ style: 'margin-bottom: 20px' }
-  = link_to '#', data: { object: 'submit', target: '#contribute_tool_form' }, class: 'btn btn-primary btn-lg ', style: 'width:100%; max-width: 400px;' do
+.center{ style: "margin-bottom: 20px" }
+  = link_to "#", data: { object: "submit", target: "#contribute_tool_form" }, class: "btn btn-primary btn-lg ", style: "width:100%; max-width: 400px;" do
     Continue
     %i.fa.fa-caret-right
 
-.jumbotron{ style: 'background-color: transparent;' }
+.jumbotron{ style: "background-color: transparent;" }
   %p
     The following tools are welcome on the NSRR.
 

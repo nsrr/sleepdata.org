@@ -1,7 +1,4 @@
-- @title = 'Site Map'
-
-- content_for :body_class do
-  brand-background
+- @title = "Site Map"
 
 .about-header
   NSRR Site Map
@@ -15,28 +12,28 @@
       %strong
         Team
       %ul
-        %li= link_to 'NSRR Info', about_path
-        %li= link_to 'Team', team_path
-        %li= link_to 'Academic User Group', aug_path
-        %li= link_to 'Past Contributors', contributors_path
+        %li= link_to "NSRR Info", about_path
+        %li= link_to "Team", team_path
+        %li= link_to "Academic User Group", aug_path
+        %li= link_to "Past Contributors", contributors_path
     .col-md-3
       %strong
         News
       %ul
-        %li= link_to 'Blog', blog_path
+        %li= link_to "Blog", blog_path
     .col-md-3
       %strong
         Learn
       %ul
-        %li= link_to 'Challenges', challenges_path
-        %li= link_to 'Demo', demo_path
-        %li= link_to 'Showcase', showcase_path
+        %li= link_to "Challenges", challenges_path
+        %li= link_to "Demo", demo_path
+        %li= link_to "Showcase", showcase_path
     .col-md-3
       %strong
         Support
       %ul
-        %li= link_to 'Contact Us', contact_path
-        %li= link_to 'Forum', topics_path
+        %li= link_to "Contact Us", contact_path
+        %li= link_to "Forum", topics_path
 
 .about-section-title
   Resources
@@ -45,13 +42,13 @@
   .row
     .col-md-6
       %strong
-        = link_to 'Datasets', datasets_path
+        = link_to "Datasets", datasets_path
       %ul
         - Dataset.released.order(:name).each do |dataset|
           %li= link_to dataset.name, dataset
     .col-md-6
       %strong
-        = link_to 'Tools', tools_path
+        = link_to "Tools", tools_path
       %ul
         - CommunityTool.current.where(published: true).order(:name).each do |community_tool|
           %li= link_to community_tool.name, community_show_tool_path(community_tool)
@@ -66,15 +63,15 @@
       %strong
         New Account
       %ul
-        %li= link_to 'Register a New Account', new_user_registration_path
+        %li= link_to "Register a New Account", new_user_registration_path
 
     .col-md-6
       %strong
         My Account
       %ul
-        %li= link_to 'My Dashboard', dashboard_path
-        %li= link_to 'My Data Access and Use Agreements', submissions_path
-        %li= link_to 'Change My Forum Username', settings_path
-        %li= link_to 'Change My Email Address', settings_path
-        %li= link_to 'Update My Personal Information', settings_path
-        %li= link_to 'Reset My Password', new_user_password_path
+        %li= link_to "My Dashboard", dashboard_path
+        %li= link_to "My Data Access and Use Agreements", submissions_path
+        %li= link_to "Change My Forum Username", settings_path
+        %li= link_to "Change My Email Address", settings_path
+        %li= link_to "Update My Personal Information", settings_path
+        %li= link_to "Reset My Password", new_user_password_path

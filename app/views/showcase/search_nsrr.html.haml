@@ -1,7 +1,4 @@
-- @title = 'NSRR Cross Dataset Query Interface'
-
-- content_for :body_class do
-  brand-background
+- @title = "NSRR Cross Dataset Query Interface"
 
 - content_for :header do
   .header-container
@@ -9,9 +6,9 @@
       %h1.page-heading
         = @title
 
-.center= image_tag 'physiomimi_logo.png', class: 'img-thumbnail box-shadow'
+.center= image_tag "physiomimi_logo.png", class: "img-thumbnail box-shadow"
 
-%a.anchor-top{ name: 'search-across-datasets' }
+%a.anchor-top{ name: "search-across-datasets" }
 .about-section-title
   Search across datasets.
 
@@ -19,54 +16,54 @@
   %p
     Create powerful queries across datasets available on the NSRR.
 
-  .center{ style: 'max-width: 1200px;margin: 40px auto 0px auto;' }
-    = image_tag 'https://sleepdata.org/image/Bn5Mnx', class: 'img-responsive'
+  .center{ style: "max-width: 1200px;margin: 40px auto 0px auto;" }
+    = image_tag "https://sleepdata.org/image/Bn5Mnx", class: "img-responsive"
 
 
-%a.anchor-top{ name: 'graphical-exploration' }
+%a.anchor-top{ name: "graphical-exploration" }
 .about-section-title
   Dynamically plot variables.
 
 .dashboard-container
   .row
     .col-md-6
-      %p.hidden-xs.hidden-sm.text-right{ style: 'margin-top:80px;' }
+      %p.hidden-xs.hidden-sm.text-right{ style: "margin-top:80px;" }
         Select two variables and click
         %strong Graph Distribution.
       %p.visible-xs.visible-sm.text-center
         Select two variables and click
         %strong Graph Distribution.
     .col-md-6
-      = image_tag 'https://sleepdata.org/image/Eba5b7', class: 'img-responsive'
+      = image_tag "https://sleepdata.org/image/Eba5b7", class: "img-responsive"
 
 .about-section-title
   Find interesting correlations.
 .dashboard-container
-  .row{ style: 'margin-top: 20px' }
+  .row{ style: "margin-top: 20px" }
     .col-md-6
       %p.visible-xs.visible-sm.text-center
         Download complete datasets for offline analysis from the
-        = succeed '.' do
-          = link_to 'NSRR website', ENV['website_url']
+        = succeed "." do
+          = link_to "NSRR website", ENV["website_url"]
 
-      = image_tag 'https://sleepdata.org/image/2eq5ex', class: 'img-responsive hidden-xs hidden-sm'
+      = image_tag "https://sleepdata.org/image/2eq5ex", class: "img-responsive hidden-xs hidden-sm"
     .col-md-6
-      %p.hidden-xs.hidden-sm{ style: 'margin-top:80px;' }
+      %p.hidden-xs.hidden-sm{ style: "margin-top:80px;" }
         Download complete datasets for offline analysis from the
-        = succeed '.' do
-          = link_to 'NSRR website', ENV['website_url']
+        = succeed "." do
+          = link_to "NSRR website", ENV["website_url"]
 
-      = image_tag 'https://sleepdata.org/image/2eq5ex', class: 'img-responsive visible-xs visible-sm'
+      = image_tag "https://sleepdata.org/image/2eq5ex", class: "img-responsive visible-xs visible-sm"
 
-%a.anchor-top{ name: 'get-started-now' }
-- content_for :call_to_action do
+%a.anchor-top{ name: "get-started-now" }
+- content_for :footer do
   .call-to-action
     .call-to-action-header
       Start your cross dataset exploration now.
     .call-to-action-body
-      = link_to 'Start a Query', 'https://www.x-search.net/queries/builder', class: 'btn btn-primary btn-shadow'
+      = link_to "Start a Query", "https://www.x-search.net/queries/builder", class: "btn btn-primary btn-shadow"
 
     .call-to-action-body
       Not sure yet?
-      = link_to 'Learn more', tool_path('physiomimi')
+      = link_to "Learn more", tool_path("physiomimi")
       about the NSRR Cross Dataset Query Interface.

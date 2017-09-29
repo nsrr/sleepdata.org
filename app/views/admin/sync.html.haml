@@ -1,9 +1,6 @@
-- @title = 'Sync Status'
+- @title = "Sync Status"
 
-- content_for :body_class do
-  brand-background
-
-= render 'internal/profile_header', title: @title
+= render "internal/profile_header", title: @title
 
 - Dataset.current.order(:name).each do |dataset|
-  = render 'documentation/sync', local_commit: dataset.local_commit, remote_commit: dataset.remote_commit, object: dataset, back: 'sync'
+  = render "documentation/sync", local_commit: dataset.local_commit, remote_commit: dataset.remote_commit, object: dataset, back: "sync"

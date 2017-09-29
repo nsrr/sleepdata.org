@@ -25,4 +25,4 @@
     %p.center
       We're here to help! Send your questions to
       = succeed "." do
-        = mail_to "support@sleepdata.org"
+        = mail_to ENV["support_email"]

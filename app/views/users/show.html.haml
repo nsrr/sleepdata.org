@@ -1,24 +1,21 @@
 - @title = @user.name
 
-- content_for :body_class do
-  brand-background
-
 - content_for :header do
   .header-container
     .container
       %h1.page-heading
         .pull-right
-          = render 'layouts/edit_delete_dropdown', edit_url: edit_user_path(@user), delete_url: @user, delete_confirmation: "Delete #{@user.name}?"
+          = render "layouts/edit_delete_dropdown", edit_url: edit_user_path(@user), delete_url: @user, delete_confirmation: "Delete #{@user.name}?"
         = @title
   .breadcrumb-container.mb-0
     .container
       %ol
-        %li= link_to 'Users', users_path
+        %li= link_to "Users", users_path
 
 .dashboard-container
   %table.table.table-striped.table-borderless
-    %col{ width: '25%' }
-    %col{ width: '75%' }
+    %col{ width: "25%" }
+    %col{ width: "75%" }
     %tr
       %th.text-right
         Email
@@ -83,7 +80,7 @@
       %th.text-right
         User Avatar
       %td
-        = image_tag @user.avatar_url, class: 'img-rounded'
+        = image_tag @user.avatar_url, class: "img-rounded"
 
     %tr
       %th.text-right
@@ -102,7 +99,7 @@
                 %td= status_helper(a)
                 %td
                   - a.datasets.order(:release_date, :name).each do |dataset|
-                    = render 'datasets/mini', dataset: dataset
+                    = render "datasets/mini", dataset: dataset
 
     %tr
       %th.text-right
@@ -127,13 +124,13 @@
                 %td
                   = dataset.name
                 %td
-                  = pluralize number_with_delimiter(download_count), 'file'
+                  = pluralize number_with_delimiter(download_count), "file"
                 %td
                   = number_to_human_size download_size
           %tfoot
             %th
               Total
             %th
-              = pluralize number_with_delimiter(download_counts.sum), 'file'
+              = pluralize number_with_delimiter(download_counts.sum), "file"
             %th
               = number_to_human_size(download_sizes.sum)

@@ -1,8 +1,5 @@
 - @title = "My Settings"
 
-- content_for :body_class do
-  brand-background
-
 .row
   .col-sm-3.col-md-3
     = render "internal/profile"
@@ -46,7 +43,9 @@
           .checkbox
             %label
               = form.check_box :emails_enabled
-              Allow the NSRR to send you emails when a topic receives a reply to which you are subscribed, and when someone mentions you on the forum. Unchecking this box will disable forum emails.
+              Allow the NSRR to send you emails when a topic receives a reply to
+              which you are subscribed, and when someone mentions you on the
+              forum. Unchecking this box will disable forum emails.
             .callout.callout-info
               %strong Note:
               You will still receive emails for:

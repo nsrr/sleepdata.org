@@ -1,7 +1,4 @@
-- @title = 'Contribute a Tool'
-
-- content_for :body_class do
-  brand-background
+- @title = "Contribute a Tool"
 
 - content_for :header do
   .header-container
@@ -11,25 +8,25 @@
 
 - register_visible = (@sign_in != true)
 
-#sign-up-form{ style: "#{'display: none;' unless register_visible}" }
+#sign-up-form{ style: "#{"display: none;" unless register_visible}" }
   .sign-up-form
     .sign-up-form-title
       About Yourself
 
-    = form_for @community_tool, url: contribute_tool_register_user_path, method: :post, html: { class: 'form-vertical', id: 'recaptcha-form' } do |f|
+    = form_for @community_tool, url: contribute_tool_register_user_path, method: :post, html: { class: "form-vertical", id: "recaptcha-form" } do |f|
       = f.hidden_field :url
 
-      = render 'layouts/form_group', errors: @registration_errors, object: :user, attribute: :first_name, attribute_name: 'First name'
+      = render "layouts/form_group", errors: @registration_errors, object: :user, attribute: :first_name, attribute_name: "First name"
 
-      = render 'layouts/form_group', errors: @registration_errors, object: :user, attribute: :last_name, attribute_name: 'Last name'
+      = render "layouts/form_group", errors: @registration_errors, object: :user, attribute: :last_name, attribute_name: "Last name"
 
-      = render 'layouts/form_group', errors: @registration_errors, object: :user, attribute: :email, attribute_name: 'Email'
+      = render "layouts/form_group", errors: @registration_errors, object: :user, attribute: :email, attribute_name: "Email"
 
       - invisible_recaptcha = false
       - if RECAPTCHA_ENABLED && !invisible_recaptcha
         .form-group
           %label.control-label Human Verification
-          .g-recaptcha{ data: { sitekey: ENV['recaptcha_site_key'] } }
+          .g-recaptcha{ data: { sitekey: ENV["recaptcha_site_key"] } }
           <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
       - if @registration_errors && @registration_errors[:recaptcha].present?
@@ -38,38 +35,38 @@
 
       .form-group.submit-btn-container
         - if RECAPTCHA_ENABLED && invisible_recaptcha
-          %button.g-recaptcha.btn.btn-primary.btn-block.btn-shadow{ data: { sitekey: ENV['recaptcha_site_key'], callback: 'recaptchaFormSubmit' } } Create an Account
+          %button.g-recaptcha.btn.btn-primary.btn-block.btn-shadow{ data: { sitekey: ENV["recaptcha_site_key"], callback: "recaptchaFormSubmit" } } Create an Account
           <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         - else
-          = f.submit 'Create an Account', class: 'btn btn-primary btn-block btn-shadow'
+          = f.submit "Create an Account", class: "btn btn-primary btn-block btn-shadow"
 
   .sign-up-form.center
-    = succeed '.' do
-      = link_to 'I already have an account', '#', data: { object: 'toggle-sign-up' }, tabindex: '-1'
+    = succeed "." do
+      = link_to "I already have an account", "#", data: { object: "toggle-sign-up" }, tabindex: "-1"
 
-#sign-in-form{ style: "#{'display: none;' if register_visible}" }
+#sign-in-form{ style: "#{"display: none;" if register_visible}" }
   .sign-up-form
     .sign-up-form-title
       About Yourself
 
-    = form_for @community_tool, url: contribute_tool_sign_in_user_path, method: :patch, html: { class: 'form-vertical', id: 'form_sign_in' } do |f|
+    = form_for @community_tool, url: contribute_tool_sign_in_user_path, method: :patch, html: { class: "form-vertical", id: "form_sign_in" } do |f|
       = f.hidden_field :url
 
-      .form-group{ class: @sign_in_errors ? 'has-error' : '' }
-        = label_tag :email, 'Email', class: 'control-label'
-        = email_field_tag :email, '', class: 'form-control'
+      .form-group{ class: @sign_in_errors ? "has-error" : "" }
+        = label_tag :email, "Email", class: "control-label"
+        = email_field_tag :email, "", class: "form-control"
 
-      .form-group{ class: @sign_in_errors ? 'has-error' : '' }
-        = label_tag :password, 'Password', class: 'control-label'
-        = link_to '(Forgot password?)', new_user_password_path, tabindex: '-1'
-        = password_field_tag :password, '', class: 'form-control', autocomplete: 'off'
+      .form-group{ class: @sign_in_errors ? "has-error" : "" }
+        = label_tag :password, "Password", class: "control-label"
+        = link_to "(Forgot password?)", new_user_password_path, tabindex: "-1"
+        = password_field_tag :password, "", class: "form-control", autocomplete: "off"
         - if @sign_in_errors
           %small.text-danger Invalid email or password.
 
       .form-group.submit-btn-container
-        = f.submit 'Sign in', class: 'btn btn-primary btn-block btn-shadow'
+        = f.submit "Sign in", class: "btn btn-primary btn-block btn-shadow"
 
   .sign-up-form.center
     New to the NSRR?
-    = succeed '.' do
-      = link_to "I don't have an account", '#', data: { object: 'toggle-sign-up' }
+    = succeed "." do
+      = link_to "I don't have an account", "#", data: { object: "toggle-sign-up" }

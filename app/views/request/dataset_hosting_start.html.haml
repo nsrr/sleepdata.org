@@ -1,7 +1,4 @@
-- @title = 'Dataset Hosting Request'
-
-- content_for :body_class do
-  brand-background
+- @title = "Dataset Hosting Request"
 
 - content_for :header do
   .header-container
@@ -13,26 +10,26 @@
   Tell us about the type of data you would like hosted.
 
 .dashboard-container
-  = form_for @hosting_request, url: dataset_hosting_set_description_path, method: :post, html: { class: 'form-horizontal', id: 'dataset_hosting_form' } do |f|
+  = form_for @hosting_request, url: dataset_hosting_set_description_path, method: :post, html: { class: "form-horizontal", id: "dataset_hosting_form" } do |f|
     .form-group
-      = f.label :institution_name, 'Institution Name', class: 'col-md-2 control-label'
+      = f.label :institution_name, "Institution Name", class: "col-md-2 control-label"
       .col-md-10
-        = f.text_field :institution_name, class: 'form-control'
+        = f.text_field :institution_name, class: "form-control"
         - if @hosting_request.errors[:institution_name].present?
           %small.text-danger
             Please provide the name of your institution.
 
     .form-group
-      = f.label :description, 'Description', class: 'col-md-2 control-label'
+      = f.label :description, "Description", class: "col-md-2 control-label"
       .col-md-10
-        = f.text_area :description, rows: 7, class: 'form-control', placeholder: 'Describe the dataset you would like hosted.'
+        = f.text_area :description, rows: 7, class: "form-control", placeholder: "Describe the dataset you would like hosted."
         - if @hosting_request.errors[:description].present?
           %small.text-danger
             Please describe your dataset you wish to have hosted.
 
     .form-group
       .col-md-offset-2.col-md-10
-        = f.submit 'Continue', class: 'btn btn-primary btn-lg btn-shadow'
+        = f.submit "Continue", class: "btn btn-primary btn-lg btn-shadow"
 
 .dashboard-container-narrow
   %p
@@ -40,5 +37,5 @@
 
   %p
     You may also use the
-    = link_to 'NSRR Data Sharing language', datasharing_path
+    = link_to "NSRR Data Sharing language", datasharing_path
     in your grant to fulfill NIH data-sharing requirements.

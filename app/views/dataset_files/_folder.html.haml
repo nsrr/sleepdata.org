@@ -25,7 +25,7 @@
           = link_to "DAUA", submissions_path
       .call-to-action-body
         Please contact us directly at
-        = mail_to "support@sleepdata.org"
+        = mail_to ENV["support_email"]
         with any questions.
     - elsif agreement = agreements.find_by(status: "resubmit")
       .call-to-action-body
@@ -56,7 +56,7 @@
         to gain file access.
       .call-to-action-body
         You may contact us directly at
-        = mail_to "support@sleepdata.org"
+        = mail_to ENV["support_email"]
         with any questions regarding the process.
     - else
       .call-to-action-body

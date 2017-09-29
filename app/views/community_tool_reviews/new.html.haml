@@ -1,8 +1,5 @@
 - @title = "Write a review - #{@community_tool.name}"
 
-- content_for :body_class do
-  brand-background
-
 - content_for :header do
   .header-container
     .container
@@ -14,4 +11,4 @@
         %li= link_to @community_tool.name, community_show_tool_path(@community_tool)
 
 .dashboard-container
-  = render 'form', community_tool_review: @community_tool_review
+  = render "form", community_tool_review: @community_tool_review

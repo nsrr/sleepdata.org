@@ -1,9 +1,6 @@
 - @title = [params[:search], "Search"].reject(&:blank?).join(" - ")
 - @menu_title = ["Search", params[:search]].reject(&:blank?).join(" ")
 
-- content_for :body_class do
-  brand-background
-
 - content_for :header do
   .header-container
     .container

@@ -1,7 +1,4 @@
-- @title = 'Where to Start'
-
-- content_for :body_class do
-  brand-background
+- @title = "Where to Start"
 
 - content_for :header do
   .header-container
@@ -17,7 +14,7 @@
     1. Choose a dataset.
   %p
     The
-    = link_to 'SHHS dataset', datasets_path('shhs')
+    = link_to "SHHS dataset", datasets_path("shhs")
     is one of our most popular datasets. Datasets have different populations and
     demographics, so pick one based on your research interest.
 
@@ -29,7 +26,7 @@
     We've streamlined the data request process to quickly get you access to a
     number of rich datasets. The process allows us to aid you in selecting a
     dataset appropriate for your research. You can
-    = mail_to ENV['support_email'], 'email us'
+    = mail_to ENV["support_email"], "email us"
     if you need help with this process.
 
 .dashboard-container-narrow
@@ -43,7 +40,7 @@
     folder typically contains demographics, anthropometry, questionnaires,
     outcomes, in CSV spreadsheets. For downloading large signal files, we
     recommend
-    = link_to 'downloading and installing', demo_path + '#download-data'
+    = link_to "downloading and installing", demo_path + "#download-data"
     the NSRR downloader gem, which lets you download entire datasets at a time,
     allows you to pause and resume, and checks file integrity after download.
 
@@ -53,10 +50,10 @@
 
   %p
     You may already have tools to analyze data. If you don't, we have a list of
-    = succeed ',' do
-      = link_to 'community contributed tools', tools_path
+    = succeed "," do
+      = link_to "community contributed tools", tools_path
     and a
-    = link_to 'forum', topics_path
+    = link_to "forum", topics_path
     to get help with any of the hosted tools and data. We also encourage you to
     share any tools you may have that could help other researchers on the NSRR.
 
@@ -67,12 +64,12 @@
   %p
     If you plan on publishing, using data from the NSRR, please remember to cite
     the NSRR, and
-    = mail_to ENV['support_email'], 'let us know'
+    = mail_to ENV["support_email"], "let us know"
     so we can better track publications linked to our resource.
 
-- content_for :call_to_action do
+- content_for :footer do
   .call-to-action
     .call-to-action-header
       Ready to get started?
     .call-to-action-body
-      = link_to 'Explore Available Datasets', datasets_path, class: 'btn btn-primary btn-lg btn-shadow'
+      = link_to "Explore Available Datasets", datasets_path, class: "btn btn-primary btn-lg btn-shadow"

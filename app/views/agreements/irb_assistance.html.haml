@@ -1,12 +1,9 @@
-- @title = 'IRB Assistance'
-
-- content_for :body_class do
-  brand-background
+- @title = "IRB Assistance"
 
 - content_for :header do
   .header-container
     .container
-      %h1.page-heading.brand.center{ style: 'margin-bottom: 20px;' }
+      %h1.page-heading.brand.center{ style: "margin-bottom: 20px;" }
         Brigham and Women's Hospital
       .center
         %p.lead
@@ -60,6 +57,6 @@
     full IRB review and that approval letter would be attached to the DAUA.
 
 .center
-  = link_to 'JavaScript:window.close()', class: 'btn btn-light btn-lg btn-shadow' do
+  = link_to "JavaScript:window.close()", class: "btn btn-light btn-lg btn-shadow" do
     %i.fa.fa-caret-left
     Back to my Submission

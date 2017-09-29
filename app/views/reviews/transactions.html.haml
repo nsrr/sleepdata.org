@@ -1,11 +1,8 @@
 - @agreement_transactions = @agreement.agreement_transactions
 - agreement_transaction_total = @agreement_transactions.count
 
-- @title = 'Transactions'
+- @title = "Transactions"
 - @menu_title = "#{@agreement.name} #{@title}"
-
-- content_for :body_class do
-  brand-background
 
 - content_for :header do
   .header-container
@@ -15,7 +12,7 @@
   .breadcrumb-container.mb-0
     .container
       %ol
-        %li= link_to 'Reviews', reviews_path
+        %li= link_to "Reviews", reviews_path
         %li= link_to @agreement.name, review_path(@agreement)
 
 %table.table.table-striped
@@ -26,7 +23,7 @@
       %th Type
       %th Created At
 
-  - ignore_mask_attributes = ['irb', 'last_submitted_at', 'submitted_at', 'resubmitted_at', 'status', 'comments', 'secured_device', 'human_subjects_protections_trained', 'unauthorized_to_sign', 'has_read_step3', 'has_read_step5', 'data_user_type', 'irb_evidence_type']
+  - ignore_mask_attributes = ["irb", "last_submitted_at", "submitted_at", "resubmitted_at", "status", "comments", "secured_device", "human_subjects_protections_trained", "unauthorized_to_sign", "has_read_step3", "has_read_step5", "data_user_type", "irb_evidence_type"]
 
   - @agreement_transactions.each_with_index do |t, index|
     %tbody
@@ -34,7 +31,7 @@
         %td= "##{agreement_transaction_total - index}"
         - if t.user
           %td
-            = image_tag t.user.avatar_url(16, "identicon"), size: '16x16', alt: '', style: 'vertical-align: middle', class: 'img-rounded'
+            = image_tag t.user.avatar_url(16, "identicon"), size: "16x16", alt: "", style: "vertical-align: middle", class: "img-rounded"
             = t.user.name
             &middot;
             = t.remote_ip
@@ -54,16 +51,16 @@
                 %th Diff
                 %th Value After
             - t.agreement_transaction_audits.each do |a|
-              - if a.agreement_attribute_name == 'dataset_ids'
+              - if a.agreement_attribute_name == "dataset_ids"
                 - a.value_before = Dataset.where(id: a.value_before.to_s.split(/[\[\],]/)).pluck(:slug).sort
                 - a.value_after = Dataset.where(id: a.value_after.to_s.split(/[\[\],]/)).pluck(:slug).sort
               %tr
                 %td.nowrap
                   = a.agreement_attribute_name
-                %td{ class: "#{'text-muted' if a.value_before == nil or a.value_before == ''}" }
+                %td{ class: "#{"text-muted" if a.value_before == nil or a.value_before == ""}" }
                   - if a.value_before == nil
                     nil
-                  - elsif a.value_before == ''
+                  - elsif a.value_before == ""
                     %span{ rel: "tooltip", title: "Blank Response", data: { placement: "right" } } &#9872;
                   - else
                     = a.value_before
@@ -71,10 +68,10 @@
                   - unless ignore_mask_attributes.include?(a.agreement_attribute_name)
                     - diff = Differ.diff_by_char(a.value_after.to_s, a.value_before.to_s)
                     = diff.format_as(:html).html_safe
-                %td{ class: "#{'text-muted' if a.value_after == nil or a.value_after == ''}" }
+                %td{ class: "#{"text-muted" if a.value_after == nil or a.value_after == ""}" }
                   - if a.value_after == nil
                     nil
-                  - elsif a.value_after == ''
+                  - elsif a.value_after == ""
                     %span{ rel: "tooltip", title: "Blank Response", data: { placement: "right" } } &#9872;
                   - else
                     = a.value_after

@@ -1,8 +1,5 @@
 - @title = "Tools"
 
-- content_for :body_class do
-  brand-background
-
 - if false
   %p.lead Bookmark a Tool
   %p.lead Popular Requests
@@ -96,7 +93,7 @@
   .center-horizontally= paginate @community_tools, theme: "bootstrap"
 
 - if params[:search].blank? && @community_tools.count > 10
-  - content_for :call_to_action do
+  - content_for :footer do
     .call-to-action
       .call-to-action-body
         %strong Are you a tool developer?

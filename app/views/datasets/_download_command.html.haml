@@ -1,19 +1,19 @@
 - @current_folder = @dataset.find_file_folder(params[:path])
-- @local_folder = [@dataset.slug, @current_folder].compact.join('/').gsub(/\/$/, '')
+- @local_folder = [@dataset.slug, @current_folder].compact.join("/").gsub(/\/$/, "")
 
 .code-container
   %span.code-command-blank
-    = link_to '#', data: { object: 'suppress-click', clipboard_text: "nsrr download #{@local_folder}", placement: 'bottom', container: 'body', title: 'Copied!', trigger: 'manual' }, style: 'text-decoration: none' do
+    = link_to "#", data: { object: "suppress-click", clipboard_text: "nsrr download #{@local_folder}", placement: "bottom", container: "body", title: "Copied!", trigger: "manual" }, style: "text-decoration: none" do
       %i.fa.fa-clipboard
     nsrr download
     = @local_folder
 
-- content_for :call_to_action do
+- content_for :footer do
   .call-to-action
     .call-to-action-body
-      %strong Don't have the NSRR gem?
+      %strong Don"t have the NSRR gem?
     .call-to-action-body
       Install using our
-      = link_to 'https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites', class: 'btn btn-primary btn-shadow' do
+      = link_to "https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites", class: "btn btn-primary btn-shadow" do
         .d-none.d-sm-inline-block NSRR Gem
         Installation Instructions

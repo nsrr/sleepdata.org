@@ -1,7 +1,4 @@
-- @title = 'New Blog Post'
-
-- content_for :body_class do
-  brand-background
+- @title = "New Blog Post"
 
 - content_for :header do
   .header-container
@@ -11,7 +8,7 @@
   .breadcrumb-container.mb-0
     .container
       %ol
-        %li= link_to 'Blog Posts', broadcasts_path
+        %li= link_to "Blog Posts", broadcasts_path
 
 .dashboard-container
-  = render 'form'
+  = render "form"

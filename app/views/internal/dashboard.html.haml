@@ -1,6 +1,3 @@
-- content_for :body_class do
-  brand-background
-
 .row
   .col-sm-3.col-md-3
     = render "internal/profile"
@@ -55,7 +52,7 @@
         %p
           If you need any help, you may send us an email at
           = succeed "." do
-            = mail_to "support@sleepdata.org"
+            = mail_to ENV["support_email"]
 
     .dashboard-container
       .dashboard-title
@@ -90,7 +87,7 @@
     .dashboard-container
       .center
         Email us at
-        = mail_to "support@sleepdata.org"
+        = mail_to ENV["support_email"]
         with any questions!
 
   .hidden-xs.hidden-sm.col-md-3

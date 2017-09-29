@@ -1,6 +1,3 @@
-- content_for :body_class do
-  brand-background
-
 .row
   .col-sm-3
     = render "internal/profile"
@@ -16,7 +13,7 @@
       %p
         If you need any help, you may send us an email at
         = succeed "." do
-          = mail_to "support@sleepdata.org"
+          = mail_to ENV["support_email"]
 
       = link_to "Start A New Data Access Request", submissions_start_path, class: "btn btn-primary btn-block"
 

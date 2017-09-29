@@ -1,7 +1,4 @@
-- @title = 'About'
-
-- content_for :body_class do
-  brand-background
+- @title = "About"
 
 .about-header
   The National Sleep
@@ -17,15 +14,15 @@
 
   %p
     The NSRR encourages interested researchers, educators, and trainees to
-    = succeed '.' do
-      = link_to 'join its community', new_user_registration_path
+    = succeed "." do
+      = link_to "join its community", new_user_registration_path
     Members can contribute their own data and tools for sharing, provide
     information and feedback on ways to improve sleep and physiological signal
     data exchange and analysis, and offer ideas on how to make NSRR and other
     resources work best for the scientific community.
 
-%p.center{ style: 'max-width: 64rem;margin-left: auto;margin-right: auto;line-height: 1.5em;font-style: italic;' }
-  = link_to 'https://www.ncbi.nlm.nih.gov/pubmed/27070134' do
+%p.center{ style: "max-width: 64rem;margin-left: auto;margin-right: auto;line-height: 1.5em;font-style: italic;" }
+  = link_to "https://www.ncbi.nlm.nih.gov/pubmed/27070134" do
     Scaling Up Scientific Discovery
     %br.hidden-sm.hidden-md.hidden-lg
     in Sleep Medicine:
@@ -33,7 +30,7 @@
     The National Sleep Research Resource.
 
 .about-section
-  %p{ style: 'text-align: center;' }
+  %p.text-center
     %small.text-muted
       The NSRR is supported by Grant Number HL114473
       %br
@@ -41,11 +38,11 @@
       %span.hidden-xs National Heart, Lung, and Blood Institute,
       %span.hidden-sm.hidden-md.hidden-lg NHLBI,
       NIH.
-  %p{ style: 'text-align: center;' }
+  %p.text-center
     %small.text-muted
       Proudly made by
-      = succeed '.' do
-        = link_to 'the NSRR team', team_path
+      = succeed "." do
+        = link_to "the NSRR team", team_path
 
 %hr.about-divider
 
@@ -57,7 +54,7 @@
 
 .about-section
   %p
-    = link_to 'https://www.physionet.org/' do
+    = link_to "https://www.physionet.org/" do
       PhysioNet
     provides access to large and diverse collections of recorded physiologic
     signals and related open-source software. PhysioNet currently includes over
@@ -72,7 +69,7 @@
 .about-section
   %p
     The
-    = link_to 'Database of Genotypes and Phenotypes', 'https://www.ncbi.nlm.nih.gov/gap'
+    = link_to "Database of Genotypes and Phenotypes", "https://www.ncbi.nlm.nih.gov/gap"
     is a National Institutes of Health sponsored repository charged to archive,
     curate and distribute information produced by studies investigating the
     interaction of genotype and phenotype.
@@ -83,7 +80,7 @@
 .about-section.about-section-bottom
   %p
     The National Heart, Lung and Blood Institute
-    = link_to 'Biologic Specimen and Data Repository Information Coordinating Center', 'https://biolincc.nhlbi.nih.gov/home/'
+    = link_to "Biologic Specimen and Data Repository Information Coordinating Center", "https://biolincc.nhlbi.nih.gov/home/"
     is the coming together of two entities: the NHLBI Biologic Specimen
     Repository, managed by the NHLBI, Division of Blood
     Diseases and Resources, Transfusion Medicine and Cellular

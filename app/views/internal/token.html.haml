@@ -1,7 +1,4 @@
-- @title = 'Token'
-
-- content_for :body_class do
-  brand-background
+- @title = "Token"
 
 - content_for :header do
   .header-container
@@ -13,5 +10,5 @@
   %code.code-token>
     = current_user.id_and_auth_token
   %code.code-copy
-    = link_to '#', data: { object: 'suppress-click', clipboard_text: current_user.id_and_auth_token, placement: 'bottom', container: 'body', title: 'Copied!', trigger: 'manual' } do
+    = link_to "#", data: { object: "suppress-click", clipboard_text: current_user.id_and_auth_token, placement: "bottom", container: "body", title: "Copied!", trigger: "manual" } do
       %i.fa.fa-clipboard

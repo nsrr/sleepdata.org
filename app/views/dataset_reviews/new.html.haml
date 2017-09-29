@@ -1,8 +1,5 @@
 - @title = "Write a review - #{@dataset.name}"
 
-- content_for :body_class do
-  brand-background
-
 - content_for :header do
   .header-container
     .container
@@ -14,4 +11,4 @@
         %li= link_to @dataset.name, @dataset
 
 .dashboard-container
-  = render 'form', dataset_review: @dataset_review
+  = render "form", dataset_review: @dataset_review

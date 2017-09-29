@@ -1,7 +1,4 @@
-- @title = 'Challenges'
-
-- content_for :body_class do
-  brand-background
+- @title = "Challenges"
 
 - content_for :header do
   .header-container
@@ -9,7 +6,7 @@
       %h1.page-heading
         - if current_user && current_user.system_admin?
           .pull-right
-            = link_to plus_or('New Challenge'), new_challenge_path, class: 'btn btn-primary btn-shadow'
+            = link_to plus_or("New Challenge"), new_challenge_path, class: "btn btn-primary btn-shadow"
         = @title
 .center
   %p.lead
@@ -23,8 +20,8 @@
 
   %p
     Learn more about the
-    = succeed '!' do
-      = link_to 'Flow Limitation Challenge - Part 2', challenge_path('flow-limitation-2')
+    = succeed "!" do
+      = link_to "Flow Limitation Challenge - Part 2", challenge_path("flow-limitation-2")
 
 
   - if @challenges.size > 1 && false
@@ -39,4 +36,4 @@
   %p The following challenges are no longer active.
 
   %p
-    = link_to 'Flow Limitation Challenge', challenge_path('flow-limitation')
+    = link_to "Flow Limitation Challenge", challenge_path("flow-limitation")

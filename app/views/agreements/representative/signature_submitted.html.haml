@@ -1,12 +1,9 @@
-- @title = 'Submission Complete'
-
-- content_for :body_class do
-  brand-background
+- @title = "Submission Complete"
 
 - content_for :header do
   .header-container
     .container
-      %h1.page-heading.center{ style: 'margin-bottom: 20px;' }
+      %h1.page-heading.center{ style: "margin-bottom: 20px;" }
         = @title
       .center
         %p.lead
@@ -16,9 +13,9 @@
   %p.center
     If you have any questions regarding this process, you can contact us at:
   %p.center
-    = mail_to ENV['support_email']
+    = mail_to ENV["support_email"]
 
 .center
-  = link_to about_path, class: 'btn btn-lg btn-link' do
+  = link_to about_path, class: "btn btn-lg btn-link" do
     About the NSRR
     %i.fa.fa-caret-right

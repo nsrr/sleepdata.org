@@ -1,4 +1,4 @@
-- content_for :banner do
+- content_for :header do
   .banner
     .container
       .banner-body.center Participate in the
@@ -8,7 +8,7 @@
         Non-Invasive Identification of Inspiratory Flow Limitation in Sleep
         Studies
       .banner-body.center
-        = image_tag 'flow-limitation-logo.png'
+        = image_tag "flow-limitation-logo.png"
 
 %p
   Working Group for the ATS 2015 Workshop "Non-Invasive Identification of
@@ -16,7 +16,7 @@
   Ayappa, John Kimoff, Luciana Palombini, David M. Rapoport, Susan
   Redline.
 
-%a.anchor-top{ name: 'about-the-challenge' }
+%a.anchor-top{ name: "about-the-challenge" }
 
 %h2
   About This Initiative
@@ -73,9 +73,9 @@
     Inspiratory Flow limitation in Sleep Studies".
 
 
-- content_for :call_to_action do
+- content_for :footer do
   .call-to-action
     .call-to-action-header
       Help us better define Inspiratory Flow Limitation!
     .call-to-action-body
-      = link_to 'Get Started Now &raquo;'.html_safe, signal_challenge_path(@challenge, signal: '1'), class: 'btn btn-call-to-action btn-lg btn-shadow'
+      = link_to "Get Started Now &raquo;".html_safe, signal_challenge_path(@challenge, signal: "1"), class: "btn btn-call-to-action btn-lg btn-shadow"

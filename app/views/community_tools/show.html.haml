@@ -1,21 +1,18 @@
 - @title = @community_tool.name
 
-- content_for :body_class do
-  brand-background
-
 - content_for :header do
   .header-container
     .container
       %h1.page-heading
         .pull-right
-          = render 'layouts/edit_delete_dropdown', edit_url: edit_community_tool_path(@community_tool), delete_url: @community_tool, delete_confirmation: "Delete #{@community_tool.name}?"
+          = render "layouts/edit_delete_dropdown", edit_url: edit_community_tool_path(@community_tool), delete_url: @community_tool, delete_confirmation: "Delete #{@community_tool.name}?"
         = @title
   .breadcrumb-container.mb-0
     .container
       .pull-right
-        = render 'layouts/draft_published', published: @community_tool.published?
+        = render "layouts/draft_published", published: @community_tool.published?
       %ol
-        %li= link_to 'Tools', community_tools_path
+        %li= link_to "Tools", community_tools_path
 
 .dashboard-container
   %p

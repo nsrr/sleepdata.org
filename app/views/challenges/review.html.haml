@@ -1,4 +1,4 @@
-- content_for :banner do
+- content_for :header do
   .challenge-header
     .banner
       .container
@@ -13,9 +13,9 @@
   %h3
     Signal
     = signal
-    = link_to 'edit answers', signal_challenge_path(@challenge, signal), class: 'btn btn-sm btn-light'
+    = link_to "edit answers", signal_challenge_path(@challenge, signal), class: "btn btn-sm btn-light"
 
-  = image_tag images_challenge_path(@challenge, path: @challenge.signal_name(signal)), style: 'width: 100%;'
+  = image_tag images_challenge_path(@challenge, path: @challenge.signal_name(signal)), style: "width: 100%;"
 
   %table.table.table-fixed
     %thead
@@ -25,33 +25,33 @@
     %tbody
       %tr
         - range.each do |letter|
-          - number = format('%02d', signal)
+          - number = format("%02d", signal)
           - question_name = "signal#{number}#{letter.downcase}"
           - question = @challenge.questions.find_by_name(question_name)
           - answer = @challenge.answers.where(question_id: question.id, user_id: current_user.id).first_or_create
-          %td{ style: 'text-align:center' }
-            - case answer.response when 'yes'
+          %td.text-center
+            - case answer.response when "yes"
               %span.label.label-success Y
-            - when 'no'
+            - when "no"
               %span.label.label-danger N
-            - when 'intermediate'
+            - when "intermediate"
               %span.label.label-warning I
-            - when 'unscorable'
+            - when "unscorable"
               %span.label.label-default U
             - else
               %span.label{ style: "background-color: #FFF;color:#333;" } -
 
 
-- content_for :call_to_action do
+- content_for :footer do
   .call-to-action
     - if @challenge.survey_url.present?
       .call-to-action-header
         Almost done, answer a short survey on the next page!
 
       .call-to-action-body
-        = link_to 'Proceed to Survey', @challenge.survey_url, class: 'btn btn-call-to-action btn-lg btn-shadow'
+        = link_to "Proceed to Survey", @challenge.survey_url, class: "btn btn-call-to-action btn-lg btn-shadow"
     - else
       .call-to-action-header
         Almost done, continue below!
       .call-to-action-body
-        = link_to 'Complete Challenge', submitted_challenge_path(@challenge), class: 'btn btn-call-to-action btn-lg btn-shadow'
+        = link_to "Complete Challenge", submitted_challenge_path(@challenge), class: "btn btn-call-to-action btn-lg btn-shadow"

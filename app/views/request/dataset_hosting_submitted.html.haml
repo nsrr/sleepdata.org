@@ -1,12 +1,9 @@
-- @title = 'Submission Complete'
-
-- content_for :body_class do
-  brand-background
+- @title = "Submission Complete"
 
 - content_for :header do
   .header-container
     .container
-      %h1.page-heading.center{ style: 'margin-bottom: 20px;' }
+      %h1.page-heading.center{ style: "margin-bottom: 20px;" }
         = @title
       .center
         %p.lead
@@ -15,7 +12,7 @@
 .dashboard-container-narrow
   %p
     Dear
-    = succeed ',' do
+    = succeed "," do
       = current_user.first_name
 
   %p
@@ -28,7 +25,7 @@
   %p
     Don't hesitate to contact us at our email address with any further
     questions:
-    = mail_to 'support@sleepdata.org'
+    = mail_to ENV["support_email"]
 
   %p Kindly,
 
@@ -36,10 +33,10 @@
 
 .row
   .col-xs-12.col-sm-6.col-md-3.col-md-offset-3.col-buffer
-    = link_to datasets_path, class: 'btn btn-light btn-block btn-shadow' do
-      %i.fa.fa-database{ aria: { hidden: 'true' } }
+    = link_to datasets_path, class: "btn btn-light btn-block btn-shadow" do
+      %i.fa.fa-database{ aria: { hidden: "true" } }
       Back to Datasets
   .col-xs-12.col-sm-6.col-md-3
-    = link_to dashboard_path, class: 'btn btn-primary btn-block btn-shadow' do
-      %i.fa.fa-home{ aria: { hidden: 'true' } }
+    = link_to dashboard_path, class: "btn btn-primary btn-block btn-shadow" do
+      %i.fa.fa-home{ aria: { hidden: "true" } }
       Go to My Dashboard
