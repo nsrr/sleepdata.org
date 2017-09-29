@@ -117,6 +117,27 @@ Rails.application.routes.draw do
     resources :community_tool_reviews, path: "reviews"
   end
 
+  namespace :data_requests, path: "data/requests" do
+    get :start, path: ":dataset_id/start"
+    get :request_as_individual_or_organization, path: ":dataset_id/request-as/individual-or-organization"
+    post :update_individual_or_organization, path: ":dataset_id/request-as/individual-or-organization"
+    get :intended_use_noncommercial_or_commercial, path: ":dataset_id/intended-use/noncommercial-or-commercial"
+    post :update_noncommercial_or_commercial, path: ":dataset_id/intended-use/noncommercial-or-commercial"
+    get :page, path: ":data_request_id/page/:page"
+    post :update_page, path: ":data_request_id/page/:page"
+    get :attest, path: ":data_request_id/attest"
+    post :update_attest, path: ":data_request_id/attest"
+    get :addendum, path: ":data_request_id/addendum/:addendum"
+    get :addons, path: ":data_request_id/addons"
+    # get :attachments, path: ":data_request_id/attachments"
+    get :proof, path: ":data_request_id/proof"
+    get :signature, path: ":data_request_id/signature"
+    get :duly_authorized_representative_signature, path: ":data_request_id/duly_authorized_representative_signature"
+    post :submit, path: ":data_request_id/proof"
+    get :submitted, path: ":data_request_id/submitted"
+    get :print, path: ":data_request_id/print"
+  end
+
   scope module: :editor do
     resources :datasets, only: [:edit, :update] do
       member do

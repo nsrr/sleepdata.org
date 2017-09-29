@@ -1,0 +1,45 @@
+.col-12.col-md-3.col-xl-2.sidebar-wrapper
+  .sidebar
+    .sidebar-header.d-flex.align-items-center
+      .mr-auto
+        %strong= @data_request.final_legal_document.legal_document.organization.name
+
+      %button.btn-link.sidebar-header-toggle.d-md-none.p-0.ml-3{ type: "button", data: { toggle: "collapse", target: "#sidebar-nav-wrapper" }, aria: { controls: "sidebar-nav-wrapper", expanded: "false", label: "Toggle docs navigation" } }
+        %i.fa.fa-bars.fa-2x
+
+    - pages = @data_request.final_legal_document.final_legal_document_pages.where(rider: false).collect { |p| { name: "Page #{p.position}", url: data_requests_page_path(@data_request, p.position) } }
+    - addendums = @data_request.final_legal_document.final_legal_document_pages.where(rider: true).collect { |p| { name: p.title, url: data_requests_addendum_path(@data_request, p.position) } }
+    - groups = []
+    - groups << { name: "DAUA", url: data_requests_page_path(@data_request, 1), docs: pages } if pages.present?
+    - groups << { name: "Attestation", url: data_requests_attest_path(@data_request), docs: [{ name: "Attest", url: data_requests_attest_path(@data_request) }] } if @data_request.final_legal_document.attestation_type == "checkbox" || @data_request.final_legal_document.attestation_type == "signature"
+    - groups << { name: "Addendums", url: addendums.first[:url], docs: addendums } if addendums.present?
+    - groups << { name: "Addons", url: data_requests_addons_path(@data_request), docs: [] }
+    - groups << { name: "Proof", url: data_requests_proof_path(@data_request), docs: [] }
+    - groups << { name: "Submitted", url: data_requests_submitted_path(@data_request), docs: [] }
+    - groups << { name: "Print", url: data_requests_print_path(@data_request), docs: [] }
+
+    - random_number = rand(groups.size)
+
+    #sidebar-nav-wrapper.sidebar-nav-wrapper.collapse
+      %nav.sidebar-nav
+        - groups.each_with_index do |group, group_index|
+          .sidebar-nav-group{ class: random_number == group_index || true ? "active" : nil }
+            %a.sidebar-nav-group-link{ href: group.dig(:url) }
+              = group.dig(:name)
+
+            - if group.dig(:docs).present?
+              - random_docs_number = rand(group.dig(:docs).size)
+              %ul.nav.sidebar-nav-group-items
+                - group.dig(:docs).each_with_index do |doc, doc_index|
+                  %li{ class: current_page?(doc.dig(:url)) ? "active" : nil }
+                    %a{ href: doc.dig(:url) }
+                      - if doc_index == 0
+                        %i.fa.fa-check-square-o.text-success
+                      - else
+                        %i.fa.fa-square-o
+                      = doc.dig(:name)
+        .sidebar-nav-group
+          %a.sidebar-nav-group-link
+            %small.text-muted
+              %span= @data_request.final_legal_document.version
+              %span.small>= ".#{@data_request.final_legal_document.version_md5.first(7)}"

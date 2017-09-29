@@ -1,0 +1,36 @@
+%p.lead.text-center
+  Is your intended use of the data noncommercial or commercial?
+
+.card-deck
+  = link_to data_requests_update_noncommercial_or_commercial_path(dataset_id: @dataset, commercial_type: "noncommercial"), method: :post, class: "link-card card" do
+    .card-header.background-brand-white
+      .text-center.fa-hover{ style: "font-size: 6rem;" }
+        %i.fa.fa-gift
+      %h4.card-title.text-center Noncommercial
+
+    .card-body.background-p100-grey.text-dark
+      You are part of a non-profit organization, doing research and
+      writing publications. You are a student accessing data as part of a
+      classroom project. You are a teacher using data for academic
+      purposes.
+
+    .card-footer.background-p100-grey.text-center
+      .btn.btn-default.btn-link
+        My intended use is noncommercial
+        %i.fa.fa-caret-right
+
+  = link_to data_requests_update_noncommercial_or_commercial_path(dataset_id: @dataset, commercial_type: "commercial"), method: :post, class: "link-card card" do
+    .card-header.background-brand-white
+      .text-center.fa-hover{ style: "font-size: 6rem;" }
+        %i.fa.fa-money
+      %h4.card-title.text-center Commercial
+
+    .card-body.background-p100-grey.text-dark
+      You are doing research, algorithm development, or publications for a
+      commercial company with the goal of monetization. Algorithm development,
+      business, for profit.
+
+    .card-footer.background-p100-grey.text-center
+      .btn.btn-default.btn-link
+        My intended use is commercial
+        %i.fa.fa-caret-right

@@ -1,25 +1,23 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  final_legal_document_id: 1
-  final_legal_document_page_id: 1
+full_name:
+  final_legal_document: one
+  # final_legal_document_page: one
   position: 1
-  name: MyString
-  display_name: MyString
-  variable_type: MyString
-  description: MyText
-  field_note: MyString
-  required: false
-  deleted: false
+  name: full_name
+  display_name: Full Name
+  variable_type: string
+  # description:
+  # field_note:
+  # required: false
 
 two:
-  final_legal_document_id: 1
-  final_legal_document_page_id: 1
-  position: 1
-  name: MyString
-  display_name: MyString
-  variable_type: MyString
-  description: MyText
-  field_note: MyString
-  required: false
-  deleted: false
+  final_legal_document: one
+  # final_legal_document_page: one
+  position: 2
+  name: specific_purpose
+  display_name: Specific Purpose
+  variable_type: text
+  # description:
+  field_note: At least 20 words.
+  # required: false

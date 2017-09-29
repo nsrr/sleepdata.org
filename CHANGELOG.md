@@ -5,9 +5,12 @@
   - Improved landing page styling
 - **Admin Changes**
   - Improved Downloads by Quarter report loading speed
-- **Agreement Changes**
-  - Agreements now use [SignaturePad](https://github.com/szimek/signature_pad)
+- **Data Request Changes**
+  - Data requests now use
+    [SignaturePad](https://github.com/szimek/signature_pad)
     for capturing signatures
+  - Data requests now follow a simpler path, with a new left hand menu and a
+    simpler URL structure
 - **Dataset Changes**
   - Dataset status has been simplified:
     - `released`, also the same as `listed`, `public`, and

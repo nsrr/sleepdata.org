@@ -1,0 +1,10 @@
+- @title = "Print"
+.container-fluid
+  .row.flex-xl-nowrap
+    = render "data_requests/menu"
+
+    #agreement-helper-drawer.d-none.d-xl-block.col-xl.sidebar-drawer
+
+    %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
+      .page-box.last-box
+        .agreement-heading= @title

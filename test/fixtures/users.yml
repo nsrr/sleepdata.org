@@ -9,6 +9,11 @@ valid:
   encrypted_password: <%= pw %>
   authentication_token: 36a474715ba310edad629
 
+regular:
+  first_name: Regular
+  last_name: User
+  email: regular@example.com
+
 two:
   first_name: MyString
   last_name: MyString

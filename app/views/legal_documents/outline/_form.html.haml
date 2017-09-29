@@ -1,5 +1,5 @@
-- if @agreement
-  - agreement_variable = @agreement.agreement_variables.find_by(final_legal_document_variable_id: variable.id)
+- if @data_request
+  - agreement_variable = @data_request.agreement_variables.find_by(final_legal_document_variable_id: variable.id)
   - value = (agreement_variable ? agreement_variable.value : "")
 - else
   - value = ""

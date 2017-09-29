@@ -1,35 +1,33 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  organization_id: 1
-  legal_document_id: 1
-  name: MyString
-  slug: MyString
-  commercial_type: MyString
-  data_user_type: MyString
-  attestation_type: MyString
-  approval_process: MyString
+  organization: one
+  legal_document: one
+  name: DAUA NC-I
+  slug: daua-nc-i
+  commercial_type: noncommercial
+  data_user_type: individual
+  attestation_type: checkbox
+  approval_process: immediate
   version_major: 1
-  version_minor: 1
-  version_tiny: 1
-  version_build: MyString
-  version_md5: MyString
+  version_minor: 0
+  version_tiny: 0
+  # version_build:
+  version_md5: d41d8cd98f00b204e9800998ecf8427e
   published_at: 2017-09-22 14:13:31
-  deleted: false
 
 two:
-  organization_id: 1
-  legal_document_id: 1
-  name: MyString
-  slug: MyString
-  commercial_type: MyString
-  data_user_type: MyString
-  attestation_type: MyString
-  approval_process: MyString
+  organization: one
+  legal_document: two
+  name: DAUA C-O
+  slug: daua-c-o
+  commercial_type: commercial
+  data_user_type: organization
+  attestation_type: signature
+  approval_process: committee
   version_major: 1
-  version_minor: 1
-  version_tiny: 1
-  version_build: MyString
-  version_md5: MyString
+  version_minor: 0
+  version_tiny: 0
+  # version_build:
+  version_md5: d41d8cd98f00b204e9800998ecf8427e
   published_at: 2017-09-22 14:13:31
-  deleted: false

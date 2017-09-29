@@ -63,6 +63,13 @@ $(document)
     $($(this).data('target')).submit()
     false
   )
+  .on('click', '[data-object~="submit-draft-and-disable"]', ->
+    window.$isDirty = false
+    $(this).prop('disabled', true)
+    $('#data_request_draft_mode').val('1')
+    $($(this).data('target')).submit()
+    false
+  )
   .on('click', '[data-object~="hide-target"]', () ->
     $($(this).data('target')).hide()
     false

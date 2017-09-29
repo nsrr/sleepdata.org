@@ -39,7 +39,7 @@ class GearsController < ApplicationController
 
   # POST /gears/noncommercial-or-commercial
   def update_commercial_type
-    current_user.update commerical_type: params[:commerical_type] if %w(noncommercial commercial).include?(params[:commerical_type])
+    current_user.update commercial_type: params[:commercial_type] if %w(noncommercial commercial).include?(params[:commercial_type])
     redirect_to agreement_start_path(dataset_id: @dataset)
   end
 

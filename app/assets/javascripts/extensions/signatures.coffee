@@ -58,3 +58,24 @@ $(document)
   .on("touchend mouseup", ".signature-pad canvas", (event) ->
     resetHelpTexts()
   )
+  .on('click', '[data-object~="submit-signature-and-disable"]', ->
+    if window.$signaturePad.isEmpty()
+      alert 'Please provide signature first.'
+    else
+      window.$isDirty = false
+      $(this).prop("disabled", true)
+      $("#data_uri").val(window.$signaturePad.toDataURL())
+      $($(this).data("target")).submit()
+    false
+  )
+  .on('click', '[data-object~="submit-signature-draft-and-disable"]', ->
+    if window.$signaturePad.isEmpty()
+      alert 'Please provide signature first.'
+    else
+      window.$isDirty = false
+      $(this).prop("disabled", true)
+      $("#data_request_draft_mode").val("1")
+      $("#data_uri").val(window.$signaturePad.toDataURL())
+      $($(this).data("target")).submit()
+    false
+  )
