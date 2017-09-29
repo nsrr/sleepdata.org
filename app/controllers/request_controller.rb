@@ -3,7 +3,10 @@
 # This controller handles easy registration/sign in of users as part of a tool
 # contribution or request, or a dataset hosting request.
 class RequestController < ApplicationController
-  before_action :authenticate_user!, only: [:contribute_tool_description, :contribute_tool_set_description, :dataset_hosting_submitted]
+  before_action :authenticate_user!, only: [
+    :contribute_tool_description, :contribute_tool_set_description,
+    :dataset_hosting_submitted
+  ]
 
   def contribute_tool_start
     @community_tool = CommunityTool.new
@@ -28,7 +31,7 @@ class RequestController < ApplicationController
     unless current_user
       user = User.new(user_params)
       if RECAPTCHA_ENABLED && !verify_recaptcha
-        @registration_errors = { recaptcha: 'reCAPTCHA verification failed.' }
+        @registration_errors = { recaptcha: "reCAPTCHA verification failed." }
         render :contribute_tool_about_me
         return
       elsif user.save
@@ -63,13 +66,13 @@ class RequestController < ApplicationController
 
   def contribute_tool_description
     @community_tool = current_user.community_tools.find_by_param(params[:id])
-    redirect_to dashboard_path, alert: 'This tool does not exist.' unless @community_tool
+    redirect_to dashboard_path, alert: "This tool does not exist." unless @community_tool
   end
 
   def contribute_tool_set_description
     @community_tool = current_user.community_tools.find_by_param(params[:id])
     unless @community_tool
-      redirect_to dashboard_path, alert: 'This tool does not exist.'
+      redirect_to dashboard_path, alert: "This tool does not exist."
       return
     end
 
@@ -78,15 +81,15 @@ class RequestController < ApplicationController
       if already_published
         true
       else
-        (params[:draft] == '1' ? false : true)
+        (params[:draft] == "1" ? false : true)
       end
 
     if @community_tool.update(name: params[:community_tool][:name], description: params[:community_tool][:description], published: published)
       if published
         @community_tool.update(publish_date: Time.zone.today) if @community_tool.publish_date.blank?
-        redirect_to community_show_tool_path(@community_tool), notice: already_published ? 'Tool updated successfully.' : 'Tool published successfully.'
+        redirect_to community_show_tool_path(@community_tool), notice: already_published ? "Tool updated successfully." : "Tool published successfully."
       else
-        redirect_to dashboard_path, notice: 'Draft saved successfully.'
+        redirect_to dashboard_path, notice: "Draft saved successfully."
       end
     else
       render :contribute_tool_description
@@ -112,7 +115,7 @@ class RequestController < ApplicationController
     unless current_user
       user = User.new(user_params)
       if RECAPTCHA_ENABLED && !verify_recaptcha
-        @registration_errors = { recaptcha: 'reCAPTCHA verification failed.' }
+        @registration_errors = { recaptcha: "reCAPTCHA verification failed." }
         render :submissions_about_me
         return
       elsif user.save
@@ -168,7 +171,7 @@ class RequestController < ApplicationController
     unless current_user
       user = User.new(user_params)
       if RECAPTCHA_ENABLED && !verify_recaptcha
-        @registration_errors = { recaptcha: 'reCAPTCHA verification failed.' }
+        @registration_errors = { recaptcha: "reCAPTCHA verification failed." }
         render :dataset_hosting_about_me
         return
       elsif user.save
@@ -201,13 +204,12 @@ class RequestController < ApplicationController
     save_dataset_hosting_user
   end
 
-  def dataset_hosting_submitted
-  end
+  # def dataset_hosting_submitted
+  # end
 
-  #
-  # Tool Requests
-  def tool_request
-  end
+  # # Tool Requests
+  # def tool_request
+  # end
 
   # Dataset Hosting
 
@@ -240,7 +242,7 @@ class RequestController < ApplicationController
   private
 
   def community_tool_params
-    params[:community_tool] ||= { blank: '1' }
+    params[:community_tool] ||= { blank: "1" }
     params[:community_tool][:description] = params[:community_tool][:url].to_s.strip if params[:community_tool].key?(:url)
     params.require(:community_tool).permit(:name, :description, :url)
   end
