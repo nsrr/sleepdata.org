@@ -4,5 +4,5 @@ RECAPTCHA_ENABLED = \
   if Rails.env.test?
     false
   else
-    ENV['recaptcha_enabled'] == 'true'
+    ENV["recaptcha_enabled"] == "true"
   end

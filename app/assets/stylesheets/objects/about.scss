@@ -1,6 +1,4 @@
 .about-header {
-  @include brand;
-
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 20px;
@@ -17,8 +15,6 @@
 }
 
 .about-subheader {
-  @include brand;
-
   color: $p700;
   font-size: 20px;
   font-weight: bold;
