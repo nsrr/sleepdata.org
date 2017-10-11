@@ -6,4 +6,6 @@
 -#   per_page:      number of items to fetch per page
 -#   remote:        data-remote
 %li.page-item
-  = link_to raw(t "views.pagination.previous"), url, rel: "prev", remote: remote, class: "page-link"
+  = link_to url, rel: "prev", remote: remote, class: "page-link" do
+    .d-none.d-sm-inline= raw(t "views.pagination.previous")
+    .d-inline.d-sm-none &lsaquo;
