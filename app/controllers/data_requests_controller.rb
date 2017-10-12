@@ -44,7 +44,7 @@ class DataRequestsController < ApplicationController
     redirect_to data_requests_start_path(@dataset)
   end
 
-  # GET /data/requests/:data_request_id/page
+  # GET /data/requests/:data_request_id/page/:page
   def page
     @final_legal_document_page = @data_request.final_legal_document.final_legal_document_pages.find_by(position: params[:page])
     if @final_legal_document_page
@@ -54,7 +54,7 @@ class DataRequestsController < ApplicationController
     end
   end
 
-  # POST /data/requests/:data_request_id/page
+  # POST /data/requests/:data_request_id/page/:page
   def update_page
     @final_legal_document_page = @data_request.final_legal_document.final_legal_document_pages.find_by(position: params[:page])
     @next_page = @data_request.final_legal_document.final_legal_document_pages.find_by(position: @final_legal_document_page.position + 1)
