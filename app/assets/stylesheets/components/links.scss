@@ -21,12 +21,12 @@
 }
 
 .link-unstyled {
-  color: $text-color;
+  color: $body-color;
 
   &:hover,
   &:focus,
   &:active {
-    color: $text-color;
+    color: $body-color;
     text-decoration: none;
   }
 }
