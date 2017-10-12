@@ -11,8 +11,7 @@
   }
 
   a {
-    color: $p400-grey;
-    transition: color .4s ease-out;
+    color: $body-color;
 
     &:hover,
     &:focus,
@@ -20,8 +19,6 @@
     &.active,
     &.disabled,
     &[disabled] {
-      // color: $p500-teal;
-      color: red;
     }
   }
 
