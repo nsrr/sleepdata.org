@@ -175,11 +175,11 @@ def migrate_old_agreements(bwh)
   Agreement.all.each do |agreement|
     if agreement.data_user_type == "individual"
       final = standard_i.current_final_legal_document
-      agreement.update(final_legal_document_id: final.id)
+      agreement.update(final_legal_document: final)
       update_individual_variables(agreement, final)
     else
       final = standard_o.current_final_legal_document
-      agreement.update(final_legal_document_id: final.id)
+      agreement.update(final_legal_document: final)
       update_organization_variables(agreement, final)
     end
     migrate_signature(agreement, :signature)
