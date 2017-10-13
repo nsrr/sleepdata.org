@@ -12,32 +12,33 @@
 
 = render "search/simple", url: tags_path
 
-- if @tags.count.zero?
-  .lead.center{ style: "margin-top: 40px;" }
-    No tags found matching search criteria.
-    = succeed "." do
-      = link_to "Back to index", tags_path
-- else
+- if @tags.present?
   %table.table.table-striped.table-borderless.table-hover.table-sticky
     %col
     %col
-    %col.hidden-xs
+    %col.d-none.d-sm-table-column
     %col{ width: "1px" }
     %thead
       %tr
         = th_sort_field @order, "tags.name", "Name"
         = th_sort_field @order, "tags.color", "Color"
         = th_sort_field @order, "tags.tag_type", "Type", extra_class: "hidden-xs"
-        %th.center
+        %th.text-center
           .d-none.d-sm-inline-block Actions
     %tbody
       - @tags.each do |tag|
         %tr
           %td= link_to tag.name, tag
           %td
-            %span.label{ style: "background-color: #{tag.color};" }= tag.color
-          %td.hidden-xs= tag.type_name
-          %td
+            %span.badge.badge-dark{ style: "background-color: #{tag.color};" }= tag.color
+          %td.d-none.d-sm-table-cell
+            %span.badge.badge-light= tag.type_name
+          %td.text-center
             = render "layouts/edit_delete_dropdown", edit_url: edit_tag_path(tag), delete_url: tag, delete_confirmation: "Delete #{tag.name}?"
 
   .center-horizontally= paginate @tags, theme: "bootstrap"
+- else
+  .jumbotron.text-center
+    No tags found.
+    = succeed "." do
+      = link_to "Back to index", tags_path

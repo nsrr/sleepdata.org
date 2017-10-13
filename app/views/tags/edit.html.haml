@@ -5,12 +5,11 @@
     .container
       %h1.page-heading
         = @tag.name_was
-  .breadcrumb-container.mb-0
+  .breadcrumb-container.mb-0.p-2
     .container
       %ol
         %li= link_to "Tags", tags_path
         %li= link_to @tag.name_was, @tag
         %li Edit
 
-.dashboard-container
-  = render "form"
+= render "tags/form", tag: @tag

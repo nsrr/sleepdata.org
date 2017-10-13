@@ -1,0 +1,15 @@
+.dropdown.dropdown-sm.d-inline-block
+  = link_to "#", class: "btn btn-light btn-sm dropdown-toggle", data: { toggle: "dropdown" } do
+    .d-inline-block.d-sm-none
+      %i.fa.fa-cog
+    .d-none.d-sm-inline-block Actions
+    %strong.caret
+
+  .dropdown-menu
+    = link_to edit_url, class: "dropdown-item" do
+      %i.fa.fa-pencil
+      Edit
+    .dropdown-divider
+    = link_to delete_url, method: :delete, data: { confirm: delete_confirmation }, class: "dropdown-item text-danger" do
+      %i.fa.fa-trash
+      Delete

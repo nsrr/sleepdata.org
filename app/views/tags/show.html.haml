@@ -4,32 +4,18 @@
   .header-container
     .container
       %h1.page-heading
-        .pull-right
-          = render "layouts/edit_delete_dropdown", edit_url: edit_tag_path(@tag), delete_url: @tag, delete_confirmation: "Delete #{@tag.name}?"
         = @title
-  .breadcrumb-container.mb-0
+  .breadcrumb-container.mb-0.p-2
     .container
       .pull-right
-        %span.label.label-default{ style: "background-color: #{@tag.color};" }
+        %span.badge.badge-dark{ style: "background-color: #{@tag.color};" }
           = @tag.name
+
       %ol
         %li= link_to "Tags", tags_path
+        %li= link_to @tag.name, @tag
+        %li= render "layouts/breadcrumb_edit_delete_dropdown", edit_url: edit_tag_path(@tag), delete_url: @tag, delete_confirmation: "Delete #{@tag.name}?"
 
-.dashboard-container
-  %table.table.table-striped.table-borderless.table-hover
-    %col{ width: "25%" }
-    %col{ width: "75%" }
-    %tbody
-      %tr
-        %th.text-right Name
-        %td= @tag.name
-
-      %tr
-        %th.text-right Color
-        %td
-          %span.label.label-default{ style: "background-color: #{@tag.color};" }
-            = @tag.color
-
-      %tr
-        %th.text-right Type
-        %td= @tag.type_name
+= render "forms/horizontal/show/text", object: @tag, key: :name
+= render "forms/horizontal/show/color", object: @tag, key: :color
+= render "forms/horizontal/show/text", object: @tag, key: :type_name, key_name: "Tag Type"

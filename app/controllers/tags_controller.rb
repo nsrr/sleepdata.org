@@ -8,28 +8,28 @@ class TagsController < ApplicationController
 
   # GET /tags
   def index
-    @order = scrub_order(Tag, params[:order], 'tags.name')
+    @order = scrub_order(Tag, params[:order], "tags.name")
     @tags = Tag.current.search(params[:search]).order(@order).page(params[:page]).per(40)
   end
 
-  # GET /tags/1
-  def show
-  end
+  # # GET /tags/1
+  # def show
+  # end
 
   # GET /tags/new
   def new
     @tag = Tag.new
   end
 
-  # GET /tags/1
-  def edit
-  end
+  # # GET /tags/1
+  # def edit
+  # end
 
   # POST /tags
   def create
     @tag = current_user.tags.new(tag_params)
     if @tag.save
-      redirect_to @tag, notice: 'Tag was successfully created.'
+      redirect_to @tag, notice: "Tag was successfully created."
     else
       render :new
     end
@@ -38,7 +38,7 @@ class TagsController < ApplicationController
   # PATCH /tags/1
   def update
     if @tag.update(tag_params)
-      redirect_to @tag, notice: 'Tag was successfully updated.'
+      redirect_to @tag, notice: "Tag was successfully updated."
     else
       render :edit
     end
@@ -47,7 +47,7 @@ class TagsController < ApplicationController
   # DELETE /tags/1
   def destroy
     @tag.destroy
-    redirect_to tags_path, notice: 'Tag was successfully deleted.'
+    redirect_to tags_path, notice: "Tag was successfully deleted."
   end
 
   private
