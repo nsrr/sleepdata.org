@@ -74,24 +74,36 @@
   }
 
   &.navbar-scrolled {
+    .display-small-scrolled {
+      display: block;
+    }
+
+    .display-lg-scrolled {
+      display: none;
+    }
+
     .navbar-hide-scrolled {
       display: none;
     }
+
     .navbar-show-scrolled {
       display: block;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      max-width: 80%;
+      flex: 1 1 70%;
     }
-  }
-}
 
-@include media-breakpoint-up(sm) {
-  #top-menu {
-    &.navbar-scrolled {
-      .navbar-show-scrolled {
-        max-width: initial;
+    @include media-breakpoint-up(lg) {
+      #menu-body {
+        // flex: 0 1 auto; //same as initial.
+        flex: initial;
+        // flex: 1 1 30%;
+        white-space: nowrap;
+      }
+
+      .display-small-scrolled {
+        display: none;
       }
     }
   }
