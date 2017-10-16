@@ -46,7 +46,9 @@
 
 # Other Files
 
+# TODO: Remove /Gemfile.lock when rails adds support for gems.rb
 /Gemfile.lock
+/gems.locked
 /db/schema.rb
 /doc/app/*
 
