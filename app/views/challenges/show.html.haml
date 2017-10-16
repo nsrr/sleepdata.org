@@ -1,8 +1,0 @@
-- if %w(flow-limitation flow-limitation-2).include? @challenge.slug
-  = render "challenges/#{@challenge.slug}/show"
-- else
-  - image_files = Dir.glob( File.join(@challenge.images_folder, '*.png') )
-
-  - image_files.each do |image_location|
-    - path = File.basename(image_location)
-    = image_tag images_challenge_path(@challenge, path: path)

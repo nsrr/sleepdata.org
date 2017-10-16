@@ -103,16 +103,6 @@ Rails.application.routes.draw do
 
   resources :categories
 
-  resources :challenges do
-    member do
-      get "images/*path", action: "images", as: :images, format: false
-      get "signal/:signal", action: "signal", as: :signal
-      post "signal/:signal", action: "update_signal", as: :update_signal
-      get :review
-      get :submitted
-    end
-  end
-
   resources :community_tools, path: "community-tools" do
     resources :community_tool_reviews, path: "reviews"
   end

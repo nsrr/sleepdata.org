@@ -3,6 +3,7 @@
 ### Enhancements
 - **General Changes**
   - Improved landing page styling
+  - Removed expired flow limitation challenges
 - **Admin Changes**
   - Improved Downloads by Quarter report loading speed
 - **Data Request Changes**
