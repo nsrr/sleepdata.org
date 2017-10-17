@@ -1,2 +1,53 @@
 %h1 DataRequests#start
 %p Find me in app/views/data_requests/start.html.haml
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading.center
+        Looking to
+        %i.fa.fa-cloud-download
+        download data?
+
+.jumbotron
+  %p.center
+    Proceed through
+    %strong
+      a few short steps
+    of the submission review process.
+  %p.center
+    Save your progress whenever, "Submit your Application" when ready!
+  %p.center
+    %br
+    = link_to submissions_launch_path(@dataset), method: :post, class: "btn btn-lg btn-primary btn-shadow" do
+      Click to start!
+      %i.fa.fa-caret-right
+
+  %div{ style: "margin-top: 80px;" }
+
+    %p.center
+      We're here to help! Send your questions to
+      = succeed "." do
+        = mail_to ENV["support_email"]
+
+.badge.badge-dark= commercial_type = current_user ? current_user.commercial_type : "noncommercial"
+.badge.badge-dark= data_user_type = current_user ? current_user.data_user_type : "individual"
+- legal_document = @dataset.legal_documents.find_by(commercial_type: ["both", commercial_type], data_user_type: ["both", data_user_type])
+
+- if legal_document
+  .jumbotron
+    %p.lead
+      = legal_document.name
+      = link_to agreement_page_path(page: 1, dataset_id: @dataset, legal_document_id: legal_document) do
+        %i.fa.fa-caret-right
+- elsif @dataset.legal_documents.present?
+  .jumbotron
+    - @dataset.legal_documents.each do |legal_document|
+      %p.lead
+        = legal_document.name
+        = link_to agreement_page_path(page: 1, dataset_id: @dataset, legal_document_id: legal_document) do
+          %i.fa.fa-caret-right
+- else
+  .jumbotron
+    %p.lead
+      No legal document is in place for this dataset.

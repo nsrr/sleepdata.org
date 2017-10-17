@@ -68,6 +68,10 @@ class User < ApplicationRecord
 
   # Methods
 
+  def data_requests
+    agreements
+  end
+
   def shadow_banned?
     false
   end

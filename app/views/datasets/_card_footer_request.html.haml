@@ -17,21 +17,20 @@
     - url = submissions_path
     - arrow = true
   - elsif agreement = agreements.expired.first
+    -# TODO: Fix "Renew DAUA" path
     - title = "Renew DAUA"
     - url = submissions_start_path(dataset: dataset)
     - arrow = true
   - elsif agreement = agreements.find_by(status: "started")
-    -# TODO: Fix URLs
     - title = "Resume Data Request"
     - if agreement.fully_filled_out?
-      - url = proof_agreement_path(agreement)
+      - url = data_requests_proof_path(agreement)
     - else
-      - url = step_agreement_path(agreement, step: agreement.current_step)
-    - url = agreement_start_path(dataset_id: dataset)
+      - url = data_requests_page_path(agreement, agreement.current_step)
     - arrow = true
   - else
     - title = "Request Data"
-    - url = submissions_start_path(dataset: dataset)
+    - url = data_requests_start_path(dataset)
     - arrow = true
 - elsif dataset.release_date
   - title = "Coming #{dataset.release_date.strftime("%b %e, %Y")}"

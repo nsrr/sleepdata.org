@@ -41,6 +41,7 @@ class Dataset < ApplicationRecord
   has_many :dataset_reviews, -> { order(rating: :desc, id: :desc) }
   has_many :legal_document_datasets
   has_many :legal_documents, through: :legal_document_datasets
+  has_many :final_legal_documents, through: :legal_documents
 
   def recalculate_rating!
     ratings = dataset_reviews.where.not(rating: nil).pluck(:rating)
@@ -228,6 +229,10 @@ class Dataset < ApplicationRecord
 
   def legal_document_for_user(current_user)
     legal_documents.published.find_by(data_user_type: ["both", current_user.data_user_type], commercial_type: ["both", current_user.commercial_type])
+  end
+
+  def final_legal_document_for_user(current_user)
+    final_legal_documents.find_by(data_user_type: ["both", current_user.data_user_type], commercial_type: ["both", current_user.commercial_type])
   end
 
   def specify_data_user_type?(current_user)

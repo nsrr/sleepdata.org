@@ -12,6 +12,7 @@
     for capturing signatures
   - Data requests now follow a simpler path, with a new left hand menu and a
     simpler URL structure
+  - Supporting documents can now be attached to data requests
 - **Dataset Changes**
   - Dataset status has been simplified:
     - `released`, also the same as `listed`, `public`, and

@@ -42,6 +42,7 @@
 /test/support/datasets/unreleased_documentation/files/.sleepdata.index
 /test/support/tools/new-tool/*
 /test/support/agreements/*
+/test/support/data_requests/*
 /test/support/images/*
 
 # Other Files

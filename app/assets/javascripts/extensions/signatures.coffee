@@ -44,7 +44,7 @@
   window.$canvas.getContext('2d').scale ratio, ratio
   return
 
-$(window).resize(-> resizeCanvas())
+# $(window).resize(-> resizeCanvas())
 
 $(document)
   .on('click', '[data-object~="submit-signature"]', ->

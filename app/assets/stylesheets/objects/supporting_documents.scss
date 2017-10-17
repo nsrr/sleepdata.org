@@ -1,0 +1,62 @@
+.supporting-documents-upload {
+  background-color: $brand-white;
+  border: 1px solid $p200-grey;
+  border-radius: 0.25rem;
+  padding: $spacer * 3;
+  position: relative;
+  margin-bottom: $spacer;
+
+  @media (hover) {
+    &:hover,
+    .upload-hover {
+      box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.5);
+    }
+  }
+
+  &.upload-started {
+    background-color: $p50-grey;
+
+    @media (hover) {
+      &:hover,
+      .upload-hover {
+        box-shadow: none;
+      }
+    }
+  }
+}
+
+@keyframes hide-upload-bar {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.supporting-documents-upload-bar {
+  transition: width .5s ease-out;
+  position: absolute;
+  height: .25rem;
+  background-color: $p500-blue;
+  width: 0%;
+  top: 0;
+  left: 0;
+
+  &.upload-success {
+    animation: hide-upload-bar 750ms ease-out;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
+    background-color: $p500-green;
+    transition-duration: 0s;
+  }
+
+  &.upload-failure {
+    animation: hide-upload-bar 750ms ease-out;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
+    background-color: $p500-red;
+    transition-duration: 0s;
+  }
+}

@@ -128,6 +128,14 @@ Rails.application.routes.draw do
     get :print, path: ":data_request_id/print"
   end
 
+  resources :data_requests, path: "data/requests", only: :index do
+    resources :supporting_documents, path: "supporting-documents", except: [:edit, :update] do
+      collection do
+        post :upload, action: :create_multiple
+      end
+    end
+  end
+
   scope module: :editor do
     resources :datasets, only: [:edit, :update] do
       member do

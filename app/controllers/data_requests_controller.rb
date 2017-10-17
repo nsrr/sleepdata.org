@@ -18,8 +18,25 @@ class DataRequestsController < ApplicationController
 
   layout "layouts/full_page"
 
-  # # GET /data/requests/:dataset_id/start
-  # def start
+  # GET /data/requests/:dataset_id/start
+  def start
+    final_legal_document = @dataset.final_legal_document_for_user(current_user)
+    if final_legal_document
+      @data_request = current_user.agreements.create(final_legal_document: final_legal_document)
+      redirect_to data_requests_page_path(@data_request, page: 1)
+    elsif @dataset.specify_data_user_type?(current_user)
+      redirect_to data_requests_request_as_individual_or_organization_path(@dataset)
+    elsif @dataset.specify_commercial_type?(current_user)
+      redirect_to data_requests_intended_use_noncommercial_or_commercial_path(@dataset)
+    else
+      # TODO: Render actual page.
+      render plain: "No final legal document found."
+    end
+  end
+
+  # TODO: See if this is needed to launch agreement.
+  # # POST /data/requests/:dataset_id/start/:final_legal_document_id
+  # def create
   # end
 
   # GET /data/requests/:dataset_id/request-as/individual-or-organization
@@ -86,7 +103,7 @@ class DataRequestsController < ApplicationController
     elsif @data_request.final_legal_document.attestation_type == "checkbox"
 
     end
-    redirect_to data_requests_proof_path(@data_request)
+    redirect_to data_requests_addons_path(@data_request)
   end
 
   # GET /data/requests/:data_request_id/addendum

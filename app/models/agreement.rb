@@ -100,13 +100,14 @@ class Agreement < ApplicationRecord
   belongs_to :final_legal_document, optional: true
   has_many :agreement_variables
   has_many :requests
-  has_many :datasets, -> { where deleted: false }, through: :requests
+  has_many :datasets, -> { current }, through: :requests
   has_many :reviews, -> { joins(:user).order('lower(substring(users.first_name from 1 for 1)), lower(substring(users.last_name from 1 for 1))') }
   has_many :agreement_events, -> { order(:event_at) }
   has_many :agreement_tags
   has_many :tags, -> { where(deleted: false).order(:name) }, through: :agreement_tags
   has_many :agreement_transactions, -> { order(id: :desc) }
   has_many :agreement_transaction_audits
+  has_many :supporting_documents, foreign_key: "data_request_id"
 
   # Methods
 
@@ -263,6 +264,7 @@ class Agreement < ApplicationRecord
     full_mode.to_s == '1'
   end
 
+  # TODO: Fix "fully_filled_out?" to handle new legal documents.
   def fully_filled_out?
     self.full_mode = '1'
     valid?

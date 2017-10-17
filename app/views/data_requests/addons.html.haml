@@ -1,4 +1,4 @@
-- @title = "Addons"
+- @title = "Supporting Documentation"
 .container-fluid
   .row.flex-xl-nowrap
     = render "data_requests/menu"
@@ -8,3 +8,25 @@
     %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
       .page-box.last-box
         .agreement-heading= @title
+
+        #supporting-documents-upload.supporting-documents-upload{ data: { object: "supporting-documents-dropfile", upload_url: upload_data_request_supporting_documents_path(format: "js"), fallback_url: new_data_request_supporting_document_path(@data_request) } }
+          #upload-bar.supporting-documents-upload-bar
+
+          %span#upload
+            Drag files (PDFs) here to attach to data request or
+            = link_to "click here", new_data_request_supporting_document_path(@data_request)
+            to upload documents.
+          %span#percent
+          #process
+
+        #supporting-documents= render "supporting_documents/index", data_request: @data_request
+
+        .mt-5.mb-3.float-right
+          = succeed " " do
+            = link_to "#", class: "btn btn-light", tabindex: "-1", data: { object: "submit-draft-and-disable", target: "#dataset-request-form" } do
+              %i.fa.fa-save
+              Save Draft
+
+          = link_to data_requests_proof_path(@data_request), class: "btn btn-primary" do
+            = @data_request.supporting_documents.present? ? "Continue" : "Skip"
+            %i.fa.fa-caret-right

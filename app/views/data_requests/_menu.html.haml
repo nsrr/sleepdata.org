@@ -13,7 +13,7 @@
     - groups << { name: "DAUA", url: data_requests_page_path(@data_request, 1), docs: pages } if pages.present?
     - groups << { name: "Attestation", url: data_requests_attest_path(@data_request), docs: [{ name: "Attest", url: data_requests_attest_path(@data_request) }] } if @data_request.final_legal_document.attestation_type == "checkbox" || @data_request.final_legal_document.attestation_type == "signature"
     - groups << { name: "Addendums", url: addendums.first[:url], docs: addendums } if addendums.present?
-    - groups << { name: "Addons", url: data_requests_addons_path(@data_request), docs: [] }
+    - groups << { name: "Addons", url: data_requests_addons_path(@data_request), docs: [], count: @data_request.supporting_documents.count }
     - groups << { name: "Proof", url: data_requests_proof_path(@data_request), docs: [] }
     - groups << { name: "Submitted", url: data_requests_submitted_path(@data_request), docs: [] }
     - groups << { name: "Print", url: data_requests_print_path(@data_request), docs: [] }
@@ -26,6 +26,8 @@
           .sidebar-nav-group{ class: random_number == group_index || true ? "active" : nil }
             %a.sidebar-nav-group-link{ href: group.dig(:url) }
               = group.dig(:name)
+              - if group.dig(:count).present? && group.dig(:count).positive?
+                %span.badge.badge-primary= group.dig(:count)
 
             - if group.dig(:docs).present?
               - random_docs_number = rand(group.dig(:docs).size)
