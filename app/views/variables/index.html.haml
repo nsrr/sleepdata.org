@@ -7,13 +7,13 @@
 = render "search/simple", url: dataset_variables_path(@dataset)
 
 - if @variables.present?
-  %table.table.table-striped.table-hover
+  %table.table.table-striped.table-hover.table-sticky.table-borderless
     %col{ width: "32px" }
     %col
     %col.d-none.d-sm-table-column
     %col.d-none.d-md-table-column
     %thead
-      %tr.table-dark
+      %tr
         %th
         %th
           Name
