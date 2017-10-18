@@ -1,5 +1,9 @@
 ## 0.29.1
 
+### Bug Fix
+- Fixed a bug that prevented reviewers from viewing IRB files that included
+  URL-escaped characters
+
 ## 0.29.0 (August 28, 2017)
 
 ### Enhancements

@@ -42,7 +42,11 @@ class AgreementTransaction < ApplicationRecord
   def generate_audits!(original_attributes)
     original_attributes.each do |trackable_attribute, old_value|
       value_before = (old_value == nil ? nil : old_value.to_s)
-      value_after = (self.agreement.send(trackable_attribute) == nil ? nil : self.agreement.send(trackable_attribute).to_s)
+      if trackable_attribute == "irb"
+        value_after = (agreement.irb.file.present? ? agreement.irb.file.filename : nil)
+      else
+        value_after = (self.agreement.send(trackable_attribute) == nil ? nil : self.agreement.send(trackable_attribute).to_s)
+      end
       if value_before != value_after
         self.agreement_transaction_audits.create( agreement_attribute_name: trackable_attribute.to_s, value_before: value_before, value_after: value_after, agreement_id: self.agreement_id, user_id: self.user_id )
       end

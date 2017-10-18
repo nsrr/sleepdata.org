@@ -231,7 +231,7 @@ class AgreementsController < ApplicationController
 
   # GET /agreements/1/download_irb
   def download_irb
-    send_file File.join(CarrierWave::Uploader::Base.root, @agreement.irb.url), disposition: "inline"
+    send_file @agreement.irb.path, disposition: "inline"
   end
 
   # GET /agreements/1/print
