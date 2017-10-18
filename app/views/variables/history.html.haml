@@ -9,7 +9,7 @@
     %h1.variable-header
       History
       - if @variable.dataset_version
-        - download_url = files_dataset_path(@dataset) + "/datasets/archive/#{@variable.dataset_version.version}"
+        - download_url = files_dataset_path(@dataset) + "/m/browser/datasets/archive/#{@variable.dataset_version.version}/CHANGELOG.md?preview=1"
         = link_to download_url, class: "btn btn-outline-primary" do
           %i.fa.fa-file-text-o
           View Change Log
