@@ -5,7 +5,7 @@
   - logo_path = logo_tool_path(@object)
   - edit_path = edit_tool_path(@object)
 
-- if @object.logo.size > 0
+- if @object.logo.present?
   .small-spacer
   .center= image_tag logo_path, style: "max-width: 100%"
 

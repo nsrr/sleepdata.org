@@ -7,7 +7,7 @@
   The following agreements are awaiting your review. Please click on each and
   then approve or reject the agreement.
 
-- if @user.digest_reviews.size > 0
+- if @user.digest_reviews.present?
   %table{ style: 'width:100%;border:0px;border-collapse:collapse;margin:0px;padding:0px;color:#505050;font-family:Arial;font-size:14px;' }
     %thead
       %tr{ style: 'text-align:left' }

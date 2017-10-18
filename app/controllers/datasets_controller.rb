@@ -39,7 +39,7 @@ class DatasetsController < ApplicationController
   end
 
   def logo
-    send_file File.join(CarrierWave::Uploader::Base.root, @dataset.logo.url)
+    send_file_if_present @dataset.logo
   end
 
   def folder_progress

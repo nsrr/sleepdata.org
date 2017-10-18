@@ -163,13 +163,6 @@ class DataRequestsController < ApplicationController
   end
 
   def send_signature(attribute)
-    signature_file = File.join(
-      CarrierWave::Uploader::Base.root, @data_request.send(attribute).url
-    )
-    if File.exist?(signature_file)
-      send_file signature_file
-    else
-      head :ok
-    end
+    send_file_if_present @data_request.send(attribute)
   end
 end

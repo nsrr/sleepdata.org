@@ -234,4 +234,13 @@ class ApplicationController < ActionController::Base
     json = JSON.parse(response.body)
     json["success"]
   end
+
+  # Expects an "Uploader" type class, ex: uploader = @dataset.logo
+  def send_file_if_present(uploader, *args)
+    if uploader.present?
+      send_file uploader.path, *args
+    else
+      head :ok
+    end
+  end
 end

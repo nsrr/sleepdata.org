@@ -48,7 +48,7 @@
           - folders_for_select = @folders.collect do |folder|
             - full_folder = [params[:folder].blank? ? nil : params[:folder], folder].compact.join("/")
             - [folder, full_folder]
-          - if folders_for_select.size > 0
+          - if folders_for_select.present?
             %li{ style: "position: relative;" }
               &nbsp;
               = form_tag dataset_variables_path(@dataset), method: :get, class: "form-inline", style: "position: absolute;top: -7px;left: 11px;", id: "variable-folder-form" do

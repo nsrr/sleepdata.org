@@ -5,11 +5,12 @@ class Tag < ApplicationRecord
   TYPE = [%w(Forum topic), %w(Review agreement)]
 
   # Concerns
-  include Deletable, Searchable
+  include Deletable
+  include Searchable
 
   # Scopes
-  scope :forum_tags, -> { current.where(tag_type: 'topic') }
-  scope :review_tags, -> { current.where(tag_type: 'agreement') }
+  scope :forum_tags, -> { current.where(tag_type: "topic") }
+  scope :review_tags, -> { current.where(tag_type: "agreement") }
 
   # Validations
   validates :name, :color, :user_id, :tag_type, presence: true
@@ -18,12 +19,12 @@ class Tag < ApplicationRecord
   # Relationships
   belongs_to :user
   has_many :topic_tags
-  has_many :topics, -> { where deleted: false }, through: :topic_tags
+  has_many :topics, -> { current }, through: :topic_tags
 
   has_many :agreement_tags
-  has_many :agreements, -> { where deleted: false }, through: :agreement_tags
+  has_many :agreements, -> { current }, through: :agreement_tags
 
-  has_many :agreement_events, -> { where deleted: false }
+  has_many :agreement_events, -> { current }
 
   # Methods
   def self.searchable_attributes
@@ -31,7 +32,7 @@ class Tag < ApplicationRecord
   end
 
   def type_name
-    types = TYPE.select { |_name, value| value == tag_type }
-    types.size > 0 ? types.first[0] : ''
+    type = TYPE.find { |_name, value| value == tag_type }
+    type ? type.first : ""
   end
 end

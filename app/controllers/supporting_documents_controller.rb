@@ -13,7 +13,7 @@ class SupportingDocumentsController < ApplicationController
 
   # GET /data/requests/:data_request_id/supporting-documents/1
   def show
-    send_file @supporting_document.document.path, disposition: "inline"
+    send_file_if_present @supporting_document.document, disposition: "inline"
   end
 
   # GET /data/requests/:data_request_id/supporting-documents/new

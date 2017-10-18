@@ -20,7 +20,7 @@
             - agreement_event.agreement.datasets.order(:release_date, :name).each do |dataset|
               = render "datasets/mini", dataset: dataset
 
-          - if agreement_event.agreement.irb_evidence_type == "has_evidence" && agreement_event.agreement.irb.size > 0
+          - if agreement_event.agreement.irb_evidence_type == "has_evidence" && agreement_event.agreement.irb.present?
             %div{ style: "margin-top: 20px;" }
               %i.fa.fa-paperclip
               = link_to download_irb_agreement_path(agreement_event.agreement), data: { turbolinks: false } do

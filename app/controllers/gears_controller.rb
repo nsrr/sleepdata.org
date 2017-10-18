@@ -82,32 +82,17 @@ class GearsController < ApplicationController
 
   # GET /agreement/signature
   def agreement_signature
-    signature_file = File.join(CarrierWave::Uploader::Base.root, @agreement.signature_file.url)
-    if File.exist?(signature_file)
-      send_file signature_file
-    else
-      head :ok
-    end
+    send_file_if_present @agreement.signature_file
   end
 
   # GET /agreement/duly_authorized_representative_signature
   def agreement_duly_authorized_representative_signature
-    signature_file = File.join(CarrierWave::Uploader::Base.root, @agreement.duly_authorized_representative_signature_file.url)
-    if File.exist?(signature_file)
-      send_file signature_file
-    else
-      head :ok
-    end
+    send_file_if_present @agreement.duly_authorized_representative_signature_file
   end
 
   # GET /agreement/reviewer_signature
   def agreement_reviewer_signature
-    signature_file = File.join(CarrierWave::Uploader::Base.root, @agreement.reviewer_signature_file.url)
-    if File.exist?(signature_file)
-      send_file signature_file
-    else
-      head :ok
-    end
+    send_file_if_present @agreement.reviewer_signature_file
   end
 
   # POST /agreement/attest/signature

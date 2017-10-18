@@ -18,9 +18,9 @@ class ReviewsController < ApplicationController
     @agreements = agreement_scope.page(params[:page]).per(40)
   end
 
-  # GET /reviews/1
-  def show
-  end
+  # # GET /reviews/1
+  # def show
+  # end
 
   # GET /reviews/1/show2
   def show2
@@ -29,27 +29,17 @@ class ReviewsController < ApplicationController
 
   # GET /reviews/1/signature
   def signature
-    signature_file = File.join(CarrierWave::Uploader::Base.root, @agreement.signature_file.url)
-    if File.exist?(signature_file)
-      send_file signature_file
-    else
-      head :ok
-    end
+    send_file_if_present @agreement.signature_file
   end
 
   # GET /reviews/1/duly_authorized_representative_signature
   def duly_authorized_representative_signature
-    signature_file = File.join(CarrierWave::Uploader::Base.root, @agreement.duly_authorized_representative_signature_file.url)
-    if File.exist?(signature_file)
-      send_file signature_file
-    else
-      head :ok
-    end
+    send_file_if_present @agreement.duly_authorized_representative_signature_file
   end
 
-  # GET /reviews/1/transactions
-  def transactions
-  end
+  # # GET /reviews/1/transactions
+  # def transactions
+  # end
 
   # POST /reviews/1/vote.js
   def vote
@@ -95,7 +85,7 @@ class ReviewsController < ApplicationController
   private
 
   def find_agreement_or_redirect
-    @agreement = current_user.reviewable_agreements.find_by_id(params[:id])
+    @agreement = current_user.reviewable_agreements.find_by(id: params[:id])
     empty_response_or_root_path(reviews_path) unless @agreement
   end
 end

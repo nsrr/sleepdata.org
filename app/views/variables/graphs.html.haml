@@ -1,49 +1,49 @@
 - @title = "#{@variable.name.upcase} - #{@dataset.slug.upcase} Variables"
 
-= render 'variables/header'
+= render "variables/header"
 
-.row{ style: 'margin-bottom: 20px' }
+.row{ style: "margin-bottom: 20px;" }
   .col-sm-3.hidden-xs
-    = render 'variables/menu'
+    = render "variables/menu"
   .col-sm-9
-    = hidden_field_tag 'chart_type', params[:g]
+    = hidden_field_tag "chart_type", params[:g]
 
     - json = JSON.parse(@variable.spout_stats) rescue json = nil
-    #charts-info{ style: 'display:hidden', data: { charts: "#{json.to_json}" } }
+    #charts-info.d-none{ data: { charts: "#{json.to_json}" } }
 
     - charts = []
-    - charts = json['charts'].keys.collect { |k| [k.titleize, k] } if json.is_a?(Hash) && json['charts'].is_a?(Hash)
+    - charts = json["charts"].keys.collect { |k| [k.titleize, k] } if json.is_a?(Hash) && json["charts"].is_a?(Hash)
     - chart = charts.find { |chart_name, chart_value| chart_value == params[:g] }
     - chart = charts.first unless chart
 
 
-    - if charts.size > 0
+    - if charts.present?
       %h1.variable-header.brand= chart.first if chart
-      #chart-container{ style: 'min-width: 200px; max-width: 800px; height: 400px; margin: 0 auto 20px auto' }
+      #chart-container{ style: "min-width: 200px; max-width: 800px; height: 400px; margin: 0 auto 20px auto;" }
 
-    - if json && json['tables']
-      - (json['tables'] || []).each do |key, tables|
-        %div{ style: 'display: none;', data: { chart_name: key } }
+    - if json && json["tables"]
+      - (json["tables"] || []).each do |key, tables|
+        %div{ style: "display: none;", data: { chart_name: key } }
           - [tables].flatten.each do |table|
             - if table.is_a? Hash
-              %h3.brand.center= table['title']
-              %h5.center= table['subtitle']
+              %h3.brand.center= table["title"]
+              %h5.center= table["subtitle"]
               .table-responsive
                 %table.table.table-hover
                   %thead
-                    - (table['headers'] || []).each do |headers|
+                    - (table["headers"] || []).each do |headers|
                       %tr
                         - headers.each do |cell|
-                          = render 'variables/table_cell', cell: cell, type: :th
+                          = render "variables/table_cell", cell: cell, type: :th
                   %tfoot
-                    - (table['footers'] || []).each do |footers|
+                    - (table["footers"] || []).each do |footers|
                       %tr
                         - footers.each do |cell|
-                          = render 'variables/table_cell', cell: cell, type: :td
+                          = render "variables/table_cell", cell: cell, type: :td
                   %tbody
-                    - (table['rows'] || []).each do |rows|
+                    - (table["rows"] || []).each do |rows|
                       %tr
                         - rows.each do |cell|
-                          = render 'variables/table_cell', cell: cell, type: :td
+                          = render "variables/table_cell", cell: cell, type: :td
 
-.visible-xs= render 'variables/menu'
+.visible-xs= render "variables/menu"

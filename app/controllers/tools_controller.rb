@@ -51,16 +51,16 @@ class ToolsController < ApplicationController
     # tool_scope = tool_scope.where(tool_type: params[:type]) unless params[:type].blank?
     @tools = tool_scope.order(:tool_type, :name).page(params[:page]).per(12)
 
-    @order = scrub_order(CommunityTool, params[:order], 'community_tools.name')
+    @order = scrub_order(CommunityTool, params[:order], "community_tools.name")
     community_tool_scope = CommunityTool.current.order(@order).where(published: true)
     unless params[:a].blank?
-      user_ids = User.current.with_name(params[:a].to_s.split(','))
+      user_ids = User.current.with_name(params[:a].to_s.split(","))
       community_tool_scope = community_tool_scope.where(user_id: user_ids.select(:id))
     end
 
-    community_tool_scope = community_tool_scope.where(tag_program: true) if params[:type] == 'program'
-    community_tool_scope = community_tool_scope.where(tag_script: true) if params[:type] == 'script'
-    community_tool_scope = community_tool_scope.where(tag_tutorial: true) if params[:type] == 'tutorial'
+    community_tool_scope = community_tool_scope.where(tag_program: true) if params[:type] == "program"
+    community_tool_scope = community_tool_scope.where(tag_script: true) if params[:type] == "script"
+    community_tool_scope = community_tool_scope.where(tag_tutorial: true) if params[:type] == "tutorial"
     @community_tools = community_tool_scope.search(params[:search]).page(params[:page]).per(20)
   end
 
@@ -91,10 +91,10 @@ class ToolsController < ApplicationController
 
     respond_to do |format|
       if @tool.save
-        format.html { redirect_to @tool, notice: 'Tool was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @tool }
+        format.html { redirect_to @tool, notice: "Tool was successfully created." }
+        format.json { render :show, status: :created, location: @tool }
       else
-        format.html { render action: 'new' }
+        format.html { render :new }
         format.json { render json: @tool.errors, status: :unprocessable_entity }
       end
     end
@@ -105,10 +105,10 @@ class ToolsController < ApplicationController
   def update
     respond_to do |format|
       if @tool.update(tool_params)
-        format.html { redirect_to @tool, notice: 'Tool was successfully updated.' }
+        format.html { redirect_to @tool, notice: "Tool was successfully updated." }
         format.json { head :no_content }
       else
-        format.html { render action: 'edit' }
+        format.html { render :edit }
         format.json { render json: @tool.errors, status: :unprocessable_entity }
       end
     end
@@ -126,7 +126,7 @@ class ToolsController < ApplicationController
   end
 
   def logo
-    send_file File.join( CarrierWave::Uploader::Base.root, @tool.logo.url )
+    send_file_if_present @tool.logo
   end
 
   private
@@ -137,11 +137,11 @@ class ToolsController < ApplicationController
                      else
                        Tool.current.where(public: true)
                      end
-    @tool = viewable_tools.find_by_slug(params[:id])
+    @tool = viewable_tools.find_by(slug: params[:id])
   end
 
   def set_editable_tool
-    @tool = current_user.all_tools.find_by_slug(params[:id]) if current_user
+    @tool = current_user.all_tools.find_by(slug: params[:id]) if current_user
   end
 
   def redirect_without_tool

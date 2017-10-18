@@ -231,14 +231,14 @@ class AgreementsController < ApplicationController
 
   # GET /agreements/1/download_irb
   def download_irb
-    send_file @agreement.irb.path, disposition: "inline"
+    send_file_if_present @agreement.irb, disposition: "inline"
   end
 
   # GET /agreements/1/print
   def print
     @agreement.generate_printed_pdf!
-    if @agreement.printed_file.size > 0
-      send_file File.join( CarrierWave::Uploader::Base.root, @agreement.printed_file.url ), filename: "#{@agreement.user.last_name.gsub(/[^a-zA-Z\p{L}]/, '')}-#{@agreement.user.first_name.gsub(/[^a-zA-Z\p{L}]/, '')}-#{@agreement.agreement_number}-DAUA-#{(@agreement.submitted_at || @agreement.created_at).strftime("%Y-%m-%d")}.pdf", type: "application/pdf", disposition: "inline"
+    if @agreement.printed_file.present?
+      send_file @agreement.printed_file.path, filename: "#{@agreement.user.last_name.gsub(/[^a-zA-Z\p{L}]/, '')}-#{@agreement.user.first_name.gsub(/[^a-zA-Z\p{L}]/, '')}-#{@agreement.agreement_number}-DAUA-#{(@agreement.submitted_at || @agreement.created_at).strftime("%Y-%m-%d")}.pdf", type: "application/pdf", disposition: "inline"
     else
       render layout: false
     end
@@ -246,10 +246,10 @@ class AgreementsController < ApplicationController
 
   # GET /agreements/1/download
   def download
-    send_file File.join(
-      CarrierWave::Uploader::Base.root,
-      (params[:executed] == "1" ? @agreement.executed_dua.url : @agreement.dua.url)
-    ), disposition: "inline"
+    send_file_if_present(
+      params[:executed] == "1" ? @agreement.executed_dua : @agreement.dua,
+      disposition: "inline"
+    )
   end
 
   # DELETE /agreements/1/destroy_submission

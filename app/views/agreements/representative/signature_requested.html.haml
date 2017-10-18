@@ -90,33 +90,26 @@
   .dashboard-container-title
     Agreed to by:
 
-  = form_for @agreement, url: representative_submit_signature_path(@agreement.id_and_representative_token), method: :patch, html: { class: "form-vertical", id: "update_step_form", data: { object: "signature", signature_target: ".output-write" } } do |f|
-
+  = form_with model: @agreement, url: representative_submit_signature_path(@agreement.id_and_representative_token), method: :patch, id: "update_step_form" do |form|
     = hidden_field_tag "agreement[draft_mode]", nil
     = hidden_field_tag "step", @step
     = hidden_field_tag "agreement[current_step]", @step
 
-    .form-group
-      = f.label :duly_authorized_representative_signature, "Signature of Duly Authorized Representative", class: "control-label"
-      %div{ style: "position:relative" }
-        = f.hidden_field :duly_authorized_representative_signature, class: "output-write"
-        %canvas.pad{ width: "300", height: "55" }
-        %span.clearButton{ style: "position: absolute; margin-top: 12.5px; margin-left: 10px;" }
-          = link_to "Clear", "#clear", class: "btn btn-light", tabindex: "-1"
-      - if @agreement.errors.messages[:edges_in_duly_authorized_representative_signature].size > 0
-        %small.text-danger
-          Please sign your full name.
+    = form.label :duly_authorized_representative_signature, "Signature of Duly Authorized Representative", class: "control-label"
+    = render "forms/signature"
+
+    = render "forms/vertical/text_field", form: form, object: @agreement, key: :duly_authorized_representative_signature_print, key_name: "By (print name)", help_text: "Please print your full name."
+    - if false
+      .form-group
+        = form.label :duly_authorized_representative_signature_print, "By (print name)", class: "control-label"
+        = form.text_field :duly_authorized_representative_signature_print, class: "form-control"
+        - if @agreement.errors.messages[:duly_authorized_representative_signature_print].size > 0
+          %small.text-danger
+            Please print your full name.
 
     .form-group
-      = f.label :duly_authorized_representative_signature_print, "By (print name)", class: "control-label"
-      = f.text_field :duly_authorized_representative_signature_print, class: "form-control"
-      - if @agreement.errors.messages[:duly_authorized_representative_signature_print].size > 0
-        %small.text-danger
-          Please print your full name.
-
-    .form-group
-      = f.label :duly_authorized_representative_title, "Professional Title", class: "control-label"
-      = f.text_field :duly_authorized_representative_title, class: "form-control"
+      = form.label :duly_authorized_representative_title, "Professional Title", class: "control-label"
+      = form.text_field :duly_authorized_representative_title, class: "form-control"
       - if @agreement.errors.messages[:duly_authorized_representative_title].size > 0
         %small.text-danger
           Please enter your professional title.
@@ -126,8 +119,8 @@
         Associate Professor, Data Manager
 
     .form-group
-      = f.label :duly_authorized_representative_signature_date, "Date Signed", class: "control-label"
-      = f.text_field :duly_authorized_representative_signature_date, class: "datepicker form-control", value: @agreement.duly_authorized_representative_signature_date ? @agreement.duly_authorized_representative_signature_date.strftime("%m/%d/%Y") : ""
+      = form.label :duly_authorized_representative_signature_date, "Date Signed", class: "control-label"
+      = form.text_field :duly_authorized_representative_signature_date, class: "datepicker form-control", value: @agreement.duly_authorized_representative_signature_date ? @agreement.duly_authorized_representative_signature_date.strftime("%m/%d/%Y") : ""
       - if @agreement.errors.messages[:duly_authorized_representative_signature_date].size > 0
         %small.text-danger
           Please enter a valid date.

@@ -1,17 +1,21 @@
 # TODO: Remove all of this?
 
 $(document)
-  .on('click', '[data-object~="select_checkbox_panel"]', (event) ->
+  .on('click', '[data-object~="select-dataset"]', (event) ->
     # TODO: Remove this method
     if event.target.tagName and event.target.tagName.toLowerCase() != 'input'
       $($(this).data('target')).prop('checked', !$($(this).data('target')).prop('checked'))
 
     if $($(this).data('target')).prop('checked')
-      $(this).closest('.panel').removeClass('panel-default')
-      $(this).closest('.panel').addClass('panel-success')
+      $(this).find('.card-header').removeClass('bg-light')
+      $(this).find('.card-header').addClass('bg-primary text-white')
+      $(this).find("[data-object~=dataset-check-icon]").removeClass("fa-square-o")
+      $(this).find("[data-object~=dataset-check-icon]").addClass("fa-check-square-o")
     else
-      $(this).closest('.panel').removeClass('panel-success')
-      $(this).closest('.panel').addClass('panel-default')
+      $(this).find('.card-header').removeClass('bg-primary text-white')
+      $(this).find('.card-header').addClass('bg-light')
+      $(this).find("[data-object~=dataset-check-icon]").removeClass("fa-check-square-o")
+      $(this).find("[data-object~=dataset-check-icon]").addClass("fa-square-o")
     if $('[name="agreement[dataset_ids][]"]:checked').length < 2
       $('#too-many-datasets').hide()
     else

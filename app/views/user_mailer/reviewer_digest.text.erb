@@ -2,7 +2,7 @@ Dear <%= @user.first_name %>,
 
 The following agreements are awaiting your review. Please click on each and then approve or reject the agreement.
 
-<% if @user.digest_reviews.size > 0 %>
+<% if @user.digest_reviews.present? %>
 Agreements
 
 <% @user.digest_reviews.each_with_index do |review, index| %>

@@ -41,7 +41,7 @@
                 research project is exempt from review.
 
           .form-group
-            - if @agreement.irb.size > 0
+            - if @agreement.irb.present?
               .callout.callout-default
                 = link_to download_irb_agreement_path(@agreement), data: { turbolinks: false } do
                   %i.fa.fa-file-o

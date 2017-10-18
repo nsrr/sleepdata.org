@@ -104,8 +104,7 @@
       .dataset-card-body
         .not-flipped
           .dataset-card-logo
-            - if dataset.logo.size > 0
-              = link_to image_tag(logo_dataset_path(dataset)), dataset
+            = link_to image_tag(logo_dataset_path(dataset), alt: ""), dataset
           = render "datasets/card_content", dataset: dataset
         .already-flipped
           = simple_markdown(dataset.description)
