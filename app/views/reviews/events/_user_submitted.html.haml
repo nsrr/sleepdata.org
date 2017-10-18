@@ -23,8 +23,8 @@
           - if agreement_event.agreement.irb_evidence_type == "has_evidence" && agreement_event.agreement.irb.size > 0
             %div{ style: "margin-top: 20px;" }
               %i.fa.fa-paperclip
-              = link_to download_irb_agreement_path(agreement_event.agreement), target: "_blank" do
-                = agreement_event.agreement.irb.to_s.split("/").last
+              = link_to download_irb_agreement_path(agreement_event.agreement), data: { turbolinks: false } do
+                = agreement_event.agreement.irb.file.filename
 
       .col-md-3.col-buffer
         %div{ style: "padding-left: 20px;" }

@@ -7,9 +7,9 @@
     %td
       - if @agreement.irb_evidence_type == "has_evidence"
         - if @agreement.irb.size > 0
-          = link_to download_irb_agreement_path(@agreement), target: "_blank" do
+          = link_to download_irb_agreement_path(@agreement), data: { turbolinks: false } do
             %i.fa.fa-file-o
-            = @agreement.irb.to_s.split("/").last
+            = @agreement.irb.file.filename
           %tt= number_to_human_size @agreement.irb.size
       - else
         Has requested the

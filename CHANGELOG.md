@@ -84,6 +84,12 @@
   - Updated to haml 5.0.4
   - Updated to kaminari 1.1.0
 
+## 0.29.1 (October 18, 2017)
+
+### Bug Fix
+- Fixed a bug that prevented reviewers from viewing IRB files that included
+  URL-escaped characters
+
 ## 0.29.0 (August 28, 2017)
 
 ### Enhancements
