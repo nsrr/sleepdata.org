@@ -1,11 +1,11 @@
 - @title = "#{@variable.name.upcase} - #{@dataset.slug.upcase} Variables"
 
-= render 'variables/header'
+= render "variables/header"
 
-.row{ style: 'margin-bottom: 20px' }
-  .col-sm-3.hidden-xs
-    = render 'variables/menu'
-  .col-sm-9
+.row.mb-3
+  .col-md-3.d-none.d-md-block
+    = render "variables/menu"
+  .col-md-9
     %h1.variable-header.brand Known Issues
 
     - if @variable.known_issues.present?
@@ -13,4 +13,4 @@
     - else
       %p.lead This variable has no known issues.
 
-.visible-xs= render 'variables/menu'
+.d-block.d-md-none= render "variables/menu"

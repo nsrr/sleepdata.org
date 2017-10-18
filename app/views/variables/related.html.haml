@@ -2,10 +2,10 @@
 
 = render "variables/header"
 
-.row{ style: "margin-bottom: 20px;" }
-  .col-sm-3.hidden-xs
+.row.mb-3
+  .col-md-3.d-none.d-md-block
     = render "variables/menu"
-  .col-sm-9
+  .col-md-9
     %h1.variable-header.brand Related Variables
 
     - variables = @variable.related_variables
@@ -24,4 +24,4 @@
     - else
       %p.lead This variable has no related variables.
 
-.visible-xs= render "variables/menu"
+.d-block.d-md-none= render "variables/menu"

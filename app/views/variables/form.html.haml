@@ -1,9 +1,9 @@
 = render "variables/header"
 
-.row{ style: "margin-bottom: 20px" }
-  .col-sm-3.hidden-xs
+.row.mb-3
+  .col-md-3.d-none.d-md-block
     = render "variables/menu"
-  .col-sm-9
+  .col-md-9
     - dataset_forms_folder = files_dataset_path(@dataset) + "/forms/#{@form.folder}?f=#{CGI::escape @form.code_book.to_s}"
     - direct_download = files_dataset_path(@dataset) + "/m/browser/#{@form.full_location}"
     - inline_url = files_dataset_path(@dataset) + "/m/browser/#{@form.full_location}?inline=1"
@@ -46,4 +46,4 @@
           form.
         = link_to @form.code_book, dataset_forms_folder
 
-.visible-xs= render "variables/menu"
+.d-block.d-md-none= render "variables/menu"

@@ -2,10 +2,10 @@
 
 = render "variables/header"
 
-.row{ style: "margin-bottom: 20px;" }
-  .col-sm-3.hidden-xs
+.row.mb-3
+  .col-md-3.d-none.d-md-block
     = render "variables/menu"
-  .col-sm-9
+  .col-md-9
     = hidden_field_tag "chart_type", params[:g]
 
     - json = JSON.parse(@variable.spout_stats) rescue json = nil
@@ -46,4 +46,4 @@
                         - rows.each do |cell|
                           = render "variables/table_cell", cell: cell, type: :td
 
-.visible-xs= render "variables/menu"
+.d-block.d-md-none= render "variables/menu"

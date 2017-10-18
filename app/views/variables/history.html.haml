@@ -1,24 +1,24 @@
 - @title = "#{@variable.name.upcase} - #{@dataset.slug.upcase} Variables"
 
-= render 'variables/header'
+= render "variables/header"
 
-.row{ style: 'margin-bottom: 20px' }
-  .col-sm-3.hidden-xs
-    = render 'variables/menu'
-  .col-sm-9
+.row.mb-3
+  .col-md-3.d-none.d-md-block
+    = render "variables/menu"
+  .col-md-9
     %h1.variable-header.brand History
 
     %ul
       - @dataset.dataset_versions.where(id: @dataset.variables.where(name: @variable.name).select(:dataset_version_id)).order(release_date: :desc).each do |dataset_version|
-        %li{ style: (dataset_version.id == @variable.dataset_version_id ? 'font-weight: bold' : nil) }
+        %li{ style: (dataset_version.id == @variable.dataset_version_id ? "font-weight: bold" : nil) }
           = link_to dataset_version.version, dataset_variable_path(@dataset, @variable, v: dataset_version.version)
-          = '(current version)' if dataset_version.id == @variable.dataset_version_id
+          = "(current version)" if dataset_version.id == @variable.dataset_version_id
+          = dataset_version.release_date
 
     - if @variable.dataset_version
       - download_url = files_dataset_path(@dataset) + "/datasets/archive/#{@variable.dataset_version.version}"
-      = link_to download_url, class: 'btn btn-light' do
+      = link_to download_url, class: "btn btn-light" do
         %i.fa.fa-file-text-o
         View Change Log
 
-
-.visible-xs= render 'variables/menu'
+.d-block.d-md-none= render "variables/menu"
