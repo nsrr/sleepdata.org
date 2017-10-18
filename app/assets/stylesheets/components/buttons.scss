@@ -14,3 +14,22 @@
     box-shadow: 0 0 8px $standard-shadow-hover-color;
   }
 }
+
+.btn-neutral {
+  color: $p900-grey;
+  background-color: $p200-grey;
+  border-color: $p200-grey;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active,
+  &.disabled,
+  &[disabled] {
+    background-color: $p300-grey;
+    background-image: none;
+    box-shadow: none;
+    border-color: $p400-grey;
+    color: $p900-grey;
+  }
+}
