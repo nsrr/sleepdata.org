@@ -15,7 +15,7 @@ class Admin::DatasetsController < ApplicationController
   def create
     @dataset = current_user.datasets.new(dataset_params)
     if @dataset.save
-      redirect_to @dataset, notice: 'Dataset was successfully created.'
+      redirect_to @dataset, notice: "Dataset was successfully created."
     else
       render :new
     end
@@ -24,7 +24,7 @@ class Admin::DatasetsController < ApplicationController
   # DELETE /datasets/1
   def destroy
     @dataset.destroy
-    redirect_to datasets_path, notice: 'Dataset was successfully deleted.'
+    redirect_to datasets_path, notice: "Dataset was successfully deleted."
   end
 
   private

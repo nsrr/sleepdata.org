@@ -17,6 +17,7 @@
   - Dataset status has been simplified:
     - `released`, also the same as `listed`, `public`, and
     - `unreleased`, also the same as `unlisted`, `private`
+  - Datasets without documentation now show the dataset menu after creation
 - **Organizations Added**
   - Organizations are used to group datasets, legal documents, and reviewers
   - Organization editors can now create legal documents

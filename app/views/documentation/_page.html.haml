@@ -47,4 +47,13 @@
     #sidebar-content.d-none.d-sm-block{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-sm-3"}"}
       .menu-sticky= render "documentation/pages_list", pages_path: pages_path
 - else
-  = render "documentation/nodoc"
+  .row
+    #documentation-content{ class: "#{cookies[:hide_page_list] == "1" ? "col-sm-12" : "col-sm-9"}"}
+      = render "documentation/nodoc"
+    #sidebar-content.d-none.d-sm-block{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-sm-3"}"}
+      .menu-sticky
+        .page-list-container{ style: "#{"display: none;" if cookies[:hide_page_list] == "1"}" }
+          %ul.left-menu
+            = render "documentation/logo_and_admin"
+            = render "datasets/menu_rating", dataset: @object if @object.is_a?(Dataset)
+            = render "datasets/menu_extra"

@@ -30,28 +30,5 @@
           = page_name
 
   = render "documentation/logo_and_admin"
-
-  - if @object.is_a?(Dataset)
-    .small-spacer
-    %div{ style: "padding: 0 20px;" }
-      %strong Rating
-      = render "datasets/rating", rating: @dataset.rating
-      - if @dataset.dataset_reviews.count.positive?
-        %br
-        = link_to pluralize(number_with_delimiter(@dataset.dataset_reviews.count), "Review"), dataset_dataset_reviews_path(@dataset)
-      %br
-      - if current_user && current_user.reviewed_dataset?(@dataset)
-        - link_text = "Update my review"
-      - else
-        - link_text = "Write a review"
-      = link_to link_text, new_dataset_dataset_review_path(@dataset)
-
-  - if current_user && @object.editable_by?(current_user)
-    - if @object.is_a? Dataset
-      .small-spacer
-      = render "datasets/links"
-    - elsif @object.is_a? Tool
-      .small-spacer
-      .center
-        = link_to "Sync", sync_tool_path(@object), class: "btn btn-sm btn-light"
-    .small-spacer
+  = render "datasets/menu_rating", dataset: @object if @object.is_a?(Dataset)
+  = render "datasets/menu_extra"

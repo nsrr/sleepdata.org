@@ -1,0 +1,13 @@
+.small-spacer
+%div{ style: "padding: 0 20px;" }
+  %strong Rating
+  = render "datasets/rating", rating: dataset.rating
+  - if dataset.dataset_reviews.count.positive?
+    %br
+    = link_to pluralize(number_with_delimiter(dataset.dataset_reviews.count), "Review"), dataset_dataset_reviews_path(dataset)
+  %br
+  - if current_user && current_user.reviewed_dataset?(dataset)
+    - link_text = "Update my review"
+  - else
+    - link_text = "Write a review"
+  = link_to link_text, new_dataset_dataset_review_path(dataset)
