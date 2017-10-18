@@ -1,4 +1,4 @@
-## 0.29.1
+## 0.29.1 (October 18, 2017)
 
 ### Bug Fix
 - Fixed a bug that prevented reviewers from viewing IRB files that included
