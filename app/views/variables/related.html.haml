@@ -6,7 +6,7 @@
   .col-md-3.d-none.d-md-block
     = render "variables/menu"
   .col-md-9
-    %h1.variable-header.brand Related Variables
+    %h1.variable-header Related Variables
 
     - variables = @variable.related_variables
     - if variables.present?

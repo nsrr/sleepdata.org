@@ -13,7 +13,7 @@
             = link_to "Variables", dataset_variables_path(@dataset), class: "btn btn-block #{params[:controller] == "variables" ? "btn-light" : "btn-outline-dark"}"
 
   - if @variable && @dataset.dataset_version && @variable.dataset_version_id != @dataset.dataset_version_id
-    .flash-alert
+    .alert-danger.p-1
       .container
         %strong Old Version
         You are viewing variable information
