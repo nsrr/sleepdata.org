@@ -20,7 +20,6 @@
   typeaheadReady()
 
 @objectsReady = ->
-  challengesReady()
   datasetsReady()
   filesReady()
   repliesReady()

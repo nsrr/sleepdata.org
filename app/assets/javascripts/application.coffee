@@ -60,7 +60,6 @@
 # Objects
 #= require objects/agreement_events
 #= require objects/agreements
-#= require objects/challenges
 #= require objects/datasets
 #= require objects/files
 #= require objects/images
