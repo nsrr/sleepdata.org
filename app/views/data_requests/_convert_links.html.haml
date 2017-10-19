@@ -1,0 +1,8 @@
+- if data_request.commercial_available?
+  .small= link_to "switch to commercial", data_requests_convert_path(data_request, commercial_type: "commercial"), method: :post
+- if data_request.noncommercial_available?
+  .small= link_to "switch to noncommercial", data_requests_convert_path(data_request, commercial_type: "noncommercial"), method: :post
+- if data_request.individual_available?
+  .small= link_to "switch to individual", data_requests_convert_path(data_request, data_user_type: "individual"), method: :post
+- if data_request.organization_available?
+  .small= link_to "switch to organization", data_requests_convert_path(data_request, data_user_type: "organization"), method: :post

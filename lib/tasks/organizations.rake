@@ -83,6 +83,8 @@ def create_standard_i(bwh)
   standard_i.legal_document_variables.find_by(name: "terms_and_conditions").update(
     description: "I have read and fully understand and accept the above terms and conditions."
   )
+
+  standard_i.legal_document_variables.update_all(required: true)
 end
 
 def create_standard_o(bwh)
@@ -129,6 +131,8 @@ def create_standard_o(bwh)
   standard_o.legal_document_variables.find_by(name: "terms_and_conditions").update(
     description: "I have read and fully understand and accept the above terms and conditions."
   )
+
+  standard_o.legal_document_variables.update_all(required: true)
 end
 
 def assign_legal_docs_to_datasets(bwh)

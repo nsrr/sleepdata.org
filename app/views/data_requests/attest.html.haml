@@ -8,22 +8,23 @@
       .page-box.last-box
         .agreement-heading Attest
 
-
         = form_with url: data_requests_update_attest_path(@data_request), method: :post, local: true, id: "dataset-request-form" do |form|
           = hidden_field_tag "data_request[draft_mode]", nil
           - if @data_request.final_legal_document.attestation_type == "signature"
+            - if @data_request.signature_file.present?
+              = image_tag(data_requests_signature_path(@data_request), class: "img-signature", alt: "")
+            - else
+              = render "forms/signature"
 
-            = render "forms/signature"
-
-            - [{variable: "signature_name", label: "By (print name)", type: "string" }].each do |hash|
-              .form-group
-                = label_tag hash[:variable], hash[:label], class: "form-control-label"
-                - if hash[:type] == "text"
-                  = text_area_tag hash[:variable], "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: hash[:variable], help_text: hash[:label] || hash[:variable].titleize }, rows: 7
-                - else
-                  = text_field_tag hash[:variable], "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: hash[:variable], help_text: hash[:label] || hash[:variable].titleize }
-                - if hash[:example].present?
-                  %small.text-muted= hash[:example]
+              - [{variable: "signature_name", label: "By (print name)", type: "string" }].each do |hash|
+                .form-group
+                  = label_tag hash[:variable], hash[:label], class: "form-control-label"
+                  - if hash[:type] == "text"
+                    = text_area_tag hash[:variable], "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: hash[:variable], help_text: hash[:label] || hash[:variable].titleize }, rows: 7
+                  - else
+                    = text_field_tag hash[:variable], "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: hash[:variable], help_text: hash[:label] || hash[:variable].titleize }
+                  - if hash[:example].present?
+                    %small.text-muted= hash[:example]
 
           - if @data_request.final_legal_document.attestation_type == "checkbox"
             - [{ variable: "attest_check", label: "Attest Check", type: "checkbox", description: "I attest that I checked this box." }].each do |hash|

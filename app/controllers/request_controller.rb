@@ -273,19 +273,19 @@ class RequestController < ApplicationController
     end
   end
 
-  def save_agreement_user
-    dataset = current_user.all_viewable_datasets.find_by_param(params[:dataset])
-    if dataset
-      @agreement = dataset.agreements.find_by(user_id: current_user.id, status: ["resubmit", "started"])
-      @agreement = dataset.agreements.create(user_id: current_user.id) unless @agreement
-      redirect_to agreement_start_path(dataset_id: dataset, agreement_id: @agreement.id)
-    else
-      redirect_to datasets_path
-    #   @agreement = current_user.agreements.create(status: "started")
-    end
+  # def save_agreement_user
+  #   dataset = current_user.all_viewable_datasets.find_by_param(params[:dataset])
+  #   if dataset
+  #     @agreement = dataset.agreements.find_by(user_id: current_user.id, status: ["resubmit", "started"])
+  #     @agreement = dataset.agreements.create(user_id: current_user.id) unless @agreement
+  #     redirect_to agreement_start_path(dataset_id: dataset, agreement_id: @agreement.id)
+  #   else
+  #     redirect_to datasets_path
+  #   #   @agreement = current_user.agreements.create(status: "started")
+  #   end
 
-    # redirect_to step_agreement_path(@agreement, step: @agreement.current_step)
-  end
+  #   # redirect_to step_agreement_path(@agreement, step: @agreement.current_step)
+  # end
 
   def save_dataset_hosting_user
     @hosting_request.user_id = current_user.id

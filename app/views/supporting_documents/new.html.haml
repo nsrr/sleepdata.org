@@ -1,9 +1,12 @@
-- @title = "New Supporting Document"
+- @title = "Upload Supporting Document"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        = @title
+.container-fluid
+  .row.flex-xl-nowrap
+    = render "data_requests/menu"
 
-= render "supporting_documents/form", supporting_document: @supporting_document
+    #agreement-helper-drawer.d-none.d-xl-block.col-xl.sidebar-drawer
+
+    %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
+      .page-box.last-box
+        .agreement-heading= @title
+        = render "supporting_documents/form", supporting_document: @supporting_document

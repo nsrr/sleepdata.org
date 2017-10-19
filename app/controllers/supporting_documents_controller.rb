@@ -6,9 +6,11 @@ class SupportingDocumentsController < ApplicationController
   before_action :find_data_request_or_redirect
   before_action :find_supporting_document_or_redirect, only: [:show, :destroy]
 
+  layout "layouts/full_page"
+
   # GET /data/requests/:data_request_id/supporting-documents
   def index
-    @supporting_documents = @data_request.supporting_documents # TODO: Paginate or remove.
+    @supporting_documents = @data_request.supporting_documents.order(:document).page(params[:page]).per(40)
   end
 
   # GET /data/requests/:data_request_id/supporting-documents/1
@@ -25,7 +27,7 @@ class SupportingDocumentsController < ApplicationController
   def create
     @supporting_document = @data_request.supporting_documents.new(supporting_document_params)
     if @supporting_document.save
-      redirect_to data_requests_addons_path(@data_request), notice: "Supporting document was successfully created."
+      redirect_to [@data_request, :supporting_documents], notice: "Supporting document was successfully created."
     else
       render :new
     end
@@ -36,6 +38,7 @@ class SupportingDocumentsController < ApplicationController
     params[:documents].each do |document|
       @data_request.supporting_documents.create(document: document)
     end
+    @supporting_documents = @data_request.supporting_documents.page(params[:page]).per(40)
     render :index
   end
 

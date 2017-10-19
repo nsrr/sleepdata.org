@@ -68,7 +68,7 @@ $(document)
       $($(this).data("target")).submit()
     false
   )
-  .on('click', '[data-object~="submit-signature-draft-and-disable"]', ->
+  .on('click', '[data-object~="submit-draft-signature-and-disable"]', ->
     if window.$signaturePad.isEmpty()
       alert 'Please provide signature first.'
     else

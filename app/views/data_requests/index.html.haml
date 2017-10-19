@@ -1,0 +1,28 @@
+- if @data_requests.present?
+  %table.table.table-striped.table-borderless.table-sticky
+    %col
+    %col{ width: "1px" }
+    %col{ width: "1px" }
+    %thead
+      %tr
+        %th
+          Data Request
+        %th
+          Status
+        %th.text-center
+          Actions
+    - @data_requests.each do |data_request|
+      %tr.tr-align-middle{ id: "data-request-#{data_request.id}" }
+        %td= data_request.agreement_number
+        %td= data_request.status
+        %td.text-center
+          = link_to "View", data_requests_page_path(data_request, 1)
+          -# TODO: Fix deletion of data_request
+          - if false
+            = link_to data_request, method: :delete, remote: true, data: { confirm: "Delete #{data_request.name}?" }, class: "btn btn-sm btn-outline-danger" do
+              %i.fa.fa-trash
+
+  .center-horizontally= paginate @data_requests, theme: "bootstrap"
+- else
+  .p-3.lead.text-center.text-muted
+    You have not started any data requests.

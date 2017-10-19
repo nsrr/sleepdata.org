@@ -1,0 +1,47 @@
+-# TODO: Update to use "final_legal_documents"
+- if @dataset.legal_documents.published.count > 0
+  .jumbotron
+    .d-flex.mb-5
+      .pl-3.pr-4.d-flex.flex-column.justify-content-center
+        %i.fa.fa-gavel.fa-2x{ style: "font-size: 4rem;" }
+      %div.d-flex.flex-column.justify-content-center
+        .lead
+          %strong Sorry!
+          = link_to @dataset.name, @dataset
+          does not have any data sharing agreements
+
+          - if @dataset.legal_documents.published.where(commercial_type: %w(both commercial)).count.zero?
+            for
+            = link_to "commercial entities", data_requests_intended_use_noncommercial_or_commercial_path(@dataset)
+          - elsif @dataset.legal_documents.published.where(commercial_type: %w(both noncommercial)).count.zero?
+            for
+            = link_to "noncommercial entities", data_requests_intended_use_noncommercial_or_commercial_path(@dataset)
+          - elsif @dataset.legal_documents.published.where(data_user_type: %w(both organization)).count.zero?
+            for
+            = link_to "organizations", data_requests_request_as_individual_or_organization_path(@dataset)
+          - elsif @dataset.legal_documents.published.where(data_user_type: %w(both individual)).count.zero?
+            for
+            = link_to "individuals", data_requests_request_as_individual_or_organization_path(@dataset)
+
+          at this time.
+
+    .text-center
+      = link_to datasets_path, class: "btn btn-light" do
+        %i.fa.fa-caret-left
+        Back to datasets
+
+- else
+  .jumbotron
+    .d-flex.mb-5
+      .pl-3.pr-4.d-flex.flex-column.justify-content-center
+        %i.fa.fa-gavel.fa-2x{ style: "font-size: 4rem;" }
+      %div.d-flex.flex-column.justify-content-center
+        .lead
+          %strong Sorry!
+          = link_to @dataset.name, @dataset
+          is not currently processing any data requests.
+
+    .text-center
+      = link_to datasets_path, class: "btn btn-light" do
+        %i.fa.fa-caret-left
+        Back to datasets

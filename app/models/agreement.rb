@@ -107,7 +107,6 @@ class Agreement < ApplicationRecord
   has_many :tags, -> { where(deleted: false).order(:name) }, through: :agreement_tags
   has_many :agreement_transactions, -> { order(id: :desc) }
   has_many :agreement_transaction_audits
-  has_many :supporting_documents, foreign_key: "data_request_id"
 
   # Methods
 

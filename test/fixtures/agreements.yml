@@ -178,7 +178,7 @@ started:
   status: started
   final_legal_document: one
 
-addons:
+uploads:
   user: regular
   status: started
   final_legal_document: one

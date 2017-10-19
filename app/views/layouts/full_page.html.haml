@@ -18,8 +18,8 @@
     = javascript_tag "var root_url='#{request.script_name + '/'}';"
   %body#top.full-page{ class: yield(:body_class) }
     = render "layouts/flash_bar"
-    #top-menu= render "layouts/menu"
+    #top-menu= render "layouts/menu", container: "container-fluid"
     = yield :header
     = yield
     = yield :footer
-    = render "layouts/footer"
+    = render "layouts/footer", container: "container-fluid"

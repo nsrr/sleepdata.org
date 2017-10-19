@@ -37,6 +37,7 @@ class Dataset < ApplicationRecord
   has_many :variable_forms
   has_many :requests
   has_many :agreements, -> { current }, through: :requests
+  has_many :data_requests, -> { current }, through: :requests, source: :agreement
   has_many :dataset_files
   has_many :dataset_reviews, -> { order(rating: :desc, id: :desc) }
   has_many :legal_document_datasets
@@ -228,18 +229,18 @@ class Dataset < ApplicationRecord
   end
 
   def legal_document_for_user(current_user)
-    legal_documents.published.find_by(data_user_type: ["both", current_user.data_user_type], commercial_type: ["both", current_user.commercial_type])
+    legal_documents.published.find_by(data_user_type: ["both", current_user&.data_user_type], commercial_type: ["both", current_user&.commercial_type])
   end
 
   def final_legal_document_for_user(current_user)
-    final_legal_documents.find_by(data_user_type: ["both", current_user.data_user_type], commercial_type: ["both", current_user.commercial_type])
+    final_legal_documents.find_by(data_user_type: ["both", current_user&.data_user_type], commercial_type: ["both", current_user&.commercial_type])
   end
 
   def specify_data_user_type?(current_user)
-    current_user.data_user_type.blank? && legal_documents.published.present? && legal_documents.published.where(data_user_type: "both").count.zero?
+    current_user&.data_user_type.blank? && legal_documents.published.present? && legal_documents.published.where(data_user_type: "both").count.zero?
   end
 
   def specify_commercial_type?(current_user)
-    current_user.commercial_type.blank? && legal_documents.published.present? && legal_documents.published.where(commercial_type: "both").count.zero?
+    current_user&.commercial_type.blank? && legal_documents.published.present? && legal_documents.published.where(commercial_type: "both").count.zero?
   end
 end

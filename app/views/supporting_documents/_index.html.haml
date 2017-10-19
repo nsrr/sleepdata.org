@@ -1,4 +1,4 @@
-- if @data_request.supporting_documents.present?
+- if @supporting_documents.present?
   %table.table.table-striped.table-borderless.table-sticky
     %col
     %col{ width: "1px" }
@@ -11,21 +11,20 @@
           Size
         %th.text-center
           Actions
-    - @data_request.supporting_documents.order(:document).each do |supporting_document|
-      %tr{ id: "supporting-document-#{supporting_document.id}" }
+    - @supporting_documents.each do |supporting_document|
+      %tr.tr-align-middle{ id: "supporting-document-#{supporting_document.id}" }
         %td
           - if supporting_document.document.file.extension.casecmp("pdf").zero?
             %i.fa.fa-file-pdf-o
           - else
             %i.fa.fa-file-image-o
-          -# TODO: replace with [@data_request, supporting_document] when agreements are renamed to supporting_documents
-          = link_to supporting_document.document.file.filename, data_request_supporting_document_path(@data_request, supporting_document), data: { turbolinks: false }
+          = link_to supporting_document.document.file.filename, [@data_request, supporting_document], data: { turbolinks: false }
         %td.small= number_to_human supporting_document.file_size
         %td.text-center
-          -# TODO: replace with [@data_request, supporting_document] when agreements are renamed to supporting_documents
-          = link_to data_request_supporting_document_path(@data_request, supporting_document), method: :delete, remote: true, data: { confirm: "Delete #{supporting_document.document.file.filename}?" }, class: "btn btn-sm btn-outline-danger" do
+          = link_to [@data_request, supporting_document], method: :delete, remote: true, data: { confirm: "Delete #{supporting_document.document.file.filename}?" }, class: "btn btn-sm btn-outline-danger" do
             %i.fa.fa-trash
 
+  .center-horizontally= paginate @supporting_documents, theme: "bootstrap-small"
 - else
   .p-3.lead.text-center.text-muted
     No supporting documents uploaded.

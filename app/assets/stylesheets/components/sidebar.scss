@@ -71,6 +71,8 @@
 
 .sidebar-nav-group {
   &.active {
+    margin-bottom: 1rem;
+
     &:not(:first-child) {
       margin-top: 1rem;
     }

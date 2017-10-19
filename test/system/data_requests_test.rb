@@ -41,7 +41,7 @@ class DataRequestsTest < ApplicationSystemTestCase
     visit data_requests_addendum_url(@started, "1")
     screenshot("dataset-requests")
 
-    visit data_requests_addons_url(@started)
+    visit data_request_supporting_documents_url(@started)
     screenshot("dataset-requests")
 
     visit data_requests_proof_url(@started)

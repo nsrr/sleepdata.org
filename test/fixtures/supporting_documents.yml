@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  data_request: addons
+  data_request: uploads
   document: MyString
   # file_size: 0
 
 two:
-  data_request: addons
+  data_request: uploads
   document: MyString
   # file_size: 0

@@ -5,7 +5,9 @@ $(document)
     e.preventDefault()
   )
   .on('dragleave', '[data-object~="supporting-documents-dropfile"]', (e) ->
-    $(this).removeClass('upload-hover')
+    relatedTarget = e.relatedTarget || e.toElement
+    if $(relatedTarget).closest('[data-object~="supporting-documents-dropfile"]').length == 0
+      $(this).removeClass('upload-hover')
     e.stopPropagation()
     e.preventDefault()
   )

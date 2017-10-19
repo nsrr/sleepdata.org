@@ -108,12 +108,6 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get addons" do
-    login(@regular)
-    get data_requests_addons_url(@started)
-    assert_response :success
-  end
-
   test "should get proof" do
     login(@regular)
     get data_requests_proof_url(@started)

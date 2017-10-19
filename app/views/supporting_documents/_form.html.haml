@@ -1,10 +1,3 @@
 = form_with model: [@data_request, supporting_document], url: data_request_supporting_documents_path, local: true do |form|
   = render "forms/horizontal/file_field", form: form, object: supporting_document, key: :document, help_text: "PDF, JPG, PNG, GIF"
-  =# render "forms/horizontal/submit", form: form, object: [@data_request, supporting_document]
-
-  -# TODO: Rewrite to use above helper, or change above helper to handle alternate cancel URL.
-  .form-group.row.mt-5
-    .col-md-2
-    .col-md-10
-      = form.submit "Upload", class: "btn btn-primary"
-      = link_to "Cancel", data_requests_addons_path(@data_request), class: "btn btn-light"
+  = render "forms/horizontal/submit", form: form, object: [@data_request, supporting_document], submit_text: "Upload"

@@ -14,6 +14,15 @@ class FinalLegalDocumentPage < ApplicationRecord
   alias_method :legal_document, :final_legal_document
 
   # Methods
+  def variables
+    variable_ids = []
+    content.to_s.gsub(/\#{(\d+)}/) do
+      v = final_legal_document.final_legal_document_variables.find_by(id: $1)
+      variable_ids << v.id if v
+    end
+    final_legal_document.final_legal_document_variables.where(id: variable_ids)
+  end
+
   def readable_content
     content.to_s.gsub(/\#{(\d+)}/) do
       v = final_legal_document.final_legal_document_variables.find_by(id: $1)

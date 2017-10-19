@@ -9,5 +9,5 @@ class SupportingDocument < ApplicationRecord
   validates :document, presence: true
 
   # Relationships
-  belongs_to :data_request, class_name: "Agreement"
+  belongs_to :data_request
 end

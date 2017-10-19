@@ -2,28 +2,36 @@
   .sidebar
     .sidebar-header.d-flex.align-items-center
       .mr-auto
-        %strong= @data_request.final_legal_document.legal_document.organization.name
+        %strong
+          Data Request
+          .small= @data_request.final_legal_document.name
+          .small.mb-1
+            %span= @data_request.final_legal_document.version
+            %span.small>= ".#{@data_request.final_legal_document.version_md5.first(7)}"
+          = render "data_requests/convert_links", data_request: @data_request
 
-      %button.btn-link.sidebar-header-toggle.d-md-none.p-0.ml-3{ type: "button", data: { toggle: "collapse", target: "#sidebar-nav-wrapper" }, aria: { controls: "sidebar-nav-wrapper", expanded: "false", label: "Toggle docs navigation" } }
-        %i.fa.fa-bars.fa-2x
+      %button.navbar-light.navbar-toggler.d-md-none{ type: "button", data: { toggle: "collapse", target: "#sidebar-nav-wrapper" }, aria: { controls: "sidebar-nav-wrapper", expanded: "false", label: "Toggle docs navigation" }, style: "border: 1px solid rgba(0, 0, 0, 0.5);" }
+        %span.navbar-toggler-icon
 
-    - pages = @data_request.final_legal_document.final_legal_document_pages.where(rider: false).collect { |p| { name: "Page #{p.position}", url: data_requests_page_path(@data_request, p.position) } }
+    - pages = @data_request.final_legal_document.final_legal_document_pages.where(rider: false).collect { |p| { name: "Page #{p.position}", url: data_requests_page_path(@data_request, p.position), complete?: @data_request.page_complete?(p) } }
+    - pages << { name: (@data_request.final_legal_document.attestation_type == "signature" ? "Signature" : "Attest"), url: data_requests_attest_path(@data_request), complete?: @data_request.attestation_complete? } if @data_request.attestation_required?
     - addendums = @data_request.final_legal_document.final_legal_document_pages.where(rider: true).collect { |p| { name: p.title, url: data_requests_addendum_path(@data_request, p.position) } }
     - groups = []
-    - groups << { name: "DAUA", url: data_requests_page_path(@data_request, 1), docs: pages } if pages.present?
-    - groups << { name: "Attestation", url: data_requests_attest_path(@data_request), docs: [{ name: "Attest", url: data_requests_attest_path(@data_request) }] } if @data_request.final_legal_document.attestation_type == "checkbox" || @data_request.final_legal_document.attestation_type == "signature"
+    - groups << { name: "DAUA", url: data_requests_page_path(@data_request, 1), docs: pages, active: true } if pages.present?
+
+    -# groups << { name: "", url: data_requests_attest_path(@data_request), docs: [{ name: (@data_request.final_legal_document.attestation_type == "signature" ? "Signature" : "Attest"), url: data_requests_attest_path(@data_request), complete?: @data_request.attestation_complete? }] } if @data_request.final_legal_document.attestation_type == "checkbox" || @data_request.final_legal_document.attestation_type == "signature"
+
     - groups << { name: "Addendums", url: addendums.first[:url], docs: addendums } if addendums.present?
-    - groups << { name: "Addons", url: data_requests_addons_path(@data_request), docs: [], count: @data_request.supporting_documents.count }
+    - groups << { name: "Uploads", url: data_request_supporting_documents_path(@data_request), docs: [], count: @data_request.supporting_documents.count }
     - groups << { name: "Proof", url: data_requests_proof_path(@data_request), docs: [] }
     - groups << { name: "Submitted", url: data_requests_submitted_path(@data_request), docs: [] }
+    - groups << { name: "Datasets", url: "#", docs: @data_request.datasets.collect { |d| { name: d.slug.upcase, url: "#" } }}
     - groups << { name: "Print", url: data_requests_print_path(@data_request), docs: [] }
-
-    - random_number = rand(groups.size)
 
     #sidebar-nav-wrapper.sidebar-nav-wrapper.collapse
       %nav.sidebar-nav
-        - groups.each_with_index do |group, group_index|
-          .sidebar-nav-group{ class: random_number == group_index || true ? "active" : nil }
+        - groups.each do |group|
+          .sidebar-nav-group{ class: group.dig(:active) || current_page?(group.dig(:url)) || true ? "active" : nil }
             %a.sidebar-nav-group-link{ href: group.dig(:url) }
               = group.dig(:name)
               - if group.dig(:count).present? && group.dig(:count).positive?
@@ -32,16 +40,14 @@
             - if group.dig(:docs).present?
               - random_docs_number = rand(group.dig(:docs).size)
               %ul.nav.sidebar-nav-group-items
-                - group.dig(:docs).each_with_index do |doc, doc_index|
+                - group.dig(:docs).each do |doc|
                   %li{ class: current_page?(doc.dig(:url)) ? "active" : nil }
                     %a{ href: doc.dig(:url) }
-                      - if doc_index == 0
+                      - if doc.dig(:complete?)
                         %i.fa.fa-check-square-o.text-success
                       - else
                         %i.fa.fa-square-o
                       = doc.dig(:name)
         .sidebar-nav-group
           %a.sidebar-nav-group-link
-            %small.text-muted
-              %span= @data_request.final_legal_document.version
-              %span.small>= ".#{@data_request.final_legal_document.version_md5.first(7)}"
+            .small.mb-1= @data_request.final_legal_document.legal_document.organization.name
