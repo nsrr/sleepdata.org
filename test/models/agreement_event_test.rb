@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 # Test if agreement event position is calculated correctly.
 class AgreementEventTest < ActiveSupport::TestCase
