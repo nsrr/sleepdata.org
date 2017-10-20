@@ -7,10 +7,7 @@ class OrganizationsController < ApplicationController
   before_action :find_organization_or_redirect, only: [
     :show, :edit, :update, :destroy,
     :datasets,
-    :people, :invite_member, :add_member, :legal_templates,
-    :legal_template_one, :legal_template_two, :legal_template_three,
-    :legal_template_four, :legal_template_five, :legal_template_six,
-    :legal_template_seven, :legal_template_eight
+    :people, :invite_member, :add_member
   ]
 
   # GET /organizations
@@ -25,40 +22,6 @@ class OrganizationsController < ApplicationController
   # GET /organizations/1/datasets
   def datasets
     @datasets = @organization.datasets
-  end
-
-  # # GET /organizations/1/legal/templates
-  # def legal_templates
-  # end
-
-  # GET /organizations/1/legal/templates/3
-  def legal_template_three
-    render layout: "layouts/full_page_custom_header"
-  end
-
-  # GET /organizations/1/legal/templates/4
-  def legal_template_four
-    render layout: "layouts/full_page_custom_header"
-  end
-
-  # GET /organizations/1/legal/templates/5
-  def legal_template_five
-    render layout: "layouts/full_page_custom_header"
-  end
-
-  # GET /organizations/1/legal/templates/6
-  def legal_template_six
-    render layout: "layouts/full_page_custom_header"
-  end
-
-  # GET /organizations/1/legal/templates/7
-  def legal_template_seven
-    render layout: "layouts/full_page_custom_header"
-  end
-
-  # GET /organizations/1/legal/templates/8
-  def legal_template_eight
-    render layout: "layouts/full_page_custom_header"
   end
 
   # GET /organizations/1/people

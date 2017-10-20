@@ -226,15 +226,6 @@ Rails.application.routes.draw do
       get :people
       get :invite_member, path: "people/invite"
       post :add_member, path: "people/invite"
-      get :legal_templates, path: "legal/templates"
-      get :legal_template_one, path: "legal/templates/1"
-      get :legal_template_two, path: "legal/templates/2"
-      get :legal_template_three, path: "legal/templates/3"
-      get :legal_template_four, path: "legal/templates/4"
-      get :legal_template_five, path: "legal/templates/5"
-      get :legal_template_six, path: "legal/templates/6"
-      get :legal_template_seven, path: "legal/templates/7"
-      get :legal_template_eight, path: "legal/templates/8"
     end
 
     resources :legal_document_datasets, path: "legal-document-datasets"
@@ -284,27 +275,6 @@ Rails.application.routes.draw do
     get :sitemap_xml, path: "sitemap.xml.gz"
 
     post :preview
-  end
-
-  # TODO: Remove
-  scope module: :gears do
-    get :assign_commercial_type, path: "gears/noncommercial-or-commercial"
-    post :update_commercial_type, path: "gears/noncommercial-or-commercial"
-    get :assign_data_user_type, path: "gears/individual-or-organization"
-    post :update_data_user_type, path: "gears/individual-or-organization"
-    get :no_legal_doc_found, path: "gears/no-legal-doc-found"
-    get :agreement_start, path: "agreement/start"
-    get :agreement_page, path: "agreement/page/:page"
-    post :update_agreement_page, path: "agreement/page/:page"
-    get :agreement_attest_signature, path: "agreement/attest/signature"
-    post :update_agreement_attest_signature, path: "agreement/attest/signature"
-    get :agreement_signature, path: "agreement/signature"
-    get :agreement_duly_authorized_representative_signature, path: "agreement/duly_authorized_representative_signature"
-    get :agreement_reviewer_signature, path: "agreement/reviewer_signature"
-    get :agreement_attest, path: "agreement/attest"
-    post :update_agreement_attest, path: "agreement/attest"
-    get :agreement_proof, path: "agreement/proof"
-    post :agreement_submit, path: "agreement/proof"
   end
 
   resources :notifications do

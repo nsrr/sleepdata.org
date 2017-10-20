@@ -10,7 +10,7 @@ class RegistrationsController < Devise::RegistrationsController
   def check_captcha
     return unless RECAPTCHA_ENABLED && !verify_recaptcha
     self.resource = resource_class.new sign_up_params
-    resource.errors.add(:recaptcha, 'reCAPTCHA verification failed.')
+    resource.errors.add(:recaptcha, "reCAPTCHA verification failed.")
     respond_with_navigational(resource) { render :new }
   end
 end
