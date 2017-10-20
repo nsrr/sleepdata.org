@@ -14,6 +14,11 @@ regular:
   last_name: User
   email: regular@example.com
 
+regular2:
+  first_name: Regular2
+  last_name: User2
+  email: regular2@example.com
+
 two:
   first_name: MyString
   last_name: MyString
