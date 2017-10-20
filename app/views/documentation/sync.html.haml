@@ -13,9 +13,9 @@
         %li sync
 
 .row
-  #documentation-content{ class: "#{cookies[:hide_page_list] == "1" ? "col-sm-12" : "col-sm-9"}"}
+  #documentation-content{ class: "#{cookies[:hide_page_list] == "1" ? "col-md-12" : "col-md-9"}"}
     = render "documentation/sync", local_commit: @local_commit, remote_commit: @remote_commit, object: @object, back: ""
-  #sidebar-content.d-none.d-sm-block{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-sm-3"}"}
+  #sidebar-content.d-none.d-sm-block{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-md-3"}"}
     - @page_path = ""
     .menu-sticky= render "documentation/pages_list", pages_path: ""
 

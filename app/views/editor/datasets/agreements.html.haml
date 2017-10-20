@@ -14,7 +14,7 @@
           %li= link_to "Reset Filters", agreements_dataset_path(@dataset)
 
 .row
-  .col-sm-9
+  .col-md-9
     %table.table.table-striped
       %col{ width: "100px" }
       %thead
@@ -40,7 +40,7 @@
     .center
       = paginate @agreements, theme: "bootstrap-small"
 
-  .col-sm-3
+  .col-md-3
     - @object = @dataset
     = render "documentation/logo_and_admin"
     = render "datasets/links"

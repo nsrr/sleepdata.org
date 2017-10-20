@@ -39,26 +39,26 @@
 
   .container
     .row
-      .col-sm-3
+      .col-md-3
         .text-center
           %i.fa.fa-hdd-o.icon-xl
-      .col-sm-3
+      .col-md-3
         - total_stored = DatasetFile.current.where(is_file: true).sum(:file_size)
-        .text-center.d-block.d-sm-none
+        .text-center.d-block.d-md-none
           %h1= number_to_human_size total_stored
           Stored on the Resource
-        .d-none.d-sm-block
+        .d-none.d-md-block
           %h1.mt-4= number_to_human_size total_stored
           Stored on the Resource
-      .col-sm-3.d-none.d-sm-block
+      .col-md-3.d-none.d-md-block
         - month = QuarterMonth.order(regular_total_file_size: :desc).first
-        .d-none.d-sm-block.text-right
+        .d-none.d-md-block.text-right
           %h1.mt-4
             - if month
               = number_to_human_size month.regular_total_file_size, precision: 0, significant: false
             - else
               0 MB
           Shared with Researchers
-      .col-sm-3.d-none.d-sm-block
+      .col-md-3.d-none.d-md-block
         .text-center
           %i.fa.fa-globe.icon-xl

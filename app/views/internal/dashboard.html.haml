@@ -1,8 +1,8 @@
 .row
-  .col-sm-3.col-md-3
+  .col-md-3.col-lg-3
     = render "internal/profile"
 
-  .col-sm-9.col-md-6
+  .col-md-9.col-lg-6
     - if current_user.agreements.present?
       .dashboard-container
         .dashboard-title
@@ -90,5 +90,5 @@
         = mail_to ENV["support_email"]
         with any questions!
 
-  .hidden-xs.hidden-sm.col-md-3
+  .d-none.d-lg-block.col-lg-3
     = render "internal/sidebar/blog_posts"

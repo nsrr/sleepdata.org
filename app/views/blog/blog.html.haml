@@ -3,10 +3,10 @@
 = render "layouts/survey_link"
 
 .row
-  .col-sm-9
+  .col-md-9
     - @broadcasts.each do |broadcast|
       %h2.broadcast-title= link_to broadcast.title, blog_post_path(broadcast.url_hash)
       = render "blog/extract", broadcast: broadcast
     .center-horizontally= paginate @broadcasts, theme: "bootstrap"
-  .col-sm-3
+  .col-md-3
     .menu-sticky= render "blog/menu"

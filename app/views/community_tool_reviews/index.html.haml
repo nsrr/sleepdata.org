@@ -24,21 +24,20 @@
     = succeed "." do
       = link_to "Write a review", new_community_tool_community_tool_review_path(@community_tool)
 - else
-  .dashboard-container
-    %table.table.table-striped.table-borderless.table-hover
-      %col{ width: "1px" }
-      %col
-      %thead
-        %tr
-          %th.center Rating
-          %th Review
+  %table.table.table-striped.table-borderless.table-hover.table-sticky
+    %col{ width: "1px" }
+    %col
+    %thead
+      %tr
+        %th.text-center Rating
+        %th Review
 
-      %tbody
-        - @community_tool_reviews.each do |community_tool_review|
-          %tr
-            %td= render "community_tools/rating", rating: community_tool_review.rating
-            %td
-              %i= link_to community_tool_review.user.forum_name, community_tool_community_tool_review_path(@community_tool, community_tool_review)
-              %small.text-muted= community_tool_review.created_at.strftime("- %b %-d, %Y")
-              = simple_markdown(community_tool_review.review)
+    %tbody
+      - @community_tool_reviews.each do |community_tool_review|
+        %tr
+          %td= render "community_tools/rating", rating: community_tool_review.rating
+          %td
+            %i= link_to community_tool_review.user.forum_name, community_tool_community_tool_review_path(@community_tool, community_tool_review)
+            %small.text-muted= community_tool_review.created_at.strftime("- %b %-d, %Y")
+            = simple_markdown(community_tool_review.review)
   .center-horizontally= paginate @community_tool_reviews, theme: "bootstrap"

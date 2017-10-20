@@ -6,7 +6,7 @@
 - content_for :header do
   .breadcrumb-container
     .container
-      .d-none.d-sm-block.float-right
+      .d-none.d-md-block.float-right
 
         #show-page-button{ style: "#{"display: none;" if cookies[:hide_page_list] != "1"}" }
           = link_to "#", data: { object: "set-cookie toggle-page-list", cookie_key: "hide_page_list", cookie_value: "0" }, class: "btn btn-sm btn-light" do
@@ -29,14 +29,14 @@
 
 - if @page_path && File.file?(@page_path) && File.size(@page_path) < 1.megabyte
   .row
-    #documentation-content{ class: "#{cookies[:hide_page_list] == "1" ? "col-sm-12" : "col-sm-9"}"}
+    #documentation-content{ class: "#{cookies[:hide_page_list] == "1" ? "col-md-12" : "col-md-9"}"}
       = render "documentation/render_page", page_path: @page_path, path: @path
-    #sidebar-content.d-none.d-sm-block{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-sm-3"}"}
+    #sidebar-content.d-none.d-md-block{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-md-3"}"}
       - @path = @path.to_s.split("/")[0..-2].join("/")
       .menu-sticky= render "documentation/pages_list", pages_path: pages_path
 - elsif @page_path && File.directory?(@page_path)
   .row
-    #documentation-content{ class: "#{cookies[:hide_page_list] == "1" ? "col-sm-12" : "col-sm-9"}"}
+    #documentation-content{ class: "#{cookies[:hide_page_list] == "1" ? "col-md-12" : "col-md-9"}"}
       - if File.exist?(File.join(@page_path, "README.md"))
         = render "documentation/render_page", page_path: File.join(@page_path, "README.md"), path: "README.md"
       - elsif object.pages(@path).find { |_name, f| File.file?(f) }
@@ -44,13 +44,13 @@
         = render "documentation/render_page", page_path: first_page[1], path: first_page[0]
       - elsif object.pages(@path).size == 0
         = render "documentation/nodoc"
-    #sidebar-content.d-none.d-sm-block{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-sm-3"}"}
+    #sidebar-content.d-none.d-md-block{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-md-3"}"}
       .menu-sticky= render "documentation/pages_list", pages_path: pages_path
 - else
   .row
-    #documentation-content{ class: "#{cookies[:hide_page_list] == "1" ? "col-sm-12" : "col-sm-9"}"}
+    #documentation-content{ class: "#{cookies[:hide_page_list] == "1" ? "col-md-12" : "col-md-9"}"}
       = render "documentation/nodoc"
-    #sidebar-content.d-none.d-sm-block{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-sm-3"}"}
+    #sidebar-content.d-none.d-md-block{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-md-3"}"}
       .menu-sticky
         .page-list-container{ style: "#{"display: none;" if cookies[:hide_page_list] == "1"}" }
           %ul.left-menu

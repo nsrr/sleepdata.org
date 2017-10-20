@@ -7,11 +7,11 @@
         = @title
 
 .row
-  .col-sm-9
+  .col-md-9
     .markdown-container-new
       = simple_markdown(@community_tool.description, target_blank: false)
 
-  .col-sm-3
+  .col-md-3
     .menu-sticky
       - if @community_tool.editable_by?(current_user)
         %p

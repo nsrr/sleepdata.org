@@ -1,27 +1,27 @@
 .row
   - if dataset.info_what.present?
-    %div{ class: "#{"col-sm-#{12 / dataset.info_count}"}" }
+    %div{ class: "#{"col-md-#{12 / dataset.info_count}"}" }
       .info-container
         .info-header
           %i.fa.fa-graduation-cap
           What
         %p= dataset.info_what
   - if dataset.info_who.present?
-    %div{ class: "#{"col-sm-#{12 / dataset.info_count}"}" }
+    %div{ class: "#{"col-md-#{12 / dataset.info_count}"}" }
       .info-container
         .info-header
           %i.fa.fa-users
           Who
         %p= dataset.info_who
   - if dataset.info_when.present?
-    %div{ class: "#{"col-sm-#{12 / dataset.info_count}"}" }
+    %div{ class: "#{"col-md-#{12 / dataset.info_count}"}" }
       .info-container
         .info-header
           %i.fa.fa-calendar
           When
         %p= dataset.info_when
   - if dataset.info_funded_by.present?
-    %div{ class: "#{"col-sm-#{12 / dataset.info_count}"}" }
+    %div{ class: "#{"col-md-#{12 / dataset.info_count}"}" }
       .info-container
         .info-header
           %i.fa.fa-university

@@ -10,7 +10,7 @@
         %li collaborators
 
 .row
-  .col-sm-9.col-buffer
+  .col-md-9.col-buffer
     %h1 Collaborators
 
     %h4 Add User
@@ -49,6 +49,6 @@
             %td.nowrap
               = link_to 'Delete', remove_access_dataset_path( @dataset, dataset_user_id: dataset_user.id ), method: :post, class: 'btn btn-outline-danger btn-sm'
 
-  .col-sm-3
+  .col-md-3
     = render 'documentation/logo_and_admin'
     = render 'datasets/links'
