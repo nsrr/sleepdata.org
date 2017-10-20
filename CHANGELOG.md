@@ -86,6 +86,7 @@
   - Updated to carrierwave 1.2.1
   - Updated to haml 5.0.4
   - Updated to kaminari 1.1.0
+  - Added bootsnap 1.1.5
 
 ## 0.29.1 (October 18, 2017)
 
