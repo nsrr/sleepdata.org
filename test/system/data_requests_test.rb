@@ -10,48 +10,50 @@ class DataRequestsTest < ApplicationSystemTestCase
     @started = agreements(:started)
   end
 
-  test "completing a data request" do
+  test "completing a data request as existing user" do
     password = "password"
     @regular.update(password: password, password_confirmation: password)
     visit data_requests_start_url(@released)
-    screenshot("dataset-requests")
+    screenshot("dataset-request-existing-user")
 
-    click_on "Sign in"
-    screenshot("dataset-requests")
-    fill_in "user[email]", with: @regular.email
-    fill_in "user[password]", with: @regular.password
+    click_on "Click to start"
+    screenshot("dataset-request-existing-user")
+
+    click_on "I already have an account"
+
+    fill_in "email", with: @regular.email
+    fill_in "password", with: @regular.password
     click_form_submit
 
-    visit data_requests_request_as_individual_or_organization_url(@released)
-    screenshot("dataset-requests")
-    click_on "I am an individual"
+    # screenshot("dataset-request-existing-user")
+    # click_on "I am an individual"
 
-    visit data_requests_intended_use_noncommercial_or_commercial_url(@released)
-    screenshot("dataset-requests")
-    click_on "My intended use is noncommercial"
+    # screenshot("dataset-request-existing-user")
+    # click_on "My intended use is noncommercial"
 
-    visit data_requests_page_url(@started, "1")
-    screenshot("dataset-requests")
+    screenshot("dataset-request-existing-user")
+    click_on "Proceed"
 
-    visit data_requests_attest_url(@started)
+    screenshot("dataset-request-existing-user")
+    click_on "Proceed"
+
     sleep(0.5) # Allow time to setup canvas for drawing
     draw_on_canvas
-    screenshot("dataset-requests")
+    screenshot("dataset-request-existing-user")
+    click_on "Proceed"
 
-    visit data_requests_addendum_url(@started, "1")
-    screenshot("dataset-requests")
+    screenshot("dataset-request-existing-user")
+    click_on "Skip"
 
-    visit data_request_supporting_documents_url(@started)
-    screenshot("dataset-requests")
+    screenshot("dataset-request-existing-user")
+    click_on "Submit"
 
-    visit data_requests_proof_url(@started)
-    screenshot("dataset-requests")
+    screenshot("dataset-request-existing-user")
+    # visit data_requests_submitted_url(@started)
+    # screenshot("dataset-request-existing-user")
 
-    visit data_requests_submitted_url(@started)
-    screenshot("dataset-requests")
-
-    visit data_requests_print_url(@started)
-    screenshot("dataset-requests")
+    # visit data_requests_print_url(@started)
+    # screenshot("dataset-request-existing-user")
   end
 
   # data = window.$signaturePad.toData()
