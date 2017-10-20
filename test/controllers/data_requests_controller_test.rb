@@ -28,7 +28,7 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
     post data_requests_update_individual_or_organization_url(@released, data_user_type: "individual")
     @regular.reload
     assert_equal "individual", @regular.data_user_type
-    assert_redirected_to data_requests_start_url(@released)
+    assert_redirected_to data_requests_page_url(@started, 1)
   end
 
   test "should update request as organization" do
@@ -36,7 +36,7 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
     post data_requests_update_individual_or_organization_url(@released, data_user_type: "organization")
     @regular.reload
     assert_equal "organization", @regular.data_user_type
-    assert_redirected_to data_requests_start_url(@released)
+    assert_redirected_to data_requests_page_url(@started, 1)
   end
 
   test "should get intended use noncommercial or commercial" do
@@ -50,7 +50,7 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
     post data_requests_update_noncommercial_or_commercial_url(@released, commercial_type: "noncommercial")
     @regular.reload
     assert_equal "noncommercial", @regular.commercial_type
-    assert_redirected_to data_requests_start_url(@released)
+    assert_redirected_to data_requests_page_url(@started, 1)
   end
 
   test "should update intended use commercial" do
@@ -58,7 +58,7 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
     post data_requests_update_noncommercial_or_commercial_url(@released, commercial_type: "commercial")
     @regular.reload
     assert_equal "commercial", @regular.commercial_type
-    assert_redirected_to data_requests_start_url(@released)
+    assert_redirected_to data_requests_page_url(@started, 1)
   end
 
   test "should get page" do

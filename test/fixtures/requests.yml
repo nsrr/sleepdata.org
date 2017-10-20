@@ -62,3 +62,13 @@ approved_but_deleted_a:
 approved_but_deleted_b:
   agreement: approved_but_deleted_for_a_b_not_c
   dataset: unreleased_documentation
+
+
+### New for DataRequest:
+started_released:
+  agreement: started
+  dataset: released
+
+uploads_released:
+  agreement: uploads
+  dataset: released

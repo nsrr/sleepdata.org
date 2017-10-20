@@ -1,6 +1,6 @@
 .background-special
   %nav.navbar.navbar-expand-lg.navbar-dark.color-overlay2
-    %div{ class: defined?(container) ? container : "container" }
+    %div{ class: defined?(container) && container.present? ? container : "container" }
       = render "layouts/logo"
 
       %button.navbar-toggler{ type: "button", data: { toggle: "collapse", target: "#menu-body" }, aria: { controls: "menu-body", expanded: "false", label: "Toggle navigation" } }

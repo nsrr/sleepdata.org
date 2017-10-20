@@ -1,64 +1,63 @@
 - register_visible = (@sign_in != true)
 
-#sign-up-form{ style: "#{"display: none;" unless register_visible}" }
-  .sign-up-form
-    .sign-up-form-title
-      About Yourself
+.background-fixed-image
+  .page-box.last-box.color-overlay
 
-    = form_with url: data_requests_join_path(@dataset), method: :post, id: "recaptcha-form" do |form|
-      - if false
-        - # TODO: combine first name and last name.
-        = render "layouts/form_group", errors: @registration_errors, object: :user, attribute: :full_name #, attribute_name: "First name"
-      - else
-        = render "layouts/form_group", errors: @registration_errors, object: :user, attribute: :first_name, attribute_name: "First name"
-        = render "layouts/form_group", errors: @registration_errors, object: :user, attribute: :last_name, attribute_name: "Last name"
+    #sign-up-form{ style: "#{"display: none;" unless register_visible}" }
+      .sign-up-form
+        .sign-up-form-title
+          About Yourself
 
-      = render "layouts/form_group", errors: @registration_errors, object: :user, attribute: :email, attribute_name: "Email"
+        = form_with model: @user, url: data_requests_join_path(@dataset), method: :post, local: true, id: "recaptcha-form" do |form|
+          - if false
+            - # TODO: combine first name and last name.
+            = render "forms/vertical/text_field", form: form, object: @user, key: :full_name
+          - else
+            = render "forms/vertical/text_field", form: form, object: @user, key: :first_name
+            = render "forms/vertical/text_field", form: form, object: @user, key: :last_name
 
-      - invisible_recaptcha = false
-      - if RECAPTCHA_ENABLED && !invisible_recaptcha
-        .form-group
-          %label.control-label Human Verification
-          .g-recaptcha{ data: { sitekey: ENV["recaptcha_site_key"] } }
-          <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+          = render "forms/vertical/email_field", form: form, object: @user, key: :email
 
+          - invisible_recaptcha = false
+          - if RECAPTCHA_ENABLED && !invisible_recaptcha
+            .form-group
+              .mx-auto.g-recaptcha{ data: { sitekey: ENV["recaptcha_site_key"] }, style: "max-width: 304px;height: 78px;" }
+              <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+              - if @user.errors[:recaptcha].present?
+                .text-center.small.text-danger{ style: "margin-top: .25rem;" }= @user.errors[:recaptcha].join(", ")
 
-      - if @registration_errors && @registration_errors[:recaptcha].present?
-        .form-group.center
-          %small.text-danger= @registration_errors[:recaptcha]
+          .form-group.submit-btn-container
+            - if RECAPTCHA_ENABLED && invisible_recaptcha
+              %button.g-recaptcha.btn.btn-primary.btn-block.btn-shadow{ data: { sitekey: ENV["recaptcha_site_key"], callback: "recaptchaFormSubmit" } } Create an Account
+              <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+            - else
+              = form.submit "Create an Account", class: "btn btn-primary btn-block btn-shadow"
 
-      .form-group.submit-btn-container
-        - if RECAPTCHA_ENABLED && invisible_recaptcha
-          %button.g-recaptcha.btn.btn-primary.btn-block.btn-shadow{ data: { sitekey: ENV["recaptcha_site_key"], callback: "recaptchaFormSubmit" } } Create an Account
-          <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-        - else
-          = form.submit "Create an Account", class: "btn btn-primary btn-block btn-shadow"
+      .sign-up-form.center
+        = succeed "." do
+          = link_to "I already have an account", "#", data: { object: "toggle-sign-up" }, tabindex: "-1"
 
-  .sign-up-form.center
-    = succeed "." do
-      = link_to "I already have an account", "#", data: { object: "toggle-sign-up" }, tabindex: "-1"
+    #sign-in-form{ style: "#{"display: none;" if register_visible}" }
+      .sign-up-form
+        .sign-up-form-title
+          About Yourself
 
-#sign-in-form{ style: "#{"display: none;" if register_visible}" }
-  .sign-up-form
-    .sign-up-form-title
-      About Yourself
+        = form_with url: data_requests_login_path(@dataset), method: :post, local: true, id: "form_sign_in" do |form|
+          .form-group
+            = form.label :email, class: "form-control-label"
+            = form.email_field :email, class: "form-control#{" is-invalid" if @sign_in_errors}"
 
-    = form_with url: data_requests_login_path(@dataset), method: :patch, class: "form-vertical", id: "form_sign_in" do |f|
-      .form-group{ class: @sign_in_errors ? "has-error" : "" }
-        = label_tag :email, "Email", class: "control-label"
-        = email_field_tag :email, "", class: "form-control"
+          .form-group
+            = form.label :password, class: "form-control-label"
+            = link_to "(Forgot password?)", new_user_password_path, tabindex: "-1", class: "small"
+            = form.password_field :password, autocomplete: "off", class: "form-control#{" is-invalid" if @sign_in_errors}"
+            - if @sign_in_errors
+              .invalid-feedback Invalid email or password.
 
-      .form-group{ class: @sign_in_errors ? "has-error" : "" }
-        = label_tag :password, "Password", class: "control-label"
-        = link_to "(Forgot password?)", new_user_password_path, tabindex: "-1"
-        = password_field_tag :password, "", class: "form-control", autocomplete: "off"
-        - if @sign_in_errors
-          %small.text-danger Invalid email or password.
+          .form-group.submit-btn-container
+            = form.submit "Sign in", class: "btn btn-primary btn-block btn-shadow"
 
-      .form-group.submit-btn-container
-        = f.submit "Sign in", class: "btn btn-primary btn-block btn-shadow"
-
-  .sign-up-form.center
-    New to the NSRR?
-    = succeed "." do
-      = link_to "I don't have an account", "#", data: { object: "toggle-sign-up" }
+      .sign-up-form.center
+        New to the NSRR?
+        = succeed "." do
+          = link_to "I don't have an account", "#", data: { object: "toggle-sign-up" }

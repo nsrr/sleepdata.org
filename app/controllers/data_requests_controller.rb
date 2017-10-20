@@ -38,23 +38,24 @@ class DataRequestsController < ApplicationController
     if current_user
       save_data_request_user
     else
-      render :about_me, layout: "layouts/application"
+      @user = User.new
+      render :about_me
     end
   end
 
   # POST /data/requests/:dataset_id/join
   def join
     unless current_user
-      user = User.new(user_params)
+      @user = User.new(user_params)
       if RECAPTCHA_ENABLED && !verify_recaptcha
-        @registration_errors = { recaptcha: "reCAPTCHA verification failed." }
+        @user.valid?
+        @user.errors.add(:recaptcha, "reCAPTCHA verification failed")
         render :about_me
         return
-      elsif user.save
-        user.send_welcome_email_with_password_in_background(params[:user][:password])
-        sign_in(:user, user)
+      elsif @user.save
+        @user.send_welcome_email_with_password_in_background(params[:user][:password])
+        sign_in(:user, @user)
       else
-        @registration_errors = user.errors
         render :about_me
         return
       end
@@ -65,22 +66,20 @@ class DataRequestsController < ApplicationController
 
   # POST /data/requests/:dataset_id/login
   def login
-    @agreement = Agreement.new
     unless current_user
-      user = User.find_by_email params[:email]
+      user = User.find_by(email: params[:email])
       if user && user.valid_password?(params[:password])
         sign_in(:user, user)
       else
+        @user = User.new
         @sign_in_errors = []
         @sign_in = true
         render :about_me
         return
       end
     end
-
     save_data_request_user
   end
-
 
   # TODO: See if this is needed to launch agreement.
   # # POST /data/requests/:dataset_id/start/:final_legal_document_id
@@ -95,7 +94,7 @@ class DataRequestsController < ApplicationController
   # POST /data/requests/:dataset_id/request-as/individual-or-organization
   def update_individual_or_organization
     current_user.update(data_user_type: params[:data_user_type]) if %w(individual organization).include?(params[:data_user_type])
-    redirect_to data_requests_start_path(@dataset)
+    save_data_request_user
   end
 
   # GET /data/requests/:dataset_id/intended-use/noncommercial-or-commercial
@@ -106,7 +105,7 @@ class DataRequestsController < ApplicationController
   # POST /data/requests/:dataset_id/intended-use/noncommercial-or-commercial
   def update_noncommercial_or_commercial
     current_user.update(commercial_type: params[:commercial_type]) if %w(noncommercial commercial).include?(params[:commercial_type])
-    redirect_to data_requests_start_path(@dataset)
+    save_data_request_user
   end
 
   # POST /data/requests/:data_request_id/convert
@@ -132,7 +131,7 @@ class DataRequestsController < ApplicationController
     if @final_legal_document_page
       render layout: "layouts/full_page"
     else
-      redirect_to data_requests_start_path(@dataset)
+      redirect_to data_requests_start_path(@data_request.datasets.first)
     end
   end
 
@@ -262,7 +261,7 @@ class DataRequestsController < ApplicationController
                                 .submittable
                                 .includes(:final_legal_document)
                                 .find_by(id: params[:data_request_id])
-    empty_response_or_root_path(datasets_path) unless @data_request
+    empty_response_or_root_path(datasets_path) unless @data_request && @data_request.datasets.present?
   end
 
   def send_signature(attribute)
@@ -274,11 +273,11 @@ class DataRequestsController < ApplicationController
 
     if @data_request
       # TODO: Find current "step" of data request or find pages that are indicated by resubmit
-      redirect_to data_requests_page_path(@data_request, @data_request.current_step || 1)
+      redirect_to data_requests_page_path(@data_request, @data_request.current_step.positive? ? @data_request.current_step : 1)
     else
       final_legal_document = @dataset.final_legal_document_for_user(current_user) if @dataset
       if final_legal_document
-        @data_request = @dataset.agreements.create(user: current_user, final_legal_document: final_legal_document)
+        @data_request = @dataset.data_requests.create(user: current_user, final_legal_document: final_legal_document)
         redirect_to data_requests_page_path(@data_request, page: 1)
       elsif @dataset.specify_data_user_type?(current_user)
         redirect_to data_requests_request_as_individual_or_organization_path(@dataset)

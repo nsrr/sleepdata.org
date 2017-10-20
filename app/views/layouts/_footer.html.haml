@@ -1,5 +1,5 @@
 .footer-container
-  %div{ class: defined?(container) ? container : "container" }
+  %div{ class: defined?(container) && container.present? ? container : "container" }
     .footer
       .nowrap
         .float-right

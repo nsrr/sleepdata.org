@@ -13,10 +13,14 @@
           Actions
     - @data_requests.each do |data_request|
       %tr.tr-align-middle{ id: "data-request-#{data_request.id}" }
-        %td= data_request.agreement_number
+        %td
+          = data_request.agreement_number
+          %br
+          - data_request.datasets.order(:release_date, :name).each do |d|
+            %span.badge.badge-light= d.slug
         %td= data_request.status
         %td.text-center
-          = link_to "View", data_requests_page_path(data_request, 1)
+          = link_to "View", data_requests_page_path(data_request, data_request.current_step.positive? ? data_request.current_step : 1)
           -# TODO: Fix deletion of data_request
           - if false
             = link_to data_request, method: :delete, remote: true, data: { confirm: "Delete #{data_request.name}?" }, class: "btn btn-sm btn-outline-danger" do
