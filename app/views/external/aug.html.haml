@@ -3,15 +3,15 @@
 .about-header
   = @title
 
-%p.lead.center
+%p.lead.text-center
   A special thanks to our AUG members.
 
 .dashboard-container-narrow
   .row
     - @users.order(:first_name, :last_name).each do |user|
-      .col-sm-6.col-buffer.center= user.name
+      .col-sm-6.col-buffer.text-center= user.name
 
-.center
+.text-center
   = link_to "Team", team_path
   &middot;
   = link_to "Past Contributors", contributors_path

@@ -3,44 +3,18 @@
     = render "internal/profile"
 
   .col-md-9.col-lg-6
-    - if current_user.agreements.present?
+    - current_data_request = current_user.data_requests.order(id: :desc).first
+    - if current_data_request
       .dashboard-container
         .dashboard-title
-          %strong My Submissions
-          %small= link_to "view all", submissions_path
+          %strong Current Data Request
+          .float-right= link_to "view all", data_requests_path, class: "btn btn-light btn-sm"
 
-        %table.table.table-striped.table-borderless.table-hover
-          %col{ width: "1px" }
-          %col
-          %col
-          %thead
-            %tr
-              %th Status
-              %th
-                Name
-              %th.center
-                Datasets
-          - current_user.agreements.order(id: :desc).each do |agreement|
-            %tr
-              %td
-                - if agreement.under_review?
-                  %span.label.label-warning under review
-                - elsif agreement.approved?
-                  %span.label.label-success approved
-                - elsif agreement.status == "expired"
-                  %span.label.label-default expired
-                - elsif agreement.status == "closed"
-                  %span.label.label-danger closed
-                - else
-                  %span.label.label-info started
-
-              %td.nowrap
-                = link_to submissions_path do
-                  Agreement
-                  = "##{agreement.agreement_number}"
-              %td
-                - agreement.datasets.order(:release_date).each do |dataset|
-                  %code= dataset.slug
+        = link_to "Data Request ##{current_data_request.agreement_number}", data_requests_path
+        %br
+        = status_helper(current_data_request)
+        - current_data_request.datasets.order(:release_date).each do |dataset|
+          %span.badge.badge-light= dataset.slug
     - else
       .dashboard-container
         .dashboard-title

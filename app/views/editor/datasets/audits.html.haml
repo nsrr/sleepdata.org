@@ -1,85 +1,83 @@
 - @title = "Audits - #{@dataset.name}"
 
-= render 'datasets/header'
+= render "datasets/header"
 
 - content_for :header do
-  .breadcrumb-container
-    .container{ style: 'position: relative;' }
-      .hidden-xs{ style: 'position: absolute; top: -5.5px; right: 15px' }
-        = render 'variables/per_page', per_page: 20, object_count: @audits.total_count, pagination_size: 'small'
+  .breadcrumb-container.mb-0.p-2
+    .container
       %ol
         %li= link_to @dataset.slug, @dataset
         %li audits
 
-.table-responsive
-  %table.table.table-striped
-    %thead
-      %tr
-        %th File Path
-        %th File Size
-        %th User
-        %th Remote IP
-        %th Medium
-        %th Downloaded At
-      %tr.success
-        %th Total
-        %th= number_to_human_size @audits.sum(:file_size)
-        %th
-          - if params.key?(:user_id)
-            %i.fa.fa-filter
-            - user = User.find_by_id(params[:user_id])
-            = user ? user.name : 'Anonymous'
-          - else
-            %span.text-muted -
-        %th
-          - if params.key?(:remote_ip)
-            %i.fa.fa-filter
-            = params[:remote_ip].blank? ? 'blank' : params[:remote_ip]
-          - else
-            %span.text-muted -
-        %th
-          - if params.key?(:medium)
-            %i.fa.fa-filter
-            = params[:medium].blank? ? 'blank' : params[:medium]
-          - else
-            %span.text-muted -
-        %th
+= render "layouts/per_page", per_page: 20, object_count: @audits.total_count, pagination_size: "small"
 
-    - @audits.each do |audit|
-      %tr
-        %td= audit.file_path
-        %td= number_to_human_size audit.file_size
-        %td
-          - if audit.user_id.to_s == params[:user_id]
-            = link_to audits_dataset_path(@dataset, medium: params[:medium], remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: 'Remove Filter', placement: 'left' } do
-              %i.fa.fa-times
-          - else
-            = link_to audits_dataset_path(@dataset, medium: params[:medium], user_id: audit.user_id.to_s, remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: "Filter by #{ audit.user ? audit.user.name : 'Anonymous' }", placement: 'left' } do
-              %i.fa.fa-filter
-          - if audit.user
-            = audit.user.name if audit.user
-          - else
-            %span.text-muted Anonymous
-        %td
-          - if audit.remote_ip.to_s == params[:remote_ip]
-            = link_to audits_dataset_path(@dataset, user_id: params[:user_id], medium: params[:medium]), rel: 'tooltip', data: { title: 'Remove Filter', placement: 'left' } do
-              %i.fa.fa-times
-          - else
-            = link_to audits_dataset_path(@dataset, remote_ip: audit.remote_ip.to_s, user_id: params[:user_id], medium: params[:medium]), rel: 'tooltip', data: { title: "Filter by #{audit.remote_ip}", placement: 'left' } do
-              %i.fa.fa-filter
-          = audit.remote_ip
-        %td
-          - if audit.medium.to_s == params[:medium]
-            = link_to audits_dataset_path(@dataset, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: 'Remove Filter', placement: 'left' } do
-              %i.fa.fa-times
-          - else
-            = link_to audits_dataset_path(@dataset, medium: audit.medium.to_s, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: 'tooltip', data: { title: "Filter by #{audit.medium}", placement: 'left' } do
-              %i.fa.fa-filter
-          = audit.medium
-        %td= audit.created_at.strftime('%b %d, %Y &middot; %I:%M %p').html_safe
+%table.table.table-striped
+  %thead
+    %tr
+      %th.nowrap File Path
+      %th.nowrap File Size
+      %th User
+      %th.nowrap IP Address
+      %th Medium
+      %th Downloaded
+    %tr.success
+      %th Total
+      %th.nowrap= number_to_human_size @audits.sum(:file_size)
+      %th
+        - if params.key?(:user_id)
+          %i.fa.fa-filter
+          - user = User.find_by_id(params[:user_id])
+          = user ? user.name : "Anonymous"
+        - else
+          %span.text-muted -
+      %th
+        - if params.key?(:remote_ip)
+          %i.fa.fa-filter
+          = params[:remote_ip].blank? ? "blank" : params[:remote_ip]
+        - else
+          %span.text-muted -
+      %th
+        - if params.key?(:medium)
+          %i.fa.fa-filter
+          = params[:medium].blank? ? "blank" : params[:medium]
+        - else
+          %span.text-muted -
+      %th
 
-.center
-  = paginate @audits, theme: 'bootstrap-small'
+  - @audits.each do |audit|
+    %tr
+      %td= audit.file_path
+      %td.nowrap= number_to_human_size audit.file_size
+      %td
+        - if audit.user_id.to_s == params[:user_id]
+          = link_to audits_dataset_path(@dataset, medium: params[:medium], remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Remove Filter", placement: "left" } do
+            %i.fa.fa-times
+        - else
+          = link_to audits_dataset_path(@dataset, medium: params[:medium], user_id: audit.user_id.to_s, remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Filter by #{ audit.user ? audit.user.name : "Anonymous" }", placement: "left" } do
+            %i.fa.fa-filter
+        - if audit.user
+          = audit.user.name if audit.user
+        - else
+          %span.text-muted Anonymous
+      %td.nowrap
+        - if audit.remote_ip.to_s == params[:remote_ip]
+          = link_to audits_dataset_path(@dataset, user_id: params[:user_id], medium: params[:medium]), rel: "tooltip", data: { title: "Remove Filter", placement: "left" } do
+            %i.fa.fa-times
+        - else
+          = link_to audits_dataset_path(@dataset, remote_ip: audit.remote_ip.to_s, user_id: params[:user_id], medium: params[:medium]), rel: "tooltip", data: { title: "Filter by #{audit.remote_ip}", placement: "left" } do
+            %i.fa.fa-filter
+        = audit.remote_ip
+      %td.nowrap
+        - if audit.medium.to_s == params[:medium]
+          = link_to audits_dataset_path(@dataset, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Remove Filter", placement: "left" } do
+            %i.fa.fa-times
+        - else
+          = link_to audits_dataset_path(@dataset, medium: audit.medium.to_s, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Filter by #{audit.medium}", placement: "left" } do
+            %i.fa.fa-filter
+        = audit.medium
+      %td= audit.created_at.strftime("%b %d, %Y &middot; %I:%M %p").html_safe
+
+.center-horizontally= paginate @audits, theme: "bootstrap-small"
 
 %h2 Page Views
 

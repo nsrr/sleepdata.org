@@ -4,24 +4,24 @@
   = @title
 
 .dashboard-container-narrow
-  %p.center
+  %p.text-center
     %strong Principal Investigators
   .row
-    .col-xs-6.center
+    .col-6.text-center
       Susan Redline
-    .col-xs-6.center
+    .col-6.text-center
       GQ Zhang
 
 .dashboard-container-narrow
-  %p.center
+  %p.text-center
     %strong Team Members
   - @users = User.core_members.order(:last_name, :first_name)
   .row
     - @users.each do |user|
       - unless ["Susan Redline", "GQ Zhang"].include?(user.name)
-        .col-sm-6.col-buffer.center= user.name
+        .col-sm-6.col-buffer.text-center= user.name
 
-.center
+.text-center
   = link_to "Past Contributors", contributors_path
   &middot;
   = link_to "Academic User Group", aug_path

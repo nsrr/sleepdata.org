@@ -23,7 +23,7 @@
             .pull-right
               = link_to destroy_submission_agreement_path(agreement), class: "btn btn-sm btn-outline-danger", method: :delete, data: { confirm: "Delete Agreement ##{agreement.agreement_number}?" } do
                 %i.fa.fa-trash
-                %span.hidden-xs Delete
+                %span.d-none.d-sm-inline Delete
 
           %strong
             Agreement
@@ -33,7 +33,7 @@
           = succeed " " do
             = link_to print_agreement_path(agreement), class: "btn btn-sm btn-light", data: { turbolinks: false } do
               %i.fa.fa-print
-              %span.hidden-xs Print
+              %span.d-none.d-sm-inline Print
 
           - if agreement.submittable?
             - if agreement.fully_filled_out?
@@ -116,7 +116,7 @@
                 %strong Datasets
               %td
                 - agreement.datasets.order(:release_date).each do |dataset|
-                  = dataset.slug
+                  %span.badge.badge-light= dataset.slug
           - if agreement.under_review? || agreement.approved? || agreement.status == "expired"
             %tr
               - if agreement.resubmitted_at
