@@ -76,6 +76,7 @@ $(document)
       $percentbar.addClass("upload-success")
       $process.html("<i class=\"fa fa-check-square-o text-success\"/> <span class=\"text-muted\">Processing complete.</span><br>#{file_count} file#{plural} uploaded. Add more files?")
       $uploadContainer.removeClass("upload-started")
+      $("#continue-btn").html("Continue <i class=\"fa fa-caret-right\"></i>")
     ).fail( (jqXHR, textStatus, errorThrown) ->
       url = $this.data('fallback-url')
       $percentbar.addClass("upload-failure")
