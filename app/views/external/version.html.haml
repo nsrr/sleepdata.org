@@ -1,12 +1,7 @@
 - @title = "Version"
 
-- content_for :header do
-  .header-container
+.background-fixed-image
+  .page-box.last-box.color-overlay.d-flex.align-items-center
     .container
-      %h1.page-heading= @title
-
-.text-center.mt-5
-  %p.lead
-    %span.transparent-stamp
-      Version
-      %strong= SleepData::VERSION::STRING
+      .text-center
+        .page-heading.text-white{ style: "font-size: 2rem;" }= "v#{SleepData::VERSION::STRING}"

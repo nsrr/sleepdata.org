@@ -1,8 +1,8 @@
-= image_tag agreement_event.user.avatar_url(18, 'identicon'), size: '18x18', style: 'vertical-align:text-middle;width:18px', alt: ''
+= image_tag agreement_event.user.avatar_url(18, "identicon"), size: "18x18", style: "vertical-align:text-middle;width:18px", alt: ""
 = agreement_event.user.name
 changed review from
-%span.label.label-danger rejected
+%span.badge.badge-danger rejected
 to
-%span.label.label-success approved
-= succeed '.' do
-  %abbr{ rel: 'tooltip', data: { title: agreement_event.event_at.strftime("%-d %B %Y, %-l:%M %p"), container: 'body', placement: 'right' } }= "#{time_ago_in_words(agreement_event.event_at)} ago"
+%span.badge.badge-success approved
+= succeed "." do
+  %abbr{ rel: "tooltip", data: { title: agreement_event.event_at.strftime("%-d %B %Y, %-l:%M %p"), container: "body", placement: "right" } }= "#{time_ago_in_words(agreement_event.event_at)} ago"

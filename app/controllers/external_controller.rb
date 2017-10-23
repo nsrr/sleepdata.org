@@ -55,10 +55,11 @@ class ExternalController < ApplicationController
   # def team
   # end
 
-  # # GET /version
-  # # GET /version.json
-  # def version
-  # end
+  # GET /version
+  # GET /version.json
+  def version
+    render layout: "layouts/full_page"
+  end
 
   # # POST /preview
   # def preview
