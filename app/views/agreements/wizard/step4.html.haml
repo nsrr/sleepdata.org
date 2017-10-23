@@ -1,6 +1,6 @@
 = render 'agreements/wizard/daua_progress'
 
-%h2.center.brand SIGNATURE
+%h2.text-center SIGNATURE
 
 = form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, html: { class: 'form-vertical', id: 'update_step_form', data: { object: 'signature', signature_target: '.output-write' } } do |f|
   - if @agreement.errors.any?

@@ -26,8 +26,8 @@
         %div{ style: "display: none;", data: { chart_name: key } }
           - [tables].flatten.each do |table|
             - if table.is_a? Hash
-              %h3.brand.center= table["title"]
-              %h5.center= table["subtitle"]
+              %h3.text-center= table["title"]
+              %h5.text-center= table["subtitle"]
               .table-responsive
                 %table.table.table-hover
                   %thead

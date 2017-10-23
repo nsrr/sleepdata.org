@@ -1,6 +1,6 @@
 = render 'agreements/wizard/daua_progress'
 
-%h2.center.brand DATA ACCESS AND USE AGREEMENT
+%h2.text-center DATA ACCESS AND USE AGREEMENT
 
 = form_for @agreement, url: update_step_agreement_path(@agreement), method: :patch, html: { class: 'form-horizontal', id: 'update_step_form' } do |f|
   - if @agreement.errors.any?
