@@ -4,7 +4,7 @@
   .header-container
     .container
       %h1.page-heading
-        .pull-right
+        .float-right
           = render "layouts/per_page", per_page: 40, object_count: @users.total_count
         = @title
         = render "search/toggle"

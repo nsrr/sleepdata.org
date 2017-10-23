@@ -20,7 +20,7 @@
       .dashboard-container
         .dashboard-title
           - if agreement.deletable?
-            .pull-right
+            .float-right
               = link_to destroy_submission_agreement_path(agreement), class: "btn btn-sm btn-outline-danger", method: :delete, data: { confirm: "Delete Agreement ##{agreement.agreement_number}?" } do
                 %i.fa.fa-trash
                 %span.d-none.d-sm-inline Delete

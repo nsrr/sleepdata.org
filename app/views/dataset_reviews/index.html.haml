@@ -4,7 +4,7 @@
   .header-container
     .container
       %h1.page-heading
-        .pull-right
+        .float-right
           - if current_user && current_user.reviewed_dataset?(@dataset)
             - link_text = "Update my review"
           - else

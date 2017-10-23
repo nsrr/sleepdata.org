@@ -4,7 +4,7 @@
   .header-container
     .container
       %h1.page-heading
-        .pull-right
+        .float-right
           = render "layouts/edit_delete_dropdown", edit_url: edit_category_path(@category), delete_url: @category, delete_confirmation: "Delete #{@category.name}?"
         = @title
   .breadcrumb-container.mb-0

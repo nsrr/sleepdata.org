@@ -8,7 +8,7 @@
 - filtered_params = params.permit()
 
 .per-page.d-none.d-sm-inline-block
-  %ul.pagination.pull-right{ class: "#{"pagination-#{pagination_size_hash[pagination_size]}" if defined?(pagination_size) && %w(large small).include?(pagination_size)}" }
+  %ul.pagination.float-right{ class: "#{"pagination-#{pagination_size_hash[pagination_size]}" if defined?(pagination_size) && %w(large small).include?(pagination_size)}" }
     - if current_page_min > 1
       %li.page-item= link_to "&laquo;".html_safe, url_for(filtered_params.merge(page: page - 1)), class: "page-link"
     - else

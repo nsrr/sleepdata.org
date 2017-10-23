@@ -1,5 +1,5 @@
 - unless reply.deleted?
-  %span.pull-right{ id: "reply-#{reply.id}-vote" }
+  %span.float-right{ id: "reply-#{reply.id}-vote" }
     = render "replies/vote", reply: reply, just_voted: just_voted
 .nowrap.overflow-hidden
   - if reply.below_threshold?

@@ -4,7 +4,7 @@
   .header-container
     .container
       %h1.page-heading
-        .pull-right
+        .float-right
           = render "layouts/edit_delete_dropdown", edit_url: edit_user_path(@user), delete_url: @user, delete_confirmation: "Delete #{@user.name}?"
         = @title
   .breadcrumb-container.mb-0

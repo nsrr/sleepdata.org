@@ -25,7 +25,7 @@
 
     .preview-container.preview-container-forum
       .preview-header
-        .pull-right
+        .float-right
           = render "replies/rich_text_editor_buttons", target: "#reply_description_#{parent_reply_id}_#{reply_id}"
         = link_to "Write", "#", data: { object: "reply-tab", action: "write", parent_reply_id: parent_reply_id }, class: "preview-tab active", tabindex: "-1"
         = link_to "Preview", "#", data: { object: "reply-tab", action: "preview", parent_reply_id: parent_reply_id, reply_id: reply_id }, class: "preview-tab", tabindex: "-1"
@@ -52,7 +52,7 @@
 - else
   .preview-container.preview-container-login
     .preview-header
-      .pull-right
+      .float-right
         = link_to "#", data: { object: "parent-no-write-reply", parent_reply_id: parent_reply_id, reply_id: reply_id }, style: "color:#fff;font-weight:bold;text-decoration:none" do
           &times;
       Sign in to leave a reply

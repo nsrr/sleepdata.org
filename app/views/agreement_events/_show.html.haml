@@ -14,7 +14,7 @@
     .comment-right-fluid
       .comment-box
         .comment-header
-          .pull-right
+          .float-right
             - if current_user && agreement_event.editable_by?(current_user)
               = succeed " " do
                 = link_to edit_agreement_agreement_event_path(agreement_event.agreement, agreement_event, number: number), remote: true, class: "btn btn-sm btn-light" do

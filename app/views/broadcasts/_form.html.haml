@@ -1,17 +1,17 @@
-= form_for @broadcast, html: { class: 'form-horizontal' } do |f|
+= form_for @broadcast, html: { class: "form-horizontal" } do |f|
   - if @broadcast.errors.any?
     .callout.callout-danger
       %strong
-        = pluralize @broadcast.errors.count, 'error'
+        = pluralize @broadcast.errors.count, "error"
         prohibited this broadcast from being saved
       %ul
         - @broadcast.errors.full_messages.each do |message|
           %li= message
 
   .form-group
-    = f.label :publish_date, class: 'col-md-2 control-label'
+    = f.label :publish_date, class: "col-md-2 control-label"
     .col-md-10
-      = f.text_field :publish_date, class: 'datepicker form-control', value: @broadcast.publish_date ? @broadcast.publish_date.strftime('%m/%d/%Y') : ''
+      = f.text_field :publish_date, class: "datepicker form-control", value: @broadcast.publish_date ? @broadcast.publish_date.strftime("%m/%d/%Y") : ""
 
   .form-group
     .col-md-offset-2.col-md-10
@@ -21,45 +21,45 @@
           Published
 
   .form-group
-    = f.label :category_id, class: 'col-md-2 control-label'
+    = f.label :category_id, class: "col-md-2 control-label"
     .col-md-10
-      = f.select :category_id, Category.current.pluck(:name, :id), { include_blank: true }, class: 'form-control'
+      = f.select :category_id, Category.current.pluck(:name, :id), { include_blank: true }, class: "form-control"
 
   .form-group
-    = f.label :title, class: 'col-md-2 control-label'
+    = f.label :title, class: "col-md-2 control-label"
     .col-md-10
-      = f.text_field :title, class: 'form-control', data: { object: (@broadcast.new_record? ? 'create-slug' : ''), target: '#broadcast_slug' }
+      = f.text_field :title, class: "form-control", data: { object: (@broadcast.new_record? ? "create-slug" : ""), target: "#broadcast_slug" }
 
-  .form-group{ style: "#{'display: none;' if @broadcast.new_record? && !@broadcast.errors.key?(:slug)}"}
-    = f.label :slug, class: 'col-md-2 control-label'
+  .form-group{ style: "#{"display: none;" if @broadcast.new_record? && !@broadcast.errors.key?(:slug)}"}
+    = f.label :slug, class: "col-md-2 control-label"
     .col-md-10
-      = f.text_field :slug, class: 'form-control'
-
-  .form-group
-    = f.label :short_description, class: 'col-md-2 control-label'
-    .col-md-10
-      = f.text_field :short_description, class: 'form-control'
+      = f.text_field :slug, class: "form-control"
 
   .form-group
-    = f.label :keywords, class: 'col-md-2 control-label'
+    = f.label :short_description, class: "col-md-2 control-label"
     .col-md-10
-      = f.text_field :keywords, class: 'form-control'
+      = f.text_field :short_description, class: "form-control"
 
   .form-group
-    = f.label :description, class: 'col-md-2 control-label'
+    = f.label :keywords, class: "col-md-2 control-label"
+    .col-md-10
+      = f.text_field :keywords, class: "form-control"
+
+  .form-group
+    = f.label :description, class: "col-md-2 control-label"
     .col-md-10
       .preview-container
         .preview-header
-          .pull-right
-            = render 'replies/rich_text_editor_buttons', target: "#broadcast_description"
-          = link_to 'Write', '#', data: { object: 'view-content-markdown' }, class: 'preview-tab active', tabindex: '-1'
-          = link_to 'Preview', '#', data: { object: 'view-content-preview', content: '#broadcast_description' }, class: 'preview-tab', tabindex: '-1'
+          .float-right
+            = render "replies/rich_text_editor_buttons", target: "#broadcast_description"
+          = link_to "Write", "#", data: { object: "view-content-markdown" }, class: "preview-tab active", tabindex: "-1"
+          = link_to "Preview", "#", data: { object: "view-content-preview", content: "#broadcast_description" }, class: "preview-tab", tabindex: "-1"
         .preview-body
           #content_markdown
-            = f.text_area :description, rows: [[15, @broadcast.description.to_s.count("\n") + 1].max, 25].min, class: 'preview-control filedrag-container', data: { object: 'expandable-text-area dropfile', default_rows: 15, upload_url: upload_images_path(update: '#broadcast_description', format: 'js'), fallback_url: new_image_path, log_id: '#log_new' }
+            = f.text_area :description, rows: [[15, @broadcast.description.to_s.count("\n") + 1].max, 25].min, class: "preview-control filedrag-container", data: { object: "expandable-text-area dropfile", default_rows: 15, upload_url: upload_images_path(update: "#broadcast_description", format: "js"), fallback_url: new_image_path, log_id: "#log_new" }
             #log_new.filedrag
               Drag images above to insert into post.
-          #content_preview.broadcast{ style: 'display: none;' }
+          #content_preview.broadcast{ style: "display: none;" }
 
 
   .form-group
@@ -78,5 +78,5 @@
 
   .form-group
     .col-md-10.col-md-offset-2
-      = f.submit @broadcast.new_record? ? 'Create Blog Post' : 'Update Blog Post', class: 'btn btn-primary'
-      = link_to 'Cancel', (@broadcast.new_record? ? broadcasts_path : @broadcast), class: 'btn btn-light'
+      = f.submit @broadcast.new_record? ? "Create Blog Post" : "Update Blog Post", class: "btn btn-primary"
+      = link_to "Cancel", (@broadcast.new_record? ? broadcasts_path : @broadcast), class: "btn btn-light"

@@ -4,12 +4,12 @@
   .header-container
     .container
       %h1.page-heading
-        .pull-right
+        .float-right
           = render "layouts/edit_delete_dropdown", edit_url: edit_broadcast_path(@broadcast), delete_url: @broadcast, delete_confirmation: "Delete #{@broadcast.title}?"
         = @title
   .breadcrumb-container.mb-0
     .container
-      .pull-right
+      .float-right
         - if @broadcast.published?
           - if @broadcast.publish_date <= Time.zone.today
             %span.badge.badge-light Published

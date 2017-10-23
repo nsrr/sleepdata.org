@@ -4,7 +4,7 @@
   .header-container
     .container
       %h1.page-heading
-        .pull-right
+        .float-right
           = link_to plus_or("New Dataset"), new_dataset_path, class: "btn btn-primary btn-shadow" if current_user && current_user.system_admin?
           = render "layouts/per_page", per_page: 24, object_count: @datasets.total_count
         = @title
@@ -85,7 +85,7 @@
     .dataset-card{ id: "dataset-card-#{dataset.id}" }
       .dataset-card-header
         .dataset-card-header-ratings
-          .pull-right
+          .float-right
             - if dataset.dataset_reviews.count.positive?
               = link_to dataset_dataset_reviews_path(dataset) do
                 = number_with_delimiter(dataset.dataset_reviews.count)
@@ -109,7 +109,7 @@
         .already-flipped
           = simple_markdown(dataset.description)
       .dataset-card-footer
-        .pull-right.d-none.d-sm-block= render "datasets/card_footer_request", dataset: dataset
+        .float-right.d-none.d-sm-block= render "datasets/card_footer_request", dataset: dataset
         .dataset-card-footer-links
           %span.d-none.d-sm-inline-block{ style: "color: #ccc;" } View
           .dataset-card-footer-entry

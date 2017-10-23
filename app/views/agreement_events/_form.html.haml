@@ -6,7 +6,7 @@
     .comment-box
       .comment-header
         - unless @agreement_event.new_record?
-          .pull-right
+          .float-right
             = link_to "Cancel", agreement_agreement_event_path(@agreement, @agreement_event), remote: true, method: :get, class: "btn btn-light btn-sm"
             = link_to "##{@agreement_event.number}", "#c#{@agreement_event.number}", class: "btn btn-link btn-sm"
         %strong= @agreement_event.user.forum_name

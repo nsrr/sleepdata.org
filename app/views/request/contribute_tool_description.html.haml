@@ -16,7 +16,7 @@
       = f.label :description, nil, class: "control-label"
       .preview-container
         .preview-header
-          .pull-right
+          .float-right
             = render "replies/rich_text_editor_buttons", target: "#community_tool_description"
           = link_to "Write", "#", data: { object: "view-content-markdown" }, class: "preview-tab active", tabindex: "-1"
           = link_to "Preview", "#", data: { object: "view-content-preview", content: "#community_tool_description" }, class: "preview-tab", tabindex: "-1"
