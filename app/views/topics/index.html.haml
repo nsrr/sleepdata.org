@@ -18,15 +18,15 @@
 
 %table.table.table-striped.table-borderless.table-sticky
   %col
-  %col.hidden-xs{ width: "50px" }
-  %col.hidden-xs.hidden-sm{ width: "50px" }
-  %col.hidden-xs.hidden-sm{ width: "150px" }
+  %col.d-none.d-sm-table-column{ width: "50px" }
+  %col.d-none.d-md-table-column{ width: "50px" }
+  %col.d-none.d-md-table-column{ width: "150px" }
   %thead
     %tr.table-light
       %th.small{ style: "border-left: 4px solid transparent;" }= link_to "Topics", topics_path
-      = th_sort_field_rev @order, "reply_count", "Replies", extra_class: "small hidden-xs center"
-      = th_sort_field_rev @order, "topics.view_count", "Views", extra_class: "small hidden-xs hidden-sm center"
-      = th_sort_field_rev @order, "topics.last_reply_at", "Last Post", extra_class: "small hidden-xs hidden-sm center"
+      = th_sort_field_rev @order, "reply_count", "Replies", extra_class: "small d-none d-sm-table-cell center"
+      = th_sort_field_rev @order, "topics.view_count", "Views", extra_class: "small d-none d-md-table-cell center"
+      = th_sort_field_rev @order, "topics.last_reply_at", "Last Post", extra_class: "small d-none d-md-table-cell center"
   %tbody
     - @topics.each do |topic|
       - unread_replies = topic.unread_replies(current_user)
@@ -41,7 +41,7 @@
                   new
                   %fa.fa.fa-comments-o
             - elsif topic.last_page > 1
-              %span.hidden-xs
+              %span.d-none.d-sm-inline
                 = link_to "1", topic, class: "btn btn-sm btn-light"
                 \...
                 = link_to topic.last_page, page_topic_path(topic, page: topic.last_page), class: "btn btn-sm btn-light"
@@ -54,11 +54,11 @@
             = link_to topic.title, next_unread_reply, data: { turbolinks: false }, class: (topic.started_reading?(current_user) && unread_replies.zero?) ? "topic-read" : "topic-unread"
           - else
             = link_to topic.title, topic, class: (topic.started_reading?(current_user) && unread_replies.zero?) ? "topic-read" : "topic-unread"
-        %td.text-muted.hidden-xs.center
+        %td.d-none.d-sm-table-cell.text-muted.text-center
           %span.small= number_with_delimiter topic.reply_count - 1
-        %td.text-muted.hidden-xs.hidden-sm.center
+        %td.d-none.d-md-table-cell.text-muted.text-center
           %span.small= number_to_human topic.view_count, precision: 2
-        %td.text-muted.hidden-xs.hidden-sm.center
+        %td.d-none.d-md-table-cell.text-muted.text-center
           %span.small= abbreviated_time(topic.last_reply_at)
 
 .center-horizontally= paginate @topics, theme: "bootstrap-small"

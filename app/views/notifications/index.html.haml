@@ -18,14 +18,14 @@
         %table.table.table-fixed
           %col{ width: "32px" }
           %col{ }
-          %col.hidden-xs{ width: "32px" }
-          %col.hidden-xs{ width: "165px" }
+          %col.d-none.d-md-table-column{ width: "32px" }
+          %col.d-none.d-md-table-column{ width: "165px" }
           %col{ width: "32px" }
           %thead
             %tr
               %th{ colspan: 2 }= link_to broadcast.title, blog_post_path(broadcast.url_hash), class: "link-unstyled"
-              %th.hidden-xs
-              %th.hidden-xs
+              %th.d-none.d-md-table-cell
+              %th.d-none.d-md-table-cell
               %th
                 = link_to mark_all_as_read_notifications_path(broadcast_id: broadcast.id), method: :patch, remote: true, class: "text-muted" do
                   %i.fa.fa-check
@@ -37,14 +37,14 @@
         %table.table.table-fixed
           %col{ width: "32px" }
           %col{ }
-          %col.hidden-xs{ width: "32px" }
-          %col.hidden-xs{ width: "165px" }
+          %col.d-none.d-md-table-column{ width: "32px" }
+          %col.d-none.d-md-table-column{ width: "165px" }
           %col{ width: "32px" }
           %thead
             %tr
               %th{ colspan: 2 }= link_to topic.title, topic, class: "link-unstyled"
-              %th.hidden-xs
-              %th.hidden-xs
+              %th.d-none.d-md-table-cell
+              %th.d-none.d-md-table-cell
               %th
                 = link_to mark_all_as_read_notifications_path(topic_id: topic.id), method: :patch, remote: true, class: "text-muted" do
                   %i.fa.fa-check
@@ -56,14 +56,14 @@
         %table.table.table-fixed
           %col{ width: "32px" }
           %col{ }
-          %col.hidden-xs{ width: "32px" }
-          %col.hidden-xs{ width: "165px" }
+          %col.d-none.d-md-table-column{ width: "32px" }
+          %col.d-none.d-md-table-column{ width: "165px" }
           %col{ width: "32px" }
           %thead
             %tr
               %th{ colspan: 2 }= link_to community_tool.name, community_show_tool_path(community_tool), class: "link-unstyled"
-              %th.hidden-xs
-              %th.hidden-xs
+              %th.d-none.d-md-table-cell
+              %th.d-none.d-md-table-cell
               %th
                 = link_to mark_all_as_read_notifications_path(community_tool_id: community_tool.id), method: :patch, remote: true, class: "text-muted" do
                   %i.fa.fa-check
@@ -75,14 +75,14 @@
         %table.table.table-fixed
           %col{ width: "32px" }
           %col{ }
-          %col.hidden-xs{ width: "32px" }
-          %col.hidden-xs{ width: "165px" }
+          %col.d-none.d-md-table-column{ width: "32px" }
+          %col.d-none.d-md-table-column{ width: "165px" }
           %col{ width: "32px" }
           %thead
             %tr
               %th{ colspan: 2 }= link_to dataset.name, dataset, class: "link-unstyled"
-              %th.hidden-xs
-              %th.hidden-xs
+              %th.d-none.d-md-table-cell
+              %th.d-none.d-md-table-cell
               %th
                 = link_to mark_all_as_read_notifications_path(dataset_id: dataset.id), method: :patch, remote: true, class: "text-muted" do
                   %i.fa.fa-check
@@ -94,14 +94,14 @@
         %table.table.table-fixed
           %col{ width: "32px" }
           %col{ }
-          %col.hidden-xs{ width: "32px" }
-          %col.hidden-xs{ width: "165px" }
+          %col.d-none.d-md-table-column{ width: "32px" }
+          %col.d-none.d-md-table-column{ width: "165px" }
           %col{ width: "32px" }
           %thead
             %tr
               %th{ colspan: 2 }= link_to hosting_request.name, hosting_request, class: "link-unstyled"
-              %th.hidden-xs
-              %th.hidden-xs
+              %th.d-none.d-md-table-cell
+              %th.d-none.d-md-table-cell
               %th
                 = link_to mark_all_as_read_notifications_path(hosting_request_id: hosting_request.id), method: :patch, remote: true, class: "text-muted" do
                   %i.fa.fa-check

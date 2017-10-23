@@ -1,6 +1,5 @@
 - @title = @agreement.name
 
-
 - content_for :header do
   .header-container
     .container
@@ -18,7 +17,7 @@
         = @title
   .breadcrumb-container.mb-0
     .container
-      .pull-right.hidden-xs
+      .float-right.d-none.d-lg-block
         = render "reviews/tags", agreement: @agreement
       %ol
         %li

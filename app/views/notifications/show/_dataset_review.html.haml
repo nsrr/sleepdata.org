@@ -6,5 +6,5 @@
     = link_to notification, class: "#{notification.read? ? 'link-muted' : 'link-unstyled' }" do
       = strip_tags(simple_markdown(notification.dataset_review.review)).html_safe
 
-%td.hidden-xs
+%td.d-none.d-md-table-cell
   = image_tag notification.dataset_review.user.avatar_url(18, 'identicon'), size: '18x18', alt: ''

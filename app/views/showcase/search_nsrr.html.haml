@@ -16,7 +16,7 @@
   %p
     Create powerful queries across datasets available on the NSRR.
 
-  .center{ style: "max-width: 1200px;margin: 40px auto 0px auto;" }
+  .text-center{ style: "max-width: 1200px;margin: 40px auto 0px auto;" }
     = image_tag "https://sleepdata.org/image/Bn5Mnx", class: "img-responsive"
 
 
@@ -26,11 +26,11 @@
 
 .dashboard-container
   .row
-    .col-md-6
-      %p.hidden-xs.hidden-sm.text-right{ style: "margin-top:80px;" }
+    .col-md-6.center-vertically
+      %p.d-none.d-md-block.text-right
         Select two variables and click
         %strong Graph Distribution.
-      %p.visible-xs.visible-sm.text-center
+      %p.d-block.d-md-none.text-center
         Select two variables and click
         %strong Graph Distribution.
     .col-md-6
@@ -41,19 +41,19 @@
 .dashboard-container
   .row{ style: "margin-top: 20px" }
     .col-md-6
-      %p.visible-xs.visible-sm.text-center
+      %p.d-block.d-md-none.text-center
         Download complete datasets for offline analysis from the
         = succeed "." do
           = link_to "NSRR website", ENV["website_url"]
 
-      = image_tag "https://sleepdata.org/image/2eq5ex", class: "img-responsive hidden-xs hidden-sm"
-    .col-md-6
-      %p.hidden-xs.hidden-sm{ style: "margin-top:80px;" }
+      = image_tag "https://sleepdata.org/image/2eq5ex", class: "img-responsive d-none d-md-block"
+    .col-md-6.center-vertically
+      %p.d-none.d-md-block
         Download complete datasets for offline analysis from the
         = succeed "." do
           = link_to "NSRR website", ENV["website_url"]
 
-      = image_tag "https://sleepdata.org/image/2eq5ex", class: "img-responsive visible-xs visible-sm"
+      = image_tag "https://sleepdata.org/image/2eq5ex", class: "img-responsive d-block d-md-none"
 
 %a.anchor-top{ name: "get-started-now" }
 - content_for :footer do

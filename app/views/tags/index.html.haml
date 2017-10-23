@@ -22,7 +22,7 @@
       %tr
         = th_sort_field @order, "tags.name", "Name"
         = th_sort_field @order, "tags.color", "Color"
-        = th_sort_field @order, "tags.tag_type", "Type", extra_class: "hidden-xs"
+        = th_sort_field @order, "tags.tag_type", "Type", extra_class: "d-none d-sm-table-cell"
         %th.text-center
           .d-none.d-sm-inline-block Actions
     %tbody
