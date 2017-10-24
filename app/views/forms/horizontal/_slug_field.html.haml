@@ -1,9 +1,7 @@
-- data = {}
-- data = { object: "create-slug", target: "##{object.class.to_s.downcase}_#{slug}" } if defined?(slug) && object.new_record?
-.form-group.row
+.form-group.row{ style: "#{"display: none;" if object.new_record? && !object.errors.key?(key)}" }
   = form.label key, defined?(key_name) ? key_name : nil, class: "col-md-2 col-form-label"
   .col-md-10
-    = form.text_field key, class: "form-control#{" is-invalid" if object.errors[key].present?}", data: data
+    = form.text_field key, class: "form-control#{" is-invalid" if object.errors[key].present?}", id: "#{object.class.to_s.downcase}_#{key}"
     - if defined?(key_name)
       = render "layouts/invalid_feedback", object: object, key: key, key_name: key_name
     - else

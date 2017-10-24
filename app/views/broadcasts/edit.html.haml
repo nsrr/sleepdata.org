@@ -5,12 +5,11 @@
     .container
       %h1.page-heading
         = @broadcast.title_was
-  .breadcrumb-container.mb-0
+  .breadcrumb-container.mb-0.p-2
     .container
       %ol
         %li= link_to "Blog Posts", broadcasts_path
         %li= link_to @broadcast.title_was, @broadcast
         %li Edit
 
-.dashboard-container
-  = render "form"
+= render "broadcasts/form", broadcast: @broadcast
