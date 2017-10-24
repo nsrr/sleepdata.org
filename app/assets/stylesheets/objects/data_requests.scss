@@ -1,0 +1,58 @@
+.data-request-tab-sticky {
+  position: sticky;
+  top: $header-height;
+  z-index: $zindex-sticky;
+  background-color: $p100-grey;
+}
+
+.data-request-tab-background {
+  border-radius: 0 0 0.25rem 0.25rem;
+
+  @include media-breakpoint-up(sm) {
+    margin-bottom: -40px;
+  }
+}
+
+.data-request-tab {
+  background-color: rgba($p500-green, .8);
+  border-radius: 0 0 0.25rem 0.25rem;
+  color: $brand-white;
+  display: block;
+  padding-left: $spacer; // ($spacer * .5);
+  padding-right: $spacer; // ($spacer * .5);
+  padding-top: ($spacer * .5);
+  padding-bottom: ($spacer * .5);
+  // transition: transform 250ms ease-out;
+  box-shadow: 0 5px 10px 0 $box-shadow-color;
+
+  &.data-request-tab-approved {
+    background-color: rgba($p500-green, .8);
+  }
+
+  &.data-request-tab-under-review {
+    background-color: rgba($p500-blue, .8);
+  }
+
+  &.data-request-tab-resubmit {
+    background-color: rgba($p500-red, .8);
+  }
+
+  &.data-request-tab-expired {
+    background-color: rgba($p500-grey, .8);
+  }
+
+  &.data-request-tab-submit,
+  &.data-request-tab-request-access {
+    background-color: rgba($p500-blue, .8);
+  }
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active,
+  &.disabled,
+  &[disabled] {
+    color: $brand-white;
+    text-decoration: none;
+  }
+}

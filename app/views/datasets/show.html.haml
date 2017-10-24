@@ -1,15 +1,14 @@
 - @title = @dataset.name
-= render 'datasets/header'
+= render "datasets/header"
 
-- if @dataset.info_count > 0
-  - content_for :header do
-    .header-container{ style: 'padding: 0;' }
+
+- content_for :header do
+  - if @dataset.info_count > 0
+    .header-container{ style: "padding: 0;" }
       .container
-        .row
-          .col-md-9
-            = render 'datasets/quick_info', dataset: @dataset
-          .col-md-3
-            .info-container
-              = render 'datasets/request', dataset: @dataset, expanded: true
+        = render "datasets/quick_info", dataset: @dataset
+  .d-flex.justify-content-center.data-request-tab-sticky
+    .background-fixed-image.data-request-tab-background
+      = render "datasets/request", dataset: @dataset
 
-= render 'documentation/page', object: @dataset
+= render "documentation/page", object: @dataset

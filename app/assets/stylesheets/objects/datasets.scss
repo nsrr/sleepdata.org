@@ -227,6 +227,12 @@
   flex-flow: row wrap;
   justify-content: space-around;
 
+  @include media-breakpoint-up(md) {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+  }
+
   .dataset-card-footer-entry {
     padding-left: 10px;
     padding-right: 10px;
@@ -234,13 +240,5 @@
 
   .dataset-card-footer-spacer {
     color: $p400-grey;
-  }
-}
-
-@include media-breakpoint-up(sm) {
-  .dataset-card-footer-links {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: flex-start;
   }
 }

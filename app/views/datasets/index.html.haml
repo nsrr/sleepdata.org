@@ -109,9 +109,9 @@
         .already-flipped
           = simple_markdown(dataset.description)
       .dataset-card-footer
-        .float-right.d-none.d-sm-block= render "datasets/card_footer_request", dataset: dataset
+        .float-right.d-none.d-md-block= render "datasets/card_footer_request", dataset: dataset
         .dataset-card-footer-links
-          %span.d-none.d-sm-inline-block{ style: "color: #ccc;" } View
+          %span.d-none.d-md-inline-block{ style: "color: #ccc;" } View
           .dataset-card-footer-entry
             = link_to dataset, class: "no-underline" do
               %small Docs
@@ -119,8 +119,8 @@
             .dataset-card-footer-spacer|
             .dataset-card-footer-entry
               = link_to files_dataset_path(dataset), class: "no-underline" do
-                %small.d-inline-block.d-sm-none Files
-                %small.d-none.d-sm-inline-block
+                %small.d-inline-block.d-md-none Files
+                %small.d-none.d-md-inline-block
                   = pluralize number_with_delimiter(dataset.dataset_files.current.where(is_file: true).count), "File"
                   &middot;
                   = number_to_human_size dataset.dataset_files.current.where(is_file: true).sum(:file_size)
@@ -128,10 +128,10 @@
             .dataset-card-footer-spacer|
             .dataset-card-footer-entry
               = link_to dataset_variables_path(dataset), class: "no-underline" do
-                %small.d-inline-block.d-sm-none Variables
-                %small.d-none.d-sm-inline-block
+                %small.d-inline-block.d-md-none Variables
+                %small.d-none.d-md-inline-block
                   = pluralize number_with_delimiter(dataset.current_variables.count), "Variable"
-      .dataset-card-footer.dataset-card-footer-request.d-block.d-sm-none
+      .dataset-card-footer.dataset-card-footer-request.d-block.d-md-none
         .center= render "datasets/card_footer_request", dataset: dataset
 
   .center-horizontally= paginate @datasets, theme: "bootstrap"

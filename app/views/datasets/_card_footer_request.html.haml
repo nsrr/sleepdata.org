@@ -2,34 +2,35 @@
 - approved = false
 - under_review = false
 - if dataset.release_date && dataset.release_date <= Time.zone.today
-  - agreements = (current_user ? dataset.agreements.where(user_id: current_user.id) : Agreement.none)
+  - data_requests = dataset.data_requests.where(user: current_user)
   -# TODO: Don't force DAUA if no legal document is available (instead encourage exploration)
-  - if agreement = agreements.find_by(status: "approved")
-    - title = "DAUA Approved"
+  - if data_request = data_requests.find_by(status: "approved")
+    - title = "Data Access Approved"
     - url = files_dataset_path(dataset)
     - approved = true
-  - elsif agreement = agreements.find_by(status: "submitted")
-    - title = "DAUA Under Review"
-    - url = submissions_path
+  - elsif data_request = data_requests.find_by(status: "submitted")
+    - title = "Data Request Under Review"
+    - url = data_requests_path
     - under_review = true
-  - elsif agreement = agreements.find_by(status: "resubmit")
+  - elsif data_request = data_requests.find_by(status: "resubmit")
     - title = "Resubmit Data Request"
-    - url = submissions_path
+    -# TODO: Change resubmit data request path
+    - url = data_requests_proof_path(data_request)
     - arrow = true
-  - elsif agreement = agreements.expired.first
+  - elsif data_request = data_requests.expired.first
     -# TODO: Fix "Renew DAUA" path
-    - title = "Renew DAUA"
-    - url = submissions_start_path(dataset: dataset)
+    - title = "Data Request Expired"
+    - url = data_requests_start_path(dataset)
     - arrow = true
-  - elsif agreement = agreements.find_by(status: "started")
+  - elsif data_request = data_requests.find_by(status: "started")
     - title = "Resume Data Request"
-    - if agreement.fully_filled_out?
-      - url = data_requests_proof_path(agreement)
+    - if data_request.complete?
+      - url = data_requests_proof_path(data_request)
     - else
-      - url = data_requests_page_path(agreement, agreement.current_step)
+      - url = data_requests_page_path(data_request, data_request.current_step.positive? ? data_request.current_step : 1)
     - arrow = true
   - else
-    - title = "Request Data"
+    - title = "Request Data Access"
     - url = data_requests_start_path(dataset)
     - arrow = true
 - elsif dataset.release_date

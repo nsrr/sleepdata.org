@@ -21,10 +21,10 @@ body {
 }
 
 ::selection {
-  background-color: rgba($p200-orange, .99);
+  background-color: rgba($p200-green, .99);
   color: $body-color;
 }
 
 :focus {
-  outline-color: $p200-orange !important;
+  outline-color: $p200-green !important;
 }

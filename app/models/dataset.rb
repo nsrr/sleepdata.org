@@ -37,7 +37,7 @@ class Dataset < ApplicationRecord
   has_many :variable_forms
   has_many :requests
   has_many :agreements, -> { current }, through: :requests
-  has_many :data_requests, -> { current }, through: :requests, source: :agreement
+  has_many :data_requests, -> { current }, through: :requests, source: :agreement, class_name: "DataRequest"
   has_many :dataset_files
   has_many :dataset_reviews, -> { order(rating: :desc, id: :desc) }
   has_many :legal_document_datasets
