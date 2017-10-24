@@ -7,6 +7,7 @@
   = render "forms/horizontal/text_field", form: form, object: broadcast, key: :short_description
   = render "forms/horizontal/text_field", form: form, object: broadcast, key: :keywords
 
+  -# TODO: Move to "forms" as "forms/horizontal/markdown_field", form: form, object: broadcast, key: description
   .form-group.row
     = form.label :description, class: "col-md-2 col-form-label"
     .col-md-10
@@ -25,9 +26,4 @@
 
   = render "forms/horizontal/check_box", form: form, object: broadcast, key: :pinned
   = render "forms/horizontal/check_box", form: form, object: broadcast, key: :archived
-
-  .form-group.row.mt-5
-    .col-md-2
-    .col-md-10
-      = form.submit broadcast.new_record? ? "Create Blog Post" : "Update Blog Post", class: "btn btn-primary"
-      = link_to "Cancel", polymorphic_path(broadcast), class: "btn btn-light"
+  = render "forms/horizontal/submit", form: form, object: broadcast, object_name: "Blog Post"

@@ -1,3 +1,7 @@
+- text = if defined?(submit_text)
+  - submit_text
+- elsif defined?(object_name)
+  - object.new_record? ? "Create #{object_name.titleize}" : "Update #{object_name.titleize}"
 .form-group.mt-4
-  = form.submit defined?(submit_text) ? submit_text : nil, class: "btn btn-primary"
+  = form.submit text, class: "btn btn-primary"
   = link_to "Cancel", polymorphic_path(object), remote: defined?(remote) ? remote : nil, class: "btn btn-light"
