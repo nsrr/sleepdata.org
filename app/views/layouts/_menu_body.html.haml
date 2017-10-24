@@ -7,9 +7,9 @@
 .full-search-bar
   = form_tag search_path, method: :get, id: "navigation-search-form", class: "form-inline d-none d-md-flex" do
     .input-group
-      = text_field_tag :search, params[:search], class: "form-control", placeholder: "Search the NSRR", autocomplete: "off", id: "navigation-search"
+      = text_field_tag :search, params[:search], class: "form-control menu-search-input", placeholder: "Search the NSRR", autocomplete: "off", id: "navigation-search"
       %span.input-group-btn
-        = link_to "#", data: { object: "suppress-click" }, class: "btn btn-outline-primary", name: nil, id: "navigation-form-search-btn" do
+        = link_to "#", data: { object: "suppress-click" }, class: "btn btn-outline-light", name: nil, id: "navigation-form-search-btn" do
           %i.fa.fa-search
 
 %ul.navbar-nav.tiny-search-icon

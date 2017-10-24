@@ -1,10 +1,8 @@
-.table-borderless {
-  .topic-line-read {
-    border-left: 4px solid transparent !important;
-  }
+.topic-line-mark {
+  width: 4px;
 
-  .topic-line-unread {
-    border-left: 4px solid $a100 !important;
+  &.topic-line-unread {
+    background-color: $a100;
   }
 }
 
