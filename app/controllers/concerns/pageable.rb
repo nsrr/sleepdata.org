@@ -11,14 +11,14 @@ module Pageable
 
   # GET /(datasets|tools)/1/pages
   def pages
-    @term = params[:s].to_s.gsub(/[^\w]/, '')
-    if @page_path && File.file?(@page_path) && [@object.find_page_folder(params[:path]), File.basename(@page_path)].compact.join('/') == params[:path]
+    @term = params[:s].to_s.gsub(/[^\w]/, "")
+    if @page_path && File.file?(@page_path) && [@object.find_page_folder(params[:path]), File.basename(@page_path)].compact.join("/") == params[:path]
       @object.create_page_audit!(current_user, @path, request.remote_ip)
-      render 'documentation/pages'
+      render "documentation/pages"
     elsif @page_path && File.directory?(@page_path) && @object.find_page_folder(params[:path]) == params[:path]
-      render 'documentation/pages'
+      render "documentation/pages"
     elsif params[:path].blank?
-      render 'documentation/pages'
+      render "documentation/pages"
     else
       @path = @object.find_page_folder(params[:path])
       redirect_to_pages_path
@@ -26,13 +26,13 @@ module Pageable
   end
 
   def images
-    valid_files = Dir.glob(File.join(@object.root_folder, 'images', '**', '*.{jpg,png}')).collect{|i| i.gsub(File.join(@object.root_folder, 'images') + '/', '')}
+    valid_files = Dir.glob(File.join(@object.root_folder, "images", "**", "*.{jpg,png}")).collect{|i| i.gsub(File.join(@object.root_folder, "images") + "/", "")}
 
     @image_file = valid_files.select{|i| i == params[:path] }.first
-    if @image_file and params[:inline] != '1'
-      send_file File.join( @object.root_folder, 'images', @image_file )
+    if @image_file and params[:inline] != "1"
+      send_file File.join( @object.root_folder, "images", @image_file )
     elsif @image_file
-      render 'documentation/images.html.haml'
+      render "documentation/images.html.haml"
     else
       head :ok
     end
@@ -40,7 +40,7 @@ module Pageable
 
   def pull_changes
     @object.pull_latest!
-    if params[:back] == 'sync'
+    if params[:back] == "sync"
       redirect_to admin_sync_path
     elsif @object.class == Dataset
       redirect_to sync_dataset_path(@object)
@@ -55,13 +55,13 @@ module Pageable
     @remote_commit = @object.remote_commit
     @local_commit = @object.local_commit
 
-    render 'documentation/sync'
+    render "documentation/sync"
   end
 
   private
 
   def set_object
-    @object = @dataset || @tool
+    @object = @dataset
   end
 
   def redirect_without_object
@@ -78,6 +78,6 @@ module Pageable
 
   def set_page_path
     @page_path = @object.find_page(params[:path])
-    @path = (@page_path ? @page_path.gsub(@object.pages_folder + '/', '') : nil)
+    @path = (@page_path ? @page_path.gsub(@object.pages_folder + "/", "") : nil)
   end
 end

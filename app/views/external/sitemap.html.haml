@@ -50,7 +50,7 @@
         = link_to "Tools", tools_path
       %ul
         - CommunityTool.current.where(published: true).order(:name).each do |community_tool|
-          %li= link_to community_tool.name, community_show_tool_path(community_tool)
+          %li= link_to community_tool.name, tool_path(community_tool)
 
 
 .about-section-title

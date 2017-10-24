@@ -155,7 +155,7 @@ class RequestControllerTest < ActionController::TestCase
     assert_equal "Tool Description", assigns(:community_tool).description
     assert_equal true, assigns(:community_tool).published?
     assert_equal Time.zone.today, assigns(:community_tool).publish_date
-    assert_redirected_to community_show_tool_path(community_tools(:draft))
+    assert_redirected_to tool_path(community_tools(:draft))
   end
 
   test "should set description and save draft tool as regular user" do

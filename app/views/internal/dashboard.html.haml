@@ -46,7 +46,7 @@
                   - name = (community_tool.name.present? ? community_tool.name : community_tool.url)
                   = name
                 - else
-                  = link_to community_tool.name, community_show_tool_path(community_tool)
+                  = link_to community_tool.name, tool_path(community_tool)
               %td
                 - if community_tool.draft?
                   = link_to "Continue Draft", contribute_tool_description_path(community_tool), class: "btn btn-sm btn-primary btn-block"

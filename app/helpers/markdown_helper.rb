@@ -25,23 +25,17 @@ module MarkdownHelper
   # :pages_path => "http://ENV["website_url"]/datasets/slug/pages/"
   def expand_relative_paths(text)
     full_path = (request ? request.script_name : ENV["website_url"])
-
     result = text.to_s.gsub(/<a href="(?:\:datasets\_path\:)(.*?)">/, '<a href="' + full_path + '/datasets\1">')
     result = result.gsub(/<img src="(?:\:datasets\_path\:)(.*?)">/, '<img src="' + full_path + '/datasets\1">')
-
-    @object = @dataset || @tool
-
-    if @object
-      result = result.gsub(/<a href="(?:\:pages\_path\:)(.*?)">/, "<a href=\"#{full_path}/#{@object.class.name.pluralize.downcase}/#{@object.slug}/pages" + '\1">')
-      result = result.gsub(/<img src="(?:\:pages\_path\:)(.*?)">/, "<img src=\"#{full_path}/#{@object.class.name.pluralize.downcase}/#{@object.slug}/pages" + '\1">')
-      result = result.gsub(/<a href="(?:\:files\_path\:)(.*?)">/, "<a href=\"#{full_path}/#{@object.class.name.pluralize.downcase}/#{@object.slug}/files" + '\1">')
-      result = result.gsub(/<img src="(?:\:files\_path\:)(.*?)">/, "<img src=\"#{full_path}/#{@object.class.name.pluralize.downcase}/#{@object.slug}/files" + '\1">')
-      result = result.gsub(/<a href="(?:\:images\_path\:)(.*?)">/, "<a href=\"#{full_path}/#{@object.class.name.pluralize.downcase}/#{@object.slug}/images" + '\1">')
-      result = result.gsub(/<img src="(?:\:images\_path\:)(.*?)">/, "<img src=\"#{full_path}/#{@object.class.name.pluralize.downcase}/#{@object.slug}/images" + '\1">')
+    if @dataset
+      result = result.gsub(/<a href="(?:\:pages\_path\:)(.*?)">/, "<a href=\"#{full_path}/datasets/#{@dataset.slug}/pages" + '\1">')
+      result = result.gsub(/<img src="(?:\:pages\_path\:)(.*?)">/, "<img src=\"#{full_path}/datasets/#{@dataset.slug}/pages" + '\1">')
+      result = result.gsub(/<a href="(?:\:files\_path\:)(.*?)">/, "<a href=\"#{full_path}/datasets/#{@dataset.slug}/files" + '\1">')
+      result = result.gsub(/<img src="(?:\:files\_path\:)(.*?)">/, "<img src=\"#{full_path}/datasets/#{@dataset.slug}/files" + '\1">')
+      result = result.gsub(/<a href="(?:\:images\_path\:)(.*?)">/, "<a href=\"#{full_path}/datasets/#{@dataset.slug}/images" + '\1">')
+      result = result.gsub(/<img src="(?:\:images\_path\:)(.*?)">/, "<img src=\"#{full_path}/datasets/#{@dataset.slug}/images" + '\1">')
     end
-
-    result = result.gsub(/<a href="(?:\:tools\_path\:)(.*?)">/, '<a href="' + full_path + '/tools\1">')
-    result = result.gsub(/<img src="(?:\:tools\_path\:)(.*?)">/, '<img src="' + full_path + '/tools\1">').html_safe
+    result.html_safe
   end
 
   def link_usernames(text)

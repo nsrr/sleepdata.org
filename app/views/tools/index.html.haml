@@ -62,7 +62,7 @@
           %td.center
             = link_to community_tool_community_tool_reviews_path(community_tool) do
               = render "community_tools/rating", rating: community_tool.rating
-          %td= link_to community_tool.name, community_show_tool_path(community_tool)
+          %td= link_to community_tool.name, tool_path(community_tool)
           %td.d-none.d-sm-block= community_tool.user.forum_name
           %td.center
             - if community_tool.tag_program?

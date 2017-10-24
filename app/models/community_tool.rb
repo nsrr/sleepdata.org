@@ -6,7 +6,9 @@ class CommunityTool < ApplicationRecord
   STATUS = %w(started submitted accepted rejected)
 
   # Concerns
-  include Deletable, Sluggable, Searchable
+  include Deletable
+  include Sluggable
+  include Searchable
 
   # Callbacks
   after_touch :recalculate_rating!
@@ -57,7 +59,7 @@ class CommunityTool < ApplicationRecord
     if readme_url.present?
       uri = URI.parse(readme_url)
       http = Net::HTTP.new(uri.host, uri.port)
-      if uri.scheme == 'https'
+      if uri.scheme == "https"
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       end
@@ -74,9 +76,9 @@ class CommunityTool < ApplicationRecord
 
   def readme_url
     if github_readme?
-      url.gsub(%r{^https://github.com/}, 'https://raw.githubusercontent.com/') + '/master/README.md'
+      url.gsub(%r{^https://github.com/}, "https://raw.githubusercontent.com/") + "/master/README.md"
     elsif github_gist?
-      url.gsub(%r{^https://gist.github.com/}, 'https://gist.githubusercontent.com/') + '/raw'
+      url.gsub(%r{^https://gist.github.com/}, "https://gist.githubusercontent.com/") + "/raw"
     end
   end
 
@@ -90,9 +92,9 @@ class CommunityTool < ApplicationRecord
 
   def markdown?
     if github_gist?
-      uri = URI.parse(url + '.json')
+      uri = URI.parse(url + ".json")
       http = Net::HTTP.new(uri.host, uri.port)
-      if uri.scheme == 'https'
+      if uri.scheme == "https"
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
       end
@@ -101,7 +103,7 @@ class CommunityTool < ApplicationRecord
       response = http.start do |http|
                    http.request(req)
                  end
-      filename = JSON.parse(response.body)['files'].first
+      filename = JSON.parse(response.body)["files"].first
       /\.md$/ =~ filename || /\.markdown$/ =~ filename
     else
       github_readme?
@@ -111,6 +113,6 @@ class CommunityTool < ApplicationRecord
   end
 
   def started?
-    status == 'started'
+    status == "started"
   end
 end

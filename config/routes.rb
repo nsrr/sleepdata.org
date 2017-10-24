@@ -103,6 +103,8 @@ Rails.application.routes.draw do
 
   resources :categories
 
+
+
   resources :community_tools, path: "community-tools" do
     resources :community_tool_reviews, path: "reviews"
   end
@@ -319,18 +321,16 @@ Rails.application.routes.draw do
       get :sync
       get :logo
 
-      get :requests
-      get :request_access
-      post :create_access
-      patch :set_access
-
       get "images/*path", action: "images", as: :images, format: false
       get "pages(/*path)", action: "pages", as: :pages, format: false
       post :pull_changes
     end
   end
 
-  get "community/tools/:id" => "tools#community_show", as: :community_show_tool
+  # TODO: Remove on or after October 1, 2018.
+  get "community/tools/:id", as: :community_show_tool, to: redirect("tools/%{id}")
+  get "community/tools", to: redirect("tools")
+  # END TODO
 
   resources :topics, path: "forum" do
     member do

@@ -8,7 +8,7 @@
   .breadcrumb-container.mb-0
     .container
       %ol
-        %li= link_to @community_tool.name, community_show_tool_path(@community_tool)
+        %li= link_to @community_tool.name, tool_path(@community_tool)
 
 .dashboard-container
   = render "form", community_tool_review: @community_tool_review

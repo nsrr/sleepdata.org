@@ -75,6 +75,6 @@ class CommunityToolReviewsControllerTest < ActionDispatch::IntegrationTest
     assert_difference('CommunityToolReview.count', -1) do
       delete community_tool_community_tool_review_path(@community_tool, @community_tool_review)
     end
-    assert_redirected_to community_show_tool_path(@community_tool)
+    assert_redirected_to tool_path(@community_tool)
   end
 end

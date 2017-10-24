@@ -87,7 +87,7 @@ class RequestController < ApplicationController
     if @community_tool.update(name: params[:community_tool][:name], description: params[:community_tool][:description], published: published)
       if published
         @community_tool.update(publish_date: Time.zone.today) if @community_tool.publish_date.blank?
-        redirect_to community_show_tool_path(@community_tool), notice: already_published ? "Tool updated successfully." : "Tool published successfully."
+        redirect_to tool_path(@community_tool), notice: already_published ? "Tool updated successfully." : "Tool published successfully."
       else
         redirect_to dashboard_path, notice: "Draft saved successfully."
       end

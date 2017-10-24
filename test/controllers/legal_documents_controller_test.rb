@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
+# Organization editors should be able to create and edit legal documents.
 class LegalDocumentsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @organization = organizations(:one)
@@ -33,7 +36,9 @@ class LegalDocumentsControllerTest < ActionDispatch::IntegrationTest
   test "should create legal document" do
     login(@admin)
     assert_difference("LegalDocument.count") do
-      post organization_legal_documents_url(@organization), params: { legal_document: legal_document_params }
+      post organization_legal_documents_url(@organization), params: {
+        legal_document: legal_document_params
+      }
     end
     assert_redirected_to organization_legal_document_url(@organization, LegalDocument.last)
   end
@@ -52,7 +57,9 @@ class LegalDocumentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update legal document" do
     login(@admin)
-    patch organization_legal_document_url(@organization, @legal_document), params: { legal_document: legal_document_params.merge(slug: "daua-updated") }
+    patch organization_legal_document_url(@organization, @legal_document), params: {
+      legal_document: legal_document_params.merge(slug: "daua-updated")
+    }
     assert_redirected_to organization_legal_document_url(@organization, "daua-updated")
   end
 

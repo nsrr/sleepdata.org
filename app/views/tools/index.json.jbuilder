@@ -1,4 +1,6 @@
-json.array!(@tools) do |tool|
-  json.extract! tool, :id, :name, :text, :slug, :logo, :user_id, :deleted
+# frozen_string_literal: true
+
+json.array!(@community_tools) do |tool|
+  json.partial! "tools/tool", tool: tool
   json.url tool_url(tool, format: :json)
 end

@@ -1,1 +1,3 @@
-json.extract! @tool, :id, :name, :text, :slug, :logo, :user_id, :deleted, :created_at, :updated_at
+# frozen_string_literal: true
+
+json.partial! "tools/tool", tool: @community_tool

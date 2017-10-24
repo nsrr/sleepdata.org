@@ -15,7 +15,7 @@ class CommunityToolReviewsController < ApplicationController
   # GET /community_tools/1/reviews/1
   def show
     @community_tool_review = @community_tool.community_tool_reviews.find_by_id(params[:id])
-    redirect_to community_show_tool_path(@community_tool) unless @community_tool_review
+    redirect_to tool_path(@community_tool) unless @community_tool_review
   end
 
   # GET /community_tools/1/reviews/new
@@ -51,7 +51,7 @@ class CommunityToolReviewsController < ApplicationController
   # DELETE /community_tools/1/reviews/1
   def destroy
     @community_tool_review.destroy
-    redirect_to community_show_tool_path(@community_tool), notice: 'Review was successfully deleted.'
+    redirect_to tool_path(@community_tool), notice: 'Review was successfully deleted.'
   end
 
   private
@@ -80,7 +80,7 @@ class CommunityToolReviewsController < ApplicationController
   end
 
   def redirect_without_community_tool_review
-    empty_response_or_root_path(community_show_tool_path(@community_tool)) unless @community_tool_review
+    empty_response_or_root_path(tool_path(@community_tool)) unless @community_tool_review
   end
 
   def community_tool_review_params

@@ -63,7 +63,6 @@ class User < ApplicationRecord
   has_many :reviews
   has_many :subscriptions
   has_many :tags, -> { current }
-  has_many :tools, -> { current }
   has_many :topics, -> { current }
   has_many :topic_users
 
@@ -171,14 +170,6 @@ class User < ApplicationRecord
     else
       challenges
     end
-  end
-
-  def all_tools
-    Tool.current.with_editor(id)
-  end
-
-  def all_viewable_tools
-    Tool.current.with_viewer_or_editor(id)
   end
 
   def avatar_url(size = 80, default = 'mm')
