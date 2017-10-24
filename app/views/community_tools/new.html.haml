@@ -5,10 +5,10 @@
     .container
       %h1.page-heading
         = @title
-  .breadcrumb-container.mb-0
+  .breadcrumb-container.mb-0.p-2
     .container
       %ol
         %li= link_to "Tools", community_tools_path
+        %li New
 
-.dashboard-container
-  = render "form"
+= render "community_tools/form", community_tool: @community_tool

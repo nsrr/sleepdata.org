@@ -316,16 +316,7 @@ Rails.application.routes.draw do
 
   resources :tags
 
-  resources :tools do
-    member do
-      get :sync
-      get :logo
-
-      get "images/*path", action: "images", as: :images, format: false
-      get "pages(/*path)", action: "pages", as: :pages, format: false
-      post :pull_changes
-    end
-  end
+  resources :tools, only: [:index, :show]
 
   # TODO: Remove on or after October 1, 2018.
   get "community/tools/:id", as: :community_show_tool, to: redirect("tools/%{id}")

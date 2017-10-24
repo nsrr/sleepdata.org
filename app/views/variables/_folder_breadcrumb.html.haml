@@ -45,6 +45,7 @@
         - if @variable
           %li= @variable.name
         - else
+          %li= render "search/toggle", btn_class: "btn-link"
           - folders_for_select = @folders.collect do |folder|
             - full_folder = [params[:folder].blank? ? nil : params[:folder], folder].compact.join("/")
             - [folder, full_folder]
@@ -54,3 +55,4 @@
               = form_tag dataset_variables_path(@dataset), method: :get, class: "form-inline", style: "position: absolute;top: -7px;left: 11px;", id: "variable-folder-form" do
                 .form-group{ style: "cursor: pointer" }
                   = select_tag :folder, options_for_select([["Navigate to...", nil]] + folders_for_select), data: { object: "variable-folder-select", target: "#variable-folder-form" }, class: "form-control", style: "border-color: transparent;background-color: transparent;box-shadow: none;cursor: pointer;color: #777; display: inline-block; width: auto;"
+

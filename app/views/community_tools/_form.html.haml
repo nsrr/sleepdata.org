@@ -1,51 +1,11 @@
-= form_for @community_tool, html: { class: "form-horizontal" } do |f|
-  .form-group
-    = f.label :name, nil, class: "col-md-2 control-label"
-    .col-md-10
-      = f.text_field :name, class: "form-control"
-      = render "layouts/errors", object: @community_tool, key: :name
+= form_with model: community_tool, local: true do |form|
+  = render "forms/horizontal/text_field", form: form, object: community_tool, key: :name, slug: "slug"
+  = render "forms/horizontal/slug_field", form: form, object: community_tool, key: :slug, help_text: "Must be a lowercase letter <span class=\"badge badge-light\">a-z</span> followed by lowercase letters <span class=\"badge badge-light\">a-z</span>, numbers <span class=\"badge badge-light\">0-9</span>, or dashes <span class=\"badge badge-light\">-</span>.".html_safe
+  = render "forms/horizontal/text_field", form: form, object: community_tool, key: :series
+  = render "forms/horizontal/text_field", form: form, object: community_tool, key: :url, key_name: "Repository URL"
 
-  .form-group
-    = f.label :slug, "URL Slug", class: "col-md-2 control-label"
-    .col-md-10
-      .input-group
-        = f.text_field :slug, class: "form-control", autocomplete: "off"
-        %span.input-group-btn
-          = link_to "#", class: "btn btn-info", data: { object: "toggle-visibility", target: "#slug-info" }, tabindex: "-1" do
-            %i.fa.fa-info-circle
-      = render "layouts/errors", object: @community_tool, key: :slug
-      #slug-info.callout.callout-info{ style: "display: none;" }
-        %strong Naming convention
-        %ul
-          %li
-            Must be a lowercase letter
-            %code a-z
-            followed by lowercase letters
-            = succeed "," do
-              %code a-z
-            numbers
-            = succeed "," do
-              %code 0-9
-            or dashes
-            = succeed "." do
-              %code -
-        %p
-          Ex:
-          %code edf-viewer
-
-  .form-group
-    = f.label :series, nil, class: "col-md-2 control-label"
-    .col-md-10
-      = f.text_field :series, class: "form-control"
-
-  .form-group
-    = f.label :url, "Repository URL", class: "col-md-2 control-label"
-    .col-md-10
-      = f.text_field :url, class: "form-control"
-      = render "layouts/errors", object: @community_tool, key: :url
-
-  .form-group
-    = f.label :description, nil, class: "col-md-2 control-label"
+  .form-group.row
+    = form.label :description, class: "col-md-2 col-form-label"
     .col-md-10
       .preview-container
         .preview-header
@@ -55,46 +15,15 @@
           = link_to "Preview", "#", data: { object: "view-content-preview", content: "#community_tool_description" }, class: "preview-tab", tabindex: "-1"
         .preview-body
           #content_markdown
-            = f.text_area :description, rows: [[15, @community_tool.description.to_s.count("\n") + 1].max, 25].min, class: "preview-control filedrag-container", data: { object: "expandable-text-area dropfile", default_rows: 15, upload_url: upload_images_path(update: "#community_tool_description", format: "js"), fallback_url: new_image_path, log_id: "#log_new" }
+            = form.text_area :description, rows: [[15, community_tool.description.to_s.count("\n") + 1].max, 25].min, class: "preview-control filedrag-container", data: { object: "expandable-text-area dropfile", default_rows: 15, upload_url: upload_images_path(update: "#community_tool_description", format: "js"), fallback_url: new_image_path, log_id: "#log_new" }
             #log_new.filedrag
               Drag images above to insert into post.
 
           #content_preview.markdown-container-new{ style: "display: none;" }
 
-  .form-group
-    .col-md-offset-2.col-md-10
-      .checkbox
-        %label
-          = f.check_box :published
-          Published
-
-  .form-group
-    = f.label :publish_date, class: "col-md-2 control-label"
-    .col-md-10
-      = f.text_field :publish_date, class: "datepicker form-control", value: @community_tool.publish_date ? @community_tool.publish_date.strftime("%m/%d/%Y") : ""
-
-  .form-group
-    .col-md-offset-2.col-md-10
-      .checkbox
-        %label
-          = f.check_box :tag_program
-          Program
-
-  .form-group
-    .col-md-offset-2.col-md-10
-      .checkbox
-        %label
-          = f.check_box :tag_script
-          Script
-
-  .form-group
-    .col-md-offset-2.col-md-10
-      .checkbox
-        %label
-          = f.check_box :tag_tutorial
-          Tutorial
-
-  .form-group
-    .col-md-offset-2.col-md-10
-      = f.submit nil, class: "btn btn-primary"
-      = cancel
+  = render "forms/horizontal/date_field", form: form, object: community_tool, key: :publish_date
+  = render "forms/horizontal/check_box", form: form, object: community_tool, key: :published
+  = render "forms/horizontal/check_box", form: form, object: community_tool, key: :tag_program, key_name: "Program"
+  = render "forms/horizontal/check_box", form: form, object: community_tool, key: :tag_script, key_name: "Script"
+  = render "forms/horizontal/check_box", form: form, object: community_tool, key: :tag_tutorial, key_name: "Tutorial"
+  = render "forms/horizontal/submit", form: form, object: community_tool
