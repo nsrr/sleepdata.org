@@ -1,5 +1,5 @@
 - if dataset.release_date && dataset.release_date <= Time.zone.today
-  - data_requests = dataset.data_requests.where(user: current_user)
+  - data_requests = dataset.data_requests.where(user: current_user).where.not(final_legal_document_id: nil)
   -# TODO: Don't force data request if no legal document is available (instead encourage exploration)
   - if data_request = data_requests.find_by(status: "approved")
     = link_to files_dataset_path(dataset), class: "data-request-tab data-request-tab-approved" do
