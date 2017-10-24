@@ -2,7 +2,7 @@
 .form-group
   = form.label key, defined?(key_name) ? key_name : nil, class: "form-control-label"
   %div
-    = form.select key, options, {}, class: "custom-select#{" is-invalid" if object.errors[error_key].present?}"
+    = form.select key, options, defined?(include_blank) ? { include_blank: include_blank } : {}, class: "custom-select#{" is-invalid" if object.errors[error_key].present?}"
     - if defined?(key_name)
       = render "layouts/invalid_feedback", object: object, key: error_key, key_name: key_name
     - else

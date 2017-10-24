@@ -1,7 +1,7 @@
 = form_with model: broadcast, local: true do |form|
   = render "forms/horizontal/date_field", form: form, object: broadcast, key: :publish_date
   = render "forms/horizontal/check_box", form: form, object: broadcast, key: :published
-  = render "forms/horizontal/select", form: form, object: broadcast, key: :category_id, options: Category.current.pluck(:name, :id), params: { include_blank: true }
+  = render "forms/horizontal/select", form: form, object: broadcast, key: :category_id, options: Category.current.pluck(:name, :id), include_blank: true
   = render "forms/horizontal/text_field", form: form, object: broadcast, key: :title, slug: "slug"
   = render "forms/horizontal/slug_field", form: form, object: broadcast, key: :slug
   = render "forms/horizontal/text_field", form: form, object: broadcast, key: :short_description
