@@ -97,7 +97,7 @@ class Agreement < ApplicationRecord
 
   # Relationships
   belongs_to :user
-  belongs_to :final_legal_document, optional: true
+  belongs_to :final_legal_document, optional: true # TODO: Should not be optional...
   has_many :agreement_variables
   has_many :requests
   has_many :datasets, -> { current }, through: :requests

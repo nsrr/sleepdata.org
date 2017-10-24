@@ -7,11 +7,13 @@ one:
   status: approved
   approval_date: 2014-01-17
   expiration_date: <%= (Date.today + 5.years).strftime("%Y-%m-%d") %>
+  final_legal_document: one
 
 two:
   user: two
   dua: blank.pdf
   status: submitted
+  final_legal_document: one
 
 resubmit:
   user: valid
@@ -21,6 +23,7 @@ resubmit:
   # approval_date: 2014-01-15
   # expiration_date: 2014-01-15
   resubmitted_at: 2014-01-15 14:22:15
+  final_legal_document: one
 
 filled_out_application_with_attached_irb_file:
   user: valid
@@ -52,6 +55,7 @@ filled_out_application_with_attached_irb_file:
   signature_date: 2014-09-18
   irb_evidence_type: has_evidence
   irb: blank.pdf
+  final_legal_document: one
 
 submitted_application:
   user: two
@@ -82,6 +86,7 @@ submitted_application:
   signature_date: 2014-09-20
   irb_evidence_type: has_evidence
   irb: blank.pdf
+  final_legal_document: one
 
 step1_saved_as_draft:
   user: valid
@@ -108,6 +113,7 @@ step1_saved_as_draft:
   # signature_date:
   # irb_evidence_type:
   # irb:
+  final_legal_document: one
 
 approved_application_for_private_dataset:
   user: two
@@ -134,6 +140,7 @@ approved_application_for_private_dataset:
   signature_date: 2014-09-20
   irb_evidence_type: has_evidence
   irb: blank.pdf
+  final_legal_document: one
 
 # The following agreements test a variety of scenarios for file downloading and documentation viewing
 
@@ -141,37 +148,44 @@ approved_for_a_b_not_c:
   user: has_approved_agreement_for_a_b_not_c
   status: approved
   deleted: false
+  final_legal_document: one
 
 approved_but_expired_for_a_b_not_c:
   user: has_approved_but_expired_agreement_for_a_b_not_c
   status: approved
   expiration_date: 2000-01-28
   deleted: false
+  final_legal_document: one
 
 submitted_for_a_b_not_c:
   user: has_submitted_agreement_for_a_b_not_c
   status: submitted
   deleted: false
+  final_legal_document: one
 
 started_for_a_b_not_c:
   user: has_started_agreement_for_a_b_not_c
   status: started
   deleted: false
+  final_legal_document: one
 
 resubmit_for_a_b_not_c:
   user: has_resubmit_agreement_for_a_b_not_c
   status: resubmit
   deleted: false
+  final_legal_document: one
 
 approved_but_deleted_for_a_b_not_c:
   user: has_approved_but_deleted_agreement_for_a_b_not_c
   status: approved
   deleted: true
+  final_legal_document: one
 
 sign_by_representative:
   user: valid
   status: started
   duly_authorized_representative_token: sign_by_representative
+  final_legal_document: one
 
 started:
   user: regular
