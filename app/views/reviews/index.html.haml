@@ -8,15 +8,16 @@
           = link_to download_or("Export CSV"), export_agreements_path(format: "csv"), class: "btn btn-primary btn-shadow" if current_user.system_admin?
           = render "layouts/per_page", per_page: 40, object_count: @agreements.total_count
         = @title
+        = render "search/toggle"
 
 = render "search/simple", url: reviews_path
 
-%table.table.table-striped.table-borderless.table-hover
+%table.table.table-striped.table-borderless.table-hover.table-sticky
   %thead.table-light
     %tr
       %th
         = link_to "Status", reviews_path(order: (params[:order] == "agreements.status desc" ? "agreements.status" : "agreements.status desc"), status: params[:status], tag_id: params[:tag_id], search: params[:search])
-        .dropdown{ style: "display: inline-block" }
+        .dropdown{ style: "display: inline-block;" }
           = link_to "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" } do
             %i.fa.fa-filter
           .dropdown-menu
@@ -25,7 +26,6 @@
               = link_to label.titleize, reviews_path(order: params[:order], status: value), style: params[:status] == value ? "font-weight:bold;" : "", class: "dropdown-item"
       %th
         = link_to "Agreement", reviews_path(order: (params[:order] == "agreements.id desc" ? "agreements.id" : "agreements.id desc"), status: params[:status], tag_id: params[:tag_id], search: params[:search])
-        = render "search/toggle"
       %th.d-none.d-sm-table-cell.nowrap
         = link_to "Submitted", reviews_path(order: (params[:order] == "agreements.last_submitted_at desc" ? "agreements.last_submitted_at" : nil), status: params[:status], tag_id: params[:tag_id], search: params[:search])
       %th.d-none.d-sm-table-cell.nowrap

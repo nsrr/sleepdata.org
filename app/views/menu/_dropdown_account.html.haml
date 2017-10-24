@@ -12,7 +12,7 @@
 
     .dropdown-divider
     - if current_user.admin?
-      = link_to users_path, class: "dropdown-item" do
+      = link_to admin_path, class: "dropdown-item" do
         %i.fa.fa-user-md
         Admin
       .dropdown-divider
@@ -35,11 +35,11 @@
     %span.sr-only (current)
 
 - if current_user.admin?
-  %li.nav-item.d-lg-none{ class: current_page?(users_path) ? "active" : nil }
-    = link_to users_path, class: "nav-link" do
+  %li.nav-item.d-lg-none{ class: current_page?(admin_path) ? "active" : nil }
+    = link_to admin_path, class: "nav-link" do
       %i.fa.fa-user-md
       Admin
-    - if current_page?(users_path)
+    - if current_page?(admin_path)
       %span.sr-only (current)
 
 %li.nav-item.d-lg-none

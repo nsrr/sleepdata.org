@@ -7,12 +7,11 @@
       %h1.page-heading
         Search
         - if params[:search].present?
-          %small
-            %code{ data: { object: "show-search-bar" }, style: "cursor: pointer;text-shadow: none;" }= params[:search]
+          %span.badge.badge-light{ data: { object: "show-search-bar" }, style: "cursor: pointer;text-shadow: none;" }= params[:search]
 
 .row
   .col-md-9
-    - if @search_documents.count > 0
+    - if @search_documents.present?
       - @search_documents.each do |document|
         .dashboard-container
           - case document.searchable.class.to_s when "Broadcast"
