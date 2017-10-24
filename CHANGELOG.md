@@ -88,6 +88,9 @@
   - Updated to kaminari 1.1.0
   - Added bootsnap 1.1.5
 
+### Tests
+- Added tests to assure user passwords can be reset
+
 ## 0.29.1 (October 18, 2017)
 
 ### Bug Fix
