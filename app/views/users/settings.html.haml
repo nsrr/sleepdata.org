@@ -8,18 +8,10 @@
       .dashboard-title
         %strong My Settings
 
-      = form_for current_user, url: update_settings_path, html: { class: "form-vertical" } do |form|
-        .form-group
-          = render "layouts/label_or_errors", form: form, object: current_user, key: :first_name
-          = form.text_field :first_name, class: "form-control"
-
-        .form-group
-          = render "layouts/label_or_errors", form: form, object: current_user, key: :last_name
-          = form.text_field :last_name, class: "form-control"
-
-        .form-group
-          = render "layouts/label_or_errors", form: form, object: current_user, key: :email
-          = form.text_field :email, class: "form-control"
+      = form_with model: current_user, url: update_settings_path, local: true do |form|
+        = render "forms/vertical/text_field", form: form, object: current_user, key: :first_name
+        = render "forms/vertical/text_field", form: form, object: current_user, key: :last_name
+        = render "forms/vertical/email_field", form: form, object: current_user, key: :email
 
         .form-group.submit-btn-container
           = form.submit "Save Changes", class: "btn btn-primary"
@@ -27,32 +19,9 @@
     .dashboard-container
       .dashboard-title
         %strong My Forum Settings
-      = form_for current_user, url: update_settings_path, html: { class: "form-vertical" } do |form|
-        .form-group
-          = render "layouts/label_or_errors", form: form, object: current_user, key: :email, key_name: "Forum Username"
-          = form.text_field :username, class: "form-control", placeholder: current_user.name
-
-        .form-group
-          .callout.callout-info
-            %strong Note:
-            You can change your avatar at
-            = link_to "gravatar.com", "http://gravatar.com", target: "_blank"
-
-        .form-group
-          %label.control-label Receive Forum Emails
-          .checkbox
-            %label
-              = form.check_box :emails_enabled
-              Allow the NSRR to send you emails when a topic receives a reply to
-              which you are subscribed, and when someone mentions you on the
-              forum. Unchecking this box will disable forum emails.
-            .callout.callout-info
-              %strong Note:
-              You will still receive emails for:
-              %ul
-                %li Progress updates for Data Access and Use Agreements
-                %li Password reset emails
-
+      = form_with model: current_user, url: update_settings_path, local: true do |form|
+        = render "forms/vertical/text_field", form: form, object: current_user, key: :username, key_name: "Forum Username", placeholder: current_user.name, help_text: "You can change your avatar at #{link_to "gravatar.com", "http://gravatar.com", target: "_blank"}.".html_safe
+        = render "forms/vertical/check_box", form: form, object: current_user, key: :emails_enabled, key_name: "Enable Forum Emails", help_text: "Allow the NSRR to send you emails when a topic receives a reply to which you are subscribed, and when someone mentions you on the forum. Unchecking this box will disable forum emails. You will still receive emails for: (1) Data request updates, (2) Password reset emails"
         .form-group.submit-btn-container
           = form.submit "Save Changes", class: "btn btn-primary"
 
