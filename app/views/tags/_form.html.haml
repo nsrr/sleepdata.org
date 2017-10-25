@@ -1,5 +1,5 @@
 = form_with model: tag, local: true do |form|
   = render "forms/horizontal/text_field", form: form, object: tag, key: :name
   = render "forms/horizontal/color", form: form, object: tag, key: :color
-  = render "forms/horizontal/select", form: form, object: tag, key: :tag_type, options: [["---", nil]] + Tag::TYPE
+  = render "forms/horizontal/select", form: form, object: tag, key: :tag_type, options: Tag::TYPE, include_blank: true
   = render "forms/horizontal/submit", form: form, object: tag

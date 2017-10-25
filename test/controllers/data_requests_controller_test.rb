@@ -6,15 +6,31 @@ require "test_helper"
 class DataRequestsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @regular = users(:regular)
+    @orgtwo_regular = users(:orgtwo_regular)
+    @orgthree_regular = users(:orgthree_regular)
     @released = datasets(:released)
     @started = agreements(:started)
+    @checkbox_attestestation_started = agreements(:checkbox_attestestation_started)
+    @simple_started = agreements(:simple_started)
   end
 
-  test "should get start" do
+  test "should get start for simple legal document" do
+    login(users(:orgthree_regular_no_data_requests))
+    get data_requests_start_url(datasets(:orgthree_crowd))
+    assert_response :success
+  end
+
+  test "should get start and redirect for existing data request legal document without pages" do
+    login(@orgthree_regular)
+    get data_requests_start_url(datasets(:orgthree_crowd))
+    assert_redirected_to data_requests_proof_url(@simple_started)
+  end
+
+  test "should get start and redirect with existing data request" do
     skip # TODO: Make start redirect to correct legal document based on user selections.
     login(@regular)
     get data_requests_start_url(@released)
-    assert_response :success
+    assert_redirected_to data_requests_page_url(@started, 1)
   end
 
   test "should get request as individual or organization" do
@@ -100,6 +116,24 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
     post data_requests_update_attest_url(@started, data_uri: "") # TODO: Add signature params.
     # assert_equal # TODO: Assert signature and timestamp.
     assert_redirected_to data_requests_proof_url(@started, "2")
+  end
+
+  test "should get designate duly authorized representative" do
+    login(@regular)
+    get data_requests_duly_authorized_representative_url(@started)
+    assert_response :success
+  end
+
+  test "should not get designate duly authorized representative for checkbox attestation legal documents" do
+    login(@orgtwo_regular)
+    get data_requests_duly_authorized_representative_url(@checkbox_attestestation_started)
+    assert_redirected_to data_requests_attest_url(@checkbox_attestestation_started)
+  end
+
+  test "should not get designate duly authorized representative for no attestation legal documents" do
+    login(@orgthree_regular)
+    get data_requests_duly_authorized_representative_url(@simple_started)
+    assert_redirected_to data_requests_attest_url(@simple_started)
   end
 
   test "should get addendum" do

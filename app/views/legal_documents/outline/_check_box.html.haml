@@ -8,11 +8,20 @@
     = label
     = render "legal_document_variables/edit_link", variable: variable if editable
   %br
-  = label_tag key, class: "custom-control custom-checkbox" do
-    = check_box_tag key, "1", value == "1", class: "custom-control-input", id: key, data: { object: "text-input-expandable", help_element: help_element, help_text: help_text }, disabled: editable
-    %span.custom-control-indicator
+  - if reviewer
+    - if value == "1"
+      %i.fa.fa-check-square.text-primary
+    - else
+      %i.fa.fa-times.text-danger
     - if variable.description.present?
       %span.custom-control-description= variable.description
+  - else
+    = label_tag key, class: "custom-control custom-checkbox" do
+      = hidden_field_tag key, "0", id: "#{key}_no"
+      = check_box_tag key, "1", value == "1", class: "custom-control-input", id: key, data: { object: "text-input-expandable", help_element: help_element, help_text: help_text }, disabled: editable
+      %span.custom-control-indicator
+      - if variable.description.present?
+        %span.custom-control-description= variable.description
   - if variable.field_note.present?
     %br
     %small.text-muted= variable.field_note

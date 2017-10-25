@@ -50,13 +50,42 @@ class DataRequest < Agreement
     %w(checkbox signature).include?(final_legal_document.attestation_type)
   end
 
+  def signature_required?
+    final_legal_document.attestation_type == "signature"
+  end
+
   def attestation_complete?
     case final_legal_document.attestation_type
     when "signature"
-      signature_file.present?
+      signature_file.present? || duly_authorized_representative_signature_file.present?
     else
       false
     end
+  end
+
+  def ready_for_duly_authorized_representative?
+    duly_authorized_representative_signature_print.present? && duly_authorized_representative_email.present?
+  end
+
+  def send_duly_authorized_representative_signature_request_in_background
+    update duly_authorized_representative_emailed_at: Time.zone.now
+    fork_process(:send_duly_authorized_representative_signature_request)
+  end
+
+  def send_duly_authorized_representative_signature_request
+    DataRequestMailer.duly_authorized_representative_signature_request(self).deliver_now if EMAILS_ENABLED
+  end
+
+  def send_duly_authorized_representative_signature_submitted_in_background
+    fork_process(:send_duly_authorized_representative_signature_submitted)
+  end
+
+  def send_duly_authorized_representative_signature_submitted
+    DataRequestMailer.duly_authorized_representative_signature_submitted(self).deliver_now if EMAILS_ENABLED
+  end
+
+  def duly_authorized_representative_signed?
+    duly_authorized_representative_signed_at.present?
   end
 
   def coverage(final_legal_document_page)
@@ -65,7 +94,11 @@ class DataRequest < Agreement
     final_legal_document_page.variables.where(required: true).each do |variable|
       variable_count += 1
       agreement_variable = agreement_variables.find_by(final_legal_document_variable_id: variable.id)
-      response_count += 1 if agreement_variable&.value.present?
+      if variable.variable_type == "checkbox" && agreement_variable&.value == "1"
+        response_count += 1
+      elsif variable.variable_type != "checkbox" && agreement_variable&.value.present?
+        response_count += 1 
+      end
     end
     [response_count, variable_count]
   end

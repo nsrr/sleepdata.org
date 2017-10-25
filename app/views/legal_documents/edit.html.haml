@@ -8,8 +8,8 @@
   .breadcrumb-container.mb-0.p-2
     .container
       %ol
-        %li= link_to @organization.slug.upcase, @organization
-        %li= link_to "Legal Docs", organization_legal_documents_path(@organization)
+        %li= link_to @organization.name, @organization
+        %li= link_to "Legal Docs", [@organization, :legal_documents]
         %li= link_to @legal_document.name_was, [@organization, @legal_document]
         %li Edit
 

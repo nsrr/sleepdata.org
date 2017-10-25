@@ -19,6 +19,23 @@ regular2:
   last_name: User2
   email: regular2@example.com
 
+# User requesting access to Org Two's datasets.
+orgtwo_regular:
+  first_name: Orgtwo
+  last_name: Regular
+  email: orgtwo_regular@example.com
+
+# User requesting access to Org Three's datasets.
+orgthree_regular:
+  first_name: Orgthree
+  last_name: Regular
+  email: orgthree_regular@example.com
+
+orgthree_regular_no_data_requests:
+  first_name: Orgthreeregular
+  last_name: Nodatarequests
+  email: orgthree_regular_no_data_requests@example.com
+
 two:
   first_name: MyString
   last_name: MyString
@@ -191,3 +208,15 @@ reviewer_three_on_public:
   email: reviewer_three_on_public@example.com
   encrypted_password: ""
   username: reviewer_three_on_public
+
+orgtwo_editor:
+  first_name: Orgtwo
+  last_name: Editor
+  email: orgtwo_editor@example.com
+  encrypted_password: ""
+
+orgthree_editor:
+  first_name: Orgthree
+  last_name: Editor
+  email: orgthree_editor@example.com
+  encrypted_password: ""

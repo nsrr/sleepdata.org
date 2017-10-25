@@ -184,6 +184,7 @@ approved_but_deleted_for_a_b_not_c:
 sign_by_representative:
   user: valid
   status: started
+  duly_authorized_representative_email: duly_authorized@example.com
   duly_authorized_representative_token: sign_by_representative
   final_legal_document: one
 
@@ -196,3 +197,13 @@ uploads:
   user: regular2
   status: started
   final_legal_document: one
+
+checkbox_attestestation_started:
+  user: orgtwo_regular
+  status: started
+  final_legal_document: checkbox_attestation
+
+simple_started:
+  user: orgthree_regular
+  status: started
+  final_legal_document: simple

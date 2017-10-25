@@ -1,4 +1,4 @@
 = form_with model: organization, local: true do |form|
-  = render "forms/horizontal/text_field", form: form, object: organization, key: :name
-  = render "forms/horizontal/text_field", form: form, object: organization, key: :slug
+  = render "forms/horizontal/text_field", form: form, object: organization, key: :name, slug: "slug"
+  = render "forms/horizontal/slug_field", form: form, object: organization, key: :slug
   = render "forms/horizontal/submit", form: form, object: organization

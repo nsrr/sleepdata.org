@@ -4,13 +4,14 @@
   .header-container
     .container
       %h1.page-heading.text-center
+        = @data_request.final_legal_document.organization.name
         Brigham and Women's Hospital
 
 .dashboard-container-narrow
   .dashboard-container-title
     Instructions
   %p
-    = @agreement.user.name
+    = @data_request.user.name
     has named you as the Duly Authorized Representative to sign the following Data
     Access and Use Agreement on their behalf.
   %p
@@ -19,7 +20,7 @@
     = mail_to ENV["support_email"]
 
 
-- if @agreement.errors.any?
+- if @data_request.errors.any?
   .callout.callout-danger
     %strong
       Errors prohibited this from being saved.
@@ -27,108 +28,89 @@
 
 = hidden_field_tag "isdirty", "1"
 
-.markdown-container
+.background-brand-white.p-3.p-md-4.p-lg-5.mb-3
 
-  %div{ style: "margin-bottom: 40px;" }
-    = render "agreements/show/step1/title"
+  - @data_request.final_legal_document.final_legal_document_pages.each do |final_legal_document_page|
+    .agreement-heading= final_legal_document_page.title
+    = legal_markdown final_legal_document_page, reviewer: true
 
-  %p
-    = render "agreements/show/step1/part1"
-    %mark= @agreement.data_user
-    = surround "(", ")." do
-      %strong "Data User"
+  - if false
+    - @agreement = @data_request
+    %div{ style: "margin-bottom: 40px;" }
+      = render "agreements/show/step1/title"
 
-  = render "agreements/show/step1/part2"
-  = render "agreements/show/step1/part3"
-
-
-  = render "agreements/show/step2/part1"
-
-  - if @agreement.title_of_project.present?
     %p
-      %strong
-        %mark= @agreement.title_of_project
-  - if @agreement.specific_purpose.present?
+      = render "agreements/show/step1/part1"
+      %mark= @data_request.data_user
+      = surround "(", ")." do
+        %strong "Data User"
+
+    = render "agreements/show/step1/part2"
+    = render "agreements/show/step1/part3"
+
+
+    = render "agreements/show/step2/part1"
+
+    - if @data_request.title_of_project.present?
+      %p
+        %strong
+          %mark= @data_request.title_of_project
+    - if @data_request.specific_purpose.present?
+      %p
+        %mark= sanitize @data_request.specific_purpose.to_s.gsub("\n", "<br />")
+
+    %ul
+      - @data_request.datasets.each do |dataset|
+        %li
+          %mark= dataset.name
+
+    = render "agreements/show/step2/part2"
+
+    = render "agreements/show/step3/part1"
+
+    = render "agreements/show/step3/part2"
+
     %p
-      %mark= sanitize @agreement.specific_purpose.to_s.gsub("\n", "<br />")
+      - case @data_request.posting_permission when "all"
+        %mark
+          Data User gives BWH permission to post
+          %strong Data User's name
+          and a
+          summary of
+          %strong Data User's Specific Purpose
+          on https://sleepdata.org
+      - when "name_only"
+        %mark
+          Data User gives BWH permission to post
+          %strong Data User's name
+          on https://sleepdata.org
+      - when "none"
+        %mark
+          Data User
+          %strong does not give permission
+          to post Data User's name or a summary of Data User's Specific Purpose on
+          https://sleepdata.org
 
-  %ul
-    - @agreement.datasets.each do |dataset|
-      %li
-        %mark= dataset.name
+    = render "agreements/show/step3/part3"
 
-  = render "agreements/show/step2/part2"
-
-  = render "agreements/show/step3/part1"
-
-  = render "agreements/show/step3/part2"
-
-  %p
-    - case @agreement.posting_permission when "all"
-      %mark
-        Data User gives BWH permission to post
-        %strong Data User's name
-        and a
-        summary of
-        %strong Data User's Specific Purpose
-        on https://sleepdata.org
-    - when "name_only"
-      %mark
-        Data User gives BWH permission to post
-        %strong Data User's name
-        on https://sleepdata.org
-    - when "none"
-      %mark
-        Data User
-        %strong does not give permission
-        to post Data User's name or a summary of Data User's Specific Purpose on
-        https://sleepdata.org
-
-  = render "agreements/show/step3/part3"
-
-.dashboard-container-narrow
+.background-brand-white.p-3.p-md-4.p-lg-5.mb-3
   .dashboard-container-title
     Agreed to by:
 
-  = form_with model: @agreement, url: representative_submit_signature_path(@agreement.id_and_representative_token), method: :patch, local: true, id: "update_step_form" do |form|
+  = form_with model: @data_request, url: representative_submit_signature_path(@data_request.id_and_representative_token), method: :patch, local: true, id: "duly-authorized-representative-signature-form" do |form|
     = hidden_field_tag "agreement[draft_mode]", nil
     = hidden_field_tag "step", @step
     = hidden_field_tag "agreement[current_step]", @step
 
     = form.label :duly_authorized_representative_signature, "Signature of Duly Authorized Representative", class: "control-label"
     = render "forms/signature"
-
-    = render "forms/vertical/text_field", form: form, object: @agreement, key: :duly_authorized_representative_signature_print, key_name: "By (print name)", help_text: "Please print your full name."
-    - if false
-      .form-group
-        = form.label :duly_authorized_representative_signature_print, "By (print name)", class: "control-label"
-        = form.text_field :duly_authorized_representative_signature_print, class: "form-control"
-        - if @agreement.errors.messages[:duly_authorized_representative_signature_print].size > 0
-          %small.text-danger
-            Please print your full name.
-
-    .form-group
-      = form.label :duly_authorized_representative_title, "Professional Title", class: "control-label"
-      = form.text_field :duly_authorized_representative_title, class: "form-control"
-      - if @agreement.errors.messages[:duly_authorized_representative_title].size > 0
-        %small.text-danger
-          Please enter your professional title.
-      .callout.callout-info
-        %strong Examples
-        %br
-        Associate Professor, Data Manager
-
-    .form-group
-      = form.label :duly_authorized_representative_signature_date, "Date Signed", class: "control-label"
-      = form.text_field :duly_authorized_representative_signature_date, class: "datepicker form-control", value: @agreement.duly_authorized_representative_signature_date ? @agreement.duly_authorized_representative_signature_date.strftime("%m/%d/%Y") : ""
-      - if @agreement.errors.messages[:duly_authorized_representative_signature_date].size > 0
-        %small.text-danger
-          Please enter a valid date.
+    = render "forms/vertical/text_field", form: form, object: @data_request, key: :duly_authorized_representative_signature_print, key_name: "By (print name)", help_text: "Please print your full name."
+    = render "forms/vertical/text_field", form: form, object: @data_request, key: :duly_authorized_representative_title, key_name: "Professional Title", help_text: "Ex: Associate Professor, Data Manager"
 
 .row
   .col-2.col-sm-4
   .col-8.col-sm-4
-    = link_to "#", data: { object: "submit", target: "#update_step_form" }, class: "btn btn-lg btn-primary btn-block" do
+    = link_to "#", data: { object: "submit-signature-and-disable", target: "#duly-authorized-representative-signature-form" }, class: "btn btn-lg btn-primary btn-block" do
       %i.fa.fa-floppy-o
       Submit Signature
   .col-2.col-sm-4

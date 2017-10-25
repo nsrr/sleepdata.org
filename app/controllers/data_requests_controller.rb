@@ -30,7 +30,15 @@ class DataRequestsController < ApplicationController
   # GET /data/requests/:dataset_id/start
   def start
     @data_request = @dataset.data_requests.find_by(user: current_user, status: ["resubmit", "started"])
-    redirect_to data_requests_page_path(@data_request, 1) if current_user && @data_request
+    if current_user && @data_request
+      if @data_request.final_legal_document.final_legal_document_pages.count.positive?
+        redirect_to data_requests_page_path(@data_request, 1)
+      elsif @data_request.attestation_required?
+        redirect_to data_requests_attest_path(@data_request)
+      else
+        redirect_to data_requests_proof_path(@data_request)
+      end
+    end
   end
 
   # POST /data/requests/:dataset_id/start
@@ -179,7 +187,29 @@ class DataRequestsController < ApplicationController
     elsif @data_request.final_legal_document.attestation_type == "checkbox"
       # TODO: Save checkbox.
     end
+    @data_request.update(attested_at: Time.zone.now)
     redirect_to [@data_request, :supporting_documents]
+  end
+
+  # GET /data/requests/:data_request_id/duly-authorized-representative
+  def duly_authorized_representative
+    redirect_to data_requests_attest_path(@data_request) unless @data_request.signature_required?
+  end
+
+  # POST /data/requests/:data_request_id/duly-authorized-representative
+  def update_duly_authorized_representative
+    redirect_to data_requests_attest_path(@data_request) unless @data_request.signature_required?
+    data_request_params = params.require(:data_request).permit(
+      :duly_authorized_representative_signature_print,
+      :duly_authorized_representative_email
+    )
+    @data_request.update(data_request_params)
+    if @data_request.ready_for_duly_authorized_representative?
+      @data_request.send_duly_authorized_representative_signature_request_in_background
+      redirect_to data_requests_attest_path(@data_request), notice: "Duly Authorized Representative has been notified by email."
+    else
+      redirect_to data_requests_duly_authorized_representative_path(@data_request), notice: "Please fill in all fields."
+    end
   end
 
   # GET /data/requests/:data_request_id/addendum
@@ -246,12 +276,24 @@ class DataRequestsController < ApplicationController
 
   end
 
-  # # GET /data/requests/:data_request_id/submitted
-  # def submitted
-  # end
+  # GET /data/requests/:data_request_id/submitted
+  def submitted
+    render layout: "layouts/application"
+  end
 
-  # # GET /data/requests/:data_request_id/print
-  # def print
+  # GET /data/requests/:data_request_id/print
+  def print
+    @data_request.generate_printed_pdf!
+    if @data_request.printed_file.present?
+      send_file @data_request.printed_file.path, filename: "#{@data_request.user.last_name.gsub(/[^a-zA-Z\p{L}]/, '')}-#{@data_request.user.first_name.gsub(/[^a-zA-Z\p{L}]/, '')}-#{@data_request.agreement_number}-DAUA-#{(@data_request.submitted_at || @data_request.created_at).strftime("%Y-%m-%d")}.pdf", type: "application/pdf", disposition: "inline"
+    else
+      render layout: false
+    end
+  end
+
+  # # GET /data/requests/:data_request_id/resume
+  # def resume
+  #  # TODO: Implement a data request resume path (as opposed to "start")
   # end
 
   private

@@ -7,3 +7,15 @@ two:
   organization: one
   legal_document: one
   dataset: unreleased
+
+# Organization Two (Checkbox attestation, no review)
+checkbox_hamlet:
+  organization: two
+  legal_document: checkbox_attestation
+  dataset: orgtwo_hamlet
+
+# Organization Three (No attestation, no review)
+simple_crowd:
+  organization: three
+  legal_document: simple
+  dataset: orgthree_crowd

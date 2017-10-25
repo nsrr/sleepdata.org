@@ -72,3 +72,13 @@ started_released:
 uploads_released:
   agreement: uploads
   dataset: released
+
+# Organization Two
+hamlet_started:
+  agreement: checkbox_attestestation_started
+  dataset: orgtwo_hamlet
+
+# Organization Three
+crowd_started:
+  agreement: simple_started
+  dataset: orgthree_crowd

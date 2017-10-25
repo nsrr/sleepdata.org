@@ -1,0 +1,11 @@
+Dear <%= @data_request.user.first_name %>,
+
+Your Data Request has been signed by <%= @data_request.duly_authorized_representative_signature_print %>, your Duly Authorized Representative.
+
+You can now submit your Data Request here: <%= "#{ENV["website_url"]}/data/requests/#{@data_request.to_param}/attest" %>
+
+You can reply directly to this email if you have any questions.
+
+Thank you!
+
+<%= ENV['website_name'] %>

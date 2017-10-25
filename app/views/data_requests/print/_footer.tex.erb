@@ -1,0 +1,65 @@
+
+
+
+<% if @data_request.signature_required? %>
+  \begin{center}
+    \textbf{Required Signatures begin on next page}
+  \end{center}
+
+  \newpage
+
+  Agreed to by: \\
+  \\
+  <%= @data_request.unauthorized_to_sign? ? "DATA USER'S DULY AUTHORIZED REPRESENTATIVE" : 'DATA USER' %> \\
+
+  \begin{addmargin}[1em]{1em}
+    \begin{addmargin}[1em]{1em}
+      \begin{figure}[!htpb]
+        <% if @data_request.duly_authorized_representative_signed? %>
+          \includegraphics[max width=3.5in]{<%= @data_request.duly_authorized_representative_signature_file.path %>}
+        <% elsif @data_request.signature_file.present? %>
+          \includegraphics[max width=3.5in]{<%= @data_request.signature_file.path %>}
+        <% end %>
+      \end{figure}
+      \textbf{Signature} \\
+    \end{addmargin}
+
+    \textbf{By (print name)}
+    \begin{addmargin}[1em]{1em}
+      \hl{<%= latex_safe @data_request.unauthorized_to_sign? ? @data_request.duly_authorized_representative_signature_print : @data_request.signature_print %>} \\
+    \end{addmargin}
+
+    <% if @data_request.unauthorized_to_sign? %>
+      \textbf{Professional Title}
+      \begin{addmargin}[1em]{1em}
+        \hl{<%= latex_safe @data_request.duly_authorized_representative_title %>} \\
+      \end{addmargin}
+    <% end %>
+
+    \textbf{Date Signed}
+    \begin{addmargin}[1em]{1em}
+      \hl{<%= latex_safe @data_request.authorized_signature_date ? @data_request.authorized_signature_date.strftime("%-d %B %Y") : "" %>} \\[2.0cm]
+    \end{addmargin}
+
+  \end{addmargin}
+<% end %>
+
+<%= latex_safe @data_request.final_legal_document.organization.name.upcase %> \\
+
+<% if @data_request.reviewer_signature_file.present? %>
+  \begin{addmargin}[1em]{1em}
+    \textbf{Signature}
+    \begin{addmargin}[1em]{1em}
+      \begin{figure}[!htpb]
+        \includegraphics[max width=3.5in]{<%= @data_request.reviewer_signature_file.path %>}
+      \end{figure}
+    \end{addmargin}
+
+    \textbf{Approval Date}
+    \begin{addmargin}[1em]{1em}
+      \hl{<%= latex_safe @data_request.approval_date ? @data_request.approval_date.strftime("%-d %B %Y") : "" %>} \\
+    \end{addmargin}
+  \end{addmargin}
+<% end %>
+
+\end{document}

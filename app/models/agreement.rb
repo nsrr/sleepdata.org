@@ -270,37 +270,31 @@ class Agreement < ApplicationRecord
   end
 
   def latex_partial(partial)
-    File.read(File.join('app', 'views', 'agreements', 'latex', "_#{partial}.tex.erb"))
+    File.read(File.join("app", "views", "data_requests", "print", "_#{partial}.tex.erb"))
   end
 
   def generate_printed_pdf!
-    jobname = "agreement_#{id}"
-    output_folder = Rails.root.join('tmp', 'files', 'tex')
+    jobname = "data_request_#{id}"
+    output_folder = Rails.root.join("tmp", "files", "tex")
     FileUtils.mkdir_p output_folder
-    file_tex = Rails.root.join('tmp', 'files', 'tex', jobname + '.tex')
-    create_signature_pngs
-    @agreement = self # Needed by Binding
+    file_tex = Rails.root.join("tmp", "files", "tex", jobname + ".tex")
+    @data_request = self # Needed by Binding
 
-    File.open(file_tex, 'w') do |file|
-      file.syswrite(ERB.new(latex_partial('header')).result(binding))
-      file.syswrite(ERB.new(latex_partial('body')).result(binding))
-      file.syswrite(ERB.new(latex_partial('footer')).result(binding))
+    File.open(file_tex, "w") do |file|
+      file.syswrite(ERB.new(latex_partial("header")).result(binding))
+      final_legal_document.final_legal_document_pages.each do |final_legal_document_page|
+        file.syswrite(ERB.new(latex_partial("final_legal_document_page")).result(binding))
+      end
+      file.syswrite(ERB.new(latex_partial("footer")).result(binding))
     end
 
-    file_name = Agreement.generate_pdf(jobname, output_folder, file_tex)
+    file_name = DataRequest.generate_pdf(jobname, output_folder, file_tex)
     return unless File.exist? file_name
     self.printed_file = File.open(file_name)
     save(validate: false)
   end
 
-  def create_signature_pngs
-    folder = Rails.root.join('tmp', 'files', 'agreements', "#{id}")
-    FileUtils.mkpath folder
-    Agreement.create_signature_png(signature, File.join(folder, 'signature.png'))
-    Agreement.create_signature_png(duly_authorized_representative_signature, File.join(folder, 'duly_authorized_representative_signature.png'))
-    Agreement.create_signature_png(reviewer_signature, File.join(folder, 'reviewer_signature.png'))
-  end
-
+  # TODO: Remove in v0.31.0
   def self.create_signature_png(signature, filename)
     canvas = ChunkyPNG::Canvas.new(300, 55)
     (JSON.parse(signature) rescue []).each do |hash|
@@ -309,17 +303,10 @@ class Agreement < ApplicationRecord
     png = canvas.to_image
     png.save(filename)
   end
+  # END TODO
 
   def duly_authorized_representative_valid?
     duly_authorized_representative_signature.present? && duly_authorized_representative_signature_print.present? && duly_authorized_representative_signature_date.present? && duly_authorized_representative_title.present?
-  end
-
-  def send_daua_signed_email_in_background
-    fork_process(:send_daua_signed_email)
-  end
-
-  def send_daua_signed_email
-    UserMailer.daua_signed(self).deliver_now if EMAILS_ENABLED
   end
 
   def authorized_signature_date

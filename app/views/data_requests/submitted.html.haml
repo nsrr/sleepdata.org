@@ -1,13 +1,53 @@
-- @title = "Submitted"
+- @title = "Data Request Submitted"
 
-- content_for :container_class, "container-fluid"
+= @data_request.attested_at
+= @data_request.submitted_at
 
-.container-fluid
-  .row.flex-xl-nowrap
-    = render "data_requests/menu"
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading.text-center
+        = @title
+        .text-center.mt-3
+          %p.lead.text-white
+            Thank you, your data request was submitted successfully.
 
-    #agreement-helper-drawer.d-none.d-xl-block.col-xl.sidebar-drawer
+.dashboard-container-narrow
+  %p
+    Dear
+    = succeed "," do
+      = current_user.first_name
 
-    %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
-      .page-box.last-box
-        .agreement-heading= @title
+  %p
+    Once your data request is approved, you will be able to download data from
+    the datasets you requested.
+
+  %p
+    New to the NSRR? Get started with our
+    = link_to "Where to Start", showcase_show_path("where-to-start")
+    guide.
+
+  %p
+    Learn how to download data using the NSRR gem:
+    = link_to "NSRR Demo", demo_path
+
+  %p
+    Also, post any questions on the
+    = link_to "forum", topics_path
+    or contact us directly at
+    = mail_to ENV["support_email"]
+    if you need any help!
+
+  %p Welcome aboard!
+
+  %p The NSRR Team
+
+.text-center
+  = link_to data_requests_path, class: "btn btn-light btn-shadow" do
+    %i.fa.fa-th-list
+    Review My Data Request
+  &nbsp;
+  = link_to data_requests_print_path(@data_request), class: "btn btn-primary btn-shadow", data: { turbolinks: false } do
+    %i.fa.fa-print
+    Print Data Request
+

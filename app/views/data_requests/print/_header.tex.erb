@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage{fancyhdr}
+\usepackage[margin=0.5in]{geometry}
+\geometry{top=1.0in, bottom=1.0in}
+\usepackage{lastpage}
+\usepackage{wrapfig}
+\usepackage[section]{placeins}
+\usepackage{booktabs}
+\usepackage{sectsty}
+\newcommand{\ra}[1]{\renewcommand{\arraystretch}{#1}}
+\usepackage{indentfirst}
+\usepackage{longtable}
+\usepackage{scrextend}
+\usepackage[utf8]{inputenc}
+\usepackage{soulutf8}
+
+\usepackage{needspace}
+\usepackage{color}
+
+\usepackage{fancybox}
+\usepackage{pifont}% http://ctan.org/pkg/pifont
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+\subsectionfont{\normalfont\Large\underline}
+\subsubsectionfont{\normalfont\large\underline}
+
+\fancyhf{}
+
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{NSRR Data Request}
+\cfoot{Printed on <%= latex_safe Time.zone.today.strftime("%B %-d, %Y") %>}
+\rfoot{Page \thepage\ of \pageref{LastPage}}
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\setlength\headheight{22pt}
+
+\setlength{\parindent}{0pt}
+
+\pagestyle{fancyplain}
+
+
+
+\begin{document}
+
+\begin{center}
+  {\Large <%= latex_safe @data_request.final_legal_document.organization.name %>} \\
+  {\Large National Sleep Research Resource (NSRR)} \\[0.5cm]
+
+  {\large DATA ACCESS AND USE AGREEMENT}
+\end{center}

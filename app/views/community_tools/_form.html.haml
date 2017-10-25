@@ -1,6 +1,6 @@
 = form_with model: community_tool, local: true do |form|
   = render "forms/horizontal/text_field", form: form, object: community_tool, key: :name, slug: "slug"
-  = render "forms/horizontal/slug_field", form: form, object: community_tool, key: :slug, help_text: "Must be a lowercase letter <span class=\"badge badge-light\">a-z</span> followed by lowercase letters <span class=\"badge badge-light\">a-z</span>, numbers <span class=\"badge badge-light\">0-9</span>, or dashes <span class=\"badge badge-light\">-</span>.".html_safe
+  = render "forms/horizontal/slug_field", form: form, object: community_tool, key: :slug
   = render "forms/horizontal/text_field", form: form, object: community_tool, key: :series
   = render "forms/horizontal/text_field", form: form, object: community_tool, key: :url, key_name: "Repository URL"
 

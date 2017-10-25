@@ -1,5 +1,4 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# Organization One (Signature attestation, committee review)
 one:
   organization: one
   name: DAUA NC-I
@@ -15,5 +14,27 @@ two:
   slug: daua-c-o
   commercial_type: commercial
   data_user_type: organization
-  attestation_type: checkbox
+  attestation_type: signature
   approval_process: committee
+
+# Organization Two (Checkbox attestation, no review)
+# One page
+checkbox_attestation:
+  organization: two
+  name: Checkbox (both)
+  slug: checkbox_attestation
+  commercial_type: both
+  data_user_type: both
+  attestation_type: checkbox
+  approval_process: immediate
+
+# Organization Three (No attestation, no review)
+# No pages, no attestation, no committee review.
+simple:
+  organization: three
+  name: Simple
+  slug: simple
+  commercial_type: both
+  data_user_type: both
+  attestation_type: none
+  approval_process: immediate

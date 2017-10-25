@@ -1,9 +1,15 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# Organization One (Signature attestation, committee review)
 one:
   name: Organization One
   slug: organization-one
 
+# Organization Two (Checkbox attestation, no review)
 two:
   name: Organization Two
   slug: organization-two
+
+
+# Organization Three (No attestation, no review)
+three:
+  name: Organization Three
+  slug: organization-three

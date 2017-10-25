@@ -1,13 +1,7 @@
-- @title = "Print"
+PDF View Currently Unavailable
 
-- content_for :container_class, "container-fluid"
+%hr
 
-.container-fluid
-  .row.flex-xl-nowrap
-    = render "data_requests/menu"
-
-    #agreement-helper-drawer.d-none.d-xl-block.col-xl.sidebar-drawer
-
-    %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
-      .page-box.last-box
-        .agreement-heading= @title
+- @data_request.final_legal_document.final_legal_document_pages.each do |final_legal_document_page|
+  .agreement-heading= final_legal_document_page.title
+  = legal_markdown final_legal_document_page, reviewer: true

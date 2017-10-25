@@ -1,0 +1,12 @@
+<% content = final_legal_document_page.content.to_s %>
+<% content.gsub!(/[^ ]\#{(\d+)}/m) { |m| variable = final_legal_document_page.final_legal_document.legal_document_variables.find_by(id: $1); agreement_variable = @data_request.agreement_variables.find_by(final_legal_document_variable_id: variable.id); value = (agreement_variable ? (variable.variable_type == "checkbox" ? (agreement_variable.value == "1" ? "XXYESXX" : "XXNOXX") : agreement_variable.value) : ""); "\n**#{variable.display_name.present? ? variable.display_name : variable.name.titleize}**\n==#{value}== #{variable.description if variable.variable_type == "checkbox"}" } %>
+<% content.gsub!(/\#{(\d+)}/m) { |m| agreement_variable = @data_request.agreement_variables.find_by(final_legal_document_variable_id: $1); value = (agreement_variable ? agreement_variable.value : ""); "==#{value}==" } %>
+<% content = latex_safe(content) %>
+<% content.gsub!(/\*\*(.*?)\*\*/, "\\textbf{\\1}") %>
+<% content.gsub!(/==(.*?)==/, "\\hl{\\1}") %>
+<% content.gsub!(/XX(YES)XX/, "\\cmark") %>
+<% content.gsub!(/XX(NO)XX/, "\\xmark") %>
+<% content.gsub!(/\"([a-zA-Z\s]*?)\"/, "``\\1''") %>
+<%= content %>
+
+\newpage

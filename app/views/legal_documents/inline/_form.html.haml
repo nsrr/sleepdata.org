@@ -6,8 +6,8 @@
 
 - case variable.variable_type
 - when "checkbox"
-  = render "legal_documents/outline/check_box", variable: variable, editable: editable, value: value
+  = render "legal_documents/outline/check_box", variable: variable, editable: editable, reviewer: reviewer, value: value
 - else
-  = render "legal_documents/inline/string", variable: variable, editable: editable, value: value
+  = render "legal_documents/inline/string", variable: variable, editable: editable, reviewer: reviewer, value: value
   = render "legal_document_variables/edit_link", variable: variable if editable
   %span>

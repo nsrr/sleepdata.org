@@ -1,5 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+# Organization One (Signature Approach)
 one:
   organization: one
   legal_document: one
@@ -17,13 +18,13 @@ one:
   published_at: 2017-09-22 14:13:31
 
 two:
-  organization: one
+  organization: two
   legal_document: two
   name: DAUA C-O
   slug: daua-c-o
   commercial_type: commercial
   data_user_type: organization
-  attestation_type: checkbox
+  attestation_type: signature
   approval_process: committee
   version_major: 1
   version_minor: 0
@@ -31,3 +32,39 @@ two:
   # version_build:
   version_md5: d41d8cd98f00b204e9800998ecf8427e
   published_at: 2017-09-22 14:13:31
+
+
+# Organization Two (Checkbox approach)
+checkbox_attestation:
+  organization: two
+  legal_document: checkbox_attestation
+  name: Checkbox Attestation
+  slug: checkbox_attestation
+  commercial_type: both
+  data_user_type: both
+  attestation_type: checkbox
+  approval_process: committee
+  version_major: 1
+  version_minor: 0
+  version_tiny: 0
+  # version_build:
+  version_md5: d41d8cd98f00b204e9800998ecf8427e
+  published_at: 2017-10-25 17:34:58
+
+
+# Organization Three (No Attestation)
+simple:
+  organization: three
+  legal_document: simple
+  name: Simple
+  slug: simple
+  commercial_type: both
+  data_user_type: both
+  attestation_type: none
+  approval_process: immediate
+  version_major: 1
+  version_minor: 0
+  version_tiny: 0
+  # version_build:
+  version_md5: d41d8cd98f00b204e9800998ecf8427e
+  published_at: 2017-10-25 17:34:58

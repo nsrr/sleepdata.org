@@ -6,4 +6,4 @@
       = render "layouts/invalid_feedback", object: object, key: key, key_name: key_name
     - else
       = render "layouts/invalid_feedback", object: object, key: key
-    = render "forms/help_text", help_text: help_text if defined?(help_text)
+    = render "forms/help_text", help_text: "Must be a lowercase letter <span class=\"badge badge-light\">a-z</span> followed by lowercase letters <span class=\"badge badge-light\">a-z</span>, numbers <span class=\"badge badge-light\">0-9</span>, or dashes <span class=\"badge badge-light\">-</span>.".html_safe

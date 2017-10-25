@@ -5,5 +5,12 @@
     .container
       %h1.page-heading
         = @title
+  .breadcrumb-container.mb-0.p-2
+    .container
+      %ol
+        - if @organization
+          %li= link_to @organization.name, @organization
+        %li= link_to "Datasets", :datasets # [@organization, :datasets]
+        %li New
 
 = render "datasets/form", dataset: @dataset

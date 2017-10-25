@@ -33,5 +33,4 @@ module Latexable
       [/\n/,        '\\\\\\']
     ]
   end
-
 end

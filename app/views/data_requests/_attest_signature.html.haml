@@ -1,0 +1,31 @@
+= form_with url: data_requests_update_attest_path(@data_request), method: :post, local: true, id: "dataset-request-form" do |form|
+  = hidden_field_tag "data_request[draft_mode]", nil
+  - if @data_request.signature_file.present?
+    = image_tag(data_requests_signature_path(@data_request), class: "img-signature", alt: "")
+  - else
+    = render "forms/signature"
+
+    - [{ variable: "signature_name", label: "By (print name)", type: "string" }].each do |hash|
+      .form-group
+        = label_tag hash[:variable], hash[:label], class: "form-control-label"
+        - if hash[:type] == "text"
+          = text_area_tag hash[:variable], "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: hash[:variable], help_text: hash[:label] || hash[:variable].titleize }, rows: 7
+        - else
+          = text_field_tag hash[:variable], "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: hash[:variable], help_text: hash[:label] || hash[:variable].titleize }
+        - if hash[:example].present?
+          %small.text-muted= hash[:example]
+
+    %small.text-muted
+      If you are not authorized to sign an agreement based on institutional requirements,
+      = link_to "click here to designate a Duly Authorized Representative", data_requests_duly_authorized_representative_path(@data_request)
+      to do so on your behalf.
+
+.mt-5.mb-3.float-right
+  = succeed " " do
+    = link_to "#", class: "btn btn-light", tabindex: "-1", data: { object: "submit-draft-signature-and-disable", target: "#dataset-request-form" } do
+      %i.fa.fa-save
+      Save Draft
+
+  = link_to "#", class: "btn btn-primary", data: { object: "submit-signature-and-disable", target: "#dataset-request-form" } do
+    Proceed
+    %i.fa.fa-caret-right
