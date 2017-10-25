@@ -134,17 +134,16 @@ input {
 .datepicker .today:hover,
 .datepicker .today.disabled,
 .datepicker .today.disabled:hover {
-  // background-color: $btn-info-bg;
-  // border-color: $btn-info-border;
+  background-color: $component-active-bg;
+  color: $component-active-color;
 }
 
 .datepicker .active,
 .datepicker .active:hover,
 .datepicker .active.disabled,
 .datepicker .active.disabled:hover {
-  // background-color: $btn-info-bg;
-  // border-color: $btn-info-border;
-  // color: $btn-info-color;
+  background-color: $component-active-bg;
+  color: $component-active-color;
 }
 
 .datepicker table tr td .disabled,
@@ -158,9 +157,8 @@ input {
 .datepicker table tr td .active:hover,
 .datepicker table tr td .active.disabled,
 .datepicker table tr td .active.disabled:hover {
-  // background-color: $btn-info-bg;
-  // border-color: $btn-info-border;
-  // color: $btn-info-color;
+  background-color: $component-active-bg;
+  color: $component-active-color;
 }
 
 .datepicker thead tr:first-child th,
