@@ -14,7 +14,7 @@
             = image_tag reply.user.avatar_url(size, "mm"), alt: "", style: "max-height:#{(size*2)+5}px;max-width:#{size+5}px;"
           - else
             = image_tag reply.user.avatar_url(size, "identicon"), alt: "", style: "max-height:#{(size*2)+5}px;max-width:#{size+5}px;", title: reply.user.forum_name, rel: "tooltip", data: { container: "body", placement: "top" }
-            .center.text-muted{ style: "font-size: 9px;margin-top:5px" }
+            .text-center.text-muted{ style: "font-size: 9px;margin-top:5px" }
               = pluralize(number_with_delimiter(reply.user.replies.count), "post")
       .reply-header{ data: { parent_reply_id: reply.parent_reply_id, reply_id: reply.id } }
         = render "replies/header", reply: reply, just_voted: false

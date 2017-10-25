@@ -33,7 +33,7 @@
       %col{ width: "1px" }
     %thead
       %tr
-        = th_sort_field_rev @order, "community_tools.rating", "Rating", extra_class: "center"
+        = th_sort_field_rev @order, "community_tools.rating", "Rating", extra_class: "text-center"
         %th{ class: params[:order] == "community_tools.name desc" || params[:order].blank? ? "sort-selected" : nil }
           - case params[:order]
           - when "community_tools.name desc"
@@ -51,20 +51,20 @@
               = link_to "All", tools_path(order: params[:order]), style: params[:type].blank? ? "font-weight:bold;" : "", class: "dropdown-item"
               - [["Program", "program"], ["Script", "script"], ["Tutorial", "tutorial"]].each do |label, value|
                 = link_to label, tools_path(order: params[:order], type: value), style: params[:type] == value ? "font-weight:bold;" : "", class: "dropdown-item"
-        = th_sort_field_rev @order, "community_tools.publish_date", "Published", extra_class: "d-none d-md-block center"
+        = th_sort_field_rev @order, "community_tools.publish_date", "Published", extra_class: "d-none d-md-block text-center"
         - if current_user && current_user.system_admin?
-          %th.center
+          %th.text-center
             .d-none.d-sm-inline-block Actions
 
     %tbody
       - @community_tools.each do |community_tool|
         %tr
-          %td.center
+          %td.text-center
             = link_to community_tool_community_tool_reviews_path(community_tool) do
               = render "community_tools/rating", rating: community_tool.rating
           %td= link_to community_tool.name, tool_path(community_tool)
           %td.d-none.d-sm-block= community_tool.user.forum_name
-          %td.center
+          %td.text-center
             - if community_tool.tag_program?
               %span.badge.badge-pill.badge-light Program
             - if community_tool.tag_script?
@@ -73,7 +73,7 @@
               %span.badge.badge-pill.badge-light Tutorial
             - unless community_tool.tag_program? || community_tool.tag_script? || community_tool.tag_tutorial?
               / %span.badge.badge-pill.badge-default Unsorted
-          %td.d-none.d-md-block.nowrap.center= community_tool.publish_date
+          %td.d-none.d-md-block.nowrap.text-center= community_tool.publish_date
           - if current_user && current_user.system_admin?
             %td
               = render "layouts/edit_delete_dropdown", edit_url: edit_community_tool_path(community_tool), delete_url: community_tool, delete_confirmation: "Delete #{community_tool.name}?"

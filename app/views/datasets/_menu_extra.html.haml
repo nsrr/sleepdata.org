@@ -4,6 +4,6 @@
     = render "datasets/links"
   - elsif @object.is_a? Tool
     .small-spacer
-    .center
+    .text-center
       = link_to "Sync", sync_tool_path(@object), class: "btn btn-sm btn-light"
   .small-spacer

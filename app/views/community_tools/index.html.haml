@@ -21,17 +21,17 @@
       %th
       %th Name
       %th User
-      %th.center Type
-      %th.center
+      %th.text-center Type
+      %th.text-center
         .d-none.d-sm-inline-block Actions
 
   %tbody
     - @community_tools.each do |community_tool|
       %tr
-        %td.center= render "layouts/draft_published", published: community_tool.published?
+        %td.text-center= render "layouts/draft_published", published: community_tool.published?
         %td= link_to community_tool.name, community_tool
         %td= community_tool.user.name
-        %td.center
+        %td.text-center
           - if community_tool.tag_program?
             %span.badge.badge-dark Program
           - if community_tool.tag_script?

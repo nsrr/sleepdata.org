@@ -3,7 +3,7 @@
 .background-fixed-image
   .page-box.last-box.color-overlay
 
-    %p.lead.center.text-white Join our community.
+    %p.lead.text-center.text-white Join our community.
 
     .sign-up-form
       .sign-up-form-title
@@ -44,7 +44,7 @@
             <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
         - if resource.errors && resource.errors[:recaptcha].present?
-          .form-group.center
+          .form-group.text-center
             %small.text-danger= resource.errors[:recaptcha].join(" ")
 
         .form-group.submit-btn-container

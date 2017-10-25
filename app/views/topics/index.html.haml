@@ -26,9 +26,9 @@
     %tr.table-light
       %th.p-0.topic-line-mark
       %th= link_to "Topics", topics_path
-      = th_sort_field_rev @order, "reply_count", "Replies", extra_class: "d-none d-sm-table-cell center"
-      = th_sort_field_rev @order, "topics.view_count", "Views", extra_class: "d-none d-md-table-cell center"
-      = th_sort_field_rev @order, "topics.last_reply_at", "Last Post", extra_class: "d-none d-md-table-cell center"
+      = th_sort_field_rev @order, "reply_count", "Replies", extra_class: "d-none d-sm-table-cell text-center"
+      = th_sort_field_rev @order, "topics.view_count", "Views", extra_class: "d-none d-md-table-cell text-center"
+      = th_sort_field_rev @order, "topics.last_reply_at", "Last Post", extra_class: "d-none d-md-table-cell text-center"
   %tbody
     - @topics.each do |topic|
       - unread_replies = topic.unread_replies(current_user)

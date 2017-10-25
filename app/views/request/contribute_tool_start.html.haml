@@ -18,7 +18,7 @@
         - if @community_tool.errors[:url].present?
           %small.text-danger{ style: "position: absolute;"} Please enter a valid URL.
 
-.center{ style: "margin-bottom: 20px" }
+.text-center{ style: "margin-bottom: 20px" }
   = link_to "#", data: { object: "submit", target: "#contribute_tool_form" }, class: "btn btn-primary btn-lg ", style: "width:100%; max-width: 400px;" do
     Continue
     %i.fa.fa-caret-right

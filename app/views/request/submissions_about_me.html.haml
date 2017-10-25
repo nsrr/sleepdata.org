@@ -23,7 +23,7 @@
 
 
       - if @registration_errors && @registration_errors[:recaptcha].present?
-        .form-group.center
+        .form-group.text-center
           %small.text-danger= @registration_errors[:recaptcha]
 
       .form-group.submit-btn-container
@@ -33,7 +33,7 @@
         - else
           = f.submit "Create an Account", class: "btn btn-primary btn-block btn-shadow"
 
-  .sign-up-form.center
+  .sign-up-form.text-center
     = succeed "." do
       = link_to "I already have an account", "#", data: { object: "toggle-sign-up" }, tabindex: "-1"
 
@@ -59,7 +59,7 @@
       .form-group.submit-btn-container
         = f.submit "Sign in", class: "btn btn-primary btn-block btn-shadow"
 
-  .sign-up-form.center
+  .sign-up-form.text-center
     New to the NSRR?
     = succeed "." do
       = link_to "I don't have an account", "#", data: { object: "toggle-sign-up" }

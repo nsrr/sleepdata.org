@@ -33,7 +33,7 @@
             - else
               = form.submit "Create an Account", class: "btn btn-primary btn-block btn-shadow"
 
-      .sign-up-form.center
+      .sign-up-form.text-center
         = succeed "." do
           = link_to "I already have an account", "#", data: { object: "toggle-sign-up" }, tabindex: "-1"
 
@@ -57,7 +57,7 @@
           .form-group.submit-btn-container
             = form.submit "Sign in", class: "btn btn-primary btn-block btn-shadow"
 
-      .sign-up-form.center
+      .sign-up-form.text-center
         New to the NSRR?
         = succeed "." do
           = link_to "I don't have an account", "#", data: { object: "toggle-sign-up" }

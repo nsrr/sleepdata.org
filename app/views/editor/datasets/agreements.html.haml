@@ -36,7 +36,7 @@
               = image_tag agreement.user.avatar_url(18), style: "vertical-align:text-bottom;width:18px"
               = link_to agreement.name_with_id, review_path(agreement)
 
-    .center
+    .text-center
       = paginate @agreements, theme: "bootstrap-small"
 
   .col-md-3

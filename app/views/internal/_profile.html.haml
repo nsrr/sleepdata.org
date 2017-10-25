@@ -3,17 +3,17 @@
     .profile-image-container
       = image_tag current_user.avatar_url(100, "identicon"), size: "100x100", class: "profile-image", alt: ""
   .profile-bottom
-    .center{ style: "font-weight: 600;margin-bottom: 10px;" }= current_user.name_was
-    .center{ style: "margin-bottom: 10px;" }
+    .text-center{ style: "font-weight: 600;margin-bottom: 10px;" }= current_user.name_was
+    .text-center{ style: "margin-bottom: 10px;" }
       %small.text-muted
         Member since
         = current_user.created_at.strftime("%b %Y")
     - if false
-      .center{ style: "margin-bottom: 10px;" }
+      .text-center{ style: "margin-bottom: 10px;" }
         %small.text-muted
           = number_to_human_size current_user.dataset_file_audits.sum(:file_size)
           downloaded
-      .center
+      .text-center
         .award.award-gold
         5
         .award.award-silver

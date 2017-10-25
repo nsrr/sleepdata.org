@@ -1,4 +1,4 @@
-%p.lead.center &nbsp;
+%p.lead.text-center &nbsp;
 
 .sign-up-form{ style: "margin-bottom: 20px; width: 100%; max-width: 100%;" }
   .sign-up-form-title
@@ -28,7 +28,7 @@
           #content_preview.markdown-container-new{ style: "display: none;" }
       = render "layouts/errors", object: @community_tool, key: :description
 
-.center{ style: "margin-bottom: 20px" }
+.text-center{ style: "margin-bottom: 20px" }
   - if @community_tool.published_was
     = link_to "Update Tool", "#", data: { object: "submit", target: "#contribute_tool_form" }, class: "btn btn-primary btn-lg ", style: "width:100%; max-width: 400px;"
   - else

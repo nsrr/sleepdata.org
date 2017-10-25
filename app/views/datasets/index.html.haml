@@ -14,8 +14,8 @@
 - filtered_params = params.permit(:ages, :data, :order)
 
 %div{ style: "margin-bottom: 20px;display: flex;" }
-  %div{ style: "margin: auto; flex: 1; text-align: center" }
-    %div.center{ style: "font-size: 10px;" } AGES
+  %div.text-center{ style: "margin: auto; flex: 1;" }
+    %div.text-center{ style: "font-size: 10px;" } AGES
     .btn-group
       = link_to "#", class: "btn btn-outline-dark dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do
         .d-inline-block.d-sm-none
@@ -35,8 +35,8 @@
         = link_to "All Ages", datasets_path(filtered_params.merge(ages: nil)), style: params[:ages].blank? ? "font-weight: bold" : nil, class: "dropdown-item"
         = link_to "Children", datasets_path(filtered_params.merge(ages: "0-17")), style: params[:ages] == "0-17" ? "font-weight: bold" : nil, class: "dropdown-item"
         = link_to "Adults", datasets_path(filtered_params.merge(ages: "18-90")), style: params[:ages] == "18-90" ? "font-weight: bold" : nil, class: "dropdown-item"
-  %div{ style: "margin: auto; flex: 1; text-align: center" }
-    %div.center{ style: "font-size: 10px;" } DATA
+  %div.text-center{ style: "margin: auto; flex: 1;" }
+    %div.text-center{ style: "font-size: 10px;" } DATA
     .btn-group
       = link_to "#", class: "btn btn-outline-dark dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do
         .d-inline-block.d-sm-none
@@ -55,8 +55,8 @@
         = link_to "All Data", datasets_path(filtered_params.merge(data: nil)), style: params[:data].blank? ? "font-weight: bold" : nil, class: "dropdown-item"
         = link_to "Actigraphy", datasets_path(filtered_params.merge(data: "actigraphy")), style: params[:data] == "actigraphy" ? "font-weight: bold" : nil, class: "dropdown-item"
         = link_to "Polysomnography", datasets_path(filtered_params.merge(data: "polysomnography")), style: params[:data] == "polysomnography" ? "font-weight: bold" : nil, class: "dropdown-item"
-  %div{ style: "margin: auto; flex: 1; text-align: center" }
-    %div.center{ style: "font-size: 10px;" } SORT
+  %div.text-center{ style: "margin: auto; flex: 1;" }
+    %div.text-center{ style: "font-size: 10px;" } SORT
     .btn-group
       = link_to "#", class: "btn btn-outline-dark dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do
         .d-inline-block.d-sm-none
@@ -76,7 +76,7 @@
         = link_to "Popular", datasets_path(filtered_params.merge(order: "datasets.rating desc")), style: params[:order] == "datasets.rating desc" ? "font-weight: bold" : nil, class: "dropdown-item"
 
 - if @datasets.count.zero?
-  .lead.center{ style: "margin-top: 40px;" }
+  .lead.text-center{ style: "margin-top: 40px;" }
     No datasets found matching search criteria.
     = succeed "." do
       = link_to "Back to index", datasets_path
@@ -132,7 +132,7 @@
                 %small.d-none.d-md-inline-block
                   = pluralize number_with_delimiter(dataset.current_variables.count), "Variable"
       .dataset-card-footer.dataset-card-footer-request.d-block.d-md-none
-        .center= render "datasets/card_footer_request", dataset: dataset
+        .text-center= render "datasets/card_footer_request", dataset: dataset
 
   .center-horizontally= paginate @datasets, theme: "bootstrap"
 

@@ -1,20 +1,20 @@
 - content_for :header do
   .header-container
     .container
-      %h1.page-heading.center
+      %h1.page-heading.text-center
         Looking to
         %i.fa.fa-cloud-download
         download data?
 
 .jumbotron
-  %p.center
+  %p.text-center
     Proceed through
     %strong
       a few short steps
     of the submission review process.
-  %p.center
+  %p.text-center
     Save your progress whenever, "Submit your Application" when ready!
-  %p.center
+  %p.text-center
     %br
     = link_to submissions_launch_path(dataset: params[:dataset]), method: :post, class: "btn btn-lg btn-primary btn-shadow" do
       Click to start!
@@ -22,7 +22,7 @@
 
   %div{ style: "margin-top: 80px;" }
 
-    %p.center
+    %p.text-center
       We're here to help! Send your questions to
       = succeed "." do
         = mail_to ENV["support_email"]

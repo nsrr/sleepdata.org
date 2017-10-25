@@ -23,19 +23,19 @@
       %th
       %th Title
       %th.d-none.d-sm-table-cell Publish date
-      %th.center.d-none.d-md-table-cell Pinned
-      %th.center.d-none.d-md-table-cell Archived
-      %th.center
+      %th.text-center.d-none.d-md-table-cell Pinned
+      %th.text-center.d-none.d-md-table-cell Archived
+      %th.text-center
         .d-none.d-sm-inline-block Actions
 
   %tbody
     - @broadcasts.each do |broadcast|
       %tr
-        %td.center= render "layouts/draft_published", published: broadcast.published?
+        %td.text-center= render "layouts/draft_published", published: broadcast.published?
         %td= link_to broadcast.title, broadcast
         %td.nowrap.d-none.d-sm-table-cell= broadcast.publish_date.strftime "%a %b %-d, %Y"
-        %td.center.d-none.d-md-table-cell= simple_check broadcast.pinned
-        %td.center.d-none.d-md-table-cell= simple_check broadcast.archived
+        %td.text-center.d-none.d-md-table-cell= simple_check broadcast.pinned
+        %td.text-center.d-none.d-md-table-cell= simple_check broadcast.archived
         %td= render "layouts/edit_delete_dropdown", edit_url: edit_broadcast_path(broadcast), delete_url: broadcast, delete_confirmation: "Delete #{broadcast.title}?"
 
 .center-horizontally= paginate @broadcasts, theme: "bootstrap"

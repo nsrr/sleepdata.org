@@ -37,7 +37,7 @@
             %tr
               %th
                 Name
-              %th.center
+              %th.text-center
                 Actions
           - current_user.community_tools.order(:name).each do |community_tool|
             %tr
@@ -59,7 +59,7 @@
 
 
     .dashboard-container
-      .center
+      .text-center
         Email us at
         = mail_to ENV["support_email"]
         with any questions!

@@ -22,9 +22,9 @@
             = render "search/reply", reply: document.searchable
       .center-horizontally= paginate @search_documents, theme: "bootstrap"
     - else
-      %p.lead.center
+      %p.lead.text-center
         No Search Results Found
-      %p.lead.center
+      %p.lead.text-center
         You may
         = link_to "modify your search", "#", data: { object: "show-search-bar" }
         or return to

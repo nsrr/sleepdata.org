@@ -12,7 +12,7 @@
 = render "search/simple", url: hosting_requests_path
 
 - if @hosting_requests.count.zero?
-  .lead.center{ style: "margin-top: 40px;" }
+  .lead.text-center{ style: "margin-top: 40px;" }
     No hosting requests found matching search criteria.
     = succeed "." do
       = link_to "Back to index", hosting_requests_path

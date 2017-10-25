@@ -13,7 +13,7 @@
 = render "search/simple", url: categories_path
 
 - if @categories.count.zero?
-  .lead.center{ style: "margin-top: 40px;" }
+  .lead.text-center{ style: "margin-top: 40px;" }
     No categories found matching search criteria.
     = succeed "." do
       = link_to "Back to index", categories_path
@@ -26,7 +26,7 @@
       %tr
         = th_sort_field @order, "categories.name", "Name"
         = th_sort_field @order, "categories.slug", "Slug"
-        %th.center
+        %th.text-center
           .d-none.d-sm-inline-block Actions
 
     %tbody

@@ -6,7 +6,7 @@
         Share your research data on the NSRR.
     .landing-face.landing-front.landing-face-share
       .landing-box-header= link_to "Sharing", share_path
-      %p.center
+      %p.text-center
         %i.fa.fa-handshake-o.icon-lg{ aria: { hidden: "true" } }
   .landing-box{ data: { link: datasets_path } }
     .landing-face.landing-back
@@ -15,7 +15,7 @@
         Demographics, anthropometry, questionnaires, outcomes, and more.
     .landing-face.landing-front
       .landing-box-header= link_to "Datasets", datasets_path
-      %p.center
+      %p.text-center
         %i.fa.fa-table.icon-lg{ aria: { hidden: "true" } }
   .landing-box{ data: { link: datasets_path(data: "actigraphy") } }
     .landing-face.landing-back
@@ -25,7 +25,7 @@
         devices.
     .landing-face.landing-front
       .landing-box-header= link_to "Actigraphy", datasets_path(data: "actigraphy")
-      %p.center
+      %p.text-center
         %i.fa.fa-clock-o.icon-lg{ aria: { hidden: "true" } }
   .landing-box{ data: { link: datasets_path(data: "polysomnography") } }
     .landing-face.landing-back
@@ -34,7 +34,7 @@
         Raw signals comprised of EEGs, ECGs, oxygen, and position channels.
     .landing-face.landing-front
       .landing-box-header= link_to "Polysomnography", datasets_path(data: "polysomnography")
-      %p.center
+      %p.text-center
         %i.fa.fa-heartbeat.icon-lg{ aria: { hidden: "true" } }
 
 .landing-sentence.mb-5{ style: "font-weight: normal;" }

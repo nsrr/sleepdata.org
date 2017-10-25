@@ -112,7 +112,7 @@
             %tr
               %th
                 Dataset
-              %th{ style: "text-align:center", colspan: "2" }
+              %th.text-center{ colspan: 2 }
                 Files Downloaded
           - Dataset.current.order(:release_date, :name).each do |dataset|
             - download_size = dataset.dataset_file_audits.where( user_id: @user.id ).sum( :file_size )
