@@ -19,6 +19,8 @@ class DataRequestsController < ApplicationController
     :update_noncommercial_or_commercial,
     :submitted, :print
   ]
+  before_action :find_submitted_data_request_or_redirect, only: [:submitted]
+  before_action :find_any_data_request_or_redirect, only: [:print]
 
   layout "layouts/full_page"
 
@@ -31,14 +33,13 @@ class DataRequestsController < ApplicationController
   # GET /data/requests/:dataset_id/start
   def start
     @data_request = @dataset.data_requests.find_by(user: current_user, status: ["resubmit", "started"])
-    if current_user && @data_request
-      if @data_request.final_legal_document.final_legal_document_pages.count.positive?
-        redirect_to data_requests_page_path(@data_request, 1)
-      elsif @data_request.attestation_required?
-        redirect_to data_requests_attest_path(@data_request)
-      else
-        redirect_to data_requests_proof_path(@data_request)
-      end
+    return unless current_user && @data_request
+    if @data_request.final_legal_document.final_legal_document_pages.count.positive?
+      redirect_to data_requests_page_path(@data_request, 1)
+    elsif @data_request.attestation_required?
+      redirect_to data_requests_attest_path(@data_request)
+    else
+      redirect_to data_requests_proof_path(@data_request)
     end
   end
 
@@ -298,13 +299,11 @@ class DataRequestsController < ApplicationController
 
   # GET /data/requests/:data_request_id/submitted
   def submitted
-    find_submitted_data_request_or_redirect
     render layout: "layouts/application"
   end
 
   # GET /data/requests/:data_request_id/print
   def print
-    find_any_data_request_or_redirect
     @data_request.generate_printed_pdf!
     if @data_request.printed_file.present?
       send_file @data_request.printed_file.path, filename: "#{@data_request.user.last_name.gsub(/[^a-zA-Z\p{L}]/, '')}-#{@data_request.user.first_name.gsub(/[^a-zA-Z\p{L}]/, '')}-#{@data_request.agreement_number}-DAUA-#{(@data_request.submitted_at || @data_request.created_at).strftime("%Y-%m-%d")}.pdf", type: "application/pdf", disposition: "inline"

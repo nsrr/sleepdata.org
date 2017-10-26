@@ -27,7 +27,6 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get start and redirect with existing data request" do
-    skip # TODO: Make start redirect to correct legal document based on user selections.
     login(@regular)
     get data_requests_start_url(@released)
     assert_redirected_to data_requests_page_url(@started, 1)
@@ -149,8 +148,8 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get submitted" do
-    login(@regular)
-    get data_requests_submitted_url(@started)
+    login(users(:two))
+    get data_requests_submitted_url(agreements(:submitted_application))
     assert_response :success
   end
 

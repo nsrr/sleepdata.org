@@ -271,6 +271,7 @@ class Agreement < ApplicationRecord
 
   def latex_partial(partial)
     file_path = Rails.root.join("app", "views", "data_requests", "print", "_#{partial}.tex.erb")
+    puts "latex_partial: [#{File.exist?(file_path) ? "X" : " "}] \"#{file_path}\"" if ENV["TRAVIS"]
     File.read(file_path)
   end
 
