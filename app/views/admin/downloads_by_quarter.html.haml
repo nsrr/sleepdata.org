@@ -36,7 +36,7 @@
             = pluralize number_with_delimiter(regular_total_files), "file"
           %td
             - if quarter.current?
-              - number_to_human_size regular_total_file_size = quarter.regular_total_file_size_with_temp
+              - regular_total_file_size = quarter.regular_total_file_size_with_temp
             - else
               - regular_total_file_size = quarter.regular_total_file_size
             = number_to_human_size regular_total_file_size

@@ -35,11 +35,13 @@ class Quarter < ApplicationRecord
   end
 
   def regular_total_files_with_temp
-    regular_total_files + quarter_months.select(&:current?).collect(&:regular_files).sum.to_i
+    last_month = QuarterMonth.order(regular_total_file_size: :desc).first
+    (last_month&.regular_total_files || 0) + quarter_months.select(&:current?).collect(&:regular_files).sum.to_i
   end
 
   def regular_total_file_size_with_temp
-    regular_total_file_size + quarter_months.select(&:current?).collect(&:regular_file_size).sum.to_i
+    last_month = QuarterMonth.order(regular_total_file_size: :desc).first
+    (last_month&.regular_total_file_size || 0) + quarter_months.select(&:current?).collect(&:regular_file_size).sum.to_i
   end
 
   def start_date
