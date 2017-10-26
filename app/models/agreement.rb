@@ -270,7 +270,8 @@ class Agreement < ApplicationRecord
   end
 
   def latex_partial(partial)
-    File.read(File.join("app", "views", "data_requests", "print", "_#{partial}.tex.erb"))
+    file_path = Rails.root.join("app", "views", "data_requests", "print", "_#{partial}.tex.erb")
+    File.read(file_path)
   end
 
   def generate_printed_pdf!
