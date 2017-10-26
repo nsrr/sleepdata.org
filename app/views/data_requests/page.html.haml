@@ -10,16 +10,16 @@
       .page-box.last-box
         .agreement-heading= @final_legal_document_page.title
 
-        = form_with url: data_requests_update_page_path(@data_request, @final_legal_document_page.position), method: :post, local: true, id: "dataset-request-form" do |form|
+        = form_with url: data_requests_update_page_path(@data_request, @final_legal_document_page.position), method: :post, local: true, id: "data-request-form" do |form|
           = hidden_field_tag "data_request[draft_mode]", nil
           = legal_markdown @final_legal_document_page
 
         .mt-5.mb-3.float-right
           = succeed " " do
-            = link_to "#", class: "btn btn-light", tabindex: "-1", data: { object: "submit-draft-and-disable", target: "#dataset-request-form" } do
+            = link_to "#", class: "btn btn-light", tabindex: "-1", data: { object: "submit-draft-and-disable", target: "#data-request-form" } do
               %i.fa.fa-save
               Save Draft
 
-          = link_to "#", class: "btn btn-primary", data: { object: "submit-and-disable", target: "#dataset-request-form" } do
+          = link_to "#", class: "btn btn-primary", data: { object: "submit-and-disable", target: "#data-request-form" } do
             Proceed
             %i.fa.fa-caret-right

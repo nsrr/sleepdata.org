@@ -3,19 +3,19 @@
 - content_for :header do
   .header-container
     .container
-      %h1.page-heading.text-center{ style: "margin-bottom: 20px;" }
+      %h1.page-heading.text-center
         = @title
-      .text-center
-        %p.lead
-          Thank you for using the online DAUA process.
+        .text-center.mt-3
+          %p.lead.text-white
+            Thank you for using the online data request process.
 
-.dashboard-container-narrow
-  %p.text-center
+.dashboard-container-narrow.text-center
+  %p
     If you have any questions regarding this process, you can contact us at:
-  %p.text-center
+  %p
     = mail_to ENV["support_email"]
 
 .text-center
-  = link_to about_path, class: "btn btn-lg btn-link" do
+  = link_to about_path, class: "btn btn-lg btn-primary" do
     About the NSRR
     %i.fa.fa-caret-right

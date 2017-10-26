@@ -63,19 +63,22 @@ $(document)
       alert 'Please provide signature first.'
     else
       window.$isDirty = false
+      $(this).css("width", $(this).css("width"))
       $(this).prop("disabled", true)
+      $(this).addClass("disabled")
       $("#data_uri").val(window.$signaturePad.toDataURL())
       $($(this).data("target")).submit()
+      $(this).html("<i class=\"fa fa-spin fa-spinner\"></i>")
     false
   )
   .on('click', '[data-object~="submit-draft-signature-and-disable"]', ->
-    if window.$signaturePad.isEmpty()
-      alert 'Please provide signature first.'
-    else
-      window.$isDirty = false
-      $(this).prop("disabled", true)
-      $("#data_request_draft_mode").val("1")
-      $("#data_uri").val(window.$signaturePad.toDataURL())
-      $($(this).data("target")).submit()
+    window.$isDirty = false
+    $(this).css("width", $(this).css("width"))
+    $(this).prop("disabled", true)
+    $(this).addClass("disabled")
+    $("#data_request_draft_mode").val("1")
+    $("#data_uri").val(window.$signaturePad.toDataURL()) if window.$signaturePad? and !window.$signaturePad.isEmpty()
+    $($(this).data("target")).submit()
+    $(this).html("<i class=\"fa fa-spin fa-spinner\"></i>")
     false
   )

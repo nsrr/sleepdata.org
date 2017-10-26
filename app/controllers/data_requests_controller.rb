@@ -16,7 +16,8 @@ class DataRequestsController < ApplicationController
     :request_as_individual_or_organization,
     :update_individual_or_organization,
     :intended_use_noncommercial_or_commercial,
-    :update_noncommercial_or_commercial
+    :update_noncommercial_or_commercial,
+    :submitted, :print
   ]
 
   layout "layouts/full_page"
@@ -177,18 +178,26 @@ class DataRequestsController < ApplicationController
 
   # POST /data/requests/:data_request_id/attest
   def update_attest
-    if params.dig(:data_request, :draft_mode) == "1"
-      redirect_to data_requests_path, notice: "Data request draft saved successfully."
+    if @data_request.final_legal_document.attestation_type == "signature" &&
+       params[:data_uri].present? && params[:signature_print].present?
+      @data_request.save_signature!(:signature_file, params[:data_uri])
+      @data_request.update(
+        signature_print: params[:signature_print],
+        attested_at: Time.zone.now
+      )
+    elsif @data_request.final_legal_document.attestation_type == "checkbox"
+      if params[:attest] == "1"
+        @data_request.update(attested_at: Time.zone.now)
+      elsif params[:attest] == "0"
+        @data_request.update(attested_at: nil)
+      end
     end
 
-    # TODO: Save checkbox or signature. (and timestamp.)
-    if @data_request.final_legal_document.attestation_type == "signature"
-      @data_request.save_signature!(:signature_file, params[:data_uri])
-    elsif @data_request.final_legal_document.attestation_type == "checkbox"
-      # TODO: Save checkbox.
+    if params.dig(:data_request, :draft_mode) == "1"
+      redirect_to data_requests_path, notice: "Data request draft saved successfully."
+    else
+      redirect_to [@data_request, :supporting_documents]
     end
-    @data_request.update(attested_at: Time.zone.now)
-    redirect_to [@data_request, :supporting_documents]
   end
 
   # GET /data/requests/:data_request_id/duly-authorized-representative
@@ -247,7 +256,18 @@ class DataRequestsController < ApplicationController
     if params.dig(:data_request, :draft_mode) == "1"
       redirect_to data_requests_path, notice: "Data request draft saved successfully."
     elsif @data_request.complete?
-      @data_request.update(status: "submitted")
+      if @data_request.status == "resubmit"
+        @data_request.update(
+          status: "submitted",
+          resubmitted_at: Time.zone.now
+        )
+      else
+        @data_request.update(
+          status: "submitted",
+          submitted_at: Time.zone.now
+        )
+      end
+
       redirect_to data_requests_submitted_path(@data_request)
 
     # TODO: Implement submission.
@@ -278,11 +298,13 @@ class DataRequestsController < ApplicationController
 
   # GET /data/requests/:data_request_id/submitted
   def submitted
+    find_submitted_data_request_or_redirect
     render layout: "layouts/application"
   end
 
   # GET /data/requests/:data_request_id/print
   def print
+    find_any_data_request_or_redirect
     @data_request.generate_printed_pdf!
     if @data_request.printed_file.present?
       send_file @data_request.printed_file.path, filename: "#{@data_request.user.last_name.gsub(/[^a-zA-Z\p{L}]/, '')}-#{@data_request.user.first_name.gsub(/[^a-zA-Z\p{L}]/, '')}-#{@data_request.agreement_number}-DAUA-#{(@data_request.submitted_at || @data_request.created_at).strftime("%Y-%m-%d")}.pdf", type: "application/pdf", disposition: "inline"
@@ -301,6 +323,20 @@ class DataRequestsController < ApplicationController
   def find_data_request_or_redirect
     @data_request = current_user.data_requests
                                 .submittable
+                                .includes(:final_legal_document)
+                                .find_by(id: params[:data_request_id])
+    empty_response_or_root_path(datasets_path) unless @data_request && @data_request.datasets.present?
+  end
+
+  def find_submitted_data_request_or_redirect
+    @data_request = current_user.data_requests
+                                .where(status: "submitted")
+                                .find_by(id: params[:data_request_id])
+    empty_response_or_root_path(datasets_path) unless @data_request && @data_request.datasets.present?
+  end
+
+  def find_any_data_request_or_redirect
+    @data_request = current_user.data_requests
                                 .includes(:final_legal_document)
                                 .find_by(id: params[:data_request_id])
     empty_response_or_root_path(datasets_path) unless @data_request && @data_request.datasets.present?

@@ -58,15 +58,21 @@ $(document)
   )
   .on('click', '[data-object~="submit-and-disable"]', ->
     window.$isDirty = false
+    $(this).css("width", $(this).css("width"))
     $(this).prop('disabled', true)
+    $(this).addClass("disabled")
     $($(this).data('target')).submit()
+    $(this).html("<i class=\"fa fa-spin fa-spinner\"></i>")
     false
   )
   .on('click', '[data-object~="submit-draft-and-disable"]', ->
     window.$isDirty = false
+    $(this).css("width", $(this).css("width"))
     $(this).prop('disabled', true)
+    $(this).addClass("disabled")
     $('#data_request_draft_mode').val('1')
     $($(this).data('target')).submit()
+    $(this).html("<i class=\"fa fa-spin fa-spinner\"></i>")
     false
   )
   .on('click', '[data-object~="hide-target"]', () ->

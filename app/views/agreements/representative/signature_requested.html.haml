@@ -5,15 +5,14 @@
     .container
       %h1.page-heading.text-center
         = @data_request.final_legal_document.organization.name
-        Brigham and Women's Hospital
 
 .dashboard-container-narrow
   .dashboard-container-title
     Instructions
   %p
     = @data_request.user.name
-    has named you as the Duly Authorized Representative to sign the following Data
-    Access and Use Agreement on their behalf.
+    has named you as the Duly Authorized Representative to sign the following
+    data request on their behalf.
   %p
     If you have any questions regarding this process, please email the NSRR
     directly at:
@@ -107,10 +106,6 @@
     = render "forms/vertical/text_field", form: form, object: @data_request, key: :duly_authorized_representative_signature_print, key_name: "By (print name)", help_text: "Please print your full name."
     = render "forms/vertical/text_field", form: form, object: @data_request, key: :duly_authorized_representative_title, key_name: "Professional Title", help_text: "Ex: Associate Professor, Data Manager"
 
-.row
-  .col-2.col-sm-4
-  .col-8.col-sm-4
-    = link_to "#", data: { object: "submit-signature-and-disable", target: "#duly-authorized-representative-signature-form" }, class: "btn btn-lg btn-primary btn-block" do
-      %i.fa.fa-floppy-o
-      Submit Signature
-  .col-2.col-sm-4
+.text-center
+  = link_to "#", data: { object: "submit-signature-and-disable", target: "#duly-authorized-representative-signature-form" }, class: "btn btn-lg btn-primary btn-shadow" do
+    Submit Signature

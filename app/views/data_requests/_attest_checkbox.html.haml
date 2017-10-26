@@ -1,36 +1,21 @@
-= form_with url: data_requests_update_attest_path(@data_request), method: :post, local: true, id: "dataset-request-form" do |form|
+= form_with url: data_requests_update_attest_path(@data_request), method: :post, local: true, id: "data-request-form" do |form|
   = hidden_field_tag "data_request[draft_mode]", nil
 
-  - [{ variable: "attest_check", label: "Attest Check", type: "checkbox", description: "I attest that I checked this box." }].each do |hash|
-    - if hash[:type] == "checkbox"
-      .form-group
-        = label_tag hash[:variable], hash[:label], class: "form-control-label"
-        %br
-        = label_tag hash[:variable], class: "custom-control custom-checkbox" do
-          = check_box_tag hash[:variable], "1", false, class: "custom-control-input", id: hash[:variable], data: { object: "text-input-expandable", help_element: hash[:variable], help_text: hash[:label] || hash[:variable].titleize }
-          %span.custom-control-indicator
-          - if hash[:description].present?
-            %span.custom-control-description= hash[:description]
-        - if hash[:example].present?
-          %br
-          %small.text-muted= hash[:example]
-
-    - else
-      .form-group
-        = label_tag hash[:variable], hash[:label], class: "form-control-label"
-        - if hash[:type] == "text"
-          = text_area_tag hash[:variable], "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: hash[:variable], help_text: hash[:label] || hash[:variable].titleize }, rows: 7
-        - else
-          = text_field_tag hash[:variable], "", class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: hash[:variable], help_text: hash[:label] || hash[:variable].titleize }
-        - if hash[:example].present?
-          %small.text-muted= hash[:example]
+  .form-group
+    = label_tag :attest, class: "custom-control custom-checkbox" do
+      = hidden_field_tag :attest, "0", id: "attest_no"
+      = check_box_tag :attest, "1", @data_request.attested_at.present?, class: "custom-control-input", id: :attest, data: { object: "text-input-expandable", help_element: :attest, help_text: "Attestation" }
+      %span.custom-control-indicator
+      %span.custom-control-description
+        I have read this legal document and have answered each question
+        truthfully to the best of my knowledge.
 
 .mt-5.mb-3.float-right
   = succeed " " do
-    = link_to "#", class: "btn btn-light", tabindex: "-1", data: { object: "submit-draft-checkbox-and-disable", target: "#dataset-request-form" } do
+    = link_to "#", class: "btn btn-light", tabindex: "-1", data: { object: "submit-draft-and-disable", target: "#data-request-form" } do
       %i.fa.fa-save
       Save Draft
 
-  = link_to "#", class: "btn btn-primary", data: { object: "submit-checkbox-and-disable", target: "#dataset-request-form" } do
+  = link_to "#", class: "btn btn-primary", data: { object: "submit-and-disable", target: "#data-request-form" } do
     Proceed
     %i.fa.fa-caret-right
