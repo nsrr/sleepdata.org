@@ -32,8 +32,8 @@
 \lhead{}
 \chead{}
 \rhead{}
-\lfoot{NSRR Data Request}
-\cfoot{Printed on <%= latex_safe Time.zone.today.strftime("%B %-d, %Y") %>}
+\lfoot{<%= latex_safe @data_request.final_legal_document.name %>\\<%= latex_safe @data_request.final_legal_document.version_md5_short %>}
+\cfoot{NSRR Data Request\\Printed on <%= latex_safe Time.zone.today.strftime("%B %-d, %Y") %>}
 \rfoot{Page \thepage\ of \pageref{LastPage}}
 
 \renewcommand{\headrulewidth}{0pt}
