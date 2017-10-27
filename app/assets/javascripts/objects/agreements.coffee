@@ -33,7 +33,7 @@ $(document)
     if $('#isdirty').val() == '1'
       window.$isDirty = true
   )
-  .on('change', '#agreement_status', ->
+  .on('change', '#agreement_status, #data_request_status', ->
     $('#resubmit-container').hide()
     $('#approval-container').hide()
     $('#agreement_approval_date, #agreement_expiration_date').prop('disabled', true)
@@ -41,6 +41,7 @@ $(document)
       when 'approved'
         $('#approval-container').show()
         $('#agreement_approval_date, #agreement_expiration_date').prop('disabled', false)
+        signaturesReady()
       when 'resubmit'
         $('#resubmit-container').show()
   )

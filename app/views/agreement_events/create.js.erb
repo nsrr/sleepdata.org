@@ -1,9 +1,11 @@
 <% if @agreement_event %>
-  $("#agreement_events").append('<div id="agreement_event_container_<%= @agreement_event.id %>"></div>');
-  $("#agreement_event_container_<%= @agreement_event.id %>").html("<%=j render 'agreement_events/show', agreement_event: @agreement_event, number: @agreement_event.number %>");
+  $("#agreement_events").append("<div id=\"agreement_event_container_<%= @agreement_event.id %>\"></div>");
+  $("#agreement_event_container_<%= @agreement_event.id %>").html("<%=j render "agreement_events/show", agreement_event: @agreement_event, number: @agreement_event.number %>");
 <% end %>
 
 <%# Reset form %>
 <% @agreement_event = @agreement.agreement_events.where(user_id: current_user.id).new %>
-$("#agreement_events_new_form").html("<%=j render 'agreement_events/form' %>");
-$("#agreement-reviewers").html("<%=j render 'reviews/reviewers', agreement: @agreement %>");
+$("#agreement_events_new_form").html("<%=j render "agreement_events/form" %>");
+$("#agreement-reviewers").html("<%=j render "reviews/reviewers", agreement: @agreement %>");
+
+datepickerReady();

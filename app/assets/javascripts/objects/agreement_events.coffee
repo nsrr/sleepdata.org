@@ -18,6 +18,7 @@ $(document)
     $("#agreement_event_markup_#{agreement_event_id}").hide()
     $("#agreement_event_datasets_#{agreement_event_id}").hide()
     $("#agreement_event_#{$(this).data('action')}_#{agreement_event_id}").show()
+    signaturesReady()
     false
   )
 

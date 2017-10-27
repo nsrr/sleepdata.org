@@ -12,7 +12,6 @@
         %strong= @agreement_event.user.forum_name
         = link_to (@agreement_event.new_record? ? "Write" : "Edit"), "#", data: { object: "view-agreement-event", action: "write", agreement_event_id: agreement_event_id }, class: "comment-tab active", tabindex: "-1"
         = link_to "Preview", "#", data: { object: "view-agreement-event view-agreement-event-preview", action: "preview", agreement_event_id: agreement_event_id, agreement_id: @agreement_event.agreement_id }, class: "comment-tab", tabindex: "-1"
-        = link_to "Markup", "#", data: { object: "view-agreement-event", action: "markup", agreement_event_id: agreement_event_id }, class: "comment-tab", tabindex: "-1"
         - if @agreement_event.new_record?
           = link_to "Vote", "#", data: { object: "view-agreement-event", action: "vote", agreement_event_id: agreement_event_id }, class: "comment-tab", tabindex: "-1"
           = link_to "Tags", "#", data: { object: "view-agreement-event", action: "tags", agreement_event_id: agreement_event_id }, class: "comment-tab", tabindex: "-1"
@@ -31,14 +30,13 @@
             - button_text = @agreement_event.new_record? ? "Comment" : "Update"
             = f.submit button_text, class: "btn btn-primary", data: { disable_with: "Submitting..." }, style: "margin-top: 10px;"
         %div{ id: "agreement_event_preview_#{agreement_event_id}", style: "display: none;min-height: 233px;" }
-        %div{ id: "agreement_event_markup_#{agreement_event_id}", style: "display: none;min-height: 233px;" }
-          = render "topics/markup"
         - if @agreement_event.new_record?
           %div{ id: "agreement_event_vote_#{agreement_event_id}", style: "display: none;min-height: 233px;" }
             = render "agreement_events/vote"
           %div{ id: "agreement_event_tags_#{agreement_event_id}", style: "display: none;min-height: 233px;" }
             = render "agreement_events/tags"
-          - if current_user.system_admin?
+          -# TODO: Specify organization for principal reviewer.
+          - if current_user.principal_reviewer?
             %div{ id: "agreement_event_review_#{agreement_event_id}", style: "display: none;min-height: 233px;" }
               = render "agreements/form"
             %div{ id: "agreement_event_datasets_#{agreement_event_id}", style: "display: none;min-height: 233px;" }

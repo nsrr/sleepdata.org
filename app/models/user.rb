@@ -92,6 +92,11 @@ class User < ApplicationRecord
     system_admin?
   end
 
+  # This should take the organization into account.
+  def principal_reviewer?(organization: nil)
+    system_admin?
+  end
+
   def all_topics
     if system_admin?
       Topic.current

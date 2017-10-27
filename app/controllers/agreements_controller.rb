@@ -212,6 +212,7 @@ class AgreementsController < ApplicationController
     original_status = @agreement.status
     if AgreementTransaction.save_agreement!(@agreement, agreement_review_params, current_user, request.remote_ip, "agreement_update")
       if original_status != "approved" && @agreement.status == "approved"
+        @data_request.save_signature!(:reviewer_signature_file, params[:data_uri]) if params[:data_uri].present?
         @agreement.daua_approved_email(current_user)
       elsif original_status != "resubmit" && @agreement.status == "resubmit"
         @agreement.sent_back_for_resubmission_email(current_user)

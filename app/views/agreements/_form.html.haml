@@ -1,58 +1,19 @@
-- method = @agreement.new_record? ? :post : :patch
+- data_request = @agreement
 
-= form_for @agreement, method: method, remote: true, html: { class: 'form-horizontal', data: { object: 'signature', signature_target: '.output-write' } } do |f|
-  - if @agreement.errors.any?
-    .callout.callout-danger
-      %strong
-        = pluralize @agreement.errors.count, 'error'
-        prohibited this agreement from being saved
+- method = data_request.new_record? ? :post : :patch
 
-      %ul
-        - @agreement.errors.full_messages.each do |message|
-          %li= message
+= form_with model: data_request, method: method, id: "data-request-form" do |form|
+  = render "forms/horizontal/select", form: form, object: data_request, key: :status, options: Agreement::STATUS, id: true
 
-  = hidden_field_tag 'agreement[current_step]', 0
+  #approval-container{ style: "#{"display: none;" unless data_request.status == "approved"}" }
+    = render "forms/horizontal/date_field", form: form, object: data_request, key: :approval_date
+    = render "forms/horizontal/date_field", form: form, object: data_request, key: :expiration_date
+    = render "forms/vertical/signature", form: form, object: data_request, key: :reviewer_signature
 
-  .form-group
-    = f.label :status, 'Status', class: 'col-md-3 control-label'
-    .col-md-9
-      = f.select :status, Agreement::STATUS, {}, class: 'form-control'
+  #resubmit-container{ style: "#{"display: none;" unless data_request.status == "resubmit"}" }
+    = render "forms/horizontal/text_area", form: form, object: data_request, key: :comments, help_text: "Provide directions for resubmitting."
 
-  #approval-container{ style: "#{'display: none;' unless @agreement.status == 'approved'}" }
-    .form-group
-      = f.label :reviewer_signature, 'Signature of Reviewer', class: 'col-md-3 control-label'
-      .col-md-9{ style: 'position:relative' }
-        = f.hidden_field :reviewer_signature, class: 'output-write'
-        %canvas.pad{ width: 300, height: 55 }
-        %span.clearButton{ style: 'position: absolute; margin-top: 12.5px; margin-left: 10px;' }
-          = link_to 'Clear', '#clear', class: 'btn btn-light', tabindex: '-1'
+  =# render "forms/vertical/submit", form: form, object: data_request, cancel: false
 
-    .form-group
-      = f.label :approval_date, 'Approval Date', class: 'col-md-3 control-label'
-      .col-md-9
-        = f.text_field :approval_date, class: 'datepicker form-control', value: @agreement.approval_date ? @agreement.approval_date.strftime('%m/%d/%Y') : Date.today.strftime('%m/%d/%Y')
-
-    .form-group
-      = f.label :expiration_date, 'Expiration Date', class: 'col-md-3 control-label'
-      .col-md-9
-        = f.text_field :expiration_date, class: 'datepicker form-control', value: @agreement.expiration_date ? @agreement.expiration_date.strftime('%m/%d/%Y') : (Date.today + 3.years).strftime('%m/%d/%Y')
-
-  #resubmit-container{ style: "#{'display: none;' unless @agreement.status == 'resubmit'}" }
-    .form-group
-      = f.label :comments, nil, class: 'col-md-3 control-label'
-      .col-md-9
-        = f.text_area :comments, rows: 7, class: 'form-control'
-        .callout.callout-warning
-          %strong Comments are emailed to user
-
-          %p Please specify why the DAUA needs to be resubmitted.
-          %p
-            Comments are
-            %strong required
-            if the agreement is
-            = succeed '.' do
-              %strong Sent Back for Resubmission
-
-  .form-group
-    .col-md-offset-3.col-md-9
-      = f.submit nil, class: 'btn btn-primary'
+  .form-group.mt-4.mb-0
+    = link_to "Update Agreement", "#", class: "btn btn-primary", data: { object: "submit-signature-and-disable", target: "#data-request-form" }
