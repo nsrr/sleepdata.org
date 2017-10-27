@@ -16,13 +16,13 @@ $(document)
       $(this).find('.card-header').addClass('bg-light')
       $(this).find("[data-object~=dataset-check-icon]").removeClass("fa-check-square-o")
       $(this).find("[data-object~=dataset-check-icon]").addClass("fa-square-o")
-    if $('[name="agreement[dataset_ids][]"]:checked').length < 2
+    if $('[name="data_requests[dataset_ids][]"]:checked').length < 2
       $('#too-many-datasets').hide()
     else
       $('#too-many-datasets').show()
   )
   .on('click', '[data-object~="submit-draft"]', ->
-    # TODO: Remove (rewrite) this method
+    # TODO: Remove this method
     window.$isDirty = false
     $('#agreement_draft_mode').val('1')
     $($(this).data('target')).submit()
@@ -32,16 +32,4 @@ $(document)
     # TODO: Potentially remove this
     if $('#isdirty').val() == '1'
       window.$isDirty = true
-  )
-  .on('change', '#agreement_status, #data_request_status', ->
-    $('#resubmit-container').hide()
-    $('#approval-container').hide()
-    $('#agreement_approval_date, #agreement_expiration_date').prop('disabled', true)
-    switch $(this).val()
-      when 'approved'
-        $('#approval-container').show()
-        $('#agreement_approval_date, #agreement_expiration_date').prop('disabled', false)
-        signaturesReady()
-      when 'resubmit'
-        $('#resubmit-container').show()
   )

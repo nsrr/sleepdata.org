@@ -17,10 +17,6 @@ class Agreements::RepresentativeControllerTest < ActionController::TestCase
     }
   end
 
-  def signature
-    IO.readlines(Rails.root.join("test", "support", "signatures", "data_uri.txt")).first
-  end
-
   test "should get signature requested" do
     get :signature_requested, params: {
       representative_token: @agreement.id_and_representative_token
@@ -31,7 +27,7 @@ class Agreements::RepresentativeControllerTest < ActionController::TestCase
   test "should submit signature" do
     patch :submit_signature, params: {
       representative_token: @agreement.id_and_representative_token,
-      data_uri: signature,
+      data_uri: data_uri_signature,
       agreement: agreement_params
     }
     assert_redirected_to representative_signature_submitted_path
@@ -41,7 +37,7 @@ class Agreements::RepresentativeControllerTest < ActionController::TestCase
     skip
     patch :submit_signature, params: {
       representative_token: @agreement.id_and_representative_token,
-      data_uri: signature,
+      data_uri: data_uri_signature,
       agreement: agreement_params.merge(duly_authorized_representative_signature_print: "")
     }
     assert_template "signature_requested"

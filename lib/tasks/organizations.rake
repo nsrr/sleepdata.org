@@ -176,19 +176,19 @@ def migrate_old_agreements(bwh)
 
   puts "=====TODO: Match existing agreements to legal doc formats"
   # TODO: Match existing agreements to legal doc formats
-  Agreement.all.each do |agreement|
-    if agreement.data_user_type == "individual"
+  DataRequest.all.each do |data_request|
+    if data_request.data_user_type == "individual"
       final = standard_i.current_final_legal_document
-      agreement.update(final_legal_document: final)
-      update_individual_variables(agreement, final)
+      data_request.update(final_legal_document: final)
+      update_individual_variables(data_request, final)
     else
       final = standard_o.current_final_legal_document
-      agreement.update(final_legal_document: final)
-      update_organization_variables(agreement, final)
+      data_request.update(final_legal_document: final)
+      update_organization_variables(data_request, final)
     end
-    migrate_signature(agreement, :signature)
-    migrate_signature(agreement, :duly_authorized_representative_signature)
-    migrate_signature(agreement, :reviewer_signature)
+    migrate_signature(data_request, :signature)
+    migrate_signature(data_request, :duly_authorized_representative_signature)
+    migrate_signature(data_request, :reviewer_signature)
   end
 end
 

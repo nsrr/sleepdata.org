@@ -63,7 +63,8 @@ class Agreement < ApplicationRecord
   validates :user_id, :status, presence: true
   validates :duly_authorized_representative_token, uniqueness: true, allow_nil: true
 
-  validates :reviewer_signature, :approval_date, :expiration_date, presence: true, if: :approved?
+  validates :approval_date, :expiration_date, presence: true, if: :approved?
+  # validates :reviewer_signature
   # validates :edges_in_reviewer_signature, length: { minimum: 20, too_short: "can't be blank" }, if: :approved?
 
   validates :comments, presence: true, if: :resubmission_required?

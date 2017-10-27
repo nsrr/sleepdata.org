@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-# Allows modification of comments on during agreement review process
+# Allows modification of comments on during data request review process
 class AgreementEventsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_agreement_or_redirect
+  before_action :find_data_request_or_redirect
   before_action :find_editable_agreement_event_or_redirect, only: [
     :show, :edit, :update, :destroy
   ]
@@ -14,9 +14,10 @@ class AgreementEventsController < ApplicationController
 
   # POST /agreement/1/events.js
   def create
-    @agreement_event = @agreement.agreement_events
-                                 .where(user_id: current_user.id, event_at: Time.zone.now, event_type: "commented")
-                                 .new(agreement_event_params)
+    @agreement_event = \
+      @data_request.agreement_events
+                   .where(user_id: current_user.id, event_at: Time.zone.now, event_type: "commented")
+                   .new(agreement_event_params)
     if @agreement_event.save
       render :create
     else
@@ -26,11 +27,11 @@ class AgreementEventsController < ApplicationController
 
   # POST /agreements/1/preview.js
   def preview
-    @agreement_event = @agreement.agreement_events.find_by(id: params[:agreement_event_id])
+    @agreement_event = @data_request.agreement_events.find_by(id: params[:agreement_event_id])
     if @agreement_event
       @agreement_event.comment = params[:agreement_event][:comment]
     else
-      @agreement_event = @agreement.agreement_events.where(user_id: current_user.id)
+      @agreement_event = @data_request.agreement_events.where(user_id: current_user.id)
                                    .new(agreement_event_params)
     end
   end
@@ -55,9 +56,9 @@ class AgreementEventsController < ApplicationController
 
   private
 
-  def find_agreement_or_redirect
-    @agreement = current_user.reviewable_agreements.find_by(id: params[:agreement_id])
-    empty_response_or_root_path(reviews_path) unless @agreement
+  def find_data_request_or_redirect
+    @data_request = current_user.reviewable_data_requests.find_by(id: params[:agreement_id])
+    empty_response_or_root_path(reviews_path) unless @data_request
   end
 
   def find_editable_agreement_event_or_redirect

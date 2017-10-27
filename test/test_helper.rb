@@ -16,12 +16,17 @@ class ActiveSupport::TestCase
 end
 
 # Set up ActionController tests
+# TODO: Remove ActionController Tests
 class ActionController::TestCase
   include Devise::Test::ControllerHelpers
 
   def login(resource)
     @request.env["devise.mapping"] = Devise.mappings[resource]
     sign_in(resource, scope: resource.class.name.downcase.to_sym)
+  end
+
+  def data_uri_signature
+    IO.readlines(Rails.root.join("test", "support", "signatures", "data_uri.txt")).first
   end
 end
 
@@ -36,6 +41,10 @@ class ActionDispatch::IntegrationTest
     post new_user_session_url, params: { user: { email: user.email, password: password } }
     follow_redirect!
     user
+  end
+
+  def data_uri_signature
+    IO.readlines(Rails.root.join("test", "support", "signatures", "data_uri.txt")).first
   end
 end
 

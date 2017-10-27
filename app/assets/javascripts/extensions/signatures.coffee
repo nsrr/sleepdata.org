@@ -63,22 +63,31 @@ $(document)
       alert 'Please provide signature first.'
     else
       window.$isDirty = false
-      $(this).css("width", $(this).css("width"))
-      $(this).prop("disabled", true)
-      $(this).addClass("disabled")
+      disablerWithSpinner($(this))
       $("#data_uri").val(window.$signaturePad.toDataURL())
       $($(this).data("target")).submit()
-      $(this).html("<i class=\"fa fa-spin fa-spinner\"></i>")
     false
   )
   .on('click', '[data-object~="submit-draft-signature-and-disable"]', ->
     window.$isDirty = false
-    $(this).css("width", $(this).css("width"))
-    $(this).prop("disabled", true)
-    $(this).addClass("disabled")
+    disablerWithSpinner($(this))
     $("#data_request_draft_mode").val("1")
     $("#data_uri").val(window.$signaturePad.toDataURL()) if window.$signaturePad? and !window.$signaturePad.isEmpty()
     $($(this).data("target")).submit()
-    $(this).html("<i class=\"fa fa-spin fa-spinner\"></i>")
+    false
+  )
+  .on("click", "[data-object~='submit-reviewer-signature-and-disable']", ->
+    if $("#data_request_status").val() == "approved"
+      if window.$signaturePad.isEmpty()
+        alert 'Please provide signature first.'
+      else
+        window.$isDirty = false
+        disablerWithSpinner($(this))
+        $("#data_uri").val(window.$signaturePad.toDataURL())
+        $($(this).data("target")).submit()
+    else
+      window.$isDirty = false
+      disablerWithSpinner($(this))
+      $($(this).data("target")).submit()
     false
   )

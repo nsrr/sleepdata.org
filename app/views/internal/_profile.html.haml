@@ -30,7 +30,8 @@
   - if current_user.community_manager?
     %li= link_to "Blog Posts", broadcasts_path, class: current_page?(broadcasts_path) ? "active" : nil
 
-  - if current_user.system_admin? || current_user.reviewable_agreements.count > 0
+  -# TODO: Only show for reviewers.
+  - if current_user.system_admin? || current_user.reviewable_data_requests.count.positive?
     %li.blog-menu-header Administrative
 
     %li

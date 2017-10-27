@@ -1,8 +1,8 @@
-- if @agreement.agreement_events.count == 0
+- if @data_request.agreement_events.count == 0
   .jumbotron
-    .text-center.text-muted This agreement has no events.
+    .text-center.text-muted This data request has no events.
 - else
-  - @agreement.agreement_events.each_with_index do |agreement_event, index|
+  - @data_request.agreement_events.each_with_index do |agreement_event, index|
     - current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1)
     - current_index = ((current_page - 1) * Reply::REPLIES_PER_PAGE) + index + 1
     %div{ id: "agreement_event_container_#{agreement_event.id}"}

@@ -6,7 +6,7 @@
       %h1.page-heading
         .float-right
           = link_to download_or("Export CSV"), export_agreements_path(format: "csv"), class: "btn btn-primary btn-shadow" if current_user.system_admin?
-          = render "layouts/per_page", per_page: 40, object_count: @agreements.total_count
+          = render "layouts/per_page", per_page: 40, object_count: @data_requests.total_count
         = @title
         = render "search/toggle"
 
@@ -22,10 +22,10 @@
             %i.fa.fa-filter
           .dropdown-menu
             = link_to "All", reviews_path(order: params[:order]), style: params[:status].blank? ? "font-weight:bold;" : "", class: "dropdown-item"
-            - Agreement::STATUS.each do |label, value|
+            - DataRequest::STATUS.each do |label, value|
               = link_to label.titleize, reviews_path(order: params[:order], status: value), style: params[:status] == value ? "font-weight:bold;" : "", class: "dropdown-item"
       %th
-        = link_to "Agreement", reviews_path(order: (params[:order] == "agreements.id desc" ? "agreements.id" : "agreements.id desc"), status: params[:status], tag_id: params[:tag_id], search: params[:search])
+        = link_to "Data Request", reviews_path(order: (params[:order] == "agreements.id desc" ? "agreements.id" : "agreements.id desc"), status: params[:status], tag_id: params[:tag_id], search: params[:search])
       %th.d-none.d-sm-table-cell.nowrap
         = link_to "Submitted", reviews_path(order: (params[:order] == "agreements.last_submitted_at desc" ? "agreements.last_submitted_at" : nil), status: params[:status], tag_id: params[:tag_id], search: params[:search])
       %th.d-none.d-sm-table-cell.nowrap
@@ -42,26 +42,26 @@
             - Tag.review_tags.pluck(:name, :id).each do |label, value|
               = link_to label.titleize, reviews_path(order: params[:order], tag_id: value), style: params[:tag_id].to_s == value.to_s ? "font-weight:bold;" : "", class: "dropdown-item"
 
-  - @agreements.each do |agreement|
+  - @data_requests.each do |data_request|
     %tr
-      %td= status_helper(agreement)
+      %td= status_helper(data_request)
       %td
-        = image_tag agreement.user.avatar_url(18), style: "vertical-align:text-bottom;width:18px"
-        = link_to agreement.name_with_id, review_path(agreement)
+        = image_tag data_request.user.avatar_url(18), style: "vertical-align:text-bottom;width:18px"
+        = link_to data_request.name_with_id, review_path(data_request)
       %td.d-none.d-sm-table-cell.nowrap
-        - if agreement.resubmitted_at
-          = agreement.resubmitted_at.strftime("%Y-%m-%d")
+        - if data_request.resubmitted_at
+          = data_request.resubmitted_at.strftime("%Y-%m-%d")
           = link_to "#", rel: "tooltip", title: "Resubmitted", data: { object: "suppress-click", container: "body", placement: "right" } do
             %i.fa.fa-info-circle
-        - elsif agreement.submitted_at
-          = agreement.submitted_at.strftime("%Y-%m-%d")
+        - elsif data_request.submitted_at
+          = data_request.submitted_at.strftime("%Y-%m-%d")
       %td.d-none.d-sm-table-cell.nowrap
-        - if agreement.expiration_date
-          = agreement.expiration_date.strftime("%Y-%m-%d")
-      %td.d-none.d-lg-table-cell.nowrap= render "reviews/reviewers", agreement: agreement
+        - if data_request.expiration_date
+          = data_request.expiration_date.strftime("%Y-%m-%d")
+      %td.d-none.d-lg-table-cell.nowrap= render "reviews/reviewers", data_request: data_request
       %td.d-none.d-lg-table-cell
-        - agreement.datasets.order(:release_date, :name).each do |dataset|
+        - data_request.datasets.order(:release_date, :name).each do |dataset|
           = render "datasets/mini", dataset: dataset
-      %td.d-none.d-lg-table-cell= render "reviews/tags", agreement: agreement
+      %td.d-none.d-lg-table-cell= render "reviews/tags", data_request: data_request
 
-.center-horizontally= paginate @agreements, theme: "bootstrap"
+.center-horizontally= paginate @data_requests, theme: "bootstrap"

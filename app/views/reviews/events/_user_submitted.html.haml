@@ -3,7 +3,7 @@
     = image_tag agreement_event.user.avatar_url(18, "identicon"), size: "18x18", style: "vertical-align: text-middle;width: 18px;", alt: ""
     = agreement_event.user.name
     %span.badge.badge-primary submitted
-    agreement
+    data_request
     = succeed "." do
       %abbr{ rel: "tooltip", data: { title: agreement_event.event_at.strftime("%-d %B %Y, %-l:%M %p"), container: "body", placement: "right" } }= "#{time_ago_in_words(agreement_event.event_at)} ago"
 
@@ -11,61 +11,61 @@
     .row{ style: "padding-top: 20px"}
       .col-md-6.col-buffer
         %div{ style: "padding: 0 20px;" }
-          %strong= agreement_event.agreement.title_of_project
+          %strong= agreement_event.data_request.title_of_project
           %div{ style: "font-style: italic;padding-top: 5px;" }
-            = simple_format agreement_event.agreement.specific_purpose
-            = simple_format agreement_event.agreement.intended_use_of_data
+            = simple_format agreement_event.data_request.specific_purpose
+            = simple_format agreement_event.data_request.intended_use_of_data
 
           %div
-            - agreement_event.agreement.datasets.order(:release_date, :name).each do |dataset|
+            - agreement_event.data_request.datasets.order(:release_date, :name).each do |dataset|
               = render "datasets/mini", dataset: dataset
 
-          - if agreement_event.agreement.irb_evidence_type == "has_evidence" && agreement_event.agreement.irb.present?
+          - if agreement_event.data_request.irb_evidence_type == "has_evidence" && agreement_event.data_request.irb.present?
             %div{ style: "margin-top: 20px;" }
               %i.fa.fa-paperclip
-              = link_to download_irb_agreement_path(agreement_event.agreement), data: { turbolinks: false } do
-                = agreement_event.agreement.irb.file.filename
+              = link_to download_irb_agreement_path(agreement_event.data_request), data: { turbolinks: false } do
+                = agreement_event.data_request.irb.file.filename
 
       .col-md-3.col-buffer
         %div{ style: "padding-left: 20px;" }
-          - if @agreement.data_user_type == "individual"
+          - if @data_request.data_user_type == "individual"
             %p
-              %strong= @agreement.individual_institution_name
-            %p= simple_format @agreement.individual_address
-          - elsif @agreement.data_user_type == "organization"
+              %strong= @data_request.individual_institution_name
+            %p= simple_format @data_request.individual_address
+          - elsif @data_request.data_user_type == "organization"
             %p
-              %strong= @agreement.organization_business_name
-            %p= simple_format @agreement.organization_address
+              %strong= @data_request.organization_business_name
+            %p= simple_format @data_request.organization_address
 
       .col-md-3.col-buffer
         %div{ style: "padding-left: 20px;" }
-          - if @agreement.data_user_type == "individual"
+          - if @data_request.data_user_type == "individual"
             %p
-              %strong= @agreement.user.name
+              %strong= @data_request.user.name
             %p
-              = @agreement.individual_title
+              = @data_request.individual_title
               %br
-              = @agreement.individual_telephone
+              = @data_request.individual_telephone
               %br
-              = @agreement.user.email
-          - elsif @agreement.data_user_type == "organization"
+              = @data_request.user.email
+          - elsif @data_request.data_user_type == "organization"
             %p
-              %strong= @agreement.organization_contact_name
+              %strong= @data_request.organization_contact_name
             %p
-              = @agreement.organization_contact_title
+              = @data_request.organization_contact_title
               %br
-              = @agreement.organization_contact_telephone
+              = @data_request.organization_contact_telephone
               %br
-              = @agreement.organization_contact_email
+              = @data_request.organization_contact_email
 
     .text-center
-      - if @agreement.unauthorized_to_sign?
-        - if @agreement.duly_authorized_representative_signature_file.path
-          = image_tag(duly_authorized_representative_signature_review_path(@agreement), class: "img-signature", alt: "")
+      - if @data_request.unauthorized_to_sign?
+        - if @data_request.duly_authorized_representative_signature_file.path
+          = image_tag(duly_authorized_representative_signature_review_path(@data_request), class: "img-signature", alt: "")
         - else
           .text-muted No signature
       - else
-        - if @agreement.signature_file.path
-          = image_tag(signature_review_path(@agreement), class: "img-signature", alt: "")
+        - if @data_request.signature_file.path
+          = image_tag(signature_review_path(@data_request), class: "img-signature", alt: "")
         - else
           .text-muted No signature

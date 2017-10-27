@@ -36,6 +36,7 @@
 
 # Components
 #= require components/cookies
+#= require components/disablers
 #= require components/expandable_text_input
 #= require components/graphs
 #= require components/headings
@@ -60,6 +61,7 @@
 # Objects
 #= require objects/agreement_events
 #= require objects/agreements
+#= require objects/data_requests
 #= require objects/datasets
 #= require objects/files
 #= require objects/images

@@ -129,11 +129,11 @@ class User < ApplicationRecord
     end
   end
 
-  def all_agreements
+  def all_data_requests
     if system_admin?
-      Agreement.current
+      DataRequest.current
     else
-      agreements
+      data_requests
     end
   end
 
@@ -145,8 +145,12 @@ class User < ApplicationRecord
     end
   end
 
-  def reviewable_agreements
-    Agreement.current.where('agreements.id IN (select requests.agreement_id from requests where requests.dataset_id IN (?))', all_reviewable_datasets.select(:id))
+  # TODO: rewrite using inner join?
+  def reviewable_data_requests
+    DataRequest.current.where(
+      "agreements.id IN (select requests.agreement_id from requests where requests.dataset_id IN (?))",
+      all_reviewable_datasets.select(:id)
+    )
   end
 
   def all_datasets
