@@ -1,17 +1,17 @@
-= image_tag agreement_event.user.avatar_url(18, 'identicon'), size: '18x18', style: 'vertical-align:text-middle;width:18px', alt: ''
+= image_tag agreement_event.user.avatar_url(18, "identicon"), size: "18x18", style: "vertical-align: text-middle;width: 18px;", alt: ""
 = agreement_event.user.name
-- if agreement_event.added_tags.count > 0
+- if agreement_event.added_tags.present?
   added the
   - agreement_event.added_tags.each do |tag|
     %span.badge.badge-dark{ style: "background-color: #{tag.color};" }= tag.name
-  = agreement_event.added_tags.count != 1 ? 'tags' : 'tag'
+  = agreement_event.added_tags.count != 1 ? "tags" : "tag"
 
-- if agreement_event.removed_tags.count > 0
-  = 'and' if agreement_event.added_tags.count > 0
+- if agreement_event.removed_tags.present?
+  = "and" if agreement_event.added_tags.present?
   removed the
   - agreement_event.removed_tags.each do |tag|
     %span.badge.badge-dark{ style: "background-color: #{tag.color};" }= tag.name
-  = agreement_event.removed_tags.count != 1 ? 'tags' : 'tag'
+  = agreement_event.removed_tags.count != 1 ? "tags" : "tag"
 
-= succeed '.' do
-  %abbr{ rel: 'tooltip', data: { title: agreement_event.event_at.strftime("%-d %B %Y, %-l:%M %p"), container: 'body', placement: 'right' } }= "#{time_ago_in_words(agreement_event.event_at)} ago"
+= succeed "." do
+  %abbr{ rel: "tooltip", data: { title: agreement_event.event_at.strftime("%-d %B %Y, %-l:%M %p"), container: "body", placement: "right" } }= "#{time_ago_in_words(agreement_event.event_at)} ago"

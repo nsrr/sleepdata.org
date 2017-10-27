@@ -3,17 +3,17 @@
 require "test_helper"
 
 # Tests to assure that submitted agreements can be reviewed and updated.
-class ReviewsControllerTest < ActionController::TestCase
+class ReviewsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @reviewer = users(:reviewer_on_public)
     @reviewer_two = users(:reviewer_two_on_public)
     @reviewer_three = users(:reviewer_three_on_public)
-    @agreement = agreements(:submitted_application)
+    @data_request = agreements(:submitted_application)
   end
 
   test "should get index" do
     login(@reviewer)
-    get :index
+    get reviews_path
     assert_response :success
     assert_not_nil assigns(:data_requests)
   end
@@ -21,13 +21,12 @@ class ReviewsControllerTest < ActionController::TestCase
   # Change tags from ["academic", "publication"] to ["academic", "student", "thesis"]
   test "should update agreement tags" do
     login(@reviewer)
-    assert_equal [tags(:academic).id, tags(:publication).id].sort, @agreement.tags.pluck(:id).sort
-    post :update_tags, params: {
-      id: @agreement,
+    assert_equal [tags(:academic).id, tags(:publication).id].sort, @data_request.tags.pluck(:id).sort
+    post update_tags_review_path(@data_request, format: "js"), params: {
       data_request: {
         tag_ids: [tags(:academic).to_param, tags(:student).to_param, tags(:thesis).to_param]
       }
-    }, format: "js"
+    }
     assert_not_nil assigns(:data_request)
     assert_equal(
       [tags(:academic).id, tags(:student).id, tags(:thesis).id].sort,
@@ -51,7 +50,7 @@ class ReviewsControllerTest < ActionController::TestCase
   test "should vote and approve agreement" do
     login(@reviewer)
     assert_difference("Review.count") do
-      post :vote, params: { id: @agreement, approved: "1" }, format: "js"
+      post vote_review_path(@data_request, format: "js"), params: { approved: "1" }
     end
     assert_equal true, assigns(:review).approved
     assert_equal "reviewer_approved", assigns(:agreement_event).event_type
@@ -62,7 +61,7 @@ class ReviewsControllerTest < ActionController::TestCase
   test "should vote and reject agreement" do
     login(@reviewer)
     assert_difference("Review.count") do
-      post :vote, params: { id: @agreement, approved: "0" }, format: "js"
+      post vote_review_path(@data_request, format: "js"), params: { approved: "0" }
     end
     assert_equal false, assigns(:review).approved
     assert_equal "reviewer_rejected", assigns(:agreement_event).event_type
@@ -73,7 +72,7 @@ class ReviewsControllerTest < ActionController::TestCase
   test "should not update unchanged vote" do
     login(@reviewer_two)
     assert_difference("Review.count", 0) do
-      post :vote, params: { id: @agreement, approved: "0" }, format: "js"
+      post vote_review_path(@data_request, format: "js"), params: { approved: "0" }
     end
     assert_equal false, assigns(:review).approved
     assert_nil assigns(:agreement_event)
@@ -84,7 +83,7 @@ class ReviewsControllerTest < ActionController::TestCase
   test "should change vote to approved" do
     login(@reviewer_two)
     assert_difference("Review.count", 0) do
-      post :vote, params: { id: @agreement, approved: "1" }, format: "js"
+      post vote_review_path(@data_request, format: "js"), params: { approved: "1" }
     end
     assert_equal true, assigns(:review).approved
     assert_equal "reviewer_changed_from_rejected_to_approved", assigns(:agreement_event).event_type
@@ -95,11 +94,17 @@ class ReviewsControllerTest < ActionController::TestCase
   test "should change vote to rejected" do
     login(@reviewer_three)
     assert_difference("Review.count", 0) do
-      post :vote, params: { id: @agreement, approved: "0" }, format: "js"
+      post vote_review_path(@data_request, format: "js"), params: { approved: "0" }
     end
     assert_equal false, assigns(:review).approved
     assert_equal "reviewer_changed_from_approved_to_rejected", assigns(:agreement_event).event_type
     assert_template "agreement_events/create"
+    assert_response :success
+  end
+
+  test "should get transactions" do
+    login(@reviewer)
+    get transactions_review_path(@data_request)
     assert_response :success
   end
 end

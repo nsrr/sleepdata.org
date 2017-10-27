@@ -47,12 +47,11 @@ class SupportingDocumentsControllerTest < ActionDispatch::IntegrationTest
   test "should upload multiple supporting documents" do
     login(@regular2)
     assert_difference("SupportingDocument.count", 2) do
-      post upload_data_request_supporting_documents_url(@uploads), params: {
+      post upload_data_request_supporting_documents_url(@uploads, format: "js"), params: {
         documents: [
           fixture_file_upload('../../test/support/images/rails.png'),
           fixture_file_upload('../../test/support/images/rails.png')
-        ],
-        format: "js"
+        ]
       }
     end
     assert_template "index"

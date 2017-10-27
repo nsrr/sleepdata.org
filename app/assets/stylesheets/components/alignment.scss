@@ -2,9 +2,18 @@
   white-space: nowrap;
 }
 
-.overflow-hidden {
+.overflow-hidden,
+.overflow-hover {
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.overflow-hover {
+  @media (hover) {
+    &:hover {
+      overflow: visible;
+    }
+  }
 }
 
 .breakword {
