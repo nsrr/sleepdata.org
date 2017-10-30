@@ -58,11 +58,16 @@ def create_standard_i(bwh)
     readable_content: "2. Data User will describe to BWH via the electronic registration process for NSRR Data access at https://sleepdata.org the specific sleep research use for the Data/Datasets proposed by Data User (the **\"Specific Purpose\"**). The Specific Purpose as described in the online application process is:\n\n<project_title>\n\n<specific_purpose:text>\n\n<intended_use>\n\n<data_storage>\n\n<security:checkbox>\n\n<hipaa_training:checkbox>\n\nFor avoidance of doubt, permissible uses may include use of the Data/Datasets for research evaluation and testing of a product or technology but will not extend to proposals that include or incorporate the Data/Datasets into such product. BWH will provide the Data/Datasets requested by the Data User upon BWH's approval, in its sole discretion, of the Specific Purpose, its receipt of this DAUA signed by Data User (or of Data User's Duly Authorized Representative, if an organization), and the submission by Data User of any additional information or documentation required by NSRR policies and procedures as applicable to the request (including, when required, submission of evidence of approval of the Specific Purpose by Data User's Institutional Review Board). The requirements described in this Section 2 will apply regardless of whether Data User has been previously approved by NHLBI to access complementary data from databases or other resources controlled by NHLBI (including but not limited to BioLINCC). Data User acknowledges that other researchers are permitted to access the Data/Dataset on the same terms as Data User, so that duplication of research may occur."
   )
 
+  standard_i.legal_document_variables.find_by(name: "project_title").update(
+    display_name: "Title Of Project"
+  )
+
   standard_i.legal_document_variables.find_by(name: "specific_purpose").update(
     field_note: "Please provide enough detail about your research and how you intend to use the data. All requests are reviewed for appropriateness based on the description provided. Incomplete descriptions will result in delays in granting access."
   )
 
   standard_i.legal_document_variables.find_by(name: "intended_use").update(
+    display_name: "Intended Use Of Data",
     field_note: "Ex: thesis work; other education; algorithm for commercial use; preliminary data for a grant."
   )
 
@@ -103,7 +108,7 @@ def create_standard_o(bwh)
 
   standard_o.legal_document_pages.where(position: 1).first_or_create(
     title: "Data Access and Use Agreement",
-    readable_content: "This Data Access and Use Agreement (the **\"DAUA\"**) is made by and between The Brigham and Women's Hospital, Inc., through its Division of Sleep and Circadian Disorders (**\"BWH\"**) and <organization_name> (the **\"Data User\"**).\n\n**WHEREAS**, BWH is receiving support from the National Heart, Lung, and Blood Institute (**\"NHLBI\"**) to establish and operate a web-based collection of existing de-identified sleep study and related covariate data originating from past NHLBI-funded research studies (the **\"Data\"**), such collection known as the National Sleep Research Resource (**\"NSRR\"**); and\n\n**WHEREAS**, the purpose of the NSRR is to facilitate access to and use of the Data by third-party researchers to conduct sleep research in accordance with NHLBI and BWH policies and procedures (the **\"Purpose\"**); and\n\n**WHEREAS**, to the extent permitted by its Institutional Review Board and institutional policies, BWH wishes to make the Data, in the form of one or more **\"Datasets\"**, available to Data User, and Data User wishes to receive the Datasets, for this Purpose under the terms and conditions of access set forth herein;\n\n**NOW**, **THEREFORE**, in consideration of the mutual promises and covenants set forth below, the parties hereby agree as follows:\n\n\n\n1. Data User is an organization/corporation, requesting Data/Datasets under this DAUA on behalf of itself and its employees, with a principal place of business and primary business contact as follows:\n\n<contact_name>\n\n<contact_title>\n\n<contact_telephone>\n\n<contact_email>\n\n<organization_address:text>"
+    readable_content: "This Data Access and Use Agreement (the **\"DAUA\"**) is made by and between The Brigham and Women's Hospital, Inc., through its Division of Sleep and Circadian Disorders (**\"BWH\"**) and <organization_name> (the **\"Data User\"**).\n\n**WHEREAS**, BWH is receiving support from the National Heart, Lung, and Blood Institute (**\"NHLBI\"**) to establish and operate a web-based collection of existing de-identified sleep study and related covariate data originating from past NHLBI-funded research studies (the **\"Data\"**), such collection known as the National Sleep Research Resource (**\"NSRR\"**); and\n\n**WHEREAS**, the purpose of the NSRR is to facilitate access to and use of the Data by third-party researchers to conduct sleep research in accordance with NHLBI and BWH policies and procedures (the **\"Purpose\"**); and\n\n**WHEREAS**, to the extent permitted by its Institutional Review Board and institutional policies, BWH wishes to make the Data, in the form of one or more **\"Datasets\"**, available to Data User, and Data User wishes to receive the Datasets, for this Purpose under the terms and conditions of access set forth herein;\n\n**NOW**, **THEREFORE**, in consideration of the mutual promises and covenants set forth below, the parties hereby agree as follows:\n\n\n\n1. Data User is an organization/corporation, requesting Data/Datasets under this DAUA on behalf of itself and its employees, with a principal place of business and primary business contact as follows:\n\n<contact_name>\n\n<contact_title>\n\n<contact_telephone>\n\n<contact_email:email>\n\n<organization_address:text>"
   )
 
   standard_o.legal_document_variables.find_by(name: "contact_title").update(
@@ -115,11 +120,16 @@ def create_standard_o(bwh)
     readable_content: "2. Data User will describe to BWH via the electronic registration process for NSRR Data access at https://sleepdata.org the specific sleep research use for the Data/Datasets proposed by Data User (the **\"Specific Purpose\"**). The Specific Purpose as described in the online application process is:\n\n<project_title>\n\n<specific_purpose:text>\n\n<intended_use>\n\n<data_storage>\n\n<security:checkbox>\n\n<hipaa_training:checkbox>\n\nFor avoidance of doubt, permissible uses may include use of the Data/Datasets for research evaluation and testing of a product or technology but will not extend to proposals that include or incorporate the Data/Datasets into such product. BWH will provide the Data/Datasets requested by the Data User upon BWH's approval, in its sole discretion, of the Specific Purpose, its receipt of this DAUA signed by Data User (or of Data User's Duly Authorized Representative, if an organization), and the submission by Data User of any additional information or documentation required by NSRR policies and procedures as applicable to the request (including, when required, submission of evidence of approval of the Specific Purpose by Data User's Institutional Review Board). The requirements described in this Section 2 will apply regardless of whether Data User has been previously approved by NHLBI to access complementary data from databases or other resources controlled by NHLBI (including but not limited to BioLINCC). Data User acknowledges that other researchers are permitted to access the Data/Dataset on the same terms as Data User, so that duplication of research may occur."
   )
 
+  standard_o.legal_document_variables.find_by(name: "project_title").update(
+    display_name: "Title Of Project"
+  )
+
   standard_o.legal_document_variables.find_by(name: "specific_purpose").update(
     field_note: "Please provide enough detail about your research and how you intend to use the data. All requests are reviewed for appropriateness based on the description provided. Incomplete descriptions will result in delays in granting access."
   )
 
   standard_o.legal_document_variables.find_by(name: "intended_use").update(
+    display_name: "Intended Use Of Data",
     field_note: "Ex: thesis work; other education; algorithm for commercial use; preliminary data for a grant."
   )
 
