@@ -14,7 +14,7 @@ class Reply < ApplicationRecord
                   unless: :deleted_or_parent_deleted?
 
   # Scopes
-  scope :points, -> { select('replies.*, COALESCE(SUM(reply_users.vote), 0)  points').joins('LEFT JOIN reply_users ON reply_users.reply_id = replies.id').group('replies.id') }
+  scope :points, -> { select("replies.*, COALESCE(SUM(reply_users.vote), 0)  points").joins("LEFT JOIN reply_users ON reply_users.reply_id = replies.id").group("replies.id") }
 
   # Validations
   validates :description, :user_id, presence: true
@@ -111,7 +111,7 @@ class Reply < ApplicationRecord
   end
 
   def parent_reply_id
-    reply_id || 'root'
+    reply_id || "root"
   end
 
   def computed_level
@@ -124,7 +124,7 @@ class Reply < ApplicationRecord
   end
 
   def create_notifications!
-    parent.subscribers.where.not(id: user_id).each do |u|
+    parent.subscribers.where.not(id: user_id).find_each do |u|
       notification = u.notifications.where(topic_id: topic_id, broadcast_id: broadcast_id, reply_id: id).first_or_create
       notification.mark_as_unread!
     end
