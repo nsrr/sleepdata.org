@@ -24,4 +24,4 @@
         %span.custom-control-description= variable.description
   - if variable.field_note.present?
     %br
-    %small.text-muted= variable.field_note
+    %small.text-muted= simple_markdown variable.field_note

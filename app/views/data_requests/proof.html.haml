@@ -10,6 +10,16 @@
       .page-box.last-box
         .agreement-heading= @title
 
+        - if @data_request.complete?
+          .alert.alert-success.text-center.box-shadow
+            %strong Data request ready to submit.
+            Click submit below to complete data request.
+        - else
+          .alert.alert-danger.text-center.box-shadow
+            %strong Data request incomplete.
+            Missing required fields.
+
+
         = form_with url: data_requests_submit_path(@data_request), method: :post, local: true, id: "data-request-form" do
           = hidden_field_tag "data_request[draft_mode]", nil
 
@@ -29,7 +39,7 @@
               - if content.blank? && variable.required?
                 - content = content_tag(:span, content_tag(:i, nil, class: "fa fa-exclamation-triangle") + " Required", class: "text-danger")
             - display_name = variable.display_name.present? ? variable.display_name : variable.name.titleize
-            - display_name = link_to display_name, data_requests_page_url(@data_request, final_legal_document_page.position), class: "link-unstyled" # TODO: Make anchor work correctly `anchor: variable.name`
+            - display_name = link_to display_name, data_requests_page_url(@data_request, final_legal_document_page.position), tabindex: "-1" # TODO: Make anchor work correctly `anchor: variable.name`
             = render "forms/horizontal/show/generic", title: display_name, content: content
 
         - if @data_request.final_legal_document.attestation_type == "signature"
@@ -45,7 +55,24 @@
               - content = image_tag(data_requests_signature_path(@data_request), class: "img-signature", alt: "", style: "max-height: 100px;")
             - else
               - content = "<div class=\"text-muted\">No signature</div>".html_safe
-            = render "forms/horizontal/show/generic", title: "Signature", content: content
+            = render "forms/horizontal/show/generic", title: link_to("Signature", data_requests_attest_path(@data_request)), content: content
+
+        - case @data_request.supporting_documents.count when 0
+          - supporting_documents_content = content_tag(:span, "No supporting documents uploaded.", class: "text-muted")
+        - when 1
+          - supporting_documents_content = safe_join(@data_request.supporting_documents.collect { |d| content_tag(:span, d.document.file.filename) })
+        - else
+          - supporting_documents_content = pluralize(@data_request.supporting_documents.count, "supporting document") + " uploaded."
+        = render "forms/horizontal/show/generic", title: link_to("Supporting Documents", data_request_supporting_documents_path(@data_request)), content: supporting_documents_content
+
+        - if @data_request.complete?
+          .mt-5.alert.alert-success.text-center.mb-0.box-shadow
+            %strong Data request ready to submit.
+            Click submit below to complete data request.
+        - else
+          .mt-5.alert.alert-danger.text-center.mb-0.box-shadow
+            %strong Data request incomplete.
+            Missing required fields.
 
         .mt-5.mb-3.float-right
           = succeed " " do
@@ -58,7 +85,6 @@
               Submit
               %i.fa.fa-caret-right
           - else
-            Missing required fields.
             = link_to "#", class: "btn btn-primary disabled", data: { object: "suppress-click" }, disabled: true do
               Submit
               %i.fa.fa-caret-right
