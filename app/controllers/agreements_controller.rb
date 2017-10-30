@@ -106,6 +106,7 @@ class AgreementsController < ApplicationController
     redirect_to reviews_path
   end
 
+  # TODO: Update data request export to use new agreement_variables.
   # GET /agreements/export
   def export
     @csv_string = CSV.generate do |csv|

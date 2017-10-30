@@ -1,13 +1,14 @@
 - if @data_request
   - agreement_variable = @data_request.agreement_variables.find_by(final_legal_document_variable_id: variable.id)
   - value = (agreement_variable ? agreement_variable.value : "")
+  - value = @data_request.user.email if value.blank? && variable.name == "email" && variable.variable_type == "email"
 - else
   - value = ""
 
 - case variable.variable_type
 - when "checkbox"
   = render "legal_documents/outline/check_box", variable: variable, editable: editable, reviewer: reviewer, value: value
-- when "text"
+- when "text", "email"
   = render "legal_documents/outline/#{variable.variable_type}", variable: variable, editable: editable, reviewer: reviewer, value: value
 - else
   = render "legal_documents/outline/string", variable: variable, editable: editable, reviewer: reviewer, value: value

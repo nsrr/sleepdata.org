@@ -9,7 +9,7 @@
         .dashboard-title
           %strong Current Data Request
           .float-right= link_to "view all", data_requests_path, class: "btn btn-light btn-sm"
-
+          -# TODO: Update path to "resume request" if applicable
         = link_to "Data Request ##{current_data_request.agreement_number}", data_requests_path
         %br
         = status_helper(current_data_request)

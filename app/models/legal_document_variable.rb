@@ -7,7 +7,8 @@ class LegalDocumentVariable < ApplicationRecord
     ["String", "string"],
     ["Text", "text"],
     ["Check box", "checkbox"],
-    ["Radio", "radio"]
+    ["Radio", "radio"],
+    ["Email", "email"]
   ]
 
   # Concerns
