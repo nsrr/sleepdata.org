@@ -33,65 +33,6 @@
     .agreement-heading= final_legal_document_page.title
     = legal_markdown final_legal_document_page, reviewer: true
 
-  - if false
-    - @agreement = @data_request
-    %div{ style: "margin-bottom: 40px;" }
-      = render "agreements/show/step1/title"
-
-    %p
-      = render "agreements/show/step1/part1"
-      %mark= @data_request.data_user
-      = surround "(", ")." do
-        %strong "Data User"
-
-    = render "agreements/show/step1/part2"
-    = render "agreements/show/step1/part3"
-
-
-    = render "agreements/show/step2/part1"
-
-    - if @data_request.title_of_project.present?
-      %p
-        %strong
-          %mark= @data_request.title_of_project
-    - if @data_request.specific_purpose.present?
-      %p
-        %mark= sanitize @data_request.specific_purpose.to_s.gsub("\n", "<br />")
-
-    %ul
-      - @data_request.datasets.each do |dataset|
-        %li
-          %mark= dataset.name
-
-    = render "agreements/show/step2/part2"
-
-    = render "agreements/show/step3/part1"
-
-    = render "agreements/show/step3/part2"
-
-    %p
-      - case @data_request.posting_permission when "all"
-        %mark
-          Data User gives BWH permission to post
-          %strong Data User's name
-          and a
-          summary of
-          %strong Data User's Specific Purpose
-          on https://sleepdata.org
-      - when "name_only"
-        %mark
-          Data User gives BWH permission to post
-          %strong Data User's name
-          on https://sleepdata.org
-      - when "none"
-        %mark
-          Data User
-          %strong does not give permission
-          to post Data User's name or a summary of Data User's Specific Purpose on
-          https://sleepdata.org
-
-    = render "agreements/show/step3/part3"
-
 .background-brand-white.p-3.p-md-4.p-lg-5.mb-3
   .dashboard-container-title
     Agreed to by:

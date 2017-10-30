@@ -48,7 +48,9 @@ class Agreement < ApplicationRecord
   attr_accessor :draft_mode, :full_mode
 
   # Concerns
-  include Deletable, Latexable, Forkable
+  include Deletable
+  include Latexable
+  include Forkable
 
   # Scopes
   scope :search, lambda { |arg| where( 'agreements.user_id in (select users.id from users where LOWER(users.first_name) LIKE ? or LOWER(users.last_name) LIKE ? or LOWER(users.email) LIKE ? )', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ).references(:users) }

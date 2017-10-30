@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# TODO: Remove or refactor
+
 # Helps display status of agreements
 module AgreementsHelper
   def status_helper_simple(agreement)
