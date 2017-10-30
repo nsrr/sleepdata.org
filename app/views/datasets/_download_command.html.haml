@@ -8,12 +8,12 @@
     nsrr download
     = @local_folder
 
-- content_for :footer do
-  .call-to-action
-    .call-to-action-body
-      %strong Don't have the NSRR gem?
-    .call-to-action-body
-      Install using our
-      = link_to "https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites", class: "btn btn-primary btn-shadow" do
-        .d-none.d-sm-inline-block NSRR Gem
-        Installation Instructions
+-# TODO: Fix code jumbotron.
+.jumbotron
+  %p
+    %strong Don't have the NSRR gem?
+  .call-to-action-body
+    Install using our
+    = link_to "https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites", class: "btn btn-primary btn-sm btn-shadow" do
+      .d-none.d-sm-inline-block NSRR Gem
+      Installation Instructions

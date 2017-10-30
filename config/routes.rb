@@ -76,22 +76,22 @@ Rails.application.routes.draw do
 
   resources :agreements do
     collection do
-      get :new_step
-      post :create_step
-      get :submissions
+      # get :new_step
+      # post :create_step
+      # get :submissions
       get :export
     end
     member do
-      get :download
-      get :step
-      patch :update_step
-      get :proof
-      patch :final_submission
-      get :complete
-      get :renew
-      get :download_irb
       get :print
-      delete :destroy_submission
+    #   get :download
+    #   get :step
+    #   patch :update_step
+    #   get :proof
+    #   patch :final_submission
+    #   get :complete
+    #   get :renew
+    #   get :download_irb
+    #   delete :destroy_submission
     end
 
     resources :agreement_events, path: "events" do

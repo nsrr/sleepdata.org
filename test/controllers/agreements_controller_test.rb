@@ -8,12 +8,6 @@ class AgreementsControllerTest < ActionController::TestCase
     @agreement = agreements(:one)
   end
 
-  test "should get irb assistance template for valid user" do
-    login(users(:valid))
-    get :irb_assistance
-    assert_response :success
-  end
-
   test "should get submission start for valid user" do
     skip
     login(users(:valid))

@@ -2,6 +2,11 @@ PDF View Currently Unavailable
 
 %hr
 
+= @data_request.final_legal_document.organization.name
+%br
+National Sleep Research Resource (NSRR)
+%br
+= @data_request.final_legal_document.name
+
 - @data_request.final_legal_document.final_legal_document_pages.each do |final_legal_document_page|
-  .agreement-heading= final_legal_document_page.title
   = legal_markdown final_legal_document_page, reviewer: true

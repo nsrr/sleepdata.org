@@ -15,52 +15,48 @@
 
 -# TODO: Don't show "fill out DAUA if all files (in folder?) are public."
 - content_for :footer do
-  .call-to-action
-    - agreements = (current_user ? @dataset.agreements.where(user_id: current_user.id) : Agreement.none)
-    - if agreement = agreements.find_by(status: "submitted")
-      .call-to-action-body
-        We are currently reviewing your
-        = status_helper_simple(agreement)
-        = succeed "." do
-          = link_to "DAUA", submissions_path
-      .call-to-action-body
-        Please contact us directly at
-        = mail_to ENV["support_email"]
-        with any questions.
-    - elsif agreement = agreements.find_by(status: "resubmit")
-      .call-to-action-body
-        You are required to
-        = status_helper_simple(agreement)
-        your DAUA.
-      .call-to-action-body
-        Please make the changes requested by the reviewer and
-        = succeed "." do
-          = link_to "resubmit your DAUA", submissions_path
-    - elsif agreement = agreements.expired.first
-      - agreement.update status: "expired"
-      .call-to-action-body
-        Your DAUA has
-        = succeed "." do
-          = status_helper_simple(agreement)
-      .call-to-action-body
-        You will need to
-        = link_to "renew your DAUA", submissions_path
-        to continue downloading files.
-    - elsif agreement = agreements.find_by(status: "started")
-      .call-to-action-body
-        Please complete your
-        - if agreement.fully_filled_out?
-          = link_to "DAUA", proof_agreement_path(agreement)
-        - else
-          = link_to "DAUA", step_agreement_path(agreement, step: agreement.current_step)
-        to gain file access.
-      .call-to-action-body
-        You may contact us directly at
-        = mail_to ENV["support_email"]
-        with any questions regarding the process.
+  - dataset = @dataset
+  - if dataset.final_legal_document_for_user(current_user)
+    - data_requests = dataset.data_requests.where(user: current_user).where.not(final_legal_document_id: nil)
+    - if data_request = data_requests.not_expired.find_by(status: "approved")
+      .call-to-action
+        .call-to-action-body
+          %i.fa.fa-check-square
+          Data Access Approved
+    - elsif data_request = data_requests.find_by(status: "submitted")
+      .call-to-action
+        .call-to-action-body
+          -# TODO: Change to preview submitted data request.
+          = link_to data_requests_path do
+            %i.fa.fa-circle-o-notch.fa-spin
+            Data Request Under Review
+    - elsif data_request = data_requests.find_by(status: "resubmit")
+      .call-to-action
+        .call-to-action-body
+          = link_to data_requests_proof_path(data_request) do
+            %i.fa.fa-exclamation-triangle
+            Resubmit Data Request
+    - elsif data_request = data_requests.expired.first
+      .call-to-action
+        .call-to-action-body
+          -# TODO: Better "renew data request path"
+          = link_to data_requests_start_path(dataset) do
+            %i.fa.fa-hourglass-end
+            Data Request Expired
+    - elsif data_request = data_requests.find_by(status: "started")
+      .call-to-action
+        .call-to-action-body
+          - if data_request.complete?
+            = link_to data_requests_proof_path(data_request) do
+              Resume Data Request
+              %i.fa.fa-caret-right
+          - else
+            = link_to data_requests_page_path(data_request, data_request.current_step.positive? ? data_request.current_step : 1) do
+              Resume Data Request
+              %i.fa.fa-caret-right
     - else
-      .call-to-action-body
-        To download files:
-      .call-to-action-body
-        = link_to submissions_start_path(dataset: @dataset), class: "btn btn-primary btn-shadow" do
-          Request data access
+      .call-to-action
+        .call-to-action-body
+          = link_to data_requests_start_path(dataset) do
+            Request Data Access
+            %i.fa.fa-caret-right

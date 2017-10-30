@@ -91,19 +91,3 @@
 
     - else
       No Final Legal Document
-
-
-
-- if false
-  .dashboard-container
-    - (1..5).each do |step|
-      %div{ style: "font-size: 20px;border-bottom: 1px solid #ededed;padding-bottom: 10px;margin-bottom: 20px;" }
-        Step
-        = step
-
-      - unless @data_request.step_valid?(step)
-        .callout.callout-danger
-          %strong Attention
-          This step is not complete.
-
-      = render "agreements/proof/step#{step}"
