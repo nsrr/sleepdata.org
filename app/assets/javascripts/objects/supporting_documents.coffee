@@ -1,3 +1,15 @@
+@setContinueButtonText = (text) ->
+  $("#continue-btn").html("#{text} <i class=\"fa fa-caret-right\"></i>")
+
+@resetUploadContainerText = ->
+  $upload = $("#upload")
+  $percent = $("#percent")
+  $process = $("#process")
+  $upload.html("Drag files (PDFs) here to attach to data request or <a href=\"#{$("#supporting-documents-upload").data("fallback-url")}\">click here</a> to upload documents.")
+  $percent.html("")
+  $process.html("")
+
+
 $(document)
   .on('dragenter', '[data-object~="supporting-documents-dropfile"]', (e) ->
     $(this).addClass('upload-hover')
@@ -76,7 +88,7 @@ $(document)
       $percentbar.addClass("upload-success")
       $process.html("<i class=\"fa fa-check-square-o text-success\"/> <span class=\"text-muted\">Processing complete.</span><br>#{file_count} file#{plural} uploaded. Add more files?")
       $uploadContainer.removeClass("upload-started")
-      $("#continue-btn").html("Continue <i class=\"fa fa-caret-right\"></i>")
+      setContinueButtonText("Continue")
     ).fail( (jqXHR, textStatus, errorThrown) ->
       url = $this.data('fallback-url')
       $percentbar.addClass("upload-failure")

@@ -45,6 +45,7 @@ class SupportingDocumentsController < ApplicationController
   # DELETE /data/requests/:data_request_id/supporting-documents/1.js
   def destroy
     @supporting_document.destroy
+    render :index if @data_request.supporting_documents.count.zero?
   end
 
   private

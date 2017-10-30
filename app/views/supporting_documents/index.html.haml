@@ -14,6 +14,13 @@
           = @title
           %small{ style: "color: #ccc;" } (Optional)
 
+        %p
+          Please attach evidence of IRB review. It is expected the
+          document attached shows the IRB has either a) performed a review
+          of the project and issued an approval, or b) declared that the
+          research project is exempt from review.
+
+
         #supporting-documents-upload.supporting-documents-upload{ data: { object: "supporting-documents-dropfile", upload_url: upload_data_request_supporting_documents_path(format: "js"), fallback_url: new_data_request_supporting_document_path(@data_request) } }
           #upload-bar.supporting-documents-upload-bar
 

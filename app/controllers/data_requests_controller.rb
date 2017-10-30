@@ -329,7 +329,7 @@ class DataRequestsController < ApplicationController
 
   def find_submitted_data_request_or_redirect
     @data_request = current_user.data_requests
-                                .where(status: "submitted")
+                                .where(status: ["submitted", "approved"])
                                 .find_by(id: params[:data_request_id])
     empty_response_or_root_path(datasets_path) unless @data_request && @data_request.datasets.present?
   end

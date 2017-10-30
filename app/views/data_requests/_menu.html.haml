@@ -24,9 +24,7 @@
     - groups << { name: "Addendums", url: addendums.first[:url], docs: addendums } if addendums.present?
     - groups << { name: "Uploads", url: data_request_supporting_documents_path(@data_request), docs: [], count: @data_request.supporting_documents.count }
     - groups << { name: "Proof", url: data_requests_proof_path(@data_request), docs: [] }
-    - groups << { name: "Submitted", url: data_requests_submitted_path(@data_request), docs: [] }
     - groups << { name: "Datasets", url: "#", docs: @data_request.datasets.collect { |d| { name: d.slug.upcase, url: "#" } }}
-    - groups << { name: "Print", url: data_requests_print_path(@data_request), docs: [] }
 
     #sidebar-nav-wrapper.sidebar-nav-wrapper.collapse
       %nav.sidebar-nav
