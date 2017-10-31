@@ -8,12 +8,10 @@
     nsrr download
     = @local_folder
 
--# TODO: Fix code jumbotron.
-.jumbotron
-  %p
-    %strong Don't have the NSRR gem?
-  .call-to-action-body
+.card.mx-auto.text-center{ style: "max-width: 30rem;" }
+  %h4.card-header
+    Don't have the NSRR gem?
+  .card-body
     Install using our
-    = link_to "https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites", class: "btn btn-primary btn-sm btn-shadow" do
-      .d-none.d-sm-inline-block NSRR Gem
-      Installation Instructions
+    = succeed "." do
+      = link_to "NSRR Gem Installation Instructions", "https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites"

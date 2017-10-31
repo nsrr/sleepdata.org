@@ -96,58 +96,6 @@ class RequestController < ApplicationController
     end
   end
 
-  # DAUA Submissions
-
-  def submissions_start
-  end
-
-  def submissions_launch
-    if current_user
-      save_agreement_user
-    else
-      @agreement = Agreement.new
-      render :submissions_about_me
-    end
-  end
-
-  def submissions_register_user
-    @agreement = Agreement.new
-    unless current_user
-      user = User.new(user_params)
-      if RECAPTCHA_ENABLED && !verify_recaptcha
-        @registration_errors = { recaptcha: "reCAPTCHA verification failed." }
-        render :submissions_about_me
-        return
-      elsif user.save
-        user.send_welcome_email_with_password_in_background(params[:user][:password])
-        sign_in(:user, user)
-      else
-        @registration_errors = user.errors
-        render :submissions_about_me
-        return
-      end
-    end
-
-    save_agreement_user
-  end
-
-  def submissions_sign_in_user
-    @agreement = Agreement.new
-    unless current_user
-      user = User.find_by_email params[:email]
-      if user && user.valid_password?(params[:password])
-        sign_in(:user, user)
-      else
-        @sign_in_errors = []
-        @sign_in = true
-        render :submissions_about_me
-        return
-      end
-    end
-
-    save_agreement_user
-  end
-
   def dataset_hosting_start
     @hosting_request = HostingRequest.new
   end
@@ -272,20 +220,6 @@ class RequestController < ApplicationController
       render :contribute_tool_start
     end
   end
-
-  # def save_agreement_user
-  #   dataset = current_user.all_viewable_datasets.find_by_param(params[:dataset])
-  #   if dataset
-  #     @agreement = dataset.agreements.find_by(user_id: current_user.id, status: ["resubmit", "started"])
-  #     @agreement = dataset.agreements.create(user_id: current_user.id) unless @agreement
-  #     redirect_to agreement_start_path(dataset_id: dataset, agreement_id: @agreement.id)
-  #   else
-  #     redirect_to datasets_path
-  #   #   @agreement = current_user.agreements.create(status: "started")
-  #   end
-
-  #   # redirect_to step_agreement_path(@agreement, step: @agreement.current_step)
-  # end
 
   def save_dataset_hosting_user
     @hosting_request.user_id = current_user.id

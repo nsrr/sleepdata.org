@@ -149,13 +149,33 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get submitted" do
     login(users(:two))
-    get data_requests_submitted_url(agreements(:submitted_application))
+    get submitted_data_request_url(agreements(:submitted_application))
     assert_response :success
   end
 
   test "should get print" do
     login(@regular)
-    get data_requests_print_url(@started)
+    get print_data_request_url(@started)
     assert_response :success
+  end
+
+  test "should get show" do
+    # TODO: Get show of data requests with different status, started, submitted, expired (expired other)
+    skip
+    login(users(:two))
+    get submitted_data_request_url(agreements(:submitted_application))
+    assert_response :success
+  end
+
+  test "should get index as regular user" do
+    # TODO: Make sure regular user has data requests in various states.
+    login(users(:regular))
+    get data_requests_url
+    assert_response :success
+  end
+
+  test "should not get index as public user" do
+    get data_requests_url
+    assert_redirected_to new_user_session_path
   end
 end

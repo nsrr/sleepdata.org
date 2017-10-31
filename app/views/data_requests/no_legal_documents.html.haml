@@ -1,5 +1,4 @@
--# TODO: Update to use "final_legal_documents"
-- if @dataset.legal_documents.published.count > 0
+- if @dataset.final_legal_documents.count > 0
   .jumbotron
     .d-flex.mb-5
       .pl-3.pr-4.d-flex.flex-column.justify-content-center
@@ -10,16 +9,16 @@
           = link_to @dataset.name, @dataset
           does not have any data sharing agreements
 
-          - if @dataset.legal_documents.published.where(commercial_type: %w(both commercial)).count.zero?
+          - if @dataset.final_legal_documents.where(commercial_type: %w(both commercial)).count.zero?
             for
             = link_to "commercial entities", data_requests_intended_use_noncommercial_or_commercial_path(@dataset)
-          - elsif @dataset.legal_documents.published.where(commercial_type: %w(both noncommercial)).count.zero?
+          - elsif @dataset.final_legal_documents.where(commercial_type: %w(both noncommercial)).count.zero?
             for
             = link_to "noncommercial entities", data_requests_intended_use_noncommercial_or_commercial_path(@dataset)
-          - elsif @dataset.legal_documents.published.where(data_user_type: %w(both organization)).count.zero?
+          - elsif @dataset.final_legal_documents.where(data_user_type: %w(both organization)).count.zero?
             for
             = link_to "organizations", data_requests_request_as_individual_or_organization_path(@dataset)
-          - elsif @dataset.legal_documents.published.where(data_user_type: %w(both individual)).count.zero?
+          - elsif @dataset.final_legal_documents.where(data_user_type: %w(both individual)).count.zero?
             for
             = link_to "individuals", data_requests_request_as_individual_or_organization_path(@dataset)
 

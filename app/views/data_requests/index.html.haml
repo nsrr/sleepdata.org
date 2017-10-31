@@ -20,7 +20,11 @@
             %span.badge.badge-light= d.slug
         %td= status_helper(data_request)
         %td.text-center
-          = link_to "View", data_requests_page_path(data_request, data_request.current_step.positive? ? data_request.current_step : 1)
+          -# TODO: Better resume links
+          - if %w(started resubmit).include?(data_request.status)
+            = link_to "Resume", data_requests_page_path(data_request, data_request.current_step.positive? ? data_request.current_step : 1)
+          - else
+            = link_to "View", data_request
           -# TODO: Fix deletion of data_request
           - if false
             = link_to data_request, method: :delete, remote: true, data: { confirm: "Delete #{data_request.name}?" }, class: "btn btn-sm btn-outline-danger" do

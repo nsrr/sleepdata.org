@@ -17,10 +17,10 @@ class DataRequestsController < ApplicationController
     :update_individual_or_organization,
     :intended_use_noncommercial_or_commercial,
     :update_noncommercial_or_commercial,
-    :submitted, :print
+    :submitted, :print, :show
   ]
   before_action :find_submitted_data_request_or_redirect, only: [:submitted]
-  before_action :find_any_data_request_or_redirect, only: [:print]
+  before_action :find_any_data_request_or_redirect, only: [:print, :show]
 
   layout "layouts/full_page"
 
@@ -297,12 +297,12 @@ class DataRequestsController < ApplicationController
 
   end
 
-  # GET /data/requests/:data_request_id/submitted
+  # GET /data/requests/:id/submitted
   def submitted
     render layout: "layouts/application"
   end
 
-  # GET /data/requests/:data_request_id/print
+  # GET /data/requests/:id/print
   def print
     @data_request.generate_printed_pdf!
     if @data_request.printed_file.present?
@@ -310,6 +310,11 @@ class DataRequestsController < ApplicationController
     else
       render layout: false
     end
+  end
+
+  # GET /data/requests/:id
+  def show
+    render layout: "layouts/application"
   end
 
   # # GET /data/requests/:data_request_id/resume
@@ -330,14 +335,14 @@ class DataRequestsController < ApplicationController
   def find_submitted_data_request_or_redirect
     @data_request = current_user.data_requests
                                 .where(status: ["submitted", "approved"])
-                                .find_by(id: params[:data_request_id])
+                                .find_by(id: params[:id])
     empty_response_or_root_path(datasets_path) unless @data_request && @data_request.datasets.present?
   end
 
   def find_any_data_request_or_redirect
     @data_request = current_user.data_requests
                                 .includes(:final_legal_document)
-                                .find_by(id: params[:data_request_id])
+                                .find_by(id: params[:id])
     empty_response_or_root_path(datasets_path) unless @data_request && @data_request.datasets.present?
   end
 

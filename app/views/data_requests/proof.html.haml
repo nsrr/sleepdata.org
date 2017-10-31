@@ -1,3 +1,4 @@
+- @title = "Proof"
 - content_for :container_class, "container-fluid"
 
 .container-fluid
@@ -9,16 +10,6 @@
     %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
       .page-box.last-box
         .agreement-heading= @title
-
-        - if @data_request.complete?
-          .alert.alert-success.text-center.box-shadow
-            %strong Data request ready to submit.
-            Click submit below to complete data request.
-        - else
-          .alert.alert-danger.text-center.box-shadow
-            %strong Data request incomplete.
-            Missing required fields.
-
 
         = form_with url: data_requests_submit_path(@data_request), method: :post, local: true, id: "data-request-form" do
           = hidden_field_tag "data_request[draft_mode]", nil

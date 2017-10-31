@@ -138,11 +138,13 @@ Rails.application.routes.draw do
     get :signature, path: ":data_request_id/signature"
     get :duly_authorized_representative_signature, path: ":data_request_id/duly-authorized-representative/signature"
     post :submit, path: ":data_request_id/proof"
-    get :submitted, path: ":data_request_id/submitted"
-    get :print, path: ":data_request_id/print"
   end
 
-  resources :data_requests, path: "data/requests", only: :index do
+  resources :data_requests, path: "data/requests", only: [:index, :show] do
+    member do
+      get :submitted
+      get :print
+    end
     resources :supporting_documents, path: "supporting-documents", except: [:edit, :update] do
       collection do
         post :upload, action: :create_multiple
@@ -254,7 +256,6 @@ Rails.application.routes.draw do
   scope module: :internal do
     get :dashboard
     get :profile
-    get :submissions
     # TODO: ENABLE THESE
     # get :settings
     # get :tools
@@ -306,10 +307,10 @@ Rails.application.routes.draw do
     patch "dataset/hosting", action: "dataset_hosting_sign_in_user", as: :dataset_hosting_sign_in_user
     get "dataset/hosting/submitted", action: "dataset_hosting_submitted", as: :dataset_hosting_submitted
 
-    get "submissions/start", action: "submissions_start", as: :submissions_start
-    post "submissions/start", action: "submissions_launch", as: :submissions_launch
-    post "submissions/register", action: "submissions_register_user", as: :submissions_register_user
-    patch "submissions/sign_in", action: "submissions_sign_in_user", as: :submissions_sign_in_user
+    # get "submissions/start", action: "submissions_start", as: :submissions_start
+    # post "submissions/start", action: "submissions_launch", as: :submissions_launch
+    # post "submissions/register", action: "submissions_register_user", as: :submissions_register_user
+    # patch "submissions/sign_in", action: "submissions_sign_in_user", as: :submissions_sign_in_user
   end
 
   scope module: :search do
@@ -357,15 +358,12 @@ Rails.application.routes.draw do
 
   resources :users
 
-  get "/dua" => "internal#submissions"
-  get "/daua" => "internal#submissions"
+  get "/submissions", to: redirect("data/requests")
 
   get "/settings" => "users#settings", as: :settings
   patch "/settings" => "users#update_settings", as: :update_settings
   get "/change_password", to: redirect("settings"), as: :change_password_settings
   patch "/change_password" => "users#change_password", as: :change_password
-
-  get "/daua/irb-assistance" => "agreements#irb_assistance", as: :irb_assistance
 
   # In case "failed submission steps are reloaded using get request"
   get "/agreements/:id/final_submission" => "agreements#proof"

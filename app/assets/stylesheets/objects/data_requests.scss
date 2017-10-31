@@ -29,7 +29,7 @@
     background-color: rgba($p500-green, .8);
   }
 
-  &.data-request-tab-under-review {
+  &.data-request-tab-submitted {
     background-color: rgba($p500-blue, .8);
   }
 
@@ -41,8 +41,7 @@
     background-color: rgba($p500-grey, .8);
   }
 
-  &.data-request-tab-submit,
-  &.data-request-tab-request-access {
+  &.data-request-tab-started {
     background-color: rgba($p500-blue, .8);
   }
 

@@ -1,62 +1,18 @@
 - current_user_is_editor = (current_user && @dataset.editors.pluck(:id).include?(current_user.id) ? true : false)
 
-%div
-  - if @dataset_files.size == 0
-    .jumbotron
-      %p.text-center No Files
-  - else
-    %table.table.table-sm.table-hover.table-striped
-      %col{ width: "1px" }
-      - @dataset_files.each do |dataset_file|
-        %tr{ class: "#{"warning" if dataset_file.file_name == params[:f]} #{"info" if current_user_is_editor && dataset_file.file_checksum_md5.blank? && dataset_file.is_file?}", id: "dataset-file-#{dataset_file.id}-container" }
-          = render "dataset_files/dataset_file", dataset_file: dataset_file
+- if @dataset_files.present?
+  %table.table.table-sm.table-hover.table-striped
+    %col{ width: "1px" }
+    - @dataset_files.each do |dataset_file|
+      - table_classes = []
+      - table_classes << "table-warning" if dataset_file.file_name == params[:f]
+      - table_classes << "table-primary" if current_user_is_editor && dataset_file.file_checksum_md5.blank? && dataset_file.is_file?
+      %tr.tr-align-middle{ class: table_classes, id: "dataset-file-#{dataset_file.id}-container" }
+        = render "dataset_files/dataset_file", dataset_file: dataset_file
 
-= render "datasets/download_command"
-
--# TODO: Don't show "fill out DAUA if all files (in folder?) are public."
-- content_for :footer do
-  - dataset = @dataset
-  - if dataset.final_legal_document_for_user(current_user)
-    - data_requests = dataset.data_requests.where(user: current_user).where.not(final_legal_document_id: nil)
-    - if data_request = data_requests.not_expired.find_by(status: "approved")
-      .call-to-action
-        .call-to-action-body
-          %i.fa.fa-check-square
-          Data Access Approved
-    - elsif data_request = data_requests.find_by(status: "submitted")
-      .call-to-action
-        .call-to-action-body
-          -# TODO: Change to preview submitted data request.
-          = link_to data_requests_path do
-            %i.fa.fa-circle-o-notch.fa-spin
-            Data Request Under Review
-    - elsif data_request = data_requests.find_by(status: "resubmit")
-      .call-to-action
-        .call-to-action-body
-          = link_to data_requests_proof_path(data_request) do
-            %i.fa.fa-exclamation-triangle
-            Resubmit Data Request
-    - elsif data_request = data_requests.expired.first
-      .call-to-action
-        .call-to-action-body
-          -# TODO: Better "renew data request path"
-          = link_to data_requests_start_path(dataset) do
-            %i.fa.fa-hourglass-end
-            Data Request Expired
-    - elsif data_request = data_requests.find_by(status: "started")
-      .call-to-action
-        .call-to-action-body
-          - if data_request.complete?
-            = link_to data_requests_proof_path(data_request) do
-              Resume Data Request
-              %i.fa.fa-caret-right
-          - else
-            = link_to data_requests_page_path(data_request, data_request.current_step.positive? ? data_request.current_step : 1) do
-              Resume Data Request
-              %i.fa.fa-caret-right
-    - else
-      .call-to-action
-        .call-to-action-body
-          = link_to data_requests_start_path(dataset) do
-            Request Data Access
-            %i.fa.fa-caret-right
+  = render "datasets/download_command"
+- else
+  .card.background-p50-grey.border-light
+    .card-body.text-center.text-muted{ style: "font-size: 1.5rem;" }
+      %i.fa.fa-files-o
+      No Files

@@ -4,10 +4,6 @@
 
 # Helps display status of agreements
 module AgreementsHelper
-  def status_helper_simple(agreement)
-    content_tag(:span, agreement.status)
-  end
-
   def status_helper(agreement)
     content_tag(
       :span, agreement.status,

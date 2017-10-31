@@ -204,17 +204,6 @@ class RequestControllerTest < ActionController::TestCase
     assert_redirected_to new_user_session_path
   end
 
-  test "should get submissions start as public user" do
-    get :submissions_start, params: { dataset: "wecare" }
-    assert_response :success
-  end
-
-  test "should get submissions start as regular user" do
-    login(users(:valid))
-    get :submissions_start, params: { dataset: "wecare" }
-    assert_response :success
-  end
-
   test "should get tool request" do
     get :tool_request
     assert_response :success
@@ -361,14 +350,5 @@ class RequestControllerTest < ActionController::TestCase
     login(users(:valid))
     get :dataset_hosting_submitted
     assert_response :success
-  end
-
-  test "should launch a new submission as a regular user" do
-    skip # TODO: Make test use new DAUA submission process.
-    login(users(:contributor))
-    post :submissions_launch, params: { dataset: datasets(:released) }
-    assert_equal "started", assigns(:agreement).status
-    assert_equal [datasets(:released)], assigns(:agreement).datasets.to_a
-    assert_redirected_to step_agreement_path(assigns(:agreement), step: assigns(:agreement).current_step)
   end
 end

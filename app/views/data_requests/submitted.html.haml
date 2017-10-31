@@ -44,7 +44,7 @@
     %i.fa.fa-th-list
     Review My Data Requests
   &nbsp;
-  = link_to data_requests_print_path(@data_request), class: "btn btn-primary btn-shadow", data: { turbolinks: false } do
+  = link_to [:print, @data_request], class: "btn btn-primary btn-shadow", data: { turbolinks: false } do
     %i.fa.fa-print
     Print Data Request
 

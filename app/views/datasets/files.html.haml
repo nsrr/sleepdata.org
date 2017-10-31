@@ -2,6 +2,12 @@
 
 = render "datasets/header"
 
+- if current_page?([:files, @dataset])
+  - content_for :header do
+    .d-flex.justify-content-center.data-request-tab-sticky
+      .background-fixed-image.data-request-tab-background
+        = render "datasets/request", dataset: @dataset
+
 - path = params[:path]
 - page = [params[:page].to_i - 1, 0].max
 
