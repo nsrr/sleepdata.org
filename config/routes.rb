@@ -306,11 +306,6 @@ Rails.application.routes.draw do
     post "dataset/hosting", action: "dataset_hosting_register_user", as: :dataset_hosting_register_user
     patch "dataset/hosting", action: "dataset_hosting_sign_in_user", as: :dataset_hosting_sign_in_user
     get "dataset/hosting/submitted", action: "dataset_hosting_submitted", as: :dataset_hosting_submitted
-
-    # get "submissions/start", action: "submissions_start", as: :submissions_start
-    # post "submissions/start", action: "submissions_launch", as: :submissions_launch
-    # post "submissions/register", action: "submissions_register_user", as: :submissions_register_user
-    # patch "submissions/sign_in", action: "submissions_sign_in_user", as: :submissions_sign_in_user
   end
 
   scope module: :search do

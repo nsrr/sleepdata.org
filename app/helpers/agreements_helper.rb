@@ -23,14 +23,6 @@ module AgreementsHelper
     end
   end
 
-  def step_helper_2(agreement, step)
-    if step != 6 && agreement.step_valid?(step)
-      "fa-check-square-o"
-    else
-      "fa-square-o"
-    end
-  end
-
   def status_hash
     {
       "started" => "warning",
