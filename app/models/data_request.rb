@@ -97,13 +97,17 @@ class DataRequest < Agreement
       if variable.variable_type == "checkbox" && agreement_variable&.value == "1"
         response_count += 1
       elsif variable.variable_type != "checkbox" && agreement_variable&.value.present?
-        response_count += 1 
+        response_count += 1
       end
     end
     [response_count, variable_count]
   end
 
   def complete?
-    attestation_complete? && pages_complete?
+    attestation_complete? && pages_complete? && datasets.count.positive?
+  end
+
+  def incomplete?
+    !complete?
   end
 end

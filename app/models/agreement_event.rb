@@ -11,7 +11,9 @@ class AgreementEvent < ApplicationRecord
                 ['reviewer_changed_from_approved_to_rejected', 'reviewer_changed_from_approved_to_rejected'],
                 ['user_resubmitted', 'user_resubmitted'],
                 ['principal_reviewer_required_resubmission', 'principal_reviewer_required_resubmission'],
-                ['principal_reviewer_approved', 'principal_reviewer_approved'],
+                ["principal_reviewer_approved", "principal_reviewer_approved"],
+                ["principal_reviewer_closed", "principal_reviewer_closed"], # TODO: Add partial for "principal reviewer closed" event
+                ["principal_reviewer_expired", "principal_reviewer_expired"], # TODO: Add partial for "principal reviewer expired" event
                 ['tags_updated', 'tags_updated']]
 
   # Concerns

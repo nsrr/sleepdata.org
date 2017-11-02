@@ -257,44 +257,24 @@ class DataRequestsController < ApplicationController
     if params.dig(:data_request, :draft_mode) == "1"
       redirect_to data_requests_path, notice: "Data request draft saved successfully."
     elsif @data_request.complete?
+      current_time = Time.zone.now
       if @data_request.status == "resubmit"
-        @data_request.update(
-          status: "submitted",
-          resubmitted_at: Time.zone.now
-        )
+        hash = { status: "submitted", resubmitted_at: current_time, last_submitted_at: current_time }
+        event_type = "user_resubmitted"
       else
-        @data_request.update(
-          status: "submitted",
-          submitted_at: Time.zone.now
-        )
+        hash = { status: "submitted", submitted_at: current_time, last_submitted_at: current_time }
+        event_type = "user_submitted"
       end
-
-      redirect_to data_requests_submitted_path(@data_request)
-
-    # TODO: Implement submission.
-  # current_time = Time.zone.now
-  # if @agreement.status == "resubmit"
-  #   hash = { status: "submitted", resubmitted_at: current_time, last_submitted_at: current_time }
-  #   event_type = "user_resubmitted"
-  # else
-  #   hash = { status: "submitted", submitted_at: current_time, last_submitted_at: current_time }
-  #   event_type = "user_submitted"
-  # end
-
-  # if !@agreement.fully_filled_out?
-  #   render "proof"
-  # elsif AgreementTransaction.save_agreement!(@agreement, hash, current_user, request.remote_ip, "agreement_update")
-  #   @agreement.agreement_events.create event_type: event_type, user_id: current_user.id, event_at: current_time
-  #   @agreement.daua_submitted_in_background
-  #   redirect_to complete_agreement_path(@agreement)
-  # else
-  #   redirect_to submissions_path
-  # end
-
+      if AgreementTransaction.save_agreement!(@data_request, hash, current_user, request.remote_ip, "agreement_update")
+        @data_request.agreement_events.create(event_type: event_type, user: current_user, event_at: current_time)
+        @data_request.daua_submitted_in_background
+        redirect_to [:submitted, @data_request]
+      else
+        render :proof
+      end
     else
       redirect_to data_requests_proof_path(@data_request), notice: "Please fill out all required fields."
     end
-
   end
 
   # GET /data/requests/:id/submitted
@@ -329,21 +309,21 @@ class DataRequestsController < ApplicationController
                                 .submittable
                                 .includes(:final_legal_document)
                                 .find_by(id: params[:data_request_id])
-    empty_response_or_root_path(datasets_path) unless @data_request && @data_request.datasets.present?
+    empty_response_or_root_path(datasets_path) unless @data_request && @data_request.datasets.count.positive?
   end
 
   def find_submitted_data_request_or_redirect
     @data_request = current_user.data_requests
                                 .where(status: ["submitted", "approved"])
                                 .find_by(id: params[:id])
-    empty_response_or_root_path(datasets_path) unless @data_request && @data_request.datasets.present?
+    empty_response_or_root_path(datasets_path) unless @data_request && @data_request.datasets.count.positive?
   end
 
   def find_any_data_request_or_redirect
     @data_request = current_user.data_requests
                                 .includes(:final_legal_document)
                                 .find_by(id: params[:id])
-    empty_response_or_root_path(datasets_path) unless @data_request && @data_request.datasets.present?
+    empty_response_or_root_path(datasets_path) unless @data_request && @data_request.datasets.count.positive?
   end
 
   def send_signature(attribute)

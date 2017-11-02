@@ -1,5 +1,6 @@
 <% pw = User.new(password: 'password').encrypted_password %>
 
+# TODO: Remove valid user (replace with "regular" user.)
 valid:
   first_name: FirstName
   last_name: LastName
@@ -18,6 +19,98 @@ regular2:
   first_name: Regular2
   last_name: User2
   email: regular2@example.com
+
+regular3:
+  first_name: Regular3
+  last_name: User3
+  email: regular3@example.com
+
+regular4:
+  first_name: Regular4
+  last_name: User4
+  email: regular4@example.com
+
+regular5:
+  first_name: Regular5
+  last_name: User5
+  email: regular5@example.com
+
+regular6:
+  first_name: Regular6
+  last_name: User6
+  email: regular6@example.com
+
+regular7:
+  first_name: Regular7
+  last_name: User7
+  email: regular7@example.com
+
+regular8:
+  first_name: Regular8
+  last_name: User8
+  email: regular8@example.com
+
+regular9:
+  first_name: Regular9
+  last_name: User9
+  email: regular9@example.com
+
+regular10:
+  first_name: Regular10
+  last_name: User10
+  email: regular10@example.com
+
+regular11:
+  first_name: Regular11
+  last_name: User11
+  email: regular11@example.com
+
+regular12:
+  first_name: Regular12
+  last_name: User12
+  email: regular12@example.com
+
+regular13:
+  first_name: Regular13
+  last_name: User13
+  email: regular13@example.com
+
+regular14:
+  first_name: Regular14
+  last_name: User14
+  email: regular14@example.com
+
+regular15:
+  first_name: Regular15
+  last_name: User15
+  email: regular15@example.com
+
+regular16:
+  first_name: Regular16
+  last_name: User16
+  email: regular16@example.com
+
+# Users requesting access to `unreleased` dataset.
+
+insider0:
+  first_name: Insider0
+  last_name: User
+  email: insider0@example.com
+
+insider1:
+  first_name: Insider1
+  last_name: User
+  email: insider1@example.com
+
+insider2:
+  first_name: Insider2
+  last_name: User
+  email: insider2@example.com
+
+insider3:
+  first_name: Insider3
+  last_name: User
+  email: insider3@example.com
 
 # User requesting access to Org Two's datasets.
 orgtwo_regular:
@@ -70,7 +163,7 @@ deleted:
   email: deleted@example.com
   encrypted_password: ""
 
-# An editor on the admin public dataset
+# An editor on the released dataset
 editor:
   first_name: EditorFirst
   last_name: EditorLast
@@ -78,11 +171,11 @@ editor:
   encrypted_password: ""
   authentication_token: D-FCa_ZUqLc2Mtaqp_9k
 
-# An editor on the admin private dataset
-editor_on_private:
+# An editor on the unreleased dataset
+editor_on_unreleased:
   first_name: EditorSecond
   last_name: EditorSecond
-  email: editor_on_private@example.com
+  email: editor_on_unreleased@example.com
   encrypted_password: ""
 
 # An AUG member
@@ -130,15 +223,14 @@ editor_mixed:
   email: editor_mixed@example.com
   encrypted_password: ""
 
-# A valid user with no submissions in place
-valid_with_no_submissions:
-  first_name: Valid
-  last_name: Submissionless
+# A valid user with no data requests in place
+regular_no_data_requests:
+  first_name: Regular
+  last_name: No Data Requests
   email: valid_submissionless@example.com
-  encrypted_password: ""
 
 # The following users have different levels of agreements filled out for various datasets
-
+# TODO: Remove below
 has_approved_agreement_for_a_b_not_c:
   first_name: Adam
   last_name: Smith
@@ -180,6 +272,8 @@ has_no_agreement_for_a_b_not_c:
   last_name: Garces
   email: gerrygarces@example.com
   encrypted_password: ""
+# END TODO: Remove above
+
 
 community_manager:
   first_name: Community
@@ -188,26 +282,41 @@ community_manager:
   encrypted_password: ""
   community_manager: true
 
-reviewer_on_public:
+reviewer_on_released:
   first_name: Reviewer
-  last_name: Van Public
-  email: reviewer_on_public@example.com
+  last_name: Van Released
+  email: reviewer_on_released@example.com
   encrypted_password: ""
-  username: reviewer_on_public
+  username: reviewer_on_released
 
-reviewer_two_on_public:
+reviewer_two_on_released:
   first_name: Reviewer Two
-  last_name: Van Public
-  email: reviewer_two_on_public@example.com
+  last_name: Van Released
+  email: reviewer_two_on_released@example.com
   encrypted_password: ""
-  username: reviewer_two_on_public
+  username: reviewer_two_on_released
 
-reviewer_three_on_public:
+reviewer_three_on_released:
   first_name: Reviewer Three
-  last_name: Van Public
-  email: reviewer_three_on_public@example.com
+  last_name: Van Released
+  email: reviewer_three_on_released@example.com
   encrypted_password: ""
-  username: reviewer_three_on_public
+  username: reviewer_three_on_released
+
+principal_reviewer_on_released:
+  first_name: Principal Reviewer
+  last_name: Van Released
+  email: principcal_reviewer_on_released@example.com
+
+principal_reviewer_on_unreleased:
+  first_name: Principal Reviewer
+  last_name: Van Unreleased
+  email: principcal_reviewer_on_unreleased@example.com
+
+viewer_on_unreleased:
+  first_name: Viewer
+  last_name: Van Unreleased
+  email: viewer_on_unreleased@example.com
 
 orgtwo_editor:
   first_name: Orgtwo

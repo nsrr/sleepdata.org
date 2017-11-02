@@ -6,7 +6,7 @@ require "test_helper"
 class SupportingDocumentsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @regular2 = users(:regular2)
-    @uploads = agreements(:uploads)
+    @uploads = data_requests(:uploads)
     @supporting_document = supporting_documents(:one)
   end
 

@@ -9,9 +9,9 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
     @orgtwo_regular = users(:orgtwo_regular)
     @orgthree_regular = users(:orgthree_regular)
     @released = datasets(:released)
-    @started = agreements(:started)
-    @checkbox_attestestation_started = agreements(:checkbox_attestestation_started)
-    @simple_started = agreements(:simple_started)
+    @started = data_requests(:started)
+    @checkbox_attestestation_started = data_requests(:checkbox_attestestation_started)
+    @simple_started = data_requests(:simple_started)
   end
 
   test "should get start for simple legal document" do
@@ -147,24 +147,120 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should submit completed data request" do
+    data_request = data_requests(:completed)
+    login(data_request.user)
+    post data_requests_submit_url(data_request)
+    data_request.reload
+    assert_equal "submitted", data_request.status
+    assert_not_nil data_request.submitted_at
+    assert_not_nil data_request.last_submitted_at
+    assert_redirected_to submitted_data_request_url(data_request)
+  end
+
+  test "should not submit incomplete data request missing attestation" do
+    data_request = data_requests(:incomplete_missing_attestation)
+    login(data_request.user)
+    post data_requests_submit_url(data_request)
+    data_request.reload
+    assert_equal "started", data_request.status
+    assert_nil data_request.submitted_at
+    assert_nil data_request.last_submitted_at
+    assert_equal "Please fill out all required fields.", flash[:notice]
+    assert_redirected_to data_requests_proof_url(data_request)
+  end
+
+  test "should not submit incomplete data request missing required variable" do
+    data_request = data_requests(:incomplete_missing_required_variable)
+    login(data_request.user)
+    post data_requests_submit_url(data_request)
+    data_request.reload
+    assert_equal "started", data_request.status
+    assert_nil data_request.submitted_at
+    assert_nil data_request.last_submitted_at
+    assert_equal "Please fill out all required fields.", flash[:notice]
+    assert_redirected_to data_requests_proof_url(data_request)
+  end
+
+  test "should not submit incomplete data request missing datasets" do
+    data_request = data_requests(:incomplete_missing_datasets)
+    login(data_request.user)
+    post data_requests_submit_url(data_request)
+    data_request.reload
+    assert_equal "started", data_request.status
+    assert_nil data_request.submitted_at
+    assert_nil data_request.last_submitted_at
+    assert_redirected_to datasets_url
+  end
+
   test "should get submitted" do
-    login(users(:two))
-    get submitted_data_request_url(agreements(:submitted_application))
+    data_request = data_requests(:submitted)
+    login(data_request.user)
+    get submitted_data_request_url(data_request)
     assert_response :success
   end
 
   test "should get print" do
-    login(@regular)
-    get print_data_request_url(@started)
+    data_request = data_requests(:submitted)
+    login(data_request.user)
+    get print_data_request_url(data_request)
     assert_response :success
   end
 
-  test "should get show" do
-    # TODO: Get show of data requests with different status, started, submitted, expired (expired other)
-    skip
-    login(users(:two))
-    get submitted_data_request_url(agreements(:submitted_application))
+  test "should get show for started data request" do
+    data_request = data_requests(:started)
+    login(data_request.user)
+    get data_request_url(data_request)
     assert_response :success
+  end
+
+  test "should get show for submitted data request" do
+    data_request = data_requests(:submitted)
+    login(data_request.user)
+    get data_request_url(data_request)
+    assert_response :success
+  end
+
+  test "should get show for approved data request" do
+    data_request = data_requests(:approved)
+    login(data_request.user)
+    get data_request_url(data_request)
+    assert_response :success
+  end
+
+  test "should get show for resubmit data request" do
+    data_request = data_requests(:resubmit)
+    login(data_request.user)
+    get data_request_url(data_request)
+    assert_response :success
+  end
+
+  test "should get show for expired data request" do
+    data_request = data_requests(:expired)
+    login(data_request.user)
+    get data_request_url(data_request)
+    assert_response :success
+  end
+
+  test "should get show for approved that expired data request" do
+    data_request = data_requests(:approved_that_expired)
+    login(data_request.user)
+    get data_request_url(data_request)
+    assert_response :success
+  end
+
+  test "should get show for closed data request" do
+    data_request = data_requests(:closed)
+    login(data_request.user)
+    get data_request_url(data_request)
+    assert_response :success
+  end
+
+  test "should not get show for deleted data request" do
+    data_request = data_requests(:deleted)
+    login(data_request.user)
+    get data_request_url(data_request)
+    assert_redirected_to datasets_url # TODO: perhaps data_requests_url instead?
   end
 
   test "should get index as regular user" do

@@ -1,9 +1,9 @@
 added_academic:
-  agreement_event: submitted_tagged
+  agreement_event: submitted_three_tagged
   tag: academic
   added: true
 
 added_publication:
-  agreement_event: submitted_tagged
+  agreement_event: submitted_three_tagged
   tag: publication
   added: true

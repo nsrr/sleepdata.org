@@ -3,10 +3,10 @@
 # Allows users to view dataset documentation and download files
 class DatasetsController < ApplicationController
   before_action :authenticate_user_from_token!, only: [
-    :show, :json_manifest, :manifest, :files, :editor, :index
+    :show, :json_manifest, :files, :editor, :index
   ]
   before_action :find_viewable_dataset_or_redirect, only: [
-    :show, :json_manifest, :manifest, :files, :access, :editor, :logo, :images,
+    :show, :json_manifest, :files, :access, :editor, :logo, :images,
     :pages, :search, :folder_progress
   ]
   before_action :find_dataset_file, only: [:files, :access, :json_manifest]

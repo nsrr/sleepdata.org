@@ -50,14 +50,14 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
     assert_difference("DatasetUser.count", 0) do
       post :create_access, params: {
         id: @dataset,
-        user_email: "#{users(:reviewer_on_public).name} [#{users(:reviewer_on_public).email}]",
+        user_email: "#{users(:reviewer_on_released).name} [#{users(:reviewer_on_released).email}]",
         role: "reviewer"
       }
     end
     assert_not_nil assigns(:dataset_user)
     assert_nil assigns(:dataset_user).approved
     assert_equal "reviewer", assigns(:dataset_user).role
-    assert_equal users(:reviewer_on_public), assigns(:dataset_user).user
+    assert_equal users(:reviewer_on_released), assigns(:dataset_user).user
     assert_redirected_to collaborators_dataset_path(assigns(:dataset), dataset_user_id: assigns(:dataset_user).id)
   end
 
@@ -68,27 +68,27 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
   end
 
   test "should reset index as editor" do
-    login(users(:editor_mixed))
-    post :reset_index, params: { id: datasets(:mixed), path: nil }
+    login(users(:editor))
+    post :reset_index, params: { id: datasets(:released), path: nil }
     assert_redirected_to files_dataset_path(assigns(:dataset), path: "")
   end
 
   test "should not reset index as viewer" do
     login(users(:valid))
-    post :reset_index, params: { id: datasets(:mixed), path: nil }
+    post :reset_index, params: { id: datasets(:released), path: nil }
     assert_redirected_to datasets_path
   end
 
   test "should not reset index as anonymous" do
-    post :reset_index, params: { id: datasets(:mixed), path: nil }
+    post :reset_index, params: { id: datasets(:released), path: nil }
     assert_redirected_to new_user_session_path
   end
 
   test "should set file as public as editor" do
-    login(users(:editor_mixed))
+    login(users(:editor))
     assert_difference("DatasetFile.where(publicly_available: true).count") do
       post :set_public_file, params: {
-        id: datasets(:mixed),
+        id: datasets(:released),
         path: "NOT_PUBLIC_YET.txt",
         public: "1"
       }, format: "js"
@@ -98,11 +98,11 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
   end
 
   test "should set file as private as editor" do
-    login(users(:editor_mixed))
+    login(users(:editor))
     assert_difference("DatasetFile.where(publicly_available: true).count", -1) do
       post :set_public_file, params: {
-        id: datasets(:mixed),
-        path: dataset_files(:mixed_public_file_txt).full_path,
+        id: datasets(:released),
+        path: dataset_files(:released_public_file_txt).full_path,
         public: "0"
       }, format: "js"
     end
@@ -111,10 +111,10 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
   end
 
   test "should set file in subfolder as public as editor" do
-    login(users(:editor_mixed))
+    login(users(:editor))
     assert_difference("DatasetFile.where(publicly_available: true).count") do
       post :set_public_file, params: {
-        id: datasets(:mixed),
+        id: datasets(:released),
         path: "subfolder/IN_SUBFOLDER_NOT_PUBLIC_YET.txt",
         public: "1"
       }, format: "js"
@@ -124,10 +124,10 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
   end
 
   test "should set file in subfolder as private as editor" do
-    login(users(:editor_mixed))
+    login(users(:editor))
     assert_difference("DatasetFile.where(publicly_available: true).count", -1) do
       post :set_public_file, params: {
-        id: datasets(:mixed),
+        id: datasets(:released),
         path: "subfolder/IN_SUBFOLDER_PUBLIC_FILE.txt",
         public: "0"
       }, format: "js"
@@ -140,7 +140,7 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
     login(users(:valid))
     assert_difference("DatasetFile.where(publicly_available: true).count", 0) do
       post :set_public_file, params: {
-        id: datasets(:mixed),
+        id: datasets(:released),
         path: "NOT_PUBLIC_YET.txt",
         public: "1"
       }, format: "js"
@@ -152,7 +152,7 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
   test "should not set file as public as anonymous" do
     assert_difference("DatasetFile.where(publicly_available: true).count", 0) do
       post :set_public_file, params: {
-        id: datasets(:mixed),
+        id: datasets(:released),
         path: "NOT_PUBLIC_YET.txt",
         public: "1"
       }, format: "js"

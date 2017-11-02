@@ -1,124 +1,90 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 # Tests that mail views are rendered correctly, sent to correct user, and have a
 # correct subject line.
 class UserMailerTest < ActionMailer::TestCase
-  test 'reviewer digest email' do
+  test "reviewer digest email" do
     valid = users(:valid)
-
-    email = UserMailer.reviewer_digest(valid).deliver_now
-    assert !ActionMailer::Base.deliveries.empty?
-
-    assert_equal [valid.email], email.to
-    assert_equal "Reviewer Digest for #{Time.zone.today.strftime('%a %d %b %Y')}", email.subject
-    assert_match(/Dear #{valid.first_name},/, email.encoded)
+    mail = UserMailer.reviewer_digest(valid)
+    assert_equal [valid.email], mail.to
+    assert_equal "Reviewer Digest for #{Time.zone.today.strftime("%a %d %b %Y")}", mail.subject
+    assert_match(/Dear #{valid.first_name},/, mail.body.encoded)
   end
 
-  test 'daua submitted email' do
-    agreement = agreements(:one)
+  test "daua submitted email" do
+    agreement = data_requests(:submitted)
     valid = users(:valid)
-
-    # Send the email, then test that it got queued
-    email = UserMailer.daua_submitted(valid, agreement).deliver_now
-    assert !ActionMailer::Base.deliveries.empty?
-
-    # Test the body of the sent email contains what we expect it to
-    assert_equal [valid.email], email.to
-    assert_equal "#{agreement.user.name} Submitted a Data Access and Use Agreement", email.subject
+    mail = UserMailer.daua_submitted(valid, agreement)
+    assert_equal [valid.email], mail.to
+    assert_equal "#{agreement.user.name} Submitted a Data Access and Use Agreement", mail.subject
     assert_match(
       /#{agreement.user.name} \[#{agreement.user.email}\] submitted a Data Access and Use Agreement\./,
-      email.encoded
+      mail.body.encoded
     )
   end
 
-  test 'daua resubmitted email' do
-    agreement = agreements(:resubmit)
+  test "daua resubmitted email" do
+    agreement = data_requests(:resubmitted)
     valid = users(:valid)
-    # Send the email, then test that it got queued
-    email = UserMailer.daua_submitted(valid, agreement).deliver_now
-    assert !ActionMailer::Base.deliveries.empty?
-
-    # Test the body of the sent email contains what we expect it to
-    assert_equal [valid.email], email.to
-    assert_equal "#{agreement.user.name} Resubmitted a Data Access and Use Agreement", email.subject
+    mail = UserMailer.daua_submitted(valid, agreement)
+    assert_equal [valid.email], mail.to
+    assert_equal "#{agreement.user.name} Resubmitted a Data Access and Use Agreement", mail.subject
     assert_match(
       /#{agreement.user.name} \[#{agreement.user.email}\] resubmitted a Data Access and Use Agreement\./,
-      email.encoded
+      mail.body.encoded
     )
   end
 
-  test 'daua approved email' do
-    agreement = agreements(:one)
+  test "daua approved email" do
+    agreement = data_requests(:approved)
     admin = users(:admin)
-
-    # Send the email, then test that it got queued
-    email = UserMailer.daua_approved(agreement, admin).deliver_now
-    assert !ActionMailer::Base.deliveries.empty?
-
-    # Test the body of the sent email contains what we expect it to
-    assert_equal [agreement.user.email], email.to
-    assert_equal 'Your DAUA Submission has been Approved', email.subject
-    assert_match(/Your Data Access and Use Agreement submission has been approved\./, email.encoded)
+    mail = UserMailer.daua_approved(agreement, admin)
+    assert_equal [agreement.user.email], mail.to
+    assert_equal "Your DAUA Submission has been Approved", mail.subject
+    assert_match(/Your Data Access and Use Agreement submission has been approved\./, mail.body.encoded)
   end
 
-  test 'daua sent back for resubmission email' do
-    agreement = agreements(:one)
+  test "daua sent back for resubmission email" do
+    agreement = data_requests(:resubmit)
     admin = users(:admin)
-
-    # Send the email, then test that it got queued
-    email = UserMailer.sent_back_for_resubmission(agreement, admin).deliver_now
-    assert !ActionMailer::Base.deliveries.empty?
-
-    # Test the body of the sent email contains what we expect it to
-    assert_equal [agreement.user.email], email.to
-    assert_equal 'Please Resubmit your DAUA', email.subject
-    assert_match(/Your Data Access and Use Agreement submission was missing required information\./, email.encoded)
+    mail = UserMailer.sent_back_for_resubmission(agreement, admin)
+    assert_equal [agreement.user.email], mail.to
+    assert_equal "Please Resubmit your DAUA", mail.subject
+    assert_match(/Your Data Access and Use Agreement submission was missing required information\./, mail.body.encoded)
   end
 
-  test 'daua progress notification email' do
-    agreement = agreements(:one)
-    agreement_event = agreement_events(:one_approved)
+  test "daua progress notification email" do
+    agreement = data_requests(:approved)
+    agreement_event = agreement_events(:approved_two)
     admin = users(:admin)
-
-    # Send the email, then test that it got queued
-    email = UserMailer.daua_progress_notification(agreement, admin, agreement_event).deliver_now
-    assert !ActionMailer::Base.deliveries.empty?
-
-    # Test the body of the sent email contains what we expect it to
-    assert_equal [admin.email], email.to
-    assert_equal "#{agreement.name}'s DAUA Status Changed to #{agreement.status.titleize}", email.subject
-    assert_match(/#{agreement.user.name}'s DAUA has been approved by FirstAdmin LastAdmin\./, email.encoded)
+    mail = UserMailer.daua_progress_notification(agreement, admin, agreement_event)
+    assert_equal [admin.email], mail.to
+    assert_equal "#{agreement.name}'s DAUA Status Changed to #{agreement.status.titleize}", mail.subject
+    assert_match(
+      /#{agreement.user.name}'s DAUA has been approved by Principal Reviewer Van Released\./,
+      mail.body.encoded
+    )
   end
 
-  test 'mentioned during review of agreement email' do
-    valid = users(:valid)
-    agreement_event = agreement_events(:one_commented)
-
-    # Send the email, then test that it got queued
-    email = UserMailer.mentioned_in_agreement_comment(agreement_event, valid).deliver_now
-    assert !ActionMailer::Base.deliveries.empty?
-
-    # Test the body of the sent email contains what we expect it to
-    assert_equal [valid.email], email.to
-    assert_equal "#{agreement_event.user.name} Mentioned You While Reviewing an Agreement", email.subject
-    assert_match(/#{agreement_event.user.name} mentioned you while reviewing an agreement\./, email.encoded)
+  test "mentioned during review of agreement email" do
+    reviewer = users(:reviewer_two_on_released)
+    agreement_event = agreement_events(:submitted_two_comment)
+    mail = UserMailer.mentioned_in_agreement_comment(agreement_event, reviewer)
+    assert_equal [reviewer.email], mail.to
+    assert_equal "#{agreement_event.user.name} Mentioned You While Reviewing an Agreement", mail.subject
+    assert_match(/#{agreement_event.user.name} mentioned you while reviewing an agreement\./, mail.body.encoded)
   end
 
-  test 'dataset hosting request submitted email' do
+  test "dataset hosting request submitted email" do
     hosting_request = hosting_requests(:one)
-
-    # Send the email, then test that it got queued
-    email = UserMailer.hosting_request_submitted(hosting_request).deliver_now
-    assert !ActionMailer::Base.deliveries.empty?
-
-    # Test the body of the sent email contains what we expect it to
-    assert_equal [ENV['support_email']], email.to
-    assert_equal "#{hosting_request.user.name} - Dataset Hosting Request", email.subject
+    mail = UserMailer.hosting_request_submitted(hosting_request)
+    assert_equal [ENV["support_email"]], mail.to
+    assert_equal "#{hosting_request.user.name} - Dataset Hosting Request", mail.subject
     assert_match(
       /#{hosting_request.user.name} \[#{hosting_request.user.email}\] submitted a Dataset Hosting Request\./,
-      email.encoded
+      mail.body.encoded
     )
   end
 end

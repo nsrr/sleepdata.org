@@ -2,26 +2,17 @@
 
 require "test_helper"
 
-# Allows users to save and submit agreements.
+# Allows reviewers to review data requests.
 class AgreementsControllerTest < ActionController::TestCase
   setup do
-    @agreement = agreements(:one)
-  end
-
-  test "should get submission start for valid user" do
-    skip
-    login(users(:valid))
-    get :new_step
-    assert_not_nil assigns(:agreement)
-    assert_template "wizard/step1"
-    assert_response :success
+    @data_request = data_requests(:submitted)
   end
 
   # TODO: Remove deprecated step wizard
   test "should get step1 when no step is given" do
     skip
     login(users(:valid))
-    get :step, params: { id: agreements(:step1_saved_as_draft) }
+    get :step, params: { id: data_requests(:step1_saved_as_draft) }
     assert_not_nil assigns(:agreement)
     assert_redirected_to step_agreement_path(assigns(:agreement), step: 1)
   end
@@ -29,7 +20,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should get step1 of agreement" do
     skip
     login(users(:valid))
-    get :step, params: { id: agreements(:step1_saved_as_draft), step: 1 }
+    get :step, params: { id: data_requests(:step1_saved_as_draft), step: 1 }
     assert_not_nil assigns(:agreement)
     assert_template "wizard/step1"
     assert_response :success
@@ -38,7 +29,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should not get step1 for submitted agreement" do
     skip
     login(users(:two))
-    get :step, params: { id: agreements(:submitted_application), step: 1 }
+    get :step, params: { id: data_requests(:submitted_application), step: 1 }
     assert_nil assigns(:agreement)
     assert_redirected_to submissions_path
   end
@@ -110,7 +101,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should update step 1 of agreement as individual" do
     skip
     login(users(:valid))
-    patch :update_step, params: { id: agreements(:step1_saved_as_draft), step: "1", agreement: { current_step: "1", data_user: "Valid User", data_user_type: "individual", individual_institution_name: "Institution", individual_title: "Title", individual_telephone: "012-123-2345", individual_address: "123 Abc Road\nCity, State 12345\nUSA", organization_business_name: "", organization_contact_name: "", organization_contact_title: "", organization_contact_telephone: "", organization_contact_email: "", organization_address: "" } }
+    patch :update_step, params: { id: data_requests(:step1_saved_as_draft), step: "1", agreement: { current_step: "1", data_user: "Valid User", data_user_type: "individual", individual_institution_name: "Institution", individual_title: "Title", individual_telephone: "012-123-2345", individual_address: "123 Abc Road\nCity, State 12345\nUSA", organization_business_name: "", organization_contact_name: "", organization_contact_title: "", organization_contact_telephone: "", organization_contact_email: "", organization_address: "" } }
     assert_equal 1, assigns(:step)
     assert_not_nil assigns(:agreement)
     assert_equal 1, assigns(:agreement).current_step
@@ -125,7 +116,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should update step 1 of agreement as organization" do
     skip
     login(users(:valid))
-    patch :update_step, params: { id: agreements(:step1_saved_as_draft), step: "1", agreement: { current_step: "1", data_user: "Valid User", data_user_type: "organization", individual_institution_name: "", individual_title: "", individual_telephone: "", individual_address: "", organization_business_name: "The Company", organization_contact_name: "The Lawyer", organization_contact_title: "Mr. Lawyer", organization_contact_telephone: "098-765-4321", organization_contact_email: "lawyer@example.com", organization_address: "Company Name\n123 Company Way\nCityville, Ohmastate, 12345" } }
+    patch :update_step, params: { id: data_requests(:step1_saved_as_draft), step: "1", agreement: { current_step: "1", data_user: "Valid User", data_user_type: "organization", individual_institution_name: "", individual_title: "", individual_telephone: "", individual_address: "", organization_business_name: "The Company", organization_contact_name: "The Lawyer", organization_contact_title: "Mr. Lawyer", organization_contact_telephone: "098-765-4321", organization_contact_email: "lawyer@example.com", organization_address: "Company Name\n123 Company Way\nCityville, Ohmastate, 12345" } }
     assert_equal 1, assigns(:step)
     assert_not_nil assigns(:agreement)
     assert_equal 1, assigns(:agreement).current_step
@@ -141,7 +132,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should update step 1 of agreement and save draft as individual" do
     skip
     login(users(:valid))
-    patch :update_step, params: { id: agreements(:step1_saved_as_draft), step: "1", agreement: { draft_mode: "1", current_step: "1", data_user: "Valid User", data_user_type: "individual", individual_institution_name: "Institution", individual_title: "", individual_telephone: "", individual_address: "", organization_business_name: "", organization_contact_name: "", organization_contact_title: "", organization_contact_telephone: "", organization_contact_email: "", organization_address: "" } }
+    patch :update_step, params: { id: data_requests(:step1_saved_as_draft), step: "1", agreement: { draft_mode: "1", current_step: "1", data_user: "Valid User", data_user_type: "individual", individual_institution_name: "Institution", individual_title: "", individual_telephone: "", individual_address: "", organization_business_name: "", organization_contact_name: "", organization_contact_title: "", organization_contact_telephone: "", organization_contact_email: "", organization_address: "" } }
     assert_equal 1, assigns(:step)
     assert_not_nil assigns(:agreement)
     assert_equal 1, assigns(:agreement).current_step
@@ -154,7 +145,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should update step 1 of agreement and save draft as organization" do
     skip
     login(users(:valid))
-    patch :update_step, params: { id: agreements(:step1_saved_as_draft), step: "1", agreement: { draft_mode: "1", current_step: "1", data_user: "Valid User", data_user_type: "organization", individual_institution_name: "", individual_title: "", individual_telephone: "", individual_address: "", organization_business_name: "The Company", organization_contact_name: "", organization_contact_title: "", organization_contact_telephone: "", organization_contact_email: "", organization_address: "" } }
+    patch :update_step, params: { id: data_requests(:step1_saved_as_draft), step: "1", agreement: { draft_mode: "1", current_step: "1", data_user: "Valid User", data_user_type: "organization", individual_institution_name: "", individual_title: "", individual_telephone: "", individual_address: "", organization_business_name: "The Company", organization_contact_name: "", organization_contact_title: "", organization_contact_telephone: "", organization_contact_email: "", organization_address: "" } }
     assert_equal 1, assigns(:step)
     assert_not_nil assigns(:agreement)
     assert_equal 1, assigns(:agreement).current_step
@@ -167,7 +158,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should not update and continue if step 1 is partial as individual" do
     skip
     login(users(:valid))
-    patch :update_step, params: { id: agreements(:step1_saved_as_draft), step: "1", agreement: { current_step: "1", data_user: "Valid User", data_user_type: "individual", individual_institution_name: "", individual_title: "", individual_telephone: "", individual_address: "", organization_business_name: "", organization_contact_name: "", organization_contact_title: "", organization_contact_telephone: "", organization_contact_email: "", organization_address: "" } }
+    patch :update_step, params: { id: data_requests(:step1_saved_as_draft), step: "1", agreement: { current_step: "1", data_user: "Valid User", data_user_type: "individual", individual_institution_name: "", individual_title: "", individual_telephone: "", individual_address: "", organization_business_name: "", organization_contact_name: "", organization_contact_title: "", organization_contact_telephone: "", organization_contact_email: "", organization_address: "" } }
     assert_equal 1, assigns(:step)
     assert_not_nil assigns(:agreement)
     assert_equal 1, assigns(:agreement).current_step
@@ -183,7 +174,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should not update and continue if step1 is partial as organization" do
     skip
     login(users(:valid))
-    patch :update_step, params: { id: agreements(:step1_saved_as_draft), step: "1", agreement: { current_step: "1", data_user: "Valid User", data_user_type: "organization", individual_institution_name: "", individual_title: "", individual_telephone: "", individual_address: "", organization_business_name: "", organization_contact_name: "", organization_contact_title: "", organization_contact_telephone: "", organization_contact_email: "", organization_address: "" } }
+    patch :update_step, params: { id: data_requests(:step1_saved_as_draft), step: "1", agreement: { current_step: "1", data_user: "Valid User", data_user_type: "organization", individual_institution_name: "", individual_title: "", individual_telephone: "", individual_address: "", organization_business_name: "", organization_contact_name: "", organization_contact_title: "", organization_contact_telephone: "", organization_contact_email: "", organization_address: "" } }
     assert_equal 1, assigns(:step)
     assert_not_nil assigns(:agreement)
     assert_equal 1, assigns(:agreement).current_step
@@ -201,7 +192,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should get step2 of agreement" do
     skip
     login(users(:valid))
-    get :step, params: { id: agreements(:step1_saved_as_draft), step: 2 }
+    get :step, params: { id: data_requests(:step1_saved_as_draft), step: 2 }
     assert_not_nil assigns(:agreement)
     assert_template "wizard/step2"
     assert_response :success
@@ -211,7 +202,7 @@ class AgreementsControllerTest < ActionController::TestCase
     skip
     login(users(:valid))
     assert_difference("Request.count") do
-      patch :update_step, params: { id: agreements(:step1_saved_as_draft), step: "2", agreement: { current_step: "2", title_of_project: "Title of Project", specific_purpose: "My Specific Purpose Needs to be More than 20 words in order to be sufficiently describe what I will do with the data.", dataset_ids: [0, ActiveRecord::FixtureSet.identify(:public)], intended_use_of_data: "Publication", data_secured_location: "Securly Stored", secured_device: "1", human_subjects_protections_trained: "1" } }
+      patch :update_step, params: { id: data_requests(:step1_saved_as_draft), step: "2", agreement: { current_step: "2", title_of_project: "Title of Project", specific_purpose: "My Specific Purpose Needs to be More than 20 words in order to be sufficiently describe what I will do with the data.", dataset_ids: [0, ActiveRecord::FixtureSet.identify(:public)], intended_use_of_data: "Publication", data_secured_location: "Securly Stored", secured_device: "1", human_subjects_protections_trained: "1" } }
     end
     assert_equal 2, assigns(:step)
     assert_not_nil assigns(:agreement)
@@ -229,7 +220,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should update step 2 of agreement save draft" do
     skip
     login(users(:valid))
-    patch :update_step, params: { id: agreements(:step1_saved_as_draft), step: "2", agreement: { draft_mode: "1", current_step: "2", title_of_project: "", specific_purpose: "", dataset_ids: [0] } }
+    patch :update_step, params: { id: data_requests(:step1_saved_as_draft), step: "2", agreement: { draft_mode: "1", current_step: "2", title_of_project: "", specific_purpose: "", dataset_ids: [0] } }
     assert_equal 2, assigns(:step)
     assert_not_nil assigns(:agreement)
     assert_equal 2, assigns(:agreement).current_step
@@ -241,7 +232,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should get step3 of agreement" do
     skip
     login(users(:valid))
-    get :step, params: { id: agreements(:step1_saved_as_draft), step: 3 }
+    get :step, params: { id: data_requests(:step1_saved_as_draft), step: 3 }
     assert_not_nil assigns(:agreement)
     assert_template "wizard/step3"
     assert_response :success
@@ -250,7 +241,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should get step4 of agreement" do
     skip
     login(users(:valid))
-    get :step, params: { id: agreements(:step1_saved_as_draft), step: 4 }
+    get :step, params: { id: data_requests(:step1_saved_as_draft), step: 4 }
     assert_not_nil assigns(:agreement)
     assert_template "wizard/step4"
     assert_response :success
@@ -259,7 +250,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should get step5 of agreement" do
     skip
     login(users(:valid))
-    get :step, params: { id: agreements(:step1_saved_as_draft), step: 5 }
+    get :step, params: { id: data_requests(:step1_saved_as_draft), step: 5 }
     assert_not_nil assigns(:agreement)
     assert_template "wizard/step5"
     assert_response :success
@@ -268,7 +259,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should get step6 of agreement and redirect to proof" do
     skip
     login(users(:valid))
-    get :step, params: { id: agreements(:step1_saved_as_draft), step: 6 }
+    get :step, params: { id: data_requests(:step1_saved_as_draft), step: 6 }
     assert_not_nil assigns(:agreement)
     assert_template "proof"
     assert_response :success
@@ -277,33 +268,22 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should get submissions when saving as draft" do
     skip
     login(users(:valid))
-    patch :update_step, params: { id: @agreement, agreement: { draft_mode: "1" } }
+    patch :update_step, params: { id: @data_request, agreement: { draft_mode: "1" } }
     assert_redirected_to submissions_path
   end
 
   test "should get proof when saving a filled out application" do
     skip
     login(users(:valid))
-    patch :update_step, params: { id: agreements(:filled_out_application_with_attached_irb_file), step: "7", agreement: { current_step: "7" } }
+    patch :update_step, params: { id: data_requests(:filled_out_application_with_attached_irb_file), step: "7", agreement: { current_step: "7" } }
     assert_not_nil assigns(:agreement)
     assert_redirected_to proof_agreement_path(assigns(:agreement))
-  end
-
-  test "should submit final submission for filled out application" do
-    skip
-    login(users(:valid))
-    patch :final_submission, params: { id: agreements(:filled_out_application_with_attached_irb_file) }
-    assert_not_nil assigns(:agreement)
-    assert_equal [], assigns(:agreement).errors.full_messages
-    assert_equal "submitted", assigns(:agreement).status
-    assert_equal Time.zone.today, assigns(:agreement).submitted_at.to_date
-    assert_redirected_to complete_agreement_path(assigns(:agreement))
   end
 
   test "should download irb pdf for system admin" do
     skip
     login(users(:admin))
-    get :download_irb, params: { id: agreements(:filled_out_application_with_attached_irb_file) }
+    get :download_irb, params: { id: data_requests(:filled_out_application_with_attached_irb_file) }
     assert_not_nil assigns(:data_request)
     assert_kind_of String, response.body
     assert_equal(
@@ -316,7 +296,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should download irb pdf for agreement user" do
     skip
     login(users(:valid))
-    get :download_irb, params: { id: agreements(:filled_out_application_with_attached_irb_file) }
+    get :download_irb, params: { id: data_requests(:filled_out_application_with_attached_irb_file) }
     assert_not_nil assigns(:data_request)
     assert_kind_of String, response.body
     assert_equal(
@@ -329,7 +309,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should not download irb pdf for non agreement user" do
     skip
     login(users(:two))
-    get :download_irb, params: { id: agreements(:filled_out_application_with_attached_irb_file) }
+    get :download_irb, params: { id: data_requests(:filled_out_application_with_attached_irb_file) }
     assert_nil assigns(:data_request)
     assert_redirected_to submissions_path
   end
@@ -337,7 +317,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should get proof agreement for agreement user" do
     skip
     login(users(:valid))
-    get :proof, params: { id: agreements(:filled_out_application_with_attached_irb_file) }
+    get :proof, params: { id: data_requests(:filled_out_application_with_attached_irb_file) }
     assert_not_nil assigns(:agreement)
     assert_response :success
   end
@@ -345,7 +325,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should not get proof agreement for non agreement user" do
     skip
     login(users(:two))
-    get :proof, params: { id: agreements(:filled_out_application_with_attached_irb_file) }
+    get :proof, params: { id: data_requests(:filled_out_application_with_attached_irb_file) }
     assert_nil assigns(:agreement)
     assert_redirected_to submissions_path
   end
@@ -353,7 +333,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should get complete agreement for agreement user" do
     skip
     login(users(:valid))
-    get :complete, params: { id: agreements(:filled_out_application_with_attached_irb_file) }
+    get :complete, params: { id: data_requests(:filled_out_application_with_attached_irb_file) }
     assert_not_nil assigns(:agreement)
     assert_response :success
   end
@@ -361,7 +341,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should not get complete agreement for non agreement user" do
     skip
     login(users(:two))
-    get :complete, params: { id: agreements(:filled_out_application_with_attached_irb_file) }
+    get :complete, params: { id: data_requests(:filled_out_application_with_attached_irb_file) }
     assert_nil assigns(:agreement)
     assert_redirected_to submissions_path
   end
@@ -370,7 +350,7 @@ class AgreementsControllerTest < ActionController::TestCase
     skip
     login(users(:valid))
     assert_difference("Agreement.current.count", -1) do
-      delete :destroy_submission, params: { id: agreements(:filled_out_application_with_attached_irb_file) }
+      delete :destroy_submission, params: { id: data_requests(:filled_out_application_with_attached_irb_file) }
     end
     assert_not_nil assigns(:agreement)
     assert_redirected_to submissions_path
@@ -380,7 +360,7 @@ class AgreementsControllerTest < ActionController::TestCase
     skip
     login(users(:two))
     assert_difference("Agreement.current.count", 0) do
-      delete :destroy_submission, params: { id: agreements(:filled_out_application_with_attached_irb_file) }
+      delete :destroy_submission, params: { id: data_requests(:filled_out_application_with_attached_irb_file) }
     end
     assert_nil assigns(:agreement)
     assert_redirected_to submissions_path
@@ -398,14 +378,14 @@ class AgreementsControllerTest < ActionController::TestCase
   # deprecated
   test "should show agreement" do
     login(users(:admin))
-    get :show, params: { id: @agreement }
+    get :show, params: { id: @data_request }
     assert_redirected_to reviews_path
   end
 
   test "should download pdf" do
     skip
     login(users(:admin))
-    get :download, params: { id: @agreement }
+    get :download, params: { id: @data_request }
     assert_not_nil assigns(:agreement)
     assert_kind_of String, response.body
     assert_equal File.binread(Rails.root.join("test", "support", "data_requests", "blank.pdf")), response.body
@@ -416,7 +396,7 @@ class AgreementsControllerTest < ActionController::TestCase
     skip
     login(users(:admin))
     patch :update, params: {
-      id: agreements(:two),
+      id: data_requests(:two),
       data_request: {
         status: "approved",
         approval_date: "09/20/2014",
@@ -434,7 +414,7 @@ class AgreementsControllerTest < ActionController::TestCase
 
   test "should update agreement and ask user to resubmit" do
     login(users(:admin))
-    patch :update, params: { id: @agreement, data_request: { status: "resubmit", comments: "Please Resubmit" } }
+    patch :update, params: { id: @data_request, data_request: { status: "resubmit", comments: "Please Resubmit" } }
     assert_not_nil assigns(:data_request)
     assert_equal "resubmit", assigns(:data_request).status
     assert_equal "Please Resubmit", assigns(:data_request).comments
@@ -444,7 +424,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should not approve agreement without required fields" do
     skip
     login(users(:admin))
-    patch :update, params: { id: @agreement, data_request: { approval_date: "", expiration_date: "", reviewer_signature: "[]", status: "approved" } }
+    patch :update, params: { id: @data_request, data_request: { approval_date: "", expiration_date: "", reviewer_signature: "[]", status: "approved" } }
     assert_not_nil assigns(:data_request)
     assert_equal ["can't be blank"], assigns(:data_request).errors[:approval_date]
     assert_equal ["can't be blank"], assigns(:data_request).errors[:expiration_date]
@@ -454,7 +434,7 @@ class AgreementsControllerTest < ActionController::TestCase
 
   test "should not update agreement and ask user to resubmit without comments" do
     login(users(:admin))
-    patch :update, params: { id: @agreement, data_request: { status: "resubmit", comments: "" } }
+    patch :update, params: { id: @data_request, data_request: { status: "resubmit", comments: "" } }
     assert_not_nil assigns(:data_request)
     assert_equal ["can't be blank"], assigns(:data_request).errors[:comments]
     assert_template "reviews/show"
@@ -463,7 +443,7 @@ class AgreementsControllerTest < ActionController::TestCase
   test "should destroy agreement" do
     login(users(:admin))
     assert_difference("Agreement.current.count", -1) do
-      delete :destroy, params: { id: @agreement }
+      delete :destroy, params: { id: @data_request }
     end
     assert_redirected_to agreements_path
   end

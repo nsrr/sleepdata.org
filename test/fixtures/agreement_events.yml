@@ -1,64 +1,166 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one_submitted:
-  agreement: one
-  user: valid
-  # comment:
+# Data request submitted for regular9.
+submitted_one:
+  agreement: submitted
+  user: regular9
   event_type: user_submitted
   event_at: 2014-01-15 14:22:15
 
-one_commented:
-  agreement: one
-  user: valid
-  comment: MyText
+submitted_two_comment:
+  agreement: submitted
+  user: reviewer_on_released
   event_type: commented
-  event_at: 2014-01-16 13:19:56
+  event_at: 2014-01-16 14:22:15
+  comment: This data request looks good. What do you think @reviewer_two_on_released?
 
-one_approved:
-  agreement: one
-  user: admin
-  # comment:
-  event_type: principal_reviewer_approved
-  event_at: 2014-01-17 08:42:12
-
-two_submitted:
-  agreement: one
-  user: two
-  # comment:
-  event_type: user_submitted
-  event_at: 2014-01-15 14:22:15
-
-two_commented:
-  agreement: one
-  user: two
-  comment: MyText
-  event_type: commented
-  event_at: 2014-12-01 13:19:56
-
-resubmit_submitted:
-  agreement: resubmit
-  user: valid
-  # comment:
-  event_type: user_submitted
-  event_at: 2014-01-15 18:45:35
-
-resubmit_sent_back:
-  agreement: resubmit
-  user: admin
-  # comment:
-  event_type: principal_reviewer_required_resubmission
-  event_at: 2014-01-15 20:44:03
-
-reviewer_comment:
-  agreement: submitted_application
-  user: reviewer_on_public
-  comment: My First Comment
-  event_type: commented
-  event_at: 2016-03-21 16:06:35
-
-submitted_tagged:
-  agreement: submitted_application
-  user: reviewer_on_public
-  # comment:
+submitted_three_tagged:
+  agreement: submitted
+  user: reviewer_on_released
   event_type: tags_updated
-  event_at: 2016-03-21 16:08:22
+  event_at: 2016-01-16 14:23:22
+
+# Data request submitted for regular10.
+approved_one:
+  agreement: approved
+  user: regular10
+  event_type: user_submitted
+  event_at: 2014-01-15 14:22:15
+
+# Data request approved for regular10.
+approved_two:
+  agreement: approved
+  user: principal_reviewer_on_released
+  event_type: principal_reviewer_approved
+  event_at: 2014-02-01 14:22:15
+
+# Data request submitted for regular11.
+resubmit_one:
+  agreement: resubmit
+  user: regular11
+  event_type: user_submitted
+  event_at: 2014-01-15 14:22:15
+
+# Principal reviewer requested resubmit for regular11.
+resubmit_two:
+  agreement: resubmit
+  user: principal_reviewer_on_released
+  event_type: principal_reviewer_required_resubmission
+  event_at: 2014-02-01 14:22:15
+
+# Data request submitted for regular12.
+resubmitted_one:
+  agreement: resubmitted
+  user: regular12
+  event_type: user_submitted
+  event_at: 2014-01-15 14:22:15
+
+# Principal reviewer requested resubmit for regular12.
+resubmitted_two:
+  agreement: resubmitted
+  user: principal_reviewer_on_released
+  event_type: principal_reviewer_required_resubmission
+  event_at: 2014-02-01 14:22:15
+
+# Data request resubmitted for regular12.
+resubmitted_three:
+  agreement: resubmitted
+  user: regular12
+  event_type: user_resubmitted
+  event_at: 2014-02-03 14:22:15
+
+# Data request submitted for regular13.
+expired_one:
+  agreement: expired
+  user: regular13
+  event_type: user_submitted
+  event_at: 2014-01-15 14:22:15
+
+# Data request approved for regular13.
+expired_two:
+  agreement: expired
+  user: principal_reviewer_on_released
+  event_type: principal_reviewer_approved
+  event_at: 2014-02-01 14:22:15
+
+# Data request expired for regular13.
+expired_three:
+  agreement: expired
+  user: principal_reviewer_on_released
+  event_type: principal_reviewer_expired
+  event_at: 2014-02-01 14:22:15
+
+# Data request submitted for regular14.
+approved_that_expired_one:
+  agreement: approved_that_expired
+  user: regular14
+  event_type: user_submitted
+  event_at: 2014-01-15 14:22:15
+
+# Data request approved for regular14.
+approved_that_expired_two:
+  agreement: approved_that_expired
+  user: principal_reviewer_on_released
+  event_type: principal_reviewer_approved
+  event_at: 2014-02-01 14:22:15
+
+# Data request closed for regular15.
+closed_one:
+  agreement: closed
+  user: principal_reviewer_on_released
+  event_type: principal_reviewer_closed
+  event_at: 2014-01-15 14:22:15
+
+# Data request submitted for insider0.
+insider_submitted_one:
+  agreement: submitted_unreleased
+  user: insider0
+  event_type: user_submitted
+  event_at: 2014-01-15 14:22:15
+
+# Data request submitted for insider1.
+insider_approved_one:
+  agreement: approved_unreleased
+  user: insider1
+  event_type: user_submitted
+  event_at: 2014-01-15 14:22:15
+
+# Data request approved for insider1.
+insider_approved_two:
+  agreement: approved_unreleased
+  user: principal_reviewer_on_released
+  event_type: principal_reviewer_approved
+  event_at: 2014-02-01 14:22:15
+
+# Data request submitted for insider2.
+approved_unreleased_manually_expired_one:
+  agreement: approved_unreleased_manually_expired
+  user: insider2
+  event_type: user_submitted
+  event_at: 2014-01-15 14:22:15
+
+# Data request approved for insider2.
+approved_unreleased_manually_expired_two:
+  agreement: approved_unreleased_manually_expired
+  user: principal_reviewer_on_unreleased
+  event_type: principal_reviewer_approved
+  event_at: 2014-02-01 14:22:15
+
+# Data request expired for insider2.
+approved_unreleased_manually_expired_three:
+  agreement: approved_unreleased_manually_expired
+  user: principal_reviewer_on_unreleased
+  event_type: principal_reviewer_expired
+  event_at: 2014-02-01 14:22:15
+
+# Data request submitted for insider3.
+approved_unreleased_automatically_expired_one:
+  agreement: approved_unreleased_automatically_expired
+  user: insider3
+  event_type: user_submitted
+  event_at: 2014-01-15 14:22:15
+
+# Data request approved for insider3.
+approved_unreleased_automatically_expired_two:
+  agreement: approved_unreleased_automatically_expired
+  user: principal_reviewer_on_unreleased
+  event_type: principal_reviewer_approved
+  event_at: 2014-02-01 14:22:15

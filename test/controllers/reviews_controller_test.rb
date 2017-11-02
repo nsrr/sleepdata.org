@@ -2,13 +2,13 @@
 
 require "test_helper"
 
-# Tests to assure that submitted agreements can be reviewed and updated.
+# Tests to assure that submitted data requests can be reviewed and updated.
 class ReviewsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @reviewer = users(:reviewer_on_public)
-    @reviewer_two = users(:reviewer_two_on_public)
-    @reviewer_three = users(:reviewer_three_on_public)
-    @data_request = agreements(:submitted_application)
+    @reviewer = users(:reviewer_on_released)
+    @reviewer_two = users(:reviewer_two_on_released)
+    @reviewer_three = users(:reviewer_three_on_released)
+    @data_request = data_requests(:submitted)
   end
 
   test "should get index" do

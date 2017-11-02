@@ -1,11 +1,156 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  agreement: one
-  final_legal_document_variable: one
-  value: MyText
+completed_full_name:
+  agreement: completed
+  final_legal_document_variable: full_name
+  value: Regular4 User4
 
-two:
-  agreement: one
-  final_legal_document_variable: two
-  value: MyText
+completed_specific_purpose:
+  agreement: completed
+  final_legal_document_variable: specific_purpose
+  value:
+    I would like to use this dataset <one> for my research.
+
+completed_with_duly_authorized_representative_signature_full_name:
+  agreement: completed_with_duly_authorized_representative_signature
+  final_legal_document_variable: full_name
+  value: Regular5 User5
+
+completed_with_duly_authorized_representative_signature_specific_purpose:
+  agreement: completed_with_duly_authorized_representative_signature
+  final_legal_document_variable: specific_purpose
+  value:
+    I would like to use this dataset <one> for my research.
+
+incomplete_missing_attestation_full_name:
+  agreement: incomplete_missing_attestation
+  final_legal_document_variable: full_name
+  value: Regular6 User6
+
+incomplete_missing_attestation_specific_purpose:
+  agreement: incomplete_missing_attestation
+  final_legal_document_variable: specific_purpose
+  value:
+    I haven't signed yet.
+
+incomplete_missing_datasets_full_name:
+  agreement: incomplete_missing_datasets
+  final_legal_document_variable: full_name
+  value: Regular8 User8
+
+incomplete_missing_datasets_specific_purpose:
+  agreement: incomplete_missing_datasets
+  final_legal_document_variable: specific_purpose
+  value:
+    I haven't selected a dataset.
+
+submitted_full_name:
+  agreement: submitted
+  final_legal_document_variable: full_name
+  value: Regular9 User9
+
+submitted_specific_purpose:
+  agreement: submitted
+  final_legal_document_variable: specific_purpose
+  value:
+    I am using variables from <one> for my research.
+
+approved_full_name:
+  agreement: approved
+  final_legal_document_variable: full_name
+  value: Regular10 User10
+
+approved_specific_purpose:
+  agreement: approved
+  final_legal_document_variable: specific_purpose
+  value:
+    I am using variables from <one> for my research.
+
+resubmit_full_name:
+  agreement: resubmit
+  final_legal_document_variable: full_name
+  value: FAKENAME
+
+resubmit_specific_purpose:
+  agreement: resubmit
+  final_legal_document_variable: specific_purpose
+  value:
+    Blablabla.
+
+resubmitted_full_name:
+  agreement: resubmitted
+  final_legal_document_variable: full_name
+  value: My Actual Name
+
+resubmitted_specific_purpose:
+  agreement: resubmitted
+  final_legal_document_variable: specific_purpose
+  value:
+    Blablabla. And I like to use data for research.
+
+expired_full_name:
+  agreement: expired
+  final_legal_document_variable: full_name
+  value: Regular13 User13
+
+expired_specific_purpose:
+  agreement: expired
+  final_legal_document_variable: specific_purpose
+  value:
+    I am using variables from <one> for my research.
+
+approved_that_expired_full_name:
+  agreement: approved_that_expired
+  final_legal_document_variable: full_name
+  value: Regular14 User14
+
+approved_that_expired_specific_purpose:
+  agreement: approved_that_expired
+  final_legal_document_variable: specific_purpose
+  value:
+    I am using variables from <one> for my research.
+
+submitted_unreleased_full_name:
+  agreement: submitted_unreleased
+  final_legal_document_variable: full_name
+  value: Insider0 User
+
+submitted_unreleased_specific_purpose:
+  agreement: submitted_unreleased
+  final_legal_document_variable: specific_purpose
+  value:
+    I want access to the private dataset.
+
+approved_unreleased_full_name:
+  agreement: approved_unreleased
+  final_legal_document_variable: full_name
+  value: Insider1 User
+
+approved_unreleased_specific_purpose:
+  agreement: approved_unreleased
+  final_legal_document_variable: specific_purpose
+  value:
+    I want access to the private dataset.
+
+approved_unreleased_manually_expired_full_name:
+  agreement: approved_unreleased_manually_expired
+  final_legal_document_variable: full_name
+  value: Insider2 User
+
+approved_unreleased_manually_expired_specific_purpose:
+  agreement: approved_unreleased_manually_expired
+  final_legal_document_variable: specific_purpose
+  value:
+    I want access to the private dataset.
+
+approved_unreleased_automatically_expired_full_name:
+  agreement: approved_unreleased_automatically_expired
+  final_legal_document_variable: full_name
+  value: Insider 3
+
+approved_unreleased_automatically_expired_specific_purpose:
+  agreement: approved_unreleased_automatically_expired
+  final_legal_document_variable: specific_purpose
+  value:
+    I want access to the private dataset.
+

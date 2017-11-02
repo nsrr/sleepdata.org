@@ -2,12 +2,11 @@
 
 # Organization One (Signature attestation, committee review)
 
-# All files are marked as public.
 released:
   organization: one
   name: We Care
-  description: The We Care Clinical Trial dataset
-  slug: wecare
+  description: (A) Released dataset with documentation and public and private files.
+  slug: released
   logo: wecare_logo.png
   user: admin
   released: true
@@ -18,7 +17,7 @@ released:
 unreleased:
   organization: one
   name: In the Works
-  description: Currently being constructed and not yet released.
+  description: (B) Unreleased dataset with documentation and public and private files.
   slug: unreleased
   logo: rails.png
   user: admin
@@ -27,10 +26,21 @@ unreleased:
   release_date: 2145-01-01
   dataset_version: unreleased_one
 
+released_no_access:
+  organization: one
+  name: (C) Released dataset with no approved data requests.
+  description: This repository has private files but has not given anyone access to them
+  slug: released_no_access
+  logo: rails.png
+  user: admin
+  released: true
+  deleted: false
+  release_date: 2014-09-30
+
 released_with_no_files_folder:
   organization: one
-  name: No Files
-  description: No Files Folder testing for graceful redirect
+  name: (D) No Files
+  description: No files folder testing for graceful redirect
   slug: nofiles
   logo: rails.png
   user: admin
@@ -38,52 +48,31 @@ released_with_no_files_folder:
   deleted: false
   release_date: 2014-06-20
 
-mixed:
-  organization: one
-  name: Mixed
-  description: A released dataset with some public and some private files
-  slug: mixed
-  logo: rails.png
-  user: admin
-  released: true
-  deleted: false
-  release_date: 2014-07-08
 
+# # The following datasets all have files that are only accessible via valid agreements
 
-# The following datasets all have files that are only accessible via valid agreements
+# released_documentation:
+#   organization: one
+#   name: (A) Released dataset with documentation and private files
+#   description: Released documentation with only private files
+#   slug: released_documentation
+#   logo: rails.png
+#   user: admin
+#   released: true
+#   deleted: false
+#   release_date: 2014-09-30
 
-released_documentation:
-  organization: one
-  name: (A) Released dataset with documentation and private files
-  description: Released documentation with only private files
-  slug: released_documentation
-  logo: rails.png
-  user: admin
-  released: true
-  deleted: false
-  release_date: 2014-09-30
+# unreleased_documentation:
+#   organization: one
+#   name: (B) Unreleased documentation with private files
+#   description: Unreleased documentation and private files
+#   slug: unreleased_documentation
+#   logo: rails.png
+#   user: admin
+#   released: false
+#   deleted: false
+#   release_date: 2014-09-30
 
-unreleased_documentation:
-  organization: one
-  name: (B) Unreleased documentation with private files
-  description: Unreleased documentation and private files
-  slug: unreleased_documentation
-  logo: rails.png
-  user: admin
-  released: false
-  deleted: false
-  release_date: 2014-09-30
-
-released_documentation_no_access:
-  organization: one
-  name: (C) Released documentation with no file access
-  description: This repository has private files but has not given anyone access to them
-  slug: released_documentation_no_access
-  logo: rails.png
-  user: admin
-  released: true
-  deleted: false
-  release_date: 2014-09-30
 
 # Organization Two (Checkbox attestation, no review)
 orgtwo_hamlet:

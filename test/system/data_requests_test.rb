@@ -7,7 +7,7 @@ class DataRequestsTest < ApplicationSystemTestCase
   setup do
     @regular = users(:regular)
     @released = datasets(:released)
-    @started = agreements(:started)
+    @started = data_requests(:started)
   end
 
   test "completing a data request as existing user" do

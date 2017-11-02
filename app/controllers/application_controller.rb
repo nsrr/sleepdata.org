@@ -171,7 +171,10 @@ class ApplicationController < ActionController::Base
                         else
                           Dataset.released
                         end
-    @dataset = viewable_datasets.find_by_slug(params[id])
+    @dataset = viewable_datasets.find_by(slug: params[id])
+    # Allow users who have approved data requests to view unreleased datasets.
+    dataset = Dataset.current.find_by(slug: params[id]) unless @dataset
+    @dataset = dataset if dataset&.approved_data_request?(current_user)
     redirect_without_dataset
   end
 

@@ -5,7 +5,7 @@ one:
   position: 1
   rider: false
   title: Data Access and Use Agreement
-  content: This agreement is made by and between Organization ("Org") and <full_name> (the "Data User").
+  content: This agreement is made by and between Organization ("Org") and \#{<%= ActiveRecord::FixtureSet.identify(:full_name) %>} (the "Data User").
 
 two:
   final_legal_document: one
@@ -14,4 +14,4 @@ two:
   title: Specific Purpose
   content:
     Please describe your specific purpose,
-    <specific_purpose:text>
+    \#{<%= ActiveRecord::FixtureSet.identify(:specific_purpose) %>}

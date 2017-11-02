@@ -1,18 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# TODO: Fix roles (remove "viewer" requirements for download.)
 editor_released_access:
   dataset: released
   user: editor
   role: editor
 
-editor_mixed_access:
-  dataset: mixed
-  user: editor_mixed
-  role: editor
-
-viewer_mixed_access:
-  dataset: mixed
-  user: valid
+viewer_unreleased_access:
+  dataset: unreleased
+  user: viewer_unreleased
   role: viewer
 
 viewer_of_private_dataset:
@@ -27,22 +22,22 @@ viewer_of_unreleased_dataset_two:
 
 editor_of_unreleased_dataset:
   dataset: unreleased
-  user: editor_on_private
+  user: editor_on_unreleased
   role: editor
 
 reviewer_of_released_dataset:
   dataset: released
-  user: reviewer_on_public
+  user: reviewer_on_released
   role: reviewer
 
 reviewer_two_of_released_dataset:
   dataset: released
-  user: reviewer_two_on_public
+  user: reviewer_two_on_released
   role: reviewer
 
 reviewer_three_of_released_dataset:
   dataset: released
-  user: reviewer_three_on_public
+  user: reviewer_three_on_released
   role: reviewer
 
 admin_reviewer_of_released_dataset:

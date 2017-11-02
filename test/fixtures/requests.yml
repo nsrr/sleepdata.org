@@ -1,67 +1,67 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+# # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  agreement: filled_out_application_with_attached_irb_file
-  dataset: released
+# one:
+#   agreement: filled_out_application_with_attached_irb_file
+#   dataset: released
 
-two:
-  agreement: submitted_application
-  dataset: released
+# two:
+#   agreement: submitted_application
+#   dataset: released
 
-three:
-  agreement: approved_application_for_private_dataset
-  dataset: unreleased
+# three:
+#   agreement: approved_application_for_private_dataset
+#   dataset: unreleased
 
 
-# The following dataset requests agreements test a variety of scenarios for file downloading and documentation viewing
+# # The following dataset requests agreements test a variety of scenarios for file downloading and documentation viewing
 
-approved_a:
-  agreement: approved_for_a_b_not_c
-  dataset: released_documentation
+# approved_a:
+#   agreement: approved_for_a_b_not_c
+#   dataset: released_documentation
 
-approved_b:
-  agreement: approved_for_a_b_not_c
-  dataset: unreleased_documentation
+# approved_b:
+#   agreement: approved_for_a_b_not_c
+#   dataset: unreleased_documentation
 
-approved_but_expired_a:
-  agreement: approved_but_expired_for_a_b_not_c
-  dataset: released_documentation
+# approved_but_expired_a:
+#   agreement: approved_but_expired_for_a_b_not_c
+#   dataset: released_documentation
 
-approved_but_expired_b:
-  agreement: approved_but_expired_for_a_b_not_c
-  dataset: unreleased_documentation
+# approved_but_expired_b:
+#   agreement: approved_but_expired_for_a_b_not_c
+#   dataset: unreleased_documentation
 
-submitted_a:
-  agreement: submitted_for_a_b_not_c
-  dataset: released_documentation
+# submitted_a:
+#   agreement: submitted_for_a_b_not_c
+#   dataset: released_documentation
 
-submitted_b:
-  agreement: submitted_for_a_b_not_c
-  dataset: unreleased_documentation
+# submitted_b:
+#   agreement: submitted_for_a_b_not_c
+#   dataset: unreleased_documentation
 
-started_a:
-  agreement: started_for_a_b_not_c
-  dataset: released_documentation
+# started_a:
+#   agreement: started_for_a_b_not_c
+#   dataset: released_documentation
 
-started_b:
-  agreement: started_for_a_b_not_c
-  dataset: unreleased_documentation
+# started_b:
+#   agreement: started_for_a_b_not_c
+#   dataset: unreleased_documentation
 
-resubmit_a:
-  agreement: resubmit_for_a_b_not_c
-  dataset: released_documentation
+# resubmit_a:
+#   agreement: resubmit_for_a_b_not_c
+#   dataset: released_documentation
 
-resubmit_b:
-  agreement: resubmit_for_a_b_not_c
-  dataset: unreleased_documentation
+# resubmit_b:
+#   agreement: resubmit_for_a_b_not_c
+#   dataset: unreleased_documentation
 
-approved_but_deleted_a:
-  agreement: approved_but_deleted_for_a_b_not_c
-  dataset: released_documentation
+# approved_but_deleted_a:
+#   agreement: approved_but_deleted_for_a_b_not_c
+#   dataset: released_documentation
 
-approved_but_deleted_b:
-  agreement: approved_but_deleted_for_a_b_not_c
-  dataset: unreleased_documentation
+# approved_but_deleted_b:
+#   agreement: approved_but_deleted_for_a_b_not_c
+#   dataset: unreleased_documentation
 
 
 ### New for DataRequest:
@@ -72,6 +72,71 @@ started_released:
 uploads_released:
   agreement: uploads
   dataset: released
+
+completed_released:
+  agreement: completed
+  dataset: released
+
+completed_with_duly_authorized_representative_signature_released:
+  agreement: completed_with_duly_authorized_representative_signature
+  dataset: released
+
+incomplete_missing_attestation_released:
+  agreement: incomplete_missing_attestation
+  dataset: released
+
+incomplete_missing_required_variable_released:
+  agreement: incomplete_missing_required_variable
+  dataset: released
+
+submitted_released:
+  agreement: submitted
+  dataset: released
+
+approved_released:
+  agreement: approved
+  dataset: released
+
+resubmit_released:
+  agreement: resubmit
+  dataset: released
+
+resubmitted_released:
+  agreement: resubmitted
+  dataset: released
+
+expired_released:
+  agreement: expired
+  dataset: released
+
+approved_that_expired_released:
+  agreement: approved_that_expired
+  dataset: released
+
+closed_released:
+  agreement: closed
+  dataset: released
+
+deleted_released:
+  agreement: deleted
+  dataset: released
+
+# Requests for `unreleased` dataset.
+submitted_unreleased:
+  agreement: submitted_unreleased
+  dataset: unreleased
+
+approved_unreleased:
+  agreement: approved_unreleased
+  dataset: unreleased
+
+approved_unreleased_manually_expired:
+  agreement: approved_unreleased_manually_expired
+  dataset: unreleased
+
+approved_unreleased_automatically_expired:
+  agreement: approved_unreleased_automatically_expired
+  dataset: unreleased
 
 # Organization Two
 hamlet_started:

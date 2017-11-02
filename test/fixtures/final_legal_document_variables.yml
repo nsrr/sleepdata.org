@@ -9,15 +9,15 @@ full_name:
   variable_type: string
   # description:
   # field_note:
-  # required: false
+  required: true
 
-two:
+specific_purpose:
   final_legal_document: one
-  # final_legal_document_page: one
+  # final_legal_document_page: two
   position: 2
   name: specific_purpose
   display_name: Specific Purpose
   variable_type: text
   # description:
   field_note: At least 20 words.
-  # required: false
+  required: true

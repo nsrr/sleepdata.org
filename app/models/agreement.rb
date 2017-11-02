@@ -127,6 +127,15 @@ class Agreement < ApplicationRecord
     attributes.reject { |key, _val| ignore_list.include?(key.to_s) }
   end
 
+  # TODO: Recheck these to see which should be ignored.
+  def ignored_transaction_attributes
+    %w(
+      created_at updated_at current_step duly_authorized_representative_token
+      signature duly_authorized_representative_signature reviewer_signature
+      printed_file dua executed_dua deleted
+    )
+  end
+
   def dataset_ids=(ids)
     self.datasets = Dataset.where(id: ids)
   end

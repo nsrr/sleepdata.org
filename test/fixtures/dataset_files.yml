@@ -10,39 +10,27 @@ released_root:
   publicly_available: true
   # archived: false
 
-released_datasets:
+released_previews:
   dataset: released
-  full_path: "datasets"
+  full_path: "previews"
   folder: ""
-  file_name: datasets
+  file_name: previews
   is_file: false
-  file_size: 102
+  file_size: 160
   file_time: 2016-03-25 10:15:40
   # file_checksum_md5:
   # publicly_available: false
   # archived: false
 
-released_datasets_rails_png:
+released_previews_blank_pdf:
   dataset: released
-  full_path: "datasets/rails.png"
-  folder: "datasets/"
-  file_name: rails.png
-  is_file: true
-  file_size: 6646
-  file_time: 2016-03-28 11:25:23
-  file_checksum_md5: 9c0a079bdd7701d7e729bd956823d153
-  publicly_available: true
-  # archived: false
-
-released_previews_rails_png:
-  dataset: released
-  full_path: "previews/rails.png"
+  full_path: "previews/blank.pdf"
   folder: "previews/"
-  file_name: rails.png
+  file_name: blank.pdf
   is_file: true
-  file_size: 6646
-  file_time: 2017-07-05 17:34:06
-  file_checksum_md5: 9c0a079bdd7701d7e729bd956823d153
+  file_size: 10892
+  file_time: 2014-02-18 21:12:29
+  file_checksum_md5: 79c69e449b0d0cd0f6819ef452940e21
   publicly_available: true
   # archived: false
 
@@ -58,15 +46,15 @@ released_previews_markup_md:
   publicly_available: true
   # archived: false
 
-released_previews_blank_pdf:
+released_previews_rails_png:
   dataset: released
-  full_path: "previews/blank.pdf"
+  full_path: "previews/rails.png"
   folder: "previews/"
-  file_name: blank.pdf
+  file_name: rails.png
   is_file: true
-  file_size: 10892
-  file_time: 2014-02-18 21:12:29
-  file_checksum_md5: 79c69e449b0d0cd0f6819ef452940e21
+  file_size: 6646
+  file_time: 2017-07-05 17:34:06
+  file_checksum_md5: 9c0a079bdd7701d7e729bd956823d153
   publicly_available: true
   # archived: false
 
@@ -143,6 +131,42 @@ released_subfolder_2_txt:
   publicly_available: true
   # archived: false
 
+released_subfolder_in_subfolder_not_public_yet_txt:
+  dataset: released
+  full_path: "subfolder/IN_SUBFOLDER_NOT_PUBLIC_YET.txt"
+  folder: "subfolder/"
+  file_name: IN_SUBFOLDER_NOT_PUBLIC_YET.txt
+  is_file: true
+  file_size: 32
+  file_time: 2014-07-08 15:26:39
+  file_checksum_md5: 8a59dbfe009557d80a3467acbe141d65
+  # publicly_available: false
+  # archived: false
+
+released_subfolder_in_subfolder_public_file_txt:
+  dataset: released
+  full_path: "subfolder/IN_SUBFOLDER_PUBLIC_FILE.txt"
+  folder: "subfolder/"
+  file_name: IN_SUBFOLDER_PUBLIC_FILE.txt
+  is_file: true
+  file_size: 29
+  file_time: 2014-07-08 15:26:39
+  file_checksum_md5: 29423ee86b07cb966ea263a37e88669a
+  publicly_available: true
+  # archived: false
+
+released_access_required_txt:
+  dataset: released
+  full_path: "ACCESS_REQUIRED.txt"
+  folder: ""
+  file_name: ACCESS_REQUIRED.txt
+  is_file: true
+  file_size: 20
+  file_time: 2014-10-01 12:46:19
+  file_checksum_md5: 26b1203ed43bcf15e89dcb2e79b804b8
+  # publicly_available: false
+  # archived: false
+
 released_download_me_txt:
   dataset: released
   full_path: "DOWNLOAD_ME.txt"
@@ -153,6 +177,54 @@ released_download_me_txt:
   file_time: 2014-02-18 16:12:29
   file_checksum_md5: be3aad0b46648b4867534a1b10ec6ed1
   publicly_available: true
+  # archived: false
+
+released_not_public_yet_txt:
+  dataset: released
+  full_path: "NOT_PUBLIC_YET.txt"
+  folder: ""
+  file_name: NOT_PUBLIC_YET.txt
+  is_file: true
+  file_size: 19
+  file_time: 2014-07-08 15:26:39
+  file_checksum_md5: b9ec2f286c32a9056dc00580c586dd37
+  # publicly_available: false
+  # archived: false
+
+released_public_file_txt:
+  dataset: released
+  full_path: "PUBLIC_FILE.txt"
+  folder: ""
+  file_name: PUBLIC_FILE.txt
+  is_file: true
+  file_size: 16
+  file_time: 2014-07-08 15:26:39
+  file_checksum_md5: 41621f39d8ac658105c84cba3a94ebc8
+  publicly_available: true
+  # archived: false
+
+released_no_access_root:
+  dataset: released_no_access
+  full_path: ""
+  folder: ""
+  file_name: ""
+  is_file: false
+  file_size: 136
+  file_time: 2016-03-28 15:03:46
+  # file_checksum_md5:
+  # publicly_available: false
+  # archived: false
+
+released_no_access_access_required_txt:
+  dataset: released_no_access
+  full_path: "ACCESS_REQUIRED.txt"
+  folder: ""
+  file_name: ACCESS_REQUIRED.txt
+  is_file: true
+  file_size: 20
+  file_time: 2014-10-01 12:46:19
+  file_checksum_md5: 26b1203ed43bcf15e89dcb2e79b804b8
+  # publicly_available: false
   # archived: false
 
 unreleased_root:
@@ -179,152 +251,8 @@ unreleased_hidden_file_txt:
   # publicly_available: false
   # archived: false
 
-mixed_root:
-  dataset: mixed
-  full_path: ""
-  folder: ""
-  file_name: ""
-  is_file: false
-  file_size: 238
-  file_time: 2016-04-14 09:54:34
-  # file_checksum_md5:
-  # publicly_available: false
-  # archived: false
-
-mixed_subfolder:
-  dataset: mixed
-  full_path: "subfolder"
-  folder: ""
-  file_name: subfolder
-  is_file: false
-  file_size: 170
-  file_time: 2016-03-28 11:54:47
-  # file_checksum_md5:
-  # publicly_available: false
-  # archived: false
-
-mixed_subfolder_in_subfolder_not_public_yet_txt:
-  dataset: mixed
-  full_path: "subfolder/IN_SUBFOLDER_NOT_PUBLIC_YET.txt"
-  folder: "subfolder/"
-  file_name: IN_SUBFOLDER_NOT_PUBLIC_YET.txt
-  is_file: true
-  file_size: 32
-  file_time: 2014-07-08 15:26:39
-  file_checksum_md5: 8a59dbfe009557d80a3467acbe141d65
-  # publicly_available: false
-  # archived: false
-
-mixed_subfolder_in_subfolder_public_file_txt:
-  dataset: mixed
-  full_path: "subfolder/IN_SUBFOLDER_PUBLIC_FILE.txt"
-  folder: "subfolder/"
-  file_name: IN_SUBFOLDER_PUBLIC_FILE.txt
-  is_file: true
-  file_size: 29
-  file_time: 2014-07-08 15:26:39
-  file_checksum_md5: 29423ee86b07cb966ea263a37e88669a
-  publicly_available: true
-  # archived: false
-
-mixed_access_required_txt:
-  dataset: mixed
-  full_path: "ACCESS_REQUIRED.txt"
-  folder: ""
-  file_name: ACCESS_REQUIRED.txt
-  is_file: true
-  file_size: 20
-  file_time: 2014-07-08 15:26:39
-  file_checksum_md5: 26b1203ed43bcf15e89dcb2e79b804b8
-  # publicly_available: false
-  # archived: false
-
-mixed_not_public_yet_txt:
-  dataset: mixed
-  full_path: "NOT_PUBLIC_YET.txt"
-  folder: ""
-  file_name: NOT_PUBLIC_YET.txt
-  is_file: true
-  file_size: 19
-  file_time: 2014-07-08 15:26:39
-  file_checksum_md5: b9ec2f286c32a9056dc00580c586dd37
-  # publicly_available: false
-  # archived: false
-
-mixed_public_file_txt:
-  dataset: mixed
-  full_path: "PUBLIC_FILE.txt"
-  folder: ""
-  file_name: PUBLIC_FILE.txt
-  is_file: true
-  file_size: 16
-  file_time: 2014-07-08 15:26:39
-  file_checksum_md5: 41621f39d8ac658105c84cba3a94ebc8
-  publicly_available: true
-  # archived: false
-
-unreleased_documentation_root:
-  dataset: unreleased_documentation
-  full_path: ""
-  folder: ""
-  file_name: ""
-  is_file: false
-  file_size: 136
-  file_time: 2016-03-28 14:03:00
-  # file_checksum_md5:
-  # publicly_available: false
-  # archived: false
-
-unreleased_documentation_access_required_txt:
-  dataset: unreleased_documentation
-  full_path: "ACCESS_REQUIRED.txt"
-  folder: ""
-  file_name: ACCESS_REQUIRED.txt
-  is_file: true
-  file_size: 20
-  file_time: 2014-10-01 12:46:19
-  file_checksum_md5: 26b1203ed43bcf15e89dcb2e79b804b8
-  # publicly_available: false
-  # archived: false
-
-released_documentation_root:
-  dataset: released_documentation
-  full_path: ""
-  folder: ""
-  file_name: ""
-  is_file: false
-  file_size: 136
-  file_time: 2016-03-28 15:03:46
-  # file_checksum_md5:
-  # publicly_available: false
-  # archived: false
-
-released_documentation_access_required_txt:
-  dataset: released_documentation
-  full_path: "ACCESS_REQUIRED.txt"
-  folder: ""
-  file_name: ACCESS_REQUIRED.txt
-  is_file: true
-  file_size: 20
-  file_time: 2014-10-01 12:46:19
-  file_checksum_md5: 26b1203ed43bcf15e89dcb2e79b804b8
-  # publicly_available: false
-  # archived: false
-
-released_documentation_no_access_root:
-  dataset: released_documentation_no_access
-  full_path: ""
-  folder: ""
-  file_name: ""
-  is_file: false
-  file_size: 136
-  file_time: 2016-03-28 15:03:46
-  # file_checksum_md5:
-  # publicly_available: false
-  # archived: false
-
-released_documentation_no_access_access_required_txt:
-  dataset: released_documentation_no_access
+unreleased_access_required_txt:
+  dataset: unreleased
   full_path: "ACCESS_REQUIRED.txt"
   folder: ""
   file_name: ACCESS_REQUIRED.txt

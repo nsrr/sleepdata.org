@@ -7,7 +7,7 @@ class Api::V1::DictionaryControllerTest < ActionController::TestCase
     post :upload_file, params: {
       dataset: datasets(:released).to_param,
       auth_token: users(:editor).id_and_auth_token,
-      file: fixture_file_upload("../../test/support/datasets/wecare/images/rails.png"),
+      file: fixture_file_upload("../../test/support/images/rails.png"),
       folder: "datasets"
     }
     assert_not_nil response

@@ -5,7 +5,7 @@ require "test_helper"
 # Tests emails related to the data request process.
 class DataRequestMailerTest < ActionMailer::TestCase
   setup do
-    @data_request = agreements(:sign_by_representative)
+    @data_request = data_requests(:duly_authorized_signature_requested)
   end
 
   test "duly authorized representative signature request" do

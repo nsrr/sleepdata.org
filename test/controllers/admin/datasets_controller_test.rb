@@ -13,7 +13,7 @@ class Admin::DatasetsControllerTest < ActionController::TestCase
     {
       name: "New Dataset",
       description: @dataset.description,
-      logo: fixture_file_upload("../../test/support/datasets/wecare/images/rails.png"),
+      logo: fixture_file_upload("../../test/support/images/rails.png"),
       released: true,
       slug: "new-dataset",
       release_date: "2014-06-23"
@@ -61,7 +61,7 @@ class Admin::DatasetsControllerTest < ActionController::TestCase
   test "should not create dataset existing slug" do
     login(@admin)
     assert_difference("Dataset.count", 0) do
-      post :create, params: { dataset: dataset_params.merge(slug: "wecare") }
+      post :create, params: { dataset: dataset_params.merge(slug: "released") }
     end
     assert_equal ["has already been taken"], assigns(:dataset).errors[:slug]
     assert_template "new"

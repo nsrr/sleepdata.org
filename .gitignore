@@ -30,16 +30,7 @@
 /carrierwave/**/*
 /test/support/uploads/*
 /test/support/datasets/new-dataset/*
-/test/support/datasets/wecare/files/.sleepdata.index
-/test/support/datasets/wecare/files/subfolder/.sleepdata.index
-/test/support/datasets/wecare/dd/*
-/test/support/datasets/wecare/files/datasets/*
-/test/support/datasets/mixed/files/.sleepdata.index
-/test/support/datasets/mixed/files/subfolder/.sleepdata.index
-/test/support/datasets/released_documentation/files/.sleepdata.index
-/test/support/datasets/released_documentation_no_access/files/.sleepdata.index
-/test/support/datasets/unreleased/files/.sleepdata.index
-/test/support/datasets/unreleased_documentation/files/.sleepdata.index
+/test/support/datasets/released/files/datasets/*
 /test/support/tools/new-tool/*
 /test/support/agreements/*
 /test/support/data_requests/*
