@@ -14,7 +14,7 @@ class CommunityToolReviewsController < ApplicationController
 
   # GET /community_tools/1/reviews/1
   def show
-    @community_tool_review = @community_tool.community_tool_reviews.find_by_id(params[:id])
+    @community_tool_review = @community_tool.community_tool_reviews.find_by(id: params[:id])
     redirect_to tool_path(@community_tool) unless @community_tool_review
   end
 

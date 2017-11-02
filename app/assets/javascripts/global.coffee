@@ -65,7 +65,7 @@ $(document)
   .on('click', '[data-object~="submit-draft-and-disable"]', ->
     window.$isDirty = false
     disablerWithSpinner($(this))
-    $('#data_request_draft_mode').val('1')
+    $('#data_request_draft').val('1')
     $($(this).data('target')).submit()
     false
   )

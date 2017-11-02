@@ -23,7 +23,7 @@ class Editor::DatasetsController < ApplicationController
     audit_scope = audit_scope.where(user_id: params[:user_id].blank? ? nil : params[:user_id]) if params.key?(:user_id)
     audit_scope = audit_scope.where(medium: params[:medium].blank? ? nil : params[:medium]) if params.key?(:medium)
     audit_scope = audit_scope.where(remote_ip: params[:remote_ip].blank? ? nil : params[:remote_ip]) if params.key?(:remote_ip)
-    @audits = audit_scope.page(params[:page]).per(20)
+    @audits = audit_scope.includes(:user).page(params[:page]).per(20)
   end
 
   # GET /datasets/1/collaborators
@@ -43,7 +43,7 @@ class Editor::DatasetsController < ApplicationController
 
   # POST /datasets/1/remove_access
   def remove_access
-    if @dataset_user = @dataset.dataset_users.find_by_id(params[:dataset_user_id])
+    if @dataset_user = @dataset.dataset_users.find_by(id: params[:dataset_user_id])
       @dataset_user.destroy
     end
     redirect_to collaborators_dataset_path(@dataset)

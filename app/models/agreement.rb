@@ -2,35 +2,6 @@
 
 # Allows users to request access to one or more datasets.
 class Agreement < ApplicationRecord
-  # STEP 1 Fields:
-  #   :data_user
-  #   :data_user_type => 'individual', 'organization'
-  #   :individual_institution_name
-  #   # :individual_name => Not in schema, this is data_user
-  #   :individual_title
-  #   :individual_telephone
-  #   # :individual_email => Not in schema, this is agreement.user.email
-  #   :individual_address
-
-  #   :organization_business_name
-  #   :organization_contact_name
-  #   :organization_contact_title
-  #   :organization_contact_telephone
-  #   :organization_contact_email
-  #   :organization_address
-
-  # STEP 2 Fields:
-  #   :specific_purpose
-
-  # STEP 3 Fields:
-  #   :has_read_step3
-
-  # Step 4 Fields:
-  #   :posting_permission 'all', 'name_only', 'none'
-
-  # STEP 5 Fields
-  #   :has_read_step5
-
   mount_uploader :dua, PDFUploader
   mount_uploader :executed_dua, PDFUploader
   mount_uploader :irb, PDFUploader
@@ -45,7 +16,7 @@ class Agreement < ApplicationRecord
 
   STATUS = %w(started submitted approved resubmit expired closed).collect { |i| [i, i] }
 
-  attr_accessor :draft_mode, :full_mode
+  attr_accessor :draft
 
   # Concerns
   include Deletable
@@ -53,50 +24,19 @@ class Agreement < ApplicationRecord
   include Forkable
 
   # Scopes
-  scope :search, lambda { |arg| where( 'agreements.user_id in (select users.id from users where LOWER(users.first_name) LIKE ? or LOWER(users.last_name) LIKE ? or LOWER(users.email) LIKE ? )', arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%'), arg.to_s.downcase.gsub(/^| |$/, '%') ).references(:users) }
-  scope :expired, -> { where("agreements.expiration_date IS NOT NULL and agreements.expiration_date < ?", Date.today) }
-  scope :not_expired, -> { where("agreements.expiration_date IS NULL or agreements.expiration_date >= ?", Date.today) }
-  scope :with_tag, lambda { |arg| where('agreements.id in (select agreement_tags.agreement_id from agreement_tags where agreement_tags.tag_id = ?)', arg).references(:agreement_tags) }
-  scope :regular_members, -> { where("agreements.user_id in (select users.id from users where users.deleted = ? and users.aug_member = ? and users.core_member = ?)", false, false, false).references(:users) }
+  scope :search, ->(arg) { joins(:user).merge(User.search(arg)) }
+  scope :expired, -> { where("expiration_date < ?", Time.zone.today) }
+  scope :not_expired, -> { where(expiration_date: nil).or(where("expiration_date >= ?", Time.zone.today)) }
+  scope :with_tag, ->(arg) { joins(:tags).merge(Tag.current.where(id: arg)) }
+  scope :regular_members, -> { joins(:user).merge(User.current.where(aug_member: false, core_member: false)) }
   scope :submittable, -> { where(status: %w(started resubmit)) }
   scope :deletable, -> { where(status: %w(started resubmit closed)) }
 
   # Validations
   validates :user_id, :status, presence: true
   validates :duly_authorized_representative_token, uniqueness: true, allow_nil: true
-
   validates :approval_date, :expiration_date, presence: true, if: :approved?
-  # validates :reviewer_signature
-  # validates :edges_in_reviewer_signature, length: { minimum: 20, too_short: "can't be blank" }, if: :approved?
-
   validates :comments, presence: true, if: :resubmission_required?
-
-  # TODO: Remove validations
-  # validates :data_user, presence: true, if: :step1?
-  # validates :data_user_type, presence: true, if: :step1?
-  # validates :data_user_type, inclusion: { in: %w(individual organization), message: '"%{value}" is not a valid data user type' }, if: :step1?
-  # validates :individual_institution_name, :individual_title, :individual_telephone, :individual_address, presence: true, if: :step1_and_individual?
-  # validates :organization_business_name, :organization_contact_name, :organization_contact_title, :organization_contact_telephone, :organization_contact_email, :organization_address, presence: true, if: :step1_and_organization?
-
-  # validates :title_of_project, :specific_purpose, presence: true, if: :step2?
-  # validates :words_in_specific_purpose, length: { minimum: 20, too_short: 'is lacking sufficient detail and must be at least %{count} words.' }, if: :step2?
-  # validates :datasets, presence: true, if: :step2?
-  # validates :intended_use_of_data, :data_secured_location, :secured_device, :human_subjects_protections_trained, presence: true, if: :step2?
-
-  # validates :has_read_step3, presence: true, if: :step3?
-  # validates :posting_permission, presence: true, if: :step3?
-  # validates :posting_permission, inclusion: { in: %w(all name_only none), message: '"%{value}" is not a valid posting permission' }, if: :step3?
-
-  # validates :signature, :signature_print, :signature_date, presence: true, if: :step4_and_authorized?
-  # validates :edges_in_signature, length: { minimum: 20, too_short: "can't be blank" }, if: :step4_and_authorized?
-
-  # validates :duly_authorized_representative_signature, :duly_authorized_representative_signature_print, :duly_authorized_representative_signature_date, :duly_authorized_representative_title, presence: true, if: :step4_and_not_authorized?
-  # validates :edges_in_duly_authorized_representative_signature, length: { minimum: 20, too_short: "can't be blank" }, if: :step4_and_not_authorized?
-
-  # validates :irb_evidence_type, presence: true, if: :step5?
-  # validates :irb_evidence_type, inclusion: { in: %w(has_evidence no_evidence), message: '"%{value}" is not a valid evidence type' }, if: :step5?
-
-  # validates :irb, presence: true, if: :step5_and_has_evidence?
 
   # Relationships
   belongs_to :user
@@ -104,28 +44,29 @@ class Agreement < ApplicationRecord
   has_many :agreement_variables
   has_many :requests
   has_many :datasets, -> { current }, through: :requests
-  has_many :reviews, -> { joins(:user).order('lower(substring(users.first_name from 1 for 1)), lower(substring(users.last_name from 1 for 1))') }
+  has_many :reviews, -> { joins(:user).order("lower(substring(users.first_name from 1 for 1)), lower(substring(users.last_name from 1 for 1))") }
   has_many :agreement_events, -> { order(:event_at) }
   has_many :agreement_tags
-  has_many :tags, -> { where(deleted: false).order(:name) }, through: :agreement_tags
+  has_many :tags, -> { current.order(:name) }, through: :agreement_tags
   has_many :agreement_transactions, -> { order(id: :desc) }
   has_many :agreement_transaction_audits
 
   # Methods
 
-  def copyable_attributes
-    ignore_list = %w(
-      id deleted created_at updated_at reviewer_signature approval_date
-      expiration_date comments has_read_step3 has_read_step5 current_step dua
-      executed_dua duly_authorized_representative_token status signature
-      signature_print signature_date last_submitted_at printed_file
-      duly_authorized_representative_signature
-      duly_authorized_representative_signature_print
-      duly_authorized_representative_signature_date
-      duly_authorized_representative_title
-    )
-    attributes.reject { |key, _val| ignore_list.include?(key.to_s) }
-  end
+  # TODO: Remove and replace with new data request renewal process
+  # def copyable_attributes
+  #   ignore_list = %w(
+  #     id deleted created_at updated_at reviewer_signature approval_date
+  #     expiration_date comments has_read_step3 has_read_step5 current_step dua
+  #     executed_dua duly_authorized_representative_token status signature
+  #     signature_print signature_date last_submitted_at printed_file
+  #     duly_authorized_representative_signature
+  #     duly_authorized_representative_signature_print
+  #     duly_authorized_representative_signature_date
+  #     duly_authorized_representative_title
+  #   )
+  #   attributes.reject { |key, _val| ignore_list.include?(key.to_s) }
+  # end
 
   # TODO: Recheck these to see which should be ignored.
   def ignored_transaction_attributes
@@ -149,7 +90,7 @@ class Agreement < ApplicationRecord
   end
 
   def to_param
-    id.to_s + (user ? "-#{user.name.parameterize}" : '')
+    user ? "#{id}-#{user.name.parameterize}" : id.to_s
   end
 
   def id_and_representative_token
@@ -161,27 +102,19 @@ class Agreement < ApplicationRecord
   end
 
   def approved?
-    status == 'approved'
+    status == "approved"
   end
 
   def under_review?
-    status == 'submitted'
+    status == "submitted"
   end
 
   def resubmission_required?
-    status == 'resubmit'
+    status == "resubmit"
   end
 
   def resubmitted?
     resubmitted_at.present?
-  end
-
-  def academic?
-    data_user_type == 'individual'
-  end
-
-  def commercial?
-    data_user_type == 'organization'
   end
 
   def submittable?
@@ -193,15 +126,27 @@ class Agreement < ApplicationRecord
   end
 
   def close_daua!(current_user)
-    agreement_events.create event_type: 'principal_reviewer_closed', user_id: current_user.id, event_at: Time.zone.now
+    agreement_events.create(
+      event_type: "principal_reviewer_closed",
+      user: current_user,
+      event_at: Time.zone.now
+    )
   end
 
   def expire_daua!(current_user)
-    agreement_events.create event_type: 'principal_reviewer_expired', user_id: current_user.id, event_at: Time.zone.now
+    agreement_events.create(
+      event_type: "principal_reviewer_expired",
+      user: current_user,
+      event_at: Time.zone.now
+    )
   end
 
   def daua_approved_email(current_user)
-    agreement_event = agreement_events.create event_type: 'principal_reviewer_approved', user_id: current_user.id, event_at: Time.zone.now
+    agreement_event = agreement_events.create(
+      event_type: "principal_reviewer_approved",
+      user: current_user,
+      event_at: Time.zone.now
+    )
     reviews.where(approved: nil).destroy_all
     daua_approved_send_emails_in_background(current_user, agreement_event)
   end
@@ -217,8 +162,10 @@ class Agreement < ApplicationRecord
 
   def sent_back_for_resubmission_email(current_user)
     agreement_event = agreement_events.create(
-      event_type: 'principal_reviewer_required_resubmission',
-      user_id: current_user.id, event_at: Time.zone.now, comment: comments
+      event_type: "principal_reviewer_required_resubmission",
+      user: current_user,
+      event_at: Time.zone.now,
+      comment: comments
     )
     daua_ask_for_resubmit_send_emails_in_background(current_user, agreement_event)
   end
@@ -257,28 +204,8 @@ class Agreement < ApplicationRecord
     end
   end
 
-  def step_valid?(step)
-    dup_agreement = dup
-    dup_agreement.duly_authorized_representative_token = nil
-    dup_agreement.current_step = step
-    dup_agreement.irb = irb
-    dup_agreement.datasets = datasets
-    dup_agreement.full_mode = nil
-    dup_agreement.valid?
-  end
-
-  def draft_mode?
-    draft_mode.to_s == '1'
-  end
-
-  def full_mode?
-    full_mode.to_s == '1'
-  end
-
-  # TODO: Fix "fully_filled_out?" to handle new legal documents.
-  def fully_filled_out?
-    self.full_mode = '1'
-    valid?
+  def draft?
+    draft.to_s == "1"
   end
 
   def latex_partial(partial)
@@ -319,10 +246,6 @@ class Agreement < ApplicationRecord
   end
   # END TODO
 
-  def duly_authorized_representative_valid?
-    duly_authorized_representative_signature.present? && duly_authorized_representative_signature_print.present? && duly_authorized_representative_signature_date.present? && duly_authorized_representative_title.present?
-  end
-
   def authorized_signature_date
     unauthorized_to_sign? ? duly_authorized_representative_signature_date : signature_date
   end
@@ -336,62 +259,12 @@ class Agreement < ApplicationRecord
       file.define_singleton_method(:original_filename) do
         "#{attribute}.png"
       end
-      self.send("#{attribute}=", file)
+      send("#{attribute}=", file)
       save
     ensure
       file.close
       file.unlink # deletes the temp file
     end
-  end
-
-  protected
-
-  def save_mode?
-    !draft_mode?
-  end
-
-  def validate_step?(step)
-    full_mode? || (current_step == step && save_mode?)
-  end
-
-  def step1?
-    validate_step?(1)
-  end
-
-  def step1_and_individual?
-    data_user_type == 'individual' && step1?
-  end
-
-  def step1_and_organization?
-    data_user_type == 'organization' && step1?
-  end
-
-  def step2?
-    validate_step?(2)
-  end
-
-  def step3?
-    validate_step?(3)
-  end
-
-  def step4?
-    validate_step?(4)
-  end
-
-  def step4_and_authorized?
-    unauthorized_to_sign == false && step4?
-  end
-
-  def step4_and_not_authorized?
-    unauthorized_to_sign == true && step4?
-  end
-
-  def step5?
-    validate_step?(5)
-  end
-
-  def step5_and_has_evidence?
-    irb_evidence_type == 'has_evidence' && step5?
   end
 
   def self.latex_safe(mystring)
@@ -401,31 +274,9 @@ class Agreement < ApplicationRecord
   private
 
   def set_token
-    return unless duly_authorized_representative_token.blank?
+    return if duly_authorized_representative_token.present?
     update duly_authorized_representative_token: SecureRandom.hex(12)
   rescue ActiveRecord::RecordNotUnique, ActiveRecord::RecordInvalid
     retry
-  end
-
-  def edges_in_reviewer_signature
-    JSON.parse(reviewer_signature)
-  rescue
-    []
-  end
-
-  def edges_in_signature
-    JSON.parse(signature)
-  rescue
-    []
-  end
-
-  def edges_in_duly_authorized_representative_signature
-    JSON.parse(duly_authorized_representative_signature)
-  rescue
-    []
-  end
-
-  def words_in_specific_purpose
-    specific_purpose.to_s.scan(/\w+/)
   end
 end

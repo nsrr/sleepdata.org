@@ -57,7 +57,7 @@ class LegalDocumentPagesController < ApplicationController
   end
 
   def find_legal_document_page_or_redirect
-    @legal_document_page = @legal_document.legal_document_pages.find_by_id(params[:id])
+    @legal_document_page = @legal_document.legal_document_pages.find_by(id: params[:id])
     empty_response_or_root_path(organization_legal_document_path(@organization, @legal_document)) unless @legal_document_page
   end
 

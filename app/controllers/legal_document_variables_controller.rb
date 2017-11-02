@@ -59,7 +59,7 @@ class LegalDocumentVariablesController < ApplicationController
   end
 
   def find_legal_document_variable_or_redirect
-    @legal_document_variable = @legal_document.legal_document_variables.find_by_id(params[:id])
+    @legal_document_variable = @legal_document.legal_document_variables.find_by(id: params[:id])
     empty_response_or_root_path(organization_legal_document_path(@organization, @legal_document)) unless @legal_document_variable
   end
 

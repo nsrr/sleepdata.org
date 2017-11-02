@@ -17,7 +17,7 @@ class User < ApplicationRecord
   scope :aug_members, -> { current.where(aug_member: true) }
   scope :core_members, -> { current.where(core_member: true) }
   scope :system_admins, -> { current.where(system_admin: true) }
-  scope :with_name, -> (arg) { where("(users.first_name || ' ' || users.last_name) IN (?) or users.username IN (?)", arg, arg) }
+  scope :with_name, ->(arg) { where("(users.first_name || ' ' || users.last_name) IN (?) or users.username IN (?)", arg, arg) }
 
   def self.search(arg)
     term = arg.to_s.downcase.gsub(/^| |$/, '%')

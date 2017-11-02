@@ -14,7 +14,7 @@ class DatasetReviewsController < ApplicationController
 
   # GET /datasets/1/reviews/1
   def show
-    @dataset_review = @dataset.dataset_reviews.find_by_id(params[:id])
+    @dataset_review = @dataset.dataset_reviews.find_by(id: params[:id])
     redirect_to @dataset unless @dataset_review
   end
 

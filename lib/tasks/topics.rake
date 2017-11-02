@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 namespace :topics do
-  desc 'Create new slugs for existing topics.'
+  desc "Create new slugs for existing topics."
   task create_slugs: :environment do
     puts "Topics with slugs: #{Topic.where.not(slug: nil).count}"
     Topic.find_each do |topic|

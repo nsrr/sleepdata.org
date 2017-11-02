@@ -27,7 +27,7 @@
         %tr
           %td= tag.name
           - Agreement::STATUS.each do |label, status|
-            - count = @agreements.where(status: status).with_tag(tag.id).count
+            - count = @agreements.where(status: status).with_tag(tag).count
             %td= link_to (count == 0 ? "-" : count), reviews_path(status: status, tag_id: tag.id)
           %td= link_to @agreements.with_tag(tag.id).count, reviews_path(tag_id: tag.id)
 

@@ -5,8 +5,8 @@
 - chartables = @dataset.chartable_variables.where(dataset_version_id: @variable.dataset_version_id)
 
 - if chartables.pluck(:id).index(@variable.id)
-  - previous_variable = @dataset.variables.find_by_id(chartables[chartables.pluck(:id).index(@variable.id) - 1]) unless chartables.pluck(:id).index(@variable.id) == 0
-  - next_variable = @dataset.variables.find_by_id(chartables[chartables.pluck(:id).index(@variable.id) + 1])
+  - previous_variable = @dataset.variables.find_by(id: chartables[chartables.pluck(:id).index(@variable.id) - 1]) unless chartables.pluck(:id).index(@variable.id) == 0
+  - next_variable = @dataset.variables.find_by(id: chartables[chartables.pluck(:id).index(@variable.id) + 1])
   .d-none
     - if previous_variable
       = link_to url_for(id: previous_variable, g: params[:g], v: params[:v], action: params[:action]), class: "btn btn-sm btn-light", id: "previous-variable" do

@@ -54,7 +54,7 @@ class BroadcastsController < ApplicationController
   private
 
   def find_broadcast_or_redirect
-    @broadcast = current_user.editable_broadcasts.find_by_slug params[:id]
+    @broadcast = current_user.editable_broadcasts.find_by(slug: params[:id])
     redirect_without_broadcast
   end
 

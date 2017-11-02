@@ -1,5 +1,5 @@
 = form_with url: data_requests_update_attest_path(@data_request), method: :post, local: true, id: "data-request-form" do |form|
-  = hidden_field_tag "data_request[draft_mode]", nil
+  = hidden_field_tag "data_request[draft]", nil
 
   .form-group
     = label_tag :attest, class: "custom-control custom-checkbox" do

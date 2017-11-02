@@ -155,14 +155,12 @@ class ApplicationController < ActionController::Base
   def authenticate_user_from_token!
     user_id               = params[:auth_token].to_s.split("-").first.to_i
     auth_token            = params[:auth_token].to_s.gsub(/^#{user_id}-/, "")
-    user                  = user_id && User.find_by_id(user_id)
-
+    user                  = user_id && User.find_by(id: user_id)
     # Notice how we use Devise.secure_compare to compare the token
     # in the database with the token given in the params, mitigating
     # timing attacks.
-    if user && Devise.secure_compare(user.authentication_token, auth_token)
-      sign_in user, store: false
-    end
+    return unless user && Devise.secure_compare(user.authentication_token, auth_token)
+    sign_in user, store: false
   end
 
   def find_viewable_dataset_or_redirect(id = :dataset_id)
@@ -179,7 +177,7 @@ class ApplicationController < ActionController::Base
   end
 
   def find_editable_dataset_or_redirect(id = :dataset_id)
-    @dataset = current_user.all_datasets.find_by_slug(params[id]) if current_user
+    @dataset = current_user.all_datasets.find_by(slug: params[id]) if current_user
     redirect_without_dataset
   end
 

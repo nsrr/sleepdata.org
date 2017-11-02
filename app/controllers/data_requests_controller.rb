@@ -156,7 +156,7 @@ class DataRequestsController < ApplicationController
     end
     @next_page = @data_request.final_legal_document.final_legal_document_pages.find_by(position: @final_legal_document_page.position + 1)
 
-    if params.dig(:data_request, :draft_mode) == "1"
+    if params.dig(:data_request, :draft) == "1"
       @data_request.update(current_step: @final_legal_document_page.position)
       redirect_to data_requests_path, notice: "Data request draft saved successfully."
       return
@@ -194,7 +194,7 @@ class DataRequestsController < ApplicationController
       end
     end
 
-    if params.dig(:data_request, :draft_mode) == "1"
+    if params.dig(:data_request, :draft) == "1"
       redirect_to data_requests_path, notice: "Data request draft saved successfully."
     else
       redirect_to [@data_request, :supporting_documents]
@@ -253,8 +253,7 @@ class DataRequestsController < ApplicationController
 
   # POST /data/requests/:data_request_id/proof
   def submit
-    # TODO: Submit data request.
-    if params.dig(:data_request, :draft_mode) == "1"
+    if params.dig(:data_request, :draft) == "1"
       redirect_to data_requests_path, notice: "Data request draft saved successfully."
     elsif @data_request.complete?
       current_time = Time.zone.now

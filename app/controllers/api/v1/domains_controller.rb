@@ -47,7 +47,7 @@ class Api::V1::DomainsController < Api::V1::BaseController
   # private
 
   # def set_domain
-  #   @domain = Api::V1::Domain.find_by_id(params[:id])
+  #   @domain = Api::V1::Domain.find_by(id: params[:id])
   # end
 
   # def domain_params

@@ -20,17 +20,17 @@ class Async::ParentController < Async::BaseController
   private
 
   def find_parent_or_redirect
-    @topic = Topic.current.find_by_slug params[:topic_id]
-    @broadcast = Broadcast.current.published.find_by_slug params[:broadcast_id]
+    @topic = Topic.current.find_by(slug: params[:topic_id])
+    @broadcast = Broadcast.current.published.find_by(slug: params[:broadcast_id])
     @parent = @topic || @broadcast
     empty_response_or_root_path unless @parent
   end
 
   def set_reply
-    @reply = @parent.replies.find_by_id params[:reply_id]
+    @reply = @parent.replies.find_by(id: params[:reply_id])
     unless @reply
       @reply = @parent.replies.new(
-        reply_id: params[:parent_reply_id] == 'root' ? nil : params[:parent_reply_id]
+        reply_id: params[:parent_reply_id] == "root" ? nil : params[:parent_reply_id]
       )
     end
   end

@@ -82,10 +82,11 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # TODO: Add more variables on page 2.
   test "should update page" do
     login(@regular)
-    post data_requests_update_page_url(@started, "1", full_name: "Regular User")
+    assert_difference("AgreementVariable.count") do
+      post data_requests_update_page_url(@started, "1", full_name: "Regular User")
+    end
     assert_equal(
       "Regular User",
       @started.agreement_variables.find_by(
@@ -93,6 +94,20 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
       ).value
     )
     assert_redirected_to data_requests_page_url(@started, "2")
+  end
+
+  test "should save draft of page" do
+    login(@regular)
+    assert_difference("AgreementVariable.count") do
+      post data_requests_update_page_url(@started, "1", full_name: "Regular User", data_request: { draft: "1" })
+    end
+    assert_equal(
+      "Regular User",
+      @started.agreement_variables.find_by(
+        final_legal_document_variable: final_legal_document_variables(:full_name)
+      ).value
+    )
+    assert_redirected_to data_requests_url
   end
 
   test "should get attest" do

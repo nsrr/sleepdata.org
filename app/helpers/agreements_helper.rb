@@ -11,17 +11,18 @@ module AgreementsHelper
     )
   end
 
-  def step_helper(agreement, step, selected_step)
-    if step == selected_step
-      "btn-dark"
-    elsif step == 6
-      "btn-light"
-    elsif agreement.step_valid?(step)
-      "btn-dark"
-    else
-      "btn-light"
-    end
-  end
+  # TODO: Refactor or remove
+  # def step_helper(agreement, step, selected_step)
+  #   if step == selected_step
+  #     "btn-dark"
+  #   elsif step == 6
+  #     "btn-light"
+  #   elsif agreement.step_valid?(step)
+  #     "btn-dark"
+  #   else
+  #     "btn-light"
+  #   end
+  # end
 
   def status_hash
     {

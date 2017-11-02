@@ -71,7 +71,7 @@ $(document)
   .on('click', '[data-object~="submit-draft-signature-and-disable"]', ->
     window.$isDirty = false
     disablerWithSpinner($(this))
-    $("#data_request_draft_mode").val("1")
+    $("#data_request_draft").val("1")
     $("#data_uri").val(window.$signaturePad.toDataURL()) if window.$signaturePad? and !window.$signaturePad.isEmpty()
     $($(this).data("target")).submit()
     false

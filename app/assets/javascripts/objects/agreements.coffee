@@ -21,13 +21,6 @@ $(document)
     else
       $('#too-many-datasets').show()
   )
-  .on('click', '[data-object~="submit-draft"]', ->
-    # TODO: Remove this method
-    window.$isDirty = false
-    $('#agreement_draft_mode').val('1')
-    $($(this).data('target')).submit()
-    false
-  )
   .on('change', ':input', ->
     # TODO: Potentially remove this
     if $('#isdirty').val() == '1'

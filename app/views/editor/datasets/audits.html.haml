@@ -26,7 +26,7 @@
       %th
         - if params.key?(:user_id)
           %i.fa.fa-filter
-          - user = User.find_by_id(params[:user_id])
+          - user = User.find_by(id: params[:user_id])
           = user ? user.name : "Anonymous"
         - else
           %span.text-muted -

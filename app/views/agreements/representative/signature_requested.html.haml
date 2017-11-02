@@ -38,9 +38,7 @@
     Agreed to by:
 
   = form_with model: @data_request, url: representative_submit_signature_path(@data_request.id_and_representative_token), method: :patch, local: true, id: "duly-authorized-representative-signature-form" do |form|
-    = hidden_field_tag "agreement[draft_mode]", nil
-    = hidden_field_tag "step", @step
-    = hidden_field_tag "agreement[current_step]", @step
+    = form.hidden_field :draft
 
     = form.label :duly_authorized_representative_signature, "Signature of Duly Authorized Representative", class: "control-label"
     = render "forms/signature"

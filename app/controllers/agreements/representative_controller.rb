@@ -40,11 +40,10 @@ class Agreements::RepresentativeController < ApplicationController
   def authenticate_data_request_from_token!
     data_request_id = params[:representative_token].to_s.split("-").first
     auth_token = params[:representative_token].to_s.gsub(/^#{data_request_id}-/, "")
-    data_request = data_request_id && DataRequest.current.submittable.find_by_id(data_request_id)
+    data_request = data_request_id && DataRequest.current.submittable.find_by(id: data_request_id)
     # Devise.secure_compare is used to mitigate timing attacks.
-    if data_request && Devise.secure_compare(data_request.duly_authorized_representative_token, auth_token)
-      @data_request = data_request
-    end
+    return unless data_request && Devise.secure_compare(data_request.duly_authorized_representative_token, auth_token)
+    @data_request = data_request
   end
 
   def find_data_request_or_redirect
@@ -53,10 +52,10 @@ class Agreements::RepresentativeController < ApplicationController
   end
 
   def duly_authorized_params
-    params[:agreement] ||= { blank: "1" }
-    params[:agreement][:unauthorized_to_sign] = true
-    params[:agreement][:duly_authorized_representative_signature_date] = Time.zone.today
-    params.require(:agreement).permit(
+    params[:data_request] ||= { blank: "1" }
+    params[:data_request][:unauthorized_to_sign] = true
+    params[:data_request][:duly_authorized_representative_signature_date] = Time.zone.today
+    params.require(:data_request).permit(
       :duly_authorized_representative_signature_print,
       :duly_authorized_representative_title,
       :unauthorized_to_sign,

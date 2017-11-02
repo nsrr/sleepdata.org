@@ -14,9 +14,9 @@ class Dataset < ApplicationRecord
 
   # Scopes
   scope :released, -> { current.where(released: true) }
-  scope :with_editor, -> (arg) { where("datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)", arg, arg, "editor").references(:dataset_users) }
-  scope :with_reviewer, -> (arg) { where("datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)", arg, "reviewer").references(:dataset_users) }
-  scope :with_viewer_or_editor, -> (arg) { where("datasets.released = ? or datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role IN (?))", true, arg, arg, %w(viewer editor)).references(:dataset_users) }
+  scope :with_editor, ->(arg) { where("datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)", arg, arg, "editor").references(:dataset_users) }
+  scope :with_reviewer, ->(arg) { where("datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)", arg, "reviewer").references(:dataset_users) }
+  scope :with_viewer_or_editor, ->(arg) { where("datasets.released = ? or datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role IN (?))", true, arg, arg, %w(viewer editor)).references(:dataset_users) }
 
   # Validations
   validates :name, :slug, :user_id, presence: true
