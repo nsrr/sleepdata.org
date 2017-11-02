@@ -14,6 +14,7 @@ regular:
   first_name: Regular
   last_name: User
   email: regular@example.com
+  authentication_token: 17a264737fa399bdad669
 
 regular2:
   first_name: Regular2

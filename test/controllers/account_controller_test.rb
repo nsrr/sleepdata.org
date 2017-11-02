@@ -1,26 +1,26 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 # Tests JSON API for account authentication.
-class AccountControllerTest < ActionController::TestCase
-  test 'should get profile as valid user' do
-    get :profile, params: { auth_token: users(:valid).id_and_auth_token, format: 'json' }
+class AccountControllerTest < ActionDispatch::IntegrationTest
+  test "should get profile as regular user" do
+    get account_profile_url(users(:regular).id_and_auth_token, format: "json")
     assert_not_nil response
     profile = JSON.parse(response.body)
-    assert_equal true,        profile['authenticated']
-    assert_equal 'FirstName', profile['first_name']
-    assert_equal 'LastName',  profile['last_name']
+    assert_equal true, profile["authenticated"]
+    assert_equal "Regular", profile["first_name"]
+    assert_equal "User", profile["last_name"]
     assert_response :success
   end
 
-  test 'should get profile as logged out viewer' do
-    get :profile, params: { auth_token: '', format: 'json' }
+  test "should get unauthenticated profile as public user" do
+    get account_profile_url(format: "json")
     assert_not_nil response
     profile = JSON.parse(response.body)
-    assert_equal false, profile['authenticated']
-    assert_nil profile['first_name']
-    assert_nil profile['last_name']
+    assert_equal false, profile["authenticated"]
+    assert_nil profile["first_name"]
+    assert_nil profile["last_name"]
     assert_response :success
   end
 end

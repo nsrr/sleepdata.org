@@ -8,7 +8,9 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   # Concerns
-  include Deletable, TokenAuthenticatable, Forkable
+  include Deletable
+  include TokenAuthenticatable
+  include Forkable
 
   # Callbacks
   before_save :ensure_authentication_token
@@ -20,20 +22,20 @@ class User < ApplicationRecord
   scope :with_name, ->(arg) { where("(users.first_name || ' ' || users.last_name) IN (?) or users.username IN (?)", arg, arg) }
 
   def self.search(arg)
-    term = arg.to_s.downcase.gsub(/^| |$/, '%')
+    term = arg.to_s.downcase.gsub(/^| |$/, "%")
     conditions = [
-      'LOWER(first_name) LIKE ?',
-      'LOWER(last_name) LIKE ?',
-      'LOWER(email) LIKE ?',
-      '((LOWER(first_name) || LOWER(last_name)) LIKE ?)',
-      '((LOWER(last_name) || LOWER(first_name)) LIKE ?)'
+      "LOWER(first_name) LIKE ?",
+      "LOWER(last_name) LIKE ?",
+      "LOWER(email) LIKE ?",
+      "((LOWER(first_name) || LOWER(last_name)) LIKE ?)",
+      "((LOWER(last_name) || LOWER(first_name)) LIKE ?)"
     ]
     terms = [term] * conditions.count
-    where conditions.join(' or '), *terms
+    where conditions.join(" or "), *terms
   end
 
   def self.aug_or_core_members
-    current.where('aug_member = ? or core_member = ?', true, true)
+    current.where("aug_member = ? or core_member = ?", true, true)
   end
 
   def self.regular_members
@@ -193,7 +195,7 @@ class User < ApplicationRecord
   end
 
   def topics_created_in_last_day
-    topics.where('created_at >= ?', Date.today - 1.day)
+    topics.where("created_at >= ?", Time.zone.today - 1.day)
   end
 
   def max_topics
@@ -205,7 +207,7 @@ class User < ApplicationRecord
   end
 
   def digest_reviews
-    reviews.where(approved: nil).joins(:agreement).merge(Agreement.current.where(status: 'submitted')).order('agreements.last_submitted_at desc')
+    reviews.where(approved: nil).joins(:agreement).merge(DataRequest.current.where(status: "submitted")).order("agreements.last_submitted_at desc")
   end
 
   def name

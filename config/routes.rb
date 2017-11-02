@@ -14,7 +14,9 @@ Rails.application.routes.draw do
     end
   end
 
-  get "account(/:auth_token)/profile" => "account#profile"
+  namespace :account do
+    get :profile, path: "(/:auth_token)/profile"
+  end
 
   get "admin", to: redirect("dashboard")
 
@@ -76,22 +78,10 @@ Rails.application.routes.draw do
 
   resources :agreements do
     collection do
-      # get :new_step
-      # post :create_step
-      # get :submissions
       get :export
     end
     member do
       get :print
-    #   get :download
-    #   get :step
-    #   patch :update_step
-    #   get :proof
-    #   patch :final_submission
-    #   get :complete
-    #   get :renew
-    #   get :download_irb
-    #   delete :destroy_submission
     end
 
     resources :agreement_events, path: "events" do
@@ -102,8 +92,6 @@ Rails.application.routes.draw do
   end
 
   resources :categories
-
-
 
   resources :community_tools, path: "community-tools" do
     resources :community_tool_reviews, path: "reviews"
