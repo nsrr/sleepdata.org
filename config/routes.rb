@@ -242,10 +242,6 @@ Rails.application.routes.draw do
 
   scope module: :internal do
     get :dashboard
-    get :profile
-    # TODO: ENABLE THESE
-    # get :settings
-    # get :tools
     get :token
   end
 
@@ -299,6 +295,21 @@ Rails.application.routes.draw do
     get :search, action: "index", as: :search
   end
 
+  get :settings, to: redirect("settings/profile")
+  namespace :settings do
+    get :profile
+    patch :update_profile, path: "profile"
+
+    get :account
+    patch :update_account, path: "account"
+    get :password, to: redirect("settings/account")
+    patch :update_password, path: "password"
+    delete :destroy, path: "account", as: "delete_account"
+
+    get :email
+    patch :update_email, path: "email"
+  end
+
   resources :tags
 
   resources :tools, only: [:index, :show]
@@ -331,21 +342,18 @@ Rails.application.routes.draw do
 
   devise_for :users,
              controllers: {
-               sessions: "sessions", registrations: "registrations"
+               sessions: "sessions",
+               registrations: "registrations"
              },
              path_names: {
-               sign_up: "join", sign_in: "login"
+               sign_up: "join",
+               sign_in: "login"
              },
              path: ""
 
   resources :users
 
   get "/submissions", to: redirect("data/requests")
-
-  get "/settings" => "users#settings", as: :settings
-  patch "/settings" => "users#update_settings", as: :update_settings
-  get "/change_password", to: redirect("settings"), as: :change_password_settings
-  patch "/change_password" => "users#change_password", as: :change_password
 
   # In case "failed submission steps are reloaded using get request"
   get "/agreements/:id/final_submission" => "agreements#proof"

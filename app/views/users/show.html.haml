@@ -12,125 +12,21 @@
       %ol
         %li= link_to "Users", users_path
 
-.dashboard-container
-  %table.table.table-striped.table-borderless
-    %col{ width: "25%" }
-    %col{ width: "75%" }
-    %tr
-      %th.text-right
-        Email
-      %td= @user.email
 
-    %tr
-      %th.text-right
-        Forum Username
-      %td= link_to @user.username, topics_path(a: @user.username) if @user.username.present?
-
-    %tr
-      %th.text-right
-        Emails Enabled
-      %td= simple_check @user.emails_enabled?
-
-    %tr
-      %th.text-right
-        Degree
-      %td= @user.degree
-
-    %tr
-      %th.text-right
-        Core Team Member
-      %td= simple_check @user.core_member?
-
-    %tr
-      %th.text-right
-        Contributor
-      %td= simple_check @user.contributor?
-
-    %tr
-      %th.text-right
-        AUG Member
-      %td= simple_check @user.aug_member?
-
-    %tr
-      %th.text-right
-        Community Manager
-      %td= simple_check @user.community_manager?
-
-    %tr
-      %th.text-right
-        Research Summary
-      %td= simple_markdown(@user.research_summary)
-
-    - if current_user.system_admin?
-      %tr
-        %th.text-right
-          System Admin
-        %td
-          = simple_check @user.system_admin?
-
-      %tr
-        %th.text-right
-          Banned
-        %td
-          = simple_check @user.banned?
-          - if @user.banned?
-            %span.badge.badge-dark
-              Banned from Forum
-    %tr
-      %th.text-right
-        User Avatar
-      %td
-        = image_tag @user.avatar_url, class: "img-rounded"
-
-    %tr
-      %th.text-right
-        Agreements
-      %td
-        %table.table.table-sm.table-striped
-          %thead
-            %tr
-              %th ID
-              %th Status
-              %th Datasets
-          %tbody
-            - @user.agreements.order(id: :desc).each do |a|
-              %tr
-                %td= link_to "##{a.id}", review_path(a)
-                %td= status_helper(a)
-                %td
-                  - a.datasets.order(:release_date, :name).each do |dataset|
-                    = render "datasets/mini", dataset: dataset
-
-    %tr
-      %th.text-right
-        Total Downloads
-      %td
-        - download_sizes = []
-        - download_counts = []
-        %table.table.table-striped
-          %thead
-            %tr
-              %th
-                Dataset
-              %th.text-center{ colspan: 2 }
-                Files Downloaded
-          - Dataset.current.order(:release_date, :name).each do |dataset|
-            - download_size = dataset.dataset_file_audits.where( user_id: @user.id ).sum( :file_size )
-            - download_count = dataset.dataset_file_audits.where( user_id: @user.id ).count
-            - if download_size > 0
-              - download_sizes << download_size
-              - download_counts << download_count
-              %tr
-                %td
-                  = dataset.name
-                %td
-                  = pluralize number_with_delimiter(download_count), "file"
-                %td
-                  = number_to_human_size download_size
-          %tfoot
-            %th
-              Total
-            %th
-              = pluralize number_with_delimiter(download_counts.sum), "file"
-            %th
-              = number_to_human_size(download_sizes.sum)
+= render "forms/horizontal/show/text", object: @user, key: :email
+= render "forms/horizontal/show/generic", title: "Username", content: link_to(@user.username, topics_path(a: @user.username)) if @user.username.present?
+= render "forms/horizontal/show/check_box", object: @user, key: :emails_enabled
+= render "forms/horizontal/show/text", object: @user, key: :profile_bio, key_name: "Bio"
+= render "forms/horizontal/show/text", object: @user, key: :profile_url, key_name: "URL"
+= render "forms/horizontal/show/text", object: @user, key: :profile_location, key_name: "Location"
+= render "forms/horizontal/show/text", object: @user, key: :degree
+= render "forms/horizontal/show/check_box", object: @user, key: :core_member
+= render "forms/horizontal/show/check_box", object: @user, key: :contributor
+= render "forms/horizontal/show/check_box", object: @user, key: :aug_member
+= render "forms/horizontal/show/check_box", object: @user, key: :community_manager
+= render "forms/horizontal/show/markdown", object: @user, key: :research_summary
+= render "forms/horizontal/show/check_box", object: @user, key: :system_admin
+= render "forms/horizontal/show/generic", title: "Banned", content: simple_check(@user.banned?) + "#{" #{content_tag(:span, "Banned from Forum", class: "badge badge-dark")}" if @user.banned?}".html_safe
+= render "forms/horizontal/show/generic", title: "Profile picture", content: image_tag(@user.avatar_url, class: "rounded")
+= render "forms/horizontal/show/generic", title: "Data requests", content: render("users/data_requests", user: @user)
+= render "forms/horizontal/show/generic", title: "Downloads", content: render("users/downloads", user: @user)

@@ -1,0 +1,30 @@
+- download_sizes = []
+- download_counts = []
+%table.table.table-sm.table-striped.table-borderless.table-sticky
+  %thead
+    %tr
+      %th
+        Dataset
+      %th{ colspan: 2 }
+        Files Downloaded
+  - Dataset.current.order(:release_date, :name).each do |dataset|
+    - download_size = dataset.dataset_file_audits.where(user: user).sum(:file_size)
+    - download_count = dataset.dataset_file_audits.where(user: user).count
+    - if download_size.positive?
+      - download_sizes << download_size
+      - download_counts << download_count
+      %tr
+        %td
+          %span.d-none.d-lg-inline= dataset.name
+          %span.d-inline.d-lg-none= dataset.slug
+        %td
+          = pluralize number_with_delimiter(download_count), "file"
+        %td
+          = number_to_human_size download_size
+  %tfoot
+    %th
+      Total
+    %th
+      = pluralize number_with_delimiter(download_counts.sum), "file"
+    %th
+      = number_to_human_size(download_sizes.sum)

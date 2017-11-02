@@ -2,15 +2,17 @@
   = render "forms/horizontal/text_field", form: form, object: user, key: :first_name
   = render "forms/horizontal/text_field", form: form, object: user, key: :last_name
   = render "forms/horizontal/email_field", form: form, object: user, key: :email
-  = render "forms/horizontal/text_field", form: form, object: user, key: :username, key_name: "Forum Username"
   = render "forms/horizontal/check_box", form: form, object: user, key: :emails_enabled
-  - if current_user.system_admin?
-    = render "forms/horizontal/text_field", form: form, object: user, key: :degree
-    = render "forms/horizontal/check_box", form: form, object: user, key: :core_member, key_name: "Core NSRR member"
-    = render "forms/horizontal/check_box", form: form, object: user, key: :contributor
-    = render "forms/horizontal/check_box", form: form, object: user, key: :aug_member, key_name: "AUG member"
-    = render "forms/horizontal/check_box", form: form, object: user, key: :community_manager, help_text: "Community managers can create blog posts."
-    = render "forms/horizontal/check_box", form: form, object: user, key: :system_admin
-    = render "forms/horizontal/check_box", form: form, object: user, key: :banned, key_name: "Shadow banned", help_text: "Hides forum posts by this user."
+  = render "forms/horizontal/text_field", form: form, object: user, key: :username, key_name: "Forum Username"
+  = render "forms/horizontal/text_area", form: form, object: user, key: :profile_bio, key_name: "Bio", help_text: "Short description about yourself and your work.", rows: 3, maxlength: 160
+  = render "forms/horizontal/text_field", form: form, object: user, key: :profile_url, key_name: "URL", help_text: "Ex: Your online research profile, lab's website, or code repository."
+  = render "forms/horizontal/text_field", form: form, object: user, key: :profile_location, key_name: "Location", help_text: "Your city, state, and/or country, ex: Boston, MA, USA, or Sydney, AUSTRALIA"
+  = render "forms/horizontal/text_field", form: form, object: user, key: :degree
+  = render "forms/horizontal/check_box", form: form, object: user, key: :core_member, key_name: "Core NSRR member"
+  = render "forms/horizontal/check_box", form: form, object: user, key: :contributor
+  = render "forms/horizontal/check_box", form: form, object: user, key: :aug_member, key_name: "AUG member"
+  = render "forms/horizontal/check_box", form: form, object: user, key: :community_manager, help_text: "Community managers can create blog posts."
+  = render "forms/horizontal/check_box", form: form, object: user, key: :system_admin
+  = render "forms/horizontal/check_box", form: form, object: user, key: :banned, key_name: "Shadow banned", help_text: "Hides forum posts by this user."
   = render "forms/horizontal/text_area", form: form, object: user, key: :research_summary
   = render "forms/horizontal/submit", form: form, object: user

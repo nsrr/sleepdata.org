@@ -8,6 +8,10 @@
   - Improved Downloads by Quarter report loading speed
 - **API Changes**
   - Dataset versions now have their release date set on creation
+- **Dashboard Changes**
+  - Improved user profile and settings management from dashboard
+  - Users can now provide profile information about themselves
+  - Users can now delete their account
 - **Data Request Changes**
   - Data requests now use
     [SignaturePad](https://github.com/szimek/signature_pad)

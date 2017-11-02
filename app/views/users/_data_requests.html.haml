@@ -1,0 +1,14 @@
+%table.table.table-sm.table-striped.table-borderless.table-sticky
+  %thead
+    %tr
+      %th ID
+      %th Status
+      %th Datasets
+  %tbody
+    - user.agreements.order(id: :desc).each do |a|
+      %tr
+        %td= link_to "##{a.id}", review_path(a)
+        %td= status_helper(a)
+        %td
+          - a.datasets.order(:release_date, :name).each do |dataset|
+            = render "datasets/mini", dataset: dataset

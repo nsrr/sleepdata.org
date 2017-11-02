@@ -9,6 +9,9 @@
         Member since
         = current_user.created_at.strftime("%b %Y")
     - if false
+      .text-muted.small
+        = current_user.bio
+    - if false
       .text-center{ style: "margin-bottom: 10px;" }
         %small.text-muted
           = number_to_human_size current_user.dataset_file_audits.sum(:file_size)
@@ -25,10 +28,14 @@
   %li.blog-menu-header My Dashboard
   %li= link_to "Overview", dashboard_path, class: current_page?(dashboard_path) ? "active" : nil
   %li= link_to "Data Access Requests", submissions_path, class: current_page?(submissions_path) ? "active" : nil
-  %li= link_to "Settings", settings_path, class: current_page?(settings_path) ? "active" : nil
   %li= link_to "Token", token_path, class: current_page?(token_path) ? "active" : nil
   - if current_user.community_manager?
     %li= link_to "Blog Posts", broadcasts_path, class: current_page?(broadcasts_path) ? "active" : nil
+
+  %li.blog-menu-header Settings
+  %li= link_to "Profile", settings_profile_path, class: current_page?(settings_profile_path) ? "active" : nil
+  %li= link_to "Account", settings_account_path, class: current_page?(settings_account_path) ? "active" : nil
+  %li= link_to "Email", settings_email_path, class: current_page?(settings_email_path) ? "active" : nil
 
   -# TODO: Only show for reviewers.
   - if current_user.system_admin? || current_user.reviewable_data_requests.count.positive?

@@ -8,22 +8,6 @@ class InternalController < ApplicationController
   # def dashboard
   # end
 
-  # # GET /settings
-  # def settings
-  # end
-
-  # # GET /submissions
-  # def submissions
-  # end
-
-  # # GET /tools
-  # def tools
-  # end
-
-  # # GET /profile
-  # def profile
-  # end
-
   # # GET /token
   # def token
   # end
