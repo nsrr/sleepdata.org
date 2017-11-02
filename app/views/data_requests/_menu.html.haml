@@ -10,7 +10,7 @@
             %span.small>= ".#{@data_request.final_legal_document.version_md5.first(7)}"
           = render "data_requests/convert_links", data_request: @data_request
 
-      %button.navbar-light.navbar-toggler.d-md-none{ type: "button", data: { toggle: "collapse", target: "#sidebar-nav-wrapper" }, aria: { controls: "sidebar-nav-wrapper", expanded: "false", label: "Toggle docs navigation" }, style: "border: 1px solid rgba(0, 0, 0, 0.5);" }
+      %button.navbar-light.navbar-toggler.d-md-none{ type: "button", data: { toggle: "collapse", target: "#sidebar-nav-wrapper" }, aria: { controls: "sidebar-nav-wrapper", expanded: "false", label: "Toggle navigation" }, style: "border: 1px solid rgba(0, 0, 0, 0.5);" }
         %span.navbar-toggler-icon
 
     - pages = @data_request.final_legal_document.final_legal_document_pages.where(rider: false).collect { |p| { name: "Page #{p.position}", url: data_requests_page_path(@data_request, p.position), complete?: @data_request.page_complete?(p) } }
@@ -30,17 +30,16 @@
       %nav.sidebar-nav
         - groups.each do |group|
           .sidebar-nav-group{ class: group.dig(:active) || current_page?(group.dig(:url)) || true ? "active" : nil }
-            %a.sidebar-nav-group-link{ href: group.dig(:url) }
+            = link_to group.dig(:url), class: "sidebar-nav-group-link" do
               = group.dig(:name)
               - if group.dig(:count).present? && group.dig(:count).positive?
                 %span.badge.badge-primary= group.dig(:count)
 
             - if group.dig(:docs).present?
-              - random_docs_number = rand(group.dig(:docs).size)
               %ul.nav.sidebar-nav-group-items
                 - group.dig(:docs).each do |doc|
                   %li{ class: current_page?(doc.dig(:url)) ? "active" : nil }
-                    %a{ href: doc.dig(:url) }
+                    = link_to doc.dig(:url) do
                       - if doc.dig(:complete?)
                         %i.fa.fa-check-square-o.text-success
                       - else

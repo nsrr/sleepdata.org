@@ -1,25 +1,41 @@
 - @title = "Account Settings"
 
-.mb-5
-  %h3 Change password
-  = form_with model: current_user, url: settings_update_password_path, method: :patch, local: true do |form|
-    = render "forms/vertical/password_field", form: form, object: current_user, key: :current_password, key_name: "Old password"
-    = render "forms/vertical/password_field", form: form, object: current_user, key: :password, key_name: "New password"
-    = render "forms/vertical/password_field", form: form, object: current_user, key: :password_confirmation, key_name: "Confirm new password"
-    =# render "forms/vertical/submit", form: form, object: current_user, submit_text: "Update password", cancel: false, alternate_link: link_to("I forgot my password", new_user_password_path)
-    -# TODO: Allow new_user_password_path to be accessible when logged in.
-    = render "forms/vertical/submit", form: form, object: current_user, submit_text: "Update password", cancel: false
+- content_for :container_class, "container-fluid"
+.container-fluid
+  .row.flex-xl-nowrap
+    = render "settings/menu"
 
+    .d-none.d-xl-block.col-xl.sidebar-drawer
 
-.mb-5
-  %h3 Change username
-  = form_with model: current_user, url: settings_update_account_path, local: true do |form|
-    = render "forms/vertical/text_field", form: form, object: current_user, key: :username, key_name: "Username", placeholder: current_user.name, help_text: "You can change your avatar at #{link_to "gravatar.com", "http://gravatar.com", target: "_blank"}.".html_safe
-    = render "forms/vertical/submit", form: form, object: current_user, submit_text: "Update username", cancel: false
+    %main.col-12.col-md-9.col-xl-8.px-md-5{ role: "main" }
+      .page-box.last-box
+        .card.mb-5
+          %h4.card-header
+            %i.fa.fa-user
+            Change password
+          .card-body
+            = form_with model: current_user, url: settings_update_password_path, method: :patch, local: true do |form|
+              = render "forms/vertical/password_field", form: form, object: current_user, key: :current_password, key_name: "Old password"
+              = render "forms/vertical/password_field", form: form, object: current_user, key: :password, key_name: "New password"
+              = render "forms/vertical/password_field", form: form, object: current_user, key: :password_confirmation, key_name: "Confirm new password"
+              =# render "forms/vertical/submit", form: form, object: current_user, submit_text: "Update password", cancel: false, alternate_link: link_to("I forgot my password", new_user_password_path)
+              -# TODO: Allow new_user_password_path to be accessible when logged in.
+              = render "forms/vertical/submit", form: form, object: current_user, submit_text: "Update password", cancel: false
 
-.mb-5
-  %h3.text-danger Delete account
+        .card.mb-5
+          %h4.card-header
+            %i.fa.fa-user
+            Change username
+          .card-body
+            = form_with model: current_user, url: settings_update_account_path, local: true do |form|
+              = render "forms/vertical/text_field", form: form, object: current_user, key: :username, key_name: "Username", placeholder: current_user.name, help_text: "You can change your avatar at #{link_to "gravatar.com", "http://gravatar.com", target: "_blank"}.".html_safe
+              = render "forms/vertical/submit", form: form, object: current_user, submit_text: "Update username", cancel: false
 
-  -# TODO: Add ability to delete account.
-  %p You may delete you account, but this action is PERMANENT.
-  = link_to "Delete your account", settings_delete_account_path, method: :delete, class: "btn btn-outline-danger"
+        .card.mb-5
+          %h4.card-header.text-danger
+            %i.fa.fa-user
+            Delete account
+          .card-body
+            -# TODO: Add ability to delete account.
+            %p You may delete you account, but this action is PERMANENT.
+            = link_to "Delete your account", settings_delete_account_path, method: :delete, class: "btn btn-outline-danger"

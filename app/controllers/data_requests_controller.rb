@@ -27,7 +27,6 @@ class DataRequestsController < ApplicationController
   # GET /data/requests
   def index
     @data_requests = current_user.data_requests.order(id: :desc).page(params[:page]).per(10)
-    render layout: "layouts/application"
   end
 
   # GET /data/requests/:dataset_id/start
@@ -291,10 +290,9 @@ class DataRequestsController < ApplicationController
     end
   end
 
-  # GET /data/requests/:id
-  def show
-    render layout: "layouts/application"
-  end
+  # # GET /data/requests/:id
+  # def show
+  # end
 
   # # GET /data/requests/:data_request_id/resume
   # def resume

@@ -7,6 +7,8 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :redirect_without_user, only: [:show, :edit, :update, :destroy]
 
+  layout "layouts/full_page"
+
   # GET /users
   def index
     @order = scrub_order(User, params[:order], "users.current_sign_in_at desc")

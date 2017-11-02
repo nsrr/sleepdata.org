@@ -6,6 +6,8 @@ class TagsController < ApplicationController
   before_action :check_system_admin
   before_action :find_tag_or_redirect, only: [:show, :edit, :update, :destroy]
 
+  layout "layouts/full_page"
+
   # GET /tags
   def index
     @order = scrub_order(Tag, params[:order], "tags.name")

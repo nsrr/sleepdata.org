@@ -3,54 +3,66 @@
 -# if @data_request.expired?
 -# TODO: "Started" data requests should redirect to page/1 or appropriate page.
 
-.float-right
-  = link_to [:print, @data_request], data: { turbolinks: false }, class: "btn btn-outline-dark btn-sm" do
-    %i.fa.fa-print
-    Print
+- @title = "Data Requests"
 
-= link_to data_requests_path, class: "btn btn-sm mb-3" do
-  %i.fa.fa-caret-left
-  Back to Data Requests
+- content_for :container_class, "container-fluid"
+.container-fluid
+  .row.flex-xl-nowrap
+    = render "settings/menu"
 
-.card
-  - case @data_request.status
-  - when "submitted"
-    .card-body
-      %p.lead
-        You initially submitted this data request on
-        = succeed "." do
-          = @data_request.submitted_at.strftime("%d %B %Y")
-        -# last_submitted_at, submitted_at, resubmitted_at
-      = render "data_requests/datasets", data_request: @data_request
+    .d-none.d-xl-block.col-xl.sidebar-drawer
 
-  - when "approved"
-    %h4.card-header
-      %i.fa.fa-check-square
-      Approved
-    .card-body
-      %p.lead
-        This data request was submitted on
-        = @data_request.submitted_at.strftime("%d %B %Y")
-        and has been approved.
-      = render "data_requests/datasets", data_request: @data_request
+    %main.col-12.col-md-9.col-xl-8.px-md-5{ role: "main" }
+      .page-box.last-box
 
-  - when "closed"
-    %h4.card-header
-      %i.fa.fa-lock
-      Closed
-    .card-body
-      %p.lead
-        This data request is closed.
-      = render "data_requests/datasets", data_request: @data_request
-  - else # "expired"
-    %h4.card-header
-      %i.fa.fa-hourglass-end
-      Expired
-    .card-body
-      %p.lead
-        This data request is expired.
-      = render "data_requests/datasets", data_request: @data_request
-    .card-footer
-      -# TODO: Fix "renew data request path"
-      = link_to "Renew Data Request", data_requests_start_path(@data_request.datasets.first)
+        .float-right
+          = link_to [:print, @data_request], data: { turbolinks: false }, class: "btn btn-outline-dark btn-sm" do
+            %i.fa.fa-print
+            Print
+
+        = link_to data_requests_path, class: "btn btn-sm mb-3" do
+          %i.fa.fa-caret-left
+          Back to Data Requests
+
+        .card
+          - case @data_request.status
+          - when "submitted"
+            .card-body
+              %p.lead
+                You initially submitted this data request on
+                = succeed "." do
+                  = @data_request.submitted_at.strftime("%d %B %Y")
+                -# last_submitted_at, submitted_at, resubmitted_at
+              = render "data_requests/datasets", data_request: @data_request
+
+          - when "approved"
+            %h4.card-header
+              %i.fa.fa-check-square
+              Approved
+            .card-body
+              %p.lead
+                This data request was submitted on
+                = @data_request.submitted_at.strftime("%d %B %Y")
+                and has been approved.
+              = render "data_requests/datasets", data_request: @data_request
+
+          - when "closed"
+            %h4.card-header
+              %i.fa.fa-lock
+              Closed
+            .card-body
+              %p.lead
+                This data request is closed.
+              = render "data_requests/datasets", data_request: @data_request
+          - else # "expired"
+            %h4.card-header
+              %i.fa.fa-hourglass-end
+              Expired
+            .card-body
+              %p.lead
+                This data request is expired.
+              = render "data_requests/datasets", data_request: @data_request
+            .card-footer
+              -# TODO: Fix "renew data request path"
+              = link_to "Renew Data Request", data_requests_start_path(@data_request.datasets.first)
 

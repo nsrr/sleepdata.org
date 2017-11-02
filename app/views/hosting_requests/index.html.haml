@@ -1,46 +1,52 @@
 - @title = "Hosting Requests"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        .float-right
-          = render "layouts/per_page", per_page: 40, object_count: @hosting_requests.total_count
-        = @title
-        = render "search/toggle"
+- content_for :container_class, "container-fluid"
+.container-fluid
+  .row.flex-xl-nowrap
+    = render "settings/menu"
 
-= render "search/simple", url: hosting_requests_path
+    %main.col-12.col-md-9.col-xl-8.px-md-5{ role: "main" }
+      - content_for :header do
+        .header-container
+          .container
+            %h1.page-heading
+              .float-right
+                = render "layouts/per_page", per_page: 40, object_count: @hosting_requests.total_count
+              = @title
+              = render "search/toggle"
 
-- if @hosting_requests.count.zero?
-  .lead.text-center{ style: "margin-top: 40px;" }
-    No hosting requests found matching search criteria.
-    = succeed "." do
-      = link_to "Back to index", hosting_requests_path
-- else
-  %table.table.table-striped.table-borderless.table-hover.table-sticky
-    %col{ width: "1px" }
-    %col
-    %col.d-none.d-sm-table-column
-    %col
-    %col.d-none.d-sm-table-column{ width: "1px" }
-    %col{ width: "1px" }
-    %thead
-      %tr
-        %th ID
-        %th Institution Name
-        %th.d-none.d-sm-table-cell Description
-        %th User
-        %th.d-none.d-sm-table-cell.text-center Reviewed
-        %th.text-center
-          .d-none.d-sm-inline-block Actions
+      = render "search/simple", url: hosting_requests_path
 
-    %tbody
-      - @hosting_requests.each do |hosting_request|
-        %tr
-          %td= "##{hosting_request.id}"
-          %td= link_to hosting_request.institution_name, hosting_request
-          %td.d-none.d-sm-table-cell= hosting_request.description
-          %td= link_to hosting_request.user.name, hosting_request.user
-          %td.d-none.d-sm-table-cell.text-center= simple_check hosting_request.reviewed?
-          %td
-            = render "layouts/edit_delete_dropdown", edit_url: edit_hosting_request_path(hosting_request), delete_url: hosting_request, delete_confirmation: "Delete #{hosting_request.name}?"
+      - if @hosting_requests.count.zero?
+        .lead.text-center{ style: "margin-top: 40px;" }
+          No hosting requests found matching search criteria.
+          = succeed "." do
+            = link_to "Back to index", hosting_requests_path
+      - else
+        %table.table.table-striped.table-borderless.table-hover.table-sticky
+          %col{ width: "1px" }
+          %col
+          %col.d-none.d-sm-table-column
+          %col
+          %col.d-none.d-sm-table-column{ width: "1px" }
+          %col{ width: "1px" }
+          %thead
+            %tr
+              %th ID
+              %th Institution Name
+              %th.d-none.d-sm-table-cell Description
+              %th User
+              %th.d-none.d-sm-table-cell.text-center Reviewed
+              %th.text-center
+                .d-none.d-sm-inline-block Actions
+
+          %tbody
+            - @hosting_requests.each do |hosting_request|
+              %tr
+                %td= "##{hosting_request.id}"
+                %td= link_to hosting_request.institution_name, hosting_request
+                %td.d-none.d-sm-table-cell= hosting_request.description
+                %td= link_to hosting_request.user.name, hosting_request.user
+                %td.d-none.d-sm-table-cell.text-center= simple_check hosting_request.reviewed?
+                %td
+                  = render "layouts/edit_delete_dropdown", edit_url: edit_hosting_request_path(hosting_request), delete_url: hosting_request, delete_confirmation: "Delete #{hosting_request.name}?"

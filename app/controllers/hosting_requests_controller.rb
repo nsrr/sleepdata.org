@@ -6,6 +6,8 @@ class HostingRequestsController < ApplicationController
   before_action :check_system_admin
   before_action :find_hosting_request_or_redirect, only: [:show, :edit, :update, :destroy]
 
+  layout "layouts/full_page"
+
   # GET /hosting-requests
   def index
     @order = scrub_order(HostingRequest, params[:order], 'hosting_requests.institution_name')

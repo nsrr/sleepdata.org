@@ -1,14 +1,18 @@
 - @title = "Token"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        My Token
+- content_for :container_class, "container-fluid"
+.container-fluid
+  .row.flex-xl-nowrap
+    = render "settings/menu"
 
-.token-container
-  %code.code-token>
-    = current_user.id_and_auth_token
-  %code.code-copy
-    = link_to "#", data: { object: "suppress-click", clipboard_text: current_user.id_and_auth_token, placement: "bottom", container: "body", title: "Copied!", trigger: "manual" } do
-      %i.fa.fa-clipboard
+    .d-none.d-xl-block.col-xl.sidebar-drawer
+
+    %main.col-12.col-md-9.col-xl-8.px-md-5{ role: "main" }
+      .page-box.last-box.d-flex.justify-content-center
+        .token-container
+          %h1 Token
+          %code.code-token>
+            = current_user.id_and_auth_token
+          %code.code-copy
+            = link_to "#", data: { object: "suppress-click", clipboard_text: current_user.id_and_auth_token, placement: "bottom", container: "body", title: "Copied!", trigger: "manual" } do
+              %i.fa.fa-clipboard

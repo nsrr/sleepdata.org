@@ -1,6 +1,16 @@
 - @title = "Sync Status"
 
-= render "internal/profile_header", title: @title
+- content_for :container_class, "container-fluid"
+.container-fluid
+  .row.flex-xl-nowrap
+    = render "settings/menu"
 
-- Dataset.current.order(:name).each do |dataset|
-  = render "documentation/sync", local_commit: dataset.local_commit, remote_commit: dataset.remote_commit, object: dataset, back: "sync"
+    .d-none.d-xl-block.col-xl.sidebar-drawer
+
+    %main.col-12.col-md-9.col-xl-8.px-md-5{ role: "main" }
+      .page-box.last-box
+
+        = render "internal/profile_header", title: @title
+
+        - Dataset.current.order(:name).each do |dataset|
+          = render "documentation/sync", local_commit: dataset.local_commit, remote_commit: dataset.remote_commit, object: dataset, back: "sync"

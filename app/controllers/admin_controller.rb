@@ -5,6 +5,8 @@ class AdminController < ApplicationController
   before_action :authenticate_user!
   before_action :check_system_admin
 
+  layout "layouts/full_page"
+
   # GET /admin/agreement-reports
   def agreement_reports
     @agreements = Agreement.current.regular_members
