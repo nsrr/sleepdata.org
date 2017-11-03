@@ -1,51 +1,40 @@
-- @title = "Downloads By Quarter"
+= render "internal/profile_header", title: @title
 
-- content_for :container_class, "container-fluid"
-.container-fluid
-  .row.flex-xl-nowrap
-    = render "settings/menu"
-
-    .d-none.d-xl-block.col-xl.sidebar-drawer
-
-    %main.col-12.col-md-9.col-xl-8.px-md-5{ role: "main" }
-      .page-box.last-box
-        = render "internal/profile_header", title: @title
-
-        %table.table.table-striped.table-borderless.table-hover.table-sticky
-          %thead
-            %tr
-              %th Quarter
-              %th.text-center{ colspan: 2 } Files Downloaded
-              %th.text-center{ colspan: 2 } Cumulative
-          %tbody
-            - (2013..Time.zone.today.year).reverse_each do |year|
-              - (1..4).reverse_each do |quarter_number|
-                - quarter = Quarter.retrieve(year, quarter_number)
-                - next if quarter.future?
-                %tr
-                  %td
-                    Year
-                    = year - 2012
-                    Quarter
-                    = quarter.quarter_number
-                    %small
-                      Ending
-                      = quarter.end_date.strftime("%b %Y")
-                      - if quarter.current?
-                        %span.text-primary{ rel: "tooltip", data: { title: "Current Quarter", container: "body", placement: "right" } } *
-                  %td.text-right
-                    = pluralize number_with_delimiter(quarter.regular_files), "file"
-                  %td
-                    = number_to_human_size quarter.regular_file_size
-                  %td.text-right
-                    - if quarter.current?
-                      - regular_total_files = quarter.regular_total_files_with_temp
-                    - else
-                      - regular_total_files = quarter.regular_total_files
-                    = pluralize number_with_delimiter(regular_total_files), "file"
-                  %td
-                    - if quarter.current?
-                      - regular_total_file_size = quarter.regular_total_file_size_with_temp
-                    - else
-                      - regular_total_file_size = quarter.regular_total_file_size
-                    = number_to_human_size regular_total_file_size
+%table.table.table-striped.table-borderless.table-hover.table-sticky
+  %thead
+    %tr
+      %th Quarter
+      %th.text-center{ colspan: 2 } Files Downloaded
+      %th.text-center{ colspan: 2 } Cumulative
+  %tbody
+    - (2013..Time.zone.today.year).reverse_each do |year|
+      - (1..4).reverse_each do |quarter_number|
+        - quarter = Quarter.retrieve(year, quarter_number)
+        - next if quarter.future?
+        %tr
+          %td
+            Year
+            = year - 2012
+            Quarter
+            = quarter.quarter_number
+            %small
+              Ending
+              = quarter.end_date.strftime("%b %Y")
+              - if quarter.current?
+                %span.text-primary{ rel: "tooltip", data: { title: "Current Quarter", container: "body", placement: "right" } } *
+          %td.text-right
+            = pluralize number_with_delimiter(quarter.regular_files), "file"
+          %td
+            = number_to_human_size quarter.regular_file_size
+          %td.text-right
+            - if quarter.current?
+              - regular_total_files = quarter.regular_total_files_with_temp
+            - else
+              - regular_total_files = quarter.regular_total_files
+            = pluralize number_with_delimiter(regular_total_files), "file"
+          %td
+            - if quarter.current?
+              - regular_total_file_size = quarter.regular_total_file_size_with_temp
+            - else
+              - regular_total_file_size = quarter.regular_total_file_size
+            = number_to_human_size regular_total_file_size

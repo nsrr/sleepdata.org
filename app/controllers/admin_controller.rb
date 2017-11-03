@@ -5,7 +5,7 @@ class AdminController < ApplicationController
   before_action :authenticate_user!
   before_action :check_system_admin
 
-  layout "layouts/full_page"
+  layout "layouts/full_page_dashboard_no_drawer"
 
   # GET /admin/agreement-reports
   def agreement_reports
