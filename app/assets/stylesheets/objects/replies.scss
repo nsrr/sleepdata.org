@@ -55,6 +55,8 @@
   word-wrap: break-word;
 
   img {
+    @include ignore-selection;
+
     cursor: zoom-in;
     max-height: 100px;
     max-width: 100%;
@@ -90,6 +92,8 @@
   display: none;
 
   img {
+    @include ignore-selection;
+
     cursor: default;
   }
 }

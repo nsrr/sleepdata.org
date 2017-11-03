@@ -6,6 +6,8 @@
   margin-bottom: 80px;
 
   img {
+    @include ignore-selection;
+
     height: auto;
     max-width: 100%;
   }

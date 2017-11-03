@@ -121,6 +121,7 @@
   }
 }
 
+// TODO: Check if post-body can be removed.
 .post-body {
   @include remove-element-margins;
   overflow: hidden;

@@ -8,6 +8,8 @@
   }
 
   img {
+    @include ignore-selection;
+
     border: 1px solid $p200-grey;
     display: block;
     height: auto;

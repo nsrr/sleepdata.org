@@ -92,6 +92,8 @@
   flex: 0 0 100px;
 
   img {
+    @include ignore-selection;
+
     max-height: 100px;
     max-width: 100%;
   }
