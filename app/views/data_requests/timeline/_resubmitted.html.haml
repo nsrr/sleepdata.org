@@ -5,8 +5,8 @@
 - if data_request.resubmitted_at
   .col-12.col-md.text-center
     .d-none.d-md-block.data-request-timeline{ class: bg_class, style: "left: 0;right: 0;" }
-    .d-block.data-request-timeline-icon
-      %i.fa.fa-cloud-upload.text-danger
+    .d-block.data-request-timeline-icon.data-request-timeline-icon-resubmitted
+      %i.fa.fa-cloud-upload
     %br
     Resubmitted
     .text-muted.small= data_request.resubmitted_at.strftime("%-d %b %Y")

@@ -4,8 +4,8 @@
 
 .col-12.col-md.text-center
   .d-none.d-md-block.data-request-timeline{ class: bg_class, style: "left: 0;right: 50%;" }
-  .d-block.data-request-timeline-icon
-    %i.fa.fa-check-circle.text-success
+  .d-block.data-request-timeline-icon.data-request-timeline-icon-approved
+    %i.fa.fa-check-circle
   %br
   %strong Approved
   .text-muted.small= data_request.approval_date.strftime("%-d %b %Y")
