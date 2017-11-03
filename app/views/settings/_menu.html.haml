@@ -24,8 +24,8 @@
       - groups << { name: "Reviews", url: reviews_path, active: params[:controller] == "reviews", pages: review_pages, icon: content_tag(:i, nil, class: "fa fa-balance-scale"), count: 2 }
     - groups << { name: "Settings", url: settings_path, pages: settings_pages, active: params[:controller] == "settings", icon: content_tag(:i, nil, class: "fa fa-cog") }
     - if current_user.admin?
-      - admin_pages = [{ name: "Hosting Requests", url: hosting_requests_path, count: HostingRequest.current.where(reviewed: false).count }, { name: "Replies", url: admin_replies_path }, { name: "Users", url: users_path }]
-      - groups << { name: "Administrative", url: admin_pages.first[:url], pages: admin_pages, active: !admin_pages.find { |p| current_page?(p[:url]) }.nil?, icon: content_tag(:i, nil, class: "fa fa-user-md") }
+      - admin_pages = [{ name: "Hosting Requests", url: hosting_requests_path, count: HostingRequest.current.where(reviewed: false).count, active: params[:controller] == "hosting_requests" }, { name: "Replies", url: admin_replies_path }, { name: "Users", url: users_path, active: params[:controller] == "users" }]
+      - groups << { name: "Administrative", url: admin_pages.first[:url], pages: admin_pages, active: %w(hosting_requests admin/replies users).include?(params[:controller]), icon: content_tag(:i, nil, class: "fa fa-user-md") }
       - report_pages = [{ name: "Usage Statistics", url: admin_stats_path }, { name: "Downloads By Month", url: admin_downloads_by_month_path(user_type: "regular") }, { name: "Downloads By Quarter", url: admin_downloads_by_quarter_path }, { name: "Agreement Reports", url: admin_agreement_reports_path }]
       - groups << { name: "Reports", url: report_pages.first[:url], pages: report_pages, active: !report_pages.find { |p| current_page?(p[:url]) }.nil?, icon: content_tag(:i, nil, class: "fa fa-bar-chart") }
       - configuration_pages = [{ name: "Dataset Roles", url: admin_roles_path }, { name: "Documentation Sync", url: admin_sync_path }, { name: "Tags", url: tags_path }]

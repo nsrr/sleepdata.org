@@ -1,39 +1,28 @@
 - @title = "Roles on Datasets"
 
-- content_for :container_class, "container-fluid"
-.container-fluid
-  .row.flex-xl-nowrap
-    = render "settings/menu"
-
-    .d-none.d-xl-block.col-xl.sidebar-drawer
-
-    %main.col-12.col-md-9.col-xl-8.px-md-5{ role: "main" }
-      .page-box.last-box
-        = render "internal/profile_header", title: @title
-
-        %table.table.table-striped.table-borderless.table-hover.table-sticky
-          %thead
-            %tr
-              %th Dataset
-              %th Reviewers
-              %th Editors
-              %th Viewers
-          %tbody
-            - Dataset.current.order(:release_date, :name).each do |d|
-              %tr
-                %td
-                  = link_to collaborators_dataset_path(d) do
-                    .d-none.d-md-inline-block= d.name
-                    .d-inline-block.d-md-none= d.slug
-                %td
-                  - d.reviewers.order(:first_name, :last_name).each do |u|
-                    %span{ rel: "tooltip", title: u.name, data: { container: "body", placement: "top" } }
-                      = u.initials
-                %td
-                  - d.editors.order(:first_name, :last_name).each do |u|
-                    %span{ rel: "tooltip", title: u.name, data: { container: "body", placement: "top" } }
-                      = u.initials
-                %td
-                  - d.viewers.order(:first_name, :last_name).each do |u|
-                    %span{ rel: "tooltip", title: u.name, data: { container: "body", placement: "top" } }
-                      = u.initials
+%table.table.table-striped.table-borderless.table-hover.table-sticky
+  %thead
+    %tr
+      %th Dataset
+      %th Reviewers
+      %th Editors
+      %th Viewers
+  %tbody
+    - Dataset.current.order(:release_date, :name).each do |d|
+      %tr
+        %td
+          = link_to collaborators_dataset_path(d) do
+            .d-none.d-md-inline-block= d.name
+            .d-inline-block.d-md-none= d.slug
+        %td
+          - d.reviewers.order(:first_name, :last_name).each do |u|
+            %span{ rel: "tooltip", title: u.name, data: { container: "body", placement: "top" } }
+              = u.initials
+        %td
+          - d.editors.order(:first_name, :last_name).each do |u|
+            %span{ rel: "tooltip", title: u.name, data: { container: "body", placement: "top" } }
+              = u.initials
+        %td
+          - d.viewers.order(:first_name, :last_name).each do |u|
+            %span{ rel: "tooltip", title: u.name, data: { container: "body", placement: "top" } }
+              = u.initials

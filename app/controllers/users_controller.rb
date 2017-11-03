@@ -4,10 +4,9 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :check_system_admin
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
-  before_action :redirect_without_user, only: [:show, :edit, :update, :destroy]
+  before_action :find_user_or_redirect, only: [:show, :edit, :update, :destroy]
 
-  layout "layouts/full_page"
+  layout "layouts/full_page_dashboard_no_drawer"
 
   # GET /users
   def index
@@ -40,8 +39,9 @@ class UsersController < ApplicationController
 
   private
 
-  def set_user
+  def find_user_or_redirect
     @user = User.current.find_by(id: params[:id])
+    redirect_without_user
   end
 
   def redirect_without_user

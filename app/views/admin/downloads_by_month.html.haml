@@ -15,7 +15,7 @@
 
 - @title = "Downloads By Month"
 
-= render "internal/profile_header", title: @title
+.dashboard-heading= @title
 
 .text-center.mb-3
   - @year = (params[:year] || Date.today.year).to_i

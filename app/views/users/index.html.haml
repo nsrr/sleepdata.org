@@ -1,54 +1,41 @@
 - @title = "Users"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        .float-right
-          = render "layouts/per_page", per_page: 40, object_count: @users.total_count
-        = @title
-        = render "search/toggle"
+%h1.dashboard-heading
+  .float-right
+    = render "layouts/per_page", per_page: 40, object_count: @users.total_count
+  = @title
+  = render "search/toggle"
 
-- content_for :container_class, "container-fluid"
-.container-fluid
-  .row.flex-xl-nowrap
-    = render "settings/menu"
+= render "search/simple", url: users_path
 
-    .d-none.d-xl-block.col-xl.sidebar-drawer
+%table.table.table-striped.table-borderless.table-hover.table-sm.table-sticky
+  %col
+  %col
+  %col.d-none.d-sm-table-column
+  %col.d-none.d-md-table-column
+  %col{ width: "1px" }
+  %thead
+    %tr
+      = th_sort_field @order, "users.last_name", "Name"
+      = th_sort_field @order, "users.email", "Email"
+      = th_sort_field_rev @order, "users.current_sign_in_at", "Activity", extra_class: "d-none d-sm-table-cell"
+      = th_sort_field_rev @order, "users.sign_in_count", "Logins", extra_class: "d-none d-md-table-cell text-right"
+      %th.text-center
+        .d-none.d-sm-inline-block Actions
+  - @users.each do |user|
+    %tr{ id: "user-#{user.id}-container", class: "#{"banned" if current_user.system_admin? && user.banned?}" }
+      %td.nowrap
+        = image_tag user.avatar_url(18), style: "min-width: 18px;", size: "18x18", alt: ""
+        .d-none.d-md-inline-block= link_to user.name, user
+      %td
+        .d-none.d-sm-inline-block{ style: "word-break: break-word;" }= user.email
+        .d-inline-block.d-sm-none= link_to user.email, user, style: "word-break: break-word;"
+      %td.d-none.d-sm-table-cell.nowrap
+        - if user.current_sign_in_at
+          %small= abbreviated_time(user.current_sign_in_at)
+      %td.d-none.d-md-table-cell.text-right
+        %small= number_with_delimiter(user.sign_in_count)
+      %td.text-center= render "layouts/edit_delete_dropdown", edit_url: edit_user_path(user), delete_url: user, delete_confirmation: "Delete #{user.name}?"
 
-    %main.col-12.col-md-9.col-xl-8.px-md-5{ role: "main" }
-      .page-box.last-box
-
-        = render "search/simple", url: users_path
-
-        %table.table.table-striped.table-borderless.table-hover.table-sm.table-sticky
-          %col
-          %col
-          %col.d-none.d-sm-table-column
-          %col.d-none.d-md-table-column
-          %col{ width: "1px" }
-          %thead
-            %tr
-              = th_sort_field @order, "users.last_name", "Name"
-              = th_sort_field @order, "users.email", "Email"
-              = th_sort_field_rev @order, "users.current_sign_in_at", "Activity", extra_class: "d-none d-sm-table-cell"
-              = th_sort_field_rev @order, "users.sign_in_count", "Logins", extra_class: "d-none d-md-table-cell text-right"
-              %th.text-center
-                .d-none.d-sm-inline-block Actions
-          - @users.each do |user|
-            %tr{ id: "user-#{user.id}-container", class: "#{"banned" if current_user.system_admin? && user.banned?}" }
-              %td.nowrap
-                = image_tag user.avatar_url(18), style: "min-width: 18px;", size: "18x18", alt: ""
-                .d-none.d-md-inline-block= link_to user.name, user
-              %td
-                .d-none.d-sm-inline-block{ style: "word-break: break-word;" }= user.email
-                .d-inline-block.d-sm-none= link_to user.email, user, style: "word-break: break-word;"
-              %td.d-none.d-sm-table-cell.nowrap
-                - if user.current_sign_in_at
-                  %small= abbreviated_time(user.current_sign_in_at)
-              %td.d-none.d-md-table-cell.text-right
-                %small= number_with_delimiter(user.sign_in_count)
-              %td.text-center= render "layouts/edit_delete_dropdown", edit_url: edit_user_path(user), delete_url: user, delete_confirmation: "Delete #{user.name}?"
-
-        .center-horizontally
-          = paginate @users, theme: "bootstrap"
+.center-horizontally
+  = paginate @users, theme: "bootstrap"
