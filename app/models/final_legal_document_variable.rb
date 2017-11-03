@@ -15,4 +15,10 @@ class FinalLegalDocumentVariable < ApplicationRecord
 
   # Relationships
   belongs_to :final_legal_document
+
+  # Methods
+
+  def display_name_label
+    display_name.present? ? display_name : name.titleize
+  end
 end

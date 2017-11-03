@@ -95,11 +95,6 @@
   width: 32px;
 }
 
-// TODO: Remove broadcast-alert
-// .broadcast-alert .broadcast-left-fixed {
-//   color: $brand-warning-text;
-// }
-
 .broadcast-right-fluid {
   position: relative;
 }
@@ -116,15 +111,9 @@
 
 .broadcast-box {
   background-color: $brand-white;
-  border: 1px solid $p400-grey;
+  border: 1px solid $p300-grey;
   border-radius: 2px;
 }
-
-// TODO: Remove broadcast-alert
-// .broadcast-alert .broadcast-box {
-//   background-color: $brand-warning;
-//   border-color: darken($brand-warning, 20%);
-// }
 
 .broadcast-header {
   padding: 10px 10px 0;
@@ -138,7 +127,7 @@
 
 .broadcast-header::before {
   border-bottom: 7px solid transparent;
-  border-right: 7px solid $p400-grey;
+  border-right: 7px solid $p300-grey;
   border-top: 7px solid transparent;
   content: '';
   height: 0;
@@ -147,11 +136,6 @@
   top: 14px;
   width: 0;
 }
-
-// TODO: Remove broadcast-alert
-// .broadcast-alert .broadcast-header::before {
-//   border-right-color: darken($brand-warning, 20%);
-// }
 
 .broadcast-header::after {
   border-bottom: 7px solid transparent;
@@ -164,11 +148,6 @@
   top: 14px;
   width: 0;
 }
-
-// TODO: Remove broadcast-alert
-// .broadcast-alert .broadcast-header::after {
-//   border-right-color: $brand-warning;
-// }
 
 .broadcast-replies-header {
   background-color: $p100-grey;

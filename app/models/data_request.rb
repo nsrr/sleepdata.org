@@ -110,4 +110,20 @@ class DataRequest < Agreement
   def incomplete?
     !complete?
   end
+
+  def progress
+    count = 0
+    total = 0
+    final_legal_document.final_legal_document_pages.each do |page|
+      total += 1
+      count += 1 if page_complete?(page)
+    end
+    if attestation_required?
+      total += 1
+      count += 1 if attestation_complete?
+    end
+    total += 1 if status == "started" || status == "resubmit"
+    return 100 if total.zero?
+    count * 100.0 / total
+  end
 end

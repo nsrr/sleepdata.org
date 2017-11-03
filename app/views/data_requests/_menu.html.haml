@@ -14,7 +14,7 @@
         %span.navbar-toggler-icon
 
     - pages = @data_request.final_legal_document.final_legal_document_pages.where(rider: false).collect { |p| { name: "Page #{p.position}", url: data_requests_page_path(@data_request, p.position), complete?: @data_request.page_complete?(p) } }
-    - pages << { name: (@data_request.final_legal_document.attestation_type == "signature" ? "Signature" : "Attest"), url: data_requests_attest_path(@data_request), complete?: @data_request.attestation_complete? } if @data_request.attestation_required?
+    - pages << { name: (@data_request.final_legal_document.attestation_name), url: data_requests_attest_path(@data_request), complete?: @data_request.attestation_complete? } if @data_request.attestation_required?
     - addendums = @data_request.final_legal_document.final_legal_document_pages.where(rider: true).collect { |p| { name: p.title, url: data_requests_addendum_path(@data_request, p.position) } }
     - groups = []
     - groups << { name: "DAUA", url: data_requests_page_path(@data_request, 1), docs: pages, active: true } if pages.present?

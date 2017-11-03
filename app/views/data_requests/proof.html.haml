@@ -12,7 +12,7 @@
         .agreement-heading= @title
 
         = form_with model: @data_request, url: data_requests_submit_path(@data_request), method: :post, local: true, id: "data-request-form" do |form|
-          = form.hidden_field :draft
+          = form.hidden_field :draft, id: "data_request_draft"
 
         - @data_request.final_legal_document.final_legal_document_pages.each do |final_legal_document_page|
           - final_legal_document_page.variables.each do |variable|

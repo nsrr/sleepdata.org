@@ -4,7 +4,7 @@
 class InternalController < ApplicationController
   before_action :authenticate_user!
 
-  layout "layouts/full_page"
+  layout "layouts/full_page_dashboard"
 
   # # GET /dashboard
   # def dashboard

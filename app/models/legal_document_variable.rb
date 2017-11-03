@@ -33,4 +33,8 @@ class LegalDocumentVariable < ApplicationRecord
   def variable_type_name
     VARIABLE_TYPES.find { |_name, value| value == variable_type }.first
   end
+
+  def display_name_label
+    display_name.present? ? display_name : name.titleize
+  end
 end

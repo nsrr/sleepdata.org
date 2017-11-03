@@ -1,0 +1,5 @@
+.small.text-muted
+  - data_request.agreement_variables.joins(:final_legal_document_variable).merge(FinalLegalDocumentVariable.where(final_legal_document: data_request.final_legal_document, variable_type: "text", name: "specific_purpose")).where.not(value: [nil, ""]).each do |agreement_variable|
+    .mb-1
+      %strong= agreement_variable.final_legal_document_variable.display_name_label
+      = agreement_variable.value

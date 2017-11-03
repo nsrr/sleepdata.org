@@ -1,1 +1,13 @@
-= render "news/news", limit: 7
+.mt-md-4
+  - Broadcast.current.published.where(archived: false).order(pinned: :desc, publish_date: :desc).limit(7).each do |broadcast|
+    .broadcast-box.mb-3
+      .broadcast-header
+        %strong= link_to broadcast.title, blog_post_path(broadcast.url_hash)
+      .broadcast-body
+        = first_image(broadcast)
+        = broadcast.short_description
+
+  .broadcast-outer
+    .broadcast-left-fixed
+    .broadcast-right-fluid
+      .text-center= link_to "Visit Blog", blog_path

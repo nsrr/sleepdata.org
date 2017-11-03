@@ -51,6 +51,7 @@ class ApplicationController < ActionController::Base
       challenges: [:signal, :new, :edit],
       community_tool_reviews: [:new, :edit, :create, :update, :destroy],
       community_tools: [],
+      data_requests: [:index, :show, :page, :attest, :submitted],
       datasets: [:index, :show, :new, :edit],
       dataset_reviews: [:new, :edit, :create, :update, :destroy],
       hosting_requests: [],

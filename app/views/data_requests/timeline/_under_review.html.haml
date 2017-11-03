@@ -1,0 +1,11 @@
+- bg_class = "data-request-under-review-bg"
+- if data_request.resubmitted?
+  - bg_class = "data-request-resubmitted-to-under-review-bg"
+
+.col-12.col-md.text-center
+  .d-none.d-md-block.data-request-timeline{ class: bg_class, style: "left: 0;right: 50%;" }
+  .d-block.data-request-timeline-icon
+    %i.fa.fa-circle-o.text-muted
+  %br
+  %strong Under Review
+  .text-muted.small Ongoing

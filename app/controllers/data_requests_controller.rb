@@ -27,6 +27,7 @@ class DataRequestsController < ApplicationController
   # GET /data/requests
   def index
     @data_requests = current_user.data_requests.order(id: :desc).page(params[:page]).per(10)
+    render layout: "layouts/full_page_dashboard"
   end
 
   # GET /data/requests/:dataset_id/start
@@ -157,7 +158,7 @@ class DataRequestsController < ApplicationController
 
     if params.dig(:data_request, :draft) == "1"
       @data_request.update(current_step: @final_legal_document_page.position)
-      redirect_to data_requests_path, notice: "Data request draft saved successfully."
+      redirect_to @data_request, notice: "Data request draft saved successfully."
       return
     else
       @data_request.update(current_step: @next_page.position) if @next_page
@@ -194,7 +195,7 @@ class DataRequestsController < ApplicationController
     end
 
     if params.dig(:data_request, :draft) == "1"
-      redirect_to data_requests_path, notice: "Data request draft saved successfully."
+      redirect_to @data_request, notice: "Data request draft saved successfully."
     else
       redirect_to [@data_request, :supporting_documents]
     end
@@ -253,7 +254,7 @@ class DataRequestsController < ApplicationController
   # POST /data/requests/:data_request_id/proof
   def submit
     if params.dig(:data_request, :draft) == "1"
-      redirect_to data_requests_path, notice: "Data request draft saved successfully."
+      redirect_to @data_request, notice: "Data request draft saved successfully."
     elsif @data_request.complete?
       current_time = Time.zone.now
       if @data_request.status == "resubmit"
@@ -290,9 +291,10 @@ class DataRequestsController < ApplicationController
     end
   end
 
-  # # GET /data/requests/:id
-  # def show
-  # end
+  # GET /data/requests/:id
+  def show
+    render layout: "layouts/full_page_dashboard"
+  end
 
   # # GET /data/requests/:data_request_id/resume
   # def resume

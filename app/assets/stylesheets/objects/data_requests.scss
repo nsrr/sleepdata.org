@@ -55,3 +55,70 @@
     text-decoration: none;
   }
 }
+
+.data-request-timeline {
+  position: absolute;
+  top: 11px;
+  height: 2px;
+}
+
+.data-request-timeline-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+
+  i {
+    background-color: $brand-white;
+    border-radius: 1rem;
+  }
+}
+
+.data-request-submitted-to-under-review-bg {
+  background-color: $p500-blue;
+  background-image: linear-gradient(to right, #{$p500-blue} 0%, #{$p500-grey} 200%);
+}
+
+.data-request-submitted-to-approved-bg {
+  background-color: $p500-blue;
+  background-image: linear-gradient(to right, #{$p500-blue} 0%, #{$p500-green} 200%);
+
+}
+
+.data-request-under-review-bg {
+  background-color: $p500-grey;
+  background-image: linear-gradient(to right, #{$p500-blue} -100%, #{$p500-grey} 100%);
+}
+
+.data-request-approved-bg {
+  background-color: $p500-green;
+  background-image: linear-gradient(to right, #{$p500-blue} -100%, #{$p500-green} 100%);
+}
+
+// With Resubmits
+
+.data-request-submitted-to-resubmit-bg {
+  background-color: $p500-blue;
+  background-image: linear-gradient(to right, #{$p500-blue} 0%, #{$p500-red} 200%);
+}
+
+.data-request-submitted-to-resubmit-to-under-review-bg {
+  background-color: $p500-red;
+  background-image: linear-gradient(to right, #{$p500-blue} -50%, #{$p500-red} 50%, #{$p500-grey} 150%);
+}
+
+.data-request-submitted-to-resubmit-to-approved-bg {
+  background-color: $p500-red;
+  background-image: linear-gradient(to right, #{$p500-blue} -50%, #{$p500-red} 50%, #{$p500-green} 150%);
+}
+
+.data-request-resubmitted-to-under-review-bg {
+  background-color: $p500-grey;
+  background-image: linear-gradient(to right, #{$p500-red} -100%, #{$p500-grey} 100%);
+}
+
+.data-request-resubmitted-to-approved-bg {
+  background-color: $p500-green;
+  background-image: linear-gradient(to right, #{$p500-red} -100%, #{$p500-green} 100%);
+}

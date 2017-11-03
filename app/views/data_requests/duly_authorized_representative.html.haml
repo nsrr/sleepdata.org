@@ -22,7 +22,7 @@
         request.
 
         = form_with model: @data_request, url: data_requests_update_duly_authorized_representative_path(@data_request), method: :post, local: true, id: "data-request-form" do |form|
-          = form.hidden_field :draft
+          = form.hidden_field :draft, id: "data_request_draft"
 
           = render "forms/vertical/text_field", form: form, object: @data_request, key: :duly_authorized_representative_signature_print, key_name: "Duly Authorized Representative's Name"
           = render "forms/vertical/email_field", form: form, object: @data_request, key: :duly_authorized_representative_email, key_name: "Duly Authorized Representative's Email", help_text: "Please double check to make sure you enter the email correctly."

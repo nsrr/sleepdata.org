@@ -1,0 +1,11 @@
+- bg_class = "data-request-approved-bg"
+- if data_request.resubmitted?
+  - bg_class = "data-request-resubmitted-to-approved-bg"
+
+.col-12.col-md.text-center
+  .d-none.d-md-block.data-request-timeline{ class: bg_class, style: "left: 0;right: 50%;" }
+  .d-block.data-request-timeline-icon
+    %i.fa.fa-check-circle.text-success
+  %br
+  %strong Approved
+  .text-muted.small= data_request.approval_date.strftime("%-d %b %Y")

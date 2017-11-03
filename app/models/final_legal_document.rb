@@ -23,6 +23,10 @@ class FinalLegalDocument < ApplicationRecord
   alias_method :legal_document_variables, :final_legal_document_variables
 
   # Methods
+  def attestation_name
+    attestation_type == "signature" ? "Signature" : "Attest"
+  end
+
   def finalize_version!
     compute_version!
     compute_md5!
