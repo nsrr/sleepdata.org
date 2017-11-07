@@ -1,0 +1,23 @@
+- @title = "Data Request Preferences"
+
+- content_for :container_class, "container-fluid"
+.container-fluid
+  .row.flex-xl-nowrap
+    = render "settings/menu"
+
+    .d-none.d-xl-block.col-xl.sidebar-drawer
+
+    %main.col-12.col-md-9.col-xl-8.px-md-5{ role: "main" }
+      .page-box.last-box
+        .card
+          %h4.card-header
+            %i.fa.fa-user-circle
+            = @title
+          .card-body
+            = form_with model: current_user, url: settings_update_data_requests_path, method: :patch, local: true do |form|
+              = render "forms/vertical/select", form: form, object: current_user, key: :data_user_type, key_name: "Data User (Individual or Organization)", options: User::DATA_USER_TYPES, help_text: "Choose organization if you are doing research as part of a larger group."
+              = render "forms/vertical/select", form: form, object: current_user, key: :commercial_type, key_name: "Noncommercial or Commercial", options: User::COMMERCIAL_TYPES, help_text: "Choose commercial if you are doing research for a for-profit entity."
+
+              = render "forms/vertical/submit", form: form, object: current_user, submit_text: "Update preferences", cancel: false
+          .card-footer
+            Changes only affect new data requests.

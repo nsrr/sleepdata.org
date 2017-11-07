@@ -43,7 +43,7 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
       user: { username: "newusername" }
     }
     assert_equal "Account successfully updated.", flash[:notice]
-    assert_redirected_to settings_update_account_url
+    assert_redirected_to settings_account_url
   end
 
   test "should update password" do
@@ -93,5 +93,23 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
       delete settings_delete_account_url
     end
     assert_redirected_to root_url
+  end
+
+  test "should get data request preferences" do
+    login(@regular)
+    get settings_data_requests_url
+    assert_response :success
+  end
+
+  test "should update data request preferences" do
+    login(@regular)
+    patch settings_update_data_requests_url, params: {
+      user: { data_user_type: "organization", commercial_type: "commercial" }
+    }
+    @regular.reload
+    assert_equal "organization", @regular.data_user_type
+    assert_equal "commercial", @regular.commercial_type
+    assert_equal "Preferences successfully updated.", flash[:notice]
+    assert_redirected_to settings_data_requests_url
   end
 end

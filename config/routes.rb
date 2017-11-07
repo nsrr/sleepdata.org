@@ -104,17 +104,9 @@ Rails.application.routes.draw do
     post :join, path: ":dataset_id/join"
     get :login, path: ":dataset_id/login", to: redirect("data/requests/%{dataset_id}/start")
     post :login, path: ":dataset_id/login"
-
-    get :request_as_individual_or_organization, path: ":dataset_id/request-as/individual-or-organization"
-    post :update_individual_or_organization, path: ":dataset_id/request-as/individual-or-organization"
-    get :intended_use_noncommercial_or_commercial, path: ":dataset_id/intended-use/noncommercial-or-commercial"
-    post :update_noncommercial_or_commercial, path: ":dataset_id/intended-use/noncommercial-or-commercial"
-
     get :no_legal_documents, path: ":dataset_id/no-legal-documents"
-
     get :convert, path: ":data_request_id/convert", to: redirect("data/requests/%{data_request_id}/page/1")
     post :convert, path: ":data_request_id/convert"
-
     get :page, path: ":data_request_id/page/:page"
     post :update_page, path: ":data_request_id/page/:page"
     get :attest, path: ":data_request_id/attest"
@@ -308,6 +300,9 @@ Rails.application.routes.draw do
 
     get :email
     patch :update_email, path: "email"
+
+    get :data_requests, path: "data-requests"
+    patch :update_data_requests, path: "data-requests"
   end
 
   resources :tags

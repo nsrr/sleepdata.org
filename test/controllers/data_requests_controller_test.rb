@@ -32,50 +32,6 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to data_requests_page_url(@started, 1)
   end
 
-  test "should get request as individual or organization" do
-    login(@regular)
-    get data_requests_request_as_individual_or_organization_url(@released)
-    assert_response :success
-  end
-
-  test "should update request as individual" do
-    login(@regular)
-    post data_requests_update_individual_or_organization_url(@released, data_user_type: "individual")
-    @regular.reload
-    assert_equal "individual", @regular.data_user_type
-    assert_redirected_to data_requests_page_url(@started, 1)
-  end
-
-  test "should update request as organization" do
-    login(@regular)
-    post data_requests_update_individual_or_organization_url(@released, data_user_type: "organization")
-    @regular.reload
-    assert_equal "organization", @regular.data_user_type
-    assert_redirected_to data_requests_page_url(@started, 1)
-  end
-
-  test "should get intended use noncommercial or commercial" do
-    login(@regular)
-    get data_requests_intended_use_noncommercial_or_commercial_url(@released)
-    assert_response :success
-  end
-
-  test "should update intended use noncommercial" do
-    login(@regular)
-    post data_requests_update_noncommercial_or_commercial_url(@released, commercial_type: "noncommercial")
-    @regular.reload
-    assert_equal "noncommercial", @regular.commercial_type
-    assert_redirected_to data_requests_page_url(@started, 1)
-  end
-
-  test "should update intended use commercial" do
-    login(@regular)
-    post data_requests_update_noncommercial_or_commercial_url(@released, commercial_type: "commercial")
-    @regular.reload
-    assert_equal "commercial", @regular.commercial_type
-    assert_redirected_to data_requests_page_url(@started, 1)
-  end
-
   test "should get page" do
     login(@regular)
     get data_requests_page_url(@started, page: "1")

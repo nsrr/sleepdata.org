@@ -4,19 +4,11 @@
 class DataRequestsController < ApplicationController
   before_action :authenticate_user!, except: [:start, :create, :join, :login]
   before_action :find_viewable_dataset_or_redirect, only: [
-    :start, :create, :join, :login,
-    :request_as_individual_or_organization,
-    :update_individual_or_organization,
-    :intended_use_noncommercial_or_commercial,
-    :update_noncommercial_or_commercial
+    :start, :create, :join, :login
   ]
   before_action :find_data_request_or_redirect, except: [
     :index,
     :start, :create, :join, :login,
-    :request_as_individual_or_organization,
-    :update_individual_or_organization,
-    :intended_use_noncommercial_or_commercial,
-    :update_noncommercial_or_commercial,
     :submitted, :print, :show
   ]
   before_action :find_submitted_data_request_or_redirect, only: [:submitted]
@@ -95,28 +87,6 @@ class DataRequestsController < ApplicationController
   # # POST /data/requests/:dataset_id/start/:final_legal_document_id
   # def create
   # end
-
-  # GET /data/requests/:dataset_id/request-as/individual-or-organization
-  def request_as_individual_or_organization
-    render layout: "layouts/application"
-  end
-
-  # POST /data/requests/:dataset_id/request-as/individual-or-organization
-  def update_individual_or_organization
-    current_user.update(data_user_type: params[:data_user_type]) if %w(individual organization).include?(params[:data_user_type])
-    save_data_request_user
-  end
-
-  # GET /data/requests/:dataset_id/intended-use/noncommercial-or-commercial
-  def intended_use_noncommercial_or_commercial
-    render layout: "layouts/application"
-  end
-
-  # POST /data/requests/:dataset_id/intended-use/noncommercial-or-commercial
-  def update_noncommercial_or_commercial
-    current_user.update(commercial_type: params[:commercial_type]) if %w(noncommercial commercial).include?(params[:commercial_type])
-    save_data_request_user
-  end
 
   # POST /data/requests/:data_request_id/convert
   def convert
@@ -340,10 +310,6 @@ class DataRequestsController < ApplicationController
       if final_legal_document
         @data_request = @dataset.data_requests.create(user: current_user, final_legal_document: final_legal_document)
         redirect_to data_requests_page_path(@data_request, page: 1)
-      elsif @dataset.specify_data_user_type?(current_user)
-        redirect_to data_requests_request_as_individual_or_organization_path(@dataset)
-      elsif @dataset.specify_commercial_type?(current_user)
-        redirect_to data_requests_intended_use_noncommercial_or_commercial_path(@dataset)
       else
         redirect_to data_requests_no_legal_documents_path(@dataset)
       end

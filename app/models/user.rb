@@ -12,6 +12,16 @@ class User < ApplicationRecord
   include TokenAuthenticatable
   include Forkable
 
+  # Constants
+  COMMERCIAL_TYPES = [
+    ["Noncommercial", "noncommercial"],
+    ["Commercial", "commercial"]
+  ]
+  DATA_USER_TYPES = [
+    ["Individual", "individual"],
+    ["Organization", "organization"]
+  ]
+
   # Callbacks
   before_save :ensure_authentication_token
 
@@ -45,6 +55,8 @@ class User < ApplicationRecord
   # Validations
   validates :first_name, :last_name, presence: true
   validates :username, uniqueness: { case_sensitive: false }, format: { with: /\A[a-z]\w*\Z/i }, allow_blank: true
+  validates :data_user_type, inclusion: { in: User::DATA_USER_TYPES.collect(&:second) }
+  validates :commercial_type, inclusion: { in: User::COMMERCIAL_TYPES.collect(&:second) }
 
   # Relationships
   has_many :agreements, -> { current }

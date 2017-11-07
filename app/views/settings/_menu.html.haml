@@ -12,7 +12,7 @@
       %button.navbar-light.navbar-toggler.d-md-none{ type: "button", data: { toggle: "collapse", target: "#sidebar-nav-wrapper" }, aria: { controls: "sidebar-nav-wrapper", expanded: "false", label: "Toggle navigation" }, style: "border: 1px solid rgba(0, 0, 0, 0.5);" }
         %span.navbar-toggler-icon
 
-    - settings_pages = [{ name: "Profile", url: settings_profile_path }, { name: "Account", url: settings_account_path }, { name: "Email", url: settings_email_path }]
+    - settings_pages = [{ name: "Profile", url: settings_profile_path }, { name: "Account", url: settings_account_path }, { name: "Email", url: settings_email_path }, { name: "Data Requests", url: settings_data_requests_path }]
     - dashboard_pages = [{ name: "Overview", url: dashboard_path }, { name: "Data Requests", url: data_requests_path, active: params[:controller] == "data_requests" }, { name: "Token", url: token_path }]
     - dashboard_pages << { name: "Blog Posts", url: broadcasts_path } if current_user.community_manager?
 

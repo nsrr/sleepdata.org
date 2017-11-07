@@ -66,6 +66,19 @@ class SettingsController < ApplicationController
     end
   end
 
+  # # GET /settings/data-requests
+  # def data_requests
+  # end
+
+  # PATCH /settings/data-requests
+  def update_data_requests
+    if current_user.update(data_request_params)
+      redirect_to settings_data_requests_path, notice: "Preferences successfully updated."
+    else
+      render :data_requests
+    end
+  end
+
   private
 
   def profile_params
@@ -78,5 +91,9 @@ class SettingsController < ApplicationController
 
   def email_params
     params.require(:user).permit(:email, :emails_enabled)
+  end
+
+  def data_request_params
+    params.require(:user).permit(:data_user_type, :commercial_type)
   end
 end
