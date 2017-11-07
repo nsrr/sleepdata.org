@@ -59,7 +59,7 @@ def create_standard_i(bwh)
   )
 
   standard_i.legal_document_variables.find_by(name: "project_title").update(
-    display_name: "Title Of Project"
+    display_name: "Title of Project"
   )
 
   standard_i.legal_document_variables.find_by(name: "specific_purpose").update(
@@ -147,7 +147,7 @@ def create_standard_o(bwh)
   )
 
   standard_o.legal_document_variables.find_by(name: "project_title").update(
-    display_name: "Title Of Project"
+    display_name: "Title of Project"
   )
 
   standard_o.legal_document_variables.find_by(name: "specific_purpose").update(
