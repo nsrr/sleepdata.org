@@ -80,9 +80,9 @@ class FinalLegalDocument < ApplicationRecord
     strings = []
     strings += final_legal_document_variable_options.collect do |o|
       [
-        v.position,
-        v.display_name,
-        v.value
+        o.position,
+        o.display_name,
+        o.value
       ].join
     end
     strings += final_legal_document_variables.collect do |v|
