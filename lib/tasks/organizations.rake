@@ -117,6 +117,7 @@ def create_standard_i(bwh)
   )
 
   standard_i.legal_document_variables.find_by(name: "terms_and_conditions").update(
+    display_name: "Terms and Conditions",
     description: "I have read and fully understand and accept the above terms and conditions."
   )
 
@@ -205,6 +206,7 @@ def create_standard_o(bwh)
   )
 
   standard_o.legal_document_variables.find_by(name: "terms_and_conditions").update(
+    display_name: "Terms and Conditions",
     description: "I have read and fully understand and accept the above terms and conditions."
   )
 
