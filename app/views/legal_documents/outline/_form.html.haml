@@ -8,7 +8,7 @@
 - case variable.variable_type
 - when "checkbox"
   = render "legal_documents/outline/check_box", variable: variable, editable: editable, reviewer: reviewer, value: value
-- when "text", "email"
+- when "text", "email", "radio"
   = render "legal_documents/outline/#{variable.variable_type}", variable: variable, editable: editable, reviewer: reviewer, value: value
 - else
   = render "legal_documents/outline/string", variable: variable, editable: editable, reviewer: reviewer, value: value

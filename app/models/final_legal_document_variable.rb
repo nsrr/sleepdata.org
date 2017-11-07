@@ -15,10 +15,15 @@ class FinalLegalDocumentVariable < ApplicationRecord
 
   # Relationships
   belongs_to :final_legal_document
+  has_many :final_legal_document_variable_options, -> { order("position nulls last") }
 
   # Methods
 
   def display_name_label
     display_name.present? ? display_name : name.titleize
+  end
+
+  def options
+    final_legal_document_variable_options
   end
 end

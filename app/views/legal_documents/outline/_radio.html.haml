@@ -1,0 +1,32 @@
+- key = variable.name
+- label = variable.display_name_label
+- help_element = key
+- help_text = label || key.titleize
+
+.form-group
+  = label_tag key, class: "form-control-label" do
+    = label
+    = render "legal_document_variables/edit_link", variable: variable if editable
+  %br
+  - if reviewer
+    - variable.options.each do |option|
+      - if value == option.value
+        - icon = content_tag(:i, nil, class: "fa fa-check-circle text-primary")
+      - else
+        - icon = content_tag(:i, nil, class: "fa fa-circle-o")
+      .legal-document-variable-review.mb-1{ class: value == option.value ? nil : "unselected" }
+        - if option.display_name.present?
+          = simple_markdown(icon + " " + option.display_name)
+        - else
+          = icon
+  - else
+    .custom-controls-stacked
+      - variable.options.each do |option|
+        = label_tag "#{key}_#{option.value}", class: "custom-control custom-radio" do
+          = radio_button_tag key, option.value, value == option.value, class: "custom-control-input", id: "#{key}_#{option.value}", data: { object: "text-input-expandable", help_element: help_element, help_text: help_text }, disabled: editable
+          %span.custom-control-indicator
+          - if option.display_name.present?
+            %span.custom-control-description= simple_markdown option.display_name
+  - if variable.field_note.present?
+    %br
+    %small.text-muted= simple_markdown variable.field_note

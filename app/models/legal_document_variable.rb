@@ -25,6 +25,7 @@ class LegalDocumentVariable < ApplicationRecord
   # Relationships
   belongs_to :legal_document
   # belongs_to :legal_document_page
+  has_many :legal_document_variable_options, -> { order("position nulls last") }
 
   def legal_document_page
     legal_document.legal_document_pages.find_by("content LIKE ?", "%\#{#{id}}%")
@@ -36,5 +37,9 @@ class LegalDocumentVariable < ApplicationRecord
 
   def display_name_label
     display_name.present? ? display_name : name.titleize
+  end
+
+  def options
+    legal_document_variable_options
   end
 end

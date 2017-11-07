@@ -18,6 +18,7 @@ class FinalLegalDocument < ApplicationRecord
   belongs_to :legal_document
   has_many :final_legal_document_pages, -> { order(:position) }
   has_many :final_legal_document_variables, -> { current }
+  has_many :final_legal_document_variable_options, -> { order(:final_legal_document_variable_id, :position) }
 
   alias_method :legal_document_pages, :final_legal_document_pages
   alias_method :legal_document_variables, :final_legal_document_variables
@@ -77,6 +78,13 @@ class FinalLegalDocument < ApplicationRecord
   # Pulls text of variables, pages, and document, and computes hexdigest.
   def compute_md5!
     strings = []
+    strings += final_legal_document_variable_options.collect do |o|
+      [
+        v.position,
+        v.display_name,
+        v.value
+      ].join
+    end
     strings += final_legal_document_variables.collect do |v|
       [
         v.position,

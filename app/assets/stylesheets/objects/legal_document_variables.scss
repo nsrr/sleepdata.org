@@ -17,14 +17,16 @@
 .legal-document-variable-review {
   @include remove-last-child-bottom-margin;
 
-  font-weight: bold;
   background-color: $mark-bg;
   border-radius: 0.25rem;
   padding: 0.375rem 0.75rem;
+
+  &.unselected {
+    background-color: transparent;
+  }
 }
 
 .legal-document-variable-review-inline {
-  font-weight: bold;
   background-color: $mark-bg;
   border-radius: 0.25rem;
   padding: 0 .25rem;

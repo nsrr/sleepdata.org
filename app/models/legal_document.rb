@@ -43,6 +43,7 @@ class LegalDocument < ApplicationRecord
   belongs_to :organization
   has_many :legal_document_pages, -> { order(:position) }
   has_many :legal_document_variables, -> { current }
+  has_many :legal_document_variable_options, -> { order(:legal_document_variable_id, :position) }
   has_many :legal_document_datasets
   has_many :datasets, through: :legal_document_datasets
   has_many :final_legal_documents, -> { current }
@@ -101,6 +102,14 @@ class LegalDocument < ApplicationRecord
         field_note: variable.field_note,
         required: variable.required
       )
+      variable.options.each do |option|
+        final_variable.options.create(
+          final_legal_document: final,
+          position: option.position,
+          display_name: option.display_name,
+          value: option.value
+        )
+      end
     end
     final.finalize_version!
     final.update(published_at: Time.zone.now)
