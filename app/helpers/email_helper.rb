@@ -7,15 +7,15 @@ module EmailHelper
   end
 
   def success_color
-    '#00c853' # $a700; Green
+    '#00c853' # $a700 Green
   end
 
   def warning_color
-    '#ffd600' # $a700; Yellow
+    '#ffd600' # $a700 Yellow
   end
 
   def danger_color
-    '#d50000' # $a700; Red
+    '#d50000' # $a700 Red
   end
 
   def background_color

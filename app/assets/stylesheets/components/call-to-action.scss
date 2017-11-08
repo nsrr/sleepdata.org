@@ -15,7 +15,7 @@
     &:not(.btn).active,
     &:not(.btn).disabled,
     &:not(.btn)[disabled] {
-      color: $a100;
+      color: $a100-light-blue;
       font-weight: bold;
     }
   }
@@ -65,7 +65,7 @@
 
 .call-to-action {
   .btn-call-to-action {
-    background-color: $a100;
+    background-color: $a100-light-blue;
     border-color: $brand-accent;
     color: $brand-accent-text;
   }
@@ -77,9 +77,9 @@
 .btn-call-to-action.active,
 .btn-call-to-action.disabled,
 .btn-call-to-action[disabled] {
-  background-color: $a400;
-  border: 1px solid $a700;
-  color: $a200-text;
+  background-color: $a400-light-blue;
+  border: 1px solid $a700-light-blue;
+  color: $a200-light-blue-text;
 }
 
 .btn-call-to-default {
