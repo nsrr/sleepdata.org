@@ -1,7 +1,25 @@
+@isDataRequestInputValid = (element) ->
+  (
+    $(element).hasClass("signature-pad-body") &&
+    window.$signaturePad? &&
+    !window.$signaturePad.isEmpty()
+  ) ||
+  (
+    $(element).is(":radio") &&
+    $("[name=#{element.attr("name")}]:checked").length > 0
+  ) ||
+  (
+    $(element).is(":checkbox") &&
+    $(element).is(":checked")
+  ) ||
+  !$(element).is(":checkbox") &&
+  !$(element).is(":radio") &&
+  $(element).val().length > 0
+
 @setInputSize = (element) ->
   $(element).removeClass("input-success input-highlight")
   $widthTest = getWidthTestElement()
-  if ($(element).hasClass("signature-pad-body") && window.$signaturePad? && !window.$signaturePad.isEmpty()) || ($(element).is(":checkbox") && $(element).is(":checked")) || !$(element).is(":checkbox") && $(element).val().length > 0
+  if isDataRequestInputValid(element)
     $widthTest.text($(element).val())
     $(element).addClass("input-success")
   else
@@ -16,11 +34,11 @@
 @resetHelpText = (element) ->
   $help_element = $("##{$(element).data("help-element")}_help_text")
   $help_element.removeClass("agreement-helper-success agreement-helper-highlight")
-  if ($(element).hasClass("signature-pad-body") && window.$signaturePad? && !window.$signaturePad.isEmpty()) || ($(element).is(":checkbox") && $(element).is(":checked")) || !$(element).is(":checkbox") && $(element).val().length > 0
+  if isDataRequestInputValid(element)
     $help_element.html('<i class="fa fa-caret-left"></i> ' + $(element).data("help-text") + ' <i class="fa fa-check-square-o"></i>')
     $help_element.addClass("agreement-helper-success")
   else
-    $help_element.html('<i class="fa fa-caret-left"></i> ' + $(element).data("help-text")) #  + ' <i class="fa fa-square-o"></i>'
+    $help_element.html('<i class="fa fa-caret-left"></i> ' + $(element).data("help-text"))
     $help_element.addClass("agreement-helper-highlight")
   offset = $("#top-menu").height()
   offset = offset - ($(element).height() / 2) if $(element).hasClass("signature-pad-body")
