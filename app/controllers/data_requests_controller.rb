@@ -22,7 +22,7 @@ class DataRequestsController < ApplicationController
 
   # GET /data/requests
   def index
-    @data_requests = current_user.data_requests.order(id: :desc).page(params[:page]).per(10)
+    @data_requests = current_user.data_requests.order(id: :desc).page(params[:page]).per(5)
     render layout: "layouts/full_page_dashboard"
   end
 

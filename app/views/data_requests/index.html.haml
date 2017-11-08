@@ -4,34 +4,8 @@
   = @title
 
 - if @data_requests.present?
-  %table.table.table-striped.table-borderless.table-sticky
-    %col
-    %col{ width: "1px" }
-    %col{ width: "1px" }
-    %thead
-      %tr
-        %th
-          Datasets
-        %th
-          Status
-        %th.text-center
-          Actions
-    - @data_requests.each do |data_request|
-      %tr.tr-align-middle{ id: "data-request-#{data_request.id}" }
-        %td
-          = name_of_datasets(data_request)
-        %td= status_helper(data_request)
-        %td.text-center
-          -# TODO: Better resume links
-          - if %w(started resubmit).include?(data_request.status)
-            = link_to "Resume", data_requests_page_path(data_request, data_request.current_step.positive? ? data_request.current_step : 1)
-          - else
-            = link_to "View", data_request
-          -# TODO: Fix deletion of data_request
-          - if false
-            = link_to data_request, method: :delete, remote: true, data: { confirm: "Delete #{data_request.name}?" }, class: "btn btn-sm btn-outline-danger" do
-              %i.fa.fa-trash
-
+  - @data_requests.each do |data_request|
+    .mb-3= render "data_requests/show", data_request: data_request
   .center-horizontally= paginate @data_requests, theme: "bootstrap"
 - else
   .p-3.lead.text-center.text-muted
