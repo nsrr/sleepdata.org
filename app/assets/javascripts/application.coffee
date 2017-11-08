@@ -30,7 +30,6 @@
 #= require external/highcharts-4.1.9.src.js
 #= require external/jquery-fieldselection.js
 #= require external/jquery.textcomplete
-# require external/json2.min.js # TODO: Remove line
 #= require external/signature_pad-2.3.1.src.js
 #= require external/typeahead-0.11.1-corejavascript.src.js
 
