@@ -1,16 +1,9 @@
-// scss-lint:disable VendorPrefix
-// Vendor Prefix for filter isn't well supported, disabling this message until
-// wider support is provided. It also seems that the vendor prefixes aren't
-// being generated for filter.
-// TODO: investigate why vendor prefixes aren't being added
-
 .tag-checkbox {
   backface-visibility: hidden; // Fix for transition flickering
   background-color: $p50-grey;
   border-radius: 3px;
   color: $brand-white;
   cursor: pointer;
-  -webkit-filter: grayscale(100%);
   filter: grayscale(100%);
   font-size: 13px;
   font-weight: 300;
@@ -21,7 +14,6 @@
 
   &:hover,
   &.tag-selected {
-    -webkit-filter: grayscale(0%);
     filter: grayscale(0%);
   }
 }
