@@ -167,11 +167,7 @@ class AgreementsController < ApplicationController
   # DELETE /agreements/1
   def destroy
     @data_request.destroy
-
-    respond_to do |format|
-      format.html { redirect_to agreements_path }
-      format.json { head :no_content }
-    end
+    redirect_to agreements_path
   end
 
   private
@@ -184,27 +180,8 @@ class AgreementsController < ApplicationController
     @data_request = current_user.all_data_requests.find_by(id: params[:id])
   end
 
-  # def find_viewable_submission_or_redirect
-  #   @agreement = current_user.agreements.find_by_id params[:id]
-  #   redirect_without_submission
-  # end
-
-  # def find_editable_submission_or_redirect
-  #   @agreement = current_user.agreements.submittable.find_by_id params[:id]
-  #   redirect_without_submission
-  # end
-
-  # def find_deletable_submission_or_redirect
-  #   @agreement = current_user.agreements.deletable.find_by_id params[:id]
-  #   redirect_without_submission
-  # end
-
-  # def redirect_without_submission
-  #   empty_response_or_root_path(submissions_path) unless @agreement
-  # end
-
   def redirect_without_data_request
-    empty_response_or_root_path(current_user && current_user.system_admin? ? agreements_path : submissions_path) unless @data_request
+    empty_response_or_root_path(current_user.system_admin? ? agreements_path : reviews_path) unless @data_request
   end
 
   def data_request_params

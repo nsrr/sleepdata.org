@@ -69,8 +69,9 @@
         My Account
       %ul
         %li= link_to "My Dashboard", dashboard_path
-        %li= link_to "My Data Access and Use Agreements", submissions_path
-        %li= link_to "Change My Forum Username", settings_path
-        %li= link_to "Change My Email Address", settings_path
-        %li= link_to "Update My Personal Information", settings_path
-        %li= link_to "Reset My Password", new_user_password_path
+        %li= link_to "My Data Requests", data_requests_path
+        %li= link_to "Update My Profile", settings_path
+        %li= link_to "Change My Username", settings_account_path
+        %li= link_to "Change/Reset My Password", current_user ? settings_account_path : new_user_password_path
+        %li= link_to "Change My Email Address", settings_email_path
+        %li= link_to "Delete My Account", settings_account_path

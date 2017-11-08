@@ -2,7 +2,6 @@
   - case data_request.status
   - when "started"
     - progress = data_request.progress
-    - resume_url = nil
     %h4.card-header
       .float-right
         = render "data_requests/print_link", data_request: data_request
@@ -18,7 +17,6 @@
           %ul.list-unstyled
             - data_request.final_legal_document.final_legal_document_pages.each do |final_legal_document_page|
               - page_complete = data_request.page_complete?(final_legal_document_page)
-              - resume_url = data_requests_page_path(data_request, final_legal_document_page.position) unless page_complete || resume_url.present?
               %li
                 - if page_complete
                   %i.fa.fa-check-square-o.text-success
@@ -44,12 +42,12 @@
 
     .card-footer
       .float-right
-        - if resume_url.nil?
+        - if data_request.complete?
           = link_to data_requests_proof_path(data_request) do
             Proof and submit
             %i.fa.fa-caret-right
         - else
-          = link_to resume_url do
+          = link_to resume_data_request_path(data_request) do
             Resume
             %i.fa.fa-caret-right
 

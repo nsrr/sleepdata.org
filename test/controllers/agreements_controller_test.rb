@@ -8,7 +8,6 @@ class AgreementsControllerTest < ActionController::TestCase
     @data_request = data_requests(:submitted)
   end
 
-  # TODO: Remove deprecated step wizard
   test "should download irb pdf for system admin" do
     skip
     login(users(:admin))
@@ -21,28 +20,6 @@ class AgreementsControllerTest < ActionController::TestCase
     )
     assert_response :success
   end
-
-  test "should destroy submission for agreement user for agreements with started or resubmit status" do
-    skip
-    login(users(:valid))
-    assert_difference("Agreement.current.count", -1) do
-      delete :destroy_submission, params: { id: data_requests(:filled_out_application_with_attached_irb_file) }
-    end
-    assert_not_nil assigns(:agreement)
-    assert_redirected_to submissions_path
-  end
-
-  test "should not destroy submission for non-agreement user for agreements with started or resubmit status" do
-    skip
-    login(users(:two))
-    assert_difference("Agreement.current.count", 0) do
-      delete :destroy_submission, params: { id: data_requests(:filled_out_application_with_attached_irb_file) }
-    end
-    assert_nil assigns(:agreement)
-    assert_redirected_to submissions_path
-  end
-
-  # Older Agreements
 
   # deprecated
   test "should get index" do
