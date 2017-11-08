@@ -126,4 +126,36 @@ class DataRequest < Agreement
     return 100 if total.zero?
     count * 100.0 / total
   end
+
+  def render_variable_latex(final_legal_document_page, variable_id)
+    variable = final_legal_document_page.final_legal_document.legal_document_variables.find_by(id: variable_id)
+    agreement_variable = agreement_variables.find_by(final_legal_document_variable: variable)
+    value = (agreement_variable&.value || "")
+    if variable.variable_type == "radio"
+      string = "\n**#{variable.display_name_label}**"
+      variable.options.each do |option|
+        string += \
+          if value == option.value
+            "\n==**XXYESXX** #{option.display_name}=="
+          else
+            "\n**XXNOXX** #{option.display_name}"
+          end
+      end
+      string
+    elsif variable.variable_type == "checkbox"
+      if value == "1"
+        "\n**#{variable.display_name_label}**\n==**XXYESXX** #{variable.description}=="
+      else
+        "\n**#{variable.display_name_label}**\n**XXNOXX** #{variable.description}"
+      end
+    else
+      "\n**#{variable.display_name_label}**\n==#{value}=="
+    end
+  end
+
+  def render_variable_inline_latex(final_legal_document_page, variable_id)
+    agreement_variable = agreement_variables.find_by(final_legal_document_variable_id: variable_id)
+    value = (agreement_variable ? agreement_variable.value : "")
+    "==#{value}=="
+  end
 end
