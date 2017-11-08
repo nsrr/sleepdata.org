@@ -159,6 +159,22 @@ class DataRequest < Agreement
     "==#{value}=="
   end
 
+  def convert_to(new_final_legal_document)
+    update(
+      final_legal_document: new_final_legal_document,
+      attested_at: nil,
+      remove_signature_file: true,
+      signature_print: nil,
+      signature_date: nil,
+      duly_authorized_representative_email: nil,
+      duly_authorized_representative_emailed_at: nil,
+      duly_authorized_representative_signed_at: nil,
+      remove_duly_authorized_representative_signature_file: true,
+      duly_authorized_representative_signature_print: nil,
+      duly_authorized_representative_signature_date: nil
+    )
+  end
+
   # Removes variables that may exist on alternate final legal document.
   def cleanup_variables!
     agreement_variables

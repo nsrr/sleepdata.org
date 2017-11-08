@@ -91,7 +91,7 @@ class DataRequestsController < ApplicationController
     # TODO: Make sure data_request is associated to a dataset...
     final_legal_document = @data_request.datasets.first.final_legal_document_for_user(current_user)
     if final_legal_document && @data_request.final_legal_document != final_legal_document
-      @data_request.update final_legal_document: final_legal_document
+      @data_request.convert_to(final_legal_document)
       flash[:notice] = "Switched to #{params[:commercial_type] || params[:data_user_type]} data request successfully."
     else
       flash[:notice] = "No alternate legal document found."
