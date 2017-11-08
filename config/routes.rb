@@ -82,6 +82,7 @@ Rails.application.routes.draw do
     end
     member do
       get :print
+      get :download_irb
     end
 
     resources :agreement_events, path: "events" do
