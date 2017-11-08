@@ -6,6 +6,6 @@
 <% content.gsub!(/==(.*?)==/, "\\hl{\\1}") %>
 <% content.gsub!(/XX(YES)XX/, "\\cmark") %>
 <% content.gsub!(/XX(NO)XX/, "\\xmark") %>
-<% content.gsub!(/\"([a-zA-Z\s\.]*?)\"/, "``\\1''") %>
+<% content.gsub!(/\"([a-zA-Z\s\.-]*?)\"/, "``\\1''") %>
 <% content.gsub!(/\*(.*?)\*/, "\\textit{\\1}") %>
 <%= content %> \\
