@@ -10,6 +10,7 @@
     %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
       .page-box.last-box
         .agreement-heading= @title
+        - required_content = content_tag(:span, content_tag(:i, nil, class: "fa fa-exclamation-triangle") + " Required", class: "text-danger")
 
         = form_with model: @data_request, url: data_requests_submit_path(@data_request), method: :post, local: true, id: "data-request-form" do |form|
           = form.hidden_field :draft, id: "data_request_draft"
@@ -21,31 +22,29 @@
 
             - if variable.variable_type == "checkbox"
               - if value != "1" && variable.required?
-                - content = content_tag(:span, content_tag(:i, nil, class: "fa fa-square-o") + " Required", class: "text-danger")
+                - content = required_content
               - else
                 - content = simple_check(value == "1")
-              - content = content + " " + variable.description.to_s
             - else
               - content = (agreement_variable ? agreement_variable.value : "")
               - if content.blank? && variable.required?
-                - content = content_tag(:span, content_tag(:i, nil, class: "fa fa-exclamation-triangle") + " Required", class: "text-danger")
+                - content = required_content
             - display_name = variable.display_name.present? ? variable.display_name : variable.name.titleize
             - display_name = link_to display_name, data_requests_page_url(@data_request, final_legal_document_page.position), tabindex: "-1" # TODO: Make anchor work correctly `anchor: variable.name`
             = render "forms/horizontal/show/generic", title: display_name, content: content
 
         - if @data_request.final_legal_document.attestation_type == "signature"
           - if @data_request.duly_authorized_representative_signed?
-
             - if @data_request.duly_authorized_representative_signature_file.path
               - content = image_tag(data_requests_duly_authorized_representative_signature_path(@data_request), class: "img-signature", alt: "", style: "max-height: 100px;")
             - else
-              - content = "<div class=\"text-muted\">No signature</div>".html_safe
+              - content = required_content
             = render "forms/horizontal/show/generic", title: "Duly Authorized Representative Signature", content: content
           - else
             - if @data_request.signature_file.present?
               - content = image_tag(data_requests_signature_path(@data_request), class: "img-signature", alt: "", style: "max-height: 100px;")
             - else
-              - content = "<div class=\"text-muted\">No signature</div>".html_safe
+              - content = required_content
             = render "forms/horizontal/show/generic", title: link_to("Signature", data_requests_attest_path(@data_request)), content: content
 
         - case @data_request.supporting_documents.count when 0
