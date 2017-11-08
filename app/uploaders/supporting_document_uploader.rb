@@ -72,6 +72,6 @@ class SupportingDocumentUploader < CarrierWave::Uploader::Base
   protected
 
   def image?(new_file)
-    %w(jpg jpeg gif png).include?(new_file.extension)
+    %w(jpg jpeg gif png).include?(new_file.extension&.downcase)
   end
 end
