@@ -1,10 +1,10 @@
 .link-accent {
-  color: $p500;
+  color: $p500-green;
 
   &:hover,
   &:focus,
   &:active {
-    color: darken($p500, 15%);
+    color: darken($p500-green, 15%);
     text-decoration: none;
   }
 }

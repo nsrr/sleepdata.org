@@ -21,14 +21,14 @@ $box-shadow-color: rgba(0, 0, 0, .15);
 
 // OLD COLORS
 $breadcrumb-link-color: $a100 !default;
-$header-bg: $p500 !default;
+$header-bg: $p500-green !default;
 
 $notification-link-color: $brand-accent !default;
 
 $comment-unread-even: $brand-white;
 $comment-unread-odd: $p50-grey;
-$comment-read-even: $p100;
-$comment-read-odd: $p50; // $comment-unread-odd * $comment-read-even
+$comment-read-even: $p100-green;
+$comment-read-odd: $p50-green; // $comment-unread-odd * $comment-read-even
 
 $dashboard-bg: $brand-white !default;
 

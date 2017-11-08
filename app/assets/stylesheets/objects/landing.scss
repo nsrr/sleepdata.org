@@ -124,14 +124,8 @@
   text-align: center;
 }
 
-.landing-sentence-gradient {
-  background-image: linear-gradient(180deg, $p50, $p100, $p200);
-  margin-bottom: 0;
-  padding: 20px 0;
-}
-
 .landing-stats {
-  background-color: $p200;
+  background-color: $p200-green;
 }
 
 .landing-tool-box {
@@ -178,6 +172,6 @@
 }
 
 .landing-news-container {
-  background-color: $p50;
+  background-color: $p50-green;
   margin-bottom: 20px;
 }
