@@ -82,28 +82,6 @@
   color: $a200-text;
 }
 
-// TODO: Replace btn-call-to-danger
-// .btn-call-to-danger {
-//   backface-visibility: hidden; // Fix for transition flickering
-//   background-color: $brand-white;
-//   border-color: $btn-danger-border;
-//   border-radius: 40px;
-//   color: $btn-danger-border;
-//   overflow: hidden;
-//   transition: all .4s ease; // Fade to color for Chrome and Safari
-// }
-
-// .btn-call-to-danger:hover,
-// .btn-call-to-danger:focus,
-// .btn-call-to-danger:active,
-// .btn-call-to-danger.active,
-// .btn-call-to-danger.disabled,
-// .btn-call-to-danger[disabled] {
-//   background-color: $brand-danger-text;
-//   border-color: $brand-danger-text;
-//   color: $brand-white;
-// }
-
 .btn-call-to-default {
   backface-visibility: hidden; // Fix for transition flickering
   background-color: $p200-grey;
@@ -124,25 +102,3 @@
   border-color: $p200-grey;
   color: $p600-grey;
 }
-
-// TODO: Replace btn-call-to-info
-// .btn-call-to-info {
-//   backface-visibility: hidden; // Fix for transition flickering
-//   background-color: $brand-white;
-//   border-color: $btn-primary-border;
-//   border-radius: 40px;
-//   color: $btn-primary-border;
-//   overflow: hidden;
-//   transition: all .4s ease; // Fade to color for Chrome and Safari
-// }
-
-// .btn-call-to-info:hover,
-// .btn-call-to-info:focus,
-// .btn-call-to-info:active,
-// .btn-call-to-info.active,
-// .btn-call-to-info.disabled,
-// .btn-call-to-info[disabled] {
-//   background-color: $brand-primary-text;
-//   border-color: $brand-primary-text;
-//   color: $brand-white;
-// }
