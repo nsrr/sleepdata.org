@@ -158,4 +158,12 @@ class DataRequest < Agreement
     value = (agreement_variable ? agreement_variable.value : "")
     "==#{value}=="
   end
+
+  # Removes variables that may exist on alternate final legal document.
+  def cleanup_variables!
+    agreement_variables
+      .joins(:final_legal_document_variable)
+      .merge(FinalLegalDocumentVariable.where.not(final_legal_document: final_legal_document))
+      .destroy_all
+  end
 end

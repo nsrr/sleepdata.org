@@ -230,6 +230,7 @@ class DataRequestsController < ApplicationController
         event_type = "user_submitted"
       end
       if AgreementTransaction.save_agreement!(@data_request, hash, current_user, request.remote_ip, "agreement_update")
+        @data_request.cleanup_variables!
         @data_request.agreement_events.create(event_type: event_type, user: current_user, event_at: current_time)
         @data_request.daua_submitted_in_background
         redirect_to [:submitted, @data_request]
