@@ -12,29 +12,20 @@
       .page-box.last-box
         .agreement-heading= @title
 
-        If you are not authorized to sign an agreement based on institutional requirements:
-        %ul
-          %li Enter your Duly Authorized Representative's name and email.
-
-        Once you submit, we will email your Duly Authorized Representative with
-        a link to sign the data request on your behalf. You will receive an
-        email notification when your authorized user has signed the data
-        request.
-
+        %p
+          Fill out this form if you are not authorized to sign this legal
+          agreement based on institutional requirements.
         = form_with model: @data_request, url: data_requests_update_duly_authorized_representative_path(@data_request), method: :post, local: true, id: "data-request-form" do |form|
           = form.hidden_field :draft, id: "data_request_draft"
 
           = render "forms/vertical/text_field", form: form, object: @data_request, key: :duly_authorized_representative_signature_print, key_name: "Duly Authorized Representative's Name"
           = render "forms/vertical/email_field", form: form, object: @data_request, key: :duly_authorized_representative_email, key_name: "Duly Authorized Representative's Email", help_text: "Please double check to make sure you enter the email correctly."
 
-          -# TODO: Remove
-          - if false
-            %strong Email the following link
-            to your Duly Authorized Representative.
-            %div{ style: 'border: 1px solid #ededed; border-radius:2px; padding: 4px' }
-              - signature_request_url = "#{ENV["website_url"]}/representative/#{@data_request.id_and_representative_token}/signature-requested"
-              = link_to signature_request_url, signature_request_url, target: '_blank'
 
+        %p
+          A data request review link will be emailed to your representative. We
+          will email you when your representative has reviewed and signed your
+          data request.
 
         .mt-5.mb-3.float-right
           = succeed " " do
