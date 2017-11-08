@@ -215,6 +215,19 @@ class Agreement < ApplicationRecord
     representative.to_s == "1"
   end
 
+  def smart_status
+    case status
+    when "approved"
+      if expiration_date && expiration_date < Time.zone.today
+        "expired"
+      else
+        "approved"
+      end
+    else
+      status
+    end
+  end
+
   def latex_partial(partial)
     file_path = Rails.root.join("app", "views", "data_requests", "print", "_#{partial}.tex.erb")
     puts "latex_partial: [#{File.exist?(file_path) ? "X" : " "}] \"#{file_path}\"" if ENV["TRAVIS"]

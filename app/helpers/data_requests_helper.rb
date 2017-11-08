@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Helps name data requests.
+# Helps name data requests and display data request status.
 module DataRequestsHelper
   def name_of_datasets(data_request)
     slugs = data_request.datasets.order(:slug).pluck(:slug)
@@ -31,5 +31,23 @@ module DataRequestsHelper
       rel: "tooltip",
       data: { title: tooltip, container: "body", placement: "top" }
     )
+  end
+
+  def status_helper(data_request)
+    content_tag(
+      :span, data_request.smart_status,
+      class: "badge badge-#{status_hash[data_request.smart_status]}"
+    )
+  end
+
+  def status_hash
+    {
+      "started" => "warning",
+      "submitted" => "primary",
+      "approved" => "success",
+      "resubmit" => "danger",
+      "expired" => "light",
+      "closed" => "danger"
+    }
   end
 end
