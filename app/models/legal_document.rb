@@ -29,7 +29,6 @@ class LegalDocument < ApplicationRecord
   include Sluggable
 
   # Scopes
-  # TODO: Remove "published" if it isn't being referenced.
   scope :published, -> { joins(:final_legal_documents).distinct }
 
   # Validations

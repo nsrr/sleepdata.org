@@ -32,14 +32,6 @@ class UserMailer < ApplicationMailer
          reply_to: admin.email)
   end
 
-  # def daua_signed(agreement)
-  #   setup_email
-  #   @agreement = agreement
-  #   @email_to = agreement.user.email
-  #   mail(to: agreement.user.email,
-  #        subject: "Your DAUA has been Signed by your Duly Authorized Representative")
-  # end
-
   def daua_progress_notification(agreement, admin, agreement_event)
     setup_email
     @agreement = agreement

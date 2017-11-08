@@ -13,11 +13,6 @@ class UserMailerPreview < ActionMailer::Preview
     UserMailer.daua_approved(agreement, admin)
   end
 
-  def daua_signed
-    agreement = Agreement.first
-    UserMailer.daua_signed(agreement)
-  end
-
   def daua_progress_notification
     agreement = Agreement.first
     agreement_event = agreement.agreement_events.last
