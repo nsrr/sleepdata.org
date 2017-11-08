@@ -59,6 +59,13 @@
     margin: 0 0 11px;
     padding: 0 10px;
   }
+
+  pre {
+    border: 1px solid $p300-grey;
+    border-radius: $border-radius;
+    background-color: $p200-grey;
+    padding: $spacer * .5;
+  }
 }
 
 // TODO: Restyle backdrop shadow.

@@ -156,6 +156,7 @@ $theme-colors: (
 
 $body-bg:       $p50-grey; // $white;
 // $body-color:    $gray-900;
+$body-color:    $p900-grey;
 
 // Links
 //
@@ -827,7 +828,9 @@ $navbar-dark-hover-color:           rgba($white, .9);
 // $code-padding-y:              .2rem;
 // $code-padding-x:              .4rem;
 // $code-color:                  #bd4147;
+$code-color:                  $body-color;
 // $code-bg:                     $gray-100;
+$code-bg:                     $p200-grey;
 
 // $kbd-color:                   $white;
 // $kbd-bg:                      $gray-900;
