@@ -25,9 +25,13 @@
           #upload-bar.supporting-documents-upload-bar
 
           %span#upload
-            Drag files (PDFs) here to attach to data request or
-            = link_to "click here", new_data_request_supporting_document_path(@data_request)
-            to upload documents.
+            .d-touch-span
+              = link_to "Click here", new_data_request_supporting_document_path(@data_request)
+              to upload documents.
+            .d-hover-span
+              Drag files (PDFs) here to attach to data request or
+              = link_to "click here", new_data_request_supporting_document_path(@data_request)
+              to upload documents.
           %span#percent
           #process
 

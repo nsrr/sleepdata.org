@@ -5,3 +5,32 @@
     .d#{$infix}-table-column { display: table-column !important; }
   }
 }
+
+.d-touch-span {
+  display: inline;
+}
+
+.d-touch {
+  display: block;
+}
+
+.d-hover-span,
+.d-hover {
+  display: none;
+}
+
+// https://www.w3.org/TR/mediaqueries-4/#mf-interaction
+@media (hover) {
+  .d-touch-span,
+  .d-touch {
+    display: none;
+  }
+
+  .d-hover-span {
+    display: inline;
+  }
+
+  .d-hover {
+    display: block;
+  }
+}
