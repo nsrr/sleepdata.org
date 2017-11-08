@@ -1,0 +1,9 @@
+- bg_class = "data-request-expired-bg"
+
+.col-12.col-md.text-center.mb-3.mb-md-0
+  .d-none.d-md-block.data-request-timeline{ class: bg_class, style: "left: 0;right: 50%;" }
+  .d-block.data-request-timeline-icon.data-request-timeline-icon-expired
+    %i.fa.fa-stop-circle
+  %br
+  %strong Expired
+  .text-muted.small= data_request.expiration_date&.strftime("%-d %b %Y")

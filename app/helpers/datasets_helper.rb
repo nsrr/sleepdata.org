@@ -24,19 +24,13 @@ module DatasetsHelper
     elsif data_request_by_status(dataset, "resubmit")
       status = "resubmit"
       data_request = data_request_by_status(dataset, "resubmit")
-      # TODO: Change resubmit data request path
       text = "Resubmit Data Request"
-      url = data_requests_proof_path(data_request)
+      url = resubmit_data_request_path(data_request)
     elsif data_request_by_status(dataset, "started")
       status = "started"
       data_request = data_request_by_status(dataset, "started")
       text = "Resume Data Request"
-      url = \
-        if data_request.complete?
-          data_requests_proof_path(data_request)
-        else
-          data_requests_page_path(data_request, data_request.current_step.positive? ? data_request.current_step : 1)
-        end
+      url = resume_data_request_path(data_request)
     elsif expired_data_request(dataset)
       # data_request = expired_data_request(dataset)
       status = "expired"

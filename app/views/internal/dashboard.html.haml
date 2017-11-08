@@ -1,40 +1,19 @@
+- @title = "My Dashboard"
 - content_for :right_drawer, render("internal/sidebar/blog_posts")
 
 - data_request_approved = current_user.data_requests.not_expired.where(status: "approved").order(id: :desc).first
 - current_data_request = current_user.data_requests.where(status: %w(started resubmit)).order(id: :desc).first
 - if data_request_approved || current_data_request
-  %h1
-    Data Requests
-    %small= link_to "view all", data_requests_path, class: "btn btn-link btn-sm"
-  .card-deck.mb-3.flex-column.flex-sm-row
-    - if current_data_request
-      .card.bg-light
-        .card-header
-          -# TODO: Update path to "resume request" if applicable
-          = link_to current_data_request, class: "link-unstyled col" do
-            = "Data Request ##{current_data_request.agreement_number}"
-        .card-body
-
-          %br
-          = status_helper(current_data_request)
-          - current_data_request.datasets.order(:release_date).each do |dataset|
-            %span.badge.badge-light= dataset.slug
-    - if data_request_approved
-      .card.text-white.bg-success
-        .card-header
-          = name_of_datasets(data_request_approved)
-          = link_to data_request_approved, class: "link-unstyled col" do
-            = "Data Request ##{data_request_approved.agreement_number}"
-        .card-body
-          %br
-          = status_helper(data_request_approved)
-          - data_request_approved.datasets.order(:release_date).each do |dataset|
-            %span.badge.badge-light= dataset.slug
-
+  %h1.dashboard-heading
+    = @title
+  - if current_data_request
+    .mb-3= render "data_requests/show", data_request: current_data_request
+  - if data_request_approved
+    .mb-3= render "data_requests/show", data_request: data_request_approved
 - else
   .dashboard-container
     .dashboard-title
-      %strong Data Access Requests
+      %strong= @title
     %p
       Access data by requesting access to one or more
       = succeed "." do
@@ -44,9 +23,10 @@
       = succeed "." do
         = mail_to ENV["support_email"]
 
+.text-center.small.mb-3= link_to "view all data requests", data_requests_path, class: "btn btn-primary btn-sm"
 
 .dashboard-container
-  .text-center
+  .text-center.lead
     Email us at
     = mail_to ENV["support_email"]
     with any questions!

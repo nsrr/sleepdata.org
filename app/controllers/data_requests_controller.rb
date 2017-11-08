@@ -9,10 +9,14 @@ class DataRequestsController < ApplicationController
   before_action :find_data_request_or_redirect, except: [
     :index,
     :start, :create, :join, :login,
-    :submitted, :print, :show
+    :submitted, :print, :show,
+    :resubmit, :resume,
+    :destroy
   ]
   before_action :find_submitted_data_request_or_redirect, only: [:submitted]
   before_action :find_any_data_request_or_redirect, only: [:print, :show]
+  before_action :find_submittable_data_request_or_redirect, only: [:resubmit, :resume]
+  before_action :find_deletable_data_request_or_redirect, only: [:destroy]
 
   layout "layouts/full_page"
 
@@ -87,7 +91,6 @@ class DataRequestsController < ApplicationController
   def convert
     current_user.update commercial_type: params[:commercial_type] if %w(commercial noncommercial).include?(params[:commercial_type])
     current_user.update data_user_type: params[:data_user_type] if %w(individual organization).include?(params[:data_user_type])
-
     # TODO: Make sure data_request is associated to a dataset...
     final_legal_document = @data_request.datasets.first.final_legal_document_for_user(current_user)
     if final_legal_document && @data_request.final_legal_document != final_legal_document
@@ -96,7 +99,6 @@ class DataRequestsController < ApplicationController
     else
       flash[:notice] = "No alternate legal document found."
     end
-
     redirect_to data_requests_page_path(@data_request, 1)
   end
 
@@ -231,6 +233,7 @@ class DataRequestsController < ApplicationController
       end
       if AgreementTransaction.save_agreement!(@data_request, hash, current_user, request.remote_ip, "agreement_update")
         @data_request.cleanup_variables!
+        @data_request.update(current_step: 0)
         @data_request.agreement_events.create(event_type: event_type, user: current_user, event_at: current_time)
         @data_request.daua_submitted_in_background
         redirect_to [:submitted, @data_request]
@@ -262,10 +265,27 @@ class DataRequestsController < ApplicationController
     render layout: "layouts/full_page_dashboard"
   end
 
-  # # GET /data/requests/:data_request_id/resume
-  # def resume
-  #  # TODO: Implement a data request resume path (as opposed to "start")
-  # end
+  # GET /data/requests/:id/resubmit
+  def resubmit
+    redirect_to [:resume, @data_request]
+  end
+
+  # GET /data/requests/:id/resume
+  def resume
+    if @data_request.final_legal_document.final_legal_document_pages.count.positive?
+      redirect_to data_requests_page_path(@data_request, @data_request.current_step.positive? ? @data_request.current_step : 1)
+    elsif @data_request.attestation_required?
+      redirect_to data_requests_attest_path(@data_request)
+    else
+      redirect_to data_requests_proof_path(@data_request)
+    end
+  end
+
+  # DELETE /data/requests/:id
+  def destroy
+    @data_request.destroy
+    redirect_to data_requests_path, notice: "Data request was successfully deleted."
+  end
 
   private
 
@@ -289,6 +309,19 @@ class DataRequestsController < ApplicationController
                                 .includes(:final_legal_document)
                                 .find_by(id: params[:id])
     empty_response_or_root_path(datasets_path) unless @data_request && @data_request.datasets.count.positive?
+  end
+
+  def find_submittable_data_request_or_redirect
+    @data_request = current_user.data_requests
+                                .submittable
+                                .includes(:final_legal_document)
+                                .find_by(id: params[:id])
+    empty_response_or_root_path(datasets_path) unless @data_request && @data_request.datasets.count.positive?
+  end
+
+  def find_deletable_data_request_or_redirect
+    @data_request = current_user.data_requests.deletable.find_by(id: params[:id])
+    empty_response_or_root_path(data_requests_path) unless @data_request
   end
 
   def send_signature(attribute)

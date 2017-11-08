@@ -73,19 +73,23 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update attest with checkbox" do
-    skip
-    login(@regular)
-    post data_requests_update_attest_url(@started) # TODO: Add checkbox params.
-    # assert_equal # TODO: Assert checked and timestamp.
-    assert_redirected_to data_requests_proof_url(@started, "2")
+    data_request = data_requests(:checkbox_attestestation_started)
+    login(data_request.user)
+    post data_requests_update_attest_url(data_request, attest: "1")
+    data_request.reload
+    assert_not_nil data_request.attested_at
+    assert_redirected_to data_request_supporting_documents_url(data_request)
   end
 
   test "should update attest with signature" do
-    skip
-    login(@regular)
-    post data_requests_update_attest_url(@started, data_uri: "") # TODO: Add signature params.
-    # assert_equal # TODO: Assert signature and timestamp.
-    assert_redirected_to data_requests_proof_url(@started, "2")
+    data_request = data_requests(:started)
+    login(data_request.user)
+    post data_requests_update_attest_url(data_request, data_uri: data_uri_signature, signature_print: "Regular User")
+    data_request.reload
+    assert_equal true, data_request.signature_file.present?
+    assert_equal "Regular User", data_request.signature_print
+    assert_not_nil data_request.attested_at
+    assert_redirected_to data_request_supporting_documents_url(data_request)
   end
 
   test "should get designate duly authorized representative" do
@@ -234,9 +238,58 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to datasets_url # TODO: perhaps data_requests_url instead?
   end
 
-  test "should get index as regular user" do
-    # TODO: Make sure regular user has data requests in various states.
-    login(users(:regular))
+  test "should get index with started data request" do
+    data_request = data_requests(:started)
+    login(data_request.user)
+    get data_requests_url
+    assert_response :success
+  end
+
+  test "should get index with submitted data request" do
+    data_request = data_requests(:submitted)
+    login(data_request.user)
+    get data_requests_url
+    assert_response :success
+  end
+
+  test "should get index with approved data request" do
+    data_request = data_requests(:approved)
+    login(data_request.user)
+    get data_requests_url
+    assert_response :success
+  end
+
+  test "should get index with resubmit data request" do
+    data_request = data_requests(:resubmit)
+    login(data_request.user)
+    get data_requests_url
+    assert_response :success
+  end
+
+  test "should get index with expired data request" do
+    data_request = data_requests(:expired)
+    login(data_request.user)
+    get data_requests_url
+    assert_response :success
+  end
+
+  test "should get index with approved that expired data request" do
+    data_request = data_requests(:approved_that_expired)
+    login(data_request.user)
+    get data_requests_url
+    assert_response :success
+  end
+
+  test "should get index with closed data request" do
+    data_request = data_requests(:closed)
+    login(data_request.user)
+    get data_requests_url
+    assert_response :success
+  end
+
+  test "should get index with deleted data request" do
+    data_request = data_requests(:deleted)
+    login(data_request.user)
     get data_requests_url
     assert_response :success
   end
@@ -244,5 +297,89 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
   test "should not get index as public user" do
     get data_requests_url
     assert_redirected_to new_user_session_path
+  end
+
+  test "should delete started data request" do
+    data_request = data_requests(:started)
+    login(data_request.user)
+    assert_difference("DataRequest.current.count", -1) do
+      delete data_request_url(data_request)
+    end
+    assert_equal "Data request was successfully deleted.", flash[:notice]
+    assert_redirected_to data_requests_url
+  end
+
+  test "should delete resubmit data request" do
+    data_request = data_requests(:resubmit)
+    login(data_request.user)
+    assert_difference("DataRequest.current.count", -1) do
+      delete data_request_url(data_request)
+    end
+    assert_equal "Data request was successfully deleted.", flash[:notice]
+    assert_redirected_to data_requests_url
+  end
+
+  test "should delete closed data request" do
+    data_request = data_requests(:closed)
+    login(data_request.user)
+    assert_difference("DataRequest.current.count", -1) do
+      delete data_request_url(data_request)
+    end
+    assert_equal "Data request was successfully deleted.", flash[:notice]
+    assert_redirected_to data_requests_url
+  end
+
+  test "should not delete submitted data request" do
+    data_request = data_requests(:submitted)
+    login(data_request.user)
+    assert_difference("DataRequest.current.count", 0) do
+      delete data_request_url(data_request)
+    end
+    assert_nil flash[:notice]
+    assert_redirected_to data_requests_url
+  end
+
+  test "should not delete approved data request" do
+    data_request = data_requests(:approved)
+    login(data_request.user)
+    assert_difference("DataRequest.current.count", 0) do
+      delete data_request_url(data_request)
+    end
+    assert_nil flash[:notice]
+    assert_redirected_to data_requests_url
+  end
+
+  test "should not delete expired data request" do
+    data_request = data_requests(:expired)
+    login(data_request.user)
+    assert_difference("DataRequest.current.count", 0) do
+      delete data_request_url(data_request)
+    end
+    assert_nil flash[:notice]
+    assert_redirected_to data_requests_url
+  end
+
+  test "should not delete approved that expired data request" do
+    data_request = data_requests(:approved_that_expired)
+    login(data_request.user)
+    assert_difference("DataRequest.current.count", 0) do
+      delete data_request_url(data_request)
+    end
+    assert_nil flash[:notice]
+    assert_redirected_to data_requests_url
+  end
+
+  test "should get resume for started data request" do
+    data_request = data_requests(:started)
+    login(data_request.user)
+    get resume_data_request_url(data_request)
+    assert_redirected_to data_requests_page_url(data_request, 1)
+  end
+
+  test "should get resume for resubmit data request" do
+    data_request = data_requests(:resubmit)
+    login(data_request.user)
+    get resume_data_request_url(data_request)
+    assert_redirected_to data_requests_page_url(data_request, 1)
   end
 end

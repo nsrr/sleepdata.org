@@ -120,8 +120,10 @@ Rails.application.routes.draw do
     post :submit, path: ":data_request_id/proof"
   end
 
-  resources :data_requests, path: "data/requests", only: [:index, :show] do
+  resources :data_requests, path: "data/requests", only: [:index, :show, :destroy] do
     member do
+      get :resubmit
+      get :resume
       get :submitted
       get :print
     end

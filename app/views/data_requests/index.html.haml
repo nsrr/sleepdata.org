@@ -11,7 +11,7 @@
     %thead
       %tr
         %th
-          Data Request
+          Datasets
         %th
           Status
         %th.text-center
@@ -19,7 +19,6 @@
     - @data_requests.each do |data_request|
       %tr.tr-align-middle{ id: "data-request-#{data_request.id}" }
         %td
-          = link_to "View", data_request
           = name_of_datasets(data_request)
         %td= status_helper(data_request)
         %td.text-center

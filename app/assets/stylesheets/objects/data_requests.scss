@@ -61,6 +61,7 @@ $data-request-resubmit: $p500-red;
 $data-request-resubmitted: $p500-blue;
 $data-request-under-review: $p500-grey;
 $data-request-approved: $p500-green;
+$data-request-approved-expired: $p500-blue;
 
 .data-request-timeline {
   position: absolute;
@@ -93,7 +94,8 @@ $data-request-approved: $p500-green;
   }
 }
 
-.data-request-timeline-icon-under-review {
+.data-request-timeline-icon-under-review,
+.data-request-timeline-icon-expired {
   i {
     color: $data-request-under-review;
   }
@@ -102,6 +104,12 @@ $data-request-approved: $p500-green;
 .data-request-timeline-icon-approved {
   i {
     color: $data-request-approved;
+  }
+}
+
+.data-request-timeline-icon-approved-expired {
+  i {
+    color: $data-request-approved-expired;
   }
 }
 
@@ -116,7 +124,8 @@ $data-request-approved: $p500-green;
 
 }
 
-.data-request-under-review-bg {
+.data-request-under-review-bg,
+.data-request-expired-bg {
   background-color: $data-request-under-review;
   background-image: linear-gradient(to right, #{$data-request-submitted} -100%, #{$data-request-under-review} 100%);
 }
@@ -133,7 +142,9 @@ $data-request-approved: $p500-green;
   background-image: linear-gradient(to right, #{$data-request-submitted} 0%, #{$data-request-resubmitted} 200%);
 }
 
-.data-request-submitted-to-resubmit-to-under-review-bg {
+.data-request-submitted-to-resubmit-to-under-review-bg,
+.data-request-submitted-to-approved-to-expired-bg,
+.data-request-resubmitted-to-approved-to-expired-bg {
   background-color: $data-request-resubmitted;
   background-image: linear-gradient(to right, #{$data-request-submitted} -50%, #{$data-request-resubmitted} 50%, #{$data-request-under-review} 150%);
 }
@@ -143,7 +154,8 @@ $data-request-approved: $p500-green;
   background-image: linear-gradient(to right, #{$data-request-submitted} -50%, #{$data-request-resubmitted} 50%, #{$data-request-approved} 150%);
 }
 
-.data-request-resubmitted-to-under-review-bg {
+.data-request-resubmitted-to-under-review-bg,
+.data-request-resubmitted-to-expired-bg {
   background-color: $data-request-under-review;
   background-image: linear-gradient(to right, #{$data-request-resubmitted} -100%, #{$data-request-under-review} 100%);
 }

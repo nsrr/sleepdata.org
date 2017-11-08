@@ -1,0 +1,147 @@
+.card
+  - case data_request.status
+  - when "started"
+    - progress = data_request.progress
+    - resume_url = nil
+    %h4.card-header
+      .float-right
+        = render "data_requests/print_link", data_request: data_request
+        = render "data_requests/delete_link", data_request: data_request
+      Started
+    .card-body{ style: "position: relative;" }
+      .data-requests-progress-bar{ style: "width: #{progress}%;" }
+
+      .row
+        .col.mb-3
+
+          %strong= data_request.final_legal_document.name
+          %ul.list-unstyled
+            - data_request.final_legal_document.final_legal_document_pages.each do |final_legal_document_page|
+              - page_complete = data_request.page_complete?(final_legal_document_page)
+              - resume_url = data_requests_page_path(data_request, final_legal_document_page.position) unless page_complete || resume_url.present?
+              %li
+                - if page_complete
+                  %i.fa.fa-check-square-o.text-success
+                - else
+                  %i.fa.fa-square-o
+                = link_to "Page #{final_legal_document_page.position}", data_requests_page_path(data_request, final_legal_document_page.position), class: "link-unstyled"
+
+            - if data_request.attestation_required?
+              %li
+                - if data_request.attestation_complete?
+                  %i.fa.fa-check-square-o.text-success
+                - else
+                  %i.fa.fa-square-o
+                = link_to data_request.final_legal_document.attestation_name, data_requests_attest_path(data_request), class: "link-unstyled"
+
+        .col.mb-0
+          %strong
+            = link_to "Supporting Documents", data_request_supporting_documents_path(data_request), class: "link-unstyled"
+
+            %span.badge.badge-primary= data_request.supporting_documents.count
+
+      = render "data_requests/description", data_request: data_request
+
+    .card-footer
+      .float-right
+        - if resume_url.nil?
+          = link_to data_requests_proof_path(data_request) do
+            Proof and submit
+            %i.fa.fa-caret-right
+        - else
+          = link_to resume_url do
+            Resume
+            %i.fa.fa-caret-right
+
+      = name_of_datasets(data_request)
+
+  - when "submitted"
+    %h4.card-header
+      - if data_request.resubmitted?
+        Resubmitted
+      - else
+        Submitted
+
+    .card-body
+      .mb-5
+        %strong= data_request.final_legal_document.name
+
+      .row.mb-5
+        = render "data_requests/timeline/submitted", data_request: data_request
+        = render "data_requests/timeline/resubmitted", data_request: data_request if data_request.resubmitted?
+        = render "data_requests/timeline/under_review", data_request: data_request
+
+
+      = render "data_requests/description", data_request: data_request
+
+    .card-footer= name_of_datasets(data_request)
+
+  - when "resubmit"
+    %h4.card-header
+      .float-right
+        = render "data_requests/print_link", data_request: data_request
+        = render "data_requests/delete_link", data_request: data_request
+      Changes Required
+
+    .card-body
+      .mb-5
+        %strong= data_request.final_legal_document.name
+
+      .row.mb-5
+        = render "data_requests/timeline/submitted", data_request: data_request
+        = render "data_requests/timeline/resubmit", data_request: data_request
+
+      = render "data_requests/description", data_request: data_request
+      = render "data_requests/resubmit_description", data_request: data_request
+
+
+    .card-footer
+      .float-right
+        = link_to resubmit_data_request_path(data_request) do
+          Update data request
+          %i.fa.fa-caret-right
+      = name_of_datasets(data_request)
+
+  - when "approved"
+    %h4.card-header
+      .float-right= render "data_requests/print_link", data_request: data_request
+      Approved
+    .card-body
+      .mb-5
+        %strong= data_request.final_legal_document.name
+
+      .row.mb-5
+        = render "data_requests/timeline/submitted", data_request: data_request
+        = render "data_requests/timeline/resubmitted", data_request: data_request if data_request.resubmitted?
+        = render "data_requests/timeline/approved", data_request: data_request
+
+      = render "data_requests/description", data_request: data_request
+    .card-footer= name_of_datasets(data_request)
+
+  - when "closed"
+    %h4.card-header
+      .float-right= render "data_requests/delete_link", data_request: data_request
+      %i.fa.fa-lock
+      Closed
+    .card-body
+      %p.lead
+        This data request is closed.
+    .card-footer= name_of_datasets(data_request)
+  - else # "expired"
+    %h4.card-header
+      .float-right= render "data_requests/print_link", data_request: data_request
+      %i.fa.fa-hourglass-end
+      Expired
+    .card-body
+      .mb-5
+        %strong= data_request.final_legal_document.name
+
+      .row.mb-5
+        = render "data_requests/timeline/submitted", data_request: data_request
+        = render "data_requests/timeline/resubmitted", data_request: data_request if data_request.resubmitted?
+        = render "data_requests/timeline/approved_to_expired", data_request: data_request
+        = render "data_requests/timeline/expired", data_request: data_request
+
+      = render "data_requests/description", data_request: data_request
+    .card-footer
+      = name_of_datasets(data_request)

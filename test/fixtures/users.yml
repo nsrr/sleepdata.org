@@ -230,52 +230,6 @@ regular_no_data_requests:
   last_name: No Data Requests
   email: valid_submissionless@example.com
 
-# The following users have different levels of agreements filled out for various datasets
-# TODO: Remove below
-has_approved_agreement_for_a_b_not_c:
-  first_name: Adam
-  last_name: Smith
-  email: adamsmith@example.com
-  encrypted_password: ""
-
-has_approved_but_expired_agreement_for_a_b_not_c:
-  first_name: Bob
-  last_name: Schmoe
-  email: bobschmoe@example.com
-  encrypted_password: ""
-
-has_submitted_agreement_for_a_b_not_c:
-  first_name: Chris
-  last_name: Johns
-  email: chrisjohns@example.com
-  encrypted_password: ""
-
-has_started_agreement_for_a_b_not_c:
-  first_name: David
-  last_name: Damon
-  email: daviddamon@example.com
-  encrypted_password: ""
-
-has_resubmit_agreement_for_a_b_not_c:
-  first_name: Edgar
-  last_name: Poe
-  email: edgarpoe@example.com
-  encrypted_password: ""
-
-has_approved_but_deleted_agreement_for_a_b_not_c:
-  first_name: Frank
-  last_name: Ferdinand
-  email: frankferdinand@example.com
-  encrypted_password: ""
-
-has_no_agreement_for_a_b_not_c:
-  first_name: Gerry
-  last_name: Garces
-  email: gerrygarces@example.com
-  encrypted_password: ""
-# END TODO: Remove above
-
-
 community_manager:
   first_name: Community
   last_name: Manager
