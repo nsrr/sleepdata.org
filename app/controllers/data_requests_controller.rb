@@ -83,11 +83,6 @@ class DataRequestsController < ApplicationController
     save_data_request_user
   end
 
-  # TODO: See if this is needed to launch agreement.
-  # # POST /data/requests/:dataset_id/start/:final_legal_document_id
-  # def create
-  # end
-
   # POST /data/requests/:data_request_id/convert
   def convert
     current_user.update commercial_type: params[:commercial_type] if %w(commercial noncommercial).include?(params[:commercial_type])

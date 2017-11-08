@@ -8,8 +8,11 @@
 
     %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
       .page-box.last-box
-        .agreement-heading Attest
-
+        .agreement-heading
+          - if @data_request.signature_required?
+            Signature
+          - else
+            Attest
         - if @data_request.signature_required?
           - if @data_request.duly_authorized_representative_emailed_at.present?
             = render "data_requests/attest_duly_authorized_representative"
