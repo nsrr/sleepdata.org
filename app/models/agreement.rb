@@ -17,6 +17,7 @@ class Agreement < ApplicationRecord
   STATUS = %w(started submitted approved resubmit expired closed).collect { |i| [i, i] }
 
   attr_accessor :draft
+  attr_accessor :representative
 
   # Concerns
   include Deletable
@@ -37,6 +38,8 @@ class Agreement < ApplicationRecord
   validates :duly_authorized_representative_token, uniqueness: true, allow_nil: true
   validates :approval_date, :expiration_date, presence: true, if: :approved?
   validates :comments, presence: true, if: :resubmission_required?
+
+  validates :duly_authorized_representative_signature_print, :duly_authorized_representative_title, presence: true, if: :representative?
 
   # Relationships
   belongs_to :user
@@ -206,6 +209,10 @@ class Agreement < ApplicationRecord
 
   def draft?
     draft.to_s == "1"
+  end
+
+  def representative?
+    representative.to_s == "1"
   end
 
   def latex_partial(partial)

@@ -1,23 +1,17 @@
 - if @data_request.duly_authorized_representative_signed?
-  %strong All Set!
-  %br
   %p
-    Your Duly Authorized
-    Represenative has signed your data request. Click
+    %strong All Set!
+    Your represenative has signed your data request. Click
     %strong.text-primary Proceed
     below to continue your data request.
 
   - if @data_request.duly_authorized_representative_signature_file.path
-    %p
-      %strong Duly Authorized Representative Signature:
-    %div= image_tag(data_requests_duly_authorized_representative_signature_path(@data_request), class: "img-signature", alt: "", style: "max-height: 100px;")
+    - content = image_tag(data_requests_duly_authorized_representative_signature_path(@data_request), class: "img-signature", alt: "", style: "max-height: 100px;")
+    = render "forms/horizontal/show/generic", title: "Duly Authorized Representative Signature", content: content
 
-    %p
-      %strong By:
-      = @data_request.duly_authorized_representative_signature_print
-    %p
-      %strong Signed:
-      = @data_request.duly_authorized_representative_signature_date.strftime("%d %B %Y")
+    = render "forms/horizontal/show/generic", title: "By", content: @data_request.duly_authorized_representative_signature_print
+
+    = render "forms/horizontal/show/generic", title: "Signed", content: @data_request.duly_authorized_representative_signature_date.strftime("%-d %B %Y")
 - else
   %p
     %i.fa.fa-check-square-o.text-success

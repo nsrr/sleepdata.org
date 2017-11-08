@@ -31,10 +31,13 @@ class Agreements::RepresentativeControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not submit signature with missing fields" do
-    skip
     patch representative_submit_signature_url(@data_request.id_and_representative_token), params: {
       data_uri: data_uri_signature,
-      data_request: data_request_params.merge(duly_authorized_representative_signature_print: "")
+      data_request: data_request_params.merge(
+        duly_authorized_representative_signature_print: "",
+        duly_authorized_representative_title: "",
+        duly_authorized_representative_signature_date: ""
+      )
     }
     assert_template "signature_requested"
     assert_response :success

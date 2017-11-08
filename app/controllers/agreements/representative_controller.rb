@@ -53,13 +53,15 @@ class Agreements::RepresentativeController < ApplicationController
 
   def duly_authorized_params
     params[:data_request] ||= { blank: "1" }
+    params[:data_request][:representative] = "1"
     params[:data_request][:unauthorized_to_sign] = true
     params[:data_request][:duly_authorized_representative_signature_date] = Time.zone.today
     params.require(:data_request).permit(
       :duly_authorized_representative_signature_print,
       :duly_authorized_representative_title,
       :unauthorized_to_sign,
-      :duly_authorized_representative_signature_date
+      :duly_authorized_representative_signature_date,
+      :representative
     )
   end
 end
