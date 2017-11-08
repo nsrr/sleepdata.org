@@ -28,16 +28,6 @@ class ExternalController < ApplicationController
   # def demo
   # end
 
-  # Accounts for header, but header is defined in view file.
-  def landing_custom_header
-    render layout: "layouts/full_page_custom_header"
-  end
-
-  def landing_no_header
-    # render layout: "layouts/full_page"
-    render layout: "layouts/full_page_no_header"
-  end
-
   # GET /landing
   def landing
     render layout: "layouts/full_page_custom_header"
