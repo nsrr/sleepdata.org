@@ -3,7 +3,8 @@
 # Allows users to upload supporting documents to a data request.
 class SupportingDocumentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_data_request_or_redirect
+  before_action :find_submittable_data_request_or_redirect, except: [:show]
+  before_action :find_any_data_request_or_redirect, only: [:show]
   before_action :find_supporting_document_or_redirect, only: [:show, :destroy]
 
   layout "layouts/full_page"
@@ -50,8 +51,13 @@ class SupportingDocumentsController < ApplicationController
 
   private
 
-  def find_data_request_or_redirect
+  def find_submittable_data_request_or_redirect
     @data_request = current_user.data_requests.submittable.find_by(id: params[:data_request_id])
+    empty_response_or_root_path unless @data_request
+  end
+
+  def find_any_data_request_or_redirect
+    @data_request = current_user.data_requests.find_by(id: params[:data_request_id])
     empty_response_or_root_path unless @data_request
   end
 

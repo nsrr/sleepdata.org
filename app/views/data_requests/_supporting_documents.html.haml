@@ -1,0 +1,9 @@
+- if data_request.supporting_documents.present?
+  .small.text-muted
+    %strong Supporting Documents
+    - data_request.supporting_documents.each do |supporting_document|
+      - if supporting_document.document.file.extension.casecmp("pdf").zero?
+        %i.fa.fa-file-pdf-o
+      - else
+        %i.fa.fa-file-image-o
+      = link_to supporting_document.document.file.filename, [data_request, supporting_document], data: { turbolinks: false }

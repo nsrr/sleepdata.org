@@ -251,7 +251,7 @@ end
 def migrate_old_agreements(bwh)
   standard_i = bwh.legal_documents.find_by(slug: "standard-i")
   standard_o = bwh.legal_documents.find_by(slug: "standard-o")
-  DataRequest.all.each do |data_request|
+  DataRequest.all.order(:id).each do |data_request|
     if data_request.data_user_type == "individual"
       final = standard_i.current_final_legal_document
       data_request.update(final_legal_document: final)
@@ -264,6 +264,7 @@ def migrate_old_agreements(bwh)
     migrate_signature(data_request, :signature)
     migrate_signature(data_request, :duly_authorized_representative_signature)
     migrate_signature(data_request, :reviewer_signature)
+    migrate_old_attachments(data_request)
   end
 end
 
@@ -342,6 +343,13 @@ def migrate_signature(agreement, attribute)
   ensure
     file.close
     file.unlink # deletes the temp file
+  end
+end
+
+def migrate_old_attachments(data_request)
+  %w(irb dua executed_dua).each do |key|
+    next if data_request.send(key).blank?
+    data_request.supporting_documents.create(document: data_request.send(key).file)
   end
 end
 

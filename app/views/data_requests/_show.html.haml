@@ -39,6 +39,7 @@
             %span.badge.badge-primary= data_request.supporting_documents.count
 
       = render "data_requests/description", data_request: data_request
+      = render "data_requests/supporting_documents", data_request: data_request
 
     .card-footer
       .float-right
@@ -71,6 +72,7 @@
 
 
       = render "data_requests/description", data_request: data_request
+      = render "data_requests/supporting_documents", data_request: data_request
 
     .card-footer= name_of_datasets(data_request)
 
@@ -90,6 +92,7 @@
         = render "data_requests/timeline/resubmit", data_request: data_request
 
       = render "data_requests/description", data_request: data_request
+      = render "data_requests/supporting_documents", data_request: data_request
       = render "data_requests/resubmit_description", data_request: data_request
 
 
@@ -114,6 +117,7 @@
         = render "data_requests/timeline/approved", data_request: data_request
 
       = render "data_requests/description", data_request: data_request
+      = render "data_requests/supporting_documents", data_request: data_request
     .card-footer= name_of_datasets(data_request)
 
   - when "closed"
@@ -141,5 +145,6 @@
         = render "data_requests/timeline/expired", data_request: data_request
 
       = render "data_requests/description", data_request: data_request
+      = render "data_requests/supporting_documents", data_request: data_request
     .card-footer
       = name_of_datasets(data_request)
