@@ -267,18 +267,12 @@ class DataRequestsController < ApplicationController
 
   # GET /data/requests/:id/resubmit
   def resubmit
-    redirect_to [:resume, @data_request]
+    redirect_to resume_url(@data_request)
   end
 
   # GET /data/requests/:id/resume
   def resume
-    if @data_request.final_legal_document.final_legal_document_pages.count.positive?
-      redirect_to data_requests_page_path(@data_request, @data_request.current_step.positive? ? @data_request.current_step : 1)
-    elsif @data_request.attestation_required?
-      redirect_to data_requests_attest_path(@data_request)
-    else
-      redirect_to data_requests_proof_path(@data_request)
-    end
+    redirect_to resume_url(@data_request)
   end
 
   # DELETE /data/requests/:id
@@ -332,8 +326,7 @@ class DataRequestsController < ApplicationController
     @data_request = @dataset.data_requests.find_by(user: current_user, status: ["resubmit", "started"])
 
     if @data_request
-      # TODO: Find current "step" of data request or find pages that are indicated by resubmit
-      redirect_to data_requests_page_path(@data_request, @data_request.current_step.positive? ? @data_request.current_step : 1)
+      redirect_to resume_url(@data_request)
     else
       final_legal_document = @dataset.final_legal_document_for_user(current_user) if @dataset
       if final_legal_document
@@ -352,5 +345,15 @@ class DataRequestsController < ApplicationController
       :first_name, :last_name, :email,
       :password, :password_confirmation
     )
+  end
+
+  def resume_url(data_request)
+    if data_request.final_legal_document.final_legal_document_pages.count.positive?
+      data_requests_page_path(data_request, data_request.current_step.positive? ? data_request.current_step : 1)
+    elsif data_request.attestation_required?
+      data_requests_attest_path(data_request)
+    else
+      data_requests_proof_path(data_request)
+    end
   end
 end
