@@ -11,7 +11,7 @@
         .agreement-heading= @final_legal_document_page.title
 
         - if @data_request.status == "resubmit"
-          .alert.alert-danger= @data_request.comments
+          .p-3.mb-3.bg-danger.text-white= @data_request.comments
 
         = form_with model: @data_request, url: data_requests_update_page_path(@data_request, @final_legal_document_page.position), method: :post, local: true, id: "data-request-form" do |form|
           = form.hidden_field :draft, id: "data_request_draft"
