@@ -41,14 +41,14 @@ class SupportingDocumentUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  process resize_to_limit: [1140, 1140]
+  process resize_to_limit: [1140, 1140], if: :image?
 
   # Create different versions of your uploaded files:
-  version :preview do
+  version :preview, if: :image? do
     process resize_to_fill: [512, 512]
   end
 
-  version :thumb do
+  version :thumb, if: :image? do
     process resize_to_fill: [128, 128]
   end
 
@@ -67,5 +67,13 @@ class SupportingDocumentUploader < CarrierWave::Uploader::Base
 
   def save_file_size_in_model
     model.file_size = file.size
+  end
+
+  protected
+
+  def image?(new_file)
+    Rails.logger.debug "REMO: #{new_file}"
+    Rails.logger.debug "REMO: #{new_file.extension}"
+    %w(jpg jpeg gif png).include?(new_file.extension)
   end
 end
