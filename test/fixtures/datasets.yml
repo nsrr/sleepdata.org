@@ -1,5 +1,3 @@
-# TODO: Rename databases to indicate released[public|listed] unreleased[private|unlisted]
-
 # Organization One (Signature attestation, committee review)
 
 released:
@@ -47,32 +45,6 @@ released_with_no_files_folder:
   released: true
   deleted: false
   release_date: 2014-06-20
-
-
-# # The following datasets all have files that are only accessible via valid agreements
-
-# released_documentation:
-#   organization: one
-#   name: (A) Released dataset with documentation and private files
-#   description: Released documentation with only private files
-#   slug: released_documentation
-#   logo: rails.png
-#   user: admin
-#   released: true
-#   deleted: false
-#   release_date: 2014-09-30
-
-# unreleased_documentation:
-#   organization: one
-#   name: (B) Unreleased documentation with private files
-#   description: Unreleased documentation and private files
-#   slug: unreleased_documentation
-#   logo: rails.png
-#   user: admin
-#   released: false
-#   deleted: false
-#   release_date: 2014-09-30
-
 
 # Organization Two (Checkbox attestation, no review)
 orgtwo_hamlet:
