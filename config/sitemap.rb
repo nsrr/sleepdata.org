@@ -16,6 +16,8 @@ SitemapGenerator::Sitemap.public_path = "carrierwave/sitemaps/"
 SitemapGenerator::Sitemap.sitemaps_path = ""
 SitemapGenerator::Sitemap.create do
   add "/", changefreq: "weekly", priority: 0.7
+  add "/datasets", changefreq: "daily", priority: 0.9
+  add "/tools", changefreq: "daily", priority: 0.9
   add "/blog", changefreq: "daily", priority: 0.9
   add "/forum", changefreq: "daily", priority: 0.8
   add "/about", changefreq: "weekly", priority: 0.7
@@ -24,6 +26,10 @@ SitemapGenerator::Sitemap.create do
   add "/share", changefreq: "monthly", priority: 0.3
   add "/about/academic-user-group", changefreq: "monthly", priority: 0.3
   add "/about/contributors", changefreq: "monthly", priority: 0.3
+  add "/demo", changefreq: "monthly", priority: 0.3
+  add "/about/data-sharing-language", changefreq: "monthly", priority: 0.3
+  add "/showcase/where-to-start", changefreq: "monthly", priority: 0.3
+  add "/showcase/search-nsrr", changefreq: "monthly", priority: 0.3
 
   Broadcast.published.find_each do |broadcast|
     add "/blog/#{broadcast.to_param}", lastmod: broadcast.updated_at
@@ -45,5 +51,9 @@ SitemapGenerator::Sitemap.create do
     dataset.variables.where(dataset_version: dataset.dataset_version).find_each do |variable|
       add "/datasets/#{dataset.to_param}/variables/#{variable.to_param}", changefreq: "monthly"
     end
+  end
+
+  CommunityTool.current.where(published: true).each do |tool|
+    add "/tools/#{tool.to_param}", changefreq: "weekly"
   end
 end
