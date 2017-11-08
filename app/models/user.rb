@@ -201,11 +201,6 @@ class User < ApplicationRecord
     "//gravatar.com/avatar/#{gravatar_id}.png?&s=#{size}&r=pg&d=#{default}"
   end
 
-  def can_post_links?
-    # aug_member? || core_member?
-    true
-  end
-
   def topics_created_in_last_day
     topics.where("created_at >= ?", Time.zone.today - 1.day)
   end
