@@ -2,6 +2,7 @@
   - agreement_variable = @data_request.agreement_variables.find_by(final_legal_document_variable_id: variable.id)
   - value = (agreement_variable ? agreement_variable.value : "")
   - value = @data_request.user.email if value.blank? && variable.name == "email" && variable.variable_type == "email"
+  - value = @data_request.user.full_name if value.blank? && variable.name == "full_name" && variable.variable_type == "string"
 - else
   - value = ""
 

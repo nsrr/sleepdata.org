@@ -222,6 +222,10 @@ class User < ApplicationRecord
     reviews.where(approved: nil).joins(:agreement).merge(DataRequest.current.where(status: "submitted")).order("agreements.last_submitted_at desc")
   end
 
+  def full_name
+    name
+  end
+
   def name
     "#{first_name} #{last_name}"
   end
