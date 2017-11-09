@@ -4,7 +4,6 @@
 - **General Changes**
   - Improved landing page styling
   - Removed expired flow limitation challenges
-  - Users can now delete their account
 - **Admin Changes**
   - Improved Downloads by Quarter report loading speed
 - **API Changes**
@@ -84,6 +83,8 @@
     commerical/noncommercial and individual/organization user types
   - Legal documents are versioned when they are published, and subsequent
     changes to the agreements only affect new users
+- **Profile Changes**
+  - Users can now delete their account
 - **Gem Changes**
   - Updated to ruby 2.4.2
   - Updated to rails 5.1.4
