@@ -6,7 +6,7 @@ class BroadcastsController < ApplicationController
   before_action :check_community_manager
   before_action :find_broadcast_or_redirect, only: [:show, :edit, :update, :destroy]
 
-  layout "layouts/full_page"
+  layout "layouts/full_page_dashboard"
 
   # GET /broadcasts
   def index
@@ -14,25 +14,25 @@ class BroadcastsController < ApplicationController
                               .page(params[:page]).per(40)
   end
 
-  # GET /broadcasts/1
-  def show
-  end
+  # # GET /broadcasts/1
+  # def show
+  # end
 
   # GET /broadcasts/new
   def new
     @broadcast = current_user.broadcasts.new(publish_date: Time.zone.today)
   end
 
-  # GET /broadcasts/1/edit
-  def edit
-  end
+  # # GET /broadcasts/1/edit
+  # def edit
+  # end
 
   # POST /broadcasts
   def create
     @broadcast = current_user.broadcasts.new(broadcast_params)
 
     if @broadcast.save
-      redirect_to @broadcast, notice: 'Blog post was successfully created.'
+      redirect_to @broadcast, notice: "Blog post was successfully created."
     else
       render :new
     end
@@ -41,7 +41,7 @@ class BroadcastsController < ApplicationController
   # PATCH /broadcasts/1
   def update
     if @broadcast.update(broadcast_params)
-      redirect_to @broadcast, notice: 'Blog post was successfully updated.'
+      redirect_to @broadcast, notice: "Blog post was successfully updated."
     else
       render :edit
     end
@@ -50,7 +50,7 @@ class BroadcastsController < ApplicationController
   # DELETE /broadcasts/1
   def destroy
     @broadcast.destroy
-    redirect_to broadcasts_path, notice: 'Blog post was successfully deleted.'
+    redirect_to broadcasts_path, notice: "Blog post was successfully deleted."
   end
 
   private
@@ -65,7 +65,7 @@ class BroadcastsController < ApplicationController
   end
 
   def broadcast_params
-    params[:broadcast] ||= { blank: '1' }
+    params[:broadcast] ||= { blank: "1" }
     parse_date_if_key_present(:broadcast, :publish_date)
     params.require(:broadcast).permit(
       :title, :slug, :short_description, :description, :pinned, :archived,

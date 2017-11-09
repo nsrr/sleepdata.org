@@ -14,10 +14,10 @@
 
     - settings_pages = [{ name: "Profile", url: settings_profile_path }, { name: "Account", url: settings_account_path }, { name: "Email", url: settings_email_path }, { name: "Data Requests", url: settings_data_requests_path }]
     - dashboard_pages = [{ name: "Overview", url: dashboard_path }, { name: "Data Requests", url: data_requests_path, active: params[:controller] == "data_requests" }, { name: "Token", url: token_path }]
-    - dashboard_pages << { name: "Blog Posts", url: broadcasts_path } if current_user.community_manager?
+    - dashboard_pages << { name: "Blog Posts", url: broadcasts_path, active: params[:controller] == "broadcasts" } if current_user.community_manager?
 
     - groups = []
-    - groups << { name: "My Dashboard", url: dashboard_path, pages: dashboard_pages, active: %w(internal data_requests).include?(params[:controller]), icon: content_tag(:i, nil, class: "fa fa-home") }
+    - groups << { name: "My Dashboard", url: dashboard_path, pages: dashboard_pages, active: %w(internal data_requests broadcasts).include?(params[:controller]), icon: content_tag(:i, nil, class: "fa fa-home") }
     - if current_user.reviewable_data_requests.count.positive?
       - review_pages = [{ name: "Reviews", url: reviews_path }]
       - review_pages = []
@@ -26,7 +26,7 @@
     - if current_user.admin?
       - admin_pages = [{ name: "Hosting Requests", url: hosting_requests_path, count: HostingRequest.current.where(reviewed: false).count, active: params[:controller] == "hosting_requests" }, { name: "Replies", url: admin_replies_path }, { name: "Users", url: users_path, active: params[:controller] == "users" }]
       - groups << { name: "Administrative", url: admin_pages.first[:url], pages: admin_pages, active: %w(hosting_requests admin/replies users).include?(params[:controller]), icon: content_tag(:i, nil, class: "fa fa-user-md") }
-      - report_pages = [{ name: "Usage Statistics", url: admin_stats_path }, { name: "Downloads By Month", url: admin_downloads_by_month_path(user_type: "regular") }, { name: "Downloads By Quarter", url: admin_downloads_by_quarter_path }, { name: "Agreement Reports", url: admin_agreement_reports_path }]
+      - report_pages = [{ name: "Downloads By Quarter", url: admin_downloads_by_quarter_path }, { name: "Downloads By Month", url: admin_downloads_by_month_path(user_type: "regular") }, { name: "Agreement Reports", url: admin_agreement_reports_path }, { name: "Usage Statistics", url: admin_stats_path }]
       - groups << { name: "Reports", url: report_pages.first[:url], pages: report_pages, active: !report_pages.find { |p| current_page?(p[:url]) }.nil?, icon: content_tag(:i, nil, class: "fa fa-bar-chart") }
       - configuration_pages = [{ name: "Dataset Roles", url: admin_roles_path }, { name: "Documentation Sync", url: admin_sync_path }, { name: "Tags", url: tags_path }]
       - groups << { name: "Configuration", url: configuration_pages.first[:url], pages: configuration_pages, active: !configuration_pages.find { |p| current_page?(p[:url]) }.nil?, icon: content_tag(:i, nil, class: "fa fa-cog") }
