@@ -86,6 +86,8 @@
 - **Profile Changes**
   - Users can now delete their account
   - Users can now directly upload profile pictures
+- **Reviewer Changes**
+  - Simplified voting on agreements as a reviewer
 - **Gem Changes**
   - Updated to ruby 2.4.2
   - Updated to rails 5.1.4

@@ -13,7 +13,6 @@
         = link_to (@agreement_event.new_record? ? "Write" : "Edit"), "#", data: { object: "view-agreement-event", action: "write", agreement_event_id: agreement_event_id }, class: "comment-tab active", tabindex: "-1"
         = link_to "Preview", "#", data: { object: "view-agreement-event view-agreement-event-preview", action: "preview", agreement_event_id: agreement_event_id, agreement_id: @agreement_event.agreement_id }, class: "comment-tab", tabindex: "-1"
         - if @agreement_event.new_record?
-          = link_to "Vote", "#", data: { object: "view-agreement-event", action: "vote", agreement_event_id: agreement_event_id }, class: "comment-tab", tabindex: "-1"
           = link_to "Tags", "#", data: { object: "view-agreement-event", action: "tags", agreement_event_id: agreement_event_id }, class: "comment-tab", tabindex: "-1"
           - if current_user.system_admin?
             = link_to "Review", "#", data: { object: "view-agreement-event", action: "review", agreement_event_id: agreement_event_id }, class: "comment-tab", tabindex: "-1"
@@ -21,18 +20,31 @@
       .comment-body
         %div{ id: "agreement_event_write_#{agreement_event_id}" }
           = form_for [@data_request, @agreement_event], url: @agreement_event.new_record? ? agreement_agreement_events_path(@data_request) : agreement_agreement_event_path(@data_request, @agreement_event), remote: true do |f|
-            - if @agreement_event.errors.any?
-              .callout.callout-danger{ style: "margin-top: 0; margin-bottom: 10px;" }
-                %strong Comment can't be blank.
             = f.text_area :comment, rows: [[7, @agreement_event.comment.to_s.count("\n") + 1].max, 25].min, class: "comment-control filedrag-container", data: { object: "expandable-text-area dropfile text-area-autocomplete", default_rows: 7, mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort, upload_url: upload_images_path(update: "#agreement_event_comment_#{agreement_event_id}", format: "js"), fallback_url: new_image_path, log_id: "#agreement_event_log_#{agreement_event_id}" }, id: "agreement_event_comment_#{agreement_event_id}", placeholder: "Write a comment"
+            - if @agreement_event.errors.any?
+              .small.text-danger Comment can't be blank.
             .filedrag{ id: "agreement_event_log_#{agreement_event_id}" }
               Drag images above to insert into post.
             - button_text = @agreement_event.new_record? ? "Comment" : "Update"
-            = f.submit button_text, class: "btn btn-primary", data: { disable_with: "Submitting..." }, style: "margin-top: 10px;"
+            .mt-2
+              = f.submit button_text, class: "btn btn-primary", data: { disable_with: "Submitting..." }
+              - if @agreement_event.new_record?
+                - @review = @data_request.reviews.where(user_id: current_user.id).first
+                - if @review && @review.approved == true
+                  .float-right
+                    = link_to "Approved", vote_review_path(@data_request, approved: "1"), method: :post, remote: true, class: "btn btn-success disabled", disabled: true
+                    = link_to "Reject", vote_review_path(@data_request, approved: "0"), method: :post, remote: true, class: "btn btn-outline-danger"
+                - elsif @review && @review.approved == false
+                  .float-right
+                    = link_to "Approve", vote_review_path(@data_request, approved: "1"), method: :post, remote: true, class: "btn btn-outline-success"
+                    = link_to "Rejected", vote_review_path(@data_request, approved: "0"), method: :post, remote: true, class: "btn btn-danger disabled", disabled: true
+                - else
+                  .float-right
+                    = link_to "Approve", vote_review_path(@data_request, approved: "1"), method: :post, remote: true, class: "btn btn-outline-success"
+                    = link_to "Reject", vote_review_path(@data_request, approved: "0"), method: :post, remote: true, class: "btn btn-outline-danger"
+
         %div{ id: "agreement_event_preview_#{agreement_event_id}", style: "display: none;min-height: 233px;" }
         - if @agreement_event.new_record?
-          %div{ id: "agreement_event_vote_#{agreement_event_id}", style: "display: none;min-height: 233px;" }
-            = render "agreement_events/vote"
           %div{ id: "agreement_event_tags_#{agreement_event_id}", style: "display: none;min-height: 233px;" }
             = render "agreement_events/tags"
           -# TODO: Specify organization for principal reviewer.
