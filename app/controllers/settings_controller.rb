@@ -49,8 +49,9 @@ class SettingsController < ApplicationController
 
   # DELETE /settings/account
   def destroy
-    flash[:notice] = "NOT IMPLEMENTED. Your account has been permanently deleted."
-    redirect_to settings_account_path
+    current_user.destroy
+    sign_out current_user
+    redirect_to root_path, notice: "Your account has been permanently deleted."
   end
 
   # # GET /settings/email

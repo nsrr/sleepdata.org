@@ -36,6 +36,5 @@
             %i.fa.fa-user
             Delete account
           .card-body
-            -# TODO: Add ability to delete account.
             %p You may delete you account, but this action is PERMANENT.
-            = link_to "Delete your account", settings_delete_account_path, method: :delete, class: "btn btn-outline-danger"
+            = link_to "Delete your account", settings_delete_account_path, method: :delete, class: "btn btn-outline-danger", data: { confirm: "Delete your account?" }

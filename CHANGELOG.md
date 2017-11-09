@@ -4,6 +4,7 @@
 - **General Changes**
   - Improved landing page styling
   - Removed expired flow limitation challenges
+  - Users can now delete their account
 - **Admin Changes**
   - Improved Downloads by Quarter report loading speed
 - **API Changes**

@@ -86,8 +86,6 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should delete account" do
-    skip
-    # TODO: Make sure account is deleted.
     login(@regular)
     assert_difference("User.current.count", -1) do
       delete settings_delete_account_url
