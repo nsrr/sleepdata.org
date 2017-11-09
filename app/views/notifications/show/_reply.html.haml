@@ -7,4 +7,4 @@
       = strip_tags(simple_markdown(notification.reply.description)).html_safe
 
 %td.d-none.d-md-table-cell
-  = image_tag notification.reply.user.avatar_url(18, "identicon"), size: "18x18", alt: ""
+  = profile_picture_tag(notification.reply.user, size: 18)

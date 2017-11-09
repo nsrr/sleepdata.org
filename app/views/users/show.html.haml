@@ -12,7 +12,6 @@
       %ol
         %li= link_to "Users", users_path
 
-
 = render "forms/horizontal/show/text", object: @user, key: :email
 = render "forms/horizontal/show/generic", title: "Username", content: link_to(@user.username, topics_path(a: @user.username)) if @user.username.present?
 = render "forms/horizontal/show/check_box", object: @user, key: :emails_enabled
@@ -27,6 +26,6 @@
 = render "forms/horizontal/show/markdown", object: @user, key: :research_summary
 = render "forms/horizontal/show/check_box", object: @user, key: :system_admin
 = render "forms/horizontal/show/generic", title: "Banned", content: simple_check(@user.banned?) + "#{" #{content_tag(:span, "Banned from Forum", class: "badge badge-dark")}" if @user.banned?}".html_safe
-= render "forms/horizontal/show/generic", title: "Profile picture", content: image_tag(@user.avatar_url, class: "rounded")
+= render "forms/horizontal/show/generic", title: "Profile picture", content: profile_picture_tag(@user)
 = render "forms/horizontal/show/generic", title: "Data requests", content: render("users/data_requests", user: @user)
 = render "forms/horizontal/show/generic", title: "Downloads", content: render("users/downloads", user: @user)

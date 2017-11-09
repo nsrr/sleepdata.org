@@ -4,7 +4,7 @@
 class SettingsController < ApplicationController
   before_action :authenticate_user!
 
-  layout "layouts/full_page"
+  layout "layouts/full_page_dashboard"
 
   # # GET /settings/profile
   # def profile
@@ -14,6 +14,15 @@ class SettingsController < ApplicationController
   def update_profile
     if current_user.update(profile_params)
       redirect_to settings_profile_path, notice: "Profile successfully updated."
+    else
+      render :profile
+    end
+  end
+
+  # PATCH /settings/profile/picture
+  def update_profile_picture
+    if current_user.update(profile_picture_params)
+      redirect_to settings_profile_path, notice: "Profile picture successfully updated."
     else
       render :profile
     end
@@ -84,6 +93,10 @@ class SettingsController < ApplicationController
 
   def profile_params
     params.require(:user).permit(:first_name, :last_name, :profile_bio, :profile_url, :profile_location)
+  end
+
+  def profile_picture_params
+    params.require(:user).permit(:profile_picture)
   end
 
   def account_params

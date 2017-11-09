@@ -13,7 +13,7 @@
     - if reply.parent_author?
       %small
         %i.fa.fa-pencil-square.text-dark{ rel: "tooltip", data: { title: "Topic Author", container: "body" } }
-    = image_tag reply.user.avatar_url(16, "identicon"), alt: "", style: "max-height:#{16+3}px;border-radius:4px", class: "d-inline d-md-none"
+    .d-inline.d-md-none= profile_picture_tag reply.user, size: 16, style: "max-height:#{16+3}px;border-radius:4px"
     -# TODO: Create member paths for forum users?
     =# link_to reply.user.forum_name, member_path(reply.user.forum_name)
     = reply.user.forum_name

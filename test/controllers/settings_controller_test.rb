@@ -25,15 +25,43 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_session_url
   end
 
+  test "should update profile" do
+    login(@regular)
+    patch settings_update_profile_url, params: {
+      user: {
+        first_name: "First Update",
+        last_name: "Last Update",
+        profile_bio: "Short Bio",
+        profile_url: "http://example.com",
+        profile_location: "Boston, MA"
+      }
+    }
+    @regular.reload
+    assert_equal "First Update", @regular.first_name
+    assert_equal "Last Update", @regular.last_name
+    assert_equal "Short Bio", @regular.profile_bio
+    assert_equal "http://example.com", @regular.profile_url
+    assert_equal "Boston, MA", @regular.profile_location
+    assert_equal "Profile successfully updated.", flash[:notice]
+    assert_redirected_to settings_profile_url
+  end
+
+  test "should update profile picture" do
+    login(@regular)
+    patch settings_update_profile_picture_url, params: {
+      user: {
+        profile_picture: fixture_file_upload("../../test/support/images/rails.png")
+      }
+    }
+    @regular.reload
+    assert_equal true, @regular.profile_picture.present?
+    assert_equal "Profile picture successfully updated.", flash[:notice]
+    assert_redirected_to settings_profile_url
+  end
+
   test "should get account" do
     login(@regular)
     get settings_account_url
-    assert_response :success
-  end
-
-  test "should get email" do
-    login(@regular)
-    get settings_email_url
     assert_response :success
   end
 
@@ -91,6 +119,21 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
       delete settings_delete_account_url
     end
     assert_redirected_to root_url
+  end
+
+  test "should get email" do
+    login(@regular)
+    get settings_email_url
+    assert_response :success
+  end
+
+  test "should update email" do
+    login(@regular)
+    patch settings_update_email_url, params: { user: { email: "newemail@example.com" } }
+    @regular.reload
+    assert_equal "newemail@example.com", @regular.email
+    assert_equal "Email successfully updated.", flash[:notice]
+    assert_redirected_to settings_email_url
   end
 
   test "should get data request preferences" do

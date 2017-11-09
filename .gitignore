@@ -35,6 +35,7 @@
 /test/support/agreements/*
 /test/support/data_requests/*
 /test/support/images/*
+/test/support/users/*
 
 # Other Files
 

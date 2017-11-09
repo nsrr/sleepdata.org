@@ -22,6 +22,9 @@ class User < ApplicationRecord
     ["Organization", "organization"]
   ]
 
+  # Uploaders
+  mount_uploader :profile_picture, ResizableImageUploader
+
   # Callbacks
   before_save :ensure_authentication_token
 
@@ -196,11 +199,6 @@ class User < ApplicationRecord
     end
   end
 
-  def avatar_url(size = 80, default = 'mm')
-    gravatar_id = Digest::MD5.hexdigest(email_was.to_s.downcase)
-    "//gravatar.com/avatar/#{gravatar_id}.png?&s=#{size}&r=pg&d=#{default}"
-  end
-
   def topics_created_in_last_day
     topics.where("created_at >= ?", Time.zone.today - 1.day)
   end
@@ -250,7 +248,7 @@ class User < ApplicationRecord
   end
 
   def unread_notifications?
-    notifications.where(read: false).count > 0
+    notifications.where(read: false).count.positive?
   end
 
   # Overriding Devise built-in active_for_authentication? method

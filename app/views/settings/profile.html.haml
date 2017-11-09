@@ -1,26 +1,28 @@
 - @title = "Your Profile"
 
-- content_for :container_class, "container-fluid"
-.container-fluid
-  .row.flex-xl-nowrap
-    = render "settings/menu"
+.card.mb-5
+  %h4.card-header
+    %i.fa.fa-user-circle
+    Public profile
+  .card-body
+    = form_with model: current_user, url: settings_update_profile_path, method: :patch, local: true do |form|
 
-    .d-none.d-xl-block.col-xl.sidebar-drawer
+      =# render "forms/vertical/text_field", form: form, object: current_user, key: :full_name
+      = render "forms/vertical/text_field", form: form, object: current_user, key: :first_name
+      = render "forms/vertical/text_field", form: form, object: current_user, key: :last_name
+      = render "forms/vertical/text_area", form: form, object: current_user, key: :profile_bio, key_name: "Bio", help_text: "Short description about yourself and your work.", rows: 3, maxlength: 160
+      = render "forms/vertical/text_field", form: form, object: current_user, key: :profile_url, key_name: "URL", help_text: "Ex: Your online research profile, lab's website, or code repository."
+      = render "forms/vertical/text_field", form: form, object: current_user, key: :profile_location, key_name: "Location", help_text: "Your city, state, and/or country, ex: Boston, MA, USA, or Sydney, AUSTRALIA"
 
-    %main.col-12.col-md-9.col-xl-8.px-md-5{ role: "main" }
-      .page-box.last-box
-        .card
-          %h4.card-header
-            %i.fa.fa-user-circle
-            Public profile
-          .card-body
-            = form_with model: current_user, url: settings_update_profile_path, method: :patch, local: true do |form|
+      = render "forms/vertical/submit", form: form, object: current_user, submit_text: "Update profile", cancel: false
 
-              =# render "forms/vertical/text_field", form: form, object: current_user, key: :full_name
-              = render "forms/vertical/text_field", form: form, object: current_user, key: :first_name
-              = render "forms/vertical/text_field", form: form, object: current_user, key: :last_name
-              = render "forms/vertical/text_area", form: form, object: current_user, key: :profile_bio, key_name: "Bio", help_text: "Short description about yourself and your work.", rows: 3, maxlength: 160
-              = render "forms/vertical/text_field", form: form, object: current_user, key: :profile_url, key_name: "URL", help_text: "Ex: Your online research profile, lab's website, or code repository."
-              = render "forms/vertical/text_field", form: form, object: current_user, key: :profile_location, key_name: "Location", help_text: "Your city, state, and/or country, ex: Boston, MA, USA, or Sydney, AUSTRALIA"
-
-              = render "forms/vertical/submit", form: form, object: current_user, submit_text: "Update profile", cancel: false
+%a.anchor-top{ name: "picture", id: "picture" }
+.card
+  %h4.card-header
+    %i.fa.fa-user-circle
+    Profile picture
+  .card-body
+    = form_with model: current_user, url: settings_update_profile_picture_path, method: :patch, local: true do |form|
+      = profile_picture_tag current_user
+      = render "forms/vertical/file_field", form: form, object: current_user, key: :profile_picture, help_text: "You can change your username #{link_to "here", settings_account_path(anchor: "username")}.".html_safe
+      = render "forms/vertical/submit", form: form, object: current_user, submit_text: "Upload new picture", cancel: false

@@ -1,7 +1,7 @@
 - agreement_event_id = (@agreement_event.new_record? ? "new" : @agreement_event.id)
 .comment-outer
   .comment-left-fixed
-    = image_tag @agreement_event.user.avatar_url(48, "identicon"), size: "48x48", alt: ""
+    = profile_picture_tag(@agreement_event.user, size: 48)
   .comment-right-fluid
     .comment-box
       .comment-header

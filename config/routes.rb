@@ -256,7 +256,7 @@ Rails.application.routes.draw do
     get :version
     get :voting
     get :sitemap_xml, path: "sitemap.xml.gz"
-
+    get :profile_picture, path: "members/:username/profile_picture"
     post :preview
   end
 
@@ -294,6 +294,8 @@ Rails.application.routes.draw do
   namespace :settings do
     get :profile
     patch :update_profile, path: "profile"
+    get :profile_picture, path: "profile/picture", to: redirect("settings/profile")
+    patch :update_profile_picture, path: "profile/picture"
 
     get :account
     patch :update_account, path: "account"

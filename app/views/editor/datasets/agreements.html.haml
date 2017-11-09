@@ -33,7 +33,7 @@
           %tr
             %td= status_helper(agreement)
             %td.nowrap
-              = image_tag agreement.user.avatar_url(18), style: "vertical-align:text-bottom;width:18px"
+              = profile_picture_tag agreement.user, size: 18, style: "vertical-align:text-bottom;width:18px"
               = link_to agreement.name_with_id, review_path(agreement)
 
     .text-center

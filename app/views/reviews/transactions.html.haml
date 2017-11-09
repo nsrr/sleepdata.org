@@ -30,7 +30,7 @@
           %td.breakword= "##{agreement_transaction_total - index}"
           - if t.user
             %td.breakword.small
-              = image_tag t.user.avatar_url(16, "identicon"), size: "16x16", alt: "", style: "vertical-align: middle", class: "rounded"
+              = profile_picture_tag t.user, size: 16, style: "vertical-align: middle"
               = t.user.name
               &middot;
               = t.remote_ip

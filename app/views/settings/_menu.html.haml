@@ -2,7 +2,9 @@
   .sidebar
     .sidebar-header.d-flex.align-items-center.text-center
       .mr-auto.mx-md-auto.mt-md-4
-        .d-none.d-md-block= image_tag current_user.avatar_url(100, "identicon"), size: "100x100", class: "rounded", alt: ""
+        .d-none.d-md-block
+          = link_to settings_profile_path(anchor: "picture") do
+            = profile_picture_tag current_user
         .text-md-center= current_user.name_was
         .d-none.d-md-block.text-md-center
           %small.text-muted

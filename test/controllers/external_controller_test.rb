@@ -5,64 +5,64 @@ require "test_helper"
 SimpleCov.command_name "test:controllers"
 
 # Tests to assure public pages are displayed correctly.
-class ExternalControllerTest < ActionController::TestCase
+class ExternalControllerTest < ActionDispatch::IntegrationTest
   test "should get about" do
-    get :about
+    get about_url
     assert_response :success
   end
 
   test "should get aug" do
-    get :aug
+    get aug_url
     assert_response :success
   end
 
   test "should get contact" do
-    get :contact
+    get contact_url
     assert_response :success
   end
 
   test "should get contributors" do
-    get :contributors
+    get contributors_url
     assert_response :success
   end
 
   test "should get landing" do
-    get :landing
+    get landing_url
     assert_response :success
   end
 
   test "should get sitemap" do
-    get :sitemap
+    get sitemap_url
     assert_response :success
   end
 
   test "should get sitemap xml file" do
-    get :sitemap_xml
+    get sitemap_xml_url
     assert_response :success
   end
 
   test "should get team" do
-    get :team
+    get team_url
     assert_response :success
   end
 
   test "should get data sharing language" do
-    get :datasharing
+    get datasharing_url
     assert_response :success
   end
 
   test "should get demo for public user" do
-    get :demo
+    get demo_url
     assert_response :success
   end
 
   test "should get version" do
-    get :version
+    get version_url
     assert_response :success
   end
 
   test "should get version as json" do
-    get :version, format: "json"
+    get version_url(format: "json")
     version = JSON.parse(response.body)
     assert_equal SleepData::VERSION::STRING, version["version"]["string"]
     assert_equal SleepData::VERSION::MAJOR, version["version"]["major"]
@@ -77,7 +77,21 @@ class ExternalControllerTest < ActionController::TestCase
   end
 
   test "should get voting" do
-    get :voting
+    get voting_url
     assert_response :success
+  end
+
+  test "should get member profile picture with username" do
+    get profile_picture_url(users(:regular2).username)
+    assert_not_nil response
+    assert_kind_of String, response.body
+    assert_equal File.binread(users(:regular2).profile_picture.thumb.path), response.body
+  end
+
+  test "should get member profile picture with id" do
+    get profile_picture_url(users(:regular2).id)
+    assert_not_nil response
+    assert_kind_of String, response.body
+    assert_equal File.binread(users(:regular2).profile_picture.thumb.path), response.body
   end
 end

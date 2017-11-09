@@ -20,6 +20,8 @@ regular2:
   first_name: Regular2
   last_name: User2
   email: regular2@example.com
+  username: regular2
+  profile_picture: image.png
 
 regular3:
   first_name: Regular3
