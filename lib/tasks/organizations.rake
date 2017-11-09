@@ -67,7 +67,7 @@ def create_standard_i(bwh)
   )
 
   standard_i.legal_document_variables.find_by(name: "intended_use").update(
-    display_name: "Intended Use Of Data",
+    display_name: "Intended Use of Data",
     field_note: "Ex: thesis work; other education; algorithm for commercial use; preliminary data for a grant."
   )
 
@@ -156,7 +156,7 @@ def create_standard_o(bwh)
   )
 
   standard_o.legal_document_variables.find_by(name: "intended_use").update(
-    display_name: "Intended Use Of Data",
+    display_name: "Intended Use of Data",
     field_note: "Ex: thesis work; other education; algorithm for commercial use; preliminary data for a grant."
   )
 
