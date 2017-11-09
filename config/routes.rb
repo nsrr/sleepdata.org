@@ -127,6 +127,8 @@ Rails.application.routes.draw do
       get :resume
       get :submitted
       get :print
+      get :datasets
+      post :update_datasets, path: "datasets"
     end
     resources :supporting_documents, path: "supporting-documents", except: [:edit, :update] do
       collection do

@@ -10,33 +10,24 @@
     .card-body{ style: "position: relative;" }
       .data-requests-progress-bar{ style: "width: #{progress}%;" }
 
-      .row
-        .col.mb-3
+      %strong= data_request.final_legal_document.name
+      %ul.list-unstyled
+        - data_request.final_legal_document.final_legal_document_pages.each do |final_legal_document_page|
+          - page_complete = data_request.page_complete?(final_legal_document_page)
+          %li
+            - if page_complete
+              %i.fa.fa-check-square-o.text-success
+            - else
+              %i.fa.fa-square-o
+            = link_to "Page #{final_legal_document_page.position}", data_requests_page_path(data_request, final_legal_document_page.position), class: "link-unstyled"
 
-          %strong= data_request.final_legal_document.name
-          %ul.list-unstyled
-            - data_request.final_legal_document.final_legal_document_pages.each do |final_legal_document_page|
-              - page_complete = data_request.page_complete?(final_legal_document_page)
-              %li
-                - if page_complete
-                  %i.fa.fa-check-square-o.text-success
-                - else
-                  %i.fa.fa-square-o
-                = link_to "Page #{final_legal_document_page.position}", data_requests_page_path(data_request, final_legal_document_page.position), class: "link-unstyled"
-
-            - if data_request.attestation_required?
-              %li
-                - if data_request.attestation_complete?
-                  %i.fa.fa-check-square-o.text-success
-                - else
-                  %i.fa.fa-square-o
-                = link_to data_request.final_legal_document.attestation_name, data_requests_attest_path(data_request), class: "link-unstyled"
-
-        .col.mb-0
-          %strong
-            = link_to "Supporting Documents", data_request_supporting_documents_path(data_request), class: "link-unstyled"
-
-            %span.badge.badge-primary= data_request.supporting_documents.count
+        - if data_request.attestation_required?
+          %li
+            - if data_request.attestation_complete?
+              %i.fa.fa-check-square-o.text-success
+            - else
+              %i.fa.fa-square-o
+            = link_to data_request.final_legal_document.attestation_name, data_requests_attest_path(data_request), class: "link-unstyled"
 
       = render "data_requests/description", data_request: data_request
       = render "data_requests/supporting_documents", data_request: data_request

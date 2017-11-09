@@ -10,12 +10,12 @@ class DataRequestsController < ApplicationController
     :index,
     :start, :create, :join, :login,
     :submitted, :print, :show,
-    :resubmit, :resume,
+    :resubmit, :resume, :datasets, :update_datasets,
     :destroy
   ]
   before_action :find_submitted_data_request_or_redirect, only: [:submitted]
   before_action :find_any_data_request_or_redirect, only: [:print, :show]
-  before_action :find_submittable_data_request_or_redirect, only: [:resubmit, :resume]
+  before_action :find_submittable_data_request_or_redirect, only: [:resubmit, :resume, :datasets, :update_datasets]
   before_action :find_deletable_data_request_or_redirect, only: [:destroy]
 
   layout "layouts/full_page"
@@ -125,7 +125,7 @@ class DataRequestsController < ApplicationController
 
     if params.dig(:data_request, :draft) == "1"
       @data_request.update(current_step: @final_legal_document_page.position)
-      redirect_to @data_request, notice: "Data request draft saved successfully."
+      redirect_to data_requests_page_path(@data_request, @final_legal_document_page.position), notice: "Data request draft saved successfully."
       return
     else
       @data_request.update(current_step: @next_page.position) if @next_page
@@ -162,7 +162,7 @@ class DataRequestsController < ApplicationController
     end
 
     if params.dig(:data_request, :draft) == "1"
-      redirect_to @data_request, notice: "Data request draft saved successfully."
+      redirect_to data_requests_attest_path(@data_request), notice: "Data request draft saved successfully."
     else
       redirect_to [@data_request, :supporting_documents]
     end
@@ -203,6 +203,25 @@ class DataRequestsController < ApplicationController
   # def proof
   # end
 
+  # # GET /data/requests/:id/datasets
+  # def datasets
+  # end
+
+  # POST /data/requests/:id/datasets
+  def update_datasets
+    if clean_dataset_ids.present?
+      @data_request.update(data_request_params)
+      if params.dig(:data_request, :draft) == "1"
+        redirect_to data_requests_proof_path(@data_request), notice: "Data request draft saved successfully."
+      else
+        redirect_to data_requests_proof_path(@data_request)
+      end
+    else
+      @datasets_empty = true
+      render :datasets
+    end
+  end
+
   # GET /data/requests/:data_request_id/signature
   def signature
     send_signature(:signature_file)
@@ -221,7 +240,7 @@ class DataRequestsController < ApplicationController
   # POST /data/requests/:data_request_id/proof
   def submit
     if params.dig(:data_request, :draft) == "1"
-      redirect_to @data_request, notice: "Data request draft saved successfully."
+      redirect_to data_requests_proof_path(@data_request), notice: "Data request draft saved successfully."
     elsif @data_request.complete?
       current_time = Time.zone.now
       if @data_request.status == "resubmit"
@@ -355,5 +374,17 @@ class DataRequestsController < ApplicationController
     else
       data_requests_proof_path(data_request)
     end
+  end
+
+  def data_request_params
+    params[:data_request] ||= { blank: "1" }
+    params[:data_request][:dataset_ids] = clean_dataset_ids
+    params.require(:data_request).permit(
+      dataset_ids: []
+    )
+  end
+
+  def clean_dataset_ids
+    @data_request.final_legal_document.legal_document.datasets.where(id: params[:data_request][:dataset_ids]).pluck(:id)
   end
 end

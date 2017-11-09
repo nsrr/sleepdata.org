@@ -63,7 +63,7 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
         final_legal_document_variable: final_legal_document_variables(:full_name)
       ).value
     )
-    assert_redirected_to @started
+    assert_redirected_to data_requests_page_url(@started, "1")
   end
 
   test "should get attest" do

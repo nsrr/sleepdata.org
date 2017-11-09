@@ -12,9 +12,9 @@
         .agreement-heading= @title
         - required_content = content_tag(:span, content_tag(:i, nil, class: "fa fa-exclamation-triangle") + " Required", class: "text-danger")
 
-        = form_with model: @data_request, url: data_requests_submit_path(@data_request), method: :post, local: true, id: "data-request-form" do |form|
-          = form.hidden_field :draft, id: "data_request_draft"
+        - content = name_of_datasets(@data_request) + "<br/>".html_safe + link_to("add datasets", [:datasets, @data_request], class: "small", tabindex: "-1")
 
+        = render "forms/horizontal/show/generic", title: link_to("Datasets", [:datasets, @data_request], tabindex: "-1"), content: content
         - @data_request.final_legal_document.final_legal_document_pages.each do |final_legal_document_page|
           - final_legal_document_page.variables.each do |variable|
             - agreement_variable = @data_request.agreement_variables.find_by(final_legal_document_variable_id: variable.id)
@@ -45,7 +45,7 @@
               - content = image_tag(data_requests_signature_path(@data_request), class: "img-signature", alt: "", style: "max-height: 100px;")
             - else
               - content = required_content
-            = render "forms/horizontal/show/generic", title: link_to("Signature", data_requests_attest_path(@data_request)), content: content
+            = render "forms/horizontal/show/generic", title: link_to("Signature", data_requests_attest_path(@data_request), tabindex: "-1"), content: content
 
         - case @data_request.supporting_documents.count when 0
           - supporting_documents_content = content_tag(:span, "No supporting documents uploaded.", class: "text-muted")
@@ -53,7 +53,7 @@
           - supporting_documents_content = safe_join(@data_request.supporting_documents.collect { |d| content_tag(:span, d.document.file.filename) })
         - else
           - supporting_documents_content = pluralize(@data_request.supporting_documents.count, "supporting document") + " uploaded."
-        = render "forms/horizontal/show/generic", title: link_to("Supporting Documents", data_request_supporting_documents_path(@data_request)), content: supporting_documents_content
+        = render "forms/horizontal/show/generic", title: link_to("Supporting Documents", data_request_supporting_documents_path(@data_request), tabindex: "-1"), content: supporting_documents_content
 
         - if @data_request.complete?
           .mt-5.alert.alert-success.text-center.mb-0.box-shadow
@@ -66,12 +66,12 @@
 
         .mt-5.mb-3.float-right
           = succeed " " do
-            = link_to "#", class: "btn btn-light", tabindex: "-1", data: { object: "submit-draft-and-disable", target: "#data-request-form" } do
+            = link_to data_requests_submit_path(@data_request, data_request: { draft: "1" }), method: :post, class: "btn btn-light", tabindex: "-1" do
               %i.fa.fa-save
               Save Draft
 
           - if @data_request.complete?
-            = link_to "#", class: "btn btn-primary", data: { object: "submit-and-disable", target: "#data-request-form" } do
+            = link_to data_requests_submit_path(@data_request), method: :post, class: "btn btn-primary" do
               Submit
               %i.fa.fa-caret-right
           - else

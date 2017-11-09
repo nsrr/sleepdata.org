@@ -1,0 +1,14 @@
+.card-deck.mb-3
+  = hidden_field_tag "data_request[dataset_ids][]", 0
+  - data_request.final_legal_document.legal_document.datasets.current.order(:release_date, :name).each do |dataset|
+    - dataset_included = data_request.datasets.pluck(:id).include?(dataset.id)
+    .card.mb-3{ data: { object: "select-dataset", target: "#data_request_dataset_ids_#{dataset.id}" }, style: "min-width: 150px;cursor: pointer;" }
+      .card-header.overflow-hidden.nowrap{ class: "#{dataset_included ? "bg-primary text-white" : "bg-light"}" }
+        .d-none= check_box_tag "data_request[dataset_ids][]", dataset.id, dataset_included, id: "data_request_dataset_ids_#{dataset.id}"
+        - if dataset_included
+          %i.fa.fa-check-square-o{ data: { object: "dataset-check-icon" } }
+        - else
+          %i.fa.fa-square-o{ data: { object: "dataset-check-icon" } }
+        = dataset.name
+      .card-body.d-flex.justify-content-center.align-items-center
+        = image_tag logo_dataset_path(dataset), style: "max-width:100%;max-height: 70px;", alt: ""
