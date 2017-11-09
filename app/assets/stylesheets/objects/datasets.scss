@@ -19,11 +19,13 @@
   }
 }
 
-.markdown-container-new.folder-callout {
-  border: 2px solid $p200-grey;
-  color: $text-muted;
-  margin: 0 32px 40px;
-  padding: 20px;
+.markdown-container-new {
+  &.folder-callout {
+    border: 2px solid $p200-grey;
+    color: $text-muted;
+    margin: 0 32px 40px;
+    padding: 20px;
+  }
 }
 
 .dataset-info-container {

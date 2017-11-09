@@ -23,11 +23,6 @@ class ReviewsController < ApplicationController
   # def show
   # end
 
-  # GET /reviews/1/show2
-  def show2
-    render layout: "layouts/full_page"
-  end
-
   # GET /reviews/1/signature
   def signature
     send_file_if_present @data_request.signature_file

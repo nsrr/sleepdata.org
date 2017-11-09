@@ -36,3 +36,13 @@
   outline: none;
   text-decoration: none;
 }
+
+.link-inherit {
+  color: inherit;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: inherit;
+  }
+}

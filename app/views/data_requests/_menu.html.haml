@@ -7,7 +7,7 @@
           .small= @data_request.final_legal_document.name
           .small.mb-1
             %span= @data_request.final_legal_document.version
-            %span.small>= ".#{@data_request.final_legal_document.version_md5.first(7)}"
+            %span.small>= ".#{@data_request.final_legal_document.md5_short}"
           = render "data_requests/convert_links", data_request: @data_request
 
       %button.navbar-light.navbar-toggler.d-md-none{ type: "button", data: { toggle: "collapse", target: "#sidebar-nav-wrapper" }, aria: { controls: "sidebar-nav-wrapper", expanded: "false", label: "Toggle navigation" }, style: "border: 1px solid rgba(0, 0, 0, 0.5);" }

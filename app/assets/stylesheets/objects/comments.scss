@@ -73,9 +73,9 @@
   }
 }
 
-
 .comment-body {
   @include remove-last-child-bottom-margin;
+  background-color: $brand-white;
   padding: 10px;
 
   a {
