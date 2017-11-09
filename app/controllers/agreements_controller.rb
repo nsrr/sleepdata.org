@@ -133,7 +133,7 @@ class AgreementsController < ApplicationController
         @data_request.expire_daua!(current_user)
       end
       respond_to do |format|
-        format.html { redirect_to review_path(@data_request) + "#c#{@data_request.agreement_events.last.number}", notice: "Data request was successfully updated." }
+        format.html { redirect_to review_path(@data_request, anchor: @data_request.agreement_events.last ? "c#{@data_request.agreement_events.last.number}" : nil), notice: "Data request was successfully updated." }
         format.js { render "agreement_events/index" }
       end
     else

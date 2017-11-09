@@ -28,7 +28,6 @@
 
 @turbolinksReady = ->
   setFocusToField("#search, #s") if $("#search, #s").val() != ''
-  window.$isDirty = false
   componentsReady()
   extensionsReady()
   objectsReady()
@@ -41,29 +40,22 @@
 @initialLoadReady = ->
   turbolinksReady() unless Turbolinks.supported
 
-$(window).onbeforeunload = -> return "You haven't saved your changes." if window.$isDirty
 $(document).ready(initialLoadReady)
 $(document)
   .on('turbolinks:load', turbolinksReady)
-  .on('turbolinks:before-visit', (event) ->
-    event.preventDefault() if window.$isDirty and !confirm("You haven't saved your changes.")
-  )
   .on('click', '[data-object~="suppress-click"]', () ->
     false
   )
   .on('click', '[data-object~="submit"]', () ->
-    window.$isDirty = false
     $($(this).data('target')).submit()
     false
   )
   .on('click', '[data-object~="submit-and-disable"]', ->
-    window.$isDirty = false
     disablerWithSpinner($(this))
     $($(this).data('target')).submit()
     false
   )
   .on('click', '[data-object~="submit-draft-and-disable"]', ->
-    window.$isDirty = false
     disablerWithSpinner($(this))
     $('#data_request_draft').val('1')
     $($(this).data('target')).submit()

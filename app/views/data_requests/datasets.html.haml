@@ -10,14 +10,21 @@
     %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
       .page-box.last-box
         .agreement-heading= @title
-        %p Select only those datasets needed for your project.
-
+        %p
+          Select only those datasets needed for your project.
         - if @datasets_empty
           .p-3.mb-3.bg-danger.text-white You must select at least one dataset.
 
         = form_with model: @data_request, url: update_datasets_data_request_path(@data_request), method: :post, local: true, id: "data-request-form" do |form|
           = form.hidden_field :draft, id: "data_request_draft"
-          = render "data_requests/datasets_selection", data_request: @data_request
+          = render "data_requests/datasets_selection", data_request: @data_request, only_released_datasets: true
+
+        .p-3.bg-warning.datasets-warning{ style: @data_request.datasets.count <= 2 ? "display:none" : "" }
+          %i.fa.fa-exclamation-triangle
+          You may be asked to resubmit if you select
+          %strong.text-white more than two
+          datasets. Additional datasets can be requested in the future, should
+          you find the data useful for your project.
 
         .mt-5.mb-3.float-right
           = succeed " " do

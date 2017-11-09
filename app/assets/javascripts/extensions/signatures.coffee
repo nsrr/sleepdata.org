@@ -65,14 +65,12 @@ $(document)
     if window.$signaturePad.isEmpty()
       alert 'Please provide signature first.'
     else
-      window.$isDirty = false
       disablerWithSpinner($(this))
       $("#data_uri").val(window.$signaturePad.toDataURL())
       $($(this).data("target")).submit()
     false
   )
   .on('click', '[data-object~="submit-draft-signature-and-disable"]', ->
-    window.$isDirty = false
     disablerWithSpinner($(this))
     $("#data_request_draft").val("1")
     $("#data_uri").val(window.$signaturePad.toDataURL()) if window.$signaturePad? and !window.$signaturePad.isEmpty()
@@ -84,12 +82,10 @@ $(document)
       if window.$signaturePad.isEmpty()
         alert 'Please provide signature first.'
       else
-        window.$isDirty = false
         disablerWithSpinner($(this))
         $("#data_uri").val(window.$signaturePad.toDataURL())
         $($(this).data("target")).submit()
     else
-      window.$isDirty = false
       disablerWithSpinner($(this))
       $($(this).data("target")).submit()
     false
