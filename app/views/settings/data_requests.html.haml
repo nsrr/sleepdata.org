@@ -2,13 +2,12 @@
 
 .card
   %h4.card-header
-    %i.fa.fa-user-circle
+    %i.fa.fa-university
     = @title
   .card-body
     = form_with model: current_user, url: settings_update_data_requests_path, method: :patch, local: true do |form|
       = render "forms/vertical/select", form: form, object: current_user, key: :data_user_type, key_name: "Data User (Individual or Organization)", options: User::DATA_USER_TYPES, help_text: "Choose organization if you are doing research as part of a larger group."
       = render "forms/vertical/select", form: form, object: current_user, key: :commercial_type, key_name: "Noncommercial or Commercial", options: User::COMMERCIAL_TYPES, help_text: "Choose commercial if you are doing research for a for-profit entity."
-
       = render "forms/vertical/submit", form: form, object: current_user, submit_text: "Update preferences", cancel: false
   .card-footer
     Changes only affect new data requests.
