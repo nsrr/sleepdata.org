@@ -6,5 +6,8 @@
   .col-md-2
   .col-md-10
     = form.submit text, class: "btn btn-primary"
-    - unless defined?(cancel) && cancel == false
+    - if defined?(cancel) && cancel == false
+    - elsif defined?(cancel)
+      = link_to "Cancel", cancel, remote: defined?(remote) ? remote : nil, class: "btn btn-light"
+    - else
       = link_to "Cancel", polymorphic_path(object), remote: defined?(remote) ? remote : nil, class: "btn btn-light"

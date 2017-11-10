@@ -6,7 +6,7 @@
     .colorselector{ style: "background-image: none", data: { object: "color-selector", target: "##{key}_hexcolor", color: hex_color } }
       %div{ id: "#{key}_hexcolor_display" , style: "background-color: #{hex_color};top: 0;left: 0;" }
   - if defined?(key_name)
-    = render "layouts/invalid_feedback", object: object, key: key, key_name: key_name
+    = render "forms/invalid_feedback", object: object, key: key, key_name: key_name
   - else
-    = render "layouts/invalid_feedback", object: object, key: key
+    = render "forms/invalid_feedback", object: object, key: key
   = render "forms/help_text", help_text: help_text if defined?(help_text)
