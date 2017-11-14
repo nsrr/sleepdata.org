@@ -13,7 +13,7 @@ class TopicsController < ApplicationController
 
   # POST /forum/my-first-topic/subscription.js
   def subscription
-    @topic.set_subscription!(params[:notify].to_s == '1', current_user)
+    @topic.set_subscription!(params[:notify].to_s == "1", current_user)
   end
 
   # POST /forum/my-first-topic/admin
@@ -24,8 +24,8 @@ class TopicsController < ApplicationController
 
   # GET /forum
   def index
-    @order = scrub_order(Topic, params[:order], 'pinned desc, last_reply_at desc, id desc')
-    if ['reply_count', 'reply_count desc'].include?(params[:order])
+    @order = scrub_order(Topic, params[:order], "pinned desc, last_reply_at desc, id desc")
+    if ["reply_count", "reply_count desc"].include?(params[:order])
       @order = params[:order]
     end
     topic_scope = Topic.current.not_banned
@@ -56,7 +56,7 @@ class TopicsController < ApplicationController
     if @topic.save
       # @topic.update_column :last_reply_at, Time.zone.now
       @topic.touch :last_reply_at
-      redirect_to @topic, notice: 'Topic was successfully created.'
+      redirect_to @topic, notice: "Topic was successfully created."
     else
       render :new
     end
@@ -65,7 +65,7 @@ class TopicsController < ApplicationController
   # PATCH /forum/my-first-topic
   def update
     if @topic.update(topic_params)
-      redirect_to @topic, notice: 'Topic was successfully updated.'
+      redirect_to @topic, notice: "Topic was successfully updated."
     else
       render :edit
     end
@@ -74,7 +74,7 @@ class TopicsController < ApplicationController
   # DELETE /forum/my-first-topic
   def destroy
     @topic.destroy
-    redirect_to topics_path, notice: 'Topic was successfully deleted.'
+    redirect_to topics_path, notice: "Topic was successfully deleted."
   end
 
   private
@@ -84,12 +84,12 @@ class TopicsController < ApplicationController
   end
 
   def find_viewable_topic_or_redirect
-    @topic = viewable_topics.find_by_param params[:id]
+    @topic = viewable_topics.find_by_param(params[:id])
     redirect_without_topic
   end
 
   def find_editable_topic_or_redirect
-    @topic = current_user.all_topics.not_banned.where(locked: false).find_by_param params[:id]
+    @topic = current_user.all_topics.not_banned.where(locked: false).find_by_param(params[:id])
     redirect_without_topic
   end
 

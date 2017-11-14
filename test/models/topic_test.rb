@@ -44,7 +44,7 @@ class TopicTest < ActiveSupport::TestCase
         topic.save
       end
     end
-    assert_equal ["can't be blank"], topic.errors[:user_id]
+    assert_equal ["must exist"], topic.errors[:user]
   end
 
   test "should not save topic without description" do

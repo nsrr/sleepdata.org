@@ -20,11 +20,15 @@ class Topic < ApplicationRecord
   scope :reply_count, -> { select('topics.*, COUNT(replies.id) reply_count').joins(:replies).group('topics.id') }
 
   # Validations
-  validates :title, :slug, :user_id, presence: true
+  validates :title, presence: true
   validates :title, length: { maximum: 40 }
   validates :description, presence: true, if: :new_record?
-  validates :slug, uniqueness: { scope: :deleted } # TODO: Uniqueness can't be constrained to deleted topics
-  validates :slug, format: { with: /\A(?!\Anew\Z)[a-z][a-z0-9\-]*\Z/ }
+  validates :slug, format: { with: /\A[a-z][a-z0-9\-]*\Z/ },
+                   exclusion: { in: %w(new edit create update destroy) },
+                   uniqueness: true, unless: :deleted?
+  validates :slug, format: { with: /\A[a-z][a-z0-9\-]*\Z/ },
+                   exclusion: { in: %w(new edit create update destroy) },
+                   uniqueness: true, allow_nil: true, if: :deleted?
 
   # Relationships
   belongs_to :user
@@ -37,6 +41,7 @@ class Topic < ApplicationRecord
   # Methods
   def destroy
     super
+    update slug: nil
     update_pg_search_document
     replies.each(&:update_pg_search_document)
   end
