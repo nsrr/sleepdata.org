@@ -255,8 +255,11 @@ Rails.application.routes.draw do
     get :version
     get :voting
     get :sitemap_xml, path: "sitemap.xml.gz"
-    get :profile_picture, path: "members/:username/profile_picture"
     post :preview
+  end
+
+  namespace :members do
+    get :profile_picture, path: ":username/profile_picture"
   end
 
   resources :notifications do
