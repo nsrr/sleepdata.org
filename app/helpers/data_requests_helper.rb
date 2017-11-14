@@ -10,17 +10,34 @@ module DataRequestsHelper
     when 1, 2, 3
       safe_join(slugs.collect { |slug| badge(slug) }, " ")
     else
-      count = slugs.count - 2
-      safe_join(
-        [
-          badge(slugs.first),
-          badge(slugs.second),
-          safe_join([content_tag(:small, "and"), badge("#{count} more", badge_class: "badge-secondary", tooltip: slugs[2..-1].join(", "))], " "),
-          # badge(slugs.last)
-        ],
-        " "
-      )
+      many_badges(slugs)
     end
+  end
+
+  def many_badges(slugs)
+    safe_join(
+      [
+        badge(slugs.first),
+        badge(slugs.second),
+        and_badges(slugs[2..-1])
+      ],
+      " "
+    )
+  end
+
+  def and_badges(slugs)
+    count = slugs.count
+    safe_join(
+      [
+        content_tag(:small, "and"),
+        badge(
+          "#{count} more",
+          badge_class: "badge-secondary",
+          tooltip: slugs.join(", ")
+        )
+      ],
+      " "
+    )
   end
 
   def badge(slug, badge_class: "badge-dark", tooltip: nil)
