@@ -2,9 +2,9 @@
 
 # Allows users to request access to one or more datasets.
 class Agreement < ApplicationRecord
-  mount_uploader :dua, PDFUploader
-  mount_uploader :executed_dua, PDFUploader
-  mount_uploader :irb, PDFUploader
+  mount_uploader :dua, PDFUploader # TODO: Remove in v0.31.0
+  mount_uploader :executed_dua, PDFUploader # TODO: Remove in v0.31.0
+  mount_uploader :irb, PDFUploader # TODO: Remove in v0.31.0
   mount_uploader :printed_file, PDFUploader
 
   mount_uploader :signature_file, SignatureUploader
@@ -39,11 +39,12 @@ class Agreement < ApplicationRecord
   validates :approval_date, :expiration_date, presence: true, if: :approved?
   validates :comments, presence: true, if: :resubmission_required?
 
-  validates :duly_authorized_representative_signature_print, :duly_authorized_representative_title, presence: true, if: :representative?
+  validates :duly_authorized_representative_signature_print, presence: true, if: :representative?
+  validates :duly_authorized_representative_title, presence: true, if: :representative?
 
   # Relationships
   belongs_to :user
-  belongs_to :final_legal_document, optional: true # TODO: Should not be optional...
+  belongs_to :final_legal_document, optional: true # TODO: Should not be optional, remove "optional: true" in v0.31.0
   has_many :agreement_variables
   has_many :requests
   has_many :datasets, -> { current }, through: :requests
@@ -56,14 +57,18 @@ class Agreement < ApplicationRecord
 
   # Methods
 
-  # TODO: Recheck these to see which should be ignored.
+  # TODO: Remove duly_authorized_representative_signature reviewer_signature signature in v0.31.0
   def ignored_transaction_attributes
     %w(
-      created_at updated_at current_step duly_authorized_representative_token
-      signature duly_authorized_representative_signature reviewer_signature
-      printed_file dua executed_dua deleted
+      created_at updated_at
+      current_step
+      duly_authorized_representative_token
+      printed_file
+      deleted
+      duly_authorized_representative_signature reviewer_signature signature
     )
   end
+  # END TODO
 
   def dataset_ids=(ids)
     self.datasets = Dataset.where(id: ids)
