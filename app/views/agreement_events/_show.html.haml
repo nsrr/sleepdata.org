@@ -32,15 +32,6 @@
           %abbr{ rel: "tooltip", data: { title: agreement_event.created_at.strftime("%-d %b %Y, %-l:%M %p"), container: "body", placement: "right" } }
             = time_ago_in_words agreement_event.created_at
             ago
-          - if agreement_event.user.core_member?
-            %span.post-footer{ style: "padding-left:5px; height: 0" }
-              %span.core-member.nowrap{ style: "position: relative; border-radius: 4px;" } Core Member
-          - elsif agreement_event.user.aug_member?
-            %span.post-footer{ style: "padding-left:5px; height: 0" }
-              %span.aug-member.nowrap{ style: "position: relative; border-radius: 4px;" } AUG Member
-          - elsif agreement_event.user.contributor?
-            %span.post-footer{ style: "padding-left:5px; height: 0" }
-              %span.contributor.nowrap{ style: "position: relative; border-radius: 4px;" } Contributor
         .comment-body
           = render "agreement_events/formatted", agreement_event: agreement_event
 - elsif %w(principal_reviewer_approved principal_reviewer_required_resubmission principal_reviewer_closed principal_reviewer_expired user_submitted user_resubmitted).include?(agreement_event.event_type)
