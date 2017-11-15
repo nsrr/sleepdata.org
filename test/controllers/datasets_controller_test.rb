@@ -164,9 +164,8 @@ class DatasetsControllerTest < ActionController::TestCase
   end
 
   test "should get files from unreleased dataset as approved user using auth token" do
-    skip # TODO: Fix test
     get :files, params: {
-      id: datasets(:unreleased), path: "HIDDEN_FILE.txt", auth_token: users(:two).id_and_auth_token
+      id: datasets(:unreleased), path: "HIDDEN_FILE.txt", auth_token: users(:insider1).id_and_auth_token
     }, format: "html"
     assert_not_nil response
     assert_not_nil assigns(:dataset)
@@ -387,10 +386,9 @@ class DatasetsControllerTest < ActionController::TestCase
   end
 
   test "should search public dataset documentation as anonymous user" do
-    skip # TODO: Fix test
     get :search, params: { id: @dataset, s: "view ?/\\" }
     assert_equal "view", assigns(:term)
-    assert_equal 1, assigns(:results).count
+    assert_equal 2, assigns(:results).count
     assert_equal "# VIEW_ME.md", assigns(:results).first.to_s.split(":").last
     assert_template :search
     assert_response :success

@@ -104,6 +104,7 @@ insider1:
   first_name: Insider1
   last_name: User
   email: insider1@example.com
+  authentication_token: insider1
 
 insider2:
   first_name: Insider2
