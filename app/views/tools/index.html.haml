@@ -73,7 +73,11 @@
               %span.badge.badge-pill.badge-light Tutorial
             - unless community_tool.tag_program? || community_tool.tag_script? || community_tool.tag_tutorial?
               / %span.badge.badge-pill.badge-default Unsorted
-          %td.d-none.d-md-block.nowrap.text-center= community_tool.publish_date
+          %td.d-none.d-md-block.nowrap.text-center
+            - if community_tool.published?
+              = community_tool.publish_date
+            - else
+              %span.badge.badge-warning DRAFT
           - if current_user && current_user.system_admin?
             %td
               = render "layouts/edit_delete_dropdown", edit_url: edit_community_tool_path(community_tool), delete_url: community_tool, delete_confirmation: "Delete #{community_tool.name}?"

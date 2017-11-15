@@ -20,7 +20,6 @@ class ToolsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show draft for tool creator" do
-    skip
     login(@draft.user)
     get tool_url(@draft)
     assert_response :success

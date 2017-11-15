@@ -170,7 +170,7 @@ class RequestControllerTest < ActionController::TestCase
     assert_equal "", assigns(:community_tool).description
     assert_equal false, assigns(:community_tool).published?
     assert_nil assigns(:community_tool).publish_date
-    assert_redirected_to dashboard_path
+    assert_redirected_to tool_path(community_tools(:draft))
   end
 
   test "should not set description and submit tool as regular user with invalid id" do

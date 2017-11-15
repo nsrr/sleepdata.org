@@ -2,11 +2,19 @@
 
 # Allows users to view and create tools.
 class ToolsController < ApplicationController
+  before_action :find_viewable_tool_or_redirect, only: [:show]
+
   # GET /tools
   # GET /tools.json
   def index
     @order = scrub_order(CommunityTool, params[:order], "community_tools.name")
-    community_tool_scope = CommunityTool.current.order(@order).where(published: true)
+    if @order == "community_tools.name"
+      community_tool_scope = community_tools.order("LOWER(community_tools.name)")
+    elsif @order == "community_tools.name desc nulls last"
+      community_tool_scope = community_tools.order("LOWER(community_tools.name) desc nulls last")
+    else
+      community_tool_scope = community_tools.order(@order)
+    end
     if params[:a].present?
       user_ids = User.current.with_name(params[:a].to_s.split(","))
       community_tool_scope = community_tool_scope.where(user_id: user_ids.select(:id))
@@ -17,10 +25,19 @@ class ToolsController < ApplicationController
     @community_tools = community_tool_scope.search(params[:search]).page(params[:page]).per(20)
   end
 
-  # GET /tools/1
-  # GET /tools/1.json
-  def show
-    @community_tool = CommunityTool.current.where(published: true).find_by_param(params[:id])
+  # # GET /tools/1
+  # # GET /tools/1.json
+  # def show
+  # end
+
+  private
+
+  def community_tools
+    CommunityTool.published_or_draft(current_user)
+  end
+
+  def find_viewable_tool_or_redirect
+    @community_tool = community_tools.find_by_param(params[:id])
     empty_response_or_root_path(tools_path) unless @community_tool
   end
 end
