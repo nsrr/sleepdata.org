@@ -52,7 +52,7 @@ $(document)
       alert 'Please provide signature first.'
     else
       $("#data_uri").val(window.$signaturePad.toDataURL())
-      $($(this).data("target")).submit()
+      submitTarget($(this))
     false
   )
   .on("touchend mouseup", ".signature-pad canvas", (event) ->
@@ -67,14 +67,14 @@ $(document)
     else
       disablerWithSpinner($(this))
       $("#data_uri").val(window.$signaturePad.toDataURL())
-      $($(this).data("target")).submit()
+      submitTarget($(this))
     false
   )
   .on('click', '[data-object~="submit-draft-signature-and-disable"]', ->
     disablerWithSpinner($(this))
     $("#data_request_draft").val("1")
     $("#data_uri").val(window.$signaturePad.toDataURL()) if window.$signaturePad? and !window.$signaturePad.isEmpty()
-    $($(this).data("target")).submit()
+    submitTarget($(this))
     false
   )
   .on("click", "[data-object~='submit-reviewer-signature-and-disable']", ->
@@ -84,9 +84,9 @@ $(document)
       else
         disablerWithSpinner($(this))
         $("#data_uri").val(window.$signaturePad.toDataURL())
-        $($(this).data("target")).submit()
+        submitTarget($(this))
     else
       disablerWithSpinner($(this))
-      $($(this).data("target")).submit()
+      submitTarget($(this))
     false
   )

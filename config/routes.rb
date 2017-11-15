@@ -80,10 +80,6 @@ Rails.application.routes.draw do
     collection do
       get :export
     end
-    member do
-      get :print
-      get :download_irb
-    end
 
     resources :agreement_events, path: "events" do
       collection do
@@ -225,9 +221,11 @@ Rails.application.routes.draw do
     member do
       get :signature
       get :duly_authorized_representative_signature
+      get :reviewer_signature
       post :vote
       post :update_tags
       get :transactions
+      get :print
     end
   end
 

@@ -8,11 +8,10 @@
           = link_to transactions_review_path(@data_request), class: "btn btn-light btn-sm" do
             %i.fa.fa-th-list
             Transactions
-          - if current_user.all_data_requests.where(id: @data_request.id).count > 0
-            &nbsp;
-            = link_to print_agreement_path(@data_request), class: "btn btn-light btn-sm", data: { turbolinks: false } do
-              %i.fa.fa-print
-              Print
+          &nbsp;
+          = link_to print_review_path(@data_request), class: "btn btn-light btn-sm", data: { turbolinks: false } do
+            %i.fa.fa-print
+            Print
 
         = @title
   .breadcrumb-container.mb-0

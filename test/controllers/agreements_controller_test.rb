@@ -8,19 +8,7 @@ class AgreementsControllerTest < ActionController::TestCase
     @data_request = data_requests(:submitted)
   end
 
-  test "should download irb pdf for system admin" do
-    skip
-    login(users(:admin))
-    get :download_irb, params: { id: data_requests(:filled_out_application_with_attached_irb_file) }
-    assert_not_nil assigns(:data_request)
-    assert_kind_of String, response.body
-    assert_equal(
-      File.binread(Rails.root.join("test", "support", "data_requests", "blank.pdf")),
-      response.body
-    )
-    assert_response :success
-  end
-
+  # TODO: Remove deprecated redirects
   # deprecated
   test "should get index" do
     login(users(:admin))
@@ -34,22 +22,12 @@ class AgreementsControllerTest < ActionController::TestCase
     get :show, params: { id: @data_request }
     assert_redirected_to reviews_path
   end
-
-  test "should download pdf" do
-    skip
-    login(users(:admin))
-    get :download, params: { id: @data_request }
-    assert_not_nil assigns(:agreement)
-    assert_kind_of String, response.body
-    assert_equal File.binread(Rails.root.join("test", "support", "data_requests", "blank.pdf")), response.body
-    assert_response :success
-  end
+  # END TODO
 
   test "should update agreement and set as approved" do
-    skip
     login(users(:admin))
     patch :update, params: {
-      id: data_requests(:two),
+      id: @data_request,
       data_request: {
         status: "approved",
         approval_date: "09/20/2014",
@@ -75,13 +53,12 @@ class AgreementsControllerTest < ActionController::TestCase
   end
 
   test "should not approve agreement without required fields" do
-    skip
     login(users(:admin))
     patch :update, params: { id: @data_request, data_request: { approval_date: "", expiration_date: "", reviewer_signature: "[]", status: "approved" } }
     assert_not_nil assigns(:data_request)
     assert_equal ["can't be blank"], assigns(:data_request).errors[:approval_date]
     assert_equal ["can't be blank"], assigns(:data_request).errors[:expiration_date]
-    assert_equal ["can't be blank"], assigns(:data_request).errors[:edges_in_reviewer_signature]
+    assert_equal false, assigns(:data_request).reviewer_signature_file.present?
     assert_template "reviews/show"
   end
 

@@ -4,8 +4,8 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_data_request_or_redirect, only: [
-    :show, :show2, :signature, :duly_authorized_representative_signature, :vote,
-    :update_tags, :transactions
+    :show, :print, :transactions, :vote, :update_tags,
+    :signature, :duly_authorized_representative_signature, :reviewer_signature,
   ]
 
   # GET /reviews
@@ -23,6 +23,16 @@ class ReviewsController < ApplicationController
   # def show
   # end
 
+  # GET /reviews/1/print
+  def print
+    @data_request.generate_printed_pdf!
+    if @data_request.printed_file.present?
+      send_file @data_request.printed_file.path, filename: "#{@data_request.user.last_name.gsub(/[^a-zA-Z\p{L}]/, '')}-#{@data_request.user.first_name.gsub(/[^a-zA-Z\p{L}]/, '')}-#{@data_request.agreement_number}-data-request-#{(@data_request.submitted_at || @data_request.created_at).strftime("%Y-%m-%d")}.pdf", type: "application/pdf", disposition: "inline"
+    else
+      render "data_requests/print", layout: false
+    end
+  end
+
   # GET /reviews/1/signature
   def signature
     send_file_if_present @data_request.signature_file
@@ -31,6 +41,11 @@ class ReviewsController < ApplicationController
   # GET /reviews/1/duly_authorized_representative_signature
   def duly_authorized_representative_signature
     send_file_if_present @data_request.duly_authorized_representative_signature_file
+  end
+
+  # GET /reviews/1/reviewer_signature
+  def reviewer_signature
+    send_file_if_present @data_request.reviewer_signature_file
   end
 
   # # GET /reviews/1/transactions

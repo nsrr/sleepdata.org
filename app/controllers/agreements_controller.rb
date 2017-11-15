@@ -3,11 +3,9 @@
 # Allows reviewers to view and update data requests.
 class AgreementsController < ApplicationController
   before_action :authenticate_user!
-  # TODO: Change to only be for reviewers.
-  before_action :check_system_admin, except: [:download_irb, :print]
-  before_action :set_downloadable_irb_data_request, only: [:download_irb, :print]
-  before_action :set_data_request,                  only: [:destroy, :download, :update]
-  before_action :redirect_without_data_request,     only: [:destroy, :download, :update, :download_irb, :print]
+  # TODO: Change to only be for organization owners (or remove controller).
+  before_action :check_system_admin
+  before_action :find_data_request_or_redirect, only: [:update, :destroy]
 
   # GET /agreements
   def index
@@ -137,31 +135,11 @@ class AgreementsController < ApplicationController
         format.js { render "agreement_events/index" }
       end
     else
-      render "reviews/show"
+      respond_to do |format|
+        format.html { render "reviews/show" }
+        format.js { render :edit }
+      end
     end
-  end
-
-  # GET /agreements/1/download_irb
-  def download_irb
-    send_file_if_present @data_request.irb, disposition: "inline"
-  end
-
-  # GET /agreements/1/print
-  def print
-    @data_request.generate_printed_pdf!
-    if @data_request.printed_file.present?
-      send_file @data_request.printed_file.path, filename: "#{@data_request.user.last_name.gsub(/[^a-zA-Z\p{L}]/, '')}-#{@data_request.user.first_name.gsub(/[^a-zA-Z\p{L}]/, '')}-#{@data_request.agreement_number}-data-request-#{(@data_request.submitted_at || @data_request.created_at).strftime("%Y-%m-%d")}.pdf", type: "application/pdf", disposition: "inline"
-    else
-      render "data_requests/print", layout: false
-    end
-  end
-
-  # GET /agreements/1/download
-  def download
-    send_file_if_present(
-      params[:executed] == "1" ? @data_request.executed_dua : @data_request.dua,
-      disposition: "inline"
-    )
   end
 
   # DELETE /agreements/1
@@ -172,12 +150,9 @@ class AgreementsController < ApplicationController
 
   private
 
-  def set_data_request
+  def find_data_request_or_redirect
     @data_request = DataRequest.current.find_by(id: params[:id])
-  end
-
-  def set_downloadable_irb_data_request
-    @data_request = current_user.all_data_requests.find_by(id: params[:id])
+    redirect_without_data_request
   end
 
   def redirect_without_data_request
@@ -188,6 +163,7 @@ class AgreementsController < ApplicationController
     params[:data_request] ||= {}
     parse_date_if_key_present(:data_request, :approval_date)
     parse_date_if_key_present(:data_request, :expiration_date)
+    params[:data_request][:dataset_ids] = @data_request.dataset_ids if params[:data_request].key?(:dataset_ids) && params[:data_request][:dataset_ids] == ["0"]
     # TODO: Add data_uri or reviewer_signature_file_data_uri?
     params.require(:data_request).permit(
       :status, :comments, :approval_date, :expiration_date,

@@ -13,7 +13,7 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get index" do
     login(@reviewer)
-    get reviews_path
+    get reviews_url
     assert_response :success
     assert_not_nil assigns(:data_requests)
   end
@@ -22,7 +22,7 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
   test "should update agreement tags" do
     login(@reviewer)
     assert_equal [tags(:academic).id, tags(:publication).id].sort, @data_request.tags.pluck(:id).sort
-    post update_tags_review_path(@data_request, format: "js"), params: {
+    post update_tags_review_url(@data_request, format: "js"), params: {
       data_request: {
         tag_ids: [tags(:academic).to_param, tags(:student).to_param, tags(:thesis).to_param]
       }
@@ -50,7 +50,7 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
   test "should vote and approve agreement" do
     login(@reviewer)
     assert_difference("Review.count") do
-      post vote_review_path(@data_request, format: "js"), params: { approved: "1" }
+      post vote_review_url(@data_request, format: "js"), params: { approved: "1" }
     end
     assert_equal true, assigns(:review).approved
     assert_equal "reviewer_approved", assigns(:agreement_event).event_type
@@ -61,7 +61,7 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
   test "should vote and reject agreement" do
     login(@reviewer)
     assert_difference("Review.count") do
-      post vote_review_path(@data_request, format: "js"), params: { approved: "0" }
+      post vote_review_url(@data_request, format: "js"), params: { approved: "0" }
     end
     assert_equal false, assigns(:review).approved
     assert_equal "reviewer_rejected", assigns(:agreement_event).event_type
@@ -72,7 +72,7 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
   test "should not update unchanged vote" do
     login(@reviewer_two)
     assert_difference("Review.count", 0) do
-      post vote_review_path(@data_request, format: "js"), params: { approved: "0" }
+      post vote_review_url(@data_request, format: "js"), params: { approved: "0" }
     end
     assert_equal false, assigns(:review).approved
     assert_nil assigns(:agreement_event)
@@ -83,7 +83,7 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
   test "should change vote to approved" do
     login(@reviewer_two)
     assert_difference("Review.count", 0) do
-      post vote_review_path(@data_request, format: "js"), params: { approved: "1" }
+      post vote_review_url(@data_request, format: "js"), params: { approved: "1" }
     end
     assert_equal true, assigns(:review).approved
     assert_equal "reviewer_changed_from_rejected_to_approved", assigns(:agreement_event).event_type
@@ -94,7 +94,7 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
   test "should change vote to rejected" do
     login(@reviewer_three)
     assert_difference("Review.count", 0) do
-      post vote_review_path(@data_request, format: "js"), params: { approved: "0" }
+      post vote_review_url(@data_request, format: "js"), params: { approved: "0" }
     end
     assert_equal false, assigns(:review).approved
     assert_equal "reviewer_changed_from_approved_to_rejected", assigns(:agreement_event).event_type
@@ -104,7 +104,13 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get transactions" do
     login(@reviewer)
-    get transactions_review_path(@data_request)
+    get transactions_review_url(@data_request)
+    assert_response :success
+  end
+
+  test "should get print" do
+    login(@reviewer)
+    get print_review_url(@data_request)
     assert_response :success
   end
 end

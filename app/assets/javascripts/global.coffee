@@ -32,6 +32,10 @@
   extensionsReady()
   objectsReady()
 
+@submitTarget = (element) ->
+  $target = $($(element).data("target"))[0]
+  Rails.fire($target, "submit")
+
 # These functions only get called on the initial page visit (no turbolinks).
 # Browsers that don't support turbolinks will initialize all functions in
 # turbolinks on page load. Those that do support Turbolinks won't call these
@@ -47,18 +51,18 @@ $(document)
     false
   )
   .on('click', '[data-object~="submit"]', () ->
-    $($(this).data('target')).submit()
+    submitTarget($(this))
     false
   )
   .on('click', '[data-object~="submit-and-disable"]', ->
     disablerWithSpinner($(this))
-    $($(this).data('target')).submit()
+    submitTarget($(this))
     false
   )
   .on('click', '[data-object~="submit-draft-and-disable"]', ->
     disablerWithSpinner($(this))
     $('#data_request_draft').val('1')
-    $($(this).data('target')).submit()
+    submitTarget($(this))
     false
   )
   .on('click', '[data-object~="hide-target"]', () ->
