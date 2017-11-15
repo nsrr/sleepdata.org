@@ -16,62 +16,62 @@ class DocumentationControllerTest < ActionController::TestCase
 
   test "should view documentation on released dataset with approved agreement" do
     login(data_requests(:approved).user)
-    get :pages, params: { id: datasets(:released), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released), path: "VIEW_ME.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should view documentation on released dataset with manually expired agreement" do
     login(data_requests(:expired).user)
-    get :pages, params: { id: datasets(:released), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released), path: "VIEW_ME.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should view documentation on released dataset with automatically expired agreement" do
     login(data_requests(:approved_that_expired).user)
-    get :pages, params: { id: datasets(:released), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released), path: "VIEW_ME.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should view documentation on public documentation dataset with submitted agreement" do
     login(data_requests(:submitted).user)
-    get :pages, params: { id: datasets(:released), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released), path: "VIEW_ME.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should view documentation on public documentation dataset with started agreement" do
     login(data_requests(:started).user)
-    get :pages, params: { id: datasets(:released), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released), path: "VIEW_ME.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should view documentation on public documentation dataset with resubmit agreement" do
     login(data_requests(:resubmit).user)
-    get :pages, params: { id: datasets(:released), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released), path: "VIEW_ME.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should view documentation on public documentation dataset with approved but deleted agreement" do
     login(data_requests(:deleted).user)
-    get :pages, params: { id: datasets(:released), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released), path: "VIEW_ME.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should view documentation on public documentation dataset without any agreement" do
     login(users(:regular_no_data_requests))
-    get :pages, params: { id: datasets(:released), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released), path: "VIEW_ME.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should view documentation on public documentation dataset as anonymous user" do
-    get :pages, params: { id: datasets(:released), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released), path: "VIEW_ME.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
@@ -123,13 +123,13 @@ class DocumentationControllerTest < ActionController::TestCase
 
   test "should view documentation on no access dataset without any agreement" do
     login(users(:regular_no_data_requests))
-    get :pages, params: { id: datasets(:released_no_access), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released_no_access), path: "VIEW_ME.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end
 
   test "should view documentation on no access dataset as anonymous user" do
-    get :pages, params: { id: datasets(:released_no_access), path: "PUBLICLY_VIEWABLE.md", format: "html" }
+    get :pages, params: { id: datasets(:released_no_access), path: "VIEW_ME.md", format: "html" }
     assert_not_nil assigns(:dataset)
     assert_response :success
   end

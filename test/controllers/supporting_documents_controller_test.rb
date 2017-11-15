@@ -59,8 +59,6 @@ class SupportingDocumentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show supporting document" do
-    # TODO: Show files inline
-    skip
     login(@regular2)
     get data_request_supporting_document_url(@uploads, @supporting_document)
     assert_kind_of String, response.body
@@ -71,7 +69,7 @@ class SupportingDocumentsControllerTest < ActionDispatch::IntegrationTest
   test "should destroy supporting document" do
     login(@regular2)
     assert_difference("SupportingDocument.count", -1) do
-      delete data_request_supporting_document_url(@uploads, @supporting_document, format: "js")
+      delete data_request_supporting_document_url(@uploads, supporting_documents(:two), format: "js")
     end
     assert_template "destroy"
     assert_response :success

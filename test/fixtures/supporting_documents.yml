@@ -2,10 +2,11 @@
 
 one:
   data_request: uploads
-  document: MyString
-  # file_size: 0
+  document: blank.pdf
+  file_size: 10892
 
+# This one gets deleted, and isn't stored in git
 two:
   data_request: uploads
-  document: MyString
+  document: rails.png
   # file_size: 0

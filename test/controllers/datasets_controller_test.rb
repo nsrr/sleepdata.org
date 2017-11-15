@@ -377,7 +377,7 @@ class DatasetsControllerTest < ActionController::TestCase
   test "should search public dataset documentation as anonymous user" do
     get :search, params: { id: @dataset, s: "view ?/\\" }
     assert_equal "view", assigns(:term)
-    assert_equal 2, assigns(:results).count
+    assert_equal 1, assigns(:results).count
     assert_equal "# VIEW_ME.md", assigns(:results).first.to_s.split(":").last
     assert_template :search
     assert_response :success
