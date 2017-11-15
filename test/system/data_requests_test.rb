@@ -25,20 +25,16 @@ class DataRequestsTest < ApplicationSystemTestCase
     fill_in "password", with: @regular.password
     click_form_submit
 
-    # screenshot("dataset-request-existing-user")
-    # click_on "I am an individual"
-
-    # screenshot("dataset-request-existing-user")
-    # click_on "My intended use is noncommercial"
-
     screenshot("dataset-request-existing-user")
     click_on "Proceed"
 
     screenshot("dataset-request-existing-user")
+    fill_in "specific_purpose", with: "This is my specific purpose."
     click_on "Proceed"
 
     sleep(0.5) # Allow time to setup canvas for drawing
     draw_on_canvas
+    fill_in "signature_print", with: "Squiggles"
     screenshot("dataset-request-existing-user")
     click_on "Proceed"
 
@@ -49,11 +45,6 @@ class DataRequestsTest < ApplicationSystemTestCase
     click_on "Submit"
 
     screenshot("dataset-request-existing-user")
-    # visit data_requests_submitted_url(@started)
-    # screenshot("dataset-request-existing-user")
-
-    # visit data_requests_print_url(@started)
-    # screenshot("dataset-request-existing-user")
   end
 
   # data = window.$signaturePad.toData()
