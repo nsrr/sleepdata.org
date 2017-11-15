@@ -6,11 +6,11 @@
       .d-none.d-sm-block{ style: "margin-top: 20px;" }
         .row
           .col-sm-4.col-buffer
-            = link_to "Documentation", @dataset, class: "btn btn-block #{params[:action] == "pages" || current_page?(@dataset) ? "btn-light" : "btn-outline-dark"}"
+            = link_to "Documentation", @dataset, class: "btn btn-block #{params[:action] == "pages" || current_page?(@dataset) ? "btn-primary" : "btn-light"}"
           .col-sm-4.col-buffer
-            = link_to "Files", files_dataset_path(@dataset), class: "btn btn-block #{params[:action] == "files" ? "btn-light" : "btn-outline-dark"}"
+            = link_to "Files", files_dataset_path(@dataset), class: "btn btn-block #{params[:action] == "files" ? "btn-primary" : "btn-light"}"
           .col-sm-4
-            = link_to "Variables", dataset_variables_path(@dataset), class: "btn btn-block #{params[:controller] == "variables" ? "btn-light" : "btn-outline-dark"}"
+            = link_to "Variables", dataset_variables_path(@dataset), class: "btn btn-block #{params[:controller] == "variables" ? "btn-primary" : "btn-light"}"
 
   - if @variable && @dataset.dataset_version && @variable.dataset_version_id != @dataset.dataset_version_id
     .alert-danger.p-1
