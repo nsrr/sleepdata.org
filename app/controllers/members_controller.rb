@@ -2,10 +2,15 @@
 
 # Displays member profile pages.
 class MembersController < ApplicationController
+  before_action :find_member, only: [:profile_picture]
+
   # GET /members/:username/profile_picture
   def profile_picture
-    find_member
-    send_file_if_present @member&.profile_picture&.thumb
+    if @member&.profile_picture&.thumb.present?
+      send_file @member&.profile_picture&.thumb.path
+    else
+      send_file "app/assets/images/member-secret.png"
+    end
   end
 
   private

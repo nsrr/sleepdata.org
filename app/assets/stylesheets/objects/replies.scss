@@ -54,6 +54,17 @@
   padding-top: 10px;
   word-wrap: break-word;
 
+  blockquote {
+    border: 0;
+    border-left: 2px solid $p200-grey;
+    color: $p500-grey;
+    font-size: $font-size-base;
+    margin: 0 0 11px;
+    padding: 0 10px;
+  }
+}
+
+.reply-body-formatted {
   img {
     @include ignore-selection;
 
@@ -65,15 +76,6 @@
       cursor: zoom-out;
       max-height: none;
     }
-  }
-
-  blockquote {
-    border: 0;
-    border-left: 2px solid $p200-grey;
-    color: $p500-grey;
-    font-size: $font-size-base;
-    margin: 0 0 11px;
-    padding: 0 10px;
   }
 }
 
@@ -93,8 +95,6 @@
 
   img {
     @include ignore-selection;
-
-    cursor: default;
   }
 }
 
