@@ -79,7 +79,3 @@ $(document)
     else if e.which == 37 and not $('input, textarea, select, a').is(':focus')
       $('#previous-variable')[0].click() if $('#previous-variable')[0]
   )
-  .on('change', '[data-object~="variable-folder-select"]', () ->
-    $($(this).data('target')).submit()
-    false
-  )
