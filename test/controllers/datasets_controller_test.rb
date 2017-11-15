@@ -52,14 +52,12 @@ class DatasetsControllerTest < ActionController::TestCase
   end
 
   test "should get inline image for public dataset" do
-    skip # TODO: Fix test
     get :images, params: { id: @dataset, path: "rails.png", inline: "1" }
     assert_not_nil assigns(:image_file)
     assert_template "images.html.haml"
   end
 
   test "should download image for public dataset" do
-    skip # TODO: Fix test
     get :images, params: { id: @dataset, path: "rails.png" }
     assert_not_nil assigns(:image_file)
     assert_kind_of String, response.body
