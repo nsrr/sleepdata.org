@@ -1,7 +1,17 @@
 .info-container {
+  @include remove-last-child-bottom-margin;
+
   font-weight: 300;
-  margin-bottom: 10px;
-  padding: 20px 0;
+  padding: $spacer;
+  background-color: rgba(0, 0, 0, .4);
+  transition: background-color .25s ease-out;
+  border-radius: $border-radius;
+
+  @media (hover) {
+    &:hover {
+      background-color: rgba(0, 0, 0, .6);
+    }
+  }
 }
 
 .info-header {

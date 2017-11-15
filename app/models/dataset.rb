@@ -213,15 +213,8 @@ class Dataset < ApplicationRecord
                                remote_ip: remote_ip)
   end
 
-  def info_count
-    @info_count ||= begin
-      count = 0
-      count += 1 if info_what.present?
-      count += 1 if info_who.present?
-      count += 1 if info_when.present?
-      count += 1 if info_funded_by.present?
-      count
-    end
+  def info_present?
+    info_what.present? || info_who.present? || info_when.present? || info_funded_by.present?
   end
 
   def create_folders

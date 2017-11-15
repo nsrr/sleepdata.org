@@ -3,8 +3,8 @@
 
 
 - content_for :header do
-  - if @dataset.info_count > 0
-    .header-container{ style: "padding: 0;" }
+  - if @dataset.info_present?
+    .header-container.pt-0
       .container
         = render "datasets/quick_info", dataset: @dataset
   .d-flex.justify-content-center.data-request-tab-sticky
