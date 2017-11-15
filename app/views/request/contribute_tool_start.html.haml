@@ -10,40 +10,45 @@
   .sign-up-form-title
     Where is your tool hosted?
 
-  = form_for @community_tool, url: contribute_tool_set_location_path, method: :post, html: { class: "form-horizontal", id: "contribute_tool_form" } do |f|
-    .form-group
-      = f.label :url, "URL", class: "col-md-2 control-label"
+  = form_with model: @community_tool, url: contribute_tool_set_location_path, id: "contribute_tool_form", local: true do |form|
+    .form-group.row
+      = form.label :url, "URL", class: "col-md-2 col-form-label"
       .col-md-10
-        = f.text_field :url, class: "form-control", placeholder: "https://github.com/..."
+        = form.text_field :url, class: "form-control#{" is-invalid" if @community_tool.errors[:url].present?}", placeholder: "https://github.com/..."
         - if @community_tool.errors[:url].present?
-          %small.text-danger{ style: "position: absolute;"} Please enter a valid URL.
+          .invalid-feedback Please enter a valid URL.
 
-.text-center{ style: "margin-bottom: 20px" }
-  = link_to "#", data: { object: "submit", target: "#contribute_tool_form" }, class: "btn btn-primary btn-lg ", style: "width:100%; max-width: 400px;" do
+.text-center.mb-3
+  = link_to "#", data: { object: "submit-and-disable", target: "#contribute_tool_form" }, class: "btn btn-primary btn-lg ", style: "width:100%; max-width: 400px;" do
     Continue
     %i.fa.fa-caret-right
 
-.jumbotron{ style: "background-color: transparent;" }
-  %p
+
+.mt-5
+  %p.text-center.lead
     The following tools are welcome on the NSRR.
 
-  %p
-    %strong Programs
-    Complex tools can solve numerous problems when going through specific
-    research workflows. These tools typically require more description about
-    their use to get other researchers started, and may have a steeper learning
-    curve.
+.card-deck.flex-column.flex-md-row
+  .card.mb-3
+    %h4.card-header Programs
+    .card-body
+      Complex tools can solve numerous problems when going through specific
+      research workflows. These tools typically require more description about
+      their use to get other researchers started, and may have a steeper learning
+      curve.
 
-  %p
-    %strong Scripts
-    Simple tools can have a significant and positive influence on research.
-    Don't hesitate to provide a tool that has helped you streamline your
-    research. Some of the best tools focus on doing one thing well.
+  .card.mb-3
+    %h4.card-header Scripts
+    .card-body
+      Simple tools can have a significant and positive influence on research.
+      Don't hesitate to provide a tool that has helped you streamline your
+      research. Some of the best tools focus on doing one thing well.
 
-  %p
-    %strong Tutorials
-    Adding tutorials for advanced tools can allow new users to learn more
-    quickly. Highlighting certain strengths and uses for existing tools is a
-    great benefit to our community as a whole. Your tutorial should contain all
-    the files needed, as well as be highly reproducible following the steps
-    provided.
+  .card.mb-3
+    %h4.card-header Tutorials
+    .card-body
+      Adding tutorials for advanced tools can allow new users to learn more
+      quickly. Highlighting certain strengths and uses for existing tools is a
+      great benefit to our community as a whole. Your tutorial should contain all
+      the files needed, as well as be highly reproducible following the steps
+      provided.
