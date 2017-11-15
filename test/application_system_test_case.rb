@@ -24,4 +24,8 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   def click_form_submit
     find("input[type=submit]").click
   end
+
+  def click_element_by_id(name)
+    page.execute_script("$(\"##{name}\").click();")
+  end
 end

@@ -10,14 +10,14 @@ class DataRequestsTest < ApplicationSystemTestCase
     @started = data_requests(:started)
   end
 
-  test "completing a data request as existing user" do
+  test "complete a signature agreement" do
     password = "password"
     @regular.update(password: password, password_confirmation: password)
     visit data_requests_start_url(@released)
-    screenshot("dataset-request-existing-user")
+    screenshot("dataset-request-signature")
 
     click_on "Click to start"
-    screenshot("dataset-request-existing-user")
+    screenshot("dataset-request-signature")
 
     click_on "I already have an account"
 
@@ -25,26 +25,88 @@ class DataRequestsTest < ApplicationSystemTestCase
     fill_in "password", with: @regular.password
     click_form_submit
 
-    screenshot("dataset-request-existing-user")
+    screenshot("dataset-request-signature")
     click_on "Proceed"
 
-    screenshot("dataset-request-existing-user")
+    screenshot("dataset-request-signature")
     fill_in "specific_purpose", with: "This is my specific purpose."
     click_on "Proceed"
 
     sleep(0.5) # Allow time to setup canvas for drawing
     draw_on_canvas
     fill_in "signature_print", with: "Squiggles"
-    screenshot("dataset-request-existing-user")
+    screenshot("dataset-request-signature")
     click_on "Proceed"
 
-    screenshot("dataset-request-existing-user")
+    screenshot("dataset-request-signature")
     click_on "Skip"
 
-    screenshot("dataset-request-existing-user")
+    screenshot("dataset-request-signature")
     click_on "Submit"
 
-    screenshot("dataset-request-existing-user")
+    screenshot("dataset-request-signature")
+
+    click_on "Review My Data Requests"
+    screenshot("dataset-request-signature")
+  end
+
+  test "complete an attestation agreement" do
+    password = "password"
+    @regular.update(password: password, password_confirmation: password)
+    visit data_requests_start_url(datasets(:orgtwo_hamlet))
+    screenshot("dataset-request-attestation")
+
+    click_on "Click to start"
+    screenshot("dataset-request-attestation")
+
+    click_on "I already have an account"
+
+    fill_in "email", with: @regular.email
+    fill_in "password", with: @regular.password
+    click_form_submit
+
+    screenshot("dataset-request-attestation")
+    click_element_by_id "attest"
+
+    click_on "Proceed"
+
+    screenshot("dataset-request-attestation")
+    click_on "Skip"
+
+    screenshot("dataset-request-attestation")
+    click_on "Submit"
+
+    screenshot("dataset-request-attestation")
+
+    click_on "Review My Data Requests"
+    screenshot("dataset-request-attestation")
+  end
+
+  test "complete a fast agreement" do
+    password = "password"
+    @regular.update(password: password, password_confirmation: password)
+    visit data_requests_start_url(datasets(:orgthree_crowd))
+    screenshot("dataset-request-fast")
+
+    click_on "Click to start"
+    screenshot("dataset-request-fast")
+
+    click_on "I already have an account"
+
+    fill_in "email", with: @regular.email
+    fill_in "password", with: @regular.password
+    click_form_submit
+
+    # screenshot("dataset-request-fast")
+    # click_on "Skip"
+
+    screenshot("dataset-request-fast")
+    click_on "Submit"
+
+    screenshot("dataset-request-fast")
+
+    click_on "Review My Data Requests"
+    screenshot("dataset-request-fast")
   end
 
   # data = window.$signaturePad.toData()

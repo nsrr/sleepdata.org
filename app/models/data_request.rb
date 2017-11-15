@@ -58,8 +58,10 @@ class DataRequest < Agreement
     case final_legal_document.attestation_type
     when "signature"
       signature_file.present? || duly_authorized_representative_signature_file.present?
+    when "checkbox"
+      attested_at.present?
     else
-      false
+      true
     end
   end
 
