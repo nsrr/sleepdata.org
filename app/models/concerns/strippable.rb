@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Removes white space from model attributes
+# Removes white space from model attributes.
 module Strippable
   extend ActiveSupport::Concern
 
