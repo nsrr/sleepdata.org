@@ -18,11 +18,6 @@ class Agreements::RepresentativeController < ApplicationController
   def submit_signature
     if AgreementTransaction.save_agreement!(@data_request, current_user, request.remote_ip, "public_agreement_update", data_request_params: duly_authorized_params)
       @data_request.save_signature!(:duly_authorized_representative_signature_file, params[:data_uri])
-      time = Time.zone.now
-      @data_request.update(
-        duly_authorized_representative_signed_at: time,
-        duly_authorized_representative_signature_date: time
-      )
       @data_request.send_duly_authorized_representative_signature_submitted_in_background
       redirect_to representative_signature_submitted_path
     else
@@ -51,14 +46,17 @@ class Agreements::RepresentativeController < ApplicationController
   end
 
   def duly_authorized_params
+    time = Time.zone.now
     params[:data_request] ||= { blank: "1" }
     params[:data_request][:representative] = "1"
     params[:data_request][:unauthorized_to_sign] = true
-    params[:data_request][:duly_authorized_representative_signature_date] = Time.zone.today
+    params[:data_request][:duly_authorized_representative_signed_at] = time
+    params[:data_request][:duly_authorized_representative_signature_date] = time
     params.require(:data_request).permit(
       :duly_authorized_representative_signature_print,
       :duly_authorized_representative_title,
       :unauthorized_to_sign,
+      :duly_authorized_representative_signed_at,
       :duly_authorized_representative_signature_date,
       :representative
     )
