@@ -3,6 +3,7 @@
 
 - data_request_approved = current_user.data_requests.not_expired.where(status: "approved").order(id: :desc).first
 - current_data_request = current_user.data_requests.where(status: %w(started resubmit)).order(id: :desc).first
+- current_data_request = current_user.data_requests.where(status: %w(submitted)).order(id: :desc).first unless current_data_request
 - if data_request_approved || current_data_request
   %h1.dashboard-heading
     = @title

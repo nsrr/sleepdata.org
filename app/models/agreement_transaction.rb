@@ -35,6 +35,7 @@ class AgreementTransaction < ApplicationRecord
     case transaction_type
     when "agreement_create"
       filtered_changes = data_request.filtered_changes # Before save for "changes"
+      filtered_changes["status"] ||= [nil, "started"]
       save_result = data_request.save
     else
       original_dataset_ids = data_request.dataset_ids.sort
