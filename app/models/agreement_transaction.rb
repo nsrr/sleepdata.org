@@ -19,53 +19,76 @@ class AgreementTransaction < ApplicationRecord
 
   # Methods
 
-  def self.save_agreement!(data_request, params, current_user, remote_ip, transaction_type)
-    original_dataset_ids = data_request.dataset_ids.sort
-    save_result = \
-      case transaction_type
-      when "agreement_create"
-        data_request.save
-      else
-        data_request.update(params)
-      end
-
-    original_attributes = \
-      data_request.previous_changes
-                  .collect { |k, v| [k, v[0]] }
-                  .reject { |k, _v| data_request.ignored_transaction_attributes.include?(k.to_s) }
-
-    dataset_ids = data_request.dataset_ids.sort
-    original_attributes << ["dataset_ids", original_dataset_ids] if original_dataset_ids != dataset_ids
-
-    if save_result && original_attributes.count.positive?
-      agreement_transaction = create(
-        transaction_type: transaction_type,
-        agreement_id: data_request.id,
-        user: current_user,
-        remote_ip: remote_ip
-      )
-      agreement_transaction.generate_audits!(original_attributes)
+  def self.save_agreement!(data_request, current_user, remote_ip, transaction_type, data_request_params: {}, variable_changes: [])
+    (save_result, filtered_changes) = \
+      save_or_update_data_request!(data_request, data_request_params, transaction_type)
+    if save_result
+      generate_audits!(data_request, transaction_type, remote_ip, current_user, filtered_changes)
+      update_variables!(data_request, transaction_type, remote_ip, current_user, variable_changes)
     end
     save_result
   end
 
-  def generate_audits!(original_attributes)
-    original_attributes.each do |trackable_attribute, old_value|
-      value_before = (old_value.nil? ? nil : old_value.to_s)
-      value_after = \
-        if trackable_attribute == "irb"
-          data_request.irb.file.present? ? data_request.irb.file.filename : nil
-        else
-          data_request.send(trackable_attribute).nil? ? nil : data_request.send(trackable_attribute).to_s
-        end
+  def self.save_or_update_data_request!(data_request, data_request_params, transaction_type)
+    original_dataset_ids = []
+    filtered_changes = data_request.filtered_changes
+    case transaction_type
+    when "agreement_create"
+      filtered_changes = data_request.filtered_changes # Before save for "changes"
+      save_result = data_request.save
+    else
+      original_dataset_ids = data_request.dataset_ids.sort
+      save_result = data_request.update(data_request_params)
+      filtered_changes = data_request.filtered_changes # After save for "saved_changes"
+    end
+    dataset_ids = data_request.dataset_ids.sort
+    filtered_changes["dataset_ids"] = [original_dataset_ids, dataset_ids]
+    [save_result, filtered_changes]
+  end
+
+  def self.generate_audits!(data_request, transaction_type, remote_ip, current_user, filtered_changes)
+    data_request_transaction = nil
+    filtered_changes.each do |key, values|
+      value_before = (values.first.nil? ? nil : values.first.to_s)
+      value_after = (values.last.nil? ? nil : values.last.to_s)
       next if value_before == value_after
-      agreement_transaction_audits.create(
-        agreement_attribute_name: trackable_attribute.to_s,
+      data_request_transaction ||= create_data_request_transaction(data_request, transaction_type, remote_ip, current_user)
+      data_request_transaction.agreement_transaction_audits.create(
+        agreement_attribute_name: key,
         value_before: value_before,
         value_after: value_after,
-        agreement_id: agreement_id,
-        user_id: user_id
+        agreement: data_request,
+        user: current_user
       )
     end
+  end
+
+  def self.update_variables!(data_request, transaction_type, remote_ip, current_user, variable_changes)
+    data_request_transaction = nil
+    variable_changes.each do |variable, new_value|
+      agreement_variable = data_request.agreement_variables.where(final_legal_document_variable_id: variable.id).first_or_create
+      old_value = agreement_variable.value
+      agreement_variable.update(value: new_value)
+      value_before = (old_value.nil? ? nil : old_value.to_s)
+      value_after = (new_value.nil? ? nil : new_value.to_s)
+      next if value_before == value_after
+      data_request_transaction ||= create_data_request_transaction(data_request, transaction_type, remote_ip, current_user)
+      data_request_transaction.agreement_transaction_audits.create(
+        final_legal_document_variable: variable,
+        value_before: value_before,
+        value_after: value_after,
+        agreement: data_request,
+        user: current_user
+      )
+    end
+  end
+
+  def self.create_data_request_transaction(data_request, transaction_type, remote_ip, current_user)
+    data_request_transaction = create(
+      agreement: data_request,
+      transaction_type: transaction_type,
+      remote_ip: remote_ip,
+      user: current_user
+    )
   end
 end

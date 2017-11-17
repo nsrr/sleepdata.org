@@ -6,7 +6,7 @@ module ProfilesHelper
     image_tag(
       members_profile_picture_path(user.username.present? ? user.username : user.id),
       alt: "",
-      class: "rounded",
+      class: "rounded img-ignore-selection",
       size: "#{size}x#{size}",
       style: style
     )

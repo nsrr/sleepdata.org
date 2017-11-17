@@ -30,13 +30,7 @@ class DataRequestsController < ApplicationController
   def start
     @data_request = @dataset.data_requests.find_by(user: current_user, status: ["resubmit", "started"])
     return unless current_user && @data_request
-    if @data_request.final_legal_document.final_legal_document_pages.count.positive?
-      redirect_to data_requests_page_path(@data_request, 1)
-    elsif @data_request.attestation_required?
-      redirect_to data_requests_attest_path(@data_request)
-    else
-      redirect_to data_requests_proof_path(@data_request)
-    end
+    redirect_to resume_url(@data_request)
   end
 
   # POST /data/requests/:dataset_id/start
@@ -114,13 +108,12 @@ class DataRequestsController < ApplicationController
 
   # POST /data/requests/:data_request_id/page/:page
   def update_page
+    variable_changes = []
     @final_legal_document_page = @data_request.final_legal_document.final_legal_document_pages.find_by(position: params[:page])
     @data_request.final_legal_document.final_legal_document_variables.each do |variable|
-      if params.key?(variable.name)
-        agreement_variable = @data_request.agreement_variables.where(final_legal_document_variable_id: variable.id).first_or_create
-        agreement_variable.update value: params[variable.name.to_sym]
-      end
+      variable_changes << [variable, params[variable.name.to_sym]] if params.key?(variable.name)
     end
+    AgreementTransaction.save_agreement!(@data_request, current_user, request.remote_ip, "agreement_update", variable_changes: variable_changes)
     @next_page = @data_request.final_legal_document.final_legal_document_pages.find_by(position: @final_legal_document_page.position + 1)
 
     if params.dig(:data_request, :draft) == "1"
@@ -146,21 +139,20 @@ class DataRequestsController < ApplicationController
 
   # POST /data/requests/:data_request_id/attest
   def update_attest
+    hash = {}
     if @data_request.final_legal_document.attestation_type == "signature" &&
        params[:data_uri].present? && params[:signature_print].present?
       @data_request.save_signature!(:signature_file, params[:data_uri])
-      @data_request.update(
-        signature_print: params[:signature_print],
-        attested_at: Time.zone.now
-      )
+      hash[:signature_print] = params[:signature_print].to_s
+      hash[:attested_at] =  Time.zone.now
     elsif @data_request.final_legal_document.attestation_type == "checkbox"
       if params[:attest] == "1"
-        @data_request.update(attested_at: Time.zone.now)
+        hash[:attested_at] =  Time.zone.now
       elsif params[:attest] == "0"
-        @data_request.update(attested_at: nil)
+        hash[:attested_at] = nil
       end
     end
-
+    AgreementTransaction.save_agreement!(@data_request, current_user, request.remote_ip, "agreement_update", data_request_params: hash)
     if params.dig(:data_request, :draft) == "1"
       redirect_to data_requests_attest_path(@data_request), notice: "Data request draft saved successfully."
     else
@@ -180,7 +172,7 @@ class DataRequestsController < ApplicationController
       :duly_authorized_representative_signature_print,
       :duly_authorized_representative_email
     )
-    @data_request.update(data_request_params)
+    AgreementTransaction.save_agreement!(@data_request, current_user, request.remote_ip, "public_agreement_update", data_request_params: data_request_params)
     if @data_request.ready_for_duly_authorized_representative?
       @data_request.send_duly_authorized_representative_signature_request_in_background
       redirect_to data_requests_attest_path(@data_request), notice: "Duly Authorized Representative has been notified by email."
@@ -210,7 +202,7 @@ class DataRequestsController < ApplicationController
   # POST /data/requests/:id/datasets
   def update_datasets
     if clean_dataset_ids.present?
-      AgreementTransaction.save_agreement!(@data_request, data_request_params, current_user, request.remote_ip, "agreement_update")
+      AgreementTransaction.save_agreement!(@data_request, current_user, request.remote_ip, "agreement_update", data_request_params: data_request_params)
       if params.dig(:data_request, :draft) == "1"
         redirect_to data_requests_proof_path(@data_request), notice: "Data request draft saved successfully."
       else
@@ -250,7 +242,7 @@ class DataRequestsController < ApplicationController
         hash = { status: "submitted", submitted_at: current_time, last_submitted_at: current_time }
         event_type = "user_submitted"
       end
-      if AgreementTransaction.save_agreement!(@data_request, hash, current_user, request.remote_ip, "agreement_update")
+      if AgreementTransaction.save_agreement!(@data_request, current_user, request.remote_ip, "agreement_update", data_request_params: hash)
         @data_request.cleanup_variables!
         @data_request.update(current_step: 0)
         @data_request.agreement_events.create(event_type: event_type, user: current_user, event_at: current_time)
@@ -343,14 +335,17 @@ class DataRequestsController < ApplicationController
 
   def save_data_request_user
     @data_request = @dataset.data_requests.find_by(user: current_user, status: ["resubmit", "started"])
-
     if @data_request
       redirect_to resume_url(@data_request)
     else
       final_legal_document = @dataset.final_legal_document_for_user(current_user) if @dataset
       if final_legal_document
-        @data_request = @dataset.data_requests.create(user: current_user, final_legal_document: final_legal_document)
-        redirect_to data_requests_page_path(@data_request, page: 1)
+        @data_request = current_user.data_requests.new(
+          dataset_ids: @dataset.id, final_legal_document: final_legal_document
+        )
+        AgreementTransaction.save_agreement!(@data_request, current_user, request.remote_ip, "agreement_create")
+        @data_request.agreement_events.create(event_type: "user_started", user: current_user, event_at: @data_request.created_at)
+        redirect_to resume_url(@data_request)
       else
         redirect_to data_requests_no_legal_documents_path(@dataset)
       end

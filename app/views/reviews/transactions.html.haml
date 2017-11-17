@@ -26,16 +26,16 @@
           %th Type
           %th Created
       %tbody
-        %tr
+        %tr.tr-align-middle
           %td.breakword= "##{agreement_transaction_total - index}"
           - if t.user
             %td.breakword.small
-              = profile_picture_tag t.user, size: 16, style: "vertical-align: middle"
+              = profile_picture_tag t.user, size: 12
               = t.user.name
               &middot;
               = t.remote_ip
           - else
-            %td.breakword.text-muted
+            %td.breakword.small.text-muted
               Public User &middot;
               = t.remote_ip
           %td.breakword.small= t.transaction_type
@@ -54,6 +54,8 @@
         %tr
           %td.small.overflow-hover
             = a.agreement_attribute_name
+            - if a.final_legal_document_variable
+              = a.final_legal_document_variable.name
           %td.breakword{ class: "#{"text-muted" if a.value_before == nil or a.value_before == ""}" }
             - if a.value_before == nil
               nil

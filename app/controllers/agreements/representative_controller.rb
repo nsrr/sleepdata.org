@@ -16,8 +16,7 @@ class Agreements::RepresentativeController < ApplicationController
 
   # POST /representative/1-abcd/submit-signature
   def submit_signature
-    if AgreementTransaction.save_agreement!(@data_request, duly_authorized_params,
-                                            current_user, request.remote_ip, "public_agreement_update")
+    if AgreementTransaction.save_agreement!(@data_request, current_user, request.remote_ip, "public_agreement_update", data_request_params: duly_authorized_params)
       @data_request.save_signature!(:duly_authorized_representative_signature_file, params[:data_uri])
       time = Time.zone.now
       @data_request.update(

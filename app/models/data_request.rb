@@ -5,6 +5,24 @@ class DataRequest < Agreement
   # Relationships
   has_many :supporting_documents
 
+  # TODO: Remove duly_authorized_representative_signature reviewer_signature signature in v0.31.0
+  def ignored_transaction_attributes
+    %w(
+      created_at updated_at
+      current_step
+      duly_authorized_representative_token
+      printed_file
+      deleted
+      duly_authorized_representative_signature reviewer_signature signature
+    )
+  end
+  # END TODO
+
+  def filtered_changes
+    all_changes = (new_record? ? changes : saved_changes)
+    all_changes.reject { |k, _v| ignored_transaction_attributes.include?(k.to_s) }
+  end
+
   def organization_available?
     final_legal_document.data_user_type == "individual" &&
       associated_legal_documents.where(data_user_type: ["both", "organization"]).present?
@@ -26,7 +44,6 @@ class DataRequest < Agreement
   end
 
   def associated_legal_documents
-    dataset_ids = datasets.pluck(:id)
     array = []
     final_legal_document.organization.legal_documents.joins(:legal_document_datasets).published.each do |legal_document|
       array << legal_document.id if (dataset_ids - legal_document.datasets.pluck(:id)).empty?

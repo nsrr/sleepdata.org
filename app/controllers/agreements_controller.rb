@@ -119,7 +119,7 @@ class AgreementsController < ApplicationController
   # PATCH /agreements/1.js
   def update
     original_status = @data_request.status
-    if AgreementTransaction.save_agreement!(@data_request, data_request_params, current_user, request.remote_ip, "agreement_update")
+    if AgreementTransaction.save_agreement!(@data_request, current_user, request.remote_ip, "agreement_update", data_request_params: data_request_params)
       if original_status != "approved" && @data_request.status == "approved"
         @data_request.save_signature!(:reviewer_signature_file, params[:data_uri]) if params[:data_uri].present?
         @data_request.daua_approved_email(current_user)

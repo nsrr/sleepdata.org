@@ -34,7 +34,7 @@ class Agreement < ApplicationRecord
   scope :deletable, -> { where(status: %w(started resubmit closed)) }
 
   # Validations
-  validates :user_id, :status, presence: true
+  validates :status, presence: true
   validates :duly_authorized_representative_token, uniqueness: true, allow_nil: true
   validates :approval_date, :expiration_date, presence: true, if: :approved?
   validates :comments, presence: true, if: :resubmission_required?
@@ -56,19 +56,6 @@ class Agreement < ApplicationRecord
   has_many :agreement_transaction_audits
 
   # Methods
-
-  # TODO: Remove duly_authorized_representative_signature reviewer_signature signature in v0.31.0
-  def ignored_transaction_attributes
-    %w(
-      created_at updated_at
-      current_step
-      duly_authorized_representative_token
-      printed_file
-      deleted
-      duly_authorized_representative_signature reviewer_signature signature
-    )
-  end
-  # END TODO
 
   def dataset_ids=(ids)
     self.datasets = Dataset.where(id: ids)
