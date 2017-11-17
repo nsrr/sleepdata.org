@@ -8,6 +8,55 @@
       %abbr{ rel: "tooltip", data: { title: agreement_event.event_at.strftime("%-d %B %Y, %-l:%M %p"), container: "body", placement: "right" } }= "#{time_ago_in_words(agreement_event.event_at)} ago"
 
   .card-body
+    .card-columns.data-request-review-columns
+      - agreement_event.data_request.final_legal_document.final_legal_document_pages.each do |final_legal_document_page|
+        - next unless final_legal_document_page.variables.present?
+        - final_legal_document_page.variables.each do |variable|
+          - agreement_variable = agreement_event.data_request.agreement_variables.find_by(final_legal_document_variable: variable)
+          - value = (agreement_variable ? agreement_variable.value : "")
+          - if variable.variable_type == "checkbox"
+            - content = simple_check(value == "1")
+          - else
+            - content = (agreement_variable ? agreement_variable.value : "")
+          .card.data-request-review-card
+            .card-header.small
+              = variable.display_name_label
+              .float-right
+                %i.fa.fa-square-o
+            .card-body
+              = content
+      - if agreement_event.data_request.final_legal_document.attestation_type == "signature"
+        - if agreement_event.data_request.duly_authorized_representative_signature_file.present?
+          - content = image_tag(duly_authorized_representative_signature_review_path(agreement_event.data_request), class: "img-signature", alt: "")
+        - elsif agreement_event.data_request.signature_file.present?
+          - content = image_tag(signature_review_path(agreement_event.data_request), class: "img-signature", alt: "")
+        - else
+          - content = "<div class=\"text-muted\">No signature</div>".html_safe
+        .card.data-request-review-card
+          .card-header.small
+            = agreement_event.data_request.representative_designated? ? "Duly Authorized Representative" : "Data User"
+          .card-body
+            %span= content
+      .card.data-request-review-card
+        .card-header.small
+          Datasets
+        .card-body
+          - agreement_event.data_request.datasets.order(:release_date, :name).each do |dataset|
+            = render "datasets/mini", dataset: dataset
+
+      .card.data-request-review-card
+        .card-header.small
+          Supporting Documents
+        .card-body
+          -# TODO: Show supporting documents and fix URL for reviewers.
+          - agreement_event.data_request.supporting_documents.each do |supporting_document|
+            - if supporting_document.document.file.extension.casecmp("pdf").zero?
+              %i.fa.fa-file-pdf-o
+            - else
+              %i.fa.fa-file-image-o
+            = supporting_document.document.file.filename
+
+
     .row{ style: "padding-top: 20px"}
       .col-md-6.col-buffer
         %div{ style: "padding: 0 20px;" }
@@ -16,56 +65,8 @@
             = simple_format agreement_event.data_request.specific_purpose
             = simple_format agreement_event.data_request.intended_use_of_data
 
-          %div
-            - agreement_event.data_request.datasets.order(:release_date, :name).each do |dataset|
-              = render "datasets/mini", dataset: dataset
-
           - if agreement_event.data_request.irb_evidence_type == "has_evidence" && agreement_event.data_request.irb.present?
             %div{ style: "margin-top: 20px;" }
               %i.fa.fa-paperclip
               = link_to download_irb_agreement_path(agreement_event.data_request), data: { turbolinks: false } do
                 = agreement_event.data_request.irb.file.filename
-
-      .col-md-3.col-buffer
-        %div{ style: "padding-left: 20px;" }
-          - if @data_request.data_user_type == "individual"
-            %p
-              %strong= @data_request.individual_institution_name
-            %p= simple_format @data_request.individual_address
-          - elsif @data_request.data_user_type == "organization"
-            %p
-              %strong= @data_request.organization_business_name
-            %p= simple_format @data_request.organization_address
-
-      .col-md-3.col-buffer
-        %div{ style: "padding-left: 20px;" }
-          - if @data_request.data_user_type == "individual"
-            %p
-              %strong= @data_request.user.name
-            %p
-              = @data_request.individual_title
-              %br
-              = @data_request.individual_telephone
-              %br
-              = @data_request.user.email
-          - elsif @data_request.data_user_type == "organization"
-            %p
-              %strong= @data_request.organization_contact_name
-            %p
-              = @data_request.organization_contact_title
-              %br
-              = @data_request.organization_contact_telephone
-              %br
-              = @data_request.organization_contact_email
-
-    .text-center
-      - if @data_request.representative_designated?
-        - if @data_request.duly_authorized_representative_signature_file.path
-          = image_tag(duly_authorized_representative_signature_review_path(@data_request), class: "img-signature", alt: "")
-        - else
-          .text-muted No signature
-      - else
-        - if @data_request.signature_file.path
-          = image_tag(signature_review_path(@data_request), class: "img-signature", alt: "")
-        - else
-          .text-muted No signature
