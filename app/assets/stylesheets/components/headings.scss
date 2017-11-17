@@ -1,7 +1,7 @@
 .dashboard-heading {
   font-size: 2rem;
-  margin-bottom: $spacer;
   line-height: 1.2;
+  margin-bottom: $spacer;
 
   @include media-breakpoint-up(md) {
     font-size: 2.5rem;
@@ -9,7 +9,7 @@
 }
 
 .page-heading {
-  font-weight: normal !important;
+  font-weight: normal !important; // TODO: check if !important is required.
   position: relative;
   text-shadow: 0 2px 3px $standard-shadow-color;
   word-break: break-word;
@@ -21,26 +21,25 @@
 }
 
 .header-container {
-  background-image: asset-url("221_old.jpg");
   background-attachment: fixed;
+  background-color: $header-bg;
+  background-image: asset-url('221_old.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  color: $brand-white;
+  padding: 20px 0;
   position: relative;
 
   &::before {
     background-color: rgba($p500-green, .8);
-    content: " ";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
     bottom: 0;
+    content: ' ';
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
   }
-
-  background-color: $header-bg;
-  color: $brand-white;
-  padding: 20px 0;
 
   h1,
   h2,
@@ -70,14 +69,31 @@
   }
 }
 
-#top-menu {
+.top-menu {
+  position: sticky;
+  top: 0;
+  z-index: $zindex-fixed;
+
   .navbar-show-scrolled {
     display: none;
   }
 
   &.navbar-scrolled {
-    .display-small-scrolled {
-      display: block;
+    @include media-breakpoint-down(md) {
+      .display-small-scrolled {
+        display: block;
+      }
+    }
+
+    @include media-breakpoint-up(lg) {
+      .menu-body {
+        flex: initial;
+        white-space: nowrap;
+      }
+
+      .display-small-scrolled {
+        display: none;
+      }
     }
 
     .display-lg-scrolled {
@@ -90,23 +106,10 @@
 
     .navbar-show-scrolled {
       display: block;
+      flex: 1 1 70%;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      flex: 1 1 70%;
-    }
-
-    @include media-breakpoint-up(lg) {
-      #menu-body {
-        // flex: 0 1 auto; //same as initial.
-        flex: initial;
-        // flex: 1 1 30%;
-        white-space: nowrap;
-      }
-
-      .display-small-scrolled {
-        display: none;
-      }
     }
   }
 }
