@@ -178,8 +178,8 @@ class DataRequest < Agreement
     "==#{value}=="
   end
 
-  def convert_to(new_final_legal_document)
-    update(
+  def convert_to(new_final_legal_document, current_user, remote_ip)
+    hash = {
       final_legal_document: new_final_legal_document,
       attested_at: nil,
       remove_signature_file: true,
@@ -191,7 +191,8 @@ class DataRequest < Agreement
       remove_duly_authorized_representative_signature_file: true,
       duly_authorized_representative_signature_print: nil,
       duly_authorized_representative_signature_date: nil
-    )
+    }
+    AgreementTransaction.save_agreement!(self, current_user, remote_ip, "agreement_update", data_request_params: hash)
   end
 
   # Removes variables that may exist on alternate final legal document.
@@ -200,5 +201,9 @@ class DataRequest < Agreement
       .joins(:final_legal_document_variable)
       .merge(FinalLegalDocumentVariable.where.not(final_legal_document: final_legal_document))
       .destroy_all
+  end
+
+  def representative_designated?
+    duly_authorized_representative_email.present? || duly_authorized_representative_signature_print.present?
   end
 end

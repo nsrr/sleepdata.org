@@ -10,7 +10,7 @@
 
   Agreed to by: \\
   \\
-  <%= @data_request.unauthorized_to_sign? ? "DATA USER'S DULY AUTHORIZED REPRESENTATIVE" : "DATA USER" %> \\
+  <%= @data_request.representative_designated? ? "DATA USER'S DULY AUTHORIZED REPRESENTATIVE" : "DATA USER" %> \\
 
   \begin{addmargin}[1em]{1em}
     \begin{addmargin}[1em]{1em}
@@ -26,10 +26,10 @@
 
     \textbf{By (print name)}
     \begin{addmargin}[1em]{1em}
-      \hl{<%= latex_safe @data_request.unauthorized_to_sign? ? @data_request.duly_authorized_representative_signature_print : @data_request.signature_print %>} \\
+      \hl{<%= latex_safe @data_request.representative_designated? ? @data_request.duly_authorized_representative_signature_print : @data_request.signature_print %>} \\
     \end{addmargin}
 
-    <% if @data_request.unauthorized_to_sign? %>
+    <% if @data_request.representative_designated? %>
       \textbf{Professional Title}
       \begin{addmargin}[1em]{1em}
         \hl{<%= latex_safe @data_request.duly_authorized_representative_title %>} \\

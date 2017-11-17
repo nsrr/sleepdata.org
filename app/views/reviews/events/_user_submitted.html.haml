@@ -59,7 +59,7 @@
               = @data_request.organization_contact_email
 
     .text-center
-      - if @data_request.unauthorized_to_sign?
+      - if @data_request.representative_designated?
         - if @data_request.duly_authorized_representative_signature_file.path
           = image_tag(duly_authorized_representative_signature_review_path(@data_request), class: "img-signature", alt: "")
         - else

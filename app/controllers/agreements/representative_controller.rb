@@ -49,13 +49,11 @@ class Agreements::RepresentativeController < ApplicationController
     time = Time.zone.now
     params[:data_request] ||= { blank: "1" }
     params[:data_request][:representative] = "1"
-    params[:data_request][:unauthorized_to_sign] = true
     params[:data_request][:duly_authorized_representative_signed_at] = time
     params[:data_request][:duly_authorized_representative_signature_date] = time
     params.require(:data_request).permit(
       :duly_authorized_representative_signature_print,
       :duly_authorized_representative_title,
-      :unauthorized_to_sign,
       :duly_authorized_representative_signed_at,
       :duly_authorized_representative_signature_date,
       :representative
