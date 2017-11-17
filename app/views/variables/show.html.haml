@@ -98,17 +98,17 @@
     - chart = charts.first unless chart
 
     - if charts.present?
-      #chart-container{ style: "min-width: 200px; max-width: 800px; height: 400px; margin: 0 auto 20px auto;" }
+      #chart-container.mx-auto.mb-5{ style: "min-width: 200px; max-width: 800px; height: 400px;" }
 
     - if json && json["tables"]
       - (json["tables"] || []).each do |key, tables|
-        .d-none{ data: { chart_name: key } }
+        %div{ style: "display: none;", data: { chart_name: key } }
           - [tables].flatten.each do |table|
             - if table.is_a? Hash
-              %h3.text-center= table["title"]
+              %h4.text-center{ style: "font-weight: 300;" }= table["title"]
               %h5.text-center= table["subtitle"]
               .table-responsive
-                %table.table.table-hover
+                %table.table.table-hover.table-sm
                   %thead
                     - (table["headers"] || []).each do |headers|
                       %tr
