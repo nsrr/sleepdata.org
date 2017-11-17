@@ -1,29 +1,31 @@
 - @title = "Data Request Started"
 
-.header-container
+.page-box.last-box.page-box-no-padding.text-center
+  .header-container
+    .container
+      %h1.page-heading.text-center
+        Looking to
+        %i.fa.fa-cloud-download
+        download data?
   .container
-    %h1.page-heading.text-center
-      Looking to
-      %i.fa.fa-cloud-download
-      download data?
-
-.page-box.last-box.no-padding.text-center
-  .container
-    .dashboard-container2
-      %p.lead
-        Proceed through
-        %strong a few short steps
-        to submit a data request.
+    .page-box-padding
+      .lead
+        Fill out a data request in
+        = succeed "." do
+          %strong a few short steps
         %br
-        Save your progress whenever, "Submit your Application" when ready!
+        Save
+        %span.badge.badge-warning drafts
+        and
+        %span.badge.badge-primary submit
+        when ready!
 
-    .my-5
-      = link_to data_requests_start_path(@dataset), method: :post, class: "btn btn-lg btn-primary btn-shadow" do
-        Click to start
-        %i.fa.fa-caret-right
+      .my-5
+        = link_to data_requests_start_path(@dataset), method: :post, class: "btn btn-lg btn-primary btn-shadow" do
+          Click to start
+          %i.fa.fa-caret-right
 
-    .dashboard-container2
-      %p.lead
-        Any questions? Send us an email at
+      .lead
+        Questions? Send us an email at
         = succeed "." do
           = mail_to ENV["support_email"]
