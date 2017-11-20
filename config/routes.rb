@@ -226,6 +226,7 @@ Rails.application.routes.draw do
       post :update_tags
       get :transactions
       get :print
+      get :supporting_document, path: "reviews/:id/supporting_documents/:supporting_document_id"
     end
   end
 

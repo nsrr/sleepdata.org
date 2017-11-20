@@ -4,9 +4,10 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_data_request_or_redirect, only: [
-    :show, :print, :transactions, :vote, :update_tags,
-    :signature, :duly_authorized_representative_signature, :reviewer_signature,
+    :show, :print, :transactions, :vote, :update_tags, :supporting_document,
+    :signature, :duly_authorized_representative_signature, :reviewer_signature
   ]
+  before_action :find_supporting_document_or_redirect, only: [:supporting_document]
 
   # GET /reviews
   def index
@@ -31,6 +32,11 @@ class ReviewsController < ApplicationController
     else
       render "data_requests/print", layout: false
     end
+  end
+
+  # GET /reviews/:id/supporting-documents/:supporting_document_id
+  def supporting_document
+    send_file_if_present @supporting_document.document, disposition: "inline"
   end
 
   # GET /reviews/1/signature
@@ -98,5 +104,10 @@ class ReviewsController < ApplicationController
   def find_data_request_or_redirect
     @data_request = current_user.reviewable_data_requests.find_by(id: params[:id])
     empty_response_or_root_path(reviews_path) unless @data_request
+  end
+
+  def find_supporting_document_or_redirect
+    @supporting_document = @data_request.supporting_documents.find_by(id: params[:supporting_document_id])
+    empty_response_or_root_path(review_path(@data_request)) unless @supporting_document
   end
 end

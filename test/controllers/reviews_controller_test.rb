@@ -113,4 +113,11 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     get print_review_url(@data_request)
     assert_response :success
   end
+
+  test "should get supporting document" do
+    login(@reviewer)
+    get supporting_document_review_url(data_requests(:uploads), supporting_documents(:one))
+    assert_equal File.binread(supporting_documents(:one).document.path), response.body
+    assert_response :success
+  end
 end
