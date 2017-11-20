@@ -1,7 +1,7 @@
 - if data_request.supporting_documents.present?
   .small.text-muted
     %strong Supporting Documents
-    - data_request.supporting_documents.each do |supporting_document|
+    - data_request.supporting_documents.order("lower(document)").each do |supporting_document|
       - if supporting_document.document.file.extension.casecmp("pdf").zero?
         %i.fa.fa-file-pdf-o
       - else

@@ -1,7 +1,7 @@
 - style_header = false
 - show_event = !agreement_event.data_request.approved?
-.card{ data: { object: "toggle-data-request-event", target: "#agreement-event-#{agreement_event.id}" }, style: "cursor: pointer;" }
-  .card-header
+.card
+  .card-header{ data: { object: "toggle-data-request-event", target: "#agreement-event-#{agreement_event.id}" }, style: "cursor: pointer;" }
     .float-right.text-muted
       %i.fa.fa-caret-left.data-request-event-icon{ class: show_event ? "data-request-event-icon-rotate" : nil }
     = profile_picture_tag agreement_event.user, size: 18, style: "vertical-align: text-middle;width: 18px;"
@@ -31,12 +31,13 @@
           .card-body
             - unless style_header
               .small.text-muted Supporting Documents
-            - agreement_event.data_request.supporting_documents.each do |supporting_document|
-              - if supporting_document.document.file.extension.casecmp("pdf").zero?
-                %i.fa.fa-file-pdf-o
-              - else
-                %i.fa.fa-file-image-o
-              = link_to supporting_document.document.file.filename, supporting_document_review_path(agreement_event.data_request, supporting_document), data: { turbolinks: false }
+            - agreement_event.data_request.supporting_documents.order("lower(document)").each do |supporting_document|
+              %div.small
+                - if supporting_document.document.file.extension.casecmp("pdf").zero?
+                  %i.fa.fa-file-pdf-o
+                - else
+                  %i.fa.fa-file-image-o
+                = link_to supporting_document.document.file.filename, supporting_document_review_path(agreement_event.data_request, supporting_document), data: { turbolinks: false }
 
       - agreement_event.data_request.final_legal_document.final_legal_document_pages.each do |final_legal_document_page|
         - next unless final_legal_document_page.variables.present?
