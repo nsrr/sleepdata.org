@@ -1,5 +1,7 @@
 // Styles for discussions, forums, and comments.
 
+$comment-border-color: rgba(0, 0, 0, 0.125); // $p400-grey;
+
 .comment-outer {
   margin-bottom: 20px;
   position: relative;
@@ -29,8 +31,8 @@
 
 .comment-box {
   @include scale-images;
-  border: 1px solid $p400-grey;
-  border-radius: 2px;
+  border: 1px solid $comment-border-color;
+  border-radius: $border-radius;
 }
 
 .comment-action {
@@ -39,7 +41,8 @@
 
 .comment-header {
   background-color: $p50-grey;
-  border-bottom: 1px solid $p400-grey;
+  border-bottom: 1px solid $comment-border-color;
+  border-radius: calc(#{$border-radius} - 1px) calc(#{$border-radius} - 1px) 0 0;
   padding: 10px;
   position: relative;
 
@@ -68,7 +71,7 @@
 
   &.active {
     background-color: $brand-white;
-    border-color: $p400-grey;
+    border-color: $comment-border-color;
     color: $body-color;
   }
 }
@@ -77,6 +80,7 @@
   @include remove-last-child-bottom-margin;
   background-color: $brand-white;
   padding: 10px;
+  border-radius: 0 0 calc(#{$border-radius} - 1px) calc(#{$border-radius} - 1px);
 
   a {
     word-wrap: break-word;
@@ -102,7 +106,7 @@
 
 .comment-header::before {
   border-bottom: 7px solid transparent;
-  border-right: 7px solid $p400-grey;
+  border-right: 7px solid $comment-border-color;
   border-top: 7px solid transparent;
   content: '';
   height: 0;
