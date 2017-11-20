@@ -1,4 +1,4 @@
-- shhs_dataset_version = '0.11.0' # 'SHHS'
+- shhs_dataset_version = "0.12.0" # "SHHS"
 - nsrr_gem_version = '0.4.0'
 - @title = 'Demo'
 
@@ -44,7 +44,7 @@
 
   .codeblocks-container.code-input
     %code
-      nsrr download shhs/edfs
+      nsrr download shhs/polysomnography/edfs
 
   .codeblocks-container.code-output.p
     Get Token:
@@ -52,9 +52,9 @@
     %br
     Enter Token:
     %br
-    &nbsp;&nbsp;&nbsp;&nbsp;create shhs/edfs
+    &nbsp;&nbsp;&nbsp;&nbsp;create shhs/polysomnography/edfs/
     %br
-    &nbsp;&nbsp;&nbsp;&nbsp;create shhs/edfs/shhs1
+    &nbsp;&nbsp;&nbsp;&nbsp;create shhs/polysomnography/edfs/shhs1/
     %br
     %span.code-green
       downloaded
@@ -110,11 +110,31 @@
     %br
     Enter Token:
     %br
-    &nbsp;&nbsp;&nbsp;&nbsp;create shhs/datasets
+    &nbsp;&nbsp;&nbsp;&nbsp;create shhs/datasets/
     %br
     %span.code-green
       downloaded
-    = "shhs-cvd-dataset-#{shhs_dataset_version}.csv"
+    = "CHANGELOG.md"
+    %br
+    %span.code-green
+      downloaded
+    = "KNOWNISSUES.md"
+    %br
+    %span.code-green
+      downloaded
+    = "shhs1-dataset-#{shhs_dataset_version}.csv"
+    %br
+    %span.code-green
+      downloaded
+    = "shhs2-dataset-#{shhs_dataset_version}.csv"
+    %br
+    %span.code-green
+      downloaded
+    = "shhs-cvd-events-dataset-#{shhs_dataset_version}.csv"
+    %br
+    %span.code-green
+      downloaded
+    = "shhs-cvd-summary-dataset-#{shhs_dataset_version}.csv"
     %br
     %span.code-green
       downloaded
@@ -132,19 +152,11 @@
       downloaded
     = "shhs-interim-followup-dataset-#{shhs_dataset_version}.csv"
     %br
-    %span.code-green
-      downloaded
-    = "shhs1-dataset-#{shhs_dataset_version}.csv"
-    %br
-    %span.code-green
-      downloaded
-    = "shhs2-dataset-#{shhs_dataset_version}.csv"
-    %br
-    Finished in 3.507907 seconds.
+    Finished in 2.677877 seconds.
     %br
     1 folder created,
     %span.code-green
-      7 files downloaded, 35 MiBs downloaded,
+      10 files downloaded, 36 MiBs downloaded,
     0 files skipped, 0 files failed
 
   .codeblocks-container.code-input

@@ -1,5 +1,9 @@
 ## 0.29.2
 
+### Enhancement
+- **General Changes**
+  - Updated demo page to reference new location of EDFs in SHHS
+
 ## 0.29.1 (October 18, 2017)
 
 ### Bug Fix
