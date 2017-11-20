@@ -100,6 +100,12 @@
 ### Tests
 - Added tests to assure user passwords can be reset
 
+## 0.29.2 (November 20, 2017)
+
+### Enhancement
+- **General Changes**
+  - Updated demo page to reference new location of EDFs in SHHS
+
 ## 0.29.1 (October 18, 2017)
 
 ### Bug Fix
