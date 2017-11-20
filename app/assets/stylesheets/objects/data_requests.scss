@@ -183,3 +183,36 @@ $data-request-approved-expired: $p500-blue;
     border: 0;
   }
 }
+
+.noscroll {
+  overflow: hidden;
+}
+
+.data-request-fullscreen-backdrop {
+  background-color: rgba(0, 0, 0, .75);
+  bottom: 0;
+  display: none;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: $zindex-modal;
+
+  .data-request-fullscreen-content {
+    margin: $spacer auto;
+    max-height: calc(100vh - #{$spacer * 2});
+    width: 100%;
+
+    @each $breakpoint in map-keys($container-max-widths) {
+      @include media-breakpoint-up($breakpoint) {
+        max-width: #{map-get($container-max-widths, $breakpoint)};
+      }
+    }
+  }
+
+  .data-request-fullscreen-backdrop-body {
+    @include remove-last-child-bottom-margin;
+
+    overflow-y: scroll;
+  }
+}

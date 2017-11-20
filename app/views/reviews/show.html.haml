@@ -9,9 +9,9 @@
             %i.fa.fa-th-list
             Transactions
           &nbsp;
-          = link_to print_review_path(@data_request), class: "btn btn-light btn-sm", data: { turbolinks: false } do
-            %i.fa.fa-print
-            Print
+          = link_to "#", class: "btn btn-light btn-sm", data: { object: "show-data-request" } do
+            %i.fa.fa-file-text-o
+            View
 
         = @title
   .breadcrumb-container.mb-0
@@ -54,12 +54,20 @@
             .card-footer
               = name_of_datasets(dr)
 
-.card
-  %h4.card-header
-    .float-right
-      = @data_request.final_legal_document.version
-      %span.small.d-none.d-md-inline>= ".#{@data_request.final_legal_document.md5_short}"
-    = @data_request.final_legal_document.name
-  .card-body
-    - @data_request.final_legal_document.final_legal_document_pages.each do |page|
-      = legal_markdown page, reviewer: true
+.data-request-fullscreen-backdrop{ data: { object: "close-data-request" } }
+  .card.data-request-fullscreen-content
+    %h4.card-header
+      .float-right
+        = link_to "#", class: "link-unstyled", data: { object: "close-data-request" } do
+          &times;
+      = @data_request.final_legal_document.name
+    .card-body.data-request-fullscreen-backdrop-body
+      - @data_request.final_legal_document.final_legal_document_pages.each do |page|
+        = legal_markdown page, reviewer: true
+    .card-footer.text-muted
+      .float-right
+        = @data_request.final_legal_document.version
+        %span.small.d-none.d-md-inline>= ".#{@data_request.final_legal_document.md5_short}"
+      = link_to print_review_path(@data_request), class: "link-unstyled", data: { turbolinks: false } do
+        %i.fa.fa-print
+        Print

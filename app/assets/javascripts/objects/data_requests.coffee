@@ -30,3 +30,14 @@ $(document)
     else
       $(".datasets-warning").show()
   )
+  .on('click', "[data-object~=close-data-request]", (event) ->
+    return if event.target != this
+    $(".data-request-fullscreen-backdrop").removeClass("d-flex")
+    $("body").removeClass("noscroll")
+    false
+  )
+  .on('click', "[data-object~=show-data-request]", ->
+    $("body").addClass("noscroll")
+    $(".data-request-fullscreen-backdrop").addClass("d-flex")
+    false
+  )
