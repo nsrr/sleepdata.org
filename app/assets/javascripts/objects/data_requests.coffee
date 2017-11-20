@@ -41,3 +41,8 @@ $(document)
     $(".data-request-fullscreen-backdrop").addClass("d-flex")
     false
   )
+  .on('click', "[data-object~=toggle-data-request-event]", ->
+    $(this).find(".data-request-event-icon").toggleClass("data-request-event-icon-rotate")
+    $($(this).data("target")).slideToggle()
+    false
+  )

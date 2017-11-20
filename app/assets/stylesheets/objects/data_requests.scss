@@ -216,3 +216,17 @@ $data-request-approved-expired: $p500-blue;
     overflow-y: scroll;
   }
 }
+
+.data-request-event {
+  &.data-request-event-hidden {
+    display: none;
+  }
+}
+
+.data-request-event-icon {
+  transition: transform 400ms ease-out;
+
+  &.data-request-event-icon-rotate {
+    transform: rotate(-90deg);
+  }
+}
