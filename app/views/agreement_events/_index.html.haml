@@ -6,4 +6,4 @@
     - current_page = (params[:page].to_i > 1 ? params[:page].to_i : 1)
     - current_index = ((current_page - 1) * Reply::REPLIES_PER_PAGE) + index + 1
     %div{ id: "agreement_event_container_#{agreement_event.id}"}
-      = render 'agreement_events/show', agreement_event: agreement_event, number: agreement_event.number
+      = render "agreement_events/show", agreement_event: agreement_event, number: agreement_event.number

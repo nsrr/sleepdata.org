@@ -1,13 +1,11 @@
-.dropdown{ style: "display: inline-block" }
+#agreement-event-tags-dropdown.dropdown{ style: "display: inline-block", data: { path: update_tags_review_path(@data_request) } }
   = link_to "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" }, class: "comment-tab" do
     Tags
     %i.fa.fa-caret-down
+  = hidden_field_tag "data_request[tag_ids]", @data_request.tag_ids.join(",")
   .dropdown-menu
     - tag_ids = @data_request.tag_ids
     - Tag.review_tags.order(:name).each do |tag|
-      = link_to update_tags_review_path(@data_request, data_request: { tag_ids: tag_ids.include?(tag.id) ? tag_ids - [tag.id] : tag_ids + [tag.id] }), method: :post, remote: true, class: "dropdown-item" do
-        - if @data_request.tags.include?(tag)
-          %i.fa.fa-check-square-o
-        - else
-          %i.fa.fa-square-o
+      = link_to "#", data: { object: "toggle-tag", tag_id: tag.id }, class: "dropdown-item" do
+        %i.fa{ class: @data_request.tags.include?(tag) ? "fa-check-square" : "fa-square-o tag-unselected", style: "color: #{tag.color};" }
         = tag.name

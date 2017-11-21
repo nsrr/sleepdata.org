@@ -20,11 +20,3 @@
 
 @tagsReady = ->
   loadColorSelectors()
-
-$(document)
-  .on('click', '.tag-checkbox', () ->
-    if $(this).children().is(':checked')
-      $(this).addClass('tag-selected')
-    else
-      $(this).removeClass('tag-selected')
-  )
