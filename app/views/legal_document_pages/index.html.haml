@@ -7,7 +7,7 @@
         .float-right
           = link_to plus_or("New Legal Document Page"), new_organization_legal_document_legal_document_page_path(@organization, @legal_document), class: "btn btn-primary btn-shadow"
         = @title
-  .breadcrumb-container.mb-0.p-2
+  .breadcrumb-container.p-2
     .container
       %ol
         %li= link_to @organization.name, @organization

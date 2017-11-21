@@ -7,7 +7,7 @@
         .float-right
           = render "layouts/edit_delete_dropdown", edit_url: edit_broadcast_path(@broadcast), delete_url: @broadcast, delete_confirmation: "Delete #{@broadcast.title}?"
         = @title
-  .breadcrumb-container.mb-0
+  .breadcrumb-container
     .container
       .float-right
         - if @broadcast.published?
