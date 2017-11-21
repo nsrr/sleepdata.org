@@ -66,11 +66,11 @@
           %td.d-none.d-sm-block= community_tool.user.forum_name
           %td.text-center
             - if community_tool.tag_program?
-              %span.badge.badge-pill.badge-light Program
+              %small Program
             - if community_tool.tag_script?
-              %span.badge.badge-pill.badge-light Script
+              %small Script
             - if community_tool.tag_tutorial?
-              %span.badge.badge-pill.badge-light Tutorial
+              %small Tutorial
             - unless community_tool.tag_program? || community_tool.tag_script? || community_tool.tag_tutorial?
               / %span.badge.badge-pill.badge-default Unsorted
           %td.d-none.d-md-block.nowrap.text-center
