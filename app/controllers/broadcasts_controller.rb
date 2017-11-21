@@ -6,7 +6,7 @@ class BroadcastsController < ApplicationController
   before_action :check_community_manager
   before_action :find_broadcast_or_redirect, only: [:show, :edit, :update, :destroy]
 
-  layout "layouts/full_page_dashboard"
+  layout "layouts/full_page_dashboard_no_drawer"
 
   # GET /broadcasts
   def index

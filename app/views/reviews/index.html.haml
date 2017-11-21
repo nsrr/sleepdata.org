@@ -28,11 +28,11 @@
         = link_to "Data Request", reviews_path(order: (params[:order] == "agreements.id desc" ? "agreements.id" : "agreements.id desc"), status: params[:status], tag_id: params[:tag_id], search: params[:search])
       %th.d-none.d-sm-table-cell.nowrap
         = link_to "Submitted", reviews_path(order: (params[:order] == "agreements.last_submitted_at desc" ? "agreements.last_submitted_at" : nil), status: params[:status], tag_id: params[:tag_id], search: params[:search])
-      %th.d-none.d-sm-table-cell.nowrap
+      %th.d-none.d-md-table-cell.nowrap
         = link_to "Expires", reviews_path(order: (params[:order] == "agreements.expiration_date desc" ? "agreements.expiration_date" : "agreements.expiration_date desc"), status: params[:status], tag_id: params[:tag_id], search: params[:search])
-      %th.d-none.d-lg-table-cell Reviewers
-      %th.d-none.d-lg-table-cell Datasets
-      %th.d-none.d-lg-table-cell.nowrap
+      %th.d-none.d-xl-table-cell Reviewers
+      %th.d-none.d-xl-table-cell Datasets
+      %th.d-none.d-xl-table-cell.nowrap
         Tags
         .dropdown{ style: "display: inline-block" }
           = link_to "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" } do
@@ -55,13 +55,13 @@
             %i.fa.fa-info-circle
         - elsif data_request.submitted_at
           = data_request.submitted_at.strftime("%Y-%m-%d")
-      %td.d-none.d-sm-table-cell.nowrap
+      %td.d-none.d-md-table-cell.nowrap
         - if data_request.expiration_date
           = data_request.expiration_date.strftime("%Y-%m-%d")
-      %td.d-none.d-lg-table-cell.nowrap= render "reviews/reviewers", data_request: data_request
-      %td.d-none.d-lg-table-cell
+      %td.d-none.d-xl-table-cell.nowrap= render "reviews/reviewers", data_request: data_request
+      %td.d-none.d-xl-table-cell
         - data_request.datasets.order(:release_date, :name).each do |dataset|
           = render "datasets/mini", dataset: dataset
-      %td.d-none.d-lg-table-cell= render "reviews/tags", data_request: data_request
+      %td.d-none.d-xl-table-cell= render "reviews/tags", data_request: data_request
 
 .center-horizontally= paginate @data_requests, theme: "bootstrap"
