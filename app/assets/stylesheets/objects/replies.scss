@@ -48,12 +48,8 @@
 //   }
 // }
 
+.topic-preview,
 .reply-body {
-  padding-bottom: 10px;
-  padding-left: 0;
-  padding-top: 10px;
-  word-wrap: break-word;
-
   blockquote {
     border: 0;
     border-left: 2px solid $p200-grey;
@@ -62,6 +58,13 @@
     margin: 0 0 11px;
     padding: 0 10px;
   }
+}
+
+.reply-body {
+  padding-bottom: 10px;
+  padding-left: 0;
+  padding-top: 10px;
+  word-wrap: break-word;
 }
 
 .reply-body-formatted {
