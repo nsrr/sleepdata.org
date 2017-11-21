@@ -1,14 +1,13 @@
-= form_with model: @data_request, url: update_tags_review_path(@data_request), method: :post, remote: true, class: "form-horizontal" do
-  .form-group
-    .col-md-12
-      .row
-        = hidden_field_tag "data_request[tag_ids][]", nil
-        - Tag.review_tags.order( :name ).each do |tag|
-          .col-6.col-sm-4.col-md-3.col-lg-2
-            %label.checkbox.tag-checkbox{ class: "#{"tag-selected" if @data_request.tags.include?(tag)}", style: "margin-bottom: 10px;background-color:#{tag.color}" }
-              = check_box_tag "data_request[tag_ids][]", tag.id, @data_request.tags.include?(tag)
-              .tag-name.nowrap{ style: "overflow: hidden;" }
-                = tag.name
-  .form-group
-    .col-12
-      = submit_tag "Update Tags", class: "btn btn-primary"
+.dropdown{ style: "display: inline-block" }
+  = link_to "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" }, class: "comment-tab" do
+    Tags
+    %i.fa.fa-caret-down
+  .dropdown-menu
+    - tag_ids = @data_request.tag_ids
+    - Tag.review_tags.order(:name).each do |tag|
+      = link_to update_tags_review_path(@data_request, data_request: { tag_ids: tag_ids.include?(tag.id) ? tag_ids - [tag.id] : tag_ids + [tag.id] }), method: :post, remote: true, class: "dropdown-item" do
+        - if @data_request.tags.include?(tag)
+          %i.fa.fa-check-square-o
+        - else
+          %i.fa.fa-square-o
+        = tag.name

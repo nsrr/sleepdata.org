@@ -13,10 +13,10 @@
         = link_to (@agreement_event.new_record? ? "Write" : "Edit"), "#", data: { object: "view-agreement-event", action: "write", agreement_event_id: agreement_event_id }, class: "comment-tab active", tabindex: "-1"
         = link_to "Preview", "#", data: { object: "view-agreement-event view-agreement-event-preview", action: "preview", agreement_event_id: agreement_event_id, agreement_id: @agreement_event.agreement_id }, class: "comment-tab", tabindex: "-1"
         - if @agreement_event.new_record?
-          = link_to "Tags", "#", data: { object: "view-agreement-event", action: "tags", agreement_event_id: agreement_event_id }, class: "comment-tab", tabindex: "-1"
           - if current_user.system_admin?
             = link_to "Review", "#", data: { object: "view-agreement-event", action: "review", agreement_event_id: agreement_event_id }, class: "comment-tab", tabindex: "-1"
             = link_to "Datasets", "#", data: { object: "view-agreement-event", action: "datasets", agreement_event_id: agreement_event_id }, class: "comment-tab", tabindex: "-1"
+          = render "agreement_events/tags"
       .comment-body
         %div{ id: "agreement_event_write_#{agreement_event_id}" }
           = form_for [@data_request, @agreement_event], url: @agreement_event.new_record? ? agreement_agreement_events_path(@data_request) : agreement_agreement_event_path(@data_request, @agreement_event), remote: true do |f|
@@ -45,8 +45,6 @@
 
         %div{ id: "agreement_event_preview_#{agreement_event_id}", style: "display: none;min-height: 233px;" }
         - if @agreement_event.new_record?
-          %div{ id: "agreement_event_tags_#{agreement_event_id}", style: "display: none;min-height: 233px;" }
-            = render "agreement_events/tags"
           -# TODO: Specify organization for principal reviewer.
           - if current_user.principal_reviewer?
             %div{ id: "agreement_event_review_#{agreement_event_id}", style: "display: none;min-height: 233px;" }
