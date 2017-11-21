@@ -15,7 +15,7 @@
   %p
     The NSRR encourages interested researchers, educators, and trainees to
     = succeed "." do
-      = link_to "join its community", new_user_registration_path
+      = link_to_if !current_user, "join its community", new_user_registration_path
     Members can contribute their own data and tools for sharing, provide
     information and feedback on ways to improve sleep and physiological signal
     data exchange and analysis, and offer ideas on how to make NSRR and other
