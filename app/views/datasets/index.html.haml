@@ -87,7 +87,7 @@
         .dataset-card-header-ratings
           .float-right
             - if dataset.dataset_reviews.count.positive?
-              = link_to dataset_dataset_reviews_path(dataset) do
+              = link_to dataset_dataset_reviews_path(dataset), style: "text-decoration: none;" do
                 = number_with_delimiter(dataset.dataset_reviews.count)
                 .d-none.d-sm-inline-block= "Review#{"s" if dataset.dataset_reviews.count != 1}"
                 .d-inline-block.d-sm-none
