@@ -1,0 +1,29 @@
+- @title = "Supporting Documents - #{@data_request.name}"
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        Supporting Documents
+  .breadcrumb-container.p-2
+    .container
+      %ol
+        %li= link_to "Reviews", reviews_path
+        %li= link_to @data_request.name, review_path(@data_request)
+        %li{ style: "font-weight: 300; color: #9e9e9e;" } Supporting Documents
+
+#supporting-documents-upload.supporting-documents-upload{ data: { object: "supporting-documents-dropfile", upload_url: upload_supporting_documents_review_path(@data_request, format: "js"), fallback_url: new_supporting_document_review_path(@data_request) } }
+  #upload-bar.supporting-documents-upload-bar
+
+  %span#upload
+    .d-touch-span
+      = link_to "Click here", new_supporting_document_review_path(@data_request)
+      to upload documents.
+    .d-hover-span
+      Drag files (PDFs) here to attach to data request or
+      = link_to "click here", new_supporting_document_review_path(@data_request)
+      to upload documents.
+  %span#percent
+  #process
+
+#supporting-documents= render "reviews/supporting_documents", data_request: @data_request, supporting_documents: @supporting_documents

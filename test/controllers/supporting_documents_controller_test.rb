@@ -74,4 +74,13 @@ class SupportingDocumentsControllerTest < ActionDispatch::IntegrationTest
     assert_template "destroy"
     assert_response :success
   end
+
+  test "should not destroy supporting document uploaded by reviewer" do
+    login(@regular2)
+    assert_difference("SupportingDocument.count", 0) do
+      delete data_request_supporting_document_url(@uploads, supporting_documents(:reviewer_uploaded), format: "js")
+    end
+    assert_template nil
+    assert_response :success
+  end
 end

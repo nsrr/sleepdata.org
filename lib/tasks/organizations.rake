@@ -357,7 +357,7 @@ end
 def migrate_old_attachments(data_request)
   %w(irb dua executed_dua).each do |key|
     next if data_request.send(key).blank?
-    data_request.supporting_documents.create(document: data_request.send(key).file)
+    data_request.supporting_documents.create(document: data_request.send(key).file, reviewer_uploaded: true)
   end
 end
 

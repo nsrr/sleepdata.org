@@ -1,3 +1,3 @@
-= form_with model: [@data_request, supporting_document], url: data_request_supporting_documents_path, local: true do |form|
+= form_with model: [@data_request, supporting_document], url: data_request_supporting_documents_path(@data_request), local: true do |form|
   = render "forms/horizontal/file_field", form: form, object: supporting_document, key: :document, help_text: "PDF, JPG, PNG, GIF"
   = render "forms/horizontal/submit", form: form, object: [@data_request, supporting_document], submit_text: "Upload"

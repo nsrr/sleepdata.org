@@ -188,7 +188,17 @@ $data-request-approved-expired: $p500-blue;
   overflow: hidden;
 }
 
+@keyframes opacityin {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .data-request-fullscreen-backdrop {
+  animation: opacityin 250ms;
   background-color: rgba(0, 0, 0, .75);
   bottom: 0;
   display: none;

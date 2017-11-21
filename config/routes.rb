@@ -227,7 +227,12 @@ Rails.application.routes.draw do
       post :update_tags
       get :transactions
       get :print
-      get :supporting_document, path: "reviews/:id/supporting_documents/:supporting_document_id"
+      get :supporting_documents, path: "supporting-documents"
+      get :new_supporting_document, path: "supporting-documents/new"
+      post :create_supporting_document, path: "supporting-documents"
+      get :supporting_document, path: "supporting-documents/:supporting_document_id"
+      post :upload_supporting_documents, path: "supporting-documents/upload"
+      delete :destroy_supporting_document, path: "supporting-documents/:supporting_document_id"
     end
   end
 

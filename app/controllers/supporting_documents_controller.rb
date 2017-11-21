@@ -5,7 +5,8 @@ class SupportingDocumentsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_submittable_data_request_or_redirect, except: [:show]
   before_action :find_any_data_request_or_redirect, only: [:show]
-  before_action :find_supporting_document_or_redirect, only: [:show, :destroy]
+  before_action :find_supporting_document_or_redirect, only: [:show]
+  before_action :find_deletable_supporting_document_or_redirect, only: [:destroy]
 
   layout "layouts/full_page"
 
@@ -63,6 +64,11 @@ class SupportingDocumentsController < ApplicationController
 
   def find_supporting_document_or_redirect
     @supporting_document = @data_request.supporting_documents.find_by(id: params[:id])
+    empty_response_or_root_path unless @supporting_document
+  end
+
+  def find_deletable_supporting_document_or_redirect
+    @supporting_document = @data_request.supporting_documents.where(reviewer_uploaded: false).find_by(id: params[:id])
     empty_response_or_root_path unless @supporting_document
   end
 

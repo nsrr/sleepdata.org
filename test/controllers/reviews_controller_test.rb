@@ -120,4 +120,60 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     assert_equal File.binread(supporting_documents(:one).document.path), response.body
     assert_response :success
   end
+
+  test "should get supporting documents" do
+    login(@reviewer)
+    get supporting_documents_review_url(data_requests(:uploads))
+    assert_response :success
+  end
+
+  test "should get new supporting document" do
+    login(@reviewer)
+    get new_supporting_document_review_url(data_requests(:uploads))
+    assert_response :success
+  end
+
+  test "should create supporting document" do
+    login(@reviewer)
+    assert_difference("SupportingDocument.where(reviewer_uploaded: true).count") do
+      post supporting_documents_review_url(data_requests(:uploads)), params: {
+        supporting_document: { document: fixture_file_upload("../../test/support/images/rails.png") }
+      }
+    end
+    assert_redirected_to supporting_documents_review_url(data_requests(:uploads))
+  end
+
+  test "should upload multiple supporting documents" do
+    login(@reviewer)
+    assert_difference("SupportingDocument.where(reviewer_uploaded: true).count", 2) do
+      post upload_supporting_documents_review_url(data_requests(:uploads), format: "js"), params: {
+        documents: [
+          fixture_file_upload('../../test/support/images/rails.png'),
+          fixture_file_upload('../../test/support/images/rails.png')
+        ]
+      }
+    end
+    assert_template "supporting_documents"
+    assert_response :success
+  end
+
+  test "should destroy supporting document uploaded by data request user" do
+    login(@reviewer)
+    assert_difference("SupportingDocument.count", -1) do
+      delete destroy_supporting_document_review_url(data_requests(:uploads), supporting_documents(:two), format: "js")
+    end
+    assert_template "destroy_supporting_document"
+    assert_response :success
+  end
+
+  test "should destroy supporting document uploaded by reviewer" do
+    login(@reviewer)
+    assert_difference("SupportingDocument.count", -1) do
+      delete destroy_supporting_document_review_url(
+        data_requests(:uploads), supporting_documents(:reviewer_uploaded), format: "js"
+      )
+    end
+    assert_template "destroy_supporting_document"
+    assert_response :success
+  end
 end

@@ -10,3 +10,10 @@ two:
   data_request: uploads
   document: rails.png
   # file_size: 0
+
+# This one gets deleted, and isn't stored in git
+reviewer_uploaded:
+  data_request: uploads
+  document: rails.png
+  # file_size: 0
+  reviewer_uploaded: true
