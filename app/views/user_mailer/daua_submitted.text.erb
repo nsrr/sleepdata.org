@@ -1,9 +1,9 @@
 Dear <%= @reviewer.first_name %>,
 
-<%= @agreement.user.name %> [<%= @agreement.user.email %>] <%= @agreement.resubmitted? ? 'resubmitted' : 'submitted' %> a Data Access and Use Agreement.
+<%= @agreement.user.name %> [<%= @agreement.user.email %>] <%= @agreement.resubmitted? ? "resubmitted" : "submitted" %> a data request.
 
-You can review the Data Access and Use Agreement here: <%= "#{ENV['website_url']}/reviews/#{@agreement.id}" %>
+You can review the data request here: <%= "#{ENV["website_url"]}/reviews/#{@agreement.id}" %>
 
 Thank you!
 
-<%= ENV['website_name'] %>
+<%= ENV["website_name"] %>

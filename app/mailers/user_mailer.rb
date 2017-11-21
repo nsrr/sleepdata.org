@@ -16,9 +16,9 @@ class UserMailer < ApplicationMailer
     @email_to = reviewer.email
     subject = \
       if @agreement.resubmitted?
-        "#{agreement.user.name} Resubmitted a Data Access and Use Agreement"
+        "#{agreement.user.name} Resubmitted a Data Request"
       else
-        "#{agreement.user.name} Submitted a Data Access and Use Agreement"
+        "#{agreement.user.name} Submitted a Data Request"
       end
     mail(to: reviewer.email, subject: subject)
   end
@@ -28,7 +28,7 @@ class UserMailer < ApplicationMailer
     @agreement = agreement
     @email_to = agreement.user.email
     mail(to: agreement.user.email,
-         subject: "Your DAUA Submission has been Approved",
+         subject: "Your Data Request has been Approved",
          reply_to: admin.email)
   end
 
@@ -39,7 +39,7 @@ class UserMailer < ApplicationMailer
     @email_to = admin.email
     @agreement_event = agreement_event
     mail(to: @email_to,
-         subject: "#{@agreement.name}'s DAUA Status Changed to #{@agreement.status.titleize}")
+         subject: "#{@agreement.name}'s Data Request Changed to #{@agreement.status.titleize}")
   end
 
   def sent_back_for_resubmission(agreement, admin)
@@ -47,7 +47,7 @@ class UserMailer < ApplicationMailer
     @agreement = agreement
     @email_to = agreement.user.email
     mail(to: agreement.user.email,
-         subject: "Please Resubmit your DAUA",
+         subject: "Please Resubmit your Data Request",
          reply_to: admin.email)
   end
 
@@ -57,7 +57,7 @@ class UserMailer < ApplicationMailer
     @agreement_event = agreement_event
     @email_to = user.email
     mail(to: @email_to,
-         subject: "#{agreement_event.user.name} Mentioned You While Reviewing an Agreement")
+         subject: "#{agreement_event.user.name} Mentioned You While Reviewing a Data Request")
   end
 
   def hosting_request_submitted(hosting_request)

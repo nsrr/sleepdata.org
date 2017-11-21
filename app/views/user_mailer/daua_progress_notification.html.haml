@@ -1,25 +1,25 @@
 %p{ style: p_style }
   Dear
-  = succeed ',' do
+  = succeed "," do
     = @admin.first_name
 
-- case @agreement.status when 'approved'
+- case @agreement.status when "approved"
   %p{ style: p_style }
     = succeed "'s" do
       = @agreement.user.name
-    DAUA has been
+    data request has been
     %span{ style: success_style } approved
     by
-    = succeed '.' do
+    = succeed "." do
       = @agreement_event.user.name if @agreement_event.user
-- when 'resubmit'
+- when "resubmit"
   %p{ style: p_style }
     = @agreement.user.name
     has been asked to
     %span{ style: danger_style } resubmit
-    the DAUA
+    the data request
     by
-    = succeed '.' do
+    = succeed "." do
       = @agreement_event.user.name if @agreement_event.user
 
   %blockquote{ style: blockquote_style }= simple_markdown(@agreement.comments)
@@ -27,14 +27,14 @@
   %p{ style: p_style }
     = succeed "'s" do
       = @agreement.user.name
-    DAUA status has been changed to
+    data request status has been changed to
     %span{ style: default_style }= @agreement.status
     by
-    = succeed '.' do
+    = succeed "." do
       = @agreement_event.user.name if @agreement_event.user
 
 %p{ style: p_style }
-  You can review the DAUA here:
+  You can review the data request here:
 
 %p{ style: center_style }
-  = link_to 'Review DAUA', "#{ENV['website_url']}/reviews/#{@agreement.to_param}", style: link_style
+  = link_to "Review Data Request", "#{ENV["website_url"]}/reviews/#{@agreement.to_param}", style: link_style

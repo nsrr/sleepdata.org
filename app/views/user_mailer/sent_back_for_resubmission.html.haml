@@ -1,18 +1,19 @@
 %p{ style: p_style }
   Dear
-  = succeed ',' do
+  = succeed "," do
     = @agreement.user.first_name
 
 %p{ style: p_style }
-  Your Data Access and Use Agreement submission was missing required information.
+  Your data request is missing required information.
 
 %blockquote{ style: blockquote_style }= simple_markdown(@agreement.comments)
 
 %p{ style: p_style }
-  Please review the above comments, make the appropriate changes, and resubmit your DAUA here:
+  Please review the above comments, make the appropriate changes, and resubmit
+  your data request here:
 
 %p{ style: center_style }
-  = link_to "#{ENV['website_url']}/daua", "#{ENV['website_url']}/daua", style: link_style
+  = link_to "#{ENV["website_url"]}/data/requests/#{@agreement.to_param}", "#{ENV["website_url"]}/data/requests/#{@agreement.to_param}", style: link_style
 
 %p{ style: p_style }
   You can reply directly to this email if you have any questions.

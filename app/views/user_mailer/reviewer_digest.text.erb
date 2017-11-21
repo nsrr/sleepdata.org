@@ -1,18 +1,18 @@
 Dear <%= @user.first_name %>,
 
-The following agreements are awaiting your review. Please click on each and then approve or reject the agreement.
+The following data requests are awaiting your review. Please click on each and then approve or reject the data request.
 
 <% if @user.digest_reviews.present? %>
-Agreements
+Data Requests
 
 <% @user.digest_reviews.each_with_index do |review, index| %>
 ----------------------------
 
-<%= review.agreement.name_with_id %> - <%= "#{ENV['website_url']}/reviews/#{review.agreement.to_param}" %>
+<%= review.agreement.name_with_id %> - <%= "#{ENV["website_url"]}/reviews/#{review.agreement.to_param}" %>
 
 <% end %>
 <% end %>
 
-<%= "#{ENV['website_url']}/reviews" %>
+<%= "#{ENV["website_url"]}/reviews" %>
 
 <%= @footer_txt %>

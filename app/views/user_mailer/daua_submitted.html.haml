@@ -1,17 +1,17 @@
 %p{ style: p_style }
   Dear
-  = succeed ',' do
+  = succeed "," do
     = @reviewer.first_name
 %p{ style: p_style }
   = @agreement.user.name
-  = surround '[', ']' do
+  = surround "[", "]" do
     = mail_to @agreement.user.email, @agreement.user.email, style: link_style
   %span{ style: emphasis_style }
     - if @agreement.resubmitted?
       resubmitted
     - else
       submitted
-  a Data Access and Use Agreement.
+  a data request.
 
 %p{ style: center_style }
-  = link_to 'Review DAUA', "#{ENV['website_url']}/reviews/#{@agreement.to_param}", style: link_style
+  = link_to "Review Data Request", "#{ENV["website_url"]}/reviews/#{@agreement.to_param}", style: link_style

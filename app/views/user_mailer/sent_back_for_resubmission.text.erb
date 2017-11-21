@@ -1,6 +1,6 @@
 Dear <%= @agreement.user.first_name %>,
 
-Your Data Access and Use Agreement submission was missing required information.
+Your data request is missing required information.
 
 >>>
 
@@ -9,12 +9,12 @@ Your Data Access and Use Agreement submission was missing required information.
 >>>
 
 
-Please review the above comments, make the appropriate changes, and resubmit your DAUA here:
+Please review the above comments, make the appropriate changes, and resubmit your data request here:
 
-    <%= "#{ENV['website_url']}/daua" %>
+    <%= "#{ENV["website_url"]}/data/requests/#{@agreement.to_param}" %>
 
 You can reply directly to this email if you have any questions.
 
 Thank you,
 
-<%= ENV['website_name'] %>
+<%= ENV["website_name"] %>

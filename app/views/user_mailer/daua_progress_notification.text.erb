@@ -1,21 +1,21 @@
 Dear <%= @admin.first_name %>,
 
-<% case @agreement.status when 'approved' %>
-<%= @agreement.user.name %>'s DAUA has been approved by <%= @agreement_event.user.name if @agreement_event.user %>.
-<% when 'resubmit' %>
-<%= @agreement.user.name %> has been asked to resubmit the DAUA by <%= @agreement_event.user.name if @agreement_event.user %>.
+<% case @agreement.status when "approved" %>
+<%= @agreement.user.name %>'s data request has been approved by <%= @agreement_event.user.name if @agreement_event.user %>.
+<% when "resubmit" %>
+<%= @agreement.user.name %> has been asked to resubmit the data request by <%= @agreement_event.user.name if @agreement_event.user %>.
 
     <%= @agreement.comments %>
 <% else %>
-<%= @agreement.user.name %>'s DAUA status has been changed to <%= @agreement.status %> by <%= @agreement_event.user.name if @agreement_event.user %>.
+<%= @agreement.user.name %>'s data request status has been changed to <%= @agreement.status %> by <%= @agreement_event.user.name if @agreement_event.user %>.
 <% end %>
 
-You can review the DAUA here:
+You can review the data request here:
 
 
-    <%= "#{ENV['website_url']}/reviews/#{@agreement.id}" %>
+    <%= "#{ENV["website_url"]}/reviews/#{@agreement.id}" %>
 
 
 Thank you!
 
-<%= ENV['website_name'] %>
+<%= ENV["website_name"] %>
