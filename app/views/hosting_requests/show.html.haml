@@ -12,23 +12,9 @@
       %ol
         %li= link_to "Hosting Requests", hosting_requests_path
 
-.dashboard-container
-  %table.table.table-striped.table-borderless.table-hover
-    %col{ width: "25%" }
-    %col{ width: "75%" }
-    %tbody
-      %tr
-        %th.text-right User
-        %td= @hosting_request.user.name
 
-      %tr
-        %th.text-right Institution Name
-        %td= @hosting_request.institution_name
+= render "forms/horizontal/show/generic", title: "User", content: @hosting_request.user.name
 
-      %tr
-        %th.text-right Description
-        %td.markdown-container-new= simple_markdown(@hosting_request.description)
-
-      %tr
-        %th.text-right Reviewed
-        %td= simple_check @hosting_request.reviewed?
+= render "forms/horizontal/show/text", object: @hosting_request, key: :institution_name
+= render "forms/horizontal/show/markdown", object: @hosting_request, key: :description
+= render "forms/horizontal/show/check_box", object: @hosting_request, key: :reviewed

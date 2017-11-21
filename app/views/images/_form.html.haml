@@ -1,12 +1,3 @@
-= form_for @image, html: { class: 'form-horizontal' } do |f|
-  .form-group
-    = f.label :image, 'Image (JPG, GIF, PNG)', class: 'col-md-2 control-label'
-    .col-md-10
-      = f.file_field :image, class: 'form-control'
-      = f.hidden_field :image_cache
-      = render 'layouts/errors', object: @image, key: :image
-
-  .form-group
-    .col-md-offset-2.col-md-10
-      = f.submit nil, class: 'btn btn-primary'
-      = cancel
+= form_with model: image, local: true do |form|
+  = render "forms/horizontal/file_field", form: form, object: image, key: :image, help_text: "JPG, GIF, PNG"
+  = render "forms/horizontal/submit", form: form, object: image

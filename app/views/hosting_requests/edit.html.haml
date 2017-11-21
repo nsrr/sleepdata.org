@@ -12,5 +12,4 @@
         %li= link_to @hosting_request.name_was, @hosting_request
         %li Edit
 
-.dashboard-container
-  = render "form"
+= render "form", hosting_request: @hosting_request

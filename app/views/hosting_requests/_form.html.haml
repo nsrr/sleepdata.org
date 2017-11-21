@@ -1,19 +1,13 @@
-= form_for @hosting_request, html: { class: "form-horizontal" } do |f|
-  .form-group
-    = f.label :user_id, nil, class: "col-md-2 control-label"
+= form_with model: hosting_request, local: true do |form|
+  .form-group.row
+    = form.label :user_id, nil, class: "col-md-2 col-form-label"
     .col-md-10
       .form-control
-        = @hosting_request.user.name
-        = mail_to @hosting_request.user.email
-
-  .form-group
-    = f.label :institution_name, nil, class: "col-md-2 control-label"
-    .col-md-10
-      = f.text_field :institution_name, class: "form-control"
-      = render "layouts/errors", object: @hosting_request, key: :institution_name
-
-  .form-group
-    = f.label :description, nil, class: "col-md-2 control-label"
+        = hosting_request.user.name
+        = mail_to hosting_request.user.email
+  = render "forms/horizontal/text_field", form: form, object: hosting_request, key: :institution_name
+  .form-group.row
+    = form.label :description, nil, class: "col-md-2 col-form-label"
     .col-md-10
       .preview-container
         .preview-header
@@ -23,20 +17,11 @@
           = link_to "Preview", "#", data: { object: "view-content-preview", content: "#hosting_request_description" }, class: "preview-tab", tabindex: "-1"
         .preview-body
           #content_markdown
-            = f.text_area :description, rows: [[15, @hosting_request.description.to_s.count("\n") + 1].max, 25].min, class: "preview-control filedrag-container", data: { object: "expandable-text-area dropfile", default_rows: 15, upload_url: upload_images_path(update: "#hosting_request_description", format: "js"), fallback_url: new_image_path, log_id: "#log_new" }
+            = form.text_area :description, rows: [[15, hosting_request.description.to_s.count("\n") + 1].max, 25].min, class: "preview-control filedrag-container", data: { object: "expandable-text-area dropfile", default_rows: 15, upload_url: upload_images_path(update: "#hosting_request_description", format: "js"), fallback_url: new_image_path, log_id: "#log_new" }, id: "hosting_request_description"
             #log_new.filedrag
               Drag images above to insert into post.
           #content_preview.markdown-container-new{ style: "display: none;" }
-      = render "layouts/errors", object: @hosting_request, key: :description
+      = render "layouts/errors", object: hosting_request, key: :description
 
-  .form-group
-    .col-md-offset-2.col-md-10
-      .checkbox
-        %label
-          = f.check_box :reviewed
-          Reviewed
-
-  .form-group
-    .col-md-offset-2.col-md-10
-      = f.submit nil, class: "btn btn-primary"
-      = cancel
+  = render "forms/horizontal/check_box", form: form, object: hosting_request, key: :reviewed
+  = render "forms/horizontal/submit", form: form, object: hosting_request
