@@ -1,6 +1,6 @@
 %p{ style: p_style }
   Dear
-  = succeed ',' do
+  = succeed "," do
     = @data_request.duly_authorized_representative_signature_print
 
 %p{ style: p_style }
@@ -8,9 +8,9 @@
   = "#{@data_request.user.name}'s"
   Duly Authorized Representative. You may review the data request here:
 
-- signature_request_url = "#{ENV['website_url']}/representative/#{@data_request.id_and_representative_token}/signature-requested"
+- signature_request_url = "#{ENV["website_url"]}/representative/#{@data_request.id_and_representative_token}/signature-requested"
 %p{ style: center_style }
-  = link_to signature_request_url, signature_request_url, style: link_style
+  = link_to "Review Data Request", signature_request_url, style: link_style
 
 %p{ style: p_style }
   After reviewing,

@@ -1,10 +1,9 @@
 - @title = "Users"
 
 %h1.dashboard-heading
-  .float-right
-    = render "layouts/per_page", per_page: 40, object_count: @users.total_count
+  = render "layouts/breadcrumb_per_page", per_page: 40, object_count: @users.total_count
   = @title
-  = render "search/toggle"
+  = render "search/toggle", btn_class: "btn-outline-dark"
 
 = render "search/simple", url: users_path
 
