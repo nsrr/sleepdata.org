@@ -49,6 +49,10 @@ def create_standard_i(bwh)
     readable_content: "This Data Access and Use Agreement (the **\"DAUA\"**) is made by and between The Brigham and Women's Hospital, Inc., through its Division of Sleep and Circadian Disorders (**\"BWH\"**) and <full_name> (the **\"Data User\"**).\n\n**WHEREAS**, BWH is receiving support from the National Heart, Lung, and Blood Institute (**\"NHLBI\"**) to establish and operate a web-based collection of existing de-identified sleep study and related covariate data originating from past NHLBI-funded research studies (the **\"Data\"**), such collection known as the National Sleep Research Resource (**\"NSRR\"**); and\n\n**WHEREAS**, the purpose of the NSRR is to facilitate access to and use of the Data by third-party researchers to conduct sleep research in accordance with NHLBI and BWH policies and procedures (the **\"Purpose\"**); and\n\n**WHEREAS**, to the extent permitted by its Institutional Review Board and institutional policies, BWH wishes to make the Data, in the form of one or more **\"Datasets\"**, available to Data User, and Data User wishes to receive the Datasets, for this Purpose under the terms and conditions of access set forth herein;\n\n**NOW**, **THEREFORE**, in consideration of the mutual promises and covenants set forth below, the parties hereby agree as follows:\n\n1. Data User is an individual, requesting Data/Datasets under this DAUA on behalf of himself/herself as follows:\n\n<institution>\n\n<professional_title>\n\n<telephone>\n\n<email:email>\n\n<address:text>"
   )
 
+  standard_i.legal_document_variables.find_by(name: "address").update(
+    field_note: "Please provide full mailing address."
+  )
+
   standard_i.legal_document_variables.find_by(name: "professional_title").update(
     field_note: "Ex: Associate Professor, Data Manager, Student"
   )
@@ -136,6 +140,10 @@ def create_standard_o(bwh)
   standard_o.legal_document_pages.where(position: 1).first_or_create(
     title: "Data Access and Use Agreement",
     readable_content: "This Data Access and Use Agreement (the **\"DAUA\"**) is made by and between The Brigham and Women's Hospital, Inc., through its Division of Sleep and Circadian Disorders (**\"BWH\"**) and <organization_name> (the **\"Data User\"**).\n\n**WHEREAS**, BWH is receiving support from the National Heart, Lung, and Blood Institute (**\"NHLBI\"**) to establish and operate a web-based collection of existing de-identified sleep study and related covariate data originating from past NHLBI-funded research studies (the **\"Data\"**), such collection known as the National Sleep Research Resource (**\"NSRR\"**); and\n\n**WHEREAS**, the purpose of the NSRR is to facilitate access to and use of the Data by third-party researchers to conduct sleep research in accordance with NHLBI and BWH policies and procedures (the **\"Purpose\"**); and\n\n**WHEREAS**, to the extent permitted by its Institutional Review Board and institutional policies, BWH wishes to make the Data, in the form of one or more **\"Datasets\"**, available to Data User, and Data User wishes to receive the Datasets, for this Purpose under the terms and conditions of access set forth herein;\n\n**NOW**, **THEREFORE**, in consideration of the mutual promises and covenants set forth below, the parties hereby agree as follows:\n\n\n\n1. Data User is an organization/corporation, requesting Data/Datasets under this DAUA on behalf of itself and its employees, with a principal place of business and primary business contact as follows:\n\n<contact_name>\n\n<contact_title>\n\n<contact_telephone>\n\n<contact_email:email>\n\n<organization_address:text>"
+  )
+
+  standard_o.legal_document_variables.find_by(name: "organization_address").update(
+    field_note: "Please provide full mailing address."
   )
 
   standard_o.legal_document_variables.find_by(name: "contact_title").update(
