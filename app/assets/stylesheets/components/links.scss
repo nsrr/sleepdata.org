@@ -46,3 +46,14 @@
     color: inherit;
   }
 }
+
+.link-blend {
+  color: $body-color;
+
+  &:hover,
+  &:focus,
+  &:active {
+    // color: $body-color;
+    // text-decoration: none;
+  }
+}

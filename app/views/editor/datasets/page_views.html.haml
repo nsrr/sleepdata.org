@@ -1,0 +1,24 @@
+- @title = "Page Views - #{@dataset.name}"
+
+= render "datasets/header"
+
+- content_for :header do
+  .breadcrumb-container.mb-0.p-2
+    .container
+      .float-right
+        Total Page Views
+        %strong= number_with_delimiter(@page_views.sum { |p| p[1] })
+      %ol
+        %li= link_to @dataset.slug, @dataset
+        %li page views
+
+%table.table.table-striped.table-sm.table-borderless.table-sticky
+  %thead
+    %tr
+      %th Page Path
+      %th Page Views
+
+  - @page_views.reverse.each do |page_path, page_view_count|
+    %tr
+      %td= link_to page_path, "#{pages_dataset_path(@dataset)}/#{page_path}", class: "link-blend"
+      %td= number_with_delimiter page_view_count

@@ -141,6 +141,7 @@ Rails.application.routes.draw do
         get :agreements
         get :audits
         get :collaborators
+        get :page_views, path: "page-views"
         post :create_access
         post :remove_access
         post :pull_changes

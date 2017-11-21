@@ -30,6 +30,12 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get page views" do
+    login(users(:editor))
+    get :page_views, params: { id: @dataset }
+    assert_response :success
+  end
+
   test "should create access role to dataset" do
     login(users(:editor))
     assert_difference("DatasetUser.count") do

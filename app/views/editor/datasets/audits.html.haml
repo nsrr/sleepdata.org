@@ -3,95 +3,78 @@
 = render "datasets/header"
 
 - content_for :header do
-  .breadcrumb-container.mb-0.p-2
+  .breadcrumb-container.mb-0
     .container
       %ol
         %li= link_to @dataset.slug, @dataset
         %li audits
-
-= render "layouts/per_page", per_page: 20, object_count: @audits.total_count, pagination_size: "small"
 
 %table.table.table-striped
   %thead
     %tr
       %th.nowrap File Path
       %th.nowrap File Size
-      %th User
-      %th.nowrap IP Address
-      %th Medium
-      %th Downloaded
-    %tr.success
-      %th Total
-      %th.nowrap= number_to_human_size @audits.sum(:file_size)
-      %th
+      %th.nowrap
         - if params.key?(:user_id)
           %i.fa.fa-filter
           - user = User.find_by(id: params[:user_id])
-          = user ? user.name : "Anonymous"
+          = user ? user.name : "Public User"
         - else
-          %span.text-muted -
-      %th
+          User
+      %th.nowrap
         - if params.key?(:remote_ip)
           %i.fa.fa-filter
           = params[:remote_ip].blank? ? "blank" : params[:remote_ip]
         - else
-          %span.text-muted -
-      %th
+          IP Address
+      %th.nowrap
         - if params.key?(:medium)
           %i.fa.fa-filter
           = params[:medium].blank? ? "blank" : params[:medium]
         - else
-          %span.text-muted -
-      %th
-
+          Medium
+      %th Date
   - @audits.each do |audit|
     %tr
-      %td= audit.file_path
+      %td.small.breakword= audit.file_path
       %td.nowrap= number_to_human_size audit.file_size
-      %td
-        - if audit.user_id.to_s == params[:user_id]
-          = link_to audits_dataset_path(@dataset, medium: params[:medium], remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Remove Filter", placement: "left" } do
-            %i.fa.fa-times
-        - else
-          = link_to audits_dataset_path(@dataset, medium: params[:medium], user_id: audit.user_id.to_s, remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Filter by #{ audit.user ? audit.user.name : "Anonymous" }", placement: "left" } do
-            %i.fa.fa-filter
+      %td.nowrap
+        = succeed " " do
+          - if audit.user_id.to_s == params[:user_id]
+            = link_to audits_dataset_path(@dataset, medium: params[:medium], remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Remove Filter", placement: "left" } do
+              %i.fa.fa-times>
+          - else
+            = link_to audits_dataset_path(@dataset, medium: params[:medium], user_id: audit.user_id.to_s, remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Filter by #{ audit.user ? audit.user.name : "Anonymous" }", placement: "left" } do
+              %i.fa.fa-filter>
         - if audit.user
           = audit.user.name if audit.user
         - else
           %span.text-muted Anonymous
       %td.nowrap
-        - if audit.remote_ip.to_s == params[:remote_ip]
-          = link_to audits_dataset_path(@dataset, user_id: params[:user_id], medium: params[:medium]), rel: "tooltip", data: { title: "Remove Filter", placement: "left" } do
-            %i.fa.fa-times
-        - else
-          = link_to audits_dataset_path(@dataset, remote_ip: audit.remote_ip.to_s, user_id: params[:user_id], medium: params[:medium]), rel: "tooltip", data: { title: "Filter by #{audit.remote_ip}", placement: "left" } do
-            %i.fa.fa-filter
+        = succeed " " do
+          - if audit.remote_ip.to_s == params[:remote_ip]
+            = link_to audits_dataset_path(@dataset, user_id: params[:user_id], medium: params[:medium]), rel: "tooltip", data: { title: "Remove Filter", placement: "left" } do
+              %i.fa.fa-times>
+          - else
+            = link_to audits_dataset_path(@dataset, remote_ip: audit.remote_ip.to_s, user_id: params[:user_id], medium: params[:medium]), rel: "tooltip", data: { title: "Filter by #{audit.remote_ip}", placement: "left" } do
+              %i.fa.fa-filter>
         = audit.remote_ip
       %td.nowrap
-        - if audit.medium.to_s == params[:medium]
-          = link_to audits_dataset_path(@dataset, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Remove Filter", placement: "left" } do
-            %i.fa.fa-times
-        - else
-          = link_to audits_dataset_path(@dataset, medium: audit.medium.to_s, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Filter by #{audit.medium}", placement: "left" } do
-            %i.fa.fa-filter
+        = succeed " " do
+          - if audit.medium.to_s == params[:medium]
+            = link_to audits_dataset_path(@dataset, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Remove Filter", placement: "left" } do
+              %i.fa.fa-times>
+          - else
+            = link_to audits_dataset_path(@dataset, medium: audit.medium.to_s, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Filter by #{audit.medium}", placement: "left" } do
+              %i.fa.fa-filter>
         = audit.medium
-      %td= audit.created_at.strftime("%b %d, %Y &middot; %I:%M %p").html_safe
+      %td.nowrap
+        %abbr{ rel: "tooltip", data: { title: audit.created_at.strftime("%-d %B %Y, %-l:%M %p"), container: "body", placement: "left" } }
+          = abbreviated_time(audit.created_at)
 
-.center-horizontally= paginate @audits, theme: "bootstrap-small"
-
-%h2 Page Views
-
-- @page_views = @dataset.dataset_page_audits.group(:page_path).count.to_a.sort_by(&:second)
-%table.table.table-striped
-  %thead
-    %tr
-      %th Page Path
-      %th Page Views
-    %tr.success
-      %th Total
-      %th= number_with_delimiter(@page_views.sum { |p| p[1] })
-
-  - @page_views.reverse.each do |page_path, page_view_count|
-    %tr
-      %td= page_path
-      %td= number_with_delimiter page_view_count
+- page = params[:page].blank? ? 1 : params[:page].to_i
+- filtered_params = params.permit!
+.center-horizontally
+  %ul.pagination.pagination-sm.m-0
+    = render "kaminari/bootstrap/prev_page", url: url_for(filtered_params.merge(page: page - 1)), remote: false if page > 1
+    = render "kaminari/bootstrap/next_page", url: url_for(filtered_params.merge(page: page + 1)), remote: false unless @audits.count < 100
