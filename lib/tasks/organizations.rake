@@ -355,9 +355,9 @@ def migrate_signature(agreement, attribute)
 end
 
 def migrate_old_attachments(data_request)
-  %w(irb dua executed_dua).each do |key|
+  [["irb", false], ["dua", false], ["executed_dua", true]].each do |key, reviewer_uploaded|
     next if data_request.send(key).blank?
-    data_request.supporting_documents.create(document: data_request.send(key).file, reviewer_uploaded: true)
+    data_request.supporting_documents.create(document: data_request.send(key).file, reviewer_uploaded: reviewer_uploaded)
   end
 end
 
