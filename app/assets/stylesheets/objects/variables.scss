@@ -46,14 +46,14 @@
 }
 
 h1.variable-header {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 
   @include media-breakpoint-up(sm) {
-    font-size: 1.75rem;
+    font-size: 1.25rem;
   }
 
   @include media-breakpoint-up(md) {
-    font-size: 2rem;
+    font-size: 1.25rem;
   }
 }
 

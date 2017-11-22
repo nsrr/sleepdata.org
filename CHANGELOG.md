@@ -90,6 +90,8 @@
   - Simplified voting on agreements as a reviewer
   - Reviewers can upload supporting documents to a data request
   - Reviewers can mark specific data request fields for resubmission
+- **Variable Changes**
+  - Improved display of long variable names
 - **Gem Changes**
   - Updated to ruby 2.4.2
   - Updated to rails 5.1.4
