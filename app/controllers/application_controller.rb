@@ -62,6 +62,7 @@ class ApplicationController < ActionController::Base
       organizations: [],
       request: [:contribute_tool_description],
       reviews: [],
+      settings: [],
       tags: [],
       tools: [:index, :show, :new, :edit],
       topics: [:new, :edit],
