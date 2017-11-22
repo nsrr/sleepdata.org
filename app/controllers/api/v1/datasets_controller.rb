@@ -14,7 +14,7 @@ class Api::V1::DatasetsController < Api::V1::ViewerController
 
   def files
     path = @dataset.find_file_folder(params[:path])
-    folder = path.blank? ? '' : "#{path}/"
+    folder = path.blank? ? "" : "#{path}/"
     @dataset_files = if @dataset_file && @dataset_file.is_file?
                        @dataset.non_root_dataset_files.where(id: @dataset_file.id).order_by_type
                      elsif path == params[:path].to_s

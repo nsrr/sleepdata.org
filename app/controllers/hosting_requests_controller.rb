@@ -10,7 +10,7 @@ class HostingRequestsController < ApplicationController
 
   # GET /hosting-requests
   def index
-    @order = scrub_order(HostingRequest, params[:order], 'hosting_requests.institution_name')
+    @order = scrub_order(HostingRequest, params[:order], "hosting_requests.institution_name")
     @hosting_requests = HostingRequest.current.search(params[:search])
                                       .order(@order).page(params[:page]).per(40)
   end
@@ -32,7 +32,7 @@ class HostingRequestsController < ApplicationController
   # def create
   #   @hosting_request = HostingRequest.new(hosting_request_params)
   #   if @hosting_request.save
-  #     redirect_to @hosting_request, notice: 'Hosting request was successfully created.'
+  #     redirect_to @hosting_request, notice: "Hosting request was successfully created."
   #   else
   #     render :new
   #   end
@@ -41,7 +41,7 @@ class HostingRequestsController < ApplicationController
   # PATCH /hosting-requests/1
   def update
     if @hosting_request.update(hosting_request_params)
-      redirect_to @hosting_request, notice: 'Hosting request was successfully updated.'
+      redirect_to @hosting_request, notice: "Hosting request was successfully updated."
     else
       render :edit
     end
@@ -50,7 +50,7 @@ class HostingRequestsController < ApplicationController
   # DELETE /hosting-requests/1
   def destroy
     @hosting_request.destroy
-    redirect_to hosting_requests_path, notice: 'Hosting request was successfully deleted.'
+    redirect_to hosting_requests_path, notice: "Hosting request was successfully deleted."
   end
 
   private

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Provides several pages that showcase different aspects of the NSRR
+# Provides several pages that showcase different aspects of the NSRR.
 class ShowcaseController < ApplicationController
   # # GET /showcase
   # def index
@@ -8,7 +8,7 @@ class ShowcaseController < ApplicationController
 
   def show
     if showcases.include? params[:slug]
-      render params[:slug].tr('-', '_')
+      render params[:slug].tr("-", "_")
     else
       redirect_to showcase_path
     end

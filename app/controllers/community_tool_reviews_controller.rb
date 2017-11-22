@@ -32,7 +32,7 @@ class CommunityToolReviewsController < ApplicationController
     @community_tool_review = @community_tool.community_tool_reviews.where(user_id: current_user.id).new(community_tool_review_params)
     if @community_tool_review.save
       @community_tool_review.create_notification!
-      redirect_to community_tool_community_tool_reviews_path(@community_tool), notice: 'Review was successfully created.'
+      redirect_to community_tool_community_tool_reviews_path(@community_tool), notice: "Review was successfully created."
     else
       render :new
     end
@@ -42,7 +42,7 @@ class CommunityToolReviewsController < ApplicationController
   def update
     if @community_tool_review.update(community_tool_review_params)
       @community_tool_review.create_notification!
-      redirect_to community_tool_community_tool_reviews_path(@community_tool), notice: 'Review was successfully updated.'
+      redirect_to community_tool_community_tool_reviews_path(@community_tool), notice: "Review was successfully updated."
     else
       render :edit
     end
@@ -51,7 +51,7 @@ class CommunityToolReviewsController < ApplicationController
   # DELETE /community_tools/1/reviews/1
   def destroy
     @community_tool_review.destroy
-    redirect_to tool_path(@community_tool), notice: 'Review was successfully deleted.'
+    redirect_to tool_path(@community_tool), notice: "Review was successfully deleted."
   end
 
   private

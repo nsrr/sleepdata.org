@@ -38,9 +38,9 @@ class RepliesController < ApplicationController
       user_id: current_user.id, reply: @reply.id
     ).first_or_create
     case params[:vote]
-    when 'up'
+    when "up"
       @reply_user.up_vote!
-    when 'down'
+    when "down"
       @reply_user.down_vote!
     else
       @reply_user.remove_vote!
