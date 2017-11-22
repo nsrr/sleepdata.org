@@ -38,7 +38,7 @@
 
     \textbf{Date Signed}
     \begin{addmargin}[1em]{1em}
-      \hl{<%= latex_safe @data_request.authorized_signature_date ? @data_request.authorized_signature_date.strftime("%-d %B %Y") : "" %>} \\[2.0cm]
+      \hl{<%= latex_safe @data_request.authorized_signature_date&.strftime("%-d %B %Y") %>} \\[2.0cm]
     \end{addmargin}
 
   \end{addmargin}

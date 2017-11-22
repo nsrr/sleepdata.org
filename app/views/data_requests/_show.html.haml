@@ -47,6 +47,8 @@
 
   - when "submitted"
     %h4.card-header
+      .float-right
+        = render "data_requests/print_link", data_request: data_request
       - if data_request.resubmitted?
         Resubmitted
       - else
