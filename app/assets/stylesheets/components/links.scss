@@ -57,3 +57,14 @@
     // text-decoration: none;
   }
 }
+
+.link-blend-muted {
+  color: $text-muted;
+
+  &:hover,
+  &:focus,
+  &:active {
+    // color: $text-muted;
+    // text-decoration: none;
+  }
+}

@@ -219,6 +219,7 @@ Rails.application.routes.draw do
   end
 
   namespace :reviewer do
+    resources :agreement_variables, path: ":data_request_id/agreement-variables", only: [:edit, :update]
     resources :supporting_documents, path: ":data_request_id/supporting-documents" do
       collection do
         post :upload, action: :create_multiple
@@ -235,6 +236,7 @@ Rails.application.routes.draw do
       post :update_tags
       get :transactions
       get :print
+      post :update_agreement_variable
     end
   end
 

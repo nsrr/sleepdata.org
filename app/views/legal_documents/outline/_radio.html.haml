@@ -7,6 +7,8 @@
   = label_tag key, class: "form-control-label" do
     = label
     = render "legal_document_variables/edit_link", variable: variable if editable
+    - if !reviewer && resubmission_required
+      .small.text-danger= reviewer_comment
   %br
   - if reviewer
     - variable.options.each do |option|
@@ -23,7 +25,7 @@
     .custom-controls-stacked
       - variable.options.each do |option|
         = label_tag "#{key}_#{option.value}", class: "custom-control custom-radio" do
-          = radio_button_tag key, option.value, value == option.value, class: "custom-control-input", id: "#{key}_#{option.value}", data: { object: "text-input-expandable", help_element: help_element, help_text: help_text }, disabled: editable
+          = radio_button_tag key, option.value, value == option.value, class: "custom-control-input", id: "#{key}_#{option.value}", data: { object: "text-input-expandable", help_element: help_element, help_text: help_text, resubmission_required: resubmission_required }, disabled: editable
           %span.custom-control-indicator
           - if option.display_name.present?
             %span.custom-control-description= simple_markdown option.display_name

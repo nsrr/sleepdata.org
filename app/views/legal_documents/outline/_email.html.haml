@@ -8,9 +8,11 @@
   = label_tag key, class: "form-control-label" do
     = label
     = render "legal_document_variables/edit_link", variable: variable if editable
+    - if !reviewer && resubmission_required
+      .small.text-danger= reviewer_comment
   - if reviewer
     .legal-document-variable-review{ style: "min-height: 2.25rem;" }= value
   - else
-    = email_field_tag key, value, class: "form-control input-expandable", placeholder: placeholder, data: { object: "text-input-expandable", help_element: help_element, help_text: help_text }, disabled: editable
+    = email_field_tag key, value, class: "form-control input-expandable", placeholder: placeholder, data: { object: "text-input-expandable", help_element: help_element, help_text: help_text, resubmission_required: resubmission_required }, disabled: editable
     - if variable.field_note.present?
       %small.text-muted= variable.field_note

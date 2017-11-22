@@ -7,6 +7,8 @@
   = label_tag key, class: "form-control-label" do
     = label
     = render "legal_document_variables/edit_link", variable: variable if editable
+    - if !reviewer && resubmission_required
+      .small.text-danger= reviewer_comment
   %br
   - if reviewer
     .legal-document-variable-review
@@ -19,7 +21,7 @@
   - else
     = label_tag key, class: "custom-control custom-checkbox" do
       = hidden_field_tag key, "0", id: "#{key}_no"
-      = check_box_tag key, "1", value == "1", class: "custom-control-input", id: key, data: { object: "text-input-expandable", help_element: help_element, help_text: help_text }, disabled: editable
+      = check_box_tag key, "1", value == "1", class: "custom-control-input", id: key, data: { object: "text-input-expandable", help_element: help_element, help_text: help_text, resubmission_required: resubmission_required }, disabled: editable
       %span.custom-control-indicator
       - if variable.description.present?
         %span.custom-control-description= variable.description

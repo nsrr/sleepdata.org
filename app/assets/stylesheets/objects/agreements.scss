@@ -35,4 +35,9 @@
   &.agreement-helper-highlight {
     background-color: $mark-bg;
   }
+
+  &.agreement-helper-resubmission-required {
+    background-color: $danger;
+    color: $brand-white !important;
+  }
 }

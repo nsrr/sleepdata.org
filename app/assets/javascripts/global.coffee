@@ -56,6 +56,12 @@ $(document)
     $($(this).data("target")).submit()
     false
   )
+  .on("click", "[data-object~=submit-js-and-disable]", ->
+    disablerWithSpinner($(this))
+    $target = $($(this).data("target"))[0]
+    Rails.fire($target, "submit")
+    false
+  )
   .on('click', '[data-object~="submit-and-disable"]', ->
     disablerWithSpinner($(this))
     # submitTarget($(this))

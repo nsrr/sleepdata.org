@@ -10,7 +10,7 @@
     %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
       .page-box.last-box
         .agreement-heading= @title
-        - required_content = content_tag(:span, content_tag(:i, nil, class: "fa fa-exclamation-triangle") + " Required", class: "text-danger")
+        - required_content = content_tag(:span, content_tag(:i, nil, class: "fa fa-exclamation-triangle") + " Required", class: "small text-danger")
 
         - content = name_of_datasets(@data_request) + "<br/>".html_safe + link_to("add datasets", [:datasets, @data_request], class: "small", tabindex: "-1")
 
@@ -27,7 +27,9 @@
                 - content = simple_check(value == "1")
             - else
               - content = (agreement_variable ? agreement_variable.value : "")
-              - if content.blank? && variable.required?
+              - if agreement_variable&.resubmission_required?
+                - content = safe_join([content, content_tag(:div, safe_join([content_tag(:i, nil, class: "fa fa-exclamation-triangle"), " ", agreement_variable&.reviewer_comment]), class: "small text-danger")])
+              - elsif content.blank? && variable.required?
                 - content = required_content
             - display_name = variable.display_name.present? ? variable.display_name : variable.name.titleize
             - display_name = link_to display_name, data_requests_page_url(@data_request, final_legal_document_page.position), tabindex: "-1" # TODO: Make anchor work correctly `anchor: variable.name`

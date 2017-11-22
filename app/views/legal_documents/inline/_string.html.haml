@@ -6,4 +6,6 @@
 - if reviewer
   %span.legal-document-variable-review-inline= value
 - else
-  = text_field_tag key, value, class: "input-expandable form-control-inline", placeholder: "<Type #{label}>", data: { object: "text-input-expandable", help_element: help_element, help_text: help_text }, disabled: editable
+  - if !reviewer && resubmission_required
+    %small.text-danger= reviewer_comment
+  = text_field_tag key, value, class: "input-expandable form-control-inline", placeholder: "<Type #{label}>", data: { object: "text-input-expandable", help_element: help_element, help_text: help_text, resubmission_required: resubmission_required }, disabled: editable

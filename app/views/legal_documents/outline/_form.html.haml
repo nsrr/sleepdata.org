@@ -1,15 +1,19 @@
 - if @data_request
   - agreement_variable = @data_request.agreement_variables.find_by(final_legal_document_variable_id: variable.id)
-  - value = (agreement_variable ? agreement_variable.value : "")
+  - value = agreement_variable&.value
   - value = @data_request.user.email if value.blank? && variable.name == "email" && variable.variable_type == "email"
   - value = @data_request.user.full_name if value.blank? && variable.name == "full_name" && variable.variable_type == "string"
+  - reviewer_comment = agreement_variable&.reviewer_comment
+  - resubmission_required = agreement_variable&.resubmission_required? || false
 - else
   - value = ""
+  - reviewer_comment = ""
+  - resubmission_required = false
 
 - case variable.variable_type
 - when "checkbox"
-  = render "legal_documents/outline/check_box", variable: variable, editable: editable, reviewer: reviewer, value: value
+  = render "legal_documents/outline/check_box", variable: variable, editable: editable, reviewer: reviewer, value: value, reviewer_comment: reviewer_comment, resubmission_required: resubmission_required
 - when "text", "email", "radio"
-  = render "legal_documents/outline/#{variable.variable_type}", variable: variable, editable: editable, reviewer: reviewer, value: value
+  = render "legal_documents/outline/#{variable.variable_type}", variable: variable, editable: editable, reviewer: reviewer, value: value, reviewer_comment: reviewer_comment, resubmission_required: resubmission_required
 - else
-  = render "legal_documents/outline/string", variable: variable, editable: editable, reviewer: reviewer, value: value
+  = render "legal_documents/outline/string", variable: variable, editable: editable, reviewer: reviewer, value: value, reviewer_comment: reviewer_comment, resubmission_required: resubmission_required

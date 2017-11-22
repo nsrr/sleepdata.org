@@ -85,7 +85,7 @@ class Agreement < ApplicationRecord
     status == "approved"
   end
 
-  def under_review?
+  def submitted?
     status == "submitted"
   end
 

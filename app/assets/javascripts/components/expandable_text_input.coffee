@@ -34,7 +34,10 @@
 @resetHelpText = (element) ->
   $help_element = $("##{$(element).data("help-element")}_help_text")
   $help_element.removeClass("agreement-helper-success agreement-helper-highlight")
-  if isDataRequestInputValid(element)
+  if $(element).data("resubmission-required")
+    $help_element.html('<i class="fa fa-caret-left"></i> ' + $(element).data("help-text"))
+    $help_element.addClass("agreement-helper-resubmission-required")
+  else if isDataRequestInputValid(element)
     $help_element.html('<i class="fa fa-caret-left"></i> ' + $(element).data("help-text") + ' <i class="fa fa-check-square-o"></i>')
     $help_element.addClass("agreement-helper-success")
   else

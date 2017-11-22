@@ -113,11 +113,16 @@ class DataRequest < Agreement
     final_legal_document_page.variables.where(required: true).each do |variable|
       variable_count += 1
       agreement_variable = agreement_variables.find_by(final_legal_document_variable_id: variable.id)
+      next if agreement_variable&.resubmission_required?
       if variable.variable_type == "checkbox" && agreement_variable&.value == "1"
         response_count += 1
       elsif variable.variable_type != "checkbox" && agreement_variable&.value.present?
         response_count += 1
       end
+    end
+    final_legal_document_page.variables.where(required: false).each do |variable|
+      agreement_variable = agreement_variables.find_by(final_legal_document_variable_id: variable.id)
+      variable_count += 1 if agreement_variable&.resubmission_required?
     end
     [response_count, variable_count]
   end

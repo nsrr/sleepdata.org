@@ -42,24 +42,8 @@
       - agreement_event.data_request.final_legal_document.final_legal_document_pages.each do |final_legal_document_page|
         - next unless final_legal_document_page.variables.present?
         - final_legal_document_page.variables.each do |variable|
-          - agreement_variable = agreement_event.data_request.agreement_variables.find_by(final_legal_document_variable: variable)
-          - value = (agreement_variable ? agreement_variable.value : "")
-          - if variable.variable_type == "checkbox"
-            - content = simple_check(value == "1")
-          - elsif variable.variable_type == "text"
-            - content = simple_format(value)
-          - else
-            - content = (agreement_variable ? agreement_variable.value : "")
-          .card.data-request-review-card
-            - if style_header
-              .card-header.small
-                = variable.display_name_label
-                .float-right
-                  %i.fa.fa-square-o
-            .card-body
-              - unless style_header
-                .small.text-muted= variable.display_name_label
-              = content
+          - agreement_variable = agreement_event.data_request.agreement_variables.where(final_legal_document_variable: variable).first_or_create
+          .card.data-request-review-card{ id: "agreement-variable-#{agreement_variable.id}" }= render "reviewer/agreement_variables/show", agreement_variable: agreement_variable
       - if agreement_event.data_request.final_legal_document.attestation_type == "signature"
         - if agreement_event.data_request.duly_authorized_representative_signature_file.present?
           - content = image_tag(duly_authorized_representative_signature_review_path(agreement_event.data_request), class: "img-signature", alt: "")

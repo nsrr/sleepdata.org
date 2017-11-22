@@ -1,0 +1,13 @@
+.modal-header
+  %h5.modal-title
+    Resubmission:
+    = agreement_variable.final_legal_document_variable.display_name_label
+  %button.close{ type: "button", data: { dismiss: "modal" }, aria: { label: "Close" } }
+    %span{ aria: { hidden: "true" } } &times;
+.modal-body
+  = form_with model: agreement_variable, url: reviewer_agreement_variable_path(@data_request, agreement_variable), id: "agreement-variable-form" do |form|
+    = render "forms/vertical/text_field", form: form, object: agreement_variable, key: :reviewer_comment, key_name: "Required Changes", help_text: "Provide a message on required changes."
+
+.modal-footer
+  = link_to "Cancel", "#", data: { dismiss: "modal" }, class: "btn btn-light"
+  = link_to "Save", "#", data: { object: "submit-js-and-disable", target: "#agreement-variable-form" }, class: "btn btn-primary"

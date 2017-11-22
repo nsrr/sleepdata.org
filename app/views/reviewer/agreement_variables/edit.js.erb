@@ -1,0 +1,5 @@
+$("#agreement-variable-modal-content").html("<%=j render "reviewer/agreement_variables/form", agreement_variable: @agreement_variable %>")
+$("#agreement-variable-modal").modal();
+$("#agreement-variable-modal").on("shown.bs.modal", function () {
+  $("#agreement-variable-modal").find("input").trigger("focus");
+});

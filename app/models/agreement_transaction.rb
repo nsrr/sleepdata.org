@@ -70,8 +70,9 @@ class AgreementTransaction < ApplicationRecord
       agreement_variable = data_request.agreement_variables.where(final_legal_document_variable_id: variable.id).first_or_create
       old_value = agreement_variable.value
       agreement_variable.update(value: new_value)
-      value_before = (old_value.nil? ? nil : old_value.to_s)
-      value_after = (new_value.nil? ? nil : new_value.to_s)
+      value_before = (old_value.nil? ? nil : old_value.to_s.strip)
+      value_after = (new_value.nil? ? nil : new_value.to_s.strip)
+      agreement_variable.update(resubmission_required: false) if variable.variable_type == "checkbox" || value_before != value_after
       next if value_before == value_after
       data_request_transaction ||= create_data_request_transaction(data_request, transaction_type, remote_ip, current_user)
       data_request_transaction.agreement_transaction_audits.create(
