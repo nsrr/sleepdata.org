@@ -51,8 +51,8 @@ class SupportingDocumentsControllerTest < ActionDispatch::IntegrationTest
     assert_difference("SupportingDocument.count", 2) do
       post upload_data_request_supporting_documents_url(@uploads, format: "js"), params: {
         documents: [
-          fixture_file_upload('../../test/support/images/rails.png'),
-          fixture_file_upload('../../test/support/images/rails.png')
+          fixture_file_upload("../../test/support/images/rails.png"),
+          fixture_file_upload("../../test/support/images/rails.png")
         ]
       }
     end

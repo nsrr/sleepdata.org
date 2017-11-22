@@ -49,8 +49,8 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     assert_difference("SupportingDocument.where(reviewer_uploaded: true).count", 2) do
       post upload_reviewer_supporting_documents_url(@uploads, format: "js"), params: {
         documents: [
-          fixture_file_upload('../../test/support/images/rails.png'),
-          fixture_file_upload('../../test/support/images/rails.png')
+          fixture_file_upload("../../test/support/images/rails.png"),
+          fixture_file_upload("../../test/support/images/rails.png")
         ]
       }
     end
