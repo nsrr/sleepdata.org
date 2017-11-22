@@ -218,6 +218,14 @@ Rails.application.routes.draw do
     resources :legal_document_datasets, path: "legal-document-datasets"
   end
 
+  namespace :reviewer do
+    resources :supporting_documents, path: ":data_request_id/supporting-documents" do
+      collection do
+        post :upload, action: :create_multiple
+      end
+    end
+  end
+
   resources :reviews do
     member do
       get :signature
@@ -227,12 +235,6 @@ Rails.application.routes.draw do
       post :update_tags
       get :transactions
       get :print
-      get :supporting_documents, path: "supporting-documents"
-      get :new_supporting_document, path: "supporting-documents/new"
-      post :create_supporting_document, path: "supporting-documents"
-      get :supporting_document, path: "supporting-documents/:supporting_document_id"
-      post :upload_supporting_documents, path: "supporting-documents/upload"
-      delete :destroy_supporting_document, path: "supporting-documents/:supporting_document_id"
     end
   end
 

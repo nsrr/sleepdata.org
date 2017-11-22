@@ -20,7 +20,7 @@
             %i.fa.fa-file-pdf-o
           - else
             %i.fa.fa-file-image-o
-          = link_to supporting_document.document.file.filename, supporting_document_review_path(@data_request, supporting_document), data: { turbolinks: false }
+          = link_to supporting_document.document.file.filename, reviewer_supporting_document_path(@data_request, supporting_document), data: { turbolinks: false }
         %td.nowrap
           - if supporting_document.reviewer_uploaded?
             Reviewer
@@ -28,7 +28,7 @@
             = @data_request.user.name
         %td.small= number_to_human supporting_document.file_size
         %td.text-center
-          = link_to supporting_document_review_path(@data_request, supporting_document), method: :delete, remote: true, data: { confirm: "Delete #{supporting_document.document.file.filename}?" }, class: "btn btn-sm btn-outline-danger" do
+          = link_to reviewer_supporting_document_path(@data_request, supporting_document), method: :delete, remote: true, data: { confirm: "Delete #{supporting_document.document.file.filename}?" }, class: "btn btn-sm btn-outline-danger" do
             %i.fa.fa-trash
 
   .center-horizontally= paginate @supporting_documents, theme: "bootstrap-small"

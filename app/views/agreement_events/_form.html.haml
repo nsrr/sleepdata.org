@@ -7,7 +7,7 @@
       .comment-header
         - if @agreement_event.new_record?
           .float-right
-            = link_to supporting_documents_review_path(@data_request), class: "link-blend" do
+            = link_to reviewer_supporting_documents_path(@data_request), class: "link-blend" do
               %i.fa.fa-paperclip
         - else
           .float-right

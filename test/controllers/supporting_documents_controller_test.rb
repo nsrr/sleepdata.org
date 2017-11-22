@@ -10,7 +10,7 @@ class SupportingDocumentsControllerTest < ActionDispatch::IntegrationTest
     @supporting_document = supporting_documents(:one)
   end
 
-  def support_document_params
+  def supporting_document_params
     {
       document: fixture_file_upload("../../test/support/images/rails.png")
     }
@@ -39,7 +39,9 @@ class SupportingDocumentsControllerTest < ActionDispatch::IntegrationTest
   test "should create supporting document" do
     login(@regular2)
     assert_difference("SupportingDocument.count") do
-      post data_request_supporting_documents_url(@uploads), params: { supporting_document: support_document_params }
+      post data_request_supporting_documents_url(@uploads), params: {
+        supporting_document: supporting_document_params
+      }
     end
     assert_redirected_to data_request_supporting_documents_url(@uploads)
   end

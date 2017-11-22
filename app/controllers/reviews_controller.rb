@@ -5,12 +5,8 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_data_request_or_redirect, only: [
     :show, :print, :transactions, :vote, :update_tags,
-    :signature, :duly_authorized_representative_signature, :reviewer_signature,
-    :supporting_documents, :supporting_document,
-    :new_supporting_document, :create_supporting_document,
-    :upload_supporting_documents, :destroy_supporting_document
+    :signature, :duly_authorized_representative_signature, :reviewer_signature
   ]
-  before_action :find_supporting_document_or_redirect, only: [:supporting_document, :destroy_supporting_document]
 
   # GET /reviews
   def index
@@ -35,46 +31,6 @@ class ReviewsController < ApplicationController
     else
       render "data_requests/print", layout: false
     end
-  end
-
-  # GET /reviews/:id/supporting-documents
-  def supporting_documents
-    @supporting_documents = @data_request.supporting_documents.order("lower(document)").page(params[:page]).per(40)
-  end
-
-  # GET /reviews/:id/supporting-documents/new
-  def new_supporting_document
-    @supporting_document = @data_request.supporting_documents.new
-  end
-
-  # POST /reviews/:id/supporting-documents
-  def create_supporting_document
-    @supporting_document = @data_request.supporting_documents.new(supporting_document_params)
-    if @supporting_document.save
-      redirect_to supporting_documents_review_path(@data_request), notice: "Supporting document was successfully created."
-    else
-      render :new_supporting_document
-    end
-  end
-
-  # GET /reviews/:id/supporting-documents/:supporting_document_id
-  def supporting_document
-    send_file_if_present @supporting_document.document, disposition: "inline"
-  end
-
-  # POST /reviews/:id/supporting-documents/upload.js
-  def upload_supporting_documents
-    params[:documents].each do |document|
-      @data_request.supporting_documents.create(document: document, reviewer_uploaded: true)
-    end
-    @supporting_documents = @data_request.supporting_documents.page(params[:page]).per(40)
-    render :supporting_documents
-  end
-
-  # DELETE /reviews/:id/supporting-documents/1.js
-  def destroy_supporting_document
-    @supporting_document.destroy
-    render :supporting_documents if @data_request.supporting_documents.count.zero?
   end
 
   # GET /reviews/1/signature
@@ -142,16 +98,5 @@ class ReviewsController < ApplicationController
   def find_data_request_or_redirect
     @data_request = current_user.reviewable_data_requests.find_by(id: params[:id])
     empty_response_or_root_path(reviews_path) unless @data_request
-  end
-
-  def find_supporting_document_or_redirect
-    @supporting_document = @data_request.supporting_documents.find_by(id: params[:supporting_document_id])
-    empty_response_or_root_path(review_path(@data_request)) unless @supporting_document
-  end
-
-  def supporting_document_params
-    params[:supporting_document] ||= { blank: "1" }
-    params[:supporting_document][:reviewer_uploaded] = true
-    params.require(:supporting_document).permit(:document, :reviewer_uploaded)
   end
 end

@@ -37,7 +37,7 @@
                   %i.fa.fa-file-pdf-o
                 - else
                   %i.fa.fa-file-image-o
-                = link_to supporting_document.document.file.filename, supporting_document_review_path(agreement_event.data_request, supporting_document), data: { turbolinks: false }
+                = link_to supporting_document.document.file.filename, reviewer_supporting_document_path(agreement_event.data_request, supporting_document), data: { turbolinks: false }
 
       - agreement_event.data_request.final_legal_document.final_legal_document_pages.each do |final_legal_document_page|
         - next unless final_legal_document_page.variables.present?

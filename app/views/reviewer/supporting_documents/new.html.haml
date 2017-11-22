@@ -10,10 +10,10 @@
       %ol
         %li= link_to "Reviews", reviews_path
         %li= link_to @data_request.name, review_path(@data_request)
-        %li= link_to "Supporting Documents", supporting_documents_review_path(@data_request)
+        %li= link_to "Supporting Documents", reviewer_supporting_documents_path(@data_request)
         %li{ style: "font-weight: 300; color: #9e9e9e;" } New
 
 - supporting_document = @supporting_document
-= form_with model: [@data_request, supporting_document], url: supporting_documents_review_path(@data_request), local: true do |form|
+= form_with model: [@data_request, supporting_document], url: reviewer_supporting_documents_path(@data_request), local: true do |form|
   = render "forms/horizontal/file_field", form: form, object: supporting_document, key: :document, help_text: "PDF, JPG, PNG, GIF"
-  = render "forms/horizontal/submit", form: form, object: [@data_request, supporting_document], submit_text: "Upload", cancel: supporting_documents_review_path(@data_request)
+  = render "forms/horizontal/submit", form: form, object: [@data_request, supporting_document], submit_text: "Upload", cancel: reviewer_supporting_documents_path(@data_request)

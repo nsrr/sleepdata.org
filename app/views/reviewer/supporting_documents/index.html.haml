@@ -12,18 +12,18 @@
         %li= link_to @data_request.name, review_path(@data_request)
         %li{ style: "font-weight: 300; color: #9e9e9e;" } Supporting Documents
 
-#supporting-documents-upload.supporting-documents-upload{ data: { object: "supporting-documents-dropfile", upload_url: upload_supporting_documents_review_path(@data_request, format: "js"), fallback_url: new_supporting_document_review_path(@data_request) } }
+#supporting-documents-upload.supporting-documents-upload{ data: { object: "supporting-documents-dropfile", upload_url: upload_reviewer_supporting_documents_path(@data_request, format: "js"), fallback_url: new_reviewer_supporting_document_path(@data_request) } }
   #upload-bar.supporting-documents-upload-bar
 
   %span#upload
     .d-touch-span
-      = link_to "Click here", new_supporting_document_review_path(@data_request)
+      = link_to "Click here", new_reviewer_supporting_document_path(@data_request)
       to upload documents.
     .d-hover-span
       Drag files (PDFs) here to attach to data request or
-      = link_to "click here", new_supporting_document_review_path(@data_request)
+      = link_to "click here", new_reviewer_supporting_document_path(@data_request)
       to upload documents.
   %span#percent
   #process
 
-#supporting-documents= render "reviews/supporting_documents", data_request: @data_request, supporting_documents: @supporting_documents
+#supporting-documents= render "reviewer/supporting_documents/index", data_request: @data_request, supporting_documents: @supporting_documents
