@@ -18,17 +18,22 @@
         - @data_request.final_legal_document.final_legal_document_pages.each do |final_legal_document_page|
           - final_legal_document_page.variables.each do |variable|
             - agreement_variable = @data_request.agreement_variables.find_by(final_legal_document_variable_id: variable.id)
-            - value = (agreement_variable ? agreement_variable.value : "")
+            - value = agreement_variable&.value
 
             - if variable.variable_type == "checkbox"
               - if value != "1" && variable.required?
                 - content = required_content
               - else
                 - content = simple_check(value == "1")
-            - else
-              - content = (agreement_variable ? agreement_variable.value : "")
+            - elsif variable.variable_type == "radio"
+              - option = variable.options.find_by(value: value)
+              - content = simple_markdown(option&.display_name || value)
               - if agreement_variable&.resubmission_required?
-                - content = safe_join([content, content_tag(:div, safe_join([content_tag(:i, nil, class: "fa fa-exclamation-triangle"), " ", agreement_variable&.reviewer_comment]), class: "small text-danger")])
+                - content = safe_join([content_tag(:div, safe_join([content_tag(:i, nil, class: "fa fa-exclamation-triangle"), " ", agreement_variable&.reviewer_comment]), class: "small text-danger"), content])
+            - else
+              - content = value
+              - if agreement_variable&.resubmission_required?
+                - content = safe_join([content_tag(:div, safe_join([content_tag(:i, nil, class: "fa fa-exclamation-triangle"), " ", agreement_variable&.reviewer_comment]), class: "small text-danger"), content])
               - elsif content.blank? && variable.required?
                 - content = required_content
             - display_name = variable.display_name.present? ? variable.display_name : variable.name.titleize

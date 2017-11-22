@@ -2,6 +2,9 @@
 - variable = agreement_variable.final_legal_document_variable
 - if variable.variable_type == "checkbox"
   - content = simple_check(value == "1")
+- elsif variable.variable_type == "radio"
+  - option = variable.options.find_by(value: value)
+  - content = simple_markdown(option&.display_name || value)
 - elsif variable.variable_type == "text"
   - content = simple_format(value)
 - else
