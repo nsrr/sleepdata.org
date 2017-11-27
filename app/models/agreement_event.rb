@@ -48,10 +48,10 @@ class AgreementEvent < ApplicationRecord
            through: :agreement_event_tags, source: :tag
   has_many :agreement_event_datasets
   has_many :added_datasets,
-           -> { where(agreement_event_datasets: { added: true }) },
+           -> { where(agreement_event_datasets: { added: true }).order(:slug) },
            through: :agreement_event_datasets, source: :dataset
   has_many :removed_datasets,
-           -> { where(agreement_event_datasets: { added: false }) },
+           -> { where(agreement_event_datasets: { added: false }).order(:slug) },
            through: :agreement_event_datasets, source: :dataset
 
   # Methods
