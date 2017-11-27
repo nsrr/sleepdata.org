@@ -21,9 +21,10 @@
     - groups = []
     - groups << { name: "My Dashboard", url: dashboard_path, pages: dashboard_pages, active: %w(internal data_requests broadcasts).include?(params[:controller]), icon: content_tag(:i, nil, class: "fa fa-home") }
     - if current_user.reviewable_data_requests.count.positive?
-      - review_pages = [{ name: "Reviews", url: reviews_path }]
+      - voting_count = current_user.reviewable_data_requests.without_vote(current_user).count
+      - review_pages = [{ name: "Reviews", url: reviews_path(voted: voting_count > 0 ? 0 : nil) }]
       - review_pages = []
-      - groups << { name: "Reviews", url: reviews_path, active: params[:controller] == "reviews", pages: review_pages, icon: content_tag(:i, nil, class: "fa fa-balance-scale"), count: 2 }
+      - groups << { name: "Reviews", url: reviews_path(voted: voting_count > 0 ? 0 : nil), active: params[:controller] == "reviews", pages: review_pages, icon: content_tag(:i, nil, class: "fa fa-balance-scale"), count: voting_count }
     - groups << { name: "Settings", url: settings_path, pages: settings_pages, active: params[:controller] == "settings", icon: content_tag(:i, nil, class: "fa fa-cog") }
     - if current_user.admin?
       - admin_pages = [{ name: "Hosting Requests", url: hosting_requests_path, count: HostingRequest.current.where(reviewed: false).count, active: params[:controller] == "hosting_requests" }, { name: "Replies", url: admin_replies_path }, { name: "Users", url: users_path, active: params[:controller] == "users" }]

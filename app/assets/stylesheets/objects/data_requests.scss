@@ -245,3 +245,7 @@ $data-request-approved-expired: $p500-blue;
   filter: blur(3px);
   pointer-events: none;
 }
+
+.data-request-review-vote-cleared {
+  opacity: .5;
+}

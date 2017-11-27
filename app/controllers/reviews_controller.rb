@@ -13,6 +13,8 @@ class ReviewsController < ApplicationController
     params[:order] = "agreements.last_submitted_at desc" if params[:order].blank?
     @order = scrub_order(DataRequest, params[:order], [:id])
     agreement_scope = current_user.reviewable_data_requests.search(params[:search]).order(@order)
+    agreement_scope = agreement_scope.without_vote(current_user) if params[:voted].to_s == "0"
+    agreement_scope = agreement_scope.with_vote(current_user) if params[:voted].to_s == "1"
     agreement_scope = agreement_scope.with_tag(params[:tag_id]) if params[:tag_id].present?
     agreement_scope = agreement_scope.where(status: params[:status]) if params[:status].present?
     @data_requests = agreement_scope.page(params[:page]).per(40)
@@ -56,14 +58,19 @@ class ReviewsController < ApplicationController
   def vote
     @data_request_review = @data_request.data_request_reviews.where(user: current_user).first_or_create
     original_approval = @data_request_review.approved
-    @data_request_review.update(approved: (params[:approved].to_s == "1")) if %w(0 1).include?(params[:approved].to_s)
+    original_vote_cleared = @data_request_review.vote_cleared?
+    @data_request_review.update(approved: (params[:approved].to_s == "1"), vote_cleared: false) if params.key?(:approved)
     event_type = \
-      if @data_request_review.approved == original_approval
+      if @data_request_review.approved == original_approval && !original_vote_cleared
         ""
       elsif @data_request_review.approved == true && original_approval == false
         "reviewer_changed_from_rejected_to_approved"
       elsif @data_request_review.approved == false && original_approval == true
         "reviewer_changed_from_approved_to_rejected"
+      elsif original_vote_cleared && @data_request_review.approved == true
+        "reviewer_reapproved"
+      elsif original_vote_cleared && @data_request_review.approved == false
+        "reviewer_rerejected"
       elsif @data_request_review.approved == true
         "reviewer_approved"
       elsif @data_request_review.approved == false

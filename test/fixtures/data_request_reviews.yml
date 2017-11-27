@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 submitted_reviewer_two_on_released_rejected:
-  agreement: submitted
+  data_request: submitted
   user: reviewer_two_on_released
   approved: false
 
 submitted_reviewer_three_on_released_approved:
-  agreement: submitted
+  data_request: submitted
   user: reviewer_three_on_released
   approved: true

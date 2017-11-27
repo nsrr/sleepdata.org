@@ -16,7 +16,7 @@ class AgreementEventsController < ApplicationController
   def create
     @agreement_event = \
       @data_request.agreement_events
-                   .where(user_id: current_user.id, event_at: Time.zone.now, event_type: "commented")
+                   .where(user: current_user, event_at: Time.zone.now, event_type: "commented")
                    .new(agreement_event_params)
     if @agreement_event.save
       render :create

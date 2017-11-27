@@ -33,12 +33,16 @@
             .mt-2
               = f.submit button_text, class: "btn btn-primary", data: { disable_with: "Submitting..." }
               - if @agreement_event.new_record?
-                - @review = @data_request.data_request_reviews.find_by(user: current_user)
-                - if @review && @review.approved == true
+                - @data_request_review = @data_request.data_request_reviews.find_by(user: current_user)
+                - if @data_request_review&.vote_cleared?
+                  .float-right
+                    = link_to @data_request_review.approved == true ? "Re-approve" : "Approve", vote_review_path(@data_request, approved: "1"), method: :post, remote: true, class: "btn btn-outline-success"
+                    = link_to @data_request_review.approved == false ? "Re-reject" : "Reject", vote_review_path(@data_request, approved: "0"), method: :post, remote: true, class: "btn btn-outline-danger"
+                - elsif @data_request_review&.approved == true
                   .float-right
                     = link_to "Approved", vote_review_path(@data_request, approved: "1"), method: :post, remote: true, class: "btn btn-success disabled", disabled: true
                     = link_to "Reject", vote_review_path(@data_request, approved: "0"), method: :post, remote: true, class: "btn btn-outline-danger"
-                - elsif @review && @review.approved == false
+                - elsif @data_request_review&.approved == false
                   .float-right
                     = link_to "Approve", vote_review_path(@data_request, approved: "1"), method: :post, remote: true, class: "btn btn-outline-success"
                     = link_to "Rejected", vote_review_path(@data_request, approved: "0"), method: :post, remote: true, class: "btn btn-danger disabled", disabled: true

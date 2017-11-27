@@ -212,7 +212,7 @@ class User < ApplicationRecord
   end
 
   def digest_reviews
-    data_request_reviews.where(approved: nil).joins(:agreement).merge(DataRequest.current.where(status: "submitted")).order("agreements.last_submitted_at desc")
+    data_request_reviews.where("approved IS NULL or vote_cleared = ?", true).joins(:data_request).merge(DataRequest.current.where(status: "submitted")).order("agreements.last_submitted_at desc")
   end
 
   def full_name

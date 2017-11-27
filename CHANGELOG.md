@@ -91,6 +91,7 @@
   - Reviewers can upload supporting documents to a data request
   - Reviewers can mark specific data request fields for resubmission
   - Reviewers are now blinded before casting initial vote
+  - Reviewers are prompted to vote again after a data request is resubmitted
 - **Variable Changes**
   - Improved display of long variable names
 - **Gem Changes**

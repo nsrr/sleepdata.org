@@ -29,6 +29,8 @@ class Agreement < ApplicationRecord
   scope :expired, -> { where("expiration_date < ?", Time.zone.today) }
   scope :not_expired, -> { where(expiration_date: nil).or(where("expiration_date >= ?", Time.zone.today)) }
   scope :with_tag, ->(arg) { joins(:tags).merge(Tag.current.where(id: arg)) }
+  scope :with_vote, ->(arg) { joins(:data_request_reviews).merge(DataRequestReview.where(user: arg, vote_cleared: false, approved: [true, false])) }
+  scope :without_vote, ->(arg) { where(status: "submitted").left_outer_joins(:data_request_reviews).where("data_request_reviews.user_id = ? and (vote_cleared = ? or approved IS NULL)", arg, true) }
   scope :regular_members, -> { joins(:user).merge(User.current.where(aug_member: false, core_member: false)) }
   scope :submittable, -> { where(status: %w(started resubmit)) }
   scope :deletable, -> { where(status: %w(started resubmit closed)) }
@@ -48,7 +50,7 @@ class Agreement < ApplicationRecord
   has_many :agreement_variables
   has_many :requests
   has_many :datasets, -> { current }, through: :requests
-  has_many :data_request_reviews, -> { joins(:user).order("lower(substring(users.first_name from 1 for 1)), lower(substring(users.last_name from 1 for 1))") }
+  has_many :data_request_reviews, -> { joins(:user).order("lower(substring(users.first_name from 1 for 1)), lower(substring(users.last_name from 1 for 1))") }, foreign_key: "data_request_id"
   has_many :agreement_events, -> { order(:event_at) }
   has_many :agreement_tags
   has_many :tags, -> { current.order(:name) }, through: :agreement_tags
@@ -182,6 +184,7 @@ class Agreement < ApplicationRecord
     reviewers.each do |reviewer|
       data_request_reviews.where(user_id: reviewer.id).first_or_create
     end
+    data_request_reviews.where.not(approved: nil).update_all(vote_cleared: true)
   end
 
   def draft?

@@ -3,10 +3,10 @@
   - case review.approved
   - when true
     - fa = "fa-thumbs-up"
-    - badge = "badge-success"
+    - badge = ["badge-success", review.vote_cleared? ? "data-request-review-vote-cleared" : nil]
   - when false
     - fa = "fa-thumbs-down"
-    - badge = "badge-danger"
+    - badge = ["badge-danger", review.vote_cleared? ? "data-request-review-vote-cleared" : nil]
   - else
     - fa = "fa-question-circle"
     - badge = "badge-secondary"
