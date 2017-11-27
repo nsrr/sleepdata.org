@@ -32,7 +32,7 @@
             - button_text = @agreement_event.new_record? ? "Comment" : "Update"
             .mt-2
               = f.submit button_text, class: "btn btn-primary", data: { disable_with: "Submitting..." }
-              - if @agreement_event.new_record?
+              - if @agreement_event.new_record? && @agreement_event.data_request.final_legal_document.approval_process == "committee"
                 - @data_request_review = @data_request.data_request_reviews.find_by(user: current_user)
                 - if @data_request_review&.vote_cleared?
                   .float-right

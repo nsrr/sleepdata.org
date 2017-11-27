@@ -173,9 +173,13 @@ class Agreement < ApplicationRecord
   end
 
   def daua_submitted
-    add_reviewers!
-    data_request_reviews.each do |review|
-      UserMailer.daua_submitted(review.user, self).deliver_now if EMAILS_ENABLED
+    if final_legal_document.approval_process == "immediate"
+      auto_approve!
+    else
+      add_reviewers!
+      data_request_reviews.each do |review|
+        UserMailer.daua_submitted(review.user, self).deliver_now if EMAILS_ENABLED
+      end
     end
   end
 
@@ -185,6 +189,19 @@ class Agreement < ApplicationRecord
       data_request_reviews.where(user_id: reviewer.id).first_or_create
     end
     data_request_reviews.where.not(approved: nil).update_all(vote_cleared: true)
+  end
+
+  def auto_approve!
+    current_time = Time.zone.now
+    AgreementTransaction.save_agreement!(
+      self, user, "127.0.0.1", "agreement_update",
+      data_request_params: {
+        status: "approved",
+        approval_date: current_time,
+        expiration_date: current_time + 1.year
+      }
+    )
+    agreement_events.create(event_type: "auto_approved", user: user, event_at: current_time)
   end
 
   def draft?

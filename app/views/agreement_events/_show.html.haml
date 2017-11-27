@@ -1,4 +1,4 @@
-- has_voted = agreement_event.data_request.has_voted?(current_user) || agreement_event.user == current_user
+- has_voted = agreement_event.data_request.has_voted?(current_user) || agreement_event.user == current_user || agreement_event.data_request.final_legal_document.approval_process == "immediate"
 %a.anchor-top{ name: "c#{number}" }
 - if agreement_event.banned_or_deleted?
   .comment-outer

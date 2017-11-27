@@ -16,6 +16,7 @@ class AgreementEvent < ApplicationRecord
     ["principal_reviewer_approved", "principal_reviewer_approved"],
     ["principal_reviewer_closed", "principal_reviewer_closed"],
     ["principal_reviewer_expired", "principal_reviewer_expired"],
+    ["auto_approved", "auto_approved"],
     ["tags_updated", "tags_updated"]
   ]
 

@@ -1,0 +1,6 @@
+.card
+  .card-body
+    Data request
+    %span.badge.badge-success auto-approved
+    = succeed "." do
+      %abbr{ rel: "tooltip", data: { title: agreement_event.event_at.strftime("%-d %B %Y, %-l:%M %p"), container: "body", placement: "right" } }= "#{time_ago_in_words(agreement_event.event_at)} ago"

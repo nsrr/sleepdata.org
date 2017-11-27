@@ -9,7 +9,7 @@ one:
   commercial_type: noncommercial
   data_user_type: individual
   attestation_type: signature
-  approval_process: immediate
+  approval_process: committee
   version_major: 1
   version_minor: 0
   version_tiny: 0
@@ -43,7 +43,7 @@ checkbox_attestation:
   commercial_type: both
   data_user_type: both
   attestation_type: checkbox
-  approval_process: committee
+  approval_process: immediate
   version_major: 1
   version_minor: 0
   version_tiny: 0

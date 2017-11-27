@@ -133,6 +133,18 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to submitted_data_request_url(data_request)
   end
 
+  test "should submit completed data request and auto-approve" do
+    data_request = data_requests(:simple_started)
+    login(data_request.user)
+    post data_requests_submit_url(data_request)
+    data_request.reload
+    assert_equal "approved", data_request.status
+    assert_not_nil data_request.submitted_at
+    assert_not_nil data_request.last_submitted_at
+    # TODO: Perhaps redirect to "approved" data request location.
+    assert_redirected_to submitted_data_request_url(data_request)
+  end
+
   test "should not submit incomplete data request missing attestation" do
     data_request = data_requests(:incomplete_missing_attestation)
     login(data_request.user)
