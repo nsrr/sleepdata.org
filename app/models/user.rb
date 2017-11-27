@@ -69,6 +69,7 @@ class User < ApplicationRecord
   has_many :challenges, -> { current }
   has_many :community_tools, -> { current }
   has_many :community_tool_reviews
+  has_many :data_request_reviews
   has_many :data_requests, -> { current }
   has_many :datasets, -> { current }
   has_many :dataset_file_audits
@@ -77,7 +78,6 @@ class User < ApplicationRecord
   has_many :images
   has_many :notifications
   has_many :replies, -> { current }
-  has_many :reviews
   has_many :subscriptions
   has_many :tags, -> { current }
   has_many :topics, -> { current }
@@ -212,7 +212,7 @@ class User < ApplicationRecord
   end
 
   def digest_reviews
-    reviews.where(approved: nil).joins(:agreement).merge(DataRequest.current.where(status: "submitted")).order("agreements.last_submitted_at desc")
+    data_request_reviews.where(approved: nil).joins(:agreement).merge(DataRequest.current.where(status: "submitted")).order("agreements.last_submitted_at desc")
   end
 
   def full_name

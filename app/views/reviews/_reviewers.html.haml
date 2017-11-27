@@ -1,5 +1,7 @@
-- data_request.reviews.each do |review|
-  - case review.approved when true
+- has_voted = data_request.has_voted?(current_user)
+- data_request.data_request_reviews.each do |review|
+  - case review.approved
+  - when true
     - fa = "fa-thumbs-up"
     - badge = "badge-success"
   - when false
@@ -8,6 +10,11 @@
   - else
     - fa = "fa-question-circle"
     - badge = "badge-secondary"
-  %span.badge{ class: badge }
-    = review.user.initials
-    %i.fa{ class: fa }
+  - if has_voted
+    %span.badge{ class: badge }
+      = review.user.initials
+      %i.fa{ class: fa }
+  - else
+    %span.badge.badge-secondary.data-request-review-hidden
+      = review.user.initials
+      %i.fa.fa-question-circle

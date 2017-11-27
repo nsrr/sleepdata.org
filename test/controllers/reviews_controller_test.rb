@@ -49,10 +49,10 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
 
   test "should vote and approve agreement" do
     login(@reviewer)
-    assert_difference("Review.count") do
+    assert_difference("DataRequestReview.count") do
       post vote_review_url(@data_request, format: "js"), params: { approved: "1" }
     end
-    assert_equal true, assigns(:review).approved
+    assert_equal true, assigns(:data_request_review).approved
     assert_equal "reviewer_approved", assigns(:agreement_event).event_type
     assert_template "agreement_events/create"
     assert_response :success
@@ -60,21 +60,22 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
 
   test "should vote and reject agreement" do
     login(@reviewer)
-    assert_difference("Review.count") do
+    assert_difference("DataRequestReview.count") do
       post vote_review_url(@data_request, format: "js"), params: { approved: "0" }
     end
-    assert_equal false, assigns(:review).approved
+    assert_equal false, assigns(:data_request_review).approved
     assert_equal "reviewer_rejected", assigns(:agreement_event).event_type
+    assert_equal @reviewer, assigns(:data_request_review).user
     assert_template "agreement_events/create"
     assert_response :success
   end
 
   test "should not update unchanged vote" do
     login(@reviewer_two)
-    assert_difference("Review.count", 0) do
+    assert_difference("DataRequestReview.count", 0) do
       post vote_review_url(@data_request, format: "js"), params: { approved: "0" }
     end
-    assert_equal false, assigns(:review).approved
+    assert_equal false, assigns(:data_request_review).approved
     assert_nil assigns(:agreement_event)
     assert_template "agreement_events/create"
     assert_response :success
@@ -82,10 +83,10 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
 
   test "should change vote to approved" do
     login(@reviewer_two)
-    assert_difference("Review.count", 0) do
+    assert_difference("DataRequestReview.count", 0) do
       post vote_review_url(@data_request, format: "js"), params: { approved: "1" }
     end
-    assert_equal true, assigns(:review).approved
+    assert_equal true, assigns(:data_request_review).approved
     assert_equal "reviewer_changed_from_rejected_to_approved", assigns(:agreement_event).event_type
     assert_template "agreement_events/create"
     assert_response :success
@@ -93,10 +94,10 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
 
   test "should change vote to rejected" do
     login(@reviewer_three)
-    assert_difference("Review.count", 0) do
+    assert_difference("DataRequestReview.count", 0) do
       post vote_review_url(@data_request, format: "js"), params: { approved: "0" }
     end
-    assert_equal false, assigns(:review).approved
+    assert_equal false, assigns(:data_request_review).approved
     assert_equal "reviewer_changed_from_approved_to_rejected", assigns(:agreement_event).event_type
     assert_template "agreement_events/create"
     assert_response :success

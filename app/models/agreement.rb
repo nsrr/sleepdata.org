@@ -48,7 +48,7 @@ class Agreement < ApplicationRecord
   has_many :agreement_variables
   has_many :requests
   has_many :datasets, -> { current }, through: :requests
-  has_many :reviews, -> { joins(:user).order("lower(substring(users.first_name from 1 for 1)), lower(substring(users.last_name from 1 for 1))") }
+  has_many :data_request_reviews, -> { joins(:user).order("lower(substring(users.first_name from 1 for 1)), lower(substring(users.last_name from 1 for 1))") }
   has_many :agreement_events, -> { order(:event_at) }
   has_many :agreement_tags
   has_many :tags, -> { current.order(:name) }, through: :agreement_tags
@@ -127,7 +127,7 @@ class Agreement < ApplicationRecord
       user: current_user,
       event_at: Time.zone.now
     )
-    reviews.where(approved: nil).destroy_all
+    data_request_reviews.where(approved: nil).destroy_all
     daua_approved_send_emails_in_background(current_user, agreement_event)
   end
 
@@ -172,7 +172,7 @@ class Agreement < ApplicationRecord
 
   def daua_submitted
     add_reviewers!
-    reviews.each do |review|
+    data_request_reviews.each do |review|
       UserMailer.daua_submitted(review.user, self).deliver_now if EMAILS_ENABLED
     end
   end
@@ -180,7 +180,7 @@ class Agreement < ApplicationRecord
   def add_reviewers!
     reviewers = User.current.where(id: datasets.collect { |d| d.reviewers.pluck(:id) }.flatten.uniq.compact)
     reviewers.each do |reviewer|
-      reviews.where(user_id: reviewer.id).first_or_create
+      data_request_reviews.where(user_id: reviewer.id).first_or_create
     end
   end
 

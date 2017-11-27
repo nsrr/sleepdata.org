@@ -1,3 +1,4 @@
+- has_voted = agreement_event.data_request.has_voted?(current_user) || agreement_event.user == current_user
 %a.anchor-top{ name: "c#{number}" }
 - if agreement_event.banned_or_deleted?
   .comment-outer
@@ -8,7 +9,7 @@
       .comment-action
         %small.text-muted Comment Deleted
 - elsif agreement_event.commented?
-  .comment-outer{ data: { agreement_event_id: agreement_event.id } }
+  .comment-outer{ data: { agreement_event_id: agreement_event.id }, class: (has_voted ? nil : "data-request-review-hidden") }
     .comment-left-fixed
       = profile_picture_tag(agreement_event.user, size: 48)
     .comment-right-fluid
@@ -33,21 +34,33 @@
             = time_ago_in_words agreement_event.created_at
             ago
         .comment-body
-          = render "agreement_events/formatted", agreement_event: agreement_event
+          - if has_voted || agreement_event.user == current_user
+            = render "agreement_events/formatted", agreement_event: agreement_event
+          - else
+            Comment hidden.
 - elsif %w(principal_reviewer_approved principal_reviewer_required_resubmission principal_reviewer_closed principal_reviewer_expired user_submitted user_resubmitted).include?(agreement_event.event_type)
   .comment-outer
     .comment-left-fixed
     .comment-right-fluid
-      = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event, current_index: nil # TODO Remove current_index
+      = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event
 - else
-  .comment-outer
+  .comment-outer{ class: has_voted ? nil : "data-request-review-hidden" }
     .comment-left-fixed
     .comment-right-fluid
       .comment-icon
         - case agreement_event.event_type
         - when "reviewer_approved", "reviewer_changed_from_rejected_to_approved"
-          %i.fa.fa-thumbs-up.text-success
+          - if has_voted
+            %i.fa.fa-thumbs-up.text-success
+          - else
+            %i.fa.fa-question-circle
         - when "reviewer_rejected", "reviewer_changed_from_approved_to_rejected"
-          %i.fa.fa-thumbs-down.text-danger
+          - if has_voted
+            %i.fa.fa-thumbs-down.text-danger
+          - else
+            %i.fa.fa-question-circle
       .comment-action
-        = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event, current_index: nil # TODO Remove current_index
+        - if !has_voted && ["reviewer_approved", "reviewer_changed_from_rejected_to_approved", "reviewer_rejected", "reviewer_changed_from_approved_to_rejected"].include?(agreement_event.event_type)
+          = render "reviews/events/vote_hidden", agreement_event: agreement_event
+        - else
+          = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event

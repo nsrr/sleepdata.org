@@ -211,4 +211,8 @@ class DataRequest < Agreement
   def representative_designated?
     duly_authorized_representative_email.present? || duly_authorized_representative_signature_print.present?
   end
+
+  def has_voted?(current_user)
+    data_request_reviews.where(user: current_user).where(approved: [true, false]).present?
+  end
 end

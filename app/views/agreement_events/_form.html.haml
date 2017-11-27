@@ -33,7 +33,7 @@
             .mt-2
               = f.submit button_text, class: "btn btn-primary", data: { disable_with: "Submitting..." }
               - if @agreement_event.new_record?
-                - @review = @data_request.reviews.where(user_id: current_user.id).first
+                - @review = @data_request.data_request_reviews.find_by(user: current_user)
                 - if @review && @review.approved == true
                   .float-right
                     = link_to "Approved", vote_review_path(@data_request, approved: "1"), method: :post, remote: true, class: "btn btn-success disabled", disabled: true

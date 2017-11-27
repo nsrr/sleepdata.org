@@ -90,6 +90,7 @@
   - Simplified voting on agreements as a reviewer
   - Reviewers can upload supporting documents to a data request
   - Reviewers can mark specific data request fields for resubmission
+  - Reviewers are now blinded before casting initial vote
 - **Variable Changes**
   - Improved display of long variable names
 - **Gem Changes**

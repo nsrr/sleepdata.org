@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class ReviewTest < ActiveSupport::TestCase
+class DataRequestReviewTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

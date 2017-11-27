@@ -54,21 +54,22 @@ class ReviewsController < ApplicationController
 
   # POST /reviews/1/vote.js
   def vote
-    @review = @data_request.reviews.where(user_id: current_user.id).first_or_create
-    original_approval = @review.approved
-    @review.update approved: (params[:approved].to_s == "1") if %w(0 1).include?(params[:approved].to_s)
-    event_type = if @review.approved == original_approval
-                   ""
-                 elsif @review.approved == true && original_approval == false
-                   "reviewer_changed_from_rejected_to_approved"
-                 elsif @review.approved == false && original_approval == true
-                   "reviewer_changed_from_approved_to_rejected"
-                 elsif @review.approved == true
-                   "reviewer_approved"
-                 elsif @review.approved == false
-                   "reviewer_rejected"
-                 end
-    @agreement_event = @data_request.agreement_events.create(event_type: event_type, user_id: current_user.id, event_at: Time.zone.now) if event_type.present?
+    @data_request_review = @data_request.data_request_reviews.where(user: current_user).first_or_create
+    original_approval = @data_request_review.approved
+    @data_request_review.update(approved: (params[:approved].to_s == "1")) if %w(0 1).include?(params[:approved].to_s)
+    event_type = \
+      if @data_request_review.approved == original_approval
+        ""
+      elsif @data_request_review.approved == true && original_approval == false
+        "reviewer_changed_from_rejected_to_approved"
+      elsif @data_request_review.approved == false && original_approval == true
+        "reviewer_changed_from_approved_to_rejected"
+      elsif @data_request_review.approved == true
+        "reviewer_approved"
+      elsif @data_request_review.approved == false
+        "reviewer_rejected"
+      end
+    @agreement_event = @data_request.agreement_events.create(event_type: event_type, user: current_user, event_at: Time.zone.now) if event_type.present?
     render "agreement_events/create"
   end
 

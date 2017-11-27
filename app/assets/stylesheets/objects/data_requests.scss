@@ -240,3 +240,8 @@ $data-request-approved-expired: $p500-blue;
     transform: rotate(-90deg);
   }
 }
+
+.data-request-review-hidden {
+  filter: blur(3px);
+  pointer-events: none;
+}
