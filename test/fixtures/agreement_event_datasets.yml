@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  agreement_event: resubmitted_datasets
+  dataset: released_no_access
+  added: true
+
+two:
+  agreement_event: resubmitted_datasets
+  dataset: released
+  added: false

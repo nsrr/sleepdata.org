@@ -119,6 +119,7 @@ class AgreementsController < ApplicationController
   # PATCH /agreements/1.js
   def update
     original_status = @data_request.status
+    original_dataset_ids = @data_request.dataset_ids.sort
     if AgreementTransaction.save_agreement!(@data_request, current_user, request.remote_ip, "agreement_update", data_request_params: data_request_params)
       if original_status != "approved" && @data_request.status == "approved"
         @data_request.save_signature!(:reviewer_signature_file, params[:data_uri]) if params[:data_uri].present?
@@ -130,6 +131,7 @@ class AgreementsController < ApplicationController
       elsif original_status != "expired" && @data_request.status == "expired"
         @data_request.expire_daua!(current_user)
       end
+      @data_request.compute_datasets_added_removed!(original_dataset_ids, current_user)
       respond_to do |format|
         format.html { redirect_to review_path(@data_request, anchor: @data_request.agreement_events.last ? "c#{@data_request.agreement_events.last.number}" : nil), notice: "Data request was successfully updated." }
         format.js { render "agreement_events/index" }

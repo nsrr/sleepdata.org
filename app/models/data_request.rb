@@ -215,4 +215,25 @@ class DataRequest < Agreement
   def has_voted?(current_user)
     data_request_reviews.where(user: current_user).where(approved: [true, false]).present?
   end
+
+  def compute_datasets_added_removed!(original_dataset_ids, current_user)
+    current_dataset_ids = dataset_ids.sort
+    return if original_dataset_ids == current_dataset_ids
+
+    added_removed_dataset_ids = []
+    (original_dataset_ids | current_dataset_ids).sort.each do |dataset_id|
+      if original_dataset_ids.include?(dataset_id) && !current_dataset_ids.include?(dataset_id)
+        added_removed_dataset_ids << [dataset_id, false]
+      elsif !original_dataset_ids.include?(dataset_id) && current_dataset_ids.include?(dataset_id)
+        added_removed_dataset_ids << [dataset_id, true]
+      end
+    end
+
+    if added_removed_dataset_ids.present?
+      agreement_event = agreement_events.create(event_type: "datasets_updated", user: current_user, event_at: Time.zone.now)
+      added_removed_dataset_ids.each do |dataset_id, added|
+        agreement_event.agreement_event_datasets.create(dataset_id: dataset_id, added: added)
+      end
+    end
+  end
 end

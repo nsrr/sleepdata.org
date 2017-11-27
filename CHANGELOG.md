@@ -92,6 +92,7 @@
   - Reviewers can mark specific data request fields for resubmission
   - Reviewers are now blinded before casting initial vote
   - Reviewers are prompted to vote again after a data request is resubmitted
+  - Dataset changes are now tracked in the data request history
 - **Variable Changes**
   - Improved display of long variable names
 - **Gem Changes**

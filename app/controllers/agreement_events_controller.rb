@@ -32,7 +32,7 @@ class AgreementEventsController < ApplicationController
       @agreement_event.comment = params[:agreement_event][:comment]
     else
       @agreement_event = @data_request.agreement_events.where(user_id: current_user.id)
-                                   .new(agreement_event_params)
+                                      .new(agreement_event_params)
     end
   end
 

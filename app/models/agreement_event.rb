@@ -17,6 +17,7 @@ class AgreementEvent < ApplicationRecord
     ["principal_reviewer_closed", "principal_reviewer_closed"],
     ["principal_reviewer_expired", "principal_reviewer_expired"],
     ["auto_approved", "auto_approved"],
+    ["datasets_updated", "datasets_updated"],
     ["tags_updated", "tags_updated"]
   ]
 
@@ -45,6 +46,13 @@ class AgreementEvent < ApplicationRecord
   has_many :removed_tags,
            -> { where(agreement_event_tags: { added: false }) },
            through: :agreement_event_tags, source: :tag
+  has_many :agreement_event_datasets
+  has_many :added_datasets,
+           -> { where(agreement_event_datasets: { added: true }) },
+           through: :agreement_event_datasets, source: :dataset
+  has_many :removed_datasets,
+           -> { where(agreement_event_datasets: { added: false }) },
+           through: :agreement_event_datasets, source: :dataset
 
   # Methods
 

@@ -202,7 +202,9 @@ class DataRequestsController < ApplicationController
   # POST /data/requests/:id/datasets
   def update_datasets
     if clean_dataset_ids.present?
+      original_dataset_ids = @data_request.dataset_ids.sort
       AgreementTransaction.save_agreement!(@data_request, current_user, request.remote_ip, "agreement_update", data_request_params: data_request_params)
+      @data_request.compute_datasets_added_removed!(original_dataset_ids, current_user) if @data_request.status == "resubmit"
       if params.dig(:data_request, :draft) == "1"
         redirect_to data_requests_proof_path(@data_request), notice: "Data request draft saved successfully."
       else

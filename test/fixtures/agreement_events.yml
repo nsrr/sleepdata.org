@@ -51,14 +51,21 @@ resubmitted_one:
   agreement: resubmitted
   user: regular12
   event_type: user_submitted
-  event_at: 2014-01-15 14:22:15
+  event_at: 2014-01-15 14:19:15
 
 # Principal reviewer requested resubmit for regular12.
 resubmitted_two:
   agreement: resubmitted
   user: principal_reviewer_on_released
   event_type: principal_reviewer_required_resubmission
-  event_at: 2014-02-01 14:22:15
+  event_at: 2014-02-01 14:20:15
+
+# Datasets updated for regular12
+resubmitted_datasets:
+  agreement: resubmitted
+  user: regular12
+  event_type: datasets_updated
+  event_at: 2014-02-03 14:21:15
 
 # Data request resubmitted for regular12.
 resubmitted_three:
