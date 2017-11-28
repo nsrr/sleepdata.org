@@ -49,12 +49,12 @@
     .comment-right-fluid
       .comment-icon
         - case agreement_event.event_type
-        - when "reviewer_approved", "reviewer_changed_from_rejected_to_approved"
+        - when "reviewer_approved", "reviewer_reapproved", "reviewer_changed_from_rejected_to_approved"
           - if has_voted
             %i.fa.fa-thumbs-up.text-success
           - else
             %i.fa.fa-question-circle
-        - when "reviewer_rejected", "reviewer_changed_from_approved_to_rejected"
+        - when "reviewer_rejected", "reviewer_rerejected", "reviewer_changed_from_approved_to_rejected"
           - if has_voted
             %i.fa.fa-thumbs-down.text-danger
           - else
