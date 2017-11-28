@@ -96,7 +96,7 @@ def create_standard_i(bwh)
 
   posting_permission = standard_i.legal_document_variables.find_by(name: "posting_permission")
   posting_permission.update(
-    display_name: "Posting Permission (check one)"
+    field_note: "(check one)"
   )
 
   posting_permission.legal_document_variable_options.create(
@@ -189,7 +189,7 @@ def create_standard_o(bwh)
 
   posting_permission = standard_o.legal_document_variables.find_by(name: "posting_permission")
   posting_permission.update(
-    display_name: "Posting Permission (check one)"
+    field_note: "(check one)"
   )
 
   posting_permission.legal_document_variable_options.create(
