@@ -15,6 +15,11 @@
       = review.user.initials
       %i.fa{ class: fa }
   - else
-    %span.badge.badge-secondary.data-request-review-hidden
-      = review.user.initials
-      %i.fa.fa-question-circle
+    - if review.approved.nil?
+      %span.badge.badge-secondary.data-request-review-hidden
+        = review.user.initials
+        %i.fa.fa-question-circle
+    - else
+      %span.badge.badge-primary.data-request-review-hidden
+        = review.user.initials
+        %i.fa.fa-check-circle

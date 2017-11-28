@@ -43,7 +43,7 @@
     .comment-left-fixed
     .comment-right-fluid
       = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event
-- else
+- elsif %w(reviewer_approved reviewer_reapproved reviewer_changed_from_rejected_to_approved reviewer_rejected reviewer_rerejected reviewer_changed_from_approved_to_rejected").include?(agreement_event.event_type)
   .comment-outer{ class: has_voted ? nil : "data-request-review-hidden" }
     .comment-left-fixed
     .comment-right-fluid
@@ -60,7 +60,13 @@
           - else
             %i.fa.fa-question-circle
       .comment-action
-        - if !has_voted && ["reviewer_approved", "reviewer_changed_from_rejected_to_approved", "reviewer_rejected", "reviewer_changed_from_approved_to_rejected"].include?(agreement_event.event_type)
-          = render "reviews/events/vote_hidden", agreement_event: agreement_event
-        - else
+        - if has_voted
           = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event
+        - else
+          = render "reviews/events/vote_hidden", agreement_event: agreement_event
+- else
+  .comment-outer
+    .comment-left-fixed
+    .comment-right-fluid
+      .comment-action
+        = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event
