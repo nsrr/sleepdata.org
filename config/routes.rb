@@ -192,6 +192,7 @@ Rails.application.routes.draw do
 
   resources :exports do
     member do
+      post :progress
       get :download
     end
   end

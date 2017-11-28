@@ -42,6 +42,20 @@ class ExportsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should show progress" do
+    login(@admin)
+    post progress_export_url(@export, format: "js")
+    assert_template "progress"
+    assert_response :success
+  end
+
+  test "should download export" do
+    login(@admin)
+    get download_export_url(@export)
+    assert_equal File.binread(@export.zipped_file.path), response.body
+    assert_response :success
+  end
+
   test "should get edit" do
     login(@admin)
     get edit_export_url(@export)
@@ -57,7 +71,7 @@ class ExportsControllerTest < ActionDispatch::IntegrationTest
   test "should destroy export" do
     login(@admin)
     assert_difference("Export.current.count", -1) do
-      delete export_url(@export)
+      delete export_url(exports(:two))
     end
     assert_redirected_to exports_url
   end

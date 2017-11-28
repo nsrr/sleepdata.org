@@ -22,12 +22,23 @@ class Export < ApplicationRecord
 
   # Methods
 
-  # def create_notification
-  #   notification = user.notifications.where(organization_id: organization_id, export_id: id).first_or_create
-  #   notification.mark_as_unread!
-  # end
+  def destroy
+    remove_zipped_file!
+    super
+  end
+
+  def percent
+    return 100 unless total_steps.positive?
+    completed_steps * 100 / total_steps
+  end
+
+  def create_notification
+    notification = user.notifications.where(organization_id: organization_id, export_id: id).first_or_create
+    notification.mark_as_unread!
+  end
 
   def generate_export_in_background!
+    update(total_steps: organization.final_legal_documents.sum { |doc| doc.final_legal_document_variables.size })
     fork_process(:generate_export!)
   end
 
@@ -36,8 +47,14 @@ class Export < ApplicationRecord
     organization.final_legal_documents.find_each do |final_legal_document|
       all_files << generate_csv_for_final_legal_document(final_legal_document)
     end
+    finalize_export!(all_files)
+  rescue => e
+    export_failed(e.message.to_s + e.backtrace.to_s)
+  end
+
+  def finalize_export!(all_files)
     # Create a zip file
-    zip_name = "data-requests-export.zip"
+    zip_name = "data-requests-#{Time.zone.now.strftime("%Y-%m-%d")}.zip"
     temp_zip_file = Tempfile.new(zip_name)
     begin
       # Initialize temp zip file.
@@ -58,13 +75,20 @@ class Export < ApplicationRecord
         zipped_file: temp_zip_file,
         file_created_at: Time.zone.now,
         file_size: File.size(temp_zip_file),
-        status: "completed"
+        status: "completed",
+        completed_steps: total_steps
       )
+      create_notification
     ensure
       # Close and delete the temp file
       temp_zip_file.close
       temp_zip_file.unlink
     end
+  end
+
+  def export_failed(details)
+    update(status: "failed", details: details)
+    create_notification
   end
 
   def generate_csv_for_final_legal_document(final_legal_document)
@@ -84,6 +108,7 @@ class Export < ApplicationRecord
       final_legal_document.final_legal_document_pages.each do |final_legal_document_page|
         final_legal_document_page.variables.each do |variable|
           csv << [variable.display_name_label] + data_request_scope.includes(:agreement_variables).where(agreement_variables: { final_legal_document_variable: variable }).collect { |a| a.agreement_variables.first&.value }
+          update(completed_steps: completed_steps + 1)
         end
       end
       csv << ["Signature Print"] + data_request_scope.pluck(:signature_print)

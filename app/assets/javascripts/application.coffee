@@ -42,6 +42,7 @@
 #= require components/legal_documents
 #= require components/links
 #= require components/previews
+#= require components/progress
 #= require components/ratings
 #= require components/search
 #= require components/text_area_autocomplete
@@ -54,7 +55,6 @@
 #= require extensions/signatures
 #= require extensions/slug
 #= require extensions/tooltips
-#= require extensions/turbolinks
 #= require extensions/typeahead
 
 # Objects

@@ -1,21 +1,22 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  zipped_file: MyString
+  name: ExportOne
+  zipped_file: blank.zip
   file_created_at: 2017-11-27 17:19:39
-  file_size:
-  status: MyString
-  details: MyText
+  file_size: 10407
+  status: completed
+  # details:
   user: admin
   organization: one
 
+# Used to test deletion. File not kept in git.
 two:
   name: MyString
-  zipped_file: MyString
+  zipped_file: blank.zip
   file_created_at: 2017-11-27 17:19:39
-  file_size:
-  status: MyString
-  details: MyText
+  file_size: 10407
+  status: completed
+  # details:
   user: admin
   organization: one

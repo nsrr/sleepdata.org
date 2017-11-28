@@ -6,8 +6,10 @@ class ExportsController < ApplicationController
   # TODO: Change to only be for organization owners.
   before_action :check_system_admin
   before_action :find_export_or_redirect, only: [
-    :show, :download, :edit, :update, :destroy
+    :show, :progress, :download, :edit, :update, :destroy
   ]
+
+  layout "layouts/full_page_dashboard_no_drawer"
 
   # GET /exports
   def index
@@ -16,6 +18,10 @@ class ExportsController < ApplicationController
 
   # # GET /exports/1
   # def show
+  # end
+
+  # # POST /exports/:id.js
+  # def progress
   # end
 
   # GET /exports/:id/download

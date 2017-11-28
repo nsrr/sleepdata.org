@@ -2,9 +2,6 @@
 
 # Tracks if a user has seen replies to blog posts and forum topics.
 class Notification < ApplicationRecord
-  # Validations
-  validates :user_id, presence: true
-
   # Relationships
   belongs_to :user
   belongs_to :broadcast, optional: true
@@ -15,6 +12,8 @@ class Notification < ApplicationRecord
   belongs_to :dataset, optional: true
   belongs_to :dataset_review, optional: true
   belongs_to :hosting_request, optional: true
+  belongs_to :organization, optional: true
+  belongs_to :export, optional: true
 
   # Methods
 

@@ -1,7 +1,13 @@
-%h1 Editing Export
+- @title = "Edit Export: #{@export.name_was}"
 
-= render "form", export: @export
+.dashboard-heading{ style: "position: relative;" }
+  = @title
 
-= link_to "Show", @export
-|
-= link_to "Back", exports_path
+.mb-5
+  = link_to exports_path, class: "btn btn-sm btn-link" do
+    %i.fa.fa-caret-left
+    Exports
+  = link_to @export.name_was, @export, class: "btn btn-sm btn-link"
+  %span.btn.btn-sm Edit
+
+= render "exports/form", export: @export

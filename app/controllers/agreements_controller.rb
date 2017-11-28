@@ -14,9 +14,10 @@ class AgreementsController < ApplicationController
 
   # GET /agreements/export
   def export
+    organization = current_user.organizations.first
     @export = current_user.exports.create(
-      name: Time.zone.now.strftime("%b %-d, %Y"),
-      organization: current_user.organizations.first
+      name: "#{organization.slug.upcase} Data Requests #{Time.zone.now.strftime("%b %-d, %Y")}",
+      organization: organization
     )
     @export.generate_export_in_background!
     redirect_to @export, notice: "Export started."

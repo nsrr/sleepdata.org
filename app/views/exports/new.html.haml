@@ -1,5 +1,11 @@
-%h1 New Export
+- @title = "New Export"
 
-= render "form", export: @export
+.dashboard-heading{ style: "position: relative;" }
+  = @title
 
-= link_to "Back", exports_path
+.mb-5
+  = link_to exports_path, class: "btn btn-sm btn-link" do
+    %i.fa.fa-caret-left
+    Exports
+
+= render "exports/form", export: @export

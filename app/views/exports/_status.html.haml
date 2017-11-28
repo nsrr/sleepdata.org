@@ -1,0 +1,5 @@
+= render "forms/horizontal/show/generic", title: "Zipped file", content: render("exports/download_link", export: export) unless export.status == "failed"
+= render "forms/horizontal/show/generic", title: "Export Time", content: distance_of_time_in_words(export.created_at, export.file_created_at, { include_seconds: true }) if export.file_created_at
+= render "forms/horizontal/show/generic", title: "File size", content: number_to_human_size(export.file_size) if export.zipped_file.present?
+= render "forms/horizontal/show/text", object: export, key: :status
+= render "forms/horizontal/show/generic", title: "Details", content: content_tag(:pre, export.details.gsub(", ", "<br>").html_safe) if export.details.present?

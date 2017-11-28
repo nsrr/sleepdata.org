@@ -13,7 +13,7 @@
       .col-6.col-md-12
         = link_to "All", notifications_path(all: "1"), class: "btn btn-block #{current_page?(notifications_path) && params[:all] == "1" ? "btn-primary" : "btn-neutral" }"
   .col-md-10
-    - if @notifications.count > 0
+    - if @notifications.present?
       - @notifications.where.not(broadcast_id: nil).order(created_at: :desc).includes(:broadcast, :reply).group_by(&:broadcast).each do |broadcast, notifications|
         %table.table.table-fixed
           %col{ width: "32px" }
@@ -104,6 +104,25 @@
               %th.d-none.d-md-table-cell
               %th
                 = link_to mark_all_as_read_notifications_path(hosting_request_id: hosting_request.id), method: :patch, remote: true, class: "text-muted" do
+                  %i.fa.fa-check
+          %tbody
+            - notifications.each do |notification|
+              %tr{ id: "notification_#{notification.id}"}
+                = render "notifications/show", notification: notification
+      - @notifications.where.not(organization_id: nil).order(created_at: :desc).includes(:organization, :export).group_by(&:organization).each do |organization, notifications|
+        %table.table.table-fixed
+          %col{ width: "32px" }
+          %col{ }
+          %col.d-none.d-md-table-column{ width: "32px" }
+          %col.d-none.d-md-table-column{ width: "165px" }
+          %col{ width: "32px" }
+          %thead
+            %tr
+              %th{ colspan: 2 }= link_to organization.name, organization, class: "link-unstyled"
+              %th.d-none.d-md-table-cell
+              %th.d-none.d-md-table-cell
+              %th
+                = link_to mark_all_as_read_notifications_path(organization_id: organization.id), method: :patch, remote: true, class: "text-muted" do
                   %i.fa.fa-check
           %tbody
             - notifications.each do |notification|

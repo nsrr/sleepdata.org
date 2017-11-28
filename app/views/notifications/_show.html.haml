@@ -1,11 +1,13 @@
 - if notification.reply
-  = render 'notifications/show/reply', notification: notification
+  = render "notifications/show/reply", notification: notification
 - elsif notification.community_tool_review
-  = render 'notifications/show/community_tool_review', notification: notification
+  = render "notifications/show/community_tool_review", notification: notification
 - elsif notification.dataset_review
-  = render 'notifications/show/dataset_review', notification: notification
+  = render "notifications/show/dataset_review", notification: notification
 - elsif notification.hosting_request
-  = render 'notifications/show/hosting_request', notification: notification
+  = render "notifications/show/hosting_request", notification: notification
+- elsif notification.export
+  = render "notifications/show/export", notification: notification
 - else
   %td{ colspan: 3 }
 
@@ -16,5 +18,5 @@
 
 %td
   - unless notification.read?
-    = link_to notification_path(notification, notification: { read: true }), method: :patch, remote: true, class: 'text-muted' do
+    = link_to notification_path(notification, notification: { read: true }), method: :patch, remote: true, class: "text-muted" do
       %i.fa.fa-check

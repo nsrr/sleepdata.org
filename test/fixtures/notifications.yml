@@ -18,3 +18,9 @@ hosting_request_one:
   user: valid
   read: false
   hosting_request: one
+
+export:
+  user: admin
+  read: false
+  organization: one
+  export: one

@@ -1,3 +1,6 @@
-= link_to [:download, export], data: { turbolinks: false } do
-  %i.fa.fa-file-archive-o
-  = export.name
+- if export.zipped_file.present?
+  = link_to [:download, export], data: { turbolinks: false } do
+    %i.fa.fa-file-archive-o
+    = export.name
+- else
+  .text-muted Processing...

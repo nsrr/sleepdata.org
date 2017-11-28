@@ -1,0 +1,35 @@
+@keyframes hide-progress-bar {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.custom-progress-bar {
+  transition: width .5s ease-out;
+  position: absolute;
+  height: .25rem;
+  background-color: $p500-blue;
+  width: 0%;
+  top: 0;
+  left: 0;
+
+  &.custom-progress-completed {
+    animation: hide-progress-bar 750ms ease-out;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
+    background-color: $p500-green;
+    transition-duration: 0s;
+  }
+
+  &.custom-progress-failed {
+    animation: hide-progress-bar 750ms ease-out;
+    animation-fill-mode: forwards;
+    animation-delay: 1s;
+    background-color: $p500-red;
+    transition-duration: 0s;
+  }
+}

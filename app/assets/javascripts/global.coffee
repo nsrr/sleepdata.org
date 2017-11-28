@@ -8,6 +8,7 @@
 @componentsReady = ->
   expandableInputReady()
   graphsReady()
+  progressReady()
   textAreaAutocompleteReady()
 
 @extensionsReady = ->
@@ -16,7 +17,6 @@
   fileDragReady()
   signaturesReady()
   tooltipsReady()
-  turbolinksReady()
   typeaheadReady()
 
 @objectsReady = ->

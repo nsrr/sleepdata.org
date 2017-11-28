@@ -1,11 +1,14 @@
-= render "forms/horizontal/show/generic", title: "Zipped file", content: render("exports/download_link", export: @export)
-= render "forms/horizontal/show/generic", title: "Export Time", content: distance_of_time_in_words(@export.created_at, @export.file_created_at, { include_seconds: true }) if @export.file_created_at
-= render "forms/horizontal/show/generic", title: "File size", content: number_to_human_size(@export.file_size)
-= render "forms/horizontal/show/text", object: @export, key: :status
-= render "forms/horizontal/show/markdown", object: @export, key: :details if @export.details.present?
-= render "forms/horizontal/show/generic", title: "User", content: @export.user.full_name
-= render "forms/horizontal/show/generic", title: "Organization", content: @export.organization.name
+- @title = @export.name
 
-= link_to "Edit", edit_export_path(@export)
-|
-= link_to "Back", exports_path
+.dashboard-heading{ style: "position: relative;" }
+  = @title
+
+- if @export.status == "started"
+  #progress.custom-progress-bar{ style: "width: #{@export.percent}%;", data: { object: "#{"ajax-timer" if @export.total_steps != @export.completed_steps}", path: progress_export_path(@export) } }
+
+= link_to exports_path, class: "btn btn-sm btn-link" do
+  %i.fa.fa-caret-left
+  Exports
+= render "layouts/breadcrumb_edit_delete_dropdown", edit_url: edit_export_path(@export), delete_url: @export, delete_confirmation: "Delete #{@export.name}?"
+
+#export-status= render "exports/status", export: @export
