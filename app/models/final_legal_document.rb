@@ -16,6 +16,7 @@ class FinalLegalDocument < ApplicationRecord
   # Relationships
   belongs_to :organization
   belongs_to :legal_document
+  has_many :data_requests, -> { current }
   has_many :final_legal_document_pages, -> { order(:position) }
   has_many :final_legal_document_variables, -> { current }
   has_many :final_legal_document_variable_options, -> { order(:final_legal_document_variable_id, :position) }

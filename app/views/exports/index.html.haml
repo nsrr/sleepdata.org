@@ -1,0 +1,35 @@
+%h1 Exports
+
+- if @exports.present?
+  %table.table.table-sm.table-striped.table-sticky.table-borderless
+    %thead
+      %tr
+        %th Name
+        %th Zipped file
+        %th File created at
+        %th File size
+        %th Status
+        %th Details
+        %th User
+        %th Organization
+        %th Action
+
+    %tbody
+      - @exports.each do |export|
+        %tr
+          %td= link_to export.name, export
+          %td= export.zipped_file
+          %td= export.file_created_at
+          %td= export.file_size
+          %td= export.status
+          %td= export.details
+          %td= export.user_id
+          %td= export.organization_id
+          %td
+            = link_to "Edit", edit_export_path(export)
+            = link_to "Destroy", export, method: :delete, data: { confirm: "Are you sure?" }
+
+  .center-horizontally= paginate @exports, theme: "bootstrap"
+- else
+  .p-3.lead.text-center.text-muted
+    No exports found.

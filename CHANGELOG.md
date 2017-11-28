@@ -27,6 +27,7 @@
 - **Organizations Added**
   - Organizations are used to group datasets, legal documents, and reviewers
   - Organization editors can now create legal documents
+  - Improved data request spreadsheet export task
 - **Legal Documents Added*
   - Legal documents create frameworks for data access and use agreements
   - Organizations can create multiple legal documents for different user types

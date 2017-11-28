@@ -78,7 +78,7 @@ Rails.application.routes.draw do
 
   resources :agreements do
     collection do
-      get :export
+      post :export
     end
 
     resources :agreement_events, path: "events" do
@@ -189,6 +189,12 @@ Rails.application.routes.draw do
 
   get "/a/:auth_token/datasets" => "datasets#index"
   get "/a/:auth_token/datasets/:id" => "datasets#show"
+
+  resources :exports do
+    member do
+      get :download
+    end
+  end
 
   resources :hosting_requests, path: "hosting-requests"
 

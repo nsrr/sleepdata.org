@@ -74,6 +74,7 @@ class User < ApplicationRecord
   has_many :datasets, -> { current }
   has_many :dataset_file_audits
   has_many :dataset_reviews
+  has_many :exports, -> { current }
   has_many :hosting_requests, -> { current }
   has_many :images
   has_many :notifications
@@ -84,6 +85,10 @@ class User < ApplicationRecord
   has_many :topic_users
 
   # Methods
+
+  def organizations
+    Organization.current
+  end
 
   def shadow_banned?
     false

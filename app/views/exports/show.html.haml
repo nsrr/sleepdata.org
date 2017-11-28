@@ -1,0 +1,11 @@
+= render "forms/horizontal/show/generic", title: "Zipped file", content: render("exports/download_link", export: @export)
+= render "forms/horizontal/show/generic", title: "Export Time", content: distance_of_time_in_words(@export.created_at, @export.file_created_at, { include_seconds: true }) if @export.file_created_at
+= render "forms/horizontal/show/generic", title: "File size", content: number_to_human_size(@export.file_size)
+= render "forms/horizontal/show/text", object: @export, key: :status
+= render "forms/horizontal/show/markdown", object: @export, key: :details if @export.details.present?
+= render "forms/horizontal/show/generic", title: "User", content: @export.user.full_name
+= render "forms/horizontal/show/generic", title: "Organization", content: @export.organization.name
+
+= link_to "Edit", edit_export_path(@export)
+|
+= link_to "Back", exports_path

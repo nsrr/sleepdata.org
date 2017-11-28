@@ -54,6 +54,7 @@ class ApplicationController < ActionController::Base
       data_requests: [:index, :show, :page, :attest, :submitted],
       datasets: [:index, :show, :new, :edit],
       dataset_reviews: [:new, :edit, :create, :update, :destroy],
+      exports: [:show, :index],
       hosting_requests: [],
       images: [:index, :show, :new, :edit],
       internal: [],

@@ -12,102 +12,14 @@ class AgreementsController < ApplicationController
     redirect_to reviews_path
   end
 
-  # TODO: Update data request export to use new agreement_variables.
   # GET /agreements/export
   def export
-    @csv_string = CSV.generate do |csv|
-      csv << [
-        "Status",
-        "Last Submitted Date",
-        "Approval Date",
-        "Expiration Date",
-        "Approved By",
-        "Rejected By",
-        "Data Request",
-        "Data User",
-        "Data User Type",
-        "Individual Institution Name",
-        "Individual Name",
-        "Individual Title",
-        "Individual Telephone",
-        "Individual Fax",
-        "Individual Email",
-        "Individual Address",
-        "Organization Business Name",
-        "Organization Contact Name",
-        "Organization Contact Title",
-        "Organization Contact Telephone",
-        "Organization Contact Fax",
-        "Organization Contact Email",
-        "Organization Address",
-        "Title of Project",
-        "Specific Purpose",
-        "Datasets",
-        "Posting Permission",
-        "Unauthorized to Sign",
-        "Signature Print",
-        "Signature Date",
-        "Duly Authorized Representative Signature Print",
-        "Duly Authorized Representative Signature Date",
-        "IRB Evidence Type",
-        "Intended Use of Data",
-        "Data Secured Location",
-        "Secured Device",
-        "Human Subjects Protections Trained"
-      ] + Tag.review_tags.order(:name).pluck(:name)
-
-      DataRequest.current.includes(agreement_tags: :tag).each do |a|
-        row = [
-          a.status,
-          a.last_submitted_at,
-          a.approval_date,
-          a.expiration_date,
-          a.data_request_reviews.where(approved: true).collect{|r| r.user.initials}.join(","),
-          a.data_request_reviews.where(approved: false).collect{|r| r.user.initials}.join(","),
-          a.name,
-          a.data_user,
-          a.data_user_type,
-          a.individual_institution_name,
-          a.user.name,
-          a.individual_title,
-          a.individual_telephone,
-          a.individual_fax,
-          a.user.email,
-          a.individual_address,
-          a.organization_business_name,
-          a.organization_contact_name,
-          a.organization_contact_title,
-          a.organization_contact_telephone,
-          a.organization_contact_fax,
-          a.organization_contact_email,
-          a.organization_address,
-          a.title_of_project,
-          a.specific_purpose,
-          a.datasets.pluck(:name).sort.join(", "),
-          a.posting_permission,
-          a.unauthorized_to_sign,
-          a.signature_print,
-          a.signature_date,
-          a.duly_authorized_representative_signature_print,
-          a.duly_authorized_representative_signature_date,
-          a.irb_evidence_type,
-          a.intended_use_of_data,
-          a.data_secured_location,
-          a.secured_device,
-          a.human_subjects_protections_trained
-        ]
-        Tag.review_tags.order(:name).each do |tag|
-          row << a.tags.collect(&:id).include?(tag.id)
-        end
-        csv << row
-      end
-    end
-
-    send_data(
-      @csv_string,
-      type: "text/csv; charset=iso-8859-1; header=present",
-      disposition: "attachment; filename=\"data-requests-#{Time.zone.now.strftime("%Y%m%d-%Ih%M%p")}.csv\""
+    @export = current_user.exports.create(
+      name: Time.zone.now.strftime("%b %-d, %Y"),
+      organization: current_user.organizations.first
     )
+    @export.generate_export_in_background!
+    redirect_to @export, notice: "Export started."
   end
 
   # GET /agreements/1
