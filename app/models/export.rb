@@ -92,8 +92,8 @@ class Export < ApplicationRecord
   end
 
   def generate_csv_for_final_legal_document(final_legal_document)
-    csv_name = "#{final_legal_document.slug}.csv"
-    temp_csv_file = Tempfile.new("#{final_legal_document.slug}-inverted.csv")
+    csv_name = "#{final_legal_document.slug}-#{final_legal_document.version}.csv"
+    temp_csv_file = Tempfile.new("#{final_legal_document.slug}-#{final_legal_document.version}-inverted.csv")
     transposed_csv_file = Tempfile.new(csv_name)
     data_request_ids = final_legal_document.data_request_ids
     data_request_scope = DataRequest.where(id: data_request_ids).order(:id)
