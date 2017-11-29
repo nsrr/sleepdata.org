@@ -14,6 +14,7 @@
         = link_to "known issues", known_issues_dataset_variable_path(@dataset, @variable, v: params[:v]), class: "alert-link"
         before using this variable in analysis.
 
+    = render "forms/horizontal/show/generic", title: "Name", content: content_tag(:h1, @variable.name, class: "variable-header")
     = render "forms/horizontal/show/generic", title: "Label", content: content_tag(:h1, @variable.display_name, class: "variable-header")
     = render "forms/horizontal/show/generic", title: "Description", content: simple_markdown(@variable.description, allow_lists: false) if @variable.description.present?
     = render "forms/horizontal/show/generic", title: "Calculation", content: calculation_helper(@variable) if @variable.calculation.present?
