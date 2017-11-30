@@ -13,11 +13,10 @@
 
 - filtered_params = params.permit(:ages, :data, :order)
 
-%div{ style: "margin-bottom: 20px;display: flex;" }
-  %div.text-center{ style: "margin: auto; flex: 1;" }
-    %div.text-center{ style: "font-size: 10px;" } AGES
+.d-none.d-sm-flex.mb-3
+  .text-center{ style: "margin: auto; flex: 1;" }
     .btn-group
-      = link_to "#", class: "btn btn-outline-dark dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do
+      = link_to "#", class: "btn btn-sm btn-light dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do
         .d-inline-block.d-sm-none
           %i.fa.fa-cog
         .d-none.d-sm-inline-block
@@ -35,10 +34,9 @@
         = link_to "All Ages", datasets_path(filtered_params.merge(ages: nil)), style: params[:ages].blank? ? "font-weight: bold" : nil, class: "dropdown-item"
         = link_to "Children", datasets_path(filtered_params.merge(ages: "0-17")), style: params[:ages] == "0-17" ? "font-weight: bold" : nil, class: "dropdown-item"
         = link_to "Adults", datasets_path(filtered_params.merge(ages: "18-90")), style: params[:ages] == "18-90" ? "font-weight: bold" : nil, class: "dropdown-item"
-  %div.text-center{ style: "margin: auto; flex: 1;" }
-    %div.text-center{ style: "font-size: 10px;" } DATA
+  .text-center{ style: "margin: auto; flex: 1;" }
     .btn-group
-      = link_to "#", class: "btn btn-outline-dark dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do
+      = link_to "#", class: "btn btn-sm btn-light dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do
         .d-inline-block.d-sm-none
           %i.fa.fa-cog
         .d-none.d-sm-inline-block
@@ -55,10 +53,9 @@
         = link_to "All Data", datasets_path(filtered_params.merge(data: nil)), style: params[:data].blank? ? "font-weight: bold" : nil, class: "dropdown-item"
         = link_to "Actigraphy", datasets_path(filtered_params.merge(data: "actigraphy")), style: params[:data] == "actigraphy" ? "font-weight: bold" : nil, class: "dropdown-item"
         = link_to "Polysomnography", datasets_path(filtered_params.merge(data: "polysomnography")), style: params[:data] == "polysomnography" ? "font-weight: bold" : nil, class: "dropdown-item"
-  %div.text-center{ style: "margin: auto; flex: 1;" }
-    %div.text-center{ style: "font-size: 10px;" } SORT
+  .text-center{ style: "margin: auto; flex: 1;" }
     .btn-group
-      = link_to "#", class: "btn btn-outline-dark dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do
+      = link_to "#", class: "btn btn-sm btn-light dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do
         .d-inline-block.d-sm-none
           %i.fa.fa-cog
         .d-none.d-sm-inline-block
@@ -83,23 +80,25 @@
 - else
   - @datasets.each do |dataset|
     .dataset-card{ id: "dataset-card-#{dataset.id}" }
-      .dataset-card-header
-        .dataset-card-header-ratings
-          .float-right
-            - if dataset.dataset_reviews.count.positive?
-              = link_to dataset_dataset_reviews_path(dataset), style: "text-decoration: none;" do
-                = number_with_delimiter(dataset.dataset_reviews.count)
-                .d-none.d-sm-inline-block= "Review#{"s" if dataset.dataset_reviews.count != 1}"
-                .d-inline-block.d-sm-none
-                  %i.fa.fa-comments
-            = link_to dataset_dataset_reviews_path(dataset) do
-              = render "datasets/rating", rating: dataset.rating
-          = link_to dataset.name, dataset
-          - if dataset.description.present?
-            %br.d-block.d-sm-none
-            = link_to "#", data: { object: "flip-card", target: "#dataset-card-#{dataset.id}" }, style: "font-size: 10px;" do
-              details
-              %i.fa.fa-caret-down.text-muted
+      - if false
+        .dataset-card-header
+          .dataset-card-header-ratings
+            - if false
+              .float-right
+                - if dataset.dataset_reviews.count.positive?
+                  = link_to dataset_dataset_reviews_path(dataset), style: "text-decoration: none;" do
+                    = number_with_delimiter(dataset.dataset_reviews.count)
+                    .d-none.d-sm-inline-block= "Review#{"s" if dataset.dataset_reviews.count != 1}"
+                    .d-inline-block.d-sm-none
+                      %i.fa.fa-comments
+                = link_to dataset_dataset_reviews_path(dataset) do
+                  = render "datasets/rating", rating: dataset.rating
+            = link_to dataset.name, dataset
+            - if dataset.description.present?
+              %br.d-block.d-sm-none
+              = link_to "#", data: { object: "flip-card", target: "#dataset-card-#{dataset.id}" }, style: "font-size: 10px;" do
+                details
+                %i.fa.fa-caret-down.text-muted
 
       .dataset-card-body
         .not-flipped
@@ -109,12 +108,13 @@
         .already-flipped
           = simple_markdown(dataset.description)
       .dataset-card-footer
-        .float-right.d-none.d-md-block= render "datasets/card_footer_request", dataset: dataset
+        .float-right.d-none.d-lg-block= render "datasets/card_footer_request", dataset: dataset
         .dataset-card-footer-links
-          %span.d-none.d-md-inline-block{ style: "color: #ccc;" } View
-          .dataset-card-footer-entry
+          .dataset-card-footer-entry.pl-0
             = link_to dataset, class: "no-underline" do
-              %small Docs
+              %small
+                .d-none.d-lg-inline-block= dataset.name
+                .d-inline-block.d-lg-none= dataset.slug.upcase
           - unless dataset.dataset_files.current.where(is_file: true).count.zero?
             .dataset-card-footer-spacer|
             .dataset-card-footer-entry
@@ -131,8 +131,8 @@
                 %small.d-inline-block.d-md-none Variables
                 %small.d-none.d-md-inline-block
                   = pluralize number_with_delimiter(dataset.current_variables.count), "Variable"
-      .dataset-card-footer.dataset-card-footer-request.d-block.d-md-none
-        .text-center= render "datasets/card_footer_request", dataset: dataset
+      .dataset-card-footer.dataset-card-footer-request.d-block.d-lg-none
+        .text-center.small= render "datasets/card_footer_request", dataset: dataset
 
   .center-horizontally= paginate @datasets, theme: "bootstrap"
 

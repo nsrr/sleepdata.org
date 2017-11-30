@@ -1,8 +1,8 @@
 - (text, url, icon, arrow, status) = data_access(dataset)
 
-.d-inline-block.d-md-none= icon
+.d-inline-block.d-md-none.small= icon
 = link_to url, style: "text-decoration: none;" do
-  = text
+  %small= text
   - if arrow
-    %i.fa.fa-caret-right
-.d-none.d-md-inline-block= icon
+    %i.fa.fa-caret-right.small
+.d-none.d-md-inline-block.small= icon

@@ -71,6 +71,7 @@
 }
 
 .dataset-card-header {
+  background-color: $p50-grey;
   border-bottom: 1px solid $p200-grey;
   display: flex;
 }
@@ -162,7 +163,7 @@
 }
 
 .dataset-card-footer {
-  background-color: $p200-grey;
+  background-color: $p100-grey;
   padding: 10px;
 }
 
@@ -175,7 +176,7 @@
   flex-flow: row wrap;
   justify-content: space-around;
 
-  @include media-breakpoint-up(md) {
+  @include media-breakpoint-up(lg) {
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
@@ -187,6 +188,6 @@
   }
 
   .dataset-card-footer-spacer {
-    color: $p400-grey;
+    color: $p300-grey;
   }
 }
