@@ -264,6 +264,7 @@ Rails.application.routes.draw do
     get :contributors, path: "about/contributors"
     get :datasharing, path: "about/data-sharing-language"
     get :demo
+    get :fair, path: "about/fair-data-principles"
     get :landing
     get :share
     get :sitemap
@@ -372,6 +373,7 @@ Rails.application.routes.draw do
   resources :users
 
   get "/submissions", to: redirect("data/requests")
+  get "/fair", to: redirect("about/fair-data-principles")
 
   # In case "failed submission steps are reloaded using get request"
   get "/agreements/:id/final_submission" => "agreements#proof"

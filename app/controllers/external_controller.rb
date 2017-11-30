@@ -37,6 +37,10 @@ class ExternalController < ApplicationController
   # def share
   # end
 
+  # # GET /about/fair-data-principles
+  # def fair
+  # end
+
   # # GET /sitemap
   # def sitemap
   # end

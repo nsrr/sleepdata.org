@@ -46,6 +46,16 @@ class ExternalControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get share" do
+    get share_url
+    assert_response :success
+  end
+
+  test "should get fair" do
+    get fair_url
+    assert_response :success
+  end
+
   test "should get data sharing language" do
     get datasharing_url
     assert_response :success

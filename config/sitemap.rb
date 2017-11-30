@@ -24,6 +24,7 @@ SitemapGenerator::Sitemap.create do
   add "/contact", changefreq: "monthly", priority: 0.3
   add "/team", changefreq: "monthly", priority: 0.3
   add "/share", changefreq: "monthly", priority: 0.3
+  add "/about/fair-data-principles", changefreq: "monthly", priority: 0.3
   add "/about/academic-user-group", changefreq: "monthly", priority: 0.3
   add "/about/contributors", changefreq: "monthly", priority: 0.3
   add "/demo", changefreq: "monthly", priority: 0.3
