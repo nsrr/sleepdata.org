@@ -3,7 +3,7 @@
   $("#new-topic-container").fadeIn('fast')
 
 @hideForumTopicForm = ->
-  $('[name=password]').tooltip('destroy')
+  $('[name=password]').tooltip("dispose")
   $("#new-topic-container").html('')
   $("#new-topic-container").hide()
   $("#forum-top-container").show()

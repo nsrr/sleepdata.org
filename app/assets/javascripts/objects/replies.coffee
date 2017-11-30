@@ -3,7 +3,7 @@
   $("#comment_container_#{parent_reply_id}_#{reply_id}").fadeIn('fast')
 
 @hideReplyBox = (parent_reply_id, reply_id) ->
-  $('[name=password]').tooltip('destroy')
+  $('[name=password]').tooltip("dispose")
   $("#comment_container_#{parent_reply_id}_#{reply_id}").html('')
   $("#comment_container_#{parent_reply_id}_#{reply_id}").hide()
   $("#write_reply_#{parent_reply_id}_#{reply_id}").show()
