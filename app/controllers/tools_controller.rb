@@ -9,9 +9,9 @@ class ToolsController < ApplicationController
   def index
     @order = scrub_order(CommunityTool, params[:order], "community_tools.name")
     if @order == "community_tools.name"
-      community_tool_scope = community_tools.order("LOWER(community_tools.name)")
+      community_tool_scope = community_tools.order(Arel.sql("LOWER(community_tools.name)"))
     elsif @order == "community_tools.name desc nulls last"
-      community_tool_scope = community_tools.order("LOWER(community_tools.name) desc nulls last")
+      community_tool_scope = community_tools.order(Arel.sql("LOWER(community_tools.name) desc nulls last"))
     else
       community_tool_scope = community_tools.order(@order)
     end

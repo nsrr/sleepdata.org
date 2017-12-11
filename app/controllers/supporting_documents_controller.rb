@@ -12,7 +12,7 @@ class SupportingDocumentsController < ApplicationController
 
   # GET /data/requests/:data_request_id/supporting-documents
   def index
-    @supporting_documents = @data_request.supporting_documents.order("lower(document)").page(params[:page]).per(40)
+    @supporting_documents = @data_request.supporting_documents.order(Arel.sql("lower(document)")).page(params[:page]).per(40)
   end
 
   # GET /data/requests/:data_request_id/supporting-documents/1

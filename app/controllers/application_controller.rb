@@ -129,7 +129,7 @@ class ApplicationController < ActionController::Base
     direction = (params_direction == "desc" ? "desc nulls last" : nil)
     column_name = model.column_names.collect { |c| "#{model.table_name}.#{c}" }.select { |c| c == params_column }.first
     order = column_name.blank? ? default_order : [column_name, direction].compact.join(" ")
-    order
+    Arel.sql(order.to_s)
   end
 
   def check_banned

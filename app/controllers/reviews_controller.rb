@@ -12,7 +12,7 @@ class ReviewsController < ApplicationController
   def index
     params[:order] = "agreements.last_submitted_at desc" if params[:order].blank?
     @order = scrub_order(DataRequest, params[:order], [:id])
-    agreement_scope = current_user.reviewable_data_requests.search(params[:search]).order(@order)
+    agreement_scope = current_user.reviewable_data_requests.search(Arel.sql(params[:search].to_s)).order(@order)
     agreement_scope = agreement_scope.without_vote(current_user) if params[:voted].to_s == "0"
     agreement_scope = agreement_scope.with_vote(current_user) if params[:voted].to_s == "1"
     agreement_scope = agreement_scope.with_tag(params[:tag_id]) if params[:tag_id].present?

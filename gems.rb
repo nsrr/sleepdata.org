@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "rails",                "5.1.4"
+gem "rails",                "5.2.0.beta2"
 
 # Speed Up Loading Times
 gem "bootsnap",             "1.1.5", require: false
@@ -16,7 +16,7 @@ gem "bootstrap",            "~> 4.0.0.beta2"
 gem "carrierwave",          "~> 1.2.1"
 gem "chunky_png",           "~> 1.3.4"
 # gem "devise",               "~> 4.3.0"
-gem "devise", git: "https://github.com/plataformatec/devise", ref: "88e9a85"
+gem "devise", git: "https://github.com/plataformatec/devise", ref: "4f2e915"
 gem "differ",               "~> 0.1.2"
 gem "figaro",               "~> 1.1.1"
 gem "font-awesome-rails",   "~> 4.7.0"

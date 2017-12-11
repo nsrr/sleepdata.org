@@ -43,7 +43,7 @@
           %i.fa.fa-graduation-cap
         Learn
       .card-body
-        - tutorials = CommunityTool.current.where(published: true, tag_tutorial: true).order("rating desc nulls last").limit(3)
+        - tutorials = CommunityTool.current.where(published: true, tag_tutorial: true).order(Arel.sql("rating desc nulls last")).limit(3)
         - tutorials.each do |community_tool|
           %div.nowrap.overflow-hidden
             - if community_tool.rating
@@ -88,7 +88,7 @@
         .landing-tool-header
           Learn
         .landing-tool-links
-          - tutorials = CommunityTool.current.where(published: true, tag_tutorial: true).order("rating desc nulls last").limit(3)
+          - tutorials = CommunityTool.current.where(published: true, tag_tutorial: true).order(Arel.sql("rating desc nulls last")).limit(3)
           - tutorials.each do |community_tool|
             %div
               = link_to community_tool.name, tool_path(community_tool)

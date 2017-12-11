@@ -7,7 +7,7 @@ class LegalDocumentPagesController < ApplicationController
 
   # GET /orgs/1/legal-documents/1/pages
   def index
-    @legal_document_pages = @legal_document.legal_document_pages.search(params[:search]).order("position nulls last", :rider).page(params[:page]).per(20)
+    @legal_document_pages = @legal_document.legal_document_pages.search(params[:search]).order(Arel.sql("position nulls last"), :rider).page(params[:page]).per(20)
   end
 
   # GET /orgs/1/legal-documents/1/pages/1
