@@ -9,9 +9,10 @@ class MembersController < ApplicationController
     if @member&.profile_picture&.thumb.present?
       send_file(@member&.profile_picture&.thumb&.path)
     else
-      file_path = (Rails.application.assets || ::Sprockets::Railtie.build_environment(Rails.application))
-                  .find_asset("member-secret.png").filename
-      send_file(file_path)
+      file_path = Rails.root.join("app", "assets", "images", "member-secret.png")
+      File.open(file_path, "r") do |f|
+        send_data f.read, type: "image/png", filename: "member.png"
+      end
     end
   end
 
