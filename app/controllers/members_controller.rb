@@ -9,7 +9,13 @@ class MembersController < ApplicationController
     if @member&.profile_picture&.thumb.present?
       send_file(@member&.profile_picture&.thumb&.path)
     else
-      send_file(Rails.root.join("app", "assets", "images", "member-secret.png"))
+      if Rails.env.production?
+        basename = File.basename(ActionController::Base.helpers.asset_path("member-secret.png"))
+        file_path = Rails.root.join("public", "assets", basename)
+      else
+        file_path = Rails.root.join("app", "assets", "images", "member-secret.png")
+      end
+      send_file(file_path)
     end
   end
 
