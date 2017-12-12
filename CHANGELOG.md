@@ -1,6 +1,9 @@
 ## 30.1.0
 
 ### Enhancements
+- **Reviewer Changes**
+  - Approved to rejected review no longer displays to reviewers who have not
+    voted
 - **Gem Changes**
   - Updated to rails 5.2.0.beta2
 
