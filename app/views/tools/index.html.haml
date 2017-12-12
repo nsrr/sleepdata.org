@@ -24,7 +24,8 @@
 
 - if @community_tools.present?
   %table.table.table-striped.table-borderless.table-hover.table-sticky
-    %col{ width: "1px" }
+    - if false
+      %col{ width: "1px" }
     %col{ width: "75%" }
     %col.d-none.d-sm-table-column{ width: "25%" }
     %col{ width: "1px" }
@@ -33,7 +34,8 @@
       %col{ width: "1px" }
     %thead
       %tr
-        = th_sort_field_rev @order, "community_tools.rating", "Rating", extra_class: "text-center"
+        - if false
+          = th_sort_field_rev @order, "community_tools.rating", "Rating", extra_class: "text-center"
         %th{ class: params[:order] == "community_tools.name desc" || params[:order].blank? ? "sort-selected" : nil }
           - case params[:order]
           - when "community_tools.name desc"
@@ -59,9 +61,10 @@
     %tbody
       - @community_tools.each do |community_tool|
         %tr
-          %td.text-center
-            = link_to community_tool_community_tool_reviews_path(community_tool) do
-              = render "community_tools/rating", rating: community_tool.rating
+          - if false
+            %td.text-center
+              = link_to community_tool_community_tool_reviews_path(community_tool) do
+                = render "community_tools/rating", rating: community_tool.rating
           %td= link_to community_tool.name, tool_path(community_tool)
           %td.d-none.d-sm-block= community_tool.user.forum_name
           %td.text-center

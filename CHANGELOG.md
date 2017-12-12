@@ -7,6 +7,8 @@
   - Voting on data request now reloads and displays hidden comments and votes
   - Approving or rejecting a data request after writing a comment now also
     submits the comment
+- **Tool Changes**
+  - Removed tool ratings from tools index
 - **Gem Changes**
   - Updated to rails 5.2.0.beta2
 
