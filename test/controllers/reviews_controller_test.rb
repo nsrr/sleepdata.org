@@ -54,7 +54,7 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_equal true, assigns(:data_request_review).approved
     assert_equal "reviewer_approved", assigns(:agreement_event).event_type
-    assert_template "agreement_events/create"
+    assert_template "vote"
     assert_response :success
   end
 
@@ -66,7 +66,7 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     assert_equal false, assigns(:data_request_review).approved
     assert_equal "reviewer_rejected", assigns(:agreement_event).event_type
     assert_equal @reviewer, assigns(:data_request_review).user
-    assert_template "agreement_events/create"
+    assert_template "vote"
     assert_response :success
   end
 
@@ -77,7 +77,7 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_equal false, assigns(:data_request_review).approved
     assert_nil assigns(:agreement_event)
-    assert_template "agreement_events/create"
+    assert_template "vote"
     assert_response :success
   end
 
@@ -88,7 +88,7 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_equal true, assigns(:data_request_review).approved
     assert_equal "reviewer_changed_from_rejected_to_approved", assigns(:agreement_event).event_type
-    assert_template "agreement_events/create"
+    assert_template "vote"
     assert_response :success
   end
 
@@ -99,7 +99,7 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     end
     assert_equal false, assigns(:data_request_review).approved
     assert_equal "reviewer_changed_from_approved_to_rejected", assigns(:agreement_event).event_type
-    assert_template "agreement_events/create"
+    assert_template "vote"
     assert_response :success
   end
 

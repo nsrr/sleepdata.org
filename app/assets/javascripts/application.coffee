@@ -65,6 +65,7 @@
 #= require objects/images
 #= require objects/replies
 #= require objects/requests
+#= require objects/reviews
 #= require objects/supporting_documents
 #= require objects/tags
 #= require objects/topics

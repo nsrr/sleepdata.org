@@ -14,17 +14,8 @@
             View
 
         = @title
-  .breadcrumb-container
-    .container
-      .float-right.d-none.d-lg-block
-        = render "reviews/tags", data_request: @data_request
-      %ol
-        %li
-          - voting_count = current_user.reviewable_data_requests.without_vote(current_user).count
-          = link_to reviews_path(voted: voting_count > 0 ? 0 : nil), class: "btn btn-sm btn-light" do
-            %i.fa.fa-caret-left
-            Reviews
-        %span#agreement-reviewers= render "reviews/reviewers", data_request: @data_request
+  .breadcrumb-container#review-breadcrumbs
+    = render "reviews/breadcrumbs", data_request: @data_request
 
 = render "reviewer/agreement_variables/modal"
 

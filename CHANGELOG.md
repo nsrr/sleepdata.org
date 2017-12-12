@@ -4,6 +4,7 @@
 - **Reviewer Changes**
   - Approved to rejected review no longer displays to reviewers who have not
     voted
+  - Voting on data request now reloads and displays hidden comments and votes
 - **Gem Changes**
   - Updated to rails 5.2.0.beta2
 

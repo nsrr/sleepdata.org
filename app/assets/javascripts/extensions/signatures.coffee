@@ -59,7 +59,7 @@ $(document)
   .on("touchend mouseup", ".signature-pad canvas", (event) ->
     resetHelpTexts()
   )
-  .on('click', '[data-object~="disable-spinner"]', ->
+  .on("click", "[data-object~=disable-spinner]", ->
     disablerWithSpinner($(this))
   )
   .on('click', '[data-object~="submit-signature-and-disable"]', ->

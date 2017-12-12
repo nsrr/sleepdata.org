@@ -1,7 +1,4 @@
-<% if @agreement_event %>
-  $("#agreement_events").append("<div id=\"agreement_event_container_<%= @agreement_event.id %>\"></div>");
-  $("#agreement_event_container_<%= @agreement_event.id %>").html("<%=j render "agreement_events/show", agreement_event: @agreement_event, number: @agreement_event.number %>");
-<% end %>
+$("#agreement_events").html("<%=j render "agreement_events/index" %>");
 
 <%# Reset form %>
 <% @agreement_event = @data_request.agreement_events.where(user_id: current_user.id).new %>

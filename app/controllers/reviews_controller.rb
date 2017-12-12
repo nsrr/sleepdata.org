@@ -77,7 +77,6 @@ class ReviewsController < ApplicationController
         "reviewer_rejected"
       end
     @agreement_event = @data_request.agreement_events.create(event_type: event_type, user: current_user, event_at: Time.zone.now) if event_type.present?
-    render "agreement_events/create"
   end
 
   # POST /reviews/1/update_tags.js

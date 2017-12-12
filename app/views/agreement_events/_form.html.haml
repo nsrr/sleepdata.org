@@ -36,20 +36,20 @@
                 - @data_request_review = @data_request.data_request_reviews.find_by(user: current_user)
                 - if @data_request_review&.vote_cleared?
                   .float-right
-                    = link_to @data_request_review.approved == true ? "Re-approve" : "Approve", vote_review_path(@data_request, approved: "1"), method: :post, remote: true, class: "btn btn-outline-success"
-                    = link_to @data_request_review.approved == false ? "Re-reject" : "Reject", vote_review_path(@data_request, approved: "0"), method: :post, remote: true, class: "btn btn-outline-danger"
+                    = link_to @data_request_review.approved == true ? "Re-approve" : "Approve", "#", data: { object: "review-cast-vote", approved: "1", path: vote_review_path(@data_request) }, class: "btn btn-outline-success"
+                    = link_to @data_request_review.approved == false ? "Re-reject" : "Reject", "#", data: { object: "review-cast-vote", approved: "0", path: vote_review_path(@data_request) }, class: "btn btn-outline-danger"
                 - elsif @data_request_review&.approved == true
                   .float-right
-                    = link_to "Approved", vote_review_path(@data_request, approved: "1"), method: :post, remote: true, class: "btn btn-success disabled", disabled: true
-                    = link_to "Reject", vote_review_path(@data_request, approved: "0"), method: :post, remote: true, class: "btn btn-outline-danger"
+                    = link_to "Approved", "#", data: { object: "review-cast-vote", approved: "1", path: vote_review_path(@data_request) }, class: "btn btn-success disabled", disabled: true
+                    = link_to "Reject", "#", data: { object: "review-cast-vote", approved: "0", path: vote_review_path(@data_request) }, class: "btn btn-outline-danger"
                 - elsif @data_request_review&.approved == false
                   .float-right
-                    = link_to "Approve", vote_review_path(@data_request, approved: "1"), method: :post, remote: true, class: "btn btn-outline-success"
-                    = link_to "Rejected", vote_review_path(@data_request, approved: "0"), method: :post, remote: true, class: "btn btn-danger disabled", disabled: true
+                    = link_to "Approve", "#", data: { object: "review-cast-vote", approved: "1", path: vote_review_path(@data_request) }, class: "btn btn-outline-success"
+                    = link_to "Rejected", "#", data: { object: "review-cast-vote", approved: "0", path: vote_review_path(@data_request) }, class: "btn btn-danger disabled", disabled: true
                 - else
                   .float-right
-                    = link_to "Approve", vote_review_path(@data_request, approved: "1"), method: :post, remote: true, class: "btn btn-outline-success"
-                    = link_to "Reject", vote_review_path(@data_request, approved: "0"), method: :post, remote: true, class: "btn btn-outline-danger"
+                    = link_to "Approve", "#", data: { object: "review-cast-vote", approved: "1", path: vote_review_path(@data_request) }, class: "btn btn-outline-success"
+                    = link_to "Reject", "#", data: { object: "review-cast-vote", approved: "0", path: vote_review_path(@data_request) }, class: "btn btn-outline-danger"
 
         %div{ id: "agreement_event_preview_#{agreement_event_id}", style: "display: none;min-height: 233px;" }
         - if @agreement_event.new_record?
