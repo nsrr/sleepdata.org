@@ -27,4 +27,8 @@ class Organization < ApplicationRecord
     update slug: nil
     super
   end
+
+  def data_requests
+    DataRequest.current.joins(:requests).merge(Request.where(dataset: datasets)).distinct
+  end
 end

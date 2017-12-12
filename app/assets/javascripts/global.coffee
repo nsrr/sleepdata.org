@@ -9,6 +9,7 @@
   expandableInputReady()
   graphsReady()
   progressReady()
+  reportsReady()
   textAreaAutocompleteReady()
 
 @extensionsReady = ->

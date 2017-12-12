@@ -34,6 +34,25 @@
               = link_to @organization, method: :delete, data: { confirm: "Delete #{@organization.name}?" }, class: "dropdown-item text-danger" do
                 %i.fa.fa-trash
                 Delete
+        %li
+          .dropdown.dropdown-sm.d-inline-block
+            = link_to "#", class: "btn btn-light btn-sm dropdown-toggle", data: { toggle: "dropdown" } do
+              .d-inline-block.d-sm-none
+                %i.fa.fa-cog
+              .d-none.d-sm-inline-block Reports
+              %strong.caret
+
+            .dropdown-menu
+              = link_to organizations_reports_this_month_path(@organization), class: "dropdown-item" do
+                %i.fa.fa-calendar
+                This Month
+              = link_to organizations_reports_data_requests_path(@organization), class: "dropdown-item" do
+                %i.fa.fa-line-chart
+                Data Requests Report
+              = link_to organizations_reports_data_request_stats_path(@organization), class: "dropdown-item" do
+                %i.fa.fa-table
+                Data Request Stats
+
 
 = render "forms/horizontal/show/text", object: @organization, key: :name
 = render "forms/horizontal/show/text", object: @organization, key: :slug

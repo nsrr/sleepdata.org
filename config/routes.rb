@@ -207,6 +207,14 @@ Rails.application.routes.draw do
 
   get "/image/:id" => "images#download", as: "download_image"
 
+  namespace :organizations, path: "orgs/:id" do
+    namespace :reports do
+      get :data_requests, path: "data-requests"
+      get :data_request_stats, path: "data-requests/stats"
+      get :this_month, path: "this-month"
+    end
+  end
+
   resources :organizations, path: "orgs" do
     resources :legal_documents, path: "legal-documents" do
       resources :legal_document_pages, path: "pages"

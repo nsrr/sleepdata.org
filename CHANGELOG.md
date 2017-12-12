@@ -1,6 +1,13 @@
 ## 30.1.0
 
 ### Enhancements
+- **Organization Changes**
+  - Added three new organization report pages:
+    - "This Month" displays the increase or decrease of submitted and approved
+      data requests
+    - "Data Requests" displays a graph of the past years submitted and approved
+      data requests
+    - "Data Request Stats" gives a breadown of data requests
 - **Reviewer Changes**
   - Approved to rejected review no longer displays to reviewers who have not
     voted

@@ -1,0 +1,31 @@
+- @title = "Data Request Stats"
+
+%h1.mb-5
+  = @title
+  .small= @organization.name
+
+
+.card-deck.mb-5
+  .card
+    %h4.card-header Number of Data Users*
+    .card-body
+      .display-1= number_with_delimiter(@organization.data_requests.where(status: "approved").select(:user_id).distinct.count)
+    .card-footer
+      * Users who have one or more approved data requests.
+
+  .card
+    %h4.card-header Number of Data Requests
+    .card-body
+      .display-1= number_with_delimiter(@organization.data_requests.count)
+      - DataRequest::STATUS.each do |label, status|
+        .small
+          = number_with_delimiter(@organization.data_requests.where(status: status).count)
+          %span.badge.badge-dark= label
+
+
+%ul
+  %li
+    = link_to "Data Requests Reports", organizations_reports_data_requests_path(@organization)
+    %ul
+      - @organization.datasets.order(:release_date, :name).each do |dataset|
+        %li= link_to "for #{dataset.slug.upcase}", organizations_reports_data_requests_path(@organization, dataset: dataset)

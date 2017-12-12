@@ -1,0 +1,52 @@
+%h1.display-1 This Month
+
+- data_requests_submitted_last_month = @organization.data_requests.where("DATE(submitted_at) >= ? and DATE(submitted_at) <= ?", (Time.zone.today - 1.month).beginning_of_month, (Time.zone.today - 1.month).end_of_month).count
+- data_requests_submitted_this_month = @organization.data_requests.where("DATE(submitted_at) >= ? and DATE(submitted_at) <= ?", Time.zone.today.beginning_of_month, Time.zone.today.end_of_month).count
+
+- difference = data_requests_submitted_this_month - data_requests_submitted_last_month
+
+.card.mb-3
+  %h4.card-header
+    Data Requests
+    %span.badge.badge-primary submitted
+    this month:
+  .card-body
+    .display-2= data_requests_submitted_this_month
+    This is
+    - if difference.negative?
+      down
+      %span.text-danger
+        = difference
+    - else
+      up
+      %span.text-success
+        = "+#{difference}"
+    from
+    = succeed "." do
+      = link_to "last month", organizations_reports_data_requests_path(@organization)
+
+
+- data_requests_approved_last_month = @organization.data_requests.where("DATE(approval_date) >= ? and DATE(approval_date) <= ?", (Time.zone.today - 1.month).beginning_of_month, (Time.zone.today - 1.month).end_of_month).count
+- data_requests_approved_this_month = @organization.data_requests.where("DATE(approval_date) >= ? and DATE(approval_date) <= ?", Time.zone.today.beginning_of_month, Time.zone.today.end_of_month).count
+
+- difference = data_requests_approved_this_month - data_requests_approved_last_month
+
+.card.mb-3
+  %h4.card-header
+    Data Requests
+    %span.badge.badge-success approved
+    this month:
+  .card-body
+    .display-2= data_requests_approved_this_month
+    This is
+    - if difference.negative?
+      down
+      %span.text-danger
+        = difference
+    - else
+      up
+      %span.text-success
+        = "+#{difference}"
+    from
+    = succeed "." do
+      = link_to "last month", organizations_reports_data_requests_path(@organization)

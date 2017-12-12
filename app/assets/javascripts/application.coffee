@@ -44,6 +44,7 @@
 #= require components/previews
 #= require components/progress
 #= require components/ratings
+#= require components/reports
 #= require components/search
 #= require components/text_area_autocomplete
 
