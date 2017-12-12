@@ -31,6 +31,8 @@ Rails/DynamicFindBy:
     - find_by_param
 Rails/HasManyOrHasOneDependent:
   Enabled: false
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
 Rails/SkipsModelValidations:
   Enabled: false
 
