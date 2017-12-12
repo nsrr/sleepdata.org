@@ -67,6 +67,6 @@ class AgreementEventsController < ApplicationController
   end
 
   def agreement_event_params
-    params.require(:agreement_event).permit(:comment)
+    params.fetch(:agreement_event, {}).permit(:comment)
   end
 end

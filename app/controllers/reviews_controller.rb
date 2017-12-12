@@ -76,6 +76,7 @@ class ReviewsController < ApplicationController
       elsif @data_request_review.approved == false
         "reviewer_rejected"
       end
+    @data_request.agreement_events.create(event_type: "commented", user: current_user, event_at: Time.zone.now, comment: params[:comment]) if params[:comment].present?
     @agreement_event = @data_request.agreement_events.create(event_type: event_type, user: current_user, event_at: Time.zone.now) if event_type.present?
   end
 

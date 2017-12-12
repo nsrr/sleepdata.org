@@ -58,6 +58,19 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should vote leave comment and approve agreement" do
+    login(@reviewer)
+    assert_difference("AgreementEvent.count", 2) do
+      assert_difference("DataRequestReview.count") do
+        post vote_review_url(@data_request, format: "js"), params: { approved: "1", comment: "Approved this request." }
+      end
+    end
+    assert_equal true, assigns(:data_request_review).approved
+    assert_equal "reviewer_approved", assigns(:agreement_event).event_type
+    assert_template "vote"
+    assert_response :success
+  end
+
   test "should vote and reject agreement" do
     login(@reviewer)
     assert_difference("DataRequestReview.count") do
