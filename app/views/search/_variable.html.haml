@@ -1,0 +1,11 @@
+.search-result
+  .search-result-title
+    = link_to variable.display_name, [variable.dataset, variable]
+  .search-result-author
+    - if variable.folder.present?
+      Located in
+      = variable.folder
+    in
+    = link_to variable.dataset.slug.upcase, dataset_variables_path(variable.dataset, folder: variable.folder)
+  .search-result-body
+    = variable.description

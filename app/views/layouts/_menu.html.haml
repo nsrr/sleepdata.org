@@ -1,9 +1,9 @@
 .background-special
-  %nav.navbar.navbar-expand-lg.navbar-dark.color-overlay2
+  %nav.navbar.navbar-expand-lg.navbar-dark.color-overlay2.py-0
     %div{ class: defined?(container) && container.present? ? container : "container" }
       = render "layouts/logo"
 
-      %button.navbar-toggler{ type: "button", data: { toggle: "collapse", target: "#menu-body" }, aria: { controls: "menu-body", expanded: "false", label: "Toggle navigation" } }
+      %button.navbar-toggler{ type: "button", data: { toggle: "collapse", target: "#menu-body" }, aria: { controls: "menu-body", expanded: "false", label: "Toggle navigation" }, style: "border: 0;outline: 0;" }
         %span.navbar-toggler-icon
 
       #menu-body.menu-body.collapse.navbar-collapse

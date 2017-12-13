@@ -1,0 +1,12 @@
+@include media-breakpoint-up(lg) {
+  .nav-item {
+    &:focus,
+    &:hover,
+    &.active {
+      color: rgba($brand-white, .9);
+      background-color: rgba($brand-black, .2);
+      border-bottom: 2px solid $p500-amber;
+      margin-bottom: -2px;
+    }
+  }
+}

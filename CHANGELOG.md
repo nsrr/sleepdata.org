@@ -1,6 +1,10 @@
 ## 30.1.0
 
 ### Enhancements
+- **General Changes**
+  - The main menu bar has been improved
+  - The site-wide search has been improved and now also returns results for
+    variable pages
 - **Organization Changes**
   - Added three new organization report pages:
     - "This Month" displays the increase or decrease of submitted and approved

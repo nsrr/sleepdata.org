@@ -16,6 +16,7 @@ class Variable < ApplicationRecord
   }, using: {
     tsearch: { any_word: true, normalization: 4, prefix: true }
   }, order_within_rank: "commonly_used desc"
+  multisearchable against: [:name, :display_name, :folder, :description], if: :latest_version_and_released?
 
   after_save :set_search_terms
 
@@ -67,5 +68,9 @@ class Variable < ApplicationRecord
     end
     terms = terms.select { |a| a.to_s.strip.size > 1 }.collect { |b| b.downcase.strip }.uniq.sort.join(" ")
     update_column :search_terms, terms
+  end
+
+  def latest_version_and_released?
+    dataset_version_id == dataset.dataset_version_id && dataset.released?
   end
 end

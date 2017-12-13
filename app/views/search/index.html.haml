@@ -6,29 +6,44 @@
     .container
       %h1.page-heading
         Search
-        - if params[:search].present?
-          %span.badge.badge-light{ data: { object: "show-search-bar" }, style: "cursor: pointer;text-shadow: none;" }= params[:search]
 
-.row
-  .col-md-9
-    - if @search_documents.present?
-      - @search_documents.each do |document|
-        .dashboard-container
-          - case document.searchable.class.to_s when "Broadcast"
-            = render "search/broadcast", broadcast: document.searchable
-          - when "Topic"
-            = render "search/topic", topic: document.searchable
-          - when "Reply"
-            = render "search/reply", reply: document.searchable
-      .center-horizontally= paginate @search_documents, theme: "bootstrap"
+= form_tag search_path, method: :get, id: "search-form", class: "mb-5" do
+  .input-group
+    = text_field_tag :search, params[:search], class: "form-control", placeholder: "Search...", autocomplete: "off", autofocus: true
+    %span.input-group-btn
+      = link_to "#", class: "btn btn-primary", data: { object: "submit-and-disable", target: "#search-form" } do
+        %i.fa.fa-search
+
+- @highlight_found = true
+- if [0, 1].include?(params[:page].to_i)
+  - if /share|sharing|upload/ =~ params[:search].to_s
+    = render "search/highlights/share"
+  - elsif /fair|find|access|interoper|usable|useable/ =~ params[:search].to_s
+    = render "search/highlights/fair"
+  - elsif /shhs|sleep|heart/ =~ params[:search].to_s
+    = render "search/highlights/shhs"
+  - else
+    - @highlight_found = false
+- else
+  - @highlight_found = false
+
+- if @search_documents.present?
+  - @search_documents.each do |document|
+    .dashboard-container
+      - case document.searchable.class.to_s when "Broadcast"
+        = render "search/broadcast", broadcast: document.searchable
+      - when "Topic"
+        = render "search/topic", topic: document.searchable
+      - when "Reply"
+        = render "search/reply", reply: document.searchable
+      - when "Variable"
+        = render "search/variable", variable: document.searchable
+  .center-horizontally= paginate @search_documents, theme: "bootstrap"
+- elsif @highlight_found
+  -# Nothing
+- else
+  %p.lead.text-center
+    - if params[:search].present?
+      No Search Results Found
     - else
-      %p.lead.text-center
-        No Search Results Found
-      %p.lead.text-center
-        You may
-        = link_to "modify your search", "#", data: { object: "show-search-bar" }
-        or return to
-        = succeed "." do
-          = link_to "our blog", blog_path
-  .col-md-3.col-buffer
-    .menu-sticky= render "blog/menu"
+      Type a search above.

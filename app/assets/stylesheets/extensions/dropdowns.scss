@@ -14,3 +14,37 @@
     padding: 0.25rem .5rem;
   }
 }
+
+.dropdown-menu-nsrr {
+  background-attachment: fixed;
+  background-image: asset-url("221_old.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-width: 0;
+  box-shadow: 0 5px 10px 0 $box-shadow-color;
+  margin-top: 0;
+  padding: 0;
+
+  .dropdown-menu-nsrr-inner {
+    background-color: rgba($p600-green, .9);
+    border-radius: 0 0 $border-radius $border-radius;
+    padding: .5rem 0;
+  }
+
+  .dropdown-item {
+    border-left: 2px solid transparent;
+    color: $brand-white;
+
+    &:focus,
+    &:hover {
+      background-color: rgba($brand-black, .2);
+      border-color: $p500-amber;
+      text-decoration: none;
+    }
+  }
+
+  .dropdown-divider {
+    border-color: rgba($brand-white, .2);
+  }
+}

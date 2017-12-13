@@ -1,0 +1,30 @@
+.card-deck
+  .card.mb-3{ style: "min-width: 18rem;" }
+    .card-header.bg-dark.text-white
+      .text-center{ style: "font-size: 6rem;" }
+        %i.fa.fa-database
+    .card-body.bg-dark.text-white
+      The National Sleep Research Resource (NSRR) is an NHLBI-funded resource
+      designed to host and
+      %span.text-accent share data
+      from major sleep cohort studies and clinical trials.
+    .card-footer.text-center.bg-white
+      = link_to share_path do
+        Share your data on the NSRR
+        %i.fa.fa-caret-right
+
+
+  .card.mb-3{ style: "min-width: 18rem;" }
+    .card-header.bg-dark.text-white
+      .text-center{ style: "font-size: 6rem;" }
+        %i.fa.fa-pencil
+    .card-body.bg-dark.text-white
+      We will
+      %span.text-accent share data
+      as described in the NIH Policy for subjects studied in this protocol,
+      in accordance with the final guidelines of the individual IRB reviews of
+      this application.
+    .card-footer.text-center.bg-white
+      = link_to datasharing_path do
+        Data sharing language for grants
+        %i.fa.fa-caret-right

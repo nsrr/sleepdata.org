@@ -20,7 +20,7 @@
 
 .dashboard-container-narrow
   .dashboard-container-title
-    2. Fill out a Data Access and Use Agreement.
+    2. Fill out a data request.
 
   %p
     We've streamlined the data request process to quickly get you access to a
@@ -72,4 +72,6 @@
     .call-to-action-header
       Ready to get started?
     .call-to-action-body
-      = link_to "Explore Available Datasets", datasets_path, class: "btn btn-primary btn-lg btn-shadow"
+      = link_to datasets_path, class: "btn btn-primary btn-lg btn-shadow" do
+        Explore datasets
+        %i.fa.fa-caret-right

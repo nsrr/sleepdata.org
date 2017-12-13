@@ -1,0 +1,18 @@
+.card-deck
+  .card.mb-3{ style: "min-width: 18rem;" }
+    .card-header.bg-dark.text-white
+      .text-center{ style: "font-size: 2rem;" }
+        Sleep Heart Health Study
+    .card-body.bg-dark.text-white
+      The Sleep Heart Health Study
+      %span.text-accent (SHHS)
+      is a multi-center cohort study implemented by the National Heart Lung &
+      Blood Institute to determine the cardiovascular and other consequences of
+      sleep-disordered breathing.
+
+    .card-footer.text-center.bg-white
+      = link_to dataset_path("shhs") do
+        View dataset
+        %i.fa.fa-caret-right
+
+

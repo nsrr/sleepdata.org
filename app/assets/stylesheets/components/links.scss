@@ -68,3 +68,13 @@
     // text-decoration: none;
   }
 }
+
+.link-accent-search {
+  color: $p500-amber;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: darken($p500-amber, 15%);
+  }
+}

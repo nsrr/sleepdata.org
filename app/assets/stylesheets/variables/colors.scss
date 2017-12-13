@@ -6,9 +6,6 @@ $brand-success: $p500-green;
 $link-color: $p500-blue;
 // $brand-success: $p500-teal;
 // $brand-warning: $p500-amber;
-$brand-accent: $p200-green !default;
-// $brand-accent: $a200-light-blue !default;
-$brand-accent-text: #fff !default; // $a200-light-blue-text !default;
 
 // Shadows and backdrops
 $standard-shadow-color: rgba(0, 0, 0, .3);
@@ -20,11 +17,6 @@ $box-shadow-color: rgba(0, 0, 0, .15);
 
 
 // OLD COLORS
-$breadcrumb-link-color: $a100-light-blue !default;
-$header-bg: $p500-green !default;
-
-$notification-link-color: $brand-accent !default;
-
 $comment-unread-even: $brand-white;
 $comment-unread-odd: $p50-grey;
 $comment-read-even: $p100-green;

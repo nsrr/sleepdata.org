@@ -1,10 +1,12 @@
+$notification-link-color: $p500-amber;
+
 @keyframes pulse-notification {
   from {
     color: $notification-link-color;
   }
 
   to {
-    color: $header-bg;
+    color: $brand-white;
   }
 }
 

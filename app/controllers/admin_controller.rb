@@ -7,6 +7,10 @@ class AdminController < ApplicationController
 
   layout "layouts/full_page_dashboard_no_drawer"
 
+  def dashboard
+    redirect_to users_path
+  end
+
   # GET /admin/agreement-reports
   def agreement_reports
     @agreements = Agreement.current.regular_members
