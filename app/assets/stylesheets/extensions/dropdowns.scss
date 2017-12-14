@@ -25,9 +25,10 @@
   box-shadow: 0 5px 10px 0 $box-shadow-color;
   margin-top: 0;
   padding: 0;
+  position: relative;
 
   .dropdown-menu-nsrr-inner {
-    background-color: rgba($p600-green, .9);
+    background-color: rgba($p700-green, .9);
     border-radius: 0 0 $border-radius $border-radius;
     padding: .5rem 0;
   }
@@ -46,5 +47,16 @@
 
   .dropdown-divider {
     border-color: rgba($brand-white, .2);
+  }
+
+  &::after {
+    content: "";
+    border: 7px solid transparent;
+    border-bottom-color: rgba($p700-green, .9);
+    display: inline-block;
+    left: auto;
+    position: absolute;
+    right: 29px;
+    top: -14px;
   }
 }
