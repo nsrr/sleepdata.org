@@ -236,4 +236,20 @@ class DataRequest < Agreement
       end
     end
   end
+
+  def reset_signature_fields!(current_user)
+    hash = {
+      attested_at: nil,
+      remove_signature_file: true,
+      signature_print: nil,
+      signature_date: nil,
+      duly_authorized_representative_email: nil,
+      duly_authorized_representative_emailed_at: nil,
+      duly_authorized_representative_signed_at: nil,
+      remove_duly_authorized_representative_signature_file: true,
+      duly_authorized_representative_signature_print: nil,
+      duly_authorized_representative_signature_date: nil
+    }
+    AgreementTransaction.save_agreement!(self, current_user, current_user.current_sign_in_ip, "agreement_update", data_request_params: hash)
+  end
 end
