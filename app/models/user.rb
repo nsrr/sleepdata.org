@@ -217,7 +217,10 @@ class User < ApplicationRecord
   end
 
   def digest_reviews
-    data_request_reviews.where("approved IS NULL or vote_cleared = ?", true).joins(:data_request).merge(DataRequest.current.where(status: "submitted")).order("agreements.last_submitted_at desc")
+    data_request_reviews
+      .where("approved IS NULL or vote_cleared = ?", true)
+      .joins(:data_request).merge(DataRequest.current.where(status: "submitted"))
+      .order("agreements.last_submitted_at desc")
   end
 
   def full_name
@@ -249,7 +252,7 @@ class User < ApplicationRecord
   end
 
   def forum_name
-    username.blank? ? name : username
+    username.presence || name
   end
 
   def unread_notifications?
