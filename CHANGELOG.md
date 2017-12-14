@@ -1,4 +1,4 @@
-## 30.1.0
+## 30.1.0 (December 14, 2017)
 
 ### Enhancements
 - **General Changes**
