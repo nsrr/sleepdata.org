@@ -28,7 +28,7 @@ gem "mini_magick",          "~> 4.8.0"
 gem "pg_search",            "~> 2.1.0"
 gem "redcarpet",            "~> 3.4.0"
 gem "rubyzip",              "~> 1.2.1"
-gem "sitemap_generator",    "~> 5.3.1"
+gem "sitemap_generator",    "~> 6.0.0"
 
 # Rails Defaults
 gem "coffee-rails",         "~> 4.2"

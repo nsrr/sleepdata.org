@@ -23,6 +23,7 @@
 - **Gem Changes**
   - Updated to rails 5.2.0.beta2
   - Updated to bootsnap 1.1.7
+  - Updated to sitemap_generator 6.0.0
 
 ### Bug Fix
 - Fixed a bug that prevented default user forum icons from displaying
