@@ -273,4 +273,11 @@ class User < ApplicationRecord
   def send_welcome_email_with_password(pw)
     RegistrationMailer.send_welcome_email_with_password(self, pw).deliver_now if EMAILS_ENABLED
   end
+
+  # Resend welcome email in case of typo in original email address.
+  def resend_welcome_email!
+    pw = SecureRandom.hex(8)
+    update(password: pw)
+    send_welcome_email_with_password(pw)
+  end
 end
