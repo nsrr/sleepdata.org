@@ -22,6 +22,7 @@
   - Removed tool ratings from tools index
 - **Gem Changes**
   - Updated to rails 5.2.0.beta2
+  - Updated to bootsnap 1.1.7
 
 ### Bug Fix
 - Fixed a bug that prevented default user forum icons from displaying
