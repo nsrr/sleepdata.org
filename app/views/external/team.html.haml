@@ -14,11 +14,20 @@
 
 .dashboard-container-narrow
   %p.text-center
+    %strong Co Investigators
+  .row
+    .col-6.text-center
+      Shaun Purcell
+    .col-6.text-center
+      Sara Mariani
+
+.dashboard-container-narrow
+  %p.text-center
     %strong Team Members
   - @users = User.core_members.order(:last_name, :first_name)
   .row
     - @users.each do |user|
-      - unless ["Susan Redline", "GQ Zhang"].include?(user.name)
+      - unless ["Susan Redline", "GQ Zhang", "Shaun Purcell", "Sara Mariani"].include?(user.name)
         .col-sm-6.col-buffer.text-center= user.name
 
 .text-center

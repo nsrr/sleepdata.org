@@ -1,6 +1,8 @@
 ## 31.0.0
 
 ### Enhancements
+- **General Changes**
+  - Updated team page
 - **Gem Changes**
   - Updated to ruby 2.5.0
   - Updated to bootstrap 4.0.0.beta3
