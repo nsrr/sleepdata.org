@@ -24,10 +24,8 @@
         - else
           = icon
   - else
-    .custom-controls-stacked
-      - variable.options.each do |option|
-        = label_tag "#{key}_#{option.value}", class: "custom-control custom-radio" do
-          = radio_button_tag key, option.value, value == option.value, class: "custom-control-input", id: "#{key}_#{option.value}", data: { object: "text-input-expandable", help_element: help_element, help_text: help_text, resubmission_required: resubmission_required }, disabled: editable
-          %span.custom-control-indicator
-          - if option.display_name.present?
-            %span.custom-control-description= simple_markdown option.display_name
+    - variable.options.each do |option|
+      .custom-control.custom-radio
+        = radio_button_tag key, option.value, value == option.value, class: "custom-control-input", id: "#{key}_#{option.value}", data: { object: "text-input-expandable", help_element: help_element, help_text: help_text, resubmission_required: resubmission_required }, disabled: editable
+        = label_tag "#{key}_#{option.value}", class: "custom-control-label" do
+          = simple_markdown option.display_name if option.display_name.present?

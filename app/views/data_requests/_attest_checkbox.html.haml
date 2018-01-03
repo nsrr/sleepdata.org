@@ -2,11 +2,10 @@
   = hidden_field_tag "data_request[draft]", nil
 
   .form-group
-    = label_tag :attest, class: "custom-control custom-checkbox" do
+    .custom-control.custom-checkbox
       = hidden_field_tag :attest, "0", id: "attest_no"
       = check_box_tag :attest, "1", @data_request.attested_at.present?, class: "custom-control-input", id: :attest, data: { object: "text-input-expandable", help_element: :attest, help_text: "Attestation" }
-      %span.custom-control-indicator
-      %span.custom-control-description
+      = label_tag :attest, class: "custom-control-label" do
         I have read this legal document and have answered each question
         truthfully to the best of my knowledge.
 

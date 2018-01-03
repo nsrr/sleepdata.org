@@ -19,12 +19,11 @@
       - if variable.description.present?
         %span.custom-control-description= variable.description
   - else
-    = label_tag key, class: "custom-control custom-checkbox" do
+    .custom-control.custom-checkbox
       = hidden_field_tag key, "0", id: "#{key}_no"
       = check_box_tag key, "1", value == "1", class: "custom-control-input", id: key, data: { object: "text-input-expandable", help_element: help_element, help_text: help_text, resubmission_required: resubmission_required }, disabled: editable
-      %span.custom-control-indicator
-      - if variable.description.present?
-        %span.custom-control-description= variable.description
+      = label_tag key, class: "custom-control-label" do
+        = variable.description
   - if variable.field_note.present?
     %br
     %small.text-muted= simple_markdown variable.field_note
