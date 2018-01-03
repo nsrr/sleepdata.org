@@ -1,5 +1,9 @@
 ## 31.0.0
 
+### Enhancements
+- **Gem Changes**
+  - Updated to devise 4.4.0
+
 ## 30.1.0 (December 14, 2017)
 
 ### Enhancements
