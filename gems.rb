@@ -12,7 +12,7 @@ gem "pg",                   "0.21.0"
 
 # Gems used by project
 gem "autoprefixer-rails"
-gem "bootstrap",            "~> 4.0.0.beta2"
+gem "bootstrap",            "~> 4.0.0.beta3"
 gem "carrierwave",          "~> 1.2.1"
 gem "chunky_png",           "~> 1.3.4"
 gem "devise",               "~> 4.4.0"
