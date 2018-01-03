@@ -3,6 +3,7 @@
 ### Enhancements
 - **Gem Changes**
   - Updated to devise 4.4.0
+  - Updated to pg_search 2.1.2
 
 ## 30.1.0 (December 14, 2017)
 
