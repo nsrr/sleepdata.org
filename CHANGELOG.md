@@ -1,4 +1,4 @@
-## 31.0.1
+## 31.0.1 (January 8, 2018)
 
 ### Bug Fix
 - Fixed a bug that prevented users with approved data access from seeing
