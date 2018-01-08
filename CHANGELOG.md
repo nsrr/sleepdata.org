@@ -1,5 +1,9 @@
 ## 31.0.1
 
+### Bug Fix
+- Fixed a bug that prevented users with approved data access from seeing
+  unreleased datasets on the datasets index
+
 ## 31.0.0 (January 8, 2018)
 
 ### Enhancements

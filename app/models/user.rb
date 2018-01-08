@@ -183,9 +183,8 @@ class User < ApplicationRecord
     Dataset.current.with_reviewer(id)
   end
 
-  # TODO: Viewable datasets should include "approved" data requests. (Currently handled in application controller)
   def all_viewable_datasets
-    Dataset.current.with_viewer_or_editor(id)
+    Dataset.current.with_viewer_or_editor_or_approved(id)
   end
 
   def all_viewable_challenges
