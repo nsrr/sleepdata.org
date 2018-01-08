@@ -1,4 +1,4 @@
-## 31.0.0
+## 31.0.0 (January 8, 2018)
 
 ### Enhancements
 - **General Changes**
