@@ -1,5 +1,5 @@
 .form-group{ style: "#{"display: none;" if object.new_record? && !object.errors.key?(key)}" }
-  = form.label key, defined?(key_name) ? key_name : nil, class: "form-control-label"
+  = form.label key, defined?(key_name) ? key_name : nil
   = form.text_field key, class: "form-control#{" is-invalid" if object.errors[key].present?}", id: "#{object.class.to_s.underscore}_#{key}"
   - if defined?(key_name)
     = render "forms/invalid_feedback", object: object, key: key, key_name: key_name

@@ -18,7 +18,7 @@
     = render "forms/signature"
 
     .form-group
-      = label_tag :signature_print, "By (print name)", class: "form-control-label"
+      = label_tag :signature_print, "By (print name)"
       = text_field_tag :signature_print, @data_request.signature_print, class: "form-control input-expandable", placeholder: "<required>", data: { object: "text-input-expandable", help_element: "signature_print", help_text: "By (print name)" }
 
       %small.text-muted

@@ -4,7 +4,7 @@
 - help_text = label || key.titleize
 
 .form-group
-  = label_tag key, class: "form-control-label" do
+  = label_tag key do
     = label
     - if !reviewer && variable.field_note.present?
       %small.text-muted= variable.field_note

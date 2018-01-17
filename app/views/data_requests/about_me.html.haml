@@ -44,11 +44,11 @@
 
         = form_with url: data_requests_login_path(@dataset), method: :post, local: true, id: "form_sign_in" do |form|
           .form-group
-            = form.label :email, class: "form-control-label"
+            = form.label :email
             = form.email_field :email, class: "form-control#{" is-invalid" if @sign_in_errors}"
 
           .form-group
-            = form.label :password, class: "form-control-label"
+            = form.label :password
             = link_to "(Forgot password?)", new_user_password_path, tabindex: "-1", class: "small"
             = form.password_field :password, autocomplete: "off", class: "form-control#{" is-invalid" if @sign_in_errors}"
             - if @sign_in_errors
