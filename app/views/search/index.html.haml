@@ -9,7 +9,7 @@
 
 = form_tag search_path, method: :get, id: "search-form", class: "mb-5" do
   .input-group
-    = text_field_tag :search, params[:search], class: "form-control", placeholder: "Search...", autocomplete: "off", autofocus: true
+    = text_field_tag :search, params[:search], class: "form-control", placeholder: "Search...", autocomplete: "off", autofocus: params[:search].blank?
     %span.input-group-btn
       = link_to "#", class: "btn btn-primary", data: { object: "submit-and-disable", target: "#search-form" } do
         %i.fa.fa-search
