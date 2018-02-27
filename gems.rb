@@ -8,7 +8,7 @@ gem "rails",                "5.2.0.rc1"
 gem "bootsnap",             "1.1.8", require: false
 
 # Database Adapter
-gem "pg",                   "0.21.0"
+gem "pg",                   "1.0.0"
 
 # Gems used by project
 gem "autoprefixer-rails"
