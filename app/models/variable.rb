@@ -21,7 +21,7 @@ class Variable < ApplicationRecord
   after_save :set_search_terms
 
   # Scopes
-  scope :with_folder, ->(arg) { where "folder ~* ?", "(^#{arg})" }
+  scope :with_folder, ->(arg) { where "folder ~* ?", "(^#{arg.to_s.gsub("(", "\\(").gsub(")", "\\)")})" }
   scope :latest, -> { joins(:dataset).where("variables.dataset_version_id = datasets.dataset_version_id").merge(Dataset.released) }
 
   # Validations
