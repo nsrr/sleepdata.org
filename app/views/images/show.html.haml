@@ -1,6 +1,6 @@
-= link_to 'Edit', edit_image_path(@image)
+= link_to "Edit", edit_image_path(@image)
 |
-= link_to 'Back', images_path
+= link_to "Back", images_path
 
 %br
 %br
@@ -18,4 +18,4 @@
   = number_to_human_size @image.file_size
 
 %p
-  = image_tag download_image_path(@image), alt: '', class: 'img-responsive'
+  = image_tag download_image_path(@image), alt: "", class: "img-responsive"
