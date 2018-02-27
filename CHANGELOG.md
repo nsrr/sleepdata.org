@@ -1,5 +1,9 @@
 ## 32.0.0
 
+### Enhancements
+- **Gem Changes**
+  - Updated to rails 5.2.0.rc1
+
 ## 31.0.1 (January 8, 2018)
 
 ### Bug Fix

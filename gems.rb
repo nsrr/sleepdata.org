@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-gem "rails",                "5.2.0.beta2"
+gem "rails",                "5.2.0.rc1"
 
 # Speed Up Loading Times
 gem "bootsnap",             "1.1.8", require: false
