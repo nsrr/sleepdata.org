@@ -3,7 +3,6 @@
 # Renders text written with markdown.
 module MarkdownHelper
   def simple_markdown(text, target_blank: true, table_class: "", allow_links: true, allow_lists: true)
-    result = ""
     result = text.to_s
     result = replace_numbers_with_ascii(result) unless allow_lists
     result = redcarpet_markdown.render(result)
