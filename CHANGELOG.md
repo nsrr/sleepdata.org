@@ -4,6 +4,7 @@
 - **Gem Changes**
   - Updated to rails 5.2.0.rc1
   - Updated to pg 1.0.0
+  - Updated to carrierwave 1.2.2
   - Updated to devise 4.4.1
 
 ## 31.0.1 (January 8, 2018)
