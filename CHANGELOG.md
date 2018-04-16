@@ -4,6 +4,7 @@
 - **Variable Changes**
   - Variable folders can now include parentheses in their name
 - **Gem Changes**
+  - Updated to ruby 2.5.1
   - Updated to rails 5.2.0
   - Updated to pg 1.0.0
   - Updated to bootstrap 4.0.0
