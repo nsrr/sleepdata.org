@@ -4,7 +4,7 @@
 - **Variable Changes**
   - Variable folders can now include parentheses in their name
 - **Gem Changes**
-  - Updated to rails 5.2.0.rc1
+  - Updated to rails 5.2.0
   - Updated to pg 1.0.0
   - Updated to bootstrap 4.0.0
   - Updated to carrierwave 1.2.2
