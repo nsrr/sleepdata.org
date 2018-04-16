@@ -11,6 +11,7 @@
   - Updated to carrierwave 1.2.2
   - Updated to devise 4.4.3
   - Updated to simplecov 0.16.1
+  - Updated to capybara 3.0
   - Removed bootsnap
 
 ## 31.0.1 (January 8, 2018)
