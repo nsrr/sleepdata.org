@@ -10,6 +10,7 @@
   - Updated to bootstrap 4.0.0
   - Updated to carrierwave 1.2.2
   - Updated to devise 4.4.3
+  - Updated to simplecov 0.16.1
   - Removed bootsnap
 
 ## 31.0.1 (January 8, 2018)
