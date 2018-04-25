@@ -14,6 +14,10 @@
   - Updated to capybara 3.0
   - Removed bootsnap
 
+### Bug Fix
+- Fixed a bug that occurred when publishing a legal document after removing a
+  variable
+
 ## 31.0.1 (January 8, 2018)
 
 ### Bug Fix

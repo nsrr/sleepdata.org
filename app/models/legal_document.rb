@@ -93,6 +93,7 @@ class LegalDocument < ApplicationRecord
     end
     legal_document_variables.each do |variable|
       final_variable = final.final_legal_document_variables.find_by(name: variable.name)
+      next unless final_variable
       final_variable.update(
         name: variable.name,
         display_name: variable.display_name,
