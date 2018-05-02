@@ -16,8 +16,6 @@ latex_location:       "<%= print "PDF LaTeX Location [/usr/bin/pdflatex]: "; s =
 devise_pepper:        "<%= SecureRandom.hex(64) %>"
 website_secret:       "<%= SecureRandom.hex(64) %>"
 
-google_analytics:     "<%= print "Enter Google Analytics Tracking ID: "; gets.chomp %>"
-
 recaptcha_enabled:    "<%= print "Enable reCAPTCHA? (y|n)"; response = gets.chomp.downcase[0]; response == 'y' ? 'true' : 'false' %>"
 recaptcha_site_key:   "<%= print "Enter reCAPTCHA Site Key: "; gets.chomp %>"
 recaptcha_secret_key: "<%= print "Enter reCAPTCHA Secret Key: "; gets.chomp %>"

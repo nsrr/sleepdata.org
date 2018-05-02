@@ -1,6 +1,8 @@
 ## 32.0.0
 
 ### Enhancements
+- **General Changes**
+  - Removed Google Analytics
 - **Variable Changes**
   - Variable folders can now include parentheses in their name
 - **Gem Changes**
