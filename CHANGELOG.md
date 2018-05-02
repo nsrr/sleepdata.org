@@ -1,4 +1,4 @@
-## 32.0.0
+## 32.0.0 (May 2, 2018)
 
 ### Enhancements
 - **General Changes**
