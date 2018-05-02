@@ -2,7 +2,6 @@ www.sleepdata.org
 =================
 
 [![Build Status](https://travis-ci.org/nsrr/www.sleepdata.org.svg?branch=master)](https://travis-ci.org/nsrr/www.sleepdata.org)
-[![Dependency Status](https://gemnasium.com/nsrr/www.sleepdata.org.svg)](https://gemnasium.com/nsrr/www.sleepdata.org)
 [![Code Climate](https://codeclimate.com/github/nsrr/www.sleepdata.org/badges/gpa.svg)](https://codeclimate.com/github/nsrr/www.sleepdata.org)
 
 The application that runs www.sleepdata.org. Using Rails 5.2+ and Ruby 2.5+.
