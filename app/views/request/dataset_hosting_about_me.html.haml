@@ -61,7 +61,7 @@
       .form-group{ class: @sign_in_errors ? "has-error" : "" }
         = label_tag :password, "Password", class: "control-label"
         = link_to "(Forgot password?)", new_user_password_path, tabindex: "-1"
-        = password_field_tag :password, "", class: "form-control", autocomplete: "off"
+        = password_field_tag :password, "", class: "form-control", autocomplete: "current-password"
         - if @sign_in_errors
           %small.text-danger Invalid email or password.
 

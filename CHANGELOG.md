@@ -3,6 +3,7 @@
 ### Enhancements
 - **General Changes**
   - Removed Google Analytics
+  - Improved password autocomplete
 - **Variable Changes**
   - Variable folders can now include parentheses in their name
 - **Gem Changes**

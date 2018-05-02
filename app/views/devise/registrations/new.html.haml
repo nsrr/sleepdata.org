@@ -23,11 +23,11 @@
 
         .form-group
           = render "layouts/label_or_errors", form: form, object: resource, key: :password
-          = form.password_field :password, class: "form-control", autocomplete: "off"
+          = form.password_field :password, class: "form-control", autocomplete: "new-password"
 
         .form-group
           = render "layouts/label_or_errors", form: form, object: resource, key: :password_confirmation
-          = form.password_field :password_confirmation, class: "form-control", autocomplete: "off"
+          = form.password_field :password_confirmation, class: "form-control", autocomplete: "new-password"
 
         .form-group
           %label.control-label Receive Forum Emails

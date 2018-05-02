@@ -11,11 +11,11 @@
 
     .form-group
       = render "layouts/label_or_errors", form: form, object: resource, key: :password, key_name: "New Password"
-      = form.password_field :password, class: "form-control"
+      = form.password_field :password, class: "form-control", autocomplete: "new-password"
 
     .form-group
       = render "layouts/label_or_errors", form: form, object: resource, key: :password_confirmation, key_name: "Password Confirmation"
-      = form.password_field :password_confirmation, class: "form-control"
+      = form.password_field :password_confirmation, class: "form-control", autocomplete: "new-password"
 
     .form-group.submit-btn-container
       = form.submit "Change my password", class: "btn btn-primary btn-block btn-shadow"

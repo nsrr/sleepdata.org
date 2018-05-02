@@ -67,7 +67,7 @@
         = email_field_tag :email, params[:email], class: "form-control mb-2 mr-sm-2 mb-sm-0", placeholder: "Email", data: { title: "Invalid Email", container: "body" }
 
         = label_tag :password, nil, class: "sr-only"
-        = password_field_tag :password, "", class: "form-control mb-2 mr-sm-2 mb-sm-0", placeholder: "Password", data: { title: "Invalid Password", container: "body" }
+        = password_field_tag :password, "", class: "form-control mb-2 mr-sm-2 mb-sm-0", placeholder: "Password", data: { title: "Invalid Password", container: "body" }, autocomplete: "current-password"
 
         = submit_tag "Sign In", class: "btn btn-primary"
         %small.mb-2.ml-2.mb-sm-0.mt-2.mt-md-0
