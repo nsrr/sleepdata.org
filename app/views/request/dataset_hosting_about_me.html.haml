@@ -17,10 +17,7 @@
       = f.hidden_field :description
       = f.hidden_field :institution_name
 
-      = render "layouts/form_group", errors: @registration_errors, object: :user, attribute: :first_name, attribute_name: "First name"
-
-      = render "layouts/form_group", errors: @registration_errors, object: :user, attribute: :last_name, attribute_name: "Last name"
-
+      = render "layouts/form_group", errors: @registration_errors, object: :user, attribute: :first_name, attribute_name: "Full name"
       = render "layouts/form_group", errors: @registration_errors, object: :user, attribute: :email, attribute_name: "Email"
 
       - invisible_recaptcha = false

@@ -21,6 +21,7 @@ class RequestController < ApplicationController
       if current_user
         save_tool_user
       else
+        @user = User.new
         render :contribute_tool_about_me
       end
     end
@@ -29,16 +30,13 @@ class RequestController < ApplicationController
   def contribute_tool_register_user
     @community_tool = CommunityTool.new(community_tool_params)
     unless current_user
-      user = User.new(user_params)
-      if RECAPTCHA_ENABLED && !verify_recaptcha
-        @registration_errors = { recaptcha: "reCAPTCHA verification failed." }
-        render :contribute_tool_about_me
+      @user = User.new(user_params)
+      if @user.save
+        @user.send_welcome_email_in_background!
+        save_tool_user(user: @user, redirect: false)
+        render :contribute_tool_confirm_email
         return
-      elsif user.save
-        user.send_welcome_email_with_password_in_background(params[:user][:password])
-        sign_in(:user, user)
       else
-        @registration_errors = user.errors
         render :contribute_tool_about_me
         return
       end
@@ -52,10 +50,11 @@ class RequestController < ApplicationController
     unless current_user
       user = User.find_by_email params[:email]
       if user && user.valid_password?(params[:password])
-        sign_in(:user, user)
+        sign_in(:user, user) # TODO, don't sign in unless confirmed?
       else
         @sign_in_errors = []
         @sign_in = true
+        @user = User.new
         render :contribute_tool_about_me
         return
       end
@@ -123,7 +122,7 @@ class RequestController < ApplicationController
         render :dataset_hosting_about_me
         return
       elsif user.save
-        user.send_welcome_email_with_password_in_background(params[:user][:password])
+        user.send_welcome_email_in_background!
         sign_in(:user, user)
       else
         @registration_errors = user.errors
@@ -200,24 +199,20 @@ class RequestController < ApplicationController
   end
 
   def user_params
-    params[:user] ||= {}
-    params[:user][:password] = params[:user][:password_confirmation] = SecureRandom.hex(8)
-    params.require(:user).permit(
-      :first_name, :last_name, :email,
-      :password, :password_confirmation)
+    params.require(:user).permit(:username, :email, :password)
   end
 
-  def save_tool_user
-    @community_tool.user_id = current_user.id
+  def save_tool_user(user: current_user, redirect: true)
+    @community_tool.user_id = user.id
     if @community_tool.save
       description = @community_tool.readme_content
       if description
         description = "```\n#{description}\n```" unless @community_tool.markdown?
         @community_tool.update description: description
       end
-      redirect_to contribute_tool_description_path(@community_tool)
+      redirect_to contribute_tool_description_path(@community_tool) if redirect
     else
-      render :contribute_tool_start
+      render :contribute_tool_start if redirect
     end
   end
 

@@ -1,19 +1,23 @@
-- @title = @user.name
+- @title = @user.username
 
 - content_for :header do
   .header-container
     .container
       %h1.page-heading
         .float-right
-          = render "layouts/edit_delete_dropdown", edit_url: edit_user_path(@user), delete_url: @user, delete_confirmation: "Delete #{@user.name}?"
+          = render "layouts/edit_delete_dropdown", edit_url: edit_user_path(@user), delete_url: @user, delete_confirmation: "Delete #{@user.username}?"
         = @title
   .breadcrumb-container
     .container
       %ol
         %li= link_to "Users", users_path
 
-= render "forms/horizontal/show/text", object: @user, key: :email
-= render "forms/horizontal/show/generic", title: "Username", content: link_to(@user.username, topics_path(a: @user.username)) if @user.username.present?
+= render "forms/horizontal/show/generic", title: "Username", content: link_to(@user.username, member_path(@user.username))
+= render "forms/horizontal/show/generic", title: "Email", content: render("users/email", user: @user)
+= render "forms/horizontal/show/generic", title: "Joined", content: @user.created_at&.strftime("%a, %B %d, %Y at %-l:%M:%S %p")
+= render "forms/horizontal/show/generic", title: "Confirmation sent", content: @user.confirmation_sent_at&.strftime("%a, %B %d, %Y at %-l:%M:%S %p")
+= render "forms/horizontal/show/generic", title: "Email confirmed", content: @user.confirmed_at&.strftime("%a, %B %d, %Y at %-l:%M:%S %p")
+= render "forms/horizontal/show/text", object: @user, key: :full_name
 = render "forms/horizontal/show/check_box", object: @user, key: :emails_enabled
 = render "forms/horizontal/show/text", object: @user, key: :profile_bio, key_name: "Bio"
 = render "forms/horizontal/show/text", object: @user, key: :profile_url, key_name: "URL"

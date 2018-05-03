@@ -29,7 +29,7 @@
           = link_to reply.parent.title, reply
           .reply-body{ style: "font-size: 0.9em;padding: 0;margin: 0;" }
             = simple_markdown(sanitize(reply.description.gsub(/</, "&lt;")).gsub("&gt;", ">"), table_class: "table table-striped", allow_links: reply.display_links?)
-        %td.d-none.d-md-table-cell= link_to reply.user.forum_name, reply.user
+        %td.d-none.d-md-table-cell= link_to reply.user.username, reply.user
         %td.d-none.d-md-table-cell
           %abbr{ rel: "tooltip", data: { title: reply.created_at.strftime("%-l:%M %p"), container: "body", placement: "left" } }
             = reply.created_at.strftime("%b %-d, %Y")

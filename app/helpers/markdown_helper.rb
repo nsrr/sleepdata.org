@@ -2,18 +2,20 @@
 
 # Renders text written with markdown.
 module MarkdownHelper
-  def simple_markdown(text, target_blank: true, table_class: "", allow_links: true, allow_lists: true)
+  def simple_markdown(text, target_blank: true, table_class: "", allow_links: true, allow_images: true, allow_tables: true, allow_lists: true)
     result = text.to_s
     result = replace_numbers_with_ascii(result) unless allow_lists
     result = redcarpet_markdown.render(result)
     result = result.encode("UTF-16", undef: :replace, invalid: :replace, replace: "").encode("UTF-8")
     result = add_table_class(result, table_class) unless table_class.blank?
     result = expand_relative_paths(result)
-    unless allow_links
-      result = remove_links(result)
+    result = remove_links(result) unless allow_links
+    if allow_images
+      result = wrap_images(result)
+    else
       result = remove_images(result)
-      result = remove_tables(result)
     end
+    result = remove_tables(result) unless allow_tables
     result = target_link_as_blank(result) if target_blank
     result = link_usernames(result)
     result.html_safe
@@ -53,6 +55,10 @@ module MarkdownHelper
 
   def remove_links(text)
     text.to_s.gsub(/<a[^>]*? href="(.*?)">(.*?)<\/a>/m, '\1')
+  end
+
+  def wrap_images(text)
+    text.to_s.gsub(/(<img.*?>)/m, "<div class=\"img-zoom-message\">\\1</div>")
   end
 
   def remove_images(text)

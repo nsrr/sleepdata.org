@@ -8,30 +8,8 @@
         .sign-up-form-title
           About Yourself
 
-        = form_with model: @user, url: data_requests_join_path(@dataset), method: :post, local: true, id: "recaptcha-form" do |form|
-          - if false
-            - # TODO: combine first name and last name.
-            = render "forms/vertical/text_field", form: form, object: @user, key: :full_name
-          - else
-            = render "forms/vertical/text_field", form: form, object: @user, key: :first_name
-            = render "forms/vertical/text_field", form: form, object: @user, key: :last_name
-
-          = render "forms/vertical/email_field", form: form, object: @user, key: :email
-
-          - invisible_recaptcha = false
-          - if RECAPTCHA_ENABLED && !invisible_recaptcha
-            .form-group
-              .mx-auto.g-recaptcha{ data: { sitekey: ENV["recaptcha_site_key"] }, style: "max-width: 304px;height: 78px;" }
-              <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-              - if @user.errors[:recaptcha].present?
-                .text-center.small.text-danger{ style: "margin-top: .25rem;" }= @user.errors[:recaptcha].join(", ")
-
-          .form-group.submit-btn-container
-            - if RECAPTCHA_ENABLED && invisible_recaptcha
-              %button.g-recaptcha.btn.btn-primary.btn-block.btn-shadow{ data: { sitekey: ENV["recaptcha_site_key"], callback: "recaptchaFormSubmit" } } Create an Account
-              <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-            - else
-              = form.submit "Create an Account", class: "btn btn-primary btn-block btn-shadow"
+        = form_with model: @user, url: data_requests_join_path(@dataset), method: :post, local: true do |form|
+          = render "devise/registrations/form_fields", form: form, user: @user
 
       .sign-up-form.text-center
         = succeed "." do

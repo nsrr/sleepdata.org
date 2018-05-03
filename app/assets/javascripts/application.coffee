@@ -58,15 +58,4 @@
 #= require extensions/typeahead
 
 # Objects
-#= require objects/agreement_events
-#= require objects/data_requests
-#= require objects/datasets
-#= require objects/files
-#= require objects/images
-#= require objects/replies
-#= require objects/requests
-#= require objects/reviews
-#= require objects/supporting_documents
-#= require objects/tags
-#= require objects/topics
-#= require objects/variables
+#= require_tree ./objects

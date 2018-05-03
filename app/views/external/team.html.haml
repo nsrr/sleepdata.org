@@ -24,11 +24,11 @@
 .dashboard-container-narrow
   %p.text-center
     %strong Team Members
-  - @users = User.core_members.order(:last_name, :first_name)
+  - @users = User.core_members.order(:full_name)
   .row
     - @users.each do |user|
-      - unless ["Susan Redline", "GQ Zhang", "Shaun Purcell", "Sara Mariani"].include?(user.name)
-        .col-sm-6.col-buffer.text-center= user.name
+      - unless ["Susan Redline", "GQ Zhang", "Shaun Purcell", "Sara Mariani"].include?(user.full_name)
+        .col-sm-6.col-buffer.text-center= user.full_name
 
 .text-center
   = link_to "Past Contributors", contributors_path

@@ -47,14 +47,12 @@ class DataRequestsController < ApplicationController
   def join
     unless current_user
       @user = User.new(user_params)
-      if RECAPTCHA_ENABLED && !verify_recaptcha
-        @user.valid?
-        @user.errors.add(:recaptcha, "reCAPTCHA verification failed")
-        render :about_me
+      @user.skip_confirmation_notification!
+      if @user.save
+        save_data_request_user(user: @user, redirect: false)
+        @user.send_welcome_email_in_background!(data_request_id: @data_request.id)
+        render :data_request_confirm_email
         return
-      elsif @user.save
-        @user.send_welcome_email_with_password_in_background(params[:user][:password])
-        sign_in(:user, @user)
       else
         render :about_me
         return
@@ -267,7 +265,7 @@ class DataRequestsController < ApplicationController
   def print
     @data_request.generate_printed_pdf!
     if @data_request.printed_file.present?
-      send_file @data_request.printed_file.path, filename: "#{@data_request.user.last_name.gsub(/[^a-zA-Z\p{L}]/, "")}-#{@data_request.user.first_name.gsub(/[^a-zA-Z\p{L}]/, "")}-#{@data_request.agreement_number}-data-request-#{(@data_request.submitted_at || @data_request.created_at).strftime("%Y-%m-%d")}.pdf", type: "application/pdf", disposition: "inline"
+      send_file @data_request.printed_file.path, filename: "#{@data_request.user.username.gsub(/[^a-zA-Z\p{L}]/, "")}-#{@data_request.agreement_number}-data-request-#{(@data_request.submitted_at || @data_request.created_at).strftime("%Y-%m-%d")}.pdf", type: "application/pdf", disposition: "inline"
     else
       render layout: false
     end
@@ -335,32 +333,27 @@ class DataRequestsController < ApplicationController
     send_file_if_present @data_request.send(attribute)
   end
 
-  def save_data_request_user
-    @data_request = @dataset.data_requests.find_by(user: current_user, status: ["resubmit", "started"])
+  def save_data_request_user(user: current_user, redirect: true)
+    @data_request = @dataset.data_requests.find_by(user: user, status: ["resubmit", "started"])
     if @data_request
-      redirect_to resume_url(@data_request)
+      redirect_to resume_url(@data_request) if redirect
     else
-      final_legal_document = @dataset.final_legal_document_for_user(current_user) if @dataset
+      final_legal_document = @dataset.final_legal_document_for_user(user) if @dataset
       if final_legal_document
-        @data_request = current_user.data_requests.new(
+        @data_request = user.data_requests.new(
           dataset_ids: @dataset.id, final_legal_document: final_legal_document
         )
-        AgreementTransaction.save_agreement!(@data_request, current_user, request.remote_ip, "agreement_create")
-        @data_request.agreement_events.create(event_type: "user_started", user: current_user, event_at: @data_request.created_at)
-        redirect_to resume_url(@data_request)
+        AgreementTransaction.save_agreement!(@data_request, user, request.remote_ip, "agreement_create")
+        @data_request.agreement_events.create(event_type: "user_started", user: user, event_at: @data_request.created_at)
+        redirect_to resume_url(@data_request) if redirect
       else
-        redirect_to data_requests_no_legal_documents_path(@dataset)
+        redirect_to data_requests_no_legal_documents_path(@dataset) if redirect
       end
     end
   end
 
   def user_params
-    params[:user] ||= {}
-    params[:user][:password] = params[:user][:password_confirmation] = SecureRandom.hex(8)
-    params.require(:user).permit(
-      :first_name, :last_name, :email,
-      :password, :password_confirmation
-    )
+    params.require(:user).permit(:username, :email, :password)
   end
 
   def resume_url(data_request)

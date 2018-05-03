@@ -43,6 +43,7 @@
 /gems.locked
 /db/schema.rb
 /doc/app/*
+/lib/data/spam/*
 
 /.sass-cache/
 /coverage/*

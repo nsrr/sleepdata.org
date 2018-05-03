@@ -19,7 +19,7 @@
       %tr
         %td
           = image_tag download_image_path(image, size: 'thumb'), class: 'img-responsive'
-        %td= image.user.name
+        %td= image.user.username
         %td= image.image
         %td= number_to_human_size image.file_size
         %td= image.created_at.strftime('%-d %b %Y, %-l:%M %p')

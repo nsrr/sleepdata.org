@@ -1,37 +1,37 @@
 %p{ style: p_style }
   Dear
   = succeed "," do
-    = @admin.first_name
+    = @admin.username
 
 - case @agreement.status when "approved"
   %p{ style: p_style }
     = succeed "'s" do
-      = @agreement.user.name
+      = @agreement.user.username
     data request has been
     %span{ style: success_style } approved
     by
     = succeed "." do
-      = @agreement_event.user.name if @agreement_event.user
+      = @agreement_event.user.username if @agreement_event.user
 - when "resubmit"
   %p{ style: p_style }
-    = @agreement.user.name
+    = @agreement.user.username
     has been asked to
     %span{ style: danger_style } resubmit
     the data request
     by
     = succeed "." do
-      = @agreement_event.user.name if @agreement_event.user
+      = @agreement_event.user.username if @agreement_event.user
 
   %blockquote{ style: blockquote_style }= simple_markdown(@agreement.comments)
 - else
   %p{ style: p_style }
     = succeed "'s" do
-      = @agreement.user.name
+      = @agreement.user.username
     data request status has been changed to
     %span{ style: default_style }= @agreement.status
     by
     = succeed "." do
-      = @agreement_event.user.name if @agreement_event.user
+      = @agreement_event.user.username if @agreement_event.user
 
 %p{ style: p_style }
   You can review the data request here:

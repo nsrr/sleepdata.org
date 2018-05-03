@@ -19,8 +19,6 @@
         = link_to picture_content, settings_profile_path(anchor: "picture")
       - else
         = picture_content
-    -# TODO: Create member paths for forum users?
-    =# link_to reply.user.forum_name, member_path(reply.user.forum_name)
-    = reply.user.forum_name
+    = link_to reply.user.username, posts_member_path(reply.user.username)
   %span.text-muted{ id: "reply-#{reply.id}-points", style: "font-size: 60%" }
     = render "replies/points", reply: reply

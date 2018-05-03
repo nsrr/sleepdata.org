@@ -70,7 +70,7 @@ class SettingsController < ApplicationController
   # PATCH /settings/email
   def update_email
     if current_user.update(email_params)
-      redirect_to settings_email_path, notice: "Email successfully updated."
+      redirect_to settings_email_path, notice: I18n.t("devise.confirmations.send_instructions")
     else
       render :email
     end
@@ -92,7 +92,7 @@ class SettingsController < ApplicationController
   private
 
   def profile_params
-    params.require(:user).permit(:first_name, :last_name, :profile_bio, :profile_url, :profile_location)
+    params.require(:user).permit(:username, :profile_bio, :profile_url, :profile_location)
   end
 
   def profile_picture_params
@@ -100,7 +100,7 @@ class SettingsController < ApplicationController
   end
 
   def account_params
-    params.require(:user).permit(:username)
+    params.require(:user).permit(:full_name)
   end
 
   def email_params

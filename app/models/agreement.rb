@@ -50,7 +50,7 @@ class Agreement < ApplicationRecord
   has_many :agreement_variables
   has_many :requests
   has_many :datasets, -> { current }, through: :requests
-  has_many :data_request_reviews, -> { joins(:user).order(Arel.sql("lower(substring(users.first_name from 1 for 1)), lower(substring(users.last_name from 1 for 1))")) }, foreign_key: "data_request_id"
+  has_many :data_request_reviews, -> { joins(:user).order(Arel.sql("users.full_name")) }, foreign_key: "data_request_id"
   has_many :agreement_events, -> { order(:event_at) }
   has_many :agreement_tags
   has_many :tags, -> { current.order(:name) }, through: :agreement_tags
@@ -64,15 +64,7 @@ class Agreement < ApplicationRecord
   end
 
   def name
-    user ? user.name : "##{id}"
-  end
-
-  def name_with_id
-    user ? "##{id} - #{user.name}" : "##{id}"
-  end
-
-  def to_param
-    user ? "#{id}-#{user.name.parameterize}" : id.to_s
+    "Data Request ##{id}"
   end
 
   def id_and_representative_token

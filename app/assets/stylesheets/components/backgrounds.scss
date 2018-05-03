@@ -68,3 +68,8 @@
 .background-mark {
   background-color: $mark-bg;
 }
+
+.nsrr-dark-green-light-center-bg {
+  background-color: $p900-green;
+  background-image: linear-gradient(180deg, $p900-green, $p800-green 50%, $p900-green);
+}

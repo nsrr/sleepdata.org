@@ -6,15 +6,11 @@
     Public profile
   .card-body
     = form_with model: current_user, url: settings_update_profile_path, method: :patch, local: true do |form|
-
-      =# render "forms/vertical/text_field", form: form, object: current_user, key: :full_name
-      = render "forms/vertical/text_field", form: form, object: current_user, key: :first_name
-      = render "forms/vertical/text_field", form: form, object: current_user, key: :last_name
+      = render "forms/vertical/text_field", form: form, object: current_user, key: :username
       = render "forms/vertical/text_area", form: form, object: current_user, key: :profile_bio, key_name: "Bio", help_text: "Short description about yourself and your work.", rows: 3, maxlength: 160
       = render "forms/vertical/text_field", form: form, object: current_user, key: :profile_url, key_name: "URL", help_text: "Ex: Your online research profile, lab's website, or code repository."
       = render "forms/vertical/text_field", form: form, object: current_user, key: :profile_location, key_name: "Location", help_text: "Your city, state, and/or country, ex: Boston, MA, USA, or Sydney, AUSTRALIA"
-
-      = render "forms/vertical/submit", form: form, object: current_user, submit_text: "Update profile", cancel: false
+      = render "forms/vertical/submit", form: form, object: current_user, submit_text: "Update profile", cancel: false, alternate_link: link_to("View my profile", posts_member_path(current_user.username), class: "btn btn-link")
 
 %a.anchor-top{ name: "picture", id: "picture" }
 .card

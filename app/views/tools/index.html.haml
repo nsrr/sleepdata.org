@@ -13,7 +13,7 @@
     .container
       %h1.page-heading
         .float-right
-          = link_to plus_or("Contribute a Tool"), contribute_tool_start_path, class: "btn btn-primary btn-shadow"
+          =# link_to plus_or("Contribute a Tool"), contribute_tool_start_path, class: "btn btn-primary btn-shadow"
           = render "layouts/per_page", per_page: 20, object_count: @community_tools.total_count
         = @title
         = render "search/toggle"
@@ -66,7 +66,7 @@
               = link_to community_tool_community_tool_reviews_path(community_tool) do
                 = render "community_tools/rating", rating: community_tool.rating
           %td= link_to community_tool.name, tool_path(community_tool)
-          %td.d-none.d-sm-block= community_tool.user.forum_name
+          %td.d-none.d-sm-block= community_tool.user.username
           %td.text-center
             - if community_tool.tag_program?
               %small Program

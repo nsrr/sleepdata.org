@@ -13,6 +13,6 @@
 
 .dashboard-container
   = render "community_tools/rating", rating: @community_tool_review.rating
-  %i= @community_tool_review.user.forum_name
+  %i= @community_tool_review.user.username
   %small.text-muted= @community_tool_review.created_at.strftime("- %b %-d, %Y")
   = simple_markdown(@community_tool_review.review)

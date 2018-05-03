@@ -3,7 +3,7 @@
     = link_to topic.title, topic
   .search-result-author
     Posted by
-    = topic.user.forum_name
+    = topic.user.username
     on
     %i= topic.created_at.strftime '%B %-d, %Y'
     on

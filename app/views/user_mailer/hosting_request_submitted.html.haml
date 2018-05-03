@@ -2,7 +2,7 @@
   Dear NSRR Team,
 
 %p{ style: p_style }
-  = @hosting_request.user.name
+  = @hosting_request.user.username
   = surround '[', ']' do
     = mail_to @hosting_request.user.email, @hosting_request.user.email, style: link_style
   %span{ style: default_style } submitted
@@ -13,4 +13,4 @@
   = simple_markdown(@hosting_request.description)
 
 %p{ style: center_style }
-  = link_to 'View Hosting Request', "#{ENV['website_url']}/hosting-requests/#{@hosting_request.id}", style: link_style
+  = link_to 'View Hosting Request', "#{ENV["website_url"]}/hosting-requests/#{@hosting_request.id}", style: link_style

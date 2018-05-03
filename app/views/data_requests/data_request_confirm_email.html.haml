@@ -1,0 +1,20 @@
+.background-fixed-image
+  .page-box.last-box.color-overlay
+    .sign-up-form
+      .sign-up-form-title
+        Confirm Email
+
+      %p
+        We've sent you an email at
+        %strong= @user.email
+        to confirm you account. Please click the link
+        provided in the email to continue your data request.
+
+      %p
+        = link_to "Click here", new_user_confirmation_path
+        if you did not receive an email to confirm your account.
+
+
+    .sign-up-form.text-center
+      = succeed "." do
+        = link_to "I already have an account", "#", data: { object: "toggle-sign-up" }, tabindex: "-1"

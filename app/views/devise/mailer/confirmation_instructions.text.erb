@@ -1,0 +1,6 @@
+Dear <%= @resource.username %>,
+
+You can confirm your account email through the link below:
+
+
+  <%= @user.disposable_email? ? "#{ENV["website_url"]}/confirmation" : "#{ENV["website_url"]}/confirmation?confirmation_token=#{@token}" %>

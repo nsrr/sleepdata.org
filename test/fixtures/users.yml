@@ -1,289 +1,335 @@
-<% pw = User.new(password: 'password').encrypted_password %>
+<% pw = User.new(password: "password").encrypted_password %>
+<% confirmed_at = Time.zone.now %>
 
 # TODO: Remove valid user (replace with "regular" user.)
 valid:
-  first_name: FirstName
-  last_name: LastName
+  username: valid
+  full_name: FirstName LastName
   deleted: false
   system_admin: false
   email: valid@example.com
+  confirmed_at: <%= confirmed_at %>
   encrypted_password: <%= pw %>
   authentication_token: 36a474715ba310edad629
 
 regular:
-  first_name: Regular
-  last_name: User
+  username: regular
+  full_name: Regular User
   email: regular@example.com
+  confirmed_at: <%= confirmed_at %>
   authentication_token: 17a264737fa399bdad669
 
+unconfirmed:
+  username: unconfirmed
+  # full_name:
+  email: unconfirmed@example.com
+  authentication_token: ktbcRSAJEnePcERRBP1P
+  confirmation_sent_at: <%= Time.zone.now %>
+  confirmation_token: <%= Devise.friendly_token %>
+
 regular2:
-  first_name: Regular2
-  last_name: User2
+  username: regular2
+  full_name: Regular2 User2
   email: regular2@example.com
+  confirmed_at: <%= confirmed_at %>
   username: regular2
   profile_picture: image.png
 
 regular3:
-  first_name: Regular3
-  last_name: User3
+  username: regular3
+  full_name: Regular3 User3
   email: regular3@example.com
+  confirmed_at: <%= confirmed_at %>
 
 regular4:
-  first_name: Regular4
-  last_name: User4
+  username: regular4
+  full_name: Regular4 User4
   email: regular4@example.com
+  confirmed_at: <%= confirmed_at %>
 
 regular5:
-  first_name: Regular5
-  last_name: User5
+  username: regular5
+  full_name: Regular5 User5
   email: regular5@example.com
+  confirmed_at: <%= confirmed_at %>
 
 regular6:
-  first_name: Regular6
-  last_name: User6
+  username: regular6
+  full_name: Regular6 User6
   email: regular6@example.com
+  confirmed_at: <%= confirmed_at %>
 
 regular7:
-  first_name: Regular7
-  last_name: User7
+  username: regular7
+  full_name: Regular7 User7
   email: regular7@example.com
+  confirmed_at: <%= confirmed_at %>
 
 regular8:
-  first_name: Regular8
-  last_name: User8
+  username: regular8
+  full_name: Regular8 User8
   email: regular8@example.com
+  confirmed_at: <%= confirmed_at %>
 
 regular9:
-  first_name: Regular9
-  last_name: User9
+  username: regular9
+  full_name: Regular9 User9
   email: regular9@example.com
+  confirmed_at: <%= confirmed_at %>
 
 regular10:
-  first_name: Regular10
-  last_name: User10
+  username: regular10
+  full_name: Regular10 User10
   email: regular10@example.com
+  confirmed_at: <%= confirmed_at %>
 
 regular11:
-  first_name: Regular11
-  last_name: User11
+  username: regular11
+  full_name: Regular11 User11
   email: regular11@example.com
+  confirmed_at: <%= confirmed_at %>
 
 regular12:
-  first_name: Regular12
-  last_name: User12
+  username: regular12
+  full_name: Regular12 User12
   email: regular12@example.com
+  confirmed_at: <%= confirmed_at %>
 
 regular13:
-  first_name: Regular13
-  last_name: User13
+  username: regular13
+  full_name: Regular13 User13
   email: regular13@example.com
+  confirmed_at: <%= confirmed_at %>
 
 regular14:
-  first_name: Regular14
-  last_name: User14
+  username: regular14
+  full_name: Regular14 User14
   email: regular14@example.com
+  confirmed_at: <%= confirmed_at %>
 
 regular15:
-  first_name: Regular15
-  last_name: User15
+  username: regular15
+  full_name: Regular15 User15
   email: regular15@example.com
+  confirmed_at: <%= confirmed_at %>
 
 regular16:
-  first_name: Regular16
-  last_name: User16
+  username: regular16
+  full_name: Regular16 User16
   email: regular16@example.com
+  confirmed_at: <%= confirmed_at %>
 
 # Users requesting access to `unreleased` dataset.
 
 insider0:
-  first_name: Insider0
-  last_name: User
+  username: insider0
+  full_name: Insider0 User
   email: insider0@example.com
+  confirmed_at: <%= confirmed_at %>
 
 insider1:
-  first_name: Insider1
-  last_name: User
+  username: insider1
+  full_name: Insider1 User
   email: insider1@example.com
   authentication_token: insider1
+  confirmed_at: <%= confirmed_at %>
 
 insider2:
-  first_name: Insider2
-  last_name: User
+  username: insider2
+  full_name: Insider2 User
   email: insider2@example.com
+  confirmed_at: <%= confirmed_at %>
 
 insider3:
-  first_name: Insider3
-  last_name: User
+  username: insider3
+  full_name: Insider3 User
   email: insider3@example.com
+  confirmed_at: <%= confirmed_at %>
 
 # User requesting access to Org Two's datasets.
 orgtwo_regular:
-  first_name: Orgtwo
-  last_name: Regular
+  username: orgtworegular
+  full_name: Orgtwo Regular
   email: orgtwo_regular@example.com
+  confirmed_at: <%= confirmed_at %>
 
 # User requesting access to Org Three's datasets.
 orgthree_regular:
-  first_name: Orgthree
-  last_name: Regular
+  username: orgthreeregular
+  full_name: Orgthree Regular
   email: orgthree_regular@example.com
+  confirmed_at: <%= confirmed_at %>
 
 orgthree_regular_no_data_requests:
-  first_name: Orgthreeregular
-  last_name: Nodatarequests
+  username: orgthreeregularnodatarequests
+  full_name: Orgthreeregular Nodatarequests
   email: orgthree_regular_no_data_requests@example.com
+  confirmed_at: <%= confirmed_at %>
 
 two:
-  first_name: MyString
-  last_name: MyString
-  deleted: false
-  system_admin: false
+  username: two
+  full_name: MyString MyString
   email: two@example.com
+  confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
   authentication_token: 52586a63dada3e145523c
 
 admin:
-  first_name: FirstAdmin
-  last_name: LastAdmin
-  deleted: false
+  username: admin
+  full_name: FirstAdmin LastAdmin
   system_admin: true
   email: admin@example.com
+  confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
   authentication_token: f84017f13698c6d82459b
 
 admin_two:
-  first_name: FirstAdminTwo
-  last_name: LastAdminTwo
-  deleted: false
+  username: admintwo
+  full_name: FirstAdminTwo LastAdminTwo
   system_admin: true
   email: admin_two@example.com
+  confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
 
 deleted:
-  first_name: MyString
-  last_name: MyString
+  username: deleted
+  full_name: MyString MyString
   deleted: true
-  system_admin: false
   email: deleted@example.com
+  confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
 
 # An editor on the released dataset
 editor:
-  first_name: EditorFirst
-  last_name: EditorLast
+  username: editor
+  full_name: EditorFirst EditorLast
   email: editor@example.com
+  confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
   authentication_token: D-FCa_ZUqLc2Mtaqp_9k
 
 # An editor on the unreleased dataset
 editor_on_unreleased:
-  first_name: EditorSecond
-  last_name: EditorSecond
+  username: editoronunreleased
+  full_name: EditorSecond EditorSecond
   email: editor_on_unreleased@example.com
+  confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
 
 # An AUG member
 aug:
-  first_name: AUG
-  last_name: Member
+  username: aug
+  full_name: AUG Member
   deleted: false
   aug_member: true
   system_admin: false
   email: aug@example.com
+  confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
 
 # A Core member
 core:
-  first_name: Core
-  last_name: Member
+  username: core
+  full_name: Core Member
   deleted: false
   core_member: true
   system_admin: false
   email: core@example.com
+  confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
 
 # A Contributor
 contributor:
-  first_name: Contributing
-  last_name: Member
+  username: contributor
+  full_name: Contributing Member
   deleted: false
   contributor: true
   system_admin: false
   email: contributor@example.com
+  confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
 
 # A user banned from posting on the forum
 banned:
-  first_name: Banned
-  last_name: Fromforum
+  username: banned
+  full_name: Banned Fromforum
   banned: true
   email: banned@example.com
+  confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
 
 # An editor on the admin mixed project
 editor_mixed:
-  first_name: Editor
-  last_name: Mixed
+  username: editormixed
+  full_name: Editor Mixed
   email: editor_mixed@example.com
+  confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
 
 # A valid user with no data requests in place
 regular_no_data_requests:
-  first_name: Regular
-  last_name: No Data Requests
+  username: regularnodatarequests
+  full_name: Regular No Data Requests
   email: valid_submissionless@example.com
+  confirmed_at: <%= confirmed_at %>
 
 community_manager:
-  first_name: Community
-  last_name: Manager
+  username: communitymanager
+  full_name: Community Manager
   email: community_manager@example.com
+  confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
   community_manager: true
 
 reviewer_on_released:
-  first_name: Reviewer
-  last_name: Van Released
+  username: revieweronreleased
+  full_name: Reviewer Van Released
   email: reviewer_on_released@example.com
+  confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
-  username: reviewer_on_released
 
 reviewer_two_on_released:
-  first_name: Reviewer Two
-  last_name: Van Released
+  username: reviewertwoonreleased
+  full_name: Reviewer Two Van Released
   email: reviewer_two_on_released@example.com
+  confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
-  username: reviewer_two_on_released
 
 reviewer_three_on_released:
-  first_name: Reviewer Three
-  last_name: Van Released
+  username: reviewerthreeonreleased
+  full_name: Reviewer Three Van Released
   email: reviewer_three_on_released@example.com
+  confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
-  username: reviewer_three_on_released
 
 principal_reviewer_on_released:
-  first_name: Principal Reviewer
-  last_name: Van Released
+  username: principalrevieweronreleased
+  full_name: Principal Reviewer Van Released
   email: principcal_reviewer_on_released@example.com
+  confirmed_at: <%= confirmed_at %>
 
 principal_reviewer_on_unreleased:
-  first_name: Principal Reviewer
-  last_name: Van Unreleased
+  username: principalrevieweronunreleased
+  full_name: Principal Reviewer Van Unreleased
   email: principcal_reviewer_on_unreleased@example.com
+  confirmed_at: <%= confirmed_at %>
 
 viewer_on_unreleased:
-  first_name: Viewer
-  last_name: Van Unreleased
+  username: vieweronunreleased
+  full_name: Viewer Van Unreleased
   email: viewer_on_unreleased@example.com
+  confirmed_at: <%= confirmed_at %>
 
 orgtwo_editor:
-  first_name: Orgtwo
-  last_name: Editor
+  username: orgtwoeditor
+  full_name: Orgtwo Editor
   email: orgtwo_editor@example.com
+  confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
 
 orgthree_editor:
-  first_name: Orgthree
-  last_name: Editor
+  username: orgthreeeditor
+  full_name: Orgthree Editor
   email: orgthree_editor@example.com
+  confirmed_at: <%= confirmed_at %>
   encrypted_password: ""

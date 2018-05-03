@@ -1,0 +1,8 @@
+- if user.disposable_email?
+  = "#{user.email.split("@")[0]}"
+  %span.bg-dark.text-white.pr-1.rounded-right>= "@#{user.email.split("@")[1]}"
+- elsif user.blacklisted_email?
+  = "#{user.email.split("@")[0]}"
+  %span.bg-warning.pr-1.rounded-right>= "@#{user.email.split("@")[1]}"
+- else
+  = user.email

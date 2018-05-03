@@ -30,7 +30,7 @@
       %tr
         %td.text-center= render "layouts/draft_published", published: community_tool.published?
         %td= link_to community_tool.name, community_tool
-        %td= community_tool.user.name
+        %td= community_tool.user.username
         %td.text-center
           - if community_tool.tag_program?
             %span.badge.badge-dark Program

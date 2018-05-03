@@ -1,9 +1,9 @@
 %p{ style: p_style }
   Dear
   = succeed "," do
-    = @reviewer.first_name
+    = @reviewer.username
 %p{ style: p_style }
-  = @agreement.user.name
+  = @agreement.user.username
   = surround "[", "]" do
     = mail_to @agreement.user.email, @agreement.user.email, style: link_style
   %span{ style: emphasis_style }

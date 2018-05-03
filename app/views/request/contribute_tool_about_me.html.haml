@@ -13,32 +13,10 @@
     .sign-up-form-title
       About Yourself
 
-    = form_for @community_tool, url: contribute_tool_register_user_path, method: :post, html: { class: "form-vertical", id: "recaptcha-form" } do |f|
-      = f.hidden_field :url
+    = form_with model: @user, url: contribute_tool_register_user_path, method: :post, local: true do |form|
+      = form.hidden_field :url, name: "community_tool[url]", value: @community_tool.url
 
-      = render "layouts/form_group", errors: @registration_errors, object: :user, attribute: :first_name, attribute_name: "First name"
-
-      = render "layouts/form_group", errors: @registration_errors, object: :user, attribute: :last_name, attribute_name: "Last name"
-
-      = render "layouts/form_group", errors: @registration_errors, object: :user, attribute: :email, attribute_name: "Email"
-
-      - invisible_recaptcha = false
-      - if RECAPTCHA_ENABLED && !invisible_recaptcha
-        .form-group
-          %label.control-label Human Verification
-          .g-recaptcha{ data: { sitekey: ENV["recaptcha_site_key"] } }
-          <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-      - if @registration_errors && @registration_errors[:recaptcha].present?
-        .form-group.text-center
-          %small.text-danger= @registration_errors[:recaptcha]
-
-      .form-group.submit-btn-container
-        - if RECAPTCHA_ENABLED && invisible_recaptcha
-          %button.g-recaptcha.btn.btn-primary.btn-block.btn-shadow{ data: { sitekey: ENV["recaptcha_site_key"], callback: "recaptchaFormSubmit" } } Create an Account
-          <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-        - else
-          = f.submit "Create an Account", class: "btn btn-primary btn-block btn-shadow"
+      = render "devise/registrations/form_fields", form: form, user: @user
 
   .sign-up-form.text-center
     = succeed "." do

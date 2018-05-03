@@ -1,0 +1,53 @@
+- @title = @member.username
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        = @title
+
+.drawer-and-shelf-container
+  .drawer
+    = render "members/menu", member: @member
+  .shelf
+    .d-flex.justify-content-center.d-md-none.flex-column.flex-sm-row
+      .mx-auto.mx-sm-0{ style: "flex: 1 0 240px;max-width: 220px;" }= render "members/profile_image", member: @member
+      - if @member.profile_present? || @member == current_user
+        .profile.ml-sm-3.w-100= render "members/bio_and_info", member: @member
+
+    - if @topics.present? || @recent_topics.present?
+      .profile-topics-container.d-flex.flex-column.flex-lg-row
+        - if @topics.present?
+          .profile-topics-overview
+            .dashboard-container
+              %p
+                %strong Top Topics
+              .dashboard-body.breakword
+                - @topics.each do |topic|
+                  .d-flex.flex-row.justify-content-start
+                    .mr-auto
+                      = link_to topic.title, topic, class: "link-blend"
+                    .nowrap
+                      %small.text-muted
+                        = topic.reply_count
+                        %fa.fa.fa-comments-o
+        - if @recent_topics.present?
+          .profile-topics-overview
+            .dashboard-container
+              %p
+                %strong Recent Topics
+              .dashboard-body.breakword
+                - @recent_topics.each do |topic|
+                  .d-flex.flex-row.justify-content-start
+                    .mr-auto
+                      = link_to topic.title, topic, class: "link-blend"
+                    .nowrap
+                      %small.text-muted
+                        = topic.reply_count
+                        %fa.fa.fa-comments-o
+
+    / %p.lead Recent Posts
+    - @replies.each do |reply|
+      = render "replies/simple_full", reply: reply
+
+    .center-horizontally= paginate @replies, theme: "bootstrap"

@@ -1,9 +1,8 @@
 = form_with model: user, local: true do |form|
-  = render "forms/horizontal/text_field", form: form, object: user, key: :first_name
-  = render "forms/horizontal/text_field", form: form, object: user, key: :last_name
+  = render "forms/horizontal/text_field", form: form, object: user, key: :full_name
   = render "forms/horizontal/email_field", form: form, object: user, key: :email
   = render "forms/horizontal/check_box", form: form, object: user, key: :emails_enabled
-  = render "forms/horizontal/text_field", form: form, object: user, key: :username, key_name: "Forum Username"
+  = render "forms/horizontal/text_field", form: form, object: user, key: :username
   = render "forms/horizontal/text_area", form: form, object: user, key: :profile_bio, key_name: "Bio", help_text: "Short description about yourself and your work.", rows: 3, maxlength: 160
   = render "forms/horizontal/text_field", form: form, object: user, key: :profile_url, key_name: "URL", help_text: "Ex: Your online research profile, lab's website, or code repository."
   = render "forms/horizontal/text_field", form: form, object: user, key: :profile_location, key_name: "Location", help_text: "Your city, state, and/or country, ex: Boston, MA, USA, or Sydney, AUSTRALIA"

@@ -1,0 +1,27 @@
+- @drawer = true
+.d-none.d-sm-block= render "members/profile_image", member: member
+
+.profile-menu-container
+  %ul.blog-menu.profile-menu
+    %li.blog-menu-header Member
+    - articles_count = member.broadcasts.published.count
+    - if articles_count.positive?
+      %li
+        = link_to blog_author_path(author: member.username) do
+          Articles
+          %span.badge= articles_count
+    %li
+      = link_to posts_member_path(member.username), class: current_page?(posts_member_path(member.username)) ? "active" : nil do
+        Posts
+        %span.badge
+          = member.replies.count
+          - karma = member.replies.collect(&:rank).sum
+          - if karma.negative?
+            = "(#{number_with_delimiter karma})"
+          - else
+            = "(+#{number_with_delimiter karma})"
+    - if false
+      %li= link_to "Badges", badges_member_path(member.username), class: current_page?(badges_member_path(member.username)) ? "active" : nil
+
+- if member.profile_present? || member == current_user
+  .profile= render "members/bio_and_info", member: member

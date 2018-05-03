@@ -1,5 +1,12 @@
 ## 33.0.0
 
+### Enhancements
+- **General Changes**
+  - First and last name merged into single full name field
+- **Email Changes**
+  - Email confirmation is now required for all accounts
+  - Added detection of disposable email addresses
+
 ## 32.0.0 (May 2, 2018)
 
 ### Enhancements

@@ -1,16 +1,16 @@
 %p{ style: p_style }
   Dear
   = succeed "," do
-    = @data_request.user.first_name
+    = @data_request.user.username
 
 %p{ style: p_style }
-  Your Data Request has been signed by
+  Your data request has been signed by
   = succeed "," do
     %strong= @data_request.duly_authorized_representative_signature_print
-  your Duly Authorized Representative.
+  your duly authorized representative.
 
 %p{ style: p_style }
-  You can now submit your Data Request here:
+  You can now submit your data request here:
 
 %p{ style: center_style }
   = link_to "Resume Data Request", "#{ENV["website_url"]}/data/requests/#{@data_request.to_param}/attest", style: link_style

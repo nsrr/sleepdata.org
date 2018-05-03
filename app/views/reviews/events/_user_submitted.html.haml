@@ -5,7 +5,7 @@
     .float-right.text-muted
       %i.fa.fa-caret-left.data-request-event-icon{ class: show_event ? "data-request-event-icon-rotate" : nil }
     = profile_picture_tag agreement_event.user, size: 18, style: "vertical-align: text-middle;width: 18px;"
-    = agreement_event.user.name
+    = agreement_event.user.username
     %span.badge.badge-primary submitted
     data request
     = succeed "." do

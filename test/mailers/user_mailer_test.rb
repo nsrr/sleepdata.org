@@ -10,7 +10,7 @@ class UserMailerTest < ActionMailer::TestCase
     mail = UserMailer.reviewer_digest(valid)
     assert_equal [valid.email], mail.to
     assert_equal "Reviewer Digest for #{Time.zone.today.strftime("%a %d %b %Y")}", mail.subject
-    assert_match(/Dear #{valid.first_name},/, mail.body.encoded)
+    assert_match(/Dear #{valid.username},/, mail.body.encoded)
   end
 
   test "daua submitted email" do
@@ -18,9 +18,9 @@ class UserMailerTest < ActionMailer::TestCase
     valid = users(:valid)
     mail = UserMailer.daua_submitted(valid, agreement)
     assert_equal [valid.email], mail.to
-    assert_equal "#{agreement.user.name} Submitted a Data Request", mail.subject
+    assert_equal "#{agreement.user.username} Submitted a Data Request", mail.subject
     assert_match(
-      /#{agreement.user.name} \[#{agreement.user.email}\] submitted a data request\./,
+      /#{agreement.user.username} \[#{agreement.user.email}\] submitted a data request\./,
       mail.body.encoded
     )
   end
@@ -30,9 +30,9 @@ class UserMailerTest < ActionMailer::TestCase
     valid = users(:valid)
     mail = UserMailer.daua_submitted(valid, agreement)
     assert_equal [valid.email], mail.to
-    assert_equal "#{agreement.user.name} Resubmitted a Data Request", mail.subject
+    assert_equal "#{agreement.user.username} Resubmitted a Data Request", mail.subject
     assert_match(
-      /#{agreement.user.name} \[#{agreement.user.email}\] resubmitted a data request\./,
+      /#{agreement.user.username} \[#{agreement.user.email}\] resubmitted a data request\./,
       mail.body.encoded
     )
   end
@@ -63,7 +63,7 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal [admin.email], mail.to
     assert_equal "#{agreement.name}'s Data Request Changed to Approved", mail.subject
     assert_match(
-      /#{agreement.user.name}'s data request has been approved by Principal Reviewer Van Released\./,
+      /#{agreement.user.username}'s data request has been approved by principalrevieweronreleased\./,
       mail.body.encoded
     )
   end
@@ -73,17 +73,17 @@ class UserMailerTest < ActionMailer::TestCase
     agreement_event = agreement_events(:submitted_two_comment)
     mail = UserMailer.mentioned_in_agreement_comment(agreement_event, reviewer)
     assert_equal [reviewer.email], mail.to
-    assert_equal "#{agreement_event.user.name} Mentioned You While Reviewing a Data Request", mail.subject
-    assert_match(/#{agreement_event.user.name} mentioned you while reviewing a data request\./, mail.body.encoded)
+    assert_equal "#{agreement_event.user.username} Mentioned You While Reviewing a Data Request", mail.subject
+    assert_match(/#{agreement_event.user.username} mentioned you while reviewing a data request\./, mail.body.encoded)
   end
 
   test "dataset hosting request submitted email" do
     hosting_request = hosting_requests(:one)
     mail = UserMailer.hosting_request_submitted(hosting_request)
     assert_equal [ENV["support_email"]], mail.to
-    assert_equal "#{hosting_request.user.name} - Dataset Hosting Request", mail.subject
+    assert_equal "#{hosting_request.user.username} - Dataset Hosting Request", mail.subject
     assert_match(
-      /#{hosting_request.user.name} \[#{hosting_request.user.email}\] submitted a Dataset Hosting Request\./,
+      /#{hosting_request.user.username} \[#{hosting_request.user.email}\] submitted a Dataset Hosting Request\./,
       mail.body.encoded
     )
   end

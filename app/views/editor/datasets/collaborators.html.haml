@@ -16,7 +16,7 @@
     %h4 Add User
     = form_tag create_access_dataset_path(@dataset), method: :post, class: "form-inline" do
       .form-group
-        = text_field_tag :user_email, "", autocomplete: "off", data: { object: "typeahead", local: User.current.collect{|user| "#{user.name} [#{user.email}]" }.to_json }, class: "form-control", placeholder: "Email Address"
+        = text_field_tag :user_email, "", autocomplete: "off", data: { object: "typeahead", local: User.current.collect{|user| "#{user.username} [#{user.email}]" }.to_json }, class: "form-control", placeholder: "Email Address"
 
       .form-group
         = label :role, "Role"
@@ -31,11 +31,11 @@
             %th Role
             %th Actions
 
-        - @dataset.dataset_users.order(:id).sort{|a,b| [a.role.to_s, a.user.last_name, a.user.first_name] <=> [b.role.to_s, b.user.last_name, b.user.first_name]}.each do |dataset_user|
+        - @dataset.dataset_users.order(:id).sort{|a,b| [a.role.to_s, a.user.full_name] <=> [b.role.to_s, b.user.full_name]}.each do |dataset_user|
           %tr{ class: "#{"warning" if params[:dataset_user_id].to_i == dataset_user.id}" }
             %td
               = profile_picture_tag dataset_user.user, size: 18, style: "vertical-align: text-bottom; min-width: 18px;"
-              = dataset_user.user.name
+              = dataset_user.user.full_name
             %td
               - case dataset_user.role
               - when "editor"

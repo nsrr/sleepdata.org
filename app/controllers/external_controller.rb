@@ -4,12 +4,12 @@
 class ExternalController < ApplicationController
   # GET /about
   def about
-    @users = User.core_members.order(:last_name, :first_name)
+    @users = User.core_members.order(:full_name)
   end
 
   # GET /about/academic-user-group
   def aug
-    @users = User.aug_members.order(:last_name, :first_name)
+    @users = User.aug_members.order(:full_name)
   end
 
   # # GET /contact

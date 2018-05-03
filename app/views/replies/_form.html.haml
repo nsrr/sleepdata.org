@@ -38,7 +38,7 @@
 
           .float-right.d-none.d-md-block.small.text-muted
             posting as
-            = current_user.forum_name
+            = current_user.username
             = link_to "change", settings_account_path(anchor: "username"), tabindex: "-1"
           - if reply.new_record?
             = f.submit "Comment", class: "btn btn-primary", data: { disable_with: "Comment" }

@@ -17,11 +17,11 @@
 .card.mb-5
   %h4.card-header
     %i.fa.fa-user
-    Change username
+    Change name
   .card-body
     = form_with model: current_user, url: settings_update_account_path, local: true do |form|
-      = render "forms/vertical/text_field", form: form, object: current_user, key: :username, key_name: "Username", placeholder: current_user.name, help_text: "You can change your profile picture #{link_to "here", settings_profile_path(anchor: "picture")}.".html_safe
-      = render "forms/vertical/submit", form: form, object: current_user, submit_text: "Update username", cancel: false
+      = render "forms/vertical/text_field", form: form, object: current_user, key: :full_name, help_text: "You can change your profile picture #{link_to "here", settings_profile_path(anchor: "picture")}.".html_safe
+      = render "forms/vertical/submit", form: form, object: current_user, submit_text: "Update name", cancel: false
 
 .card.mb-5
   %h4.card-header.text-danger

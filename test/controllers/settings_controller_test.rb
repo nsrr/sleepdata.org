@@ -29,16 +29,14 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
     login(@regular)
     patch settings_update_profile_url, params: {
       user: {
-        first_name: "First Update",
-        last_name: "Last Update",
+        username: "regularupdate",
         profile_bio: "Short Bio",
         profile_url: "http://example.com",
         profile_location: "Boston, MA"
       }
     }
     @regular.reload
-    assert_equal "First Update", @regular.first_name
-    assert_equal "Last Update", @regular.last_name
+    assert_equal "regularupdate", @regular.username
     assert_equal "Short Bio", @regular.profile_bio
     assert_equal "http://example.com", @regular.profile_url
     assert_equal "Boston, MA", @regular.profile_location
@@ -131,8 +129,9 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
     login(@regular)
     patch settings_update_email_url, params: { user: { email: "newemail@example.com" } }
     @regular.reload
-    assert_equal "newemail@example.com", @regular.email
-    assert_equal "Email successfully updated.", flash[:notice]
+    assert_equal "regular@example.com", @regular.email
+    assert_equal "newemail@example.com", @regular.unconfirmed_email
+    assert_equal I18n.t("devise.confirmations.send_instructions"), flash[:notice]
     assert_redirected_to settings_email_url
   end
 

@@ -14,7 +14,7 @@ class DataRequestMailerTest < ActionMailer::TestCase
     assert_equal [@data_request.duly_authorized_representative_email], mail.to
     assert_equal [@data_request.user.email], mail.cc
     assert_match(
-      "You have been designated as #{@data_request.user.name}'s Duly\r\nAuthorized Representative\.",
+      "You have been designated as #{@data_request.user.username}'s Duly\r\nAuthorized Representative\.",
       mail.body.encoded
     )
   end
@@ -24,8 +24,8 @@ class DataRequestMailerTest < ActionMailer::TestCase
     assert_equal "Your Duly Authorized Representative Has Signed Your Data Request", mail.subject
     assert_equal [@data_request.user.email], mail.to
     assert_match(
-      /Your Data Request has been signed by \
-#{@data_request.duly_authorized_representative_signature_print}, your Duly Authorized Representative\./,
+      /Your data request has been signed by \
+#{@data_request.duly_authorized_representative_signature_print}, your duly authorized representative\./,
       mail.body.encoded
     )
   end

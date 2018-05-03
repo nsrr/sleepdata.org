@@ -41,7 +41,7 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
     assert_difference("DatasetUser.count") do
       post :create_access, params: {
         id: @dataset,
-        user_email: "#{users(:aug).name} [#{users(:aug).email}]",
+        user_email: "#{users(:aug).full_name} [#{users(:aug).email}]",
         role: "editor"
       }
     end
@@ -56,7 +56,7 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
     assert_difference("DatasetUser.count", 0) do
       post :create_access, params: {
         id: @dataset,
-        user_email: "#{users(:reviewer_on_released).name} [#{users(:reviewer_on_released).email}]",
+        user_email: "#{users(:reviewer_on_released).full_name} [#{users(:reviewer_on_released).email}]",
         role: "reviewer"
       }
     end

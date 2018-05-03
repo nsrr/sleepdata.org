@@ -1,0 +1,19 @@
+- @title = "Resend confirmation instructions"
+
+.page-box.last-box.d-flex.flex-column.justify-content-center.nsrr-dark-green-light-center-bg
+  .container
+    %p.lead.text-center.text-white= @title
+
+    .sign-up-form
+      .sign-up-form-title
+        Confirm my account
+
+      = form_with model: resource, as: resource_name, url: confirmation_path(resource_name), method: :post, local: true do |form|
+        .form-group
+          = form.label :email
+          = form.text_field :email, class: "form-control#{" is-invalid" if resource.errors[:email].present?}", autocomplete: "off"
+          - if resource.errors[:email].present?
+            .invalid-feedback= resource.errors[:email].collect { |e| "Email #{e}" }.join(", ").html_safe
+
+        .form-group.submit-btn-container
+          = form.submit "Resend confirmation instructions", class: "btn btn-primary btn-block btn-shadow"

@@ -1,55 +1,13 @@
 - @title = "Join Research Community"
 
-.background-fixed-image
-  .page-box.last-box.color-overlay
-
+.page-box.last-box.d-flex.flex-column.justify-content-center.nsrr-dark-green-light-center-bg
+  .container
     %p.lead.text-center.text-white Join our community.
 
     .sign-up-form
       .sign-up-form-title
         Create your account
-      = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "form-vertical", autocomplete: "off", id: "recaptcha-form" }) do |form|
-        .form-group
-          = render "layouts/label_or_errors", form: form, object: resource, key: :first_name
-          = form.text_field :first_name, class: "form-control"
+      = render "devise/registrations/form", resource: resource
 
-        .form-group
-          = render "layouts/label_or_errors", form: form, object: resource, key: :last_name
-          = form.text_field :last_name, class: "form-control"
-
-        .form-group
-          = render "layouts/label_or_errors", form: form, object: resource, key: :email
-          = form.email_field :email, class: "form-control"
-
-        .form-group
-          = render "layouts/label_or_errors", form: form, object: resource, key: :password
-          = form.password_field :password, class: "form-control", autocomplete: "new-password"
-
-        .form-group
-          = render "layouts/label_or_errors", form: form, object: resource, key: :password_confirmation
-          = form.password_field :password_confirmation, class: "form-control", autocomplete: "new-password"
-
-        .form-group
-          %label.control-label Receive Forum Emails
-          .checkbox
-            %label
-              = form.check_box :emails_enabled
-              Allow the NSRR to send you emails?
-
-        - invisible_recaptcha = false
-        - if RECAPTCHA_ENABLED && !invisible_recaptcha
-          .form-group
-            %label.control-label Human Verification
-            .g-recaptcha{ data: { sitekey: ENV["recaptcha_site_key"] } }
-            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-        - if resource.errors && resource.errors[:recaptcha].present?
-          .form-group.text-center
-            %small.text-danger= resource.errors[:recaptcha].join(" ")
-
-        .form-group.submit-btn-container
-          - if RECAPTCHA_ENABLED && invisible_recaptcha
-            %button.g-recaptcha.btn.btn-primary.btn-block.btn-shadow{ data: { sitekey: ENV["recaptcha_site_key"], callback: "recaptchaFormSubmit" } } Create an Account
-            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-          - else
-            = form.submit "Create an Account", class: "btn btn-primary btn-block btn-shadow"
+    .sign-up-form.text-center
+      = link_to "I already have an account.", new_user_session_path

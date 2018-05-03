@@ -29,7 +29,7 @@ class ReviewsController < ApplicationController
   def print
     @data_request.generate_printed_pdf!
     if @data_request.printed_file.present?
-      send_file @data_request.printed_file.path, filename: "#{@data_request.user.last_name.gsub(/[^a-zA-Z\p{L}]/, "")}-#{@data_request.user.first_name.gsub(/[^a-zA-Z\p{L}]/, "")}-#{@data_request.agreement_number}-data-request-#{(@data_request.submitted_at || @data_request.created_at).strftime("%Y-%m-%d")}.pdf", type: "application/pdf", disposition: "inline"
+      send_file @data_request.printed_file.path, filename: "#{@data_request.user.full_name.gsub(/[^a-zA-Z\p{L}]/, "")}-#{@data_request.agreement_number}-data-request-#{(@data_request.submitted_at || @data_request.created_at).strftime("%Y-%m-%d")}.pdf", type: "application/pdf", disposition: "inline"
     else
       render "data_requests/print", layout: false
     end

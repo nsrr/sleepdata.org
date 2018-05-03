@@ -11,6 +11,8 @@ class AccountControllerTest < ActionDispatch::IntegrationTest
     assert_equal true, profile["authenticated"]
     assert_equal "Regular", profile["first_name"]
     assert_equal "User", profile["last_name"]
+    assert_equal "Regular User", profile["full_name"]
+    assert_equal "regular", profile["username"]
     assert_response :success
   end
 
@@ -21,6 +23,8 @@ class AccountControllerTest < ActionDispatch::IntegrationTest
     assert_equal false, profile["authenticated"]
     assert_nil profile["first_name"]
     assert_nil profile["last_name"]
+    assert_nil profile["full_name"]
+    assert_nil profile["username"]
     assert_response :success
   end
 end

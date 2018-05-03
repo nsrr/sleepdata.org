@@ -14,15 +14,13 @@
     .form-group.row
       = form.label :url, "URL", class: "col-md-2 col-form-label"
       .col-md-10
-        = form.text_field :url, class: "form-control#{" is-invalid" if @community_tool.errors[:url].present?}", placeholder: "https://github.com/..."
+        = form.text_field :url, class: "form-control#{" is-invalid" if @community_tool.errors[:url].present?}", placeholder: "https://github.com/...", autocomplete: "off"
         - if @community_tool.errors[:url].present?
           .invalid-feedback Please enter a valid URL.
 
 .text-center.mb-3
   = link_to "#", data: { object: "submit-and-disable", target: "#contribute_tool_form" }, class: "btn btn-primary btn-lg ", style: "width:100%; max-width: 400px;" do
-    Continue
-    %i.fa.fa-caret-right
-
+    Next step
 
 .mt-5
   %p.text-center.lead

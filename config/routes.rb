@@ -283,8 +283,11 @@ Rails.application.routes.draw do
     post :preview
   end
 
-  namespace :members do
-    get :profile_picture, path: ":username/profile_picture"
+  resources :members do
+    member do
+      get :profile_picture
+      get :posts
+    end
   end
 
   resources :notifications do
@@ -297,6 +300,7 @@ Rails.application.routes.draw do
     get "contribute/tool", to: redirect("contribute/tool/start")
     get "contribute/tool/start", action: "contribute_tool_start", as: :contribute_tool_start
     post "contribute/tool/start", action: "contribute_tool_set_location", as: :contribute_tool_set_location
+    get "contribute/tool/confirm-email", action: "contribute_tool_confirm_email", as: :contribute_tool_confirm_email
     post "contribute/tool", action: "contribute_tool_register_user", as: :contribute_tool_register_user
     patch "contribute/tool", action: "contribute_tool_sign_in_user", as: :contribute_tool_sign_in_user
     get "contribute/tool/description/:id", action: "contribute_tool_description", as: :contribute_tool_description
@@ -369,8 +373,11 @@ Rails.application.routes.draw do
 
   devise_for :users,
              controllers: {
+               confirmations: "confirmations",
+               passwords: "passwords",
+               registrations: "registrations",
                sessions: "sessions",
-               registrations: "registrations"
+               unlocks: "unlocks"
              },
              path_names: {
                sign_up: "join",

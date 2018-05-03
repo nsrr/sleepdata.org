@@ -1,0 +1,28 @@
+%p{ style: p_style }
+  Dear
+  = succeed "," do
+    = @user.username
+
+%p{ style: p_style }
+  Welcome to the NSRR community!
+
+- if !@user.disposable_email? && !@user.blacklisted_email? && @user.confirmation_token.present?
+  %p{ style: center_style }
+    Please
+    = link_to "confirm your account", "#{ENV["website_url"]}/confirmation?confirmation_token=#{@user.confirmation_token}#{"&data_request_id=#{@data_request_id}" if @data_request_id.present?}", style: link_style
+    to get started.
+
+%p{ style: p_style }
+  Read our
+  = link_to "short guide", "#{ENV["website_url"]}/showcase/where-to-start", style: link_style
+  to help you get started on the NSRR. We're here to help! Reach out to us on
+  = link_to "our forum", "#{ENV["website_url"]}/forum", style: link_style
+  or send us an email at
+  = succeed "." do
+    = link_to ENV["support_email"], "mailto:#{ENV["support_email"]}", style: link_style
+  We recommend adding our support email to your email contacts.
+
+%p{ style: p_style }
+  We're excited to have you aboard!
+  %br
+  The NSRR Team

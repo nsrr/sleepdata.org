@@ -3,7 +3,7 @@
     = link_to broadcast.title, blog_post_path(broadcast.url_hash)
   .search-result-author
     Posted by
-    = broadcast.user.forum_name
+    = broadcast.user.username
     on
     %i= broadcast.publish_date.strftime '%B %-d, %Y'
     - if broadcast.category

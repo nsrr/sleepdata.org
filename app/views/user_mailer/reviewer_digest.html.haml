@@ -1,7 +1,7 @@
 %p{ style: p_style }
   Dear
   = succeed "," do
-    = @user.first_name
+    = @user.username
 
 %p{ style: p_style }
   The following data requests are awaiting your review. Please click on each and
@@ -20,7 +20,7 @@
           %td{ colspan: 3, style: "border-top:1px solid #ddd;" }
         %tr
           %td{ colspan: 2, style: "text-align:left;padding-top:10px;padding-right:20px;padding-bottom:10px;" }
-            = link_to review.agreement.name_with_id, "#{ENV["website_url"]}/reviews/#{review.agreement.to_param}", style: link_style
+            = link_to review.agreement.name, "#{ENV["website_url"]}/reviews/#{review.agreement.to_param}", style: link_style
           %td{ style: "text-align: right" }= review.agreement.last_submitted_at.strftime("%-d %B %Y") if review.agreement.last_submitted_at
         %tr
           %td{ colspan: 3, style: "padding-bottom:10px" }

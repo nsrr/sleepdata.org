@@ -5,7 +5,7 @@
         .d-none.d-md-block
           = link_to settings_profile_path(anchor: "picture") do
             = profile_picture_tag current_user
-        .text-md-center= current_user.name_was
+        .text-md-center= current_user.full_name_was
         .d-none.d-md-block.text-md-center
           %small.text-muted
             Member since

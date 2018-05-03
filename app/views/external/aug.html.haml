@@ -8,8 +8,8 @@
 
 .dashboard-container-narrow
   .row
-    - @users.order(:first_name, :last_name).each do |user|
-      .col-sm-6.col-buffer.text-center= user.name
+    - @users.order(:full_name).each do |user|
+      .col-sm-6.col-buffer.text-center= user.full_name
 
 .text-center
   = link_to "Team", team_path

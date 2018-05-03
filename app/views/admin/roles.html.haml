@@ -15,14 +15,14 @@
             .d-none.d-md-inline-block= d.name
             .d-inline-block.d-md-none= d.slug
         %td
-          - d.reviewers.order(:first_name, :last_name).each do |u|
-            %span{ rel: "tooltip", title: u.name, data: { container: "body", placement: "top" } }
+          - d.reviewers.order(:full_name).each do |u|
+            %span{ rel: "tooltip", title: u.username, data: { container: "body", placement: "top" } }
               = u.initials
         %td
-          - d.editors.order(:first_name, :last_name).each do |u|
-            %span{ rel: "tooltip", title: u.name, data: { container: "body", placement: "top" } }
+          - d.editors.order(:full_name).each do |u|
+            %span{ rel: "tooltip", title: u.username, data: { container: "body", placement: "top" } }
               = u.initials
         %td
-          - d.viewers.order(:first_name, :last_name).each do |u|
-            %span{ rel: "tooltip", title: u.name, data: { container: "body", placement: "top" } }
+          - d.viewers.order(:full_name).each do |u|
+            %span{ rel: "tooltip", title: u.username, data: { container: "body", placement: "top" } }
               = u.initials

@@ -3,7 +3,7 @@
     = form.label :user_id, nil, class: "col-md-2 col-form-label"
     .col-md-10
       .form-control
-        = hosting_request.user.name
+        = hosting_request.user.username
         = mail_to hosting_request.user.email
   = render "forms/horizontal/text_field", form: form, object: hosting_request, key: :institution_name
   .form-group.row

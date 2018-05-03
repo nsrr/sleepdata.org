@@ -1,8 +1,8 @@
-Dear <%= @user.first_name %>,
+Dear <%= @user.username %>,
 
-<%= @agreement_event.user.name %> mentioned you while reviewing a data request.
+<%= @agreement_event.user.username %> mentioned you while reviewing a data request.
 
-<%= "#{@agreement_event.agreement.name_with_id} #{ENV["website_url"]}/reviews/#{@agreement_event.agreement.to_param}" %>
+<%= "#{@agreement_event.agreement.name} #{ENV["website_url"]}/reviews/#{@agreement_event.agreement.to_param}" %>
 
   <%= render "digest_review_comment" %>
 

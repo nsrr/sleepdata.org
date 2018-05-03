@@ -3,7 +3,7 @@
     = link_to reply.parent.title, reply, data: { turbolinks: false }
   .search-result-author
     Reply by
-    = reply.user.forum_name
+    = reply.user.username
     on
     %i= reply.created_at.strftime '%B %-d, %Y'
     on

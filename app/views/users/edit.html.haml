@@ -1,15 +1,15 @@
-- @title = "Edit User: #{@user.name_was}"
+- @title = "Edit User: #{@user.username_was}"
 
 - content_for :header do
   .header-container
     .container
       %h1.page-heading
-        = @user.name_was
+        = @user.username_was
   .breadcrumb-container
     .container
       %ol
         %li= link_to "Users", users_path
-        %li= link_to @user.name_was, @user
+        %li= link_to @user.username_was, @user
         %li Edit
 
 .dashboard-container2

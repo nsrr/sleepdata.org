@@ -23,7 +23,7 @@
 
   - if @author
     %li.blog-menu-header Author
-    %li= link_to @author.forum_name, blog_author_path(author: @author.forum_name), class: (@broadcast ? nil : 'active')
+    %li= link_to @author.username, blog_author_path(author: @author.username), class: (@broadcast ? nil : 'active')
 
 - if @author
   .author-box

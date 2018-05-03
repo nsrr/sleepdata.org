@@ -4,7 +4,7 @@
 module ProfilesHelper
   def profile_picture_tag(user, size: 128, style: nil)
     image_tag(
-      members_profile_picture_path(user.username.present? ? user.username : user.id),
+      profile_picture_member_path(user.username),
       alt: "",
       class: "rounded img-ignore-selection",
       size: "#{size}x#{size}",

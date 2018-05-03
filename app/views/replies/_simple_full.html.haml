@@ -1,0 +1,18 @@
+.reply-simple-full-hover-box.mb-3.box-shadow
+  .reply-remove-margin-bottom.d-flex.d-column.justify-content-between
+    .py-3.pl-3.d-none.d-lg-block
+      - size = 50
+      - picture_content = profile_picture_tag(reply.user, size: size, style: "height: auto;max-width: #{size + 5}px;")
+      = link_to picture_content, posts_member_path(reply.user.username)
+    .py-3.pl-2.pr-3.mr-auto.w-100
+      .small
+        .float-right= link_to reply.parent.title, reply, data: { turbolinks: false }, class: "link-muted"
+        .d-inline.d-lg-none
+          - picture_content = profile_picture_tag(reply.user, size: 16, style: "max-height: #{16+3}px;")
+          = link_to picture_content, posts_member_path(reply.user.username)
+        = link_to reply.user.username, posts_member_path(reply.user.username)
+      = link_to reply, data: { turbolinks: false }, class: "link-unstyled breakword" do
+        = simple_markdown(sanitize(reply.description.gsub(/</, "&lt;"), tags: %w(strong em table img p)).gsub('&gt;', '>'), allow_links: false, allow_images: reply.display_links?, table_class: "table table-striped")
+    = link_to reply, class: "reply-simple-full-link p-3 d-flex align-items-center myapnea-grey-bg", data: { turbolinks: false } do
+      %div
+        %i.fa.fa-angle-right

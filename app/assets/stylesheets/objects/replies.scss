@@ -68,16 +68,52 @@
 }
 
 .reply-body-formatted {
-  img {
-    @include ignore-selection;
-
+  .img-zoom-message {
+    color: $brand-white;
+    position: relative;
+    display: inline-block;
     cursor: zoom-in;
-    max-height: 100px;
-    max-width: 100%;
+    margin-bottom: $spacer;
 
-    &.large-view {
+    img {
+      @include ignore-selection;
+
+      max-height: 200px;
+      height: auto;
+      max-width: 100%;
+    }
+
+    &::after {
+      background-color: rgba($black, 0.4);
+      bottom: 0;
+      content: "Zoom in";
+      display: inline-block;
+      left: 0;
+      overflow: hidden;
+      padding: $spacer;
+      position: absolute;
+      right: 0;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    &.img-zoom-large-view {
       cursor: zoom-out;
+      display: block;
       max-height: none;
+      margin-left: auto;
+      margin-right: auto;
+
+      img {
+        display: block;
+        max-height: none;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      &::after {
+        display: none;
+      }
     }
   }
 }
@@ -110,5 +146,34 @@
 
   .reply-inner-container {
     margin-left: 70px;
+  }
+}
+
+.reply-remove-margin-bottom {
+  @include remove-last-child-bottom-margin;
+}
+
+.reply-simple-full-hover-box {
+  background-color: $brand-white;
+
+  .reply-simple-full-link {
+    background-color: $p100-grey;
+  }
+
+  &:hover .reply-simple-full-link {
+    background-color: $p100-orange;
+    text-decoration: none;
+  }
+
+  .img-zoom-message {
+    display: inline-block;
+
+    img {
+      @include ignore-selection;
+
+      height: auto;
+      max-height: 50px;
+      max-width: 100%;
+    }
   }
 }

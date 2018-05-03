@@ -9,7 +9,8 @@ class NavigationTest < ActionDispatch::IntegrationTest
   fixtures :users
 
   def setup
-    @valid = users(:valid)
+    @regular = users(:regular)
+    @unconfirmed = users(:unconfirmed)
     @deleted = users(:deleted)
   end
 
@@ -27,31 +28,37 @@ class NavigationTest < ActionDispatch::IntegrationTest
   test "should register new account" do
     post user_registration_path, params: {
       user: {
-        first_name: "register", last_name: "account",
-        email: "register@account.com", password: "registerpassword098765",
-        password_confirmation: "registerpassword098765", emails_enabled: "1"
+        username: "registeraccount",
+        email: "register@account.com",
+        password: "registerpassword098765"
       }
     }
-    assert_equal I18n.t("devise.registrations.signed_up"), flash[:notice]
+    assert_equal I18n.t("devise.registrations.signed_up_but_unconfirmed"), flash[:notice]
     assert_redirected_to root_path
+  end
+
+  test "should not login unconfirmed user" do
+    get new_user_session_path
+    login(@unconfirmed)
+    assert_equal new_user_session_path, path
   end
 
   test "should not login deleted user" do
     get new_user_session_path
-    sign_in_as(@deleted, "123456")
+    login(@deleted)
     assert_equal new_user_session_path, path
   end
 
   test "friendly url forwarding after login" do
     get datasets_path
     get new_user_session_path
-    sign_in_as(@valid, "123456")
+    login(@regular)
     assert_equal datasets_path, path
   end
 
   test "friendly url forwarding after logout" do
     get datasets_path
-    sign_in_as(@valid, "123456")
+    login(@regular)
     get datasets_path
     get destroy_user_session_path
     assert_redirected_to datasets_path
@@ -60,7 +67,7 @@ class NavigationTest < ActionDispatch::IntegrationTest
   test "blog rss should not be stored in friendly forwarding after login" do
     get blog_path(format: "atom")
     get new_user_session_path
-    sign_in_as(@valid, "123456")
+    login(@regular)
     assert_equal root_path, path
   end
 end

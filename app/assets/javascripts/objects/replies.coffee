@@ -92,6 +92,6 @@ $(document)
     $($(this).data('target')).val(new_string)
     false
   )
-  .on('click', '.reply-body img', ->
-    $(this).toggleClass('large-view')
+  .on("click", ".img-zoom-message", ->
+    $(this).toggleClass("img-zoom-large-view")
   )

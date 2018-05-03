@@ -18,7 +18,7 @@
         - if params.key?(:user_id)
           %i.fa.fa-filter
           - user = User.find_by(id: params[:user_id])
-          = user ? user.name : "Public User"
+          = user ? user.username : "Public User"
         - else
           User
       %th.nowrap
@@ -44,10 +44,10 @@
             = link_to audits_dataset_path(@dataset, medium: params[:medium], remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Remove Filter", placement: "left" } do
               %i.fa.fa-times>
           - else
-            = link_to audits_dataset_path(@dataset, medium: params[:medium], user_id: audit.user_id.to_s, remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Filter by #{ audit.user ? audit.user.name : "Anonymous" }", placement: "left" } do
+            = link_to audits_dataset_path(@dataset, medium: params[:medium], user_id: audit.user_id.to_s, remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Filter by #{ audit.user ? audit.user.username : "Anonymous" }", placement: "left" } do
               %i.fa.fa-filter>
         - if audit.user
-          = audit.user.name if audit.user
+          = audit.user.username if audit.user
         - else
           %span.text-muted Anonymous
       %td.nowrap

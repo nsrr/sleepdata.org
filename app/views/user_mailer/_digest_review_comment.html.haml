@@ -3,5 +3,5 @@
 %td{ style: "padding-right: 10px;vertical-align: top;" }
   = strip_tags(simple_markdown(@agreement_event.comment)).truncate(100, separator: " ").html_safe
 %td.text-right.nowrap{ style: "padding-right: 10px;vertical-align: top;" }
-  = @agreement_event.user.name
+  = @agreement_event.user.username
   = image_tag "#{ENV["website_url"]}/members/#{@agreement_event.user.id}/profile_picture", size: "16x16", alt: "", style: "vertical-align: middle;margin-top: -1px;margin-bottom: -1px;"

@@ -1,4 +1,4 @@
-Dear <%= @user.first_name %>,
+Dear <%= @user.username %>,
 
 The following data requests are awaiting your review. Please click on each and then approve or reject the data request.
 
@@ -8,7 +8,7 @@ Data Requests
 <% @user.digest_reviews.each_with_index do |review, index| %>
 ----------------------------
 
-<%= review.agreement.name_with_id %> - <%= "#{ENV["website_url"]}/reviews/#{review.agreement.to_param}" %>
+<%= review.agreement.name %> - <%= "#{ENV["website_url"]}/reviews/#{review.agreement.to_param}" %>
 
 <% end %>
 <% end %>

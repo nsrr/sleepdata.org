@@ -1,7 +1,7 @@
 %p{ style: p_style }
   Dear
   = succeed ',' do
-    = @agreement.user.first_name
+    = @agreement.user.username
 
 %p{ style: p_style }
   Your data request has been
@@ -12,7 +12,7 @@
   You can now start exploring available data here:
 
 %p{ style: center_style }
-  = link_to 'View Datasets', "#{ENV['website_url']}/datasets", style: link_style
+  = link_to 'View Datasets', "#{ENV["website_url"]}/datasets", style: link_style
 
 %p{ style: p_style }
   You can reply directly to this email if you have any questions.

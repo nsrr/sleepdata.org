@@ -5,6 +5,11 @@ started:
   status: started
   final_legal_document: one
 
+unconfirmed:
+  user: unconfirmed
+  status: started
+  final_legal_document: one
+
 uploads:
   user: regular2
   status: started

@@ -5,7 +5,7 @@
 
 %p{ style: p_style }
   You have been designated as
-  = "#{@data_request.user.name}'s"
+  = "#{@data_request.user.username}'s"
   Duly Authorized Representative. You may review the data request here:
 
 - signature_request_url = "#{ENV["website_url"]}/representative/#{@data_request.id_and_representative_token}/signature-requested"

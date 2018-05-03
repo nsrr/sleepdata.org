@@ -40,7 +40,7 @@
           %td= "##{hosting_request.id}"
           %td= link_to hosting_request.institution_name, hosting_request
           %td.d-none.d-sm-table-cell= hosting_request.description
-          %td= link_to hosting_request.user.name, hosting_request.user
+          %td= link_to hosting_request.user.username, hosting_request.user
           %td.d-none.d-sm-table-cell.text-center= simple_check hosting_request.reviewed?
           %td
             = render "layouts/edit_delete_dropdown", edit_url: edit_hosting_request_path(hosting_request), delete_url: hosting_request, delete_confirmation: "Delete #{hosting_request.name}?"

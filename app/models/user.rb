@@ -2,16 +2,6 @@
 
 # Defines the user model, relationships, and permissions.
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable and :omniauthable
-  devise :database_authenticatable, :registerable, :timeoutable,
-         :recoverable, :rememberable, :trackable, :validatable
-
-  # Concerns
-  include Deletable
-  include TokenAuthenticatable
-  include Forkable
-
   # Constants
   COMMERCIAL_TYPES = [
     ["Noncommercial", "noncommercial"],
@@ -21,6 +11,24 @@ class User < ApplicationRecord
     ["Individual", "individual"],
     ["Organization", "organization"]
   ]
+
+  # Include default devise modules. Others available are:
+  # :lockable and :omniauthable
+  devise :database_authenticatable, :registerable, :timeoutable,
+         :recoverable, :rememberable, :trackable, :validatable, :confirmable
+
+  # Concerns
+  include Deletable
+  include TokenAuthenticatable
+  include Forkable
+  include Searchable
+  include UsernameGenerator
+
+  include Squishable
+  squish :full_name
+
+  include Strippable
+  strip :username
 
   # Uploaders
   mount_uploader :profile_picture, ResizableImageUploader
@@ -32,20 +40,7 @@ class User < ApplicationRecord
   scope :aug_members, -> { current.where(aug_member: true) }
   scope :core_members, -> { current.where(core_member: true) }
   scope :system_admins, -> { current.where(system_admin: true) }
-  scope :with_name, ->(arg) { where("(users.first_name || ' ' || users.last_name) IN (?) or users.username IN (?)", arg, arg) }
-
-  def self.search(arg)
-    term = arg.to_s.downcase.gsub(/^| |$/, "%")
-    conditions = [
-      "LOWER(first_name) LIKE ?",
-      "LOWER(last_name) LIKE ?",
-      "LOWER(email) LIKE ?",
-      "((LOWER(first_name) || LOWER(last_name)) LIKE ?)",
-      "((LOWER(last_name) || LOWER(first_name)) LIKE ?)"
-    ]
-    terms = [term] * conditions.count
-    where conditions.join(" or "), *terms
-  end
+  scope :with_name, ->(arg) { where("users.full_name IN (?) or users.username IN (?)", arg, arg) }
 
   def self.aug_or_core_members
     current.where("aug_member = ? or core_member = ?", true, true)
@@ -56,8 +51,15 @@ class User < ApplicationRecord
   end
 
   # Validations
-  validates :first_name, :last_name, presence: true
-  validates :username, uniqueness: { case_sensitive: false }, format: { with: /\A[a-z]\w*\Z/i }, allow_blank: true
+  validates :full_name, format: { with: /\A.+\s.+\Z/, message: "must include first and last name" }, allow_blank: true
+  validates :username, presence: true
+  validates :username, format: {
+    with: /\A[a-zA-Z0-9]+\Z/i,
+    message: "may only contain letters or digits"
+  },
+                       exclusion: { in: %w(new edit show create update destroy) },
+                       allow_blank: true,
+                       uniqueness: { case_sensitive: false }
   validates :data_user_type, inclusion: { in: User::DATA_USER_TYPES.collect(&:second) }
   validates :commercial_type, inclusion: { in: User::COMMERCIAL_TYPES.collect(&:second) }
 
@@ -85,6 +87,9 @@ class User < ApplicationRecord
   has_many :topic_users
 
   # Methods
+  def self.searchable_attributes
+    %w(full_name username email)
+  end
 
   def organizations
     Organization.current
@@ -222,36 +227,12 @@ class User < ApplicationRecord
       .order("agreements.last_submitted_at desc")
   end
 
-  def full_name
-    name
-  end
-
-  def name
-    "#{first_name} #{last_name}"
-  end
-
-  def name_was
-    "#{first_name_was} #{last_name_was}"
-  end
-
-  def reverse_name
-    "#{last_name}, #{first_name}"
-  end
-
-  def reverse_name_and_email
-    "#{last_name}, #{first_name} - #{email}"
-  end
-
   def initials
-    "#{first_name.first.upcase}#{last_name.first.upcase}"
+    full_name.split(" ").collect(&:first).join("")
   end
 
   def id_and_auth_token
     "#{id}-#{authentication_token}"
-  end
-
-  def forum_name
-    username.presence || name
   end
 
   def unread_notifications?
@@ -268,18 +249,36 @@ class User < ApplicationRecord
     update_column :updated_at, Time.zone.now
   end
 
-  def send_welcome_email_with_password_in_background(pw)
-    fork_process(:send_welcome_email_with_password, pw)
+  def send_welcome_email_in_background!(data_request_id: nil)
+    fork_process :send_welcome_email!, data_request_id: data_request_id
   end
 
-  def send_welcome_email_with_password(pw)
-    RegistrationMailer.send_welcome_email_with_password(self, pw).deliver_now if EMAILS_ENABLED
+  def send_welcome_email!(data_request_id: nil)
+    RegistrationMailer.welcome(self, data_request_id: data_request_id).deliver_now # if EMAILS_ENABLED
   end
 
-  # Resend welcome email in case of typo in original email address.
-  def resend_welcome_email!
-    pw = SecureRandom.hex(8)
-    update(password: pw)
-    send_welcome_email_with_password(pw)
+  # Disposable emails are one-off email address website generators.
+  def disposable_email?
+    DISPOSABLE_EMAILS.include?(email.split("@")[1])
+  end
+
+  # Blacklisted emails are email domains flagged for containing a high number of
+  # spammers to legitimate users.
+  def blacklisted_email?
+    BLACKLISTED_EMAILS.include?(email.split("@")[1])
+  end
+
+  def send_confirmation_instructions
+    return if disposable_email?
+    super
+  end
+
+  def send_on_create_confirmation_instructions
+    return if disposable_email?
+    send_welcome_email_in_background!
+  end
+
+  def profile_present?
+    profile_bio.present? || profile_location.present?
   end
 end

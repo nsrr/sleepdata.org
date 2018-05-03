@@ -58,7 +58,7 @@
         %td= status_helper(data_request)
         %td
           = profile_picture_tag data_request.user, size: 18, style: "vertical-align:text-bottom;width:18px"
-          = link_to data_request.name_with_id, review_path(data_request)
+          = link_to data_request.name, review_path(data_request)
         %td.d-none.d-sm-table-cell.nowrap
           - if data_request.resubmitted_at
             = data_request.resubmitted_at.strftime("%Y-%m-%d")

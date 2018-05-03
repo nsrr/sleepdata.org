@@ -16,9 +16,9 @@ class UserMailer < ApplicationMailer
     @email_to = reviewer.email
     subject = \
       if @agreement.resubmitted?
-        "#{agreement.user.name} Resubmitted a Data Request"
+        "#{agreement.user.username} Resubmitted a Data Request"
       else
-        "#{agreement.user.name} Submitted a Data Request"
+        "#{agreement.user.username} Submitted a Data Request"
       end
     mail(to: reviewer.email, subject: subject)
   end
@@ -57,7 +57,7 @@ class UserMailer < ApplicationMailer
     @agreement_event = agreement_event
     @email_to = user.email
     mail(to: @email_to,
-         subject: "#{agreement_event.user.name} Mentioned You While Reviewing a Data Request")
+         subject: "#{agreement_event.user.username} Mentioned You While Reviewing a Data Request")
   end
 
   def hosting_request_submitted(hosting_request)
@@ -65,6 +65,6 @@ class UserMailer < ApplicationMailer
     @hosting_request = hosting_request
     @email_to = ENV["support_email"]
     mail(to: @email_to,
-         subject: "#{hosting_request.user.name} - Dataset Hosting Request")
+         subject: "#{hosting_request.user.username} - Dataset Hosting Request")
   end
 end

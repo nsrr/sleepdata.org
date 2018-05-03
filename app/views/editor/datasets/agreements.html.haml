@@ -34,7 +34,7 @@
             %td= status_helper(agreement)
             %td.nowrap
               = profile_picture_tag agreement.user, size: 18, style: "vertical-align:text-bottom;width:18px"
-              = link_to agreement.name_with_id, review_path(agreement)
+              = link_to agreement.name, review_path(agreement)
 
     .text-center
       = paginate @agreements, theme: "bootstrap-small"

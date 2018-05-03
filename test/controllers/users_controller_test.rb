@@ -14,9 +14,8 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
 
   def user_hash
     {
-      first_name: "New",
-      last_name: "User",
-      email: "new_user@example.com",
+      full_name: "New User",
+      email: "newuser@example.com",
       system_admin: false
     }
   end
@@ -54,9 +53,9 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to user_path(assigns(:user))
   end
 
-  test "should not update user with blank name" do
+  test "should not update user with blank username" do
     login(@admin)
-    patch user_path(@user), params: { user: user_hash.merge(first_name: "", last_name: "") }
+    patch user_path(@user), params: { user: user_hash.merge(username: "") }
     assert_not_nil assigns(:user)
     assert_template "edit"
   end

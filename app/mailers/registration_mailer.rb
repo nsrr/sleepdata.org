@@ -2,12 +2,11 @@
 
 # Sends out registration welcome emails.
 class RegistrationMailer < ApplicationMailer
-  def send_welcome_email_with_password(user, pw)
+  def welcome(user, data_request_id: nil)
     setup_email
     @user = user
-    @pw = pw
     @email_to = user.email
-    mail(to: @email_to,
-         subject: "Welcome to the NSRR - Account Created")
+    @data_request_id = data_request_id
+    mail(to: @email_to, subject: "Welcome to the NSRR!")
   end
 end

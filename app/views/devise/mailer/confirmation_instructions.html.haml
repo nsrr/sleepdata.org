@@ -1,0 +1,14 @@
+%p{ style: p_style }
+  Dear
+  = succeed "," do
+    = @resource.username
+
+%p{ style: p_style }
+  You can confirm your account email through the link below:
+
+- if @user.disposable_email?
+  %p{ style: center_style }
+    = link_to "Confirm my account", "#{ENV["website_url"]}/confirmation", style: link_style
+- else
+  %p{ style: center_style }
+    = link_to "Confirm my account", "#{ENV["website_url"]}/confirmation?confirmation_token=#{@token}", style: link_style

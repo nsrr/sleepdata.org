@@ -83,5 +83,5 @@ Rails.application.configure do
   # config.active_record.dump_schema_after_migration = false
 
   # Set the relative root, if it exists
-  config.action_controller.relative_url_root = URI.parse(ENV['website_url']).path rescue nil
+  config.action_controller.relative_url_root = URI.parse(ENV["website_url"]).path rescue nil
 end
