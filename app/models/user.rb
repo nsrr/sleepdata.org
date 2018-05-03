@@ -254,7 +254,7 @@ class User < ApplicationRecord
   end
 
   def send_welcome_email!(data_request_id: nil)
-    RegistrationMailer.welcome(self, data_request_id: data_request_id).deliver_now # if EMAILS_ENABLED
+    RegistrationMailer.welcome(self, data_request_id: data_request_id).deliver_now if EMAILS_ENABLED
   end
 
   # Disposable emails are one-off email address website generators.
