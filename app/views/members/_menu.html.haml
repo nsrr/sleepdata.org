@@ -20,6 +20,12 @@
             = "(#{number_with_delimiter karma})"
           - else
             = "(+#{number_with_delimiter karma})"
+    - tools_count = member.community_tools.published.count
+    - if tools_count.positive?
+      %li
+        = link_to tools_member_path(member.username), class: current_page?(tools_member_path(member.username)) ? "active" : nil do
+          Tools
+          %span.badge= tools_count
     - if false
       %li= link_to "Badges", badges_member_path(member.username), class: current_page?(badges_member_path(member.username)) ? "active" : nil
 

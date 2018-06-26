@@ -1,5 +1,7 @@
 - @title = "Tools"
 
+= render "layouts/survey_link"
+
 - if false
   %p.lead Bookmark a Tool
   %p.lead Popular Requests
@@ -16,74 +18,75 @@
           =# link_to plus_or("Contribute a Tool"), contribute_tool_start_path, class: "btn btn-primary btn-shadow"
           = render "layouts/per_page", per_page: 20, object_count: @community_tools.total_count
         = @title
-        = render "search/toggle"
-
-= render "layouts/survey_link"
-
-= render "search/simple", url: tools_path
 
 - if @community_tools.present?
-  %table.table.table-striped.table-borderless.table-hover.table-sticky
-    - if false
+  .topics
+    %table.table.table-striped.table-borderless.table-hover.table-sticky
+      - if false
+        %col{ width: "1px" }
+      %col{ width: "75%" }
+      %col.d-none.d-sm-table-column{ width: "25%" }
       %col{ width: "1px" }
-    %col{ width: "75%" }
-    %col.d-none.d-sm-table-column{ width: "25%" }
-    %col{ width: "1px" }
-    %col.d-none.d-md-table-column
-    - if current_user && current_user.system_admin?
-      %col{ width: "1px" }
-    %thead
-      %tr
-        - if false
-          = th_sort_field_rev @order, "community_tools.rating", "Rating", extra_class: "text-center"
-        %th{ class: params[:order] == "community_tools.name desc" || params[:order].blank? ? "sort-selected" : nil }
-          - case params[:order]
-          - when "community_tools.name desc"
-            = link_to "Name", tools_path
-          - else
-            = link_to "Name", tools_path(order: "community_tools.name desc")
-        %th.d-none.d-sm-block
-          Author
-        %th.nowrap
-          Type
-          .dropdown{ style: "display: inline-block" }
-            = link_to "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" } do
-              %i.fa.fa-filter
-            .dropdown-menu.dropdown-menu-right
-              = link_to "All", tools_path(order: params[:order]), style: params[:type].blank? ? "font-weight:bold;" : "", class: "dropdown-item"
-              - [["Program", "program"], ["Script", "script"], ["Tutorial", "tutorial"]].each do |label, value|
-                = link_to label, tools_path(order: params[:order], type: value), style: params[:type] == value ? "font-weight:bold;" : "", class: "dropdown-item"
-        = th_sort_field_rev @order, "community_tools.publish_date", "Published", extra_class: "d-none d-md-block text-center"
-        - if current_user && current_user.system_admin?
-          %th.text-center
-            .d-none.d-sm-inline-block Actions
-
-    %tbody
-      - @community_tools.each do |community_tool|
+      %col.d-none.d-md-table-column
+      - if current_user && current_user.system_admin?
+        %col{ width: "1px" }
+      %thead
         %tr
           - if false
-            %td.text-center
-              = link_to community_tool_community_tool_reviews_path(community_tool) do
-                = render "community_tools/rating", rating: community_tool.rating
-          %td= link_to community_tool.name, tool_path(community_tool)
-          %td.d-none.d-sm-block= community_tool.user.username
-          %td.text-center
-            - if community_tool.tag_program?
-              %small Program
-            - if community_tool.tag_script?
-              %small Script
-            - if community_tool.tag_tutorial?
-              %small Tutorial
-            - unless community_tool.tag_program? || community_tool.tag_script? || community_tool.tag_tutorial?
-              / %span.badge.badge-pill.badge-default Unsorted
-          %td.d-none.d-md-block.nowrap.text-center
-            - if community_tool.published?
-              = community_tool.publish_date
-            - else
-              %span.badge.badge-warning DRAFT
+            = th_sort_field_rev @order, "community_tools.rating", "Rating", extra_class: "text-center"
+          %th.p-2
+            = form_tag tools_path, method: :get do
+              = text_field_tag :search, params[:search], placeholder: "Search tools", autocomplete: "off", class: "table-cell-search-input border rounded"
+          - if false
+            %th{ class: params[:order] == "community_tools.name desc" || params[:order].blank? ? "sort-selected" : nil }
+              - case params[:order]
+              - when "community_tools.name desc"
+                = link_to "Name", tools_path
+              - else
+                = link_to "Name", tools_path(order: "community_tools.name desc")
+          %th.d-none.d-sm-block
+            Author
+          %th.nowrap
+            Type
+            .dropdown{ style: "display: inline-block" }
+              = link_to "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" } do
+                %i.fa.fa-filter
+              .dropdown-menu.dropdown-menu-right
+                = link_to "All", tools_path(order: params[:order]), style: params[:type].blank? ? "font-weight:bold;" : "", class: "dropdown-item"
+                - [["Program", "program"], ["Script", "script"], ["Tutorial", "tutorial"]].each do |label, value|
+                  = link_to label, tools_path(order: params[:order], type: value), style: params[:type] == value ? "font-weight:bold;" : "", class: "dropdown-item"
+          = th_sort_field_rev @order, "community_tools.publish_date", "Published", extra_class: "d-none d-md-block text-center"
           - if current_user && current_user.system_admin?
-            %td
-              = render "layouts/edit_delete_dropdown", edit_url: edit_community_tool_path(community_tool), delete_url: community_tool, delete_confirmation: "Delete #{community_tool.name}?"
+            %th.text-center
+              .d-none.d-sm-inline-block Actions
+
+      %tbody
+        - @community_tools.each do |community_tool|
+          %tr
+            - if false
+              %td.text-center
+                = link_to community_tool_community_tool_reviews_path(community_tool) do
+                  = render "community_tools/rating", rating: community_tool.rating
+            %td= link_to community_tool.name, tool_path(community_tool)
+            %td.d-none.d-sm-block
+              %small= link_to community_tool.user.username, member_path(community_tool.user.username), class: "link-blend-semi-muted"
+            %td.text-center
+              - if community_tool.tag_program?
+                %small Program
+              - if community_tool.tag_script?
+                %small Script
+              - if community_tool.tag_tutorial?
+                %small Tutorial
+              - unless community_tool.tag_program? || community_tool.tag_script? || community_tool.tag_tutorial?
+                / %span.badge.badge-pill.badge-default Unsorted
+            %td.d-none.d-md-block.nowrap.text-center
+              - if community_tool.published?
+                = community_tool.publish_date
+              - else
+                %span.badge.badge-warning DRAFT
+            - if current_user && current_user.system_admin?
+              %td
+                = render "layouts/edit_delete_dropdown", edit_url: edit_community_tool_path(community_tool), delete_url: community_tool, delete_confirmation: "Delete #{community_tool.name}?"
 
   .center-horizontally= paginate @community_tools, theme: "bootstrap"
 - else

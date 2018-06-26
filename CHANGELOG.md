@@ -7,6 +7,8 @@
 - **Email Changes**
   - Email confirmation is now required for all accounts
   - Added detection of disposable email addresses
+- **Profile Changes**
+  - Member contributed tools are now listed on the member profile
 
 ## 32.0.0 (May 2, 2018)
 

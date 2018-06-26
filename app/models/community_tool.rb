@@ -15,6 +15,7 @@ class CommunityTool < ApplicationRecord
 
   # Scopes
   scope :published_or_draft, ->(arg) { current.where(user: arg).or(current.where(published: true)) }
+  scope :published, -> { current.where(published: true) }
 
   # Validations
   validates :user_id, :url, :status, presence: true

@@ -27,7 +27,7 @@
       %p
         %strong Author
         %br
-        = link_to @community_tool.user.username, tools_path(a: @community_tool.user.username)
+        = link_to @community_tool.user.username, tools_member_path(@community_tool.user.username)
 
       %p
         %strong Date Added
