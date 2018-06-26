@@ -1,8 +1,14 @@
 .broadcast-info
-  Posted by
-  = link_to broadcast.user.username, blog_author_path(author: broadcast.user.username)
+  .float-right
+    &nbsp;
+    = link_to blog_post_path(broadcast.url_hash.merge(anchor: "comments")), class: "no-underline", data: { turbolinks: false } do
+      %i.fa.fa-comments
+      = broadcast.replies.where(deleted: false).count
+  By
+  = link_to broadcast.user.username, posts_member_path(broadcast.user.username)
   on
-  %i= broadcast.publish_date.strftime '%B %-d, %Y'
+  %i.d-none.d-md-inline= broadcast.publish_date.strftime "%B %-d, %Y"
+  %i.d-inline.d-md-none= broadcast.publish_date.strftime "%b %-d, %Y"
   - if broadcast.category
     in
     = link_to broadcast.category.name, blog_category_path(category: broadcast.category)

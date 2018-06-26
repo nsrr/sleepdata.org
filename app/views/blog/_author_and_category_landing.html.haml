@@ -1,0 +1,8 @@
+.broadcast-info.mb-3{ style: "font-weight: 300;" }
+  Posted by
+  = link_to broadcast.user.username, blog_author_path(author: broadcast.user.username)
+  on
+  %i= broadcast.publish_date.strftime '%B %-d, %Y'
+  - if broadcast.category
+    in
+    = link_to broadcast.category.name, blog_category_path(category: broadcast.category)

@@ -5,49 +5,48 @@
   .page-box-padding.background-p50-grey
     .container
       .row
-        .col-md-9
-          %h1.broadcast-title
-            = @title
-            - if current_user && current_user.community_manager?
-              = link_to "Edit", edit_broadcast_path(@broadcast), class: "btn btn-sm btn-light"
-          = render "blog/show", broadcast: @broadcast
-        .col-md-3
-          .menu-sticky= render "blog/menu"
+        .col-lg-9
+          .dashboard-container.mb-4.mb-lg-0.broadcast-container
+            %h1.broadcast-title.mt-0{ style: "border-bottom: 0;" }= @broadcast.title
+            = render "blog/show", broadcast: @broadcast
+        .col-lg-3
+          .dashboard-container.mb-0.col-sticky
+            = render "blog/menu"
+            - if current_user && current_user.community_manager? && @broadcast.editable_by?(current_user)
+              .mt-5= link_to pencil_or("Edit Blog Post"), edit_broadcast_path(@broadcast), class: "btn btn-primary btn-shadow btn-sm btn-block"
 
       %div{ style: "margin-bottom: 20px" }
         .float-right.d-none.d-md-block{ style: "margin-top: -20px;" }
           = paginate @replies, theme: "bootstrap-small"
-
   .page-box-padding
     .container
-      .broadcast-replies-header
-        - if @broadcast.replies.count > 0
-          all
-          = pluralize(@broadcast.replies.count, "comment")
-        - else
-          no comments
+      .broadcast-discussion
+        .broadcast-discussion-header
+          - if @broadcast.replies.count > 0
+            all
+            = pluralize(@broadcast.replies.count, "comment")
+          - else
+            no comments
+          %div{ style: "display: inline-block" }
+            &middot; sorted by
+          .dropdown{ style: "display: inline-block"}
+            = link_to "#", data: { toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" }, class: "text-muted btn-link btn-sm btn-link dropdown-toggle" do
+              - case params[:order] when "replies.created_at desc"
+                new
+              - else
+                best
+            .dropdown-menu
+              = link_to "best", blog_post_path(@broadcast.url_hash.merge(order: "points desc", anchor: "comments")), style: (params[:order].blank? || params[:order] == "points desc") ? "font-weight:bold;" : "", data: { turbolinks: false }, class: "dropdown-item"
+              = link_to "new", blog_post_path(@broadcast.url_hash.merge(order: "replies.created_at desc", anchor: "comments")), style: (params[:order] == "replies.created_at desc") ? "font-weight:bold;" : "", data: { turbolinks: false }, class: "dropdown-item"
 
-        %div{ style: "display: inline-block" }
-          &middot; sorted by
-        .dropdown{ style: "display: inline-block"}
-          = link_to "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" }, id: "sort-by-dropdown", class: "text-muted" do
-            - case params[:order] when "replies.created_at desc"
-              new
-            - else
-              best
-            %span.caret
-          .dropdown-menu{ aria: { labelledby: "status-dropdown" } }
-            = link_to "best", blog_post_path(@broadcast.url_hash.merge(order: "points desc", anchor: "comments")), style: (params[:order].blank? || params[:order] == "points desc") ? "font-weight:bold;" : "", class: "dropdown-item"
-            = link_to "new", blog_post_path(@broadcast.url_hash.merge(order: "replies.created_at desc", anchor: "comments")), style: (params[:order] == "replies.created_at desc") ? "font-weight:bold;" : "", class: "dropdown-item"
+          %span#write_reply_root_new{ style: "overflow: hidden;" }
+            = link_to "Write a Reply", async_parent_reply_path(broadcast_id: @broadcast, parent_reply_id: "root", reply_id: "new"), method: :post, remote: true
 
-        %span#write_reply_root_new{ style: "overflow:hidden" }
-          = link_to "Write a Reply", async_parent_reply_path(broadcast_id: @broadcast, parent_reply_id: "root", reply_id: "new"), method: :post, remote: true
+        #comment_container_root_new{ style: "display:none" }
+          - reply = @broadcast.replies.new
+          = render "replies/form", reply: reply
 
-      #comment_container_root_new{ style: "display: none;" }
-        - reply = @broadcast.replies.new
-        = render "replies/form", reply: reply
+        %a.anchor-top{ name: "comments" }
+        = render "replies/index", parent: @broadcast
 
-      %a.anchor-top{ name: "comments" }
-      = render "replies/index", parent: @broadcast
-
-      .center-horizontally= paginate @replies, theme: "bootstrap-small"
+        .center-horizontally= paginate @replies, theme: "bootstrap-small"

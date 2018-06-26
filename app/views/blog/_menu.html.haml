@@ -5,10 +5,9 @@
 
 %ul.blog-menu
   %li.blog-menu-header Blog
-  %li= link_to 'All Posts', blog_path, class: "#{'active' if current_category.blank? && (!@author && !@broadcast)}"
+  %li= link_to "All Posts", blog_path, class: "#{"active" if current_category.blank? && (!@author && !@broadcast)}"
   - Category.current.order(:name).each do |category|
-    %li= link_to category.name, blog_category_path(category: category), class: (current_category == category.slug ? 'active' : nil)
-
+    %li= link_to category.name, blog_category_path(category: category), class: (current_category == category.slug ? "active" : nil)
 
   - if current_user && current_user.community_manager?
     %li.blog-menu-header Contributor
@@ -23,7 +22,7 @@
 
   - if @author
     %li.blog-menu-header Author
-    %li= link_to @author.username, blog_author_path(author: @author.username), class: (@broadcast ? nil : 'active')
+    %li= link_to @author.username, blog_author_path(author: @author.username), class: (@broadcast ? nil : "active")
 
 - if @author
   .author-box
@@ -37,7 +36,7 @@
       Posts
     .author-value= @category.broadcasts.published.count
 
-- if !@author && !@category && params[:controller] != 'search'
+- if !@author && !@category && params[:controller] != "search"
   .author-box
     .author-key
       Blog Posts

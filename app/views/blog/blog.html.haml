@@ -2,11 +2,20 @@
 
 = render "layouts/survey_link"
 
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        = @title
+
 .row
-  .col-md-9
+  .col-lg-9
     - @broadcasts.each do |broadcast|
-      %h2.broadcast-title= link_to broadcast.title, blog_post_path(broadcast.url_hash)
-      = render "blog/extract", broadcast: broadcast
+      .dashboard-container.broadcast-container
+        - url = blog_post_path(broadcast.url_hash)
+        %h2.broadcast-title.mt-0{ style: "border-bottom: 0;" }= link_to broadcast.title, url
+        = render "blog/extract", broadcast: broadcast, url: url
     .center-horizontally= paginate @broadcasts, theme: "bootstrap"
-  .col-md-3
-    .menu-sticky= render "blog/menu"
+  .col-lg-3
+    .dashboard-container.col-sticky
+      = render "blog/menu"

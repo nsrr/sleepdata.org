@@ -1,14 +1,14 @@
+.dashboard-container-margins,
 .dashboard-container {
-  @include remove-last-child-bottom-margin;
   @include scale-images;
 
   background-color: $dashboard-bg;
-  border-radius: 4px;
+  border-radius: $border-radius;
   box-shadow: 0 1px 5px $box-shadow-color;
   color: $body-color;
-  margin-bottom: 20px;
-  padding: 20px;
-  position: relative;
+  margin-bottom: map-get($spacers, 4);
+  padding: 10px;
+  // position: relative; // TODO: Remove
 
   > div,
   > table {
@@ -17,10 +17,33 @@
     }
   }
 
-  .broadcast {
-    margin-bottom: 0;
+  &.dashboard-disclaimer {
+    background-color: $p100-orange;
+    font-size: 12px;
+  }
+
+  &.dashboard-no-padding {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  @include media-breakpoint-up(sm) {
+    padding: 30px;
   }
 }
+
+.dashboard-container {
+  @include remove-last-child-bottom-margin;
+}
+
+.dashboard-table {
+  padding: map-get($spacers, 1) 0;
+}
+
+.dashboard-container-border-accent {
+  border-left: 4px solid $p200-orange;
+}
+
 
 .dashboard-title {
   margin-bottom: 10px;

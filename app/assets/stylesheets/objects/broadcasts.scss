@@ -1,3 +1,35 @@
+.dashboard-container {
+  &.broadcast-container {
+    position: relative;
+    padding-bottom: 20px;
+  }
+}
+
+.broadcast-by {
+  background-color: $p50-green;
+  border-radius: 0 0 4px 4px;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  padding: 10px;
+  position: absolute;
+  right: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  .broadcast-info {
+    font-weight: 300;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+  .broadcast-by {
+    padding: 10px 30px;
+  }
+}
+
 .broadcast {
   @include remove-last-child-bottom-margin;
 
@@ -10,12 +42,10 @@
   img {
     @include ignore-selection;
 
-    border: 1px solid $p200-grey;
     display: block;
     height: auto;
     margin: 10px auto 16px;
     max-width: 100%;
-    padding: 5px;
   }
 
   p {
@@ -76,13 +106,6 @@
   }
 }
 
-.broadcast-info {
-  font-weight: 300;
-  margin-bottom: 20px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .broadcast-outer {
   margin-bottom: 20px;
   position: relative;
@@ -124,6 +147,7 @@
 
 .broadcast-body {
   @include scale-images;
+
   padding: 10px;
 }
 
@@ -151,8 +175,12 @@
   width: 0;
 }
 
-.broadcast-replies-header {
-  background-color: $p100-grey;
-  margin: 0 0 20px;
-  padding: 20px;
+.broadcast-discussion {
+  .broadcast-discussion-header {
+    background-color: $p50-orange;
+    border: 2px solid $p200-orange;
+    box-shadow: 0 1px 5px $box-shadow-color;
+    margin: 10px 0;
+    padding: 20px;
+  }
 }

@@ -4,3 +4,8 @@
 .col-buffer {
   margin-bottom: 20px;
 }
+
+.col-sticky {
+  position: sticky;
+  top: $header-height + 10px;
+}
