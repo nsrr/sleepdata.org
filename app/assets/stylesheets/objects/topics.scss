@@ -8,12 +8,12 @@
   width: 4px;
 
   &.topic-line-unread {
-    background-color: $a100-light-blue;
+    background-color: $p100-green;
   }
 }
 
 .topic-read {
-  color: $a400-light-blue;
+  color: $p300-blue;
   font-weight: bold;
 
   &:hover,
@@ -21,12 +21,12 @@
   &.focus,
   &:active,
   &.active {
-    color: darken($a400-light-blue, 15%);
+    color: darken($p300-blue, 15%);
   }
 }
 
 .topic-unread {
-  color: $a700-light-blue;
+  color: $p500-blue;
   font-weight: bold;
 
   &:hover,
@@ -34,6 +34,6 @@
   &.focus,
   &:active,
   &.active {
-    color: darken($a700-light-blue, 15%);
+    color: darken($p500-blue, 15%);
   }
 }
