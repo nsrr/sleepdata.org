@@ -1,9 +1,9 @@
 - @title = "Token"
 
-.token-container
-  %h1 Token
-  %code.code-token>
-    = current_user.id_and_auth_token
-  %code.code-copy
-    = link_to "#", data: { object: "suppress-click", clipboard_text: current_user.id_and_auth_token, placement: "bottom", container: "body", title: "Copied!", trigger: "manual" } do
+%h1.dashboard-heading Token
+
+.code-container
+  %span.code-command-blank
+    = link_to "#", data: { object: "suppress-click", clipboard_text: current_user.id_and_auth_token, placement: "bottom", container: "body", title: "Copied!", trigger: "manual" }, style: "text-decoration: none" do
       %i.fa.fa-clipboard
+    = current_user.id_and_auth_token
