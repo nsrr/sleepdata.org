@@ -7,6 +7,8 @@
 - **Email Changes**
   - Email confirmation is now required for all accounts
   - Added detection of disposable email addresses
+- **Forum Changes**
+  - Navigating to a linked reply now highlights the reply
 - **Profile Changes**
   - Member contributed tools are now listed on the member profile
 

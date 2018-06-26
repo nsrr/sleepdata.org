@@ -35,18 +35,22 @@
 }
 
 .reply-read {
-  border-left: 4px solid $p50-green;
+  border-left: 4px solid $p50-grey;
+
+  &.highlighted-reply {
+    border-color: $p100-yellow;
+  }
 }
 
-// // TODO: Restyle highlighted reply
-// .highlighted-reply {
-//   background-color: $state-warning-bg;
+.highlighted-reply {
+  background-color: $mark-bg;
 
-//   > .reply-container.reply-even,
-//   > .reply-container.reply-odd {
-//     background-color: $state-warning-bg;
-//   }
-// }
+  > .reply-container.reply-even,
+  > .reply-container.reply-odd {
+    background-color: $mark-bg;
+  }
+}
+
 
 .topic-preview,
 .reply-body {
