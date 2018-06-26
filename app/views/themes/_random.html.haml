@@ -1,0 +1,5 @@
+- if params[:theme].present?
+  - @theme = params[:theme]
+- else
+  - @themes = SleepData::THEMES.collect(&:second)
+  - @theme = @themes[rand(@themes.size)]

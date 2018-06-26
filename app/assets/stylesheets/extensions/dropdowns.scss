@@ -15,48 +15,99 @@
   }
 }
 
-.dropdown-menu-nsrr {
-  background-attachment: fixed;
-  background-image: asset-url("221_old.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+.dropdown-menu-custom {
   border-width: 0;
-  box-shadow: 0 5px 10px 0 $box-shadow-color;
+  border-radius: 0 0 $border-radius * 2 $border-radius * 2;
   margin-top: 0;
   padding: 0;
   position: relative;
 
-  .dropdown-menu-nsrr-inner {
-    background-color: rgba($p700-green, .9);
+  .dropdown-menu-custom-inner {
     border-radius: 0 0 $border-radius $border-radius;
     padding: .5rem 0;
   }
 
   .dropdown-item {
     border-left: 2px solid transparent;
-    color: $brand-white;
 
     &:focus,
     &:hover {
-      background-color: rgba($brand-black, .2);
-      border-color: $p500-amber;
       text-decoration: none;
     }
-  }
-
-  .dropdown-divider {
-    border-color: rgba($brand-white, .2);
   }
 
   &::after {
     content: "";
     border: 7px solid transparent;
-    border-bottom-color: rgba($p700-green, .9);
     display: inline-block;
     left: auto;
     position: absolute;
-    right: 29px;
+    left: 29px;
     top: -14px;
+  }
+
+  &.dropdown-menu-right::after {
+    right: 29px;
+    left: initial;
+  }
+}
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .dropdown-menu {
+      background-color: theme-color($theme, dropdown-bg, $dropdown-bg);
+      border-color: theme-color($theme, dropdown-fallback-border, $p400-grey);
+      color: map-get($theme, body-color);
+    }
+
+    .dropdown-item {
+      &:hover,
+      &:focus {
+        background-color: theme-color($theme, dropdown-link-hover-bg, $dropdown-link-hover-bg);
+        color: map-get($theme, body-color);
+      }
+
+      &.active,
+      &:active {
+        color: map-get($theme, brand-white);
+        background-color: map-get($theme, primary);
+      }
+    }
+
+    .dropdown-divider {
+      border-color: theme-color($theme, dropdown-divider-bg, $dropdown-divider-bg);
+    }
+  }
+
+  .menu-#{$name} {
+    .dropdown-menu-custom {
+      box-shadow: 0 0 10px 0 map-get($theme, box-shadow-color);
+
+      .dropdown-menu-custom-inner {
+        background-color: map-get($theme, p700);
+      }
+
+      .dropdown-item {
+        @if map-get($theme, menu-color) {
+          color: map-get($theme, menu-color);
+        } @else {
+          color: map-get($theme, brand-white);
+        }
+
+        &:focus,
+        &:hover {
+          background-color: rgba(map-get($theme, brand-black), .2);
+          border-color: map-get($theme, p200);
+        }
+      }
+
+      .dropdown-divider {
+        border-color: rgba(map-get($theme, brand-white), .2);
+      }
+
+      &::after {
+        border-bottom-color: map-get($theme, p700);
+      }
+    }
   }
 }

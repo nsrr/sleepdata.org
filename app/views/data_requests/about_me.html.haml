@@ -1,8 +1,9 @@
 - register_visible = (@sign_in != true)
 
-.background-fixed-image
-  .page-box.last-box.color-overlay
+- render "themes/theme"
 
+.page-box.last-box.d-flex.align-items-center.theme-bg{ class: "theme-#{@theme}-focus-bg" }
+  .container
     #sign-up-form{ style: "#{"display: none;" unless register_visible}" }
       .sign-up-form
         .sign-up-form-title

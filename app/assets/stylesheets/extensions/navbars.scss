@@ -1,11 +1,24 @@
-.navbar-nsrr {
-  padding-top: 0;
-  padding-bottom: 0;
+.navbar a,
+.navbar-header,
+.navbar-header img {
+  @include ignore-selection;
 }
 
-.navbar-toggler {
+.navbar-brand {
   border: 0;
   outline: 0;
+}
+
+.navbar-custom {
+  border-bottom: 1px solid transparent;
+  padding-top: 0;
+  padding-bottom: 0;
+  transition: $transition-bg;
+
+  .navbar-toggler {
+    border: 0;
+    outline: 0;
+  }
 }
 
 @include media-breakpoint-up(lg) {
@@ -13,10 +26,28 @@
     &:focus,
     &:hover,
     &.active {
-      color: rgba($brand-white, .9);
-      background-color: rgba($brand-black, .2);
-      border-bottom: 2px solid $p500-amber;
+      border-bottom: 2px solid transparent;
       margin-bottom: -2px;
+    }
+  }
+}
+
+@each $name, $theme in $themes {
+  .menu-#{$name} {
+    .navbar-brand {
+      color: map-get($theme, brand-white) !important;
+    }
+
+    @include media-breakpoint-up(lg) {
+      .nav-item {
+        &:focus,
+        &:hover,
+        &.active {
+          color: rgba($white, .9);
+          background-color: rgba($black, .2);
+          border-color: map-get($theme, p200);
+        }
+      }
     }
   }
 }

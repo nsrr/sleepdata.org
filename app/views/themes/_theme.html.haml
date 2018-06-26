@@ -1,0 +1,6 @@
+- if params[:theme].present?
+  - @theme = params[:theme]
+- elsif current_user&.theme.in?(SleepData::THEMES.collect(&:second))
+  - @theme = current_user&.theme
+- else
+  - @theme = "default"

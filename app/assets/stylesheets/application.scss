@@ -1,5 +1,5 @@
 // Bootstrap and general variable definitions
-@import 'themes/default';
+@import 'themes/all';
 @import 'variables/all';
 
 // Core Bootstrap styles
@@ -12,6 +12,7 @@
 @import 'mixins/all';
 
 // App specific styles
+@import 'decorations/all';
 @import 'components/all';
 @import 'extensions/all';
 @import 'fixes/all';

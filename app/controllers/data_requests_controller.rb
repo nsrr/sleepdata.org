@@ -45,21 +45,19 @@ class DataRequestsController < ApplicationController
 
   # POST /data/requests/:dataset_id/join
   def join
-    unless current_user
+    if current_user
+      save_data_request_user
+    else
       @user = User.new(user_params)
       @user.skip_confirmation_notification!
       if @user.save
         save_data_request_user(user: @user, redirect: false)
         @user.send_welcome_email_in_background!(data_request_id: @data_request.id)
         render :data_request_confirm_email
-        return
       else
         render :about_me
-        return
       end
     end
-
-    save_data_request_user
   end
 
   # POST /data/requests/:dataset_id/login

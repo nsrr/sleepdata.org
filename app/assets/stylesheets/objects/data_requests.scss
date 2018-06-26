@@ -6,7 +6,7 @@
 }
 
 .data-request-tab-background {
-  border-radius: 0 0 0.25rem 0.25rem;
+  border-radius: 0 0 $border-radius $border-radius;
 
   @include media-breakpoint-up(sm) {
     margin-bottom: -40px;
@@ -14,8 +14,8 @@
 }
 
 .data-request-tab {
-  background-color: rgba($p500-green, .8);
-  border-radius: 0 0 0.25rem 0.25rem;
+  background-color: $p500-green;
+  border-radius: 0 0 $border-radius $border-radius;
   color: $brand-white;
   display: block;
   padding-left: $spacer; // ($spacer * .5);
@@ -26,23 +26,23 @@
   box-shadow: 0 5px 10px 0 $box-shadow-color;
 
   &.data-request-tab-approved {
-    background-color: rgba($p500-green, .8);
+    background-color: $p500-green;
   }
 
   &.data-request-tab-submitted {
-    background-color: rgba($p500-blue, .8);
+    background-color: $p500-blue;
   }
 
   &.data-request-tab-resubmit {
-    background-color: rgba($p500-red, .8);
+    background-color: $p500-red;
   }
 
   &.data-request-tab-expired {
-    background-color: rgba($p500-grey, .8);
+    background-color: $p500-grey;
   }
 
   &.data-request-tab-started {
-    background-color: rgba($p500-blue, .8);
+    background-color: $p500-blue;
   }
 
   &:hover,

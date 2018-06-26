@@ -8,10 +8,10 @@
     th {
       border-width: 0;
     }
-  }
 
-  .sort-selected {
-    border-bottom-color: $link-color;
+    > tbody + tbody {
+      border-width: 0;
+    }
   }
 }
 
@@ -27,9 +27,27 @@
   }
 }
 
+.dashboard-table {
+  .table-sticky {
+    th {
+      background-color: $brand-white;
+    }
+  }
+}
+
 .tr-align-middle {
   td,
   th {
-    vertical-align: middle;
+    vertical-align: middle !important;
   }
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, .025);
+}
+
+.table-cell-search-input {
+  display: block;
+  padding: 0 map-get($spacers, 2);
+  width: 100%;
 }

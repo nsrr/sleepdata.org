@@ -3,6 +3,7 @@
 ### Enhancements
 - **General Changes**
   - First and last name merged into single full name field
+  - Updated the user interface across sign up and sign in pages
 - **Email Changes**
   - Email confirmation is now required for all accounts
   - Added detection of disposable email addresses

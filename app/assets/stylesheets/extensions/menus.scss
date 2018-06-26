@@ -1,0 +1,47 @@
+@each $name, $theme in $themes {
+  $menu-bg: map-get($theme, p900);
+  @if map-get($theme, menu-bg) {
+    $menu-bg: map-get($theme, menu-bg);
+  }
+  $menu-color: map-get($theme, brand-white);
+  @if map-get($theme, menu-color) {
+    $menu-color: map-get($theme, menu-color);
+  }
+
+  .menu-#{$name} {
+    background-color: $menu-bg;
+    border-color: darken($menu-bg, 6.5%);
+
+    .btn-menu {
+      background-color: $menu-bg;
+      border-color: darken($menu-bg, 6.5%);
+      color: $menu-color;
+
+      &:hover,
+      &:focus,
+      &:active,
+      &.active,
+      &.disabled,
+      &[disabled] {
+        background-color: darken($menu-bg, 6.5%);
+        border-color: darken($menu-bg, 6.5%);
+        color: $menu-color;
+      }
+    }
+
+    $theme-dropdown-bg: darken($menu-bg, 6.5%);
+    @if map-get($theme, menu-dropdown-bg) {
+      $theme-dropdown-bg: map-get($theme, menu-dropdown-bg);
+    }
+
+    .dropdown-menu-custom {
+      .dropdown-menu-custom-inner {
+        background-color: $theme-dropdown-bg;
+      }
+
+      &::after {
+        border-bottom-color: $theme-dropdown-bg;
+      }
+    }
+  }
+}

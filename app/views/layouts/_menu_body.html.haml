@@ -9,7 +9,7 @@
   %li.nav-item{ class: current_page?(search_path) ? "active" : nil }
     = link_to search_path, class: "nav-link" do
       %i.fa.fa-search.d-none.d-lg-inline
-      .d-inline.d-lg-none Search
+      Search
     - if current_page?(search_path)
       %span.sr-only (current)
   - if current_user

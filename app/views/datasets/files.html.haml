@@ -5,7 +5,7 @@
 - if current_page?([:files, @dataset])
   - content_for :header do
     .d-flex.justify-content-center.data-request-tab-sticky
-      .background-fixed-image.data-request-tab-background
+      .data-request-tab-background
         = render "datasets/request", dataset: @dataset
 
 - path = params[:path]

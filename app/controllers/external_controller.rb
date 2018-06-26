@@ -5,6 +5,7 @@ class ExternalController < ApplicationController
   # GET /about
   def about
     @users = User.core_members.order(:full_name)
+    render layout: "layouts/full_page"
   end
 
   # GET /about/academic-user-group

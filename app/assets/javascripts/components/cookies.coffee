@@ -26,6 +26,11 @@
   return
 
 $(document)
-  .on('click', '[data-object~="set-cookie"]', () ->
+  .on('click', '[data-object~="set-cookie"]', ->
     createCookie($(this).data('cookie-key'), $(this).data('cookie-value'))
+  )
+  .on("click", "[data-object~=hide-service-announcement]", ->
+    createCookie("hide_service_announcement", "1", 14)
+    $("#service-announcement").remove()
+    false
   )

@@ -8,59 +8,61 @@
           %span#forum-top-container= link_to "Start New Topic", async_forum_new_topic_path, method: :post, remote: true, class: "btn btn-primary btn-shadow"
           = render "layouts/per_page", per_page: 40, object_count: @topics.total_count
         = @title
-        = render "search/toggle"
-
-= render "search/simple", url: search_path
 
 = render "layouts/survey_link"
 
 #new-topic-container{ style: "display:none;" }
 
-%table.table.table-striped.table-borderless.table-sticky
-  %col
-  %col
-  %col.d-none.d-sm-table-column{ width: "50px" }
-  %col.d-none.d-md-table-column{ width: "50px" }
-  %col.d-none.d-md-table-column{ width: "150px" }
-  %thead
-    %tr.table-light
-      %th.p-0.topic-line-mark
-      %th= link_to "Topics", topics_path
-      = th_sort_field_rev @order, "reply_count", "Replies", extra_class: "d-none d-sm-table-cell text-center"
-      = th_sort_field_rev @order, "topics.view_count", "Views", extra_class: "d-none d-md-table-cell text-center"
-      = th_sort_field_rev @order, "topics.last_reply_at", "Last Post", extra_class: "d-none d-md-table-cell text-center"
-  %tbody
-    - @topics.each do |topic|
-      - unread_replies = topic.unread_replies(current_user)
-      - next_unread_reply = topic.next_unread_reply(current_user)
-      %tr
-        %td.p-0.topic-line-mark{ class: "#{"topic-line-unread" if current_user && (!topic.started_reading?(current_user) || unread_replies > 0) }"  }
-        %td.breakword
-          .float-right
+.topics
+  %table.table.table-striped.table-borderless.table-sticky
+    %col
+    %col
+    %col.d-none.d-sm-table-column{ width: "50px" }
+    %col.d-none.d-md-table-column{ width: "50px" }
+    %col.d-none.d-md-table-column{ width: "150px" }
+    %thead
+      %tr.table-light
+        %th.p-0.topic-line-mark
+        %th.py-2.pl-1.pr-2
+          = form_tag search_path, method: :get, id: "search-form" do
+            = text_field_tag :search, params[:search], placeholder: "Search the forum", autocomplete: "off", class: "table-cell-search-input border rounded"
+        = th_sort_field_rev @order, "reply_count", "Replies", extra_class: "d-none d-sm-table-cell text-center"
+        = th_sort_field_rev @order, "topics.view_count", "Views", extra_class: "d-none d-md-table-cell text-center"
+        = th_sort_field_rev @order, "topics.last_reply_at", "Last Post", extra_class: "d-none d-md-table-cell text-center"
+    %tbody
+      - @topics.each do |topic|
+        - unread_replies = topic.unread_replies(current_user)
+        - next_unread_reply = topic.next_unread_reply(current_user)
+        %tr
+          %td.p-0.topic-line-mark{ class: "#{"topic-line-unread" if current_user && (!topic.started_reading?(current_user) || unread_replies > 0) }"  }
+          %td.breakword
+            .float-right
+              - if next_unread_reply
+                %small
+                  = link_to next_unread_reply, data: { turbolinks: false }, class: "btn btn-sm btn-accent" do
+                    = unread_replies
+                    new
+                    %fa.fa.fa-comments-o
+              - elsif topic.last_page > 1
+                %span.d-none.d-sm-inline
+                  = link_to "1", topic, class: "btn btn-sm btn-light"
+                  \...
+                  = link_to topic.last_page, page_topic_path(topic, page: topic.last_page), class: "btn btn-sm btn-light"
+            - if current_user && current_user.admin? && topic.user.shadow_banned?
+              %i.fa.fa-eye-slash.text-muted
+            - if topic.pinned?
+              %i.fa.fa-thumb-tack.text-muted
             - if next_unread_reply
-              %small
-                = link_to next_unread_reply, data: { turbolinks: false }, class: "link-accent" do
-                  = unread_replies
-                  new
-                  %fa.fa.fa-comments-o
-            - elsif topic.last_page > 1
-              %span.d-none.d-sm-inline
-                = link_to "1", topic, class: "btn btn-sm btn-light"
-                \...
-                = link_to topic.last_page, page_topic_path(topic, page: topic.last_page), class: "btn btn-sm btn-light"
-          - if current_user && current_user.system_admin? && topic.user.shadow_banned?
-            %i.fa.fa-eye-slash.text-muted
-          - if topic.pinned?
-            %i.fa.fa-thumb-tack.text-muted
-          - if next_unread_reply
-            = link_to topic.title, next_unread_reply, data: { turbolinks: false }, class: (topic.started_reading?(current_user) && unread_replies.zero?) ? "topic-read" : "topic-unread"
-          - else
-            = link_to topic.title, topic, class: (topic.started_reading?(current_user) && unread_replies.zero?) ? "topic-read" : "topic-unread"
-        %td.d-none.d-sm-table-cell.text-muted.text-center
-          %span.small= number_with_delimiter topic.reply_count - 1
-        %td.d-none.d-md-table-cell.text-muted.text-center
-          %span.small= number_to_human topic.view_count, precision: 2
-        %td.d-none.d-md-table-cell.text-muted.text-center
-          %span.small= abbreviated_time(topic.last_reply_at)
+              = link_to topic.title, next_unread_reply, data: { turbolinks: false }, class: (topic.started_reading?(current_user) && unread_replies.zero?) ? "topic-read" : "topic-unread"
+            - else
+              = link_to topic.title, topic, class: (topic.started_reading?(current_user) && unread_replies.zero?) ? "topic-read" : "topic-unread"
+            .small
+              %small= link_to topic.user.username, member_path(topic.user.username), class: "link-blend-semi-muted"
+          %td.d-none.d-sm-table-cell.text-muted.text-center
+            %span.small= number_with_delimiter topic.reply_count - 1
+          %td.d-none.d-md-table-cell.text-muted.text-center
+            %span.small= number_to_human topic.view_count, precision: 2
+          %td.d-none.d-md-table-cell.text-muted.text-center
+            %span.small= abbreviated_time(topic.last_reply_at)
 
 .center-horizontally= paginate @topics, theme: "bootstrap-small"

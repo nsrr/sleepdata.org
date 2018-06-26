@@ -1,97 +1,104 @@
 - @title = "About"
 
-.about-header
-  The National Sleep
-  %br.d-inline.d-md-none
-  Research Resource
+- render "themes/theme"
 
-.about-section
-  %p
-    The National Sleep Research Resource offers free access to large
-    collections of de-identified physiological signals and clinical data
-    elements collected in well-characterized research cohorts and clinical
-    trials.
+= render "layouts/service_announcement"
 
-  %p
-    The NSRR encourages interested researchers, educators, and trainees to
-    = succeed "." do
-      = link_to_if !current_user, "join its community", new_user_registration_path
-    Members can contribute their own data and tools for sharing, provide
-    information and feedback on ways to improve sleep and physiological signal
-    data exchange and analysis, and offer ideas on how to make NSRR and other
-    resources work best for the scientific community.
+.page-box.last-box.d-flex.align-items-center.theme-bg{ class: "theme-#{@theme}-focus-bg" }
+  .container.d-flex.flex-column.align-items-center
+    .dashboard-container{ style: "max-width: 40rem;" }
+      .about-header
+        The National Sleep
+        %br.d-inline.d-md-none
+        Research Resource
 
-%p.text-center{ style: "max-width: 40rem;margin-left: auto;margin-right: auto;line-height: 1.5em;font-style: italic;" }
-  = link_to "https://www.ncbi.nlm.nih.gov/pubmed/27070134" do
-    Scaling Up Scientific Discovery
-    %br.d-inline.d-md-none
-    in Sleep Medicine:
-    %br
-    The National Sleep Research Resource.
+      .about-section
+        %p
+          The National Sleep Research Resource offers free access to large
+          collections of de-identified physiological signals and clinical data
+          elements collected in well-characterized research cohorts and clinical
+          trials.
 
-.about-section
-  %p.text-center
-    %small.text-muted
-      The NSRR is supported by Grant Number HL114473
-      %br
-      from the
-      %span.d-none.d-sm-inline National Heart, Lung, and Blood Institute,
-      %span.d-inline.d-sm-none NHLBI,
-      NIH.
-  %p.text-center
-    %small.text-muted
-      Proudly made by
-      = succeed "." do
-        = link_to "the NSRR team", team_path
+        %p
+          The NSRR encourages interested researchers, educators, and trainees to
+          = succeed "." do
+            = link_to_if !current_user, "join its community", new_user_registration_path
+          Members can contribute their own data and tools for sharing, provide
+          information and feedback on ways to improve sleep and physiological signal
+          data exchange and analysis, and offer ideas on how to make NSRR and other
+          resources work best for the scientific community.
 
-%hr.about-divider
+      %p.text-center{ style: "max-width: 40rem;margin-left: auto;margin-right: auto;line-height: 1.5em;font-style: italic;" }
+        = link_to "https://www.ncbi.nlm.nih.gov/pubmed/27070134" do
+          Scaling Up Scientific Discovery
+          %br.d-inline.d-md-none
+          in Sleep Medicine:
+          %br
+          The National Sleep Research Resource.
 
-.about-subheader
-  Collaborators
+      .about-section
+        %p.text-center
+          %small.text-muted
+            The NSRR is supported by Grant Number HL114473
+            %br
+            from the
+            %span.d-none.d-sm-inline National Heart, Lung, and Blood Institute,
+            %span.d-inline.d-sm-none NHLBI,
+            NIH.
+        %p.text-center
+          %small.text-muted
+            Proudly made by
+            = succeed "." do
+              = link_to "the NSRR team", team_path
 
-.about-section-title
-  PhysioNet
+    .dashboard-container{ style: "max-width: 40rem;" }
 
-.about-section
-  %p
-    = link_to "https://www.physionet.org/" do
-      PhysioNet
-    provides access to large and diverse collections of recorded physiologic
-    signals and related open-source software. PhysioNet currently includes over
-    200 annotated polysomnograms in 4 collections, and more than 60 other
-    databases, including the MIMIC and MIMIC II Waveform and Clinical Databases
-    collected from over 30,000 ICU patients, and a wide range of specialized
-    data sets from clinical and research studies.
+      .about-header
+        Collaborators
 
-.about-section-title
-  dbGaP
+      .about-section-title
+        PhysioNet
 
-.about-section
-  %p
-    The
-    = link_to "Database of Genotypes and Phenotypes", "https://www.ncbi.nlm.nih.gov/gap"
-    is a National Institutes of Health sponsored repository charged to archive,
-    curate and distribute information produced by studies investigating the
-    interaction of genotype and phenotype.
+      .about-section
+        %p
+          = link_to "https://www.physionet.org/" do
+            PhysioNet
+          provides access to large and diverse collections of recorded physiologic
+          signals and related open-source software. PhysioNet currently includes over
+          200 annotated polysomnograms in 4 collections, and more than 60 other
+          databases, including the MIMIC and MIMIC II Waveform and Clinical Databases
+          collected from over 30,000 ICU patients, and a wide range of specialized
+          data sets from clinical and research studies.
 
-.about-section-title
-  BioLINCC
+      .about-section-title
+        dbGaP
 
-.about-section.about-section-bottom
-  %p
-    The National Heart, Lung and Blood Institute
-    = link_to "Biologic Specimen and Data Repository Information Coordinating Center", "https://biolincc.nhlbi.nih.gov/home/"
-    is the coming together of two entities: the NHLBI Biologic Specimen
-    Repository, managed by the NHLBI, Division of Blood
-    Diseases and Resources, Transfusion Medicine and Cellular
-    Therapeutics Branch, and the NHLBI Data Repository, managed by the NHLBI,
-    Division of Prevention and Population Sciences, Epidemiology Branch.
-    These two programs have always had a similar mission, namely to enhance and
-    facilitate further research in cardiovascular, pulmonary and hematologic
-    conditions by providing access to qualified investigators to stored
-    biospecimen and data collections.
+      .about-section
+        %p
+          The
+          = link_to "Database of Genotypes and Phenotypes", "https://www.ncbi.nlm.nih.gov/gap"
+          is a National Institutes of Health sponsored repository charged to archive,
+          curate and distribute information produced by studies investigating the
+          interaction of genotype and phenotype.
 
-.text-center
-  = link_to showcase_show_path("where-to-start"), class: "btn btn-primary btn-lg" do
-    Get started
-    %i.fa.fa-caret-right
+      .about-section-title
+        BioLINCC
+
+      .about-section.about-section-bottom
+        %p
+          The National Heart, Lung and Blood Institute
+          = link_to "Biologic Specimen and Data Repository Information Coordinating Center", "https://biolincc.nhlbi.nih.gov/home/"
+          is the coming together of two entities: the NHLBI Biologic Specimen
+          Repository, managed by the NHLBI, Division of Blood
+          Diseases and Resources, Transfusion Medicine and Cellular
+          Therapeutics Branch, and the NHLBI Data Repository, managed by the NHLBI,
+          Division of Prevention and Population Sciences, Epidemiology Branch.
+          These two programs have always had a similar mission, namely to enhance and
+          facilitate further research in cardiovascular, pulmonary and hematologic
+          conditions by providing access to qualified investigators to stored
+          biospecimen and data collections.
+
+    .text-center
+      = link_to showcase_show_path("where-to-start"), class: "btn btn-primary btn-lg" do
+        Get started
+        %i.fa.fa-caret-right

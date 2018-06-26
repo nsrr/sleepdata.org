@@ -21,25 +21,8 @@
 }
 
 .header-container {
-  background-attachment: fixed;
-  background-color: $p500-green;
-  background-image: asset-url('221_old.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  color: $brand-white;
   padding: 20px 0;
-  position: relative;
-
-  &::before {
-    background-color: rgba($p500-green, .8);
-    bottom: 0;
-    content: ' ';
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
+  transition: $transition-bg;
 
   h1,
   h2,
@@ -52,13 +35,75 @@
 
   h1 {
     font-size: 30px;
+  }
+}
 
-    @include media-breakpoint-up(sm) {
+@include media-breakpoint-up(sm) {
+  .header-container {
+    h1 {
       font-size: 38px;
     }
+  }
+}
 
-    @include media-breakpoint-up(md) {
+@include media-breakpoint-up(md) {
+  .header-container {
+    h1 {
       font-size: 41px;
+    }
+  }
+}
+
+@each $name, $theme in $themes {
+  $header-bg: map-get($theme, p800);
+  @if map-get($theme, header-bg) {
+    $header-bg: map-get($theme, header-bg);
+  }
+
+  .theme-#{$name}-bg {
+    .header-container {
+      background-color: $header-bg;
+      color: map-get($theme, brand-white);
+    }
+  }
+}
+
+.page-heading {
+  word-break: break-word;
+}
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .page-heading {
+      > a {
+        color: map-get($theme, p100);
+
+        &:hover {
+          color: map-get($theme, p50);
+        }
+      }
+    }
+  }
+}
+
+.header-link {
+  display: inline-block;
+  font-size: 65%;
+  font-weight: normal;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .header-link {
+      a {
+        color: map-get($theme, p100);
+
+        &:hover {
+          color: map-get($theme, p50);
+        }
+      }
     }
   }
 }
@@ -101,7 +146,7 @@
     }
 
     .navbar-hide-scrolled {
-      display: none;
+      display: none !important;
     }
 
     .navbar-show-scrolled {
@@ -110,6 +155,16 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+    }
+  }
+}
+
+@each $name, $theme in $themes {
+  @if map-get($theme, menu-bg-scrolled) {
+    .navbar-scrolled {
+      .menu-#{$name} {
+        background-color: map-get($theme, menu-bg-scrolled);
+      }
     }
   }
 }

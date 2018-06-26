@@ -16,11 +16,13 @@
     = stylesheet_link_tag "application", media: "all", data: { turbolinks_track: "reload" }
     = javascript_include_tag "application", data: { turbolinks_track: "reload" }
     = javascript_tag "var root_url='#{request.script_name + '/'}';"
-  %body#top.full-page{ class: yield(:body_class) }
+  - @random_theme ? render("themes/random") : render("themes/theme")
+  %body#top.full-page.theme-bg{ class: @theme ? "theme-#{@theme}-bg" : nil, data: { theme: @theme } }
+    = yield :service_announcement
     = render "layouts/flash_bar"
-    #top-menu.top-menu= render "layouts/menu"
+    #top-menu.top-menu= render "layouts/menu", menu: @theme ? "menu-#{@theme}" : nil
     = yield :header
-    .page-box-padding
+    .py-3
       .container= yield
     = yield :footer
-    = render "layouts/footer"
+    = render "layouts/footer", footer: @footer ? "footer-#{@footer}" : nil
