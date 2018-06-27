@@ -99,14 +99,3 @@
       Feel like helping us out?
       = succeed "." do
         = link_to "Contribute a tool", contribute_tool_start_path
-
-- if false
-  - if params[:search].blank? && @community_tools.count > 10
-    - content_for :footer do
-      .call-to-action
-        .call-to-action-body
-          %strong Are you a tool developer?
-        .call-to-action-body
-          Share your tool with the NSRR community.
-        .call-to-action-body
-          = link_to "Contribute a Tool", contribute_tool_start_path, class: "btn btn-primary btn-shadow"

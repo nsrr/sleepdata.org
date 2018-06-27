@@ -68,10 +68,12 @@
     so we can better track publications linked to our resource.
 
 - content_for :footer do
-  .call-to-action
-    .call-to-action-header
-      Ready to get started?
-    .call-to-action-body
-      = link_to datasets_path, class: "btn btn-primary btn-lg btn-shadow" do
-        Explore datasets
-        %i.fa.fa-caret-right
+  .background-p100-grey.pt-5
+    .container
+      .landing-sentence{ style: "font-weight: normal;" }
+        %strong Ready to get started?
+        Start
+        = succeed "." do
+          = link_to "exploring datasets", datasets_path
+      .text-center
+        %i.fa.fa-database.icon-xl{ aria: { hidden: "true" } }
