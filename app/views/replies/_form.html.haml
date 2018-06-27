@@ -39,7 +39,7 @@
           .float-right.d-none.d-md-block.small.text-muted
             posting as
             = current_user.username
-            = link_to "change", settings_account_path(anchor: "username"), tabindex: "-1"
+            = link_to "change", settings_profile_path(anchor: "username"), tabindex: "-1"
           - if reply.new_record?
             = f.submit "Comment", class: "btn btn-primary", data: { disable_with: "Comment" }
             = link_to "Cancel", "#", data: { object: "parent-no-write-reply", parent_reply_id: parent_reply_id, reply_id: reply_id }
