@@ -30,13 +30,13 @@
   background-color: $p600-green;
 }
 
-.background-fixed-image-fixed-height {
+.bg-landing {
   height: 200px;
 }
 
 @each $name, $theme in $themes {
   .theme-#{$name}-bg {
-    .background-fixed-image-fixed-height {
+    .bg-landing {
       background-image: linear-gradient(180deg, map-get($theme, footer-bg), map-get($theme, body-focus) 40%, map-get($theme, footer-bg));
       background-color: map-get($theme, p900);
       color: map-get($theme, brand-white);
