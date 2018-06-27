@@ -33,19 +33,7 @@
 #= require external/typeahead-0.11.1-corejavascript.src.js
 
 # Components
-#= require components/cookies
-#= require components/disablers
-#= require components/expandable_text_input
-#= require components/graphs
-#= require components/headings
-#= require components/legal_documents
-#= require components/links
-#= require components/previews
-#= require components/progress
-#= require components/ratings
-#= require components/reports
-#= require components/search
-#= require components/text_area_autocomplete
+#= require_tree ./components
 
 # Extensions
 #= require extensions/clipboard
