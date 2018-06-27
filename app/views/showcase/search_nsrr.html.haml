@@ -5,9 +5,14 @@
     .container
       %h1.page-heading
         = @title
+  .breadcrumb-container
+    .container
+      Learn how to
+      %strong= link_to "create powerful queries", "#search-across-datasets", data: { object: "scroll-anchor-keep-link" }
+      across datasets available on the NSRR.
 
-%a.anchor-top{ name: "search-across-datasets" }
-.about-section-title
+%a.anchor-top{ name: "search-across-datasets", id: "search-across-datasets" }
+%h2
   Search across datasets.
 
 .dashboard-container
@@ -19,7 +24,7 @@
 
 
 %a.anchor-top{ name: "graphical-exploration" }
-.about-section-title
+%h2
   Dynamically plot variables.
 
 .dashboard-container
@@ -34,7 +39,7 @@
     .col-md-6
       = image_tag "https://sleepdata.org/image/Eba5b7", class: "img-responsive"
 
-.about-section-title
+%h2
   Find interesting correlations.
 .dashboard-container
   .row{ style: "margin-top: 20px" }

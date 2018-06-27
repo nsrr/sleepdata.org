@@ -337,3 +337,12 @@
         is a Ruby gem that provides access to signals and epochs in EDF polysomnographs. Edfize is used by
         = link_to "Altamira Web EDF Viewer", ENV["altamira_url"]
         to render EDFs in your web browser.
+  .background-p100-grey.pt-5
+    .container
+      .landing-sentence{ style: "font-weight: normal;" }
+        Still have questions?
+        = succeed "!" do
+          = mail_to ENV["support_email"], "Email us"
+
+        .text-center
+          %i.fa.fa-envelope-o.icon-xl{ aria: { hidden: "true" } }
