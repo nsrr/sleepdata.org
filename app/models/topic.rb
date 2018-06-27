@@ -17,7 +17,7 @@ class Topic < ApplicationRecord
 
   # Scopes
   scope :not_banned, -> { joins(:user).merge(User.where(banned: false)) }
-  scope :reply_count, -> { select('topics.*, COUNT(replies.id) reply_count').joins(:replies).group('topics.id') }
+  scope :reply_count, -> { select("topics.*, COUNT(replies.id) reply_count").joins(:replies).group("topics.id") }
 
   # Validations
   validates :title, presence: true
@@ -54,7 +54,7 @@ class Topic < ApplicationRecord
   def unread_replies(current_user)
     topic_user = topic_users.find_by user: current_user
     if topic_user
-      root_replies.current.where('id > ?', topic_user.current_reply_read_id).count
+      root_replies.current.where("id > ?", topic_user.current_reply_read_id).count
     else
       0
     end
@@ -62,7 +62,7 @@ class Topic < ApplicationRecord
 
   def next_unread_reply(current_user)
     topic_user = topic_users.find_by user: current_user
-    root_replies.current.find_by('id > ?', topic_user.current_reply_read_id) if topic_user
+    root_replies.current.find_by("id > ?", topic_user.current_reply_read_id) if topic_user
   end
 
   def root_replies
