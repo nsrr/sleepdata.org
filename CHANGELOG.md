@@ -11,6 +11,8 @@
   - Navigating to a linked reply now highlights the reply
 - **Profile Changes**
   - Member contributed tools are now listed on the member profile
+- **Review Changes**
+  - Data request expiration date is displayed on the data request review page
 
 ### Bug Fix
 - Fixed an issue displaying variable subfolders for a folder with parentheses
