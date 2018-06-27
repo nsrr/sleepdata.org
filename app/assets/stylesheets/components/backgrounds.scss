@@ -1,33 +1,9 @@
-.background-brand-white {
-  background-color: $brand-white;
-}
-
 .background-p50-grey {
   background-color: $p50-grey;
 }
 
 .background-p100-grey {
   background-color: $p100-grey;
-}
-
-.background-p200-grey {
-  background-color: $p200-grey;
-}
-
-.background-p50-green {
-  background-color: $p50-green;
-}
-
-.background-p100-green {
-  background-color: $p100-green;
-}
-
-.background-p200-green {
-  background-color: $p200-green;
-}
-
-.background-p600-green {
-  background-color: $p600-green;
 }
 
 .bg-landing {
@@ -42,24 +18,4 @@
       color: map-get($theme, brand-white);
     }
   }
-}
-
-.color-overlay {
-  background-color: rgba($p700-green, .9);
-}
-
-.color-overlay2 {
-  background-color: rgba($p600-green, .9);
-  box-shadow: 0 5px 10px 0 $box-shadow-color;
-}
-
-.color-overlay-grey {
-  background-color: rgba($p600-grey, .8);
-  color: $p600-grey;
-  box-shadow: 0 5px 10px 0 $box-shadow-color;
-}
-
-.nsrr-dark-green-light-center-bg {
-  background-color: $p900-green;
-  background-image: linear-gradient(180deg, $p900-green, $p800-green 50%, $p900-green);
 }

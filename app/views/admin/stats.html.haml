@@ -79,7 +79,7 @@
         %tr
           %th Total
           %th.text-center.nowrap= pluralize number_with_delimiter(regular_members_files.values.sum), "file"
-          %th.text-center.nowrap.background-p600-green.text-white= number_to_human_size regular_members_file_sizes.values.sum
+          %th.text-center.nowrap.bg-success.text-white= number_to_human_size regular_members_file_sizes.values.sum
           %th.text-center.nowrap= pluralize number_with_delimiter(aug_or_core_members_files.values.sum), "file"
           %th.text-center.nowrap= number_to_human_size aug_or_core_members_file_sizes.values.sum
           %th.text-center.nowrap= pluralize number_with_delimiter(regular_members_files.values.sum + aug_or_core_members_files.values.sum + public_downloads_files.values.sum), "file"
