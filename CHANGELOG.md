@@ -4,6 +4,9 @@
 - **General Changes**
   - First and last name merged into single full name field
   - Updated the user interface across sign up and sign in pages
+- **Data Request Changes**
+  - Data request expiration dates are now present on the user dashboard and on
+    printed data requests
 - **Email Changes**
   - Email confirmation is now required for all accounts
   - Added detection of disposable email addresses

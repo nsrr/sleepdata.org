@@ -59,6 +59,12 @@
     \begin{addmargin}[1em]{1em}
       \hl{<%= latex_safe @data_request.approval_date ? @data_request.approval_date.strftime("%-d %B %Y") : "" %>} \\
     \end{addmargin}
+    <% if @data_request.expiration_date %>
+      \textbf{Expiration Date}
+      \begin{addmargin}[1em]{1em}
+        \hl{<%= latex_safe @data_request.expiration_date.strftime("%-d %B %Y") %>} \\
+      \end{addmargin}
+    <% end %>
   \end{addmargin}
 <% end %>
 

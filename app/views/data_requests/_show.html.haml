@@ -111,7 +111,15 @@
 
       = render "data_requests/description", data_request: data_request
       = render "data_requests/supporting_documents", data_request: data_request
-    .card-footer= name_of_datasets(data_request)
+    .card-footer
+      - if data_request.expiration_date
+        .float-right
+          %small
+            %i.fa.fa-hourglass-half
+            Expires
+            = data_request.expiration_date.strftime("%-d %b %Y")
+      = name_of_datasets(data_request)
+
 
   - when "closed"
     %h4.card-header
