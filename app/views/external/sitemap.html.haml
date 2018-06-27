@@ -52,7 +52,7 @@
       %strong
         = link_to "Tools", tools_path
       %ul
-        - CommunityTool.current.where(published: true).order(:name).each do |community_tool|
+        - CommunityTool.current.where(published: true).order(Arel.sql("LOWER(community_tools.name)")).each do |community_tool|
           %li= link_to community_tool.name, tool_path(community_tool)
 
 
