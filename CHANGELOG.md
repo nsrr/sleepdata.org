@@ -12,6 +12,9 @@
 - **Profile Changes**
   - Member contributed tools are now listed on the member profile
 
+### Bug Fix
+- Fixed an issue displaying variable subfolders for a folder with parentheses
+
 ## 32.0.0 (May 2, 2018)
 
 ### Enhancements

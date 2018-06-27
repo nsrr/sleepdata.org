@@ -20,7 +20,7 @@ class VariablesController < ApplicationController
     @variables = variable_scope.page(params[:page]).per(100)
     @folders = variable_scope
                .pluck(:folder).uniq
-               .collect { |f| f.gsub(%r{^#{params[:folder]}(/)?}i, "").split("/").first }
+               .collect { |f| f.gsub(%r{^#{params[:folder].to_s.gsub("(", "\\(").gsub(")", "\\)")}(/)?}i, "").split("/").first }
                .uniq.compact.sort
   end
 
