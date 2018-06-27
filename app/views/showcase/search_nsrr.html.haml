@@ -1,12 +1,10 @@
-- @title = "NSRR Cross Dataset Query Interface"
+- @title = "Cross Dataset Query Interface"
 
 - content_for :header do
   .header-container
     .container
       %h1.page-heading
         = @title
-
-.text-center= image_tag "physiomimi_logo.png", class: "img-thumbnail box-shadow"
 
 %a.anchor-top{ name: "search-across-datasets" }
 .about-section-title
@@ -57,13 +55,11 @@
 
 %a.anchor-top{ name: "get-started-now" }
 - content_for :footer do
-  .call-to-action
-    .call-to-action-header
-      Start your cross dataset exploration now.
-    .call-to-action-body
-      = link_to "Start a Query", "https://www.x-search.net/queries/builder", class: "btn btn-primary btn-shadow"
-
-    .call-to-action-body
-      Not sure yet?
-      = link_to "Learn more", tool_path("physiomimi")
-      about the NSRR Cross Dataset Query Interface.
+  .background-p100-grey.pt-5
+    .container
+      .landing-sentence{ style: "font-weight: normal;" }
+        Start your cross dataset exploration now.
+        = link_to "https://www.x-search.net/queries/builder" do
+          Get started
+          %i.fa.fa-caret-right
+      .text-center= link_to image_tag("physiomimi_logo.png"), "https://www.x-search.net/queries/builder"
