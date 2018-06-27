@@ -80,4 +80,12 @@ class ExternalTest < ApplicationSystemTestCase
     # page.execute_script("window.scrollBy(0, $(\"body\").height());")
     # screenshot("visit-forum")
   end
+
+  test "visiting the sitemap" do
+    visit sitemap_url
+    screenshot("visit-sitemap")
+    # Add if sitemap extends beyond bottom of browser.
+    # page.execute_script("window.scrollBy(0, $(\"body\").height());")
+    # screenshot("visit-sitemap")
+  end
 end
