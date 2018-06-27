@@ -1,36 +1,38 @@
 - @title = "Our Team"
 
-.about-header
-  = @title
+- render "themes/theme"
 
-.dashboard-container-narrow
-  %p.text-center
-    %strong Principal Investigators
-  .row
-    .col-6.text-center
-      Susan Redline
-    .col-6.text-center
-      GQ Zhang
+.page-box.last-box.d-flex.align-items-center.theme-bg{ class: "theme-#{@theme}-focus-bg" }
+  .container.d-flex.flex-column.align-items-center
+    .dashboard-container{ style: "max-width: 40rem;" }
+      .about-header= @title
+      %p.text-center
+        %strong Principal Investigators
+      .row
+        .col-6.text-center
+          Susan Redline
+        .col-6.text-center
+          GQ Zhang
 
-.dashboard-container-narrow
-  %p.text-center
-    %strong Co Investigators
-  .row
-    .col-6.text-center
-      Sara Mariani
-    .col-6.text-center
-      Shaun Purcell
+      %div
+        %p.text-center
+          %strong Co Investigators
+        .row
+          .col-6.text-center
+            Sara Mariani
+          .col-6.text-center
+            Shaun Purcell
 
-.dashboard-container-narrow
-  %p.text-center
-    %strong Team Members
-  - @users = User.core_members.order(:full_name)
-  .row
-    - @users.each do |user|
-      - unless ["Susan Redline", "GQ Zhang", "Shaun Purcell", "Sara Mariani"].include?(user.full_name)
-        .col-sm-6.col-buffer.text-center= user.full_name
+      %div
+        %p.text-center
+          %strong Team Members
+        - @users = User.core_members.order(:full_name)
+        .row
+          - @users.each do |user|
+            - unless ["Susan Redline", "GQ Zhang", "Shaun Purcell", "Sara Mariani"].include?(user.full_name)
+              .col-sm-6.col-buffer.text-center= user.full_name
 
-.text-center
-  = link_to "Past Contributors", contributors_path
-  &middot;
-  = link_to "Academic User Group", aug_path
+      .text-center
+        = link_to "Past Contributors", contributors_path
+        &middot;
+        = link_to "Academic User Group", aug_path

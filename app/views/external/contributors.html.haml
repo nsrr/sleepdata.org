@@ -1,17 +1,22 @@
 - @title = "Past Contributors"
 
-.about-header
-  = @title
+- render "themes/theme"
 
-%p.lead.text-center
-  A special thanks to our past contributors.
+.page-box.last-box.d-flex.align-items-center.theme-bg{ class: "theme-#{@theme}-focus-bg" }
+  .container.d-flex.flex-column.align-items-center
+    .dashboard-container{ style: "max-width: 40rem;" }
+      .about-header
+        = @title
 
-.dashboard-container-narrow
-  .row
-    - User.current.where(contributor: true).order(:full_name).each do |user|
-      .col-sm-6.col-buffer.text-center= user.full_name
+      %p.lead.text-center
+        A special thanks to our past contributors.
 
-.text-center
-  = link_to "Team", team_path
-  &middot;
-  = link_to "Academic User Group", aug_path
+      %div
+        .row
+          - User.current.where(contributor: true).order(:full_name).each do |user|
+            .col-sm-6.col-buffer.text-center= user.full_name
+
+      .text-center
+        = link_to "Team", team_path
+        &middot;
+        = link_to "Academic User Group", aug_path

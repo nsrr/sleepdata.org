@@ -11,15 +11,17 @@ class ExternalController < ApplicationController
   # GET /about/academic-user-group
   def aug
     @users = User.aug_members.order(:full_name)
+    render layout: "layouts/full_page"
   end
 
   # # GET /contact
   # def contact
   # end
 
-  # # GET /about/contributors
-  # def contributors
-  # end
+  # GET /about/contributors
+  def contributors
+    render layout: "layouts/full_page"
+  end
 
   # # GET /about/data-sharing-language
   # def datasharing
@@ -46,9 +48,10 @@ class ExternalController < ApplicationController
   # def sitemap
   # end
 
-  # # GET /team
-  # def team
-  # end
+  # GET /team
+  def team
+    render layout: "layouts/full_page"
+  end
 
   # GET /version
   # GET /version.json
