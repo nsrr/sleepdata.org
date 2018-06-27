@@ -1,7 +1,7 @@
 Dear <%= @data_request.duly_authorized_representative_signature_print %>,
 
-You have been designated as <%= "#{@data_request.user.username}'s" %> Duly
-Authorized Representative. You may review the data request here:
+You have been designated as the Duly Authorized Representative for <%= @data_request.user_full_name_or_email %>.
+You may review the data request here:
 
 
 <%= "#{ENV["website_url"]}/representative/#{@data_request.id_and_representative_token}/signature-requested" %>

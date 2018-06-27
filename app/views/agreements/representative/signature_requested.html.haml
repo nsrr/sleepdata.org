@@ -10,7 +10,7 @@
   .dashboard-container-title
     Instructions
   %p
-    = @data_request.user.username
+    %strong= @data_request.user_full_name_or_email
     has named you as the Duly Authorized Representative to sign the following
     data request on their behalf.
   %p

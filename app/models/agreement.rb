@@ -71,6 +71,15 @@ class Agreement < ApplicationRecord
     "#{id}-#{duly_authorized_representative_token}"
   end
 
+  def user_full_name_or_email
+    full_name = \
+      agreement_variables
+      .joins(:final_legal_document_variable)
+      .merge(FinalLegalDocumentVariable.where(name: "full_name"))
+      .first&.value
+    full_name.presence || user.email
+  end
+
   def agreement_number
     Agreement.where(user_id: user_id).order(:id).pluck(:id).index(id) + 1
   end

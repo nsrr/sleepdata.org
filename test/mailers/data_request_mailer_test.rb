@@ -14,7 +14,7 @@ class DataRequestMailerTest < ActionMailer::TestCase
     assert_equal [@data_request.duly_authorized_representative_email], mail.to
     assert_equal [@data_request.user.email], mail.cc
     assert_match(
-      "You have been designated as #{@data_request.user.username}'s Duly\r\nAuthorized Representative\.",
+      "You have been designated as the Duly Authorized Representative for #{@data_request.user_full_name_or_email}\.",
       mail.body.encoded
     )
   end
