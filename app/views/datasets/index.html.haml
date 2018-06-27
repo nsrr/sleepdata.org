@@ -137,10 +137,12 @@
   .center-horizontally= paginate @datasets, theme: "bootstrap"
 
   - content_for :footer do
-    .call-to-action
-      .call-to-action-body
-        %strong Do you own a dataset?
-      .call-to-action-body
-        Learn how to
-        = link_to "share your data", share_path
-        with the NSRR community.
+    .background-p100-grey.pt-5
+      .container
+        .landing-sentence{ style: "font-weight: normal;" }
+          %strong Do you own a dataset?
+          Learn how to
+          = link_to "share your data", share_path
+          with the NSRR community.
+        .text-center
+          %i.fa.fa-handshake-o.icon-xl{ aria: { hidden: "true" } }
