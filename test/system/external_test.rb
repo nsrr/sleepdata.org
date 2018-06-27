@@ -88,4 +88,14 @@ class ExternalTest < ApplicationSystemTestCase
     # page.execute_script("window.scrollBy(0, $(\"body\").height());")
     # screenshot("visit-sitemap")
   end
+
+  test "visiting the version page" do
+    visit version_url
+    screenshot("visit-version-page")
+  end
+
+  test "visiting the voting guidelines page" do
+    visit voting_url
+    screenshot("visit-voting-guidelines-page")
+  end
 end
