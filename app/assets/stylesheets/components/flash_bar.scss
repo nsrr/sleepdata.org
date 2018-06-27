@@ -1,40 +1,42 @@
 @keyframes fadein {
   from {
-    top: -60px;
     opacity: 0;
+    top: -60px;
   }
+
   to {
-    top: 0;
     opacity: 1;
+    top: 0;
   }
 }
 
 @keyframes fadeout {
   from {
-    top: 0;
     opacity: 1;
+    top: 0;
   }
+
   to {
-    top: -60px;
     opacity: 0;
+    top: -60px;
   }
 }
 
 .flash-bar {
-  visibility: hidden;
   background-color: $brand-black;
   color: $brand-white;
-  text-align: center;
-  padding: 16px;
-  position: fixed;
-  z-index: $zindex-tooltip;
   left: 0;
+  padding: $spacer;
+  position: fixed;
   right: 0;
+  text-align: center;
   top: 0;
-}
+  visibility: hidden;
+  z-index: $zindex-tooltip;
 
-.flash-bar.flash-bar-show {
-  animation: fadein 0.5s, fadeout 0.5s 4s;
-  animation-fill-mode: forwards;
-  visibility: visible;
+  &.flash-bar-show {
+    animation: fadein 500ms, fadeout 500ms 4s;
+    animation-fill-mode: forwards;
+    visibility: visible;
+  }
 }
