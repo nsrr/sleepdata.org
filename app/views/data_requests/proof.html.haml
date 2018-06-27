@@ -30,6 +30,8 @@
               - content = simple_markdown(option&.display_name || value)
               - if agreement_variable&.resubmission_required?
                 - content = safe_join([content_tag(:div, safe_join([content_tag(:i, nil, class: "fa fa-exclamation-triangle"), " ", agreement_variable&.reviewer_comment]), class: "small text-danger"), content])
+              - elsif content.blank? && variable.required?
+                - content = required_content
             - else
               - content = value
               - if agreement_variable&.resubmission_required?
