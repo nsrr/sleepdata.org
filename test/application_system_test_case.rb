@@ -15,10 +15,13 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     return unless @screenshots_enabled
     @counter += 1
     relative_location = File.join(
-      "tmp", "screenshots", SleepData::VERSION::STRING, "#{file_name}-#{format("%02d", @counter)}.png"
+      "tmp",
+      "screenshots",
+      SleepData::VERSION::STRING,
+      "#{file_name}-#{format("%02d", @counter)}.png"
     )
     page.save_screenshot(Rails.root.join(relative_location))
-    puts "[Screenshot]: #{relative_location}"
+    # puts "[Screenshot]: #{relative_location}"
   end
 
   def click_form_submit
