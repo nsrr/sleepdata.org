@@ -2,7 +2,7 @@
   - username = User.suggest_username(Time.zone.now.usec.to_s)
   - username = User.suggest_username(Time.zone.now.usec.to_s) if User.find_by(username: username).present?
   - help_text = "Great usernames are short and fun. How about #{link_to(username, "#", data: { object: "select-username", username: username }, tabindex: "-1")}?".html_safe
-= render "forms/vertical/text_field", form: form, object: user, key: :username, id: true, placeholder: "Pick a username", help_text: help_text
+= render "forms/vertical/text_field", form: form, object: user, key: :username, id: true, placeholder: "Pick a username", help_text: help_text, autocomplete: "off", autocorrect: "off", autocapitalize: "none", spellcheck: "false"
 
 = render "forms/vertical/email_field", form: form, object: user, key: :email, placeholder: "you@example.com"
 

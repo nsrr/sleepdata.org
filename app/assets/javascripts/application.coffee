@@ -36,14 +36,7 @@
 #= require_tree ./components
 
 # Extensions
-#= require extensions/clipboard
-#= require extensions/datepicker
-#= require extensions/filedrag
-#= require extensions/recaptcha
-#= require extensions/signatures
-#= require extensions/slug
-#= require extensions/tooltips
-#= require extensions/typeahead
+#= require_tree ./extensions
 
 # Objects
 #= require_tree ./objects

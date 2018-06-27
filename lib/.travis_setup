@@ -9,9 +9,6 @@ smtp_username
 smtp_password
 http://localhost/altamira
 echo /usr/bin/pdflatex
-n
-
-
 postgres
 
 

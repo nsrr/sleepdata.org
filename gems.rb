@@ -37,7 +37,7 @@ gem "turbolinks",           "~> 5"
 
 # Testing
 group :test do
-  gem "artifice"
+  # gem "artifice"
   # gem "artifice-passthru"
   gem "minitest"
   gem "puma"

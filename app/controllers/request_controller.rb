@@ -117,11 +117,7 @@ class RequestController < ApplicationController
     @hosting_request = HostingRequest.new(hosting_request_params)
     unless current_user
       user = User.new(user_params)
-      if RECAPTCHA_ENABLED && !verify_recaptcha
-        @registration_errors = { recaptcha: "reCAPTCHA verification failed." }
-        render :dataset_hosting_about_me
-        return
-      elsif user.save
+      if user.save
         user.send_welcome_email_in_background!
         sign_in(:user, user)
       else
