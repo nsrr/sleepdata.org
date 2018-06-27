@@ -23,9 +23,10 @@ class ExternalController < ApplicationController
     render layout: "layouts/full_page"
   end
 
-  # # GET /about/data-sharing-language
-  # def datasharing
-  # end
+  # GET /about/data-sharing-language
+  def datasharing
+    render layout: "layouts/full_page"
+  end
 
   # # GET /demo
   # def demo
@@ -36,13 +37,15 @@ class ExternalController < ApplicationController
     render layout: "layouts/full_page_custom_header"
   end
 
-  # # GET /share
-  # def share
-  # end
+  # GET /share
+  def share
+    render layout: "layouts/full_page"
+  end
 
-  # # GET /about/fair-data-principles
-  # def fair
-  # end
+  # GET /about/fair-data-principles
+  def fair
+    render layout: "layouts/full_page"
+  end
 
   # # GET /sitemap
   # def sitemap
