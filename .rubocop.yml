@@ -12,6 +12,8 @@ Rails:
 #   Enabled: false
 Metrics/ClassLength:
   Enabled: false
+Metrics/BlockLength:
+  Enabled: false
 Metrics/LineLength:
   Max: 120
 Metrics/MethodLength:
