@@ -155,7 +155,7 @@ end
 #   end
 
 #   test 'should not create comment as banned user' do
-#     login(users(:banned))
+#     login(users(:shadow_banned))
 #     assert_difference('Comment.count', 0) do
 #       post :create, topic_id: @topic, comment: { description: 'I am banned from creating comments.' }
 #     end
@@ -206,7 +206,7 @@ end
 #   end
 
 #   test 'should not get edit as banned user' do
-#     login(users(:banned))
+#     login(users(:shadow_banned))
 #     xhr :get, :edit, topic_id: comments(:banned).topic, id: comments(:banned), format: 'js'
 #     assert_not_nil assigns(:topic)
 #     assert_nil assigns(:comment)
@@ -242,7 +242,7 @@ end
 #   end
 
 #   test 'should not update comment as banned user' do
-#     login(users(:banned))
+#     login(users(:shadow_banned))
 #     patch :update, topic_id: comments(:banned).topic, id: comments(:banned), comment: { description: 'I was banned so I m changing my comment' }
 #     assert_not_nil assigns(:topic)
 #     assert_nil assigns(:comment)

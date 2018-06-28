@@ -131,12 +131,6 @@ class ApplicationController < ActionController::Base
     Arel.sql(order.to_s)
   end
 
-  def check_banned
-    return unless current_user.banned?
-    flash[:warning] = "You do not have permission to post on the forum."
-    empty_response_or_root_path(@topic || topics_path)
-  end
-
   def parse_date(date_string, default_date = "")
     if date_string.to_s.split("/").last.size == 2
       Date.strptime(date_string, "%m/%d/%y")

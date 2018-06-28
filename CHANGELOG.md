@@ -4,6 +4,10 @@
 - **General Changes**
   - First and last name merged into single full name field
   - Updated the user interface across sign up and sign in pages
+- **Admin Changes**
+  - Update interface of admin dashboard pages
+  - Admins can review user profiles
+  - Admins can empty spam folder and view spam report
 - **Data Request Changes**
   - Data request expiration dates are now present on the user dashboard and on
     printed data requests
@@ -12,6 +16,7 @@
   - Added detection of disposable email addresses
 - **Forum Changes**
   - Navigating to a linked reply now highlights the reply
+  - Added spam prevention for the forum
 - **Profile Changes**
   - Member contributed tools are now listed on the member profile
 - **Review Changes**

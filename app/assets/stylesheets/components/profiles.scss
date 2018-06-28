@@ -89,3 +89,25 @@
     margin-bottom: 0;
   }
 }
+
+.profile-review-title {
+  font-size: 1.5rem;
+  font-weight: 300;
+  word-wrap: break-word;
+
+  @include media-breakpoint-up(sm) {
+    font-size: 2.0rem;
+  }
+
+  @include media-breakpoint-up(md) {
+    font-size: 2.5rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    font-size: 3.0rem;
+  }
+}
+
+.profile-review-profile-image {
+  flex: 0 0 220px !important;
+}

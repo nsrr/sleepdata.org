@@ -2,22 +2,35 @@
 
 # Allows users to start new discussion topics on the forum.
 class Topic < ApplicationRecord
+  # Constants
+  ORDERS = {
+    "replies" => "topics.replies_count",
+    "replies desc" => "topics.replies_count desc",
+    "views" => "topics.view_count",
+    "views desc" => "topics.view_count desc",
+    "latest" => "topics.last_reply_at desc",
+    "oldest" => "topics.last_reply_at"
+  }
+  DEFAULT_ORDER = "topics.pinned desc, topics.last_reply_at desc, topics.id desc"
+
   attr_accessor :description
 
   # Concerns
   include Deletable
-  include Replyable
   include PgSearch
+  include Replyable
   include Sluggable
+  include UrlCountable
   multisearchable against: [:title],
-                  unless: :deleted?
+                  unless: :deleted_or_shadow_banned?
+  include Strippable
+  strip :title
 
   # Callbacks
   after_create_commit :create_first_reply
 
   # Scopes
-  scope :not_banned, -> { joins(:user).merge(User.where(banned: false)) }
-  scope :reply_count, -> { select("topics.*, COUNT(replies.id) reply_count").joins(:replies).group("topics.id") }
+  scope :shadow_banned, ->(arg) { joins(:user).merge(User.where(shadow_banned: [nil, false]).or(User.where(id: arg))) }
 
   # Validations
   validates :title, presence: true
@@ -46,6 +59,10 @@ class Topic < ApplicationRecord
     replies.each(&:update_pg_search_document)
   end
 
+  def deleted_or_shadow_banned?
+    deleted? || user.spammer? || user.shadow_banned?
+  end
+
   def started_reading?(current_user)
     topic_user = topic_users.find_by user: current_user
     topic_user ? true : false
@@ -70,7 +87,20 @@ class Topic < ApplicationRecord
   end
 
   def editable_by?(current_user)
-    !locked? && !user.banned? && (user == current_user || current_user.system_admin?)
+    !locked? && (user == current_user || current_user.admin?)
+  end
+
+  def compute_shadow_ban!
+    user.update shadow_banned: true if user.shadow_banned.nil? && url_count > 1
+  end
+
+  def url_count
+    (count_urls(title) * 2) + first_reply_url_count
+  end
+
+  def first_reply_url_count
+    return 0 if replies.first.nil?
+    replies.first.url_count
   end
 
   def get_or_create_subscription(current_user)

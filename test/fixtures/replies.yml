@@ -39,7 +39,7 @@ banned:
   # broadcast:
   topic: one
   description: This comment got me banned.
-  user: banned
+  user: shadow_banned
 
 six:
   id: 6

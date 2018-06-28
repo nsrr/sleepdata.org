@@ -29,7 +29,7 @@
                       = link_to topic.title, topic, class: "link-blend"
                     .nowrap
                       %small.text-muted
-                        = topic.reply_count
+                        = topic.replies_count
                         %fa.fa.fa-comments-o
         - if @recent_topics.present?
           .profile-topics-overview
@@ -43,7 +43,7 @@
                       = link_to topic.title, topic, class: "link-blend"
                     .nowrap
                       %small.text-muted
-                        = topic.reply_count
+                        = topic.replies_count
                         %fa.fa.fa-comments-o
 
     / %p.lead Recent Posts

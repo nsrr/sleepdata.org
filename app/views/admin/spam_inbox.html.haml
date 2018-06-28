@@ -1,0 +1,43 @@
+- @title = "Spam Inbox"
+
+- render "themes/theme"
+
+- content_for :container_class, "container-fluid"
+
+- content_for :sidebar, render("admin/sidebar")
+- content_for :header do
+  .float-right= link_to "Empty Spam", admin_empty_spam_path, method: :post, data: { confirm: "DELETE all spammers?" }, class: "btn btn-sm btn-primary"
+  = @title
+
+- if @spammers.present?
+  .dashboard-container.dashboard-table
+    %table.table.table-striped.table-borderless.table-hover
+      %col
+      %col
+      %col{ width: "1px" }
+      %thead
+        %tr
+          %th Spammer
+          %th Last Reply
+          %th.text-center Actions
+      - @spammers.each do |spammer|
+        %tr{ id: "spammer-#{spammer.id}" }
+          %td
+            = link_to spammer.username, spammer
+            .small
+              = render "users/email", user: spammer
+            .small
+              = spammer.full_name
+          %td.small
+            - reply = Reply.where(user: spammer).last
+            - if reply
+              = link_to "view topic", reply
+              = reply.description if reply
+          %td.text-center.nowrap
+            = link_to "Not a spammer", admin_unspamban_path(spammer), method: :post, class: "btn btn-sm btn-outline-dark"
+            = link_to "Delete spammer", admin_destroy_spammer_path(spammer), method: :post, remote: true, class: "btn btn-sm btn-danger", data: { confirm: "DELETE #{spammer.email}?" }
+
+- else
+  .jumbotron.jumbotron-custom-text
+    %i.fa.fa-fire-extinguisher.animate-wiggle.mr-1
+    Hurray, no spammers!

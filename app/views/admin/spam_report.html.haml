@@ -1,0 +1,44 @@
+- @title = "Spam Report"
+
+- render "themes/theme"
+
+- content_for :container_class, "container-fluid"
+
+- content_for :sidebar, render("admin/sidebar")
+- content_for :header, @title
+
+- categories = []
+- spammer_data = []
+-# shadow_banned_data = []
+
+- if @year.present?
+  - title = { text: "Spam Report #{@year}" }
+  - categories = Date::ABBR_MONTHNAMES[1..12]
+  - (1..12).each do |month|
+    - spammer_data << @spammers.where("EXTRACT(MONTH FROM created_at) = ?", month).count
+    -# shadow_banned_data << @shadow_banned.where("EXTRACT(MONTH FROM created_at) = ?", month).count
+- else
+  - title = { text: "Spam Report" }
+  - (2014..Time.zone.today.year).each do |year|
+    - categories << year
+    - spammer_data << @spammers.where("EXTRACT(YEAR FROM created_at) = ?", year).count
+    -# shadow_banned_data << @shadow_banned.where("EXTRACT(YEAR FROM created_at) = ?", year).count
+
+- x_axis = { categories: categories }
+- y_axis = { title: { text: "Spam Signups" } }
+-# series = [{ name: "Spammers", data: spammer_data }, { name: "Shadow Banned", data: shadow_banned_data }]
+- series = [{ name: "Spammers", data: spammer_data }]
+
+.dashboard-container
+  %div{ data: { object: "survey-report-chart", series: series.to_json, title: title.to_json, x_axis: x_axis.to_json, y_axis: y_axis.to_json } }
+
+.center-horizontally
+  %ul.pagination
+    - if @year.present?
+      %li.page-item
+        = link_to admin_spam_report_path, class: "page-link" do
+          %i.fa.fa-caret-left
+          Overview
+    - else
+      - categories.each do |year|
+        %li.page-item= link_to year, admin_spam_report_path(year), class: "page-link"

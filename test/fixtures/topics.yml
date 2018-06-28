@@ -33,7 +33,7 @@ locked:
 banned:
   title: I was banned for this Topic
   slug: i-was-banned-for-this-topic
-  user: banned
+  user: shadow_banned
   pinned: false
   locked: false
   deleted: false

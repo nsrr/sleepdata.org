@@ -1,0 +1,21 @@
+- @title = "Admin Dashboard"
+
+- render "themes/theme"
+
+- content_for :container_class, "container-fluid"
+
+- content_for :sidebar do
+  = render "admin/sidebar"
+
+- content_for :header, @title
+
+- user_scope = User.current.no_spammer_or_shadow_banned
+.row
+  .col-12.col-sm.text-center
+    .jumbotron.jumbotron-white.jumbotron-shadow
+      .lead.nowrap Joined This Week
+      .display-1= number_with_delimiter user_scope.where("DATE(created_at) >= ?", Time.zone.today.beginning_of_week(:sunday)).count
+  .col-12.col-sm.text-center
+    .jumbotron.jumbotron-white.jumbotron-shadow
+      .lead.nowrap Total Users
+      .display-1= number_with_delimiter user_scope.count

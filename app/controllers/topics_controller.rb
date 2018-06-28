@@ -4,7 +4,6 @@
 class TopicsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :admin, :subscription]
   before_action :check_system_admin, only: [:destroy, :admin]
-  before_action :check_banned, only: [:create, :edit, :update]
   before_action :find_viewable_topic_or_redirect, only: [:show, :destroy, :admin, :subscription]
   before_action :find_editable_topic_or_redirect, only: [:edit, :update]
 
@@ -24,12 +23,9 @@ class TopicsController < ApplicationController
 
   # GET /forum
   def index
-    @order = scrub_order(Topic, params[:order], "pinned desc, last_reply_at desc, id desc")
-    if ["reply_count", "reply_count desc"].include?(params[:order])
-      @order = params[:order]
-    end
-    topic_scope = Topic.current.not_banned
-    @topics = topic_scope.reply_count.order(@order).page(params[:page]).per(40)
+    scope = Topic.current
+    scope = scope.shadow_banned(current_user&.id) unless current_user&.admin?
+    @topics = scope_order(scope).page(params[:page]).per(40)
   end
 
   # GET /forum/my-first-topic
@@ -52,9 +48,7 @@ class TopicsController < ApplicationController
   # POST /forum
   def create
     @topic = current_user.topics.new(topic_params)
-
     if @topic.save
-      # @topic.update_column :last_reply_at, Time.zone.now
       @topic.touch :last_reply_at
       redirect_to @topic, notice: "Topic was successfully created."
     else
@@ -65,6 +59,7 @@ class TopicsController < ApplicationController
   # PATCH /forum/my-first-topic
   def update
     if @topic.update(topic_params)
+      @topic.compute_shadow_ban!
       redirect_to @topic, notice: "Topic was successfully updated."
     else
       render :edit
@@ -80,7 +75,7 @@ class TopicsController < ApplicationController
   private
 
   def viewable_topics
-    Topic.current.not_banned
+    Topic.current
   end
 
   def find_viewable_topic_or_redirect
@@ -89,12 +84,12 @@ class TopicsController < ApplicationController
   end
 
   def find_editable_topic_or_redirect
-    @topic = current_user.all_topics.not_banned.where(locked: false).find_by_param(params[:id])
+    @topic = current_user.editable_topics.where(locked: false).find_by_param(params[:id])
     redirect_without_topic
   end
 
   def redirect_without_topic
-    empty_response_or_root_path topics_path unless @topic
+    empty_response_or_root_path(topics_path) unless @topic
   end
 
   def topic_params
@@ -109,5 +104,10 @@ class TopicsController < ApplicationController
 
   def topic_admin_params
     params.require(:topic).permit(:locked, :pinned)
+  end
+
+  def scope_order(scope)
+    @order = params[:order]
+    scope.order(Arel.sql(Topic::ORDERS[params[:order]] || Topic::DEFAULT_ORDER))
   end
 end

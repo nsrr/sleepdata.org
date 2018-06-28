@@ -1,0 +1,30 @@
+.jumbotron {
+  @include remove-last-child-bottom-margin;
+}
+
+.jumbotron-white {
+  text-align: center;
+}
+
+.jumbotron-custom-text {
+  font-weight: 200;
+  font-size: 1.5rem;
+  text-align: center;
+}
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .jumbotron {
+      background-color: theme-color($theme, jumbotron-bg, $jumbotron-bg);
+    }
+
+    .jumbotron-white {
+      background-color: map-get($theme, dashboard-bg);
+      color: map-get($theme, body-color);
+    }
+
+    .jumbotron-shadow {
+      box-shadow: 0 0 5px map-get($theme, box-shadow-color);
+    }
+  }
+}

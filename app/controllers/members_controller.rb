@@ -34,8 +34,8 @@ class MembersController < ApplicationController
   # GET /members/:username/posts
   def posts
     @replies = @member.replies.order(created_at: :desc).page(params[:page]).per(10)
-    @topics = @member.topics.reply_count.order("reply_count desc").limit(3)
-    @recent_topics = @member.topics.reply_count.where.not(id: @topics.to_a.collect(&:id)).limit(3)
+    @topics = @member.topics.order("replies_count desc").limit(3)
+    @recent_topics = @member.topics.where.not(id: @topics).limit(3)
   end
 
   def tools

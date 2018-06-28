@@ -3,6 +3,19 @@
 # Defines the user model, relationships, and permissions.
 class User < ApplicationRecord
   # Constants
+  # Constants
+  ORDERS = {
+    "posts" => "users.replies_count",
+    "posts desc" => "users.replies_count desc",
+    "activity desc" => "(CASE WHEN (users.current_sign_in_at IS NULL) THEN users.created_at ELSE users.current_sign_in_at END) desc",
+    "activity" => "(CASE WHEN (users.current_sign_in_at IS NULL) THEN users.created_at ELSE users.current_sign_in_at END)",
+    "banned desc" => "users.shadow_banned",
+    "banned" => "users.shadow_banned desc nulls last",
+    "logins desc" => "users.sign_in_count desc",
+    "logins" => "users.sign_in_count"
+  }
+  DEFAULT_ORDER = "(CASE WHEN (users.current_sign_in_at IS NULL) THEN users.created_at ELSE users.current_sign_in_at END) desc"
+
   COMMERCIAL_TYPES = [
     ["Noncommercial", "noncommercial"],
     ["Commercial", "commercial"]
@@ -41,6 +54,7 @@ class User < ApplicationRecord
   scope :core_members, -> { current.where(core_member: true) }
   scope :system_admins, -> { current.where(system_admin: true) }
   scope :with_name, ->(arg) { where("users.full_name IN (?) or users.username IN (?)", arg, arg) }
+  scope :no_spammer_or_shadow_banned, -> { where(spammer: [false, nil], shadow_banned: [false, nil]) }
 
   def self.aug_or_core_members
     current.where("aug_member = ? or core_member = ?", true, true)
@@ -80,7 +94,7 @@ class User < ApplicationRecord
   has_many :hosting_requests, -> { current }
   has_many :images
   has_many :notifications
-  has_many :replies, -> { current }
+  has_many :replies, -> { current.joins(:topic).merge(Topic.current) }
   has_many :subscriptions
   has_many :tags, -> { current }
   has_many :topics, -> { current }
@@ -88,15 +102,20 @@ class User < ApplicationRecord
 
   # Methods
   def self.searchable_attributes
-    %w(full_name username email)
+    %w(full_name email username)
+  end
+
+  # TODO: Implement
+  def report_manager?
+    false
+  end
+
+  def profile_present?
+    profile_bio.present? || profile_location.present?
   end
 
   def organizations
     Organization.current
-  end
-
-  def shadow_banned?
-    false
   end
 
   def reviewed_tool?(tool)
@@ -121,19 +140,11 @@ class User < ApplicationRecord
 
   # This should take the organization into account.
   def principal_reviewer?(organization: nil)
-    system_admin?
-  end
-
-  def all_topics
-    if system_admin?
-      Topic.current
-    else
-      topics
-    end
+    admin?
   end
 
   def all_comments
-    if system_admin?
+    if admin?
       Comment.current
     else
       comments
@@ -141,23 +152,39 @@ class User < ApplicationRecord
   end
 
   def editable_broadcasts
-    if system_admin?
+    if admin?
       Broadcast.current
     else
       broadcasts
     end
   end
 
+  def editable_topics
+    if admin?
+      Topic.current
+    else
+      topics
+    end
+  end
+
   def editable_replies
-    if system_admin?
+    if admin?
       Reply.current
     else
       replies
     end
   end
 
+  def deletable_replies
+    if admin?
+      Reply
+    else
+      replies
+    end
+  end
+
   def all_data_requests
-    if system_admin?
+    if admin?
       DataRequest.current
     else
       data_requests
@@ -165,7 +192,7 @@ class User < ApplicationRecord
   end
 
   def all_agreement_events
-    if system_admin?
+    if admin?
       AgreementEvent.all
     else
       agreement_events
@@ -193,7 +220,7 @@ class User < ApplicationRecord
   end
 
   def all_viewable_challenges
-    if system_admin?
+    if admin?
       Challenge.current
     else
       Challenge.current.where(public: true)
@@ -201,7 +228,7 @@ class User < ApplicationRecord
   end
 
   def all_challenges
-    if system_admin?
+    if admin?
       Challenge.current
     else
       challenges
@@ -278,7 +305,10 @@ class User < ApplicationRecord
     send_welcome_email_in_background!
   end
 
-  def profile_present?
-    profile_bio.present? || profile_location.present?
+  def set_as_spammer_and_destroy!
+    topics.destroy_all
+    Notification.where(reply: replies).destroy_all
+    update(spammer: true)
+    destroy
   end
 end

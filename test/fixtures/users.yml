@@ -250,13 +250,29 @@ contributor:
   encrypted_password: ""
 
 # A user banned from posting on the forum
-banned:
-  username: banned
-  full_name: Banned Fromforum
-  banned: true
-  email: banned@example.com
+shadow_banned:
+  username: darkshadow
+  full_name: Dark Shadow
+  email: shadow_banned@example.com
   confirmed_at: <%= confirmed_at %>
-  encrypted_password: ""
+  encrypted_password: <%= pw %>
+  shadow_banned: true
+
+new_spammer:
+  username: innocentant
+  full_name: Innocent Ant
+  email: new_spammer@example.com
+  confirmed_at: <%= confirmed_at %>
+  encrypted_password: <%= pw %>
+  # shadow_banned:
+
+verified_user:
+  username: prolificuser
+  full_name: Prolific Poster
+  email: verified_user@example.com
+  confirmed_at: <%= confirmed_at %>
+  encrypted_password: <%= pw %>
+  shadow_banned: false
 
 # An editor on the admin mixed project
 editor_mixed:

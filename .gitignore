@@ -20,7 +20,9 @@
 # These files are generated when the user initially runs ruby initial_setup.rb from the <rails_root> directory.
 
 /config/application.yml
+/config/banemail.yml
 /config/database.yml
+/config/urlregex.yml
 
 /public/cache/*
 /public/stylesheets/cache/*

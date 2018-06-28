@@ -10,31 +10,41 @@ class Reply < ApplicationRecord
   # Concerns
   include Deletable
   include PgSearch
+  include UrlCountable
   multisearchable against: [:description],
                   unless: :deleted_or_parent_deleted?
+  include Strippable
+  strip :description
 
   # Scopes
-  scope :points, -> { select("replies.*, COALESCE(SUM(reply_users.vote), 0)  points").joins("LEFT JOIN reply_users ON reply_users.reply_id = replies.id").group("replies.id") }
+  scope :points, -> { select("replies.*, COALESCE(SUM(reply_users.vote), 0) points").joins("LEFT JOIN reply_users ON reply_users.reply_id = replies.id").group("replies.id") }
+  scope :shadow_banned, -> (arg) { joins(:user).merge(User.where(shadow_banned: [nil, false]).or(User.where(id: arg))) }
+
 
   # Validations
-  validates :description, :user_id, presence: true
-  # validates :topic_id, :broadcast_id, presence: true
+  validates :description, presence: true
 
   # Relationships
-  belongs_to :user
-  belongs_to :broadcast, optional: true
-  belongs_to :topic, optional: true
+  belongs_to :user, counter_cache: true
+  belongs_to :broadcast, optional: true, counter_cache: true
+  belongs_to :topic, optional: true, counter_cache: true
   belongs_to :reply, optional: true
   has_many :reply_users
 
   # Methods
   def destroy
     super
+    Notification.where(reply_id: id).destroy_all
+    parent.class.reset_counters(parent.id, :countable_replies)
+    User.reset_counters(user.id, :replies)
     update_pg_search_document
+    return unless parent.replies.where(reply_id: id).count.zero?
+    reply_users.delete_all
+    delete
   end
 
   def deleted_or_parent_deleted?
-    deleted? || (topic && topic.deleted?) || (broadcast && broadcast.deleted?)
+    deleted? || topic&.deleted? || broadcast&.deleted? || user.spammer? || user.shadow_banned?
   end
 
   # TODO: Make this work for blog posts
@@ -54,9 +64,7 @@ class Reply < ApplicationRecord
   end
 
   def number
-    parent.replies.where(reply_id: nil).pluck(:id).index(id) + 1
-  rescue
-    0
+    (parent.replies.where(reply_id: nil).pluck(:id).index(id) || -1) + 1
   end
 
   def page
@@ -95,8 +103,12 @@ class Reply < ApplicationRecord
     [reverse_rank, order_newest]
   end
 
+  def display_for_user?(current_user)
+    current_user == user || !below_threshold?
+  end
+
   def below_threshold?
-    deleted? || rank < THRESHOLD
+    deleted? || rank < THRESHOLD || user.shadow_banned?
   end
 
   def vote(current_user)
@@ -128,5 +140,24 @@ class Reply < ApplicationRecord
       notification = u.notifications.where(topic_id: topic_id, broadcast_id: broadcast_id, reply_id: id).first_or_create
       notification.mark_as_unread!
     end
+  end
+
+  def compute_shadow_ban!
+    user.update shadow_banned: true if user.shadow_banned.nil? && url_count > 1
+  end
+
+  def url_count
+    if user.sign_in_count == 1
+      count_urls(description) * 2 + email_count
+    else
+      count_urls(description) + email_count
+    end
+  end
+
+  def email_count
+    BANNED_EMAILS.each do |banned_email|
+      return banned_email["score"] unless (/#{banned_email["email"]}$/ =~ user.email).nil?
+    end
+    0
   end
 end

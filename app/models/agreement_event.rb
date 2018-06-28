@@ -60,8 +60,8 @@ class AgreementEvent < ApplicationRecord
     DataRequest.find_by(id: agreement_id)
   end
 
-  def banned_or_deleted?
-    user.banned? || deleted?
+  def shadow_banned_or_deleted?
+    user.shadow_banned? || deleted?
   end
 
   def number

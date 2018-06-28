@@ -21,14 +21,17 @@
     %col.d-none.d-md-table-column{ width: "50px" }
     %col.d-none.d-md-table-column{ width: "150px" }
     %thead
-      %tr.table-light
+      %tr.table-light.tr-align-middle
         %th.p-0.topic-line-mark
         %th.py-2.pl-1.pr-2
           = form_tag search_path, method: :get, id: "search-form" do
             = text_field_tag :search, params[:search], placeholder: "Search the forum", autocomplete: "off", class: "table-cell-search-input border rounded"
-        = th_sort_field_rev @order, "reply_count", "Replies", extra_class: "d-none d-sm-table-cell text-center"
-        = th_sort_field_rev @order, "topics.view_count", "Views", extra_class: "d-none d-md-table-cell text-center"
-        = th_sort_field_rev @order, "topics.last_reply_at", "Last Post", extra_class: "d-none d-md-table-cell text-center"
+        %th.d-none.d-sm-table-cell.text-center
+          = order_to "Replies", primary: "replies desc", secondary: "replies"
+        %th.d-none.d-md-table-cell.text-center
+          = order_to "Views", primary: "views desc", secondary: "views"
+        %th.d-none.d-md-table-cell.text-center
+          = order_to "Last Post", primary: "oldest", secondary: "latest"
     %tbody
       - @topics.each do |topic|
         - unread_replies = topic.unread_replies(current_user)
@@ -59,7 +62,7 @@
             .small
               %small= link_to topic.user.username, member_path(topic.user.username), class: "link-blend-semi-muted"
           %td.d-none.d-sm-table-cell.text-muted.text-center
-            %span.small= number_with_delimiter topic.reply_count - 1
+            %span.small= number_with_delimiter [topic.replies_count - 1, 0].max
           %td.d-none.d-md-table-cell.text-muted.text-center
             %span.small= number_to_human topic.view_count, precision: 2
           %td.d-none.d-md-table-cell.text-muted.text-center

@@ -1,0 +1,51 @@
+- @title = "Profile Review"
+
+- render "themes/theme"
+
+- content_for :container_class, "container-fluid"
+
+- content_for :sidebar, render("admin/sidebar")
+- content_for :header do
+  .float-right
+    .badge.badge-light{ style: "font-size: 1rem;" }
+      = pluralize(@users.count, "profile")
+      to review
+  = @title
+
+- if @users.present?
+  - @user = @users.first
+  - @reply = @user.replies.order(created_at: :desc).first
+  .dashboard-container
+    .d-flex.flex-column.flex-sm-row
+      - if @user.profile_picture.present?
+        .d-flex.flex-row.flex-sm-column.justify-content-center.order-1.order-sm-2.ml-sm-4.mb-3.mb-sm-0.profile-review-profile-image
+          .d-flex.flex-column.justify-content-center.profile-image-container2.m-0= profile_picture_tag(@user, size: "220", style: "width: 220px; height: auto;")
+
+      .d-flex.flex-column.mr-sm-auto.order-2.order-sm-1
+
+        %h1.profile-review-title= link_to @user.username, @user, class: "link-blend no-underline"
+        .mb-3
+          = render "users/email", user: @user
+          - if @user.replies_count.positive?
+            = link_to pluralize(@user.replies_count, "post"), posts_member_path(@user.username), class: "badge badge-light"
+
+        - if @user.profile_present?
+          %div.bg-light.p-3.mb-4
+            = simple_markdown(@user.profile_bio) if @user.profile_bio.present?
+            - if @user.profile_location.present?
+              %p
+                %i.fa.fa-map-marker
+                = @user.profile_location
+        - else
+          .mb-auto
+
+        %div
+          = link_to "Approve", admin_submit_profile_review_path(user_id: @user.id, approved: "1"), method: :post, class: "btn btn-sm btn-primary"
+          = link_to "Spammer", admin_submit_profile_review_path(user_id: @user.id, spammer: "1"), method: :post, class: "btn btn-sm btn-outline-danger", data: { confirm: "DELETE #{@user.email}?" }
+  - if @reply
+    = render "replies/simple_full", reply: @reply
+
+- else
+  .jumbotron.jumbotron-action.jumbotron-custom-text.jumbotron-shadow
+    %i.fa.fa-user-circle.animate-wiggle.mr-1
+    All profiles have been reviewed!

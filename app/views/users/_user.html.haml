@@ -1,0 +1,18 @@
+%td.nowrap
+  = profile_picture_tag user, size: 18, style: "min-width: 18px;"
+  .d-none.d-md-inline-block= link_to user.full_name.presence || user.username, user
+%td.small
+  - if user.confirmed?
+    %i.fa.fa-check-circle.text-success{ rel: "tooltip", data: { title: "Email confirmed", container: "body", placement: "top" } }
+  - else
+    %i.fa.fa-question-circle.text-muted{ rel: "tooltip", data: { title: "Unconfirmed email", container: "body", placement: "top" } }
+  %span.d-none.d-md-inline.breakword
+    = render "users/email", user: user
+  %span.d-inline.d-md-none
+    = link_to user, style: "word-break: break-word;" do
+      = render "users/email", user: user
+%td.d-none.d-sm-table-cell.nowrap
+  %small= abbreviated_time(user.current_sign_in_at || user.created_at)
+%td.d-none.d-md-table-cell.text-right
+  %small= number_with_delimiter(user.sign_in_count)
+%td.text-center= render "layouts/edit_delete_dropdown", edit_url: edit_user_path(user), delete_url: user, delete_confirmation: "Delete #{user.username}?"

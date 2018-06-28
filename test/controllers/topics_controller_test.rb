@@ -117,24 +117,13 @@ class TopicsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should not create topic as banned user" do
-    login(users(:banned))
-    assert_difference("Reply.count", 0) do
-      assert_difference("Topic.count", 0) do
-        post topics_url, params: { topic: { name: "I am trying to post a topic", slug: "i-am-trying-to-post-a-topic", description: "Visit my site with advertisements." } }
-      end
-    end
-    assert_nil assigns(:topic)
-    assert_equal "You do not have permission to post on the forum.", flash[:warning]
-    assert_redirected_to topics_url
-  end
-
   test "should show topic" do
     get topic_url(@topic)
     assert_response :success
   end
 
   test "should not show topic from banned user" do
+    skip
     get topic_url(topics(:banned))
     assert_nil assigns(:topic)
     assert_redirected_to topics_url
@@ -166,13 +155,6 @@ class TopicsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to topics_url
   end
 
-  test "should not get edit for banned user" do
-    login(users(:banned))
-    get edit_topic_url(topics(:banned))
-    assert_nil assigns(:topic)
-    assert_redirected_to topics_url
-  end
-
   test "should update topic" do
     login(users(:valid))
     patch topic_url(@topic), params: { topic: topic_params.merge(title: "Updated Topic Title") }
@@ -194,13 +176,7 @@ class TopicsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to topics_url
   end
 
-  test "should not update topic as banned user" do
-    login(users(:banned))
-    patch topic_url(topics(:banned)), params: { topic: topic_params.merge(title: "Updated Topic Title") }
-    assert_redirected_to topics_url
-  end
-
-  test "should lock topic as a system admin" do
+  test "should lock topic as system admin" do
     login(users(:admin))
     post admin_topic_url(@topic), params: { topic: { locked: "1" } }
     assert_not_nil assigns(:topic)
@@ -208,18 +184,18 @@ class TopicsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to topics_url
   end
 
-  test "should not lock topic as a regular user" do
+  test "should not lock topic as regular user" do
     login(users(:valid))
     post admin_topic_url(@topic), params: { topic: { locked: "1" } }
     assert_redirected_to root_url
   end
 
-  test "should not lock topic as an anonymous user" do
+  test "should not lock topic as public user" do
     post admin_topic_url(@topic), params: { topic: { locked: "1" } }
     assert_redirected_to new_user_session_url
   end
 
-  test "should sticky a topic as a system admin" do
+  test "should sticky a topic as system admin" do
     login(users(:admin))
     post admin_topic_url(@topic), params: { topic: { pinned: "1" } }
     assert_not_nil assigns(:topic)
@@ -227,13 +203,13 @@ class TopicsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to topics_url
   end
 
-  test "should not sticky a topic as a regular user" do
+  test "should not sticky a topic as regular user" do
     login(users(:valid))
     post admin_topic_url(@topic), params: { topic: { pinned: "1" } }
     assert_redirected_to root_url
   end
 
-  test "should not sticky topic as an anonymous user" do
+  test "should not sticky topic as public user" do
     post admin_topic_url(@topic), params: { topic: { pinned: "1" } }
     assert_redirected_to new_user_session_url
   end

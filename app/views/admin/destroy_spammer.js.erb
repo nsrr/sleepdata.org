@@ -1,0 +1,5 @@
+<% if @spammers.present? %>
+  fadeAndRemove("#spammer-<%= @spammer.id %>");
+<% else %>
+  location.reload();
+<% end %>

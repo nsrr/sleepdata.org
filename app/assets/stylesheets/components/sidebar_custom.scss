@@ -1,8 +1,8 @@
-// This is for UL elements
-.blog-menu {
+// This is for %ul elements
+.sidebar-menu {
   list-style: none;
-  margin-bottom: 20px;
-  padding-left: 0;
+  margin-bottom: 0;
+  padding: 10px 0;
 
   li {
     display: block;
@@ -26,52 +26,26 @@
       text-decoration: none;
     }
 
-    &.blog-menu-header {
+    &.sidebar-menu-header {
       font-size: 85%;
       font-weight: normal;
       letter-spacing: 1px;
       margin-bottom: 5px;
       padding-left: 15px;
       padding-right: 15px;
-      text-transform: uppercase;
+      font-variant: small-caps;
     }
 
     // Add a margin to the top of a menu header if it has other menu items
-    // preceding it
-    + .blog-menu-header {
+    // preceding it.
+    + .sidebar-menu-header {
       margin-top: 20px;
     }
   }
-}
 
-.author-box {
-  font-weight: 300;
-  padding-left: 15px;
-
-  .author-key {
-    font-size: 85%;
-    font-weight: normal;
-    letter-spacing: 1px;
-    margin-bottom: 5px;
-    text-transform: uppercase;
+  &.sidebar-menu-shadow {
+    background-color: $brand-white;
+    border-radius: 3px;
+    box-shadow: 0 1px 5px $box-shadow-color;
   }
-
-  .author-value {
-    color: $p400-grey;
-    margin-bottom: 10px;
-    padding-left: 5px;
-  }
-}
-
-.comments-link {
-  color: $p400-grey;
-  font-weight: bold;
-}
-
-.just-voted {
-  animation: pulsate 300ms linear 1;
-}
-
-.blog-author-icon {
-  color: $brand-primary;
 }

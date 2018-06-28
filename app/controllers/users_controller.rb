@@ -6,12 +6,12 @@ class UsersController < ApplicationController
   before_action :check_system_admin
   before_action :find_user_or_redirect, only: [:show, :edit, :update, :destroy]
 
-  layout "layouts/full_page_dashboard_no_drawer"
+  layout "layouts/full_page_sidebar"
 
   # GET /users
   def index
-    @order = scrub_order(User, params[:order], "users.current_sign_in_at desc")
-    @users = User.current.search(params[:search]).order(@order).page(params[:page]).per(40)
+    scope = User.current.search(params[:search], match_start: false)
+    @users = scope_order(scope).page(params[:page]).per(40)
   end
 
   # # GET /users/1/edit
@@ -51,9 +51,14 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(
       :full_name, :email, :username, :research_summary, :degree,
-      :aug_member, :core_member, :system_admin, :community_manager, :banned,
+      :aug_member, :core_member, :system_admin, :community_manager,
       :emails_enabled, :contributor, :profile_bio, :profile_url,
-      :profile_location
+      :profile_location, :shadow_banned, :spammer
     )
+  end
+
+  def scope_order(scope)
+    @order = params[:order]
+    scope.order(Arel.sql(User::ORDERS[params[:order]] || User::DEFAULT_ORDER))
   end
 end
