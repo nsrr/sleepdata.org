@@ -88,7 +88,7 @@ class RepliesController < ApplicationController
   private
 
   def find_parent_or_redirect
-    @topic = Topic.current.find_by(slug: params[:topic_id])
+    @topic = Topic.current.not_auto_locked.find_by(slug: params[:topic_id])
     @broadcast = Broadcast.current.published.find_by(slug: params[:broadcast_id])
     @parent = @topic || @broadcast
     empty_response_or_root_path unless @parent
@@ -101,6 +101,7 @@ class RepliesController < ApplicationController
 
   def find_editable_reply_or_redirect
     @reply = current_user.editable_replies.find_by(id: params[:id])
+    empty_response_or_root_path if @reply.parent.auto_locked?
     redirect_without_reply
   end
 

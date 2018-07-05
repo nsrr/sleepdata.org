@@ -46,9 +46,10 @@
                   - remote = nil
                   - async_write_a_reply_path = page_topic_path(reply.parent, page: reply.parent.last_page, anchor: "write-a-reply")
 
-              %small= link_to "reply", async_write_a_reply_path, method: method, remote: remote, class: "text-muted"
+              - unless reply.parent.auto_locked?
+                %small= link_to "reply", async_write_a_reply_path, method: method, remote: remote, class: "text-muted"
               %small= link_to "link", reply, class: "text-muted", data: { turbolinks: false }
-              - if current_user && reply.editable_by?(current_user)
+              - if current_user && reply.editable_by?(current_user) && !reply.parent.auto_locked?
                 %small= link_to "edit", edit_reply_path(reply), remote: true, class: "text-muted"
                 %small= link_to "delete", reply_path(reply), method: :delete, remote: true, data: { confirm: "Delete this comment?" }, class: "text-muted"
             %div{ id: "comment_container_#{parent_reply_id}_#{reply_id}", style: "display:none" }

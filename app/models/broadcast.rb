@@ -44,6 +44,14 @@ class Broadcast < ApplicationRecord
     current_user.editable_broadcasts.where(id: id).count == 1
   end
 
+  def auto_locked?
+    false
+  end
+
+  def locked?
+    false
+  end
+
   def last_page
     # ((replies.where(reply_id: nil).count - 1) / Reply::REPLIES_PER_PAGE) + 1
     1

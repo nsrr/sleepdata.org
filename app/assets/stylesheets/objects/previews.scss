@@ -1,9 +1,8 @@
 // Defines the style of description fields that can be previewed.
 
-// TODO: Restyle preview-container
 .preview-container {
-  // border: 1px solid $input-border;
-  border-radius: 2px;
+  border: 1px solid $input-border-color;
+  border-radius: $input-border-radius;
 
   &.preview-container-forum {
     border: 1px solid $p200-grey;
@@ -12,27 +11,38 @@
     margin-bottom: 20px;
     border-left: 4px solid $p100-green;
   }
+
+  &.is-invalid {
+    border-color: $form-feedback-invalid-color;
+  }
 }
 
 .preview-header {
   background-color: $p50-grey;
   border-bottom: 1px solid $gray-400;
+  border-radius: $input-border-radius $input-border-radius 0 0;
   padding: 10px 10px 5px;
   position: relative;
 }
 
 .preview-container-login {
-  border: 1px solid $p200-grey;
+  border: 0;
+  box-shadow: 0 1px 5px $box-shadow-color;
   margin-bottom: 20px;
 
   .preview-header {
-    border-bottom: 2px solid $p50-grey;
-    background-color: $p100-grey;
+    border-bottom: 2px solid $p200-green;
+    background-color: $p500-blue;
+    color: $brand-white;
+    border-radius: $border-radius $border-radius 0 0;
   }
 }
 
 .preview-body {
   background-color: $brand-white;
+  // border-bottom: 1px solid $gray-400;
+  // border-left: 1px solid $gray-400;
+  // border-right: 1px solid $gray-400;
   border-radius: 0 0 $border-radius $border-radius;
   min-height: 350px;
   padding: 10px;

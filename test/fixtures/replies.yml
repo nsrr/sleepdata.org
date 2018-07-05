@@ -54,3 +54,10 @@ blog_one:
   # topic:
   description: Reply to the blog post.
   user: valid
+
+auto_locked:
+  id: 9
+  # broadcast:
+  topic: auto_locked
+  description: This topic will be auto-locked in the future
+  user: regular

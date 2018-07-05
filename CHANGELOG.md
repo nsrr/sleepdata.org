@@ -17,6 +17,7 @@
 - **Forum Changes**
   - Navigating to a linked reply now highlights the reply
   - Added spam prevention for the forum
+  - Topics now auto-lock after two months of inactivity
 - **Profile Changes**
   - Member contributed tools are now listed on the member profile
 - **Review Changes**

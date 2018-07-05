@@ -6,7 +6,7 @@
         %i.fa.fa-volume-off
         unsubscribe
     to stop receiving updates for this topic.
-  - else
+  - elsif !topic.auto_locked?
     You may
     = succeed " " do
       = link_to subscription_topic_path(topic, notify: "1"), method: :post, remote: true, class: "btn btn-sm btn-primary" do

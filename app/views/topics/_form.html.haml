@@ -2,11 +2,10 @@
   = form_with model: topic, local: true do |form|
     = render "forms/vertical/text_field", form: form, object: topic, key: :title, key_name: "Topic Subject", slug: "slug"
     = render "forms/vertical/slug_field", form: form, object: topic, key: :slug, key_name: "URL Slug", help_text: "#{ENV["website_url"]}/forum/#{topic.slug}"
-
     - if topic.new_record?
       .form-group
         = form.label :description, "Topic Description", class: "control-label"
-        .preview-container
+        .preview-container{ class: topic.errors[:description].present? ? "is-invalid" : nil }
           .preview-header
             .float-right
               = render "replies/rich_text_editor_buttons", target: "#topic_description"
@@ -18,12 +17,8 @@
               #log_new.filedrag
                 Drag images above to insert into post.
             #content_preview.topic-preview{ style: "display: none;" }
-
-    - if current_user.admin?
-      .form-group
-        .checkbox
-          %label
-            = form.check_box :pinned
-            Pinned
-
+        - if topic.errors[:description].present?
+          %small.text-danger= topic.errors[:description].collect { |e| "Description #{e}" }.join(", ")
+    = render "forms/vertical/check_box", form: form, object: topic, key: :pinned if current_user.admin?
+    = render "forms/vertical/check_box", form: form, object: topic, key: :locked, help_text: "Lock to disable additional replies to this topic. Topics auto-lock after one month of inactivity." if current_user.admin?
     = render "forms/vertical/submit", form: form, object: topic

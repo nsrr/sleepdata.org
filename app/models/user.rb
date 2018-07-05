@@ -163,7 +163,7 @@ class User < ApplicationRecord
     if admin?
       Topic.current
     else
-      topics
+      topics.not_auto_locked
     end
   end
 

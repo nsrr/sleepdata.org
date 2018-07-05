@@ -84,7 +84,7 @@ class TopicsController < ApplicationController
   end
 
   def find_editable_topic_or_redirect
-    @topic = current_user.editable_topics.where(locked: false).find_by_param(params[:id])
+    @topic = current_user.editable_topics.find_by_param(params[:id])
     redirect_without_topic
   end
 
