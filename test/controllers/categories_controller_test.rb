@@ -3,7 +3,7 @@
 require "test_helper"
 
 # Tests to assure that admins can create and update broadcast categories.
-class CategoriesControllerTest < ActionController::TestCase
+class CategoriesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @category = categories(:one)
     @admin = users(:admin)
@@ -18,29 +18,28 @@ class CategoriesControllerTest < ActionController::TestCase
 
   test "should get index" do
     login(@admin)
-    get :index
+    get categories_url
     assert_response :success
-    assert_not_nil assigns(:categories)
   end
 
   test "should get new" do
     login(@admin)
-    get :new
+    get new_category_url
     assert_response :success
   end
 
   test "should create category" do
     login(@admin)
     assert_difference("Category.count") do
-      post :create, params: { category: category_params }
+      post categories_url, params: { category: category_params }
     end
-    assert_redirected_to category_path(assigns(:category))
+    assert_redirected_to category_url(assigns(:category))
   end
 
   test "should not create category with blank name" do
     login(@admin)
     assert_difference("Category.count", 0) do
-      post :create, params: { category: category_params.merge(name: "") }
+      post categories_url, params: { category: category_params.merge(name: "") }
     end
     assert_template "new"
     assert_response :success
@@ -48,26 +47,26 @@ class CategoriesControllerTest < ActionController::TestCase
 
   test "should show category" do
     login(@admin)
-    get :show, params: { id: @category }
+    get category_url(@category)
     assert_response :success
   end
 
   test "should get edit" do
     login(@admin)
-    get :edit, params: { id: @category }
+    get edit_category_url(@category)
     assert_response :success
   end
 
   test "should update category" do
     login(@admin)
-    patch :update, params: { id: @category, category: category_params }
-    assert_redirected_to category_path(assigns(:category))
+    patch category_url(@category), params: { category: category_params }
+    assert_redirected_to category_url(assigns(:category))
   end
 
   test "should not update category with blank name" do
     login(@admin)
-    patch :update, params: {
-      id: @category, category: category_params.merge(name: "")
+    patch category_url(@category), params: {
+      category: category_params.merge(name: "")
     }
     assert_template "edit"
     assert_response :success
@@ -76,8 +75,8 @@ class CategoriesControllerTest < ActionController::TestCase
   test "should destroy category" do
     login(@admin)
     assert_difference("Category.current.count", -1) do
-      delete :destroy, params: { id: @category }
+      delete category_url(@category)
     end
-    assert_redirected_to categories_path
+    assert_redirected_to categories_url
   end
 end
