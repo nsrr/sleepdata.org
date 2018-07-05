@@ -1,13 +1,20 @@
 .footer-container
   %div{ class: defined?(container) && container.present? ? container : "container" }
     .footer
-      .nowrap
-        .float-right
+      .nowrap.row
+        .col
+          &copy;
+          = Time.zone.today.year
+          .d-inline.d-md-none= link_to "NSRR", about_path
+          .d-none.d-md-inline= link_to "National Sleep Research Resource", about_path
+
+        .col.text-center.d-none.d-sm-block
+          - if false
+            %small.px-2= link_to "Terms", terms_of_service_path
+            %small.px-2= link_to "Privacy", privacy_policy_path
+
+        .col.text-right
           = link_to "Contact Us", contact_path
           |
           = link_to "Funded By NHLBI", about_path
 
-        &copy;
-        = Time.zone.today.year
-        .d-inline.d-md-none= link_to "NSRR", about_path
-        .d-none.d-md-inline= link_to "National Sleep Research Resource", about_path

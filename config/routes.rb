@@ -281,6 +281,7 @@ Rails.application.routes.draw do
     get :demo
     get :fair, path: "about/fair-data-principles"
     get :landing
+    get :privacy_policy, path: "privacy-policy"
     get :share
     get :sitemap
     get :team

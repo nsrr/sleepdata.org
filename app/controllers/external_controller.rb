@@ -37,6 +37,10 @@ class ExternalController < ApplicationController
     render layout: "layouts/full_page_custom_header"
   end
 
+  # # GET /privacy-policy
+  # def privacy_policy
+  # end
+
   # GET /share
   def share
     render layout: "layouts/full_page"

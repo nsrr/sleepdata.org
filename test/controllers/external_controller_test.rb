@@ -31,6 +31,11 @@ class ExternalControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get privacy policy" do
+    get privacy_policy_url
+    assert_response :success
+  end
+
   test "should get sitemap" do
     get sitemap_url
     assert_response :success

@@ -57,6 +57,11 @@ class ExternalTest < ApplicationSystemTestCase
     screenshot("visit-share-page")
   end
 
+  test "visiting the privacy policy page" do
+    visit privacy_policy_url
+    screenshot("visit-privacy-policy-page")
+  end
+
   test "visiting the contact page" do
     visit contact_url
     sleep(0.5) # Allow time for map to load
