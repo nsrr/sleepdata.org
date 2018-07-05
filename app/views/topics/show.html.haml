@@ -40,6 +40,7 @@
     .box-shadow.bg-light.p-3.rounded.text-center
       %i.fa.fa-lock
       Topic is locked.
+      = link_to "Start a new topic", new_topic_path
   - else
     #comment_container_root_new{ style: "display: none;" }
       - reply = @topic.replies.new
