@@ -10,21 +10,18 @@ class DatasetsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get editor status as editor" do
     get editor_dataset_url(datasets(:released), auth_token: users(:editor).id_and_auth_token, format: "json")
-    assert_not_nil response
     assert_equal "{\"editor\":true,\"user_id\":#{users(:editor).id}}", response.body
     assert_response :success
   end
 
   test "should get non-editor status as viewer" do
     get editor_dataset_url(datasets(:released), auth_token: users(:valid).id_and_auth_token, format: "json")
-    assert_not_nil response
     assert_equal "{\"editor\":false,\"user_id\":#{users(:valid).id}}", response.body
     assert_response :success
   end
 
   test "should get non-editor status as public user" do
     get editor_dataset_url(datasets(:released), auth_token: "none", format: "json")
-    assert_not_nil response
     assert_equal '{"editor":false,"user_id":null}', response.body
     assert_response :success
   end
@@ -39,15 +36,11 @@ class DatasetsControllerTest < ActionDispatch::IntegrationTest
   test "should get public file from released dataset as viewer" do
     login(users(:valid))
     get files_dataset_url(id: datasets(:released), path: "PUBLIC_FILE.txt", format: "html")
-    assert_not_nil response
-    assert_kind_of String, response.body
     assert_equal File.read(assigns(:dataset).find_file("PUBLIC_FILE.txt")), response.body
   end
 
   test "should get public file from released dataset as public user" do
     get files_dataset_url(id: datasets(:released), path: "PUBLIC_FILE.txt", format: "html")
-    assert_not_nil response
-    assert_kind_of String, response.body
     assert_equal File.read(assigns(:dataset).find_file("PUBLIC_FILE.txt")), response.body
   end
 
@@ -88,16 +81,12 @@ class DatasetsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get files from public dataset as anonymous user" do
     get files_dataset_url(@dataset, path: "DOWNLOAD_ME.txt", format: "html")
-    assert_not_nil response
-    assert_kind_of String, response.body
     assert_equal File.read(assigns(:dataset).find_file("DOWNLOAD_ME.txt")), response.body
   end
 
   test "should get files from public dataset as regular user" do
     login(users(:valid))
     get files_dataset_url(@dataset, path: "DOWNLOAD_ME.txt", format: "html")
-    assert_not_nil response
-    assert_kind_of String, response.body
     assert_equal File.read(assigns(:dataset).find_file("DOWNLOAD_ME.txt")), response.body
   end
 
@@ -137,16 +126,12 @@ class DatasetsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get files from subfolder from public dataset as anonymous user" do
     get files_dataset_url(@dataset, path: "subfolder/1.txt", format: "html")
-    assert_not_nil response
-    assert_kind_of String, response.body
     assert_equal File.read(assigns(:dataset).find_file("subfolder/1.txt")), response.body
   end
 
   test "should get files from subfolder from public dataset as regular user" do
     login(users(:valid))
     get files_dataset_url(@dataset, path: "subfolder/1.txt", format: "html")
-    assert_not_nil response
-    assert_kind_of String, response.body
     assert_equal File.read(assigns(:dataset).find_file("subfolder/1.txt")), response.body
   end
 

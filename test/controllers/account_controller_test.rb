@@ -6,7 +6,6 @@ require "test_helper"
 class AccountControllerTest < ActionDispatch::IntegrationTest
   test "should get profile as regular user" do
     get account_profile_url(users(:regular).id_and_auth_token, format: "json")
-    assert_not_nil response
     profile = JSON.parse(response.body)
     assert_equal true, profile["authenticated"]
     assert_equal "Regular", profile["first_name"]
@@ -18,7 +17,6 @@ class AccountControllerTest < ActionDispatch::IntegrationTest
 
   test "should get unauthenticated profile as public user" do
     get account_profile_url(format: "json")
-    assert_not_nil response
     profile = JSON.parse(response.body)
     assert_equal false, profile["authenticated"]
     assert_nil profile["first_name"]

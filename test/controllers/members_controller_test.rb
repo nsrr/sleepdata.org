@@ -35,8 +35,6 @@ class MembersControllerTest < ActionDispatch::IntegrationTest
 
   test "should get member profile picture with username" do
     get profile_picture_member_url(users(:regular2).username)
-    assert_not_nil response
-    assert_kind_of String, response.body
     assert_equal File.binread(users(:regular2).profile_picture.thumb.path), response.body
   end
 end

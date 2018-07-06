@@ -11,7 +11,6 @@ class Api::V1::DictionaryControllerTest < ActionDispatch::IntegrationTest
       file: fixture_file_upload("../../test/support/images/rails.png"),
       folder: "datasets"
     }
-    assert_not_nil response
     assert_equal "{\"upload\":\"success\"}", response.body
     assert_response :success
   end
@@ -22,7 +21,6 @@ class Api::V1::DictionaryControllerTest < ActionDispatch::IntegrationTest
       auth_token: users(:editor).id_and_auth_token,
       file: ""
     }
-    assert_not_nil response
     assert_equal "{\"upload\":\"failed\"}", response.body
     assert_response :success
   end

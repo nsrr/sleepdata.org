@@ -19,8 +19,6 @@ class DownloadsControllerTest < ActionDispatch::IntegrationTest
     login(data_requests(:approved).user)
     get files_dataset_url(@released, path: "ACCESS_REQUIRED.txt", format: "html")
     assert_not_nil assigns(:dataset)
-    assert_not_nil response
-    assert_kind_of String, response.body
     assert_equal File.read(assigns(:dataset).find_file("ACCESS_REQUIRED.txt")), response.body
   end
 
@@ -86,8 +84,6 @@ class DownloadsControllerTest < ActionDispatch::IntegrationTest
     login(data_requests(:approved_unreleased).user)
     get files_dataset_url(datasets(:unreleased), path: "ACCESS_REQUIRED.txt", format: "html")
     assert_not_nil assigns(:dataset)
-    assert_not_nil response
-    assert_kind_of String, response.body
     assert_equal File.read(assigns(:dataset).find_file("ACCESS_REQUIRED.txt")), response.body
   end
 

@@ -6,7 +6,6 @@ require "test_helper"
 class Api::V1::AccountControllerTest < ActionDispatch::IntegrationTest
   test "should get profile as regular user" do
     get api_v1_account_profile_url(auth_token: users(:regular).id_and_auth_token, format: "json")
-    assert_not_nil response
     profile = JSON.parse(response.body)
     assert_equal true, profile["authenticated"]
     assert_equal "Regular", profile["first_name"]
@@ -18,7 +17,6 @@ class Api::V1::AccountControllerTest < ActionDispatch::IntegrationTest
 
   test "should get profile as logged out viewer" do
     get api_v1_account_profile_url(format: "json")
-    assert_not_nil response
     profile = JSON.parse(response.body)
     assert_equal false, profile["authenticated"]
     assert_nil profile["first_name"]

@@ -63,7 +63,6 @@ class SupportingDocumentsControllerTest < ActionDispatch::IntegrationTest
   test "should show supporting document" do
     login(@regular2)
     get data_request_supporting_document_url(@uploads, @supporting_document)
-    assert_kind_of String, response.body
     assert_equal File.binread(@supporting_document.document.path), response.body
     assert_response :success
   end
