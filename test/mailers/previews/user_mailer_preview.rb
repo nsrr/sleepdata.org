@@ -34,7 +34,7 @@ class UserMailerPreview < ActionMailer::Preview
 
   def mentioned_in_agreement_comment
     user = User.first
-    agreement_event = AgreementEvent.where(event_type: 'commented').first
+    agreement_event = AgreementEvent.find_by(event_type: "commented")
     UserMailer.mentioned_in_agreement_comment(agreement_event, user)
   end
 
