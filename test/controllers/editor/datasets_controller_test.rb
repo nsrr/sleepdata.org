@@ -3,9 +3,10 @@
 require "test_helper"
 
 # Tests to assure that dataset editors can modify datasets.
-class Editor::DatasetsControllerTest < ActionController::TestCase
+class Editor::DatasetsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @dataset = datasets(:released)
+    @editor = users(:editor)
   end
 
   def dataset_params
@@ -18,29 +19,28 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
   end
 
   test "should get agreements" do
-    login(users(:editor))
-    get :agreements, params: { id: @dataset }
+    login(@editor)
+    get agreements_dataset_url(@dataset)
     assert_response :success
   end
 
   test "should get audits" do
-    login(users(:editor))
-    get :audits, params: { id: @dataset }
+    login(@editor)
+    get audits_dataset_url(@dataset)
     assert_not_nil assigns(:audits)
     assert_response :success
   end
 
   test "should get page views" do
-    login(users(:editor))
-    get :page_views, params: { id: @dataset }
+    login(@editor)
+    get page_views_dataset_url(@dataset)
     assert_response :success
   end
 
   test "should create access role to dataset" do
-    login(users(:editor))
+    login(@editor)
     assert_difference("DatasetUser.count") do
-      post :create_access, params: {
-        id: @dataset,
+      post create_access_dataset_url(@dataset), params: {
         user_email: "#{users(:aug).full_name} [#{users(:aug).email}]",
         role: "editor"
       }
@@ -48,14 +48,13 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:dataset_user)
     assert_equal "editor", assigns(:dataset_user).role
     assert_equal users(:aug), assigns(:dataset_user).user
-    assert_redirected_to collaborators_dataset_path(assigns(:dataset), dataset_user_id: assigns(:dataset_user).id)
+    assert_redirected_to collaborators_dataset_url(assigns(:dataset), dataset_user_id: assigns(:dataset_user).id)
   end
 
   test "should find existing access when creating access request to dataset" do
-    login(users(:editor))
+    login(@editor)
     assert_difference("DatasetUser.count", 0) do
-      post :create_access, params: {
-        id: @dataset,
+      post create_access_dataset_url(@dataset), params: {
         user_email: "#{users(:reviewer_on_released).full_name} [#{users(:reviewer_on_released).email}]",
         role: "reviewer"
       }
@@ -64,79 +63,87 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
     assert_nil assigns(:dataset_user).approved
     assert_equal "reviewer", assigns(:dataset_user).role
     assert_equal users(:reviewer_on_released), assigns(:dataset_user).user
-    assert_redirected_to collaborators_dataset_path(assigns(:dataset), dataset_user_id: assigns(:dataset_user).id)
+    assert_redirected_to collaborators_dataset_url(assigns(:dataset), dataset_user_id: assigns(:dataset_user).id)
   end
 
   test "should show collaborators to editor" do
-    login(users(:editor))
-    get :collaborators, params: { id: @dataset }
+    login(@editor)
+    get collaborators_dataset_url(@dataset)
     assert_response :success
   end
 
   test "should reset index as editor" do
-    login(users(:editor))
-    post :reset_index, params: { id: datasets(:released), path: nil }
-    assert_redirected_to files_dataset_path(assigns(:dataset), path: "")
+    login(@editor)
+    post reset_index_dataset_url(datasets(:released), path: nil)
+    assert_redirected_to files_dataset_url(assigns(:dataset), path: "")
   end
 
   test "should not reset index as viewer" do
     login(users(:valid))
-    post :reset_index, params: { id: datasets(:released), path: nil }
-    assert_redirected_to datasets_path
+    post reset_index_dataset_url(datasets(:released), path: nil)
+    assert_redirected_to datasets_url
   end
 
   test "should not reset index as anonymous" do
-    post :reset_index, params: { id: datasets(:released), path: nil }
-    assert_redirected_to new_user_session_path
+    post reset_index_dataset_url(datasets(:released), path: nil)
+    assert_redirected_to new_user_session_url
   end
 
   test "should set file as public as editor" do
-    login(users(:editor))
+    login(@editor)
     assert_difference("DatasetFile.where(publicly_available: true).count") do
-      post :set_public_file, params: {
-        id: datasets(:released),
+      post set_public_file_dataset_url(
+        datasets(:released),
         path: "NOT_PUBLIC_YET.txt",
+        format: "js"
+      ), params: {
         public: "1"
-      }, format: "js"
+      }
     end
     assert_template "set_public_file"
     assert_response :success
   end
 
   test "should set file as private as editor" do
-    login(users(:editor))
+    login(@editor)
     assert_difference("DatasetFile.where(publicly_available: true).count", -1) do
-      post :set_public_file, params: {
-        id: datasets(:released),
+      post set_public_file_dataset_url(
+        datasets(:released),
         path: dataset_files(:released_public_file_txt).full_path,
+        format: "js"
+      ), params: {
         public: "0"
-      }, format: "js"
+      }
     end
     assert_template "set_public_file"
     assert_response :success
   end
 
   test "should set file in subfolder as public as editor" do
-    login(users(:editor))
+    login(@editor)
     assert_difference("DatasetFile.where(publicly_available: true).count") do
-      post :set_public_file, params: {
-        id: datasets(:released),
+      post set_public_file_dataset_url(
+        datasets(:released),
         path: "subfolder/IN_SUBFOLDER_NOT_PUBLIC_YET.txt",
+        format: "js"
+      ), params: {
         public: "1"
-      }, format: "js"
+      }
     end
     assert_template "set_public_file"
     assert_response :success
   end
 
   test "should set file in subfolder as private as editor" do
-    login(users(:editor))
+    login(@editor)
     assert_difference("DatasetFile.where(publicly_available: true).count", -1) do
-      post :set_public_file, params: {
-        id: datasets(:released),
+      post set_public_file_dataset_url(
+        datasets(:released),
         path: "subfolder/IN_SUBFOLDER_PUBLIC_FILE.txt",
+        format: "js"
+      ), params: {
         public: "0"
-      }, format: "js"
+      }
     end
     assert_template "set_public_file"
     assert_response :success
@@ -145,11 +152,13 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
   test "should not set file as public as viewer" do
     login(users(:valid))
     assert_difference("DatasetFile.where(publicly_available: true).count", 0) do
-      post :set_public_file, params: {
-        id: datasets(:released),
+      post set_public_file_dataset_url(
+        datasets(:released),
         path: "NOT_PUBLIC_YET.txt",
+        format: "js"
+      ), params: {
         public: "1"
-      }, format: "js"
+      }
     end
     assert_template nil
     assert_response :success
@@ -157,48 +166,48 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
 
   test "should not set file as public as anonymous" do
     assert_difference("DatasetFile.where(publicly_available: true).count", 0) do
-      post :set_public_file, params: {
-        id: datasets(:released),
+      post set_public_file_dataset_url(
+        datasets(:released),
         path: "NOT_PUBLIC_YET.txt",
+        format: "js"
+      ), params: {
         public: "1"
-      }, format: "js"
+      }
     end
     assert_template nil
     assert_response :unauthorized
   end
 
   test "should get sync" do
-    login(users(:editor))
-    get :sync, params: { id: @dataset }
+    login(@editor)
+    get sync_dataset_url(@dataset)
     assert_response :success
   end
 
   test "should pull changes" do
-    login(users(:editor))
-    post :pull_changes, params: { id: @dataset }
-    assert_redirected_to sync_dataset_path(@dataset)
+    login(@editor)
+    post pull_changes_dataset_url(@dataset)
+    assert_redirected_to sync_dataset_url(@dataset)
   end
 
   test "should get edit" do
-    login(users(:editor))
-    get :edit, params: { id: @dataset }
+    login(@editor)
+    get edit_dataset_url(@dataset)
     assert_response :success
   end
 
   test "should update dataset" do
-    login(users(:editor))
-    patch :update, params: {
-      id: @dataset,
+    login(@editor)
+    patch dataset_url(@dataset), params: {
       dataset: dataset_params.merge(name: "We Care Name Updated")
     }
     assert_equal assigns(:dataset).name, "We Care Name Updated"
-    assert_redirected_to dataset_path(assigns(:dataset))
+    assert_redirected_to dataset_url(assigns(:dataset))
   end
 
   test "should not update dataset with blank name" do
-    login(users(:editor))
-    patch :update, params: {
-      id: @dataset,
+    login(@editor)
+    patch dataset_url(@dataset), params: {
       dataset: dataset_params.merge(name: "")
     }
     assert_equal ["can't be blank"], assigns(:dataset).errors[:name]
@@ -207,9 +216,8 @@ class Editor::DatasetsControllerTest < ActionController::TestCase
   end
 
   test "should not update dataset with existing slug" do
-    login(users(:editor))
-    patch :update, params: {
-      id: @dataset,
+    login(@editor)
+    patch dataset_url(@dataset), params: {
       dataset: dataset_params.merge(slug: "unreleased")
     }
     assert_equal ["has already been taken"], assigns(:dataset).errors[:slug]
