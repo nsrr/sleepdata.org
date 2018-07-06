@@ -17,7 +17,7 @@
               - picture_content = profile_picture_tag(reply.user, size: size, style: "height: auto;max-width:#{size + 5}px;")
               = link_to picture_content, posts_member_path(reply.user.username)
               .text-center.text-muted{ style: "font-size: 9px;margin-top:5px" }
-                = pluralize(number_with_delimiter(reply.user.replies.count), "post")
+                = pluralize(number_with_delimiter(reply.user.replies_count), "post")
               .text-center.text-muted{ style: "font-size: 9px;" }
                 = link_to "bio", posts_member_path(reply.user.username), class: "link-blend-muted" if reply.user.profile_present?
         .reply-header{ data: { parent_reply_id: reply.parent_reply_id, reply_id: reply.id } }

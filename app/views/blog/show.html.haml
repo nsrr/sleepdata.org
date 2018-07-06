@@ -22,9 +22,9 @@
     .container
       .broadcast-discussion
         .broadcast-discussion-header
-          - if @broadcast.replies.count > 0
+          - if @broadcast.replies_count.positive?
             all
-            = pluralize(@broadcast.replies.count, "comment")
+            = pluralize(@broadcast.replies_count, "comment")
           - else
             no comments
           %div{ style: "display: inline-block" }

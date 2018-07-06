@@ -92,7 +92,7 @@ class User < ApplicationRecord
   has_many :hosting_requests, -> { current }
   has_many :images
   has_many :notifications
-  has_many :replies, -> { current.joins(:topic).merge(Topic.current) }
+  has_many :replies, -> { current.left_outer_joins(:broadcast, :topic).where(topics: { id: Topic.current}).or(current.left_outer_joins(:broadcast, :topic).where(broadcasts: { id: Broadcast.published })) }
   has_many :subscriptions
   has_many :tags, -> { current }
   has_many :topics, -> { current }

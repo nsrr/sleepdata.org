@@ -14,7 +14,7 @@
       = link_to posts_member_path(member.username), class: current_page?(posts_member_path(member.username)) ? "active" : nil do
         Posts
         %span.badge
-          = member.replies.count
+          = member.replies_count
           - karma = member.replies.collect(&:rank).sum
           - if karma.negative?
             = "(#{number_with_delimiter karma})"

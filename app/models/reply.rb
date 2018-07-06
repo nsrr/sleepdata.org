@@ -20,7 +20,6 @@ class Reply < ApplicationRecord
   scope :points, -> { select("replies.*, COALESCE(SUM(reply_users.vote), 0) points").joins("LEFT JOIN reply_users ON reply_users.reply_id = replies.id").group("replies.id") }
   scope :shadow_banned, -> (arg) { joins(:user).merge(User.where(shadow_banned: [nil, false]).or(User.where(id: arg))) }
 
-
   # Validations
   validates :description, presence: true
 

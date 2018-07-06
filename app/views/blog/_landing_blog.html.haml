@@ -11,4 +11,4 @@
         = link_to blog_post_path(broadcast.url_hash.merge(anchor: "comments")), class: "comments-link" do
           Comments
           = surround "(", ")" do
-            = broadcast.replies.count
+            = broadcast.replies_count
