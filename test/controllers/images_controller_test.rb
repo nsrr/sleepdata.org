@@ -132,26 +132,20 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   test "should download image as admin" do
     login(users(:admin))
     get download_image_url(@image)
-    assert_not_nil assigns(:image)
-    assert_kind_of String, response.body
-    assert_equal File.binread(File.join(CarrierWave::Uploader::Base.root, assigns(:image).image.url)), response.body
+    assert_equal File.binread(assigns(:image).image.path), response.body
     assert_response :success
   end
 
   test "should download image as regular user" do
     login(users(:valid))
     get download_image_url(@image)
-    assert_not_nil assigns(:image)
-    assert_kind_of String, response.body
-    assert_equal File.binread(File.join(CarrierWave::Uploader::Base.root, assigns(:image).image.url)), response.body
+    assert_equal File.binread(assigns(:image).image.path), response.body
     assert_response :success
   end
 
   test "should download image as public user" do
     get download_image_url(@image)
-    assert_not_nil assigns(:image)
-    assert_kind_of String, response.body
-    assert_equal File.binread(File.join(CarrierWave::Uploader::Base.root, assigns(:image).image.url)), response.body
+    assert_equal File.binread(assigns(:image).image.path), response.body
     assert_response :success
   end
 
