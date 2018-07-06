@@ -20,13 +20,13 @@ class NavigationTest < ActionDispatch::IntegrationTest
   end
 
   test "should get sign up page" do
-    get new_user_registration_path
+    get new_user_registration_url
     assert_equal new_user_registration_path, path
     assert_response :success
   end
 
   test "should register new account" do
-    post user_registration_path, params: {
+    post user_registration_url, params: {
       user: {
         username: "registeraccount",
         email: "register@account.com",
@@ -34,39 +34,39 @@ class NavigationTest < ActionDispatch::IntegrationTest
       }
     }
     assert_equal I18n.t("devise.registrations.signed_up_but_unconfirmed"), flash[:notice]
-    assert_redirected_to root_path
+    assert_redirected_to root_url
   end
 
   test "should not login unconfirmed user" do
-    get new_user_session_path
+    get new_user_session_url
     login(@unconfirmed)
     assert_equal new_user_session_path, path
   end
 
   test "should not login deleted user" do
-    get new_user_session_path
+    get new_user_session_url
     login(@deleted)
     assert_equal new_user_session_path, path
   end
 
   test "friendly url forwarding after login" do
-    get datasets_path
-    get new_user_session_path
+    get datasets_url
+    get new_user_session_url
     login(@regular)
     assert_equal datasets_path, path
   end
 
   test "friendly url forwarding after logout" do
-    get datasets_path
+    get datasets_url
     login(@regular)
-    get datasets_path
-    get destroy_user_session_path
-    assert_redirected_to datasets_path
+    get datasets_url
+    get destroy_user_session_url
+    assert_redirected_to datasets_url
   end
 
   test "blog rss should not be stored in friendly forwarding after login" do
-    get blog_path(format: "atom")
-    get new_user_session_path
+    get blog_url(format: "atom")
+    get new_user_session_url
     login(@regular)
     assert_equal root_path, path
   end

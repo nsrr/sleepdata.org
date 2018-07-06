@@ -35,7 +35,7 @@ class CommunityToolsControllerTest < ActionDispatch::IntegrationTest
     assert_difference("CommunityTool.count") do
       post community_tools_url, params: { community_tool: tool_params }
     end
-    assert_redirected_to community_tool_path(CommunityTool.last)
+    assert_redirected_to community_tool_url(CommunityTool.last)
   end
 
   test "should show community tool" do
@@ -55,7 +55,7 @@ class CommunityToolsControllerTest < ActionDispatch::IntegrationTest
     patch community_tool_url(@community_tool), params: {
       community_tool: tool_params.merge(name: "Community Tool Name Update")
     }
-    assert_redirected_to community_tool_path(@community_tool)
+    assert_redirected_to community_tool_url(@community_tool)
   end
 
   test "should destroy community tool" do
@@ -63,6 +63,6 @@ class CommunityToolsControllerTest < ActionDispatch::IntegrationTest
     assert_difference("CommunityTool.current.count", -1) do
       delete community_tool_url(@community_tool)
     end
-    assert_redirected_to community_tools_path
+    assert_redirected_to community_tools_url
   end
 end

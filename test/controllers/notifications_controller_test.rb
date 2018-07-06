@@ -60,14 +60,14 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
     get notification_url(notifications(:blank))
     assert_not_nil assigns(:notification)
     assert_equal true, assigns(:notification).read
-    assert_redirected_to notifications_path
+    assert_redirected_to notifications_url
   end
 
   test "should not show notification without valid id" do
     login(@regular_user)
     get notification_url(id: -1)
     assert_nil assigns(:notification)
-    assert_redirected_to notifications_path
+    assert_redirected_to notifications_url
   end
 
   test "should update notification" do

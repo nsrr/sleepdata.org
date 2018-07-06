@@ -18,12 +18,12 @@ class AdminControllerTest < ActionDispatch::IntegrationTest
   test "should not get roles for regular user" do
     login(@regular)
     get admin_roles_url
-    assert_redirected_to root_path
+    assert_redirected_to root_url
   end
 
   test "should not get roles for public user" do
     get admin_roles_url
-    assert_redirected_to new_user_session_path
+    assert_redirected_to new_user_session_url
   end
 
   test "should get stats for admin" do
@@ -35,12 +35,12 @@ class AdminControllerTest < ActionDispatch::IntegrationTest
   test "should not get stats for regular user" do
     login(@regular)
     get admin_stats_url
-    assert_redirected_to root_path
+    assert_redirected_to root_url
   end
 
   test "should not get stats for public user" do
     get admin_stats_url
-    assert_redirected_to new_user_session_path
+    assert_redirected_to new_user_session_url
   end
 
   test "should get sync for admin" do
@@ -52,12 +52,12 @@ class AdminControllerTest < ActionDispatch::IntegrationTest
   test "should not get sync for regular user" do
     login(@regular)
     get admin_sync_url
-    assert_redirected_to root_path
+    assert_redirected_to root_url
   end
 
   test "should not get sync for public user" do
     get admin_sync_url
-    assert_redirected_to new_user_session_path
+    assert_redirected_to new_user_session_url
   end
 
   test "should get agreement reports for system admin" do
@@ -68,7 +68,7 @@ class AdminControllerTest < ActionDispatch::IntegrationTest
 
   test "should not get agreement reports for non system admin" do
     get admin_agreement_reports_url
-    assert_redirected_to new_user_session_path
+    assert_redirected_to new_user_session_url
   end
 
   test "should get downloads by month for system admin" do
@@ -79,7 +79,7 @@ class AdminControllerTest < ActionDispatch::IntegrationTest
 
   test "should not get downloads by month for non system admin" do
     get admin_downloads_by_month_url
-    assert_redirected_to new_user_session_path
+    assert_redirected_to new_user_session_url
   end
 
   test "should get downloads by quarter for system admin" do
@@ -90,7 +90,7 @@ class AdminControllerTest < ActionDispatch::IntegrationTest
 
   test "should not get downloads by quarter for non system admin" do
     get admin_downloads_by_quarter_url
-    assert_redirected_to new_user_session_path
+    assert_redirected_to new_user_session_url
   end
 
   test "should get spam report as admin" do

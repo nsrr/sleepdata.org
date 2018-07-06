@@ -308,7 +308,7 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not get index as public user" do
     get data_requests_url
-    assert_redirected_to new_user_session_path
+    assert_redirected_to new_user_session_url
   end
 
   test "should delete started data request" do

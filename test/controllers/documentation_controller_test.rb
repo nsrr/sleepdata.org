@@ -90,34 +90,34 @@ class DocumentationControllerTest < ActionDispatch::IntegrationTest
     login(data_requests(:approved_unreleased_manually_expired).user)
     get pages_dataset_url(datasets(:unreleased), path: "ACCESS_REQUIRED.md", format: "html")
     assert_nil assigns(:dataset)
-    assert_redirected_to datasets_path
+    assert_redirected_to datasets_url
   end
 
   test "should not view documentation on private documentation dataset with automatically expired agreement" do
     login(data_requests(:approved_unreleased_automatically_expired).user)
     get pages_dataset_url(datasets(:unreleased), path: "ACCESS_REQUIRED.md", format: "html")
     assert_nil assigns(:dataset)
-    assert_redirected_to datasets_path
+    assert_redirected_to datasets_url
   end
 
   test "should not view documentation on private documentation dataset with submitted data request" do
     login(data_requests(:submitted_unreleased).user)
     get pages_dataset_url(datasets(:unreleased), path: "ACCESS_REQUIRED.md", format: "html")
     assert_nil assigns(:dataset)
-    assert_redirected_to datasets_path
+    assert_redirected_to datasets_url
   end
 
   test "should not view documentation on private documentation dataset without any agreement" do
     login(users(:regular_no_data_requests))
     get pages_dataset_url(datasets(:unreleased), path: "ACCESS_REQUIRED.md", format: "html")
     assert_nil assigns(:dataset)
-    assert_redirected_to datasets_path
+    assert_redirected_to datasets_url
   end
 
   test "should not view documentation on private documentation dataset as anonymous user" do
     get pages_dataset_url(datasets(:unreleased), path: "ACCESS_REQUIRED.md", format: "html")
     assert_nil assigns(:dataset)
-    assert_redirected_to datasets_path
+    assert_redirected_to datasets_url
   end
 
   # No data access released dataset
