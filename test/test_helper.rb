@@ -7,7 +7,7 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 
-# Set up ActiveSupport tests
+# Set up ActiveSupport tests.
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical
   # order.
@@ -16,7 +16,7 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 end
 
-# Set up ActionController tests
+# Set up ActionController tests.
 # TODO: Remove ActionController Tests
 class ActionController::TestCase
   include Devise::Test::ControllerHelpers
@@ -31,7 +31,7 @@ class ActionController::TestCase
   end
 end
 
-# Set up ActionDispatch tests
+# Set up ActionDispatch tests.
 class ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
@@ -41,7 +41,9 @@ class ActionDispatch::IntegrationTest
 
   def sign_in_as(user, password)
     user.update password: password, password_confirmation: password
-    post new_user_session_url, params: { user: { email: user.email, password: password } }
+    post new_user_session_url, params: {
+      user: { email: user.email, password: password }
+    }
     follow_redirect!
     user
   end
@@ -53,7 +55,7 @@ end
 
 module Rack
   module Test
-    # Allow files to be uploaded in tests
+    # Allow files to be uploaded in tests.
     class UploadedFile
       attr_reader :tempfile
     end

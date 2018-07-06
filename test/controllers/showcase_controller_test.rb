@@ -1,32 +1,36 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
 # Assure that showcase pages display for public users.
-class ShowcaseControllerTest < ActionController::TestCase
-  test 'should get showcase for logged out user' do
-    get :index
+class ShowcaseControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @regular = users(:regular)
+  end
+
+  test "should get showcase for logged out user" do
+    get showcase_url
     assert_response :success
   end
 
-  test 'should get showcase for regular user' do
-    login(@regular_user)
-    get :index
+  test "should get showcase for regular user" do
+    login(@regular)
+    get showcase_url
     assert_response :success
   end
 
-  test 'should not get non-existent showcase page' do
-    get :show, params: { slug: 'nogo' }
-    assert_redirected_to showcase_path
+  test "should not get non-existent showcase page" do
+    get showcase_show_url("nogo")
+    assert_redirected_to showcase_url
   end
 
-  test 'should get where-to-start for logged out user' do
-    get :show, params: { slug: 'where-to-start' }
+  test "should get where-to-start for logged out user" do
+    get showcase_show_url("where-to-start")
     assert_response :success
   end
 
-  test 'should get search-nsrr for logged out user' do
-    get :show, params: { slug: 'search-nsrr' }
+  test "should get search-nsrr for logged out user" do
+    get showcase_show_url("search-nsrr")
     assert_response :success
   end
 end
