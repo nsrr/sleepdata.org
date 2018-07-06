@@ -24,7 +24,7 @@
       %tr.table-light.tr-align-middle
         %th.p-0.topic-line-mark
         %th.py-2.pl-1.pr-2
-          = form_tag search_path, method: :get, id: "search-form" do
+          = form_tag search_path, method: :get do
             = text_field_tag :search, params[:search], placeholder: "Search the forum", autocomplete: "off", class: "table-cell-search-input border rounded"
         %th.d-none.d-sm-table-cell.text-center
           = order_to "Replies", primary: "replies desc", secondary: "replies"

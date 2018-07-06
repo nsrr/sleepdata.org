@@ -4,7 +4,9 @@
 # set to be published on specific dates.
 class Broadcast < ApplicationRecord
   # Concerns
-  include Deletable, Replyable
+  include Deletable
+  include Replyable
+  include Searchable
   include PgSearch
   multisearchable against: [:title, :short_description, :keywords, :description],
                   unless: :deleted?
@@ -22,6 +24,10 @@ class Broadcast < ApplicationRecord
   belongs_to :category, optional: true
 
   # Methods
+  def self.searchable_attributes
+    %w(title short_description keywords description)
+  end
+
   def destroy
     super
     update_pg_search_document

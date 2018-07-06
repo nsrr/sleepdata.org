@@ -21,7 +21,7 @@
     %thead
       %tr
         %th.py-2
-          = form_tag users_path, method: :get, id: "search-form", enforce_utf8: false do
+          = form_tag users_path, method: :get, enforce_utf8: false do
             = text_field_tag :search, params[:search], placeholder: "Search users", autocomplete: "off", class: "table-cell-search-input border rounded"
         = th_sort_field @order, "users.email", "Email"
         %th.d-none.d-sm-table-cell= order_to "Activity", primary: "activity"

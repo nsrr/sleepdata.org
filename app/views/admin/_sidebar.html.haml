@@ -1,4 +1,4 @@
-.col-12.col-md-3.col-xl-2.sidebar-wrapper
+.col-12.col-md-3.col-xl-2.sidebar-wrapper{ style: "background-color: transparent;" }
   .sidebar
     #sidebar-nav-wrapper.sidebar-nav-wrapper.collapse{ style: "background-color: transparent;" }
       .pt-3.mx-3.my-0.ml-md-3.mb-md-3.mr-md-0
@@ -20,4 +20,3 @@
             %li= link_to "Hosting Requests", hosting_requests_path, class: params[:controller] == "hosting_requests" ? "active" : nil
             %li= link_to "Documentation Sync", admin_sync_path, class: current_page?(admin_sync_path) ? "active" : nil
             %li= link_to "Tags", tags_path, class: current_page?(tags_path) ? "active" : nil
-

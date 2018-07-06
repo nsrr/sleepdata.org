@@ -1,14 +1,11 @@
-- @title = "New Blog Post"
+- @title = "New Article"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        = @title
-  .breadcrumb-container.p-2
-    .container
-      %ol
-        %li= link_to "Blog Posts", broadcasts_path
-        %li New
+- render "themes/theme"
 
-= render "broadcasts/form", broadcast: @broadcast
+- content_for :container_class, "container-fluid"
+
+- content_for :sidebar, render("admin/sidebar")
+
+- content_for :header, @title
+
+.dashboard-container= render "broadcasts/form", broadcast: @broadcast

@@ -1,40 +1,53 @@
-- @title = "Blog Posts"
+- @title = "Articles"
+
+- render "themes/theme"
+
+- content_for :container_class, "container-fluid"
+
+- content_for :sidebar, render("admin/sidebar")
+
 - content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        .float-right
-          = link_to plus_or("New Blog Post"), new_broadcast_path, class: "btn btn-primary btn-shadow"
-          = render "layouts/per_page", per_page: 40, object_count: @broadcasts.total_count
-        = @title
-        = link_to "Go To Blog", blog_path, class: "btn btn-sm btn-light"
+  .float-right
+    = link_to plus_or("New Article"), new_broadcast_path, class: "btn btn-primary btn-shadow"
+    = render "layouts/per_page", per_page: 40, object_count: @broadcasts.total_count
+  = link_to @title, blog_path
+  Publisher
 
-%table.table.table-striped.table-borderless.table-hover.table-sticky
-  %col{ width: "1px" }
-  %col
-  %col.d-none.d-sm-table-column
-  %col.d-none.d-lg-table-column
-  %col.d-none.d-lg-table-column
-  %col{ width: "1px" }
+- if @broadcasts.present?
+  .dashboard-container.dashboard-table
+    %table.table.table-striped.table-borderless.table-hover.table-sticky
+      %col{ width: "1px" }
+      %col
+      %col.d-none.d-sm-table-column
+      %col.d-none.d-lg-table-column
+      %col.d-none.d-lg-table-column
+      %col{ width: "1px" }
 
-  %thead
-    %tr
-      %th
-      %th Title
-      %th.d-none.d-sm-table-cell Publish date
-      %th.text-center.d-none.d-lg-table-cell Pinned
-      %th.text-center.d-none.d-lg-table-cell Archived
-      %th.text-center
-        .d-none.d-sm-inline-block Actions
+      %thead
+        %tr
+          %th
+          %th.py-2
+            = form_tag broadcasts_path, method: :get, enforce_utf8: false do
+              = text_field_tag :search, params[:search], placeholder: "Search articles", autocomplete: "off", class: "table-cell-search-input border rounded"
 
-  %tbody
-    - @broadcasts.each do |broadcast|
-      %tr
-        %td.text-center= render "layouts/draft_published", published: broadcast.published?
-        %td= link_to broadcast.title, broadcast
-        %td.nowrap.d-none.d-sm-table-cell= broadcast.publish_date.strftime "%a %b %-d, %Y"
-        %td.text-center.d-none.d-lg-table-cell= simple_check broadcast.pinned
-        %td.text-center.d-none.d-lg-table-cell= simple_check broadcast.archived
-        %td= render "layouts/edit_delete_dropdown", edit_url: edit_broadcast_path(broadcast), delete_url: broadcast, delete_confirmation: "Delete #{broadcast.title}?"
+          %th.d-none.d-sm-table-cell Publish date
+          %th.text-center.d-none.d-lg-table-cell Pinned
+          %th.text-center.d-none.d-lg-table-cell Archived
+          %th.text-center
+            .d-none.d-sm-inline-block Actions
 
-.center-horizontally= paginate @broadcasts, theme: "bootstrap"
+      %tbody
+        - @broadcasts.each do |broadcast|
+          %tr
+            %td.text-center= render "layouts/draft_published", published: broadcast.published?
+            %td= link_to broadcast.title, broadcast
+            %td.nowrap.d-none.d-sm-table-cell= broadcast.publish_date.strftime "%a %b %-d, %Y"
+            %td.text-center.d-none.d-lg-table-cell= simple_check broadcast.pinned
+            %td.text-center.d-none.d-lg-table-cell= simple_check broadcast.archived
+            %td= render "layouts/edit_delete_dropdown", edit_url: edit_broadcast_path(broadcast), delete_url: broadcast, delete_confirmation: "Delete #{broadcast.title}?"
+  .center-horizontally= paginate @broadcasts, theme: "bootstrap"
+- else
+  .jumbotron.jumbotron-custom-text
+    %i.fa.fa-clone.mr-1
+    No articles found.
+    = link_to "Start over", broadcasts_path if params[:search].present?

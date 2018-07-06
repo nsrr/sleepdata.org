@@ -1,27 +1,15 @@
 - @title = @broadcast.title
 
+- render "themes/theme"
+
+- content_for :container_class, "container-fluid"
+
+- content_for :sidebar, render("admin/sidebar")
+
 - content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        .float-right
-          = render "layouts/edit_delete_dropdown", edit_url: edit_broadcast_path(@broadcast), delete_url: @broadcast, delete_confirmation: "Delete #{@broadcast.title}?"
-        = @title
-  .breadcrumb-container
-    .container
-      .float-right
-        - if @broadcast.published?
-          - if @broadcast.publish_date <= Time.zone.today
-            %span.badge.badge-light Published
-            = link_to "View Blog Post", blog_post_path(@broadcast.url_hash), class: "btn btn-sm btn-light"
-          - else
-            %span.badge.badge-light
-              Set to Publish on
-              = @broadcast.publish_date.strftime("%a, %B %-d, %Y")
-        - else
-          %span.badge.badge-warning DRAFT
-      %ol
-        %li= link_to "Blog Posts", broadcasts_path
+  .float-right
+    = render "layouts/edit_delete_dropdown", edit_url: edit_broadcast_path(@broadcast), delete_url: @broadcast, delete_confirmation: "Delete #{@broadcast.title}?"
+  = @title
 
 .row
   .col-md-3.order-1.order-md-2
@@ -56,4 +44,21 @@
         %br
         = simple_check @broadcast.archived
   .col-md-9.order-2.order-md-1
-    .broadcast= simple_markdown(@broadcast.description, target_blank: false, table_class: "table table-striped table-borderless")
+    .breadcrumb-container
+      .container
+        .float-right
+          - if @broadcast.published?
+            - if @broadcast.publish_date <= Time.zone.today
+              %span.badge.badge-light Published
+              = link_to "View Blog Post", blog_post_path(@broadcast.url_hash), class: "btn btn-sm btn-light"
+            - else
+              %span.badge.badge-light
+                Set to Publish on
+                = @broadcast.publish_date.strftime("%a, %B %-d, %Y")
+          - else
+            %span.badge.badge-warning DRAFT
+        %ol
+          %li= link_to "Blog Posts", broadcasts_path
+
+    .dashboard-container
+      .broadcast= simple_markdown(@broadcast.description, target_blank: false, table_class: "table table-striped table-borderless")

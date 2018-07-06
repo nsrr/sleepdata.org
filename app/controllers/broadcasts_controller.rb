@@ -6,12 +6,15 @@ class BroadcastsController < ApplicationController
   before_action :check_community_manager
   before_action :find_broadcast_or_redirect, only: [:show, :edit, :update, :destroy]
 
-  layout "layouts/full_page_dashboard_no_drawer"
+  layout "layouts/full_page_sidebar"
 
   # GET /broadcasts
   def index
-    @broadcasts = current_user.editable_broadcasts.order(publish_date: :desc, id: :desc)
-                              .page(params[:page]).per(40)
+    @broadcasts = \
+      current_user.editable_broadcasts
+                  .search(params[:search])
+                  .order(publish_date: :desc, id: :desc)
+                  .page(params[:page]).per(40)
   end
 
   # # GET /broadcasts/1

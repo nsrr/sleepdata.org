@@ -1,0 +1,21 @@
+@keyframes wiggle {
+  25% {
+    transform: rotate(7deg);
+  }
+
+  75% {
+    transform: rotate(-7deg);
+  }
+}
+
+.animate-wiggle {
+  animation: wiggle 500ms ease-out infinite;
+}
+
+.animate-wiggle-hover {
+  @media (hover) {
+    &:hover {
+      animation: wiggle 500ms ease-out 1;
+    }
+  }
+}
