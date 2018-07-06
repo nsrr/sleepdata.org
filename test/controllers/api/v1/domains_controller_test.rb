@@ -1,51 +1,51 @@
 # frozen_string_literal: true
 
-require 'test_helper'
+require "test_helper"
 
-class Api::V1::DomainsControllerTest < ActionController::TestCase
+# Test to check domain API.
+class Api::V1::DomainsControllerTest < ActionDispatch::IntegrationTest
   # setup do
   #   @domain = domains(:one)
   # end
 
-  # test 'should get index' do
-  #   get :index
+  # test "should get index" do
+  #   get api_v1_domains_url
   #   assert_response :success
   #   assert_not_nil assigns(:domains)
   # end
 
-  # test 'should get new' do
-  #   get :new
+  # test "should get new" do
+  #   get new_api_v1_domain_url
   #   assert_response :success
   # end
 
-  # test 'should create domain' do
-  #   assert_difference('Domain.count') do
-  #     post :create, domain: { create: @domain.create, name: @domain.name }
+  # test "should create domain" do
+  #   assert_difference("Domain.count") do
+  #     post api_v1_domains_url, domain: { create: @domain.create, name: @domain.name }
   #   end
 
-  #   assert_redirected_to domain_path(assigns(:domain))
+  #   assert_redirected_to domain_url(Domain.first)
   # end
 
-  # test 'should show domain' do
-  #   get :show, id: @domain
+  # test "should show domain" do
+  #   get api_v1_domain_url(@domain)
   #   assert_response :success
   # end
 
-  # test 'should get edit' do
-  #   get :edit, id: @domain
+  # test "should get edit" do
+  #   get edit_api_v1_domain_url(@domain)
   #   assert_response :success
   # end
 
-  # test 'should update domain' do
-  #   patch :update, id: @domain, domain: { create: @domain.create, name: @domain.name }
-  #   assert_redirected_to domain_path(assigns(:domain))
+  # test "should update domain" do
+  #   patch api_v1_domain_url(@domain), params: { domain: { create: @domain.create, name: @domain.name } }
+  #   assert_redirected_to domain_url(assigns(:domain))
   # end
 
-  # test 'should destroy domain' do
-  #   assert_difference('Api::V1::Domain.count', -1) do
-  #     delete :destroy, id: @domain
+  # test "should destroy domain" do
+  #   assert_difference("Domain.count", -1) do
+  #     delete api_v1_domain_url(@domain)
   #   end
-
-  #   assert_redirected_to domains_path
+  #   assert_redirected_to domains_url
   # end
 end
