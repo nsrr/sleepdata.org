@@ -28,7 +28,7 @@ SHELL=/bin/bash
 In order to make full use of the `mini_magick` gem, the underlying ImageMagick
 library and binaries needs to be compiled.
 
-The following instructions are specific to CentOS and Mac OS X systems.
+The following instructions are specific to CentOS and macOS systems.
 
 ### Installing JPEG and PNG libraries
 
@@ -41,13 +41,13 @@ On CentOS:
 sudo yum -y install libjpeg libjpeg-devel libpng libpng-devel
 ```
 
-On Mac OS X:
+On macOS:
 
 Download and install the prebuilt JPG and PNG DMG here:
 http://ethan.tira-thompson.com/Mac_OS_X_Ports.html
 
-Alternatively, you can compile them from source yourself. Mac libjpeg and libpng
-can be found here: http://www.libpng.org/pub/png/libpng.html,
+Alternatively, you can compile them from source yourself. Libraries for macOS
+libjpeg and libpng can be found here: http://www.libpng.org/pub/png/libpng.html,
 http://www.ijg.org/files/
 
 
@@ -101,4 +101,5 @@ The list should include JPEG and PNG
 
 ## License
 
-The NSRR is released under the [MIT License](http://www.opensource.org/licenses/MIT).
+The NSRR is released under the
+[MIT License](http://www.opensource.org/licenses/MIT).
