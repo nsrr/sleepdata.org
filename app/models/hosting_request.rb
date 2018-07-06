@@ -44,7 +44,7 @@ class HostingRequest < ApplicationRecord
   end
 
   def create_notifications!
-    User.system_admins.each do |u|
+    User.admins.each do |u|
       notification = u.notifications.where(hosting_request_id: id).first_or_create
       notification.mark_as_unread!
     end

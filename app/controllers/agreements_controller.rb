@@ -4,7 +4,7 @@
 class AgreementsController < ApplicationController
   before_action :authenticate_user!
   # TODO: Change to only be for organization owners (or remove controller).
-  before_action :check_system_admin
+  before_action :check_admin
   before_action :find_data_request_or_redirect, only: [:update, :destroy]
 
   # GET /agreements
@@ -71,7 +71,7 @@ class AgreementsController < ApplicationController
   end
 
   def redirect_without_data_request
-    empty_response_or_root_path(current_user.system_admin? ? agreements_path : reviews_path) unless @data_request
+    empty_response_or_root_path(current_user.admin? ? agreements_path : reviews_path) unless @data_request
   end
 
   def data_request_params

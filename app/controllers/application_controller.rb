@@ -116,11 +116,13 @@ class ApplicationController < ActionController::Base
   end
 
   def check_community_manager
-    redirect_to root_path, alert: "You do not have sufficient privileges to access that page." unless current_user.community_manager?
+    return if current_user&.community_manager?
+    redirect_to root_path
   end
 
-  def check_system_admin
-    redirect_to root_path, alert: "You do not have sufficient privileges to access that page." unless current_user.system_admin?
+  def check_admin
+    return if current_user&.admin?
+    redirect_to root_path
   end
 
   def scrub_order(model, params_order, default_order)

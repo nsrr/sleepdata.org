@@ -3,7 +3,7 @@
 # Allows tags for forum and agreements to be created by admins
 class TagsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_system_admin
+  before_action :check_admin
   before_action :find_tag_or_redirect, only: [:show, :edit, :update, :destroy]
 
   layout "layouts/full_page_dashboard"

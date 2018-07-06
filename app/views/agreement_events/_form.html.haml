@@ -17,7 +17,7 @@
         = link_to (@agreement_event.new_record? ? "Write" : "Edit"), "#", data: { object: "view-agreement-event", action: "write", agreement_event_id: agreement_event_id }, class: "comment-tab active", tabindex: "-1"
         = link_to "Preview", "#", data: { object: "view-agreement-event view-agreement-event-preview", action: "preview", agreement_event_id: agreement_event_id, agreement_id: @agreement_event.agreement_id }, class: "comment-tab", tabindex: "-1"
         - if @agreement_event.new_record?
-          - if current_user.system_admin?
+          - if current_user.admin?
             = link_to "Review", "#", data: { object: "view-agreement-event", action: "review", agreement_event_id: agreement_event_id }, class: "comment-tab", tabindex: "-1"
             = link_to "Datasets", "#", data: { object: "view-agreement-event", action: "datasets", agreement_event_id: agreement_event_id }, class: "comment-tab", tabindex: "-1"
           = render "agreement_events/tags"

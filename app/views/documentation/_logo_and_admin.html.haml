@@ -13,4 +13,4 @@
   .small-spacer
   .text-center
     = link_to "Edit #{@object.class.name}", edit_path, class: "btn btn-sm btn-outline-secondary"
-    = link_to "Delete #{@object.class.name}", @object, method: :delete, class: "btn btn-sm btn-outline-danger", data: { confirm: "Are you sure you want to delete #{@object.class.name} #{@object.name}?" } if current_user.system_admin?
+    = link_to "Delete #{@object.class.name}", @object, method: :delete, class: "btn btn-sm btn-outline-danger", data: { confirm: "Are you sure you want to delete #{@object.class.name} #{@object.name}?" } if current_user.admin?

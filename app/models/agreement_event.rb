@@ -70,11 +70,11 @@ class AgreementEvent < ApplicationRecord
   end
 
   def editable_by?(current_user)
-    user == current_user || current_user.system_admin?
+    user == current_user || current_user.admin?
   end
 
   def deletable_by?(current_user)
-    user == current_user || current_user.system_admin?
+    user == current_user || current_user.admin?
   end
 
   def commented?

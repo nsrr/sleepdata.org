@@ -4,7 +4,7 @@
 class ExportsController < ApplicationController
   before_action :authenticate_user!
   # TODO: Change to only be for organization owners.
-  before_action :check_system_admin
+  before_action :check_admin
   before_action :find_export_or_redirect, only: [
     :show, :progress, :download, :edit, :update, :destroy
   ]

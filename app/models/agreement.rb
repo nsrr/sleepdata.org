@@ -163,7 +163,7 @@ class Agreement < ApplicationRecord
   end
 
   def notify_admins_on_daua_progress(current_user, agreement_event)
-    other_admins = User.system_admins.where.not(id: current_user.id)
+    other_admins = User.admins.where.not(id: current_user.id)
     other_admins.each do |admin|
       UserMailer.daua_progress_notification(self, admin, agreement_event).deliver_now if EMAILS_ENABLED
     end

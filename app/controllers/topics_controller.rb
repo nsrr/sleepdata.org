@@ -3,7 +3,7 @@
 # Allows users to view and create topics on the forum
 class TopicsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :admin, :subscription]
-  before_action :check_system_admin, only: [:destroy, :admin]
+  before_action :check_admin, only: [:destroy, :admin]
   before_action :find_viewable_topic_or_redirect, only: [:show, :destroy, :admin, :subscription]
   before_action :find_editable_topic_or_redirect, only: [:edit, :update]
 
@@ -93,7 +93,7 @@ class TopicsController < ApplicationController
   end
 
   def topic_params
-    if current_user.system_admin?
+    if current_user.admin?
       params.require(:topic).permit(:title, :slug, :description, :pinned, :locked, tag_ids: [])
     elsif current_user.aug_member? || current_user.core_member?
       params.require(:topic).permit(:title, :slug, :description, tag_ids: [])

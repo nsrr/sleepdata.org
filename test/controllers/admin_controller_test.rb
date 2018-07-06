@@ -60,35 +60,35 @@ class AdminControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_session_url
   end
 
-  test "should get agreement reports for system admin" do
+  test "should get agreement reports for admin" do
     login(@admin)
     get admin_agreement_reports_url
     assert_response :success
   end
 
-  test "should not get agreement reports for non system admin" do
+  test "should not get agreement reports for non admin" do
     get admin_agreement_reports_url
     assert_redirected_to new_user_session_url
   end
 
-  test "should get downloads by month for system admin" do
+  test "should get downloads by month for admin" do
     login(@admin)
     get admin_downloads_by_month_url
     assert_response :success
   end
 
-  test "should not get downloads by month for non system admin" do
+  test "should not get downloads by month for non admin" do
     get admin_downloads_by_month_url
     assert_redirected_to new_user_session_url
   end
 
-  test "should get downloads by quarter for system admin" do
+  test "should get downloads by quarter for admin" do
     login(@admin)
     get admin_downloads_by_quarter_url
     assert_response :success
   end
 
-  test "should not get downloads by quarter for non system admin" do
+  test "should not get downloads by quarter for non admin" do
     get admin_downloads_by_quarter_url
     assert_redirected_to new_user_session_url
   end

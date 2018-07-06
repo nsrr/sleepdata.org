@@ -6,7 +6,7 @@ valid:
   username: valid
   full_name: FirstName LastName
   deleted: false
-  system_admin: false
+  admin: false
   email: valid@example.com
   confirmed_at: <%= confirmed_at %>
   encrypted_password: <%= pw %>
@@ -177,7 +177,7 @@ two:
 admin:
   username: admin
   full_name: FirstAdmin LastAdmin
-  system_admin: true
+  admin: true
   email: admin@example.com
   confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
@@ -186,7 +186,7 @@ admin:
 admin_two:
   username: admintwo
   full_name: FirstAdminTwo LastAdminTwo
-  system_admin: true
+  admin: true
   email: admin_two@example.com
   confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
@@ -222,7 +222,7 @@ aug:
   full_name: AUG Member
   deleted: false
   aug_member: true
-  system_admin: false
+  admin: false
   email: aug@example.com
   confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
@@ -233,7 +233,7 @@ core:
   full_name: Core Member
   deleted: false
   core_member: true
-  system_admin: false
+  admin: false
   email: core@example.com
   confirmed_at: <%= confirmed_at %>
   encrypted_password: ""
@@ -244,7 +244,7 @@ contributor:
   full_name: Contributing Member
   deleted: false
   contributor: true
-  system_admin: false
+  admin: false
   email: contributor@example.com
   confirmed_at: <%= confirmed_at %>
   encrypted_password: ""

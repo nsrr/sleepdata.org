@@ -47,7 +47,7 @@ class CommunityTool < ApplicationRecord
   end
 
   def editable_by?(current_user)
-    current_user && (current_user.system_admin? || current_user == user)
+    current_user && (current_user.admin? || current_user == user)
   end
 
   def safe_url?

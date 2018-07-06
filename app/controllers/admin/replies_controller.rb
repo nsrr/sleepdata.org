@@ -3,7 +3,7 @@
 # Allows admins to view all forum topic and blog post replies in one location.
 class Admin::RepliesController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_system_admin
+  before_action :check_admin
 
   layout "layouts/full_page_dashboard_no_drawer"
 

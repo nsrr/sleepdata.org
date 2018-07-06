@@ -3,7 +3,7 @@
 # Allows admins to create and modify broadcast categories.
 class CategoriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_system_admin
+  before_action :check_admin
   before_action :find_category_or_redirect, only: [:show, :edit, :update, :destroy]
 
   # GET /categories

@@ -3,7 +3,7 @@
 # Allows user to insert images into blog and forum posts
 class ImagesController < ApplicationController
   before_action :authenticate_user!, only: [:index, :new, :edit, :create, :create_multiple, :update, :destroy]
-  before_action :check_system_admin, only: [:index, :edit, :update, :destroy]
+  before_action :check_admin, only: [:index, :edit, :update, :destroy]
   before_action :set_image, only: [:show, :download, :edit, :update, :destroy]
 
   # GET /images

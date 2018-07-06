@@ -3,7 +3,7 @@
 # Allows dataset admins to create and deleted datasets.
 class Admin::DatasetsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_system_admin
+  before_action :check_admin
   before_action :find_editable_dataset_or_redirect, only: [:destroy]
 
   # GET /datasets/new

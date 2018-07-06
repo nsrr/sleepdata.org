@@ -3,7 +3,7 @@
 # Allows admins to review community submitted tools.
 class CommunityToolsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_system_admin
+  before_action :check_admin
   before_action :set_community_tool, only: [:show, :edit, :update, :destroy]
 
   # GET /community-tools

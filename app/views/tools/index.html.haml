@@ -28,7 +28,7 @@
       %col.d-none.d-sm-table-column{ width: "25%" }
       %col{ width: "1px" }
       %col.d-none.d-md-table-column
-      - if current_user && current_user.system_admin?
+      - if current_user && current_user.admin?
         %col{ width: "1px" }
       %thead
         %tr
@@ -56,7 +56,7 @@
                 - [["Program", "program"], ["Script", "script"], ["Tutorial", "tutorial"]].each do |label, value|
                   = link_to label, tools_path(order: params[:order], type: value), style: params[:type] == value ? "font-weight:bold;" : "", class: "dropdown-item"
           = th_sort_field_rev @order, "community_tools.publish_date", "Published", extra_class: "d-none d-md-block text-center"
-          - if current_user && current_user.system_admin?
+          - if current_user && current_user.admin?
             %th.text-center
               .d-none.d-sm-inline-block Actions
 
@@ -84,7 +84,7 @@
                 = community_tool.publish_date
               - else
                 %span.badge.badge-warning DRAFT
-            - if current_user && current_user.system_admin?
+            - if current_user && current_user.admin?
               %td
                 = render "layouts/edit_delete_dropdown", edit_url: edit_community_tool_path(community_tool), delete_url: community_tool, delete_confirmation: "Delete #{community_tool.name}?"
 

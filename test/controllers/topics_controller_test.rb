@@ -176,7 +176,7 @@ class TopicsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to topics_url
   end
 
-  test "should lock topic as system admin" do
+  test "should lock topic as admin" do
     login(users(:admin))
     post admin_topic_url(@topic), params: { topic: { locked: "1" } }
     assert_not_nil assigns(:topic)
@@ -195,7 +195,7 @@ class TopicsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_user_session_url
   end
 
-  test "should sticky a topic as system admin" do
+  test "should sticky a topic as admin" do
     login(users(:admin))
     post admin_topic_url(@topic), params: { topic: { pinned: "1" } }
     assert_not_nil assigns(:topic)

@@ -3,7 +3,7 @@
 # Allows admins to review and respond to hosting requests.
 class HostingRequestsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_system_admin
+  before_action :check_admin
   before_action :find_hosting_request_or_redirect, only: [:show, :edit, :update, :destroy]
 
   layout "layouts/full_page_dashboard_no_drawer"

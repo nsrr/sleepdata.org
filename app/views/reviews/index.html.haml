@@ -5,7 +5,7 @@
     .container
       %h1.page-heading
         .float-right
-          = link_to download_or("Export CSV"), export_agreements_path, method: :post, class: "btn btn-primary btn-shadow" if current_user.system_admin?
+          = link_to download_or("Export CSV"), export_agreements_path, method: :post, class: "btn btn-primary btn-shadow" if current_user.admin?
           = render "layouts/per_page", per_page: 40, object_count: @data_requests.total_count
         = @title
         = render "search/toggle"

@@ -3,7 +3,7 @@
 # Allows admins to manage user accounts.
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_system_admin
+  before_action :check_admin
   before_action :find_user_or_redirect, only: [:show, :edit, :update, :destroy]
 
   layout "layouts/full_page_sidebar"
@@ -51,7 +51,7 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(
       :full_name, :email, :username, :research_summary, :degree,
-      :aug_member, :core_member, :system_admin, :community_manager,
+      :aug_member, :core_member, :admin, :community_manager,
       :emails_enabled, :contributor, :profile_bio, :profile_url,
       :profile_location, :shadow_banned, :spammer
     )

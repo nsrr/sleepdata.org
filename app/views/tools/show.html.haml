@@ -19,7 +19,7 @@
           %br
           - if current_user == @community_tool.user
             = link_to "Edit Tool", contribute_tool_description_path(@community_tool), class: "btn btn-sm btn-primary"
-          - if current_user.system_admin?
+          - if current_user.admin?
             = link_to edit_community_tool_path(@community_tool), class: "btn btn-sm btn-light" do
               %i.fa.fa-cog
               Edit

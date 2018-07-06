@@ -52,7 +52,7 @@ class User < ApplicationRecord
   # Scopes
   scope :aug_members, -> { current.where(aug_member: true) }
   scope :core_members, -> { current.where(core_member: true) }
-  scope :system_admins, -> { current.where(system_admin: true) }
+  scope :admins, -> { current.where(admin: true) }
   scope :with_name, ->(arg) { where("users.full_name IN (?) or users.username IN (?)", arg, arg) }
   scope :no_spammer_or_shadow_banned, -> { where(spammer: [false, nil], shadow_banned: [false, nil]) }
 
@@ -132,10 +132,6 @@ class User < ApplicationRecord
     topic_user = topic_users.where(topic_id: parent.id).first_or_create
     topic_user.update current_reply_read_id: [topic_user.current_reply_read_id.to_i, current_reply_read_id].max,
                       last_reply_read_id: topic_user.current_reply_read_id
-  end
-
-  def admin?
-    system_admin?
   end
 
   # This should take the organization into account.

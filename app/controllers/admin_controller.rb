@@ -3,7 +3,7 @@
 # Dedicated to admin-only tasks of the site
 class AdminController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_system_admin
+  before_action :check_admin
 
   layout "layouts/full_page_sidebar"
 

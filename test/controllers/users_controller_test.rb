@@ -16,38 +16,37 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     {
       full_name: "New User",
       email: "newuser@example.com",
-      system_admin: false
+      admin: false
     }
   end
 
-  test "should get index for system admin" do
+  test "should get index for admin" do
     login(@admin)
     get users_url
     assert_not_nil assigns(:users)
     assert_response :success
   end
 
-  test "should not get index for non-system admin" do
+  test "should not get index for non-admin" do
     login(@regular)
     get users_url
     assert_nil assigns(:users)
-    assert_equal "You do not have sufficient privileges to access that page.", flash[:alert]
     assert_redirected_to root_url
   end
 
-  test "should show user for system admin" do
+  test "should show user for admin" do
     login(@admin)
     get user_url(@user)
     assert_response :success
   end
 
-  test "should get edit for system admin" do
+  test "should get edit for admin" do
     login(@admin)
     get edit_user_url(@user)
     assert_response :success
   end
 
-  test "should update user for system admin" do
+  test "should update user for admin" do
     login(@admin)
     patch user_url(@user), params: { user: user_hash }
     assert_redirected_to user_url(assigns(:user))
