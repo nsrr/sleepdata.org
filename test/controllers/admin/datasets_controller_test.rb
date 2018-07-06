@@ -3,7 +3,7 @@
 require "test_helper"
 
 # Tests to assure that admins can create and delete datasets.
-class Admin::DatasetsControllerTest < ActionController::TestCase
+class Admin::DatasetsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @dataset = datasets(:released)
     @admin = users(:admin)
@@ -22,37 +22,37 @@ class Admin::DatasetsControllerTest < ActionController::TestCase
 
   test "should get new" do
     login(@admin)
-    get :new
+    get new_dataset_url
     assert_response :success
   end
 
   test "should create dataset" do
     login(@admin)
     assert_difference("Dataset.count") do
-      post :create, params: { dataset: dataset_params }
+      post datasets_url, params: { dataset: dataset_params }
     end
-    assert_redirected_to dataset_path(assigns(:dataset))
+    assert_redirected_to dataset_url(assigns(:dataset))
   end
 
   test "should not create dataset as anonymous user" do
     assert_difference("Dataset.count", 0) do
-      post :create, params: { dataset: dataset_params }
+      post datasets_url, params: { dataset: dataset_params }
     end
-    assert_redirected_to new_user_session_path
+    assert_redirected_to new_user_session_url
   end
 
   test "should not create dataset as regular user" do
     login(users(:valid))
     assert_difference("Dataset.count", 0) do
-      post :create, params: { dataset: dataset_params }
+      post datasets_url, params: { dataset: dataset_params }
     end
-    assert_redirected_to root_path
+    assert_redirected_to root_url
   end
 
   test "should not create dataset with blank name" do
     login(@admin)
     assert_difference("Dataset.count", 0) do
-      post :create, params: { dataset: dataset_params.merge(name: "") }
+      post datasets_url, params: { dataset: dataset_params.merge(name: "") }
     end
     assert_equal ["can't be blank"], assigns(:dataset).errors[:name]
     assert_template "new"
@@ -61,7 +61,7 @@ class Admin::DatasetsControllerTest < ActionController::TestCase
   test "should not create dataset existing slug" do
     login(@admin)
     assert_difference("Dataset.count", 0) do
-      post :create, params: { dataset: dataset_params.merge(slug: "released") }
+      post datasets_url, params: { dataset: dataset_params.merge(slug: "released") }
     end
     assert_equal ["has already been taken"], assigns(:dataset).errors[:slug]
     assert_template "new"
@@ -70,8 +70,8 @@ class Admin::DatasetsControllerTest < ActionController::TestCase
   test "should destroy dataset" do
     login(@admin)
     assert_difference("Dataset.current.count", -1) do
-      delete :destroy, params: { id: @dataset }
+      delete dataset_url(@dataset)
     end
-    assert_redirected_to datasets_path
+    assert_redirected_to datasets_url
   end
 end
