@@ -1,7 +1,7 @@
 - if notification.reply
   = render "notifications/show/reply", notification: notification
-- elsif notification.community_tool_review
-  = render "notifications/show/community_tool_review", notification: notification
+- elsif notification.tool_review
+  = render "notifications/show/tool_review", notification: notification
 - elsif notification.dataset_review
   = render "notifications/show/dataset_review", notification: notification
 - elsif notification.hosting_request

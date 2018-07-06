@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# Community tool is a user submitted tool.
-class CommunityTool < ApplicationRecord
+# Tracks status of user submitted tool.
+class Tool < ApplicationRecord
   # Constants
   STATUS = %w(started submitted accepted rejected)
 
@@ -18,7 +18,7 @@ class CommunityTool < ApplicationRecord
   scope :published, -> { current.where(published: true) }
 
   # Validations
-  validates :user_id, :url, :status, presence: true
+  validates :url, :status, presence: true
   validates :name, :description, presence: true, if: :published?
   validates :name, uniqueness: { scope: :user_id, case_sensitive: false }, if: :published?
   validates :url, format: URI.regexp(%w(http https ftp))
@@ -29,7 +29,7 @@ class CommunityTool < ApplicationRecord
 
   # Relationships
   belongs_to :user
-  has_many :community_tool_reviews, -> { order(rating: :desc, id: :desc) }
+  has_many :tool_reviews, -> { order(rating: :desc, id: :desc) }
 
   # Methods
 
@@ -57,7 +57,7 @@ class CommunityTool < ApplicationRecord
   end
 
   def recalculate_rating!
-    ratings = community_tool_reviews.where.not(rating: nil).pluck(:rating)
+    ratings = tool_reviews.where.not(rating: nil).pluck(:rating)
     update rating: ratings.present? ? ratings.inject(&:+).to_f / ratings.count : 3
   end
 

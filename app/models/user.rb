@@ -81,8 +81,6 @@ class User < ApplicationRecord
   has_many :agreements, -> { current }
   has_many :agreement_events
   has_many :broadcasts, -> { current }
-  has_many :community_tools, -> { current }
-  has_many :community_tool_reviews
   has_many :data_request_reviews
   has_many :data_requests, -> { current }
   has_many :datasets, -> { current }
@@ -95,6 +93,8 @@ class User < ApplicationRecord
   has_many :replies, -> { current.left_outer_joins(:broadcast, :topic).where(topics: { id: Topic.current}).or(current.left_outer_joins(:broadcast, :topic).where(broadcasts: { id: Broadcast.published })) }
   has_many :subscriptions
   has_many :tags, -> { current }
+  has_many :tools, -> { current }
+  has_many :tool_reviews
   has_many :topics, -> { current }
   has_many :topic_users
 
@@ -117,7 +117,7 @@ class User < ApplicationRecord
   end
 
   def reviewed_tool?(tool)
-    tool.community_tool_reviews.find_by(user_id: id).present?
+    tool.tool_reviews.find_by(user_id: id).present?
   end
 
   def reviewed_dataset?(dataset)

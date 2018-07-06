@@ -1,4 +1,4 @@
-- @title = @community_tool.name
+- @title = @tool.name
 
 - content_for :header do
   .header-container
@@ -9,87 +9,51 @@
 .row
   .col-md-9
     .markdown-container-new
-      = simple_markdown(@community_tool.description, target_blank: false)
+      = simple_markdown(@tool.description, target_blank: false)
 
   .col-md-3
     .menu-sticky
-      - if @community_tool.editable_by?(current_user)
+      - if @tool.editable_by?(current_user)
         %p
           %strong Actions
           %br
-          - if current_user == @community_tool.user
-            = link_to "Edit Tool", contribute_tool_description_path(@community_tool), class: "btn btn-sm btn-primary"
+          - if current_user == @tool.user
+            = link_to "Edit Tool", contribute_tool_description_path(@tool), class: "btn btn-sm btn-primary"
           - if current_user.admin?
-            = link_to edit_community_tool_path(@community_tool), class: "btn btn-sm btn-light" do
+            = link_to edit_admin_tool_path(@tool), class: "btn btn-sm btn-light" do
               %i.fa.fa-cog
               Edit
 
       %p
         %strong Author
         %br
-        = link_to @community_tool.user.username, tools_member_path(@community_tool.user.username)
+        = link_to @tool.user.username, tools_member_path(@tool.user.username)
 
       %p
         %strong Date Added
         %br
-        - if @community_tool.publish_date
-          = @community_tool.publish_date.strftime("%B %-d, %Y")
+        - if @tool.publish_date
+          = @tool.publish_date.strftime("%B %-d, %Y")
         - else
-          = @community_tool.created_at.strftime("%B %-d, %Y")
+          = @tool.created_at.strftime("%B %-d, %Y")
 
       %p
         %strong Rating
         %br
-        = link_to community_tool_community_tool_reviews_path(@community_tool) do
-          = render "community_tools/rating", rating: @community_tool.rating
-        - if @community_tool.community_tool_reviews.count.positive?
+        = link_to tool_tool_reviews_path(@tool) do
+          = render "tools/rating", rating: @tool.rating
+        - if @tool.tool_reviews.count.positive?
           %br
-          = link_to community_tool_community_tool_reviews_path(@community_tool) do
-            = pluralize(number_with_delimiter(@community_tool.community_tool_reviews.count), "Review")
+          = link_to tool_tool_reviews_path(@tool) do
+            = pluralize(number_with_delimiter(@tool.tool_reviews.count), "Review")
         %br
-        - if current_user && current_user.reviewed_tool?(@community_tool)
+        - if current_user && current_user.reviewed_tool?(@tool)
           - link_text = "Update my review"
         - else
           - link_text = "Write a review"
-        = link_to link_text, new_community_tool_community_tool_review_path(@community_tool)
+        = link_to link_text, new_tool_tool_review_path(@tool)
 
       %p
         %strong Source
         %br
-        = link_to_if @community_tool.safe_url?, @community_tool.url, @community_tool.url, target: "_blank", style: "word-wrap: break-word;"
-
-      - if false
-        %p
-          %strong
-            Add to Favorites
-          Favorite this Tool
-
-        %p
-          %strong
-            Discuss this Tool
-          Add a Comment
-
-        %p
-          %strong
-            Language
-          This is written in Ruby!
-
-        %p
-          %strong
-            Category/Tags
-          %code tag1
-          %code tag2
-          %code tagd
-
-        %p
-          %strong Editor's Choice Tool
-          This is an editor's choice tool!
-
-        %p
-          %strong Date last reviewed/Verified
-          Shown if it's earlier than the last updated by user.
-
-        %p
-          %strong License
-          http://choosealicense.com/
-          Remember to choose a license?
+        = link_to_if @tool.safe_url?, @tool.url, @tool.url, target: "_blank", style: "word-wrap: break-word;"

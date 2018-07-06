@@ -52,7 +52,7 @@
             - notifications.each do |notification|
               %tr{ id: "notification_#{notification.id}"}
                 = render "notifications/show", notification: notification
-      - @notifications.where.not(community_tool_id: nil).order(created_at: :desc).includes(:community_tool, :community_tool_review).group_by(&:community_tool).each do |community_tool, notifications|
+      - @notifications.where.not(tool_id: nil).order(created_at: :desc).includes(:tool, :tool_review).group_by(&:tool).each do |tool, notifications|
         %table.table.table-fixed
           %col{ width: "32px" }
           %col{ }
@@ -61,11 +61,11 @@
           %col{ width: "32px" }
           %thead
             %tr
-              %th{ colspan: 2 }= link_to community_tool.name, tool_path(community_tool), class: "link-unstyled"
+              %th{ colspan: 2 }= link_to tool.name, tool_path(tool), class: "link-unstyled"
               %th.d-none.d-md-table-cell
               %th.d-none.d-md-table-cell
               %th
-                = link_to mark_all_as_read_notifications_path(community_tool_id: community_tool.id), method: :patch, remote: true, class: "text-muted" do
+                = link_to mark_all_as_read_notifications_path(tool_id: tool.id), method: :patch, remote: true, class: "text-muted" do
                   %i.fa.fa-check
           %tbody
             - notifications.each do |notification|

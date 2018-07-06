@@ -1,0 +1,30 @@
+- url = tool.new_record? ? admin_tools_path : admin_tool_path(tool)
+= form_with model: tool, url: url, local: true do |form|
+  = render "forms/horizontal/text_field", form: form, object: tool, key: :name, slug: "slug"
+  = render "forms/horizontal/slug_field", form: form, object: tool, key: :slug
+  = render "forms/horizontal/text_field", form: form, object: tool, key: :series
+  = render "forms/horizontal/text_field", form: form, object: tool, key: :url, key_name: "Repository URL"
+
+  .form-group.row
+    = form.label :description, class: "col-md-2 col-form-label"
+    .col-md-10
+      .preview-container
+        .preview-header
+          .float-right
+            = render "replies/rich_text_editor_buttons", target: "#tool_description"
+          = link_to "Write", "#", data: { object: "view-content-markdown" }, class: "preview-tab active", tabindex: "-1"
+          = link_to "Preview", "#", data: { object: "view-content-preview", content: "#tool_description" }, class: "preview-tab", tabindex: "-1"
+        .preview-body
+          #content_markdown
+            = form.text_area :description, rows: [[15, tool.description.to_s.count("\n") + 1].max, 25].min, class: "preview-control filedrag-container", data: { object: "expandable-text-area dropfile", default_rows: 15, upload_url: upload_images_path(update: "#tool_description", format: "js"), fallback_url: new_image_path, log_id: "#log_new" }
+            #log_new.filedrag
+              Drag images above to insert into post.
+
+          #content_preview.markdown-container-new{ style: "display: none;" }
+
+  = render "forms/horizontal/date_field", form: form, object: tool, key: :publish_date
+  = render "forms/horizontal/check_box", form: form, object: tool, key: :published
+  = render "forms/horizontal/check_box", form: form, object: tool, key: :tag_program, key_name: "Program"
+  = render "forms/horizontal/check_box", form: form, object: tool, key: :tag_script, key_name: "Script"
+  = render "forms/horizontal/check_box", form: form, object: tool, key: :tag_tutorial, key_name: "Tutorial"
+  = render "forms/horizontal/submit", form: form, object: tool, cancel: url

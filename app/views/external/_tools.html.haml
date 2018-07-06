@@ -43,13 +43,13 @@
           %i.fa.fa-graduation-cap
         Learn
       .card-body
-        - tutorials = CommunityTool.current.where(published: true, tag_tutorial: true).order(Arel.sql("rating desc nulls last")).limit(3)
-        - tutorials.each do |community_tool|
+        - tutorials = Tool.current.where(published: true, tag_tutorial: true).order(Arel.sql("rating desc nulls last")).limit(3)
+        - tutorials.each do |tool|
           %div.nowrap.overflow-hidden
-            - if community_tool.rating
-              %small.text-muted= community_tool.rating.round(1)
+            - if tool.rating
+              %small.text-muted= tool.rating.round(1)
               %i.fa.fa-star.text-warning{ aria: { hidden: "true" } }
-            = link_to community_tool.name, tool_path(community_tool)
+            = link_to tool.name, tool_path(tool)
 
   - if false
     .landing-tool-box.box-shadow
@@ -88,12 +88,12 @@
         .landing-tool-header
           Learn
         .landing-tool-links
-          - tutorials = CommunityTool.current.where(published: true, tag_tutorial: true).order(Arel.sql("rating desc nulls last")).limit(3)
-          - tutorials.each do |community_tool|
+          - tutorials = Tool.current.where(published: true, tag_tutorial: true).order(Arel.sql("rating desc nulls last")).limit(3)
+          - tutorials.each do |tool|
             %div
-              = link_to community_tool.name, tool_path(community_tool)
-              - if community_tool.rating
-                %small.text-muted= community_tool.rating.round(1)
+              = link_to tool.name, tool_path(tool)
+              - if tool.rating
+                %small.text-muted= tool.rating.round(1)
                 %i.fa.fa-star.text-warning{ aria: { hidden: "true" } }
 
   .landing-sentence.d-block.d-lg-none.text-left{ style: "font-weight: normal;" }

@@ -7,8 +7,8 @@ class Notification < ApplicationRecord
   belongs_to :broadcast, optional: true
   belongs_to :topic, optional: true
   belongs_to :reply, optional: true
-  belongs_to :community_tool, optional: true
-  belongs_to :community_tool_review, optional: true
+  belongs_to :tool, optional: true
+  belongs_to :tool_review, optional: true
   belongs_to :dataset, optional: true
   belongs_to :dataset_review, optional: true
   belongs_to :hosting_request, optional: true

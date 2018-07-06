@@ -5,8 +5,8 @@ require "test_helper"
 # Allows users to view and explore tools.
 class ToolsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @published = community_tools(:published)
-    @draft = community_tools(:draft)
+    @published = tools(:published)
+    @draft = tools(:draft)
   end
 
   test "should get index" do

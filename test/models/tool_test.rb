@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class CommunityToolReviewTest < ActiveSupport::TestCase
+class ToolTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

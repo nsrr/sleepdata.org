@@ -21,8 +21,8 @@
         - @tools.each do |tool|
           %li
             - if false
-              = link_to community_tool_community_tool_reviews_path(tool) do
-                = render "community_tools/rating", rating: tool.rating
+              = link_to tool_tool_reviews_path(tool) do
+                = render "tools/rating", rating: tool.rating
             = link_to tool.name, tool_path(tool)
 
     .center-horizontally= paginate @tools, theme: "bootstrap"

@@ -1,0 +1,19 @@
+- @title = @tool.name
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        = @title
+  .breadcrumb-container.p-2
+    .container
+      .float-right
+        = render "layouts/draft_published", published: @tool.published?
+      %ol
+        %li= link_to "Tools", admin_tools_path
+        %li= link_to @tool.name, admin_tool_path(@tool)
+        %li= render "layouts/breadcrumb_edit_delete_dropdown", edit_url: edit_admin_tool_path(@tool), delete_url: admin_tool_path(@tool), delete_confirmation: "Delete #{@tool.name}?"
+
+= render "forms/horizontal/show/generic", title: "URL", content: link_to(@tool.url, @tool.url)
+= render "forms/horizontal/show/generic", title: "User", content: @tool.user.username
+= render "forms/horizontal/show/generic", title: "Description", content: simple_markdown(@tool.description)

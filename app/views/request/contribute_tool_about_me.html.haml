@@ -14,7 +14,7 @@
       About Yourself
 
     = form_with model: @user, url: contribute_tool_register_user_path, method: :post, local: true do |form|
-      = form.hidden_field :url, name: "community_tool[url]", value: @community_tool.url
+      = form.hidden_field :url, name: "tool[url]", value: @tool.url
 
       = render "devise/registrations/form_fields", form: form, user: @user
 
@@ -27,7 +27,7 @@
     .sign-up-form-title
       About Yourself
 
-    = form_for @community_tool, url: contribute_tool_sign_in_user_path, method: :patch, html: { class: "form-vertical", id: "form_sign_in" } do |f|
+    = form_for @tool, url: contribute_tool_sign_in_user_path, method: :patch, html: { class: "form-vertical", id: "form_sign_in" } do |f|
       = f.hidden_field :url
 
       .form-group{ class: @sign_in_errors ? "has-error" : "" }

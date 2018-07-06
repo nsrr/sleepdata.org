@@ -1,0 +1,44 @@
+- @title = "Tools"
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        .float-right
+          = link_to plus_or("New Tool"), new_admin_tool_path, class: "btn btn-primary btn-shadow"
+          = render "layouts/per_page", per_page: 40, object_count: @tools.total_count
+        = link_to @title, tools_path
+        Admin
+
+%table.table.table-striped.table-borderless.table-hover.table-sticky
+  %col{ width: "1px" }
+  %col
+  %col
+  %col
+  %col{ width: "1px" }
+  %thead
+    %tr
+      %th
+      %th Name
+      %th User
+      %th.text-center Type
+      %th.text-center
+        .d-none.d-sm-inline-block Actions
+
+  %tbody
+    - @tools.each do |tool|
+      %tr
+        %td.text-center= render "layouts/draft_published", published: tool.published?
+        %td= link_to tool.name, admin_tool_path(tool)
+        %td= tool.user.username
+        %td.text-center
+          - if tool.tag_program?
+            %span.badge.badge-dark Program
+          - if tool.tag_script?
+            %span.badge.badge-dark Script
+          - if tool.tag_tutorial?
+            %span.badge.badge-light Tutorial
+        %td
+          = render "layouts/edit_delete_dropdown", edit_url: edit_admin_tool_path(tool), delete_url: admin_tool_path(tool), delete_confirmation: "Delete #{tool.name}?"
+
+.center-horizontally= paginate @tools, theme: "bootstrap"

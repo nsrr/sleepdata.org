@@ -54,7 +54,7 @@ SitemapGenerator::Sitemap.create do
     end
   end
 
-  CommunityTool.current.where(published: true).each do |tool|
+  Tool.current.where(published: true).each do |tool|
     add "/tools/#{tool.to_param}", changefreq: "weekly"
   end
 end

@@ -26,11 +26,6 @@ class MembersController < ApplicationController
     end
   end
 
-  # GET /members/:username
-  def show
-    redirect_to posts_member_path(params[:id])
-  end
-
   # GET /members/:username/posts
   def posts
     @replies = @member.replies.order(created_at: :desc).page(params[:page]).per(10)
@@ -39,7 +34,7 @@ class MembersController < ApplicationController
   end
 
   def tools
-    @tools = @member.community_tools.published.order(Arel.sql("LOWER(community_tools.name)")).page(params[:page]).per(10)
+    @tools = @member.tools.published.order(Arel.sql("LOWER(tools.name)")).page(params[:page]).per(10)
   end
 
   private

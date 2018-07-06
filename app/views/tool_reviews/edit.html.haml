@@ -1,0 +1,14 @@
+- @title = "Update Review - #{@tool.name}"
+
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        Update Review
+  .breadcrumb-container
+    .container
+      %ol
+        %li= link_to @tool.name, tool_path(@tool)
+
+.dashboard-container
+  = render "form", tool_review: @tool_review

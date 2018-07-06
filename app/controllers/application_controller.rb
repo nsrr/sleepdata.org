@@ -47,8 +47,6 @@ class ApplicationController < ActionController::Base
       agreements: [:step, :new_step, :proof],
       broadcasts: [],
       categories: [],
-      community_tool_reviews: [:new, :edit, :create, :update, :destroy],
-      community_tools: [],
       data_requests: [:index, :show, :page, :attest, :submitted],
       datasets: [:index, :show, :new, :edit],
       dataset_reviews: [:new, :edit, :create, :update, :destroy],
@@ -63,6 +61,7 @@ class ApplicationController < ActionController::Base
       reviews: [],
       settings: [],
       tags: [],
+      tool_reviews: [:new, :edit, :create, :update, :destroy],
       tools: [:index, :show, :new, :edit],
       topics: [:new, :edit],
       users: []
@@ -79,15 +78,14 @@ class ApplicationController < ActionController::Base
   def external_controllers
     {
       blog: [],
-      community_tool_reviews: [:index, :show],
-      community_tools: [:index, :show],
       datasets: [:index, :show],
       dataset_reviews: [:index, :show],
       external: [],
       replies: [:show],
       search: [],
       showcase: [],
-      tools: [:index, :show, :community_show],
+      tool_reviews: [:index, :show],
+      tools: [:index, :show],
       topics: [:index, :show],
       variables: []
     }

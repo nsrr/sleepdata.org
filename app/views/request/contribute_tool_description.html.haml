@@ -4,32 +4,32 @@
   .sign-up-form-title
     About Your Tool
 
-  = form_with model: @community_tool, url: contribute_tool_set_description_path, method: :post, id: "contribute_tool_form", local: true do |form|
+  = form_with model: @tool, url: contribute_tool_set_description_path, method: :post, id: "contribute_tool_form", local: true do |form|
     = hidden_field_tag :draft, 0
 
     .form-group
       = form.label :name, nil, class: "control-label"
       = form.text_field :name, class: "form-control"
-      = render "layouts/errors", object: @community_tool, key: :name
+      = render "layouts/errors", object: @tool, key: :name
 
     .form-group
       = form.label :description, nil, class: "control-label"
       .preview-container
         .preview-header
           .float-right
-            = render "replies/rich_text_editor_buttons", target: "#community_tool_description"
+            = render "replies/rich_text_editor_buttons", target: "#tool_description"
           = link_to "Write", "#", data: { object: "view-content-markdown" }, class: "preview-tab active", tabindex: "-1"
-          = link_to "Preview", "#", data: { object: "view-content-preview", content: "#community_tool_description" }, class: "preview-tab", tabindex: "-1"
+          = link_to "Preview", "#", data: { object: "view-content-preview", content: "#tool_description" }, class: "preview-tab", tabindex: "-1"
         .preview-body
           #content_markdown
-            = form.text_area :description, rows: [[15, @community_tool.description.to_s.count("\n") + 1].max, 25].min, class: "preview-control filedrag-container", data: { object: "expandable-text-area dropfile", default_rows: 15, upload_url: upload_images_path(update: "#community_tool_description", format: "js"), fallback_url: new_image_path, log_id: "#log_new" }
+            = form.text_area :description, rows: [[15, @tool.description.to_s.count("\n") + 1].max, 25].min, class: "preview-control filedrag-container", data: { object: "expandable-text-area dropfile", default_rows: 15, upload_url: upload_images_path(update: "#tool_description", format: "js"), fallback_url: new_image_path, log_id: "#log_new" }
             #log_new.filedrag
               Drag images above to insert into post.
           #content_preview.markdown-container-new{ style: "display: none;" }
-      = render "layouts/errors", object: @community_tool, key: :description
+      = render "layouts/errors", object: @tool, key: :description
 
 .text-center{ style: "margin-bottom: 20px" }
-  - if @community_tool.published_was
+  - if @tool.published_was
     = link_to "Update Tool", "#", data: { object: "submit", target: "#contribute_tool_form" }, class: "btn btn-primary btn-lg ", style: "width:100%; max-width: 400px;"
   - else
     = succeed " " do

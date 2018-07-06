@@ -1,0 +1,19 @@
+= form_for [@tool, tool_review], html: { class: "form-horizontal" } do |f|
+
+  .form-group
+    = f.label :rating, nil, class: "col-md-2 control-label"
+    .col-md-10
+      .control-label{ style: "text-align: left;" }
+        = render "tool_reviews/rating", f: f, tool_review: tool_review
+        = render "layouts/errors", object: tool_review, key: :rating
+
+  .form-group
+    = f.label :review, nil, class: "col-md-2 control-label"
+    .col-md-10
+      = f.text_area :review, rows: 7, class: "form-control"
+      = render "layouts/errors", object: tool_review, key: :review
+
+  .form-group
+    .col-md-10.col-md-offset-2
+      = f.submit tool_review.new_record? ? "Write Review" : "Update Review", class: "btn btn-primary"
+      = link_to "Cancel", tool_path(@tool), class: "btn btn-light"

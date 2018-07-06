@@ -7,22 +7,22 @@ class ToolsController < ApplicationController
   # GET /tools
   # GET /tools.json
   def index
-    @order = scrub_order(CommunityTool, params[:order], "community_tools.name")
-    if @order == "community_tools.name"
-      community_tool_scope = community_tools.order(Arel.sql("LOWER(community_tools.name)"))
-    elsif @order == "community_tools.name desc nulls last"
-      community_tool_scope = community_tools.order(Arel.sql("LOWER(community_tools.name) desc nulls last"))
+    @order = scrub_order(Tool, params[:order], "tools.name")
+    if @order == "tools.name"
+      tool_scope = tools.order(Arel.sql("LOWER(tools.name)"))
+    elsif @order == "tools.name desc nulls last"
+      tool_scope = tools.order(Arel.sql("LOWER(tools.name) desc nulls last"))
     else
-      community_tool_scope = community_tools.order(@order)
+      tool_scope = tools.order(@order)
     end
     if params[:a].present?
       user_ids = User.current.with_name(params[:a].to_s.split(","))
-      community_tool_scope = community_tool_scope.where(user_id: user_ids.select(:id))
+      tool_scope = tool_scope.where(user_id: user_ids.select(:id))
     end
-    community_tool_scope = community_tool_scope.where(tag_program: true) if params[:type] == "program"
-    community_tool_scope = community_tool_scope.where(tag_script: true) if params[:type] == "script"
-    community_tool_scope = community_tool_scope.where(tag_tutorial: true) if params[:type] == "tutorial"
-    @community_tools = community_tool_scope.search(params[:search]).page(params[:page]).per(20)
+    tool_scope = tool_scope.where(tag_program: true) if params[:type] == "program"
+    tool_scope = tool_scope.where(tag_script: true) if params[:type] == "script"
+    tool_scope = tool_scope.where(tag_tutorial: true) if params[:type] == "tutorial"
+    @tools = tool_scope.search(params[:search]).page(params[:page]).per(20)
   end
 
   # # GET /tools/1
@@ -32,12 +32,12 @@ class ToolsController < ApplicationController
 
   private
 
-  def community_tools
-    CommunityTool.published_or_draft(current_user)
+  def tools
+    Tool.published_or_draft(current_user)
   end
 
   def find_viewable_tool_or_redirect
-    @community_tool = community_tools.find_by_param(params[:id])
-    empty_response_or_root_path(tools_path) unless @community_tool
+    @tool = tools.find_by_param(params[:id])
+    empty_response_or_root_path(tools_path) unless @tool
   end
 end

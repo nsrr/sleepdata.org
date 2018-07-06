@@ -8,7 +8,7 @@
   .breadcrumb-container.p-2
     .container
       %ol
-        %li= link_to "Tools", community_tools_path
+        %li= link_to "Tools", admin_tools_path
         %li New
 
-= render "community_tools/form", community_tool: @community_tool
+= render "admin/tools/form", tool: @tool

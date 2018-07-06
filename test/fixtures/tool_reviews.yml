@@ -1,13 +1,13 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  community_tool: published
+  tool: published
   user: valid
   rating: 5
   review: This tool is great.
 
 two:
-  community_tool: published
+  tool: published
   user: two
   rating: 1
   review: This tool is terrible.

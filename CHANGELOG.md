@@ -25,6 +25,7 @@
 
 ### Refactoring
 - Removed deprecated challenges
+- Merged community tools and tools codebase
 
 ### Bug Fix
 - Fixed an issue displaying variable subfolders for a folder with parentheses

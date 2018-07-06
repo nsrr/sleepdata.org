@@ -10,12 +10,12 @@
   .sign-up-form-title
     Where is your tool hosted?
 
-  = form_with model: @community_tool, url: contribute_tool_set_location_path, id: "contribute_tool_form", local: true do |form|
+  = form_with model: @tool, url: contribute_tool_set_location_path, id: "contribute_tool_form", local: true do |form|
     .form-group.row
       = form.label :url, "URL", class: "col-md-2 col-form-label"
       .col-md-10
-        = form.text_field :url, class: "form-control#{" is-invalid" if @community_tool.errors[:url].present?}", placeholder: "https://github.com/...", autocomplete: "off"
-        - if @community_tool.errors[:url].present?
+        = form.text_field :url, class: "form-control#{" is-invalid" if @tool.errors[:url].present?}", placeholder: "https://github.com/...", autocomplete: "off"
+        - if @tool.errors[:url].present?
           .invalid-feedback Please enter a valid URL.
 
 .text-center.mb-3

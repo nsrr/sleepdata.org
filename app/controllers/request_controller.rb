@@ -9,13 +9,13 @@ class RequestController < ApplicationController
   ]
 
   def contribute_tool_start
-    @community_tool = CommunityTool.new
+    @tool = Tool.new
   end
 
   def contribute_tool_set_location
-    @community_tool = CommunityTool.new(community_tool_params)
-    @community_tool.valid?
-    if @community_tool.errors[:url].present?
+    @tool = Tool.new(tool_params)
+    @tool.valid?
+    if @tool.errors[:url].present?
       render :contribute_tool_start
     else
       if current_user
@@ -28,7 +28,7 @@ class RequestController < ApplicationController
   end
 
   def contribute_tool_register_user
-    @community_tool = CommunityTool.new(community_tool_params)
+    @tool = Tool.new(tool_params)
     unless current_user
       @user = User.new(user_params)
       if @user.save
@@ -46,7 +46,7 @@ class RequestController < ApplicationController
   end
 
   def contribute_tool_sign_in_user
-    @community_tool = CommunityTool.new(community_tool_params)
+    @tool = Tool.new(tool_params)
     unless current_user
       user = User.find_by_email params[:email]
       if user && user.valid_password?(params[:password])
@@ -64,18 +64,18 @@ class RequestController < ApplicationController
   end
 
   def contribute_tool_description
-    @community_tool = current_user.community_tools.find_by_param(params[:id])
-    redirect_to dashboard_path, alert: "This tool does not exist." unless @community_tool
+    @tool = current_user.tools.find_by_param(params[:id])
+    redirect_to dashboard_path, alert: "This tool does not exist." unless @tool
   end
 
   def contribute_tool_set_description
-    @community_tool = current_user.community_tools.find_by_param(params[:id])
-    unless @community_tool
+    @tool = current_user.tools.find_by_param(params[:id])
+    unless @tool
       redirect_to dashboard_path, alert: "This tool does not exist."
       return
     end
 
-    already_published = @community_tool.published?
+    already_published = @tool.published?
     published = \
       if already_published
         true
@@ -83,12 +83,12 @@ class RequestController < ApplicationController
         (params[:draft] == "1" ? false : true)
       end
 
-    if @community_tool.update(name: params[:community_tool][:name], description: params[:community_tool][:description], published: published)
+    if @tool.update(name: params[:tool][:name], description: params[:tool][:description], published: published)
       if published
-        @community_tool.update(publish_date: Time.zone.today) if @community_tool.publish_date.blank?
-        redirect_to tool_path(@community_tool), notice: already_published ? "Tool updated successfully." : "Tool published successfully."
+        @tool.update(publish_date: Time.zone.today) if @tool.publish_date.blank?
+        redirect_to tool_path(@tool), notice: already_published ? "Tool updated successfully." : "Tool published successfully."
       else
-        redirect_to tool_path(@community_tool), notice: "Draft saved successfully."
+        redirect_to tool_path(@tool), notice: "Draft saved successfully."
       end
     else
       render :contribute_tool_description
@@ -184,10 +184,10 @@ class RequestController < ApplicationController
 
   private
 
-  def community_tool_params
-    params[:community_tool] ||= { blank: "1" }
-    params[:community_tool][:description] = params[:community_tool][:url].to_s.strip if params[:community_tool].key?(:url)
-    params.require(:community_tool).permit(:name, :description, :url)
+  def tool_params
+    params[:tool] ||= { blank: "1" }
+    params[:tool][:description] = params[:tool][:url].to_s.strip if params[:tool].key?(:url)
+    params.require(:tool).permit(:name, :description, :url)
   end
 
   def hosting_request_params
@@ -199,14 +199,14 @@ class RequestController < ApplicationController
   end
 
   def save_tool_user(user: current_user, redirect: true)
-    @community_tool.user_id = user.id
-    if @community_tool.save
-      description = @community_tool.readme_content
+    @tool.user_id = user.id
+    if @tool.save
+      description = @tool.readme_content
       if description
-        description = "```\n#{description}\n```" unless @community_tool.markdown?
-        @community_tool.update description: description
+        description = "```\n#{description}\n```" unless @tool.markdown?
+        @tool.update description: description
       end
-      redirect_to contribute_tool_description_path(@community_tool) if redirect
+      redirect_to contribute_tool_description_path(@tool) if redirect
     else
       render :contribute_tool_start if redirect
     end

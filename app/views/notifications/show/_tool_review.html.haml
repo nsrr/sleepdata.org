@@ -4,7 +4,7 @@
 %td.nowrap{ class: "#{"text-muted" if notification.read?}" }
   .overflow-hidden
     = link_to notification, class: "#{notification.read? ? "link-muted" : "link-unstyled" }" do
-      = strip_tags(simple_markdown(notification.community_tool_review.review)).html_safe
+      = strip_tags(simple_markdown(notification.tool_review.review)).html_safe
 
 %td.d-none.d-md-table-cell
-  = profile_picture_tag notification.community_tool_review.user, size: 18
+  = profile_picture_tag notification.tool_review.user, size: 18

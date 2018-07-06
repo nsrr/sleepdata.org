@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     get :downloads_by_quarter, path: "downloads-by-quarter"
     get :agreement_reports, path: "agreement-reports"
     resources :replies, only: :index
+    resources :tools
     root action: :dashboard
   end
 
@@ -96,10 +97,6 @@ Rails.application.routes.draw do
   end
 
   resources :categories
-
-  resources :community_tools, path: "community-tools" do
-    resources :community_tool_reviews, path: "reviews"
-  end
 
   namespace :data_requests, path: "data/requests" do
     get :start, path: ":dataset_id/start"
@@ -352,12 +349,9 @@ Rails.application.routes.draw do
 
   resources :tags
 
-  resources :tools, only: [:index, :show]
-
-  # TODO: Remove on or after October 1, 2018.
-  get "community/tools/:id", as: :community_show_tool, to: redirect("tools/%{id}")
-  get "community/tools", to: redirect("tools")
-  # END TODO
+  resources :tools, only: [:index, :show] do
+    resources :tool_reviews, path: "reviews"
+  end
 
   resources :topics, path: "forum" do
     member do

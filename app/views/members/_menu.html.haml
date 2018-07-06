@@ -20,7 +20,7 @@
             = "(#{number_with_delimiter karma})"
           - else
             = "(+#{number_with_delimiter karma})"
-    - tools_count = member.community_tools.published.count
+    - tools_count = member.tools.published.count
     - if tools_count.positive?
       %li
         = link_to tools_member_path(member.username), class: current_page?(tools_member_path(member.username)) ? "active" : nil do

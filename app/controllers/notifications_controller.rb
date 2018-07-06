@@ -35,8 +35,8 @@ class NotificationsController < ApplicationController
         current_user.notifications.where(broadcast_id: @broadcast.id, read: false).pluck(:id)
       elsif @topic
         current_user.notifications.where(topic_id: @topic.id, read: false).pluck(:id)
-      elsif @community_tool
-        current_user.notifications.where(community_tool_id: @community_tool.id, read: false).pluck(:id)
+      elsif @tool
+        current_user.notifications.where(tool_id: @tool.id, read: false).pluck(:id)
       elsif @dataset
         current_user.notifications.where(dataset_id: @dataset.id, read: false).pluck(:id)
       elsif @hosting_request
@@ -55,7 +55,7 @@ class NotificationsController < ApplicationController
   def set_broadcast_or_topic
     @broadcast = Broadcast.current.published.find_by(id: params[:broadcast_id])
     @topic = Topic.current.find_by(id: params[:topic_id])
-    @community_tool = CommunityTool.current.find_by(id: params[:community_tool_id])
+    @tool = Tool.current.find_by(id: params[:tool_id])
     @dataset = Dataset.current.find_by(id: params[:dataset_id])
     @hosting_request = HostingRequest.current.find_by(id: params[:hosting_request_id])
     @organization = Organization.current.find_by(id: params[:organization_id])
@@ -72,7 +72,7 @@ class NotificationsController < ApplicationController
 
   def notification_redirect_path
     return @notification.reply if @notification.reply
-    return community_tool_community_tool_review_path(@notification.community_tool, @notification.community_tool_review) if @notification.community_tool && @notification.community_tool_review
+    return tool_tool_review_path(@notification.tool, @notification.tool_review) if @notification.tool && @notification.tool_review
     return dataset_dataset_review_path(@notification.dataset, @notification.dataset_review) if @notification.dataset && @notification.dataset_review
     return @notification.hosting_request if @notification.hosting_request
     return @notification.export if @notification.export
