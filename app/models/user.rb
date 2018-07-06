@@ -80,9 +80,7 @@ class User < ApplicationRecord
   # Relationships
   has_many :agreements, -> { current }
   has_many :agreement_events
-  has_many :answers
   has_many :broadcasts, -> { current }
-  has_many :challenges, -> { current }
   has_many :community_tools, -> { current }
   has_many :community_tool_reviews
   has_many :data_request_reviews
@@ -213,22 +211,6 @@ class User < ApplicationRecord
 
   def all_viewable_datasets
     Dataset.current.with_viewer_or_editor_or_approved(id)
-  end
-
-  def all_viewable_challenges
-    if admin?
-      Challenge.current
-    else
-      Challenge.current.where(public: true)
-    end
-  end
-
-  def all_challenges
-    if admin?
-      Challenge.current
-    else
-      challenges
-    end
   end
 
   def topics_created_in_last_day

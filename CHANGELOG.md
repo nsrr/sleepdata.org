@@ -23,6 +23,9 @@
 - **Review Changes**
   - Data request expiration date is displayed on the data request review page
 
+### Refactoring
+- Removed deprecated challenges
+
 ### Bug Fix
 - Fixed an issue displaying variable subfolders for a folder with parentheses
 

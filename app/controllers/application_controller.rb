@@ -47,7 +47,6 @@ class ApplicationController < ActionController::Base
       agreements: [:step, :new_step, :proof],
       broadcasts: [],
       categories: [],
-      challenges: [:signal, :new, :edit],
       community_tool_reviews: [:new, :edit, :create, :update, :destroy],
       community_tools: [],
       data_requests: [:index, :show, :page, :attest, :submitted],
@@ -80,7 +79,6 @@ class ApplicationController < ActionController::Base
   def external_controllers
     {
       blog: [],
-      challenges: [:index, :show],
       community_tool_reviews: [:index, :show],
       community_tools: [:index, :show],
       datasets: [:index, :show],
