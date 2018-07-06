@@ -3,7 +3,7 @@
 require "test_helper"
 
 # Tests to assure that variables can be uploaded to datasets via the API.
-class Api::V1::VariablesControllerTest < ActionController::TestCase
+class Api::V1::VariablesControllerTest < ActionDispatch::IntegrationTest
   def variable_params
     {
       name: "favorite_flavor",
@@ -54,31 +54,29 @@ class Api::V1::VariablesControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get :index, params: {
+    get api_v1_variables_url(format: "json"), params: {
       auth_token: users(:editor).id_and_auth_token,
       version: "0.1.0",
       dataset: datasets(:released).to_param
-    }, format: "json"
+    }
     assert_response :success
   end
 
   test "should get variable" do
-    get :show, params: {
-      id: variables(:one),
+    get api_v1_variable_url(variables(:one), format: "json"), params: {
       auth_token: users(:editor).id_and_auth_token,
       version: "0.1.0",
       dataset: datasets(:released).to_param
-    }, format: "json"
+    }
     assert_response :success
   end
 
   test "should not get variable with invalid id" do
-    get :show, params: {
-      id: "",
+    get api_v1_variable_url("-1", format: "json"), params: {
       auth_token: users(:editor).id_and_auth_token,
       version: "0.1.0",
       dataset: datasets(:released).to_param
-    }, format: "json"
+    }
     assert_response :unprocessable_entity
   end
 
@@ -87,14 +85,14 @@ class Api::V1::VariablesControllerTest < ActionController::TestCase
       assert_difference("Domain.count") do
         assert_difference("Form.count") do
           assert_difference("DomainOption.count", 3) do
-            post :create_or_update, params: {
+            post create_or_update_api_v1_variables_url(format: "json"), params: {
               auth_token: users(:editor).id_and_auth_token,
               version: "0.1.0",
               dataset: datasets(:released).to_param,
               variable: variable_params,
               domain: domain_params,
               forms: [form_params]
-            }, format: "json"
+            }
           end
         end
       end
@@ -106,14 +104,14 @@ class Api::V1::VariablesControllerTest < ActionController::TestCase
 
   test "should create variable form with invalid form name" do
     assert_difference("Form.count", 0) do
-      post :create_or_update, params: {
+      post create_or_update_api_v1_variables_url(format: "json"), params: {
         auth_token: users(:editor).id_and_auth_token,
         version: "0.1.0",
         dataset: datasets(:released).to_param,
         variable: variable_params,
         domain: domain_params,
         forms: [form_params.merge(name: "")]
-      }, format: "json"
+      }
     end
     assert_response :unprocessable_entity
   end
