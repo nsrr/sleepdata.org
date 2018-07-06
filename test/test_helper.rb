@@ -16,21 +16,6 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 end
 
-# Set up ActionController tests.
-# TODO: Remove ActionController Tests
-class ActionController::TestCase
-  include Devise::Test::ControllerHelpers
-
-  def login(resource)
-    @request.env["devise.mapping"] = Devise.mappings[resource]
-    sign_in(resource, scope: resource.class.name.downcase.to_sym)
-  end
-
-  def data_uri_signature
-    IO.readlines(Rails.root.join("test", "support", "signatures", "data_uri.txt")).first
-  end
-end
-
 # Set up ActionDispatch tests.
 class ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
