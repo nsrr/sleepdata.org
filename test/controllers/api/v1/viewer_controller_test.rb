@@ -1,6 +1,9 @@
-require 'test_helper'
+# frozen_string_literal: true
 
-class Api::V1::ViewerControllerTest < ActionController::TestCase
+require "test_helper"
+
+# Test to check viewer API.
+class Api::V1::ViewerControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
