@@ -1,6 +1,8 @@
-require 'test_helper'
+# frozen_string_literal: true
 
-class Async::BaseControllerTest < ActionController::TestCase
+require "test_helper"
+
+class Async::BaseControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
