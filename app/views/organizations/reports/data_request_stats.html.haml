@@ -1,9 +1,17 @@
 - @title = "Data Request Stats"
 
-%h1.mb-5
-  = @title
-  .small= @organization.name
+- render "themes/theme"
+- content_for :container_class, "container-fluid"
+- content_for :sidebar, render("admin/sidebar")
+- content_for :header, @title
 
+
+.breadcrumb-container.p-2
+  .container
+    %ol
+      %li= link_to "Organizations", organizations_path
+      %li= link_to @organization.name, @organization
+      %li= @title
 
 .card-deck.mb-5
   .card
@@ -22,10 +30,10 @@
           = number_with_delimiter(@organization.data_requests.where(status: status).count)
           %span.badge.badge-dark= label
 
-
-%ul
-  %li
-    = link_to "Data Requests Reports", organizations_reports_data_requests_path(@organization)
-    %ul
-      - @organization.datasets.order(:release_date, :name).each do |dataset|
-        %li= link_to "for #{dataset.slug.upcase}", organizations_reports_data_requests_path(@organization, dataset: dataset)
+.dashboard-container
+  %ul
+    %li
+      = link_to "Data Requests Reports", organizations_reports_data_requests_path(@organization)
+      %ul
+        - @organization.datasets.order(:release_date, :name).each do |dataset|
+          %li= link_to "for #{dataset.slug.upcase}", organizations_reports_data_requests_path(@organization, dataset: dataset)

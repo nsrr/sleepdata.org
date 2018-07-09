@@ -1,8 +1,13 @@
+- @title = "Invite Member"
 
+- render "themes/theme"
+- content_for :container_class, "container-fluid"
+- content_for :sidebar, render("admin/sidebar")
+- content_for :header, @organization.name
 
 .card
   .card-body
-    %h4.card-title Invite Member
+    %h4.card-title= @title
     %p.card-text
       Invite a member by sending them an email. You can set their role next.
 

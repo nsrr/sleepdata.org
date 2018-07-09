@@ -1,8 +1,19 @@
-%h1.display-1 This Month
+- @title = "This Month"
+
+- render "themes/theme"
+- content_for :container_class, "container-fluid"
+- content_for :sidebar, render("admin/sidebar")
+- content_for :header, @title
+
+.breadcrumb-container.p-2
+  .container
+    %ol
+      %li= link_to "Organizations", organizations_path
+      %li= link_to @organization.name, @organization
+      %li= @title
 
 - data_requests_submitted_last_month = @organization.data_requests.where("DATE(submitted_at) >= ? and DATE(submitted_at) <= ?", (Time.zone.today - 1.month).beginning_of_month, (Time.zone.today - 1.month).end_of_month).count
 - data_requests_submitted_this_month = @organization.data_requests.where("DATE(submitted_at) >= ? and DATE(submitted_at) <= ?", Time.zone.today.beginning_of_month, Time.zone.today.end_of_month).count
-
 - difference = data_requests_submitted_this_month - data_requests_submitted_last_month
 
 .card.mb-3

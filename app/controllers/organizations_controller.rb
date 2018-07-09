@@ -10,6 +10,8 @@ class OrganizationsController < ApplicationController
     :people, :invite_member, :add_member
   ]
 
+  layout "layouts/full_page_sidebar"
+
   # GET /organizations
   def index
     @organizations = Organization.current.search(params[:search]).order(:name).page(params[:page]).per(20)

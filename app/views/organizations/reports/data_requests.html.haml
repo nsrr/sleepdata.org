@@ -1,16 +1,22 @@
 - @title = "Data Requests"
-%h1.mb-5
-  = @title
-  .small
-    = @organization.name
-    =# link_to "Stats", organizations_reports_data_request_stats_path(@organization)
 
-.text-center
-  = link_to organizations_reports_data_requests_path(@organization, year: @year - 1, dataset: @dataset), class: "btn btn-sm btn-light" do
-    %i.fa.fa-caret-left
-  = @year
-  = link_to organizations_reports_data_requests_path(@organization, year: @year + 1, dataset: @dataset), class: "btn btn-sm btn-light" do
-    %i.fa.fa-caret-right
+- render "themes/theme"
+- content_for :container_class, "container-fluid"
+- content_for :sidebar, render("admin/sidebar")
+- content_for :header, @title
 
+.breadcrumb-container.p-2
+  .container
+    %ol
+      %li= link_to "Organizations", organizations_path
+      %li= link_to @organization.name, @organization
+      %li= @title
 
-%div{ data: { object: "reports-data-requests-chart", title: @chart_title.to_json, series: @series.to_json, x_axis: @x_axis.to_json, y_axis: @y_axis.to_json } }
+.dashboard-container
+  %div{ data: { object: "reports-data-requests-chart", title: @chart_title.to_json, series: @series.to_json, x_axis: @x_axis.to_json, y_axis: @y_axis.to_json } }
+  .text-center
+    = link_to organizations_reports_data_requests_path(@organization, year: @year - 1, dataset: @dataset), class: "btn btn-sm btn-light" do
+      %i.fa.fa-caret-left
+    = @year
+    = link_to organizations_reports_data_requests_path(@organization, year: @year + 1, dataset: @dataset), class: "btn btn-sm btn-light" do
+      %i.fa.fa-caret-right

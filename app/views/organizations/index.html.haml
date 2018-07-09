@@ -1,24 +1,31 @@
 - @title = "Organizations"
 
+- render "themes/theme"
+- content_for :container_class, "container-fluid"
+- content_for :sidebar, render("admin/sidebar")
 - content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        .float-right
-          = link_to plus_or("New Organization"), new_organization_path, class: "btn btn-primary btn-shadow"
-        = @title
+  .float-right
+    = link_to plus_or("New Organization"), new_organization_path, class: "btn btn-primary btn-shadow"
+  = @title
 
-%table.table.table-striped.table-borderless.table-sticky
-  %col
-  %col{ width: "1px" }
-  %thead
-    %tr
-      %th Name
-      %th.text-center Actions
+- if @organizations.present?
+  .dashboard-container.dashboard-table
+    %table.table.table-striped.table-borderless.table-sticky
+      %col
+      %col{ width: "1px" }
+      %thead
+        %tr
+          %th Name
+          %th.text-center Actions
 
-  %tbody
-    - @organizations.each do |organization|
-      %tr.tr-align-middle
-        %td= link_to organization.name, organization
-        %td.text-center
-          = render "layouts/edit_delete_dropdown", edit_url: edit_organization_path(organization), delete_url: organization, delete_confirmation: "Delete #{organization.name}?"
+      %tbody
+        - @organizations.each do |organization|
+          %tr.tr-align-middle
+            %td= link_to organization.name, organization
+            %td.text-center
+              = render "layouts/edit_delete_dropdown", edit_url: edit_organization_path(organization), delete_url: organization, delete_confirmation: "Delete #{organization.name}?"
+- else
+  .jumbotron.jumbotron-custom-text
+    %i.fa.fa-clone.mr-1
+    No organizations found.
+    = link_to "Start over", organizations_path if params[:search].present?

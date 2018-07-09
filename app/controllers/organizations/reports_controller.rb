@@ -2,7 +2,11 @@
 
 # Displays organization reports.
 class Organizations::ReportsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :check_admin
   before_action :find_organization_or_redirect
+
+  layout "layouts/full_page_sidebar"
 
   # GET /orgs/:id/reports/data-requests
   def data_requests

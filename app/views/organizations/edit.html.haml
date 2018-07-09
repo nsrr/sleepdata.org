@@ -1,15 +1,15 @@
 - @title = "Edit Organization: #{@organization.name_was}"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        = @organization.name_was
-  .breadcrumb-container.p-2
-    .container
-      %ol
-        %li= link_to "Organizations", organizations_path
-        %li= link_to @organization.name_was, @organization
-        %li Edit
+- render "themes/theme"
+- content_for :container_class, "container-fluid"
+- content_for :sidebar, render("admin/sidebar")
+- content_for :header, @organization.name_was
 
-= render "organizations/form", organization: @organization
+.breadcrumb-container.p-2
+  .container
+    %ol
+      %li= link_to "Organizations", organizations_path
+      %li= link_to @organization.name_was, @organization
+      %li Edit
+
+.dashboard-container= render "organizations/form", organization: @organization
