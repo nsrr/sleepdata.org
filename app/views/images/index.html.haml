@@ -1,30 +1,38 @@
-- @title = 'Images'
+- @title = "Images"
 
-%h1 Images
+- render "themes/theme"
+- content_for :container_class, "container-fluid"
+- content_for :sidebar, render("admin/sidebar")
+- content_for :header do
+  .float-right
+    = link_to plus_or("New Image"), new_image_path, class: "btn btn-primary btn-shadow"
+    = render "layouts/per_page", per_page: 40, object_count: @images.total_count
+  = @title
 
-= link_to 'New Image', new_image_path
+- if @images.present?
+  .dashboard-container.dashboard-table
+    %table.table.table-striped.table-borderless.table-sticky
+      %thead
+        %tr
+          %th
+          %th User
+          %th File Size
+          %th Created
+          %th.text-center Actions
 
-%table.table.table-striped
-  %thead
-    %tr
-      %th
-      %th User
-      %th Image
-      %th File Size
-      %th Created At
-      %th{ colspan: 3 }
-
-  %tbody
-    - @images.each do |image|
-      %tr
-        %td
-          = image_tag download_image_path(image, size: 'thumb'), class: 'img-responsive'
-        %td= image.user.username
-        %td= image.image
-        %td= number_to_human_size image.file_size
-        %td= image.created_at.strftime('%-d %b %Y, %-l:%M %p')
-        %td= link_to 'Show', image
-        %td= link_to 'Edit', edit_image_path(image)
-        %td= link_to 'Destroy', image, method: :delete, data: { confirm: 'Are you sure you want to delete this image?' }
-
-.center-horizontally= paginate @images, theme: 'bootstrap'
+      %tbody
+        - @images.each do |image|
+          %tr
+            %td
+              = image_tag download_image_path(image, size: "thumb"), class: "img-responsive"
+            %td= image.user.username
+            %td= number_to_human_size image.file_size
+            %td= image.created_at.strftime("%-d %b %Y, %-l:%M %p")
+            %td.text-center
+              = render "layouts/edit_delete_dropdown", edit_url: edit_image_path(image), delete_url: image, delete_confirmation: "Delete #{image.name}?"
+  .center-horizontally= paginate @images, theme: "bootstrap"
+- else
+  .jumbotron.jumbotron-custom-text
+    %i.fa.fa-clone.mr-1
+    No images found.
+    = link_to "Start over", images_path if params[:search].present?

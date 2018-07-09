@@ -5,12 +5,11 @@
 - content_for :sidebar, render("admin/sidebar")
 - content_for :header, @title
 
-.breadcrumb-container.p-2
-  .container
-    %ol
-      %li= link_to "Organizations", organizations_path
-      %li= link_to @organization.name, @organization
-      %li{ style: "font-weight: 300; color: #9e9e9e;" } Datasets
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "Organizations", organizations_path
+    %li= link_to @organization.name, @organization
+    %li{ style: "font-weight: 300; color: #9e9e9e;" } Datasets
 
 .dashboard-container.dashboard-table
   %table.table.table-striped.table-borderless.table-sticky.table-sm

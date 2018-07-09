@@ -1,41 +1,48 @@
 - @title = "Legal Document Pages"
 
+- render "themes/theme"
+- content_for :container_class, "container-fluid"
+- content_for :sidebar, render("admin/sidebar")
 - content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        .float-right
-          = link_to plus_or("New Legal Document Page"), new_organization_legal_document_legal_document_page_path(@organization, @legal_document), class: "btn btn-primary btn-shadow"
-        = @title
-  .breadcrumb-container.p-2
-    .container
-      %ol
-        %li= link_to @organization.name, @organization
-        %li= link_to "Legal Docs", [@organization, :legal_documents]
-        %li= link_to @legal_document.name, [@organization, @legal_document]
-        %li Pages
+  .float-right
+    = link_to plus_or("New Legal Document Page"), new_organization_legal_document_legal_document_page_path(@organization, @legal_document), class: "btn btn-primary btn-shadow"
+  = @title
 
-%table.table.table-striped.table-borderless.table-sticky
-  %col{ width: "1px" }
-  %col
-  %col
-  %col
-  %col
-  %col{ width: "1px" }
-  %thead
-    %tr
-      %th Position
-      %th Title
-      %th.text-center Rider
-      %th.text-center Actions
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to @organization.name, @organization
+    %li= link_to "Legal Docs", [@organization, :legal_documents]
+    %li= link_to @legal_document.name, [@organization, @legal_document]
+    %li Pages
 
-  %tbody
-    - @legal_document_pages.each do |legal_document_page|
-      %tr.tr-align-middle
-        %td= legal_document_page.position
-        %td= link_to legal_document_page.title, [@organization, @legal_document, legal_document_page]
-        %td.text-center= simple_check legal_document_page.rider
-        %td.text-center
-          = render "layouts/edit_delete_dropdown", edit_url: [:edit, @organization, @legal_document, legal_document_page], delete_url: [@organization, @legal_document, @legal_document_page], delete_confirmation: "Delete #{legal_document_page.title}?"
+- if @legal_document_pages.present?
+  .dashboard-container.dashboard-table
+    %table.table.table-striped.table-borderless.table-sticky
+      %col{ width: "1px" }
+      %col
+      %col
+      %col
+      %col
+      %col{ width: "1px" }
+      %thead
+        %tr
+          %th Position
+          %th Title
+          %th.text-center Rider
+          %th.text-center Actions
 
-.center-horizontally= paginate @legal_document_pages, theme: "bootstrap"
+      %tbody
+        - @legal_document_pages.each do |legal_document_page|
+          %tr.tr-align-middle
+            %td= legal_document_page.position
+            %td= link_to legal_document_page.title, [@organization, @legal_document, legal_document_page]
+            %td.text-center= simple_check legal_document_page.rider
+            %td.text-center
+              = render "layouts/edit_delete_dropdown", edit_url: [:edit, @organization, @legal_document, legal_document_page], delete_url: [@organization, @legal_document, @legal_document_page], delete_confirmation: "Delete #{legal_document_page.title}?"
+
+  .center-horizontally= paginate @legal_document_pages, theme: "bootstrap"
+- else
+  .jumbotron.jumbotron-custom-text
+    %i.fa.fa-clone.mr-1
+    No legal document pages found.
+    = link_to "Start over", organization_legal_document_legal_document_pages_path(@organization, @legal_document) if params[:search].present?

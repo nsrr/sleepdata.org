@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Allow legal documents to be edited page by page.
 class LegalDocumentPagesController < ApplicationController
   before_action :authenticate_user!
   before_action :check_admin
@@ -5,23 +8,25 @@ class LegalDocumentPagesController < ApplicationController
   before_action :find_legal_document_or_redirect
   before_action :find_legal_document_page_or_redirect, only: [:show, :edit, :update, :destroy]
 
+  layout "layouts/full_page_sidebar"
+
   # GET /orgs/1/legal-documents/1/pages
   def index
     @legal_document_pages = @legal_document.legal_document_pages.search(params[:search]).order(Arel.sql("position nulls last"), :rider).page(params[:page]).per(20)
   end
 
-  # GET /orgs/1/legal-documents/1/pages/1
-  def show
-  end
+  # # GET /orgs/1/legal-documents/1/pages/1
+  # def show
+  # end
 
   # GET /orgs/1/legal-documents/1/pages/new
   def new
     @legal_document_page = @legal_document.legal_document_pages.new
   end
 
-  # GET /orgs/1/legal-documents/1/pages/1/edit
-  def edit
-  end
+  # # GET /orgs/1/legal-documents/1/pages/1/edit
+  # def edit
+  # end
 
   # POST /orgs/1/legal-documents/1/pages
   def create

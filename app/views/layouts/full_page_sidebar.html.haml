@@ -24,6 +24,10 @@
         %h1.page-heading
           = yield :header
           = render "sidebar/toggle"
+    - if content_for?(:breadcrumbs)
+      .breadcrumb-container.p-2
+        .container-fluid
+          = yield :breadcrumbs
     .row.no-gutters.flex-md-nowrap
       = yield(:sidebar)
       %main.col.p-3{ role: "main" }

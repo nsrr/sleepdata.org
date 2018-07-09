@@ -17,7 +17,7 @@
     @supports (position: sticky) {
       position: sticky;
       top: $header-height;
-      z-index: $zindex-sticky;
+      // z-index: $zindex-sticky; // TODO: Check if this is needed.
     }
   }
 }

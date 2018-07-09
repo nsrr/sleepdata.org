@@ -6,24 +6,26 @@ class CategoriesController < ApplicationController
   before_action :check_admin
   before_action :find_category_or_redirect, only: [:show, :edit, :update, :destroy]
 
+  layout "layouts/full_page_sidebar"
+
   # GET /categories
   def index
     @order = scrub_order(Category, params[:order], "categories.name")
     @categories = Category.current.search(params[:search]).order(@order).page(params[:page]).per(40)
   end
 
-  # GET /categories/1
-  def show
-  end
+  # # GET /categories/1
+  # def show
+  # end
 
   # GET /categories/new
   def new
     @category = Category.new
   end
 
-  # GET /categories/1/edit
-  def edit
-  end
+  # # GET /categories/1/edit
+  # def edit
+  # end
 
   # POST /categories
   def create

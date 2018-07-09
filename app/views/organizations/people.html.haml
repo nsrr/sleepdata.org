@@ -3,35 +3,14 @@
 - render "themes/theme"
 - content_for :container_class, "container-fluid"
 - content_for :sidebar, render("admin/sidebar")
-- content_for :header do
-  .float-right
-    = render "layouts/edit_delete_dropdown", edit_url: edit_organization_path(@organization), delete_url: @organization, delete_confirmation: "Delete #{@organization.name}?"
-  = @title
+- content_for :header, @title
 
-.breadcrumb-container.p-2
-  .container
-    .float-right
-      .dropdown
-        = link_to "#", class: "btn btn-light btn-sm dropdown-toggle", data: { toggle: "dropdown" } do
-          .d-inline-block.d-sm-none
-            %i.fa.fa-cog
-          .d-none.d-sm-inline-block Actions
-          %strong.caret
-
-        .dropdown-menu.dropdown-menu-right
-          = link_to edit_organization_path(@organization), class: "dropdown-item" do
-            %i.fa.fa-pencil
-            Edit
-          .dropdown-divider
-          = link_to @organization, method: :delete, data: { confirm: "Delete #{@organization.name}?" }, class: "dropdown-item text-danger" do
-            %i.fa.fa-trash
-            Delete
-
-    %ol
-      %li= link_to "Organizations", organizations_path
-      %li= link_to @organization.name, @organization
-      %li{ style: "font-weight: 300; color: #9e9e9e;" } People
-      %li= link_to "Invite", invite_member_organization_path(@organization)
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "Organizations", organizations_path
+    %li= link_to @organization.name, @organization
+    %li{ style: "font-weight: 300; color: #9e9e9e;" } People
+    %li= link_to "Invite", invite_member_organization_path(@organization)
 
 .dashboard-container.dashboard-table
   %table.table.table-striped.table-borderless.table-sticky.table-sm

@@ -1,41 +1,41 @@
 - @title = "Categories"
 
+- render "themes/theme"
+- content_for :container_class, "container-fluid"
+- content_for :sidebar, render("admin/sidebar")
 - content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        .float-right
-          = link_to plus_or("New Category"), new_category_path, class: "btn btn-primary btn-shadow"
-          = render "layouts/per_page", per_page: 40, object_count: @categories.total_count
-        = @title
-        = render "search/toggle"
+  .float-right
+    = link_to plus_or("New Category"), new_category_path, class: "btn btn-primary btn-shadow"
+    = render "layouts/per_page", per_page: 40, object_count: @categories.total_count
+  = @title
 
-= render "search/simple", url: categories_path
-
-- if @categories.count.zero?
-  .lead.text-center{ style: "margin-top: 40px;" }
-    No categories found matching search criteria.
-    = succeed "." do
-      = link_to "Back to index", categories_path
-- else
-  %table.table.table-striped.table-borderless.table-hover.table-sticky
-    %col
-    %col
-    %col{ width: "1px" }
-    %thead
-      %tr
-        = th_sort_field @order, "categories.name", "Name"
-        = th_sort_field @order, "categories.slug", "Slug"
-        %th.text-center
-          .d-none.d-sm-inline-block Actions
-
-    %tbody
-      - @categories.each do |category|
+- if @categories.present?
+  .dashboard-container.dashboard-table
+    %table.table.table-striped.table-borderless.table-sticky
+      %col
+      %col
+      %col{ width: "1px" }
+      %thead
         %tr
-          %td= link_to category.name, category
-          %td
-            .badge.badge-light= category.slug
-          %td
-            = render "layouts/edit_delete_dropdown", edit_url: edit_category_path(category), delete_url: category, delete_confirmation: "Delete #{category.name}?"
+          %th.py-2
+            = form_tag categories_path, method: :get, enforce_utf8: false do
+              = text_field_tag :search, params[:search], placeholder: "Search categories", autocomplete: "off", class: "table-cell-search-input border rounded"
+          = th_sort_field @order, "categories.slug", "Slug"
+          %th.text-center
+            .d-none.d-sm-inline-block Actions
+
+      %tbody
+        - @categories.each do |category|
+          %tr
+            %td= link_to category.name, category
+            %td
+              .badge.badge-light= category.slug
+            %td.text-center
+              = render "layouts/edit_delete_dropdown", edit_url: edit_category_path(category), delete_url: category, delete_confirmation: "Delete #{category.name}?"
 
   .center-horizontally= paginate @categories, theme: "bootstrap"
+- else
+  .jumbotron.jumbotron-custom-text
+    %i.fa.fa-clone.mr-1
+    No categories found.
+    = link_to "Start over", categories_path if params[:search].present?

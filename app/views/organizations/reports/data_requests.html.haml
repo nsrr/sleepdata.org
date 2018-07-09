@@ -5,12 +5,11 @@
 - content_for :sidebar, render("admin/sidebar")
 - content_for :header, @title
 
-.breadcrumb-container.p-2
-  .container
-    %ol
-      %li= link_to "Organizations", organizations_path
-      %li= link_to @organization.name, @organization
-      %li= @title
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "Organizations", organizations_path
+    %li= link_to @organization.name, @organization
+    %li= @title
 
 .dashboard-container
   %div{ data: { object: "reports-data-requests-chart", title: @chart_title.to_json, series: @series.to_json, x_axis: @x_axis.to_json, y_axis: @y_axis.to_json } }

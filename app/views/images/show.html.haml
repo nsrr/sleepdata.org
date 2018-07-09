@@ -1,21 +1,16 @@
-= link_to "Edit", edit_image_path(@image)
-|
-= link_to "Back", images_path
+- @title = @image.name
 
-%br
-%br
+- content_for :header do
+  .header-container
+    .container
+      %h1.page-heading
+        - if current_user&.admin?
+          .float-right
+            = render "layouts/edit_delete_dropdown", edit_url: edit_image_path(@image), delete_url: @image, delete_confirmation: "Delete #{@image.name}?"
+        Hello
 
-%p
-  %strong User:
-  = @image.user.username
+.dashboard-container
+  = render "forms/horizontal/show/generic", title: "User", content: @image.user.username
+  = render "forms/horizontal/show/generic", title: "File size", content: number_to_human_size(@image.file_size)
 
-%p
-  %strong Image:
-  = @image.image
-
-%p
-  %strong File Size:
-  = number_to_human_size @image.file_size
-
-%p
-  = image_tag download_image_path(@image), alt: "", class: "img-responsive"
+= image_tag download_image_path(@image), alt: "", class: "img-fluid img-ignore-selection"

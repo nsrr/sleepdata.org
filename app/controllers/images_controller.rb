@@ -9,6 +9,7 @@ class ImagesController < ApplicationController
   # GET /images
   def index
     @images = Image.order(id: :desc).page(params[:page]).per(40)
+    render layout: "layouts/full_page_sidebar"
   end
 
   # GET /images/1
@@ -37,6 +38,7 @@ class ImagesController < ApplicationController
   # GET /images/1/edit
   def edit
     redirect_to images_path unless @image
+    render layout: "layouts/full_page_sidebar"
   end
 
   # POST /images

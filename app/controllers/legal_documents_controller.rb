@@ -1,26 +1,31 @@
+# frozen_string_literal: true
+
+# Allows legal documents to be created and edited.
 class LegalDocumentsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_admin
   before_action :find_organization_or_redirect
   before_action :find_legal_document_or_redirect, only: [:show, :edit, :update, :destroy]
 
+  layout "layouts/full_page_sidebar"
+
   # GET /orgs/1/legal-documents
   def index
     @legal_documents = @organization.legal_documents.search(params[:search]).order(:name).page(params[:page]).per(20)
   end
 
-  # GET /orgs/1/legal-documents/1
-  def show
-  end
+  # # GET /orgs/1/legal-documents/1
+  # def show
+  # end
 
   # GET /orgs/1/legal-documents/new
   def new
     @legal_document = @organization.legal_documents.new
   end
 
-  # GET /orgs/1/legal-documents/1/edit
-  def edit
-  end
+  # # GET /orgs/1/legal-documents/1/edit
+  # def edit
+  # end
 
   # POST /orgs/1/legal-documents
   def create

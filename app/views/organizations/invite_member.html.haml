@@ -5,6 +5,13 @@
 - content_for :sidebar, render("admin/sidebar")
 - content_for :header, @organization.name
 
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "Organizations", organizations_path
+    %li= link_to @organization.name, @organization
+    %li= link_to "People", people_organization_path(@organization)
+    %li{ style: "font-weight: 300; color: #9e9e9e;" } Invite
+
 .card
   .card-body
     %h4.card-title= @title

@@ -1,5 +1,8 @@
 - @title = "Edit Image: #{@image.name}"
 
-%h1 Edit Image
+- render "themes/theme"
+- content_for :container_class, "container-fluid"
+- content_for :sidebar, render("admin/sidebar")
+- content_for :header, @title
 
-= render "images/form", image: @image
+.dashboard-container= render "images/form", image: @image
