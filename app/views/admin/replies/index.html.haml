@@ -1,37 +1,41 @@
 - @title = "Blog and Forum Replies"
 
-.dashboard-heading= @title
+- render "themes/theme"
+- content_for :container_class, "container-fluid"
+- content_for :sidebar, render("admin/sidebar")
+- content_for :header, @title
 
-%table.table.table-striped.table-borderless.table-sticky
-  %col.d-none.d-md-table-column{ width: "40px" }
-  %col.d-none.d-md-table-column{ width: "67px" }
-  %col
-  %col.d-none.d-md-table-column{ width: "120px" }
-  %col.d-none.d-md-table-column{ width: "150px" }
-  %thead
-    %tr
-      %th.d-none.d-md-table-cell
-      = th_sort_field @order, "points", "Points", extra_class: "text-center d-none d-md-table-cell"
-      %th Reply
-      %th.d-none.d-md-table-cell Author
-      = th_sort_field @order, "replies.created_at", "Date", extra_class: "d-none d-md-table-cell"
-
-  %tbody
-    - @replies.each do |reply|
+.dashboard-container.dashboard-table
+  %table.table.table-striped.table-borderless.table-sticky
+    %col.d-none.d-md-table-column{ width: "40px" }
+    %col.d-none.d-md-table-column{ width: "67px" }
+    %col
+    %col.d-none.d-md-table-column{ width: "120px" }
+    %col.d-none.d-md-table-column{ width: "150px" }
+    %thead
       %tr
-        %td.d-none.d-md-table-cell.text-center
-          - if reply.deleted?
-            %i.fa.fa-eye-slash{ rel: "tooltip", data: { title: "Deleted", container: "body", placement: "left" } }
-        %td.d-none.d-md-table-cell.text-center
-          - symbol = "+" if reply.rank >= 0
-          = "#{symbol}#{reply.rank}"
-        %td.breakword{ class: reply.deleted? ? "text-muted" : nil, style: reply.deleted? ? "text-decoration: line-through;" : nil }
-          = link_to reply.parent.title, reply
-          .reply-body{ style: "font-size: 0.9em;padding: 0;margin: 0;" }
-            = simple_markdown(sanitize(reply.description.gsub(/</, "&lt;")).gsub("&gt;", ">"), table_class: "table table-striped", allow_links: reply.display_links?)
-        %td.d-none.d-md-table-cell= link_to reply.user.username, reply.user
-        %td.d-none.d-md-table-cell
-          %abbr{ rel: "tooltip", data: { title: reply.created_at.strftime("%-l:%M %p"), container: "body", placement: "left" } }
-            = reply.created_at.strftime("%b %-d, %Y")
+        %th.d-none.d-md-table-cell
+        = th_sort_field @order, "points", "Points", extra_class: "text-center d-none d-md-table-cell"
+        %th Reply
+        %th.d-none.d-md-table-cell Author
+        = th_sort_field @order, "replies.created_at", "Date", extra_class: "d-none d-md-table-cell"
+
+    %tbody
+      - @replies.each do |reply|
+        %tr
+          %td.d-none.d-md-table-cell.text-center
+            - if reply.deleted?
+              %i.fa.fa-eye-slash{ rel: "tooltip", data: { title: "Deleted", container: "body", placement: "left" } }
+          %td.d-none.d-md-table-cell.text-center
+            - symbol = "+" if reply.rank >= 0
+            = "#{symbol}#{reply.rank}"
+          %td.breakword{ class: reply.deleted? ? "text-muted" : nil, style: reply.deleted? ? "text-decoration: line-through;" : nil }
+            = link_to reply.parent.title, reply
+            .reply-body{ style: "font-size: 0.9em;padding: 0;margin: 0;" }
+              = simple_markdown(sanitize(reply.description.gsub(/</, "&lt;")).gsub("&gt;", ">"), table_class: "table table-striped", allow_links: reply.display_links?)
+          %td.d-none.d-md-table-cell= link_to reply.user.username, reply.user
+          %td.d-none.d-md-table-cell
+            %abbr{ rel: "tooltip", data: { title: reply.created_at.strftime("%-l:%M %p"), container: "body", placement: "left" } }
+              = reply.created_at.strftime("%b %-d, %Y")
 
 .center-horizontally= paginate @replies, theme: "bootstrap"

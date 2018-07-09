@@ -5,7 +5,7 @@ class Admin::RepliesController < ApplicationController
   before_action :authenticate_user!
   before_action :check_admin
 
-  layout "layouts/full_page_dashboard_no_drawer"
+  layout "layouts/full_page_sidebar"
 
   # GET /admin/replies
   def index
