@@ -6,7 +6,7 @@ class HostingRequestsController < ApplicationController
   before_action :check_admin
   before_action :find_hosting_request_or_redirect, only: [:show, :edit, :update, :destroy]
 
-  layout "layouts/full_page_dashboard_no_drawer"
+  layout "layouts/full_page_sidebar"
 
   # GET /hosting-requests
   def index

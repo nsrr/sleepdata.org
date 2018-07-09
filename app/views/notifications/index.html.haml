@@ -15,118 +15,125 @@
   .col-md-10
     - if @notifications.present?
       - @notifications.where.not(broadcast_id: nil).order(created_at: :desc).includes(:broadcast, :reply).group_by(&:broadcast).each do |broadcast, notifications|
-        %table.table.table-fixed
-          %col{ width: "32px" }
-          %col{ }
-          %col.d-none.d-md-table-column{ width: "32px" }
-          %col.d-none.d-md-table-column{ width: "165px" }
-          %col{ width: "32px" }
-          %thead
-            %tr
-              %th{ colspan: 2 }= link_to broadcast.title, blog_post_path(broadcast.url_hash), class: "link-unstyled"
-              %th.d-none.d-md-table-cell
-              %th.d-none.d-md-table-cell
-              %th
-                = link_to mark_all_as_read_notifications_path(broadcast_id: broadcast.id), method: :patch, remote: true, class: "text-muted" do
-                  %i.fa.fa-check
-          %tbody
-            - notifications.each do |notification|
-              %tr{ id: "notification_#{notification.id}"}
-                = render "notifications/show", notification: notification
+        .dashboard-container
+          %table.table.table-fixed.table-borderless.table-striped
+            %col{ width: "32px" }
+            %col{ }
+            %col.d-none.d-md-table-column{ width: "32px" }
+            %col.d-none.d-md-table-column{ width: "165px" }
+            %col{ width: "32px" }
+            %thead
+              %tr
+                %th{ colspan: 2 }= link_to broadcast.title, blog_post_path(broadcast.url_hash), class: "link-unstyled"
+                %th.d-none.d-md-table-cell
+                %th.d-none.d-md-table-cell
+                %th
+                  = link_to mark_all_as_read_notifications_path(broadcast_id: broadcast.id), method: :patch, remote: true, class: "text-muted" do
+                    %i.fa.fa-check
+            %tbody
+              - notifications.each do |notification|
+                %tr{ id: "notification_#{notification.id}"}
+                  = render "notifications/show", notification: notification
       - @notifications.where.not(topic_id: nil).order(created_at: :desc).includes(:topic, :reply).group_by(&:topic).each do |topic, notifications|
-        %table.table.table-fixed
-          %col{ width: "32px" }
-          %col{ }
-          %col.d-none.d-md-table-column{ width: "32px" }
-          %col.d-none.d-md-table-column{ width: "165px" }
-          %col{ width: "32px" }
-          %thead
-            %tr
-              %th{ colspan: 2 }= link_to topic.title, topic, class: "link-unstyled"
-              %th.d-none.d-md-table-cell
-              %th.d-none.d-md-table-cell
-              %th
-                = link_to mark_all_as_read_notifications_path(topic_id: topic.id), method: :patch, remote: true, class: "text-muted" do
-                  %i.fa.fa-check
-          %tbody
-            - notifications.each do |notification|
-              %tr{ id: "notification_#{notification.id}"}
-                = render "notifications/show", notification: notification
+        .dashboard-container
+          %table.table.table-fixed.table-borderless.table-striped
+            %col{ width: "32px" }
+            %col{ }
+            %col.d-none.d-md-table-column{ width: "32px" }
+            %col.d-none.d-md-table-column{ width: "165px" }
+            %col{ width: "32px" }
+            %thead
+              %tr
+                %th{ colspan: 2 }= link_to topic.title, topic, class: "link-unstyled"
+                %th.d-none.d-md-table-cell
+                %th.d-none.d-md-table-cell
+                %th
+                  = link_to mark_all_as_read_notifications_path(topic_id: topic.id), method: :patch, remote: true, class: "text-muted" do
+                    %i.fa.fa-check
+            %tbody
+              - notifications.each do |notification|
+                %tr{ id: "notification_#{notification.id}"}
+                  = render "notifications/show", notification: notification
       - @notifications.where.not(tool_id: nil).order(created_at: :desc).includes(:tool, :tool_review).group_by(&:tool).each do |tool, notifications|
-        %table.table.table-fixed
-          %col{ width: "32px" }
-          %col{ }
-          %col.d-none.d-md-table-column{ width: "32px" }
-          %col.d-none.d-md-table-column{ width: "165px" }
-          %col{ width: "32px" }
-          %thead
-            %tr
-              %th{ colspan: 2 }= link_to tool.name, tool_path(tool), class: "link-unstyled"
-              %th.d-none.d-md-table-cell
-              %th.d-none.d-md-table-cell
-              %th
-                = link_to mark_all_as_read_notifications_path(tool_id: tool.id), method: :patch, remote: true, class: "text-muted" do
-                  %i.fa.fa-check
-          %tbody
-            - notifications.each do |notification|
-              %tr{ id: "notification_#{notification.id}"}
-                = render "notifications/show", notification: notification
+        .dashboard-container
+          %table.table.table-fixed.table-borderless.table-striped
+            %col{ width: "32px" }
+            %col{ }
+            %col.d-none.d-md-table-column{ width: "32px" }
+            %col.d-none.d-md-table-column{ width: "165px" }
+            %col{ width: "32px" }
+            %thead
+              %tr
+                %th{ colspan: 2 }= link_to tool.name, tool_path(tool), class: "link-unstyled"
+                %th.d-none.d-md-table-cell
+                %th.d-none.d-md-table-cell
+                %th
+                  = link_to mark_all_as_read_notifications_path(tool_id: tool.id), method: :patch, remote: true, class: "text-muted" do
+                    %i.fa.fa-check
+            %tbody
+              - notifications.each do |notification|
+                %tr{ id: "notification_#{notification.id}"}
+                  = render "notifications/show", notification: notification
       - @notifications.where.not(dataset_id: nil).order(created_at: :desc).includes(:dataset, :dataset_review).group_by(&:dataset).each do |dataset, notifications|
-        %table.table.table-fixed
-          %col{ width: "32px" }
-          %col{ }
-          %col.d-none.d-md-table-column{ width: "32px" }
-          %col.d-none.d-md-table-column{ width: "165px" }
-          %col{ width: "32px" }
-          %thead
-            %tr
-              %th{ colspan: 2 }= link_to dataset.name, dataset, class: "link-unstyled"
-              %th.d-none.d-md-table-cell
-              %th.d-none.d-md-table-cell
-              %th
-                = link_to mark_all_as_read_notifications_path(dataset_id: dataset.id), method: :patch, remote: true, class: "text-muted" do
-                  %i.fa.fa-check
-          %tbody
-            - notifications.each do |notification|
-              %tr{ id: "notification_#{notification.id}"}
-                = render "notifications/show", notification: notification
+        .dashboard-container
+          %table.table.table-fixed.table-borderless.table-striped
+            %col{ width: "32px" }
+            %col{ }
+            %col.d-none.d-md-table-column{ width: "32px" }
+            %col.d-none.d-md-table-column{ width: "165px" }
+            %col{ width: "32px" }
+            %thead
+              %tr
+                %th{ colspan: 2 }= link_to dataset.name, dataset, class: "link-unstyled"
+                %th.d-none.d-md-table-cell
+                %th.d-none.d-md-table-cell
+                %th
+                  = link_to mark_all_as_read_notifications_path(dataset_id: dataset.id), method: :patch, remote: true, class: "text-muted" do
+                    %i.fa.fa-check
+            %tbody
+              - notifications.each do |notification|
+                %tr{ id: "notification_#{notification.id}"}
+                  = render "notifications/show", notification: notification
       - @notifications.where.not(hosting_request_id: nil).order(created_at: :desc).includes(:hosting_request).group_by(&:hosting_request).each do |hosting_request, notifications|
-        %table.table.table-fixed
-          %col{ width: "32px" }
-          %col{ }
-          %col.d-none.d-md-table-column{ width: "32px" }
-          %col.d-none.d-md-table-column{ width: "165px" }
-          %col{ width: "32px" }
-          %thead
-            %tr
-              %th{ colspan: 2 }= link_to hosting_request.name, hosting_request, class: "link-unstyled"
-              %th.d-none.d-md-table-cell
-              %th.d-none.d-md-table-cell
-              %th
-                = link_to mark_all_as_read_notifications_path(hosting_request_id: hosting_request.id), method: :patch, remote: true, class: "text-muted" do
-                  %i.fa.fa-check
-          %tbody
-            - notifications.each do |notification|
-              %tr{ id: "notification_#{notification.id}"}
-                = render "notifications/show", notification: notification
+        .dashboard-container
+          %table.table.table-fixed.table-borderless.table-striped
+            %col{ width: "32px" }
+            %col{ }
+            %col.d-none.d-md-table-column{ width: "32px" }
+            %col.d-none.d-md-table-column{ width: "165px" }
+            %col{ width: "32px" }
+            %thead
+              %tr
+                %th{ colspan: 2 }= link_to hosting_request.name, hosting_request, class: "link-unstyled"
+                %th.d-none.d-md-table-cell
+                %th.d-none.d-md-table-cell
+                %th
+                  = link_to mark_all_as_read_notifications_path(hosting_request_id: hosting_request.id), method: :patch, remote: true, class: "text-muted" do
+                    %i.fa.fa-check
+            %tbody
+              - notifications.each do |notification|
+                %tr{ id: "notification_#{notification.id}"}
+                  = render "notifications/show", notification: notification
       - @notifications.where.not(organization_id: nil).order(created_at: :desc).includes(:organization, :export).group_by(&:organization).each do |organization, notifications|
-        %table.table.table-fixed
-          %col{ width: "32px" }
-          %col{ }
-          %col.d-none.d-md-table-column{ width: "32px" }
-          %col.d-none.d-md-table-column{ width: "165px" }
-          %col{ width: "32px" }
-          %thead
-            %tr
-              %th{ colspan: 2 }= link_to organization.name, organization, class: "link-unstyled"
-              %th.d-none.d-md-table-cell
-              %th.d-none.d-md-table-cell
-              %th
-                = link_to mark_all_as_read_notifications_path(organization_id: organization.id), method: :patch, remote: true, class: "text-muted" do
-                  %i.fa.fa-check
-          %tbody
-            - notifications.each do |notification|
-              %tr{ id: "notification_#{notification.id}"}
-                = render "notifications/show", notification: notification
+        .dashboard-container
+          %table.table.table-fixed.table-borderless.table-striped
+            %col{ width: "32px" }
+            %col{ }
+            %col.d-none.d-md-table-column{ width: "32px" }
+            %col.d-none.d-md-table-column{ width: "165px" }
+            %col{ width: "32px" }
+            %thead
+              %tr
+                %th{ colspan: 2 }= link_to organization.name, organization, class: "link-unstyled"
+                %th.d-none.d-md-table-cell
+                %th.d-none.d-md-table-cell
+                %th
+                  = link_to mark_all_as_read_notifications_path(organization_id: organization.id), method: :patch, remote: true, class: "text-muted" do
+                    %i.fa.fa-check
+            %tbody
+              - notifications.each do |notification|
+                %tr{ id: "notification_#{notification.id}"}
+                  = render "notifications/show", notification: notification
     - else
-      .text-center.lead{ style: "margin-top: 20px;" } You have no unread notifications!
+      .jumbotron.jumbotron-custom-text
+        You have no unread notifications!

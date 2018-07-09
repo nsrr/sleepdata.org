@@ -9,7 +9,7 @@ class ExportsController < ApplicationController
     :show, :progress, :download, :edit, :update, :destroy
   ]
 
-  layout "layouts/full_page_dashboard_no_drawer"
+  layout "layouts/full_page_sidebar"
 
   # GET /exports
   def index

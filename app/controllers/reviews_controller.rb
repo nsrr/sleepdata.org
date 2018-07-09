@@ -18,7 +18,7 @@ class ReviewsController < ApplicationController
     agreement_scope = agreement_scope.with_tag(params[:tag_id]) if params[:tag_id].present?
     agreement_scope = agreement_scope.where(status: params[:status]) if params[:status].present?
     @data_requests = agreement_scope.page(params[:page]).per(40)
-    render layout: "layouts/full_page_dashboard_no_drawer"
+    render layout: "layouts/full_page_sidebar"
   end
 
   # # GET /reviews/1

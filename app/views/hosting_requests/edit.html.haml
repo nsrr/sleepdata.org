@@ -1,15 +1,14 @@
 - @title = "Edit Hosting Request: #{@hosting_request.name_was}"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        = @hosting_request.name_was
-  .breadcrumb-container
-    .container
-      %ol
-        %li= link_to "Hosting Requests", hosting_requests_path
-        %li= link_to @hosting_request.name_was, @hosting_request
-        %li Edit
+- render "themes/theme"
+- content_for :container_class, "container-fluid"
+- content_for :sidebar, render("admin/sidebar")
+- content_for :header, @hosting_request.name_was
 
-= render "form", hosting_request: @hosting_request
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "Hosting Requests", hosting_requests_path
+    %li= link_to @hosting_request.name_was, @hosting_request
+    %li Edit
+
+.dashboard-container= render "form", hosting_request: @hosting_request

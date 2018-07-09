@@ -1,6 +1,9 @@
 - @title = "Stats"
 
-.dashboard-heading= @title
+- render "themes/theme"
+- content_for :container_class, "container-fluid"
+- content_for :sidebar, render("admin/sidebar")
+- content_for :header, @title
 
 .dashboard-container
   .dashboard-title

@@ -6,7 +6,7 @@ class TagsController < ApplicationController
   before_action :check_admin
   before_action :find_tag_or_redirect, only: [:show, :edit, :update, :destroy]
 
-  layout "layouts/full_page_dashboard"
+  layout "layouts/full_page_sidebar"
 
   # GET /tags
   def index

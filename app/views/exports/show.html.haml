@@ -1,14 +1,18 @@
 - @title = @export.name
 
-.dashboard-heading{ style: "position: relative;" }
-  = @title
+- render "themes/theme"
+- content_for :container_class, "container-fluid"
+- content_for :sidebar, render("admin/sidebar")
+- content_for :header, @title
 
-- if @export.status == "started"
-  #progress.custom-progress-bar{ style: "width: #{@export.percent}%;", data: { object: "#{"ajax-timer" if @export.total_steps != @export.completed_steps}", path: progress_export_path(@export) } }
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "Exports", exports_path
+    %li= @title
+    %li= render "layouts/breadcrumb_edit_delete_dropdown", edit_url: edit_export_path(@export), delete_url: @export, delete_confirmation: "Delete #{@export.name}?"
 
-= link_to exports_path, class: "btn btn-sm btn-link" do
-  %i.fa.fa-caret-left
-  Exports
-= render "layouts/breadcrumb_edit_delete_dropdown", edit_url: edit_export_path(@export), delete_url: @export, delete_confirmation: "Delete #{@export.name}?"
+.dashboard-container{ style: "position: relative;" }
+  - if @export.status == "started"
+    #progress.custom-progress-bar{ style: "width: #{@export.percent}%;", data: { object: "#{"ajax-timer" if @export.total_steps != @export.completed_steps}", path: progress_export_path(@export) } }
 
-#export-status= render "exports/status", export: @export
+  #export-status= render "exports/status", export: @export

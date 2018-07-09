@@ -1,11 +1,13 @@
 - @title = "New Export"
 
-.dashboard-heading{ style: "position: relative;" }
-  = @title
+- render "themes/theme"
+- content_for :container_class, "container-fluid"
+- content_for :sidebar, render("admin/sidebar")
+- content_for :header, @title
 
-.mb-5
-  = link_to exports_path, class: "btn btn-sm btn-link" do
-    %i.fa.fa-caret-left
-    Exports
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "Exports", exports_path
+    %li{ style: "font-weight: 300; color: #9e9e9e;" } New
 
-= render "exports/form", export: @export
+.dashboard-container= render "exports/form", export: @export

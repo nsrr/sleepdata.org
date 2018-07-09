@@ -1,28 +1,34 @@
 - @title = "Roles on Datasets"
 
-%table.table.table-striped.table-borderless.table-hover.table-sticky
-  %thead
-    %tr
-      %th Dataset
-      %th Reviewers
-      %th Editors
-      %th Viewers
-  %tbody
-    - Dataset.current.order(:release_date, :name).each do |d|
+- render "themes/theme"
+- content_for :container_class, "container-fluid"
+- content_for :sidebar, render("admin/sidebar")
+- content_for :header, @title
+
+.dashboard-container.dashboard-table
+  %table.table.table-striped.table-borderless.table-hover.table-sticky
+    %thead
       %tr
-        %td
-          = link_to collaborators_dataset_path(d) do
-            .d-none.d-md-inline-block= d.name
-            .d-inline-block.d-md-none= d.slug
-        %td
-          - d.reviewers.order(:full_name).each do |u|
-            %span{ rel: "tooltip", title: u.username, data: { container: "body", placement: "top" } }
-              = u.initials
-        %td
-          - d.editors.order(:full_name).each do |u|
-            %span{ rel: "tooltip", title: u.username, data: { container: "body", placement: "top" } }
-              = u.initials
-        %td
-          - d.viewers.order(:full_name).each do |u|
-            %span{ rel: "tooltip", title: u.username, data: { container: "body", placement: "top" } }
-              = u.initials
+        %th Dataset
+        %th Reviewers
+        %th Editors
+        %th Viewers
+    %tbody
+      - Dataset.current.order(:release_date, :name).each do |d|
+        %tr
+          %td
+            = link_to collaborators_dataset_path(d) do
+              .d-none.d-md-inline-block= d.name
+              .d-inline-block.d-md-none= d.slug
+          %td
+            - d.reviewers.order(:full_name).each do |u|
+              %span{ rel: "tooltip", title: u.username, data: { container: "body", placement: "top" } }
+                = u.initials
+          %td
+            - d.editors.order(:full_name).each do |u|
+              %span{ rel: "tooltip", title: u.username, data: { container: "body", placement: "top" } }
+                = u.initials
+          %td
+            - d.viewers.order(:full_name).each do |u|
+              %span{ rel: "tooltip", title: u.username, data: { container: "body", placement: "top" } }
+                = u.initials

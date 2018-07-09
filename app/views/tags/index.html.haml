@@ -1,44 +1,44 @@
 - @title = "Tags"
 
+- render "themes/theme"
+- content_for :container_class, "container-fluid"
+- content_for :sidebar, render("admin/sidebar")
 - content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        .float-right
-          = link_to plus_or("New Tag"), new_tag_path, class: "btn btn-primary btn-shadow"
-          = render "layouts/per_page", per_page: 40, object_count: @tags.total_count
-        = @title
-        = render "search/toggle"
-
-= render "search/simple", url: tags_path
+  .float-right
+    = link_to plus_or("New Tag"), new_tag_path, class: "btn btn-primary btn-shadow"
+    = render "layouts/per_page", per_page: 40, object_count: @tags.total_count
+  = @title
 
 - if @tags.present?
-  %table.table.table-striped.table-borderless.table-hover.table-sticky
-    %col
-    %col
-    %col.d-none.d-sm-table-column
-    %col{ width: "1px" }
-    %thead
-      %tr
-        = th_sort_field @order, "tags.name", "Name"
-        = th_sort_field @order, "tags.color", "Color"
-        = th_sort_field @order, "tags.tag_type", "Type", extra_class: "d-none d-sm-table-cell"
-        %th.text-center
-          .d-none.d-sm-inline-block Actions
-    %tbody
-      - @tags.each do |tag|
+  .dashboard-container.dashboard-table
+    %table.table.table-striped.table-borderless.table-hover.table-sticky
+      %col
+      %col
+      %col.d-none.d-sm-table-column
+      %col{ width: "1px" }
+      %thead
         %tr
-          %td= link_to tag.name, tag
-          %td
-            %span.badge.badge-dark{ style: "background-color: #{tag.color};" }= tag.color
-          %td.d-none.d-sm-table-cell
-            %span.badge.badge-light= tag.type_name
-          %td.text-center
-            = render "layouts/edit_delete_dropdown", edit_url: edit_tag_path(tag), delete_url: tag, delete_confirmation: "Delete #{tag.name}?"
+          %th.py-2
+            = form_tag tags_path, method: :get, enforce_utf8: false do
+              = text_field_tag :search, params[:search], placeholder: "Search tags", autocomplete: "off", class: "table-cell-search-input border rounded"
+          = th_sort_field @order, "tags.color", "Color"
+          = th_sort_field @order, "tags.tag_type", "Type", extra_class: "d-none d-sm-table-cell"
+          %th.text-center
+            .d-none.d-sm-inline-block Actions
+      %tbody
+        - @tags.each do |tag|
+          %tr
+            %td= link_to tag.name, tag
+            %td
+              %span.badge.badge-dark{ style: "background-color: #{tag.color};" }= tag.color
+            %td.d-none.d-sm-table-cell
+              %span.badge.badge-light= tag.type_name
+            %td.text-center
+              = render "layouts/edit_delete_dropdown", edit_url: edit_tag_path(tag), delete_url: tag, delete_confirmation: "Delete #{tag.name}?"
 
   .center-horizontally= paginate @tags, theme: "bootstrap"
 - else
-  .jumbotron.text-center
+  .jumbotron.jumbotron-custom-text
+    %i.fa.fa-clone.mr-1
     No tags found.
-    = succeed "." do
-      = link_to "Back to index", tags_path
+    = link_to "Start over", tags_path if params[:search].present?

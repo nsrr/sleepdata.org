@@ -15,20 +15,10 @@
 
 - @title = "Downloads By Month"
 
-.dashboard-heading= @title
-
-.text-center.mb-3
-  - @year = (params[:year] || Date.today.year).to_i
-  = link_to admin_downloads_by_month_path(year: @year - 1, user_type: params[:user_type]), class: "btn btn-sm btn-light" do
-    %i.fa.fa-caret-left
-    Previous Year
-  &nbsp;
-  = link_to admin_downloads_by_month_path(user_type: params[:user_type]), class: "btn btn-sm btn-light" do
-    Current Year
-  &nbsp;
-  = link_to admin_downloads_by_month_path(year: @year + 1, user_type: params[:user_type]), class: "btn btn-sm btn-light" do
-    Next Year
-    %i.fa.fa-caret-right
+- render "themes/theme"
+- content_for :container_class, "container-fluid"
+- content_for :sidebar, render("admin/sidebar")
+- content_for :header, @title
 
 .dashboard-container
   - series = Dataset.current.order(:release_date, :name).collect do |dataset|
@@ -44,6 +34,16 @@
   - series = [{ name: "No Downloads", data: [0]*12}] if series.blank?
 
   #downloads-chart-container{ data: { series: series.to_json, categories: Date::ABBR_MONTHNAMES.last(12).to_json, title: "#{@year} Downloads", subtitle: user_type, yaxis: "File Size" } }
+
+.text-center.mb-3
+  - @year = (params[:year] || Date.today.year).to_i
+
+  .text-center
+    = link_to admin_downloads_by_month_path(year: @year - 1, user_type: params[:user_type]), class: "btn btn-sm btn-light" do
+      %i.fa.fa-caret-left
+    = @year
+    = link_to admin_downloads_by_month_path(year: @year + 1, user_type: params[:user_type]), class: "btn btn-sm btn-light" do
+      %i.fa.fa-caret-right
 
 .text-center.mb-3
   = link_to "All Members", admin_downloads_by_month_path(year: @year), class: "btn btn-sm #{ !["regular", "core", "aug"].include?(params[:user_type]) ? "btn-primary" : "btn-light"}"
