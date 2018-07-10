@@ -33,4 +33,4 @@
       %main.col.p-3{ role: "main" }
         = yield
     = yield :footer
-    = render "layouts/footer", footer: @theme ? "footer-#{@theme}" : nil
+    = render "layouts/footer", footer: @theme ? "footer-#{@theme}" : nil, container: "container-fluid"
