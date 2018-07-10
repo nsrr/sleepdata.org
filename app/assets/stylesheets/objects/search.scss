@@ -26,14 +26,10 @@
 
 .search-container {
   @include remove-last-child-bottom-margin;
-  background-color: $jumbotron-bg;
   border-radius: 3px;
-  box-shadow: 0 0 20px $standard-shadow-color;
-  color: $body-color;
   left: 0;
   margin: 0;
   opacity: 0;
-  padding: 10px;
   position: absolute;
   right: 0;
   text-align: center;

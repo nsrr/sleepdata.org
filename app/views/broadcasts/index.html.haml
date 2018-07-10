@@ -23,8 +23,8 @@
         %tr
           %th
           %th.py-2
-            = form_tag broadcasts_path, method: :get, enforce_utf8: false do
-              = text_field_tag :search, params[:search], placeholder: "Search articles", autocomplete: "off", class: "table-cell-search-input border rounded"
+            = form_with url: broadcasts_path, method: :get, local: true, skip_enforcing_utf8: true do |form|
+              = form.text_field :search, value: params[:search], placeholder: "Search articles", autocomplete: "off", class: "table-cell-search-input border rounded"
 
           %th.d-none.d-sm-table-cell Publish date
           %th.text-center.d-none.d-lg-table-cell Pinned

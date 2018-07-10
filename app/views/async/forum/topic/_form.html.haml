@@ -26,19 +26,19 @@
   .preview-container.preview-container-login
     .preview-header
       .float-right
-        = link_to "#", data: { object: "close-new-forum-topic" }, class: "link-unstyled" do
+        = link_to "#", data: { object: "close-new-forum-topic" }, class: "text-white no-underline", style: "font-weight: 600;" do
           &times;
       Sign in to start a new topic
     .preview-body{ style: "min-height: inherit;" }
-      = form_tag async_forum_login_path, method: :post, remote: true, class: "form-inline" do |f|
-        = label_tag :email, nil, class: "sr-only"
-        = email_field_tag :email, params[:email], class: "form-control mb-2 mr-sm-2 mb-sm-0", placeholder: "Email", data: { title: "Invalid Email", container: "body" }
+      = form_with url: async_forum_login_path, method: :post, class: "form-inline" do |form|
+        = form.label :email, for: :email, class: "sr-only"
+        = form.email_field :email, value: params[:email], class: "form-control mb-2 mr-sm-2 mb-sm-0", placeholder: "Email", data: { title: "Invalid email", container: "body" }, autocomplete: "off", autocorrect: "off", autocapitalize: "none", spellcheck: "false"
 
-        = label_tag :password, nil, class: "sr-only"
-        = password_field_tag :password, "", class: "form-control mb-2 mr-sm-2 mb-sm-0", placeholder: "Password", data: { title: "Invalid Password", container: "body" }, autocomplete: "current-password"
+        = form.label :password, for: :password, class: "sr-only"
+        = form.password_field :password, class: "form-control mb-2 mr-sm-2 mb-sm-0", placeholder: "Password", data: { title: "Invalid password", container: "body" }, autocomplete: "current-password"
 
-        = submit_tag "Sign In", class: "btn btn-primary"
+        = form.submit "Sign in", class: "btn btn-primary"
         %small.mb-2.ml-2.mb-sm-0.mt-2.mt-md-0
-          = link_to "Forgot Password?", new_user_password_path
+          = link_to "Forgot password?", new_user_password_path
           %br
-          = link_to "Register New Account", new_user_registration_path
+          = link_to "Register new account", new_user_registration_path

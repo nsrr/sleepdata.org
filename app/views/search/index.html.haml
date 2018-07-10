@@ -7,10 +7,10 @@
       %h1.page-heading
         Search
 
-= form_tag search_path, method: :get, id: "search-form", class: "mb-5" do
+= form_with url: search_path, method: :get, local: true, id: "search-form", class: "mb-3" do |form|
   .input-group
-    = text_field_tag :search, params[:search], class: "form-control", placeholder: "Search...", autocomplete: "off", autofocus: params[:search].blank?
-    %span.input-group-btn
+    = form.text_field :search, value: params[:search], class: "form-control", placeholder: "Search...", autocomplete: "off", autofocus: params[:search].blank?
+    %span.input-group-append
       = link_to "#", class: "btn btn-primary", data: { object: "submit-and-disable", target: "#search-form" } do
         %i.fa.fa-search
 
@@ -42,8 +42,10 @@
 - elsif @highlight_found
   -# Nothing
 - else
-  %p.lead.text-center
+  .jumbotron.jumbotron-custom-text
+    %i.fa.fa-clone.mr-1
     - if params[:search].present?
-      No Search Results Found
+      No results found.
+      = link_to "Start over", search_path
     - else
       Type a search above.

@@ -35,6 +35,11 @@
     background-color: $p500-blue;
     color: $brand-white;
     border-radius: $border-radius $border-radius 0 0;
+    padding: map-get($spacers, 1) map-get($spacers, 2);
+  }
+
+  .preview-body {
+    padding: map-get($spacers, 2);
   }
 }
 

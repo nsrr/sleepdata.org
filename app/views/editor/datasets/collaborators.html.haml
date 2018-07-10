@@ -2,34 +2,20 @@
 
 = render "datasets/header"
 
-- content_for :header do
-  .breadcrumb-container
-    .container
-      %ol
-        %li= link_to @dataset.slug, @dataset
-        %li collaborators
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to @dataset.slug, @dataset
+    %li collaborators
 
 .row
   .col-md-9.col-buffer
-    %h1 Collaborators
-
-    %h4 Add User
-    = form_tag create_access_dataset_path(@dataset), method: :post, class: "form-inline" do
-      .form-group
-        = text_field_tag :user_email, "", autocomplete: "off", data: { object: "typeahead", local: User.current.collect{|user| "#{user.username} [#{user.email}]" }.to_json }, class: "form-control", placeholder: "Email Address"
-
-      .form-group
-        = label :role, "Role"
-        = select_tag :role, options_for_select([["---", nil]] + DatasetUser::ROLES), class: "form-control"
-      = submit_tag "Set User", class: "btn btn-primary", name: nil
-
-    .table-responsive
-      %table.table.table-striped
+    .dashboard-container.dashboard-table
+      %table.table.table-striped.table-borderless.table-hover.table-sm.table-sticky
         %thead
           %tr
             %th User
             %th Role
-            %th Actions
+            %th.text-center Actions
 
         - @dataset.dataset_users.order(:id).sort{|a,b| [a.role.to_s, a.user.full_name] <=> [b.role.to_s, b.user.full_name]}.each do |dataset_user|
           %tr{ class: "#{"warning" if params[:dataset_user_id].to_i == dataset_user.id}" }
@@ -46,8 +32,19 @@
                 Reviewer
               - else
                 %span.text-muted No Role
-            %td.nowrap
-              = link_to "Delete", remove_access_dataset_path( @dataset, dataset_user_id: dataset_user.id ), method: :post, class: "btn btn-outline-danger btn-sm"
+            %td.text-center
+              = link_to "Delete", remove_access_dataset_path( @dataset, dataset_user_id: dataset_user.id ), method: :post, class: "btn btn-outline-danger btn-sm", data: { confirm: "Remove #{dataset_user.user.full_name}?" }
+
+    %h4 Add User
+    = form_with url: create_access_dataset_path(@dataset), method: :post, local: true, class: "form-inline mb-3" do |form|
+      .form-group
+        = form.text_field :user_email, autocomplete: "off", data: { object: "typeahead", local: User.current.collect{|user| "#{user.username} [#{user.email}]" }.to_json }, class: "form-control mr-2", placeholder: "Email"
+
+      .form-group
+        = form.select :role, DatasetUser::ROLES, { include_blank: "---" }, class: "form-control mr-2"
+
+      .form-group
+        = form.submit "Set user", class: "btn btn-primary", name: nil
 
   .col-md-3
     = render "documentation/logo_and_admin"

@@ -1,29 +1,32 @@
 - @title = @dataset.name
 
-= render 'datasets/header'
+= render "datasets/header"
 
-= form_tag search_dataset_path(@dataset), method: :get, class: 'form-inline', style: 'margin-bottom: 20px' do
+= form_with url: search_dataset_path(@dataset), method: :get, local: true, id: "search-form", class: "mb-3" do |form|
   .input-group
-    = text_field_tag 's', params[:s], class: 'form-control', placeholder: "Search #{@dataset.slug.upcase}"
-    .input-group-btn
-      = submit_tag 'Search', class: 'btn btn-primary', name: nil
-      = link_to 'Reset', search_dataset_path(@dataset), class: 'btn btn-light'
+    = form.text_field :search, value: params[:search], class: "form-control", placeholder: "Search #{@dataset.slug.upcase}...", autocomplete: "off", autofocus: params[:search].blank?
+    %span.input-group-append
+      = link_to "#", class: "btn btn-primary", data: { object: "submit-and-disable", target: "#search-form" } do
+        %i.fa.fa-search
 
-- if @results.blank?
-  .jumbotron
-    %p
-      To search across the documentation, type your search term in the box above.
-      If you are searching for variables, you will want to view the
-      = link_to 'Variables', dataset_variables_path(@dataset, search: params[:search])
-      instead.
+- if @results.present?
+  .dashboard-container.dashboard-table
+    %table.table.table-striped.table-borderless.table-hover.table-sticky
+      - @results.each do |result|
+        - page_path = result.split(":").first
+        - path = (page_path ? page_path.gsub(@dataset.pages_folder + "/", "") : nil)
+        - line = result.split(":")[1..-1].join(":")
+        %tr
+          %td= link_to path, pages_dataset_path( @dataset ) + "/" + path.to_s + "?s=#{@term}"
+          %td
+          %td
+            = highlight(strip_tags(simple_markdown(line)), @term, sanitize: false)
 - else
-  %table.table.table-striped
-    - @results.each do |result|
-      - page_path = result.split(':').first
-      - path = (page_path ? page_path.gsub(@dataset.pages_folder + '/', '') : nil)
-      - line = result.split(':')[1..-1].join(':')
-      %tr
-        %td= link_to path, pages_dataset_path( @dataset ) + '/' + path.to_s + "?s=#{@term}"
-        %td
-        %td
-          = highlight(strip_tags(simple_markdown(line)), @term, sanitize: false)
+  .jumbotron.jumbotron-custom-text
+    %p
+      %i.fa.fa-clone.mr-1
+      To search across the documentation, type your search term in the box above.
+    %p
+      If you are searching for variables, you will want to view the
+      = link_to "variables", dataset_variables_path(@dataset, search: params[:search])
+      instead.

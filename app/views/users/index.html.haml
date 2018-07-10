@@ -18,8 +18,8 @@
       %thead
         %tr
           %th.py-2
-            = form_tag users_path, method: :get, enforce_utf8: false do
-              = text_field_tag :search, params[:search], placeholder: "Search users", autocomplete: "off", class: "table-cell-search-input border rounded"
+            = form_with url: users_path, method: :get, local: true, skip_enforcing_utf8: true do |form|
+              = form.text_field :search, value: params[:search], placeholder: "Search users", autocomplete: "off", class: "table-cell-search-input border rounded"
           = th_sort_field @order, "users.email", "Email"
           %th.d-none.d-sm-table-cell= order_to "Activity", primary: "activity"
           = th_sort_field_rev @order, "users.sign_in_count", "Logins", extra_class: "d-none d-md-table-cell text-right"

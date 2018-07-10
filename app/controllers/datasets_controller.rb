@@ -22,9 +22,9 @@ class DatasetsController < ApplicationController
 
   # GET /datasets/1/search
   def search
-    @term = params[:s].to_s.gsub(/[^\w]/, "")
+    @term = params[:search].to_s.gsub(/[^\w]/, "")
     @results = []
-    @results = `grep -i -R #{@term} #{@dataset.pages_folder}`.split("\n") unless @term.blank?
+    @results = `grep -i -R #{@term} #{@dataset.pages_folder}`.split("\n") if @term.present?
   end
 
   # GET /datasets/1/json_manifest

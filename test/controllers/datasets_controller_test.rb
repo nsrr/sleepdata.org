@@ -353,7 +353,7 @@ class DatasetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should search public dataset documentation as anonymous user" do
-    get search_dataset_url(@dataset), params: { s: "view ?/\\" }
+    get search_dataset_url(@dataset), params: { search: "view ?/\\" }
     assert_equal "view", assigns(:term)
     assert_equal 1, assigns(:results).count
     assert_equal "# VIEW_ME.md", assigns(:results).first.to_s.split(":").last

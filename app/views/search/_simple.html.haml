@@ -1,8 +1,8 @@
 .search-container-relative
   .search-container{ class: params[:search].present? ? "search-container-visible" : nil }
-    = form_tag url, method: :get, class: "form-vertical", enforce_utf8: false, id: "search-form" do
+    = form_with url: url, method: :get, local: true, skip_enforcing_utf8: true, id: "search-form" do
       = hidden_field_tag :order, params[:order] unless params[:order].blank?
-      .form-group{ style: "margin: 0;" }
+      .form-group.mb-0
         .input-group
           = text_field_tag :search, params[:search], autocomplete: "off", class: "form-control", placeholder: "Search #{@title}"
           .input-group-append

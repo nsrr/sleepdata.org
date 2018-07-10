@@ -18,8 +18,8 @@
       %thead
         %tr
           %th.py-2
-            = form_tag tags_path, method: :get, enforce_utf8: false do
-              = text_field_tag :search, params[:search], placeholder: "Search tags", autocomplete: "off", class: "table-cell-search-input border rounded"
+            = form_with url: tags_path, method: :get, local: true, skip_enforcing_utf8: true do |form|
+              = form.text_field :search, value: params[:search], placeholder: "Search tags", autocomplete: "off", class: "table-cell-search-input border rounded"
           = th_sort_field @order, "tags.color", "Color"
           = th_sort_field @order, "tags.tag_type", "Type", extra_class: "d-none d-sm-table-cell"
           %th.text-center
