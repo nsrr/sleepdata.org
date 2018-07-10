@@ -1,11 +1,7 @@
 - @title = "New Article"
 
 - render "themes/theme"
-
-- content_for :container_class, "container-fluid"
-
 - content_for :sidebar, render("admin/sidebar")
-
 - content_for :header, @title
 
 .dashboard-container= render "broadcasts/form", broadcast: @broadcast

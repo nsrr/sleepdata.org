@@ -1,12 +1,7 @@
 - @title = "Admin Dashboard"
 
 - render "themes/theme"
-
-- content_for :container_class, "container-fluid"
-
-- content_for :sidebar do
-  = render "admin/sidebar"
-
+- content_for :sidebar, render("admin/sidebar")
 - content_for :header, @title
 
 - user_scope = User.current.no_spammer_or_shadow_banned
