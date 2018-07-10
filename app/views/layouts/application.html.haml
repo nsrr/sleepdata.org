@@ -27,6 +27,7 @@
         %div{ class: defined?(container) && container.present? ? container : "container" }
           %h1.page-heading
             = yield :header_simple
+    = render "layouts/shared/breadcrumbs", container: "container"
     .py-3
       .container= yield
     = yield :footer

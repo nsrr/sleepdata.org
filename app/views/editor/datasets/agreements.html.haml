@@ -2,14 +2,12 @@
 
 = render "datasets/header"
 
-- content_for :header do
-  .breadcrumb-container.p-2
-    .container
-      %ol
-        %li= link_to @dataset.slug, @dataset
-        %li agreements
-        - if params[:order] != "agreements.id desc" || params[:status].present?
-          %li= link_to "Reset Filters", agreements_dataset_path(@dataset)
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to @dataset.slug, @dataset
+    %li agreements
+    - if params[:order] != "agreements.id desc" || params[:status].present?
+      %li= link_to "Reset Filters", agreements_dataset_path(@dataset)
 
 .row
   .col-md-9

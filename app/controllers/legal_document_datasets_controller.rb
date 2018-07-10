@@ -7,23 +7,25 @@ class LegalDocumentDatasetsController < ApplicationController
   before_action :find_organization_or_redirect
   before_action :find_legal_document_dataset_or_redirect, only: [:show, :edit, :update, :destroy]
 
+  layout "layouts/full_page_sidebar"
+
   # GET /orgs/1/legal-document-datasets
   def index
     @legal_document_datasets = @organization.legal_document_datasets.page(params[:page]).per(20)
   end
 
-  # GET /orgs/1/legal-document-datasets/1
-  def show
-  end
+  # # GET /orgs/1/legal-document-datasets/1
+  # def show
+  # end
 
   # GET /orgs/1/legal-document-datasets/new
   def new
     @legal_document_dataset = @organization.legal_document_datasets.new
   end
 
-  # GET /orgs/1/legal-document-datasets/1/edit
-  def edit
-  end
+  # # GET /orgs/1/legal-document-datasets/1/edit
+  # def edit
+  # end
 
   # POST /orgs/1/legal-document-datasets
   def create

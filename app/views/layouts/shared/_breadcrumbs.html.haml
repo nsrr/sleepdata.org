@@ -1,0 +1,4 @@
+- if content_for?(:breadcrumbs)
+  .breadcrumb-container.p-2
+    %div{ class: container }
+      = yield :breadcrumbs

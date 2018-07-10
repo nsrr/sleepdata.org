@@ -5,12 +5,12 @@
     .container
       %h1.page-heading
         Supporting Documents
-  .breadcrumb-container.p-2
-    .container
-      %ol
-        %li= link_to "Reviews", reviews_path
-        %li= link_to @data_request.name, review_path(@data_request)
-        %li{ style: "font-weight: 300; color: #9e9e9e;" } Supporting Documents
+
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "Reviews", reviews_path
+    %li= link_to @data_request.name, review_path(@data_request)
+    %li{ style: "font-weight: 300; color: #9e9e9e;" } Supporting Documents
 
 #supporting-documents-upload.supporting-documents-upload{ data: { object: "supporting-documents-dropfile", upload_url: upload_reviewer_supporting_documents_path(@data_request, format: "js"), fallback_url: new_reviewer_supporting_document_path(@data_request) } }
   #upload-bar.supporting-documents-upload-bar

@@ -5,11 +5,11 @@
     .container
       %h1.page-heading
         = @tool.name_was
-  .breadcrumb-container.p-2
-    .container
-      %ol
-        %li= link_to "Tools", admin_tools_path
-        %li= link_to @tool.name_was, admin_tool_path(@tool)
-        %li Edit
 
-= render "admin/tools/form", tool: @tool
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "Tools", admin_tools_path
+    %li= link_to @tool.name_was, admin_tool_path(@tool)
+    %li Edit
+
+.dashboard-container= render "admin/tools/form", tool: @tool

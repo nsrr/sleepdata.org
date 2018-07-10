@@ -1,10 +1,14 @@
 - @title = @legal_document_dataset.name
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        = @title
+- render "themes/theme"
+- content_for :sidebar, render("admin/sidebar")
+- content_for :header, @title
+
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to @organization.name, @organization
+    %li= link_to "Legal Document Datasets", organization_legal_document_datasets_path(@organization)
+    %li= @title
 
 = render "forms/horizontal/show/generic", title: "Legal document", content: link_to(@legal_document_dataset.legal_document.name, [@organization, @legal_document])
 = render "forms/horizontal/show/generic", title: "Dataset", content: link_to(@legal_document_dataset.dataset.name, @dataset)

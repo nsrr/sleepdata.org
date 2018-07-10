@@ -5,10 +5,9 @@
     .container
       %h1.page-heading
         = @title
-  .breadcrumb-container.p-2
-    .container
-      %ol
-        %li= link_to "Tools", admin_tools_path
-        %li New
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "Tools", admin_tools_path
+    %li{ style: "font-weight: 300; color: #9e9e9e;" } New
 
-= render "admin/tools/form", tool: @tool
+.dashboard-container= render "admin/tools/form", tool: @tool
