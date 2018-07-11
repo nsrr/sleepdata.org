@@ -12,7 +12,7 @@
 
 - @highlight_found = true
 - if [0, 1].include?(params[:page].to_i)
-  - if /share|sharing|upload/ =~ params[:search].to_s
+  - if /share|sharing|upload|submit|submission/ =~ params[:search].to_s
     = render "search/highlights/share"
   - elsif /fair|find|access|interoper|usable|useable/ =~ params[:search].to_s
     = render "search/highlights/fair"
