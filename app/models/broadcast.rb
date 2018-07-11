@@ -12,7 +12,7 @@ class Broadcast < ApplicationRecord
                   unless: :deleted?
 
   # Scopes
-  scope :published, -> { current.where(published: true).where('publish_date <= ?', Time.zone.today) }
+  scope :published, -> { current.where(published: true).where("publish_date <= ?", Time.zone.today) }
 
   # Validations
   validates :title, :slug, :description, :user_id, :publish_date, presence: true
@@ -41,7 +41,7 @@ class Broadcast < ApplicationRecord
   def url_hash
     {
       year: publish_date.year,
-      month: publish_date.strftime('%m'),
+      month: publish_date.strftime("%m"),
       slug: slug
     }
   end
@@ -69,7 +69,7 @@ class Broadcast < ApplicationRecord
 
   # TODO: Refactor or remove into search module
   def self.compute_ranges(description_array, terms)
-    cleaned_array = description_array.collect { |t| t.gsub(/[^\w]/, '').to_s.downcase }
+    cleaned_array = description_array.collect { |t| t.gsub(/[^\w]/, "").to_s.downcase }
     indices = cleaned_array.each_index.select { |i| cleaned_array[i].in?(terms) }
     @ranges = []
     indices.each do |index|
