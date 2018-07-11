@@ -1,6 +1,6 @@
 - if [".md",".markdown"].include?(File.extname(page_path))
-  .markdown-container-new
+  .markdown-container
     = highlight(simple_markdown(File.read(page_path), target_blank: false, table_class: "table table-striped table-hover"), @term, sanitize: false)
 - else
-  .markdown-container-new.mono-container
+  .mono-container
     = highlight(File.read(page_path), @term, sanitize: false)

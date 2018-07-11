@@ -12,7 +12,7 @@
 - inline_url = files_dataset_path(@dataset) + "/m/browser/#{@dataset_file.full_path}?inline=1"
 
 - if @dataset_file.md?
-  .markdown-container-new
+  .markdown-container
     = highlight(simple_markdown(File.read(@dataset_file.filesystem_path), target_blank: false, table_class: "table table-striped table-hover"), @term, sanitize: false)
 - elsif @dataset_file.pdf?
   .embed-responsive{ style: "padding-bottom: 100.00%;" }
