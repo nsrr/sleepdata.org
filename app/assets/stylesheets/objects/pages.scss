@@ -109,7 +109,7 @@
 
 .page-list-container {
   border-left: 1px solid $breadcrumb-bg;
-  margin: -20px 0;
+  margin: -(map-get($spacers, 3)) 0;
   padding: 20px 0;
 }
 

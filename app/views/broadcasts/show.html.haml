@@ -7,6 +7,21 @@
     = render "layouts/edit_delete_dropdown", edit_url: edit_broadcast_path(@broadcast), delete_url: @broadcast, delete_confirmation: "Delete #{@broadcast.title}?"
   = @title
 
+- content_for :breadcrumbs do
+  .float-right
+    - if @broadcast.published?
+      - if @broadcast.publish_date <= Time.zone.today
+        %span.badge.badge-light Published
+        = link_to "View Blog Post", blog_post_path(@broadcast.url_hash), class: "btn btn-sm btn-light"
+      - else
+        %span.badge.badge-light
+          Set to Publish on
+          = @broadcast.publish_date.strftime("%a, %B %-d, %Y")
+    - else
+      %span.badge.badge-warning DRAFT
+  %ol
+    %li= link_to "Blog Posts", broadcasts_path
+
 .row
   .col-md-3.order-1.order-md-2
     .dashboard-container
@@ -40,21 +55,5 @@
         %br
         = simple_check @broadcast.archived
   .col-md-9.order-2.order-md-1
-    .breadcrumb-container
-      .container
-        .float-right
-          - if @broadcast.published?
-            - if @broadcast.publish_date <= Time.zone.today
-              %span.badge.badge-light Published
-              = link_to "View Blog Post", blog_post_path(@broadcast.url_hash), class: "btn btn-sm btn-light"
-            - else
-              %span.badge.badge-light
-                Set to Publish on
-                = @broadcast.publish_date.strftime("%a, %B %-d, %Y")
-          - else
-            %span.badge.badge-warning DRAFT
-        %ol
-          %li= link_to "Blog Posts", broadcasts_path
-
     .dashboard-container
       .broadcast= simple_markdown(@broadcast.description, target_blank: false, table_class: "table table-striped table-borderless")

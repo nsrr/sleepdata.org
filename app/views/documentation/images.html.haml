@@ -1,17 +1,11 @@
-- if @object.class == Dataset
-  - images_path = images_dataset_path(@object, path: @image_file)
-  = render 'datasets/header'
-- else
-  - images_path = images_tool_path(@object, path: @image_file)
-  = render 'tools/header'
+- images_path = images_dataset_path(@object, path: @image_file)
+= render "datasets/header"
 
-- content_for :header do
-  .breadcrumb-container
-    .container
-      %ol
-        %li= link_to @object.slug, @object
-        %li images
-        %li= link_to File.basename(@image_file), images_path
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to @object.slug, @object
+    %li images
+    %li= link_to File.basename(@image_file), images_path
 
-.text-center{ style: 'margin-bottom: 20px' }
-  = image_tag images_path, style: 'max-width: 100%'
+.text-center
+  = image_tag images_path, class: "img-fluid"

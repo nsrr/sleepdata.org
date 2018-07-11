@@ -1,7 +1,7 @@
 - @title = @dataset.name
 = render "datasets/header"
 
-- content_for :header do
+- content_for :header_append do
   - if @dataset.info_present?
     .header-container.pt-0
       .container

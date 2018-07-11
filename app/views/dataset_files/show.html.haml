@@ -5,7 +5,7 @@
 - path = params[:path]
 - page = [params[:page].to_i - 1, 0].max
 
-- content_for :header do
+- content_for :breadcrumbs do
   #breadcrumb= render "datasets/files_breadcrumb", path: path, page: page, file_count: nil
 
 - direct_download = files_dataset_path(@dataset) + "/m/browser/#{@dataset_file.full_path}"

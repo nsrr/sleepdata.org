@@ -1,58 +1,56 @@
-- content_for :header do
-  .breadcrumb-container
-    .container
-      - if defined?(total_count)
-        - per_page = 100
-        - page = params[:page].blank? ? 1 : params[:page].to_i
-        - sort_params = params.permit(:s, :search, :folder)
-        - current_page_min = (page - 1) * per_page + 1
-        - current_page_max = page * per_page
-        .d-none.d-md-block.float-right
-          %ul.pagination.pagination-sm.m-0
-            - if current_page_min > 1
-              %li.page-item= link_to "&laquo;".html_safe, url_for(sort_params.merge(page: page - 1)  ).gsub("%2F","/"), class: "page-link"
-            - else
-              %li.page-item.disabled
-                %span.page-link &laquo
-            %li.page-item
-              %span.page-link.text-dark
-                %strong
-                  = number_with_delimiter current_page_min
-                  to
-                  = number_with_delimiter [current_page_max, total_count].min
-                of
-                = number_with_delimiter total_count
-            - if current_page_max < total_count
-              %li.page-item= link_to "&raquo;".html_safe, url_for(sort_params.merge(page: page + 1)).gsub("%2F", "/"), class: "page-link"
-            - else
-              %li.page-item.disabled
-                %span.page-link &raquo;
-      - if @variable && @variable.dataset_version
-        .d-none.d-md-block.float-right
-          = link_to "v#{@variable.dataset_version.version}", files_dataset_path(@dataset, path: "datasets/archive/#{@variable.dataset_version.version}"), class: "btn btn-sm btn-light"
-
-      %ol
-        %li= link_to @dataset.slug, @dataset
-        %li= link_to_if !folder.blank?, "variables", dataset_variables_path(@dataset)
-        - s = (params[:search].blank? ? nil : params[:search])
-        - unless folder.blank?
-          - folder.to_s.split("/")[0..(@variable ? -1 : -2)].each_with_index do |partial_folder, index|
-            - full_folder = folder.to_s.split("/")[0..index].join("/")
-            %li= link_to partial_folder, dataset_variables_path(@dataset, s: s, folder: full_folder).gsub("%2F","/")
-          - unless @variable
-            %li= folder.to_s.split("/").last
-        - if @variable
-          %li= @variable.name
+- content_for :breadcrumbs do
+  - if defined?(total_count)
+    - per_page = 100
+    - page = params[:page].blank? ? 1 : params[:page].to_i
+    - sort_params = params.permit(:s, :search, :folder)
+    - current_page_min = (page - 1) * per_page + 1
+    - current_page_max = page * per_page
+    .d-none.d-md-block.float-right
+      %ul.pagination.pagination-sm.m-0
+        - if current_page_min > 1
+          %li.page-item= link_to "&laquo;".html_safe, url_for(sort_params.merge(page: page - 1)  ).gsub("%2F","/"), class: "page-link"
         - else
-          - if @folders.present?
-            %li
-              .btn-group
-                = link_to "#", class: "btn btn-light btn-sm dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do
-                  Navigate to...
-                  %span.caret
-                .dropdown-menu
-                  - @folders.collect do |folder|
-                    - full_folder = [params[:folder].blank? ? nil : params[:folder], folder].compact.join("/")
-                    = link_to folder, dataset_variables_path(@dataset, folder: full_folder), class: "dropdown-item"
+          %li.page-item.disabled
+            %span.page-link &laquo
+        %li.page-item
+          %span.page-link.text-dark
+            %strong
+              = number_with_delimiter current_page_min
+              to
+              = number_with_delimiter [current_page_max, total_count].min
+            of
+            = number_with_delimiter total_count
+        - if current_page_max < total_count
+          %li.page-item= link_to "&raquo;".html_safe, url_for(sort_params.merge(page: page + 1)).gsub("%2F", "/"), class: "page-link"
+        - else
+          %li.page-item.disabled
+            %span.page-link &raquo;
+  - if @variable && @variable.dataset_version
+    .d-none.d-md-block.float-right
+      = link_to "v#{@variable.dataset_version.version}", files_dataset_path(@dataset, path: "datasets/archive/#{@variable.dataset_version.version}"), class: "btn btn-sm btn-light"
 
-          %li= render "search/toggle", btn_class: "btn-link"
+  %ol
+    %li= link_to @dataset.slug, @dataset
+    %li= link_to_if !folder.blank?, "variables", dataset_variables_path(@dataset)
+    - s = (params[:search].blank? ? nil : params[:search])
+    - unless folder.blank?
+      - folder.to_s.split("/")[0..(@variable ? -1 : -2)].each_with_index do |partial_folder, index|
+        - full_folder = folder.to_s.split("/")[0..index].join("/")
+        %li= link_to partial_folder, dataset_variables_path(@dataset, s: s, folder: full_folder).gsub("%2F","/")
+      - unless @variable
+        %li= folder.to_s.split("/").last
+    - if @variable
+      %li= @variable.name
+    - else
+      - if @folders.present?
+        %li
+          .btn-group
+            = link_to "#", class: "btn btn-light btn-sm dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do
+              Navigate to...
+              %span.caret
+            .dropdown-menu
+              - @folders.collect do |folder|
+                - full_folder = [params[:folder].blank? ? nil : params[:folder], folder].compact.join("/")
+                = link_to folder, dataset_variables_path(@dataset, folder: full_folder), class: "dropdown-item"
+
+      %li= render "search/toggle", btn_class: "btn-link"

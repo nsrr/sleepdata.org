@@ -2,7 +2,7 @@
   background-color: $p100-grey;
   border-bottom: 1px solid $p200-grey;
   list-style: none;
-  padding: 20px 0;
+  padding: map-get($spacers, 2) 0;
 
   ol {
     margin: 0;
