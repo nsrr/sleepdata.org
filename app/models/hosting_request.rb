@@ -12,7 +12,6 @@ class HostingRequest < ApplicationRecord
 
   # Relationships
   belongs_to :user
-  has_many :notifications
 
   # Methods
   def self.searchable_attributes
@@ -31,22 +30,9 @@ class HostingRequest < ApplicationRecord
     fork_process(:hosting_request_submitted)
   end
 
-  def destroy
-    notifications.destroy_all
-    super
-  end
-
   protected
 
   def hosting_request_submitted
-    create_notifications!
     UserMailer.hosting_request_submitted(self).deliver_now if EMAILS_ENABLED
-  end
-
-  def create_notifications!
-    User.admins.each do |u|
-      notification = u.notifications.where(hosting_request_id: id).first_or_create
-      notification.mark_as_unread!
-    end
   end
 end

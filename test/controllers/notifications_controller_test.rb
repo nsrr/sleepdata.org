@@ -38,14 +38,6 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to notifications(:topic_reply_one).reply
   end
 
-  test "should show hosting request notification" do
-    login(@regular_user)
-    get notification_url(notifications(:hosting_request_one))
-    assert_not_nil assigns(:notification)
-    assert_equal true, assigns(:notification).read
-    assert_redirected_to notifications(:hosting_request_one).hosting_request
-  end
-
   test "should show export notification" do
     notification = notifications(:export)
     login(notification.user)

@@ -4,8 +4,6 @@
   = render "notifications/show/tool_review", notification: notification
 - elsif notification.dataset_review
   = render "notifications/show/dataset_review", notification: notification
-- elsif notification.hosting_request
-  = render "notifications/show/hosting_request", notification: notification
 - elsif notification.export
   = render "notifications/show/export", notification: notification
 - else

@@ -11,7 +11,6 @@ class Notification < ApplicationRecord
   belongs_to :tool_review, optional: true
   belongs_to :dataset, optional: true
   belongs_to :dataset_review, optional: true
-  belongs_to :hosting_request, optional: true
   belongs_to :organization, optional: true
   belongs_to :export, optional: true
 

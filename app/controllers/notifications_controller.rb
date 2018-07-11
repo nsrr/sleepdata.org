@@ -39,8 +39,6 @@ class NotificationsController < ApplicationController
         current_user.notifications.where(tool_id: @tool.id, read: false).pluck(:id)
       elsif @dataset
         current_user.notifications.where(dataset_id: @dataset.id, read: false).pluck(:id)
-      elsif @hosting_request
-        current_user.notifications.where(hosting_request_id: @hosting_request.id, read: false).pluck(:id)
       elsif @organization
         current_user.notifications.where(organization_id: @organization.id, read: false).pluck(:id)
       else
@@ -57,7 +55,6 @@ class NotificationsController < ApplicationController
     @topic = Topic.current.find_by(id: params[:topic_id])
     @tool = Tool.current.find_by(id: params[:tool_id])
     @dataset = Dataset.current.find_by(id: params[:dataset_id])
-    @hosting_request = HostingRequest.current.find_by(id: params[:hosting_request_id])
     @organization = Organization.current.find_by(id: params[:organization_id])
   end
 
@@ -74,7 +71,6 @@ class NotificationsController < ApplicationController
     return @notification.reply if @notification.reply
     return tool_tool_review_path(@notification.tool, @notification.tool_review) if @notification.tool && @notification.tool_review
     return dataset_dataset_review_path(@notification.dataset, @notification.dataset_review) if @notification.dataset && @notification.dataset_review
-    return @notification.hosting_request if @notification.hosting_request
     return @notification.export if @notification.export
     notifications_path
   end
