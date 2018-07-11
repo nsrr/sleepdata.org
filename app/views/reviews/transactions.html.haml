@@ -4,16 +4,11 @@
 - @title = "Transactions"
 - @menu_title = "#{@data_request.name} #{@title}"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        = @title
-  .breadcrumb-container
-    .container
-      %ol
-        %li= link_to "Reviews", reviews_path
-        %li= link_to @data_request.name, review_path(@data_request)
+- content_for :header_simple, @title
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "Reviews", reviews_path
+    %li= link_to @data_request.name, review_path(@data_request)
 
 - ignore_mask_attributes = ["irb", "last_submitted_at", "submitted_at", "resubmitted_at", "status", "comments", "secured_device", "human_subjects_protections_trained", "unauthorized_to_sign", "has_read_step3", "has_read_step5", "data_user_type", "irb_evidence_type"]
 - @agreement_transactions.each_with_index do |t, index|

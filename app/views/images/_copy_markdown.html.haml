@@ -1,0 +1,5 @@
+- url = "![](#{download_image_url(image)})"
+%span.code-command-blank{ style: "font-size: 1rem;" }
+  = link_to "#", data: { object: "suppress-click", clipboard_text: url, placement: "bottom", container: "body", title: "Copied!", trigger: "manual" }, style: "text-decoration: none" do
+    %i.fa.fa-clipboard
+  = url

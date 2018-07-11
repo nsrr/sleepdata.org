@@ -21,12 +21,12 @@
     = yield :service_announcement
     = render "layouts/flash_bar"
     #top-menu.top-menu= render "layouts/menu", menu: @theme ? "menu-#{@theme}" : nil
-    = yield :header
     - if content_for?(:header_simple)
       .header-container
         %div{ class: defined?(container) && container.present? ? container : "container" }
           %h1.page-heading
             = yield :header_simple
+    = yield :header
     = render "layouts/shared/breadcrumbs", container: "container"
     .py-3
       .container= yield

@@ -1,31 +1,28 @@
 - @title = @topic.title
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        .float-right
-          = link_to pencil_or("Write a Reply"), page_topic_path(@topic, page: @topic.last_page, anchor: "write-a-reply"), method: :get, class: "btn btn-primary btn-shadow" unless @topic.auto_locked?
-          - if current_user && @topic.editable_by?(current_user)
-            - edit_url = edit_topic_path(@topic)
-            - delete_url = @topic
-            - delete_confirmation = "Delete \"#{@topic.title}\"?"
-            %span.dropdown
-              = link_to "#", class: "btn btn-light btn-shadow dropdown-toggle", data: { toggle: "dropdown" } do
-                .d-inline-block.d-sm-none
-                  %i.fa.fa-cog
-                .d-none.d-sm-inline-block Actions
-                %strong.caret
+- content_for :header_simple do
+  .float-right
+    = link_to pencil_or("Write a Reply"), page_topic_path(@topic, page: @topic.last_page, anchor: "write-a-reply"), method: :get, class: "btn btn-primary btn-shadow" unless @topic.auto_locked?
+    - if current_user && @topic.editable_by?(current_user)
+      - edit_url = edit_topic_path(@topic)
+      - delete_url = @topic
+      - delete_confirmation = "Delete \"#{@topic.title}\"?"
+      %span.dropdown
+        = link_to "#", class: "btn btn-light btn-shadow dropdown-toggle", data: { toggle: "dropdown" } do
+          .d-inline-block.d-sm-none
+            %i.fa.fa-cog
+          .d-none.d-sm-inline-block Actions
+          %strong.caret
 
-              .dropdown-menu.dropdown-menu-right
-                = link_to edit_url, class: "dropdown-item" do
-                  %i.fa.fa-pencil
-                  Edit
-                .dropdown-divider
-                = link_to delete_url, method: :delete, data: { confirm: delete_confirmation }, class: "dropdown-item text-danger" do
-                  %i.fa.fa-trash
-                  Delete
-        = @title
+        .dropdown-menu.dropdown-menu-right
+          = link_to edit_url, class: "dropdown-item" do
+            %i.fa.fa-pencil
+            Edit
+          .dropdown-divider
+          = link_to delete_url, method: :delete, data: { confirm: delete_confirmation }, class: "dropdown-item text-danger" do
+            %i.fa.fa-trash
+            Delete
+  = @title
 
 %div{ style: "margin-bottom: 20px;" }
   .float-right.d-none.d-md-block{ style: "margin-top: -20px;" }

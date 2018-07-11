@@ -1,13 +1,10 @@
 - @title = "Data Request Submitted"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading.text-center
-        = @title
-        .text-center.mt-3
-          %p.lead.text-white
-            Thank you, your data request was submitted successfully.
+- content_for :header_simple do
+  .text-center
+    .mb-3= @title
+    .lead
+      Thank you, your data request was submitted successfully.
 
 .dashboard-container-narrow
   %p
@@ -42,8 +39,8 @@
 .text-center
   = link_to data_requests_path, class: "btn btn-light btn-shadow" do
     %i.fa.fa-th-list
-    Review My Data Requests
+    Review my data requests
   &nbsp;
   = link_to [:print, @data_request], class: "btn btn-primary btn-shadow", data: { turbolinks: false } do
     %i.fa.fa-print
-    Print Data Request
+    Print data request

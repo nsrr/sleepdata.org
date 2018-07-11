@@ -1,16 +1,14 @@
-- @title = @image.name
+- @title = "Image #{@image.to_param}"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        - if current_user&.admin?
-          .float-right
-            = render "layouts/edit_delete_dropdown", edit_url: edit_image_path(@image), delete_url: @image, delete_confirmation: "Delete #{@image.name}?"
-        Hello
+- content_for :header_simple do
+  - if current_user&.admin?
+    .float-right
+      = render "layouts/edit_delete_dropdown", edit_url: edit_image_path(@image), delete_url: @image, delete_confirmation: "Delete #{@image.name}?"
+  = @title
 
 .dashboard-container
-  = render "forms/horizontal/show/generic", title: "User", content: @image.user.username
+  = render "forms/horizontal/show/generic", title: "User", content: link_to(@image.user.username, posts_member_path(@image.user.username))
   = render "forms/horizontal/show/generic", title: "File size", content: number_to_human_size(@image.file_size)
+  = render "forms/horizontal/show/generic", title: "Markdown", content: render("images/copy_markdown", image: @image)
 
 = image_tag download_image_path(@image), alt: "", class: "img-fluid img-ignore-selection"

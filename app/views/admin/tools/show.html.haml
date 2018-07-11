@@ -1,10 +1,7 @@
 - @title = @tool.name
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        = @title
+- content_for :header_simple, @title
+
 - content_for :breadcrumbs do
   .float-right
     = render "layouts/draft_published", published: @tool.published?

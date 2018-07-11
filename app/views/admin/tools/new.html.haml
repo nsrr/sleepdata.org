@@ -1,10 +1,7 @@
 - @title = "New Tool"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        = @title
+- content_for :header_simple, @title
+
 - content_for :breadcrumbs do
   %ol
     %li= link_to "Tools", admin_tools_path

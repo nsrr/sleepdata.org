@@ -1,15 +1,11 @@
 - @title = "Cross Dataset Query Interface"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        = @title
-  .breadcrumb-container
-    .container
-      Learn how to
-      %strong= link_to "create powerful queries", "#search-across-datasets", data: { object: "scroll-anchor-keep-link" }
-      across datasets available on the NSRR.
+- content_for :header_simple, @title
+
+- content_for :breadcrumbs do
+  Learn how to
+  %strong= link_to "create powerful queries", "#search-across-datasets", data: { object: "scroll-anchor-keep-link" }
+  across datasets available on the NSRR.
 
 %a.anchor-top{ name: "search-across-datasets", id: "search-across-datasets" }
 %h2

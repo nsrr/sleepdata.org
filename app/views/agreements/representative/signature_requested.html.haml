@@ -1,10 +1,7 @@
 - @title = "Data Access and Use Agreement"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading.text-center
-        = @data_request.final_legal_document.organization.name
+- content_for :header_simple do
+  .text-center= @data_request.final_legal_document.organization.name
 
 .dashboard-container-narrow
   .dashboard-container-title
@@ -19,13 +16,12 @@
     = mail_to ENV["support_email"]
 
 - if @data_request.errors.any?
-  .p-3.mt-3.mb-0.bg-danger.text-white
+  .p-3.mb-3.bg-danger.text-white
     %strong
-      Errors prohibited this from being saved.
-    Please scroll down and try again.
+      Please fill in all fields.
+    Full name and professional title are required.
 
 .bg-white.box-shadow.p-3.p-md-4.p-lg-5.mb-3
-
   - @data_request.final_legal_document.final_legal_document_pages.each do |final_legal_document_page|
     .agreement-heading= final_legal_document_page.title
     = legal_markdown final_legal_document_page, reviewer: true

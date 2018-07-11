@@ -1,13 +1,10 @@
 - @title = "Tool Submitted"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading.text-center
-        = @title
-        .text-center.mt-3
-          %p.lead.text-white
-            We have sent you an email to confirm your account.
+- content_for :header_simple do
+  .text-center
+    .mb-3= @title
+    .lead
+      We have sent you an email to confirm your account.
 
 .dashboard-container-narrow
   %p

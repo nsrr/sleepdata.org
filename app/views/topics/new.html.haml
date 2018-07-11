@@ -1,9 +1,5 @@
 - @title = "New Topic"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        = @title
+- content_for :header_simple, @title
 
 = render "topics/form", topic: @topic

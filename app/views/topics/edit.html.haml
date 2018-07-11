@@ -1,14 +1,9 @@
 - @title = "Edit Topic: #{@topic.title_was}"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        = @topic.title_was
-  .breadcrumb-container
-    .container
-      %ol
-        %li= link_to @topic.title_was, @topic
-        %li Edit
+- content_for :header_simple, @topic.title_was
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to @topic.title_was, @topic
+    %li Edit
 
-= render "form", topic: @topic
+= render "topics/form", topic: @topic

@@ -1,21 +1,16 @@
-- shhs_dataset_version = "0.12.0" # "SHHS"
+- shhs_dataset_version = "0.13.0" # "SHHS"
 - nsrr_gem_version = "0.4.0"
 - @title = "Demo"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        NSRR Demo
-  .breadcrumb-container
-    .container
-      Learn how to
-      %strong= link_to "download data", "#download-data", data: { object: "scroll-anchor-keep-link" }
-      and
-      %strong= link_to "run simple statistics", "#statistics", data: { object: "scroll-anchor-keep-link" }
-      and
-      = succeed "." do
-        %strong= link_to "open signal files", "#extract-edf-signal", data: { object: "scroll-anchor-keep-link" }
+- content_for :header_simple, "NSRR Demo"
+- content_for :breadcrumbs do
+  Learn how to
+  %strong= link_to "download data", "#download-data", data: { object: "scroll-anchor-keep-link" }
+  and
+  %strong= link_to "run simple statistics", "#statistics", data: { object: "scroll-anchor-keep-link" }
+  and
+  = succeed "." do
+    %strong= link_to "open signal files", "#extract-edf-signal", data: { object: "scroll-anchor-keep-link" }
 
 %a.anchor-top{ name: "download-data", id: "download-data" }
 %h2

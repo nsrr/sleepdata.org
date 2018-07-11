@@ -1,21 +1,18 @@
 - @title = @data_request.name
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        .float-right
-          = link_to transactions_review_path(@data_request), class: "btn btn-light btn-sm" do
-            %i.fa.fa-th-list
-            Transactions
-          &nbsp;
-          = link_to "#", class: "btn btn-light btn-sm", data: { object: "show-data-request" } do
-            %i.fa.fa-file-text-o
-            View
+- content_for :header_simple do
+  .float-right
+    = link_to transactions_review_path(@data_request), class: "btn btn-light btn-sm" do
+      %i.fa.fa-th-list
+      Transactions
+    &nbsp;
+    = link_to "#", class: "btn btn-light btn-sm", data: { object: "show-data-request" } do
+      %i.fa.fa-file-text-o
+      View
+  = @title
 
-        = @title
-  .breadcrumb-container#review-breadcrumbs
-    = render "reviews/breadcrumbs", data_request: @data_request
+- content_for :breadcrumbs do
+  #review-breadcrumbs= render "reviews/breadcrumbs", data_request: @data_request
 
 = render "reviewer/agreement_variables/modal"
 

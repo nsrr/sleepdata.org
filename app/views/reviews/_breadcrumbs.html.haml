@@ -1,12 +1,11 @@
-.container
-  .float-right.d-none.d-lg-block
-    = render "reviews/tags", data_request: data_request
-  %ol
-    %li
-      - voting_count = current_user.reviewable_data_requests.without_vote(current_user).count
-      = link_to reviews_path(voted: voting_count.positive? ? 0 : nil), class: "btn btn-sm btn-light" do
-        %i.fa.fa-caret-left
-        Reviews
-        - if voting_count.positive?
-          %span.badge.badge-primary= voting_count
-    %span= render "reviews/reviewers", data_request: data_request
+.float-right.d-none.d-lg-block
+  = render "reviews/tags", data_request: data_request
+%ol
+  %li
+    - voting_count = current_user.reviewable_data_requests.without_vote(current_user).count
+    = link_to reviews_path(voted: voting_count.positive? ? 0 : nil) do
+      %i.fa.fa-caret-left
+      Reviews
+      - if voting_count.positive?
+        %span.badge.badge-primary= voting_count
+  %li= render "reviews/reviewers", data_request: data_request

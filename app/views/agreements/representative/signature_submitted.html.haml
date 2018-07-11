@@ -1,13 +1,10 @@
 - @title = "Submission Complete"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading.text-center
-        = @title
-        .text-center.mt-3
-          %p.lead.text-white
-            Thank you for using the online data request process.
+- content_for :header_simple do
+  .text-center
+    .mb-3= @title
+    .lead
+      Thank you for using the online data request process.
 
 .dashboard-container-narrow.text-center
   %p
