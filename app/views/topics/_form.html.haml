@@ -4,7 +4,7 @@
     = render "forms/vertical/slug_field", form: form, object: topic, key: :slug, key_name: "URL Slug", help_text: "#{ENV["website_url"]}/forum/#{topic.slug}"
     - if topic.new_record?
       .form-group
-        = form.label :description, "Topic Description", class: "control-label"
+        = form.label :description, "Topic Description"
         .preview-container{ class: topic.errors[:description].present? ? "is-invalid" : nil }
           .preview-header
             .float-right

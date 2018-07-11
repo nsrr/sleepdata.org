@@ -31,11 +31,11 @@
       = form.hidden_field :url
 
       .form-group{ class: @sign_in_errors ? "has-error" : "" }
-        = label_tag :email, "Email", class: "control-label"
+        = label_tag :email, "Email"
         = email_field_tag :email, "", class: "form-control"
 
       .form-group{ class: @sign_in_errors ? "has-error" : "" }
-        = label_tag :password, "Password", class: "control-label"
+        = label_tag :password, "Password"
         %small= link_to "(Forgot password?)", new_user_password_path, tabindex: "-1"
         = password_field_tag :password, "", class: "form-control", autocomplete: "current-password"
         - if @sign_in_errors

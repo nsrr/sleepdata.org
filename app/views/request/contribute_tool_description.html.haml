@@ -8,12 +8,12 @@
     = hidden_field_tag :draft, 0
 
     .form-group
-      = form.label :name, nil, class: "control-label"
+      = form.label :name, nil
       = form.text_field :name, class: "form-control"
       = render "layouts/errors", object: @tool, key: :name
 
     .form-group
-      = form.label :description, nil, class: "control-label"
+      = form.label :description, nil
       .preview-container
         .preview-header
           .float-right
