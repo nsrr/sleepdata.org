@@ -1,6 +1,6 @@
 - @title = "Image #{@image.to_param}"
 
-- content_for :header_simple do
+- content_for :header do
   - if current_user&.admin?
     .float-right
       = render "layouts/edit_delete_dropdown", edit_url: edit_image_path(@image), delete_url: @image, delete_confirmation: "Delete #{@image.name}?"

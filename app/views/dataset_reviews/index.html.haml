@@ -1,6 +1,6 @@
 - @title = "Reviews - #{@dataset.name}"
 
-- content_for :header_simple do
+- content_for :header do
   .float-right
     - if current_user && current_user.reviewed_dataset?(@dataset)
       - link_text = "Update my review"

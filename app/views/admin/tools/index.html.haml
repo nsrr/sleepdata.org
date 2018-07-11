@@ -1,6 +1,6 @@
 - @title = "Tools"
 
-- content_for :header_simple do
+- content_for :header do
   .float-right
     = link_to plus_or("New Tool"), new_admin_tool_path, class: "btn btn-primary btn-shadow"
     = render "layouts/per_page", per_page: 40, object_count: @tools.total_count

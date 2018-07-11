@@ -4,7 +4,7 @@
 - @title = "Transactions"
 - @menu_title = "#{@data_request.name} #{@title}"
 
-- content_for :header_simple, @title
+- content_for :header, @title
 - content_for :breadcrumbs do
   %ol
     %li= link_to "Reviews", reviews_path
