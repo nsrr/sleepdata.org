@@ -9,19 +9,8 @@
 - reply_id = (reply.new_record? ? "new" : reply.id)
 
 - if current_user
-  = form_for reply, url: url, method: method, remote: true, html: { class: "form-horizontal", id: "reply-form-#{parent_reply_id}-#{reply_id}" } do |f|
-    - if reply.errors.any?
-      .panel.panel-danger
-        .panel-heading
-          %strong
-            = pluralize reply.errors.count, "error"
-            prohibited this comment from being saved
-        .panel-body
-          %ul
-            - reply.errors.full_messages.each do |message|
-              %li= message
-
-    = f.hidden_field :reply_id
+  = form_with model: reply, url: url, method: method, id: "reply-form-#{parent_reply_id}-#{reply_id}" do |form|
+    = form.hidden_field :reply_id
 
     .preview-container.preview-container-forum
       .preview-header
@@ -31,20 +20,19 @@
         = link_to "Preview", "#", data: { object: "reply-tab", action: "preview", parent_reply_id: parent_reply_id, reply_id: reply_id }, class: "preview-tab", tabindex: "-1"
       .preview-body{ style: "min-height: 209px;" }
         %div{ data: { object: "reply-tab-content", action: "write", parent_reply_id: parent_reply_id, reply_id: reply_id } }
-          = f.text_area :description, rows: [[5, reply.description.to_s.count("\n") + 1].max, 25].min, class: "preview-control filedrag-container", data: { object: "expandable-text-area dropfile", default_rows: 5, upload_url: upload_images_path(update: "#reply_description_#{parent_reply_id}_#{reply_id}", format: "js"), fallback_url: new_image_path, log_id: "#log_#{parent_reply_id}_#{reply_id}" }, id: "reply_description_#{parent_reply_id}_#{reply_id}"
+          = form.text_area :description, rows: [[5, reply.description.to_s.count("\n") + 1].max, 25].min, class: "preview-control filedrag-container", data: { object: "expandable-text-area dropfile", default_rows: 5, upload_url: upload_images_path(update: "#reply_description_#{parent_reply_id}_#{reply_id}", format: "js"), fallback_url: new_image_path, log_id: "#log_#{parent_reply_id}_#{reply_id}" }, id: "reply_description_#{parent_reply_id}_#{reply_id}"
           .filedrag{ id: "log_#{parent_reply_id}_#{reply_id}", style: "margin-bottom: 10px" }
             Drag images above to insert into comment.
-
 
           .float-right.d-none.d-md-block.small.text-muted
             posting as
             = current_user.username
             = link_to "change", settings_profile_path(anchor: "username"), tabindex: "-1"
           - if reply.new_record?
-            = f.submit "Comment", class: "btn btn-primary", data: { disable_with: "Comment" }
+            = form.submit "Comment", class: "btn btn-primary", data: { disable_with: "Comment" }
             = link_to "Cancel", "#", data: { object: "parent-no-write-reply", parent_reply_id: parent_reply_id, reply_id: reply_id }
           - else
-            = f.submit "Update", class: "btn btn-primary", data: { disable_with: "Update Comment" }
+            = form.submit "Update", class: "btn btn-primary", data: { disable_with: "Update Comment" }
             = link_to "Cancel", reply_path(reply), remote: true, class: "btn btn-light"
 
         %div{ data: { object: "reply-tab-content", action: "preview", parent_reply_id: parent_reply_id, reply_id: reply_id }, style: "display: none;" }

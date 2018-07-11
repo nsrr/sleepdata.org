@@ -27,8 +27,8 @@
     .sign-up-form-title
       About Yourself
 
-    = form_for @tool, url: contribute_tool_sign_in_user_path, method: :patch, html: { class: "form-vertical", id: "form_sign_in" } do |f|
-      = f.hidden_field :url
+    = form_with model: @tool, url: contribute_tool_sign_in_user_path, method: :patch, id: "form_sign_in", local: true do |form|
+      = form.hidden_field :url
 
       .form-group{ class: @sign_in_errors ? "has-error" : "" }
         = label_tag :email, "Email", class: "control-label"
@@ -36,13 +36,13 @@
 
       .form-group{ class: @sign_in_errors ? "has-error" : "" }
         = label_tag :password, "Password", class: "control-label"
-        = link_to "(Forgot password?)", new_user_password_path, tabindex: "-1"
+        %small= link_to "(Forgot password?)", new_user_password_path, tabindex: "-1"
         = password_field_tag :password, "", class: "form-control", autocomplete: "current-password"
         - if @sign_in_errors
           %small.text-danger Invalid email or password.
 
       .form-group.submit-btn-container
-        = f.submit "Sign in", class: "btn btn-primary btn-block btn-shadow"
+        = form.submit "Sign in", class: "btn btn-primary btn-block btn-shadow"
 
   .sign-up-form.text-center
     New to the NSRR?
