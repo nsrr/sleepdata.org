@@ -1,2 +1,0 @@
-- if object.errors[key].present?
-  %small.text-danger= object.errors[key].collect { |e| "#{defined?(key_name) ? key_name : key.to_s.humanize} #{e}" }.join(', ')

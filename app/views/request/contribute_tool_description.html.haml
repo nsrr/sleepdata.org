@@ -9,12 +9,12 @@
 
     .form-group
       = form.label :name, nil
-      = form.text_field :name, class: "form-control"
-      = render "layouts/errors", object: @tool, key: :name
+      = form.text_field :name, class: "form-control#{" is-invalid" if @tool.errors[:name].present?}"
+      = render "forms/invalid_feedback", object: @tool, key: :name
 
     .form-group
       = form.label :description, nil
-      .preview-container
+      .preview-container.form-control.p-0{ class: @tool.errors[:description].present? ? "is-invalid" : nil }
         .preview-header
           .float-right
             = render "replies/rich_text_editor_buttons", target: "#tool_description"
@@ -26,7 +26,7 @@
             #log_new.filedrag
               Drag images above to insert into post.
           #content_preview.markdown-container-new{ style: "display: none;" }
-      = render "layouts/errors", object: @tool, key: :description
+      = render "forms/invalid_feedback", object: @tool, key: :description
 
 .text-center{ style: "margin-bottom: 20px" }
   - if @tool.published_was
