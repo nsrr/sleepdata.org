@@ -68,45 +68,6 @@
   }
 }
 
-// TODO: Restyle backdrop shadow.
-.markdown-container,
-.mono-container {
-  background-color: $body-bg;
-  border: 1px solid $p200-grey;
-  // box-shadow: 2px 2px 5px $brand-shadow;
-  font-size: 14px;
-  font-weight: 300;
-  margin: 20px;
-  padding: 20px;
-
-  img {
-    max-width: 100%;
-  }
-}
-
-@include media-breakpoint-up(sm) {
-  .markdown-container,
-  .mono-container {
-    font-size: 16px;
-    padding: 30px;
-  }
-}
-
-@include media-breakpoint-up(md) {
-  .markdown-container,
-  .mono-container {
-    font-size: 18px;
-    padding: 40px;
-  }
-}
-
-@include media-breakpoint-up(lg) {
-  .markdown-container,
-  .mono-container {
-    padding: 60px;
-  }
-}
-
 .page-list-container {
   border-left: 1px solid $breadcrumb-bg;
   margin: -(map-get($spacers, 3)) 0;
