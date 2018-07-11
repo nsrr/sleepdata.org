@@ -23,15 +23,15 @@
           = render "agreement_events/tags"
       .comment-body
         %div{ id: "agreement_event_write_#{agreement_event_id}" }
-          = form_for [@data_request, @agreement_event], url: @agreement_event.new_record? ? agreement_agreement_events_path(@data_request) : agreement_agreement_event_path(@data_request, @agreement_event), remote: true do |f|
-            = f.text_area :comment, rows: [[7, @agreement_event.comment.to_s.count("\n") + 1].max, 25].min, class: "comment-control filedrag-container", data: { object: "expandable-text-area dropfile text-area-autocomplete", default_rows: 7, mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort, upload_url: upload_images_path(update: "#agreement_event_comment_#{agreement_event_id}", format: "js"), fallback_url: new_image_path, log_id: "#agreement_event_log_#{agreement_event_id}" }, id: "agreement_event_comment_#{agreement_event_id}", placeholder: "Write a comment"
+          = form_with model: [@data_request, @agreement_event], url: @agreement_event.new_record? ? agreement_agreement_events_path(@data_request) : agreement_agreement_event_path(@data_request, @agreement_event) do |form|
+            = form.text_area :comment, rows: [[7, @agreement_event.comment.to_s.count("\n") + 1].max, 25].min, class: "comment-control filedrag-container", data: { object: "expandable-text-area dropfile text-area-autocomplete", default_rows: 7, mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort, upload_url: upload_images_path(update: "#agreement_event_comment_#{agreement_event_id}", format: "js"), fallback_url: new_image_path, log_id: "#agreement_event_log_#{agreement_event_id}" }, id: "agreement_event_comment_#{agreement_event_id}", placeholder: "Write a comment"
             - if @agreement_event.errors.any?
               .small.text-danger Comment can't be blank.
             .filedrag{ id: "agreement_event_log_#{agreement_event_id}" }
               Drag images above to insert into post.
             - button_text = @agreement_event.new_record? ? "Comment" : "Update"
             .mt-2
-              = f.submit button_text, class: "btn btn-primary", data: { disable_with: "Submitting..." }
+              = form.submit button_text, class: "btn btn-primary", data: { disable_with: "Submitting..." }
               - if @agreement_event.new_record? && @agreement_event.data_request.final_legal_document.approval_process == "committee"
                 - @data_request_review = @data_request.data_request_reviews.find_by(user: current_user)
                 - if @data_request_review&.vote_cleared?

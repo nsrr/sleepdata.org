@@ -23,9 +23,9 @@ class DatasetReviewsController < ApplicationController
     @dataset_review = @dataset.dataset_reviews.new(rating: 3)
   end
 
-  # GET /datasets/1/reviews/1/edit
-  def edit
-  end
+  # # GET /datasets/1/reviews/1/edit
+  # def edit
+  # end
 
   # POST /datasets/1/reviews
   def create

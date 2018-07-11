@@ -1,18 +1,16 @@
 - @title = "Review - #{@dataset.name}"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        Reviews
-  .breadcrumb-container
-    .container
-      %ol
-        %li= link_to @dataset.name, @dataset
-        %li= render "datasets/rating", rating: @dataset.rating
+- content_for :header_simple, "Reviews"
+
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to @dataset.name, @dataset
+    %li= render "datasets/rating", rating: @dataset.rating
 
 .dashboard-container
   = render "datasets/rating", rating: @dataset_review.rating
   %i= @dataset_review.user.username
   %small.text-muted= @dataset_review.created_at.strftime("- %b %-d, %Y")
+  - if current_user == @dataset_review.user
+    %small= link_to "Update my review", new_dataset_dataset_review_path(@dataset)
   = simple_markdown(@dataset_review.review)

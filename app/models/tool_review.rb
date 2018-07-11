@@ -3,7 +3,7 @@
 # Allows users to rate and review a user-submitted tool.
 class ToolReview < ApplicationRecord
   # Validations
-  validates :rating, :review, presence: true
+  validates :rating, presence: true
   validates :tool_id, uniqueness: { scope: :user_id }
   validates :rating, inclusion: { in: 1..5, message: "must be between 1 and 5 stars" }
 

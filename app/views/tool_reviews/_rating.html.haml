@@ -1,4 +1,4 @@
-= f.hidden_field :rating
+= form.hidden_field :rating, id: "tool_review_rating"
 
 - rating = tool_review.rating
 
@@ -11,5 +11,5 @@
     - else
       - icon_class = "fa-star-o text-muted"
 
-    .star-rating{ data: { object: "star-rating", position: position, target: "#tool_review_rating" } }
+    .star-rating.star-rating-clickable{ data: { object: "star-rating", position: position, target: "#tool_review_rating" } }
       %i.fa{ class: icon_class, aria: { hidden: "true" } }

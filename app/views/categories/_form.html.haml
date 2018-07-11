@@ -1,26 +1,4 @@
-= form_for @category, html: { class: "form-horizontal" } do |f|
-  - if @category.errors.any?
-    .panel.panel-danger
-      .panel-heading
-        %strong
-          = pluralize @category.errors.count, "error"
-          prohibited this category from being saved
-      .panel-body
-        %ul
-          - @category.errors.full_messages.each do |message|
-            %li= message
-
-  .form-group
-    = f.label :name, class: "col-md-2 control-label"
-    .col-md-10
-      = f.text_field :name, class: "form-control", data: { object: (@category.new_record? ? "create-slug" : ""), target: "#category_slug" }
-
-  .form-group{ style: "#{"display: none;" if @category.new_record? && !@category.errors.key?(:slug)}"}
-    = f.label :slug, class: "col-md-2 control-label"
-    .col-md-10
-      = f.text_field :slug, class: "form-control"
-
-  .form-group
-    .col-md-10.col-md-offset-2
-      = f.submit nil, class: "btn btn-primary"
-      = link_to "Cancel", @category.new_record? ? categories_path : @category, class: "btn btn-light"
+= form_with model: category, local: true do |form|
+  = render "forms/horizontal/text_field", form: form, object: category, key: :name, slug: "slug"
+  = render "forms/horizontal/slug_field", form: form, object: category, key: :slug
+  = render "forms/horizontal/submit", form: form, object: category

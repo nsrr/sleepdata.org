@@ -1,18 +1,16 @@
 - @title = "Review - #{@tool.name}"
 
-- content_for :header do
-  .header-container
-    .container
-      %h1.page-heading
-        Reviews
-  .breadcrumb-container
-    .container
-      %ol
-        %li= link_to @tool.name, tool_path(@tool)
-        %li= render "tools/rating", rating: @tool.rating
+- content_for :header_simple, "Reviews"
+
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to @tool.name, tool_path(@tool)
+    %li= render "tools/rating", rating: @tool.rating
 
 .dashboard-container
   = render "tools/rating", rating: @tool_review.rating
   %i= @tool_review.user.username
   %small.text-muted= @tool_review.created_at.strftime("- %b %-d, %Y")
+  - if current_user == @tool_review.user
+    %small= link_to "Update my review", new_tool_tool_review_path(@tool)
   = simple_markdown(@tool_review.review)

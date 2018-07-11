@@ -3,7 +3,7 @@
 # Allows users to rate and review a dataset.
 class DatasetReview < ApplicationRecord
   # Validations
-  validates :user_id, :dataset_id, :rating, :review, presence: true
+  validates :rating, presence: true
   validates :dataset_id, uniqueness: { scope: :user_id }
   validates :rating, inclusion: { in: 1..5, message: "must be between 1 and 5 stars" }
 

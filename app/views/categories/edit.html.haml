@@ -10,5 +10,4 @@
     %li= link_to @category.name_was, @category
     %li Edit
 
-.dashboard-container
-  = render "form"
+.dashboard-container= render "categories/form", category: @category

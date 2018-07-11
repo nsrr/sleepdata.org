@@ -11,6 +11,8 @@
 - **Data Request Changes**
   - Data request expiration dates are now present on the user dashboard and on
     printed data requests
+- **Dataset and Tool Review Changes**
+  - Reviews now only require a rating to be submitted, review text is optional
 - **Email Changes**
   - Email confirmation is now required for all accounts
   - Added detection of disposable email addresses

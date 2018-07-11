@@ -1,19 +1,10 @@
-= form_for [@dataset, dataset_review], html: { class: 'form-horizontal' } do |f|
-
-  .form-group
-    = f.label :rating, nil, class: 'col-md-2 control-label'
+= form_with model: [@dataset, dataset_review], local: true do |form|
+  .form-group.row
+    = form.label :rating, nil, class: "col-md-2 col-form-label"
     .col-md-10
-      .control-label{ style: 'text-align: left;' }
-        = render 'dataset_reviews/rating', f: f, dataset_review: dataset_review
-        = render 'layouts/errors', object: dataset_review, key: :rating
+      .form-control-plaintext
+        = render "dataset_reviews/rating", form: form, dataset_review: dataset_review
+        = render "forms/invalid_feedback", object: dataset_review, key: :rating
 
-  .form-group
-    = f.label :review, nil, class: 'col-md-2 control-label'
-    .col-md-10
-      = f.text_area :review, rows: 7, class: 'form-control'
-      = render 'layouts/errors', object: dataset_review, key: :review
-
-  .form-group
-    .col-md-10.col-md-offset-2
-      = f.submit dataset_review.new_record? ? 'Write Review' : 'Update Review', class: 'btn btn-primary'
-      = link_to 'Cancel', @dataset, class: 'btn btn-light'
+  = render "forms/horizontal/text_area", form: form, object: dataset_review, key: :review, rows: 7, help_text: "<strong>Optional:</strong> Provide some feedback about your experience with the dataset documentation and data.".html_safe
+  = render "forms/horizontal/submit", form: form, object: dataset_review, submit_text: dataset_review.new_record? ? "Write review" : "Update review", cancel: @dataset

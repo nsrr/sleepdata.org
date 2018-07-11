@@ -3,8 +3,13 @@
 
 %td.nowrap{ class: "#{"text-muted" if notification.read?}" }
   .overflow-hidden
-    = link_to notification, class: "#{notification.read? ? "link-muted" : "link-unstyled" }" do
-      = strip_tags(simple_markdown(notification.dataset_review.review)).html_safe
 
+    = link_to notification, class: "#{notification.read? ? "link-muted" : "link-unstyled" }" do
+      - if notification.dataset_review.review.present?
+        = strip_tags(simple_markdown(notification.dataset_review.review)).html_safe
+      - else
+        Left a
+        = notification.dataset_review.rating
+        star review.
 %td.d-none.d-md-table-cell
   = profile_picture_tag notification.dataset_review.user, size: 18
