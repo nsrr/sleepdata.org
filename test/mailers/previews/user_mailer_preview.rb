@@ -37,9 +37,4 @@ class UserMailerPreview < ActionMailer::Preview
     agreement_event = AgreementEvent.find_by(event_type: "commented")
     UserMailer.mentioned_in_agreement_comment(agreement_event, user)
   end
-
-  def hosting_request_submitted
-    hosting_request = HostingRequest.first
-    UserMailer.hosting_request_submitted(hosting_request)
-  end
 end

@@ -24,7 +24,6 @@
             %li= link_to "User Images", images_path, class: params[:controller] == "images" ? "active" : nil
             %li.sidebar-menu-header Other
             %li= link_to "Dataset Roles", admin_roles_path, class: current_page?(admin_roles_path) ? "active" : nil
-            %li= link_to "Hosting Requests", hosting_requests_path, class: params[:controller] == "hosting_requests" ? "active" : nil
             %li= link_to "Documentation Sync", admin_sync_path, class: current_page?(admin_sync_path) ? "active" : nil
             %li= link_to "Tags", tags_path, class: params[:controller] == "tags" ? "active" : nil
             %li.sidebar-menu-header Reports

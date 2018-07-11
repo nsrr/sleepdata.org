@@ -59,12 +59,4 @@ class UserMailer < ApplicationMailer
     mail(to: @email_to,
          subject: "#{agreement_event.user.username} Mentioned You While Reviewing a Data Request")
   end
-
-  def hosting_request_submitted(hosting_request)
-    setup_email
-    @hosting_request = hosting_request
-    @email_to = ENV["support_email"]
-    mail(to: @email_to,
-         subject: "#{hosting_request.user.username} - Dataset Hosting Request")
-  end
 end

@@ -87,7 +87,6 @@ class User < ApplicationRecord
   has_many :dataset_file_audits
   has_many :dataset_reviews
   has_many :exports, -> { current }
-  has_many :hosting_requests, -> { current }
   has_many :images
   has_many :notifications
   has_many :replies, -> { current.left_outer_joins(:broadcast, :topic).where(topics: { id: Topic.current}).or(current.left_outer_joins(:broadcast, :topic).where(broadcasts: { id: Broadcast.published })) }

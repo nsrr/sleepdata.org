@@ -76,15 +76,4 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal "#{agreement_event.user.username} Mentioned You While Reviewing a Data Request", mail.subject
     assert_match(/#{agreement_event.user.username} mentioned you while reviewing a data request\./, mail.body.encoded)
   end
-
-  test "dataset hosting request submitted email" do
-    hosting_request = hosting_requests(:one)
-    mail = UserMailer.hosting_request_submitted(hosting_request)
-    assert_equal [ENV["support_email"]], mail.to
-    assert_equal "#{hosting_request.user.username} - Dataset Hosting Request", mail.subject
-    assert_match(
-      /#{hosting_request.user.username} \[#{hosting_request.user.email}\] submitted a Dataset Hosting Request\./,
-      mail.body.encoded
-    )
-  end
 end
