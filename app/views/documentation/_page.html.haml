@@ -51,7 +51,7 @@
     #sidebar-content.d-none.d-md-block{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-md-3"}"}
       .menu-sticky
         .page-list-container{ style: "#{"display: none;" if cookies[:hide_page_list] == "1"}" }
-          %ul.left-menu
+          %ul.sidebar-menu
             = render "documentation/logo_and_admin"
             = render "datasets/menu_rating", dataset: @object if @object.is_a?(Dataset)
             = render "datasets/menu_extra"

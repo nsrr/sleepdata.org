@@ -5,7 +5,7 @@
 - content_for :breadcrumbs do
   %ol
     %li= link_to @dataset.slug, @dataset
-    %li agreements
+    %li{ style: "font-weight: 300; color: #9e9e9e;" } agreements
     - if params[:order] != "agreements.id desc" || params[:status].present?
       %li= link_to "Reset Filters", agreements_dataset_path(@dataset)
 

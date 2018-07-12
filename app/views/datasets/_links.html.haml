@@ -1,6 +1,6 @@
 - if current_user && @dataset.editable_by?(current_user)
-  %ul.left-menu{ style: "margin-top: 20px" }
-    %li.left-menu-header
+  %ul.sidebar-menu{ style: "margin-top: 20px" }
+    %li.sidebar-menu-header
       Admin
     %li= link_to "Agreements", agreements_dataset_path(@dataset), class: current_page?(agreements_dataset_path(@dataset)) ? "active" : nil
     %li= link_to "Audits", audits_dataset_path(@dataset), class: current_page?(audits_dataset_path(@dataset)) ? "active" : nil

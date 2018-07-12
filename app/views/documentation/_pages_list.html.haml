@@ -4,13 +4,13 @@
   - pages_path = pages_tool_path(@object)
 
 .page-list-container{ style: "#{"display: none;" if cookies[:hide_page_list] == "1"}" }
-  %ul.left-menu
+  %ul.sidebar-menu.p-0
     - page = [params[:page].to_i, 0].max
     - if @path.blank?
-      %li.left-menu-header
+      %li.sidebar-menu-header
         = @object.slug
     - else
-      %li.left-menu-header
+      %li.sidebar-menu-header
         = @object.slug
       %li
         - @path.to_s.split("/")[-1..-1].each_with_index do |folder, index|
