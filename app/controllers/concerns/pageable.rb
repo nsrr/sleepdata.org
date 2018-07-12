@@ -42,19 +42,14 @@ module Pageable
     @object.pull_latest!
     if params[:back] == "sync"
       redirect_to admin_sync_path
-    elsif @object.class == Dataset
-      redirect_to sync_dataset_path(@object)
-    elsif @object.class == Tool
-      redirect_to sync_tool_path(@object)
     else
-      redirect_to @object
+      redirect_to sync_dataset_path(@object)
     end
   end
 
   def sync
     @remote_commit = @object.remote_commit
     @local_commit = @object.local_commit
-
     render "documentation/sync"
   end
 
@@ -65,15 +60,11 @@ module Pageable
   end
 
   def redirect_without_object
-    empty_response_or_root_path(@object.class == Dataset ? datasets_path : tools_path) unless @object
+    empty_response_or_root_path(datasets_path) unless @object
   end
 
   def redirect_to_pages_path
-    if @object.class == Dataset
-      redirect_to pages_dataset_path(@object, path: @path)
-    else
-      redirect_to pages_tool_path(@object, path: @path)
-    end
+    redirect_to pages_dataset_path(@object, path: @path)
   end
 
   def set_page_path

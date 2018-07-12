@@ -1,16 +1,9 @@
-- if @object.is_a?(Dataset)
-  - logo_path = logo_dataset_path(@object)
-  - edit_path = edit_dataset_path(@object)
-- else
-  - logo_path = logo_tool_path(@object)
-  - edit_path = edit_tool_path(@object)
-
 - if @object.logo.present?
   .small-spacer
-  .text-center= image_tag logo_path, style: "max-width: 100%"
+  .text-center= image_tag logo_dataset_path(@object), class: "img-fluid"
 
 - if current_user && @object.editable_by?(current_user)
   .small-spacer
   .text-center
-    = link_to "Edit #{@object.class.name}", edit_path, class: "btn btn-sm btn-outline-secondary"
+    = link_to "Edit #{@object.class.name}", edit_dataset_path(@object), class: "btn btn-sm btn-outline-secondary"
     = link_to "Delete #{@object.class.name}", @object, method: :delete, class: "btn btn-sm btn-outline-danger", data: { confirm: "Are you sure you want to delete #{@object.class.name} #{@object.name}?" } if current_user.admin?

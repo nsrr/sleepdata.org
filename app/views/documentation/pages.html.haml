@@ -1,8 +1,5 @@
-- @title = [@object.name, @path.to_s.split('/').last.to_s.split(/\.(md|txt)/).first.to_s.titleize].reject(&:blank?).join(' - ')
+- @title = [@object.name, @path.to_s.split("/").last.to_s.split(/\.(md|txt)/).first.to_s.titleize].reject(&:blank?).join(" - ")
 
-- if @object.class == Dataset
-  = render 'datasets/header'
-- else
-  = render 'tools/header'
+= render "datasets/header"
 
-= render 'documentation/page', object: @object
+= render "documentation/page", object: @object

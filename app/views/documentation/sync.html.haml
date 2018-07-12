@@ -1,9 +1,6 @@
 - @title = @object.name
 
-- if @object.class == Dataset
-  = render "datasets/header"
-- else
-  = render "tools/header"
+= render "datasets/header"
 
 - content_for :breadcrumbs do
   %ol
@@ -16,4 +13,3 @@
   #sidebar-content.d-none.d-sm-block{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-md-3"}"}
     - @page_path = ""
     .menu-sticky= render "documentation/pages_list", pages_path: ""
-

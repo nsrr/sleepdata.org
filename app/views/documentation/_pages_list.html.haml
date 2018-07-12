@@ -1,7 +1,4 @@
-- if @object.is_a?(Dataset)
-  - pages_path = pages_dataset_path(@object)
-- else
-  - pages_path = pages_tool_path(@object)
+- pages_path = pages_dataset_path(@object)
 
 .page-list-container{ style: "#{"display: none;" if cookies[:hide_page_list] == "1"}" }
   %ul.sidebar-menu.p-0
@@ -30,5 +27,5 @@
           = page_name
 
   = render "documentation/logo_and_admin"
-  = render "datasets/menu_rating", dataset: @object if @object.is_a?(Dataset)
+  = render "datasets/menu_rating", dataset: @object
   = render "datasets/menu_extra"
