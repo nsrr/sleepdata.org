@@ -17,7 +17,7 @@
     = javascript_include_tag "application", data: { turbolinks_track: "reload" }
     = javascript_tag "var root_url='#{request.script_name + '/'}';"
   %body#top.full-page.theme-bg{ class: @theme ? "theme-#{@theme}-bg" : nil, data: { theme: @theme } }
-    = yield :service_announcement
+    = render "layouts/service_announcement"
     = render "layouts/flash_bar"
     #top-menu.top-menu= render "layouts/menu", container: yield(:container_class)
     = yield :header

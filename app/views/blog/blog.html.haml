@@ -1,7 +1,5 @@
 - @title = ["Blog", @category ? @category.name : nil, @author ? @author.username : nil].compact.join(" | ")
 
-= render "layouts/service_announcement"
-
 - content_for :header, @title
 
 .row
