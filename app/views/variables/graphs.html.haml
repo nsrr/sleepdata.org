@@ -2,48 +2,46 @@
 
 = render "variables/header"
 
-.row.mb-3
-  .col-md-3.d-none.d-md-block
-    = render "variables/menu"
-  .col-md-9
-    = hidden_field_tag "chart_type", params[:g]
+= hidden_field_tag "chart_type", params[:g]
 
-    - json = JSON.parse(@variable.spout_stats) rescue json = nil
-    #charts-info.d-none{ data: { charts: "#{json.to_json}" } }
+- json = JSON.parse(@variable.spout_stats) rescue json = nil
+#charts-info.d-none{ data: { charts: "#{json.to_json}" } }
 
-    - charts = []
-    - charts = json["charts"].keys.collect { |k| [k.titleize, k] } if json.is_a?(Hash) && json["charts"].is_a?(Hash)
-    - chart = charts.find { |chart_name, chart_value| chart_value == params[:g] }
-    - chart = charts.first unless chart
+- charts = []
+- charts = json["charts"].keys.collect { |k| [k.titleize, k] } if json.is_a?(Hash) && json["charts"].is_a?(Hash)
+- chart = charts.find { |chart_name, chart_value| chart_value == params[:g] }
+- chart = charts.first unless chart
 
 
-    - if charts.present?
-      %h1.variable-header= chart.first if chart
-      #chart-container{ style: "min-width: 200px; max-width: 800px; height: 400px; margin: 0 auto 20px auto;" }
+- if charts.present?
+  .dashboard-container
+    %h1.variable-header= chart.first if chart
+    #chart-container{ style: "min-width: 200px; max-width: 800px; height: 400px; margin: 0 auto 20px auto;" }
 
-    - if json && json["tables"]
-      - (json["tables"] || []).each do |key, tables|
-        %div{ style: "display: none;", data: { chart_name: key } }
-          - [tables].flatten.each do |table|
-            - if table.is_a? Hash
-              %h3.text-center= table["title"]
-              %h5.text-center= table["subtitle"]
-              .table-responsive
-                %table.table.table-hover
-                  %thead
-                    - (table["headers"] || []).each do |headers|
-                      %tr
-                        - headers.each do |cell|
-                          = render "variables/table_cell", cell: cell, type: :th
-                  %tfoot
-                    - (table["footers"] || []).each do |footers|
-                      %tr
-                        - footers.each do |cell|
-                          = render "variables/table_cell", cell: cell, type: :td
-                  %tbody
-                    - (table["rows"] || []).each do |rows|
-                      %tr
-                        - rows.each do |cell|
-                          = render "variables/table_cell", cell: cell, type: :td
+- if json && json["tables"]
+  - (json["tables"] || []).each do |key, tables|
+    %div{ style: "display: none;", data: { chart_name: key } }
+      - [tables].flatten.each do |table|
+        - if table.is_a? Hash
+          .dashboard-container.dashboard-table
+            .text-center
+              %strong= table["title"]
+            .text-center.mb-1
+              .small= table["subtitle"]
 
-.d-block.d-md-none= render "variables/menu"
+            %table.table.table-hover.table-striped.table-borderless.table-sm
+              %thead
+                - (table["headers"] || []).each do |headers|
+                  %tr
+                    - headers.each do |cell|
+                      = render "variables/table_cell", cell: cell, type: :th
+              %tfoot
+                - (table["footers"] || []).each do |footers|
+                  %tr
+                    - footers.each do |cell|
+                      = render "variables/table_cell", cell: cell, type: :td
+              %tbody
+                - (table["rows"] || []).each do |rows|
+                  %tr
+                    - rows.each do |cell|
+                      = render "variables/table_cell", cell: cell, type: :td

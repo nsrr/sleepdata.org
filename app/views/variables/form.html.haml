@@ -1,48 +1,42 @@
 = render "variables/header"
 
-.row.mb-3
-  .col-md-3.d-none.d-md-block
-    = render "variables/menu"
-  .col-md-9
-    - dataset_forms_folder = files_dataset_path(@dataset) + "/forms/#{@form.folder}?f=#{CGI::escape @form.code_book.to_s}"
-    - direct_download = files_dataset_path(@dataset) + "/m/browser/#{@form.full_location}"
-    - inline_url = files_dataset_path(@dataset) + "/m/browser/#{@form.full_location}?inline=1"
-    - if @form.file_missing?
-      .p-3.mb-2.bg-danger.text-white.lead.text-center
-        Form missing from server.
-      .p-3.mb-2.bg-light.text-dark
-        %p
-          The dataset owner has not uploaded
-          %code.bg-dark.text-white= @form.code_book
-          to the server. Please contact
-          = mail_to ENV["support_email"], ENV["support_email"], subject: "Missing Variable Form on NSRR", body: "The file \"#{@form.code_book}\" for #{@dataset.slug}/variables/#{@variable.name} is missing from server."
-          to notify us of the missing file.
-    - elsif @form.viewable_by_user?(current_user)
-      %div{ style: "position:relative" }
-        %div{ style: "position:absolute; top: -30px; right: 0;" }
-          = link_to direct_download, class: "btn btn-light btn-sm" do
-            %i.fa.fa-download
-            = @form.code_book
-      - if @form.pdf?
-        .embed-responsive{ style: "padding-bottom: 100.00%;" }
-          %object.white-background{ data: inline_url, type: "application/pdf" }
-            .jumbotron
-              %p
-                You may download the file here:
-              = link_to @form.code_book, direct_download
-      - elsif @form.image?
-        .text-center{ style: "margin-bottom: 20px" }
-          = image_tag inline_url, style: "max-width: 100%"
-      - else
+- dataset_forms_folder = files_dataset_path(@dataset) + "/forms/#{@form.folder}?f=#{CGI::escape @form.code_book.to_s}"
+- direct_download = files_dataset_path(@dataset) + "/m/browser/#{@form.full_location}"
+- inline_url = files_dataset_path(@dataset) + "/m/browser/#{@form.full_location}?inline=1"
+- if @form.file_missing?
+  .p-3.mb-2.bg-danger.text-white.lead.text-center
+    Form missing from server.
+  .p-3.mb-2.bg-light.text-dark
+    %p
+      The dataset owner has not uploaded
+      %code.bg-dark.text-white.p-1.rounded= @form.code_book
+      to the server. Please contact
+      = mail_to ENV["support_email"], ENV["support_email"], subject: "Missing Variable Form on NSRR", body: "The file \"#{@form.code_book}\" for #{@dataset.slug}/variables/#{@variable.name} is missing from server."
+      to notify us of the missing file.
+- elsif @form.viewable_by_user?(current_user)
+  %div{ style: "position:relative" }
+    %div{ style: "position:absolute; top: -30px; right: 0;" }
+      = link_to direct_download, class: "btn btn-light btn-sm" do
+        %i.fa.fa-download
+        = @form.code_book
+  - if @form.pdf?
+    .embed-responsive{ style: "padding-bottom: 100.00%;" }
+      %object.white-background{ data: inline_url, type: "application/pdf" }
         .jumbotron
           %p
             You may download the file here:
           = link_to @form.code_book, direct_download
-    - else
-      .jumbotron
-        %p
-          You must have a completed Data Access and Use Agreement to view this
-          form.
-        = link_to @form.code_book, dataset_forms_folder
-
-.d-block.d-md-none= render "variables/menu"
+  - elsif @form.image?
+    .text-center{ style: "margin-bottom: 20px" }
+      = image_tag inline_url, style: "max-width: 100%"
+  - else
+    .jumbotron
+      %p
+        You may download the file here:
+      = link_to @form.code_book, direct_download
+- else
+  .jumbotron
+    %p
+      You must have a completed Data Access and Use Agreement to view this
+      form.
+    = link_to @form.code_book, dataset_forms_folder

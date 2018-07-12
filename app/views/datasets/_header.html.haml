@@ -8,15 +8,3 @@
         = link_to "Files", files_dataset_path(@dataset), class: "btn btn-block #{params[:action] == "files" ? "btn-primary" : "btn-light"}"
       .col-sm-4
         = link_to "Variables", dataset_variables_path(@dataset), class: "btn btn-block #{params[:controller] == "variables" ? "btn-primary" : "btn-light"}"
-
-  - if @variable && @dataset.dataset_version && @variable.dataset_version_id != @dataset.dataset_version_id
-    .alert-danger.p-1
-      .container
-        %strong Old Version
-        You are viewing variable information
-        that is kept around
-        for historical purposes only. The latest version
-        %code= "v#{@dataset.dataset_version.version}"
-        is
-        = succeed "." do
-          = link_to "available here", [@dataset, @variable], class: "alert-link"

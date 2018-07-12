@@ -2,35 +2,29 @@
 
 = render "variables/header"
 
-.row.mb-3
-  .col-md-3.d-none.d-md-block
-    = render "variables/menu"
-  .col-md-9
-    %h1.variable-header
-      History
-      - if @variable.dataset_version
-        - download_url = files_dataset_path(@dataset) + "/m/browser/datasets/archive/#{@variable.dataset_version.version}/CHANGELOG.md?preview=1"
-        = link_to download_url, class: "btn btn-outline-primary" do
-          %i.fa.fa-file-text-o
-          View Change Log
+.dashboard-container.dashboard-table
+  %h1.px-2.py-1.variable-header
+    History
+    - if @variable.dataset_version
+      - download_url = files_dataset_path(@dataset) + "/m/browser/datasets/archive/#{@variable.dataset_version.version}/CHANGELOG.md?preview=1"
+      = link_to download_url, class: "btn btn-sm btn-outline-primary" do
+        %i.fa.fa-file-text-o
+        View CHANGELOG
+  %table.table.table-striped.table-hover.table-sticky.table-borderless
+    %col
+    %col{ width: "1px" }
+    %thead
+      %tr
+        %th Version
+        %th.nowrap Release Date
 
-    %table.table.table-striped.table-hover.table-sticky.table-borderless
-      %col
-      %col{ width: "1px" }
-      %thead
-        %tr
-          %th Version
-          %th.nowrap Release Date
-
-      - @dataset.dataset_versions.where(id: @dataset.variables.where(name: @variable.name).select(:dataset_version_id)).order(release_date: :desc).each do |dataset_version|
-        %tr{ style: (dataset_version.id == @variable.dataset_version_id ? "font-weight: bold" : nil) }
-          %td
-            = link_to dataset_version.version, dataset_variable_path(@dataset, @variable, v: dataset_version.version)
-            - if dataset_version.id == @dataset.dataset_version_id
-              %span.badge.badge-primary latest release
-            - elsif dataset_version.id == @variable.dataset_version_id
-              %span.badge.badge-primary viewing
-          %td.nowrap
-            = dataset_version.release_date&.strftime("%b %-d, %Y")
-
-.d-block.d-md-none= render "variables/menu"
+    - @dataset.dataset_versions.where(id: @dataset.variables.where(name: @variable.name).select(:dataset_version_id)).order(release_date: :desc).each do |dataset_version|
+      %tr{ style: (dataset_version.id == @variable.dataset_version_id ? "font-weight: bold" : nil) }
+        %td
+          = link_to dataset_version.version, dataset_variable_path(@dataset, @variable, v: dataset_version.version)
+          - if dataset_version.id == @dataset.dataset_version_id
+            %span.badge.badge-primary latest release
+          - elsif dataset_version.id == @variable.dataset_version_id
+            %span.badge.badge-primary viewing
+        %td.nowrap
+          = dataset_version.release_date&.strftime("%b %-d, %Y")

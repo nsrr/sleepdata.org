@@ -7,6 +7,8 @@ class VariablesController < ApplicationController
   before_action :set_dataset_version
   before_action :find_viewable_variable_or_redirect, only: [:show, :graphs, :form, :known_issues, :related, :history]
 
+  layout "layouts/full_page_sidebar"
+
   # GET /datasets/:dataset_id/variables
   def index
     variable_scope = @dataset.variables.with_folder(params[:folder])
@@ -22,6 +24,7 @@ class VariablesController < ApplicationController
                .pluck(:folder).uniq
                .collect { |f| f.gsub(%r{^#{params[:folder].to_s.gsub("(", "\\(").gsub(")", "\\)")}(/)?}i, "").split("/").first }
                .uniq.compact.sort
+    render layout: "layouts/application"
   end
 
   # # GET /datasets/:dataset_id/variables/:id

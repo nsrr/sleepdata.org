@@ -2,26 +2,22 @@
 
 = render "variables/header"
 
-.row.mb-3
-  .col-md-3.d-none.d-md-block
-    = render "variables/menu"
-  .col-md-9
-    %h1.variable-header Related Variables
-
-    - variables = @variable.related_variables
-    - if variables.present?
-      %table.table
-        - variables.each do |variable|
-          %tr
-            %td
-              - if variable.commonly_used?
-                %i.fa.fa-star.text-warning
-            %td= link_to variable.name, dataset_variable_path(variable.dataset, variable)
-            %td
-              = variable.display_name
-              %small.text-muted.variable-description{ colspan: 2 }= simple_markdown(variable.description, allow_lists: false)
-            %td= variable.folder
-    - else
-      %p.lead This variable has no related variables.
-
-.d-block.d-md-none= render "variables/menu"
+- variables = @variable.related_variables
+- if variables.present?
+  .dashboard-container.dashboard-table
+    %h1.px-2.py-1.variable-header Related Variables
+    %table.table.table-striped.table-borderless.table-hover.table-sticky
+      - variables.each do |variable|
+        %tr
+          %td
+            - if variable.commonly_used?
+              %i.fa.fa-star.text-warning
+          %td= link_to variable.name, dataset_variable_path(variable.dataset, variable)
+          %td
+            = variable.display_name
+            %small.text-muted.variable-description{ colspan: 2 }= simple_markdown(variable.description, allow_lists: false)
+          %td= variable.folder
+- else
+  .jumbotron.jumbotron-custom-text
+    %i.fa.fa-clone.mr-1
+    This variable has no related variables.

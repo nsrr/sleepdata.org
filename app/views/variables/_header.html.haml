@@ -1,4 +1,21 @@
+
+- render "themes/theme"
+- content_for :sidebar, render("variables/sidebar")
 = render "datasets/header"
+
+- content_for :header_append do
+  - if @variable && @dataset.dataset_version && @variable.dataset_version_id != @dataset.dataset_version_id
+    .alert-danger
+      .container-fluid
+        .py-1
+          %strong Old Version
+          You are viewing variable information
+          that is kept around
+          for historical purposes only. The latest version
+          %code= "v#{@dataset.dataset_version.version}"
+          is
+          = succeed "." do
+            = link_to "available here", [@dataset, @variable], class: "alert-link"
 
 = render "variables/folder_breadcrumb", folder: @variable.folder
 

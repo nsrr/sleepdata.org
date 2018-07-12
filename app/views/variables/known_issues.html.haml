@@ -2,15 +2,12 @@
 
 = render "variables/header"
 
-.row.mb-3
-  .col-md-3.d-none.d-md-block
-    = render "variables/menu"
-  .col-md-9
+- if @variable.known_issues.present?
+  .dashboard-container
     %h1.variable-header Known Issues
-
-    - if @variable.known_issues.present?
-      = simple_markdown(@variable.known_issues)
-    - else
-      %p.lead This variable has no known issues.
-
-.d-block.d-md-none= render "variables/menu"
+    = simple_markdown(@variable.known_issues)
+- else
+  .dashboard-container
+    %h1.variable-header Known Issues
+    %ul
+      %li.text-muted None

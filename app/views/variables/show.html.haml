@@ -3,59 +3,59 @@
 
 = render "variables/header"
 
-.row.mb-3
-  .col-md-3.d-none.d-md-block
-    = render "variables/menu"
-  .col-md-9
-    - if @variable.known_issues.present?
-      .alert.alert-danger{ role: "alert" }
-        %strong KNOWN ISSUES
-        Please be sure to check the
-        = link_to "known issues", known_issues_dataset_variable_path(@dataset, @variable, v: params[:v]), class: "alert-link"
-        before using this variable in analysis.
+- if @variable.known_issues.present?
+  .alert.alert-danger{ role: "alert" }
+    %strong KNOWN ISSUES
+    Please be sure to check the
+    = link_to "known issues", known_issues_dataset_variable_path(@dataset, @variable, v: params[:v]), class: "alert-link"
+    before using this variable in analysis.
 
-    = render "forms/horizontal/show/generic", title: "Name", content: content_tag(:h1, @variable.name, class: "variable-header")
-    = render "forms/horizontal/show/generic", title: "Label", content: content_tag(:h1, @variable.display_name, class: "variable-header")
-    = render "forms/horizontal/show/generic", title: "Description", content: simple_markdown(@variable.description, allow_lists: false) if @variable.description.present?
-    = render "forms/horizontal/show/generic", title: "Calculation", content: calculation_helper(@variable) if @variable.calculation.present?
-    = render "forms/horizontal/show/generic", title: "Units", content: content_tag(:code, @variable.units) if @variable.units.present?
-    = render "forms/horizontal/show/generic", title: "Domain", content: render("variables/domain", domain: @variable.domain) if @variable.domain
-    = render "forms/horizontal/show/generic", title: "Type", content: content_tag(:code, @variable.variable_type) if @variable.variable_type.present?
-    = render "forms/horizontal/show/generic", title: "Stats", content: render("variables/stats", variable: @variable) if %w(integer numeric).include?(@variable.variable_type) && false
+.dashboard-container
+  .row
+    .col-auto
+      = render "forms/horizontal/show/generic", title: "Name", content: content_tag(:h1, @variable.name, class: "variable-header")
+      = render "forms/horizontal/show/generic", title: "Label", content: content_tag(:h1, @variable.display_name, class: "variable-header")
+      = render "forms/horizontal/show/generic", title: "Description", content: simple_markdown(@variable.description, allow_lists: false) if @variable.description.present?
+      = render "forms/horizontal/show/generic", title: "Calculation", content: calculation_helper(@variable) if @variable.calculation.present?
+      = render "forms/horizontal/show/generic", title: "Units", content: content_tag(:code, @variable.units) if @variable.units.present?
+      = render "forms/horizontal/show/generic", title: "Domain", content: render("variables/domain", domain: @variable.domain) if @variable.domain
+      = render "forms/horizontal/show/generic", title: "Type", content: content_tag(:code, @variable.variable_type) if @variable.variable_type.present?
+      = render "forms/horizontal/show/generic", title: "Stats", content: render("variables/stats", variable: @variable) if %w(integer numeric).include?(@variable.variable_type) && false
 
-    - json = JSON.parse(@variable.spout_stats) rescue json = nil
-    #charts-info.d-none{ data: { charts: "#{json.to_json}" } }
+      - json = JSON.parse(@variable.spout_stats) rescue json = nil
+      #charts-info.d-none{ data: { charts: "#{json.to_json}" } }
 
-    - charts = []
-    - charts = json["charts"].keys.collect { |k| [k.titleize, k] } if json.is_a?(Hash) && json["charts"].is_a?(Hash)
-    - chart = charts.first unless chart
+    .col
+      - charts = []
+      - charts = json["charts"].keys.collect { |k| [k.titleize, k] } if json.is_a?(Hash) && json["charts"].is_a?(Hash)
+      - chart = charts.first unless chart
 
-    - if charts.present?
-      #chart-container.mx-auto.mb-5{ style: "min-width: 200px; max-width: 800px; height: 400px;" }
+      - if charts.present?
+        #chart-container{ style: "min-width: 200px; max-width: 800px; height: 400px;" }
 
-    - if json && json["tables"]
-      - (json["tables"] || []).each do |key, tables|
-        %div{ style: "display: none;", data: { chart_name: key } }
-          - [tables].flatten.each do |table|
-            - if table.is_a? Hash
-              %h4.text-center{ style: "font-weight: 300;" }= table["title"]
-              %h5.text-center= table["subtitle"]
-              .table-responsive
-                %table.table.table-hover.table-sm
-                  %thead
-                    - (table["headers"] || []).each do |headers|
-                      %tr
-                        - headers.each do |cell|
-                          = render "variables/table_cell", cell: cell, type: :th
-                  %tfoot
-                    - (table["footers"] || []).each do |footers|
-                      %tr
-                        - footers.each do |cell|
-                          = render "variables/table_cell", cell: cell, type: :td
-                  %tbody
-                    - (table["rows"] || []).each do |rows|
-                      %tr
-                        - rows.each do |cell|
-                          = render "variables/table_cell", cell: cell, type: :td
-
-.d-block.d-md-none= render "variables/menu"
+- if json && json["tables"]
+  - (json["tables"] || []).each do |key, tables|
+    %div{ style: "display: none;", data: { chart_name: key } }
+      - [tables].flatten.each do |table|
+        - if table.is_a? Hash
+          .dashboard-container.dashboard-table
+            .text-center
+              %strong= table["title"]
+            .text-center.mb-2
+              .small= table["subtitle"]
+            %table.table.table-hover.table-striped.table-borderless.table-sm
+              %thead
+                - (table["headers"] || []).each do |headers|
+                  %tr
+                    - headers.each do |cell|
+                      = render "variables/table_cell", cell: cell, type: :th
+              %tfoot
+                - (table["footers"] || []).each do |footers|
+                  %tr
+                    - footers.each do |cell|
+                      = render "variables/table_cell", cell: cell, type: :td
+              %tbody
+                - (table["rows"] || []).each do |rows|
+                  %tr
+                    - rows.each do |cell|
+                      = render "variables/table_cell", cell: cell, type: :td
