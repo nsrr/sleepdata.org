@@ -5,18 +5,16 @@ class DataRequest < Agreement
   # Relationships
   has_many :supporting_documents
 
-  # TODO: Remove duly_authorized_representative_signature reviewer_signature signature in v0.31.0
   def ignored_transaction_attributes
     %w(
-      created_at updated_at
+      created_at
+      updated_at
       current_step
       duly_authorized_representative_token
       printed_file
       deleted
-      duly_authorized_representative_signature reviewer_signature signature
     )
   end
-  # END TODO
 
   def filtered_changes
     all_changes = (new_record? ? changes : saved_changes)

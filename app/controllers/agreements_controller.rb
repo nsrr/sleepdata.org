@@ -79,7 +79,6 @@ class AgreementsController < ApplicationController
     parse_date_if_key_present(:data_request, :approval_date)
     parse_date_if_key_present(:data_request, :expiration_date)
     params[:data_request][:dataset_ids] = @data_request.dataset_ids if params[:data_request].key?(:dataset_ids) && params[:data_request][:dataset_ids] == ["0"]
-    # TODO: Add data_uri or reviewer_signature_file_data_uri?
     params.require(:data_request).permit(
       :status, :comments, :approval_date, :expiration_date,
       dataset_ids: []

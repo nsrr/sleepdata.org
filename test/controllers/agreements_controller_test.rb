@@ -65,10 +65,9 @@ class AgreementsControllerTest < ActionDispatch::IntegrationTest
     login(@admin)
     patch agreement_url(@data_request), params: {
       data_request: {
+        status: "approved",
         approval_date: "",
-        expiration_date: "",
-        reviewer_signature: "[]",
-        status: "approved"
+        expiration_date: ""
       }
     }
     assert_not_nil assigns(:data_request)
