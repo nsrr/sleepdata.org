@@ -2,9 +2,6 @@
 
 # Allows users to request access to one or more datasets.
 class Agreement < ApplicationRecord
-  mount_uploader :dua, PDFUploader # TODO: Remove in v0.31.0
-  mount_uploader :executed_dua, PDFUploader # TODO: Remove in v0.31.0
-  mount_uploader :irb, PDFUploader # TODO: Remove in v0.31.0
   mount_uploader :printed_file, PDFUploader
 
   mount_uploader :signature_file, SignatureUploader
@@ -252,17 +249,6 @@ class Agreement < ApplicationRecord
     self.printed_file = File.open(file_name)
     save(validate: false)
   end
-
-  # TODO: Remove in v0.31.0
-  def self.create_signature_png(signature, filename)
-    canvas = ChunkyPNG::Canvas.new(300, 55)
-    (JSON.parse(signature) rescue []).each do |hash|
-      canvas.line(hash['mx'], hash['my'], hash['lx'], hash['ly'], ChunkyPNG::Color.parse('#000000'))
-    end
-    png = canvas.to_image
-    png.save(filename)
-  end
-  # END TODO
 
   def authorized_signature_date
     representative_designated? ? (duly_authorized_representative_signed_at || duly_authorized_representative_signature_date) : (attested_at || signature_date)
