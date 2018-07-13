@@ -1,4 +1,4 @@
-## 33.0.1
+## 33.0.1 (July 13, 2018)
 
 ### Bug Fix
 - Cookie is now correctly set when clicking survey link
