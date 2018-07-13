@@ -12,7 +12,7 @@ class BroadcastsController < ApplicationController
   def index
     @broadcasts = \
       current_user.editable_broadcasts
-                  .search(params[:search])
+                  .search(params[:search], match_start: false)
                   .order(publish_date: :desc, id: :desc)
                   .page(params[:page]).per(40)
   end
