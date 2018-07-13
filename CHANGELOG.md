@@ -3,6 +3,7 @@
 ### Enhancements
 - **General Changes**
   - Added darker footer to registration and other pages
+  - Updated framework files to resemble Rails 5.2 defaults more closely
 
 ## 33.0.1 (July 13, 2018)
 
