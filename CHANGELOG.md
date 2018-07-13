@@ -24,6 +24,8 @@
   - Member contributed tools are now listed on the member profile
 - **Review Changes**
   - Data request expiration date is displayed on the data request review page
+- **Tool Changes**
+  - Tools now show up as results in search
 
 ### Refactoring
 - Removed deprecated challenges

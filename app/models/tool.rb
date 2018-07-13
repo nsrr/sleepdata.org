@@ -9,6 +9,8 @@ class Tool < ApplicationRecord
   include Deletable
   include Sluggable
   include Searchable
+  include PgSearch
+  multisearchable against: [:name, :description], if: :searchable?
 
   # Callbacks
   after_touch :recalculate_rating!
@@ -32,6 +34,10 @@ class Tool < ApplicationRecord
   has_many :tool_reviews, -> { order(rating: :desc, id: :desc) }
 
   # Methods
+
+  def searchable?
+    published? && !deleted?
+  end
 
   def self.searchable_attributes
     %w(name description series)

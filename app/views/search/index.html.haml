@@ -30,6 +30,8 @@
         = render "search/broadcast", broadcast: document.searchable
       - when "Topic"
         = render "search/topic", topic: document.searchable
+      - when "Tool"
+        = render "search/tool", tool: document.searchable
       - when "Reply"
         = render "search/reply", reply: document.searchable
       - when "Variable"
