@@ -3,7 +3,7 @@ language: ruby
 rvm:
 - 2.5.1
 - ruby-head
-env: SECRET_KEY_BASE="$(rails secret)"
+env: SECRET_KEY_BASE="$(bundle exec rake secret)"
 gemfile: "gems.rb"
 before_install: gem install bundler --no-document # Fixes ruby 2.5.1 tests
 before_script:
