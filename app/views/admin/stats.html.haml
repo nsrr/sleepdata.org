@@ -67,10 +67,7 @@
         - public_downloads_files[dataset.id] ||= 0
         - public_downloads_file_sizes[dataset.id] ||= 0
         %tr
-          %td.nowrap
-            = link_to audits_dataset_path(dataset) do
-              .d-none.d-md-inline-block= dataset.name
-              .d-inline-block.d-md-none= dataset.slug
+          %td.nowrap= link_to dataset.slug, audits_dataset_path(dataset)
           %td.text-center.nowrap= pluralize number_with_delimiter(regular_members_files[dataset.id] ||= 0), "file"
           %td.text-center.nowrap= number_to_human_size(regular_members_file_sizes[dataset.id] ||= 0)
           %td.text-center.nowrap= pluralize number_with_delimiter(aug_or_core_members_files[dataset.id] ||= 0), "file"
