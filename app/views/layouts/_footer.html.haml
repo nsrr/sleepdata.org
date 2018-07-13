@@ -1,4 +1,4 @@
-.footer-container
+.footer-container{ class: @footer.present? ? "footer-container-#{@footer}" : nil }
   %div{ class: defined?(container) && container.present? ? container : "container" }
     .footer
       .nowrap.row
@@ -17,4 +17,3 @@
           = link_to "Contact Us", contact_path
           |
           = link_to "Funded By NHLBI", about_path
-

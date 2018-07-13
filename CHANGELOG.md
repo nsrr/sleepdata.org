@@ -1,5 +1,9 @@
 ## 34.0.0
 
+### Enhancements
+- **General Changes**
+  - Added darker footer to registration and other pages
+
 ## 33.0.1 (July 13, 2018)
 
 ### Bug Fix

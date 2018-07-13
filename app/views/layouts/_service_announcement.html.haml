@@ -1,4 +1,4 @@
-- if ENV["survey_url"].present? && cookies[:survey_url_closed] != "1"
+- if ENV["survey_url"].present? && cookies[:survey_url_closed] != "1" && !Rails.env.test?
   #service-announcement.bg-dark
     .container
       .py-1.small.text-white.text-center
@@ -10,7 +10,7 @@
         .float-right
           = link_to "#", data: { object: "service-announcement", cookie: "survey_url_closed", days: 14 }, class: "text-white no-underline" do
             &cross;
-- elsif cookies[:privacy_policy_closed] != "1" && false
+- elsif cookies[:privacy_policy_closed] != "1" && !Rails.env.test? && false
   #service-announcement.bg-dark
     .container
       .py-1.small.text-white.text-center

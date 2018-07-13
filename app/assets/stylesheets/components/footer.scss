@@ -26,3 +26,20 @@
     @include ignore-selection;
   }
 }
+
+.footer-container-dark {
+  background-color: $p900-green;
+  color: $brand-white;
+
+  a {
+    color: $brand-white;
+
+    &:hover,
+    &:focus,
+    &:active,
+    &.active,
+    &.disabled,
+    &[disabled] {
+    }
+  }
+}
