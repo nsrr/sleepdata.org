@@ -46,7 +46,7 @@ class DataRequestsTest < ApplicationSystemTestCase
 
     screenshot("dataset-request-signature")
 
-    click_on "Review My Data Requests"
+    click_on "Review my data requests"
     screenshot("dataset-request-signature")
   end
 
@@ -78,7 +78,7 @@ class DataRequestsTest < ApplicationSystemTestCase
 
     screenshot("dataset-request-attestation")
 
-    click_on "Review My Data Requests"
+    click_on "Review my data requests"
     screenshot("dataset-request-attestation")
   end
 
@@ -105,7 +105,7 @@ class DataRequestsTest < ApplicationSystemTestCase
 
     screenshot("dataset-request-fast")
 
-    click_on "Review My Data Requests"
+    click_on "Review my data requests"
     screenshot("dataset-request-fast")
   end
 
