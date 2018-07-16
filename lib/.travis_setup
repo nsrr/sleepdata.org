@@ -1,12 +1,6 @@
 http://localhost
 Sleep Data - National Sleep Research Resource - NSRR
 support@example.com
-localhost
-25
-plain
-smtp@example.com
-smtp_username
-smtp_password
 http://localhost/altamira
 echo /usr/bin/pdflatex
 postgres
