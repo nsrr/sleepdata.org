@@ -17,7 +17,6 @@ module MarkdownHelper
     end
     result = remove_tables(result) unless allow_tables
     result = target_link_as_blank(result) if target_blank
-    result = link_usernames(result)
     result.html_safe
   end
 
@@ -26,35 +25,29 @@ module MarkdownHelper
   # :pages_path => "http://ENV["website_url"]/datasets/slug/pages/"
   def expand_relative_paths(text)
     full_path = (request ? request.script_name : ENV["website_url"])
-    result = text.to_s.gsub(/<a href="(?:\:datasets\_path\:)(.*?)">/, '<a href="' + full_path + '/datasets\1">')
-    result = result.gsub(/<img src="(?:\:datasets\_path\:)(.*?)">/, '<img src="' + full_path + '/datasets\1">')
+    result = text.to_s.gsub(/<a href="(?:\:datasets\_path\:)(.*?)">/, "<a href=\"#{full_path}/datasets\\1\">")
+    result = result.gsub(/<img src="(?:\:datasets\_path\:)(.*?)">/, "<img src=\"#{full_path}/datasets\\1\">")
     if @dataset
-      result = result.gsub(/<a href="(?:\:pages\_path\:)(.*?)">/, "<a href=\"#{full_path}/datasets/#{@dataset.slug}/pages" + '\1">')
-      result = result.gsub(/<img src="(?:\:pages\_path\:)(.*?)">/, "<img src=\"#{full_path}/datasets/#{@dataset.slug}/pages" + '\1">')
-      result = result.gsub(/<a href="(?:\:files\_path\:)(.*?)">/, "<a href=\"#{full_path}/datasets/#{@dataset.slug}/files" + '\1">')
-      result = result.gsub(/<img src="(?:\:files\_path\:)(.*?)">/, "<img src=\"#{full_path}/datasets/#{@dataset.slug}/files" + '\1">')
-      result = result.gsub(/<a href="(?:\:images\_path\:)(.*?)">/, "<a href=\"#{full_path}/datasets/#{@dataset.slug}/images" + '\1">')
-      result = result.gsub(/<img src="(?:\:images\_path\:)(.*?)">/, "<img src=\"#{full_path}/datasets/#{@dataset.slug}/images" + '\1">')
-    end
-    result.html_safe
-  end
-
-  def link_usernames(text)
-    full_path = (request ? request.script_name : ENV["website_url"])
-    usernames = User.current.pluck(:username).reject(&:blank?).uniq.sort
-    result = text.to_s
-    usernames.each do |username|
-      result = result.gsub(/@#{username}\b/i, "<a href=\"#{full_path}/forum?a=#{username}\">@#{username}</a>")
+      %w(pages files images).each do |word|
+        result = result.gsub(
+          /<a href="(?:\:#{word}\_path\:)(.*?)">/,
+          "<a href=\"#{full_path}/datasets/#{@dataset.slug}/#{word}\\1\">"
+        )
+        result = result.gsub(
+          /<img src="(?:\:#{word}\_path\:)(.*?)">/,
+          "<img src=\"#{full_path}/datasets/#{@dataset.slug}/#{word}\\1\">"
+        )
+      end
     end
     result.html_safe
   end
 
   def target_link_as_blank(text)
-    text.to_s.gsub(/<a(.*?)>/m, '<a\1 target="_blank">').html_safe
+    text.to_s.gsub(/<a(.*?)>/m, "<a\\1 target=\"_blank\">").html_safe
   end
 
   def remove_links(text)
-    text.to_s.gsub(/<a[^>]*? href="(.*?)">(.*?)<\/a>/m, '\1')
+    text.to_s.gsub(%r{<a[^>]*? href="(.*?)">(.*?)</a>}m, "\\2")
   end
 
   def wrap_images(text)
@@ -62,15 +55,15 @@ module MarkdownHelper
   end
 
   def remove_images(text)
-    text.to_s.gsub(/<img(.*?)>/m, '')
+    text.to_s.gsub(/<img src="(.*?)"(.*?)>/m, "<div>\\1</div>")
   end
 
   def remove_tables(text)
-    text.to_s.gsub(/<table(.*?)>(.*?)<\/table>/m, '')
+    text.to_s.gsub(%r{<table(.*?)>(.*?)</table>}m, "")
   end
 
   def add_table_class(text, table_class)
-    text.to_s.gsub(/<table>/, "<table class=\"#{table_class}\">").html_safe
+    text.to_s.gsub(/<table>/m, "<table class=\"#{table_class}\">").html_safe
   end
 
   def replace_numbers_with_ascii(text)
