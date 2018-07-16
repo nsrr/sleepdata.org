@@ -74,10 +74,10 @@ class Export < ApplicationRecord
       update(
         zipped_file: temp_zip_file,
         file_created_at: Time.zone.now,
-        file_size: File.size(temp_zip_file),
         status: "completed",
         completed_steps: total_steps
       )
+      update file_size: zipped_file.size # Cache after attaching to model.
       create_notification
     ensure
       # Close and delete the temp file
