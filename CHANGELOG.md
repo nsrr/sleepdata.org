@@ -4,6 +4,8 @@
 - **General Changes**
   - Added darker footer to registration and other pages
   - Updated framework files to resemble Rails 5.2 defaults more closely
+- **Dataset Changes**
+  - Improved dataset navigation layout between docs, files, and variables
 
 ## 33.0.1 (July 13, 2018)
 

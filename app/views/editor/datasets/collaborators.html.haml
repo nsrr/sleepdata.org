@@ -1,51 +1,50 @@
-- @title = "Requests - #{@dataset.name}"
+- @title = "Collaborators - #{@dataset.name}"
 
-= render "datasets/header"
+- render "themes/theme"
+= render "datasets/header", container: "container-fluid"
+- content_for :sidebar, render("editor/datasets/sidebar")
 
 - content_for :breadcrumbs do
   %ol
     %li= link_to @dataset.slug, @dataset
-    %li collaborators
+    %li{ style: "font-weight: 300; color: #9e9e9e;" } collaborators
 
-.row
-  .col-md-9.col-buffer
-    .dashboard-container.dashboard-table
-      %table.table.table-striped.table-borderless.table-hover.table-sm.table-sticky
-        %thead
-          %tr
-            %th User
-            %th Role
-            %th.text-center Actions
+.dashboard-container.dashboard-table
+  %table.table.table-striped.table-borderless.table-hover.table-sticky
+    %col
+    %col
+    %col{ width: "1px" }
+    %thead
+      %tr
+        %th User
+        %th Role
+        %th.text-center Actions
 
-        - @dataset.dataset_users.order(:id).sort{|a,b| [a.role.to_s, a.user.full_name] <=> [b.role.to_s, b.user.full_name]}.each do |dataset_user|
-          %tr{ class: "#{"warning" if params[:dataset_user_id].to_i == dataset_user.id}" }
-            %td
-              = profile_picture_tag dataset_user.user, size: 18, style: "vertical-align: text-bottom; min-width: 18px;"
-              = dataset_user.user.full_name
-            %td
-              - case dataset_user.role
-              - when "editor"
-                Editor
-              - when "viewer"
-                Viewer
-              - when "reviewer"
-                Reviewer
-              - else
-                %span.text-muted No Role
-            %td.text-center
-              = link_to "Delete", remove_access_dataset_path( @dataset, dataset_user_id: dataset_user.id ), method: :post, class: "btn btn-outline-danger btn-sm", data: { confirm: "Remove #{dataset_user.user.full_name}?" }
+    - @dataset.dataset_users.order(:id).sort{|a,b| [a.role.to_s, a.user.full_name] <=> [b.role.to_s, b.user.full_name]}.each do |dataset_user|
+      %tr{ class: "#{"warning" if params[:dataset_user_id].to_i == dataset_user.id}" }
+        %td
+          = profile_picture_tag dataset_user.user, size: 18, style: "vertical-align: text-bottom; min-width: 18px;"
+          = dataset_user.user.full_name
+        %td
+          - case dataset_user.role
+          - when "editor"
+            Editor
+          - when "viewer"
+            Viewer
+          - when "reviewer"
+            Reviewer
+          - else
+            %span.text-muted No Role
+        %td.text-center
+          = link_to "Delete", remove_access_dataset_path( @dataset, dataset_user_id: dataset_user.id ), method: :post, class: "btn btn-outline-danger btn-sm", data: { confirm: "Remove #{dataset_user.user.full_name}?" }
 
-    %h4 Add User
-    = form_with url: create_access_dataset_path(@dataset), method: :post, local: true, class: "form-inline mb-3" do |form|
-      .form-group
-        = form.text_field :user_email, autocomplete: "off", data: { object: "typeahead", local: User.current.collect{|user| "#{user.username} [#{user.email}]" }.to_json }, class: "form-control mr-2", placeholder: "Email"
+%h4 Add User
+= form_with url: create_access_dataset_path(@dataset), method: :post, local: true, class: "form-inline mb-3" do |form|
+  .form-group
+    = form.text_field :user_email, autocomplete: "off", data: { object: "typeahead", local: User.current.collect{|user| "#{user.username} [#{user.email}]" }.to_json }, class: "form-control mr-2", placeholder: "Email"
 
-      .form-group
-        = form.select :role, DatasetUser::ROLES, { include_blank: "---" }, class: "form-control mr-2"
+  .form-group
+    = form.select :role, DatasetUser::ROLES, { include_blank: "---" }, class: "form-control mr-2"
 
-      .form-group
-        = form.submit "Set user", class: "btn btn-primary", name: nil
-
-  .col-md-3
-    = render "documentation/logo_and_admin"
-    = render "datasets/links"
+  .form-group
+    = form.submit "Set user", class: "btn btn-primary", name: nil

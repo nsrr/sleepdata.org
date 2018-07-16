@@ -146,6 +146,8 @@ Rails.application.routes.draw do
         get :audits
         get :collaborators
         get :page_views, path: "page-views"
+        get :settings
+        get :sync
         post :create_access
         post :remove_access
         post :pull_changes
@@ -154,7 +156,6 @@ Rails.application.routes.draw do
         get "reset_index(/*path)",
             to: redirect { |path_params, _req| "datasets/#{path_params[:id]}/files/#{path_params[:path]}" },
             format: false
-        get :sync
       end
     end
   end

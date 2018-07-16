@@ -1,17 +1,28 @@
 - @title = "Page Views - #{@dataset.name}"
 
-= render "datasets/header"
+- render "themes/theme"
+= render "datasets/header", container: "container-fluid"
+- content_for :sidebar, render("editor/datasets/sidebar")
 
 - content_for :breadcrumbs do
-  .float-right
-    Total Page Views
-    %strong= number_with_delimiter(@page_views.sum { |p| p[1] })
   %ol
     %li= link_to @dataset.slug, @dataset
-    %li page views
+    %li{ style: "font-weight: 300; color: #9e9e9e;" } page views
+
+.row
+  .col-12.col-sm.text-center
+    .jumbotron.jumbotron-white.jumbotron-shadow
+      .lead.nowrap Total Page Views
+      .display-1= number_to_human(@page_views.sum { |p| p[1] }, precision: 2)
+  - @top_page = @page_views.last
+  - if @top_page
+    .col-12.col-sm.text-center
+      .jumbotron.jumbotron-white.jumbotron-shadow
+        .lead.nowrap Top Page
+        .display-1= link_to number_to_human(@top_page.last, precision: 2), "#{pages_dataset_path(@dataset)}/#{@top_page.first}", class: "link-blend no-underline"
 
 .dashboard-container.dashboard-table
-  %table.table.table-striped.table-borderless.table-hover.table-sticky.table-sm
+  %table.table.table-striped.table-borderless.table-hover.table-sticky
     %thead
       %tr
         %th Page Path

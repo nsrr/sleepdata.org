@@ -184,6 +184,12 @@ class Editor::DatasetsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get settings" do
+    login(@editor)
+    get settings_dataset_url(@dataset)
+    assert_response :success
+  end
+
   test "should pull changes" do
     login(@editor)
     post pull_changes_dataset_url(@dataset)

@@ -1,4 +1,4 @@
-- @title = "Sync - #{@object.name}"
+- @title = "Settings - #{@dataset.name}"
 
 - render "themes/theme"
 = render "datasets/header", container: "container-fluid"
@@ -7,6 +7,7 @@
 - content_for :breadcrumbs do
   %ol
     %li= link_to @dataset.slug, @dataset
-    %li{ style: "font-weight: 300; color: #9e9e9e;" } sync
+    %li{ style: "font-weight: 300; color: #9e9e9e;" } settings
 
-= render "documentation/sync", local_commit: @local_commit, remote_commit: @remote_commit, object: @object, back: ""
+.dashboard-container
+  = link_to "Edit", edit_dataset_path(@dataset)

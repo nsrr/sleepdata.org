@@ -1,9 +1,0 @@
-- if current_user && @object.editable_by?(current_user)
-  - if @object.is_a? Dataset
-    .small-spacer
-    = render "datasets/links"
-  - elsif @object.is_a? Tool
-    .small-spacer
-    .text-center
-      = link_to "Sync", sync_tool_path(@object), class: "btn btn-sm btn-light"
-  .small-spacer

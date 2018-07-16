@@ -58,6 +58,11 @@ class Dataset < ApplicationRecord
     variables.where(dataset_version_id: dataset_version)
   end
 
+  def editor?(current_user)
+    false unless current_user
+    editors.where(id: current_user).count == 1
+  end
+
   def editors
     User.where(id: [user_id] + dataset_users.where(role: "editor").pluck(:user_id))
   end

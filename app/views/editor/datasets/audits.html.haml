@@ -1,6 +1,8 @@
 - @title = "Audits - #{@dataset.name}"
 
-= render "datasets/header"
+- render "themes/theme"
+= render "datasets/header", container: "container-fluid"
+- content_for :sidebar, render("editor/datasets/sidebar")
 
 - content_for :breadcrumbs do
   %ol
@@ -12,7 +14,6 @@
     %thead
       %tr
         %th.nowrap File Path
-        %th.nowrap File Size
         %th.nowrap
           - if params.key?(:user_id)
             %i.fa.fa-filter
@@ -36,7 +37,6 @@
     - @audits.each do |audit|
       %tr
         %td.small.breakword= audit.file_path
-        %td.nowrap= number_to_human_size audit.file_size
         %td.nowrap
           = succeed " " do
             - if audit.user_id.to_s == params[:user_id]

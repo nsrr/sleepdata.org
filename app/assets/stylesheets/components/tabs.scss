@@ -1,0 +1,43 @@
+.dataset-tab {
+  + .dataset-tab {
+    margin-left: map-get($spacers, 1);
+  }
+}
+
+.dataset-tab-active {
+  font-weight: bold;
+}
+
+@each $name, $theme in $themes {
+  @if map-get($theme, accent) {
+    .theme-#{$name}-bg {
+      .dataset-tab {
+        background-color: map-get($theme, p700);
+        color: map-get($theme, brand-white);
+
+        &:hover {
+          background-color: $p300-grey;
+          color: map-get($theme, brand-black);
+        }
+      }
+
+      .dataset-tab-active,
+      .dataset-tab-active:hover {
+        background-color: $p100-grey;
+        color: map-get($theme, brand-black);
+      }
+    }
+  }
+
+  $header-bg: map-get($theme, p800);
+  @if map-get($theme, header-bg) {
+    $header-bg: map-get($theme, header-bg);
+  }
+
+  .theme-#{$name}-bg {
+    .header-tabs {
+      background-color: $header-bg;
+      color: map-get($theme, brand-white);
+    }
+  }
+}

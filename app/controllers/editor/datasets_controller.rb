@@ -5,6 +5,8 @@ class Editor::DatasetsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_editable_dataset_or_redirect
 
+  layout "layouts/full_page_sidebar"
+
   # Concerns
   include Pageable
 
@@ -70,6 +72,10 @@ class Editor::DatasetsController < ApplicationController
     @dataset_file = @dataset.dataset_files.find_by(full_path: params[:path], is_file: true)
     @dataset_file.update(publicly_available: (params[:public].to_s == "1")) if @dataset_file
   end
+
+  # # GET
+  # def settings
+  # end
 
   # Handled by Pageable
   # GET /datasets/1/sync

@@ -1,18 +1,21 @@
 - @title = "Agreements - #{@dataset.name}"
 
-= render "datasets/header"
+- render "themes/theme"
+= render "datasets/header", container: "container-fluid"
+- content_for :sidebar, render("editor/datasets/sidebar")
 
 - content_for :breadcrumbs do
+  %div{ style: "position: relative;top: 17px;" }
+    = render "layouts/per_page", per_page: 100, object_count: @agreements.total_count, pagination_size: "small"
   %ol
     %li= link_to @dataset.slug, @dataset
     %li{ style: "font-weight: 300; color: #9e9e9e;" } agreements
     - if params[:order] != "agreements.id desc" || params[:status].present?
       %li= link_to "Reset Filters", agreements_dataset_path(@dataset)
 
-.row
-  .col-md-9
-    = render "layouts/per_page", per_page: 100, object_count: @agreements.total_count, pagination_size: "small"
-    %table.table.table-striped.table-borderless
+- if @agreements.present?
+  .dashboard-container.dashboard-table
+    %table.table.table-striped.table-borderless.table-sticky
       %col{ width: "100px" }
       %thead
         %tr
@@ -34,10 +37,10 @@
               = profile_picture_tag agreement.user, size: 18, style: "vertical-align:text-bottom;width:18px"
               = link_to agreement.name, review_path(agreement)
 
-    .text-center
-      = paginate @agreements, theme: "bootstrap-small"
+  .center-horizontally= paginate @agreements, theme: "bootstrap"
 
-  .col-md-3
-    - @object = @dataset
-    = render "documentation/logo_and_admin"
-    = render "datasets/links"
+- else
+  .jumbotron.jumbotron-custom-text
+    %i.fa.fa-clone.mr-1
+    No data requests found.
+    = link_to "Start over", agreements_dataset_path(@dataset) if params[:search].present?

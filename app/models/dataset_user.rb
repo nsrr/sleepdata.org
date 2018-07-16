@@ -5,7 +5,7 @@ class DatasetUser < ApplicationRecord
   ROLES = [["Editor", "editor"], ["Viewer", "viewer"], ["Reviewer", "reviewer"]]
 
   # Validations
-  validates :user_id, :role, presence: true
+  validates :role, presence: true
 
   # Relationships
   belongs_to :dataset

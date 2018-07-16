@@ -1,10 +1,27 @@
-- content_for :header do
-  = @dataset.name
-  .d-none.d-sm-block.mt-4
-    .row
-      .col-sm-4.col-buffer
-        = link_to "Documentation", @dataset, class: "btn btn-block #{params[:action] == "pages" || current_page?(@dataset) ? "btn-primary" : "btn-light"}"
-      .col-sm-4.col-buffer
-        = link_to "Files", files_dataset_path(@dataset), class: "btn btn-block #{params[:action] == "files" ? "btn-primary" : "btn-light"}"
-      .col-sm-4
-        = link_to "Variables", dataset_variables_path(@dataset), class: "btn btn-block #{params[:controller] == "variables" ? "btn-primary" : "btn-light"}"
+- content_for :header, @dataset.name
+
+- content_for :header_append do
+  .header-tabs
+    %div{ class: defined?(container) ? container : "container" }
+      .mb-0
+        - current_page = (params[:action] == "pages" || current_page?(@dataset))
+        = link_to @dataset, class: "link-unstyled d-inline-block px-3 pt-2 pb-2 rounded-top dataset-tab #{"border border-bottom-0 dataset-tab-active" if current_page}", data: { object: "#{"suppress-click" if current_page?(@dataset)}" } do
+          %i.fa.fa-files-o
+          Docs
+        - current_page = (params[:action] == "files")
+        = link_to files_dataset_path(@dataset), class: "link-unstyled d-inline-block px-3 pt-2 pb-2 rounded-top dataset-tab #{"border border-bottom-0 dataset-tab-active" if current_page}", data: { object: "#{"suppress-click" if current_page?(files_dataset_path(@dataset))}" } do
+          %i.fa.fa-file-archive-o
+          Files
+          - if false
+            %span.badge.badge-success.badge-pill.d-none.d-sm-inline= number_to_human(@dataset.dataset_files.current.where(is_file: true).count, precision: 2)
+        - current_page = (params[:controller] == "variables")
+        = link_to dataset_variables_path(@dataset), class: "link-unstyled d-inline-block px-3 pt-2 pb-2 rounded-top dataset-tab #{"border border-bottom-0 dataset-tab-active" if current_page}", data: { object: "#{"suppress-click" if current_page?(dataset_variables_path(@dataset))}" } do
+          %i.fa.fa-bar-chart
+          Variables
+          - if false
+            %span.badge.badge-success.badge-pill.d-none.d-sm-inline= number_to_human(@dataset.current_variables.count, precision: 2)
+        - current_page = (params[:controller] == "editor/datasets")
+        - if @dataset.editor?(current_user)
+          = link_to settings_dataset_path(@dataset), class: "link-unstyled d-none d-sm-inline-block px-3 pt-2 pb-2 rounded-top dataset-tab #{"border border-bottom-0 dataset-tab-active" if current_page}", data: { object: "#{"suppress-click" if current_page?(settings_dataset_path(@dataset))}" } do
+            %i.fa.fa-cog
+            Settings
