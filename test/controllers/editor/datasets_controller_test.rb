@@ -207,8 +207,9 @@ class Editor::DatasetsControllerTest < ActionDispatch::IntegrationTest
     patch dataset_url(@dataset), params: {
       dataset: dataset_params.merge(name: "We Care Name Updated")
     }
-    assert_equal assigns(:dataset).name, "We Care Name Updated"
-    assert_redirected_to dataset_url(assigns(:dataset))
+    @dataset.reload
+    assert_equal @dataset.name, "We Care Name Updated"
+    assert_redirected_to settings_dataset_url(@dataset)
   end
 
   test "should not update dataset with blank name" do

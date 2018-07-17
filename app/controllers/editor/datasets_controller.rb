@@ -89,7 +89,7 @@ class Editor::DatasetsController < ApplicationController
   # PATCH /datasets/1
   def update
     if @dataset.update(dataset_params)
-      redirect_to @dataset, notice: "Dataset was successfully updated."
+      redirect_to [:settings, @dataset], notice: "Dataset was successfully updated."
     else
       render :edit
     end

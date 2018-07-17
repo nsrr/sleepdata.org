@@ -9,5 +9,15 @@
     %li= link_to @dataset.slug, @dataset
     %li{ style: "font-weight: 300; color: #9e9e9e;" } settings
 
-.dashboard-container
-  = link_to "Edit", edit_dataset_path(@dataset)
+.card.mb-5.box-shadow
+  .card-header Edit
+  .card-body
+    .card-title Edit this dataset.
+    .card-text= link_to "Edit dataset", edit_dataset_path(@dataset), class: "btn btn-sm btn-outline-dark"
+
+- if current_user.admin?
+  .card.box-shadow
+    .card-header.bg-danger.text-white Danger
+    .card-body
+      .card-title Delete this dataset.
+      .card-text= link_to "Delete dataset", @dataset, method: :delete, class: "btn btn-sm btn-outline-danger", data: { confirm: "Delete #{@dataset.name}?" }

@@ -49,5 +49,5 @@
       .menu-sticky
         .page-list-container{ style: "#{"display: none;" if cookies[:hide_page_list] == "1"}" }
           %ul.sidebar-menu
-            = render "documentation/logo_and_admin"
+            = render "datasets/logo", dataset: @object
             = render "datasets/menu_rating", dataset: @object
