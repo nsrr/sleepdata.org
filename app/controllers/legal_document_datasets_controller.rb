@@ -3,8 +3,7 @@
 # Allows organization editors to assign legal documents to datasets.
 class LegalDocumentDatasetsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_admin
-  before_action :find_organization_or_redirect
+  before_action :find_editable_organization_or_redirect
   before_action :find_legal_document_dataset_or_redirect, only: [:show, :edit, :update, :destroy]
 
   layout "layouts/full_page_sidebar"

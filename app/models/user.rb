@@ -200,6 +200,14 @@ class User < ApplicationRecord
     )
   end
 
+  def editable_organizations
+    Organization.current.with_editor(self)
+  end
+
+  def viewable_organizations
+    Organization.current.with_viewer(self)
+  end
+
   def all_datasets
     Dataset.current.with_editor(id)
   end

@@ -1,0 +1,28 @@
+- @title = "Settings - #{@organization.name}"
+
+- render "themes/theme"
+
+- content_for :header, @organization.name
+= render "organizations/tabs", organization: @organization
+
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "orgs", organizations_path
+    %li= link_to @organization.slug, @organization
+    %li.breadcrumb-muted settings
+
+- content_for :sidebar, render("editor/organizations/sidebar")
+
+.card.mb-5.box-shadow
+  .card-header Edit
+  .card-body
+    .card-title Edit this organization.
+    .card-text= link_to "Edit organization", edit_organization_path(@organization), class: "btn btn-sm btn-outline-dark"
+
+- if false
+  - if current_user.admin?
+    .card.box-shadow
+      .card-header.bg-danger.text-white Danger
+      .card-body
+        .card-title Delete this organization.
+        .card-text= link_to "Delete organization", @organization, method: :delete, class: "btn btn-sm btn-outline-danger", data: { confirm: "Delete #{@organization.name}?" }

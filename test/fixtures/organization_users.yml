@@ -1,0 +1,26 @@
+one:
+  organization: one
+  user: editor
+  editor: true
+  # review_role: none
+  creator: admin
+  # invite_email:
+  # invite_token:
+
+two:
+  organization: two
+  user: orgtwo_editor
+  editor: true
+  # review_role: none
+  creator: admin
+  # invite_email:
+  # invite_token:
+
+three:
+  organization: one
+  user: orgone_viewer
+  # editor: false
+  # review_role: none
+  creator: editor
+  # invite_email:
+  # invite_token:

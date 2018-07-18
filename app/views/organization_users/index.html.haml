@@ -1,0 +1,53 @@
+- @title = "Members - #{@organization.name}"
+
+- content_for :header, @organization.name
+
+= render "organizations/tabs", organization: @organization
+
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "orgs", organizations_path
+    %li= link_to @organization.slug, @organization
+    %li.breadcrumb-muted members
+
+.mb-3
+  - if @organization.editor?(current_user)
+    .text-right= link_to plus_or("Invite member"), new_organization_organization_user_path(@organization), class: "btn btn-primary btn-shadow"
+
+- if @organization_users.present?
+  .dashboard-container.dashboard-table
+    %table.table.table-striped.table-borderless.table-sticky
+      %col
+      - if @organization.viewer?(current_user)
+        %col
+        %col
+      - if @organization.editor?(current_user)
+        %col{ width: "1px" }
+      %thead
+        %tr
+          %th Member
+          - if @organization.viewer?(current_user)
+            %th.text-center Editor
+            %th.text-center Review role
+          - if @organization.editor?(current_user)
+            %th.text-center Actions
+
+      %tbody
+        - @organization_users.each do |organization_user|
+          %tr
+            %td= link_to organization_user.user.username, posts_member_path(organization_user.user.username)
+            - if @organization.viewer?(current_user)
+              %td.text-center= simple_check organization_user.editor
+              %td.text-center= organization_user.review_role_name
+            - if @organization.editor?(current_user)
+              %td.text-center
+                = render "layouts/edit_delete_dropdown", edit_url: edit_organization_organization_user_path(@organization, organization_user), delete_url: [@organization, organization_user], delete_confirmation: "Remove #{organization_user.user.username} from organization?"
+  .center-horizontally= paginate @organization_users, theme: "bootstrap"
+- else
+  .jumbotron.jumbotron-custom-text
+    %i.fa.fa-clone.mr-1
+    No members found.
+    = link_to "Start over", organization_organization_users_path(@organization) if params[:search].present?
+
+
+

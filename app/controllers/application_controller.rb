@@ -182,6 +182,13 @@ class ApplicationController < ActionController::Base
     empty_response_or_root_path(organizations_path) unless @organization
   end
 
+  def find_editable_organization_or_redirect(id = :organization_id)
+    @organization = current_user.editable_organizations.find_by_param(params[id])
+    return if @organization
+    organization = current_user.viewable_organizations.find_by_param(params[id])
+    empty_response_or_root_path(organization || organizations_path)
+  end
+
   def set_cache_buster
     response.headers["Cache-Control"] = "no-cache, no-store, max-age=0, must-revalidate"
     response.headers["Pragma"] = "no-cache"

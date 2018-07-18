@@ -3,8 +3,7 @@
 # Allow legal documents to be edited page by page.
 class LegalDocumentPagesController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_admin
-  before_action :find_organization_or_redirect
+  before_action :find_editable_organization_or_redirect
   before_action :find_legal_document_or_redirect
   before_action :find_legal_document_page_or_redirect, only: [:show, :edit, :update, :destroy]
 

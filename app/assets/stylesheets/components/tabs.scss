@@ -1,17 +1,17 @@
-.dataset-tab {
-  + .dataset-tab {
+.header-tab {
+  + .header-tab {
     margin-left: map-get($spacers, 1);
   }
 }
 
-.dataset-tab-active {
+.header-tab-active {
   font-weight: bold;
 }
 
 @each $name, $theme in $themes {
   @if map-get($theme, accent) {
     .theme-#{$name}-bg {
-      .dataset-tab {
+      .header-tab {
         background-color: map-get($theme, p700);
         color: map-get($theme, brand-white);
 
@@ -21,8 +21,8 @@
         }
       }
 
-      .dataset-tab-active,
-      .dataset-tab-active:hover {
+      .header-tab-active,
+      .header-tab-active:hover {
         background-color: $p100-grey;
         color: map-get($theme, brand-black);
       }

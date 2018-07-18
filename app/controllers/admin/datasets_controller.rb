@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Allows dataset admins to create and deleted datasets.
+# Allows admins to create and delete datasets.
 class Admin::DatasetsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_admin

@@ -25,6 +25,10 @@
           = yield :header
           = render "sidebar/toggle"
     = yield :header_append
+    - if content_for?(:tabs)
+      .header-tabs
+        .container-fluid
+          = yield :tabs
     = render "layouts/shared/breadcrumbs", container: "container-fluid"
     .row.no-gutters.flex-md-nowrap
       = yield(:sidebar)

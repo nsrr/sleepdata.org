@@ -6,6 +6,6 @@
     - if @organization
       %li= link_to @organization.name, @organization
     %li= link_to "Datasets", :datasets # [@organization, :datasets]
-    %li{ style: "font-weight: 300; color: #9e9e9e;" } New
+    %li.breadcrumb-muted new
 
 .dashboard-container= render "datasets/form", dataset: @dataset

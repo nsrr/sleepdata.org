@@ -1,0 +1,10 @@
+.col-12.col-md-3.col-xl-2.sidebar-wrapper{ style: "background-color: transparent;" }
+  .sidebar
+    #sidebar-nav-wrapper.sidebar-nav-wrapper.collapse{ style: "background-color: transparent;" }
+      .pt-3.mx-3.my-0.ml-md-3.mb-md-3.mr-md-0
+        %ul.sidebar-menu.sidebar-menu-shadow
+          %li.sidebar-menu-header Viewer
+          %li= link_to "Reports", reports_organization_path(@organization), class: current_page?(reports_organization_path(@organization)) ? "active" : nil
+          %li= link_to "This month", this_month_organization_path(@organization), class: current_page?(this_month_organization_path(@organization)) ? "active" : nil
+          %li= link_to "Data requests", data_requests_organization_path(@organization), class: current_page?(data_requests_organization_path(@organization)) ? "active" : nil
+          %li= link_to "Stats", data_request_stats_organization_path(@organization), class: current_page?(data_request_stats_organization_path(@organization)) ? "active" : nil

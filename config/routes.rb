@@ -158,10 +158,28 @@ Rails.application.routes.draw do
             format: false
       end
     end
+
+    resources :organizations, only: [:edit, :update], path: "orgs" do
+      member do
+        get :settings
+      end
+    end
   end
 
   scope module: :admin do
     resources :datasets, only: [:new, :create, :destroy]
+    resources :organizations, only: [:new, :create, :destroy], path: "orgs"
+  end
+
+  scope module: :viewer do
+    resources :organizations, only: [], path: "orgs" do
+      member do
+        get :reports
+        get :data_requests, path: "reports/data-requests"
+        get :data_request_stats, path: "reports/data-requests/stats"
+        get :this_month, path: "reports/this-month"
+      end
+    end
   end
 
   resources :datasets, only: [:show, :index] do
@@ -210,15 +228,9 @@ Rails.application.routes.draw do
 
   get "/image/:id" => "images#download", as: "download_image"
 
-  namespace :organizations, path: "orgs/:id" do
-    namespace :reports do
-      get :data_requests, path: "data-requests"
-      get :data_request_stats, path: "data-requests/stats"
-      get :this_month, path: "this-month"
-    end
-  end
+  resources :organizations, only: [:show, :index], path: "orgs" do
+    resources :legal_document_datasets, path: "legal-document-datasets"
 
-  resources :organizations, path: "orgs" do
     resources :legal_documents, path: "legal-documents" do
       resources :legal_document_pages, path: "pages"
       # resources :legal_document_pages, path: "pages", as: :page, only: [:show, :edit, :update, :destroy]
@@ -226,14 +238,7 @@ Rails.application.routes.draw do
       resources :legal_document_variables, path: "variables"
     end
 
-    member do
-      get :datasets
-      get :people
-      get :invite_member, path: "people/invite"
-      post :add_member, path: "people/invite"
-    end
-
-    resources :legal_document_datasets, path: "legal-document-datasets"
+    resources :organization_users, path: "members"
   end
 
   namespace :reviewer do

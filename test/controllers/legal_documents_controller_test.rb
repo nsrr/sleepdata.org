@@ -7,7 +7,7 @@ class LegalDocumentsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @organization = organizations(:one)
     @legal_document = legal_documents(:one)
-    @admin = users(:admin)
+    @org_editor = users(:editor)
   end
 
   def legal_document_params
@@ -22,19 +22,19 @@ class LegalDocumentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    login(@admin)
+    login(@org_editor)
     get organization_legal_documents_url(@organization)
     assert_response :success
   end
 
   test "should get new" do
-    login(@admin)
+    login(@org_editor)
     get new_organization_legal_document_url(@organization)
     assert_response :success
   end
 
   test "should create legal document" do
-    login(@admin)
+    login(@org_editor)
     assert_difference("LegalDocument.count") do
       post organization_legal_documents_url(@organization), params: {
         legal_document: legal_document_params
@@ -44,19 +44,19 @@ class LegalDocumentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show legal document" do
-    login(@admin)
+    login(@org_editor)
     get organization_legal_document_url(@organization, @legal_document)
     assert_response :success
   end
 
   test "should get edit" do
-    login(@admin)
+    login(@org_editor)
     get edit_organization_legal_document_url(@organization, @legal_document)
     assert_response :success
   end
 
   test "should update legal document" do
-    login(@admin)
+    login(@org_editor)
     patch organization_legal_document_url(@organization, @legal_document), params: {
       legal_document: legal_document_params.merge(slug: "daua-updated")
     }
@@ -64,7 +64,7 @@ class LegalDocumentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy legal document" do
-    login(@admin)
+    login(@org_editor)
     assert_difference("LegalDocument.current.count", -1) do
       delete organization_legal_document_url(@organization, @legal_document)
     end

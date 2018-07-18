@@ -6,6 +6,13 @@
   - Updated framework files to resemble Rails 5.2 defaults more closely
 - **Dataset Changes**
   - Improved dataset navigation layout between docs, files, and variables
+- **Organization Changes**
+  - Added organization editor and viewer roles
+    - Editors can manage organization membership and datasets
+    - Viewers can view organization reports
+  - Added organization principal reviewer, and regular reviewer roles
+    - Principal reviewers can approve data requests
+    - Regular reviewers can comment and vote on data requests
 
 ## 33.0.1 (July 13, 2018)
 

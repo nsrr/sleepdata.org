@@ -1,0 +1,36 @@
+- @title = "Member - #{@organization.name}"
+
+- content_for :header, @organization.name
+
+= render "organizations/tabs", organization: @organization
+
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "orgs", organizations_path
+    %li= link_to @organization.slug, @organization
+    %li.breadcrumb-muted member
+
+.mb-3
+  .text-right= link_to "Edit", edit_organization_organization_user_path(@organization, @organization_user), class: "btn btn-primary btn-shadow"
+
+.dashboard-container
+  %p
+    %strong User:
+    = link_to @organization_user.user.username, posts_member_path(@organization_user.user.username) if @organization_user.user
+
+  %p
+    %strong Editor:
+    = simple_check @organization_user.editor
+
+  %p
+    %strong Review role:
+    = @organization_user.review_role_name
+
+  %p
+    %strong Creator:
+    = link_to @organization_user.creator.username, posts_member_path(@organization_user.creator.username)
+
+  - unless @organization_user.user
+    %p
+      %strong Invite email:
+      = @organization_user.invite_email

@@ -7,6 +7,6 @@
 - content_for :breadcrumbs do
   %ol
     %li= link_to "Exports", exports_path
-    %li{ style: "font-weight: 300; color: #9e9e9e;" } New
+    %li.breadcrumb-muted new
 
 .dashboard-container= render "exports/form", export: @export

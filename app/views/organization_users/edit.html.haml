@@ -1,0 +1,13 @@
+- @title = "Edit Member - #{@organization.name}"
+
+- content_for :header, @organization.name
+
+= render "organizations/tabs", organization: @organization
+
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "orgs", organizations_path
+    %li= link_to @organization.slug, @organization
+    %li.breadcrumb-muted edit member
+
+.dashboard-container= render "organization_users/form", organization_user: @organization_user

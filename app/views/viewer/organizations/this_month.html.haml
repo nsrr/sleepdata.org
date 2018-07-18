@@ -1,14 +1,17 @@
-- @title = "This Month"
+- @title = "This Month - #{@organization.name}"
 
 - render "themes/theme"
-- content_for :sidebar, render("admin/sidebar")
-- content_for :header, @title
+
+- content_for :header, @organization.name
+= render "organizations/tabs", organization: @organization
 
 - content_for :breadcrumbs do
   %ol
-    %li= link_to "Organizations", organizations_path
-    %li= link_to @organization.name, @organization
-    %li= @title
+    %li= link_to "orgs", organizations_path
+    %li= link_to @organization.slug, @organization
+    %li.breadcrumb-muted this month
+
+- content_for :sidebar, render("viewer/organizations/sidebar")
 
 - data_requests_submitted_last_month = @organization.data_requests.where("DATE(submitted_at) >= ? and DATE(submitted_at) <= ?", (Time.zone.today - 1.month).beginning_of_month, (Time.zone.today - 1.month).end_of_month).count
 - data_requests_submitted_this_month = @organization.data_requests.where("DATE(submitted_at) >= ? and DATE(submitted_at) <= ?", Time.zone.today.beginning_of_month, Time.zone.today.end_of_month).count
@@ -32,7 +35,7 @@
         = "+#{difference}"
     from
     = succeed "." do
-      = link_to "last month", organizations_reports_data_requests_path(@organization)
+      = link_to "last month", data_requests_organization_path(@organization)
 
 
 - data_requests_approved_last_month = @organization.data_requests.where("DATE(approval_date) >= ? and DATE(approval_date) <= ?", (Time.zone.today - 1.month).beginning_of_month, (Time.zone.today - 1.month).end_of_month).count
@@ -58,4 +61,4 @@
         = "+#{difference}"
     from
     = succeed "." do
-      = link_to "last month", organizations_reports_data_requests_path(@organization)
+      = link_to "last month", data_requests_organization_path(@organization)

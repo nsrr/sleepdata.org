@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 
-# Displays organization reports.
-class Organizations::ReportsController < ApplicationController
+# Allows organization members to view organization reports.
+class Viewer::OrganizationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_admin
-  before_action :find_organization_or_redirect
+  before_action :find_viewable_organization_or_redirect
 
   layout "layouts/full_page_sidebar"
+
+  # # GET /orgs/1/reports
+  # def reports
+  # end
 
   # GET /orgs/:id/reports/data-requests
   def data_requests
@@ -14,7 +17,7 @@ class Organizations::ReportsController < ApplicationController
     @dataset = @organization.datasets.find_by_param(params[:dataset])
     data_requests = data_requests.merge(Request.where(dataset: @dataset)) if @dataset
     @year = (params[:year].to_i.positive? ? params[:year].to_i : Time.zone.today.year)
-    @chart_title = { text: "#{@organization.slug.upcase} Data Requests #{@year}#{" for #{@dataset.slug.upcase}" if @dataset}", align: "center" }
+    @chart_title = { text: "#{@organization.name} Data Requests #{@year}#{" for #{@dataset.slug.upcase}" if @dataset}", align: "center" }
     @series = []
     max = 100
     (series, max) = add_average_submitted(data_requests, max)
@@ -34,8 +37,9 @@ class Organizations::ReportsController < ApplicationController
 
   private
 
-  def find_organization_or_redirect
-    super(:id)
+  def find_viewable_organization_or_redirect
+    @organization = current_user.viewable_organizations.find_by_param(params[:id])
+    empty_response_or_root_path(organizations_path) unless @organization
   end
 
   def month_start_date(year, month)

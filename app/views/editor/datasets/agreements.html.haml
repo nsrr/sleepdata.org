@@ -9,7 +9,7 @@
     = render "layouts/per_page", per_page: 100, object_count: @agreements.total_count, pagination_size: "small"
   %ol
     %li= link_to @dataset.slug, @dataset
-    %li{ style: "font-weight: 300; color: #9e9e9e;" } agreements
+    %li.breadcrumb-muted agreements
     - if params[:order] != "agreements.id desc" || params[:status].present?
       %li= link_to "Reset Filters", agreements_dataset_path(@dataset)
 

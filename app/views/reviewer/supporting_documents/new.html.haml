@@ -7,7 +7,7 @@
     %li= link_to "Reviews", reviews_path
     %li= link_to @data_request.name, review_path(@data_request)
     %li= link_to "Supporting Documents", reviewer_supporting_documents_path(@data_request)
-    %li{ style: "font-weight: 300; color: #9e9e9e;" } New
+    %li.breadcrumb-muted new
 
 - supporting_document = @supporting_document
 = form_with model: [@data_request, supporting_document], url: reviewer_supporting_documents_path(@data_request), local: true do |form|

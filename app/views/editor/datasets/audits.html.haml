@@ -7,7 +7,7 @@
 - content_for :breadcrumbs do
   %ol
     %li= link_to @dataset.slug, @dataset
-    %li{ style: "font-weight: 300; color: #9e9e9e;" } audits
+    %li.breadcrumb-muted audits
 
 .dashboard-container.dashboard-table
   %table.table.table-striped.table-borderless.table-hover.table-sticky

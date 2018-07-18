@@ -8,7 +8,6 @@ two:
   name: Organization Two
   slug: organization-two
 
-
 # Organization Three (No attestation, no review)
 three:
   name: Organization Three

@@ -27,6 +27,11 @@
           %h1.page-heading
             = yield :header
     = yield :header_append
+    - if content_for?(:tabs)
+      .header-tabs
+        %div{ class: defined?(container) && container.present? ? container : "container" }
+          = yield :tabs
+
     = render "layouts/shared/breadcrumbs", container: "container"
     .py-3
       .container= yield
