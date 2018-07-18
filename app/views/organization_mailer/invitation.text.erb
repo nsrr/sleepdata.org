@@ -1,0 +1,5 @@
+<%= @organization_user.creator.username %> invited you to join the <%= @organization_user.organization.name %> organization on the NSRR.
+
+Click the following link to accept the invitation:
+
+<%= "#{ENV["website_url"]}/invite/#{@organization_user.invite_token}" %>

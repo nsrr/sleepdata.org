@@ -38,7 +38,7 @@ class OrganizationUsersControllerTest < ActionDispatch::IntegrationTest
         organization_user: organization_user_params
       }
     end
-    assert_redirected_to organization_organization_user_url(@organization, OrganizationUser.last)
+    assert_redirected_to organization_organization_users_url(@organization)
   end
 
   test "should show organization member as editor" do
@@ -58,7 +58,7 @@ class OrganizationUsersControllerTest < ActionDispatch::IntegrationTest
     patch organization_organization_user_url(@organization, @organization_user), params: {
       organization_user: organization_user_params
     }
-    assert_redirected_to organization_organization_user_url(@organization, @organization_user)
+    assert_redirected_to organization_organization_users_url(@organization)
   end
 
   test "should destroy organization member as editor" do

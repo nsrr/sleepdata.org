@@ -1,0 +1,10 @@
+%p{ style: p_style }
+  = @organization_user.creator.username
+  %span{ style: emphasis_style } invited
+  you to join the
+  = link_to @organization_user.organization.name, "#{ENV["website_url"]}/invite/#{@organization_user.invite_token}", style: link_style
+  organization on the NSRR.
+  Click the following link to accept the invitation:
+
+%p{ style: center_style }
+  = link_to "Accept invitation", "#{ENV["website_url"]}/invite/#{@organization_user.invite_token}", style: link_style

@@ -19,7 +19,7 @@ module EmailHelper
   end
 
   def background_color
-    '#43a047'
+    "#1b5e20" # $p900-green
   end
 
   def banner_color
@@ -27,7 +27,7 @@ module EmailHelper
   end
 
   def link_color
-    '#0091ea'
+    "#2196f3" # $p500-blue
   end
 
   def center_style

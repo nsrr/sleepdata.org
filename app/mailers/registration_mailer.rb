@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Sends out registration welcome emails.
+# Sends registration welcome emails.
 class RegistrationMailer < ApplicationMailer
   def welcome(user, data_request_id: nil)
     setup_email

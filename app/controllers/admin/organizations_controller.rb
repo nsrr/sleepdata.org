@@ -17,6 +17,7 @@ class Admin::OrganizationsController < ApplicationController
   def create
     @organization = Organization.new(organization_params)
     if @organization.save
+      @organization.organization_users.create(creator: current_user, user: current_user, editor: true)
       redirect_to @organization, notice: "Organization was successfully created."
     else
       render :new

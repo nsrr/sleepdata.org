@@ -1,58 +1,58 @@
 !!!
 %html
   %head
-    %meta{ content: 'text/html; charset=utf-8', 'http-equiv' => 'Content-Type' }/
+    %meta{ content: "text/html; charset=utf-8", "http-equiv" => "Content-Type" }/
     :css
       -# Email styles need to be inline
   %body
-    %div{ style: "background:#{background_color};color:#373737;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:17px;line-height:24px;max-width:100%;width:100%!important;margin:0 auto;padding:0" }
-      %table{ border: '0', cellpadding: '0', cellspacing: '0', style: "border-collapse:collapse;line-height:24px;margin:0;padding:0;width:100%;font-size:17px;color:#373737;background:#{background_color}", width: '100%' }
+    %div{ style: "background:#{background_color};color:#373737;font-family:-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif;font-size:17px;line-height:24px;max-width:100%;width:100%!important;margin:0 auto;padding:0;" }
+      %table{ border: "0", cellpadding: "0", cellspacing: "0", style: "border-collapse:collapse;line-height:24px;margin:0;padding:0;width:100%;font-size:17px;color:#373737;background:#{background_color};", width: "100%" }
         %tbody
           %tr
-            %td{ style: 'border-collapse:collapse', valign: 'top' }
-              %table{ border: '0', cellpadding: '0', cellspacing: '0', style: 'border-collapse:collapse', width: '100%' }
+            %td{ style: "border-collapse:collapse", valign: "top" }
+              %table{ border: "0", cellpadding: "0", cellspacing: "0", style: "border-collapse: collapse;", width: "100%" }
                 %tbody
                   %tr
-                    %td{ style: 'border-collapse:collapse;padding:20px 16px 12px', valign: 'bottom' }
-                      %div{ style: 'text-align:center;font-family:Georgia;color:white;word-break:break-word;line-height:28px;font-size:24px;' }
+                    %td{ style: "border-collapse:collapse;padding:20px 16px 12px", valign: "bottom" }
+                      %div{ style: "text-align:center;color:white;word-break:break-word;line-height:28px;font-size:24px;font-weight:300;" }
                         National Sleep Research Resource
           %tr
-            %td{ style: 'border-collapse:collapse', valign: 'top' }
+            %td{ style: "border-collapse:collapse", valign: "top" }
               -# Table can be repeated for multiple sections
-              %table{ align: 'center', border: '0', cellpadding: '32', cellspacing: '0', style: 'border-collapse:collapse;background:white;' }
+              %table{ align: "center", border: "0", cellpadding: "32", cellspacing: "0", style: "border-collapse:collapse;background:white;" }
                 %tbody
                   %tr
-                    %td{ style: 'border-collapse:collapse', valign: 'top', width: '546' }
-                      %div{ style: 'max-width:600px;margin:0 auto;' }
+                    %td{ style: "border-collapse:collapse", valign: "top", width: "546" }
+                      %div{ style: "max-width:600px;margin:0 auto;" }
                         = yield
               = yield :extra_blocks
           %tr
-            %td{ style: 'border-collapse:collapse' }
-              %table{ align: 'center', border: '0', cellpadding: '0', cellspacing: '0', style: 'border-collapse:collapse;background:white;color:#999999', width: '100%' }
+            %td{ style: "border-collapse:collapse" }
+              %table{ align: "center", border: "0", cellpadding: "0", cellspacing: "0", style: "border-collapse:collapse;background:white;color:#999999", width: "100%" }
                 %tbody
                   %tr
                     %td{ style: "border-collapse:collapse;background-color:#{background_color}" }
-                      %div{ style: 'height:32px;line-height:32px;font-size:1px;' } &nbsp;
+                      %div{ style: "height:32px;line-height:32px;font-size:1px;" } &nbsp;
                   %tr
                     %td{ style: "border-collapse:collapse;background-color:#{banner_color};" }
-                      %div{ style: 'height:5px;line-height:5px;font-size:1px;' } &nbsp;
+                      %div{ style: "height:5px;line-height:5px;font-size:1px;" } &nbsp;
                   %tr
-                    %td{ align: 'center', style: 'border-collapse:collapse;padding:16px 8px 24px', valign: 'top' }
-                      %div{ style: 'max-width:600px;margin:0 auto' }
-                        %p{ style: 'font-size:12px;line-height:20px;margin:0;padding:16px 0;' }
-                          %span{ style: 'max-width:380px;display:block;' }
+                    %td{ align: "center", style: "border-collapse:collapse;padding:16px 8px 24px", valign: "top" }
+                      %div{ style: "max-width:600px;margin:0 auto" }
+                        %p{ style: "font-size:12px;line-height:20px;margin:0;padding:16px 0;" }
+                          %span{ style: "max-width:380px;display:block;" }
                             This email was sent to
-                            = succeed '.' do
-                              %a{ href: "http://#{@email_to}", style: link_style, target: '_blank' }= @email_to
+                            = succeed "." do
+                              %a{ href: "http://#{@email_to}", style: link_style, target: "_blank" }= @email_to
                             %br
                             You may
-                            = succeed '.' do
-                              %a{ href: "#{ENV["website_url"]}/settings/email", style: link_style, target: '_blank' } change your email preferences here
-                        %p{ style: 'font-size:12px;line-height:20px;margin:0;padding:16px 0;' }
-                          %a{ href: ENV["website_url"], style: link_style, target: '_blank' } NSRR
+                            = succeed "." do
+                              %a{ href: "#{ENV["website_url"]}/settings/email", style: link_style, target: "_blank" } change your email preferences here
+                        %p{ style: "font-size:12px;line-height:20px;margin:0;padding:16px 0;" }
+                          %a{ href: ENV["website_url"], style: link_style, target: "_blank" } NSRR
                           \&nbsp;&bull;&nbsp;
-                          %a{ href: "#{ENV["website_url"]}/blog", style: link_style, target: '_blank' } Our Blog
+                          %a{ href: "#{ENV["website_url"]}/blog", style: link_style, target: "_blank" } Our Blog
                           %br
-                            %a{ href: ENV["website_url"], style: 'color:#989ea6;font-weight:normal;text-decoration:none;word-break:break-word' }
+                            %a{ href: ENV["website_url"], style: "color:#989ea6;font-weight:normal;text-decoration:none;word-break:break-word" }
                               221 Longwood Avenue, BLI 225 &nbsp;&bull;&nbsp; Boston, MA
                               \&nbsp;&bull;&nbsp; 02115

@@ -24,3 +24,12 @@ three:
   creator: editor
   # invite_email:
   # invite_token:
+
+editor_invite:
+  organization: one
+  # user:
+  editor: true
+  # review_role: none
+  creator: editor
+  invite_email: editor_invite@example.com
+  invite_token: EDITOR_INVITE_TOKEN

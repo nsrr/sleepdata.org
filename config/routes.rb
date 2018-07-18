@@ -387,10 +387,13 @@ Rails.application.routes.draw do
 
   resources :users
 
-  get "/submissions", to: redirect("data/requests")
-  get "/fair", to: redirect("about/fair-data-principles")
+  get "invite/:invite_token" => "organization_users#invite", as: :invite
+  get "accept-invite" => "organization_users#accept_invite", as: :accept_invite
+
+  get "submissions", to: redirect("data/requests")
+  get "fair", to: redirect("about/fair-data-principles")
 
   # In case "failed submission steps are reloaded using get request"
-  get "/agreements/:id/final_submission" => "agreements#proof"
-  get "/agreements/:id/update_step" => "agreements#step"
+  get "agreements/:id/final_submission" => "agreements#proof"
+  get "agreements/:id/update_step" => "agreements#step"
 end

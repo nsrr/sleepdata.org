@@ -2,11 +2,17 @@
 
 # Stores organization membership and roles.
 class OrganizationUser < ApplicationRecord
+  # Constants
   REVIEW_ROLES = [
     ["Principal Reviewer", "principal"],
     ["Reviewer", "regular"],
     ["None", "none"]
   ]
+
+  # Concerns
+  include Forkable
+  include Strippable
+  strip :invite_email
 
   # Validations
   validates :review_role, inclusion: { in: REVIEW_ROLES.collect(&:second) }
@@ -24,7 +30,17 @@ class OrganizationUser < ApplicationRecord
     REVIEW_ROLES.find { |_, value| value == review_role }&.first
   end
 
+  def send_invite_email_in_background!
+    fork_process(:send_invite_email!)
+  end
+
   private
+
+  def send_invite_email!
+    set_invite_token
+    return unless EMAILS_ENABLED
+    OrganizationMailer.invitation(self).deliver_now
+  end
 
   def set_invite_token
     return if invite_token.present?

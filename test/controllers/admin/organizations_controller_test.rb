@@ -31,8 +31,10 @@ class Admin::OrganizationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create organization as admin" do
     login(@admin)
-    assert_difference("Organization.count") do
-      post organizations_url, params: { organization: organization_params }
+    assert_difference("OrganizationUser.where(editor: true).count") do
+      assert_difference("Organization.count") do
+        post organizations_url, params: { organization: organization_params }
+      end
     end
     assert_redirected_to organization_url(Organization.last)
   end

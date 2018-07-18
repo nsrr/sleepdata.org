@@ -14,23 +14,14 @@
   .text-right= link_to "Edit", edit_organization_organization_user_path(@organization, @organization_user), class: "btn btn-primary btn-shadow"
 
 .dashboard-container
-  %p
-    %strong User:
-    = link_to @organization_user.user.username, posts_member_path(@organization_user.user.username) if @organization_user.user
 
-  %p
-    %strong Editor:
-    = simple_check @organization_user.editor
 
-  %p
-    %strong Review role:
-    = @organization_user.review_role_name
+  - if @organization_user.user
+    = render "forms/horizontal/show/generic", title: "User", content: link_to(@organization_user.user.username, posts_member_path(@organization_user.user.username))
+  - else
+    = render "forms/horizontal/show/text", object: @organization_user, key: :invite_email
 
-  %p
-    %strong Creator:
-    = link_to @organization_user.creator.username, posts_member_path(@organization_user.creator.username)
+  = render "forms/horizontal/show/check_box", object: @organization_user, key: :editor
+  = render "forms/horizontal/show/text", object: @organization_user, key: :review_role_name, key_name: "Review role"
 
-  - unless @organization_user.user
-    %p
-      %strong Invite email:
-      = @organization_user.invite_email
+  = render "forms/horizontal/show/generic", title: "Invited by", content: link_to(@organization_user.creator.username, posts_member_path(@organization_user.creator.username))

@@ -12,9 +12,36 @@
 
 .mb-3
   - if @organization.editor?(current_user)
-    .text-right= link_to plus_or("Invite member"), new_organization_organization_user_path(@organization), class: "btn btn-primary btn-shadow"
+    .text-right
+      - pending_invitations = @organization.organization_users.where(user_id: nil).count
+      - if pending_invitations.positive?
+        %span.badge.badge-light= link_to pluralize(pending_invitations, "pending invitation"), organization_organization_users_path(pending: 1)
+      = link_to plus_or("Invite member"), new_organization_organization_user_path(@organization), class: "btn btn-primary btn-shadow"
 
-- if @organization_users.present?
+- if @organization.editor?(current_user) && params[:pending] == "1"
+  .dashboard-container.dashboard-table
+    %table.table.table-striped.table-borderless.table-sticky
+      %col
+      %col
+      %col
+      %col{ width: "1px" }
+      %thead
+        %tr
+          %th Invite email
+          %th.text-center Editor
+          %th.text-center Review role
+          %th.text-center Actions
+
+      %tbody
+        - @organization_users.each do |organization_user|
+          %tr
+            %td= link_to organization_user.invite_email, [@organization, organization_user]
+            %td.text-center= simple_check organization_user.editor
+            %td.text-center= organization_user.review_role_name
+            %td.text-center
+              = render "layouts/edit_delete_dropdown", edit_url: edit_organization_organization_user_path(@organization, organization_user), delete_url: [@organization, organization_user], delete_confirmation: "Remove invite to #{organization_user.invite_email}?"
+  .center-horizontally= paginate @organization_users, theme: "bootstrap"
+- elsif @organization_users.present?
   .dashboard-container.dashboard-table
     %table.table.table-striped.table-borderless.table-sticky
       %col

@@ -1,5 +1,6 @@
 = form_with model: [@organization, organization_user], local: true do |form|
-  = render "forms/horizontal/email_field", form: form, object: organization_user, key: :invite_email
+  - if organization_user.new_record?
+    = render "forms/horizontal/email_field", form: form, object: organization_user, key: :invite_email
   = render "forms/horizontal/select", form: form, object: organization_user, key: :review_role, options: OrganizationUser::REVIEW_ROLES
   = render "forms/horizontal/check_box", form: form, object: organization_user, key: :editor
   = render "forms/horizontal/submit", form: form, object: [@organization, organization_user] #, object_name: "Member"

@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-# Tests to make sure registration email render properly
+# Tests to make sure registration email render properly.
 class RegistrationMailerTest < ActionMailer::TestCase
   test "welcome email with password" do
     user = users(:valid)
