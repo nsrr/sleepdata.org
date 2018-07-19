@@ -1,7 +1,6 @@
-
 - render "themes/theme"
 - content_for :sidebar, render("variables/sidebar")
-= render "datasets/header"
+= render "datasets/header", container: "container-fluid"
 
 - content_for :header_append do
   - if @variable && @dataset.dataset_version && @variable.dataset_version_id != @dataset.dataset_version_id

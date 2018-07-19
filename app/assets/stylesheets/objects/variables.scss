@@ -25,3 +25,19 @@ h1.variable-header {
 .variable-description {
   @include remove-last-child-bottom-margin;
 }
+
+.variable-graph {
+  margin-bottom: map-get($spacers, 3);
+}
+
+@include media-breakpoint-up(xl) {
+  .d-flex {
+    .variable-graph {
+      flex: 1 1 0;
+
+      + .variable-graph {
+        margin-left: map-get($spacers, 3);
+      }
+    }
+  }
+}
