@@ -3,7 +3,6 @@
 # Displays personal member pages.
 class InternalController < ApplicationController
   before_action :authenticate_user!
-  before_action :check_invite_tokens, only: :dashboard
 
   layout "layouts/full_page_dashboard"
 
@@ -14,10 +13,4 @@ class InternalController < ApplicationController
   # # GET /token
   # def token
   # end
-
-  private
-
-  def check_invite_tokens
-    redirect_to accept_invite_path if session[:invite_token].present?
-  end
 end

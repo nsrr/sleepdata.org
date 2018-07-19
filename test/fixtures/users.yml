@@ -355,3 +355,9 @@ orgone_viewer:
   full_name: Org One Viewer
   email: orgone_viewer@example.com
   confirmed_at: <%= confirmed_at %>
+
+orgone_editor_invite:
+  username: orgoneeditorinvite
+  full_name: Org One Editor Invite
+  email: editor_invite@example.com
+  confirmed_at: <%= confirmed_at %>

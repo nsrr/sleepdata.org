@@ -68,4 +68,23 @@ class OrganizationUsersControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to organization_organization_users_url(@organization)
   end
+
+  test "should accept organization invitation after logging in" do
+    login(users(:orgone_editor_invite))
+    get invite_url(organization_users(:editor_invite).invite_token)
+    assert_redirected_to accept_invite_url
+    get accept_invite_url
+    assert_equal users(:orgone_editor_invite), assigns(:organization_user).user
+    assert_equal "Invite successfully accepted.", flash[:notice]
+    assert_redirected_to assigns(:organization_user).organization
+  end
+
+  test "should accept organization invitation before logging in" do
+    get invite_url(organization_users(:editor_invite).invite_token)
+    assert_redirected_to new_user_session_url
+    login(users(:orgone_editor_invite))
+    assert_equal users(:orgone_editor_invite), assigns(:organization_user).user
+    assert_equal "Invite successfully accepted.", flash[:notice]
+    assert_redirected_to assigns(:organization_user).organization
+  end
 end

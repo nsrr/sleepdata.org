@@ -22,6 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
+    return accept_invite_path if session[:invite_token].present?
     session[:previous_internal_url] || session[:previous_external_url] || root_path
   end
 
