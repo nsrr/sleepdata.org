@@ -1,33 +1,46 @@
 - @title = "My Dashboard"
-- content_for :right_drawer, render("internal/sidebar/blog_posts")
+
+- render "themes/theme"
+- content_for :header do
+  - if false
+    .float-right
+      %div{ rel: "tooltip", data: { title: "Change your picture", container: "body", placement: "left" } }
+        = link_to settings_path(anchor: "picture") do
+          = profile_picture_tag(current_user, size: 90, style: nil)
+  = current_user.full_name.presence || current_user.username
+= render "internal/tabs"
+- content_for :sidebar, render("internal/sidebar")
+
+.dashboard-container
+  .text-center.lead
+    New to the NSRR? Get started with our
+    = link_to "Where to Start", showcase_show_path("where-to-start")
+    guide.
 
 - data_request_approved = current_user.data_requests.not_expired.where(status: "approved").order(id: :desc).first
 - current_data_request = current_user.data_requests.where(status: %w(started resubmit)).order(id: :desc).first
 - current_data_request = current_user.data_requests.where(status: %w(submitted)).order(id: :desc).first unless current_data_request
 - if data_request_approved || current_data_request
-  %h1.dashboard-heading
-    = @title
-  - if current_data_request
-    .mb-3= render "data_requests/show", data_request: current_data_request
-  - if data_request_approved
-    .mb-3= render "data_requests/show", data_request: data_request_approved
-- else
+  .d-flex.flex-column.flex-xl-row
+    - if current_data_request
+      = render "data_requests/show", data_request: current_data_request
+    - if data_request_approved
+      = render "data_requests/show", data_request: data_request_approved
+  - if false
+    .text-center.small.mb-3= link_to "view all data requests", data_requests_path, class: "btn btn-primary btn-sm"
+
   .dashboard-container
-    .dashboard-title
-      %strong= @title
-    %p
-      Access data by requesting access to one or more
-      = succeed "." do
-        = link_to "datasets", datasets_path
-    %p
-      If you need any help, you may send us an email at
-      = succeed "." do
-        = mail_to ENV["support_email"]
+    .text-center.lead
+      Email us at
+      = mail_to ENV["support_email"]
+      with any questions!
+- else
+  .jumbotron.jumbotron-custom-text
+    %i.fa.fa-database.mr-1
+    Your data requests will show up here!
 
-.text-center.small.mb-3= link_to "view all data requests", data_requests_path, class: "btn btn-primary btn-sm"
-
-.dashboard-container
-  .text-center.lead
-    Email us at
-    = mail_to ENV["support_email"]
-    with any questions!
+  .dashboard-container
+    .text-center.lead
+      Email us at
+      = mail_to ENV["support_email"]
+      with any questions!

@@ -1,12 +1,12 @@
 - @title = "New Category"
 
 - render "themes/theme"
-- content_for :sidebar, render("admin/sidebar")
 - content_for :header, @title
-
+= render "admin/tabs"
 - content_for :breadcrumbs do
   %ol
     %li= link_to "Categories", categories_path
     %li.breadcrumb-muted new
+- content_for :sidebar, render("admin/sidebar")
 
 .dashboard-container= render "categories/form", category: @category

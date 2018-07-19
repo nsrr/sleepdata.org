@@ -1,0 +1,19 @@
+.col-12.col-md-3.col-xl-2.sidebar-wrapper{ style: "background-color: transparent;" }
+  .sidebar
+    #sidebar-nav-wrapper.sidebar-nav-wrapper.collapse{ style: "background-color: transparent;" }
+      .pt-3.mx-3.my-0.ml-md-3.mb-md-3.mr-md-0
+        %ul.sidebar-menu.sidebar-menu-shadow
+          %li.sidebar-menu-header Dashboard
+          %li= link_to "Dashboard", dashboard_path, class: current_page?(dashboard_path) ? "active" : nil
+          - if current_user.data_requests.count.positive? || current_page?(data_requests_path)
+            %li= link_to "Data requests", data_requests_path, class: params[:controller] == "data_requests" ? "active" : nil
+          - voting_count = current_user.reviewable_data_requests.without_vote(current_user).count
+          - if current_user.reviewable_data_requests.count.positive?
+            %li
+              - voting_count = current_user.reviewable_data_requests.without_vote(current_user).count
+              = link_to reviews_path(voted: voting_count > 0 ? 0 : nil), class: params[:controller] == "reviews" ? "active" : nil do
+                Reviews
+                - if voting_count.positive?
+                  %span.badge.badge-sidebar.badge-pill= voting_count
+          %li.sidebar-menu-header Downloads
+          %li= link_to "Token", token_path, class: current_page?(token_path) ? "active" : nil

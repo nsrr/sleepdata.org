@@ -1,6 +1,11 @@
 - @title = "Account Settings"
 
-.card.mb-5
+- render "themes/theme"
+- content_for :header, current_user.full_name.presence || current_user.username
+= render "internal/tabs"
+- content_for :sidebar, render("settings/sidebar")
+
+.card.mb-3
   %h4.card-header
     %i.fa.fa-user
     Change password
@@ -14,7 +19,7 @@
       = render "forms/vertical/submit", form: form, object: current_user, submit_text: "Update password", cancel: false
 
 %a.anchor-top{ name: "username", id: "username" }
-.card.mb-5
+.card.mb-3
   %h4.card-header
     %i.fa.fa-user
     Change name
@@ -23,7 +28,7 @@
       = render "forms/vertical/text_field", form: form, object: current_user, key: :full_name, help_text: "You can change your profile picture #{link_to "here", settings_profile_path(anchor: "picture")}.".html_safe
       = render "forms/vertical/submit", form: form, object: current_user, submit_text: "Update name", cancel: false
 
-.card.mb-5
+.card
   %h4.card-header.text-danger
     %i.fa.fa-user
     Delete account

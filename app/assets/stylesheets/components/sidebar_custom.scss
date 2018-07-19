@@ -24,6 +24,11 @@
       border-color: $p800-green;
       color: $brand-white;
       text-decoration: none;
+
+      > .badge-sidebar {
+        background-color: $brand-white;
+        color: $p800-green;
+      }
     }
 
     &.sidebar-menu-header {
@@ -48,4 +53,9 @@
     border-radius: 3px;
     box-shadow: 0 1px 5px $box-shadow-color;
   }
+}
+
+.badge-sidebar {
+  background-color: map-get($theme-colors, primary);
+  color: $brand-white;
 }

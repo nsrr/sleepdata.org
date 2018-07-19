@@ -1,8 +1,9 @@
 - @title = "Sync Status"
 
 - render "themes/theme"
-- content_for :sidebar, render("admin/sidebar")
 - content_for :header, @title
+= render "admin/tabs"
+- content_for :sidebar, render("admin/sidebar")
 
 - Dataset.current.order(:name).each do |dataset|
   = render "documentation/sync", local_commit: dataset.local_commit, remote_commit: dataset.remote_commit, object: dataset, back: "sync"

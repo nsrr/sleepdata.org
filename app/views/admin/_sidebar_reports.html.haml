@@ -1,0 +1,11 @@
+.col-12.col-md-3.col-xl-2.sidebar-wrapper{ style: "background-color: transparent;" }
+  .sidebar
+    #sidebar-nav-wrapper.sidebar-nav-wrapper.collapse{ style: "background-color: transparent;" }
+      .pt-3.mx-3.my-0.ml-md-3.mb-md-3.mr-md-0
+        %ul.sidebar-menu.sidebar-menu-shadow
+          %li.sidebar-menu-header Reports
+          %li= link_to "Downloads By Quarter", admin_downloads_by_quarter_path, class: current_page?(admin_downloads_by_quarter_path) ? "active" : nil
+          %li= link_to "Downloads By Month", admin_downloads_by_month_path(user_type: "regular"), class: current_page?(admin_downloads_by_month_path(user_type: "regular")) ? "active" : nil
+          %li= link_to "Agreement Reports", admin_agreement_reports_path, class: current_page?(admin_agreement_reports_path) ? "active" : nil
+          %li= link_to "Usage Statistics", admin_stats_path, class: current_page?(admin_stats_path) ? "active" : nil
+          %li= link_to "Spam Report", admin_spam_report_path, class: current_page?(admin_spam_report_path) ? "active" : nil

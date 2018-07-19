@@ -9,16 +9,23 @@
           %li= link_to "Organizations", organizations_path, class: params[:controller] == "admin/organizations" ? "active" : nil if current_user.admin?
           %li= link_to "Users", users_path, class: params[:controller] == "users" ? "active" : nil if current_user.admin? || current_user.report_manager?
           %li= link_to "Exports", exports_path, class: params[:controller] == "exports" ? "active" : nil if current_user.admin?
-          - voting_count = current_user.reviewable_data_requests.without_vote(current_user).count
-          - if current_user.reviewable_data_requests.count.positive?
-            %li
-              = link_to reviews_path(voted: voting_count > 0 ? 0 : nil), class: params[:controller] == "reviews" ? "active" : nil do
-                Reviews
+
           - if current_user.admin?
             %li.sidebar-menu-header Discussion
-            %li= link_to "Spam Inbox", admin_spam_inbox_path, class: current_page?(admin_spam_inbox_path) ? "active" : nil
-            %li= link_to "Spam Report", admin_spam_report_path, class: current_page?(admin_spam_report_path) ? "active" : nil
-            %li= link_to "Profile Review", admin_profile_review_path, class: current_page?(admin_profile_review_path) ? "active" : nil
+            %li
+              - spam_count = User.spam_review.count
+              = link_to admin_spam_inbox_path, class: current_page?(admin_spam_inbox_path) ? "active" : nil do
+                Spam Inbox
+                - if spam_count.positive?
+                  %span.badge.badge-sidebar.badge-pill= spam_count
+
+            %li
+              - profile_count = User.profile_review.count
+              = link_to admin_profile_review_path, class: current_page?(admin_profile_review_path) ? "active" : nil do
+                Profile Review
+                - if profile_count.positive?
+                  %span.badge.badge-sidebar.badge-pill= profile_count
+
             %li= link_to "Member Posts", admin_replies_path, class: current_page?(admin_replies_path) ? "active" : nil
             %li= link_to "Blog Categories", categories_path, class: params[:controller] == "categories" ? "active" : nil
             %li= link_to "User Images", images_path, class: params[:controller] == "images" ? "active" : nil
@@ -26,8 +33,3 @@
             %li= link_to "Dataset Roles", admin_roles_path, class: current_page?(admin_roles_path) ? "active" : nil
             %li= link_to "Documentation Sync", admin_sync_path, class: current_page?(admin_sync_path) ? "active" : nil
             %li= link_to "Tags", tags_path, class: params[:controller] == "tags" ? "active" : nil
-            %li.sidebar-menu-header Reports
-            %li= link_to "Downloads By Quarter", admin_downloads_by_quarter_path, class: current_page?(admin_downloads_by_quarter_path) ? "active" : nil
-            %li= link_to "Downloads By Month", admin_downloads_by_month_path(user_type: "regular"), class: current_page?(admin_downloads_by_month_path(user_type: "regular")) ? "active" : nil
-            %li= link_to "Agreement Reports", admin_agreement_reports_path, class: current_page?(admin_agreement_reports_path) ? "active" : nil
-            %li= link_to "Usage Statistics", admin_stats_path, class: current_page?(admin_stats_path) ? "active" : nil

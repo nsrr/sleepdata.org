@@ -247,3 +247,19 @@ $data-request-approved-expired: $p500-blue;
 .data-request-review-vote-cleared {
   opacity: .5;
 }
+
+.card-data-request {
+  margin-bottom: map-get($spacers, 3);
+}
+
+@include media-breakpoint-up(xl) {
+  .d-flex {
+    .card-data-request {
+      flex: 1 1 0;
+
+      + .card-data-request {
+        margin-left: map-get($spacers, 3);
+      }
+    }
+  }
+}

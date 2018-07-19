@@ -4,6 +4,8 @@
 - **General Changes**
   - Added darker footer to registration and other pages
   - Updated framework files to resemble Rails 5.2 defaults more closely
+- **Dashboard Changes**
+  - Improved the dashboard interface to provide better information for new users
 - **Dataset Changes**
   - Improved dataset navigation layout between docs, files, and variables
 - **Organization Changes**

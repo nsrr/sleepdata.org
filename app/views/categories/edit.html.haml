@@ -1,13 +1,13 @@
 - @title = "Edit Category: #{@category.name_was}"
 
 - render "themes/theme"
-- content_for :sidebar, render("admin/sidebar")
 - content_for :header, @category.name_was
-
+= render "admin/tabs"
 - content_for :breadcrumbs do
   %ol
     %li= link_to "Categories", categories_path
     %li= link_to @category.name_was, @category
-    %li Edit
+    %li.breadcrumb-muted edit
+- content_for :sidebar, render("admin/sidebar")
 
 .dashboard-container= render "categories/form", category: @category

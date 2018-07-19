@@ -1,5 +1,10 @@
 - @title = "Data Request Preferences"
 
+- render "themes/theme"
+- content_for :header, current_user.full_name.presence || current_user.username
+= render "internal/tabs"
+- content_for :sidebar, render("settings/sidebar")
+
 .card
   %h4.card-header
     %i.fa.fa-university

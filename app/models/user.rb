@@ -102,6 +102,18 @@ class User < ApplicationRecord
     %w(full_name email username)
   end
 
+  def self.profile_review
+    where.not(profile_bio: ["", nil]).or(
+      where.not(profile_location: ["", nil])
+    ).or(
+      where.not(profile_picture: ["", nil])
+    ).current.where(profile_reviewed: false).order(:id)
+  end
+
+  def self.spam_review
+    current.where(shadow_banned: true, spammer: [nil, true])
+  end
+
   # TODO: Implement
   def report_manager?
     false
@@ -213,7 +225,9 @@ class User < ApplicationRecord
   end
 
   def all_reviewable_datasets
-    Dataset.current.with_reviewer(id)
+    Dataset.current.left_outer_joins(:organization).with_reviewer(self).or(
+      Dataset.current.left_outer_joins(:organization).where(organization_id: Organization.with_reviewer(self))
+    )
   end
 
   def all_viewable_datasets

@@ -1,8 +1,9 @@
 - @title = "Blog and Forum Replies"
 
 - render "themes/theme"
-- content_for :sidebar, render("admin/sidebar")
 - content_for :header, @title
+= render "admin/tabs"
+- content_for :sidebar, render("admin/sidebar")
 
 .dashboard-container.dashboard-table
   %table.table.table-striped.table-borderless.table-sticky

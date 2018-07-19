@@ -55,11 +55,7 @@ class AdminController < ApplicationController
 
   # GET /admin/profile-review
   def profile_review
-    @users = User.where.not(profile_bio: ["", nil]).or(
-      User.where.not(profile_location: ["", nil])
-    ).or(
-      User.where.not(profile_picture: ["", nil])
-    ).current.where(profile_reviewed: false).order(:id)
+    @users = User.profile_review
   end
 
   # POST /admin/profile-review
@@ -105,6 +101,6 @@ class AdminController < ApplicationController
   private
 
   def spammers
-    User.current.where(shadow_banned: true, spammer: [nil, true])
+    User.spam_review
   end
 end

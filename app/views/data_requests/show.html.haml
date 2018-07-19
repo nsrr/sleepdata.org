@@ -1,7 +1,12 @@
 - @title = "Data Requests"
 
+- render "themes/theme"
+- content_for :header, current_user.full_name.presence || current_user.username
+= render "internal/tabs"
+- content_for :sidebar, render("internal/sidebar")
+
+= render "data_requests/show", data_request: @data_request
+
 = link_to data_requests_path, class: "btn btn-sm mb-3" do
   %i.fa.fa-caret-left
   Back to Data Requests
-
-= render "data_requests/show", data_request: @data_request

@@ -26,6 +26,13 @@
         background-color: $p100-grey;
         color: map-get($theme, brand-black);
       }
+
+      .header-tabs-no-breadcrumbs {
+        .header-tab-active,
+        .header-tab-active:hover {
+          background-color: $p50-grey;
+        }
+      }
     }
   }
 

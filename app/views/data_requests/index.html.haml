@@ -1,12 +1,20 @@
 - @title = "Data Requests"
 
-%h1.dashboard-heading
-  = @title
+- render "themes/theme"
+- content_for :header, current_user.full_name.presence || current_user.username
+= render "internal/tabs"
+- content_for :sidebar, render("internal/sidebar")
 
 - if @data_requests.present?
   - @data_requests.each do |data_request|
-    .mb-3= render "data_requests/show", data_request: data_request
+    = render "data_requests/show", data_request: data_request
   .center-horizontally= paginate @data_requests, theme: "bootstrap"
 - else
-  .p-3.lead.text-center.text-muted
+  .jumbotron.jumbotron-custom-text
     You have not started any data requests.
+
+  .dashboard-container
+    .text-center.lead
+      New to the NSRR? Get started with our
+      = link_to "Where to Start", showcase_show_path("where-to-start")
+      guide.

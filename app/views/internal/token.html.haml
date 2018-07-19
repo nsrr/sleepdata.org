@@ -1,9 +1,25 @@
 - @title = "Token"
 
-%h1.dashboard-heading Token
+- render "themes/theme"
+- content_for :header, current_user.full_name.presence || current_user.username
+= render "internal/tabs"
+- content_for :sidebar, render("internal/sidebar")
 
-.code-container
-  %span.code-command-blank
-    = link_to "#", data: { object: "suppress-click", clipboard_text: current_user.id_and_auth_token, placement: "bottom", container: "body", title: "Copied!", trigger: "manual" }, style: "text-decoration: none" do
-      %i.fa.fa-clipboard
-    = current_user.id_and_auth_token
+.dashboard-container
+  %h1.dashboard-heading Token
+
+  .mb-3
+    %span.code-command-blank
+      = link_to "#", data: { object: "suppress-click", clipboard_text: current_user.id_and_auth_token, placement: "bottom", container: "body", title: "Copied!", trigger: "manual" }, style: "text-decoration: none" do
+        %i.fa.fa-clipboard
+      = current_user.id_and_auth_token
+
+  %p.lead
+    This is your download token. You may use it with the
+    = link_to "NSRR Gem", "https://github.com/nsrr/nsrr-gem/blob/master/README.md#prerequisites"
+    to download data from the NSRR.
+
+  %p.lead
+    View our
+    = succeed "." do
+      = link_to "NSRR Gem tutorial", demo_path

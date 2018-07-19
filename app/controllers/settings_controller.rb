@@ -4,7 +4,7 @@
 class SettingsController < ApplicationController
   before_action :authenticate_user!
 
-  layout "layouts/full_page_dashboard"
+  layout "layouts/full_page_sidebar"
 
   # # GET /settings/profile
   # def profile

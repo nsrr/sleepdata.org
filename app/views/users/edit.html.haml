@@ -1,9 +1,10 @@
 - @title = "Edit User: #{@user.username_was}"
 
 - render "themes/theme"
-- content_for :sidebar, render("admin/sidebar")
 - content_for :header do
   = link_to @user.username_was, @user
   Edit
+= render "admin/tabs"
+- content_for :sidebar, render("admin/sidebar")
 
 .dashboard-container= render "form", user: @user

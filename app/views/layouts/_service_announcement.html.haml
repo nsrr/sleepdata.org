@@ -1,6 +1,6 @@
 - if ENV["survey_url"].present? && cookies[:survey_url_closed] != "1" && !Rails.env.test?
   #service-announcement.bg-dark
-    .container
+    %div{ class: defined?(container) && container.present? ? container : "container" }
       .py-1.small.text-white.text-center
         %i.fa.fa-info-circle
         Please fill out our
@@ -12,7 +12,7 @@
             &cross;
 - elsif cookies[:privacy_policy_closed] != "1" && !Rails.env.test? && false
   #service-announcement.bg-dark
-    .container
+    %div{ class: defined?(container) && container.present? ? "container" : container }
       .py-1.small.text-white.text-center
         %i.fa.fa-info-circle
         We've updated our

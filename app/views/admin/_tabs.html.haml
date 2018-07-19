@@ -1,0 +1,9 @@
+- content_for :tabs do
+  - current_page = params[:controller].in?(%w(admin)) && params[:action].in?(%w(dashboard spam_inbox profile_review sync roles)) || params[:controller].in?(%w(users broadcasts admin/replies categories images tags))
+  = link_to admin_path, class: "link-unstyled d-inline-block px-3 pt-2 pb-2 rounded-top header-tab #{"border border-bottom-0 header-tab-active" if current_page}", data: { object: "#{"suppress-click" if current_page?(admin_path)}" } do
+    %i.fa.fa-home
+    Admin
+  - current_page = params[:controller].in?(%w(admin)) && params[:action].in?(%w(downloads_by_quarter downloads_by_month stats agreement_reports spam_report))
+  = link_to admin_downloads_by_quarter_path, class: "link-unstyled d-inline-block px-3 pt-2 pb-2 rounded-top header-tab #{"border border-bottom-0 header-tab-active" if current_page}", data: { object: "#{"suppress-click" if current_page?(admin_downloads_by_quarter_path)}" } do
+    %i.fa.fa-area-chart
+    Reports

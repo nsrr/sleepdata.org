@@ -1,7 +1,7 @@
 - @title = "Reviews"
 
 - render "themes/theme"
-- content_for :sidebar, render("admin/sidebar")
+- content_for :sidebar, render("internal/sidebar")
 - content_for :header do
   .float-right
     = link_to download_or("Export CSV"), export_agreements_path, method: :post, class: "btn btn-primary btn-shadow" if current_user.admin?
@@ -9,17 +9,30 @@
   = @title
   = render "search/toggle"
 
+= render "internal/tabs"
+
 = render "search/simple", url: reviews_path
 
 - if params[:voted] == "0"
   - count = @data_requests.count
-  .p-3.mb-2.bg-dark.text-white.text-center
+
+  .jumbotron.jumbotron-custom-text
+    %i.fa.fa-check-square-o.mr-1
     Vote required on the following
     - if count == 1
       data request.
     - else
       data requests.
     = link_to "Show all data requests.", reviews_path
+
+  - if false
+    .p-3.mb-2.bg-dark.text-white.text-center
+      Vote required on the following
+      - if count == 1
+        data request.
+      - else
+        data requests.
+      = link_to "Show all data requests.", reviews_path
 
 - if @data_requests.present?
   .dashboard-container.dashboard-table
