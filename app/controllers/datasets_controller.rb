@@ -63,7 +63,9 @@ class DatasetsController < ApplicationController
     end
   end
 
-  # Get /datasets/access/*path
+  # This command is used by altamira to determine if the user has permission to
+  # access to the specified file.
+  # GET /datasets/1/access/*path
   def access
     result = (@dataset_file && @dataset_file.is_file? && @dataset_file.file_exist? && @dataset_file.downloadable_by_user?(current_user) ? true : false)
     render json: { dataset_id: @dataset.id, result: result, path: @dataset_file.full_path }
