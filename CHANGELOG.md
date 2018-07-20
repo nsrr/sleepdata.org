@@ -18,6 +18,8 @@
   - Added organization principal reviewer, and regular reviewer roles
     - Principal reviewers can approve data requests
     - Regular reviewers can comment and vote on data requests
+- **Profile Changes**
+  - Profile URL now displays on member profile page
 
 ## 33.0.1 (July 13, 2018)
 

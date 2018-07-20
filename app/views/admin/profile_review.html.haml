@@ -34,6 +34,10 @@
               %p
                 %i.fa.fa-map-marker
                 = @user.profile_location
+            - if @user.profile_url.present?
+              %p.nowrap.overflow-hidden
+                %i.fa.fa-link
+                = link_to @user.profile_url, @user.profile_url
         - else
           .mb-auto
 

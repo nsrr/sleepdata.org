@@ -16,3 +16,8 @@
         %p
           %i.fa.fa-map-marker
           = link_to "Add a location", settings_profile_path
+
+      - if member.profile_url.present?
+        %p.nowrap.overflow-hidden
+          %i.fa.fa-link
+          = link_to member.profile_url, member.profile_url
