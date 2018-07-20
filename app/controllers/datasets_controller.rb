@@ -3,13 +3,13 @@
 # Allows users to view dataset documentation and download files
 class DatasetsController < ApplicationController
   before_action :authenticate_user_from_token!, only: [
-    :show, :json_manifest, :files, :editor, :index
+    :show, :files, :editor, :index
   ]
   before_action :find_viewable_dataset_or_redirect, only: [
-    :show, :json_manifest, :files, :access, :editor, :logo, :images,
+    :show, :files, :access, :editor, :logo, :images,
     :pages, :search, :folder_progress
   ]
-  before_action :find_dataset_file, only: [:files, :access, :json_manifest]
+  before_action :find_dataset_file, only: [:files, :access]
 
   # Concerns
   include Pageable
@@ -23,17 +23,6 @@ class DatasetsController < ApplicationController
     @term = params[:search].to_s.gsub(/[^\w]/, "")
     @results = []
     @results = `grep -i -R #{@term} #{@dataset.pages_folder}`.split("\n") if @term.present?
-  end
-
-  # GET /datasets/1/json_manifest
-  def json_manifest
-    path = @dataset.find_file_folder(params[:path])
-    if path == params[:path].to_s
-      folder = path.blank? ? "" : "#{path}/"
-      @dataset_files = @dataset.non_root_dataset_files.where(folder: folder).order_by_type
-    else
-      render json: []
-    end
   end
 
   def logo

@@ -213,53 +213,6 @@ class DatasetsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get manifest" do
-    get json_manifest_dataset_url(@dataset)
-    assert_response :success
-  end
-
-  test "should get manifest using auth token" do
-    get json_manifest_dataset_url(@dataset), params: { path: "subfolder", auth_token: users(:valid).id_and_auth_token }
-    manifest = JSON.parse(response.body)
-    assert_equal 5, manifest.size
-    assert_equal "another_folder", manifest[0]["file_name"]
-    assert_nil manifest[0]["checksum"]
-    assert_equal false, manifest[0]["is_file"]
-    assert_equal 102, manifest[0]["file_size"]
-    assert_equal "released", manifest[0]["dataset"]
-    assert_equal "subfolder/another_folder", manifest[0]["file_path"]
-    assert_equal "1.txt", manifest[1]["file_name"]
-    assert_equal "39061daa34ca3de20df03a88c52530ea", manifest[1]["checksum"]
-    assert_equal true, manifest[1]["is_file"]
-    assert_equal 6, manifest[1]["file_size"]
-    assert_equal "released", manifest[1]["dataset"]
-    assert_equal "subfolder/1.txt", manifest[1]["file_path"]
-    assert_equal "2.txt", manifest[2]["file_name"]
-    assert_equal "85c8f17e86771eb8480a44349e13127b", manifest[2]["checksum"]
-    assert_equal true, manifest[2]["is_file"]
-    assert_equal 6, manifest[2]["file_size"]
-    assert_equal "released", manifest[2]["dataset"]
-    assert_equal "subfolder/2.txt", manifest[2]["file_path"]
-    assert_equal "IN_SUBFOLDER_NOT_PUBLIC_YET.txt", manifest[3]["file_name"]
-    assert_equal "8a59dbfe009557d80a3467acbe141d65", manifest[3]["checksum"]
-    assert_equal true, manifest[3]["is_file"]
-    assert_equal 32, manifest[3]["file_size"]
-    assert_equal "released", manifest[3]["dataset"]
-    assert_equal "subfolder/IN_SUBFOLDER_NOT_PUBLIC_YET.txt", manifest[3]["file_path"]
-    assert_equal "IN_SUBFOLDER_PUBLIC_FILE.txt", manifest[4]["file_name"]
-    assert_equal "29423ee86b07cb966ea263a37e88669a", manifest[4]["checksum"]
-    assert_equal true, manifest[4]["is_file"]
-    assert_equal 29, manifest[4]["file_size"]
-    assert_equal "released", manifest[4]["dataset"]
-    assert_equal "subfolder/IN_SUBFOLDER_PUBLIC_FILE.txt", manifest[4]["file_path"]
-    assert_response :success
-  end
-
-  test "should not get unreleased manifest for unapproved user using auth token" do
-    get json_manifest_dataset_url(datasets(:unreleased)), params: { auth_token: users(:valid).id_and_auth_token }
-    assert_redirected_to datasets_url
-  end
-
   test "should show public dataset to logged out user as json" do
     get dataset_url(@dataset, format: "json")
     dataset = JSON.parse(response.body)

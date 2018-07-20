@@ -4,6 +4,9 @@
 - **General Changes**
   - Added darker footer to registration and other pages
   - Updated framework files to resemble Rails 5.2 defaults more closely
+  - NSRR file downloads now require the nsrr gem version 0.3.0 or higher
+    - Versions 0.1.0, 0.1.1, and 0.2.0 are no longer supported
+    - Use `nsrr update` to update to the latest version
 - **Dashboard Changes**
   - Improved the dashboard interface to provide better information for new users
 - **Dataset Changes**
