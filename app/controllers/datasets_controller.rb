@@ -14,11 +14,9 @@ class DatasetsController < ApplicationController
   # Concerns
   include Pageable
 
-  # Returns if the user is an editor
-  def editor
-    editor = (current_user && @dataset.editable_by?(current_user) ? true : false)
-    render json: { editor: editor, user_id: (current_user ? current_user.id : nil) }
-  end
+  # GET /datasets/1/a/:auth_token/editor.json
+  # def editor
+  # end
 
   # GET /datasets/1/search
   def search
