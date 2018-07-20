@@ -10,7 +10,11 @@ class Organization < ApplicationRecord
   # Scopes
   scope :with_editor, ->(arg) { joins(:organization_users).merge(OrganizationUser.where(user: arg, editor: true)) }
   scope :with_viewer, ->(arg) { joins(:organization_users).merge(OrganizationUser.where(user: arg)) }
-  scope :with_reviewer, ->(arg) { joins(:organization_users).merge(OrganizationUser.where(user: arg, review_role: ["regular", "principal"])) }
+  scope :with_reviewer, ->(arg) do
+    joins(:organization_users).merge(
+      OrganizationUser.where(user: arg, review_role: ["regular", "principal"])
+    )
+  end
 
   # Validations
   validates :name, presence: true

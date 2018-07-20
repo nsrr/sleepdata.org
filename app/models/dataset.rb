@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# Encompasses the documentation, files, and variables of a set of data from a
+# single study.
 class Dataset < ApplicationRecord
   FILES_PER_PAGE = 100
 
@@ -10,7 +12,10 @@ class Dataset < ApplicationRecord
   after_touch :recalculate_rating!
 
   # Concerns
-  include Deletable, Documentable, Gitable, Forkable
+  include Deletable
+  include Documentable
+  include Gitable
+  include Forkable
 
   # Scopes
   scope :released, -> { current.where(released: true) }
