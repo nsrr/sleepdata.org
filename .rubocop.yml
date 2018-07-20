@@ -68,3 +68,7 @@ Style/PercentLiteralDelimiters:
 # Don't require formatted string tokens.
 Style/FormatStringToken:
   Enabled: false
+
+# Prefer consistent use of lambda literal syntax in single- and multi-line.
+Style/Lambda:
+  EnforcedStyle: literal
