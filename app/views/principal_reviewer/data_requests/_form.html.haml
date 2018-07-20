@@ -1,8 +1,4 @@
-- data_request = @data_request
-
-- method = data_request.new_record? ? :post : :patch
-
-= form_with model: data_request, url: agreement_path(data_request), method: method, id: "data-request-form" do |form|
+= form_with model: data_request, url: review_data_request_path(data_request), method: :patch, id: "data-request-form" do |form|
   = render "forms/horizontal/select", form: form, object: data_request, key: :status, options: Agreement::STATUS, id: true
 
   #approval-container{ style: "#{"display: none;" unless data_request.status == "approved"}" }
@@ -16,4 +12,4 @@
   =# render "forms/vertical/submit", form: form, object: data_request, cancel: false
 
   .form-group.mt-4.mb-0
-    = link_to "Update Agreement", "#", class: "btn btn-primary", data: { object: "submit-reviewer-signature-and-disable", target: "#data-request-form" }
+    = link_to "Update Data Request", "#", class: "btn btn-primary", data: { object: "submit-reviewer-signature-and-disable", target: "#data-request-form" }

@@ -143,11 +143,6 @@ class User < ApplicationRecord
                       last_reply_read_id: topic_user.current_reply_read_id
   end
 
-  # This should take the organization into account.
-  def principal_reviewer?(organization: nil)
-    admin?
-  end
-
   def all_comments
     if admin?
       Comment.current
@@ -209,6 +204,12 @@ class User < ApplicationRecord
     DataRequest.current.where(
       "agreements.id IN (select requests.agreement_id from requests where requests.dataset_id IN (?))",
       all_reviewable_datasets.select(:id)
+    )
+  end
+
+  def principal_reviewable_data_requests
+    DataRequest.current.joins(final_legal_document: :organization).merge(
+      Organization.current.with_principal_reviewer(self)
     )
   end
 

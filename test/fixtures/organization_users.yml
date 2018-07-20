@@ -33,3 +33,12 @@ editor_invite:
   creator: editor
   invite_email: editor_invite@example.com
   invite_token: EDITOR_INVITE_TOKEN
+
+principal_reviewer_one:
+  organization: one
+  user: principal_reviewer_on_released
+  # editor: false
+  review_role: principal
+  creator: editor
+  # invite_email:
+  # invite_token:

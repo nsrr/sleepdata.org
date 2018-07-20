@@ -3,5 +3,6 @@
     %div{ id: "agreement_event_container_#{agreement_event.id}"}
       = render "agreement_events/show", agreement_event: agreement_event, number: agreement_event.number
 - else
-  .jumbotron
-    .text-center.text-muted This data request has no events.
+  .jumbotron.jumbotron-custom-text
+    %i.fa.fa-clone.mr-1
+    This data request has no events.

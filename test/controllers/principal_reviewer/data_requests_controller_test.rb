@@ -2,32 +2,17 @@
 
 require "test_helper"
 
-# Allows reviewers to review data requests.
-class AgreementsControllerTest < ActionDispatch::IntegrationTest
+# Test to assure that principal reviewers can approve/close data requests and
+# add and remove datasets from data requests.
+class PrincipalReviewer::DataRequestsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @data_request = data_requests(:submitted)
-    @admin = users(:admin)
+    @principal_reviewer = users(:principal_reviewer_on_released)
   end
 
-  # TODO: Remove deprecated redirects
-  # deprecated
-  test "should get index" do
-    login(@admin)
-    get agreements_url
-    assert_redirected_to reviews_url
-  end
-
-  # deprecated
-  test "should show agreement" do
-    login(@admin)
-    get agreement_url(@data_request)
-    assert_redirected_to reviews_url
-  end
-  # END TODO
-
-  test "should update agreement and set as approved" do
-    login(@admin)
-    patch agreement_url(@data_request), params: {
+  test "should update data request and set as approved" do
+    login(@principal_reviewer)
+    patch review_data_request_url(@data_request), params: {
       data_request: {
         status: "approved",
         approval_date: "09/20/2014",
@@ -45,9 +30,9 @@ class AgreementsControllerTest < ActionDispatch::IntegrationTest
     )
   end
 
-  test "should update agreement and ask user to resubmit" do
-    login(@admin)
-    patch agreement_url(@data_request), params: {
+  test "should update data request and ask user to resubmit" do
+    login(@principal_reviewer)
+    patch review_data_request_url(@data_request), params: {
       data_request: {
         status: "resubmit",
         comments: "Please Resubmit"
@@ -61,9 +46,9 @@ class AgreementsControllerTest < ActionDispatch::IntegrationTest
     )
   end
 
-  test "should not approve agreement without required fields" do
-    login(@admin)
-    patch agreement_url(@data_request), params: {
+  test "should not approve data request without required fields" do
+    login(@principal_reviewer)
+    patch review_data_request_url(@data_request), params: {
       data_request: {
         status: "approved",
         approval_date: "",
@@ -78,20 +63,22 @@ class AgreementsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should not update agreement and ask user to resubmit without comments" do
-    login(@admin)
-    patch agreement_url(@data_request), params: { data_request: { status: "resubmit", comments: "" } }
+  test "should not update data request and ask user to resubmit without comments" do
+    login(@principal_reviewer)
+    patch review_data_request_url(@data_request), params: { data_request: { status: "resubmit", comments: "" } }
     assert_not_nil assigns(:data_request)
     assert_equal ["can't be blank"], assigns(:data_request).errors[:comments]
     assert_template "reviews/show"
     assert_response :success
   end
 
-  test "should destroy agreement" do
-    login(@admin)
-    assert_difference("Agreement.current.count", -1) do
-      delete agreement_url(@data_request)
+  # TODO: Reimplement destroy for principal reviewer.
+  test "should destroy data request" do
+    skip
+    login(@principal_reviewer)
+    assert_difference("DataRequest.current.count", -1) do
+      delete delete_data_request_url(@data_request)
     end
-    assert_redirected_to agreements_url
+    assert_redirected_to reviews_url
   end
 end

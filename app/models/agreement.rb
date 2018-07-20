@@ -43,7 +43,7 @@ class Agreement < ApplicationRecord
 
   # Relationships
   belongs_to :user
-  belongs_to :final_legal_document, optional: true # TODO: Should not be optional, remove "optional: true" in v0.31.0
+  belongs_to :final_legal_document
   has_many :agreement_variables
   has_many :requests
   has_many :datasets, -> { current }, through: :requests
@@ -53,6 +53,8 @@ class Agreement < ApplicationRecord
   has_many :tags, -> { current.order(:name) }, through: :agreement_tags
   has_many :agreement_transactions, -> { order(id: :desc) }
   has_many :agreement_transaction_audits
+
+  delegate :organization, to: :final_legal_document
 
   # Methods
 

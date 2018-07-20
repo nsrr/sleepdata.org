@@ -8,8 +8,22 @@ class Organization < ApplicationRecord
   include Sluggable
 
   # Scopes
-  scope :with_editor, ->(arg) { joins(:organization_users).merge(OrganizationUser.where(user: arg, editor: true)) }
-  scope :with_viewer, ->(arg) { joins(:organization_users).merge(OrganizationUser.where(user: arg)) }
+  scope :with_editor, ->(arg) do
+    joins(:organization_users).merge(
+      OrganizationUser.where(user: arg, editor: true)
+    )
+  end
+
+  scope :with_viewer, ->(arg) do
+    joins(:organization_users).merge(OrganizationUser.where(user: arg))
+  end
+
+  scope :with_principal_reviewer, ->(arg) do
+    joins(:organization_users).merge(
+      OrganizationUser.where(user: arg, review_role: "principal")
+    )
+  end
+
   scope :with_reviewer, ->(arg) do
     joins(:organization_users).merge(
       OrganizationUser.where(user: arg, review_role: ["regular", "principal"])
@@ -68,5 +82,10 @@ class Organization < ApplicationRecord
   def viewer?(current_user)
     return false unless current_user
     viewers.where(id: current_user).count == 1
+  end
+
+  def principal_reviewer?(current_user)
+    return false unless current_user
+    principal_reviewers.where(id: current_user).count == 1
   end
 end

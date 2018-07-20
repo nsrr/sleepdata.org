@@ -84,7 +84,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :agreements do
+  resources :agreements, only: [] do
     collection do
       post :export
     end
@@ -138,6 +138,14 @@ Rails.application.routes.draw do
   end
 
   get "data", to: redirect("datasets")
+
+  scope module: :principal_reviewer do
+    resources :data_requests, path: "data-requests", only: [] do
+      member do
+        patch :review
+      end
+    end
+  end
 
   scope module: :editor do
     resources :datasets, only: [:edit, :update] do
@@ -391,8 +399,4 @@ Rails.application.routes.draw do
 
   get "submissions", to: redirect("data/requests")
   get "fair", to: redirect("about/fair-data-principles")
-
-  # In case "failed submission steps are reloaded using get request"
-  get "agreements/:id/final_submission" => "agreements#proof"
-  get "agreements/:id/update_step" => "agreements#step"
 end

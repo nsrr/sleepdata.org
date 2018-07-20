@@ -1,4 +1,4 @@
-= form_with model: @data_request, url: agreement_path(@data_request), local: true do |form|
+= form_with model: @data_request, url: review_data_request_path(data_request), method: :patch, local: true do |form|
   = render "data_requests/datasets_selection", data_request: @data_request
 
   = form.submit nil, class: "btn btn-primary"

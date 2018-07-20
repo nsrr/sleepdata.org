@@ -17,7 +17,7 @@
         = link_to (@agreement_event.new_record? ? "Write" : "Edit"), "#", data: { object: "view-agreement-event", action: "write", agreement_event_id: agreement_event_id }, class: "comment-tab active", tabindex: "-1"
         = link_to "Preview", "#", data: { object: "view-agreement-event view-agreement-event-preview", action: "preview", agreement_event_id: agreement_event_id, agreement_id: @agreement_event.agreement_id }, class: "comment-tab", tabindex: "-1"
         - if @agreement_event.new_record?
-          - if current_user.admin?
+          - if @data_request.organization.principal_reviewer?(current_user)
             = link_to "Review", "#", data: { object: "view-agreement-event", action: "review", agreement_event_id: agreement_event_id }, class: "comment-tab", tabindex: "-1"
             = link_to "Datasets", "#", data: { object: "view-agreement-event", action: "datasets", agreement_event_id: agreement_event_id }, class: "comment-tab", tabindex: "-1"
           = render "agreement_events/tags"
@@ -53,9 +53,8 @@
 
         %div{ id: "agreement_event_preview_#{agreement_event_id}", style: "display: none;min-height: 233px;" }
         - if @agreement_event.new_record?
-          -# TODO: Specify organization for principal reviewer.
-          - if current_user.principal_reviewer?
+          - if @data_request.organization.principal_reviewer?(current_user)
             %div{ id: "agreement_event_review_#{agreement_event_id}", style: "display: none;min-height: 233px;" }
-              = render "agreements/form"
+              = render "principal_reviewer/data_requests/form", data_request: @data_request
             %div{ id: "agreement_event_datasets_#{agreement_event_id}", style: "display: none;min-height: 233px;" }
-              = render "agreements/datasets"
+              = render "principal_reviewer/data_requests/datasets", data_request: @data_request

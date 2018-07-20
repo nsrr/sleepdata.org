@@ -54,7 +54,7 @@ class Export < ApplicationRecord
 
   def finalize_export!(all_files)
     # Create a zip file
-    zip_name = "data-requests-#{Time.zone.now.strftime("%Y-%m-%d")}.zip"
+    zip_name = "#{organization.slug}-data-requests-#{Time.zone.now.strftime("%Y-%m-%d")}.zip"
     temp_zip_file = Tempfile.new(zip_name)
     begin
       # Initialize temp zip file.
