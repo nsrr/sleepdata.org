@@ -9,17 +9,6 @@
   - Category.current.order(:name).each do |category|
     %li= link_to category.name, blog_category_path(category: category), class: (current_category == category.slug ? "active" : nil)
 
-  - if current_user && current_user.community_manager?
-    %li.blog-menu-header Contributor
-    %li
-      = link_to new_broadcast_path do
-        %i.fa.fa-pencil
-        New Article
-    %li
-      = link_to broadcasts_path do
-        %i.fa.fa-eye
-        View Drafts
-
   - if @author
     %li.blog-menu-header Author
     %li= link_to @author.username, blog_author_path(author: @author.username), class: (@broadcast ? nil : "active")

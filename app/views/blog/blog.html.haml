@@ -2,6 +2,8 @@
 
 - content_for :header, @title
 
+= render "broadcasts/tabs" if current_user&.community_manager?
+
 .row
   .col-lg-9
     - @broadcasts.each do |broadcast|

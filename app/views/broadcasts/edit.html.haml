@@ -2,7 +2,13 @@
 
 - render "themes/theme"
 - content_for :header, @broadcast.title_was
-= render "admin/tabs"
-- content_for :sidebar, render("admin/sidebar")
+= render "broadcasts/tabs"
+
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to @broadcast.slug_was, @broadcast
+    %li.breadcrumb-muted edit
+
+-# content_for :sidebar, render("broadcasts/sidebar")
 
 .dashboard-container= render "broadcasts/form", broadcast: @broadcast
