@@ -19,7 +19,6 @@
   fileDragReady()
   signaturesReady()
   tooltipsReady()
-  typeaheadReady()
 
 @objectsReady = ->
   datasetsReady()

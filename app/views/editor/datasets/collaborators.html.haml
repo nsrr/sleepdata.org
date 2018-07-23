@@ -41,7 +41,7 @@
 %h4 Add User
 = form_with url: create_access_dataset_path(@dataset), method: :post, local: true, class: "form-inline mb-3" do |form|
   .form-group
-    = form.text_field :user_email, autocomplete: "off", data: { object: "typeahead", local: User.current.collect{|user| "#{user.username} [#{user.email}]" }.to_json }, class: "form-control mr-2", placeholder: "Email"
+    = form.text_field :user_email, autocomplete: "off", class: "form-control mr-2", placeholder: "Email"
 
   .form-group
     = form.select :role, DatasetUser::ROLES, { include_blank: "---" }, class: "form-control mr-2"

@@ -30,7 +30,6 @@
 #= require external/jquery-fieldselection.js
 #= require external/jquery.textcomplete-1.7.3.src.js
 #= require external/signature_pad-2.3.1.src.js
-#= require external/typeahead-0.11.1-corejavascript.src.js
 
 # Components
 #= require_tree ./components

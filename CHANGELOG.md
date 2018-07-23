@@ -28,6 +28,9 @@
   - Reduced performance hit of reviewer username autocomplete when making a
     comment mentioning another user
 
+### Refactoring
+- Removed typeahead.js library
+
 ## 33.0.1 (July 13, 2018)
 
 ### Bug Fix
