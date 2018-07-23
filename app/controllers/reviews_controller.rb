@@ -114,8 +114,11 @@ class ReviewsController < ApplicationController
 
   # DELETE /reviews/1/reset-signature
   def reset_signature
-    @data_request.reset_signature_fields!(current_user)
-    redirect_to review_path(@data_request), notice: "Signature field reset successfully."
+    if @data_request.submitted?
+      @data_request.reset_signature_fields!(current_user)
+      flash[:notice] = "Signature field reset successfully."
+    end
+    redirect_to review_path(@data_request)
   end
 
   private
