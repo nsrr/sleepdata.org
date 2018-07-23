@@ -6,11 +6,16 @@
     array.splice(index, 1)
   array
 
+Array::unique = ->
+  output = {}
+  output[@[key]] = @[key] for key in [0...@length]
+  value for key, value of output
+
 @getTagIds = ->
   if $("#data_request_tag_ids").val().length == 0
-    [0]
+    ["0"]
   else
-    $("#data_request_tag_ids").val().split(",")
+    ["0"].concat($("#data_request_tag_ids").val().split(",")).unique()
 
 $(document)
   .on('click', '[data-object~="view-agreement-event-preview"]', () ->
@@ -39,7 +44,10 @@ $(document)
     false
   )
   .on("hide.bs.dropdown", "#agreement-event-tags-dropdown", ->
+    tag_ids = getTagIds().sort()
+    orig_tag_ids = $(this).data("orig-tag-ids").sort()
+    return if (tag_ids.length is orig_tag_ids.length and tag_ids.every (elem, i) -> elem is orig_tag_ids[i])
     params = {}
-    params.data_request = { tag_ids: getTagIds() }
+    params.data_request = { tag_ids: tag_ids }
     $.post($(this).data("path"), params, null, "script")
   )

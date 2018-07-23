@@ -23,6 +23,8 @@
     - Regular reviewers can comment and vote on data requests
 - **Profile Changes**
   - Profile URL now displays on member profile page
+- **Review Changes**
+  - Minor improvements to how review tags are updated
 
 ## 33.0.1 (July 13, 2018)
 
