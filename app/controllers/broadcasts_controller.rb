@@ -33,7 +33,6 @@ class BroadcastsController < ApplicationController
   # POST /broadcasts
   def create
     @broadcast = current_user.broadcasts.new(broadcast_params)
-
     if @broadcast.save
       redirect_to @broadcast, notice: "Blog post was successfully created."
     else
@@ -72,7 +71,7 @@ class BroadcastsController < ApplicationController
     parse_date_if_key_present(:broadcast, :publish_date)
     params.require(:broadcast).permit(
       :title, :slug, :short_description, :description, :pinned, :archived,
-      :publish_date, :published, :keywords, :category_id
+      :publish_date, :published, :keywords, :category_id, :cover
     )
   end
 end

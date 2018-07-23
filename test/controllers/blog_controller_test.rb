@@ -23,4 +23,9 @@ class BlogControllerTest < ActionDispatch::IntegrationTest
     get blog_slug_url(broadcasts(:draft).slug)
     assert_redirected_to blog_url
   end
+
+  test "should get published blog cover" do
+    get blog_cover_url(broadcasts(:published).slug)
+    assert_equal File.binread(assigns(:broadcast).cover.path), response.body
+  end
 end

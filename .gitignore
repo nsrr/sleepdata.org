@@ -49,6 +49,7 @@
 /test/support/datasets/released/files/datasets/*
 /test/support/tools/new-tool/*
 /test/support/agreements/*
+/test/support/broadcasts/*
 /test/support/data_requests/*
 /test/support/exports/*
 /test/support/images/*

@@ -1,19 +1,29 @@
 - @title = @broadcast.title
 - @keywords = @broadcast.keywords
 
+- cover_present = @broadcast.cover.present?
 .page-box.page-box-no-padding.last-box.background-p100-grey
+  - if cover_present
+    .background-blog-image.d-flex.flex-column.justify-content-end{ style: "background-image: url(#{blog_cover_url(@broadcast)});" }
+      .blog-cover-overlay
+      .blog-title
+        .pt-5.pb-1.text-center
+          %h1.broadcast-title.mt-0{ style: "border-bottom: 0;" }
+            .container= @broadcast.title
+
   .page-box-padding.background-p50-grey
     .container
       .row
         .col-lg-9
           .dashboard-container.mb-4.mb-lg-0.broadcast-container
-            %h1.broadcast-title.mt-0{ style: "border-bottom: 0;" }= @broadcast.title
+            - unless cover_present
+              %h1.broadcast-title.mt-0{ style: "border-bottom: 0;" }= @broadcast.title
             = render "blog/show", broadcast: @broadcast
         .col-lg-3
           .dashboard-container.mb-0.col-sticky
             = render "blog/menu"
-            - if current_user && current_user.community_manager? && @broadcast.editable_by?(current_user)
-              .mt-5= link_to pencil_or("Edit Blog Post"), edit_broadcast_path(@broadcast), class: "btn btn-primary btn-shadow btn-sm btn-block"
+            - if current_user && current_user&.community_manager? && @broadcast.editable_by?(current_user)
+              .mt-5= link_to pencil_or("Edit article"), edit_broadcast_path(@broadcast), class: "btn btn-primary btn-shadow btn-sm btn-block"
 
       %div{ style: "margin-bottom: 20px" }
         .float-right.d-none.d-md-block{ style: "margin-top: -20px;" }

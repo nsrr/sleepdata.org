@@ -6,12 +6,22 @@
 
 .row
   .col-lg-9
-    - @broadcasts.each do |broadcast|
-      .dashboard-container.broadcast-container
+    - if @broadcasts.present?
+      - @broadcasts.each do |broadcast|
+        - cover_present = broadcast.cover.present?
         - url = blog_post_path(broadcast.url_hash)
-        %h2.broadcast-title.mt-0{ style: "border-bottom: 0;" }= link_to broadcast.title, url
-        = render "blog/extract", broadcast: broadcast, url: url
-    .center-horizontally= paginate @broadcasts, theme: "bootstrap"
+        .dashboard-container.broadcast-container
+          - if cover_present
+            = link_to url do
+              .background-cover.mb-3{ style: "background-image: url(#{blog_cover_url(broadcast)});height: 300px;" }
+          %h2.broadcast-title.mt-0{ style: "border-bottom: 0;" }= link_to broadcast.title, url
+          .bg-white= render "blog/extract", broadcast: broadcast, url: url
+      .center-horizontally= paginate @broadcasts, theme: "bootstrap"
+    - else
+      .jumbotron.jumbotron-custom-text
+        %i.fa.fa-clone.mr-1
+        No articles found in this category.
+        = link_to "Back to all posts", blog_path if params[:category].present?
   .col-lg-3
     .dashboard-container.col-sticky
       = render "blog/menu"

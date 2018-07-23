@@ -6,6 +6,7 @@
   = render "forms/horizontal/slug_field", form: form, object: broadcast, key: :slug
   = render "forms/horizontal/text_field", form: form, object: broadcast, key: :short_description
   = render "forms/horizontal/text_field", form: form, object: broadcast, key: :keywords
+  = render "forms/horizontal/file_field", form: form, object: broadcast, key: :cover, key_name: "Cover image", help_text: "JPG, GIF, PNG"
 
   -# TODO: Move to "forms" as "forms/horizontal/markdown_field", form: form, object: broadcast, key: description
   .form-group.row

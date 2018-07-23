@@ -2,7 +2,7 @@
 
 # Publicly available and published blog posts
 class BlogController < ApplicationController
-  before_action :find_broadcast_or_redirect, only: [:show]
+  before_action :find_broadcast_or_redirect, only: [:show, :cover]
   before_action :set_author, only: [:blog]
   before_action :set_category, only: [:blog]
 
@@ -28,6 +28,11 @@ class BlogController < ApplicationController
     @replies = @broadcast.replies.points.includes(:broadcast).where(reply_id: nil).reorder(@order).page(params[:page]).per(Reply::REPLIES_PER_PAGE)
     @broadcast.increment! :view_count
     render layout: "layouts/full_page"
+  end
+
+  # GET /blog/:slug/cover
+  def cover
+    send_file_if_present @broadcast.cover
   end
 
   private

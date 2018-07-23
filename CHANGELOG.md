@@ -9,6 +9,7 @@
     - Use `nsrr update` to update to the latest version
 - **Blog Changes**
   - Simplified navigation between live blog and unpublished (draft) articles
+  - Blogs can now have a cover image
 - **Dashboard Changes**
   - Improved the dashboard interface to provide better information for new users
 - **Dataset Changes**

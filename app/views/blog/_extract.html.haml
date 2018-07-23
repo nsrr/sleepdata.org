@@ -1,5 +1,4 @@
 .broadcast
-  = first_image(broadcast)
   %p
     = strip_tags(simple_markdown(broadcast.description, target_blank: false)).gsub(/\r/, " ").gsub(/\n/, " ").truncate(500, separator: ".", omission: ".").html_safe
     = link_to url, class: "nowrap" do
