@@ -9,7 +9,10 @@ module VariablesHelper
                 variable.dataset_version.version
               end
     subcomponent_variables.each do |v|
-      new_calculation.gsub!(/(^|\W)#{v.name}($|\W)/, '\1' + link_to(v.name, dataset_variable_path(v.dataset, v, version: version)) + '\2')
+      new_calculation.gsub!(
+        /(^|\W)#{v.name}($|\W)/,
+        "\\1" + link_to(v.name, dataset_variable_path(v.dataset, v, version: version)) + "\\2"
+      )
     end
     new_calculation.html_safe
   end
@@ -17,7 +20,8 @@ module VariablesHelper
   def calculation_helper(variable)
     content_tag(
       :span,
-      content_tag(:u, variable.name) + ' = ' + calculation_pieces(variable)
+      content_tag(:u, variable.name) + " = " + calculation_pieces(variable),
+      class: "variable-calculation"
     )
   end
 end
