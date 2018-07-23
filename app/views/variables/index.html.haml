@@ -41,12 +41,9 @@
       = mail_to ENV["support_email"]
       with any questions.
 - else
-  .jumbotron{ style: "margin-top: 30px;" }
+  .jumbotron.jumbotron-custom-text
+    %i.fa.fa-clone.mr-1
+    No variables found matching:
+    %code.bg-light.border.p-1.rounded= params[:search]
     %p
-      No variables found matching
-      = succeed "." do
-        %code= params[:search]
-    %p
-      Please contact us directly at
-      = mail_to ENV["support_email"]
-      with any questions.
+      = link_to "Start over", dataset_variables_path(@dataset) if params[:search].present?
