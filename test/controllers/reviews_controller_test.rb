@@ -127,4 +127,10 @@ class ReviewsControllerTest < ActionDispatch::IntegrationTest
     get print_review_url(@data_request)
     assert_response :success
   end
+
+  test "should reset signature" do
+    login(@reviewer)
+    delete reset_signature_review_url(data_requests(:started))
+    assert_redirected_to review_url(data_requests(:started))
+  end
 end

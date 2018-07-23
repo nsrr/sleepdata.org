@@ -269,6 +269,7 @@ Rails.application.routes.draw do
       get :print
       get :autocomplete
       post :update_agreement_variable
+      delete :reset_signature, path: "reset-signature"
     end
   end
 

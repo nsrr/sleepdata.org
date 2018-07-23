@@ -5,7 +5,8 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_data_request_or_redirect, only: [
     :show, :print, :transactions, :vote, :update_tags, :autocomplete,
-    :signature, :duly_authorized_representative_signature, :reviewer_signature
+    :signature, :duly_authorized_representative_signature, :reviewer_signature,
+    :reset_signature
   ]
 
   # GET /reviews
@@ -109,6 +110,12 @@ class ReviewsController < ApplicationController
       .where(id: @data_request.data_request_reviews.select(:user_id))
       .order(:username).limit(10)
     render json: user_scope.pluck(:username)
+  end
+
+  # DELETE /reviews/1/reset-signature
+  def reset_signature
+    @data_request.reset_signature_fields!(current_user)
+    redirect_to review_path(@data_request), notice: "Signature field reset successfully."
   end
 
   private
