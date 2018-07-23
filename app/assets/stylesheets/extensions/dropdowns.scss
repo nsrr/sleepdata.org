@@ -69,7 +69,7 @@
 
       &.active,
       &:active {
-        color: map-get($theme, brand-white);
+        color: map-get($theme, brand-white) !important;
         background-color: map-get($theme, primary);
       }
     }

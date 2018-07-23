@@ -267,6 +267,7 @@ Rails.application.routes.draw do
       post :update_tags
       get :transactions
       get :print
+      get :autocomplete
       post :update_agreement_variable
     end
   end

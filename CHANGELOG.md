@@ -25,6 +25,8 @@
   - Profile URL now displays on member profile page
 - **Review Changes**
   - Minor improvements to how review tags are updated
+  - Reduced performance hit of reviewer username autocomplete when making a
+    comment mentioning another user
 
 ## 33.0.1 (July 13, 2018)
 

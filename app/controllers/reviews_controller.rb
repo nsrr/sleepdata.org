@@ -4,7 +4,7 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_data_request_or_redirect, only: [
-    :show, :print, :transactions, :vote, :update_tags,
+    :show, :print, :transactions, :vote, :update_tags, :autocomplete,
     :signature, :duly_authorized_representative_signature, :reviewer_signature
   ]
 
@@ -99,6 +99,16 @@ class ReviewsController < ApplicationController
       end
     end
     render "agreement_events/index"
+  end
+
+  # GET /reviews/1/autocomplete.json
+  def autocomplete
+    user_scope = \
+      User
+      .current.where("username ILIKE (?)", "#{params[:q]}%")
+      .where(id: @data_request.data_request_reviews.select(:user_id))
+      .order(:username).limit(10)
+    render json: user_scope.pluck(:username)
   end
 
   private

@@ -11,7 +11,7 @@
   graphsReady()
   progressReady()
   reportsReady()
-  textAreaAutocompleteReady()
+  reviewsReady()
 
 @extensionsReady = ->
   clipboardReady()

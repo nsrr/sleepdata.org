@@ -24,7 +24,7 @@
       .comment-body
         %div{ id: "agreement_event_write_#{agreement_event_id}" }
           = form_with model: [@data_request, @agreement_event], url: @agreement_event.new_record? ? agreement_agreement_events_path(@data_request) : agreement_agreement_event_path(@data_request, @agreement_event) do |form|
-            = form.text_area :comment, rows: [[7, @agreement_event.comment.to_s.count("\n") + 1].max, 25].min, class: "comment-control filedrag-container", data: { object: "expandable-text-area dropfile text-area-autocomplete", default_rows: 7, mentions: User.current.pluck(:username).reject(&:blank?).uniq.sort, upload_url: upload_images_path(update: "#agreement_event_comment_#{agreement_event_id}", format: "js"), fallback_url: new_image_path, log_id: "#agreement_event_log_#{agreement_event_id}" }, id: "agreement_event_comment_#{agreement_event_id}", placeholder: "Write a comment"
+            = form.text_area :comment, rows: [[7, @agreement_event.comment.to_s.count("\n") + 1].max, 25].min, class: "comment-control filedrag-container", data: { object: "expandable-text-area dropfile reviewer-autocomplete", url: autocomplete_review_path(@data_request), data_request_id: @data_request.id, default_rows: 7, upload_url: upload_images_path(update: "#agreement_event_comment_#{agreement_event_id}", format: "js"), fallback_url: new_image_path, log_id: "#agreement_event_log_#{agreement_event_id}" }, id: "agreement_event_comment_#{agreement_event_id}", placeholder: "Write a comment"
             - if @agreement_event.errors.any?
               .small.text-danger Comment can't be blank.
             .filedrag{ id: "agreement_event_log_#{agreement_event_id}" }
