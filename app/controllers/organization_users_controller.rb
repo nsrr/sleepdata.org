@@ -9,17 +9,16 @@ class OrganizationUsersController < ApplicationController
 
   # GET /orgs/:organization_id/members
   def index
-    if @organization.editor?(current_user) && params[:pending] == "1"
-      @organization_users = \
+    @organization_users = \
+      if @organization.editor?(current_user) && params[:pending] == "1"
         @organization.organization_users.where(user_id: nil)
                      .order(:invite_email)
                      .page(params[:page]).per(20)
-    else
-      @organization_users = \
+      else
         @organization.organization_users.joins(:user)
                      .order(Arel.sql("LOWER(users.username)"))
                      .page(params[:page]).per(20)
-    end
+      end
   end
 
   # # GET /orgs/:organization_id/members/1
@@ -38,7 +37,7 @@ class OrganizationUsersController < ApplicationController
   # POST /orgs/:organization_id/members
   def create
     email = params[:organization_user][:invite_email].to_s.strip
-    @organization_user = @organization.organization_users.find_by(invite_email: email)
+    @organization_user = @organization.organization_users.find_by(invite_email: email) if email.present?
     if @organization_user
       @organization_user.creator_id = current_user.id
       @organization_user.review_role = params[:organization_user][:review_role]
