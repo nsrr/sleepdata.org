@@ -1,4 +1,4 @@
-## 34.0.0
+## 34.0.0 (July 24, 2018)
 
 ### Enhancements
 - **General Changes**
