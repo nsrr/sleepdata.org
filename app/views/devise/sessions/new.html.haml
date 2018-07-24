@@ -14,7 +14,7 @@
       = form_with model: resource, url: user_session_path, local: true do |form|
         .form-group
           = form.label :email
-          = form.text_field :email, class: "form-control#{" is-invalid" if flash[:alert].present?}", autocomplete: "off"
+          = form.email_field :email, class: "form-control#{" is-invalid" if flash[:alert].present?}", autocomplete: "off", autocorrect: "off", autocapitalize: "none", spellcheck: "false"
 
         .form-group
           = form.label :password

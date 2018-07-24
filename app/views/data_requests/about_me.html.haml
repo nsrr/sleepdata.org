@@ -25,7 +25,7 @@
         = form_with url: data_requests_login_path(@dataset), method: :post, local: true, id: "form_sign_in" do |form|
           .form-group
             = form.label :email
-            = form.email_field :email, class: "form-control#{" is-invalid" if @sign_in_errors}"
+            = form.email_field :email, class: "form-control#{" is-invalid" if @sign_in_errors}", autocomplete: "off", autocorrect: "off", autocapitalize: "none", spellcheck: "false"
 
           .form-group
             = form.label :password

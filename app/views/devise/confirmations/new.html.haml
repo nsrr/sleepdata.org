@@ -14,7 +14,7 @@
       = form_with model: resource, as: resource_name, url: confirmation_path(resource_name), method: :post, local: true do |form|
         .form-group
           = form.label :email
-          = form.text_field :email, class: "form-control#{" is-invalid" if resource.errors[:email].present?}", autocomplete: "off"
+          = form.email_field :email, class: "form-control#{" is-invalid" if resource.errors[:email].present?}", autocomplete: "off", autocorrect: "off", autocapitalize: "none", spellcheck: "false"
           - if resource.errors[:email].present?
             .invalid-feedback= resource.errors[:email].collect { |e| "Email #{e}" }.join(", ").html_safe
 
