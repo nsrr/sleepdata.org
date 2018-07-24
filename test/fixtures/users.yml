@@ -205,7 +205,7 @@ editor:
   full_name: EditorFirst EditorLast
   email: editor@example.com
   confirmed_at: <%= confirmed_at %>
-  encrypted_password: ""
+  encrypted_password: <%= pw %>
   authentication_token: D-FCa_ZUqLc2Mtaqp_9k
 
 # An editor on the unreleased dataset
