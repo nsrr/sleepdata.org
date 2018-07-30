@@ -1,5 +1,9 @@
 ## 34.1.0
 
+### Enhancements
+- **Review Changes**
+  - Notify organization reviewers when new data requests are submitted
+
 ## 34.0.0 (July 24, 2018)
 
 ### Enhancements

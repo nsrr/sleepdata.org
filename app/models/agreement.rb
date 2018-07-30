@@ -184,7 +184,7 @@ class Agreement < ApplicationRecord
   end
 
   def add_reviewers!
-    reviewers = User.current.where(id: datasets.collect { |d| d.reviewers.pluck(:id) }.flatten.uniq.compact)
+    reviewers = final_legal_document.organization.reviewers
     reviewers.each do |reviewer|
       data_request_reviews.where(user_id: reviewer.id).first_or_create
     end
