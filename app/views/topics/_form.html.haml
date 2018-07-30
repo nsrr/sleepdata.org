@@ -20,5 +20,5 @@
         - if topic.errors[:description].present?
           %small.text-danger= topic.errors[:description].collect { |e| "Description #{e}" }.join(", ")
     = render "forms/vertical/check_box", form: form, object: topic, key: :pinned if current_user.admin?
-    = render "forms/vertical/check_box", form: form, object: topic, key: :locked, help_text: "Lock to disable additional replies to this topic. Topics auto-lock after one month of inactivity." if current_user.admin?
+    = render "forms/vertical/check_box", form: form, object: topic, key: :locked, help_text: "Lock to disable additional replies to this topic. Topics auto-lock after #{Topic::AUTO_LOCK_IN.inspect} of inactivity." if current_user.admin?
     = render "forms/vertical/submit", form: form, object: topic
