@@ -253,7 +253,11 @@ class Agreement < ApplicationRecord
   end
 
   def authorized_signature_date
-    representative_designated? ? (duly_authorized_representative_signed_at || duly_authorized_representative_signature_date) : (attested_at || signature_date)
+    if representative_designated?
+      duly_authorized_representative_signed_at || duly_authorized_representative_signature_date
+    else
+      attested_at || signature_date
+    end
   end
 
   def save_signature!(attribute, data_uri)
