@@ -194,7 +194,7 @@ class Agreement < ApplicationRecord
   def auto_approve!
     current_time = Time.zone.now
     AgreementTransaction.save_agreement!(
-      self, user, "127.0.0.1", "agreement_update",
+      self, user, "0.0.0.0", "agreement_update",
       data_request_params: {
         status: "approved",
         approval_date: current_time,

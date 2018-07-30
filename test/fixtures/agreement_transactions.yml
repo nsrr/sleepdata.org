@@ -3,151 +3,151 @@ submitted_one:
   transaction_type: agreement_update
   agreement: submitted
   user: regular9
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Data request submitted for regular10.
 approved_one:
   transaction_type: agreement_update
   agreement: approved
   user: regular10
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Data request approved for regular10.
 approved_two:
   transaction_type: agreement_update
   agreement: approved
   user: principal_reviewer_on_released
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Data request submitted for regular11.
 resubmit_one:
   transaction_type: agreement_update
   agreement: resubmit
   user: regular11
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Principal reviewer requested resubmit for regular11.
 resubmit_two:
   transaction_type: agreement_update
   agreement: resubmit
   user: principal_reviewer_on_released
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Data request submitted for regular12.
 resubmitted_one:
   transaction_type: agreement_update
   agreement: resubmitted
   user: regular12
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Principal reviewer requested resubmit for regular12.
 resubmitted_two:
   transaction_type: agreement_update
   agreement: resubmitted
   user: principal_reviewer_on_released
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Data request resubmitted for regular12.
 resubmitted_three:
   transaction_type: agreement_update
   agreement: resubmitted
   user: regular12
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Data request submitted for regular13.
 expired_one:
   transaction_type: agreement_update
   agreement: expired
   user: regular13
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Data request approved for regular13.
 expired_two:
   transaction_type: agreement_update
   agreement: expired
   user: principal_reviewer_on_released
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Data request expired for regular13.
 expired_three:
   transaction_type: agreement_update
   agreement: expired
   user: principal_reviewer_on_released
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Data request submitted for regular14.
 approved_that_expired_one:
   transaction_type: agreement_update
   agreement: approved_that_expired
   user: regular14
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Data request approved for regular14.
 approved_that_expired_two:
   transaction_type: agreement_update
   agreement: approved_that_expired
   user: principal_reviewer_on_released
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Data request closed for regular15.
 closed_one:
   transaction_type: agreement_update
   agreement: closed
   user: principal_reviewer_on_released
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Data request submitted for insider0.
 insider_submitted_one:
   transaction_type: agreement_update
   agreement: submitted_unreleased
   user: insider0
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Data request submitted for insider1.
 insider_approved_one:
   transaction_type: agreement_update
   agreement: approved_unreleased
   user: insider1
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Data request approved for insider1.
 insider_approved_two:
   transaction_type: agreement_update
   agreement: approved_unreleased
   user: principal_reviewer_on_unreleased
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Data request submitted for insider2.
 approved_unreleased_manually_expired_one:
   transaction_type: agreement_update
   agreement: approved_unreleased_manually_expired
   user: insider2
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Data request approved for insider2.
 approved_unreleased_manually_expired_two:
   transaction_type: agreement_update
   agreement: approved_unreleased_manually_expired
   user: principal_reviewer_on_unreleased
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Data request expired for insider2.
 approved_unreleased_manually_expired_three:
   transaction_type: agreement_update
   agreement: approved_unreleased_manually_expired
   user: principal_reviewer_on_unreleased
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Data request submitted for insider3.
 approved_unreleased_automatically_expired_one:
   transaction_type: agreement_update
   agreement: approved_unreleased_automatically_expired
   user: insider3
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
 
 # Data request approved for insider3.
 approved_unreleased_automatically_expired_two:
   transaction_type: agreement_update
   agreement: approved_unreleased_automatically_expired
   user: principal_reviewer_on_unreleased
-  remote_ip: 127.0.0.1
+  remote_ip: 0.0.0.0
