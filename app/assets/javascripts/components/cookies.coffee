@@ -26,8 +26,8 @@
   return
 
 $(document)
-  .on('click', '[data-object~="set-cookie"]', ->
-    createCookie($(this).data('cookie-key'), $(this).data('cookie-value'))
+  .on("click", "[data-object~=set-cookie]", ->
+    createCookie($(this).data("cookie-key"), $(this).data("cookie-value"))
   )
   .on("click", "[data-object~=service-announcement]", ->
     createCookie($(this).data("cookie"), "1", $(this).data("days"))
