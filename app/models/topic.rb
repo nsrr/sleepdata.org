@@ -33,7 +33,7 @@ class Topic < ApplicationRecord
 
   # Scopes
   scope :shadow_banned, ->(arg) { joins(:user).merge(User.where(shadow_banned: [nil, false]).or(User.where(id: arg))) }
-  # Auto-lock after one month.
+  # Auto-lock after replies have ceased for some time.
   scope :not_auto_locked, -> { where(locked: false).where("DATE(last_reply_at) >= ?", Time.zone.today - AUTO_LOCK_IN) }
   scope :auto_locked, -> { where(locked: true).or(where("DATE(last_reply_at) < ?", Time.zone.today - AUTO_LOCK_IN)) }
 
