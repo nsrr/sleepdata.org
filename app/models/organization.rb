@@ -70,7 +70,7 @@ class Organization < ApplicationRecord
   end
 
   def data_requests
-    DataRequest.current.joins(:requests).merge(Request.where(dataset: datasets)).distinct
+    DataRequest.current.joins(:final_legal_document).merge(final_legal_documents)
   end
 
   def editor?(current_user)
