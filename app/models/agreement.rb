@@ -58,6 +58,21 @@ class Agreement < ApplicationRecord
 
   # Methods
 
+  def self.advanced_search(term)
+    search_queries = [
+      "users.full_name",
+      "users.email",
+      "users.username",
+      "agreement_variables.value"
+    ]
+    term = "%#{term}%"
+    terms = [term] * search_queries.count
+    distinct.joins(:user, :agreement_variables).where(
+      search_queries.collect { |s| "#{s} ILIKE (?)" }.join(" or "),
+      *terms
+    )
+  end
+
   def dataset_ids=(ids)
     self.datasets = Dataset.where(id: ids)
   end
@@ -77,6 +92,17 @@ class Agreement < ApplicationRecord
       .merge(FinalLegalDocumentVariable.where(name: "full_name"))
       .first&.value
     full_name.presence || user.email
+  end
+
+  def complex_name
+    agreement_variables
+      .joins(:final_legal_document_variable)
+      .merge(FinalLegalDocumentVariable.where(name: ["full_name", "organization_name"]))
+      .first&.value
+  end
+
+  def complex_name_or_id
+    complex_name.presence || "##{id}"
   end
 
   def agreement_number
@@ -222,6 +248,25 @@ class Agreement < ApplicationRecord
       end
     else
       status
+    end
+  end
+
+  def smart_status_short
+    case status
+    when "approved"
+      if expiration_date && expiration_date < Time.zone.today
+        "EXP"
+      else
+        "APP"
+      end
+    when "expired"
+      "EXP"
+    when "submitted"
+      "SUBM"
+    when "started"
+      "STRT"
+    else
+      status.first(3).upcase
     end
   end
 

@@ -57,6 +57,13 @@ module DataRequestsHelper
     )
   end
 
+  def short_status_helper(data_request)
+    content_tag(
+      :span, data_request.smart_status_short,
+      class: "badge badge-#{status_hash[data_request.smart_status]}"
+    )
+  end
+
   def status_hash
     {
       "started" => "warning",
