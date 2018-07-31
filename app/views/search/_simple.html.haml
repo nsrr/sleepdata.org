@@ -4,7 +4,7 @@
       = hidden_field_tag :order, params[:order] unless params[:order].blank?
       .form-group.mb-0
         .input-group
-          = text_field_tag :search, params[:search], autocomplete: "off", class: "form-control", placeholder: "Search #{@title}"
+          = text_field_tag :search, params[:search], autocomplete: "off", class: "form-control form-control-lg", placeholder: "Search #{@title}"
           .input-group-append
             = link_to "#", class: "btn btn-lg btn-primary", data: { object: "submit-and-disable", target: "#search-form" } do
               %i.fa.fa-search

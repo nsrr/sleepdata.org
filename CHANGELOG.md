@@ -1,5 +1,10 @@
 ## 34.2.0
 
+### Enhancements
+- **Review Changes**
+  - Improved review names on review index
+  - Search now includes fields on the data request
+
 ## 34.1.0 (July 30, 2018)
 
 ### Enhancements
