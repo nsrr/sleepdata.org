@@ -239,14 +239,6 @@ class User < ApplicationRecord
     topics.where("created_at >= ?", Time.zone.today - 1.day)
   end
 
-  def max_topics
-    if aug_member? || core_member?
-      10
-    else
-      2
-    end
-  end
-
   def digest_reviews
     data_request_reviews
       .where("approved IS NULL or vote_cleared = ?", true)
