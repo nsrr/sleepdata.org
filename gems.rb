@@ -34,16 +34,16 @@ gem "jquery-rails",         "~> 4.3.3"
 gem "turbolinks",           "~> 5"
 
 group :development do
-  gem "web-console", ">= 3.3.0"
+  gem "web-console",        ">= 3.3.0"
 end
 
 group :test do
   # gem "artifice"
   # gem "artifice-passthru"
-  gem "capybara", "~> 3.0"
+  gem "capybara",           "~> 3.0"
   gem "minitest"
   gem "puma"
   gem "rails-controller-testing"
   gem "selenium-webdriver"
-  gem "simplecov", "~> 0.16.1", require: false
+  gem "simplecov",          "~> 0.16.1", require: false
 end
