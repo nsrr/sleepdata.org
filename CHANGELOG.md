@@ -12,6 +12,7 @@
 - **Gem Changes**
   - Update to rails 5.2.1
   - Update to pg 1.1.3
+  - Update to devise 4.5.0
 
 ### Bug Fix
 - Dataset subjects count, age minimum, and age maximum now properly validate
