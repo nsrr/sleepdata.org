@@ -11,6 +11,7 @@
   - Dataset cards can now display a single age
 - **Gem Changes**
   - Update to rails 5.2.1
+  - Update to pg 1.1.3
 
 ### Bug Fix
 - Dataset subjects count, age minimum, and age maximum now properly validate
