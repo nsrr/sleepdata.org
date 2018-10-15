@@ -37,6 +37,11 @@ class AdminController < ApplicationController
     @year = params[:year].to_i.positive? ? params[:year].to_i : Time.zone.today.year
   end
 
+  # GET /admin/searches
+  def searches
+    @searches = scope_order(Search).page(params[:page]).per(40)
+  end
+
   # GET /admin/spam-report
   def spam_report
     @year = params[:year]
@@ -102,5 +107,10 @@ class AdminController < ApplicationController
 
   def spammers
     User.spam_review
+  end
+
+  def scope_order(scope)
+    @order = params[:order]
+    scope.order(Arel.sql(Search::ORDERS[params[:order]] || Search::DEFAULT_ORDER))
   end
 end

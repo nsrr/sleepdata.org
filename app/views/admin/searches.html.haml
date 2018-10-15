@@ -1,0 +1,30 @@
+- @title = "Searches"
+
+- render "themes/theme"
+- content_for :header, @title
+= render "admin/tabs"
+- content_for :sidebar, render("admin/sidebar_reports")
+
+- if @searches.present?
+  .dashboard-container.dashboard-table
+    %table.table.table-striped.table-borderless.table-hover
+      %col{ width: "1px" }
+      %col
+      %col{ width: "1px" }
+      %thead
+        %tr
+          %th.text-center.nowrap
+            = order_to "Searches", primary: "searches"
+          %th Text
+          %th.text-center
+            = order_to "Results", primary: "results desc", secondary: "results"
+      %tbody
+        - @searches.each do |search|
+          %tr
+            %td.text-center= number_with_delimiter search.search_count
+            %td= search.search
+            %td.text-center= number_with_delimiter search.results_count
+  .center-horizontally= paginate @searches, theme: "bootstrap"
+- else
+  .jumbotron.jumbotron-action.jumbotron-custom-text.jumbotron-shadow
+    No searches found.

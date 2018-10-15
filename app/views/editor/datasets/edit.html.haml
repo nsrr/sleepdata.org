@@ -6,8 +6,8 @@
 
 - content_for :breadcrumbs do
   %ol
-    %li= link_to "Datasets", datasets_path
-    %li= link_to @dataset.name_was, @dataset
-    %li Edit
+    %li= link_to "datasets", datasets_path
+    %li= link_to @dataset.slug_was, @dataset
+    %li.breadcrumb-muted edit
 
 .dashboard-container= render "datasets/form", dataset: @dataset

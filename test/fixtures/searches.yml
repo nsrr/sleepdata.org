@@ -1,0 +1,9 @@
+one:
+  search: apnea
+  search_count: 2
+  results_count: 5
+
+two:
+  search: red pill blue pill
+  search_count: 1
+  results_count: 0

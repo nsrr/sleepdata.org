@@ -5,7 +5,7 @@
   %ol
     - if @organization
       %li= link_to @organization.name, @organization
-    %li= link_to "Datasets", :datasets # [@organization, :datasets]
+    %li= link_to "datasets", :datasets # [@organization, :datasets]
     %li.breadcrumb-muted new
 
 .dashboard-container= render "datasets/form", dataset: @dataset

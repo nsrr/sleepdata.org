@@ -151,4 +151,10 @@ class AdminControllerTest < ActionDispatch::IntegrationTest
     end
     assert_redirected_to admin_profile_review_url
   end
+
+  test "should get searches as admin" do
+    login(@admin)
+    get admin_searches_url
+    assert_response :success
+  end
 end
