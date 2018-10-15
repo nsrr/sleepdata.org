@@ -17,6 +17,7 @@
   - Update to devise 4.5.0
   - Update to hashids 1.0.4
   - Update to jquery-rails 4.3.3
+  - Update to mini_magick 4.9.2
 
 ### Bug Fix
 - Dataset subjects count, age minimum, and age maximum now properly validate
