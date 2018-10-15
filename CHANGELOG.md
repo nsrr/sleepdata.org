@@ -3,6 +3,7 @@
 ### Enhancements
 - **General Changes**
   - Add updated Privacy Policy
+  - Update file inputs to match custom Bootstrap file inputs
 
 ## 34.2.0 (July 31, 2018)
 
