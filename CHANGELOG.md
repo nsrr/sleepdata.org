@@ -8,6 +8,7 @@
   - Add admin report for site-wide searches
 - **Dataset Changes**
   - Display dataset DOI on dataset documentation pages
+  - Dataset cards can now display a single age
 
 ### Bug Fix
 - Dataset subjects count, age minimum, and age maximum now properly validate

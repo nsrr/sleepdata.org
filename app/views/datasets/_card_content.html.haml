@@ -4,8 +4,12 @@
       .dataset-info-header SUBJECTS
       .dataset-info-content= number_with_delimiter dataset.subjects
     .dataset-info-item
-      .dataset-info-header AGES
-      .dataset-info-content= "#{dataset.age_min} - #{dataset.age_max}"
+      - if dataset.age_min == dataset.age_max
+        .dataset-info-header AGE
+        .dataset-info-content= dataset.age_min
+      - else
+        .dataset-info-header AGES
+        .dataset-info-content= "#{dataset.age_min} - #{dataset.age_max}"
     .dataset-info-item
       - if dataset.time_frame.present?
         .dataset-info-header TIMEFRAME
