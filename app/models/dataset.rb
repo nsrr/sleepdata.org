@@ -25,9 +25,14 @@ class Dataset < ApplicationRecord
   scope :with_viewer_or_editor_or_approved, ->(arg) { where("datasets.released = ? or datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role IN (?)) or datasets.id in (select requests.dataset_id from datasets INNER JOIN requests ON requests.dataset_id = datasets.id INNER JOIN agreements ON agreements.id = requests.agreement_id AND agreements.deleted = ? WHERE (agreements.expiration_date IS NULL OR (agreements.expiration_date >= ?)) AND agreements.status = ? AND agreements.user_id = ?)", true, arg, arg, %w(viewer editor), false, Time.zone.today, "approved", arg) }
 
   # Validations
-  validates :name, :slug, :user_id, presence: true
+  validates :name, :slug, presence: true
   validates :slug, uniqueness: { scope: :deleted, case_sensitive: false }
   validates :slug, format: { with: /\A(?!\Anew\Z)[a-z][a-z0-9\-]*\Z/ }
+  validates :subjects, numericality: { greater_than_or_equal_to: 0 }
+  validates :age_min, numericality: { greater_than_or_equal_to: 0 }
+  validates :age_min, numericality: { less_than_or_equal_to: :age_max, message: "must be less than or equal to Age Maximum" }, if: :age_max
+  validates :age_max, numericality: { greater_than_or_equal_to: :age_min, message: "must be greater than or equal to Age Minimum" }, if: :age_min
+  validates :age_max, numericality: { greater_than_or_equal_to: 0 }, unless: :age_min
 
   # Relationships
   belongs_to :user

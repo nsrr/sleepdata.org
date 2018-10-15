@@ -5,6 +5,10 @@
   - Add updated Privacy Policy
   - Update file inputs to match custom Bootstrap file inputs
 
+### Bug Fix
+- Dataset subjects count, age minimum, and age maximum now properly validate
+  while updating datasets
+
 ## 34.2.0 (July 31, 2018)
 
 ### Enhancements
