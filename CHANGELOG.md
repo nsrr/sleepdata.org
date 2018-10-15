@@ -1,5 +1,9 @@
 ## 35.0.0
 
+### Enhancements
+- **General Changes**
+  - Add updated Privacy Policy
+
 ## 34.2.0 (July 31, 2018)
 
 ### Enhancements
