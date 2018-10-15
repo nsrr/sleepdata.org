@@ -216,7 +216,7 @@ class ApplicationController < ActionController::Base
       :organization_id, :name, :description, :slug, :logo, :logo_cache, :released,
       :git_repository, :release_date, :info_what, :info_who,
       :info_when, :info_funded_by, :info_citation, :subjects,
-      :age_min, :age_max, :time_frame, :polysomnography, :actigraphy
+      :age_min, :age_max, :time_frame, :polysomnography, :actigraphy, :doi
     )
   end
 

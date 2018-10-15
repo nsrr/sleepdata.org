@@ -3,3 +3,5 @@
 = render "datasets/header"
 
 = render "documentation/page", object: @object
+
+- content_for :footer, render("datasets/footer", dataset: @object)

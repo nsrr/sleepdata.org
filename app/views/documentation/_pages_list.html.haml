@@ -26,5 +26,6 @@
           %fa.fa{ class: is_file ? "fa-file-o" : "fa-folder-open" }
           = page_name
 
-  = render "datasets/logo", dataset: @object
-  = render "datasets/menu_rating", dataset: @object
+  - if false
+    = render "datasets/logo", dataset: @object if false
+    = render "datasets/menu_rating", dataset: @object

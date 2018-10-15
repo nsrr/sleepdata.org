@@ -6,6 +6,8 @@
   - Update file inputs to match custom Bootstrap file inputs
 - **Admin Changes**
   - Add admin report for site-wide searches
+- **Dataset Changes**
+  - Display dataset DOI on dataset documentation pages
 
 ### Bug Fix
 - Dataset subjects count, age minimum, and age maximum now properly validate
