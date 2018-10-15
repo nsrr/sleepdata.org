@@ -9,6 +9,8 @@
 - **Dataset Changes**
   - Display dataset DOI on dataset documentation pages
   - Dataset cards can now display a single age
+- **Gem Changes**
+  - Update to rails 5.2.1
 
 ### Bug Fix
 - Dataset subjects count, age minimum, and age maximum now properly validate
