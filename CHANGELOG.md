@@ -1,5 +1,8 @@
 ## 35.0.1
 
+### Bug Fix
+- Fix styling of last section in Privacy Policy
+
 ## 35.0.0 (October 16, 2018)
 
 ### Enhancements
