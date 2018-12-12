@@ -7,6 +7,9 @@
   - Update to rails 5.2.2
   - Update to font-awesome-sass 5.5.0
 
+### Bug Fix
+- Fix a bug generating graph of data requests for a single dataset
+
 ## 35.0.1 (October 16, 2018)
 
 ### Bug Fix

@@ -15,7 +15,7 @@ class Viewer::OrganizationsController < ApplicationController
   def data_requests
     data_requests = @organization.data_requests
     @dataset = @organization.datasets.find_by_param(params[:dataset])
-    data_requests = data_requests.merge(Request.where(dataset: @dataset)) if @dataset
+    data_requests = data_requests.joins(:requests).merge(Request.where(dataset: @dataset)) if @dataset
     @year = (params[:year].to_i.positive? ? params[:year].to_i : Time.zone.today.year)
     @chart_title = { text: "#{@organization.name} Data Requests #{@year}#{" for #{@dataset.slug.upcase}" if @dataset}", align: "center" }
     @series = []

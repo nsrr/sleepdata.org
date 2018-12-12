@@ -47,6 +47,24 @@ class Viewer::OrganizationsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to organizations_url
   end
 
+  test "should get data requests with dataset report as editor" do
+    login(@org_editor)
+    get data_requests_organization_url(@organization, dataset: datasets(:released))
+    assert_response :success
+  end
+
+  test "should get data requests with dataset report as viewer" do
+    login(@org_viewer)
+    get data_requests_organization_url(@organization, dataset: datasets(:released))
+    assert_response :success
+  end
+
+  test "should not get data requests with dataset report as regular" do
+    login(@regular)
+    get data_requests_organization_url(@organization, dataset: datasets(:released))
+    assert_redirected_to organizations_url
+  end
+
   test "should get data requests stats report as editor" do
     login(@org_editor)
     get data_request_stats_organization_url(@organization)
