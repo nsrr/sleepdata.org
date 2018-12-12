@@ -10,21 +10,23 @@ en:
       already_authenticated: "" # "You are already signed in."
       inactive: "Your account is not activated yet."
       invalid: "Wrong email or password. Did you <a href=\"password/new\">forget your password?</a>"
-      locked: "Your account is locked."
+      locked: "Your account is locked. <a href=\"unlock/new\">Unlock my account.</a>"
       last_attempt: "You have one more attempt before your account is locked."
       not_found_in_database: "Invalid email or password."
       timeout: "" # "Your session expired. Please sign in again to continue."
       unauthenticated: "" # "You need to sign in or sign up before continuing."
-      unconfirmed: "You have to <a href=\"confirmation\">confirm your email address</a> before continuing."
+      unconfirmed: "You have to <a href=\"confirmation/new\">confirm your email address</a> before continuing."
     mailer:
       confirmation_instructions:
-        subject: "Confirmation instructions"
+        subject: "Confirm your NSRR email address"
       reset_password_instructions:
-        subject: "Reset password instructions"
+        subject: "Reset password for your NSRR account"
       unlock_instructions:
-        subject: "Unlock instructions"
+        subject: "Unlock your NSRR account"
+      email_changed:
+        subject: "Your NSRR email changed"
       password_change:
-        subject: "Password Changed"
+        subject: "Your NSRR password changed"
     omniauth_callbacks:
       failure: "Could not authenticate you from %{kind} because \"%{reason}\"."
       success: "Successfully authenticated from %{kind} account."

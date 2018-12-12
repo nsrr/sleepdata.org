@@ -1,6 +1,8 @@
 ## 36.0.0
 
 ### Enhancements
+- **General Changes**
+  - Improved devise email subjects
 - **Gem Changes**
   - Update to rails 5.2.2
 

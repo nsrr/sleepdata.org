@@ -8,7 +8,7 @@ class DeviseMailerTest < ActionMailer::TestCase
     valid = users(:valid)
     mail = Devise::Mailer.reset_password_instructions(valid, "faketoken")
     assert_equal [valid.email], mail.to
-    assert_equal "Reset password instructions", mail.subject
+    assert_equal "Reset password for your NSRR account", mail.subject
     assert_match(%r{#{ENV["website_url"]}/password/edit\?reset_password_token=faketoken}, mail.body.encoded)
   end
 end
