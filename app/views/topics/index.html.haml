@@ -40,16 +40,16 @@
                   = link_to next_unread_reply, data: { turbolinks: false }, class: "btn btn-sm btn-accent" do
                     = unread_replies
                     new
-                    %fa.fa.fa-comments-o
+                    = icon("far", "comments")
               - elsif topic.last_page > 1
                 %span.d-none.d-sm-inline
                   = link_to "1", topic, class: "btn btn-sm btn-light"
                   \...
                   = link_to topic.last_page, page_topic_path(topic, page: topic.last_page), class: "btn btn-sm btn-light"
             - if current_user && current_user.admin? && topic.user.shadow_banned?
-              %i.fa.fa-eye-slash.text-muted
+              = icon("fas", "eye-slash", class: "text-muted")
             - if topic.pinned?
-              %i.fa.fa-thumb-tack.text-muted
+              = icon("fas", "thumbtack", class: "text-muted")
             - if next_unread_reply
               = link_to topic.title, next_unread_reply, data: { turbolinks: false }, class: (topic.started_reading?(current_user) && unread_replies.zero?) ? "topic-read" : "topic-unread"
             - else

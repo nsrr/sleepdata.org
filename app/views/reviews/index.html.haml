@@ -17,7 +17,7 @@
   - count = @data_requests.count
 
   .jumbotron.jumbotron-custom-text
-    %i.fa.fa-check-square-o.mr-1
+    = icon("fas", "check-square", class: "mr-1")
     Vote required on the following
     - if count == 1
       data request.
@@ -85,7 +85,7 @@
             - if data_request.resubmitted_at
               = data_request.resubmitted_at.strftime("%b %-d, %Y")
               = link_to "#", rel: "tooltip", title: "Resubmitted", data: { object: "suppress-click", container: "body", placement: "right" } do
-                %i.fa.fa-info-circle
+                = icon("fas", "info-circle")
             - elsif data_request.submitted_at
               = data_request.submitted_at.strftime("%b %-d, %Y")
           - if false
@@ -103,7 +103,7 @@
 - else
   - if params[:voted] == "0"
     .jumbotron.jumbotron-custom-text
-      %i.fa.fa-check-square-o.mr-1
+      = icon("fas", "check-square", class: "mr-1")
       Voting complete!
       = link_to "Show all data requests.", reviews_path
   - else

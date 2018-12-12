@@ -61,7 +61,7 @@
                 - if agreement_event.data_request.submitted? && (agreement_event.data_request.duly_authorized_representative_signature_file.present? || agreement_event.data_request.signature_file.present?)
                   .small
                     = link_to reset_signature_review_url(agreement_event.data_request), method: :delete, data: { confirm: "Reset signature?" }, class: "text-danger" do
-                      %i.fa.fa-exclamation
+                      = icon("fas", "exclamation")
                       Reset signature
               .small.text-muted= agreement_event.data_request.representative_designated? ? "Duly Authorized Representative" : "Data User"
             %span= content

@@ -7,7 +7,7 @@
 
 .card.mb-3
   %h4.card-header
-    %i.fa.fa-user-circle
+    = icon("fas", "user-circle")
     Public profile
   .card-body
     = form_with model: current_user, url: settings_update_profile_path, method: :patch, local: true do |form|
@@ -20,7 +20,7 @@
 %a.anchor-top{ name: "picture", id: "picture" }
 .card
   %h4.card-header
-    %i.fa.fa-user-circle
+    = icon("fas", "user-circle")
     Profile picture
   .card-body
     = form_with model: current_user, url: settings_update_profile_picture_path, method: :patch, local: true do |form|

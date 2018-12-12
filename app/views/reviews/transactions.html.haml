@@ -56,7 +56,7 @@
               nil
             - elsif a.value_before == ""
               %span{ rel: "tooltip", title: "Blank Response", data: { placement: "right" } }
-                %i.fa.fa-ban
+                = icon("fas", "ban")
             - else
               = a.value_before
           %td.breakword
@@ -68,6 +68,6 @@
               nil
             - elsif a.value_after == ""
               %span{ rel: "tooltip", title: "Blank Response", data: { placement: "right" } }
-                %i.fa.fa-ban
+                = icon("fas", "ban")
             - else
               = a.value_after

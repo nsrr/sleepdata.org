@@ -7,7 +7,7 @@
 
 .card
   %h4.card-header
-    %i.fa.fa-envelope
+    = icon("fas", "envelope")
     Change email
   .card-body
     = form_with model: current_user, url: settings_update_email_path, method: :patch, local: true do |form|

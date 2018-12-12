@@ -7,7 +7,7 @@
 
 .card.mb-3
   %h4.card-header
-    %i.fa.fa-user
+    = icon("fas", "user")
     Change password
   .card-body
     = form_with model: current_user, url: settings_update_password_path, method: :patch, local: true do |form|
@@ -21,7 +21,7 @@
 %a.anchor-top{ name: "username", id: "username" }
 .card.mb-3
   %h4.card-header
-    %i.fa.fa-user
+    = icon("fas", "user")
     Change name
   .card-body
     = form_with model: current_user, url: settings_update_account_path, local: true do |form|
@@ -30,7 +30,7 @@
 
 .card
   %h4.card-header.text-danger
-    %i.fa.fa-user
+    = icon("fas", "user")
     Delete account
   .card-body
     %p You may delete you account, but this action is PERMANENT.

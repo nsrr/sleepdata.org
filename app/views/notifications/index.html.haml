@@ -25,8 +25,7 @@
                 %th.d-none.d-md-table-cell
                 %th.d-none.d-md-table-cell
                 %th
-                  = link_to mark_all_as_read_notifications_path(broadcast_id: broadcast.id), method: :patch, remote: true, class: "text-muted" do
-                    %i.fa.fa-check
+                  = link_to icon("fas", "check"), mark_all_as_read_notifications_path(broadcast_id: broadcast.id), method: :patch, remote: true, class: "text-muted"
             %tbody
               - notifications.each do |notification|
                 %tr{ id: "notification_#{notification.id}"}
@@ -45,8 +44,7 @@
                 %th.d-none.d-md-table-cell
                 %th.d-none.d-md-table-cell
                 %th
-                  = link_to mark_all_as_read_notifications_path(topic_id: topic.id), method: :patch, remote: true, class: "text-muted" do
-                    %i.fa.fa-check
+                  = link_to icon("fas", "check"), mark_all_as_read_notifications_path(topic_id: topic.id), method: :patch, remote: true, class: "text-muted"
             %tbody
               - notifications.each do |notification|
                 %tr{ id: "notification_#{notification.id}"}
@@ -65,8 +63,7 @@
                 %th.d-none.d-md-table-cell
                 %th.d-none.d-md-table-cell
                 %th
-                  = link_to mark_all_as_read_notifications_path(tool_id: tool.id), method: :patch, remote: true, class: "text-muted" do
-                    %i.fa.fa-check
+                  = link_to icon("fas", "check"), mark_all_as_read_notifications_path(tool_id: tool.id), method: :patch, remote: true, class: "text-muted"
             %tbody
               - notifications.each do |notification|
                 %tr{ id: "notification_#{notification.id}"}
@@ -85,8 +82,7 @@
                 %th.d-none.d-md-table-cell
                 %th.d-none.d-md-table-cell
                 %th
-                  = link_to mark_all_as_read_notifications_path(dataset_id: dataset.id), method: :patch, remote: true, class: "text-muted" do
-                    %i.fa.fa-check
+                  = link_to icon("fas", "check"), mark_all_as_read_notifications_path(dataset_id: dataset.id), method: :patch, remote: true, class: "text-muted"
             %tbody
               - notifications.each do |notification|
                 %tr{ id: "notification_#{notification.id}"}
@@ -105,8 +101,7 @@
                 %th.d-none.d-md-table-cell
                 %th.d-none.d-md-table-cell
                 %th
-                  = link_to mark_all_as_read_notifications_path(organization_id: organization.id), method: :patch, remote: true, class: "text-muted" do
-                    %i.fa.fa-check
+                  = link_to icon("fas", "check"), mark_all_as_read_notifications_path(organization_id: organization.id), method: :patch, remote: true, class: "text-muted"
             %tbody
               - notifications.each do |notification|
                 %tr{ id: "notification_#{notification.id}"}

@@ -34,7 +34,7 @@
         %td.d-none.d-md-table-cell= variable.folder
 - elsif @dataset.variables.count.zero?
   .jumbotron.jumbotron-custom-text
-    %i.fa.fa-area-chart.mr-1
+    = icon("fas", "chart-area", class: "mr-1")
     We have not yet generated graphs for variables in this dataset.
     %p
       Please contact us directly at

@@ -14,5 +14,4 @@
       = link_to reply, data: { turbolinks: false }, class: "link-unstyled breakword" do
         = simple_markdown(sanitize(reply.description.gsub(/</, "&lt;"), tags: %w(strong em table img p)).gsub('&gt;', '>'), allow_links: false, allow_images: reply.display_links?, table_class: "table table-striped")
     = link_to reply, class: "reply-simple-full-link p-3 d-flex align-items-center myapnea-grey-bg", data: { turbolinks: false } do
-      %div
-        %i.fa.fa-angle-right
+      %div= icon("fas", "angle-right")

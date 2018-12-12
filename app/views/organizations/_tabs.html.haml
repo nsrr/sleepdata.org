@@ -1,16 +1,16 @@
 - content_for :tabs do
   - current_page = (params[:action] == "pages" || current_page?(@organization))
   = link_to @organization, class: "link-unstyled d-inline-block px-3 pt-2 pb-2 rounded-top header-tab #{"border border-bottom-0 header-tab-active" if current_page}", data: { object: "#{"suppress-click" if current_page?(@organization)}" } do
-    %i.fa.fa-database
+    = icon("fas", "database")
     Datasets
   - current_page = (params[:controller] == "organization_users")
   = link_to organization_organization_users_path(@organization), class: "link-unstyled d-inline-block px-3 pt-2 pb-2 rounded-top header-tab #{"border border-bottom-0 header-tab-active" if current_page}", data: { object: "#{"suppress-click" if current_page?(organization_organization_users_path(@organization)) && !params.key?(:pending)}" } do
-    %i.fa.fa-users
+    = icon("fas", "users")
     Members
   - if @organization.viewer?(current_user)
     - current_page = (params[:controller] == "viewer/organizations")
     = link_to reports_organization_path(@organization), class: "link-unstyled d-none d-sm-inline-block px-3 pt-2 pb-2 rounded-top header-tab #{"border border-bottom-0 header-tab-active" if current_page}", data: { object: "#{"suppress-click" if current_page?(reports_organization_path(@organization))}" } do
-      %i.fa.fa-area-chart
+      = icon("fas", "chart-area")
       Reports
   - if @organization.editor?(current_user)
     - current_page = params[:controller].in?(%w(editor/organizations legal_documents))

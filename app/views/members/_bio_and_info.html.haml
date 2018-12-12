@@ -10,11 +10,11 @@
 
       - if member.profile_location.present?
         %p
-          %i.fa.fa-map-marker
+          = icon("fas", "map-marker-alt")
           = member.profile_location
       - elsif current_user == member
         %p
-          %i.fa.fa-map-marker
+          = icon("fas", "map-marker-alt")
           = link_to "Add a location", settings_profile_path
 
       - if member.profile_url.present?
