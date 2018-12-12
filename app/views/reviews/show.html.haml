@@ -3,11 +3,11 @@
 - content_for :header do
   .float-right
     = link_to transactions_review_path(@data_request), class: "btn btn-light btn-sm" do
-      %i.fa.fa-th-list
+      = icon("fas", "th-list")
       Transactions
     &nbsp;
     = link_to "#", class: "btn btn-light btn-sm", data: { object: "show-data-request" } do
-      %i.fa.fa-file-text-o
+      = icon("fas", "file-alt")
       View
   = @title
 
@@ -60,5 +60,5 @@
         = @data_request.final_legal_document.version
         %span.small.d-none.d-md-inline>= ".#{@data_request.final_legal_document.md5_short}"
       = link_to print_review_path(@data_request), class: "link-unstyled", data: { turbolinks: false } do
-        %i.fa.fa-print
+        = icon("fas", "print")
         Print

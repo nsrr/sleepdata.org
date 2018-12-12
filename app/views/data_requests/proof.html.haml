@@ -76,7 +76,7 @@
         .mt-5.mb-3.float-right
           = succeed " " do
             = link_to data_requests_submit_path(@data_request, data_request: { draft: "1" }), method: :post, class: "btn btn-light", tabindex: "-1" do
-              %i.fa.fa-save
+              = icon("fas", "save")
               Save Draft
 
           - if @data_request.complete?

@@ -3,4 +3,4 @@
   - legal_documents.each do |legal_document|
     %div= link_to legal_document.slug, [@organization, legal_document]
 - else
-  %i.fa.fa-exclamation-triangle.text-muted
+  = icon("fas", "exclamation-triangle", class: "text-muted")

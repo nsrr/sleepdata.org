@@ -14,7 +14,7 @@
       %span.glyphicon.glyphicon-eye-close.text-muted
     - if reply.parent_author?
       %small
-        %i.fa.fa-pencil-square.text-dark{ rel: "tooltip", data: { title: "Topic Author", container: "body" } }
+        = icon("fas", "pen-square", class: "text-dark", rel: "tooltip", data: { title: "Topic Author", container: "body" })
     .d-inline.d-md-none
       - picture_content = profile_picture_tag(reply.user, size: 16, style: "max-height:#{16+3}px;border-radius:4px")
       - if current_user == reply.user

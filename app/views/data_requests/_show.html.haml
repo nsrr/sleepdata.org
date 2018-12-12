@@ -115,7 +115,7 @@
       - if data_request.expiration_date
         .float-right
           %small
-            %i.fa.fa-hourglass-half
+            = icon("fas", "hourglass-half")
             Expires
             = data_request.expiration_date.strftime("%-d %b %Y")
       = name_of_datasets(data_request)
@@ -124,7 +124,7 @@
   - when "closed"
     %h4.card-header
       .float-right= render "data_requests/delete_link", data_request: data_request
-      %i.fa.fa-lock
+      = icon("fas", "lock")
       Closed
     .card-body
       %p.lead
@@ -133,7 +133,7 @@
   - else # "expired"
     %h4.card-header
       .float-right= render "data_requests/print_link", data_request: data_request
-      %i.fa.fa-hourglass-end
+      = icon("fas", "hourglass-end")
       Expired
     .card-body
       .mb-5

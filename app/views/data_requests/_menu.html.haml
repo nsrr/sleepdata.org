@@ -41,7 +41,7 @@
                   %li{ class: doc.dig(:active) || current_page?(doc.dig(:url)) ? doc.dig(:active_class) || "active" : nil }
                     = link_to doc.dig(:url) do
                       - if doc.dig(:complete?).nil?
-                        / %i.fa.fa-check-square
+                        =# icon("fas", "check-square")
                       - elsif doc.dig(:complete?)
                         = icon("fas", "check-square", class: "text-success")
                       - else

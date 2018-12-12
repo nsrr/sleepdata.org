@@ -33,7 +33,7 @@
 .mt-5.mb-3.float-right
   = succeed " " do
     = link_to @data_request, class: "btn btn-light", tabindex: "-1" do
-      %i.fa.fa-save
+      = icon("fas", "save")
       Save Draft
 
   = link_to [@data_request, :supporting_documents], class: "btn btn-primary" do

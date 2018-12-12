@@ -2,7 +2,7 @@
   .float-right
     &nbsp;
     = link_to blog_post_path(broadcast.url_hash.merge(anchor: "comments")), class: "no-underline", data: { turbolinks: false } do
-      %i.fa.fa-comments
+      = icon("fas", "comments")
       = broadcast.replies.where(deleted: false).count
   By
   = link_to broadcast.user.username, posts_member_path(broadcast.user.username)

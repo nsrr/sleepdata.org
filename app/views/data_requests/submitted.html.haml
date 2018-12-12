@@ -38,9 +38,9 @@
 
 .text-center
   = link_to data_requests_path, class: "btn btn-light btn-shadow" do
-    %i.fa.fa-th-list
+    = icon("fas", "th-list")
     Review my data requests
   &nbsp;
   = link_to [:print, @data_request], class: "btn btn-primary btn-shadow", data: { turbolinks: false } do
-    %i.fa.fa-print
+    = icon("fas", "print")
     Print data request

@@ -6,7 +6,7 @@
   .col-12.col-md.text-center.mb-3.mb-md-0
     .d-none.d-md-block.data-request-timeline{ class: bg_class, style: "left: 0;right: 0;" }
     .d-block.data-request-timeline-icon.data-request-timeline-icon-approved-expired
-      %i.fa.fa-check-circle
+      = icon("fas", "check-circle")
     %br
     %strong Approved
     .text-muted.small= data_request.approval_date.strftime("%-d %b %Y")

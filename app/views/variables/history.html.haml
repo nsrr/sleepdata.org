@@ -8,7 +8,7 @@
     - if @variable.dataset_version
       - download_url = files_dataset_path(@dataset) + "/m/browser/datasets/archive/#{@variable.dataset_version.version}/CHANGELOG.md?preview=1"
       = link_to download_url, class: "btn btn-sm btn-outline-primary" do
-        %i.fa.fa-file-text-o
+        = icon("fas", "file-alt")
         View CHANGELOG
   %table.table.table-striped.table-hover.table-sticky.table-borderless
     %col

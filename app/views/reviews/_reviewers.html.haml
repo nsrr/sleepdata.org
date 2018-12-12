@@ -2,24 +2,24 @@
 - data_request.data_request_reviews.each do |review|
   - case review.approved
   - when true
-    - fa = "fa-thumbs-up"
+    - icon_display = icon("fas", "thumbs-up")
     - badge = ["badge-success", review.vote_cleared? ? "data-request-review-vote-cleared" : nil]
   - when false
-    - fa = "fa-thumbs-down"
+    - icon_display = icon("fas", "thumbs-down")
     - badge = ["badge-danger", review.vote_cleared? ? "data-request-review-vote-cleared" : nil]
   - else
-    - fa = "fa-question-circle"
+    - icon_display = icon("fas", "question-circle")
     - badge = "badge-secondary"
   - if has_voted
     %span.badge{ class: badge }
       = review.user.initials
-      %i.fa{ class: fa }
+      = icon_display
   - else
     - if review.approved.nil?
       %span.badge.badge-secondary.data-request-review-hidden
         = review.user.initials
-        %i.fa.fa-question-circle
+        = icon("fas", "question-circle")
     - else
       %span.badge.badge-primary.data-request-review-hidden
         = review.user.initials
-        %i.fa.fa-check-circle
+        = icon("fas", "check-circle")

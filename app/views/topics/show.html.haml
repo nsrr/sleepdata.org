@@ -16,11 +16,11 @@
 
         .dropdown-menu.dropdown-menu-right
           = link_to edit_url, class: "dropdown-item" do
-            %i.fa.fa-pencil
+            = icon("fas", "pencil-alt")
             Edit
           .dropdown-divider
           = link_to delete_url, method: :delete, data: { confirm: delete_confirmation }, class: "dropdown-item text-danger" do
-            %i.fa.fa-trash
+            = icon("fas", "trash-alt")
             Delete
   = @title
 
@@ -35,7 +35,7 @@
 - if @page == @topic.last_page
   - if @topic.auto_locked?
     .box-shadow.bg-light.p-3.rounded.text-center
-      %i.fa.fa-lock
+      = icon("fas", "lock")
       Topic is locked.
       = link_to "Start a new topic", new_topic_path
   - else

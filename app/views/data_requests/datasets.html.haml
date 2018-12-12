@@ -20,7 +20,7 @@
           = render "data_requests/datasets_selection", data_request: @data_request, only_released_datasets: true
 
         .p-3.bg-warning.datasets-warning{ style: @data_request.datasets.count <= 2 ? "display:none" : "" }
-          %i.fa.fa-exclamation-triangle
+          = icon("fas", "exclamation-triangle")
           You may be asked to resubmit if you select
           %strong.text-white more than two
           datasets. Additional datasets can be requested in the future, should
@@ -29,7 +29,7 @@
         .mt-5.mb-3.float-right
           = succeed " " do
             = link_to "#", class: "btn btn-light", tabindex: "-1", data: { object: "submit-draft-and-disable", target: "#data-request-form" } do
-              %i.fa.fa-save
+              = icon("fas", "save")
               Save Draft
 
           = link_to "#", class: "btn btn-primary", data: { object: "submit-and-disable", target: "#data-request-form" } do

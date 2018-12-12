@@ -23,7 +23,7 @@
   .card.mb-4
     %h4.card-header
       .small.float-right
-        %i.fa.fa-check-circle.text-success
+        = icon("fas", "check-circle", class: "text-success")
         Already up-to-date.
       = link_to object.name, object
     .card-body

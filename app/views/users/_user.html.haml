@@ -3,9 +3,9 @@
   .d-none.d-md-inline-block= link_to user.full_name.presence || user.username, user
 %td.small
   - if user.confirmed?
-    %i.fa.fa-check-circle.text-success{ rel: "tooltip", data: { title: "Email confirmed", container: "body", placement: "top" } }
+    = icon("fas", "check-circle", class: "text-success", rel: "tooltip", data: { title: "Email confirmed", container: "body", placement: "top" })
   - else
-    %i.fa.fa-question-circle.text-muted{ rel: "tooltip", data: { title: "Unconfirmed email", container: "body", placement: "top" } }
+    = icon("fas", "question-circle", class: "text-muted", rel: "tooltip", data: { title: "Unconfirmed email", container: "body", placement: "top" })
   %span.d-none.d-md-inline.breakword
     = render "users/email", user: user
   %span.d-inline.d-md-none

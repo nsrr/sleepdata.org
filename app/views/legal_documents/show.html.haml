@@ -19,14 +19,14 @@
 
         .dropdown-menu
           = link_to organization_legal_document_legal_document_pages_path(@organization, @legal_document), class: "dropdown-item" do
-            %i.fa.fa-file-text-o
+            = icon("fas", "file-alt")
             Pages
           = link_to edit_organization_legal_document_path(@organization, @legal_document), class: "dropdown-item" do
-            %i.fa.fa-pencil
+            = icon("fas", "pencil-alt")
             Edit
           .dropdown-divider
           = link_to [@organization, @legal_document], method: :delete, data: { confirm: "Delete #{@legal_document.name}?" }, class: "dropdown-item text-danger" do
-            %i.fa.fa-trash
+            = icon("fas", "trash-alt")
             Delete
 
 .dashboard-container

@@ -14,7 +14,7 @@
     .small.text-muted
       = link_to_if @data_request.submitted?, variable.display_name_label, edit_reviewer_agreement_variable_path(@data_request, agreement_variable), remote: :true, class: "link-blend-muted"
       - if agreement_variable.resubmission_required?
-        %i.fa.fa-exclamation-triangle.text-danger{ rel: "tooltip", data: { title: "Marked for resubmission", container: "body", placement: "top" } }
+        = icon("fas", "exclamation-triangle", class: "text-danger", rel: "tooltip", data: { title: "Marked for resubmission", container: "body", placement: "top" })
 
     = content
   - if agreement_variable.reviewer_comment.present?

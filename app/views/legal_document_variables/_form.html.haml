@@ -3,7 +3,7 @@
     = link_to polymorphic_path([@organization, @legal_document, legal_document_variable]), remote: true, class: "close" do
       &times;
     %strong
-      %i.fa.fa-pencil
+      = icon("fas", "pencil-alt")
       = legal_document_variable.name_was
   .card-body
     = form_with model: [@organization, @legal_document, legal_document_variable] do |form|

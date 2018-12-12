@@ -34,9 +34,9 @@
             - agreement_event.data_request.supporting_documents.order("lower(document)").each do |supporting_document|
               %div.small
                 - if supporting_document.document.file.extension.casecmp("pdf").zero?
-                  %i.fa.fa-file-pdf-o
+                  = icon("far", "file-pdf")
                 - else
-                  %i.fa.fa-file-image-o
+                  = icon("far", "file-image")
                 = link_to supporting_document.document.file.filename, reviewer_supporting_document_path(agreement_event.data_request, supporting_document), data: { turbolinks: false }
 
       - agreement_event.data_request.final_legal_document.final_legal_document_pages.each do |final_legal_document_page|

@@ -40,7 +40,7 @@
         .mt-5.mb-3.float-right
           = succeed " " do
             = link_to data_request_supporting_documents_path(@data_request), class: "btn btn-light", tabindex: "-1", data: { object: "disable-spinner" } do
-              %i.fa.fa-save
+              = icon("fas", "save")
               Save Draft
 
           = link_to data_requests_proof_path(@data_request), class: "btn btn-primary", id: "continue-btn" do

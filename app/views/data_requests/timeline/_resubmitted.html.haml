@@ -6,7 +6,7 @@
   .col-12.col-md.text-center.mb-3.mb-md-0
     .d-none.d-md-block.data-request-timeline{ class: bg_class, style: "left: 0;right: 0;" }
     .d-block.data-request-timeline-icon.data-request-timeline-icon-resubmitted
-      %i.fa.fa-cloud-upload
+      = icon("fas", "cloud-upload-alt")
     %br
     Resubmitted
     .text-muted.small= data_request.resubmitted_at.strftime("%-d %b %Y")
