@@ -3,4 +3,4 @@
   $element.css("width", $element.css("width"))
   $element.prop("disabled", true)
   $element.addClass("disabled")
-  $element.html("<i class=\"fa fa-spin fa-spinner\"></i>")
+  $element.html("<i class=\"fas fa-spinner fa-spin\"></i>")

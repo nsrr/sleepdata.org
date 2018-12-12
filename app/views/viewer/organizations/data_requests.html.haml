@@ -17,7 +17,7 @@
   %div{ data: { object: "reports-data-requests-chart", title: @chart_title.to_json, series: @series.to_json, x_axis: @x_axis.to_json, y_axis: @y_axis.to_json } }
   .text-center
     = link_to data_requests_organization_path(@organization, year: @year - 1, dataset: @dataset), class: "btn btn-sm btn-light" do
-      %i.fa.fa-caret-left
+      = icon("fas", "caret-left")
     = @year
     = link_to data_requests_organization_path(@organization, year: @year + 1, dataset: @dataset), class: "btn btn-sm btn-light" do
-      %i.fa.fa-caret-right
+      = icon("fas", "caret-right")

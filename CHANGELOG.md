@@ -5,6 +5,7 @@
   - Improved devise email subjects
 - **Gem Changes**
   - Update to rails 5.2.2
+  - Update to font-awesome-sass 5.5.0
 
 ## 35.0.1 (October 16, 2018)
 

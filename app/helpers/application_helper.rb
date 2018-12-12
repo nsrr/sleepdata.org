@@ -3,6 +3,6 @@
 # Generic methods uses across the application views.
 module ApplicationHelper
   def simple_check(checked)
-    content_tag(:i, "", class: "fa #{checked ? "fa-check-square-o" : "fa-square-o"}")
+    checked ? icon("fas", "check-square") : icon("far", "square")
   end
 end

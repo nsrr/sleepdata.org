@@ -1,9 +1,9 @@
-%td
-  %i.fa.fa-file-archive-o{ class: (notification.read? ? "text-muted" : "text-primary") }
+%td{ class: (notification.read? ? "text-muted" : "text-primary") }
+  = icon("fas", "file-archive")
 
 %td.nowrap{ class: "#{"text-muted" if notification.read?}" }
   .overflow-hidden
     = link_to notification, class: (notification.read? ? "link-muted" : "link-unstyled") do
       Data requests export completed.
 
-%td.d-none.d-sm-table-cell
+%td.d-none.d-md-table-cell

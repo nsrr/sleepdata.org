@@ -40,10 +40,10 @@
 
   .text-center
     = link_to admin_downloads_by_month_path(year: @year - 1, user_type: params[:user_type]), class: "btn btn-sm btn-light" do
-      %i.fa.fa-caret-left
+      = icon("fas", "caret-left")
     = @year
     = link_to admin_downloads_by_month_path(year: @year + 1, user_type: params[:user_type]), class: "btn btn-sm btn-light" do
-      %i.fa.fa-caret-right
+      = icon("fas", "caret-right")
 
 .text-center.mb-3
   = link_to "All Members", admin_downloads_by_month_path(year: @year), class: "btn btn-sm #{ !["regular", "core", "aug"].include?(params[:user_type]) ? "btn-primary" : "btn-light"}"

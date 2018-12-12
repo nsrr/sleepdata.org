@@ -45,4 +45,4 @@
 
           = link_to data_requests_proof_path(@data_request), class: "btn btn-primary", id: "continue-btn" do
             = @data_request.supporting_documents.present? ? "Continue" : "Skip"
-            %i.fa.fa-caret-right
+            = icon("fas", "caret-right")

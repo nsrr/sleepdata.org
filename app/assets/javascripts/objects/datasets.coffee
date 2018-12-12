@@ -15,11 +15,3 @@ $(document)
     $('#sidebar-content').toggleClass('col-md-3')
     false
   )
-  .on('click', '[data-object~="flip-card"]', ->
-    $($(this).data('target')).toggleClass('dataset-card-flipped')
-    if $($(this).data('target')).hasClass('dataset-card-flipped')
-      $(this).html('details <i class="fa fa-caret-up text-muted"></i>')
-    else
-      $(this).html('details <i class="fa fa-caret-down text-muted"></i>')
-    false
-  )

@@ -11,7 +11,7 @@
 
     = link_to [@data_request, :supporting_documents], class: "btn btn-primary" do
       Proceed
-      %i.fa.fa-caret-right
+      = icon("fas", "caret-right")
 - else
   = form_with url: data_requests_update_attest_path(@data_request), method: :post, local: true, id: "data-request-form" do |form|
     = hidden_field_tag "data_request[draft]", nil
@@ -34,4 +34,4 @@
 
     = link_to "#", class: "btn btn-primary", data: { object: "submit-signature-and-disable", target: "#data-request-form" } do
       Proceed
-      %i.fa.fa-caret-right
+      = icon("fas", "caret-right")

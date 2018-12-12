@@ -3,7 +3,7 @@
 .card
   .card-header{ data: { object: "toggle-data-request-event", target: "#agreement-event-#{agreement_event.id}" }, style: "cursor: pointer;" }
     .float-right.text-muted
-      %i.fa.fa-caret-left.data-request-event-icon{ class: show_event ? "data-request-event-icon-rotate" : nil }
+      = icon("fas", "caret-left", class: "data-request-event-icon#{" data-request-event-icon-rotate" if show_event}")
     = profile_picture_tag agreement_event.user, size: 18, style: "vertical-align: text-middle;width: 18px;"
     = agreement_event.user.username
     %span.badge.badge-primary submitted

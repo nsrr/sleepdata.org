@@ -3,6 +3,6 @@
     = strip_tags(simple_markdown(broadcast.description, target_blank: false)).gsub(/\r/, " ").gsub(/\n/, " ").truncate(500, separator: ".", omission: ".").html_safe
     = link_to url, class: "nowrap" do
       Keep reading
-      %i.fa.fa-caret-right
+      = icon("fas", "caret-right")
 
 .broadcast-by= render "blog/author_and_category", broadcast: broadcast

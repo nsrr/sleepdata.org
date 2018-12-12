@@ -15,14 +15,14 @@
   - if reviewer
     - variable.options.each do |option|
       - if value == option.value
-        - icon = content_tag(:i, nil, class: "fa fa-check-circle text-primary")
+        - icon_display = icon("fas", "check-circle", class: "text-primary")
       - else
-        - icon = content_tag(:i, nil, class: "fa fa-circle-o")
+        - icon_display = icon("far", "circle")
       .legal-document-variable-review.mb-1{ class: value == option.value ? nil : "unselected" }
         - if option.display_name.present?
-          = simple_markdown(icon + " " + option.display_name)
+          = simple_markdown(icon_display + " " + option.display_name)
         - else
-          = icon
+          = icon_display
   - else
     - variable.options.each do |option|
       .custom-control.custom-radio

@@ -8,22 +8,20 @@
 %ul.navbar-nav
   %li.nav-item{ class: current_page?(search_path) ? "active" : nil }
     = link_to search_path, class: "nav-link" do
-      %i.fa.fa-search.d-none.d-lg-inline
+      = icon("fas", "search", class: "d-none d-lg-inline")
       Search
     - if current_page?(search_path)
       %span.sr-only (current)
   - if current_user
     %li.nav-item.d-none.d-lg-block{ class: current_page?(notifications_path) ? "active" : nil }
       = link_to notifications_path, class: "nav-link notifications-link#{" notifications-link-active" if current_user.unread_notifications?}" do
-        = content_tag :i, nil, class: "fa fa-#{icon} d-inline d-lg-none" if defined?(icon)
-        %i.fa.fa-bell
+        = icon("fas", "bell")
       - if current_page?(notifications_path)
         %span.sr-only (current)
     = render "menu/dropdown_account"
   - else
     %li.nav-item{ class: current_page?(new_user_session_path) ? "active" : nil }
       = link_to new_user_session_path, class: "nav-link" do
-        %i.fa.fa-lock
         Sign in
       - if current_page?(new_user_session_path)
         %span.sr-only (current)

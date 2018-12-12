@@ -3,6 +3,5 @@
 .d-inline-block.d-md-none.small= icon
 = link_to url, style: "text-decoration: none;" do
   %small= text
-  - if arrow
-    %i.fa.fa-caret-right.small
+  = icon("fas", "caret-right", class: "small") if arrow
 .d-none.d-md-inline-block.small= icon

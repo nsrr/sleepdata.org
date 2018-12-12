@@ -1,5 +1,5 @@
 @setContinueButtonText = (text) ->
-  $("#continue-btn").html("#{text} <i class=\"fa fa-caret-right\"></i>")
+  $("#continue-btn").html("#{text} <i class=\"fas fa-caret-right\"></i>")
 
 @resetUploadContainerText = ->
   $upload = $("#upload")
@@ -75,9 +75,9 @@ $(document)
               calculated_percent = Math.round(done / total * 100)
               if done == total
                 $percentbar.css("width", "100%")
-                $upload.html("<i class=\"fa fa-check-square-o text-success\"/> <span class=\"text-muted\">Upload complete.</span>")
+                $upload.html("<i class=\"fas fa-check-square text-success\"/> <span class=\"text-muted\">Upload complete.</span>")
                 $percent.html("")
-                $process.html("<i class=\"fa fa-spinner fa-spin\"/> Processing...")
+                $process.html("<i class=\"fas fa-spinner fa-spin\"/> Processing...")
               else
                 $percentbar.css("width", "#{calculated_percent}%")
                 $upload.html("Uploading")
@@ -86,13 +86,13 @@ $(document)
         myXhr
     ).done(->
       $percentbar.addClass("upload-success")
-      $process.html("<i class=\"fa fa-check-square-o text-success\"/> <span class=\"text-muted\">Processing complete.</span><br>#{file_count} file#{plural} uploaded. Add more files?")
+      $process.html("<i class=\"fas fa-check-square text-success\"/> <span class=\"text-muted\">Processing complete.</span><br>#{file_count} file#{plural} uploaded. Add more files?")
       $uploadContainer.removeClass("upload-started")
       setContinueButtonText("Continue")
     ).fail( (jqXHR, textStatus, errorThrown) ->
       url = $this.data('fallback-url')
       $percentbar.addClass("upload-failure")
-      $upload.html("<span class=\"text-danger\"><i class=\"fa fa-times\"/> Upload failed: <small>#{errorThrown}</small></span>")
+      $upload.html("<span class=\"text-danger\"><i class=\"fas fa-times\"/> Upload failed: <small>#{errorThrown}</small></span>")
       $percent.html("")
       $process.html("Please try again or <a href=\"#{url}\">upload the documents</a> manually.")
       $uploadContainer.removeClass("upload-started")

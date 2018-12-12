@@ -12,14 +12,14 @@ module DatasetsHelper
     if data_request_by_status(dataset, "approved")
       text = "Data Access Approved"
       url = files_dataset_path(dataset)
-      icon = content_tag(:i, nil, class: "fa fa-check-circle #{"text-success" if color}") # fa-check-circle fa-check-square
+      icon = content_tag(:i, nil, class: "fas fa-check-circle #{"text-success" if color}") # fa-check-circle fa-check-square
       arrow = false
     elsif data_request_by_status(dataset, "submitted")
       status = "submitted"
       data_request = data_request_by_status(dataset, "submitted")
       text = "Data Request Under Review"
       url = data_request
-      icon = content_tag(:i, nil, class: "fa fa-comments-o #{"text-muted" if color}")
+      icon = content_tag(:i, nil, class: "far fa-comments #{"text-muted" if color}")
       arrow = false
     elsif data_request_by_status(dataset, "resubmit")
       status = "resubmit"
@@ -37,7 +37,7 @@ module DatasetsHelper
       # TODO: Fix "Renew DAUA" path
       text = "Data Request Expired"
       url = data_requests_start_path(dataset)
-      icon = content_tag(:i, nil, class: "fa fa-hourglass-end #{"text-muted" if color}")
+      icon = content_tag(:i, nil, class: "fas fa-hourglass-end #{"text-muted" if color}")
       arrow = false
     elsif dataset.final_legal_documents.count.positive?
       # Request Data Access

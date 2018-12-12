@@ -35,7 +35,7 @@
     - if @year.present?
       %li.page-item
         = link_to admin_spam_report_path, class: "page-link" do
-          %i.fa.fa-caret-left
+          = icon("fas", "caret-left")
           Overview
     - else
       - categories.each do |year|

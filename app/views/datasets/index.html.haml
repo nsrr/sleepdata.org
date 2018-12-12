@@ -75,26 +75,6 @@
 - else
   - @datasets.each do |dataset|
     .dataset-card{ id: "dataset-card-#{dataset.id}" }
-      - if false
-        .dataset-card-header
-          .dataset-card-header-ratings
-            - if false
-              .float-right
-                - if dataset.dataset_reviews.count.positive?
-                  = link_to dataset_dataset_reviews_path(dataset), style: "text-decoration: none;" do
-                    = number_with_delimiter(dataset.dataset_reviews.count)
-                    .d-none.d-sm-inline-block= "Review#{"s" if dataset.dataset_reviews.count != 1}"
-                    .d-inline-block.d-sm-none
-                      %i.fa.fa-comments
-                = link_to dataset_dataset_reviews_path(dataset) do
-                  = render "datasets/rating", rating: dataset.rating
-            = link_to dataset.name, dataset
-            - if dataset.description.present?
-              %br.d-block.d-sm-none
-              = link_to "#", data: { object: "flip-card", target: "#dataset-card-#{dataset.id}" }, style: "font-size: 10px;" do
-                details
-                %i.fa.fa-caret-down.text-muted
-
       .dataset-card-body
         .not-flipped
           .dataset-card-logo

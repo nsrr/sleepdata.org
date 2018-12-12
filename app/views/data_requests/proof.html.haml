@@ -10,7 +10,7 @@
     %main.col-12.col-md-9.col-xl-8.pl-md-5{ role: "main" }
       .page-box.last-box
         .agreement-heading= @title
-        - required_content = content_tag(:span, content_tag(:i, nil, class: "fa fa-exclamation-triangle") + " Required", class: "small text-danger")
+        - required_content = content_tag(:span, icon("fas", "exclamation-triangle") + " Required", class: "small text-danger")
 
         - content = name_of_datasets(@data_request) + "<br/>".html_safe + link_to("add datasets", [:datasets, @data_request], class: "small", tabindex: "-1")
 
@@ -29,13 +29,13 @@
               - option = variable.options.find_by(value: value)
               - content = simple_markdown(option&.display_name || value)
               - if agreement_variable&.resubmission_required?
-                - content = safe_join([content_tag(:div, safe_join([content_tag(:i, nil, class: "fa fa-exclamation-triangle"), " ", agreement_variable&.reviewer_comment]), class: "small text-danger"), content])
+                - content = safe_join([content_tag(:div, safe_join([icon("fas", "exclamation-triangle"), " ", agreement_variable&.reviewer_comment]), class: "small text-danger"), content])
               - elsif content.blank? && variable.required?
                 - content = required_content
             - else
               - content = value
               - if agreement_variable&.resubmission_required?
-                - content = safe_join([content_tag(:div, safe_join([content_tag(:i, nil, class: "fa fa-exclamation-triangle"), " ", agreement_variable&.reviewer_comment]), class: "small text-danger"), content])
+                - content = safe_join([content_tag(:div, safe_join([icon("fas", "exclamation-triangle"), " ", agreement_variable&.reviewer_comment]), class: "small text-danger"), content])
               - elsif content.blank? && variable.required?
                 - content = required_content
             - display_name = variable.display_name.present? ? variable.display_name : variable.name.titleize
@@ -82,8 +82,8 @@
           - if @data_request.complete?
             = link_to data_requests_submit_path(@data_request), method: :post, class: "btn btn-primary" do
               Submit
-              %i.fa.fa-caret-right
+              = icon("fas", "caret-right")
           - else
             = link_to "#", class: "btn btn-primary disabled", data: { object: "suppress-click" }, disabled: true do
               Submit
-              %i.fa.fa-caret-right
+              = icon("fas", "caret-right")

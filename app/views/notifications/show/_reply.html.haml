@@ -1,5 +1,5 @@
-%td
-  %i.fa.fa-comments-o{ class: "#{notification.read? ? "text-muted" : "text-primary"}" }
+%td{ class: (notification.read? ? "text-muted" : "text-primary") }
+  = icon("far", "comments")
 
 %td.nowrap{ class: "#{"text-muted" if notification.read?}" }
   .overflow-hidden

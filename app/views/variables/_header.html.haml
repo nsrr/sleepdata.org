@@ -26,10 +26,10 @@
   .d-none
     - if previous_variable
       = link_to url_for(id: previous_variable, g: params[:g], v: params[:v], action: params[:action]), class: "btn btn-sm btn-light", id: "previous-variable" do
-        %i.fa.fa-caret-left
+        = icon("fas", "caret-left")
         = previous_variable.name
 
     - if next_variable
       = link_to url_for(id: next_variable, g: params[:g], v: params[:v], action: params[:action]), class: "btn btn-sm btn-light", id: "next-variable" do
         = next_variable.name
-        %i.fa.fa-caret-right
+        = icon("fas", "caret-right")

@@ -5,13 +5,13 @@
 
     #show-page-button{ style: "#{"display: none;" if cookies[:hide_page_list] != "1"}" }
       = link_to "#", data: { object: "set-cookie toggle-page-list", cookie_key: "hide_page_list", cookie_value: "0" }, class: "btn btn-sm btn-light" do
-        %i.fa.fa-caret-left
+        = icon("fas", "caret-left")
         Show Menu
 
     #hide-page-button{ style: "#{"display: none;" if cookies[:hide_page_list] == "1"}" }
       = link_to "#", data: { object: "set-cookie toggle-page-list", cookie_key: "hide_page_list", cookie_value: "1" }, class: "btn btn-sm btn-light" do
         Hide Menu
-        %i.fa.fa-caret-right
+        = icon("fas", "caret-right")
 
   %ol
     %li= link_to object.slug, object

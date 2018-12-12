@@ -37,11 +37,11 @@
         - if data_request.complete?
           = link_to data_requests_proof_path(data_request), class: "btn btn-sm btn-primary" do
             Proof and submit
-            %i.fa.fa-caret-right
+            = icon("fas", "caret-right")
         - else
           = link_to resume_data_request_path(data_request), class: "btn btn-sm btn-primary" do
             Resume
-            %i.fa.fa-caret-right
+            = icon("fas", "caret-right")
 
       = name_of_datasets(data_request)
 
@@ -93,7 +93,7 @@
       .float-right
         = link_to resubmit_data_request_path(data_request) do
           Update data request
-          %i.fa.fa-caret-right
+          = icon("fas", "caret-right")
       = name_of_datasets(data_request)
 
   - when "approved"

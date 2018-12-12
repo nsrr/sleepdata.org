@@ -1,7 +1,7 @@
 #agreement-event-tags-dropdown.dropdown{ style: "display: inline-block", data: { path: update_tags_review_path(@data_request), orig_tag_ids: ["0"] + @data_request.tag_ids.collect(&:to_s) } }
   = link_to "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" }, class: "comment-tab" do
     Tags
-    %i.fa.fa-caret-down
+    = icon("fas", "caret-down")
   = hidden_field_tag "data_request[tag_ids]", @data_request.tag_ids.join(",")
   .dropdown-menu
     - tag_ids = @data_request.tag_ids

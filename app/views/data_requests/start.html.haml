@@ -25,7 +25,7 @@
       .my-5
         = link_to data_requests_start_path(@dataset), method: :post, class: "btn btn-lg btn-primary btn-shadow" do
           Click to start
-          %i.fa.fa-caret-right
+          = icon("fas", "caret-right")
 
       .lead
         Questions? Send us an email at

@@ -1,5 +1,5 @@
-%td
-  %i.fa.fa-star-half-o{ class: notification.read? ? "text-muted" : "text-warning" }
+%td{ class: (notification.read? ? "text-muted" : "text-warning") }
+  = icon("fas", "star-half-alt")
 
 %td.nowrap{ class: "#{"text-muted" if notification.read?}" }
   .overflow-hidden

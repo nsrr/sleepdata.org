@@ -3,7 +3,7 @@
 %ol
   %li
     - voting_count = current_user.reviewable_data_requests.without_vote(current_user).count
-    %i.fa.fa-caret-left.text-primary
+    = icon("fas", "caret-left", class: "text-primary")
     = link_to "Reviews", reviews_path(voted: voting_count.positive? ? 0 : nil)
     - if voting_count.positive?
       %span.badge.badge-primary= voting_count
