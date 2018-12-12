@@ -1,5 +1,9 @@
 ## 36.0.0
 
+### Enhancements
+- **Gem Changes**
+  - Update to rails 5.2.2
+
 ## 35.0.1 (October 16, 2018)
 
 ### Bug Fix
