@@ -6,7 +6,7 @@ class UserMailer < ApplicationMailer
     setup_email
     @user = user
     @email_to = user.email
-    mail(to: user.email, subject: "Reviewer Digest for #{Time.zone.today.strftime("%a %d %b %Y")}")
+    mail(to: user.email, subject: "Reviewer digest for #{Time.zone.today.strftime("%a %d %b %Y")}")
   end
 
   def daua_submitted(reviewer, agreement)
@@ -14,12 +14,7 @@ class UserMailer < ApplicationMailer
     @reviewer = reviewer
     @agreement = agreement
     @email_to = reviewer.email
-    subject = \
-      if @agreement.resubmitted?
-        "#{agreement.user.username} Resubmitted a Data Request"
-      else
-        "#{agreement.user.username} Submitted a Data Request"
-      end
+    subject = "#{@agreement.complex_name_or_username} #{@agreement.resubmitted? ? "resubmitted" : "submitted"} a data request"
     mail(to: reviewer.email, subject: subject)
   end
 
@@ -28,7 +23,7 @@ class UserMailer < ApplicationMailer
     @agreement = agreement
     @email_to = agreement.user.email
     mail(to: agreement.user.email,
-         subject: "Your Data Request has been Approved",
+         subject: "Your data request has been approved",
          reply_to: admin.email)
   end
 
@@ -39,7 +34,7 @@ class UserMailer < ApplicationMailer
     @email_to = admin.email
     @agreement_event = agreement_event
     mail(to: @email_to,
-         subject: "#{@agreement.name}'s Data Request Changed to #{@agreement.status.titleize}")
+         subject: "#{@agreement.complex_name_or_username}'s data request changed to #{@agreement.status}")
   end
 
   def sent_back_for_resubmission(agreement, admin)
@@ -47,7 +42,7 @@ class UserMailer < ApplicationMailer
     @agreement = agreement
     @email_to = agreement.user.email
     mail(to: agreement.user.email,
-         subject: "Please Resubmit your Data Request",
+         subject: "Please resubmit your data request",
          reply_to: admin.email)
   end
 
@@ -57,6 +52,6 @@ class UserMailer < ApplicationMailer
     @agreement_event = agreement_event
     @email_to = user.email
     mail(to: @email_to,
-         subject: "#{agreement_event.user.username} Mentioned You While Reviewing a Data Request")
+         subject: "#{agreement_event.user.username} mentioned you on a data request")
   end
 end

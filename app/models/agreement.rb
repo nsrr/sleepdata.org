@@ -105,6 +105,10 @@ class Agreement < ApplicationRecord
     complex_name.presence || "##{id}"
   end
 
+  def complex_name_or_username
+    complex_name.presence || user.username
+  end
+
   def agreement_number
     Agreement.where(user_id: user_id).order(:id).pluck(:id).index(id) + 1
   end

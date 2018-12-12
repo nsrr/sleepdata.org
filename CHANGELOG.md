@@ -3,6 +3,8 @@
 ### Enhancements
 - **General Changes**
   - Improved devise email subjects
+- **Data Request Changes**
+  - Minor updates to data request notification email subject lines
 - **Gem Changes**
   - Update to rails 5.2.2
   - Update to font-awesome-sass 5.5.0

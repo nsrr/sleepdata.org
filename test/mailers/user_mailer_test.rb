@@ -9,7 +9,7 @@ class UserMailerTest < ActionMailer::TestCase
     valid = users(:valid)
     mail = UserMailer.reviewer_digest(valid)
     assert_equal [valid.email], mail.to
-    assert_equal "Reviewer Digest for #{Time.zone.today.strftime("%a %d %b %Y")}", mail.subject
+    assert_equal "Reviewer digest for #{Time.zone.today.strftime("%a %d %b %Y")}", mail.subject
     assert_match(/Dear #{valid.username},/, mail.body.encoded)
   end
 
@@ -18,7 +18,7 @@ class UserMailerTest < ActionMailer::TestCase
     valid = users(:valid)
     mail = UserMailer.daua_submitted(valid, agreement)
     assert_equal [valid.email], mail.to
-    assert_equal "#{agreement.user.username} Submitted a Data Request", mail.subject
+    assert_equal "#{agreement.complex_name_or_username} submitted a data request", mail.subject
     assert_match(
       /#{agreement.user.username} \[#{agreement.user.email}\] submitted a data request\./,
       mail.body.encoded
@@ -30,7 +30,7 @@ class UserMailerTest < ActionMailer::TestCase
     valid = users(:valid)
     mail = UserMailer.daua_submitted(valid, agreement)
     assert_equal [valid.email], mail.to
-    assert_equal "#{agreement.user.username} Resubmitted a Data Request", mail.subject
+    assert_equal "#{agreement.complex_name_or_username} resubmitted a data request", mail.subject
     assert_match(
       /#{agreement.user.username} \[#{agreement.user.email}\] resubmitted a data request\./,
       mail.body.encoded
@@ -42,7 +42,7 @@ class UserMailerTest < ActionMailer::TestCase
     admin = users(:admin)
     mail = UserMailer.daua_approved(agreement, admin)
     assert_equal [agreement.user.email], mail.to
-    assert_equal "Your Data Request has been Approved", mail.subject
+    assert_equal "Your data request has been approved", mail.subject
     assert_match(/Your data request has been approved\./, mail.body.encoded)
   end
 
@@ -51,7 +51,7 @@ class UserMailerTest < ActionMailer::TestCase
     admin = users(:admin)
     mail = UserMailer.sent_back_for_resubmission(agreement, admin)
     assert_equal [agreement.user.email], mail.to
-    assert_equal "Please Resubmit your Data Request", mail.subject
+    assert_equal "Please resubmit your data request", mail.subject
     assert_match(/Your data request is missing required information\./, mail.body.encoded)
   end
 
@@ -61,7 +61,7 @@ class UserMailerTest < ActionMailer::TestCase
     admin = users(:admin)
     mail = UserMailer.daua_progress_notification(agreement, admin, agreement_event)
     assert_equal [admin.email], mail.to
-    assert_equal "#{agreement.name}'s Data Request Changed to Approved", mail.subject
+    assert_equal "#{agreement.complex_name_or_username}'s data request changed to approved", mail.subject
     assert_match(
       /#{agreement.user.username}'s data request has been approved by principalrevieweronreleased\./,
       mail.body.encoded
@@ -73,7 +73,7 @@ class UserMailerTest < ActionMailer::TestCase
     agreement_event = agreement_events(:submitted_two_comment)
     mail = UserMailer.mentioned_in_agreement_comment(agreement_event, reviewer)
     assert_equal [reviewer.email], mail.to
-    assert_equal "#{agreement_event.user.username} Mentioned You While Reviewing a Data Request", mail.subject
+    assert_equal "#{agreement_event.user.username} mentioned you on a data request", mail.subject
     assert_match(/#{agreement_event.user.username} mentioned you while reviewing a data request\./, mail.body.encoded)
   end
 end
