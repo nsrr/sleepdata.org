@@ -16,17 +16,17 @@
           - page_complete = data_request.page_complete?(final_legal_document_page)
           %li
             - if page_complete
-              %i.fa.fa-check-square-o.text-success
+              = icon("fas", "check-square", class: "text-success")
             - else
-              %i.fa.fa-square-o
+              = icon("far", "square")
             = link_to "Page #{final_legal_document_page.position}", data_requests_page_path(data_request, final_legal_document_page.position), class: "link-unstyled"
 
         - if data_request.attestation_required?
           %li
             - if data_request.attestation_complete?
-              %i.fa.fa-check-square-o.text-success
+              = icon("fas", "check-square", class: "text-success")
             - else
-              %i.fa.fa-square-o
+              = icon("far", "square")
             = link_to data_request.final_legal_document.attestation_name, data_requests_attest_path(data_request), class: "link-unstyled"
 
       = render "data_requests/description", data_request: data_request

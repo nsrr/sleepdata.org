@@ -110,6 +110,6 @@
       = link_to "Show all data requests.", reviews_path
   - else
     .jumbotron.jumbotron-custom-text
-      %i.fa.fa-clone.mr-1
+      = icon("far", "clone", class: "mr-1")
       No data requests found.
       = link_to "Start over", reviews_path if params[:search].present?

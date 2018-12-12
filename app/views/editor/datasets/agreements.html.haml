@@ -41,6 +41,6 @@
 
 - else
   .jumbotron.jumbotron-custom-text
-    %i.fa.fa-clone.mr-1
+    = icon("far", "clone", class: "mr-1")
     No data requests found.
     = link_to "Start over", agreements_dataset_path(@dataset) if params[:search].present?

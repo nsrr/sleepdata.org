@@ -5,11 +5,17 @@
 .star-ratings.nowrap
   - (0..4).each do |position|
     - if rating > position + 0.5
-      - icon_class = "fa-star text-warning"
+      - weight = "fas"
+      - star = "star"
+      - icon_class = "text-warning"
     - elsif rating > position
-      - icon_class = "fa-star-half-o text-warning"
+      - weight = "fas"
+      - star = "star-half-alt"
+      - icon_class = "text-warning"
     - else
-      - icon_class = "fa-star-o text-muted"
+      - weight = "far"
+      - star = "star"
+      - icon_class = "text-muted"
 
     .star-rating.star-rating-clickable{ data: { object: "star-rating", position: position, target: "#dataset_review_rating" } }
-      %i.fa{ class: icon_class, aria: { hidden: "true" } }
+      = icon(weight, star, class: icon_class)

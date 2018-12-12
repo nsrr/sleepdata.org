@@ -32,11 +32,11 @@
             = simple_markdown(@user.profile_bio) if @user.profile_bio.present?
             - if @user.profile_location.present?
               %p
-                %i.fa.fa-map-marker
+                = icon("fas", "map-marker-alt")
                 = @user.profile_location
             - if @user.profile_url.present?
               %p.nowrap.overflow-hidden
-                %i.fa.fa-link
+                = icon("fas", "link")
                 = link_to @user.profile_url, @user.profile_url
         - else
           .mb-auto
@@ -49,5 +49,5 @@
 
 - else
   .jumbotron.jumbotron-action.jumbotron-custom-text.jumbotron-shadow
-    %i.fa.fa-user-circle.animate-wiggle.mr-1
+    = icon("fas", "user-circle", class: "animate-wiggle mr-1")
     All profiles have been reviewed!

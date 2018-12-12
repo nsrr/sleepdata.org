@@ -24,8 +24,7 @@
       - @replies.each do |reply|
         %tr
           %td.d-none.d-md-table-cell.text-center
-            - if reply.deleted?
-              %i.fa.fa-eye-slash{ rel: "tooltip", data: { title: "Deleted", container: "body", placement: "left" } }
+            = icon("fas", "eye-slash", class: "text-muted", rel: "tooltip", data: { title: "Deleted", container: "body", placement: "top" }) if reply.deleted?
           %td.d-none.d-md-table-cell.text-center
             - symbol = "+" if reply.rank >= 0
             = "#{symbol}#{reply.rank}"

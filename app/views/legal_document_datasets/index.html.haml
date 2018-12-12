@@ -39,6 +39,6 @@
   .center-horizontally= paginate @legal_document_datasets, theme: "bootstrap"
 - else
   .jumbotron.jumbotron-custom-text
-    %i.fa.fa-clone.mr-1
+    = icon("far", "clone", class: "mr-1")
     No legal document datasets found.
     = link_to "Start over", organization_legal_document_datasets_path(@organization) if params[:search].present?

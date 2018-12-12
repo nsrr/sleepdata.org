@@ -18,13 +18,13 @@ $(document)
     if $($(this).data("target")).prop("checked")
       $(this).find(".card-header").removeClass("bg-light")
       $(this).find(".card-header").addClass("bg-primary text-white")
-      $(this).find("[data-object~=dataset-check-icon]").removeClass("fa-square-o")
-      $(this).find("[data-object~=dataset-check-icon]").addClass("fa-check-square-o")
+      $(this).find("[data-object~=dataset-check-icon]").removeClass("far fa-square")
+      $(this).find("[data-object~=dataset-check-icon]").addClass("fas fa-check-square")
     else
       $(this).find(".card-header").removeClass("bg-primary text-white")
       $(this).find(".card-header").addClass("bg-light")
-      $(this).find("[data-object~=dataset-check-icon]").removeClass("fa-check-square-o")
-      $(this).find("[data-object~=dataset-check-icon]").addClass("fa-square-o")
+      $(this).find("[data-object~=dataset-check-icon]").removeClass("fas fa-check-square")
+      $(this).find("[data-object~=dataset-check-icon]").addClass("far fa-square")
     if $("[name='data_request[dataset_ids][]']:checked").length <= 2
       $(".datasets-warning").hide()
     else

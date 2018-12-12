@@ -72,6 +72,6 @@
   .center-horizontally= paginate @organization_users, theme: "bootstrap"
 - else
   .jumbotron.jumbotron-custom-text
-    %i.fa.fa-clone.mr-1
+    = icon("far", "clone", class: "mr-1")
     No members found.
     = link_to "Start over", organization_organization_users_path(@organization) if params[:search].present?

@@ -42,6 +42,6 @@
   .center-horizontally= paginate @legal_document_pages, theme: "bootstrap"
 - else
   .jumbotron.jumbotron-custom-text
-    %i.fa.fa-clone.mr-1
+    = icon("far", "clone", class: "mr-1")
     No legal document pages found.
     = link_to "Start over", organization_legal_document_legal_document_pages_path(@organization, @legal_document) if params[:search].present?

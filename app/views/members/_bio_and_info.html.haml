@@ -19,5 +19,5 @@
 
       - if member.profile_url.present?
         %p.nowrap.overflow-hidden
-          %i.fa.fa-link
+          = icon("fas", "link")
           = link_to member.profile_url, member.profile_url

@@ -10,9 +10,9 @@
         .card-header.overflow-hidden.nowrap{ class: "#{dataset_included ? "bg-primary text-white" : "bg-light"}" }
           .d-none= check_box_tag "data_request[dataset_ids][]", dataset.id, dataset_included, id: "data_request_dataset_ids_#{dataset.id}"
           - if dataset_included
-            %i.fa.fa-check-square-o{ data: { object: "dataset-check-icon" } }
+            = icon("fas", "check-square", data: { object: "dataset-check-icon" })
           - else
-            %i.fa.fa-square-o{ data: { object: "dataset-check-icon" } }
+            = icon("far", "square", data: { object: "dataset-check-icon" })
           = dataset.name
         .card-body.d-flex.justify-content-center.align-items-center
           = image_tag logo_dataset_path(dataset), style: "max-width: 100%;max-height: 70px;", alt: "", class: "img-ignore-selection"

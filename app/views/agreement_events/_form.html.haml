@@ -8,7 +8,7 @@
         - if @agreement_event.new_record?
           .float-right
             = link_to reviewer_supporting_documents_path(@data_request), class: "link-blend" do
-              %i.fa.fa-paperclip
+              = icon("fas", "paperclip")
         - else
           .float-right
             = link_to "Cancel", agreement_agreement_event_path(@data_request, @agreement_event), remote: true, method: :get, class: "btn btn-light btn-sm"

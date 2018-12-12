@@ -43,9 +43,9 @@
                       - if doc.dig(:complete?).nil?
                         / %i.fa.fa-check-square
                       - elsif doc.dig(:complete?)
-                        %i.fa.fa-check-square-o.text-success
+                        = icon("fas", "check-square", class: "text-success")
                       - else
-                        %i.fa.fa-square-o
+                        = icon("far", "square")
                       = doc.dig(:name)
         .sidebar-nav-group
           %a.sidebar-nav-group-link

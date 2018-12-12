@@ -28,6 +28,6 @@
                 = render "layouts/edit_delete_dropdown", edit_url: edit_organization_path(organization), delete_url: organization, delete_confirmation: "Delete #{organization.name}?"
 - else
   .jumbotron.jumbotron-custom-text
-    %i.fa.fa-clone.mr-1
+    = icon("far", "clone", class: "mr-1")
     No organizations found.
     = link_to "Start over", organizations_path if params[:search].present?

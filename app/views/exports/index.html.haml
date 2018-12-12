@@ -31,6 +31,6 @@
   .center-horizontally= paginate @exports, theme: "bootstrap"
 - else
   .jumbotron.jumbotron-custom-text
-    %i.fa.fa-clone.mr-1
+    = icon("far", "clone", class: "mr-1")
     No exports found.
     = link_to "Start over", exports_path if params[:search].present?

@@ -37,6 +37,6 @@
   .center-horizontally= paginate @dataset_reviews, theme: "bootstrap"
 - else
   .jumbotron.jumbotron-custom-text
-    %i.fa.fa-clone.mr-1
+    = icon("far", "clone", class: "mr-1")
     No reviews for this dataset.
     = link_to "Write a review", new_dataset_dataset_review_path(@dataset)

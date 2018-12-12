@@ -14,15 +14,15 @@
     = render "forms/horizontal/show/generic", title: "Signed", content: @data_request.duly_authorized_representative_signature_date.strftime("%-d %B %Y")
 - else
   %p
-    %i.fa.fa-check-square-o.text-success
+    = icon("fas", "check-square", class: "text-success")
     Signature Requested
 
   %p
-    %i.fa.fa-check-square-o.text-success
+    = icon("fas", "check-square", class: "text-success")
     %span Representative Emailed
 
   %p
-    %i.fa.fa-square-o
+    = icon("far", "square")
     %span.text-muted Representative Signed
 
   %p.small.text-muted

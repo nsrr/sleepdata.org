@@ -33,6 +33,6 @@
   .center-horizontally= paginate @images, theme: "bootstrap"
 - else
   .jumbotron.jumbotron-custom-text
-    %i.fa.fa-clone.mr-1
+    = icon("far", "clone", class: "mr-1")
     No images found.
     = link_to "Start over", images_path if params[:search].present?
