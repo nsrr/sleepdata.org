@@ -42,7 +42,7 @@
     .row
       .col-md-3
         .text-center
-          %i.fa.fa-hdd-o.icon-xl
+          = icon("fas", "hdd", class: "icon-xl")
       .col-md-3
         - total_stored = DatasetFile.current.where(is_file: true).sum(:file_size)
         .text-center.d-block.d-md-none
@@ -62,4 +62,4 @@
           Shared with Researchers
       .col-md-3.d-none.d-md-block
         .text-center
-          %i.fa.fa-globe.icon-xl
+          = icon("fas", "globe-americas", class: "icon-xl")

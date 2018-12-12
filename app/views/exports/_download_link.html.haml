@@ -1,6 +1,6 @@
 - if export.zipped_file.present?
   = link_to [:download, export], data: { turbolinks: false } do
-    %i.fa.fa-file-archive-o
+    = icon("far", "file-archive")
     = export.name
 - else
   .text-muted Processing...

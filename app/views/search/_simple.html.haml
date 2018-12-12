@@ -7,7 +7,7 @@
           = text_field_tag :search, params[:search], autocomplete: "off", class: "form-control form-control-lg", placeholder: "Search #{@title}"
           .input-group-append
             = link_to "#", class: "btn btn-lg btn-primary", data: { object: "submit-and-disable", target: "#search-form" } do
-              %i.fa.fa-search
+              = icon("fas", "search")
             - if params[:search].present?
               = link_to url, class: "btn btn-lg btn-light" do
                 &times;

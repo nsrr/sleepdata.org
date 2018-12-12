@@ -12,7 +12,6 @@
 
   = render "datasets/download_command"
 - else
-  .card.background-p50-grey.border-light
-    .card-body.text-center.text-muted{ style: "font-size: 1.5rem;" }
-      %i.fa.fa-files-o
-      No Files
+  .jumbotron.jumbotron-custom-text
+    = icon("far", "clone", class: "mr-1")
+    No files found.

@@ -13,9 +13,8 @@
         - @path.to_s.split("/")[-1..-1].each_with_index do |folder, index|
           - url = pages_path + "/" + @path.to_s.split("/")[0..-2].join("/")
           = link_to url, class: (@path == params[:path] ? "active" : nil) do
-            %i.fa.fa-level-up
+            = icon("fas", "level-up-alt")
             = folder
-
 
     - @object.pages(@path)[0..(page*100+100 - 1)].each do |page_name, page|
       - is_file = File.file?(page)
@@ -23,7 +22,10 @@
       - url = pages_path + "/" + folder
       %li.nowrap
         = link_to url, class: "overflow-hidden #{(page_name == File.basename(@page_path) ? "active" : nil)}" do
-          %fa.fa{ class: is_file ? "fa-file-o" : "fa-folder-open" }
+          - if is_file
+            = icon("far", "file")
+          - else
+            = icon("fas", "folder-open")
           = page_name
 
   - if false

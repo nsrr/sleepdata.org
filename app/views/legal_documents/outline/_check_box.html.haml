@@ -13,9 +13,9 @@
   - if reviewer
     .legal-document-variable-review
       - if value == "1"
-        %i.fa.fa-check-square.text-primary
+        = icon("fas", "check-square", class: "text-primary")
       - else
-        %i.fa.fa-times.text-danger
+        = icon("fas", "times", class: "text-danger")
       - if variable.description.present?
         %span.custom-control-description= variable.description
   - else

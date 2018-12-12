@@ -14,7 +14,7 @@
           %li.sidebar-menu-header
             = @variable.name
             - if @variable.commonly_used?
-              %i.fa.fa-star.text-warning
+              = icon("fas", "star", class: "text-warning")
           %li= link_to "Overview", dataset_variable_path(@dataset, @variable, v: params[:v]), class: (params[:action] == "show" ? "active" : nil)
 
           - if params[:action] == "graphs" || charts.present?

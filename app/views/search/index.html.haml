@@ -8,7 +8,7 @@
     = form.text_field :search, value: params[:search], class: "form-control", placeholder: "Search...", autocomplete: "off", autofocus: params[:search].blank?
     %span.input-group-append
       = link_to "#", class: "btn btn-primary", data: { object: "submit-and-disable", target: "#search-form" } do
-        %i.fa.fa-search
+        = icon("fas", "search")
 
 - @highlight_found = true
 - if [0, 1].include?(params[:page].to_i)

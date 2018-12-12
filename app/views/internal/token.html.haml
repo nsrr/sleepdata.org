@@ -11,7 +11,7 @@
   .mb-3
     %span.code-command-blank
       = link_to "#", data: { object: "suppress-click", clipboard_text: current_user.id_and_auth_token, placement: "bottom", container: "body", title: "Copied!", trigger: "manual" }, style: "text-decoration: none" do
-        %i.fa.fa-clipboard
+        = icon("fas", "paste")
       = current_user.id_and_auth_token
 
   %p.lead

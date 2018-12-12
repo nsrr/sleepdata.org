@@ -17,7 +17,7 @@
   %div{ style: "position:relative" }
     %div{ style: "position:absolute; top: -30px; right: 0;" }
       = link_to direct_download, class: "btn btn-light btn-sm" do
-        %i.fa.fa-download
+        = icon("fas", "download")
         = @form.code_book
   - if @form.pdf?
     .embed-responsive{ style: "padding-bottom: 100.00%;" }

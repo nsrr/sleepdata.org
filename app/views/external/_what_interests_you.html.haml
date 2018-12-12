@@ -7,7 +7,7 @@
     .landing-face.landing-front.landing-face-share
       .landing-box-header= link_to "Sharing Data", share_path
       %p.text-center
-        %i.fa.fa-handshake-o.icon-lg{ aria: { hidden: "true" } }
+        = icon("fas", "handshake", class: "icon-lg")
   .landing-box{ data: { link: datasets_path } }
     .landing-face.landing-back
       .landing-box-header= link_to "Datasets", datasets_path
@@ -16,7 +16,7 @@
     .landing-face.landing-front
       .landing-box-header= link_to "Datasets", datasets_path
       %p.text-center
-        %i.fa.fa-table.icon-lg{ aria: { hidden: "true" } }
+        = icon("fas", "table", class: "icon-lg")
   .landing-box{ data: { link: datasets_path(data: "actigraphy") } }
     .landing-face.landing-back
       .landing-box-header= link_to "Actigraphy", datasets_path(data: "actigraphy")
@@ -26,7 +26,7 @@
     .landing-face.landing-front
       .landing-box-header= link_to "Actigraphy", datasets_path(data: "actigraphy")
       %p.text-center
-        %i.fa.fa-clock-o.icon-lg{ aria: { hidden: "true" } }
+        = icon("far", "clock", class: "icon-lg")
   .landing-box{ data: { link: datasets_path(data: "polysomnography") } }
     .landing-face.landing-back
       .landing-box-header= link_to "Polysomnography", datasets_path(data: "polysomnography")
@@ -35,7 +35,7 @@
     .landing-face.landing-front
       .landing-box-header= link_to "Polysomnography", datasets_path(data: "polysomnography")
       %p.text-center
-        %i.fa.fa-heartbeat.icon-lg{ aria: { hidden: "true" } }
+        = icon("fas", "heartbeat", class: "icon-lg")
 
 .landing-sentence.mb-5{ style: "font-weight: normal;" }
   Not sure?

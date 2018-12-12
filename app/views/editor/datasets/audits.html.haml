@@ -16,20 +16,20 @@
         %th.nowrap File Path
         %th.nowrap
           - if params.key?(:user_id)
-            %i.fa.fa-filter
+            = icon("fas", "filter")
             - user = User.find_by(id: params[:user_id])
             = user ? user.username : "Public User"
           - else
             User
         %th.nowrap
           - if params.key?(:remote_ip)
-            %i.fa.fa-filter
+            = icon("fas", "filter")
             = params[:remote_ip].blank? ? "blank" : params[:remote_ip]
           - else
             IP Address
         %th.nowrap
           - if params.key?(:medium)
-            %i.fa.fa-filter
+            = icon("fas", "filter")
             = params[:medium].blank? ? "blank" : params[:medium]
           - else
             Medium
@@ -40,11 +40,9 @@
         %td.nowrap
           = succeed " " do
             - if audit.user_id.to_s == params[:user_id]
-              = link_to audits_dataset_path(@dataset, medium: params[:medium], remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Remove Filter", placement: "left" } do
-                %i.fa.fa-times>
+              = link_to icon("fas", "times"), audits_dataset_path(@dataset, medium: params[:medium], remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Remove Filter", placement: "left" }
             - else
-              = link_to audits_dataset_path(@dataset, medium: params[:medium], user_id: audit.user_id.to_s, remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Filter by #{ audit.user ? audit.user.username : "Anonymous" }", placement: "left" } do
-                %i.fa.fa-filter>
+              = link_to icon("fas", "filter"), audits_dataset_path(@dataset, medium: params[:medium], user_id: audit.user_id.to_s, remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Filter by #{ audit.user ? audit.user.username : "Anonymous" }", placement: "left" }
           - if audit.user
             = audit.user.username if audit.user
           - else
@@ -52,20 +50,16 @@
         %td.nowrap
           = succeed " " do
             - if audit.remote_ip.to_s == params[:remote_ip]
-              = link_to audits_dataset_path(@dataset, user_id: params[:user_id], medium: params[:medium]), rel: "tooltip", data: { title: "Remove Filter", placement: "left" } do
-                %i.fa.fa-times>
+              = link_to icon("fas", "times"), audits_dataset_path(@dataset, user_id: params[:user_id], medium: params[:medium]), rel: "tooltip", data: { title: "Remove Filter", placement: "left" }
             - else
-              = link_to audits_dataset_path(@dataset, remote_ip: audit.remote_ip.to_s, user_id: params[:user_id], medium: params[:medium]), rel: "tooltip", data: { title: "Filter by #{audit.remote_ip}", placement: "left" } do
-                %i.fa.fa-filter>
+              = link_to icon("fas", "filter"), audits_dataset_path(@dataset, remote_ip: audit.remote_ip.to_s, user_id: params[:user_id], medium: params[:medium]), rel: "tooltip", data: { title: "Filter by #{audit.remote_ip}", placement: "left" }
           = audit.remote_ip
         %td.nowrap
           = succeed " " do
             - if audit.medium.to_s == params[:medium]
-              = link_to audits_dataset_path(@dataset, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Remove Filter", placement: "left" } do
-                %i.fa.fa-times>
+              = link_to icon("fas", "times"), audits_dataset_path(@dataset, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Remove Filter", placement: "left" }
             - else
-              = link_to audits_dataset_path(@dataset, medium: audit.medium.to_s, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Filter by #{audit.medium}", placement: "left" } do
-                %i.fa.fa-filter>
+              = link_to icon("fas", "filter"), audits_dataset_path(@dataset, medium: audit.medium.to_s, user_id: params[:user_id], remote_ip: params[:remote_ip]), rel: "tooltip", data: { title: "Filter by #{audit.medium}", placement: "left" }
           = audit.medium
         %td.nowrap
           %abbr{ rel: "tooltip", data: { title: audit.created_at.strftime("%-d %B %Y, %-l:%M %p"), container: "body", placement: "left" } }

@@ -3,27 +3,27 @@
     .col-lg.mb-3.d-lg-flex.info-container.mx-3.box-shadow
       %div
         .info-header
-          %i.fa.fa-graduation-cap
+          = icon("fas", "graduation-cap")
           What
         %p= dataset.info_what
   - if dataset.info_who.present?
     .col-lg.mb-3.d-lg-flex.info-container.mx-3.box-shadow
       %div
         .info-header
-          %i.fa.fa-users
+          = icon("fas", "users")
           Who
         %p= dataset.info_who
   - if dataset.info_when.present?
     .col-lg.mb-3.d-lg-flex.info-container.mx-3.box-shadow
       %div
         .info-header
-          %i.fa.fa-calendar
+          = icon("far", "calendar-alt")
           When
         %p= dataset.info_when
   - if dataset.info_funded_by.present?
     .col-lg.mb-3.d-lg-flex.info-container.mx-3.box-shadow
       %div
         .info-header
-          %i.fa.fa-university
+          = icon("fas", "university")
           Funding
         %p= dataset.info_funded_by

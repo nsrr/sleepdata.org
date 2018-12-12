@@ -17,7 +17,7 @@
             = link_to "Edit Tool", contribute_tool_description_path(@tool), class: "btn btn-sm btn-primary"
           - if current_user.admin?
             = link_to edit_admin_tool_path(@tool), class: "btn btn-sm btn-light" do
-              %i.fa.fa-cog
+              = icon("fas", "cog")
               Edit
 
       %p

@@ -51,8 +51,7 @@
           %th.text-center
             =# link_to "Status", reviews_path(order: (params[:order] == "agreements.status desc" ? "agreements.status" : "agreements.status desc"), status: params[:status], tag_id: params[:tag_id], search: params[:search])
             .dropdown{ style: "display: inline-block;" }
-              = link_to "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" } do
-                %i.fa.fa-filter
+              = link_to icon("fas", "filter"), "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" }
               .dropdown-menu
                 = link_to "All", reviews_path(order: params[:order]), style: params[:status].blank? ? "font-weight:bold;" : "", class: "dropdown-item"
                 - DataRequest::STATUS.each do |label, value|
@@ -70,8 +69,7 @@
             %th.d-none.d-xl-table-cell.nowrap
               Tags
               .dropdown{ style: "display: inline-block" }
-                = link_to "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" } do
-                  %i.fa.fa-filter
+                = link_to icon("fas", "filter"), "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" }
                 .dropdown-menu.dropdown-menu-right
                   = link_to "All", reviews_path(order: params[:order]), style: params[:tag_id].blank? ? "font-weight:bold;" : "", class: "dropdown-item"
                   - Tag.review_tags.pluck(:name, :id).each do |label, value|

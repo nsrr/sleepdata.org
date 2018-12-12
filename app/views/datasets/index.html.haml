@@ -13,7 +13,7 @@
     .btn-group
       = link_to "#", class: "btn btn-sm btn-light dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do
         .d-inline-block.d-sm-none
-          %i.fa.fa-cog
+          = icon("fas", "cog")
         .d-none.d-sm-inline-block
           - case params[:ages]
           - when "0-17"
@@ -33,7 +33,7 @@
     .btn-group
       = link_to "#", class: "btn btn-sm btn-light dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do
         .d-inline-block.d-sm-none
-          %i.fa.fa-cog
+          = icon("fas", "cog")
         .d-none.d-sm-inline-block
           - case params[:data]
           - when "actigraphy"
@@ -52,7 +52,7 @@
     .btn-group
       = link_to "#", class: "btn btn-sm btn-light dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do
         .d-inline-block.d-sm-none
-          %i.fa.fa-cog
+          = icon("fas", "cog")
         .d-none.d-sm-inline-block
           - case params[:order]
           - when "datasets.release_date desc"
@@ -120,4 +120,4 @@
           = link_to "share your data", share_path
           with the NSRR community.
         .text-center
-          %i.fa.fa-handshake-o.icon-xl{ aria: { hidden: "true" } }
+          = icon("far", "handshake", class: "icon-xl")

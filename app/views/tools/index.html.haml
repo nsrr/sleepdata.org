@@ -36,8 +36,7 @@
           %th.nowrap
             Type
             .dropdown{ style: "display: inline-block" }
-              = link_to "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" } do
-                %i.fa.fa-filter
+              = link_to icon("fas", "filter"), "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" }
               .dropdown-menu.dropdown-menu-right
                 = link_to "All", tools_path(order: params[:order]), style: params[:type].blank? ? "font-weight:bold;" : "", class: "dropdown-item"
                 - [["Program", "program"], ["Script", "script"], ["Tutorial", "tutorial"]].each do |label, value|

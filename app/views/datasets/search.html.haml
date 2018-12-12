@@ -6,8 +6,7 @@
   .input-group
     = form.text_field :search, value: params[:search], class: "form-control", placeholder: "Search #{@dataset.slug.upcase}...", autocomplete: "off", autofocus: params[:search].blank?
     %span.input-group-append
-      = link_to "#", class: "btn btn-primary", data: { object: "submit-and-disable", target: "#search-form" } do
-        %i.fa.fa-search
+      = link_to icon("fas", "search"), "#", class: "btn btn-primary", data: { object: "submit-and-disable", target: "#search-form" }
 
 - if @results.present?
   .dashboard-container.dashboard-table
