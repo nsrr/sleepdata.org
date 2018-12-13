@@ -12,7 +12,7 @@ class Admin::ToolsControllerTest < ActionDispatch::IntegrationTest
   def tool_params
     {
       name: "Tool Name",
-      url: "https://github.com/nsrr/www.sleepdata.org",
+      url: "https://github.com/nsrr/sleepdata.org",
       description: @tool.description,
       status: @tool.status
     }

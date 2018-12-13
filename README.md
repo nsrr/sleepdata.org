@@ -1,10 +1,10 @@
-www.sleepdata.org
-=================
+National Sleep Research Resource
+================================
 
-[![Build Status](https://travis-ci.com/nsrr/www.sleepdata.org.svg?branch=master)](https://travis-ci.com/nsrr/www.sleepdata.org)
-[![Code Climate](https://codeclimate.com/github/nsrr/www.sleepdata.org/badges/gpa.svg)](https://codeclimate.com/github/nsrr/www.sleepdata.org)
+[![Build Status](https://travis-ci.com/nsrr/sleepdata.org.svg?branch=master)](https://travis-ci.com/nsrr/sleepdata.org)
+[![Code Climate](https://codeclimate.com/github/nsrr/sleepdata.org/badges/gpa.svg)](https://codeclimate.com/github/nsrr/sleepdata.org)
 
-The application that runs www.sleepdata.org. Using Rails 5.2+ and Ruby 2.5+.
+The application that runs https://sleepdata.org. Using Rails 5.2+ and Ruby 2.5+.
 
 
 ## Setting up Daily Digest Emails
@@ -13,14 +13,14 @@ Edit Cron Jobs `sudo crontab -e` to run the task `lib/tasks/daily_digest.rake`
 
 ```
 SHELL=/bin/bash
-0 1 * * 3 source /etc/profile.d/rvm.sh && cd /var/www/www.sleepdata.org && rvm 2.5.1 && rails weekly_reviewer_digest RAILS_ENV=production
+0 1 * * 3 source /etc/profile.d/rvm.sh && cd /var/www/sleepdata.org && rvm 2.5.1 && rails weekly_reviewer_digest RAILS_ENV=production
 ```
 
 Refreshing Sitemap
 
 ```
 SHELL=/bin/bash
-0 1 * * * source /etc/profile.d/rvm.sh && cd /var/www/www.sleepdata.org && rvm 2.5.1 && rails sitemap:refresh RAILS_ENV=production
+0 1 * * * source /etc/profile.d/rvm.sh && cd /var/www/sleepdata.org && rvm 2.5.1 && rails sitemap:refresh RAILS_ENV=production
 ```
 
 ## Installing Mini Magick - Image Upload Resizing
