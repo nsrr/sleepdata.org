@@ -1,6 +1,0 @@
-%li.nav-item.navbar-hide-scrolled{ class: current_page?(path) ? "active" : nil }
-  = link_to path, class: "nav-link text-#{color}" do
-    %i.fa{ class: "fa-#{icon}" }
-    .d-inline.d-lg-none= title
-  - if current_page?(path)
-    %span.sr-only (current)

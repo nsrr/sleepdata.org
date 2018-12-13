@@ -39,7 +39,7 @@ $(document)
   )
   .on("click", "[data-object~=toggle-tag]", ->
     tag_ids = addOrRemove(getTagIds(), "#{$(this).data("tag-id")}")
-    $(this).find("i").toggleClass("fa-check-square fa-square-o tag-unselected")
+    $(this).find("i").toggleClass("fas fa-check-square far fa-square tag-unselected")
     $("#data_request_tag_ids").val(tag_ids.join(","))
     false
   )

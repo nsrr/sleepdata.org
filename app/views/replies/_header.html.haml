@@ -11,7 +11,7 @@
       %i.text-muted [deleted]
   - else
     - if current_user&.admin? && reply.user.shadow_banned?
-      %span.glyphicon.glyphicon-eye-close.text-muted
+      = icon("fas", "eye-slash", class: "text-muted")
     - if reply.parent_author?
       %small
         = icon("fas", "pen-square", class: "text-dark", rel: "tooltip", data: { title: "Topic Author", container: "body" })

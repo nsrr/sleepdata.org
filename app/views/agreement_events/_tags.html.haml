@@ -7,5 +7,8 @@
     - tag_ids = @data_request.tag_ids
     - Tag.review_tags.order(:name).each do |tag|
       = link_to "#", data: { object: "toggle-tag", tag_id: tag.id }, class: "dropdown-item" do
-        %i.fa{ class: @data_request.tags.include?(tag) ? "fa-check-square" : "fa-square-o tag-unselected", style: "color: #{tag.color};" }
+        - if @data_request.tags.include?(tag)
+          = icon("fas", "check-square", style: "color: #{tag.color};")
+        - else
+          = icon("far", "square", class: "tag-unselected", style: "color: #{tag.color};")
         = tag.name

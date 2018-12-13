@@ -1,38 +1,34 @@
 - if !current_user && just_voted
-  %small= link_to 'Login to vote', new_user_session_path
+  %small= link_to "Login to vote", new_user_session_path
 - else
   .vote-info
     .vote-expanded-info
       %small
         Was this reply useful?
-        = link_to 'Learn more...', voting_path
+        = link_to "Learn more...", voting_path
 
     - vote = reply.vote(current_user)
 
     - if vote == true
-      - klass = 'text-success'
-      - icon = 'fa-arrow-up'
-      - change_to = 'clear'
+      - icon_display = icon("fas", "arrow-up", class: just_voted ? "just-voted" : nil)
+      - klass = "text-success"
+      - change_to = "clear"
     - else
-      - klass = 'text-muted'
-      - icon = 'fa-arrow-up'
-      - change_to = 'up'
+      - icon_display = icon("fas", "arrow-up")
+      - klass = "text-muted"
+      - change_to = "up"
 
-    &nbsp;
-
-    = link_to vote_reply_path(reply, vote: change_to), method: :post, remote: true, style: 'text-decoration:none;outline:none', class: klass, tabindex: '-1' do
-      %i.fa{ class: "#{icon} #{'just-voted' if just_voted && vote == true}", style: 'width: 16px' }
+    = link_to icon_display, vote_reply_path(reply, vote: change_to), method: :post, remote: true, style: "text-decoration:none;outline:none", class: klass, tabindex: "-1"
 
     &nbsp;
 
     - if vote == false
-      - klass = 'text-danger'
-      - icon = 'fa-arrow-down'
-      - change_to = 'clear'
+      - icon_display = icon("fas", "arrow-down", class: just_voted ? "just-voted" : nil)
+      - klass = "text-danger"
+      - change_to = "clear"
     - else
-      - klass = 'text-muted'
-      - icon = 'fa-arrow-down'
-      - change_to = 'down'
+      - icon_display = icon("fas", "arrow-down")
+      - klass = "text-muted"
+      - change_to = "down"
 
-    = link_to vote_reply_path(reply, vote: change_to), method: :post, remote: true, style: 'text-decoration:none;outline:none', class: klass, tabindex: '-1' do
-      %i.fa{ class: "#{icon} #{'just-voted' if just_voted && vote == false}", style: 'width: 16px' }
+    = link_to icon_display, vote_reply_path(reply, vote: change_to), method: :post, remote: true, style: "text-decoration:none;outline:none", class: klass, tabindex: "-1"
