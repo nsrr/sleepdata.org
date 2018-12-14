@@ -1,4 +1,4 @@
-## 36.0.0
+## 36.0.0 (December 14, 2018)
 
 ### Enhancements
 - **General Changes**
