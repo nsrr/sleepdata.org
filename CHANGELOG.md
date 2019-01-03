@@ -8,6 +8,9 @@
   - Update to hashids 1.0.5
   - Update to pg_search 2.1.3
 
+### Bug Fix
+- Dataset indexing now picks up files and folders that include parentheses
+
 ## 36.0.0 (December 14, 2018)
 
 ### Enhancements

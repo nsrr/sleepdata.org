@@ -158,7 +158,7 @@ class Dataset < ApplicationRecord
   def find_or_create_dataset_file(file)
     full_path = file.gsub(%r{^#{files_folder}/}, "")
     file_name = File.basename(full_path)
-    folder = full_path.gsub(/#{file_name}$/, "")
+    folder = full_path.gsub(/#{Regexp.escape(file_name)}$/, "")
     file_size = File.size(file)
     file_time = File.mtime(file)
     is_file = File.file?(file)
