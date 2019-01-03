@@ -42,7 +42,7 @@
             %td= legal_document.data_user_type_name
             %td= legal_document.attestation_type_name
             %td= legal_document.approval_process_name
-            %td.text-center
+            %td.nowrap.text-center
               = render "layouts/edit_delete_dropdown", edit_url: edit_organization_legal_document_path(@organization, legal_document), delete_url: [@organization, legal_document], delete_confirmation: "Delete #{legal_document.name}?"
 
   .center-horizontally= paginate @legal_documents, theme: "bootstrap"

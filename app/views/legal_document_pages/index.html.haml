@@ -36,7 +36,7 @@
             %td= legal_document_page.position
             %td= link_to legal_document_page.title, [@organization, @legal_document, legal_document_page]
             %td.text-center= simple_check legal_document_page.rider
-            %td.text-center
+            %td.nowrap.text-center
               = render "layouts/edit_delete_dropdown", edit_url: [:edit, @organization, @legal_document, legal_document_page], delete_url: [@organization, @legal_document, @legal_document_page], delete_confirmation: "Delete #{legal_document_page.title}?"
 
   .center-horizontally= paginate @legal_document_pages, theme: "bootstrap"

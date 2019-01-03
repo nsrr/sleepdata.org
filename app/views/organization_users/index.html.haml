@@ -38,7 +38,7 @@
             %td= link_to organization_user.invite_email, [@organization, organization_user]
             %td.text-center= simple_check organization_user.editor
             %td.text-center= organization_user.review_role_name
-            %td.text-center
+            %td.nowrap.text-center
               = render "layouts/edit_delete_dropdown", edit_url: edit_organization_organization_user_path(@organization, organization_user), delete_url: [@organization, organization_user], delete_confirmation: "Remove invite to #{organization_user.invite_email}?"
   .center-horizontally= paginate @organization_users, theme: "bootstrap"
 - elsif @organization_users.present?
@@ -67,7 +67,7 @@
               %td.text-center= simple_check organization_user.editor
               %td.text-center= organization_user.review_role_name
             - if @organization.editor?(current_user)
-              %td.text-center
+              %td.nowrap.text-center
                 = render "layouts/edit_delete_dropdown", edit_url: edit_organization_organization_user_path(@organization, organization_user), delete_url: [@organization, organization_user], delete_confirmation: "Remove #{organization_user.user.username} from organization?"
   .center-horizontally= paginate @organization_users, theme: "bootstrap"
 - else

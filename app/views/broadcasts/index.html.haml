@@ -40,7 +40,7 @@
             %td.nowrap.d-none.d-sm-table-cell= broadcast.publish_date.strftime "%a %b %-d, %Y"
             %td.text-center.d-none.d-lg-table-cell= simple_check broadcast.pinned
             %td.text-center.d-none.d-lg-table-cell= simple_check broadcast.archived
-            %td= render "layouts/edit_delete_dropdown", edit_url: edit_broadcast_path(broadcast), delete_url: broadcast, delete_confirmation: "Delete #{broadcast.title}?"
+            %td.nowrap= render "layouts/edit_delete_dropdown", edit_url: edit_broadcast_path(broadcast), delete_url: broadcast, delete_confirmation: "Delete #{broadcast.title}?"
   .center-horizontally= paginate @broadcasts, theme: "bootstrap"
 - else
   .jumbotron.jumbotron-custom-text

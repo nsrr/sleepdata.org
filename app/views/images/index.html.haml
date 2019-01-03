@@ -28,7 +28,7 @@
             %td= image.user.username
             %td= number_to_human_size image.file_size
             %td= image.created_at.strftime("%-d %b %Y, %-l:%M %p")
-            %td.text-center
+            %td.nowrap.text-center
               = render "layouts/edit_delete_dropdown", edit_url: edit_image_path(image), delete_url: image, delete_confirmation: "Delete #{image.name}?"
   .center-horizontally= paginate @images, theme: "bootstrap"
 - else

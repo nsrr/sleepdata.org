@@ -37,7 +37,7 @@
                 %span.badge.badge-dark Script
               - if tool.tag_tutorial?
                 %span.badge.badge-light Tutorial
-            %td
+            %td.nowrap
               = render "layouts/edit_delete_dropdown", edit_url: edit_admin_tool_path(tool), delete_url: admin_tool_path(tool), delete_confirmation: "Delete #{tool.name}?"
   .center-horizontally= paginate @tools, theme: "bootstrap"
 - else

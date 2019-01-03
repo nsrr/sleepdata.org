@@ -26,7 +26,7 @@
           %tr
             %td= link_to export.name, export
             %td= export_status_helper(export)
-            %td= render "layouts/edit_delete_dropdown", edit_url: edit_export_path(export), delete_url: export, delete_confirmation: "Delete #{export.name}?"
+            %td.nowrap= render "layouts/edit_delete_dropdown", edit_url: edit_export_path(export), delete_url: export, delete_confirmation: "Delete #{export.name}?"
 
   .center-horizontally= paginate @exports, theme: "bootstrap"
 - else
