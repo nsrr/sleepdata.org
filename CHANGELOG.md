@@ -1,5 +1,8 @@
 ## 37.0.0
 
+- **Gem Changes**
+  - Update to ruby 2.6.0
+
 ## 36.0.0 (December 14, 2018)
 
 ### Enhancements
