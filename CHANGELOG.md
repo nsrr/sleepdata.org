@@ -6,6 +6,7 @@
   - Update to carrierwave 1.3.1
   - Update to font-awesome-sass 5.6.1
   - Update to hashids 1.0.5
+  - Update to pg_search 2.1.3
 
 ## 36.0.0 (December 14, 2018)
 
