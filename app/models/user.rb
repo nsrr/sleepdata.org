@@ -5,6 +5,8 @@ class User < ApplicationRecord
   # Constants
   # Constants
   ORDERS = {
+    "email" => "users.email",
+    "email desc" => "users.email desc",
     "posts" => "users.replies_count",
     "posts desc" => "users.replies_count desc",
     "activity desc" => "(CASE WHEN (users.current_sign_in_at IS NULL) THEN users.created_at ELSE users.current_sign_in_at END) desc",

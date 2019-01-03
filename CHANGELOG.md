@@ -10,6 +10,7 @@
 
 ### Bug Fix
 - Dataset indexing now picks up files and folders that include parentheses
+- Fixed sorting users by email and logins on the admin users index
 
 ## 36.0.0 (December 14, 2018)
 

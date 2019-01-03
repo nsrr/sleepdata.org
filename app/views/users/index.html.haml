@@ -21,9 +21,9 @@
           %th.py-2
             = form_with url: users_path, method: :get, local: true, skip_enforcing_utf8: true do |form|
               = form.text_field :search, value: params[:search], placeholder: "Search users", autocomplete: "off", class: "table-cell-search-input border rounded"
-          = th_sort_field @order, "users.email", "Email"
+          %th= order_to "Email", primary: "email"
           %th.d-none.d-sm-table-cell= order_to "Activity", primary: "activity"
-          = th_sort_field_rev @order, "users.sign_in_count", "Logins", extra_class: "d-none d-md-table-cell text-right"
+          %th.d-none.d-md-table-cell.text-right= order_to "Logins", primary: "logins desc", secondary: "logins"
           %th.text-center
             .d-none.d-sm-inline-block Actions
       - @users.each do |user|

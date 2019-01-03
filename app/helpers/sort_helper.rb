@@ -2,7 +2,7 @@
 
 # Methods to sort tables in various ways.
 module SortHelper
-  # TODO: Deprecate in favor of "order_link"
+  # TODO: Deprecate in favor of "order_to"
   def th_sort_field_rev(order, sort_field, display_name, extra_class: "")
     sort_params = params.permit(:search)
     sort_field_order = (order == "#{sort_field} desc" || order == "#{sort_field} desc nulls last") ? sort_field : "#{sort_field} desc"
@@ -18,7 +18,7 @@ module SortHelper
     end.html_safe
   end
 
-  # TODO: Deprecate in favor of "order_link"
+  # TODO: Deprecate in favor of "order_to"
   def th_sort_field(order, sort_field, display_name, extra_class: "")
     sort_params = params.permit(:search)
     sort_field_order = (order == sort_field) ? "#{sort_field} desc" : sort_field
