@@ -4,6 +4,7 @@
   - Update to ruby 2.6.0
   - Update to bootstrap 4.2.1
   - Update to carrierwave 1.3.1
+  - Update to font-awesome-sass 5.6.1
 
 ## 36.0.0 (December 14, 2018)
 
