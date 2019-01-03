@@ -5,6 +5,7 @@
   - Update to bootstrap 4.2.1
   - Update to carrierwave 1.3.1
   - Update to font-awesome-sass 5.6.1
+  - Update to hashids 1.0.5
 
 ## 36.0.0 (December 14, 2018)
 
