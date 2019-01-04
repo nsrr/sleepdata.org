@@ -1,4 +1,4 @@
-## 37.0.0
+## 37.0.0 (January 4, 2019)
 
 - **Gem Changes**
   - Update to ruby 2.6.0
