@@ -2,9 +2,9 @@
 
 source "https://rubygems.org"
 
-gem "rails",                "5.2.2"
+gem "rails",                "6.0.0.beta1"
 
-# Database Adapter
+# PostgreSQL as the Active Record database
 gem "pg",                   "1.1.3"
 
 # Gems used by project
@@ -19,12 +19,12 @@ gem "haml",                 "~> 5.0.4"
 gem "hashids",              "~> 1.0.5"
 gem "kaminari",             "~> 1.1.1"
 gem "mini_magick",          "~> 4.9.2"
-gem "pg_search",            "~> 2.1.3"
+gem "pg_search",            "~> 2.1.4"
 gem "redcarpet",            "~> 3.4.0"
 gem "rubyzip",              "~> 1.2.2"
 gem "sitemap_generator",    "~> 6.0.1"
 
-# Rails Defaults
+# Rails defaults
 gem "coffee-rails",         "~> 4.2"
 gem "sass-rails",           "~> 5.0"
 gem "uglifier",             ">= 1.3.0"
@@ -34,13 +34,16 @@ gem "jquery-rails",         "~> 4.3.3"
 gem "turbolinks",           "~> 5"
 
 group :development do
-  gem "web-console",        ">= 3.3.0"
+  gem "listen",                ">= 3.0.5", "< 3.2"
+  gem "spring"
+  gem "spring-watcher-listen", "~> 2.0.0"
+  gem "web-console",           ">= 3.3.0"
 end
 
 group :test do
   # gem "artifice"
   # gem "artifice-passthru"
-  gem "capybara",           "~> 3.0"
+  gem "capybara",              ">= 2.15", "< 4.0"
   gem "minitest"
   gem "puma"
   gem "rails-controller-testing"
