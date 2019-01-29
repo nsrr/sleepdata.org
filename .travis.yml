@@ -3,6 +3,9 @@ rvm:
 - 2.6.0
 - ruby-head
 gemfile: "gems.rb"
+addons:
+  postgresql: "9.6"
+before_install: bundle update --bundler # Fix for ruby-head tests
 before_script:
 - "ruby lib/initial_setup.rb ../.travis_setup"
 - "psql -c 'create database sleepdata_test;' -U postgres"
