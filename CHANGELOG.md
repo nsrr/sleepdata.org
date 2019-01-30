@@ -1,11 +1,14 @@
 ## 38.0.0
 
+### Enhancements
 - **Gem Changes**
+  - Update to ruby 2.6.1
   - Update to rails 6.0.0.beta1
   - Update to pg_search 2.1.4
 
 ## 37.0.0 (January 4, 2019)
 
+### Enhancements
 - **Gem Changes**
   - Update to ruby 2.6.0
   - Update to bootstrap 4.2.1
