@@ -1,6 +1,8 @@
 ## 38.0.0
 
 ### Enhancements
+- **General Changes**
+  - Update FAIR guiding principles
 - **Variable Changes**
   - Remove extra space in variables index placeholder text
 - **Gem Changes**
