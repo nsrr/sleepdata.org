@@ -1,4 +1,4 @@
-- @title = "#{"#{params[:folder].gsub('/', ' - ')} - " if params[:folder].present?} #{@dataset.slug.upcase} Variables"
+- @title = "#{"#{params[:folder].gsub("/", " - ")} - " if params[:folder].present?}#{@dataset.slug.upcase} Variables"
 
 = render "datasets/header"
 
