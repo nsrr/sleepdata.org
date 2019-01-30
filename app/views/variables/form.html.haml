@@ -14,26 +14,27 @@
       = mail_to ENV["support_email"], ENV["support_email"], subject: "Missing Variable Form on NSRR", body: "The file \"#{@form.code_book}\" for #{@dataset.slug}/variables/#{@variable.name} is missing from server."
       to notify us of the missing file.
 - elsif @form.viewable_by_user?(current_user)
-  %div{ style: "position:relative" }
-    %div{ style: "position:absolute; top: -30px; right: 0;" }
-      = link_to direct_download, class: "btn btn-light btn-sm" do
-        = icon("fas", "download")
-        = @form.code_book
   - if @form.pdf?
-    .embed-responsive{ style: "padding-bottom: 100.00%;" }
+    .embed-responsive.mb-3{ style: "padding-bottom: 100.00%;" }
       %object.white-background{ data: inline_url, type: "application/pdf" }
         .jumbotron
           %p
             You may download the file here:
           = link_to @form.code_book, direct_download
   - elsif @form.image?
-    .text-center{ style: "margin-bottom: 20px" }
+    .text-center.mb-3
       = image_tag inline_url, style: "max-width: 100%"
-  - else
-    .jumbotron
-      %p
-        You may download the file here:
-      = link_to @form.code_book, direct_download
+
+  .jumbotron.jumbotron-custom-text
+    = link_to direct_download, class: "d-inline-block" do
+      .d-flex.bg-white.border.rounded.flex-column.flex-md-row.breakword.border-primary
+        .pl-3.py-3.d-none.d-md-block
+          = icon("fas", "download")
+        .p-3
+          = @form.code_book
+        .p-3.bg-light.rounded-right
+          .d-inline.d-md-none= icon("fas", "download")
+          = number_to_human_size @form.dataset_file&.file_size
 - else
   .jumbotron
     %p

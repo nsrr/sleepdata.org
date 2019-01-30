@@ -5,6 +5,7 @@
   - Update FAIR guiding principles
 - **Variable Changes**
   - Remove extra space in variables index placeholder text
+  - Move file download link to display below inline PDF on variable form page
 - **Gem Changes**
   - Update to ruby 2.6.1
   - Update to rails 6.0.0.beta1
