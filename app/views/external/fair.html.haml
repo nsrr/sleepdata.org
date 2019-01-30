@@ -24,17 +24,26 @@
           %li
             F1. (meta)data are assigned a globally unique and eternally persistent identifier.
             %ul.text-left
-              %li Datasets and associated documentation/files use a consistent URL structure. Each dataset has a Digital Object Identifier (DOI) pointing to its landing page (e.g. https://sleepdata.org/datasets/shhs)
+              %li
+                Datasets and associated documentation/files use a consistent URL structure. Each dataset has a Digital Object Identifier (DOI) pointing to its landing page.
+                = surround "(e.g. ", ")" do
+                  = link_to "https://sleepdata.org/datasets/shhs", "https://sleepdata.org/datasets/shhs"
 
           %li
             F2. data are described with rich metadata.
             %ul.text-left
               %li Physiological data include documentation such as device manuals, montages, sampling rate information, and scoring manuals.
-              %li Spout data dictionaries describe covariate data in version-controlled git repositories (e.g. https://github.com/sleepepi/shhs-data-dictionary)
+              %li
+                Spout data dictionaries describe covariate data in version-controlled git repositories.
+                = surround "(e.g. ", ")" do
+                  = link_to "https://github.com/sleepepi/shhs-data-dictionary", "https://github.com/sleepepi/shhs-data-dictionary"
           %li
             F3. (meta)data are registered or indexed in a searchable resource.
             %ul.text-left
-              %li Dataset documentation and metadata are searchable through the NSRR search page (https://sleepdata.org/search)
+              %li
+                Dataset documentation and metadata are searchable through the NSRR
+                = succeed "." do
+                  = link_to "search page", search_path
           %li
             F4. metadata specify the data identifier.
             %ul.text-left
