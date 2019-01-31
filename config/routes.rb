@@ -150,7 +150,7 @@ Rails.application.routes.draw do
   end
 
   scope module: :editor do
-    resources :datasets, only: [:edit, :update] do
+    resources :datasets, only: [:new, :create, :edit, :update, :destroy] do
       member do
         get :agreements
         get :audits
@@ -177,7 +177,6 @@ Rails.application.routes.draw do
   end
 
   scope module: :admin do
-    resources :datasets, only: [:new, :create, :destroy]
     resources :organizations, only: [:new, :create, :destroy], path: "orgs"
   end
 

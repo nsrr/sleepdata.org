@@ -3,7 +3,8 @@
 # Allows dataset editors to manage individual datasets.
 class Editor::DatasetsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_editable_dataset_or_redirect
+  before_action :check_organization_editor, only: [:new, :create]
+  before_action :find_editable_dataset_or_redirect, except: [:new, :create]
 
   layout "layouts/full_page_sidebar"
 
@@ -82,6 +83,22 @@ class Editor::DatasetsController < ApplicationController
   # def sync
   # end
 
+  # GET /datasets/new
+  def new
+    @dataset = Dataset.new
+    render layout: "layouts/application"
+  end
+
+  # POST /datasets
+  def create
+    @dataset = current_user.datasets.new(dataset_params)
+    if @dataset.save
+      redirect_to @dataset, notice: "Dataset was successfully created."
+    else
+      render :new, layout: "layouts/application"
+    end
+  end
+
   # # GET /datasets/1/edit
   # def edit
   # end
@@ -95,7 +112,30 @@ class Editor::DatasetsController < ApplicationController
     end
   end
 
+  # DELETE /datasets/1
+  def destroy
+    @dataset.destroy
+    redirect_to datasets_path, notice: "Dataset was successfully deleted."
+  end
+
   private
+
+  def dataset_params
+    params[:dataset] ||= { blank: "1" }
+    parse_date_if_key_present(:dataset, :release_date)
+    params.require(:dataset).permit(
+      :organization_id, :name, :description, :slug, :logo, :logo_cache, :released,
+      :git_repository, :release_date, :info_what, :info_who,
+      :info_when, :info_funded_by, :info_citation, :subjects,
+      :age_min, :age_max, :time_frame, :polysomnography, :actigraphy, :doi
+    )
+  end
+
+  def check_organization_editor
+    return if current_user&.organization_editor?
+
+    redirect_to datasets_path
+  end
 
   def find_editable_dataset_or_redirect
     super(:id)

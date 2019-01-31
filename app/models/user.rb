@@ -223,14 +223,16 @@ class User < ApplicationRecord
     Organization.current.with_viewer(self)
   end
 
+  def organization_editor?
+    editable_organizations.count.positive?
+  end
+
   def all_datasets
     Dataset.current.with_editor(id)
   end
 
   def all_reviewable_datasets
-    Dataset.current.left_outer_joins(:organization).with_reviewer(self).or(
-      Dataset.current.left_outer_joins(:organization).where(organization_id: Organization.with_reviewer(self))
-    )
+    Dataset.current.with_reviewer(self)
   end
 
   def all_viewable_datasets

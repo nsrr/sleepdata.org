@@ -3,6 +3,8 @@
 ### Enhancements
 - **General Changes**
   - Update FAIR guiding principles
+- **Organizaton Changes**
+  - Improved dataset creation and access by organization editors and viewers
 - **Variable Changes**
   - Remove extra space in variables index placeholder text
   - Move file download link to display below inline PDF on variable form page

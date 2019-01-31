@@ -19,7 +19,7 @@
   - if dataset_file.is_file?
     - if dataset_file.publicly_available?
       = icon("fas", "globe-americas")
-    - if current_user && @dataset.editors.pluck(:id).include?(current_user.id)
+    - if @dataset.editor?(current_user)
       - if dataset_file.publicly_available?
         = link_to set_public_file_dataset_path(@dataset, public: "0", path: dataset_file.full_path), method: :post, remote: true do
           = icon("far", "eye-slash", rel: "tooltip", data: { container: "body", placement: "top", title: "Make File Private" })

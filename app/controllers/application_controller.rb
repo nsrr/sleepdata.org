@@ -209,17 +209,6 @@ class ApplicationController < ActionController::Base
     params[object][key] = parse_date(params[object][key]) if params[object].key?(key)
   end
 
-  def dataset_params
-    params[:dataset] ||= { blank: "1" }
-    params[:dataset][:release_date] = parse_date(params[:dataset][:release_date])
-    params.require(:dataset).permit(
-      :organization_id, :name, :description, :slug, :logo, :logo_cache, :released,
-      :git_repository, :release_date, :info_what, :info_who,
-      :info_when, :info_funded_by, :info_citation, :subjects,
-      :age_min, :age_max, :time_frame, :polysomnography, :actigraphy, :doi
-    )
-  end
-
   # Expects an "Uploader" type class, ex: uploader = @dataset.logo
   def send_file_if_present(uploader, *args)
     if uploader.present?

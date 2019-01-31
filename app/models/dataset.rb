@@ -19,10 +19,49 @@ class Dataset < ApplicationRecord
 
   # Scopes
   scope :released, -> { current.where(released: true) }
-  scope :with_editor, ->(arg) { where("datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)", arg, arg, "editor").references(:dataset_users) }
-  scope :with_reviewer, ->(arg) { where("datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role = ?)", arg, "reviewer").references(:dataset_users) }
-  scope :with_viewer_or_editor, ->(arg) { where("datasets.released = ? or datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role IN (?))", true, arg, arg, %w(viewer editor)).references(:dataset_users) }
-  scope :with_viewer_or_editor_or_approved, ->(arg) { where("datasets.released = ? or datasets.user_id IN (?) or datasets.id in (select dataset_users.dataset_id from dataset_users where dataset_users.user_id = ? and dataset_users.role IN (?)) or datasets.id in (select requests.dataset_id from datasets INNER JOIN requests ON requests.dataset_id = datasets.id INNER JOIN agreements ON agreements.id = requests.agreement_id AND agreements.deleted = ? WHERE (agreements.expiration_date IS NULL OR (agreements.expiration_date >= ?)) AND agreements.status = ? AND agreements.user_id = ?)", true, arg, arg, %w(viewer editor), false, Time.zone.today, "approved", arg) }
+  scope :with_editor, ->(arg) do
+    left_outer_joins(:dataset_users, organization: :organization_users).where(user: arg).or(
+      left_outer_joins(:dataset_users, organization: :organization_users).merge(
+        DatasetUser.where(role: "editor", user: arg)
+      )
+    ).or(
+      left_outer_joins(:dataset_users, organization: :organization_users).merge(
+        OrganizationUser.where(editor: true, user: arg)
+      )
+    ).current.distinct
+  end
+
+  scope :with_reviewer, ->(arg) do
+    left_outer_joins(:dataset_users, organization: :organization_users).where(user: arg).or(
+      left_outer_joins(:dataset_users, organization: :organization_users).merge(
+        DatasetUser.where(role: "reviewer", user: arg)
+      )
+    ).or(
+      left_outer_joins(:dataset_users, organization: :organization_users).merge(
+        OrganizationUser.where(review_role: %w(regular principal), user: arg)
+      )
+    ).current.distinct
+  end
+
+  scope :with_viewer_or_editor_or_approved, ->(arg) do
+    left_outer_joins(:data_requests, :dataset_users, organization: :organization_users).released.or(
+      left_outer_joins(:data_requests, :dataset_users, organization: :organization_users).where(user: arg)
+    ).or(
+      left_outer_joins(:data_requests, :dataset_users, organization: :organization_users).merge(
+        DatasetUser.where(user: arg)
+      )
+    ).or(
+      left_outer_joins(:data_requests, :dataset_users, organization: :organization_users).merge(
+        OrganizationUser.where(user: arg)
+      )
+    ).or(
+      left_outer_joins(:data_requests, :dataset_users, organization: :organization_users).merge(
+        DataRequest.where(expiration_date: nil).or(
+          DataRequest.where("expiration_date >= ?", Time.zone.today)
+        ).current.where(status: "approved", user: arg)
+      )
+    ).current.distinct
+  end
 
   # Validations
   validates :name, :slug, presence: true
@@ -37,7 +76,7 @@ class Dataset < ApplicationRecord
   # Relationships
   belongs_to :user
   belongs_to :dataset_version, optional: true
-  belongs_to :organization, optional: true
+  belongs_to :organization
   has_many :dataset_versions
   has_many :dataset_file_audits
   has_many :dataset_page_audits
@@ -70,19 +109,32 @@ class Dataset < ApplicationRecord
 
   def editor?(current_user)
     return false unless current_user
+
     editors.where(id: current_user).count == 1
   end
 
   def editors
-    User.where(id: [user_id] + dataset_users.where(role: "editor").pluck(:user_id))
+    User.current.where(id: user_id).or(
+      User.current.where(id: dataset_users.where(role: "editor").select(:user_id))
+    ).or(
+      User.current.where(id: organization.organization_users.where(editor: true).select(:user_id))
+    )
   end
 
   def reviewers
-    User.where(id: dataset_users.where(role: "reviewer").select(:user_id))
+    User.current.where(id: user_id).or(
+      User.current.where(id: dataset_users.where(role: "reviewer").select(:user_id))
+    ).or(
+      User.current.where(id: organization.organization_users.where(review_role: %w(regular principal)).select(:user_id))
+    )
   end
 
   def viewers
-    User.where(id: [user_id] + dataset_users.where(role: "viewer").pluck(:user_id))
+    User.current.where(id: user_id).or(
+      User.current.where(id: dataset_users.where(role: "viewer").select(:user_id))
+    ).or(
+      User.current.where(id: organization.organization_users.select(:user_id))
+    )
   end
 
   def approved_data_request?(current_user)
