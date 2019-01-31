@@ -66,7 +66,7 @@ class DataRequestsTest < ApplicationSystemTestCase
     click_form_submit
 
     screenshot("dataset-request-attestation")
-    click_element_by_id "attest"
+    click_element "#attest"
 
     click_on "Proceed"
 

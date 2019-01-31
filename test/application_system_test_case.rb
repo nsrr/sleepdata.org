@@ -13,11 +13,12 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
 
   def screenshot(file_name)
     return unless @screenshots_enabled
+
     @counter += 1
     relative_location = File.join(
-      "tmp",
-      "screenshots",
+      "docs",
       SleepData::VERSION::STRING,
+      "screenshots",
       "#{file_name}-#{format("%02d", @counter)}.png"
     )
     page.save_screenshot(Rails.root.join(relative_location))
@@ -28,7 +29,7 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
     find("input[type=submit]").click
   end
 
-  def click_element_by_id(name)
-    page.execute_script("$(\"##{name}\").click();")
+  def click_element(selector)
+    page.execute_script("$(\"#{selector}\").click();")
   end
 end
