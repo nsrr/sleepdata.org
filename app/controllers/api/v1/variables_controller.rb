@@ -18,6 +18,7 @@ class Api::V1::VariablesController < Api::V1::BaseController
   def create_or_update
     @errors = []
     @variable = dataset_version_variables.where(name: params[:variable][:name]).first_or_create(variable_core_params)
+    @variable.update(variable_core_params)
     if params[:domain] && params[:domain][:name].present?
       @domain = dataset_version_domains.where(name: params[:domain][:name]).first_or_create
       if @domain
@@ -54,7 +55,7 @@ class Api::V1::VariablesController < Api::V1::BaseController
       end
     end
 
-    if @errors.count > 0
+    if @errors.count.positive?
       render json: { errors: @errors }, status: :unprocessable_entity
     else
       @variable.update(variable_optional_params)

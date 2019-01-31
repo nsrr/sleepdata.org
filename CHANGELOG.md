@@ -1,6 +1,9 @@
 ## 38.0.0
 
 ### Enhancements
+- **API Changes**
+  - Redeploying a dataset now correctly updates a variables display name and
+    variable type
 - **General Changes**
   - Update FAIR guiding principles
 - **Organizaton Changes**
