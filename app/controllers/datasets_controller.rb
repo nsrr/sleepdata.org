@@ -90,10 +90,11 @@ class DatasetsController < ApplicationController
     @datasets = dataset_scope.order(@order).page(params[:page]).per(24)
   end
 
-  # # GET /datasets/1
-  # # GET /datasets/1.json
-  # def show
-  # end
+  # GET /datasets/1
+  # GET /datasets/1.json
+  def show
+    render layout: "layouts/full_page"
+  end
 
   private
 

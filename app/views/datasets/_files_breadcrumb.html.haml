@@ -30,9 +30,9 @@
           %li.page-item.disabled
             %span.page-link &raquo;
 %ol
-  %li= link_to @dataset.slug, @dataset
-  %li= link_to_if path.present?, "files", files_dataset_path(@dataset)
-  - unless path.blank?
+  %li= link_to @dataset.breadcrumb_slug, @dataset
+  %li{ class: path.blank? ? "breadcrumb-muted" : nil }= link_to_if path.present?, "files", files_dataset_path(@dataset)
+  - if path.present?
     - path.to_s.split("/")[0..-2].each_with_index do |folder, index|
       - url = files_dataset_path( @dataset ) + "/" + path.to_s.split("/")[0..index].join("/")
       %li= link_to folder, url

@@ -1,6 +1,7 @@
 - @title = @dataset.name
 
-= render "datasets/header"
+- content_for :header, @dataset.name_was
+- content_for :header_append, render("datasets/header")
 
 = form_with url: search_dataset_path(@dataset), method: :get, local: true, id: "search-form", class: "mb-3" do |form|
   .input-group

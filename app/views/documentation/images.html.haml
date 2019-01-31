@@ -1,9 +1,10 @@
 - images_path = images_dataset_path(@object, path: @image_file)
-= render "datasets/header"
+- content_for :header, @dataset.name_was
+- content_for :header_append, render("datasets/header")
 
 - content_for :breadcrumbs do
   %ol
-    %li= link_to @object.slug, @object
+    %li= link_to @object.breadcrumb_slug, @object
     %li images
     %li= link_to File.basename(@image_file), images_path
 

@@ -31,6 +31,19 @@
       }
     }
 
+    .link-disabled {
+      background-color: $brand-white;
+      color: $text-muted;
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        border-color: $p50-grey;
+        background-color: $p50-grey;
+        color: $text-muted;
+      }
+    }
+
     &.sidebar-menu-header {
       font-size: 85%;
       font-weight: normal;

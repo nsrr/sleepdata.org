@@ -3,8 +3,8 @@
     #sidebar-nav-wrapper.sidebar-nav-wrapper.collapse{ style: "background-color: transparent;" }
       .pt-3.mx-3.my-0.ml-md-3.mb-md-3.mr-md-0
         %ul.sidebar-menu.sidebar-menu-shadow
-          %li.sidebar-menu-header Admin
-          %li= link_to "Settings", settings_dataset_path(@dataset), class: current_page?(settings_dataset_path(@dataset)) ? "active" : nil
+          %li.sidebar-menu-header Editor
+          %li= link_to "Settings", settings_dataset_path(@dataset), class: current_page?(settings_dataset_path(@dataset)) || (params[:controller] == "editor/datasets" && params[:action].in?(%w(edit update))) ? "active" : nil
           %li= link_to "Collaborators", collaborators_dataset_path(@dataset), class: current_page?(collaborators_dataset_path(@dataset)) ? "active" : nil
           %li= link_to "Sync", sync_dataset_path(@dataset), class: current_page?(sync_dataset_path(@dataset)) ? "active" : nil
           %li.sidebar-menu-header Reports

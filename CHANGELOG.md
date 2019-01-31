@@ -6,6 +6,9 @@
     variable type
 - **General Changes**
   - Update FAIR guiding principles
+- **Dataset Changes**
+  - Dataset footer now correctly sticks to the bottom of the screen on pages
+    without sufficient content
 - **Organizaton Changes**
   - Improved dataset creation and access by organization editors and viewers
 - **Variable Changes**

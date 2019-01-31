@@ -1,0 +1,11 @@
+.d-none.d-md-block.float-right
+
+  #show-page-button{ style: "#{"display: none;" if cookies[:hide_page_list] != "1"}" }
+    = link_to "#", data: { object: "set-cookie toggle-page-list", cookie_key: "hide_page_list", cookie_value: "0" }, class: "btn btn-sm btn-light" do
+      = icon("fas", "caret-left")
+      Show menu
+
+  #hide-page-button{ style: "#{"display: none;" if cookies[:hide_page_list] == "1"}" }
+    = link_to "#", data: { object: "set-cookie toggle-page-list", cookie_key: "hide_page_list", cookie_value: "1" }, class: "btn btn-sm btn-light" do
+      Hide menu
+      = icon("fas", "caret-right")

@@ -14,11 +14,11 @@ module Pageable
     @term = params[:s].to_s.gsub(/[^\w]/, "")
     if @page_path && File.file?(@page_path) && [@object.find_page_folder(params[:path]), File.basename(@page_path)].compact.join("/") == params[:path]
       @object.create_page_audit!(current_user, @path, request.remote_ip)
-      render "documentation/pages"
+      render "documentation/pages", layout: "layouts/full_page"
     elsif @page_path && File.directory?(@page_path) && @object.find_page_folder(params[:path]) == params[:path]
-      render "documentation/pages"
+      render "documentation/pages", layout: "layouts/full_page"
     elsif params[:path].blank?
-      render "documentation/pages"
+      render "documentation/pages", layout: "layouts/full_page"
     else
       @path = @object.find_page_folder(params[:path])
       redirect_to_pages_path

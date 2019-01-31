@@ -1,6 +1,7 @@
 - @title = "#{@dataset.slug.upcase} Files"
 
-= render "datasets/header"
+- content_for :header, @dataset.name_was
+- content_for :header_append, render("datasets/header")
 
 - if current_page?([:files, @dataset])
   - content_for :header_append do

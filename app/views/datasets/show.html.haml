@@ -1,19 +1,4 @@
 - @title = @dataset.name
 - @doi = @dataset.doi if @dataset.doi.present?
 
-- content_for :header_append do
-  - if @dataset.info_present?
-    .header-container.pt-0
-      .container
-        = render "datasets/quick_info", dataset: @dataset
-
-= render "datasets/header"
-
-- content_for :header_append do
-  .d-flex.justify-content-center.data-request-tab-sticky
-    .data-request-tab-background
-      = render "datasets/request", dataset: @dataset
-
-= render "documentation/page", object: @dataset
-
-- content_for :footer, render("datasets/footer", dataset: @dataset)
+= render "datasets/full_documentation_page"

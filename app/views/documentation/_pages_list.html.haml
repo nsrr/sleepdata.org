@@ -3,12 +3,9 @@
 .page-list-container{ style: "#{"display: none;" if cookies[:hide_page_list] == "1"}" }
   %ul.sidebar-menu.p-0
     - page = [params[:page].to_i, 0].max
-    - if @path.blank?
-      %li.sidebar-menu-header
-        = @object.slug
-    - else
-      %li.sidebar-menu-header
-        = @object.slug
+    %li.sidebar-menu-header
+      = @object.breadcrumb_slug
+    - if @path.present?
       %li
         - @path.to_s.split("/")[-1..-1].each_with_index do |folder, index|
           - url = pages_path + "/" + @path.to_s.split("/")[0..-2].join("/")
@@ -16,18 +13,22 @@
             = icon("fas", "level-up-alt")
             = folder
 
-    - @object.pages(@path)[0..(page*100+100 - 1)].each do |page_name, page|
-      - is_file = File.file?(page)
-      - folder = @object.page_path(page)
-      - url = pages_path + "/" + folder
-      %li.nowrap
-        = link_to url, class: "overflow-hidden #{(page_name == File.basename(@page_path) ? "active" : nil)}" do
-          - if is_file
-            = icon("far", "file")
-          - else
-            = icon("fas", "folder-open")
-          = page_name
+    - pages = @object.pages(@path)[0..(page * 100 + 100 - 1)]
 
-  - if false
-    = render "datasets/logo", dataset: @object if false
-    = render "datasets/menu_rating", dataset: @object
+    - if pages.present?
+      - @object.pages(@path)[0..(page * 100 + 100 - 1)].each do |page_name, page|
+        - is_file = File.file?(page)
+        - folder = @object.page_path(page)
+        - url = pages_path + "/" + folder
+        %li.nowrap
+          = link_to url, class: "overflow-hidden #{(page_name == File.basename(@page_path) ? "active" : nil)}" do
+            - if is_file
+              = icon("far", "file")
+            - else
+              = icon("fas", "folder-open")
+            = page_name
+    - else
+      %li.nowrap
+        = link_to "#", class: "overflow-hidden link-disabled", data: { object: "suppress-click" } do
+          = icon("fas", "caret-right")
+          No documents

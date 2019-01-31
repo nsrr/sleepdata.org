@@ -30,10 +30,10 @@
       = link_to "v#{@variable.dataset_version.version}", files_dataset_path(@dataset, path: "datasets/archive/#{@variable.dataset_version.version}"), class: "btn btn-sm btn-light"
 
   %ol
-    %li= link_to @dataset.slug, @dataset
-    %li= link_to_if !folder.blank?, "variables", dataset_variables_path(@dataset)
+    %li= link_to @dataset.breadcrumb_slug, @dataset
+    %li{ class: folder.blank? ? "breadcrumb-muted" : nil }= link_to_if folder.present?, "variables", dataset_variables_path(@dataset)
     - s = (params[:search].blank? ? nil : params[:search])
-    - unless folder.blank?
+    - if folder.present?
       - folder.to_s.split("/")[0..(@variable ? -1 : -2)].each_with_index do |partial_folder, index|
         - full_folder = folder.to_s.split("/")[0..index].join("/")
         %li= link_to partial_folder, dataset_variables_path(@dataset, s: s, folder: full_folder).gsub("%2F","/")

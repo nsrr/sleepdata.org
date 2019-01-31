@@ -94,6 +94,10 @@ class Dataset < ApplicationRecord
   has_many :legal_documents, through: :legal_document_datasets
   has_many :final_legal_documents, -> { order(published_at: :desc) }, through: :legal_documents
 
+  def breadcrumb_slug
+    slug.tr("-", " ")
+  end
+
   def recalculate_rating!
     ratings = dataset_reviews.where.not(rating: nil).pluck(:rating)
     update rating: ratings.present? ? ratings.inject(&:+).to_f / ratings.count : 3

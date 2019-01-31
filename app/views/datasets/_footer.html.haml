@@ -1,8 +1,12 @@
 .background-p100-grey.pt-5.pb-4
   .container
     .d-flex.flex-column.flex-md-row.align-items-md-center.text-center.text-md-left{ style: "font-size: 1.25rem;" }
-      - if dataset.logo.present?
-        .mb-3.mb-md-0.mr-md-4= image_tag logo_dataset_path(dataset), class: "img-fluid img-ignore-selection", style: "max-width: 200px;"
+      .mb-3.mb-md-0.mr-md-4
+        - if dataset.logo.present?
+          = image_tag logo_dataset_path(dataset), class: "img-fluid img-ignore-selection", style: "max-width: 200px;"
+        - else
+          = icon("fas", "database", class: "fa-3x")
+
       .font-weight-light
         %div National Sleep Research Resource
         %div= dataset.name

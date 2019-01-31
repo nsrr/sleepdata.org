@@ -1,7 +1,3 @@
 - @title = [@object.name, @path.to_s.split("/").last.to_s.split(/\.(md|txt)/).first.to_s.titleize].reject(&:blank?).join(" - ")
 
-= render "datasets/header"
-
-= render "documentation/page", object: @object
-
-- content_for :footer, render("datasets/footer", dataset: @object)
+= render "datasets/full_documentation_page"

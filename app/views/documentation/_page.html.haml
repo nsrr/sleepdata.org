@@ -1,27 +1,5 @@
 - pages_path = pages_dataset_path(object)
 
-- content_for :breadcrumbs do
-  .d-none.d-md-block.float-right
-
-    #show-page-button{ style: "#{"display: none;" if cookies[:hide_page_list] != "1"}" }
-      = link_to "#", data: { object: "set-cookie toggle-page-list", cookie_key: "hide_page_list", cookie_value: "0" }, class: "btn btn-sm btn-light" do
-        = icon("fas", "caret-left")
-        Show Menu
-
-    #hide-page-button{ style: "#{"display: none;" if cookies[:hide_page_list] == "1"}" }
-      = link_to "#", data: { object: "set-cookie toggle-page-list", cookie_key: "hide_page_list", cookie_value: "1" }, class: "btn btn-sm btn-light" do
-        Hide Menu
-        = icon("fas", "caret-right")
-
-  %ol
-    %li= link_to object.slug, object
-    %li= link_to_if !@path.blank?, "pages", pages_path
-    - unless @path.blank?
-      - @path.to_s.split("/")[0..-2].each_with_index do |folder, index|
-        - url = pages_path + "/" + @path.to_s.split("/")[0..index].join("/")
-        %li= link_to folder, url
-      %li= @path.to_s.split("/").last
-
 - if @page_path && File.file?(@page_path) && File.size(@page_path) < 1.megabyte
   .row
     #documentation-content{ class: "#{cookies[:hide_page_list] == "1" ? "col-md-12" : "col-md-9"}"}
@@ -37,8 +15,19 @@
       - elsif object.pages(@path).find { |_name, f| File.file?(f) }
         - first_page = object.pages(@path).find { |_name, f| File.file?(f) }
         = render "documentation/render_page", page_path: first_page[1], path: first_page[0]
-      - elsif object.pages(@path).size == 0
-        = render "documentation/nodoc"
+      - elsif object.pages(@path).size.zero? && @path == ""
+        .jumbotron.jumbotron-custom-text.mb-0
+          = icon("far", "clone", class: "mr-1")
+          No documentation pages uploaded.
+      - elsif object.pages(@path).size.zero?
+        .jumbotron.jumbotron-custom-text.mb-0
+          = icon("far", "clone", class: "mr-1")
+          No documents in this folder.
+      - else
+        .jumbotron.jumbotron-custom-text.mb-0
+          = icon("far", "clone", class: "mr-1")
+          No documents in this folder.
+
     #sidebar-content.d-none.d-md-block{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-md-3"}"}
       .menu-sticky= render "documentation/pages_list", pages_path: pages_path
 - else
@@ -46,9 +35,4 @@
     #documentation-content{ class: "#{cookies[:hide_page_list] == "1" ? "col-md-12" : "col-md-9"}"}
       = render "documentation/nodoc"
     #sidebar-content.d-none.d-md-block{ class: "#{cookies[:hide_page_list] == "1" ? "" : "col-md-3"}"}
-      .menu-sticky
-        .page-list-container{ style: "#{"display: none;" if cookies[:hide_page_list] == "1"}" }
-          %ul.sidebar-menu
-          - if false
-            = render "datasets/logo", dataset: @object
-            = render "datasets/menu_rating", dataset: @object
+      .menu-sticky= render "documentation/pages_list", pages_path: pages_path

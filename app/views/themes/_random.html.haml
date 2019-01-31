@@ -1,4 +1,4 @@
-- if params[:theme].present?
+- if params[:theme].in?(SleepData::THEMES.collect(&:second))
   - @theme = params[:theme]
 - else
   - @themes = SleepData::THEMES.collect(&:second)

@@ -1,0 +1,32 @@
+.page-box.page-box-no-padding.last-box.background-p100-grey.d-flex.flex-column.justify-content-between
+  .bg-white.flex-fill
+    .header-container
+      .container
+        %h1.page-heading= @dataset.name_was
+    - if @dataset.info_present? && current_page?(@dataset)
+      .header-container.pt-0
+        .container
+          = render "datasets/quick_info", dataset: @dataset
+    = render("datasets/header")
+    - if current_page?(@dataset)
+      .d-flex.justify-content-center.data-request-tab-sticky
+        .data-request-tab-background
+          = render "datasets/request", dataset: @dataset
+
+    .breadcrumb-container
+      .container
+        = render "documentation/toggle_menu"
+
+        - pages_path = pages_dataset_path(@dataset)
+        %ol
+          %li= link_to @dataset.breadcrumb_slug, @dataset
+          %li{ class: @path.blank? ? "breadcrumb-muted" : nil }= link_to_if @path.present?, "pages", pages_path
+          - if @path.present?
+            - @path.to_s.split("/")[0..-2].each_with_index do |folder, index|
+              - url = pages_path + "/" + @path.to_s.split("/")[0..index].join("/")
+              %li= link_to folder, url
+            %li.breadcrumb-muted= @path.to_s.split("/").last
+
+    .py-3
+      .container= render "documentation/page", object: @dataset
+  = render "datasets/footer", dataset: @dataset

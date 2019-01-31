@@ -25,7 +25,7 @@ class Variable < ApplicationRecord
   scope :latest, -> { joins(:dataset).where("variables.dataset_version_id = datasets.dataset_version_id").merge(Dataset.released) }
 
   # Validations
-  validates :name, :display_name, :variable_type, :dataset_id, :dataset_version_id, presence: true
+  validates :name, :display_name, :variable_type, presence: true
   validates :name, format: { with: /\A[a-z]\w*\Z/i }
   validates :name, length: { maximum: 32 }
   validates :name, uniqueness: { scope: [:dataset_id, :dataset_version_id], case_sensitive: false }
