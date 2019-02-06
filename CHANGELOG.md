@@ -6,6 +6,7 @@
     variable type
 - **General Changes**
   - Update FAIR guiding principles
+  - Update data sharing language
 - **Dataset Changes**
   - Dataset footer now correctly sticks to the bottom of the screen on pages
     without sufficient content
