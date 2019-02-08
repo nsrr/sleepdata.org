@@ -2,7 +2,7 @@
 
 - render "themes/theme"
 - content_for :header, @title
-= render "admin/tabs"
+= render "internal/tabs"
 - content_for :sidebar, render("admin/sidebar")
 
 - user_scope = User.current.no_spammer_or_shadow_banned

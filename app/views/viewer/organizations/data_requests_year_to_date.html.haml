@@ -1,0 +1,27 @@
+- @title = "Data Requests - #{@organization.name}"
+
+- render "themes/theme"
+
+- content_for :header, @organization.name
+= render "organizations/tabs", organization: @organization
+
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "orgs", organizations_path
+    %li= link_to @organization.slug, @organization
+    %li.breadcrumb-muted graphs
+    %li.breadcrumb-muted= link_to_if @dataset, "year to date", data_requests_year_to_date_organization_path(@organization)
+    - if @dataset
+      %li.breadcrumb-muted= @dataset.slug.downcase
+
+- content_for :sidebar, render("viewer/organizations/sidebar")
+
+.dashboard-container
+  .float-right= render "viewer/organizations/datasets_dropdown", dataset: @dataset
+  %div{ data: { object: "reports-data-requests-chart", title: @chart_title, subtitle: @chart_subtitle, series: @series.to_json, x_axis: @x_axis.to_json, y_axis: @y_axis.to_json } }
+  .text-center
+    = link_to params.permit(:dataset, :year).merge(year: @year - 1), class: "btn btn-sm btn-light" do
+      = icon("fas", "caret-left")
+    = @year
+    = link_to params.permit(:dataset, :year).merge(year: @year + 1), class: "btn btn-sm btn-light" do
+      = icon("fas", "caret-right")

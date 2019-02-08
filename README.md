@@ -4,7 +4,7 @@ National Sleep Research Resource
 [![Build Status](https://travis-ci.com/nsrr/sleepdata.org.svg?branch=master)](https://travis-ci.com/nsrr/sleepdata.org)
 [![Code Climate](https://codeclimate.com/github/nsrr/sleepdata.org/badges/gpa.svg)](https://codeclimate.com/github/nsrr/sleepdata.org)
 
-The application that runs https://sleepdata.org. Using Rails 5.2+ and Ruby 2.6+.
+The application that runs https://sleepdata.org. Using Rails 6.0+ and Ruby 2.6+.
 
 
 ## Setting up Daily Digest Emails

@@ -183,10 +183,15 @@ Rails.application.routes.draw do
   scope module: :viewer do
     resources :organizations, only: [], path: "orgs" do
       member do
-        get :reports
         get :data_requests, path: "reports/data-requests"
-        get :data_request_stats, path: "reports/data-requests/stats"
-        get :this_month, path: "reports/this-month"
+        get :data_downloads, path: "reports/data-downloads"
+        get :membership, path: "reports/membership"
+        get :data_requests_year_to_date, path: "reports/data-requests/year-to-date"
+        get :data_requests_since_inception, path: "reports/data-requests/since-inception"
+
+        get :data_requests_total, path: "reports/data-requests/total"
+        get :data_requests_submitted, path: "reports/data-requests/submitted"
+        get :data_requests_approved, path: "reports/data-requests/approved"
       end
     end
   end

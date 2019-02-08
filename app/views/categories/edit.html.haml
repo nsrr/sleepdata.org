@@ -2,7 +2,7 @@
 
 - render "themes/theme"
 - content_for :header, @category.name_was
-= render "admin/tabs"
+= render "internal/tabs"
 - content_for :breadcrumbs do
   %ol
     %li= link_to "Categories", categories_path

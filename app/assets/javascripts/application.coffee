@@ -28,6 +28,7 @@
 #= require external/colorpicker
 #= require external/highcharts-4.1.9.src.js
 #= require external/jquery-fieldselection.js
+#= require external/jquery.animateNumber.js
 #= require external/jquery.textcomplete-1.7.3.src.js
 #= require external/signature_pad-2.3.1.src.js
 

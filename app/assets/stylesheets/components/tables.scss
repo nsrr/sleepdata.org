@@ -27,10 +27,14 @@
   }
 }
 
-.dashboard-table {
-  .table-sticky {
-    th {
-      background-color: $brand-white;
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .dashboard-table {
+      .table-sticky {
+        th {
+          background-color: map-get($theme, brand-white);
+        }
+      }
     }
   }
 }

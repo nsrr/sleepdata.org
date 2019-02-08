@@ -7,7 +7,7 @@
       = pluralize(@users.count, "profile")
       to review
   = @title
-= render "admin/tabs"
+= render "internal/tabs"
 - content_for :sidebar, render("admin/sidebar")
 
 - if @users.present?

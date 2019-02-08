@@ -70,7 +70,14 @@ class Organization < ApplicationRecord
   end
 
   def data_requests
-    DataRequest.current.joins(:final_legal_document).merge(final_legal_documents)
+    DataRequest.current.joins(:final_legal_document).merge(final_legal_documents).distinct
+  end
+
+  def data_request_events
+    AgreementEvent
+      .with_current_agreement
+      .joins(agreement: :final_legal_document)
+      .where(agreements: { final_legal_documents: { organization: self } })
   end
 
   def editor?(current_user)

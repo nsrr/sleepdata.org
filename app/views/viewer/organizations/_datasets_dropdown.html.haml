@@ -1,0 +1,16 @@
+.btn-group
+  = link_to "#", class: "btn btn-light btn-sm dropdown-toggle", data: { toggle: "dropdown" } do
+    = icon("fas", "database")
+    .d-none.d-sm-inline-block= @dataset.nil? ? "All Datasets" : @dataset.slug.upcase
+    %strong.caret
+
+  .dropdown-menu.dropdown-menu-right
+    = link_to params.permit(:dataset, :year).merge(dataset: nil), style: @dataset.nil? ? "font-weight: bold;" : nil, class: "dropdown-item" do
+      = simple_check @dataset.nil?
+      All Datasets
+    .dropdown-divider
+    - @organization.datasets.order(:name).each do |d|
+      - selected = (@dataset == d)
+      = link_to params.permit(:dataset, :year).merge(dataset: d), style: selected ? "font-weight: bold;" : nil, class: "dropdown-item" do
+        = simple_check selected || @dataset.nil?
+        = d.slug.upcase

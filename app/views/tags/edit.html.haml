@@ -2,7 +2,7 @@
 
 - render "themes/theme"
 - content_for :header, @tag.name_was
-= render "admin/tabs"
+= render "internal/tabs"
 - content_for :breadcrumbs do
   %ol
     %li= link_to "Tags", tags_path

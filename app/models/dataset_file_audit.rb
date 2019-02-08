@@ -7,7 +7,7 @@ class DatasetFileAudit < ApplicationRecord
   belongs_to :user, optional: true
 
   # Scopes
-  scope :all_members, -> { joins(:user).merge(User.current) }
+  scope :all_members, -> { where.not(user_id: nil) }
   scope :regular_members, -> { joins(:user).merge(User.regular_members) }
   scope :aug_members, -> { joins(:user).merge(User.aug_members) }
   scope :core_members, -> { joins(:user).merge(User.core_members) }

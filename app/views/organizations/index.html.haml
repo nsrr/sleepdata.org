@@ -6,6 +6,11 @@
     .float-right
       = link_to plus_or("New Organization"), new_organization_path, class: "btn btn-primary btn-shadow"
   = @title
+- if current_user&.organization_viewer?
+  = render "internal/tabs"
+  - content_for :breadcrumbs do
+    %ol
+      %li.breadcrumb-muted orgs
 
 - if @organizations.present?
   .dashboard-container.dashboard-table

@@ -1,0 +1,88 @@
+- @title = "Reports - #{@organization.name}"
+
+- render "themes/theme"
+
+- content_for :header, @organization.name
+= render "organizations/tabs", organization: @organization
+
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "orgs", organizations_path
+    %li= link_to @organization.slug, @organization
+    %li.breadcrumb-muted reports
+    %li.breadcrumb-muted data requests
+
+- content_for :sidebar, render("viewer/organizations/sidebar")
+
+
+- users_count = User.current.no_spammer_or_shadow_banned.count
+- data_requests_submitted_count = @organization.data_request_events.where(event_type: ["user_submitted"]).distinct(:agreement_id).count
+- data_requests_approved_count = @organization.data_request_events.where(event_type: ["principal_reviewer_approved"]).distinct(:agreement_id).count
+- percent_approved = data_requests_submitted_count.zero? ? nil : data_requests_approved_count * 100.0 / data_requests_submitted_count
+
+.row
+  .col-12.col-sm.text-center
+    .jumbotron.jumbotron-white.jumbotron-shadow
+      .lead.nowrap
+        = link_to data_requests_submitted_organization_path(@organization) do
+          Data requests submitted
+
+      .report-number{ data: { object: "report-number", number: data_requests_submitted_count } }
+        = number_with_delimiter(data_requests_submitted_count)
+
+  .col-12.col-sm.text-center
+    .jumbotron.jumbotron-white.jumbotron-shadow
+      .lead.nowrap
+        = link_to data_requests_approved_organization_path(@organization) do
+          Data requests approved
+      .report-number{ data: { object: "report-number", number: data_requests_approved_count } }
+        = number_with_delimiter(data_requests_approved_count)
+
+  .col-12.col-sm.text-center
+    .jumbotron.jumbotron-white.jumbotron-shadow
+      .lead.nowrap % approved
+      - if percent_approved
+        .report-number{ data: { object: "report-number", number: percent_approved, decimal: 1, append: "%" } }
+          = number_with_delimiter(format("%.1f%%", percent_approved))
+      - else
+        .report-number.text-muted
+          0.0%
+
+
+- data_request_events = @organization.data_request_events.where(event_type: ["user_submitted", "principal_reviewer_approved"]).distinct(:agreement_id) # .regular_members
+
+.dashboard-container.dashboard-table
+  %table.table.table-striped.table-borderless.table-sticky
+    %thead
+      %tr
+        %th Month
+        %th.text-center Submitted
+        %th.text-center Approved
+        %th.text-center %
+    %tfoot
+      %tr
+        %th Total
+        %th.text-center
+          - submitted_count = data_request_events.select { |ae| ae.event_type == "user_submitted" }.count
+          = submitted_count
+        %th.text-center
+          - approved_count = data_request_events.select { |ae| ae.event_type == "principal_reviewer_approved" }.count
+          = approved_count
+        %th.text-center
+          - percent = submitted_count.zero? ? nil : approved_count * 100.0 / submitted_count
+          = percent ? format("%.1f%%", percent) : "-"
+
+    - data_request_events.order(event_at: :desc).group_by { |ae| [ae.event_at.year, ae.event_at.month] }.each do |(year, month), events|
+      - submitted_count = events.select { |ae| ae.event_type == "user_submitted" }.count
+      - approved_count = events.select { |ae| ae.event_type == "principal_reviewer_approved" }.count
+      - percent = submitted_count.zero? ? 0 : approved_count * 100.0 / submitted_count
+      %tr
+        %td
+          = Date::ABBR_MONTHNAMES[month]
+          = year
+        %td.text-center{ class: submitted_count.zero? ? "text-muted" : nil }
+          = submitted_count
+        %td.text-center{ class: approved_count.zero? ? "text-muted" : nil }
+          = approved_count
+        %td.text-center{ class: percent.zero? ? "text-muted" : nil }
+          = percent ? format("%.1f%%", percent) : "-"

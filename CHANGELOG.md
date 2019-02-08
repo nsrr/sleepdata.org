@@ -12,6 +12,8 @@
     without sufficient content
 - **Organizaton Changes**
   - Improved dataset creation and access by organization editors and viewers
+  - Improved organization reports to show breakdowns of submitted and approved
+    data requests, as well as overall downloads
 - **Variable Changes**
   - Remove extra space in variables index placeholder text
   - Move file download link to display below inline PDF on variable form page

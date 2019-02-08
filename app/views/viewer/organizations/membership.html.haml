@@ -1,0 +1,73 @@
+- @title = "Reports - #{@organization.name}"
+
+- render "themes/theme"
+
+- content_for :header, @organization.name
+= render "organizations/tabs", organization: @organization
+
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "orgs", organizations_path
+    %li= link_to @organization.slug, @organization
+    %li.breadcrumb-muted reports
+
+- content_for :sidebar, render("viewer/organizations/sidebar")
+
+- datasets_and_counts = @organization.datasets.collect do |dataset|
+  - data_request_events = @organization.data_request_events.joins(agreement: :requests).merge(Request.where(dataset: dataset))
+  - [dataset, data_request_events.where(event_type: ["user_submitted"]).count(:agreement_id), data_request_events.where(event_type: ["principal_reviewer_approved"]).count(:agreement_id)]
+
+
+- users = User.current.no_spammer_or_shadow_banned
+- users_count = users.count
+- data_requests_count = @organization.data_requests.joins(:user).merge(users).count(:user_id)
+
+.row
+  .col-12.col-sm.text-center
+    .jumbotron.jumbotron-white.jumbotron-shadow
+      .lead.nowrap Members who Requested Data Access
+      .report-number{ data: { object: "report-number", number: data_requests_count } }
+        = number_with_delimiter(data_requests_count)
+  .col-12.col-sm.text-center
+    .jumbotron.jumbotron-white.jumbotron-shadow
+      .lead.nowrap Total Members
+      .report-number{ data: { object: "report-number", number: users_count } }
+        = number_with_delimiter(users_count)
+
+.dashboard-container.dashboard-table
+  .table-responsive
+    %table.table.table-striped.table-borderless.table-hover
+      %col
+      %col
+      %col
+      %thead
+        %tr
+          %th Dataset
+          %th.text-center Requested Access
+          %th.text-center Approved Members
+      %tfoot
+        %tr
+          %th.bg-light Total
+          %th.text-center.bg-light
+            = datasets_and_counts.sum(&:second)
+          %th.text-center.bg-light
+            = datasets_and_counts.sum(&:third)
+      %tbody
+        - datasets_and_counts.sort_by(&:third).reverse.each do |dataset, submitted_count, approved_count|
+          %tr
+            %td
+              = link_to dataset do
+                .d-none.d-md-inline-block= dataset.name
+                .d-inline-block.d-md-none= dataset.slug
+            %td.text-center
+              = submitted_count
+              - if false
+                %br
+                Correct one?
+                = dataset.data_requests.where.not(submitted_at: nil).count
+            %td.text-center
+              = approved_count
+              - if false
+                %br
+                Correct one?
+                = dataset.data_requests.where.not(approval_date: nil).count

@@ -1,19 +1,31 @@
 - content_for :tabs do
   - current_page = (params[:action] == "pages" || current_page?(@organization))
-  = link_to @organization, class: "link-unstyled d-inline-block px-3 pt-2 pb-2 rounded-top header-tab #{"border border-bottom-0 header-tab-active" if current_page}", data: { object: "#{"suppress-click" if current_page?(@organization)}" } do
+  = link_to @organization, class: "header-tab #{"header-tab-active" if current_page}" do
     = icon("fas", "database")
-    Datasets
+    - if current_page
+      Datasets
+    - else
+      .d-none.d-sm-inline Datasets
   - current_page = (params[:controller] == "organization_users")
-  = link_to organization_organization_users_path(@organization), class: "link-unstyled d-inline-block px-3 pt-2 pb-2 rounded-top header-tab #{"border border-bottom-0 header-tab-active" if current_page}", data: { object: "#{"suppress-click" if current_page?(organization_organization_users_path(@organization)) && !params.key?(:pending)}" } do
+  = link_to organization_organization_users_path(@organization), class: "header-tab #{"header-tab-active" if current_page}" do
     = icon("fas", "users")
-    Members
+    - if current_page
+      Members
+    - else
+      .d-none.d-sm-inline Members
   - if @organization.viewer?(current_user)
     - current_page = (params[:controller] == "viewer/organizations")
-    = link_to reports_organization_path(@organization), class: "link-unstyled d-none d-sm-inline-block px-3 pt-2 pb-2 rounded-top header-tab #{"border border-bottom-0 header-tab-active" if current_page}", data: { object: "#{"suppress-click" if current_page?(reports_organization_path(@organization))}" } do
+    = link_to data_requests_organization_path(@organization), class: "header-tab #{"header-tab-active" if current_page}" do
       = icon("fas", "chart-area")
-      Reports
+      - if current_page
+        Reports
+      - else
+        .d-none.d-sm-inline Reports
   - if @organization.editor?(current_user)
     - current_page = params[:controller].in?(%w(editor/organizations legal_documents))
-    = link_to settings_organization_path(@organization), class: "link-unstyled d-none d-sm-inline-block px-3 pt-2 pb-2 rounded-top header-tab #{"border border-bottom-0 header-tab-active" if current_page}", data: { object: "#{"suppress-click" if current_page?(settings_organization_path(@organization))}" } do
+    = link_to settings_organization_path(@organization), class: "header-tab #{"header-tab-active" if current_page}" do
       = icon("fas", "cog")
-      Settings
+      - if current_page
+        Settings
+      - else
+        .d-none.d-sm-inline Settings

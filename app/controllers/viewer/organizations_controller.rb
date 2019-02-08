@@ -11,13 +11,22 @@ class Viewer::OrganizationsController < ApplicationController
   # def reports
   # end
 
-  # GET /orgs/:id/reports/data-requests
-  def data_requests
+  # # GET /orgs/1/reports/data-request-rates
+  # def data_request_rates
+  # end
+
+  # # GET /orgs/1/reports/data-downloads
+  # def data_downloads
+  # end
+
+  # GET /orgs/:id/reports/data-requests/year-to-date
+  def data_requests_year_to_date
     data_requests = @organization.data_requests
     @dataset = @organization.datasets.find_by_param(params[:dataset])
     data_requests = data_requests.joins(:requests).merge(Request.where(dataset: @dataset)) if @dataset
     @year = (params[:year].to_i.positive? ? params[:year].to_i : Time.zone.today.year)
-    @chart_title = { text: "#{@organization.name} Data Requests #{@year}#{" for #{@dataset.slug.upcase}" if @dataset}", align: "center" }
+    @chart_title = "#{"#{@dataset.slug.upcase} " if @dataset} Data Requests for #{@year}"
+    @chart_subtitle = @organization.name
     @series = []
     max = 100
     (series, max) = add_average_submitted(data_requests, max)
@@ -31,9 +40,22 @@ class Viewer::OrganizationsController < ApplicationController
     @y_axis = { title: { text: "Data Requests" }, max: max }
   end
 
-  # # GET /orgs/:id/reports/this-month
-  # def this_month
-  # end
+  # GET /orgs/:id/reports/data-requests/since-inception
+  def data_requests_since_inception
+    data_requests = @organization.data_requests
+    @dataset = @organization.datasets.find_by_param(params[:dataset])
+    data_requests = data_requests.joins(:requests).merge(Request.where(dataset: @dataset)) if @dataset
+    @chart_title = "#{"#{@dataset.slug.upcase} " if @dataset} Data Requests Since Inception"
+    @chart_subtitle = @organization.name
+    @series = []
+
+    (submitted, approved, categories) = add_total_submitted_data_requests(data_requests)
+    @series << submitted
+    @series << approved
+
+    @x_axis = { categories: categories, title: { text: "" } }
+    @y_axis = { title: { text: "Data Requests" } }
+  end
 
   private
 
@@ -86,5 +108,30 @@ class Viewer::OrganizationsController < ApplicationController
     end
     max = ([max] + data).max
     [{ type: "area", showInLegend: true, name: "Avg. Submitted Data Requests", data: data, color: "#e3f2fd", visible: true, dashStyle: "shortdot", legendIndex: 1 }, max]
+  end
+
+
+  def add_total_submitted_data_requests(data_requests)
+    data_submitted = []
+    data_approved = []
+    categories = []
+
+    first_submitted = data_requests.where.not(submitted_at: nil).order(submitted_at: :asc).first&.submitted_at&.beginning_of_month&.last_month
+    last_submitted = data_requests.where.not(submitted_at: nil).order(submitted_at: :asc).last&.submitted_at&.beginning_of_month
+
+    current_month = first_submitted
+
+    if current_month
+      loop do
+        categories << current_month.strftime("%b '%y")
+        data_submitted << data_requests.where("DATE(submitted_at) >= ? and DATE(submitted_at) <= ?", current_month.beginning_of_month, current_month.end_of_month).count
+        data_approved << data_requests.where("DATE(approval_date) >= ? and DATE(approval_date) <= ?", current_month.beginning_of_month, current_month.end_of_month).count
+        current_month = current_month.next_month
+        break if current_month.beginning_of_month > last_submitted.beginning_of_month
+      end
+    end
+    submitted = { type: "line", showInLegend: true, name: "Submitted Data Requests", data: data_submitted, color: "#2196f3", legendIndex: 0 }
+    approved = { type: "line", showInLegend: true, name: "Approved Data Requests", data: data_approved, color: "#4caf50", legendIndex: 2 }
+    [submitted, approved, categories]
   end
 end

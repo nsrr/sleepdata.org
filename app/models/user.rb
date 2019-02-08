@@ -223,6 +223,10 @@ class User < ApplicationRecord
     Organization.current.with_viewer(self)
   end
 
+  def organization_viewer?
+    viewable_organizations.count.positive?
+  end
+
   def organization_editor?
     editable_organizations.count.positive?
   end

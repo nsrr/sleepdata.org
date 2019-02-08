@@ -1,0 +1,32 @@
+@keyframes show-report-number {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.report-number {
+  animation: show-report-number 500ms ease-out;
+  font-size: 41px;
+  font-weight: 300;
+
+  @include media-breakpoint-up(lg) {
+    font-size: 72px;
+  }
+}
+
+.report-quote {
+  margin-bottom: 5px;
+  padding: 5px;
+}
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .report-quote {
+      background-color: theme-color($theme, input-disabled-bg, $input-disabled-bg);
+    }
+  }
+}

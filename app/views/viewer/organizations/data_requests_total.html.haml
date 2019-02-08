@@ -1,0 +1,63 @@
+- @title = "Reports - #{@organization.name}"
+
+- render "themes/theme"
+
+- content_for :header, @organization.name
+= render "organizations/tabs", organization: @organization
+
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "orgs", organizations_path
+    %li= link_to @organization.slug, @organization
+    %li.breadcrumb-muted reports
+    %li.breadcrumb-muted= link_to "data requests", data_requests_organization_path(@organization)
+    %li.breadcrumb-muted total
+
+- content_for :sidebar, render("viewer/organizations/sidebar")
+
+- agreement_events = @organization.data_requests
+- data_requests_count = agreement_events.count
+- data_request = @organization.data_requests.order(:created_at).first
+- first_date = data_request&.created_at&.to_date
+- months = (Time.zone.today - first_date).to_f / 30 if first_date
+- total_average = months&.positive? ? data_requests_count.to_f / months : data_requests_count
+
+.row
+  .col-12.col-sm.text-center
+    .jumbotron.jumbotron-white.jumbotron-shadow
+      .lead.nowrap Total Data Requests
+      .report-number{ data: { object: "report-number", number: data_requests_count } }
+        = number_with_delimiter(data_requests_count)
+  .col-12.col-sm.text-center
+    .jumbotron.jumbotron-white.jumbotron-shadow
+      .lead.nowrap Data Requests per Month
+      .report-number{ data: { object: "report-number", number: total_average, decimal: 1 } }
+        = number_with_delimiter(format("%.1f", total_average))
+
+.dashboard-container.dashboard-table
+  %table.table.table-striped.table-borderless.table-sticky
+    %thead
+      %tr
+        %th.text-center Year
+        %th.text-center Total Data Requests
+        %th.text-center Average per Month
+    %tfoot
+      %tr
+        %th.text-center.bg-light All Years
+        %th.text-center.bg-light= number_with_delimiter data_requests_count
+        %th.text-center.bg-light= number_with_delimiter(format("%.1f", total_average))
+    - agreement_events.order(created_at: :desc).group_by { |dr| dr.created_at.year }.each do |year, data_requests|
+      - if year == first_date.year && year == Time.zone.today.year
+        - days = (Time.zone.today - first_date).to_f
+      - elsif year == first_date.year
+        - days = (first_date.end_of_year - first_date).to_f
+      - elsif year == Time.zone.today.year
+        - days = (Time.zone.today - Time.zone.today.beginning_of_year).to_f
+      - else
+        - days = 365
+      - months = [days.to_f / 30, 12.0].min
+      %tr
+        %td.text-center= year
+        %td.text-center= number_with_delimiter data_requests.count
+        %td.text-center
+          %span.px-1{ data: { toggle: "tooltip", title: "over " + pluralize(format("%.1f", months.to_f), "month"), container: "body", placement: "right" }}= number_with_delimiter format("%.1f", data_requests.count / months)

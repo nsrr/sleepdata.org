@@ -4,7 +4,7 @@
 - content_for :header do
   .float-right= link_to "Empty Spam", admin_empty_spam_path, method: :post, data: { confirm: "DELETE all spammers?" }, class: "btn btn-sm btn-primary"
   = @title
-= render "admin/tabs"
+= render "internal/tabs"
 - content_for :sidebar, render("admin/sidebar")
 
 - if @spammers.present?

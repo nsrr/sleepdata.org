@@ -11,21 +11,21 @@ class Viewer::OrganizationsControllerTest < ActionDispatch::IntegrationTest
     @regular = users(:regular)
   end
 
-  test "should get reports as editor" do
+  test "should get data requests as editor" do
     login(@org_editor)
-    get reports_organization_url(@organization)
+    get data_requests_organization_url(@organization)
     assert_response :success
   end
 
-  test "should get reports as viewer" do
+  test "should get data requests as viewer" do
     login(@org_viewer)
-    get reports_organization_url(@organization)
+    get data_requests_organization_url(@organization)
     assert_response :success
   end
 
-  test "should not get reports as regular" do
+  test "should not get data requests as regular" do
     login(@regular)
-    get reports_organization_url(@organization)
+    get data_requests_organization_url(@organization)
     assert_redirected_to organizations_url
   end
 
@@ -65,39 +65,21 @@ class Viewer::OrganizationsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to organizations_url
   end
 
-  test "should get data requests stats report as editor" do
+  test "should get data downloads as editor" do
     login(@org_editor)
-    get data_request_stats_organization_url(@organization)
+    get data_downloads_organization_url(@organization)
     assert_response :success
   end
 
-  test "should get data requests stats report as viewer" do
+  test "should get data downloads as viewer" do
     login(@org_viewer)
-    get data_request_stats_organization_url(@organization)
+    get data_downloads_organization_url(@organization)
     assert_response :success
   end
 
-  test "should not get data requests stats report as regular" do
+  test "should not get data downloads as regular" do
     login(@regular)
-    get data_request_stats_organization_url(@organization)
-    assert_redirected_to organizations_url
-  end
-
-  test "should get this month report as editor" do
-    login(@org_editor)
-    get this_month_organization_url(@organization)
-    assert_response :success
-  end
-
-  test "should get this month report as viewer" do
-    login(@org_viewer)
-    get this_month_organization_url(@organization)
-    assert_response :success
-  end
-
-  test "should not get this month report as regular" do
-    login(@regular)
-    get this_month_organization_url(@organization)
+    get data_downloads_organization_url(@organization)
     assert_redirected_to organizations_url
   end
 end

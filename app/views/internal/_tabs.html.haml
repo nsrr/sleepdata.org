@@ -1,9 +1,39 @@
 - content_for :tabs do
   - current_page = params[:controller].in?(%w(internal data_requests reviews))
-  = link_to dashboard_path, class: "link-unstyled d-inline-block px-3 pt-2 pb-2 rounded-top header-tab #{"border border-bottom-0 header-tab-active" if current_page}", data: { object: "#{"suppress-click" if current_page?(dashboard_path)}" } do
+  = link_to dashboard_path, class: "header-tab #{"header-tab-active" if current_page}" do
     = icon("fas", "home")
-    Dashboard
+    - if current_page
+      Dashboard
+    - else
+      .d-none.d-md-inline Dashboard
   - current_page = (params[:controller] == "settings")
-  = link_to settings_profile_path, class: "link-unstyled d-inline-block px-3 pt-2 pb-2 rounded-top header-tab #{"border border-bottom-0 header-tab-active" if current_page}", data: { object: "#{"suppress-click" if current_page?(settings_profile_path)}" } do
+  = link_to settings_profile_path, class: "header-tab #{"header-tab-active" if current_page}" do
     = icon("fas", "cog")
-    Settings
+    - if current_page
+      Settings
+    - else
+      .d-none.d-md-inline Settings
+  - if current_user.organization_viewer?
+    - current_page = (params[:controller] == "organizations")
+    = link_to organizations_path, class: "header-tab #{"header-tab-active" if current_page}" do
+      = icon("fas", "globe-americas")
+      - if current_page
+        Organizations
+      - else
+        .d-none.d-md-inline Organizations
+
+  - if current_user.admin?
+    - current_page = params[:controller].in?(%w(admin)) && params[:action].in?(%w(dashboard spam_inbox profile_review sync roles)) || params[:controller].in?(%w(users broadcasts admin/replies categories images tags exports admin/organizations))
+    = link_to admin_path, class: "header-tab #{"header-tab-active" if current_page}" do
+      = icon("fas", "toolbox")
+      - if current_page
+        Admin
+      - else
+        .d-none.d-md-inline Admin
+    - current_page = params[:controller].in?(%w(admin)) && params[:action].in?(%w(downloads_by_quarter downloads_by_month stats agreement_reports spam_report searches))
+    = link_to admin_downloads_by_quarter_path, class: "header-tab #{"header-tab-active" if current_page}" do
+      = icon("fas", "chart-area")
+      - if current_page
+        Reports
+      - else
+        .d-none.d-md-inline Reports
