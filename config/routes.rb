@@ -87,10 +87,6 @@ Rails.application.routes.draw do
   end
 
   resources :agreements, only: [] do
-    collection do
-      post :export
-    end
-
     resources :agreement_events, path: "events" do
       collection do
         post :preview
@@ -193,6 +189,13 @@ Rails.application.routes.draw do
         get :data_requests_submitted, path: "reports/data-requests/submitted"
         get :data_requests_approved, path: "reports/data-requests/approved"
       end
+
+      resources :exports, only: [:index, :show, :create, :destroy] do
+        member do
+          post :progress
+          get :download
+        end
+      end
     end
   end
 
@@ -225,13 +228,6 @@ Rails.application.routes.draw do
 
   get "/a/:auth_token/datasets" => "datasets#index"
   get "/a/:auth_token/datasets/:id" => "datasets#show"
-
-  resources :exports do
-    member do
-      post :progress
-      get :download
-    end
-  end
 
   resources :images do
     collection do

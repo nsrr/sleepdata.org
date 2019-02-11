@@ -44,7 +44,7 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
     get notification_url(notification)
     assert_not_nil assigns(:notification)
     assert_equal true, assigns(:notification).read
-    assert_redirected_to notification.export
+    assert_redirected_to [notification.export.organization, notification.export]
   end
 
   test "should show blank notification and redirect" do

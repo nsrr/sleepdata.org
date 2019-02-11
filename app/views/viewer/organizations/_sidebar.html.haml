@@ -7,6 +7,7 @@
           %li= link_to "Data requests", data_requests_organization_path(@organization), class: params[:controller] == "viewer/organizations" && params[:action].in?("data_requests_submitted data_requests_approved data_requests_total")  ? "active" : nil
           %li= link_to "Data downloads", data_downloads_organization_path(@organization), class: current_page?(data_downloads_organization_path(@organization)) ? "active" : nil
           %li= link_to "Membership", membership_organization_path(@organization), class: current_page?(membership_organization_path(@organization)) ? "active" : nil
+          %li= link_to "Exports", organization_exports_path(@organization), class: params[:controller] == "viewer/exports" ? "active" : nil
           %li.sidebar-menu-header Graphs
           %li= link_to "Year to date", data_requests_year_to_date_organization_path(@organization), class: current_page?(data_requests_year_to_date_organization_path(@organization)) ? "active" : nil
           %li= link_to "Since inception", data_requests_since_inception_organization_path(@organization), class: current_page?(data_requests_since_inception_organization_path(@organization)) ? "active" : nil

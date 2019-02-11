@@ -71,7 +71,7 @@ class NotificationsController < ApplicationController
     return @notification.reply if @notification.reply
     return tool_tool_review_path(@notification.tool, @notification.tool_review) if @notification.tool && @notification.tool_review
     return dataset_dataset_review_path(@notification.dataset, @notification.dataset_review) if @notification.dataset && @notification.dataset_review
-    return @notification.export if @notification.export
+    return [@notification.export.organization, @notification.export] if @notification.export
     notifications_path
   end
 end

@@ -41,6 +41,7 @@ class Organization < ApplicationRecord
   has_many :legal_documents, -> { current }
   has_many :legal_document_datasets
   has_many :final_legal_documents
+  has_many :exports, -> { current }
   has_many :organization_users
   has_many :editors,
            -> { current.where(organization_users: { editor: true }) },
@@ -82,17 +83,20 @@ class Organization < ApplicationRecord
 
   def editor?(current_user)
     return false unless current_user
+
     editors.where(id: current_user).count == 1
   end
 
   # Viewers include editors and viewers.
   def viewer?(current_user)
     return false unless current_user
+
     viewers.where(id: current_user).count == 1
   end
 
   def principal_reviewer?(current_user)
     return false unless current_user
+
     principal_reviewers.where(id: current_user).count == 1
   end
 end

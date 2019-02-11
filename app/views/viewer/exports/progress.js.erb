@@ -1,6 +1,6 @@
 $("#progress").css("width", "<%= @export.percent %>%");
 <% if %w(completed failed).include?(@export.status) %>
 clearInterval(<%= params[:interval] %>);
-$("#export-status").html("<%=j render "exports/status", export: @export %>");
+$("#export-status").html("<%=j render "viewer/exports/status", export: @export %>");
 $("#progress").addClass("custom-progress-<%= @export.status %>");
 <% end %>
