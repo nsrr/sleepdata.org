@@ -6,6 +6,8 @@ class Admin::ToolsController < ApplicationController
   before_action :check_admin
   before_action :set_tool, only: [:show, :edit, :update, :destroy]
 
+  layout "layouts/full_page_sidebar"
+
   # GET /admin/tools
   def index
     @order = scrub_order(Tool, params[:order], "tools.name")

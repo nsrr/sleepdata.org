@@ -1,11 +1,12 @@
-- @title = "Edit Tool: #{@tool.name_was}"
+- @title = "Edit Tool - #{@tool.name_was.presence || "Unnamed"}"
 
-- content_for :header, @tool.name_was
-
+- content_for :header, @tool.name_was.presence || "Unnamed"
+= render "internal/tabs"
 - content_for :breadcrumbs do
   %ol
-    %li= link_to "Tools", admin_tools_path
-    %li= link_to @tool.name_was, admin_tool_path(@tool)
-    %li Edit
+    %li= link_to "tools", admin_tool_path
+    %li= link_to (@tool.name_was.presence || "unnamed").downcase, admin_tool_path(@tool)
+    %li.breadcrumb-muted edit
+- content_for :sidebar, render("admin/sidebar")
 
 .dashboard-container= render "admin/tools/form", tool: @tool

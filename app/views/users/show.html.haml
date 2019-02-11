@@ -1,11 +1,14 @@
 - @title = @user.username
 
-- render "themes/theme"
 - content_for :header do
   .float-right
     = render "layouts/edit_delete_dropdown", edit_url: edit_user_path(@user), delete_url: @user, delete_confirmation: "Delete #{@user.username}?"
   = @title
 = render "internal/tabs"
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "users", users_path
+    %li.breadcrumb-muted= @user.username.downcase
 - content_for :sidebar, render("admin/sidebar")
 
 .dashboard-container

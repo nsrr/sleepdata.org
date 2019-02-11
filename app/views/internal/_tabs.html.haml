@@ -23,7 +23,7 @@
         .d-none.d-md-inline Organizations
 
   - if current_user.admin?
-    - current_page = params[:controller].in?(%w(admin)) && params[:action].in?(%w(dashboard spam_inbox profile_review sync roles)) || params[:controller].in?(%w(users broadcasts admin/replies categories images tags exports admin/organizations))
+    - current_page = params[:controller].in?(%w(admin)) && params[:action].in?(%w(dashboard spam_inbox profile_review sync roles)) || params[:controller].in?(%w(users broadcasts admin/replies categories images tags exports admin/organizations admin/tools))
     = link_to admin_path, class: "header-tab #{"header-tab-active" if current_page}" do
       = icon("fas", "toolbox")
       - if current_page

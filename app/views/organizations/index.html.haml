@@ -8,9 +8,10 @@
   = @title
 - if current_user&.organization_viewer?
   = render "internal/tabs"
-  - content_for :breadcrumbs do
-    %ol
-      %li.breadcrumb-muted orgs
+- content_for :breadcrumbs do
+  = render "layouts/per_page_breadcrumbs", per_page: 20, object_count: @organizations.total_count
+  %ol
+    %li.breadcrumb-muted orgs
 
 - if @organizations.present?
   .dashboard-container.dashboard-table
@@ -31,6 +32,8 @@
             - if current_user&.admin?
               %td.nowrap.text-center
                 = render "layouts/edit_delete_dropdown", edit_url: edit_organization_path(organization), delete_url: organization, delete_confirmation: "Delete #{organization.name}?"
+
+  .center-horizontally= paginate @organizations, theme: "bootstrap"
 - else
   .jumbotron.jumbotron-custom-text
     = icon("far", "clone", class: "mr-1")

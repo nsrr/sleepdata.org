@@ -1,16 +1,18 @@
-- @title = @tool.name
+- @title = @tool.name.presence || "Unnamed"
 
-- content_for :header, @title
-
-- content_for :breadcrumbs do
+- content_for :header do
   .float-right
-    = render "layouts/draft_published", published: @tool.published?
+    = render "layouts/edit_delete_dropdown", edit_url: edit_admin_tool_path(@tool), delete_url: admin_tool_path(@tool), delete_confirmation: "Delete #{@tool.name}?"
+  = @title
+= render "internal/tabs"
+- content_for :breadcrumbs do
   %ol
-    %li= link_to "Tools", admin_tools_path
-    %li= link_to @tool.name, admin_tool_path(@tool)
-    %li= render "layouts/breadcrumb_edit_delete_dropdown", edit_url: edit_admin_tool_path(@tool), delete_url: admin_tool_path(@tool), delete_confirmation: "Delete #{@tool.name}?"
+    %li= link_to "tools", admin_tools_path
+    %li.breadcrumb-muted= (@tool.name.presence || "unnamed").downcase
+- content_for :sidebar, render("admin/sidebar")
 
 .dashboard-container
   = render "forms/horizontal/show/generic", title: "URL", content: link_to(@tool.url, @tool.url)
+  = render "forms/horizontal/show/check_box", object: @tool, key: :published
   = render "forms/horizontal/show/generic", title: "User", content: @tool.user.username
   = render "forms/horizontal/show/generic", title: "Description", content: simple_markdown(@tool.description)

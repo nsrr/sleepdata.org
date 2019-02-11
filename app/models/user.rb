@@ -201,12 +201,10 @@ class User < ApplicationRecord
     end
   end
 
-  # TODO: rewrite using inner join?
   def reviewable_data_requests
-    DataRequest.current.where(
-      "agreements.id IN (select requests.agreement_id from requests where requests.dataset_id IN (?))",
-      all_reviewable_datasets.select(:id)
-    )
+    DataRequest.current.joins(:requests).merge(
+      Request.where(dataset: all_reviewable_datasets)
+    ).distinct
   end
 
   def principal_reviewable_data_requests

@@ -7,7 +7,6 @@ class OrganizationsController < ApplicationController
   # GET /orgs
   def index
     @organizations = Organization.current.search(params[:search]).order(:name).page(params[:page]).per(20)
-    # render layout: "layouts/full_page_sidebar" if current_user&.organization_viewer?
   end
 
   # # GET /orgs/1

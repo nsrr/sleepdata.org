@@ -14,7 +14,7 @@
     - else
       .d-none.d-sm-inline Members
   - if @organization.viewer?(current_user)
-    - current_page = params[:controller].in?("viewer/organizations viewer/exports")
+    - current_page = params[:controller].in?(%w(viewer/organizations viewer/exports))
     = link_to data_requests_organization_path(@organization), class: "header-tab #{"header-tab-active" if current_page}" do
       = icon("fas", "chart-area")
       - if current_page

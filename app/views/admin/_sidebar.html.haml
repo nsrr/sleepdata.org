@@ -6,6 +6,7 @@
           %li.sidebar-menu-header Admin
           %li= link_to "Dashboard", admin_path, class: current_page?(admin_path) ? "active" : nil if current_user.admin? || current_user.report_manager?
           %li= link_to "Users", users_path, class: params[:controller] == "users" ? "active" : nil if current_user.admin? || current_user.report_manager?
+          %li= link_to "Tools", admin_tools_path, class: params[:controller] == "admin/tools" ? "active" : nil if current_user.admin?
 
           - if current_user.admin?
             %li.sidebar-menu-header Discussion

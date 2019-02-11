@@ -16,6 +16,7 @@
     = stylesheet_link_tag "application", media: "all", data: { turbolinks_track: "reload" }
     = javascript_include_tag "application", data: { turbolinks_track: "reload" }
     = javascript_tag "var root_url='#{request.script_name + '/'}';"
+  - render("themes/theme") unless @theme
   %body#top.full-page.theme-bg{ class: @theme ? "theme-#{@theme}-bg" : nil, data: { theme: @theme } }
     = render "layouts/service_announcement", container: "container-fluid"
     = render "layouts/flash_bar"
