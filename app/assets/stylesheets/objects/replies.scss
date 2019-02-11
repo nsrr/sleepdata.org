@@ -1,19 +1,9 @@
 .reply-outer-container {
-  background-color: $brand-white;
-  box-shadow: 0 1px 5px $box-shadow-color;
   margin-bottom: 20px;
   padding: 20px;
 }
 
 .reply-container {
-  &.reply-even {
-    background-color: $comment-unread-even;
-  }
-
-  &.reply-odd {
-    background-color: $comment-unread-odd;
-  }
-
   .reply-container {
     margin-right: -11px;
     margin-top: 10px;
@@ -21,46 +11,83 @@
   }
 }
 
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .reply-outer-container {
+      background-color: map-get($theme, brand-white);
+      box-shadow: 0 1px 5px map-get($theme, box-shadow-color);
+    }
+
+    .reply-container {
+      &.reply-even {
+        background-color: map-get($theme, brand-white);
+      }
+
+      &.reply-odd {
+        background-color: $p50-grey;
+      }
+    }
+  }
+}
+
 @include media-breakpoint-up(sm) {
   .reply-container {
     .reply-container {
-      border-radius: 4px;
+      border-radius: $border-radius;
       margin-right: 0;
     }
   }
 }
 
-.reply-unread {
-  border-left: 4px solid $p100-green;
-}
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .reply-unread {
+      border-left: 4px solid $p100-green;
+    }
 
-.reply-read {
-  border-left: 4px solid $p50-grey;
+    .reply-read {
+      border-left: 4px solid $p50-grey;
 
-  &.highlighted-reply {
-    border-color: $p100-yellow;
+      &.highlighted-reply {
+        border-color: $p100-yellow;
+      }
+    }
+
+    .highlighted-reply {
+      background-color: $mark-bg;
+
+      > .reply-container.reply-even,
+      > .reply-container.reply-odd {
+        background-color: $mark-bg;
+      }
+    }
   }
 }
 
-.highlighted-reply {
-  background-color: $mark-bg;
-
-  > .reply-container.reply-even,
-  > .reply-container.reply-odd {
-    background-color: $mark-bg;
-  }
-}
-
-
+.comment-body,
 .topic-preview,
-.reply-body {
+.reply-body,
+.preview-body {
   blockquote {
     border: 0;
-    border-left: 2px solid $p200-grey;
-    color: $p500-grey;
+    border-left: 2px solid transparent;
     font-size: $font-size-base;
     margin: 0 0 11px;
     padding: 0 10px;
+  }
+}
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .comment-body,
+    .topic-preview,
+    .reply-body,
+    .preview-body {
+      blockquote {
+        border-color: theme-color($theme, blockquote-border, $p200-grey);
+        color: theme-color($theme, blockquote-color, $p500-grey);
+      }
+    }
   }
 }
 
@@ -73,7 +100,6 @@
 
 .reply-body-formatted {
   .img-zoom-message {
-    color: $brand-white;
     position: relative;
     display: inline-block;
     cursor: zoom-in;
@@ -128,6 +154,16 @@
   }
 }
 
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .reply-body-formatted {
+      .img-zoom-message {
+        color: map-get($theme, brand-white);
+      }
+    }
+  }
+}
+
 .reply-inner-container {
   margin-left: 0;
   position: relative;
@@ -158,14 +194,7 @@
 }
 
 .reply-simple-full-hover-box {
-  background-color: $brand-white;
-
-  .reply-simple-full-link {
-    background-color: $p100-grey;
-  }
-
   &:hover .reply-simple-full-link {
-    background-color: $p100-orange;
     text-decoration: none;
   }
 
@@ -178,6 +207,22 @@
       height: auto;
       max-height: 50px;
       max-width: 100%;
+    }
+  }
+}
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .reply-simple-full-hover-box {
+      background-color: map-get($theme, brand-white);
+
+      .reply-simple-full-link {
+        background-color: $p100-grey;
+      }
+
+      &:hover .reply-simple-full-link {
+        background-color: $p100-orange;
+      }
     }
   }
 }
