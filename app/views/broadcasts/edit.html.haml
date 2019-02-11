@@ -5,6 +5,7 @@
 
 - content_for :breadcrumbs do
   %ol
+    %li= link_to "articles", broadcasts_path
     %li= link_to @broadcast.slug_was, @broadcast
     %li.breadcrumb-muted edit
 

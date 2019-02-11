@@ -1,6 +1,10 @@
 - @title = @tool.name
 
 - content_for :header, @title
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "tools", tools_path
+    %li.breadcrumb-muted= (@tool.name.presence || "unnamed").downcase
 
 .row
   .col-md-9

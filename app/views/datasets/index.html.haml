@@ -3,8 +3,11 @@
 - content_for :header do
   .float-right
     = link_to plus_or("New Dataset"), new_dataset_path, class: "btn btn-primary btn-shadow" if current_user && current_user.organization_editor?
-    = render "layouts/per_page", per_page: 24, object_count: @datasets.total_count
   = @title
+- content_for :breadcrumbs do
+  = render "layouts/per_page_breadcrumbs", per_page: 24, object_count: @datasets.total_count
+  %ol
+    %li.breadcrumb-muted datasets
 
 - filtered_params = params.permit(:ages, :data, :order)
 

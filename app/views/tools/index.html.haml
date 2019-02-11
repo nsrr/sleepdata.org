@@ -1,10 +1,14 @@
 - @title = "Tools"
 
 - content_for :header do
-  .float-right
-    =# link_to plus_or("Contribute a tool"), contribute_tool_start_path, class: "btn btn-primary btn-shadow"
-    = render "layouts/per_page", per_page: 20, object_count: @tools.total_count
+  - if false
+    .float-right
+      = link_to plus_or("Contribute a tool"), contribute_tool_start_path, class: "btn btn-primary btn-shadow"
   = @title
+- content_for :breadcrumbs do
+  = render "layouts/per_page_breadcrumbs", per_page: 20, object_count: @tools.total_count
+  %ol
+    %li.breadcrumb-muted tools
 
 - if @tools.present?
   .topics
