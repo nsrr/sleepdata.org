@@ -32,7 +32,7 @@
             %td= link_to category.name, category
             %td
               .badge.badge-light= category.slug
-            %td.nowrap.text-center
+            %td.text-center
               = render "layouts/edit_delete_dropdown", edit_url: edit_category_path(category), delete_url: category, delete_confirmation: "Delete #{category.name}?"
 
   .center-horizontally= paginate @categories, theme: "bootstrap"

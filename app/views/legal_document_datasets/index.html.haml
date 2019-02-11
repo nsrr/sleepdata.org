@@ -33,7 +33,7 @@
           %tr.tr-align-middle
             %td= link_to legal_document_dataset.legal_document.name, [@organization, legal_document_dataset]
             %td= legal_document_dataset.dataset.name
-            %td.nowrap.text-center
+            %td.text-center
               = render "layouts/edit_delete_dropdown", edit_url: edit_organization_legal_document_dataset_path(@organization, legal_document_dataset), delete_url: [@organization, legal_document_dataset], delete_confirmation: "Delete #{legal_document_dataset.name}?"
 
   .center-horizontally= paginate @legal_document_datasets, theme: "bootstrap"

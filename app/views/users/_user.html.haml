@@ -15,4 +15,4 @@
   %small= abbreviated_time(user.current_sign_in_at || user.created_at)
 %td.d-none.d-md-table-cell.text-right
   %small= number_with_delimiter(user.sign_in_count)
-%td.nowrap.text-center= render "layouts/edit_delete_dropdown", edit_url: edit_user_path(user), delete_url: user, delete_confirmation: "Delete #{user.username}?"
+%td.text-center= render "layouts/edit_delete_dropdown", edit_url: edit_user_path(user), delete_url: user, delete_confirmation: "Delete #{user.username}?"

@@ -35,7 +35,7 @@
               %span.badge.badge-dark{ style: "background-color: #{tag.color};" }= tag.color
             %td.d-none.d-sm-table-cell
               %span.badge.badge-light= tag.type_name
-            %td.nowrap.text-center
+            %td.text-center
               = render "layouts/edit_delete_dropdown", edit_url: edit_tag_path(tag), delete_url: tag, delete_confirmation: "Delete #{tag.name}?"
 
   .center-horizontally= paginate @tags, theme: "bootstrap"

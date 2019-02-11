@@ -29,7 +29,7 @@
           %tr.tr-align-middle
             %td= link_to organization.name, organization
             - if current_user&.admin?
-              %td.nowrap.text-center
+              %td.text-center
                 = render "layouts/edit_delete_dropdown", edit_url: edit_organization_path(organization), delete_url: organization, delete_confirmation: "Delete #{organization.name}?"
 
   .center-horizontally= paginate @organizations, theme: "bootstrap"
