@@ -14,7 +14,7 @@
 
     .form-group
       = form.label :description, nil
-      .preview-container.form-control.p-0{ class: @tool.errors[:description].present? ? "is-invalid" : nil }
+      .preview-container.p-0{ class: @tool.errors[:description].present? ? "is-invalid" : nil }
         .preview-header
           .float-right
             = render "replies/rich_text_editor_buttons", target: "#tool_description"
