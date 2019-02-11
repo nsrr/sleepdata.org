@@ -72,6 +72,7 @@ class Dataset < ApplicationRecord
   validates :age_min, numericality: { less_than_or_equal_to: :age_max, message: "must be less than or equal to Age Maximum" }, if: :age_max
   validates :age_max, numericality: { greater_than_or_equal_to: :age_min, message: "must be greater than or equal to Age Minimum" }, if: :age_min
   validates :age_max, numericality: { greater_than_or_equal_to: 0 }, unless: :age_min
+  validates :git_repository, format: { with: /https\:\/\/[[a-z][A-Z]\d\/\-\_\:\.]+/ }, allow_blank: true
 
   # Relationships
   belongs_to :user

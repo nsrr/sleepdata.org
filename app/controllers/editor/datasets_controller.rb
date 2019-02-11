@@ -93,6 +93,7 @@ class Editor::DatasetsController < ApplicationController
   def create
     @dataset = current_user.datasets.new(dataset_params)
     if @dataset.save
+      @dataset.git_init_repository!
       redirect_to @dataset, notice: "Dataset was successfully created."
     else
       render :new, layout: "layouts/application"
@@ -106,6 +107,7 @@ class Editor::DatasetsController < ApplicationController
   # PATCH /datasets/1
   def update
     if @dataset.update(dataset_params)
+      @dataset.git_init_repository!
       redirect_to [:settings, @dataset], notice: "Dataset was successfully updated."
     else
       render :edit

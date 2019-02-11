@@ -10,6 +10,8 @@
 - **Dataset Changes**
   - Dataset footer now correctly sticks to the bottom of the screen on pages
     without sufficient content
+  - Documentation repositories are now automatically loaded when an editor
+    specifies or changes the repository URL
 - **Organizaton Changes**
   - Improved dataset creation and access by organization editors and viewers
   - Improved organization reports to show breakdowns of submitted and approved
