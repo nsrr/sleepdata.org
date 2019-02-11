@@ -4,7 +4,7 @@
       .pt-3.mx-3.my-0.ml-md-3.mb-md-3.mr-md-0
         %ul.sidebar-menu.sidebar-menu-shadow
           %li.sidebar-menu-header Reports
-          %li= link_to "Data requests", data_requests_organization_path(@organization), class: params[:controller] == "viewer/organizations" && params[:action].in?("data_request_rates data_requests_submitted data_requests_approved data_requests_total")  ? "active" : nil
+          %li= link_to "Data requests", data_requests_organization_path(@organization), class: params[:controller] == "viewer/organizations" && params[:action].in?("data_requests_submitted data_requests_approved data_requests_total")  ? "active" : nil
           %li= link_to "Data downloads", data_downloads_organization_path(@organization), class: current_page?(data_downloads_organization_path(@organization)) ? "active" : nil
           %li= link_to "Membership", membership_organization_path(@organization), class: current_page?(membership_organization_path(@organization)) ? "active" : nil
           %li.sidebar-menu-header Graphs

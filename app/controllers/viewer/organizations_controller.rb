@@ -7,12 +7,20 @@ class Viewer::OrganizationsController < ApplicationController
 
   layout "layouts/full_page_sidebar"
 
-  # # GET /orgs/1/reports
-  # def reports
+  # # GET /orgs/1/reports/data-requests
+  # def data_requests
   # end
 
-  # # GET /orgs/1/reports/data-request-rates
-  # def data_request_rates
+  # # GET /orgs/1/reports/data-requests/submitted
+  # def data_requests_submitted
+  # end
+
+  # # GET /orgs/1/reports/data-requests/approved
+  # def data_requests_approved
+  # end
+
+  # # GET /orgs/1/reports/data-requests/total
+  # def data_requests_total
   # end
 
   # # GET /orgs/1/reports/data-downloads
@@ -72,14 +80,6 @@ class Viewer::OrganizationsController < ApplicationController
     month_start_date(year, month).end_of_month
   end
 
-  def year_start_date(year)
-    Date.parse("#{year}-01-01")
-  end
-
-  def year_end_date(year)
-    year_start_date(year).end_of_year
-  end
-
   def add_submitted_data_requests(data_requests, max)
     data = []
     (1..12).each do |month|
@@ -109,7 +109,6 @@ class Viewer::OrganizationsController < ApplicationController
     max = ([max] + data).max
     [{ type: "area", showInLegend: true, name: "Avg. Submitted Data Requests", data: data, color: "#e3f2fd", visible: true, dashStyle: "shortdot", legendIndex: 1 }, max]
   end
-
 
   def add_total_submitted_data_requests(data_requests)
     data_submitted = []
