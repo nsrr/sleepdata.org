@@ -18,7 +18,6 @@
 - public_downloads_files = DatasetFileAudit.where(dataset: @organization.datasets).public_downloads.group(:dataset_id).count
 - public_downloads_file_sizes = DatasetFileAudit.where(dataset: @organization.datasets).public_downloads.group(:dataset_id).sum(:file_size)
 
-- user_scope = User.current.no_spammer_or_shadow_banned
 .row
   .col-12.col-sm.text-center
     .jumbotron.jumbotron-white.jumbotron-shadow
@@ -28,7 +27,6 @@
     .jumbotron.jumbotron-white.jumbotron-shadow
       .lead.nowrap Total Downloads
       .report-number= number_to_human_size members_file_sizes.values.sum + public_downloads_file_sizes.values.sum
-
 
 .dashboard-container
   .dashboard-title
