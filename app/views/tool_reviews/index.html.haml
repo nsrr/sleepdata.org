@@ -7,9 +7,9 @@
     - else
       - link_text = "Write a review"
     = link_to pencil_or(link_text), new_tool_tool_review_path(@tool), class: "btn btn-primary btn-shadow"
-    = render "layouts/per_page", per_page: 40, object_count: @tool_reviews.total_count
   Reviews
 - content_for :breadcrumbs do
+  = render "layouts/per_page_breadcrumbs", per_page: 40, object_count: @tool_reviews.total_count
   %ol
     %li= link_to @tool.name, @tool
     %li= render "tools/rating", rating: @tool.rating

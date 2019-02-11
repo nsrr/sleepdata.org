@@ -1,0 +1,43 @@
+- @title = "Database Coverage - Legal Documents"
+
+- content_for :header, "Database Coverage"
+= render "organizations/tabs", organization: @organization
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "orgs", organizations_path
+    %li= link_to @organization.slug, @organization
+    %li= link_to "legal documents", [@organization, :legal_documents]
+    %li.breadcrumb-muted coverage
+- content_for :sidebar, render("editor/organizations/sidebar")
+
+.dashboard-container.dashboard-table
+  %table.table.table-striped.table-borderless.table-sticky
+    %col{ width: "1px" }
+    %col
+    %col
+    %col
+    %col
+    %thead
+      %tr
+        %th{ style: "border-bottom: 0;" }
+        %th.text-center{ colspan: 2, style: "border-bottom: 0;" } Noncommercial
+        %th.text-center{ colspan: 2, style: "border-bottom: 0;" } Commercial
+      %tr
+        %th{ style: "top: 87px;border-top: 0;" } Dataset
+        %th.text-center{ style: "top: 87px;border-top: 0;" } Individual
+        %th.text-center{ style: "top: 87px;border-top: 0;" } Organization
+        %th.text-center{ style: "top: 87px;border-top: 0;" } Individual
+        %th.text-center{ style: "top: 87px;border-top: 0;" } Organization
+
+    %tbody
+      - @organization.datasets.order(:release_date, :name).each do |dataset|
+        %tr
+          %td= dataset.slug
+          %td.text-center
+            = render "organizations/legal_document_dataset_coverage", dataset: dataset, commercial_types: ["both", "noncommercial"], data_user_types: ["both", "individual"]
+          %td.text-center
+            = render "organizations/legal_document_dataset_coverage", dataset: dataset, commercial_types: ["both", "noncommercial"], data_user_types: ["both", "organization"]
+          %td.text-center
+            = render "organizations/legal_document_dataset_coverage", dataset: dataset, commercial_types: ["both", "commercial"], data_user_types: ["both", "individual"]
+          %td.text-center
+            = render "organizations/legal_document_dataset_coverage", dataset: dataset, commercial_types: ["both", "commercial"], data_user_types: ["both", "organization"]

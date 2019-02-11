@@ -6,3 +6,4 @@
           %li.sidebar-menu-header Editor
           %li= link_to "Settings", settings_organization_path(@organization), class: current_page?(settings_organization_path(@organization)) ? "active" : nil
           %li= link_to "Legal documents", [@organization, :legal_documents], class: params[:controller] == "legal_documents" ? "active" : nil
+          %li= link_to "Legal document datasets", [@organization, :legal_document_datasets], class: params[:controller] == "legal_document_datasets" ? "active" : nil

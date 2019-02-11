@@ -1,12 +1,14 @@
 - @title = "Reviews"
 
-- content_for :sidebar, render("internal/sidebar")
 - content_for :header do
-  .float-right= render "layouts/per_page", per_page: 10, object_count: @data_requests.total_count
   = @title
   = render "search/toggle"
-
 = render "internal/tabs"
+- content_for :breadcrumbs do
+  = render "layouts/per_page_breadcrumbs", per_page: 10, object_count: @data_requests.total_count
+  %ol
+    %li.breadcrumb-muted reviews
+- content_for :sidebar, render("internal/sidebar")
 
 = render "search/simple", url: reviews_path
 

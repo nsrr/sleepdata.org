@@ -22,7 +22,7 @@
       - else
         .d-none.d-sm-inline Reports
   - if @organization.editor?(current_user)
-    - current_page = params[:controller].in?(%w(editor/organizations legal_documents))
+    - current_page = params[:controller].in?(%w(editor/organizations legal_documents legal_document_datasets))
     = link_to settings_organization_path(@organization), class: "header-tab #{"header-tab-active" if current_page}" do
       = icon("fas", "cog")
       - if current_page

@@ -241,6 +241,10 @@ Rails.application.routes.draw do
     resources :legal_document_datasets, path: "legal-document-datasets"
 
     resources :legal_documents, path: "legal-documents" do
+      collection do
+        get :coverage
+      end
+
       resources :legal_document_pages, path: "pages"
       # resources :legal_document_pages, path: "pages", as: :page, only: [:show, :edit, :update, :destroy]
       # resources :legal_document_pages, path: "pages", as: :pages, only: [:index, :create]

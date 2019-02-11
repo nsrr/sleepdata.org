@@ -3,19 +3,19 @@
 # Helps simplify links across screen sizes for headers.
 module HeaderHelper
   def reply_or(label)
-    label_or(label, generic_tag("fa-reply"))
+    label_or(label, icon("fas", "reply"))
   end
 
   def plus_or(label)
-    label_or(label, generic_tag("fa-plus"))
+    label_or(label, icon("fas", "plus"))
   end
 
   def pencil_or(label)
-    label_or(label, generic_tag("fa-pencil"))
+    label_or(label, icon("fas", "pencil-alt"))
   end
 
   def download_or(label)
-    label_or(label, generic_tag("fa-download"))
+    label_or(label, icon("fas", "download"))
   end
 
   def label_or(label, small_label)
@@ -24,9 +24,5 @@ module HeaderHelper
     end
     span_md_lg = content_tag :span, label, class: %w(d-none d-md-inline-block)
     span_xs_sm + span_md_lg
-  end
-
-  def generic_tag(fa_class)
-    content_tag :i, nil, class: ["fa", fa_class], aria: { hidden: "true" }
   end
 end

@@ -1,13 +1,14 @@
-- @title = "Edit Legal Document Dataset: #{@legal_document_dataset.name}"
+- @title = "Edit Legal Document Dataset - #{@legal_document_dataset.name}"
 
-- content_for :sidebar, render("admin/sidebar")
 - content_for :header, @legal_document_dataset.name
-
+= render "organizations/tabs", organization: @organization
 - content_for :breadcrumbs do
   %ol
-    %li= link_to @organization.name, @organization
-    %li= link_to "Legal Document Datasets", organization_legal_document_datasets_path(@organization)
-    %li= link_to @legal_document_dataset.name, [@organization, @legal_document_dataset]
-    %li Edit
+    %li= link_to "orgs", organizations_path
+    %li= link_to @organization.slug, @organization
+    %li= link_to "legal document datasets", [@organization, :legal_document_datasets]
+    %li= link_to @legal_document_dataset.name.downcase, [@organization, @legal_document_dataset]
+    %li.breadcrumb-muted edit
+- content_for :sidebar, render("editor/organizations/sidebar")
 
 .dashboard-container= render "legal_document_datasets/form", legal_document_dataset: @legal_document_dataset

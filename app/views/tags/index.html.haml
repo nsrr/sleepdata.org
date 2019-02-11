@@ -3,9 +3,12 @@
 - content_for :header do
   .float-right
     = link_to plus_or("New Tag"), new_tag_path, class: "btn btn-primary btn-shadow"
-    = render "layouts/per_page", per_page: 40, object_count: @tags.total_count
   = @title
 = render "internal/tabs"
+- content_for :breadcrumbs do
+  = render "layouts/per_page_breadcrumbs", per_page: 40, object_count: @tags.total_count
+  %ol
+    %li.breadcrumb-muted tags
 - content_for :sidebar, render("admin/sidebar")
 
 - if @tags.present?

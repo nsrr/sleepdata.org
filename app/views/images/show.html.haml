@@ -5,6 +5,11 @@
     .float-right
       = render "layouts/edit_delete_dropdown", edit_url: edit_image_path(@image), delete_url: @image, delete_confirmation: "Delete #{@image.name}?"
   = @title
+- if current_user&.admin?
+  - content_for :breadcrumbs do
+    %ol
+      %li= link_to "images", images_path
+      %li.breadcrumb-muted= @image.name.downcase
 
 .dashboard-container
   = render "forms/horizontal/show/generic", title: "User", content: link_to(@image.user.username, posts_member_path(@image.user.username))

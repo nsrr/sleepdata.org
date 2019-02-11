@@ -1,12 +1,13 @@
 - @title = "New Legal Document Dataset"
 
-- content_for :sidebar, render("admin/sidebar")
 - content_for :header, @title
-
+= render "organizations/tabs", organization: @organization
 - content_for :breadcrumbs do
   %ol
-    %li= link_to @organization.name, @organization
-    %li= link_to "Legal Document Datasets", organization_legal_document_datasets_path(@organization)
+    %li= link_to "orgs", organizations_path
+    %li= link_to @organization.slug, @organization
+    %li= link_to "legal document datasets", [@organization, :legal_document_datasets]
     %li.breadcrumb-muted new
+- content_for :sidebar, render("editor/organizations/sidebar")
 
 .dashboard-container= render "legal_document_datasets/form", legal_document_dataset: @legal_document_dataset
