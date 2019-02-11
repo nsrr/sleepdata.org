@@ -116,11 +116,6 @@ class User < ApplicationRecord
     current.where(shadow_banned: true, spammer: [nil, true])
   end
 
-  # TODO: Implement
-  def report_manager?
-    false
-  end
-
   def profile_present?
     profile_bio.present? || profile_location.present?
   end
