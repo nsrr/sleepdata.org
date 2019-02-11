@@ -14,8 +14,6 @@
       = render "forms/vertical/password_field", form: form, object: current_user, key: :current_password, key_name: "Old password", autocomplete: "current-password"
       = render "forms/vertical/password_field", form: form, object: current_user, key: :password, key_name: "New password", autocomplete: "new-password"
       = render "forms/vertical/password_field", form: form, object: current_user, key: :password_confirmation, key_name: "Confirm new password", autocomplete: "new-password"
-      =# render "forms/vertical/submit", form: form, object: current_user, submit_text: "Update password", cancel: false, alternate_link: link_to("I forgot my password", new_user_password_path)
-      -# TODO: Allow new_user_password_path to be accessible when logged in.
       = render "forms/vertical/submit", form: form, object: current_user, submit_text: "Update password", cancel: false
 
 %a.anchor-top{ name: "username", id: "username" }
