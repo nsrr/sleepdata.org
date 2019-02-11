@@ -26,7 +26,7 @@
         %tr
           %th
           %th.py-2
-            = form_with url: broadcasts_path, method: :get, local: true, skip_enforcing_utf8: true do |form|
+            = form_with url: broadcasts_path, method: :get, local: true do |form|
               = form.text_field :search, value: params[:search], placeholder: "Search articles", autocomplete: "off", class: "table-cell-search-input border rounded"
 
           %th.d-none.d-sm-table-cell Publish date

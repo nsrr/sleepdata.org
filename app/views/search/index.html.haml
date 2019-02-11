@@ -3,7 +3,7 @@
 
 - content_for :header, "Search"
 
-= form_with url: search_path, method: :get, local: true, id: "search-form", class: "mb-3", skip_enforcing_utf8: true do |form|
+= form_with url: search_path, method: :get, local: true, id: "search-form", class: "mb-3" do |form|
   .input-group
     = form.text_field :search, value: params[:search], class: "form-control", placeholder: "Search...", autocomplete: "off", autofocus: params[:search].blank?
     %span.input-group-append

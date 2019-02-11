@@ -1,6 +1,6 @@
 .search-container-relative
   .search-container{ class: params[:search].present? ? "search-container-visible" : nil }
-    = form_with url: url, method: :get, local: true, skip_enforcing_utf8: true, id: "search-form" do
+    = form_with url: url, method: :get, local: true, id: "search-form" do
       = hidden_field_tag :order, params[:order] unless params[:order].blank?
       .form-group.mb-0
         .input-group

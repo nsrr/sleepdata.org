@@ -26,7 +26,7 @@
           - if false
             = th_sort_field_rev @order, "tools.rating", "Rating", extra_class: "text-center"
           %th.p-2
-            = form_with url: tools_path, method: :get, local: true, skip_enforcing_utf8: true do |form|
+            = form_with url: tools_path, method: :get, local: true do |form|
               = form.text_field :search, value: params[:search], placeholder: "Search tools", autocomplete: "off", class: "table-cell-search-input border rounded"
           - if false
             %th{ class: params[:order] == "tools.name desc" || params[:order].blank? ? "sort-selected" : nil }

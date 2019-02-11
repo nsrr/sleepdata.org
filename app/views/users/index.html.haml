@@ -19,7 +19,7 @@
       %thead
         %tr
           %th.py-2
-            = form_with url: users_path, method: :get, local: true, skip_enforcing_utf8: true do |form|
+            = form_with url: users_path, method: :get, local: true do |form|
               = form.text_field :search, value: params[:search], placeholder: "Search users", autocomplete: "off", class: "table-cell-search-input border rounded"
           %th= order_to "Email", primary: "email"
           %th.d-none.d-sm-table-cell= order_to "Activity", primary: "activity"
