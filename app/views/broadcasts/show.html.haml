@@ -1,6 +1,5 @@
 - @title = @broadcast.title
 
-- render "themes/theme"
 - content_for :header do
   .float-right
     = render "layouts/edit_delete_dropdown", edit_url: edit_broadcast_path(@broadcast), delete_url: @broadcast, delete_confirmation: "Delete #{@broadcast.title}?"

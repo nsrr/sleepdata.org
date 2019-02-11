@@ -1,6 +1,5 @@
 - @title = "Edit Dataset: #{@dataset.name_was}"
 
-- render "themes/theme"
 - content_for :header, @dataset.name_was
 - content_for :header_append, render("datasets/header", container: "container-fluid")
 - content_for :sidebar, render("editor/datasets/sidebar")
