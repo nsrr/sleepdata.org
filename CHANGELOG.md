@@ -2,7 +2,7 @@
 
 ### Enhancements
 - **API Changes**
-  - Redeploying a dataset now correctly updates a variables display name and
+  - Redeploying a dataset now correctly updates a variable's display name and
     variable type
 - **General Changes**
   - Update FAIR guiding principles
