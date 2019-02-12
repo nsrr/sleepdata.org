@@ -10,8 +10,8 @@ class CategoriesController < ApplicationController
 
   # GET /categories
   def index
-    @order = scrub_order(Category, params[:order], "categories.name")
-    @categories = Category.current.search(params[:search]).order(@order).page(params[:page]).per(40)
+    scope = Category.current.search(params[:search])
+    @categories = scope_order(scope).page(params[:page]).per(40)
   end
 
   # # GET /categories/1
@@ -66,5 +66,10 @@ class CategoriesController < ApplicationController
 
   def category_params
     params.require(:category).permit(:name, :slug)
+  end
+
+  def scope_order(scope)
+    @order = params[:order]
+    scope.order(Arel.sql(Category::ORDERS[params[:order]] || Category::DEFAULT_ORDER))
   end
 end

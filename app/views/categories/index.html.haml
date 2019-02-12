@@ -22,7 +22,7 @@
           %th.py-2
             = form_with url: categories_path, method: :get, local: true do |form|
               = form.text_field :search, value: params[:search], placeholder: "Search categories", autocomplete: "off", class: "table-cell-search-input border rounded"
-          = th_sort_field @order, "categories.slug", "Slug"
+          %th= order_to "Slug", primary: "slug"
           %th.text-center
             .d-none.d-sm-inline-block Actions
 
