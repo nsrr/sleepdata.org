@@ -18,12 +18,12 @@
 
 - users = User.current.no_spammer_or_shadow_banned
 - users_count = users.count
-- data_requests_count = @organization.data_requests.joins(:user).merge(users).count(:user_id)
+- data_requests_count = @organization.data_requests.joins(:user).merge(users).distinct.count(:user_id)
 
 .row
   .col-12.col-sm.text-center
     .jumbotron.jumbotron-white.jumbotron-shadow
-      .lead.nowrap Members who Requested Data Access
+      .lead.nowrap Members who Started Data Request
       .report-number{ data: { object: "report-number", number: data_requests_count } }
         = number_with_delimiter(data_requests_count)
   .col-12.col-sm.text-center
@@ -64,8 +64,9 @@
                 Correct one?
                 = dataset.data_requests.where.not(submitted_at: nil).count
             %td.text-center
-              = approved_count
-              - if false
-                %br
-                Correct one?
-                = dataset.data_requests.where.not(approval_date: nil).count
+              = link_to data_requests_dataset_path(dataset, status: %w(approved expired)) do
+                = approved_count
+                - if false
+                  %br
+                  Correct one?
+                  = dataset.data_requests.where.not(approval_date: nil).count
