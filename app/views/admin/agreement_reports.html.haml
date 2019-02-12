@@ -9,14 +9,14 @@
     %thead
       %tr
         %th Status
-        - Agreement::STATUS.each do |label, status|
+        - DataRequest::STATUS.each do |label, status|
           - temp_agreement = Agreement.new(status: status)
           %th= status_helper(temp_agreement)
         %th Total
     %tfoot
       %tr
         %th Total
-        - Agreement::STATUS.each do |label, status|
+        - DataRequest::STATUS.each do |label, status|
           - count = @agreements.where(status: status).count
           %th= link_to count, reviews_path(status: status)
         %th= link_to @agreements.count, reviews_path
@@ -24,7 +24,7 @@
     - Tag.review_tags.order(:name).each do |tag|
       %tr
         %td= tag.name
-        - Agreement::STATUS.each do |label, status|
+        - DataRequest::STATUS.each do |label, status|
           - count = @agreements.where(status: status).with_tag(tag).count
           %td= link_to (count == 0 ? "-" : count), reviews_path(status: status, tag_id: tag.id)
         %td= link_to @agreements.with_tag(tag.id).count, reviews_path(tag_id: tag.id)

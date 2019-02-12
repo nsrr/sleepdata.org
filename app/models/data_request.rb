@@ -2,6 +2,19 @@
 
 # Allows users to request access to one or more datasets.
 class DataRequest < Agreement
+  # Constants
+  ORDERS = {
+    "expires desc" => "agreements.expiration_date desc",
+    "expires" => "agreements.expiration_date",
+    "submitted desc" => "agreements.last_submitted_at desc nulls last",
+    "submitted" => "agreements.last_submitted_at",
+    "id desc" => "agreements.id desc",
+    "id" => "agreements.id"
+  }
+  DEFAULT_ORDER = "agreements.last_submitted_at desc"
+
+  STATUS = %w(started submitted approved resubmit expired closed).collect { |i| [i, i] }
+
   # Relationships
   has_many :supporting_documents
 

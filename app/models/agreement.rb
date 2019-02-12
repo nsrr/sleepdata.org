@@ -11,8 +11,6 @@ class Agreement < ApplicationRecord
   # Callbacks
   after_create_commit :set_token
 
-  STATUS = %w(started submitted approved resubmit expired closed).collect { |i| [i, i] }
-
   attr_accessor :draft
   attr_accessor :representative
 

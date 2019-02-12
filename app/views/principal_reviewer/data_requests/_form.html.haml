@@ -1,5 +1,5 @@
 = form_with model: data_request, url: review_data_request_path(data_request), method: :patch, id: "data-request-form" do |form|
-  = render "forms/horizontal/select", form: form, object: data_request, key: :status, options: Agreement::STATUS, id: true
+  = render "forms/horizontal/select", form: form, object: data_request, key: :status, options: DataRequest::STATUS, id: true
 
   #approval-container{ style: "#{"display: none;" unless data_request.status == "approved"}" }
     = render "forms/horizontal/date_field", form: form, object: data_request, key: :approval_date

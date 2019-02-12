@@ -11,14 +11,12 @@ class ReviewsController < ApplicationController
 
   # GET /reviews
   def index
-    params[:order] = "agreements.last_submitted_at desc" if params[:order].blank?
-    @order = scrub_order(DataRequest, params[:order], [:id])
-    agreement_scope = current_user.reviewable_data_requests.advanced_search(Arel.sql(params[:search].to_s)).order(@order)
-    agreement_scope = agreement_scope.without_vote(current_user) if params[:voted].to_s == "0"
-    agreement_scope = agreement_scope.with_vote(current_user) if params[:voted].to_s == "1"
-    agreement_scope = agreement_scope.with_tag(params[:tag_id]) if params[:tag_id].present?
-    agreement_scope = agreement_scope.where(status: params[:status]) if params[:status].present?
-    @data_requests = agreement_scope.page(params[:page]).per(10)
+    scope = current_user.reviewable_data_requests.advanced_search(Arel.sql(params[:search].to_s))
+    scope = scope.without_vote(current_user) if params[:voted].to_s == "0"
+    scope = scope.with_vote(current_user) if params[:voted].to_s == "1"
+    scope = scope.with_tag(params[:tag_id]) if params[:tag_id].present?
+    scope = scope.where(status: params[:status]) if params[:status].present?
+    @data_requests = scope_order(scope).page(params[:page]).per(10)
     render layout: "layouts/full_page_sidebar"
   end
 
@@ -126,5 +124,10 @@ class ReviewsController < ApplicationController
   def find_data_request_or_redirect
     @data_request = current_user.reviewable_data_requests.find_by(id: params[:id])
     empty_response_or_root_path(reviews_path) unless @data_request
+  end
+
+  def scope_order(scope)
+    @order = params[:order]
+    scope.order(Arel.sql(DataRequest::ORDERS[params[:order]] || DataRequest::DEFAULT_ORDER))
   end
 end

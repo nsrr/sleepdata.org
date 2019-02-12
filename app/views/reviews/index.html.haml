@@ -39,40 +39,26 @@
       %col{ width: "1px" }
       %col
       %col.d-none.d-sm-table-column
-      - if false
-        %col.d-none.d-md-table-column
       %col.d-none.d-lg-table-column
-      - if false
-        %col.d-none.d-xl-table-column
-        %col.d-none.d-xl-table-column
       %thead.table-light
         %tr
           %th.text-center
-            =# link_to "Status", reviews_path(order: (params[:order] == "agreements.status desc" ? "agreements.status" : "agreements.status desc"), status: params[:status], tag_id: params[:tag_id], search: params[:search])
             .dropdown{ style: "display: inline-block;" }
               = link_to icon("fas", "filter"), "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" }
               .dropdown-menu
-                = link_to "All", reviews_path(order: params[:order]), style: params[:status].blank? ? "font-weight:bold;" : "", class: "dropdown-item"
+                - selected = params[:status].blank?
+                = link_to reviews_path(order: params[:order]), style: selected ? "font-weight:bold;" : "", class: "dropdown-item" do
+                  = simple_check selected
+                  All
+                .dropdown-divider
                 - DataRequest::STATUS.each do |label, value|
-                  = link_to label.titleize, reviews_path(order: params[:order], status: value), style: params[:status] == value ? "font-weight:bold;" : "", class: "dropdown-item"
-          %th
-            = link_to "Data Request", reviews_path(order: (params[:order] == "agreements.id desc" ? "agreements.id" : "agreements.id desc"), status: params[:status], tag_id: params[:tag_id], search: params[:search])
-          %th.d-none.d-sm-table-cell.nowrap
-            = link_to "Submitted", reviews_path(order: (params[:order] == "agreements.last_submitted_at desc" ? "agreements.last_submitted_at" : nil), status: params[:status], tag_id: params[:tag_id], search: params[:search])
-          - if false
-            %th.d-none.d-md-table-cell.nowrap
-              = link_to "Expires", reviews_path(order: (params[:order] == "agreements.expiration_date desc" ? "agreements.expiration_date" : "agreements.expiration_date desc"), status: params[:status], tag_id: params[:tag_id], search: params[:search])
+                  - selected = params[:status] == value
+                  = link_to reviews_path(order: params[:order], status: value), style: selected ? "font-weight:bold;" : "", class: "dropdown-item" do
+                    = simple_check selected
+                    = label.titleize
+          %th= order_to "Data Request", primary: "id"
+          %th.d-none.d-sm-table-cell.nowrap= order_to "Submitted", primary: "submitted desc", secondary: "submitted"
           %th.d-none.d-lg-table-cell Reviewers
-          - if false
-            %th.d-none.d-xl-table-cell Datasets
-            %th.d-none.d-xl-table-cell.nowrap
-              Tags
-              .dropdown{ style: "display: inline-block" }
-                = link_to icon("fas", "filter"), "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" }
-                .dropdown-menu.dropdown-menu-right
-                  = link_to "All", reviews_path(order: params[:order]), style: params[:tag_id].blank? ? "font-weight:bold;" : "", class: "dropdown-item"
-                  - Tag.review_tags.pluck(:name, :id).each do |label, value|
-                    = link_to label.titleize, reviews_path(order: params[:order], tag_id: value), style: params[:tag_id].to_s == value.to_s ? "font-weight:bold;" : "", class: "dropdown-item"
 
       - @data_requests.each do |data_request|
         %tr
@@ -87,16 +73,7 @@
                 = icon("fas", "info-circle")
             - elsif data_request.submitted_at
               = data_request.submitted_at.strftime("%b %-d, %Y")
-          - if false
-            %td.d-none.d-md-table-cell.nowrap
-              - if data_request.expiration_date
-                = data_request.expiration_date.strftime("%b %-d, %Y")
           %td.d-none.d-lg-table-cell.nowrap= render "reviews/reviewers", data_request: data_request
-          - if false
-            %td.d-none.d-xl-table-cell
-              - data_request.datasets.order(:release_date, :name).each do |dataset|
-                = render "datasets/mini", dataset: dataset
-            %td.d-none.d-xl-table-cell= render "reviews/tags", data_request: data_request
 
   .center-horizontally= paginate @data_requests, theme: "bootstrap"
 - else
