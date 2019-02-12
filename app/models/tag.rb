@@ -2,6 +2,17 @@
 
 # Allows forum posts and agreements to be tagged.
 class Tag < ApplicationRecord
+  # Constants
+  ORDERS = {
+    "name desc" => "tags.name desc",
+    "name" => "tags.name",
+    "color desc" => "tags.color desc",
+    "color" => "tags.color",
+    "type desc" => "tags.tag_type desc",
+    "type" => "tags.tag_type"
+  }
+  DEFAULT_ORDER = "tags.name"
+
   TYPE = [%w(Forum topic), %w(Review agreement)]
 
   # Concerns

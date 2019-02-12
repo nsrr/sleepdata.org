@@ -23,8 +23,8 @@
           %th.py-2
             = form_with url: tags_path, method: :get, local: true do |form|
               = form.text_field :search, value: params[:search], placeholder: "Search tags", autocomplete: "off", class: "table-cell-search-input border rounded"
-          = th_sort_field @order, "tags.color", "Color"
-          = th_sort_field @order, "tags.tag_type", "Type", extra_class: "d-none d-sm-table-cell"
+          %th= order_to "Color", primary: "color"
+          %th.d-none.d-sm-table-cell= order_to "Type", primary: "type"
           %th.text-center
             .d-none.d-sm-inline-block Actions
       %tbody
@@ -35,6 +35,7 @@
               %span.badge.badge-dark{ style: "background-color: #{tag.color};" }= tag.color
             %td.d-none.d-sm-table-cell
               %span.badge.badge-light= tag.type_name
+              = tag.tag_type.inspect
             %td.text-center
               = render "layouts/edit_delete_dropdown", edit_url: edit_tag_path(tag), delete_url: tag, delete_confirmation: "Delete #{tag.name}?"
 

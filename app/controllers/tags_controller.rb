@@ -10,8 +10,8 @@ class TagsController < ApplicationController
 
   # GET /tags
   def index
-    @order = scrub_order(Tag, params[:order], "tags.name")
-    @tags = Tag.current.search(params[:search]).order(@order).page(params[:page]).per(40)
+    scope = Tag.current.search(params[:search])
+    @tags = scope_order(scope).page(params[:page]).per(40)
   end
 
   # # GET /tags/1
@@ -65,5 +65,10 @@ class TagsController < ApplicationController
 
   def tag_params
     params.require(:tag).permit(:name, :color, :tag_type)
+  end
+
+  def scope_order(scope)
+    @order = params[:order]
+    scope.order(Arel.sql(Tag::ORDERS[params[:order]] || Tag::DEFAULT_ORDER))
   end
 end
