@@ -1,4 +1,4 @@
-## 38.0.0
+## 38.0.0 (February 12, 2019)
 
 ### Enhancements
 - **API Changes**
