@@ -5,6 +5,7 @@
 class Reply < ApplicationRecord
   # Constants
   ORDERS = {
+    "best" => "points",
     "points" => "points",
     "points desc" => "points desc",
     "newest" => "replies.created_at desc",

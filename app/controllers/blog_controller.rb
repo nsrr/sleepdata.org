@@ -19,13 +19,9 @@ class BlogController < ApplicationController
 
   def show
     @author = @broadcast.user
-    @page = (params[:page].to_i > 1 ? params[:page].to_i : 1)
-
-    @order = scrub_order(Reply, params[:order], "points desc")
-    if ["points", "points desc"].include?(params[:order])
-      @order = params[:order]
-    end
-    @replies = @broadcast.replies.points.includes(:broadcast).where(reply_id: nil).reorder(@order).page(params[:page]).per(Reply::REPLIES_PER_PAGE)
+    @page = [params[:page].to_i, 1].max
+    scope = @broadcast.replies.points.includes(:broadcast).where(reply_id: nil)
+    @replies = scope_order(scope).page(params[:page]).per(Reply::REPLIES_PER_PAGE)
     @broadcast.increment! :view_count
     render layout: "layouts/full_page"
   end
@@ -44,11 +40,18 @@ class BlogController < ApplicationController
 
   def set_author
     return if params[:author].blank?
+
     @author = User.current.where("lower(username) = ?", params[:author].downcase).first
   end
 
   def set_category
     return if params[:category].blank?
+
     @category = Category.current.where("lower(slug) = ?", params[:category].downcase).first
+  end
+
+  def scope_order(scope)
+    @order = params[:order]
+    scope.reorder(Arel.sql(Reply::ORDERS[params[:order]] || Reply::DEFAULT_ORDER))
   end
 end

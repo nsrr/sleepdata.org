@@ -41,13 +41,19 @@
             &middot; sorted by
           .dropdown{ style: "display: inline-block"}
             = link_to "#", data: { toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" }, class: "text-muted btn-link btn-sm btn-link dropdown-toggle" do
-              - case params[:order] when "replies.created_at desc"
-                new
+              - case params[:order] when "newest"
+                newest
               - else
                 best
             .dropdown-menu
-              = link_to "best", blog_post_path(@broadcast.url_hash.merge(order: "points desc", anchor: "comments")), style: (params[:order].blank? || params[:order] == "points desc") ? "font-weight:bold;" : "", data: { turbolinks: false }, class: "dropdown-item"
-              = link_to "new", blog_post_path(@broadcast.url_hash.merge(order: "replies.created_at desc", anchor: "comments")), style: (params[:order] == "replies.created_at desc") ? "font-weight:bold;" : "", data: { turbolinks: false }, class: "dropdown-item"
+              - selected = (params[:order].blank? || params[:order] == "best")
+              = link_to blog_post_path(@broadcast.url_hash.merge(order: "best", anchor: "comments")), style: selected ? "font-weight:bold;" : "", data: { turbolinks: false }, class: "dropdown-item" do
+                = simple_check selected
+                best
+              - selected = (params[:order] == "newest")
+              = link_to blog_post_path(@broadcast.url_hash.merge(order: "newest", anchor: "comments")), style: selected ? "font-weight:bold;" : "", data: { turbolinks: false }, class: "dropdown-item" do
+                = simple_check selected
+                newest
 
           %span#write_reply_root_new{ style: "overflow: hidden;" }
             = link_to "Write a Reply", async_parent_reply_path(broadcast_id: @broadcast, parent_reply_id: "root", reply_id: "new"), method: :post, remote: true
