@@ -124,14 +124,6 @@ class ApplicationController < ActionController::Base
     redirect_to root_path
   end
 
-  def scrub_order(model, params_order, default_order)
-    (params_column, params_direction) = params_order.to_s.strip.downcase.split(" ")
-    direction = (params_direction == "desc" ? "desc nulls last" : nil)
-    column_name = model.column_names.collect { |c| "#{model.table_name}.#{c}" }.select { |c| c == params_column }.first
-    order = column_name.blank? ? default_order : [column_name, direction].compact.join(" ")
-    Arel.sql(order.to_s)
-  end
-
   def parse_date(date_string, default_date = "")
     if date_string.to_s.split("/").last.size == 2
       Date.strptime(date_string, "%m/%d/%y")
