@@ -57,7 +57,7 @@
                     = simple_check selected
                     = label.titleize
           %th= order_to "Data Request", primary: "id"
-          %th.d-none.d-sm-table-cell.nowrap= order_to "Submitted", primary: "submitted desc", secondary: "submitted"
+          %th.d-none.d-sm-table-cell= order_to "Submitted", primary: "submitted desc", secondary: "submitted"
           %th.d-none.d-lg-table-cell Reviewers
 
       - @data_requests.each do |data_request|

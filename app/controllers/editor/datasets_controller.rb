@@ -11,13 +11,11 @@ class Editor::DatasetsController < ApplicationController
   # Concerns
   include Pageable
 
-  # GET /datasets/1/agreements
-  def agreements
-    params[:order] = "agreements.id desc" if params[:order].blank?
-    @order = scrub_order(Agreement, params[:order], [:id])
-    agreement_scope = @dataset.agreements.order(@order)
-    agreement_scope = agreement_scope.where(status: params[:status]) if params[:status].present?
-    @agreements = agreement_scope.page(params[:page]).per(40)
+  # GET /datasets/1/data_requests
+  def data_requests
+    scope = @dataset.data_requests
+    scope = scope.where(status: params[:status]) if params[:status].present?
+    @data_requests = scope_order(scope).page(params[:page]).per(40)
   end
 
   # GET /datasets/1/audits
@@ -141,5 +139,10 @@ class Editor::DatasetsController < ApplicationController
 
   def find_editable_dataset_or_redirect
     super(:id)
+  end
+
+  def scope_order(scope)
+    @order = params[:order]
+    scope.order(Arel.sql(DataRequest::ORDERS[params[:order]] || DataRequest::DEFAULT_ORDER))
   end
 end

@@ -30,9 +30,9 @@ class Editor::DatasetsControllerTest < ActionDispatch::IntegrationTest
     }
   end
 
-  test "should get agreements" do
+  test "should get data requests" do
     login(@editor)
-    get agreements_dataset_url(@dataset)
+    get data_requests_dataset_url(@dataset)
     assert_response :success
   end
 

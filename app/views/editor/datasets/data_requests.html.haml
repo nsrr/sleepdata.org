@@ -1,0 +1,60 @@
+- @title = "Data Requests - #{@dataset.name}"
+
+- content_for :header, @dataset.name_was
+- content_for :header_append, render("datasets/header", container: "container-fluid")
+- content_for :sidebar, render("editor/datasets/sidebar")
+
+- content_for :breadcrumbs do
+  = render "layouts/per_page_breadcrumbs", per_page: 40, object_count: @data_requests.total_count
+  %ol
+    %li= link_to @dataset.breadcrumb_slug, @dataset
+    %li.breadcrumb-muted data requests
+
+- if @data_requests.present?
+  .dashboard-container.dashboard-table
+    %table.table.table-striped.table-borderless.table-sticky
+      %col{ width: "1px" }
+      %col
+      %col
+      %thead
+        %tr
+          %th.nowrap
+            = order_to "Status", primary: "status"
+            .dropdown{ style: "display: inline-block" }
+              = link_to icon("fas", "filter"), "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" }, id: "status-dropdown"
+              .dropdown-menu{ aria: { labelledby: "status-dropdown" } }
+                - selected = params[:status].blank?
+                = link_to data_requests_dataset_path(@dataset, order: params[:order]), style: selected ? "font-weight:bold;" : "", class: "dropdown-item" do
+                  = simple_check selected
+                  All
+                .dropdown-divider
+                - DataRequest::STATUS.each do |label, value|
+                  - selected = params[:status] == value
+                  = link_to data_requests_dataset_path(@dataset, order: params[:order], status: value), style: selected ? "font-weight:bold;" : "", class: "dropdown-item" do
+                    = simple_check selected
+                    = label.titleize
+          %th
+            = order_to "Data Request", primary: "id", secondary: "id desc"
+          %th= order_to "Submitted", primary: "submitted desc", secondary: "submitted"
+      %tbody
+        - @data_requests.each do |data_request|
+          %tr
+            %td= status_helper(data_request)
+            %td.nowrap
+              = profile_picture_tag data_request.user, size: 18, style: "vertical-align:text-bottom;width:18px"
+              = link_to data_request.complex_name_or_id, review_path(data_request)
+            %td.nowrap
+              - if data_request.resubmitted_at
+                = data_request.resubmitted_at.strftime("%b %-d, %Y")
+                = link_to "#", rel: "tooltip", title: "Resubmitted", data: { object: "suppress-click", container: "body", placement: "right" } do
+                  = icon("fas", "info-circle")
+              - elsif data_request.submitted_at
+                = data_request.submitted_at.strftime("%b %-d, %Y")
+
+  .center-horizontally= paginate @data_requests, theme: "bootstrap"
+
+- else
+  .jumbotron.jumbotron-custom-text
+    = icon("far", "clone", class: "mr-1")
+    No data requests found.
+    = link_to "Start over", data_requests_dataset_path(@dataset) if params[:search].present?

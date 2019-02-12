@@ -8,6 +8,6 @@
           %li= link_to "Collaborators", collaborators_dataset_path(@dataset), class: current_page?(collaborators_dataset_path(@dataset)) ? "active" : nil
           %li= link_to "Sync", sync_dataset_path(@dataset), class: current_page?(sync_dataset_path(@dataset)) ? "active" : nil
           %li.sidebar-menu-header Reports
-          %li= link_to "Agreements", agreements_dataset_path(@dataset), class: current_page?(agreements_dataset_path(@dataset)) ? "active" : nil
           %li= link_to "Audits", audits_dataset_path(@dataset), class: current_page?(audits_dataset_path(@dataset)) ? "active" : nil
+          %li= link_to "Data requests", data_requests_dataset_path(@dataset), class: current_page?(data_requests_dataset_path(@dataset)) ? "active" : nil
           %li= link_to "Page Views", page_views_dataset_path(@dataset), class: current_page?(page_views_dataset_path(@dataset)) ? "active" : nil

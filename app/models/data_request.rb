@@ -8,10 +8,12 @@ class DataRequest < Agreement
     "expires" => "agreements.expiration_date",
     "submitted desc" => "agreements.last_submitted_at desc nulls last",
     "submitted" => "agreements.last_submitted_at",
+    "status desc" => "agreements.status desc",
+    "status" => "agreements.status",
     "id desc" => "agreements.id desc",
     "id" => "agreements.id"
   }
-  DEFAULT_ORDER = "agreements.last_submitted_at desc"
+  DEFAULT_ORDER = "agreements.last_submitted_at desc nulls last"
 
   STATUS = %w(started submitted approved resubmit expired closed).collect { |i| [i, i] }
 

@@ -148,7 +148,7 @@ Rails.application.routes.draw do
   scope module: :editor do
     resources :datasets, only: [:new, :create, :edit, :update, :destroy] do
       member do
-        get :agreements
+        get :data_requests, path: "data-requests"
         get :audits
         get :collaborators
         get :page_views, path: "page-views"
