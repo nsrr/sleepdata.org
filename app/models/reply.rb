@@ -4,6 +4,14 @@
 # also be nested under other replies.
 class Reply < ApplicationRecord
   # Constants
+  ORDERS = {
+    "points" => "points",
+    "points desc" => "points desc",
+    "newest" => "replies.created_at desc",
+    "oldest" => "replies.created_at"
+  }
+  DEFAULT_ORDER = "replies.created_at desc"
+
   THRESHOLD = -10
   REPLIES_PER_PAGE = 20
 

@@ -9,8 +9,14 @@ class Admin::RepliesController < ApplicationController
 
   # GET /admin/replies
   def index
-    @order = scrub_order(Reply, params[:order], "created_at desc")
-    @order = params[:order] if ["points", "points desc"].include?(params[:order])
-    @replies = Reply.current.points.order(@order).page(params[:page]).per(40)
+    scope = Reply.current.points
+    @replies = scope_order(scope).page(params[:page]).per(40)
+  end
+
+  private
+
+  def scope_order(scope)
+    @order = params[:order]
+    scope.order(Arel.sql(Reply::ORDERS[params[:order]] || Reply::DEFAULT_ORDER))
   end
 end
