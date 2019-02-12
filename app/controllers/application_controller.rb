@@ -115,13 +115,11 @@ class ApplicationController < ActionController::Base
   end
 
   def check_community_manager
-    return if current_user&.community_manager?
-    redirect_to root_path
+    redirect_to root_path unless current_user&.community_manager?
   end
 
   def check_admin
-    return if current_user&.admin?
-    redirect_to root_path
+    redirect_to root_path unless current_user&.admin?
   end
 
   def parse_date(date_string, default_date = "")
@@ -130,7 +128,7 @@ class ApplicationController < ActionController::Base
     else
       Date.strptime(date_string, "%m/%d/%Y")
     end
-  rescue
+  rescue ArgumentError, NoMethodError
     default_date
   end
 
@@ -151,6 +149,7 @@ class ApplicationController < ActionController::Base
     # in the database with the token given in the params, mitigating
     # timing attacks.
     return unless user && Devise.secure_compare(user.authentication_token, auth_token)
+
     sign_in user, store: false
   end
 
@@ -181,6 +180,7 @@ class ApplicationController < ActionController::Base
   def find_editable_organization_or_redirect(id = :organization_id)
     @organization = current_user.editable_organizations.find_by_param(params[id])
     return if @organization
+
     organization = current_user.viewable_organizations.find_by_param(params[id])
     empty_response_or_root_path(organization || organizations_path)
   end
@@ -193,11 +193,13 @@ class ApplicationController < ActionController::Base
 
   def check_key_and_set_default_value(object, key, default_value)
     return unless params[object].key?(key) && params[object][key].blank?
+
     params[object][key] = default_value
   end
 
   def parse_date_if_key_present(object, key)
     return unless params[object].key?(key)
+
     params[object][key] = parse_date(params[object][key]) if params[object].key?(key)
   end
 
