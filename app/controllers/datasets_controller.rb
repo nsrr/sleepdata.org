@@ -74,20 +74,15 @@ class DatasetsController < ApplicationController
   # GET /datasets
   # GET /datasets.json
   def index
-    @order = scrub_order(Dataset, params[:order], "release_date, name")
-    dataset_scope = if current_user
-                      current_user.all_viewable_datasets
-                    else
-                      Dataset.released
-                    end
+    scope = current_user ? current_user.all_viewable_datasets : Dataset.released
     if params[:ages]
       (min_age, max_age) = params[:ages].split("-").collect { |s| parse_integer(s) }
-      dataset_scope = dataset_scope.where("age_min <= ?", max_age) if max_age.present?
-      dataset_scope = dataset_scope.where("age_max >= ?", min_age) if min_age.present?
+      scope = scope.where("age_min <= ?", max_age) if max_age.present?
+      scope = scope.where("age_max >= ?", min_age) if min_age.present?
     end
-    dataset_scope = dataset_scope.where(polysomnography: true) if params[:data] == "polysomnography"
-    dataset_scope = dataset_scope.where(actigraphy: true) if params[:data] == "actigraphy"
-    @datasets = dataset_scope.order(@order).page(params[:page]).per(24)
+    scope = scope.where(polysomnography: true) if params[:data] == "polysomnography"
+    scope = scope.where(actigraphy: true) if params[:data] == "actigraphy"
+    @datasets = scope_order(scope).page(params[:page]).per(12)
   end
 
   # GET /datasets/1
@@ -110,5 +105,10 @@ class DatasetsController < ApplicationController
     Integer(format("%d", string))
   rescue
     nil
+  end
+
+  def scope_order(scope)
+    @order = params[:order]
+    scope.order(Arel.sql(Dataset::ORDERS[params[:order]] || Dataset::DEFAULT_ORDER))
   end
 end

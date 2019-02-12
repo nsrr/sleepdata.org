@@ -3,6 +3,16 @@
 # Encompasses the documentation, files, and variables of a set of data from a
 # single study.
 class Dataset < ApplicationRecord
+  ORDERS = {
+    "name desc" => "datasets.name desc",
+    "name" => "datasets.name",
+    "newest" => "datasets.release_date desc, datasets.name desc",
+    "oldest" => "datasets.release_date, datasets.name",
+    "popular" => "datasets.rating desc",
+    "unpopular" => "datasets.rating"
+  }
+  DEFAULT_ORDER = "datasets.release_date, datasets.name"
+
   FILES_PER_PAGE = 100
 
   mount_uploader :logo, ImageUploader

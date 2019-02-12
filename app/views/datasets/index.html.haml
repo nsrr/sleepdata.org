@@ -5,7 +5,7 @@
     = link_to plus_or("New Dataset"), new_dataset_path, class: "btn btn-primary btn-shadow" if current_user && current_user.organization_editor?
   = @title
 - content_for :breadcrumbs do
-  = render "layouts/per_page_breadcrumbs", per_page: 24, object_count: @datasets.total_count
+  = render "layouts/per_page_breadcrumbs", per_page: 12, object_count: @datasets.total_count
   %ol
     %li.breadcrumb-muted datasets
 
@@ -58,17 +58,26 @@
           = icon("fas", "cog")
         .d-none.d-sm-inline-block
           - case params[:order]
-          - when "datasets.release_date desc"
+          - when "newest"
             Newest
-          - when "datasets.rating desc"
+          - when "popular"
             Popular
           - else
             Publish Date
         %span.caret
       .dropdown-menu.dropdown-menu-right
-        = link_to "Publish Date", datasets_path(filtered_params.merge(order: nil)), style: params[:order].blank? ? "font-weight: bold" : nil, class: "dropdown-item"
-        = link_to "Newest", datasets_path(filtered_params.merge(order: "datasets.release_date desc")), style: params[:order] == "datasets.release_date desc" ? "font-weight: bold" : nil, class: "dropdown-item"
-        = link_to "Popular", datasets_path(filtered_params.merge(order: "datasets.rating desc")), style: params[:order] == "datasets.rating desc" ? "font-weight: bold" : nil, class: "dropdown-item"
+        - selected = params[:order].blank?
+        = link_to datasets_path(filtered_params.merge(order: nil)), style: selected ? "font-weight: bold" : nil, class: "dropdown-item" do
+          = simple_check selected
+          Publish Date
+        - selected = params[:order] == "newest"
+        = link_to datasets_path(filtered_params.merge(order: "newest")), style: selected ? "font-weight: bold" : nil, class: "dropdown-item" do
+          = simple_check selected
+          Newest
+        - selected = params[:order] == "popular"
+        = link_to datasets_path(filtered_params.merge(order: "popular")), style: selected ? "font-weight: bold" : nil, class: "dropdown-item" do
+          = simple_check selected
+          Popular
 
 - if @datasets.count.zero?
   .lead.text-center{ style: "margin-top: 40px;" }
