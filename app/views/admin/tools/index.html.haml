@@ -19,9 +19,9 @@
       %thead
         %tr
           %th
-          %th Name
+          %th= order_to "Name", primary: nil, secondary: "name desc"
           %th User
-          %th.text-center Type
+          %th.text-center= order_to "Type", primary: "type"
           %th.text-center
             .d-none.d-sm-inline-block Actions
 

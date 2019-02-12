@@ -10,8 +10,8 @@ class Admin::ToolsController < ApplicationController
 
   # GET /admin/tools
   def index
-    @order = scrub_order(Tool, params[:order], "tools.name")
-    @tools = Tool.current.order(@order).page(params[:page]).per(40)
+    scope = Tool.current.search(params[:search])
+    @tools = scope_order(scope).page(params[:page]).per(40)
   end
 
   # # GET /admin/tools/1
@@ -66,5 +66,10 @@ class Admin::ToolsController < ApplicationController
       :name, :url, :description, :slug, :published, :publish_date,
       :tag_program, :tag_script, :tag_tutorial, :series
     )
+  end
+
+  def scope_order(scope)
+    @order = params[:order]
+    scope.order(Arel.sql(Tool::ORDERS[params[:order]] || Tool::DEFAULT_ORDER))
   end
 end
