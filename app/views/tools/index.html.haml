@@ -13,8 +13,6 @@
 - if @tools.present?
   .topics
     %table.table.table-striped.table-borderless.table-hover.table-sticky
-      - if false
-        %col{ width: "1px" }
       %col{ width: "75%" }
       %col.d-none.d-sm-table-column{ width: "25%" }
       %col{ width: "1px" }
@@ -23,8 +21,6 @@
         %col{ width: "1px" }
       %thead
         %tr
-          - if false
-            = th_sort_field_rev @order, "tools.rating", "Rating", extra_class: "text-center"
           %th.p-2
             = form_with url: tools_path, method: :get, local: true do |form|
               = form.text_field :search, value: params[:search], placeholder: "Search tools", autocomplete: "off", class: "table-cell-search-input border rounded"
@@ -42,10 +38,17 @@
             .dropdown{ style: "display: inline-block" }
               = link_to icon("fas", "filter"), "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" }
               .dropdown-menu.dropdown-menu-right
-                = link_to "All", tools_path(order: params[:order]), style: params[:type].blank? ? "font-weight:bold;" : "", class: "dropdown-item"
+                - selected = params[:type].blank?
+                = link_to tools_path(order: params[:order]), style: selected ? "font-weight:bold;" : "", class: "dropdown-item" do
+                  = simple_check selected
+                  All
+                .dropdown-divider
                 - [["Program", "program"], ["Script", "script"], ["Tutorial", "tutorial"]].each do |label, value|
-                  = link_to label, tools_path(order: params[:order], type: value), style: params[:type] == value ? "font-weight:bold;" : "", class: "dropdown-item"
-          = th_sort_field_rev @order, "tools.publish_date", "Published", extra_class: "d-none d-md-block text-center"
+                  - selected = params[:type] == value
+                  = link_to tools_path(order: params[:order], type: value), style: selected ? "font-weight:bold;" : "", class: "dropdown-item" do
+                    = simple_check selected
+                    = label
+          %th.d-none.d-md-block.text-center= order_to "Published", primary: "published"
           - if current_user && current_user.admin?
             %th.text-center
               .d-none.d-sm-inline-block Actions
@@ -53,10 +56,6 @@
       %tbody
         - @tools.each do |tool|
           %tr
-            - if false
-              %td.text-center
-                = link_to tool_tool_reviews_path(tool) do
-                  = render "tools/rating", rating: tool.rating
             %td= link_to tool.name, tool_path(tool)
             %td.d-none.d-sm-block
               %small= link_to tool.user.username, member_path(tool.user.username), class: "link-blend-semi-muted"

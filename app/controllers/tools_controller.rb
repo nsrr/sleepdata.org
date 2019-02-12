@@ -7,22 +7,15 @@ class ToolsController < ApplicationController
   # GET /tools
   # GET /tools.json
   def index
-    @order = scrub_order(Tool, params[:order], "tools.name")
-    if @order == "tools.name"
-      tool_scope = tools.order(Arel.sql("LOWER(tools.name)"))
-    elsif @order == "tools.name desc nulls last"
-      tool_scope = tools.order(Arel.sql("LOWER(tools.name) desc nulls last"))
-    else
-      tool_scope = tools.order(@order)
-    end
+    scope = tools.search(params[:search])
     if params[:a].present?
       user_ids = User.current.with_name(params[:a].to_s.split(","))
-      tool_scope = tool_scope.where(user_id: user_ids.select(:id))
+      scope = scope.where(user_id: user_ids.select(:id))
     end
-    tool_scope = tool_scope.where(tag_program: true) if params[:type] == "program"
-    tool_scope = tool_scope.where(tag_script: true) if params[:type] == "script"
-    tool_scope = tool_scope.where(tag_tutorial: true) if params[:type] == "tutorial"
-    @tools = tool_scope.search(params[:search]).page(params[:page]).per(20)
+    scope = scope.where(tag_program: true) if params[:type] == "program"
+    scope = scope.where(tag_script: true) if params[:type] == "script"
+    scope = scope.where(tag_tutorial: true) if params[:type] == "tutorial"
+    @tools = scope_order(scope).page(params[:page]).per(20)
   end
 
   # # GET /tools/1
@@ -39,5 +32,10 @@ class ToolsController < ApplicationController
   def find_viewable_tool_or_redirect
     @tool = tools.find_by_param(params[:id])
     empty_response_or_root_path(tools_path) unless @tool
+  end
+
+  def scope_order(scope)
+    @order = params[:order]
+    scope.order(Arel.sql(Tool::ORDERS[params[:order]] || Tool::DEFAULT_ORDER))
   end
 end

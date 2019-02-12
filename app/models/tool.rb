@@ -3,6 +3,14 @@
 # Tracks status of user submitted tool.
 class Tool < ApplicationRecord
   # Constants
+  ORDERS = {
+    "name desc" => "lower(tools.name) desc nulls last",
+    "name" => "lower(tools.name)",
+    "published desc" => "tools.publish_date desc",
+    "published" => "tools.publish_date"
+  }
+  DEFAULT_ORDER = "lower(tools.name)"
+
   STATUS = %w(started submitted accepted rejected)
 
   # Concerns
