@@ -1,5 +1,9 @@
 ## 39.0.0
 
+### Enhancements
+- **Gem Changes**
+  - Update to bootstrap 4.3.1
+
 ## 38.0.0 (February 12, 2019)
 
 ### Enhancements
