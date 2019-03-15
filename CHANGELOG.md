@@ -4,6 +4,9 @@
 - **Gem Changes**
   - Update to bootstrap 4.3.1
 
+### Bug Fix
+- Fixed "Write a Reply" redirection on topics with interleaved deleted replies
+
 ## 38.0.0 (February 12, 2019)
 
 ### Enhancements

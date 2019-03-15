@@ -61,8 +61,7 @@ class Broadcast < ApplicationRecord
     false
   end
 
-  def last_page
-    # ((replies.where(reply_id: nil).count - 1) / Reply::REPLIES_PER_PAGE) + 1
+  def last_page(_current_user)
     1
   end
 

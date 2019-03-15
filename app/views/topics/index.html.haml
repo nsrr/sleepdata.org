@@ -40,11 +40,11 @@
                     = unread_replies
                     new
                     = icon("far", "comments")
-              - elsif topic.last_page > 1
+              - elsif topic.last_page(current_user) > 1
                 %span.d-none.d-sm-inline
                   = link_to "1", topic, class: "btn btn-sm btn-light"
                   \...
-                  = link_to topic.last_page, page_topic_path(topic, page: topic.last_page), class: "btn btn-sm btn-light"
+                  = link_to topic.last_page(current_user), page_topic_path(topic, page: topic.last_page(current_user)), class: "btn btn-sm btn-light"
             - if current_user && current_user.admin? && topic.user.shadow_banned?
               = icon("fas", "eye-slash", class: "text-muted")
             - if topic.pinned?

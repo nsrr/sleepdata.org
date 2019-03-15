@@ -38,8 +38,8 @@ SitemapGenerator::Sitemap.create do
 
   Topic.current.find_each do |topic|
     add "/forum/#{topic.to_param}", lastmod: topic.updated_at
-    if topic.last_page > 1
-      (2..topic.last_page).each do |page|
+    if topic.last_page(nil) > 1
+      (2..topic.last_page(nil)).each do |page|
         add "/forum/#{topic.to_param}/#{page}", lastmod: topic.updated_at
       end
     end
