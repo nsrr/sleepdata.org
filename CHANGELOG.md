@@ -6,6 +6,7 @@
     incorrectly entered during the data request process
 - **Gem Changes**
   - Update to ruby 2.6.2
+  - Update to rails 6.0.0.beta3
   - Update to bootstrap 4.3.1
 
 ### Bug Fix
