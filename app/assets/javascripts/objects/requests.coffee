@@ -6,7 +6,6 @@ $(document)
   )
   .on('click', '[data-object~="submit-tool-draft"]', ->
     $('#draft').val('1')
-    # submitTarget($(this))
     $($(this).data("target")).submit()
     false
   )

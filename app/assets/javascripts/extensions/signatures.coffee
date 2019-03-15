@@ -52,7 +52,6 @@ $(document)
       alert 'Please provide signature first.'
     else
       $("#data_uri").val(window.$signaturePad.toDataURL())
-      # submitTarget($(this))
       $($(this).data("target")).submit()
     false
   )
@@ -68,7 +67,6 @@ $(document)
     else
       disablerWithSpinner($(this))
       $("#data_uri").val(window.$signaturePad.toDataURL())
-      # submitTarget($(this))
       $($(this).data("target")).submit()
     false
   )
@@ -76,7 +74,6 @@ $(document)
     disablerWithSpinner($(this))
     $("#data_request_draft").val("1")
     $("#data_uri").val(window.$signaturePad.toDataURL()) if window.$signaturePad? and !window.$signaturePad.isEmpty()
-    # submitTarget($(this))
     $($(this).data("target")).submit()
     false
   )
@@ -87,11 +84,9 @@ $(document)
       else
         disablerWithSpinner($(this))
         $("#data_uri").val(window.$signaturePad.toDataURL())
-        # submitTarget($(this))
         $($(this).data("target")).submit()
     else
       disablerWithSpinner($(this))
-      # submitTarget($(this))
       $($(this).data("target")).submit()
     false
   )
