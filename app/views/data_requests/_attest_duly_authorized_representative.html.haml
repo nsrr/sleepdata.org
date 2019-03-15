@@ -15,15 +15,20 @@
 - else
   %p
     = icon("fas", "check-square", class: "text-success")
-    Signature Requested
+    Signature requested
 
   %p
     = icon("fas", "check-square", class: "text-success")
-    %span Representative Emailed
+    %span Representative emailed at:
+    %strong= @data_request.duly_authorized_representative_email
+    %br
+    %small{ style: "margin-left: 1.125rem;" }
+      = icon("fas", "exclamation-circle")
+      = link_to "I need to fix this email address.", data_requests_duly_authorized_representative_path(@data_request)
 
   %p
     = icon("far", "square")
-    %span.text-muted Representative Signed
+    %span.text-muted Representative signed
 
   %p.small.text-muted
     You will be notified by email when your Duly Authorized Representative has

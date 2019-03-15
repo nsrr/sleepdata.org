@@ -20,6 +20,10 @@ class DataRequest < Agreement
   # Relationships
   has_many :supporting_documents
 
+  attr_accessor :duly_authorized_representative_email_confirmation
+
+  validate :duly_authorized_representative_email_matches
+
   def ignored_transaction_attributes
     %w(
       created_at
@@ -264,5 +268,12 @@ class DataRequest < Agreement
       duly_authorized_representative_signature_date: nil
     }
     AgreementTransaction.save_agreement!(self, current_user, current_user.current_sign_in_ip, "agreement_update", data_request_params: hash)
+  end
+
+  def duly_authorized_representative_email_matches
+    return if duly_authorized_representative_email_confirmation.nil?
+    return if duly_authorized_representative_email_confirmation == duly_authorized_representative_email
+
+    errors.add(:duly_authorized_representative_email, "must match")
   end
 end

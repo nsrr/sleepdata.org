@@ -18,9 +18,13 @@
         = form_with model: @data_request, url: data_requests_update_duly_authorized_representative_path(@data_request), method: :post, local: true, id: "data-request-form" do |form|
           = form.hidden_field :draft, id: "data_request_draft"
 
-          = render "forms/vertical/text_field", form: form, object: @data_request, key: :duly_authorized_representative_signature_print, key_name: "Duly Authorized Representative's Name"
-          = render "forms/vertical/email_field", form: form, object: @data_request, key: :duly_authorized_representative_email, key_name: "Duly Authorized Representative's Email", help_text: "Please double check to make sure you enter the email correctly."
-
+          = render "forms/vertical/text_field", form: form, object: @data_request, key: :duly_authorized_representative_signature_print, key_name: "Representative's Name", placeholder: "Full name", autocomplete: "off", autocorrect: "off", autocapitalize: "none", spellcheck: "false"
+          = render "forms/vertical/email_field", form: form, object: @data_request, key: :duly_authorized_representative_email, key_name: "Representative's Email", placeholder: "Email address"
+          .form-group
+            = form.label :duly_authorized_representative_email_confirmation, "Confirm Representative's Email"
+            = form.email_field :duly_authorized_representative_email_confirmation, class: "form-control#{" is-invalid" if @data_request.errors[:duly_authorized_representative_email].present?}", placeholder: "Confirm email", autocomplete: "off", autocorrect: "off", autocapitalize: "none", spellcheck: "false"
+            = render "forms/invalid_feedback", object: @data_request, key: :duly_authorized_representative_email_confirmation, key_name: "Confirm Representative's Email"
+            = render "forms/help_text", help_text: "Please double check to make sure you enter the email correctly."
 
         %p
           A data request review link will be emailed to your representative. We

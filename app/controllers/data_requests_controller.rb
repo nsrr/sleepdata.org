@@ -166,9 +166,13 @@ class DataRequestsController < ApplicationController
     redirect_to data_requests_attest_path(@data_request) unless @data_request.signature_required?
     data_request_params = params.require(:data_request).permit(
       :duly_authorized_representative_signature_print,
-      :duly_authorized_representative_email
+      :duly_authorized_representative_email,
+      :duly_authorized_representative_email_confirmation
     )
-    AgreementTransaction.save_agreement!(@data_request, current_user, request.remote_ip, "public_agreement_update", data_request_params: data_request_params)
+    unless AgreementTransaction.save_agreement!(@data_request, current_user, request.remote_ip, "public_agreement_update", data_request_params: data_request_params)
+      render :duly_authorized_representative
+      return
+    end
     if @data_request.ready_for_duly_authorized_representative?
       @data_request.send_duly_authorized_representative_signature_request_in_background
       redirect_to data_requests_attest_path(@data_request), notice: "Duly Authorized Representative has been notified by email."

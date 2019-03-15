@@ -1,6 +1,9 @@
 ## 39.0.0
 
 ### Enhancements
+- **Data Request Changes**
+  - Users can now fix their duly authorized representative's email if it was
+    incorrectly entered during the data request process
 - **Gem Changes**
   - Update to bootstrap 4.3.1
 
