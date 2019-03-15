@@ -5,6 +5,7 @@
   - Users can now fix their duly authorized representative's email if it was
     incorrectly entered during the data request process
 - **Gem Changes**
+  - Update to ruby 2.6.2
   - Update to bootstrap 4.3.1
 
 ### Bug Fix
