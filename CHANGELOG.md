@@ -5,7 +5,9 @@
   - Update to bootstrap 4.3.1
 
 ### Bug Fix
-- Fixed "Write a Reply" redirection on topics with interleaved deleted replies
+- Fix "Write a Reply" redirection on topics with interleaved deleted replies
+- Fix a redirect bug that occurs in Microsoft Edge when clicking the
+  "Write a Reply" button
 
 ## 38.0.0 (February 12, 2019)
 
