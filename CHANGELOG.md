@@ -1,5 +1,9 @@
 ## 39.0.1
 
+### Bug Fix
+- Fix ordering of JavaScript includes to include jQuery first to avoid CSRF
+  issues on AJAX requests
+
 ## 39.0.0 (March 18, 2019)
 
 ### Enhancements
