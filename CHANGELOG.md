@@ -1,4 +1,4 @@
-## 39.0.1
+## 39.0.1 (March 18, 2019)
 
 ### Bug Fix
 - Fix ordering of JavaScript includes to include jQuery first to avoid CSRF
