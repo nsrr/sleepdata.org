@@ -1,4 +1,4 @@
-## 39.0.0
+## 39.0.0 (March 18, 2019)
 
 ### Enhancements
 - **Data Request Changes**
