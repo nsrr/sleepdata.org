@@ -1,5 +1,9 @@
 ## 39.0.1
 
+### Enhancementss
+- **Gem Changes**
+  - Revert to rails 6.0.0.beta1
+
 ## 39.0.0 (March 18, 2019)
 
 ### Enhancements
