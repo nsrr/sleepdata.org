@@ -407,4 +407,8 @@ Rails.application.routes.draw do
 
   get "submissions", to: redirect("data/requests")
   get "fair", to: redirect("about/fair-data-principles")
+
+  # TODO: Remove "community" redirect after March 31, 2024
+  get "community(/*path)", to: redirect("")
+  # END TODO.
 end
