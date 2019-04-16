@@ -3,6 +3,7 @@
 ### Enhancements
 - **Gem Changes**
   - Update to font-awesome-sass 5.8.1
+  - Update to pg_search 2.1.5
 
 ## 39.0.1 (March 18, 2019)
 
