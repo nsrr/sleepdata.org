@@ -1,5 +1,9 @@
 ## 40.0.0
 
+### Enhancements
+- **Gem Changes**
+  - Update to font-awesome-sass 5.8.1
+
 ## 39.0.1 (March 18, 2019)
 
 ### Bug Fix
