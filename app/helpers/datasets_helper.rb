@@ -32,9 +32,7 @@ module DatasetsHelper
       text = "Resume Data Request"
       url = resume_data_request_path(data_request)
     elsif expired_data_request(dataset)
-      # data_request = expired_data_request(dataset)
       status = "expired"
-      # TODO: Fix "Renew DAUA" path
       text = "Data Request Expired"
       url = data_requests_start_path(dataset)
       icon = content_tag(:i, nil, class: "fas fa-hourglass-end #{"text-muted" if color}")
