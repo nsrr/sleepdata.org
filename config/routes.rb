@@ -321,20 +321,6 @@ Rails.application.routes.draw do
     end
   end
 
-  scope module: "request" do
-    get "contribute/tool", to: redirect("contribute/tool/start")
-    get "contribute/tool/start", action: "contribute_tool_start", as: :contribute_tool_start
-    post "contribute/tool/start", action: "contribute_tool_set_location", as: :contribute_tool_set_location
-    get "contribute/tool/confirm-email", action: "contribute_tool_confirm_email", as: :contribute_tool_confirm_email
-    post "contribute/tool", action: "contribute_tool_register_user", as: :contribute_tool_register_user
-    patch "contribute/tool", action: "contribute_tool_sign_in_user", as: :contribute_tool_sign_in_user
-    get "contribute/tool/description/:id", action: "contribute_tool_description", as: :contribute_tool_description
-    post "contribute/tool/description/:id", action: "contribute_tool_set_description", as: :contribute_tool_set_description
-    # post "contribute/tool/submit", action: "contribute_tool_submit", as: :contribute_tool_submit
-
-    get "tool/request", action: "tool_request", as: :tool_request
-  end
-
   scope module: :search do
     get :search, action: "index", as: :search
   end
@@ -361,9 +347,7 @@ Rails.application.routes.draw do
 
   resources :tags
 
-  resources :tools, only: [:index] do
-    resources :tool_reviews, path: "reviews"
-  end
+  resources :tools, only: :index
 
   resources :topics, path: "forum" do
     member do

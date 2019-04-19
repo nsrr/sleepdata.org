@@ -1,14 +1,9 @@
 - Broadcast.current.published.where(archived: false).order(pinned: :desc, publish_date: :desc).limit(3).each do |broadcast|
-  .box-shadow.dashboard-container{ style: "border: 0" }
-    %div{ style: "font-size: 18px;font-weight: bold;" }= broadcast.title
-    = render "blog/author_and_category_landing", broadcast: broadcast
-    .broadcast
-      %p
-        = strip_tags(simple_markdown(broadcast.description)).gsub(/\r/, " ").gsub(/\n/, " ").truncate(500, separator: ".", omission: ".").html_safe
-        = link_to "Keep reading", blog_post_path(broadcast.url_hash), class: "nowrap"
-        = icon("fas", "caret-right", class: "text-primary")
-      %p
-        = link_to blog_post_path(broadcast.url_hash.merge(anchor: "comments")), class: "comments-link" do
-          Comments
-          = surround "(", ")" do
-            = broadcast.replies_count
+  - cover_present = broadcast.cover.present?
+  - url = blog_post_path(broadcast.url_hash)
+  .dashboard-container.broadcast-container
+    - if cover_present
+      = link_to url do
+        .background-cover.mb-3{ style: "background-image: url(#{blog_cover_url(broadcast)});height: 300px;" }
+    %h2.broadcast-title.mt-0{ style: "border-bottom: 0;" }= link_to broadcast.title, url
+    .bg-white= render "blog/extract", broadcast: broadcast, url: url

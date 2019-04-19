@@ -53,8 +53,4 @@ SitemapGenerator::Sitemap.create do
       add "/datasets/#{dataset.to_param}/variables/#{variable.to_param}", changefreq: "monthly"
     end
   end
-
-  Tool.current.where(published: true).each do |tool|
-    add "/tools/#{tool.to_param}", changefreq: "weekly"
-  end
 end

@@ -20,6 +20,7 @@
         News
       %ul
         %li= link_to "Blog", blog_path
+        %li= link_to "Tools", tools_path
     .col-md-3
       %strong
         Learn
@@ -44,13 +45,6 @@
       %ul
         - Dataset.released.order(:name).each do |dataset|
           %li= link_to dataset.name, dataset
-    .col-md-6
-      %strong
-        = link_to "Tools", tools_path
-      %ul
-        - Tool.current.where(published: true).order(Arel.sql("LOWER(tools.name)")).each do |tool|
-          %li= link_to tool.name, tool_path(tool)
-
 
 .about-section-title
   Account
