@@ -1,90 +1,19 @@
 - @title = "Tools"
 
-- content_for :header do
-  - if false
-    .float-right
-      = link_to plus_or("Contribute a tool"), contribute_tool_start_path, class: "btn btn-primary btn-shadow"
-  = @title
-- content_for :breadcrumbs do
-  = render "layouts/per_page_breadcrumbs", per_page: 20, object_count: @tools.total_count
-  %ol
-    %li.breadcrumb-muted tools
+- content_for :header, @title
 
-- if @tools.present?
-  .topics
-    %table.table.table-striped.table-borderless.table-hover.table-sticky
-      %col{ width: "75%" }
-      %col.d-none.d-sm-table-column{ width: "25%" }
-      %col{ width: "1px" }
-      %col.d-none.d-md-table-column
-      - if current_user && current_user.admin?
-        %col{ width: "1px" }
-      %thead
-        %tr
-          %th.p-2
-            = form_with url: tools_path, method: :get, local: true do |form|
-              = form.text_field :search, value: params[:search], placeholder: "Search tools", autocomplete: "off", class: "table-cell-search-input border rounded"
-          - if false
-            %th{ class: params[:order] == "tools.name desc" || params[:order].blank? ? "sort-selected" : nil }
-              - case params[:order]
-              - when "tools.name desc"
-                = link_to "Name", tools_path
-              - else
-                = link_to "Name", tools_path(order: "tools.name desc")
-          %th.d-none.d-sm-block
-            Author
-          %th.nowrap
-            Type
-            .dropdown{ style: "display: inline-block" }
-              = link_to icon("fas", "filter"), "#", data: { target: "#", toggle: "dropdown" }, role: "button", aria: { haspopup: "true", expanded: "false" }
-              .dropdown-menu.dropdown-menu-right
-                - selected = params[:type].blank?
-                = link_to tools_path(order: params[:order]), style: selected ? "font-weight:bold;" : "", class: "dropdown-item" do
-                  = simple_check selected
-                  All
-                .dropdown-divider
-                - [["Program", "program"], ["Script", "script"], ["Tutorial", "tutorial"]].each do |label, value|
-                  - selected = params[:type] == value
-                  = link_to tools_path(order: params[:order], type: value), style: selected ? "font-weight:bold;" : "", class: "dropdown-item" do
-                    = simple_check selected
-                    = label
-          %th.d-none.d-md-block.text-center= order_to "Published", primary: "published"
-          - if current_user && current_user.admin?
-            %th.text-center
-              .d-none.d-sm-inline-block Actions
-
-      %tbody
-        - @tools.each do |tool|
-          %tr
-            %td= link_to tool.name, tool_path(tool)
-            %td.d-none.d-sm-block
-              %small= link_to tool.user.username, member_path(tool.user.username), class: "link-blend-semi-muted"
-            %td.text-center
-              - if tool.tag_program?
-                %small Program
-              - if tool.tag_script?
-                %small Script
-              - if tool.tag_tutorial?
-                %small Tutorial
-              - unless tool.tag_program? || tool.tag_script? || tool.tag_tutorial?
-                / %span.badge.badge-pill.badge-default Unsorted
-            %td.d-none.d-md-block.nowrap.text-center
-              - if tool.published?
-                = tool.publish_date
-              - else
-                %span.badge.badge-warning DRAFT
-            - if current_user && current_user.admin?
-              %td.nowrap
-                = render "layouts/edit_delete_dropdown", edit_url: edit_admin_tool_path(tool), delete_url: admin_tool_path(tool), delete_confirmation: "Delete #{tool.name}?"
-
-  .center-horizontally= paginate @tools, theme: "bootstrap"
+- if @articles.present?
+  - @articles.each do |article|
+    - cover_present = article.cover.present?
+    - url = blog_post_path(article.url_hash)
+    .dashboard-container.broadcast-container
+      - if cover_present
+        = link_to url do
+          .background-cover.mb-3{ style: "background-image: url(#{blog_cover_url(article)});height: 300px;" }
+      %h2.broadcast-title.mt-0{ style: "border-bottom: 0;" }= link_to article.title, url
+      .bg-white= render "blog/extract", broadcast: article, url: url
+  .center-horizontally= paginate @articles, theme: "bootstrap"
 - else
-  .jumbotron.text-center
-    %p.lead
-      We didn't find any tools matching your search criteria.
-      = succeed "." do
-        = link_to "Back to tools", tools_path
-    %p.lead
-      Feel like helping us out?
-      = succeed "." do
-        = link_to "Contribute a tool", contribute_tool_start_path
+  .jumbotron.jumbotron-custom-text
+    = icon("far", "clone", class: "mr-1")
+    No articles found in this category.

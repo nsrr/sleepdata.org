@@ -3,6 +3,11 @@
 ### Enhancements
 - **Blog Changes**
   - Cover pictures now display in draft mode when editing articles
+- **Tool Changes**
+  - The tools section has been wrapped into the "tools" blog category to allow
+    more up to date information about new tools, and to also emphasize the fact
+    that tools should be housed and documented in open source repositories
+    similar to GitHub as opposed to having "mirrored" pages on the NSRR
 - **Gem Changes**
   - Update to font-awesome-sass 5.8.1
   - Update to pg_search 2.1.6

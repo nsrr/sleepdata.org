@@ -17,8 +17,6 @@ class Tool < ApplicationRecord
   include Deletable
   include Sluggable
   include Searchable
-  include PgSearch
-  multisearchable against: [:name, :description], if: :searchable?
 
   # Callbacks
   after_touch :recalculate_rating!

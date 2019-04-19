@@ -7,7 +7,6 @@ namespace :search do
     Broadcast.find_each(&:update_pg_search_document)
     Reply.find_each(&:update_pg_search_document)
     Topic.find_each(&:update_pg_search_document)
-    Tool.find_each(&:update_pg_search_document)
     Variable.find_each(&:update_pg_search_document)
   end
 end

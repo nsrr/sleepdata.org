@@ -361,7 +361,7 @@ Rails.application.routes.draw do
 
   resources :tags
 
-  resources :tools, only: [:index, :show] do
+  resources :tools, only: [:index] do
     resources :tool_reviews, path: "reviews"
   end
 
@@ -410,5 +410,9 @@ Rails.application.routes.draw do
 
   # TODO: Remove "community" redirect after March 31, 2024
   get "community(/*path)", to: redirect("")
-  # END TODO.
+  # END TODO
+
+  # TODO: Redirect tools show pages, remove redirect after April 30, 2024
+  get "tools/*path", to: redirect("tools")
+  # END TODO
 end
