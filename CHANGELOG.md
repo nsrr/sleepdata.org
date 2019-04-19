@@ -1,6 +1,8 @@
 ## 40.0.0
 
 ### Enhancements
+- **Blog Changes**
+  - Cover pictures now display in draft mode when editing articles
 - **Gem Changes**
   - Update to font-awesome-sass 5.8.1
   - Update to pg_search 2.1.6

@@ -13,6 +13,15 @@
 
 -# content_for :sidebar, render("broadcasts/sidebar")
 
+- cover_present = @broadcast.cover.present?
+- if cover_present
+  .background-blog-image.d-flex.flex-column.justify-content-end.mb-3{ style: "background-image: url(#{blog_cover_url(@broadcast)});" }
+    .blog-cover-overlay
+    .blog-title
+      .pt-5.pb-1.text-center
+        %h1.broadcast-title.mt-0{ style: "border-bottom: 0;" }
+          .container= @broadcast.title
+
 .row
   .col-md-3.order-1.order-md-2
     .dashboard-container
