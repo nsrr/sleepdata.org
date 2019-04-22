@@ -13,30 +13,6 @@ class UserMailerTest < ActionMailer::TestCase
     assert_match(/Dear #{valid.username},/, mail.body.encoded)
   end
 
-  test "daua submitted email" do
-    agreement = data_requests(:submitted)
-    valid = users(:valid)
-    mail = UserMailer.daua_submitted(valid, agreement)
-    assert_equal [valid.email], mail.to
-    assert_equal "#{agreement.complex_name_or_username} submitted a data request", mail.subject
-    assert_match(
-      /#{agreement.user.username} \[#{agreement.user.email}\] submitted a data request\./,
-      mail.body.encoded
-    )
-  end
-
-  test "daua resubmitted email" do
-    agreement = data_requests(:resubmitted)
-    valid = users(:valid)
-    mail = UserMailer.daua_submitted(valid, agreement)
-    assert_equal [valid.email], mail.to
-    assert_equal "#{agreement.complex_name_or_username} resubmitted a data request", mail.subject
-    assert_match(
-      /#{agreement.user.username} \[#{agreement.user.email}\] resubmitted a data request\./,
-      mail.body.encoded
-    )
-  end
-
   test "daua approved email" do
     agreement = data_requests(:approved)
     admin = users(:admin)
@@ -53,19 +29,6 @@ class UserMailerTest < ActionMailer::TestCase
     assert_equal [agreement.user.email], mail.to
     assert_equal "Please resubmit your data request", mail.subject
     assert_match(/Your data request is missing required information\./, mail.body.encoded)
-  end
-
-  test "daua progress notification email" do
-    agreement = data_requests(:approved)
-    agreement_event = agreement_events(:approved_two)
-    admin = users(:admin)
-    mail = UserMailer.daua_progress_notification(agreement, admin, agreement_event)
-    assert_equal [admin.email], mail.to
-    assert_equal "#{agreement.complex_name_or_username}'s data request changed to approved", mail.subject
-    assert_match(
-      /#{agreement.user.username}'s data request has been approved by principalrevieweronreleased\./,
-      mail.body.encoded
-    )
   end
 
   test "mentioned during review of agreement email" do

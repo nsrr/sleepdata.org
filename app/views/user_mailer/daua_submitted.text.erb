@@ -1,9 +1,0 @@
-Dear <%= @reviewer.first_name %>,
-
-<%= @agreement.user.username %> [<%= @agreement.user.email %>] <%= @agreement.resubmitted? ? "resubmitted" : "submitted" %> a data request.
-
-You can review the data request here: <%= "#{ENV["website_url"]}/reviews/#{@agreement.id}" %>
-
-Thank you!
-
-<%= ENV["website_name"] %>

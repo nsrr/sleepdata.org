@@ -248,7 +248,7 @@ class DataRequestsController < ApplicationController
         @data_request.cleanup_variables!
         @data_request.update(current_step: 0)
         @data_request.agreement_events.create(event_type: event_type, user: current_user, event_at: current_time)
-        @data_request.daua_submitted_in_background
+        @data_request.daua_submitted
         redirect_to [:submitted, @data_request]
       else
         render :proof
