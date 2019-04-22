@@ -208,6 +208,22 @@ class User < ApplicationRecord
     )
   end
 
+  def digest_data_requests
+    reviewable_data_requests.joins(:agreement_events).merge(AgreementEvent.digest)
+  end
+
+  def digest_data_requests_submitted
+    digest_data_requests.merge(AgreementEvent.digest_submitted)
+  end
+
+  def digest_data_requests_resubmit
+    digest_data_requests.merge(AgreementEvent.digest_resubmit)
+  end
+
+  def digest_data_requests_approved
+    digest_data_requests.merge(AgreementEvent.digest_approved)
+  end
+
   def editable_organizations
     Organization.current.with_editor(self)
   end

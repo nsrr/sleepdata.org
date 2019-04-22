@@ -14,6 +14,7 @@ Edit Cron Jobs `sudo crontab -e` to run the task `lib/tasks/daily_digest.rake`
 ```
 SHELL=/bin/bash
 0 1 * * 3 source /etc/profile.d/rvm.sh && cd /var/www/sleepdata.org && rvm 2.6.2 && rails weekly_reviewer_digest RAILS_ENV=production
+0 1 * * * source /etc/profile.d/rvm.sh && cd /var/www/sleepdata.org && rvm 2.6.2 && rails reviewer_digest RAILS_ENV=production
 ```
 
 Refreshing Sitemap

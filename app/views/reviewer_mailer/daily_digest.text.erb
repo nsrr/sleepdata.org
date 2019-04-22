@@ -1,0 +1,12 @@
+Here's your personalized recap for <%= Time.zone.today.strftime("%A, %B %-d, %Y") %>.
+
+<% if @data_requests_submitted.size > 0 %><%= render "data_requests", title: "Submitted", data_requests: @data_requests_submitted, show_comments: false %>
+<% end %><% if @data_requests_resubmit.size > 0 %><%= render "data_requests", title: "Sent back", data_requests: @data_requests_resubmit, show_comments: true %>
+<% end %><% if @data_requests_approved.size > 0 %><%= render "data_requests", title: "Approved", data_requests: @data_requests_approved, show_comments: false %>
+<% end %>
+Overall statistics.
+
+<% if @data_requests_submitted.size > 0 %>  <%= pluralize @data_requests_submitted.size, "data request" %> <%= @data_requests_submitted.size == 1 ? "was" : "were" %> submitted.
+<% end %><% if @data_requests_resubmit.size > 0 %>  <%= pluralize @data_requests_resubmit.size, "data request" %> <%= @data_requests_resubmit.size == 1 ? "was" : "were" %> sent back.
+<% end %><% if @data_requests_approved.size > 0 %>  <%= pluralize @data_requests_approved.size, "data request" %> <%= @data_requests_approved.size == 1 ? "was" : "were" %> approved.
+<% end %>

@@ -3,6 +3,9 @@
 ### Enhancements
 - **Blog Changes**
   - Cover pictures now display in draft mode when editing articles
+- **Reviewer Changes**
+  - Data request submissions and approvals are now collected in a daily digest
+    instead of notifying reviewers for each data request
 - **Tool Changes**
   - The tools section has been wrapped into the "tools" blog category to allow
     more up to date information about new tools, and to also emphasize the fact

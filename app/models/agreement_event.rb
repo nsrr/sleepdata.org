@@ -31,6 +31,10 @@ class AgreementEvent < ApplicationRecord
   # Scopes
   scope :with_current_agreement, -> { joins(:agreement).merge(Agreement.current) }
   scope :regular_members, -> { joins(:agreement).merge(Agreement.regular_members) }
+  scope :digest, -> { where("event_at > ?", Time.zone.now - (Time.zone.now.monday? ? 3.days : 1.day)) }
+  scope :digest_submitted, -> { digest.where(event_type: "user_submitted") }
+  scope :digest_resubmit, -> { digest.where(event_type: "principal_reviewer_required_resubmission") }
+  scope :digest_approved, -> { digest.where(event_type: "principal_reviewer_approved") }
 
   # Validations
   validates :event_type, :event_at, presence: true

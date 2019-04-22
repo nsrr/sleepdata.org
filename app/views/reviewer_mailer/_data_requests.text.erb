@@ -1,0 +1,11 @@
+<%= title %>
+
+<% data_requests.each do |data_request| %>
+  <%= "##{data_request.id}" %> <%= data_request.complex_name_or_username %>
+  <% if show_comments %>
+
+<%= data_request.comments.gsub(/^/, "    ") %>
+    ---
+
+<% end %>
+<% end %>

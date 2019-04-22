@@ -1,0 +1,74 @@
+%p{ style: center_style }
+  %strong
+    Here's your personalized recap for
+    %span{ style: "white-space: nowrap;" }
+      = succeed "." do
+        %span{ style: "#{emphasis_style};white-space: nowrap;" }= Time.zone.today.strftime("%A, %B %-d, %Y")
+
+- if @data_requests_submitted.size > 0
+  - content_for :extra_blocks do
+    %div{ style: "background-color:#{background_color};height:16px;line-height:16px;font-size:1px;" } &nbsp;
+    %table{ align: "center", border: "0", cellpadding: "32", cellspacing: "0", style: "border-collapse:collapse;background:white;" }
+      %tbody
+        %tr
+          %td{ style: "border-collapse:collapse", valign: "top", width: "546" }
+            %div{ style: "max-width:600px;margin:0 auto;" }
+              = render "data_requests", title: "Submitted", data_requests: @data_requests_submitted, show_comments: false
+
+- if @data_requests_resubmit.size > 0
+  - content_for :extra_blocks do
+    %div{ style: "background-color:#{background_color};height:16px;line-height:16px;font-size:1px;" } &nbsp;
+    %table{ align: "center", border: "0", cellpadding: "32", cellspacing: "0", style: "border-collapse:collapse;background:white;" }
+      %tbody
+        %tr
+          %td{ style: "border-collapse:collapse", valign: "top", width: "546" }
+            %div{ style: "max-width:600px;margin:0 auto;" }
+              = render "data_requests", title: "Sent back", data_requests: @data_requests_resubmit, show_comments: true
+
+- if @data_requests_approved.size > 0
+  - content_for :extra_blocks do
+    %div{ style: "background-color:#{background_color};height:16px;line-height:16px;font-size:1px;" } &nbsp;
+    %table{ align: "center", border: "0", cellpadding: "32", cellspacing: "0", style: "border-collapse:collapse;background:white;" }
+      %tbody
+        %tr
+          %td{ style: "border-collapse:collapse", valign: "top", width: "546" }
+            %div{ style: "max-width:600px;margin:0 auto;" }
+              = render "data_requests", title: "Approved", data_requests: @data_requests_approved, show_comments: false
+
+- content_for :extra_blocks do
+  %div{ style: "background-color:#{background_color};height:16px;line-height:16px;font-size:1px;" } &nbsp;
+  %table{ align: "center", border: "0", cellpadding: "32", cellspacing: "0", style: "border-collapse:collapse;background:white;" }
+    %tbody
+      %tr
+        %td{ style: "border-collapse:collapse", valign: "top", width: "546" }
+          %div{ style: "max-width:600px;margin:0 auto;" }
+
+            %p{ style: "text-align:center;font-weight:bold" }
+              %strong Overall statistics.
+
+            - if @data_requests_submitted.size > 0
+              %p{ style: center_style }
+                %span{ style: emphasis_style }= pluralize @data_requests_submitted.size, "data request"
+                - if @data_requests_submitted.size == 1
+                  was
+                - else
+                  were
+                submitted.
+
+            - if @data_requests_resubmit.size > 0
+              %p{ style: center_style }
+                %span{ style: emphasis_style }= pluralize @data_requests_resubmit.size, "data request"
+                - if @data_requests_resubmit.size == 1
+                  was
+                - else
+                  were
+                sent back.
+
+            - if @data_requests_approved.size > 0
+              %p{ style: center_style }
+                %span{ style: emphasis_style }= pluralize @data_requests_approved.size, "data request"
+                - if @data_requests_approved.size == 1
+                  was
+                - else
+                  were
+                approved.
