@@ -12,6 +12,10 @@
   - Update to font-awesome-sass 5.8.1
   - Update to pg_search 2.1.6
 
+### Bug Fix
+- Dataset documentation now correctly updates even if no folder exists yet for
+  the dataset
+
 ## 39.0.1 (March 18, 2019)
 
 ### Bug Fix

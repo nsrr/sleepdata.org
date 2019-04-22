@@ -43,6 +43,7 @@ module Gitable
   end
 
   def git_init_repository!
+    FileUtils.mkdir_p root_folder
     if repository_url.blank?
       disconnect_repository!
       return
