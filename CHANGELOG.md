@@ -1228,7 +1228,7 @@
 - **Dataset Changes**
   - New dataset releases can now be deployed using the Spout data dictionary
     management gem
-    - Spout, https://github.com/sleepepi/spout, tests and manages data
+    - Spout, https://github.com/nsrr/spout, tests and manages data
       dictionaries and datasets
 - **Gem Changes**
   - Updated to rails 4.2.0.beta4
@@ -1623,10 +1623,10 @@
   - **Collection**
     - Users can search across multiple datasets that have an associated data
       dictionary
-      - [Spout](https://github.com/sleepepi/spout) helps format and maintain
+      - [Spout](https://github.com/nsrr/spout) helps format and maintain
         JSON data dictionaries
       - An example data dictionary is the
-        [We Care Data Dictionary](https://github.com/sleepepi/wecare-data-dictionary)
+        [We Care Data Dictionary](https://github.com/nsrr/wecare-data-dictionary)
       - Variables with pre-computed charts now display the chart in the
         collection viewer
       - Users can create lists of variables on the collection viewer
