@@ -62,8 +62,7 @@ class ApplicationController < ActionController::Base
       reviews: [],
       settings: [],
       tags: [],
-      tool_reviews: [:new, :edit, :create, :update, :destroy],
-      tools: [:index, :show, :new, :edit],
+      tools: [:index],
       topics: [:new, :edit],
       users: []
     }
@@ -87,8 +86,7 @@ class ApplicationController < ActionController::Base
       replies: [:show],
       search: [],
       showcase: [],
-      tool_reviews: [:index, :show],
-      tools: [:index, :show],
+      tools: [:index],
       topics: [:index, :show],
       variables: []
     }

@@ -24,38 +24,10 @@ class Admin::ToolsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get new" do
-    login(@admin)
-    get new_admin_tool_url
-    assert_response :success
-  end
-
-  test "should create tool" do
-    login(@admin)
-    assert_difference("Tool.count") do
-      post admin_tools_url, params: { tool: tool_params }
-    end
-    assert_redirected_to admin_tool_url(Tool.last)
-  end
-
   test "should show tool" do
     login(@admin)
     get admin_tool_url(@tool)
     assert_response :success
-  end
-
-  test "should get edit" do
-    login(@admin)
-    get edit_admin_tool_url(@tool)
-    assert_response :success
-  end
-
-  test "should update tool" do
-    login(@admin)
-    patch admin_tool_url(@tool), params: {
-      tool: tool_params.merge(name: "Tool Name Update")
-    }
-    assert_redirected_to admin_tool_url(@tool)
   end
 
   test "should destroy tool" do

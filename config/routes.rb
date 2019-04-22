@@ -311,7 +311,6 @@ Rails.application.routes.draw do
     member do
       get :profile_picture
       get :posts
-      get :tools
     end
   end
 

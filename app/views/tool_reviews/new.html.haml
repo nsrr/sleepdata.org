@@ -1,9 +1,0 @@
-- @title = "Write a review - #{@tool.name}"
-
-- content_for :header, "Write a review"
-
-- content_for :breadcrumbs do
-  %ol
-    %li= link_to @tool.name, @tool
-
-.dashboard-container= render "tool_reviews/form", tool_review: @tool_review

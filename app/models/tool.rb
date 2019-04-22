@@ -18,9 +18,6 @@ class Tool < ApplicationRecord
   include Sluggable
   include Searchable
 
-  # Callbacks
-  after_touch :recalculate_rating!
-
   # Scopes
   scope :published_or_draft, ->(arg) { current.where(user: arg).or(current.where(published: true)) }
   scope :published, -> { current.where(published: true) }
@@ -37,7 +34,6 @@ class Tool < ApplicationRecord
 
   # Relationships
   belongs_to :user
-  has_many :tool_reviews, -> { order(rating: :desc, id: :desc) }
 
   # Methods
 
@@ -66,11 +62,6 @@ class Tool < ApplicationRecord
     %w(http https ftp).include?(URI.parse(url).scheme)
   rescue
     false
-  end
-
-  def recalculate_rating!
-    ratings = tool_reviews.where.not(rating: nil).pluck(:rating)
-    update rating: ratings.present? ? ratings.inject(&:+).to_f / ratings.count : 3
   end
 
   def readme_content

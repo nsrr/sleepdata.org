@@ -18,24 +18,9 @@ class Admin::ToolsController < ApplicationController
   # def show
   # end
 
-  # GET /admin/tools/new
-  def new
-    @tool = Tool.new
-  end
-
   # # GET /admin/tools/1/edit
   # def edit
   # end
-
-  # POST /admin/tools
-  def create
-    @tool = current_user.tools.new(tool_params)
-    if @tool.save
-      redirect_to admin_tool_path(@tool), notice: "Tool was successfully created."
-    else
-      render :new
-    end
-  end
 
   # PATCH /admin/tools/1
   def update

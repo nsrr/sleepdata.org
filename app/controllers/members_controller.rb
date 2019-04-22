@@ -3,7 +3,7 @@
 # Displays member profile pages.
 class MembersController < ApplicationController
   before_action :find_member, only: [:profile_picture]
-  before_action :find_member_or_redirect, only: [:show, :posts, :tools]
+  before_action :find_member_or_redirect, only: [:show, :posts]
 
   def index
     redirect_to topics_path
@@ -31,10 +31,6 @@ class MembersController < ApplicationController
     @replies = @member.replies.order(created_at: :desc).page(params[:page]).per(10)
     @topics = @member.topics.order("replies_count desc").limit(3)
     @recent_topics = @member.topics.where.not(id: @topics).limit(3)
-  end
-
-  def tools
-    @tools = @member.tools.published.order(Arel.sql("LOWER(tools.name)")).page(params[:page]).per(10)
   end
 
   private

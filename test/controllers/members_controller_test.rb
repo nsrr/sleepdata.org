@@ -28,11 +28,6 @@ class MembersControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should get tools" do
-    get tools_member_url(@regular.username)
-    assert_response :success
-  end
-
   test "should get member profile picture with username" do
     get profile_picture_member_url(users(:regular2).username)
     assert_equal File.binread(users(:regular2).profile_picture.thumb.path), response.body

@@ -94,8 +94,6 @@ class User < ApplicationRecord
   has_many :replies, -> { current.left_outer_joins(:broadcast, :topic).where(topics: { id: Topic.current}).or(current.left_outer_joins(:broadcast, :topic).where(broadcasts: { id: Broadcast.published })) }
   has_many :subscriptions
   has_many :tags, -> { current }
-  has_many :tools, -> { current }
-  has_many :tool_reviews
   has_many :topics, -> { current }
   has_many :topic_users
 
@@ -122,10 +120,6 @@ class User < ApplicationRecord
 
   def organizations
     Organization.current
-  end
-
-  def reviewed_tool?(tool)
-    tool.tool_reviews.find_by(user_id: id).present?
   end
 
   def reviewed_dataset?(dataset)
