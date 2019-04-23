@@ -3,6 +3,7 @@
 ### Enhancements
 - **Blog Changes**
   - Cover pictures now display in draft mode when editing articles
+  - Articles can be marked as featured in their respective category
 - **Reviewer Changes**
   - Data request submissions and approvals are now collected in a daily digest
     instead of notifying reviewers for each data request

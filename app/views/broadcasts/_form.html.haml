@@ -25,6 +25,7 @@
               Drag images above to insert into post.
           #content_preview.broadcast{ style: "display: none;" }
 
-  = render "forms/horizontal/check_box", form: form, object: broadcast, key: :pinned
+  = render "forms/horizontal/check_box", form: form, object: broadcast, key: :pinned, help_text: "Pinned articles will appear at the top of the blog and news."
+  = render "forms/horizontal/check_box", form: form, object: broadcast, key: :featured, help_text: "Featured articles will appear at the top of their respective category."
   = render "forms/horizontal/check_box", form: form, object: broadcast, key: :archived
   = render "forms/horizontal/submit", form: form, object: broadcast, object_name: "Blog Post"

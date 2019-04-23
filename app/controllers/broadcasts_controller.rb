@@ -70,8 +70,8 @@ class BroadcastsController < ApplicationController
     params[:broadcast] ||= { blank: "1" }
     parse_date_if_key_present(:broadcast, :publish_date)
     params.require(:broadcast).permit(
-      :title, :slug, :short_description, :description, :pinned, :archived,
-      :publish_date, :published, :keywords, :category_id, :cover
+      :title, :slug, :short_description, :description, :pinned, :featured,
+      :archived, :publish_date, :published, :keywords, :category_id, :cover
     )
   end
 end
