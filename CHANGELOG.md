@@ -1,4 +1,4 @@
-## 40.0.0
+## 40.0.0 (April 23, 2019)
 
 ### Enhancements
 - **Blog Changes**
