@@ -77,7 +77,7 @@ class ApplicationController < ActionController::Base
 
   def external_controllers
     {
-      blog: [],
+      blog: [:blog, :show],
       datasets: [:index, :show],
       dataset_reviews: [:index, :show],
       external: [],

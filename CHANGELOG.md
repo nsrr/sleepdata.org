@@ -1,5 +1,9 @@
 ## 40.0.1
 
+### Bug Fix
+- Fix a bug where blog cover photo did not display in preview mode for
+  non-published articles
+
 ## 40.0.0 (April 23, 2019)
 
 ### Enhancements
