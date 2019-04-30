@@ -1,5 +1,9 @@
 ## 41.0.0
 
+### Enhancements
+- **Tool Changes**
+  - The tools index now displays up to three featured tools, (by @dguettler)
+
 ## 40.0.1 (April 23, 2019)
 
 ### Bug Fix
