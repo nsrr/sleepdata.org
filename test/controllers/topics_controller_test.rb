@@ -122,6 +122,12 @@ class TopicsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should show topic without replies" do
+    login(users(:valid))
+    get topic_url(topics(:without_replies))
+    assert_response :success
+  end
+
   test "should not show topic from banned user" do
     skip
     get topic_url(topics(:banned))

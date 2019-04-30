@@ -33,7 +33,7 @@ class TopicsController < ApplicationController
     @page = (params[:page].to_i > 1 ? params[:page].to_i : 1)
     @replies = @topic.replies.includes(:topic).where(reply_id: nil).page(@page).per(Reply::REPLIES_PER_PAGE)
     @topic.increment! :view_count
-    current_user.read_parent!(@topic, @replies.last.id) if current_user
+    current_user.read_parent!(@topic, @replies.last.id) if current_user && @replies.last
   end
 
   # GET /forum/new
