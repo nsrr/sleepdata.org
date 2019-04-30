@@ -9,6 +9,18 @@ published:
   publish_date: 2015-11-30
   published: true
 
+featured:
+  cover: rails.png
+  title: Featured
+  slug: featured
+  description: This is a featured post
+  user: community_manager
+  pinned: false
+  archived: false
+  publish_date: 2015-11-30
+  published: true
+  featured: true
+
 draft:
   # cover:
   title: Draft

@@ -2,8 +2,19 @@
 
 - content_for :header, @title
 
-- if @articles.present?
-  - @articles.each do |article|
+- featured_articles = @articles.select(&:featured?)
+- if featured_articles.present?
+  .mb-3= render "title", title: "Featured Tools"
+  .mb-3.featured-articles.d-flex.flex-column.flex-md-row.justify-content-around.align-items-center.align-items-md-stretch
+    - featured_articles.each do |article|
+      = link_to blog_post_path(article.url_hash), class: "featured-article d-flex align-items-end" do
+        .featured-article-background-image{ style: "background-image: url(#{blog_cover_url(article)});" }
+        .featured-article-title= article.title
+  .mb-3= render "title", title: "Other Tools"
+
+- articles = @articles.reject(&:featured?)
+- if articles.present?
+  - articles.each do |article|
     - cover_present = article.cover.present?
     - url = blog_post_path(article.url_hash)
     .dashboard-container.broadcast-container
@@ -12,6 +23,8 @@
           .background-cover.mb-3{ style: "background-image: url(#{blog_cover_url(article)});height: 300px;" }
       %h2.broadcast-title.mt-0{ style: "border-bottom: 0;" }= link_to article.title, url
       .bg-white= render "blog/extract", broadcast: article, url: url
+
+- if @articles.present?
   .center-horizontally= paginate @articles, theme: "bootstrap"
 - else
   .jumbotron.jumbotron-custom-text

@@ -6,7 +6,7 @@ class ToolsController < ApplicationController
 
   # GET /tools
   def index
-    scope = Broadcast.current.published.order(publish_date: :desc, id: :desc)
+    scope = Broadcast.current.published.order(featured: :desc, publish_date: :desc, id: :desc)
     scope = scope.where(category: @category) if @category
     @articles = scope.page(params[:page]).per(10)
   end
