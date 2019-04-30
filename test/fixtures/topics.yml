@@ -33,3 +33,10 @@ banned:
   user: shadow_banned
   created_at: <%= Time.zone.now - 18.days %>
   last_reply_at: <%= Time.zone.now - 18.days %>
+
+without_replies:
+  title: I have no replies
+  slug: i-have-no-replies
+  user: valid
+  created_at: <%= Time.zone.now - 18.days %>
+  last_reply_at: <%= Time.zone.now - 18.days %>
