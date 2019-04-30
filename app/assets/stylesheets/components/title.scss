@@ -1,0 +1,50 @@
+.title-container {
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1.2;
+
+  @include media-breakpoint-up(sm) {
+    font-size: 2.5rem;
+  }
+
+  @include media-breakpoint-up(md) {
+    font-size: 3rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    font-size: 4rem;
+  }
+
+  .bar {
+    border-bottom: 2px solid $p300-green;
+    height: calc(2rem - 2px);
+    width: 0;
+
+    @include media-breakpoint-up(sm) {
+      height: calc(2.5rem - 2px);
+    }
+
+    @include media-breakpoint-up(md) {
+      height: calc(3rem - 2px);
+    }
+
+    @include media-breakpoint-up(lg) {
+      height: calc(4rem - 2px);
+    }
+  }
+
+  .title {
+    padding: $spacer;
+    text-align: center;
+  }
+
+  &.title-strong {
+    font-size: 1.25rem;
+    line-height: initial;
+
+    .bar {
+      border-bottom: 1px solid $p300-green;
+      height: calc(1.875rem - 1px);
+    }
+  }
+}
