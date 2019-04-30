@@ -3,6 +3,8 @@
 ### Enhancements
 - **Tool Changes**
   - The tools index now displays up to three featured tools, (by @dguettler)
+- **Gem Changes**
+  - Update to ruby 2.6.3
 
 ## 40.0.1 (April 23, 2019)
 
