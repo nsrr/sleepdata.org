@@ -18,6 +18,45 @@ class Api::V1::DatasetsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get index as json" do
+    get api_v1_datasets_url(format: "json")
+    assert_not_nil assigns(:datasets)
+    datasets = JSON.parse(response.body)
+    assert_equal 1, datasets.select { |d| d["slug"] == "released" }.count
+    assert_equal 0, datasets.select { |d| d["slug"] == "unreleased" }.count
+    assert_response :success
+  end
+
+  test "should get index as json for user with token" do
+    get api_v1_datasets_url(format: "json"), params: { auth_token: users(:admin).id_and_auth_token }
+    assert_not_nil assigns(:datasets)
+    datasets = JSON.parse(response.body)
+    assert_equal 1, datasets.select { |d| d["slug"] == "released" }.count
+    assert_equal 1, datasets.select { |d| d["slug"] == "unreleased" }.count
+    assert_response :success
+  end
+
+  test "should show public dataset to logged out user as json" do
+    get api_v1_dataset_url(@dataset, format: "json")
+    dataset = JSON.parse(response.body)
+    assert_equal "We Care", dataset["name"]
+    assert_equal "released", dataset["slug"]
+    assert_not_nil dataset["created_at"]
+    assert_not_nil dataset["updated_at"]
+    assert_response :success
+  end
+
+  test "should show unreleased dataset to authorized user with token" do
+    get api_v1_dataset_url(datasets(:unreleased), format: "json"), params: {
+      auth_token: users(:admin).id_and_auth_token
+    }
+    assert_not_nil assigns(:dataset)
+    dataset = JSON.parse(response.body)
+    assert_equal "unreleased", dataset["slug"]
+    assert_equal "In the Works", dataset["name"]
+    assert_response :success
+  end
+
   test "should get files for single file using auth token" do
     get files_api_v1_dataset_url(
       @dataset,

@@ -72,7 +72,6 @@ class DatasetsController < ApplicationController
   end
 
   # GET /datasets
-  # GET /datasets.json
   def index
     scope = current_user ? current_user.all_viewable_datasets : Dataset.released
     if params[:ages]
@@ -86,7 +85,6 @@ class DatasetsController < ApplicationController
   end
 
   # GET /datasets/1
-  # GET /datasets/1.json
   def show
     render layout: "layouts/full_page"
   end

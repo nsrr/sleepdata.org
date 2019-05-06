@@ -1,6 +1,8 @@
 ## 41.0.0
 
 ### Enhancements
+- **API Changes**
+  - Datasets API has been deprecated and moved to `api/v1/datasets.json`
 - **Tool Changes**
   - The tools index now displays up to three featured tools, (by @dguettler)
 - **Gem Changes**

@@ -195,36 +195,6 @@ class DatasetsControllerTest < ActionDispatch::IntegrationTest
     assert_not_nil assigns(:datasets)
   end
 
-  test "should get index as json" do
-    get datasets_url(format: "json")
-    assert_not_nil assigns(:datasets)
-    datasets = JSON.parse(response.body)
-    assert_equal 1, datasets.select { |d| d["slug"] == "released" }.count
-    assert_equal 0, datasets.select { |d| d["slug"] == "unreleased" }.count
-    assert_response :success
-  end
-
-  test "should get index as json for user with token" do
-    get datasets_url(format: "json"), params: { auth_token: users(:admin).id_and_auth_token }
-    assert_not_nil assigns(:datasets)
-    datasets = JSON.parse(response.body)
-    assert_equal 1, datasets.select { |d| d["slug"] == "released" }.count
-    assert_equal 1, datasets.select { |d| d["slug"] == "unreleased" }.count
-    assert_response :success
-  end
-
-  test "should show public dataset to logged out user as json" do
-    get dataset_url(@dataset, format: "json")
-    dataset = JSON.parse(response.body)
-    assert_equal "We Care", dataset["name"]
-    assert_equal "(A) Released dataset with documentation and public and private files.", dataset["description"]
-    assert_equal "released", dataset["slug"]
-    assert_equal true, dataset["released"]
-    assert_not_nil dataset["created_at"]
-    assert_not_nil dataset["updated_at"]
-    assert_response :success
-  end
-
   test "should show public dataset to anonymous user" do
     get dataset_url(@dataset)
     assert_response :success
@@ -251,17 +221,6 @@ class DatasetsControllerTest < ActionDispatch::IntegrationTest
     login(users(:valid))
     get dataset_url(datasets(:unreleased))
     assert_redirected_to datasets_url
-  end
-
-  test "should show unreleased dataset to authorized user with token" do
-    get dataset_url(datasets(:unreleased), format: "json"), params: { auth_token: users(:admin).id_and_auth_token }
-    assert_not_nil assigns(:dataset)
-    dataset = JSON.parse(response.body)
-    assert_equal "unreleased", dataset["slug"]
-    assert_equal "In the Works", dataset["name"]
-    assert_equal "(B) Unreleased dataset with documentation and public and private files.", dataset["description"]
-    assert_equal false, dataset["released"]
-    assert_response :success
   end
 
   test "should show public page to anonymous user" do
