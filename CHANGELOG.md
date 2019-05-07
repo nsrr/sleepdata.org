@@ -1,4 +1,4 @@
-## 41.0.0
+## 41.0.0 (May 7, 2019)
 
 ### Enhancements
 - **API Changes**
