@@ -1,5 +1,8 @@
 ## 42.0.0
 
+### Refactoring
+- Remove description from DatasetFile model
+
 ## 41.0.0 (May 7, 2019)
 
 ### Enhancements

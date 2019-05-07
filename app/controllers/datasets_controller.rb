@@ -55,7 +55,6 @@ class DatasetsController < ApplicationController
       path = params[:path]
       folder = path.blank? ? "" : "#{path}/"
       @dataset_files = @dataset.non_root_dataset_files.where(folder: folder).order_by_type.page(params[:page]).per(100)
-      @root_dataset_file = @dataset.dataset_files.find_by(full_path: path.to_s)
       current_user ? store_external_location_in_session : store_internal_location_in_session
       render :files
     else
