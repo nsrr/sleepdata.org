@@ -37,7 +37,7 @@
           = yield :breadcrumbs
     .row.no-gutters.flex-md-nowrap
       = yield(:sidebar)
-      %main.col.p-3{ role: "main" }
+      %main.col.p-3{ role: "main", class: @table_scroll ? "table-overflow-scroll" : nil }
         = yield
     = yield :footer
     = render "layouts/footer", footer: @theme ? "footer-#{@theme}" : nil, container: "container-fluid"

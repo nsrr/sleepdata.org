@@ -1,11 +1,13 @@
 - @title = "Downloads by Quarter"
 
+- @table_scroll = true # Note: Does not work if elements have "position: sticky;"
+
 - content_for :header, @title
 = render "internal/tabs"
 - content_for :sidebar, render("admin/sidebar_reports")
 
-.dashboard-container.dashboard-table
-  %table.table.table-striped.table-borderless.table-sticky
+.dashboard-container.dashboard-table{ style: "overflow-x: scroll;" }
+  %table.table.table-striped.table-borderless
     %thead
       %tr
         %th Quarter
