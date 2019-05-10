@@ -8,8 +8,7 @@
 
 .float-right.nowrap
   - if current_page_min > 1
-    = link_to url_for(filtered_params.merge(page: page - 1)), class: "link-no-underline small" do
-      = icon("fas", "angle-double-left")
+    = link_to icon("fas", "angle-double-left"), url_for(filtered_params.merge(page: page - 1)), class: "link-no-underline small"
   - else
     = icon("fas", "angle-double-left", class: "text-muted small")
 

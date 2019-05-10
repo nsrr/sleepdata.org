@@ -1,5 +1,9 @@
 ## 42.0.1
 
+### Enhancements
+- **General Changes**
+  - Removed trailing space on breadcrumb link
+
 ## 42.0.0 (May 10, 2019)
 
 ### Enhancements
