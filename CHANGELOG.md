@@ -1,5 +1,9 @@
 ## 42.0.0
 
+### Enhancements
+- **Gem Changes**
+  - Update to devise 4.6.2
+
 ### Refactoring
 - Remove description from DatasetFile model
 
