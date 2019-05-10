@@ -6,6 +6,7 @@
 
 ### Bug Fixes
 - Paginated breadcrumbs no longer wrap on mobile
+- Paginated breadcrumbs no longer lose filters when navigating through pages
 
 ### Refactoring
 - Remove description from DatasetFile model
