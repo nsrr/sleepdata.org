@@ -4,6 +4,9 @@
 - **Gem Changes**
   - Update to devise 4.6.2
 
+### Bug Fixes
+- Paginated breadcrumbs no longer wrap on mobile
+
 ### Refactoring
 - Remove description from DatasetFile model
 
