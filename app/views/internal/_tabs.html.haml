@@ -3,7 +3,7 @@
   = link_to dashboard_path, class: "header-tab #{"header-tab-active" if current_page}" do
     = icon("fas", "home")
     - if current_page
-      Dashboard
+      Dash
     - else
       .d-none.d-md-inline Dashboard
   - current_page = (params[:controller] == "settings")
@@ -18,7 +18,7 @@
     = link_to organizations_path, class: "header-tab #{"header-tab-active" if current_page}" do
       = icon("fas", "globe-americas")
       - if current_page
-        Organizations
+        Orgs
       - else
         .d-none.d-md-inline Organizations
 
