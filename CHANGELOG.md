@@ -1,4 +1,4 @@
-## 42.0.0
+## 42.0.0 (May 10, 2019)
 
 ### Enhancements
 - **Gem Changes**
