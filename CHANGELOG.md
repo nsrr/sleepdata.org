@@ -1,4 +1,4 @@
-## 42.0.1
+## 42.0.1 (May 10, 2019)
 
 ### Enhancements
 - **General Changes**
