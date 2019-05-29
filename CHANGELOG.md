@@ -5,6 +5,7 @@
   - Update to haml 5.1.1
   - Update to jbuilder 2.9
   - Update to pg_search 2.2.0
+  - Update to rubyzip 1.2.3
 
 ### Bug Fix
 - Fix an issue displaying topics without last reply at timestamp
