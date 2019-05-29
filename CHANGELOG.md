@@ -1,5 +1,9 @@
 ## 42.0.2
 
+### Enhancements
+- **Gem Changes**
+  - Update to haml 5.1.1
+
 ### Bug Fix
 - Fix an issue displaying topics without last reply at timestamp
 
