@@ -126,7 +126,7 @@ class Topic < ApplicationRecord
   end
 
   def auto_locked?
-    locked? || last_reply_at.to_date < Time.zone.today - AUTO_LOCK_IN
+    locked? || (last_reply_at && last_reply_at.to_date < Time.zone.today - AUTO_LOCK_IN)
   end
 
   def not_auto_locked?

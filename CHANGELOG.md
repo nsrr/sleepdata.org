@@ -1,5 +1,8 @@
 ## 42.0.2
 
+### Bug Fix
+- Fix an issue displaying topics without last reply at timestamp
+
 ## 42.0.1 (May 10, 2019)
 
 ### Enhancements
