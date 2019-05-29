@@ -1,6 +1,8 @@
 ## 42.0.2
 
 ### Enhancements
+- **Article Changes**
+  - Articles in draft mode now display category for editors
 - **Gem Changes**
   - Update to haml 5.1.1
   - Update to jbuilder 2.9
