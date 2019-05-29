@@ -110,6 +110,7 @@ class Topic < ApplicationRecord
 
   def first_reply_url_count
     return 0 if replies.first.nil?
+
     replies.first.url_count
   end
 
