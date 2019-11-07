@@ -1,3 +1,9 @@
+## [Unreleased]
+
+### Enhancements
+- **General Changes**
+  - Redirect `community/tools/nsrrspectraltrainfig` to Github
+
 ## 42.0.2 (May 28, 2019)
 
 ### Enhancements
