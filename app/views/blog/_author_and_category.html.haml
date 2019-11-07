@@ -1,5 +1,5 @@
 .broadcast-info
-  .float-right
+  .float-right.d-none
     &nbsp;
     = link_to blog_post_path(broadcast.url_hash.merge(anchor: "comments")), class: "no-underline", data: { turbolinks: false } do
       = icon("fas", "comments")

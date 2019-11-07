@@ -1,3 +1,9 @@
+## [Unreleased]
+
+### Enhancements
+- **General Changes**
+  - Hide comment indicators and comment section on blog posts
+
 ## 42.0.2 (May 28, 2019)
 
 ### Enhancements

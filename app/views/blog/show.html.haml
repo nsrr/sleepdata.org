@@ -31,7 +31,7 @@
   .page-box-padding
     .container
       .broadcast-discussion
-        .broadcast-discussion-header
+        .broadcast-discussion-header.d-none
           - if @broadcast.replies_count.positive?
             all
             = pluralize(@broadcast.replies_count, "comment")
