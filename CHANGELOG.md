@@ -3,6 +3,8 @@
 ### Enhancements
 - **General Changes**
   - Redirect `community/tools/nsrrspectraltrainfig` to Github
+- **Blog Changes**
+  - Hide comment indicators and comment section on blog posts
 - **Gem Changes**
   - Update to ruby 2.6.4
   - Update to rails 6.0.1
