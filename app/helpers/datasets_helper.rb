@@ -55,7 +55,8 @@ module DatasetsHelper
     dataset
       .data_requests
       .where(user: current_user)
-      .where.not(final_legal_document_id: nil, status: "closed")
+      .where.not(final_legal_document_id: nil)
+      .where.not(status: "closed")
   end
 
   def data_request_by_status(dataset, status)
