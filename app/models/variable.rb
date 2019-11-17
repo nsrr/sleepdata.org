@@ -3,7 +3,7 @@
 # Represent Spout variable structure for variable pages.
 class Variable < ApplicationRecord
   # Concerns
-  include PgSearch
+  include PgSearch::Model
   pg_search_scope :search_full_text, against: {
     name: "A",
     display_name: "B",

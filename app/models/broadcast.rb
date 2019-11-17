@@ -10,7 +10,7 @@ class Broadcast < ApplicationRecord
   include Deletable
   include Replyable
   include Searchable
-  include PgSearch
+  include PgSearch::Model
   multisearchable against: [:title, :short_description, :keywords, :description],
                   unless: :deleted?
 

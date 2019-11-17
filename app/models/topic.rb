@@ -19,7 +19,7 @@ class Topic < ApplicationRecord
 
   # Concerns
   include Deletable
-  include PgSearch
+  include PgSearch::Model
   include Replyable
   include Sluggable
   include UrlCountable

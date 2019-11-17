@@ -18,7 +18,7 @@ class Reply < ApplicationRecord
 
   # Concerns
   include Deletable
-  include PgSearch
+  include PgSearch::Model
   include UrlCountable
   multisearchable against: [:description],
                   unless: :deleted_or_parent_deleted?
