@@ -11,7 +11,7 @@ gem "pg",                         "1.1.4"
 # Gems used by project.
 gem "autoprefixer-rails"
 gem "bootstrap",                  "~> 4.3.1"
-gem "carrierwave",                "~> 1.3.1"
+gem "carrierwave",                "~> 2.0.2"
 gem "devise",                     "~> 4.7.1"
 gem "differ",                     "~> 0.1.2"
 gem "figaro",                     "~> 1.1.1"
