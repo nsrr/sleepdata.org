@@ -22,7 +22,7 @@ gem "kaminari",                   "~> 1.1.1"
 gem "mini_magick",                "~> 4.9.2"
 gem "pg_search",                  "~> 2.2.0"
 gem "redcarpet",                  "~> 3.4.0"
-gem "rubyzip",                    "~> 1.2.3"
+gem "rubyzip",                    "~> 2.0.0"
 gem "sitemap_generator",          "~> 6.0.1"
 
 # Rails defaults.
