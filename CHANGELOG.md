@@ -1,6 +1,8 @@
 ## 43.0.0
 
 ### Enhancements
+- **General Changes**
+  - Redirect `community/tools/nsrrspectraltrainfig` to Github
 - **Gem Changes**
   - Update to ruby 2.6.4
   - Update to rails 6.0.1

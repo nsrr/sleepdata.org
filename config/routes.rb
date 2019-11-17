@@ -392,6 +392,7 @@ Rails.application.routes.draw do
   get "fair", to: redirect("about/fair-data-principles")
 
   # TODO: Remove "community" redirect after March 31, 2024
+  get "community/tools/nsrrspectraltrainfig", to: redirect("https://github.com/nsrr/SpectralTrainFig")
   get "community(/*path)", to: redirect("")
   # END TODO
 
