@@ -5,6 +5,7 @@
   - Update to ruby 2.6.4
   - Update to rails 6.0.1
   - Update to devise 4.7.1
+  - Update to haml 5.1.2
   - Update to pg_search 2.3.0
   - Update to rubyzip 2.0.0
 
