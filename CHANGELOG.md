@@ -1,5 +1,9 @@
 ## 43.0.0
 
+### Enhancements
+- **Gem Changes**
+  - Update to ruby 2.6.4
+
 ## 42.0.2 (May 28, 2019)
 
 ### Enhancements
