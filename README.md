@@ -73,6 +73,7 @@ sudo make install
 Make executables accessible by web server process using symbolic links:
 
 ```
+sudo ln -s /usr/local/bin/convert /usr/bin/convert
 sudo ln -s /usr/local/bin/identify /usr/bin/identify
 sudo ln -s /usr/local/bin/mogrify /usr/bin/mogrify
 ```
