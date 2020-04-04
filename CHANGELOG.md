@@ -1,6 +1,8 @@
 ## 44.0.0
 
 ### Enhancements
+- **Variable Changes**
+  - Variable display names no longer have a string limit for spout deploys
 - **Gem Changes**
   - Update to ruby 2.7.1
   - Update to rails 6.0.2.2
