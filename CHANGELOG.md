@@ -1,4 +1,4 @@
-## 44.0.0
+## 44.0.0 (April 4, 2020)
 
 ### Enhancements
 - **General Changes**
