@@ -1,6 +1,5 @@
 language: ruby
 rvm:
-- 2.6.6
 - 2.7.1
 - ruby-head
 gemfile: "gems.rb"
@@ -12,5 +11,4 @@ before_script:
 - "rails db:migrate"
 matrix:
   allow_failures:
-  - rvm: 2.7.1
   - rvm: ruby-head
