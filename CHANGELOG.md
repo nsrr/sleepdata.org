@@ -11,6 +11,7 @@
 - **Variable Changes**
   - Variable display names no longer have a string limit for spout deploys
   - Site wide search now includes variable labels in the search index
+  - Adjusted the display of variable information on variable show pages
 - **Gem Changes**
   - Update to ruby 2.7.1
   - Update to rails 6.0.2.2

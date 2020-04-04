@@ -8,6 +8,8 @@
         type: 'column'
       title:
         text: json['title']
+        style:
+          fontSize: "14px"
       subtitle:
         text: json['subtitle']
       xAxis:

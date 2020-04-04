@@ -1,5 +1,5 @@
 %div{ style: "margin-bottom: 10px;" }
-  %code= domain.name
+  %span.badge.badge-light= domain.name
 %ul.list-unstyled
   - domain.domain_options.each do |domain_option|
     %li= "#{domain_option.value}: #{domain_option.display_name}"

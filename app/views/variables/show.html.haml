@@ -18,13 +18,14 @@
 
 .d-flex.flex-column.flex-xl-row.dashboard-container
   .variable-graph
-    = render "forms/horizontal/show/generic", title: "Name", content: content_tag(:h1, @variable.name, class: "variable-header")
-    = render "forms/horizontal/show/generic", title: "Label", content: content_tag(:h1, @variable.display_name, class: "variable-header")
+    = render "forms/horizontal/show/generic", title: "Name", content: @variable.name
+    = render "forms/horizontal/show/generic", title: "Label", content: @variable.display_name
     = render "forms/horizontal/show/generic", title: "Description", content: simple_markdown(@variable.description, allow_lists: false) if @variable.description.present?
     = render "forms/horizontal/show/generic", title: "Calculation", content: calculation_helper(@variable) if @variable.calculation.present?
-    = render "forms/horizontal/show/generic", title: "Units", content: content_tag(:code, @variable.units) if @variable.units.present?
+    = render "forms/horizontal/show/generic", title: "Units", content: content_tag(:span, @variable.units, class: "badge badge-light") if @variable.units.present?
     = render "forms/horizontal/show/generic", title: "Domain", content: render("variables/domain", domain: @variable.domain) if @variable.domain
-    = render "forms/horizontal/show/generic", title: "Type", content: content_tag(:code, @variable.variable_type) if @variable.variable_type.present?
+    = render "forms/horizontal/show/generic", title: "Type", content: content_tag(:span, @variable.variable_type, class: "badge badge-light") if @variable.variable_type.present?
+    = render "forms/horizontal/show/generic", title: "Labels", content: render("variables/labels", variable: @variable) if @variable.variable_labels.present?
     = render "forms/horizontal/show/generic", title: "Stats", content: render("variables/stats", variable: @variable) if %w(integer numeric).include?(@variable.variable_type) && false
 
   - if charts.present?
