@@ -5,6 +5,7 @@
   - Update to ruby 2.7.1
   - Update to rails 6.0.2.2
   - Update to pg 1.2.3
+  - Update to carrierwave 2.1.0
   - Update to pg_search 2.3.2
 
 ## 43.0.0 (November 17, 2019)
