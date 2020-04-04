@@ -11,7 +11,7 @@ class Dataset < ApplicationRecord
     "popular" => "datasets.popularity desc",
     "unpopular" => "datasets.popularity"
   }
-  DEFAULT_ORDER = "datasets.release_date, datasets.name"
+  DEFAULT_ORDER = "datasets.featured desc, datasets.release_date, datasets.name"
 
   FILES_PER_PAGE = 100
 

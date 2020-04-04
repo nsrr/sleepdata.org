@@ -4,6 +4,8 @@
 - **General Changes**
   - Researchers can now provide their ORCID iD on registration or update the
     ORCID iD on their profile
+- **Dataset Changes**
+  - Datasets can now be featured to appear at the top of the datasets list
   - Popular datasets are now calculated by the number of data requests made for
     that dataset and are now linked correctly from the landing
 - **Variable Changes**

@@ -2,6 +2,7 @@
   = render "forms/horizontal/select", form: form, object: dataset, key: :organization_id, options: Organization.current.with_editor(current_user).pluck(:name, :id), include_blank: true if current_user.organization_editor? && dataset.new_record?
   = render "forms/horizontal/text_field", form: form, object: dataset, key: :name, slug: "slug"
   = render "forms/horizontal/slug_field", form: form, object: dataset, key: :slug
+  = render "forms/horizontal/check_box", form: form, object: dataset, key: :featured, help_text: "Featured datasets will appear at the top of the datasets page."
   = render "forms/horizontal/text_area", form: form, object: dataset, key: :description
   = render "forms/horizontal/file_field", form: form, object: dataset, key: :logo, help_text: "JPG, GIF, PNG"
   = render "forms/horizontal/text_area", form: form, object: dataset, key: :info_citation, key_name: "Citation"
