@@ -1,6 +1,8 @@
 ## 44.0.0
 
 ### Enhancements
+- **General Changes**
+  - Researchers can now provide their ORCID ID on registration
 - **Variable Changes**
   - Variable display names no longer have a string limit for spout deploys
 - **Gem Changes**

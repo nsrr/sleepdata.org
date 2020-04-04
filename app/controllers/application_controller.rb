@@ -34,7 +34,8 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(
       :sign_up,
       keys: [
-        :username, :email, :password, :password_confirmation, :emails_enabled
+        :username, :email, :password, :password_confirmation, :emails_enabled,
+        :orcidid
       ]
     )
   end
