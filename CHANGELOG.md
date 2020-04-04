@@ -9,6 +9,7 @@
   - Update to carrierwave 2.1.0
   - Update to font-awesome-sass 5.12.0
   - Update to pg_search 2.3.2
+  - Update to rubyzip 2.3.0
 
 ## 43.0.0 (November 17, 2019)
 
