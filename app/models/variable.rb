@@ -16,7 +16,7 @@ class Variable < ApplicationRecord
   }, using: {
     tsearch: { any_word: true, normalization: 4, prefix: true }
   }, order_within_rank: "commonly_used desc"
-  multisearchable against: [:name, :display_name, :folder, :description], if: :latest_version_and_released?
+  multisearchable against: [:name, :display_name, :folder, :description, :search_terms], if: :latest_version_and_released?
 
   after_save :set_search_terms
 
