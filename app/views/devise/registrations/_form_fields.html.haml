@@ -4,7 +4,7 @@
   - help_text = "Great usernames are short and fun. How about #{link_to(username, "#", data: { object: "select-username", username: username }, tabindex: "-1")}?".html_safe
 = render "forms/vertical/text_field", form: form, object: user, key: :username, id: true, placeholder: "Pick a username", help_text: help_text, autocomplete: "off", autocorrect: "off", autocapitalize: "none", spellcheck: "false"
 
-= render "forms/vertical/text_field", form: form, object: user, key: :orcidid, id: true, key_name: "ORCID iD <small class=\"text-muted\">(optional)</small>".html_safe, placeholder: "0000-0000-0000-0000", help_text: "Create an #{link_to "ORCID iD", "https://orcid.org/my-orcid", target: "-1"} to help us find your future research.".html_safe, pattern: "[\\d]{4}-[\\d]{4}-[\\d]{4}-[\\d]{4}", title: "1234-1234-1234-1234", data: { object: "format-orcidid" }, autocomplete: "off", autocorrect: "off", autocapitalize: "none", spellcheck: "false"
+= render "users/orcidid", form: form, user: user
 
 = render "forms/vertical/email_field", form: form, object: user, key: :email, placeholder: "you@example.com"
 

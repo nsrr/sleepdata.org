@@ -32,7 +32,8 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
         username: "regularupdate",
         profile_bio: "Short Bio",
         profile_url: "http://example.com",
-        profile_location: "Boston, MA"
+        profile_location: "Boston, MA",
+        orcidid: "1234-1234-1234-1234"
       }
     }
     @regular.reload
@@ -41,6 +42,7 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "http://example.com", @regular.profile_url
     assert_equal "Boston, MA", @regular.profile_location
     assert_equal "Profile successfully updated.", flash[:notice]
+    assert_equal "1234-1234-1234-1234", @regular.orcidid
     assert_redirected_to settings_profile_url
   end
 

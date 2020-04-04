@@ -2,7 +2,8 @@
 
 ### Enhancements
 - **General Changes**
-  - Researchers can now provide their ORCID ID on registration
+  - Researchers can now provide their ORCID iD on registration or update the
+    ORCID iD on their profile
 - **Variable Changes**
   - Variable display names no longer have a string limit for spout deploys
 - **Gem Changes**

@@ -17,6 +17,11 @@
           = icon("fas", "map-marker-alt")
           = link_to "Add a location", settings_profile_path
 
+      - if member.orcidid.present?
+        %p.nowrap.overflow-hidden
+          = icon("fab", "orcid")
+          = link_to "#{member.orcidid}", "https://orcid.org/#{member.orcidid}"
+
       - if member.profile_url.present?
         %p.nowrap.overflow-hidden
           = icon("fas", "link")
