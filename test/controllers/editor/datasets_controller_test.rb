@@ -17,7 +17,8 @@ class Editor::DatasetsControllerTest < ActionDispatch::IntegrationTest
       logo: fixture_file_upload("../../test/support/images/rails.png"),
       released: true,
       slug: "new-dataset",
-      release_date: "2014-06-23"
+      release_date: "2014-06-23",
+      featured: "1"
     }
   end
 
