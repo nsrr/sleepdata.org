@@ -4,6 +4,8 @@
 - **General Changes**
   - Researchers can now provide their ORCID iD on registration or update the
     ORCID iD on their profile
+  - Popular datasets are now calculated by the number of data requests made for
+    that dataset and are now linked correctly from the landing
 - **Variable Changes**
   - Variable display names no longer have a string limit for spout deploys
   - Site wide search now includes variable labels in the search index

@@ -8,8 +8,8 @@ class Dataset < ApplicationRecord
     "name" => "datasets.name",
     "newest" => "datasets.release_date desc, datasets.name desc",
     "oldest" => "datasets.release_date, datasets.name",
-    "popular" => "datasets.rating desc",
-    "unpopular" => "datasets.rating"
+    "popular" => "datasets.popularity desc",
+    "unpopular" => "datasets.popularity"
   }
   DEFAULT_ORDER = "datasets.release_date, datasets.name"
 
@@ -20,6 +20,7 @@ class Dataset < ApplicationRecord
   # Callbacks
   after_create_commit :create_folders
   after_touch :recalculate_rating!
+  after_touch :recalculate_popularity!
 
   # Concerns
   include Deletable
@@ -112,6 +113,10 @@ class Dataset < ApplicationRecord
   def recalculate_rating!
     ratings = dataset_reviews.where.not(rating: nil).pluck(:rating)
     update rating: ratings.present? ? ratings.inject(&:+).to_f / ratings.count : 3
+  end
+
+  def recalculate_popularity!
+    update popularity: data_requests.distinct.count(:user_id)
   end
 
   def chartable_variables
