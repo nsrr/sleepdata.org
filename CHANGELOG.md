@@ -1,5 +1,9 @@
 ## 45.0.0
 
+### Enhancements
+- **Gem Changes**
+  - Update to rails 6.0.3.1
+
 ## 44.0.0 (April 4, 2020)
 
 ### Enhancements
