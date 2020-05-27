@@ -3,6 +3,7 @@
 ### Enhancements
 - **Gem Changes**
   - Update to rails 6.0.3.1
+  - Update to kaminari 1.2.1
 
 ## 44.0.0 (April 4, 2020)
 
