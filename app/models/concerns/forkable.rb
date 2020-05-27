@@ -19,7 +19,7 @@ module Forkable
     if Rails.env.test?
       send method, *args
     else
-      create_fork_with_array method, *args
+      create_fork_with_array method, args
     end
   end
 
@@ -27,7 +27,7 @@ module Forkable
     if Rails.env.test?
       send method, *args, **hash
     else
-      create_fork_with_hash method, *args, **hash
+      create_fork_with_hash method, args, hash
     end
   end
 
