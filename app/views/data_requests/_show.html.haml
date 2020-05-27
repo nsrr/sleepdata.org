@@ -1,5 +1,5 @@
 .card.card-data-request.box-shadow
-  - case data_request.status
+  - case data_request.smart_status
   - when "started"
     - progress = data_request.progress
     %h4.card-header

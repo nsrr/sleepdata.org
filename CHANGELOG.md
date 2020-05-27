@@ -5,6 +5,9 @@
   - Update to rails 6.0.3.1
   - Update to kaminari 1.2.1
 
+### Bug Fixes
+- Expired requests no longer display as approved on user dashboard
+
 ## 44.0.0 (April 4, 2020)
 
 ### Enhancements
