@@ -1,6 +1,9 @@
 ## 45.0.0
 
 ### Enhancements
+- **General Changes**
+  - Updated about pages and added help text for "Core Member", "Contributor",
+    and "AUG member" on the user edit page
 - **Search Changes**
   - Search results now allow a limited amount of markdown for variable
     descriptions, including bold, italics, code, and links

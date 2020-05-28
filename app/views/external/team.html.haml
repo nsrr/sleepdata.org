@@ -13,16 +13,7 @@
         .col-6.text-center
           Susan Redline
         .col-6.text-center
-          GQ Zhang
-
-      %div
-        %p.text-center
-          %strong Co Investigators
-        .row
-          .col-6.text-center
-            Sara Mariani
-          .col-6.text-center
-            Shaun Purcell
+          Shaun Purcell
 
       %div
         %p.text-center
@@ -30,7 +21,7 @@
         - @users = User.core_members.order(:full_name)
         .row
           - @users.each do |user|
-            - unless ["Susan Redline", "GQ Zhang", "Shaun Purcell", "Sara Mariani"].include?(user.full_name)
+            - unless ["Susan Redline", "Shaun Purcell"].include?(user.full_name)
               .col-sm-6.col-buffer.text-center= user.full_name
 
       .text-center
