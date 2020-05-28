@@ -4,6 +4,9 @@
 - **Search Changes**
   - Search results now allow a limited amount of markdown for variable
     descriptions, including bold, italics, code, and links
+- **Admin Changes**
+  - Added rake task to export topics and replies from the forum
+    - `rails forum:export RAILS_ENV=production`
 - **Gem Changes**
   - Update to rails 6.0.3.1
   - Update to kaminari 1.2.1
