@@ -9,6 +9,8 @@
 - Expired requests no longer display as approved on user dashboard
 - Fixed an issue that caused custom data request variables to be offset in
   organization data request exports
+- Improved the detection of "@" mentions, which now properly excludes "@"s that
+  occur in the middle of an email address
 
 ## 44.0.0 (April 4, 2020)
 
