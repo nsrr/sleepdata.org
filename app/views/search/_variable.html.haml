@@ -9,4 +9,4 @@
     in
     = link_to variable.dataset.slug.upcase, dataset_variables_path(variable.dataset, folder: variable.folder)
   .search-result-body
-    = variable.description
+    = search_style variable.description
