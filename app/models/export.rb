@@ -107,7 +107,7 @@ class Export < ApplicationRecord
       csv << ["Rejected By"] + data_request_scope.includes(data_request_reviews: :user).collect { |a| a.data_request_reviews.select { |r| r.approved == false }.collect { |r| r.user.initials }.join(",") }
       final_legal_document.final_legal_document_pages.each do |final_legal_document_page|
         final_legal_document_page.variables.each do |variable|
-          csv << [variable.display_name_label] + data_request_scope.includes(:agreement_variables).where(agreement_variables: { final_legal_document_variable: variable }).collect { |a| a.agreement_variables.first&.value }
+          csv << [variable.display_name_label] + build_data_request_values(data_request_scope, variable)
           update(completed_steps: completed_steps + 1)
         end
       end
@@ -135,5 +135,23 @@ class Export < ApplicationRecord
         csv << array
       end
     end
+  end
+
+  # Not all data requests have values stored for final_legal_document_variable.
+  # Build an array of ordered values that adds nulls for empty relationships.
+  def build_data_request_values(data_request_scope, variable)
+    data_request_ids = data_request_scope.pluck(:id)
+    data_request_values = data_request_scope.includes(:agreement_variables).where(agreement_variables: { final_legal_document_variable: variable }).collect { |a| [a.id, a.agreement_variables.first&.value] }
+    values = []
+    data_request_value = data_request_values.shift || []
+    data_request_ids.each do |data_request_id|
+      if data_request_value.first == data_request_id
+        values << data_request_value.second
+        data_request_value = data_request_values.shift || []
+      else
+        values << nil
+      end
+    end
+    values
   end
 end
