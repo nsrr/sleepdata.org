@@ -1,4 +1,4 @@
-## 45.0.0
+## 45.0.0 (May 27, 2020)
 
 ### Enhancements
 - **General Changes**
