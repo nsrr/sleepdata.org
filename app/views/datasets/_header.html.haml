@@ -2,14 +2,14 @@
   %div{ class: defined?(container) ? container : "container" }
     .mb-0
       - current_page = (params[:action] == "pages" || current_page?(@dataset))
-      = link_to @dataset, class: "link-unstyled d-inline-block px-3 pt-2 pb-2 rounded-top header-tab #{"border border-bottom-0 header-tab-active" if current_page}", data: { object: "#{"suppress-click" if current_page?(@dataset)}" } do
+      = link_to @dataset, class: "link-unstyled d-inline-block px-3 pt-2 pb-2 rounded-top header-tab #{"border border-bottom-0 header-tab-active" if current_page}" do
         = icon("fas", "file-alt")
         - if current_page
           Docs
         - else
           .d-none.d-sm-inline Docs
       - current_page = (params[:action] == "files")
-      = link_to files_dataset_path(@dataset), class: "link-unstyled d-inline-block px-3 pt-2 pb-2 rounded-top header-tab #{"border border-bottom-0 header-tab-active" if current_page}", data: { object: "#{"suppress-click" if current_page?(files_dataset_path(@dataset))}" } do
+      = link_to files_dataset_path(@dataset), class: "link-unstyled d-inline-block px-3 pt-2 pb-2 rounded-top header-tab #{"border border-bottom-0 header-tab-active" if current_page}" do
         = icon("fas", "file-medical-alt")
         - if current_page
           Files
@@ -18,7 +18,7 @@
         - if false
           %span.badge.badge-success.badge-pill.d-none.d-sm-inline= number_to_human(@dataset.dataset_files.current.where(is_file: true).count, precision: 2)
       - current_page = (params[:controller] == "variables")
-      = link_to dataset_variables_path(@dataset), class: "link-unstyled d-inline-block px-3 pt-2 pb-2 rounded-top header-tab #{"border border-bottom-0 header-tab-active" if current_page}", data: { object: "#{"suppress-click" if current_page?(dataset_variables_path(@dataset))}" } do
+      = link_to dataset_variables_path(@dataset), class: "link-unstyled d-inline-block px-3 pt-2 pb-2 rounded-top header-tab #{"border border-bottom-0 header-tab-active" if current_page}" do
         = icon("fas", "chart-bar")
         - if current_page
           Variables
@@ -28,7 +28,7 @@
           %span.badge.badge-success.badge-pill.d-none.d-sm-inline= number_to_human(@dataset.current_variables.count, precision: 2)
       - current_page = (params[:controller] == "editor/datasets")
       - if @dataset.editor?(current_user)
-        = link_to settings_dataset_path(@dataset), class: "link-unstyled d-inline-block px-3 pt-2 pb-2 rounded-top header-tab #{"border border-bottom-0 header-tab-active" if current_page}", data: { object: "#{"suppress-click" if current_page?(settings_dataset_path(@dataset))}" } do
+        = link_to settings_dataset_path(@dataset), class: "link-unstyled d-inline-block px-3 pt-2 pb-2 rounded-top header-tab #{"border border-bottom-0 header-tab-active" if current_page}" do
           = icon("fas", "cog")
           - if current_page
             Settings

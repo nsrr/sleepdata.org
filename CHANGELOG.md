@@ -1,5 +1,10 @@
 ## 46.0.0
 
+### Enhancements
+- **Variable Changes**
+  - Clicking the "Variables" tab on dataset pages now always navigates back to
+    the variables index
+
 ## 45.0.0 (May 27, 2020)
 
 ### Enhancements
