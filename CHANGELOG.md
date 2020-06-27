@@ -5,6 +5,9 @@
   - Clicking the "Variables" tab on dataset pages now always navigates back to
     the variables index
 
+### Bug Fixes
+- Fixed minor typo on confirmation email sent page
+
 ## 45.0.0 (May 27, 2020)
 
 ### Enhancements
