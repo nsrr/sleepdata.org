@@ -14,6 +14,7 @@
 ### Bug Fixes
 - Fixed minor typo on confirmation email sent page
 - Legal document pages now display an error message if content is not provided
+- Deleting a legal document page from index no longer deletes the legal document
 
 ## 45.0.0 (May 27, 2020)
 
