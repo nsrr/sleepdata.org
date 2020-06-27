@@ -1,4 +1,6 @@
 = form_with model: [@organization, @legal_document, legal_document_page], local: true do |form|
+  - legal_document_page.errors[:content].each do |message|
+    - legal_document_page.errors.add(:readable_content, message)
   = render "forms/horizontal/text_field", form: form, object: legal_document_page, key: :title
   = render "forms/horizontal/text_area", form: form, object: legal_document_page, key: :readable_content, key_name: "Content", help_text: "Create variables by surrounding them with < and >. Ex: I, <first_name>, from <university>..."
   = render "forms/horizontal/text_field", form: form, object: legal_document_page, key: :position

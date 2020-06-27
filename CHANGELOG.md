@@ -13,6 +13,7 @@
 
 ### Bug Fixes
 - Fixed minor typo on confirmation email sent page
+- Legal document pages now display an error message if content is not provided
 
 ## 45.0.0 (May 27, 2020)
 
