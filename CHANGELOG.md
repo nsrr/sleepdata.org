@@ -1,4 +1,4 @@
-## 46.0.0
+## 46.0.0 (June 27, 2020)
 
 ### Enhancements
 - **General Changes**
