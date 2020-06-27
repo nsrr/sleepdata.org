@@ -40,7 +40,7 @@ class LegalDocument < ApplicationRecord
 
   # Relationships
   belongs_to :organization
-  has_many :legal_document_pages, -> { order(:position) }
+  has_many :legal_document_pages, -> { current.order(:position) }
   has_many :legal_document_variables, -> { current }
   has_many :legal_document_variable_options, -> { order(:legal_document_variable_id, :position) }
   has_many :legal_document_datasets
