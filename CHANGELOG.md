@@ -1,6 +1,8 @@
 ## 46.0.0
 
 ### Enhancements
+- **General Changes**
+  - Welcome emails are now sent regardless of server setup
 - **Forum Changes**
   - Searching initiated from the forum search now filters results to the forum
 - **Variable Changes**
