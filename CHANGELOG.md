@@ -1,6 +1,8 @@
 ## 46.0.0
 
 ### Enhancements
+- **Forum Changes**
+  - Searching initiated from the forum search now filters results to the forum
 - **Variable Changes**
   - Clicking the "Variables" tab on dataset pages now always navigates back to
     the variables index

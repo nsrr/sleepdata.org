@@ -5,6 +5,7 @@
 
 = form_with url: search_path, method: :get, local: true, id: "search-form", class: "mb-3" do |form|
   .input-group
+    = form.hidden_field :from, value: params[:from]
     = form.text_field :search, value: params[:search], class: "form-control", placeholder: "Search...", autocomplete: "off", autofocus: params[:search].blank?
     %span.input-group-append
       = link_to "#", class: "btn btn-primary", data: { object: "submit-and-disable", target: "#search-form" } do
@@ -22,6 +23,11 @@
     - @highlight_found = false
 - else
   - @highlight_found = false
+
+- if params[:from] == "forum"
+  .text-center.mb-3
+    Displaying forum search results.
+    = link_to "Search entire site.", search_path(search: params[:search])
 
 - if @search_documents.present?
   - @search_documents.each do |document|

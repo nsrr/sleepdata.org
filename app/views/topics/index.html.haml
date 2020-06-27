@@ -19,6 +19,7 @@
         %th.p-0.topic-line-mark
         %th.py-2.pl-1.pr-2
           = form_with url: search_path, method: :get, local: true do |form|
+            = form.hidden_field :from, value: "forum"
             = form.text_field :search, value: params[:search], placeholder: "Search the forum", autocomplete: "off", class: "table-cell-search-input border rounded"
         %th.d-none.d-sm-table-cell.text-center
           = order_to "Replies", primary: "replies desc", secondary: "replies"
