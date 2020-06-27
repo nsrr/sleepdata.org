@@ -245,6 +245,10 @@ Rails.application.routes.draw do
         get :coverage
       end
 
+      member do
+        post :publish
+      end
+
       resources :legal_document_pages, path: "pages"
       # resources :legal_document_pages, path: "pages", as: :page, only: [:show, :edit, :update, :destroy]
       # resources :legal_document_pages, path: "pages", as: :pages, only: [:index, :create]

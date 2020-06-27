@@ -63,6 +63,14 @@ class LegalDocumentsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to organization_legal_document_url(@organization, "daua-updated")
   end
 
+  test "should publish legal document" do
+    login(@org_editor)
+    assert_difference("FinalLegalDocument.count") do
+      post publish_organization_legal_document_url(@organization, @legal_document)
+    end
+    assert_redirected_to organization_legal_document_url(@organization, @legal_document)
+  end
+
   test "should destroy legal document" do
     login(@org_editor)
     assert_difference("LegalDocument.current.count", -1) do

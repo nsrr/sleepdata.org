@@ -5,6 +5,8 @@
   - Welcome emails are now sent regardless of server setup
 - **Forum Changes**
   - Searching initiated from the forum search now filters results to the forum
+- **Legal Documents Changes**
+  - Legal documents can now be published from the legal document page
 - **Variable Changes**
   - Clicking the "Variables" tab on dataset pages now always navigates back to
     the variables index

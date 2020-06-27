@@ -23,6 +23,11 @@
           = link_to edit_organization_legal_document_path(@organization, @legal_document), class: "dropdown-item" do
             = icon("fas", "pencil-alt")
             Edit
+
+          = link_to publish_organization_legal_document_path(@organization, @legal_document), method: :post, data: { confirm: "Publish a new version of #{@legal_document.name}?" }, class: "dropdown-item text-primary" do
+            = icon("fas", "rocket")
+            Publish
+
           .dropdown-divider
           = link_to [@organization, @legal_document], method: :delete, data: { confirm: "Delete #{@legal_document.name}?" }, class: "dropdown-item text-danger" do
             = icon("fas", "trash-alt")
@@ -35,6 +40,7 @@
   = render "forms/horizontal/show/text", object: @legal_document, key: :data_user_type_name, key_name: "Data user type"
   = render "forms/horizontal/show/text", object: @legal_document, key: :attestation_type_name, key_name: "Attestation type"
   = render "forms/horizontal/show/text", object: @legal_document, key: :approval_process_name, key_name: "Approval process"
+  = render "forms/horizontal/show/generic", title: "Published Versions", content: render("legal_documents/published", legal_document: @legal_document)
 
 .row
   #legal-document-preview.col-12.col-md

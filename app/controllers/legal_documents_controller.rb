@@ -4,7 +4,7 @@
 class LegalDocumentsController < ApplicationController
   before_action :authenticate_user!
   before_action :find_editable_organization_or_redirect
-  before_action :find_legal_document_or_redirect, only: [:show, :edit, :update, :destroy]
+  before_action :find_legal_document_or_redirect, only: [:show, :edit, :update, :destroy, :publish]
 
   layout "layouts/full_page_sidebar"
 
@@ -43,6 +43,12 @@ class LegalDocumentsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  # POST /orgs/1/legal-documents/1/publish
+  def publish
+    @legal_document.publish!
+    redirect_to [@organization, @legal_document], notice: "Legal document was successfully published."
   end
 
   # DELETE /orgs/1/legal-documents/1

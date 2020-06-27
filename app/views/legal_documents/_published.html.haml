@@ -1,0 +1,10 @@
+- final_legal_documents = legal_document.final_legal_documents.order(published_at: :desc)
+
+- if final_legal_documents.present?
+  - final_legal_documents.each do |final_legal_document|
+    %div
+      = final_legal_document.version
+      = final_legal_document.published_at.strftime("%b %-d, %Y")
+- else
+  .text-muted
+    None
