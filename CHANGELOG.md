@@ -1,3 +1,9 @@
+## 47.0.0 (July 16, 2020)
+
+### Enhancements
+- **General Changes**
+  - Update text about grant on the about page
+
 ## 46.0.0 (June 27, 2020)
 
 ### Enhancements
