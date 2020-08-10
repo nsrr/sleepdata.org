@@ -38,7 +38,8 @@ class OrganizationUser < ApplicationRecord
 
   def send_invite_email!
     set_invite_token
-    return unless EMAILS_ENABLED
+    return if Rails.env.test?
+
     OrganizationMailer.invitation(self).deliver_now
   end
 

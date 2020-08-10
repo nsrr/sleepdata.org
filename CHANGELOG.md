@@ -1,5 +1,9 @@
 ## 48.0.0
 
+### Enhancements
+- **General Changes**
+  - Organization invite emails are now sent regardless of server setup
+
 ## 47.0.0 (July 16, 2020)
 
 ### Enhancements
