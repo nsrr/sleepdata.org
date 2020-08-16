@@ -3,6 +3,8 @@
 ### Enhancements
 - **General Changes**
   - Organization invite emails are now sent regardless of server setup
+- **Admin Changes**
+  - Added CreatedAt to forum export for topics and replies
 
 ## 47.0.0 (July 16, 2020)
 
