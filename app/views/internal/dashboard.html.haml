@@ -16,6 +16,27 @@
     = link_to "Where to Start", showcase_show_path("where-to-start")
     guide.
 
+- if current_user.invites.present?
+  .dashboard-container
+    - current_user.invites.each do |invite|
+      = invite.creator.full_name.presence || invite.creator.username
+      has invited you to be
+      - if invite.review_role != "none"
+        a
+        %strong= invite.review_role_name
+        - if invite.editor?
+          and
+      - if invite.editor?
+        an
+        %strong Editor
+      - elsif invite.review_role == "none"
+        a
+        %strong Member
+      of the
+      = link_to invite.organization.name, invite.organization
+      organization.
+      = link_to "Accept invite", invite_path(invite_token: invite.invite_token), class: "btn btn-sm btn-success"
+
 - data_request_approved = current_user.data_requests.not_expired.where(status: "approved").order(id: :desc).first
 - current_data_request = current_user.data_requests.where(status: %w(started resubmit)).order(id: :desc).first
 - current_data_request = current_user.data_requests.where(status: %w(submitted)).order(id: :desc).first unless current_data_request

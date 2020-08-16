@@ -17,6 +17,7 @@
 - **Organization Changes**
   - Unreleased datasets are now displayed for organization viewers on the
     organization page
+  - Users can now see and accept organization invites on their dashboard
 - **Report Changes**
   - The percent column on the organization data requests reports page now
     reflects the percentage of data requests submitted in that month that were

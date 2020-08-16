@@ -114,6 +114,10 @@ class User < ApplicationRecord
     current.where(shadow_banned: true, spammer: [nil, true])
   end
 
+  def invites
+    OrganizationUser.where(invite_email: email)
+  end
+
   def profile_present?
     profile_bio.present? || profile_location.present?
   end
