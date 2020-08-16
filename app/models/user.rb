@@ -258,7 +258,7 @@ class User < ApplicationRecord
   end
 
   def initials
-    full_name.split(" ").collect(&:first).join("")
+    full_name.split(" ").collect(&:first).join("").presence || username
   end
 
   def id_and_auth_token

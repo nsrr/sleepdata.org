@@ -7,6 +7,9 @@
   - Added CreatedAt to forum export for topics and replies
 - **Dataset Changes**
   - Organization name is now displayed on the dataset settings and edit pages
+- **Dataset Request Changes**
+  - Dataset reviewers are now added to newly added dataset request alongside
+    organization reviewers
 - **Organization Changes**
   - Unreleased datasets are now displayed for organization viewers on the
     organization page

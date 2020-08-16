@@ -43,7 +43,7 @@ class Editor::DatasetsController < ApplicationController
       @dataset_user = @dataset.dataset_users.where(user_id: user.id, role: params[:role]).first_or_create
       redirect_to collaborators_dataset_path(@dataset, dataset_user_id: @dataset_user ? @dataset_user.id : nil)
     else
-      redirect_to collaborators_dataset_path(@dataset), alert: "User \"<code>#{user_email}</code>\" was not found."
+      redirect_to collaborators_dataset_path(@dataset), alert: "User \"#{user_email}\" was not found."
     end
   end
 

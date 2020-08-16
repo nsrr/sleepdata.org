@@ -24,7 +24,7 @@
       %tr{ class: "#{"warning" if params[:dataset_user_id].to_i == dataset_user.id}" }
         %td
           = profile_picture_tag dataset_user.user, size: 18, style: "vertical-align: text-bottom; min-width: 18px;"
-          = dataset_user.user.full_name
+          = dataset_user.user.full_name.presence || dataset_user.user.username
         %td
           - case dataset_user.role
           - when "editor"

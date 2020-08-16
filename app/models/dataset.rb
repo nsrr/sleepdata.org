@@ -147,9 +147,7 @@ class Dataset < ApplicationRecord
   end
 
   def reviewers
-    User.current.where(id: user_id).or(
-      User.current.where(id: dataset_users.where(role: "reviewer").select(:user_id))
-    ).or(
+    User.current.where(id: dataset_users.where(role: "reviewer").select(:user_id)).or(
       User.current.where(id: organization.organization_users.where(review_role: %w(regular principal)).select(:user_id))
     )
   end
