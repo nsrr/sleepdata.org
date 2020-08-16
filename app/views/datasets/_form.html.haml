@@ -1,5 +1,11 @@
 = form_with model: dataset, local: true do |form|
-  = render "forms/horizontal/select", form: form, object: dataset, key: :organization_id, options: Organization.current.with_editor(current_user).pluck(:name, :id), include_blank: true if current_user.organization_editor? && dataset.new_record?
+  - if current_user.organization_editor? && dataset.new_record?
+    = render "forms/horizontal/select", form: form, object: dataset, key: :organization_id, options: Organization.current.with_editor(current_user).pluck(:name, :id), include_blank: true
+  - else
+    .form-group.row
+      = form.label :organization, nil, class: "col-md-2 col-form-label"
+      .col-md-10
+        .form-control-plaintext= dataset.organization&.name
   = render "forms/horizontal/text_field", form: form, object: dataset, key: :name, slug: "slug"
   = render "forms/horizontal/slug_field", form: form, object: dataset, key: :slug
   = render "forms/horizontal/check_box", form: form, object: dataset, key: :featured, help_text: "Featured datasets will appear at the top of the datasets page."
@@ -30,4 +36,4 @@
   = render "forms/horizontal/text_field", form: form, object: dataset, key: :time_frame, help_text: "Ex: 2000 - 2005"
   = render "forms/horizontal/check_box", form: form, object: dataset, key: :polysomnography
   = render "forms/horizontal/check_box", form: form, object: dataset, key: :actigraphy
-  = render "forms/horizontal/submit", form: form, object: dataset
+  = render "forms/horizontal/submit", form: form, object: dataset, cancel: dataset.new_record? ? datasets_path : settings_dataset_path(dataset)

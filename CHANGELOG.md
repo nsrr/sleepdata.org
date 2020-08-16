@@ -5,6 +5,8 @@
   - Organization invite emails are now sent regardless of server setup
 - **Admin Changes**
   - Added CreatedAt to forum export for topics and replies
+- **Dataset Changes**
+  - Organization name is now displayed on the dataset settings and edit pages
 - **Organization Changes**
   - Unreleased datasets are now displayed for organization viewers on the
     organization page

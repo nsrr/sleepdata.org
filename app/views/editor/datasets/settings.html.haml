@@ -12,8 +12,12 @@
 .card.mb-3.box-shadow
   .card-header Edit
   .card-body
-    .card-title Edit this dataset.
-    .card-text= link_to "Edit dataset", edit_dataset_path(@dataset), class: "btn btn-sm btn-outline-dark"
+    .card-title
+      Part of
+      = link_to @dataset.organization.name, @dataset.organization
+      organization.
+    .card-text
+      = link_to "Edit dataset", edit_dataset_path(@dataset), class: "btn btn-sm btn-outline-dark"
 
 .card.box-shadow
   .card-header.bg-danger.text-white Danger
