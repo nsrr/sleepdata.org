@@ -15,7 +15,8 @@ class DataRequest < Agreement
   }
   DEFAULT_ORDER = "agreements.last_submitted_at desc nulls last"
 
-  STATUS = %w(started submitted approved resubmit expired closed).collect { |i| [i, i] }
+  STATUS = %w(started submitted approved resubmit closed).collect { |i| [i, i] }
+  AFTER_APPROVAL_STATUS = %w(approved resubmit).collect { |i| [i, i] }
 
   # Relationships
   has_many :supporting_documents

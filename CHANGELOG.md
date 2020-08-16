@@ -10,6 +10,10 @@
 - **Dataset Request Changes**
   - Dataset reviewers are now added to newly added dataset request alongside
     organization reviewers
+  - Approved datasets can no longer have their status changed to anything other
+    than resubmit to allow users to make changes to an existing agreement
+  - An approved data request can still be closed/expired early by setting the
+    data request expiration date to the current date, or a date in the past
 - **Organization Changes**
   - Unreleased datasets are now displayed for organization viewers on the
     organization page

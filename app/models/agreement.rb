@@ -143,14 +143,6 @@ class Agreement < ApplicationRecord
     )
   end
 
-  def expire_daua!(current_user)
-    agreement_events.create(
-      event_type: "principal_reviewer_expired",
-      user: current_user,
-      event_at: Time.zone.now
-    )
-  end
-
   def daua_approved_email(current_user)
     agreement_event = agreement_events.create(
       event_type: "principal_reviewer_approved",
