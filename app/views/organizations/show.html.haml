@@ -9,18 +9,24 @@
     %li= link_to "orgs", organizations_path
     %li.breadcrumb-muted= @organization.slug
 
-- if false
-  .dashboard-container
-    = render "forms/horizontal/show/text", object: @organization, key: :name
-    = render "forms/horizontal/show/text", object: @organization, key: :slug
-
-.dashboard-container.dashboard-table
-  %table.table.table-striped.table-borderless.table-sticky
-    %thead
-      %tr
-        %th Dataset
-        %th.text-center Release date
-    - @organization.datasets.released.order(Arel.sql("LOWER(name)")).each do |dataset|
-      %tr
-        %td= link_to dataset.name, dataset
-        %td.text-center= dataset.release_date&.strftime("%b %-d, %Y")
+- if @datasets.present?
+  .dashboard-container.dashboard-table
+    %table.table.table-striped.table-borderless.table-sticky
+      %thead
+        %tr
+          %th Dataset
+          %th.text-center Release date
+      - @datasets.each do |dataset|
+        %tr
+          %td= link_to dataset.name, dataset
+          %td.text-center
+            - if dataset.released?
+              = dataset.release_date&.strftime("%b %-d, %Y")
+            - else
+              .text-muted Unreleased
+  .center-horizontally= paginate @datasets, theme: "bootstrap"
+- else
+  .jumbotron.jumbotron-custom-text
+    = icon("far", "clone", class: "mr-1")
+    No datasets found.
+    = link_to "Start over", @organization if params[:search].present?

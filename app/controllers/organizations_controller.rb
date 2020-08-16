@@ -9,9 +9,15 @@ class OrganizationsController < ApplicationController
     @organizations = Organization.current.search(params[:search]).order(:name).page(params[:page]).per(20)
   end
 
-  # # GET /orgs/1
-  # def show
-  # end
+  # GET /orgs/1
+  def show
+    scope = if @organization.viewer?(current_user)
+      @organization.datasets
+    else
+      @organization.datasets.released
+    end
+    @datasets = scope.search(params[:search], match_start: false).order(:released, Arel.sql("LOWER(name)")).page(params[:page]).per(20)
+  end
 
   private
 

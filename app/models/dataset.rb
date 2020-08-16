@@ -27,6 +27,11 @@ class Dataset < ApplicationRecord
   include Documentable
   include Gitable
   include Forkable
+  include Searchable
+
+  def self.searchable_attributes
+    %w(name slug)
+  end
 
   # Scopes
   scope :released, -> { current.where(released: true) }
