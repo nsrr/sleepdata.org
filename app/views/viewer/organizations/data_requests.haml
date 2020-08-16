@@ -15,7 +15,7 @@
 
 - users_count = User.current.no_spammer_or_shadow_banned.count
 - data_requests_submitted_count = @organization.data_request_events.where(event_type: ["user_submitted"]).distinct(:agreement_id).count
-- data_requests_approved_count = @organization.data_request_events.where(event_type: ["principal_reviewer_approved"]).distinct(:agreement_id).count
+- data_requests_approved_count = @organization.data_request_events.where(event_type: ["user_submitted"]).merge(DataRequest.where(status: "approved")).count
 - percent_approved = data_requests_submitted_count.zero? ? nil : data_requests_approved_count * 100.0 / data_requests_submitted_count
 
 .row
@@ -46,8 +46,8 @@
         .report-number.text-muted
           0.0%
 
-
-- data_request_events = @organization.data_request_events.where(event_type: ["user_submitted", "principal_reviewer_approved"]).distinct(:agreement_id) # .regular_members
+- data_request_events = @organization.data_request_events.where(event_type: ["user_submitted", "principal_reviewer_approved"]).distinct(:agreement_id)
+- approved_data_requests = @organization.data_request_events.where(event_type: ["user_submitted"]).merge(DataRequest.where(status: "approved")).pluck(:agreement_id)
 
 .dashboard-container.dashboard-table
   %table.table.table-striped.table-borderless.table-sticky
@@ -64,23 +64,25 @@
           - submitted_count = data_request_events.select { |ae| ae.event_type == "user_submitted" }.count
           = submitted_count
         %th.text-center
-          - approved_count = data_request_events.select { |ae| ae.event_type == "principal_reviewer_approved" }.count
-          = approved_count
+          = approved_count = data_request_events.select { |ae| ae.event_type == "principal_reviewer_approved" }.collect(&:agreement_id).uniq.count
         %th.text-center
           - percent = submitted_count.zero? ? nil : approved_count * 100.0 / submitted_count
           = percent ? format("%.1f%%", percent) : "-"
 
     - data_request_events.order(event_at: :desc).group_by { |ae| [ae.event_at.year, ae.event_at.month] }.each do |(year, month), events|
       - submitted_count = events.select { |ae| ae.event_type == "user_submitted" }.count
-      - approved_count = events.select { |ae| ae.event_type == "principal_reviewer_approved" }.count
+      - month_approved_count = events.select { |ae| ae.event_type == "principal_reviewer_approved" }.count
+      - approved_count = events.select { |ae| ae.event_type == "user_submitted" && ae.agreement_id.in?(approved_data_requests) }.count
       - percent = submitted_count.zero? ? 0 : approved_count * 100.0 / submitted_count
+
       %tr
         %td
           = Date::ABBR_MONTHNAMES[month]
           = year
         %td.text-center{ class: submitted_count.zero? ? "text-muted" : nil }
           = submitted_count
-        %td.text-center{ class: approved_count.zero? ? "text-muted" : nil }
-          = approved_count
+        %td.text-center{ class: month_approved_count.zero? ? "text-muted" : nil }
+          = month_approved_count
         %td.text-center{ class: percent.zero? ? "text-muted" : nil }
           = percent ? format("%.1f%%", percent) : "-"
+

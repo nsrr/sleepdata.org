@@ -17,6 +17,10 @@
 - **Organization Changes**
   - Unreleased datasets are now displayed for organization viewers on the
     organization page
+- **Report Changes**
+  - The percent column on the organization data requests reports page now
+    reflects the percentage of data requests submitted in that month that were
+    approved at any point
 
 ## 47.0.0 (July 16, 2020)
 
