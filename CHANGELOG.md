@@ -5,6 +5,8 @@
   - The approved column now displays the number of the months submitted data
     requests that were approved at any point in time, as opposed to the number
     of data requests that were approved that month
+- **Variable Changes**
+  - Labels have been renamed to tags
 
 ## 48.0.0 (August 16, 2020)
 

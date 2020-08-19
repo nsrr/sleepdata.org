@@ -25,7 +25,7 @@
     = render "forms/horizontal/show/generic", title: "Units", content: content_tag(:span, @variable.units, class: "badge badge-light") if @variable.units.present?
     = render "forms/horizontal/show/generic", title: "Domain", content: render("variables/domain", domain: @variable.domain) if @variable.domain
     = render "forms/horizontal/show/generic", title: "Type", content: content_tag(:span, @variable.variable_type, class: "badge badge-light") if @variable.variable_type.present?
-    = render "forms/horizontal/show/generic", title: "Labels", content: render("variables/labels", variable: @variable) if @variable.variable_labels.present?
+    = render "forms/horizontal/show/generic", title: "Tags", content: render("variables/labels", variable: @variable) if @variable.variable_labels.present?
     = render "forms/horizontal/show/generic", title: "Stats", content: render("variables/stats", variable: @variable) if %w(integer numeric).include?(@variable.variable_type) && false
 
   - if charts.present?
