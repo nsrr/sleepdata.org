@@ -8,6 +8,10 @@
 - **Variable Changes**
   - Labels have been renamed to tags
 
+### Bug Fix
+- Fixed a bug that grouped variables into the same folder when one folder name
+  was the prefix of another folder
+
 ## 48.0.0 (August 16, 2020)
 
 ### Enhancements
