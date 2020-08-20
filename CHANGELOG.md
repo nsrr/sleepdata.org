@@ -1,4 +1,4 @@
-## 48.1.0
+## 48.1.0 (August 19, 2020)
 
 ### Enhancements
 - **Report Changes**
