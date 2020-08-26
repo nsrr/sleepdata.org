@@ -67,7 +67,7 @@ class DatasetsController < ApplicationController
   # GET /datasets/1/access/*path
   def access
     result = (@dataset_file && @dataset_file.is_file? && @dataset_file.file_exist? && @dataset_file.downloadable_by_user?(current_user) ? true : false)
-    render json: { dataset_id: @dataset.id, result: result, path: @dataset_file.full_path }
+    render json: { dataset_id: @dataset.id, result: result, path: @dataset_file&.full_path }
   end
 
   # GET /datasets

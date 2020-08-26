@@ -178,9 +178,42 @@ class DatasetsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to datasets_url
   end
 
-  test "should not get non-existant file from public dataset as anonymous user" do
+  test "should not get non-existent file from public dataset as anonymous user" do
     get files_dataset_url(@dataset, path: "subfolder/subsubfolder/3.txt", format: "html")
     assert_redirected_to files_dataset_url(assigns(:dataset), path: "subfolder")
+  end
+
+  test "should confirm access to public file" do
+    get access_dataset_url(@dataset, path: "PUBLIC_FILE.txt")
+    assert_equal "{\"dataset_id\":#{@dataset.id},\"result\":true,\"path\":\"PUBLIC_FILE.txt\"}", response.body
+    assert_response :success
+  end
+
+  test "should confirm access to released dataset file with approved data request" do
+    login(data_requests(:approved).user)
+    get access_dataset_url(@dataset, path: "ACCESS_REQUIRED.txt")
+    assert_equal "{\"dataset_id\":#{@dataset.id},\"result\":true,\"path\":\"ACCESS_REQUIRED.txt\"}", response.body
+    assert_response :success
+  end
+
+  test "should deny access to released dataset file with expired data request" do
+    login(data_requests(:expired).user)
+    get access_dataset_url(@dataset, path: "ACCESS_REQUIRED.txt")
+    assert_equal "{\"dataset_id\":#{@dataset.id},\"result\":false,\"path\":\"ACCESS_REQUIRED.txt\"}", response.body
+    assert_response :success
+  end
+
+  test "should deny access to released dataset file without approved data request" do
+    login(data_requests(:started).user)
+    get access_dataset_url(@dataset, path: "ACCESS_REQUIRED.txt")
+    assert_equal "{\"dataset_id\":#{@dataset.id},\"result\":false,\"path\":\"ACCESS_REQUIRED.txt\"}", response.body
+    assert_response :success
+  end
+
+  test "should deny access to non-existent file" do
+    get access_dataset_url(@dataset, path: "DOES_NOT_EXIST.txt")
+    assert_equal "{\"dataset_id\":#{@dataset.id},\"result\":false,\"path\":null}", response.body
+    assert_response :success
   end
 
   test "should get index" do
@@ -259,7 +292,7 @@ class DatasetsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should not get non-existant page from public dataset as anonymous user" do
+  test "should not get non-existent page from public dataset as anonymous user" do
     get pages_dataset_url(id: @dataset, path: "subfolder/subsubfolder/3.md", format: "html")
     assert_redirected_to pages_dataset_url(assigns(:dataset), path: "subfolder")
   end
