@@ -1,4 +1,4 @@
-## 48.1.1
+## 48.1.1 (August 26, 2020)
 
 ### Bug Fixes
 - Fixed a bug that prevented generating an access denied response for altamira
