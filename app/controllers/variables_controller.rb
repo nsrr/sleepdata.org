@@ -21,7 +21,7 @@ class VariablesController < ApplicationController
       end
     @variables = variable_scope.page(params[:page]).per(100)
     @folders = variable_scope
-               .pluck(:folder).uniq
+               .pluck(:folder).uniq.compact
                .collect { |f| f.gsub(%r{^#{params[:folder].to_s.gsub("(", "\\(").gsub(")", "\\)")}(/)?}i, "").split("/").first }
                .uniq.compact.sort
     render layout: "layouts/application"

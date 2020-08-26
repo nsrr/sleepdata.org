@@ -2,6 +2,8 @@
 
 ### Bug Fixes
 - Fixed a bug that prevented generating an access denied response for altamira
+- Fixed a bug that prevented variable indexes from displaying that contained
+  variables that were located in the root folder
 
 ## 48.1.0 (August 19, 2020)
 
