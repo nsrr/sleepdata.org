@@ -20,12 +20,19 @@
 #top-menu.top-menu= render "layouts/menu"
 
 .page-box
+  -if false
+    .container.mb-3
+      %h4 Latest announcements
+      %li
+        =link_to "Upcoming NSRR webinar on Multipaper Spectogram Analysis of Sleep EEG", "https://eristest6.partners.org/nhlbi-continues-its-support-of-the-national-sleep-research-resource/", title: "Upcoming NSRR webinar on Multipaper Spectogram Analysis of Sleep EEG"
+        (September 2, 2020)
+
   .container
-    %h3.text-center What interests you?
+    %h4 Data
     = render "external/what_interests_you"
 
   .container
-
+    %h4 Blog
     = render "blog/landing_blog"
 
 .background-p100-grey.pt-5
