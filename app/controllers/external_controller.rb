@@ -8,6 +8,12 @@ class ExternalController < ApplicationController
     render layout: "layouts/full_page"
   end
 
+  # GET /annoucements
+  def annoucements
+    @users = User.core_members.order(:full_name)
+    render layout: "layouts/full_page"
+  end
+
   # GET /about/academic-user-group
   def aug
     @users = User.aug_members.order(:full_name)

@@ -36,10 +36,3 @@
       .landing-box-header= link_to "Polysomnography", datasets_path(data: "polysomnography")
       %p.text-center
         = icon("fas", "heartbeat", class: "icon-lg")
-
-.landing-sentence.my-5{ style: "font-weight: normal;" }
-  Not sure?
-  %br.d-block.d-sm-none
-  View our
-  = link_to "most popular", datasets_path(order: "popular")
-  datasets.

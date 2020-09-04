@@ -1,3 +1,13 @@
+## 48.2.0 (September 04, 2020)
+
+### New Feature
+- Added announecements structure to landing psge
+
+### Enhancements
+- Updates in landing page to distinguish between Announcement, Blog and Data components
+
+
+
 ## 48.1.1 (August 26, 2020)
 
 ### Bug Fixes
