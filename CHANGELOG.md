@@ -1,4 +1,4 @@
-## 48.2.0 (September 04, 2020)
+## 48.2.0 (September 05, 2020)
 
 ### New Feature
 - Added announecements structure to landing psge
