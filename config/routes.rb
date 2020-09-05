@@ -65,7 +65,6 @@ Rails.application.routes.draw do
     end
   end
 
-
   scope module: :blog do
     get :blog
     get "blog/category/:category", action: "blog", as: :blog_category
@@ -292,7 +291,6 @@ Rails.application.routes.draw do
     get :dashboard
     get :token
   end
-
 
   scope module: :external do
     get :about

@@ -6,8 +6,6 @@
 ### Enhancements
 - Updates in landing page to distinguish between Announcement, Blog and Data components
 
-
-
 ## 48.1.1 (August 26, 2020)
 
 ### Bug Fixes
