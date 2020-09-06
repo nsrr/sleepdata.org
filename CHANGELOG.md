@@ -1,3 +1,11 @@
+## 48.2.0 (September 06, 2020)
+
+### New Feature
+- Added announcements structure to landing page
+
+### Enhancements
+- Updates in landing page to distinguish between Announcement, Blog and Data components
+
 ## 48.1.1 (August 26, 2020)
 
 ### Bug Fixes

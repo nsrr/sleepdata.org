@@ -62,3 +62,4 @@
 /gems.locked
 /db/schema.rb
 /lib/data/spam/*
+/lib/tasks/veracode.rake
