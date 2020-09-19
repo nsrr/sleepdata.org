@@ -95,7 +95,7 @@ class AgreementEvent < ApplicationRecord
     return unless EMAILS_ENABLED && commented?
     users = User.current.where.not(username: [nil, ""])
     users.each do |user|
-      next if (/\b@#{user.username}\b/i =~ comment.to_s).nil?
+      next if (/(^|\s)@#{user.username}\b/i =~ comment.to_s).nil?
       UserMailer.mentioned_in_agreement_comment(self, user).deliver_now
     end
   end

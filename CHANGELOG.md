@@ -10,6 +10,9 @@
 - **Gem Changes**
   - Update to rails 6.0.3.3
 
+### Bug Fix
+- Fix bug preventing correct detection of '@' mentions in review comments
+
 ## 48.1.1 (August 26, 2020)
 
 ### Bug Fixes
