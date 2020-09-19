@@ -1,5 +1,9 @@
 ## 49.0.0
 
+### Enhancements
+- **Gem Changes**
+  - Update to rails 6.0.3.3
+
 ## 48.1.1 (August 26, 2020)
 
 ### Bug Fixes
