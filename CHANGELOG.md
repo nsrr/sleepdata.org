@@ -7,6 +7,8 @@
 - **Admin Changes**
   - Users export updated to include username, email confirmation status, and
     login count
+- **Review Changes**
+  - Review votes and comments are no longer hidden before a reviewer has voted
 - **Gem Changes**
   - Update to rails 6.0.3.3
 

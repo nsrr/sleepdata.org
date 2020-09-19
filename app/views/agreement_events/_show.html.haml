@@ -1,4 +1,3 @@
-- has_voted = agreement_event.data_request.has_voted?(current_user) || agreement_event.user == current_user || agreement_event.data_request.final_legal_document.approval_process == "immediate"
 %a.anchor-top{ name: "c#{number}" }
 - if agreement_event.shadow_banned_or_deleted?
   .comment-outer
@@ -9,7 +8,7 @@
       .comment-action
         %small.text-muted Comment Deleted
 - elsif agreement_event.commented?
-  .comment-outer{ data: { agreement_event_id: agreement_event.id }, class: (has_voted ? nil : "data-request-review-hidden") }
+  .comment-outer{ data: { agreement_event_id: agreement_event.id } }
     .comment-left-fixed
       = profile_picture_tag(agreement_event.user, size: 48)
     .comment-right-fluid
@@ -34,36 +33,24 @@
             = time_ago_in_words agreement_event.created_at
             ago
         .comment-body
-          - if has_voted || agreement_event.user == current_user
-            = render "agreement_events/formatted", agreement_event: agreement_event
-          - else
-            Comment hidden.
+          = render "agreement_events/formatted", agreement_event: agreement_event
 - elsif %w(principal_reviewer_approved principal_reviewer_required_resubmission principal_reviewer_closed principal_reviewer_expired user_submitted user_resubmitted).include?(agreement_event.event_type)
   .comment-outer
     .comment-left-fixed
     .comment-right-fluid
       = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event
 - elsif %w(reviewer_approved reviewer_reapproved reviewer_changed_from_rejected_to_approved reviewer_rejected reviewer_rerejected reviewer_changed_from_approved_to_rejected).include?(agreement_event.event_type)
-  .comment-outer{ class: has_voted ? nil : "data-request-review-hidden" }
+  .comment-outer
     .comment-left-fixed
     .comment-right-fluid
       .comment-icon
         - case agreement_event.event_type
         - when "reviewer_approved", "reviewer_reapproved", "reviewer_changed_from_rejected_to_approved"
-          - if has_voted
-            = icon("fas", "thumbs-up", class: "text-success")
-          - else
-            = icon("fas", "question-circle")
+          = icon("fas", "thumbs-up", class: "text-success")
         - when "reviewer_rejected", "reviewer_rerejected", "reviewer_changed_from_approved_to_rejected"
-          - if has_voted
-            = icon("fas", "thumbs-down", class: "text-danger")
-          - else
-            = icon("fas", "question-circle")
+          = icon("fas", "thumbs-down", class: "text-danger")
       .comment-action
-        - if has_voted
-          = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event
-        - else
-          = render "reviews/events/vote_hidden", agreement_event: agreement_event
+        = render "reviews/events/#{agreement_event.event_type}", agreement_event: agreement_event
 - else
   .comment-outer
     .comment-left-fixed

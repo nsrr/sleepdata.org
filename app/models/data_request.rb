@@ -230,10 +230,6 @@ class DataRequest < Agreement
     duly_authorized_representative_email.present? || duly_authorized_representative_signature_print.present?
   end
 
-  def has_voted?(current_user)
-    data_request_reviews.where(user: current_user).where(approved: [true, false]).present?
-  end
-
   def compute_datasets_added_removed!(original_dataset_ids, current_user)
     current_dataset_ids = dataset_ids.sort
     return if original_dataset_ids == current_dataset_ids
