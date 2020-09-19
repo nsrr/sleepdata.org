@@ -31,3 +31,13 @@ draft:
   archived: false
   publish_date: 2015-11-30
   published: false
+
+published_announcement:
+  title: Title
+  slug: title
+  description: This is an announcement.
+  user: community_manager
+  pinned: false
+  archived: false
+  publish_date: 2020-09-19
+  published: true

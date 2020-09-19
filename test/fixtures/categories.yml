@@ -9,3 +9,9 @@ two:
   name: News
   slug: news
   deleted: false
+
+announcements:
+  name: Announcements
+  slug: announcements
+  announcement: true
+  deleted: false

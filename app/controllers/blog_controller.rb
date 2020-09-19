@@ -7,10 +7,11 @@ class BlogController < ApplicationController
   before_action :set_category, only: [:blog]
 
   def blog
-    broadcast_scope = Broadcast.current.published.order(publish_date: :desc, id: :desc)
-    broadcast_scope = broadcast_scope.where(user: @author) if @author
-    broadcast_scope = broadcast_scope.where(category: @category) if @category
-    @broadcasts = broadcast_scope.page(params[:page]).per(10)
+    scope = Broadcast.current.published.order(publish_date: :desc, id: :desc)
+    scope = scope.joins(:category).merge(Category.where(announcement: false))
+    scope = scope.where(user: @author) if @author
+    scope = scope.where(category: @category) if @category
+    @broadcasts = scope.page(params[:page]).per(10)
     respond_to do |format|
       format.html
       format.atom

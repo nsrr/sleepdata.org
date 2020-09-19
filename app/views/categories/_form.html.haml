@@ -1,4 +1,5 @@
 = form_with model: category, local: true do |form|
   = render "forms/horizontal/text_field", form: form, object: category, key: :name, slug: "slug"
   = render "forms/horizontal/slug_field", form: form, object: category, key: :slug
+  = render "forms/horizontal/check_box", form: form, object: category, key: :announcement, help_text: "Enabling announcement for a category removes posts from the regular blog roll and highlights the post on the landing page."
   = render "forms/horizontal/submit", form: form, object: category

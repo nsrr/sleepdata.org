@@ -34,6 +34,9 @@ class ExternalController < ApplicationController
 
   # GET /landing
   def landing
+    scope = Broadcast.current.published.where(archived: false).order(pinned: :desc, publish_date: :desc)
+    @announcements = scope.joins(:category).merge(Category.where(announcement: true))
+    @broadcasts = scope.joins(:category).merge(Category.where(announcement: false)).limit(3)
     render layout: "layouts/full_page_custom_header"
   end
 

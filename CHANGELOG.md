@@ -1,6 +1,9 @@
 ## 49.0.0
 
 ### Enhancements
+- **General Changes**
+  - Add a new announcement setting to blog categories that allows broadcasts in
+    that category to be displayed at the top of the landing page
 - **Gem Changes**
   - Update to rails 6.0.3.3
 

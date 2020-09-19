@@ -20,12 +20,21 @@
 #top-menu.top-menu= render "layouts/menu"
 
 .page-box
+  - if @announcements.present?
+    .container
+      %h4 Latest announcements
+      .dashboard-container.p-3
+        - @announcements.each do |announcement|
+          .d-flex.announcement
+            .mr-3= icon("fas", "scroll")
+            = simple_markdown(announcement.description, target_blank: false)
+
   .container
-    %h3.text-center What interests you?
+    %h4 Data
     = render "external/what_interests_you"
 
   .container
-
+    %h4 Blog
     = render "blog/landing_blog"
 
 .background-p100-grey.pt-5

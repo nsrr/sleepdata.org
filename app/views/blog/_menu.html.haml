@@ -6,7 +6,7 @@
 %ul.blog-menu
   %li.blog-menu-header Blog
   %li= link_to "All Posts", blog_path, class: "#{"active" if current_category.blank? && (!@author && !@broadcast)}"
-  - Category.current.order(:name).each do |category|
+  - Category.current.where(announcement: false).order(:name).each do |category|
     %li= link_to category.name, blog_category_path(category: category), class: (current_category == category.slug ? "active" : nil)
 
   - if @author

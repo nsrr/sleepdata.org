@@ -1,4 +1,4 @@
-- Broadcast.current.published.where(archived: false).order(pinned: :desc, publish_date: :desc).limit(3).each do |broadcast|
+- @broadcasts.each do |broadcast|
   - cover_present = broadcast.cover.present?
   - url = blog_post_path(broadcast.url_hash)
   .dashboard-container.broadcast-container
