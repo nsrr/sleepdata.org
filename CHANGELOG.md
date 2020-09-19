@@ -4,6 +4,9 @@
 - **General Changes**
   - Add a new announcement setting to blog categories that allows broadcasts in
     that category to be displayed at the top of the landing page
+- **Admin Changes**
+  - Users export updated to include username, email confirmation status, and
+    login count
 - **Gem Changes**
   - Update to rails 6.0.3.3
 
