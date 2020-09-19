@@ -115,4 +115,22 @@ class Api::V1::VariablesControllerTest < ActionDispatch::IntegrationTest
     end
     assert_response :unprocessable_entity
   end
+
+  test "should update existing variable and move folder" do
+    post create_or_update_api_v1_variables_url(format: "json"), params: {
+      auth_token: users(:editor).id_and_auth_token,
+      version: "0.1.0",
+      dataset: datasets(:released).to_param,
+      variable: {
+        name: "root",
+        display_name: "Move out of root",
+        variable_type: "string",
+        labels: %w(root folder),
+        folder: "Polysomnography (PSG)/Sleep Architecture"
+      },
+      domain: domain_params,
+      forms: [form_params]
+    }
+    assert_equal "Polysomnography (PSG)/Sleep Architecture", assigns(:variable).folder
+  end
 end

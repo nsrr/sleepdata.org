@@ -44,3 +44,16 @@ private:
   # calculation:
   commonly_used: false
   search_terms: classified_red_tape top secret restricted
+
+root:
+  # folder:
+  name: root
+  display_name: Variable in root folder
+  variable_type: string
+  dataset: released
+  # domain:
+  # units:
+  # version:
+  # calculation:
+  commonly_used: false
+  search_terms: root variable in root folder
