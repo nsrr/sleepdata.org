@@ -4,6 +4,9 @@
 - **Gem Changes**
   - Update to rails 6.0.3.4
 
+### Fixes
+- Fixed display of multi-line announcements
+
 ## 49.0.0 (September 19, 2020)
 
 ### Enhancements

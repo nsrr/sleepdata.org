@@ -27,7 +27,7 @@
         - @announcements.each do |announcement|
           .d-flex.announcement
             .mr-3= icon("fas", "scroll")
-            = simple_markdown(announcement.description, target_blank: false)
+            %div= simple_markdown(announcement.description, target_blank: false)
 
   .container
     %h4 Data
