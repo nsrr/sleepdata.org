@@ -1,3 +1,5 @@
+## 50.0.0
+
 ## 49.0.0 (September 19, 2020)
 
 ### Enhancements
