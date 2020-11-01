@@ -301,7 +301,7 @@ Rails.application.routes.draw do
     get :demo
     get :fair, path: "about/fair-data-principles"
     get :landing
-    get :privacy_policy, path: "privacy-policy"
+    get :privacy_policy, path: "privacy-policy", to: redirect("https://www.massgeneralbrigham.org/notices/web-privacy-policy")
     get :share
     get :sitemap
     get :team

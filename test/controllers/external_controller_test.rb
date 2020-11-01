@@ -33,7 +33,7 @@ class ExternalControllerTest < ActionDispatch::IntegrationTest
 
   test "should get privacy policy" do
     get privacy_policy_url
-    assert_response :success
+    assert_redirected_to "https://www.massgeneralbrigham.org/notices/web-privacy-policy"
   end
 
   test "should get sitemap" do

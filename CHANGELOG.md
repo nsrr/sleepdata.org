@@ -1,6 +1,8 @@
 ## 50.0.0
 
 ### Enhancements
+- **General Changes**
+  - Privacy policy now redirects to https://www.massgeneralbrigham.org/notices/web-privacy-policy
 - **Gem Changes**
   - Update to rails 6.0.3.4
 
