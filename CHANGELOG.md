@@ -3,6 +3,7 @@
 ### Enhancements
 - **General Changes**
   - Privacy policy now redirects to https://www.massgeneralbrigham.org/notices/web-privacy-policy
+  - Added Google Analytics
 - **Gem Changes**
   - Update to rails 6.0.3.4
 

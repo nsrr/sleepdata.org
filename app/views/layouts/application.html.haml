@@ -39,3 +39,4 @@
       .container= yield
     = yield :footer
     = render "layouts/footer", footer: @theme ? "footer-#{@theme}" : nil
+    = render "layouts/google_analytics" if Rails.env.production?
