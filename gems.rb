@@ -21,7 +21,7 @@ gem "hashids",                    "~> 1.0.5"
 gem "kaminari",                   "~> 1.2.1"
 gem "mini_magick",                "~> 4.10.1"
 gem "pg_search",                  "~> 2.3.2"
-gem "redcarpet",                  "~> 3.4.0"
+gem "redcarpet",                  "~> 3.5.1"
 gem "rubyzip",                    "~> 2.3.0"
 gem "sitemap_generator",          "~> 6.0.1"
 

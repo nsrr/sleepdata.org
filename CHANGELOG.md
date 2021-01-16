@@ -1,5 +1,9 @@
 ## 51.0.0
 
+### Enhancements
+- **Gem Changes**
+  - Update to redcarpet 3.5.1
+
 ## 50.0.0 (November 2, 2020)
 
 ### Enhancements
