@@ -4,6 +4,7 @@
   = render "menu/item", title: "Tools", path: tools_path, active: params[:controller] == "tools"
   = render "menu/item", title: "Forum", path: topics_path, active: params[:controller] == "topics"
   = render "menu/item", title: "Blog", path: blog_path, active: params[:controller] == "blog"
+  = render "menu/item", title: "Share data", path: share_path
 
 %ul.navbar-nav
   %li.nav-item{ class: current_page?(search_path) ? "active" : nil }

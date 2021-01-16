@@ -3,6 +3,7 @@
 ### Enhancements
 - **General Changes**
   - Added "Sign up" button to menu bar
+  - Added "Share data" button to menu bar
 - **Gem Changes**
   - Update to figaro 1.2.0
   - Update to redcarpet 3.5.1
