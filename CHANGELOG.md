@@ -2,6 +2,7 @@
 
 ### Enhancements
 - **Gem Changes**
+  - Update to figaro 1.2.0
   - Update to redcarpet 3.5.1
 
 ## 50.0.0 (November 2, 2020)
