@@ -17,6 +17,7 @@
     = javascript_include_tag "application", data: { turbolinks_track: "reload" }
     = javascript_tag "var root_url='#{request.script_name + '/'}';"
   %body#top.full-page-no-header.theme-bg{ class: @theme ? "theme-#{@theme}-bg" : nil, data: { theme: @theme } }
+    = render "layouts/staging_server" if STAGING_SERVER
     = render "layouts/flash_bar"
     = yield :header
     = yield

@@ -18,6 +18,7 @@
     = javascript_tag "var root_url='#{request.script_name + '/'}';"
   - render("themes/theme") unless @theme
   %body#top.full-page.theme-bg{ class: @theme ? "theme-#{@theme}-bg" : nil, data: { theme: @theme } }
+    = render "layouts/staging_server" if STAGING_SERVER
     = render "layouts/service_announcement", container: "container-fluid"
     = render "layouts/flash_bar"
     #top-menu.top-menu= render "layouts/menu", nocontainer: true, menu: @theme ? "menu-#{@theme}" : nil

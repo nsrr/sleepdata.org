@@ -1,8 +1,11 @@
-website_url:          "<%= print "Enter Website URL: "; gets.chomp.gsub(/(\/)*$/, "") %>"
-website_name:         "<%= print "Enter Website Name: "; gets.chomp %>"
-support_email:        "<%= print "Enter support email address: "; ga = gets.chomp; ga %>"
+website_url:    "<%= print "Enter Website URL: "; gets.chomp.gsub(/(\/)*$/, "") %>"
+website_name:   "<%= print "Enter Website Name: "; gets.chomp %>"
+support_email:  "<%= print "Enter support email address: "; ga = gets.chomp; ga %>"
 
-emails_enabled:       "true"
+emails_enabled: "true"
 
-altamira_url:         "<%= print "Enter Altamira URL: "; gets.chomp.gsub(/(\/)*$/, "") %>"
-latex_location:       "<%= print "PDF LaTeX Location [/usr/bin/pdflatex]: "; s = gets.chomp; s == "" ? "/usr/bin/pdflatex" : s %>"
+altamira_url:   "<%= print "Enter Altamira URL: "; gets.chomp.gsub(/(\/)*$/, "") %>"
+latex_location: "<%= print "PDF LaTeX Location [/usr/bin/pdflatex]: "; s = gets.chomp; s == "" ? "/usr/bin/pdflatex" : s %>"
+
+# Adds a banner to all webpages indicating that this is a staging server.
+staging_server: "false"

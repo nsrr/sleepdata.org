@@ -1,5 +1,10 @@
 ## 51.1.0
 
+### Enhancements
+- **General Changes**
+  - Added banner that can be enabled on the staging server to redirect users to
+    the main production server
+
 ## 51.0.0 (January 16, 2021)
 
 ### Enhancements
