@@ -1,6 +1,9 @@
 ## 51.2.0
 
 ### Enhancements
+- **Dataset Changes**
+  - Increased the number of datasets on the datasets page to 25 and decreased
+    the overall size of each information block
 - **Gem Changes**
   - Update to rails 6.0.3.6
   - Update to carrierwave 2.2.1

@@ -77,35 +77,28 @@
   max-height: auto;
 
   .not-flipped {
-    padding: 10px;
     display: flex;
   }
 
   .already-flipped {
     @include remove-last-child-bottom-margin;
 
-    padding: 10px;
     display: none;
   }
 }
 
 .dataset-card-logo {
   margin: auto;
-  line-height: 100px;
-  width: 100px;
-  flex: 0 0 100px;
+  line-height: 64px;
+  width: 64px;
+  flex: 0 0 64px;
+  margin-left: 5px;
 
   img {
     @include ignore-selection;
 
-    max-height: 100px;
+    max-height: 64px;
     max-width: 100%;
-  }
-}
-
-@include media-breakpoint-up(sm) {
-  .dataset-card-logo {
-    margin-left: 10px;
   }
 }
 
@@ -140,14 +133,6 @@
 }
 
 @include media-breakpoint-up(sm) {
-  .dataset-info-header {
-    font-size: 14px;
-  }
-
-  .dataset-info-content {
-    font-size: 20px;
-  }
-
   .dataset-info-content-small {
     font-size: 14px;
   }
