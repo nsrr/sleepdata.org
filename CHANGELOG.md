@@ -1,4 +1,4 @@
-## 51.2.0
+## 51.2.0 (April 4, 2021)
 
 ### Enhancements
 - **Dataset Changes**
