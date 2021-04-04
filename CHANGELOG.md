@@ -1,5 +1,10 @@
 ## 51.2.0
 
+### Enhancements
+- **Gem Changes**
+  - Update to rails 6.0.3.6
+  - Update to carrierwave 2.2.1
+
 ## 51.1.0 (March 20, 2021)
 
 ### Enhancements

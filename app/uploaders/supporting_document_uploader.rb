@@ -52,8 +52,8 @@ class SupportingDocumentUploader < CarrierWave::Uploader::Base
     process resize_to_fill: [128, 128]
   end
 
-  # Add a white list of extensions which are allowed to be uploaded.
-  def extension_whitelist
+  # Add a list of extensions which are allowed to be uploaded.
+  def extension_allowlist
     %w(pdf jpg jpeg gif png)
   end
 
