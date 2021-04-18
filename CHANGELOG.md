@@ -5,6 +5,7 @@
   - Update to ruby 3.0.1
   - Update to rails 6.1.3.1
   - Update to devise 4.7.3
+  - Update to haml 5.2.1
 
 ## 51.2.0 (April 4, 2021)
 
