@@ -50,7 +50,7 @@ class SettingsControllerTest < ActionDispatch::IntegrationTest
     login(@regular)
     patch settings_update_profile_picture_url, params: {
       user: {
-        profile_picture: fixture_file_upload("../../test/support/images/rails.png")
+        profile_picture: fixture_file_upload("../../support/images/rails.png")
       }
     }
     @regular.reload

@@ -7,7 +7,7 @@ module Replyable
   included do
     # Relationships
     has_many :replies, -> { order :id }
-    has_many :countable_replies, -> { current.shadow_banned(nil) }, class_name: "Reply", source: :reply
+    has_many :countable_replies, -> { current.shadow_banned(nil) }, class_name: "Reply"
     has_many :reply_users
   end
 

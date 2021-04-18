@@ -20,7 +20,7 @@ class BroadcastsControllerTest < ActionDispatch::IntegrationTest
       publish_date: "11/15/2015",
       published: "1",
       archived: "0",
-      cover: fixture_file_upload("../../test/support/images/rails.png")
+      cover: fixture_file_upload("../../support/images/rails.png")
     }
   end
 

@@ -46,7 +46,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   test "should create image as admin" do
     login(users(:admin))
     assert_difference("Image.count") do
-      post images_url, params: { image: { image: fixture_file_upload("../../test/support/images/rails.png") } }
+      post images_url, params: { image: { image: fixture_file_upload("../../support/images/rails.png") } }
     end
 
     assert_redirected_to image_url(assigns(:image))
@@ -55,7 +55,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   test "should create image as regular user" do
     login(users(:valid))
     assert_difference("Image.count") do
-      post images_url, params: { image: { image: fixture_file_upload("../../test/support/images/rails.png") } }
+      post images_url, params: { image: { image: fixture_file_upload("../../support/images/rails.png") } }
     end
 
     assert_redirected_to image_url(assigns(:image))
@@ -63,7 +63,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create image as public user" do
     assert_difference("Image.count", 0) do
-      post images_url, params: { image: { image: fixture_file_upload("../../test/support/images/rails.png") } }
+      post images_url, params: { image: { image: fixture_file_upload("../../support/images/rails.png") } }
     end
 
     assert_redirected_to new_user_session_url
@@ -74,8 +74,8 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Image.count", 2) do
       post upload_images_url(format: "js"), params: {
         images: [
-          fixture_file_upload("../../test/support/images/rails.png"),
-          fixture_file_upload("../../test/support/images/rails.png")
+          fixture_file_upload("../../support/images/rails.png"),
+          fixture_file_upload("../../support/images/rails.png")
         ]
       }
     end
@@ -89,8 +89,8 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Image.count", 2) do
       post upload_images_url(format: "js"), params: {
         images: [
-          fixture_file_upload("../../test/support/images/rails.png"),
-          fixture_file_upload("../../test/support/images/rails.png")
+          fixture_file_upload("../../support/images/rails.png"),
+          fixture_file_upload("../../support/images/rails.png")
         ]
       }
     end
@@ -103,8 +103,8 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
     assert_difference("Image.count", 0) do
       post upload_images_url(format: "js"), params: {
         images: [
-          fixture_file_upload("../../test/support/images/rails.png"),
-          fixture_file_upload("../../test/support/images/rails.png")
+          fixture_file_upload("../../support/images/rails.png"),
+          fixture_file_upload("../../support/images/rails.png")
         ]
       }
     end
@@ -169,7 +169,7 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   test "should update image as admin" do
     login(users(:admin))
     patch image_url(images(:three)), params: {
-      image: { image: fixture_file_upload("../../test/support/images/rails.png") }
+      image: { image: fixture_file_upload("../../support/images/rails.png") }
     }
     assert_redirected_to image_url(assigns(:image))
   end
@@ -177,14 +177,14 @@ class ImagesControllerTest < ActionDispatch::IntegrationTest
   test "should not update image as regular user" do
     login(users(:valid))
     patch image_url(images(:three)), params: {
-      image: { image: fixture_file_upload("../../test/support/images/rails.png") }
+      image: { image: fixture_file_upload("../../support/images/rails.png") }
     }
     assert_redirected_to root_url
   end
 
   test "should not update image as public user" do
     patch image_url(images(:three)), params: {
-      image: { image: fixture_file_upload("../../test/support/images/rails.png") }
+      image: { image: fixture_file_upload("../../support/images/rails.png") }
     }
     assert_redirected_to new_user_session_url
   end

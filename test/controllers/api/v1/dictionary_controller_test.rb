@@ -8,7 +8,7 @@ class Api::V1::DictionaryControllerTest < ActionDispatch::IntegrationTest
     post api_v1_dictionary_upload_file_url, params: {
       dataset: datasets(:released).to_param,
       auth_token: users(:editor).id_and_auth_token,
-      file: fixture_file_upload("../../test/support/images/rails.png"),
+      file: fixture_file_upload("../../support/images/rails.png"),
       folder: "datasets"
     }
     assert_equal "{\"upload\":\"success\"}", response.body
