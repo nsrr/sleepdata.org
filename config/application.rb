@@ -12,7 +12,7 @@ module SleepData
   # SleepData provides a framework to share research data.
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
+    config.load_defaults 6.1
     # TODO: Remove this line and make :zeitwerk work with module loading dependencies.
     config.autoloader = :classic # :zeitwerk
 
@@ -20,9 +20,6 @@ module SleepData
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rails time:zones" for a list of tasks for finding time zone names. Default is UTC.
