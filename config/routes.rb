@@ -209,7 +209,6 @@ Rails.application.routes.draw do
       patch :set_access
       get "files((/a/:auth_token)(/m/:medium)/*path)", action: "files", as: :files, format: false
       get "access(/*path)", action: "access", as: :access, format: false
-      get "search", action: "search", as: :search
       get "images/*path", action: "images", as: :images, format: false
       get "pages(/*path)", action: "pages", as: :pages, format: false
       get "/a/:auth_token/editor", action: "editor", as: :editor

@@ -296,13 +296,4 @@ class DatasetsControllerTest < ActionDispatch::IntegrationTest
     get pages_dataset_url(id: @dataset, path: "subfolder/subsubfolder/3.md", format: "html")
     assert_redirected_to pages_dataset_url(assigns(:dataset), path: "subfolder")
   end
-
-  test "should search public dataset documentation as anonymous user" do
-    get search_dataset_url(@dataset), params: { search: "view ?/\\" }
-    assert_equal "view", assigns(:term)
-    assert_equal 1, assigns(:results).count
-    assert_equal "# VIEW_ME.md", assigns(:results).first.to_s.split(":").last
-    assert_template :search
-    assert_response :success
-  end
 end

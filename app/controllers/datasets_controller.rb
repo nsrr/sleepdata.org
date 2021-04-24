@@ -18,13 +18,6 @@ class DatasetsController < ApplicationController
   # def editor
   # end
 
-  # GET /datasets/1/search
-  def search
-    @term = params[:search].to_s.gsub(/[^\w]/, "")
-    @results = []
-    @results = `grep -i -R #{@term} #{@dataset.pages_folder}`.split("\n") if @term.present?
-  end
-
   def logo
     send_file_if_present @dataset.logo
   end
