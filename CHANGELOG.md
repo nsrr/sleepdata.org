@@ -3,6 +3,8 @@
 ### Enhancements
 - **General Changes**
   - Added a data security page
+  - Added a Question and Answer section to the about page that is configurable
+    by admins
 - **Gem Changes**
   - Update to ruby 3.0.1
   - Update to rails 6.1.3.1

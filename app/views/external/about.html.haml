@@ -36,7 +36,7 @@
       .about-section
         %p.text-center
           %small.text-muted
-            The NSRR is supported by the National Heart, Lung, 
+            The NSRR is supported by the National Heart, Lung,
             %br
             and Blood Institute (R24 HL114473, 75N92019R002).
         %p.text-center
@@ -44,6 +44,17 @@
             Proudly made by
             = succeed "." do
               = link_to "the NSRR team", team_path
+
+    - if @faqs.present?
+      .dashboard-container{ style: "max-width: 40rem;" }
+        .about-header
+          Answers to common questions about the NSRR.
+
+        - @faqs.each do |faq|
+          .mb-3.border-top.pt-3
+            %div{ style: "font-size: 1.5rem;" }= faq.question
+            .pt-3.pl-3= simple_markdown faq.answer
+
 
     .dashboard-container{ style: "max-width: 40rem;" }
 

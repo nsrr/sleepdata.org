@@ -1,0 +1,8 @@
+- url = faq.new_record? ? admin_faqs_path : admin_faq_path(faq)
+- submit_text = faq.new_record? ? "Create FAQ" : "Update FAQ"
+= form_with model: faq, url: url, local: true do |form|
+  = render "forms/horizontal/text_field", form: form, object: faq, key: :question
+  = render "forms/horizontal/text_area", form: form, object: faq, key: :answer, rows: 7, help_text: "Markdown enabled."
+  = render "forms/horizontal/text_field", form: form, object: faq, key: :position
+  = render "forms/horizontal/check_box", form: form, object: faq, key: :displayed
+  = render "forms/horizontal/submit", form: form, object: faq, cancel: url, submit_text: submit_text

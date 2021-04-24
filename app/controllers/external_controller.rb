@@ -4,7 +4,7 @@
 class ExternalController < ApplicationController
   # GET /about
   def about
-    @users = User.core_members.order(:full_name)
+    @faqs = Faq.displayed.order(Arel.sql("position nulls last"))
     render layout: "layouts/full_page"
   end
 

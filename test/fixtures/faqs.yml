@@ -1,0 +1,13 @@
+one:
+  question: MyText
+  answer: MyText
+  position: 1
+  displayed: true
+  deleted: false
+
+two:
+  question: MyText
+  answer: MyText
+  position: 1
+  displayed: true
+  deleted: false

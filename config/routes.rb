@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     get :downloads_by_quarter, path: "downloads-by-quarter"
     get :agreement_reports, path: "agreement-reports"
     get :searches
+    resources :faqs
     resources :replies, only: :index
     resources :tools
     root action: :dashboard
