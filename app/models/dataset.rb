@@ -110,6 +110,7 @@ class Dataset < ApplicationRecord
   has_many :legal_document_datasets
   has_many :legal_documents, through: :legal_document_datasets
   has_many :final_legal_documents, -> { order(published_at: :desc) }, through: :legal_documents
+  has_many :dataset_pages
 
   def breadcrumb_slug
     slug.tr("-", " ")

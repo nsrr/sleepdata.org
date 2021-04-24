@@ -5,6 +5,12 @@
   - Added a data security page
   - Added a Question and Answer section to the about page that is configurable
     by admins
+  - Dataset documentation now shows up in the site-wide search results
+  - Search results can be filtered by where they exist on the site
+    - from blog
+    - from forum
+    - from datasets
+    - from variables
 - **Gem Changes**
   - Update to ruby 3.0.1
   - Update to rails 6.1.3.1

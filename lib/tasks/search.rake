@@ -6,6 +6,9 @@ namespace :search do
     print "Clearing cache..."
     PgSearch::Document.delete_all
     puts "DONE".white
+    print "Reindexing dataset pages..."
+    DatasetPage.find_each(&:update_pg_search_document)
+    puts "DONE".white
     print "Reindexing articles..."
     Broadcast.find_each(&:update_pg_search_document)
     puts "DONE".white
@@ -18,5 +21,26 @@ namespace :search do
     print "Reindexing variables..."
     Variable.find_each(&:update_pg_search_document)
     puts "DONE".white
+  end
+
+  desc "Pulls dataset documentation pages into the database"
+  task index_dataset_pages: :environment do
+    Dataset.released.each do |dataset|
+      index_folder(dataset, nil)
+    end
+  end
+end
+
+def index_folder(dataset, folder)
+  dataset.pages(folder).each do |folder, page_path|
+    if File.file?(page_path)
+      contents = File.read(page_path)
+      page_path.gsub!(dataset.pages_folder + "/", "")
+      puts "          #{page_path}"
+      dataset.dataset_pages.where(page_path: page_path).first_or_create.update(contents: contents)
+    else
+      puts "Indexing: #{folder}"
+      index_folder(dataset, folder)
+    end
   end
 end

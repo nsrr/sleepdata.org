@@ -1,0 +1,14 @@
+.card-deck
+  .card.mb-3{ style: "min-width: 18rem;" }
+    .card-header.bg-dark.text-white
+      .text-center{ style: "font-size: 2rem;" }
+        = dataset.name
+        %span.text-accent= "(#{dataset.slug})"
+    - if dataset.description.present?
+      .card-body.bg-dark.text-white
+        = dataset.description
+
+    .card-footer.text-center.bg-white
+      = link_to dataset do
+        View dataset
+        = icon("fas", "caret-right")

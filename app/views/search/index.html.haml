@@ -17,35 +17,14 @@
     = render "search/highlights/share"
   - elsif /fair|find|access|interoper|usable|useable/ =~ params[:search].to_s
     = render "search/highlights/fair"
-  - elsif /shhs|sleep|heart/ =~ params[:search].to_s
-    = render "search/highlights/shhs"
+  - elsif @dataset
+    = render "search/highlights/dataset", dataset: @dataset
   - else
     - @highlight_found = false
 - else
   - @highlight_found = false
 
-- if params[:from] == "forum"
-  .text-center.mb-3
-    Displaying forum search results.
-    = link_to "Search entire site.", search_path(search: params[:search])
-
-- if @search_documents.present?
-  - @search_documents.each do |document|
-    .dashboard-container
-      - case document.searchable.class.to_s when "Broadcast"
-        = render "search/broadcast", broadcast: document.searchable
-      - when "Topic"
-        = render "search/topic", topic: document.searchable
-      - when "Tool"
-        = render "search/tool", tool: document.searchable
-      - when "Reply"
-        = render "search/reply", reply: document.searchable
-      - when "Variable"
-        = render "search/variable", variable: document.searchable
-  .center-horizontally= paginate @search_documents, theme: "bootstrap"
-- elsif @highlight_found
-  -# Nothing
-- else
+- if @search_documents.blank? && !@highlight_found && @all_count.zero?
   .jumbotron.jumbotron-custom-text
     = icon("far", "clone", class: "mr-1")
     - if params[:search].present?
@@ -53,3 +32,61 @@
       = link_to "Start over", search_path
     - else
       Type a search above.
+
+.row
+  .col-lg-9
+    - if @search_documents.present?
+      - @search_documents.each do |document|
+        .dashboard-container
+          - case document.searchable.class.to_s when "Broadcast"
+            = render "search/broadcast", broadcast: document.searchable
+          - when "Topic"
+            = render "search/topic", topic: document.searchable
+          - when "Tool"
+            = render "search/tool", tool: document.searchable
+          - when "Reply"
+            = render "search/reply", reply: document.searchable
+          - when "Variable"
+            = render "search/variable", variable: document.searchable
+          - when "DatasetPage"
+            = render "search/dataset_page", dataset_page: document.searchable
+    - if @search_documents.blank? && !@highlight_found && @all_count.positive?
+      .jumbotron.jumbotron-custom-text
+        = icon("far", "clone", class: "mr-1")
+        - if params[:search].present?
+          No results found.
+          = link_to "Start over", search_path
+        - else
+          Type a search above.
+
+      .center-horizontally= paginate @search_documents, theme: "bootstrap"
+  .col-lg-3
+    - if @all_count.positive?
+      .dashboard-container.col-sticky
+        %ul.blog-menu
+          %li.blog-menu-header Filters
+          %li
+            = link_to search_path(search: params[:search]), class: "#{"active" if params[:from].blank?}" do
+              All
+              - if @all_count.positive?
+                %span.badge.badge-sidebar.badge-pill= number_with_delimiter @all_count
+          %li
+            = link_to search_path(search: params[:search], from: "blog"), class: "#{"active" if params[:from] == "blog"}" do
+              Blog
+              - if @blog_count.positive?
+                %span.badge.badge-sidebar.badge-pill= number_with_delimiter @blog_count
+          %li
+            = link_to search_path(search: params[:search], from: "forum"), class: "#{"active" if params[:from] == "forum"}" do
+              Forum
+              - if @forum_count.positive?
+                %span.badge.badge-sidebar.badge-pill= number_with_delimiter @forum_count
+          %li
+            = link_to search_path(search: params[:search], from: "datasets"), class: "#{"active" if params[:from] == "datasets"}" do
+              Datasets
+              - if @datasets_count.positive?
+                %span.badge.badge-sidebar.badge-pill= number_with_delimiter @datasets_count
+          %li
+            = link_to search_path(search: params[:search], from: "variables"), class: "#{"active" if params[:from] == "variables"}" do
+              Variables
+              - if @variables_count.positive?
+                %span.badge.badge-sidebar.badge-pill= number_with_delimiter @variables_count

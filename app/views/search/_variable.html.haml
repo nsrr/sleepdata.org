@@ -7,6 +7,6 @@
       under
       = variable.folder
     in
-    = link_to variable.dataset.slug.upcase, dataset_variables_path(variable.dataset, folder: variable.folder)
+    = link_to "#{variable.dataset.slug.upcase} variables", dataset_variables_path(variable.dataset, folder: variable.folder)
   .search-result-body
     = search_style variable.description
