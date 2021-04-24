@@ -37,7 +37,10 @@ def index_folder(dataset, folder)
       contents = File.read(page_path)
       page_path.gsub!(dataset.pages_folder + "/", "")
       puts "          #{page_path}"
-      dataset.dataset_pages.where(page_path: page_path).first_or_create.update(contents: contents)
+      search_terms = page_path.split("/")
+      search_terms += page_path.split(/[^\w]/)
+      dataset.dataset_pages.where(page_path: page_path).first_or_create
+        .update(contents: contents, search_terms: search_terms.join(" "))
     else
       puts "Indexing: #{folder}"
       index_folder(dataset, folder)

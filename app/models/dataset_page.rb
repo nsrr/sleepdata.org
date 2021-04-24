@@ -3,9 +3,9 @@
 class DatasetPage < ApplicationRecord
   # Concerns
   include PgSearch::Model
-  multisearchable against: [:contents]
+  multisearchable against: [:contents, :page_path, :search_terms]
   include Squishable
-  squish :contents
+  squish :contents, :search_terms
 
   # Validations
   validates :page_path, presence: true, uniqueness: { scope: :dataset_id }
