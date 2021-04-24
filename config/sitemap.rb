@@ -29,6 +29,7 @@ SitemapGenerator::Sitemap.create do
   add "/about/contributors", changefreq: "monthly", priority: 0.3
   add "/demo", changefreq: "monthly", priority: 0.3
   add "/about/data-sharing-language", changefreq: "monthly", priority: 0.3
+  add "/about/data-security", changefreq: "monthly", priority: 0.3
   add "/showcase/where-to-start", changefreq: "monthly", priority: 0.3
   add "/showcase/search-nsrr", changefreq: "monthly", priority: 0.3
 

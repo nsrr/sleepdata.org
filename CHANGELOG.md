@@ -1,6 +1,8 @@
 ## 52.0.0
 
 ### Enhancements
+- **General Changes**
+  - Added a data security page
 - **Gem Changes**
   - Update to ruby 3.0.1
   - Update to rails 6.1.3.1

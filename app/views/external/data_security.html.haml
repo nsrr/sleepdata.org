@@ -1,0 +1,56 @@
+- @title = "Data Security"
+- @keywords = "data security"
+
+- render "themes/theme"
+- @footer = "dark"
+
+.page-box.last-box.d-flex.align-items-center.theme-bg{ class: "theme-#{@theme}-focus-bg" }
+  .container.d-flex.flex-column.align-items-center
+    .dashboard-container{ style: "max-width: 40rem;" }
+      .about-header= @title
+
+      .about-section
+        %p
+          The National Sleep Research Resource (NSRR; sleepdata.org) is an
+          NHLBI-funded resource designed to host and share data. The National
+          Sleep Research Resource offers free access to large collections of
+          de-identified physiological signals and clinical data elements
+          collected in well-characterized research cohorts and clinical trials.
+          We welcome contributions from researchers in sleep medicine and
+          related disciplines. The NSRR provides all data cost-free to incoming
+          users who complete an online data request. Any and all data -
+          retrospective and prospective - are welcome on the NSRR. The NSRR
+          creates a unique space to share and link covariate data, complex
+          physiological data, and quantitative signal (e.g. EEG, ECG) processing
+          results. For an overview of the NSRR data sharing process, please
+          visit our
+          = link_to "Share data", share_url
+          page.
+        %p
+          All shared study data must be de-identified using the
+          = link_to "HIPAA Safe Harbor method", "https://www.hhs.gov/hipaa/for-professionals/privacy/special-topics/de-identification/index.html"
+          and must adhere to the data sharing language stated in the participant
+          informed consent. Records and files from participants who did not
+          consent to data sharing must be redacted before submitting to the
+          NSRR. Uploading data to the NSRR satisfies requirements of the
+          = succeed "." do
+            = link_to "NIH Data Sharing Policy", "https://grants.nih.gov/grants/policy/data_sharing"
+        %p
+          The NSRR platform is currently housed on the Discovery Informatics
+          Platform for Research provided by Research Information Science &
+          Computing (RISC) at the Brigham and Women’s Hospital. The downloadable
+          data on the NSRR website is housed on dedicated Research Interactive
+          Storage systems. Data security is addressed at multiple levels. The
+          NSRR infrastructure is encrypted using end-to-end SSL encryption, and
+          the NSRR servers, database, and files are stored in the physically
+          secure Mass General Brigham Research Computing data center. Access to
+          the resources is controlled by per-dataset-access control, and access
+          is only granted to individuals who have completed the web-based Data
+          Access and Use Agreement (DAUA). Each DAUA submission is reviewed by
+          the NSRR Review Committee, and reviewers ascertain that use of data
+          appears appropriate with the intention of data collected and that
+          there is a commitment to keep the data stored securely by the
+          end-user. NSRR DAUAs expire 3 years from the date access is granted
+          and can be renewed by either submitting a new request for data access
+          or by requesting an extension of the agreement in writing to the NSRR
+          Review Committee.

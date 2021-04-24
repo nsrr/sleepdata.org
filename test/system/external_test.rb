@@ -47,6 +47,11 @@ class ExternalTest < ApplicationSystemTestCase
     screenshot("visit-data-sharing-language-page")
   end
 
+  test "visiting the data security page" do
+    visit datasharing_url
+    screenshot("visit-data-security-page")
+  end
+
   test "visiting the fair page" do
     visit fair_url
     screenshot("visit-fair-page")

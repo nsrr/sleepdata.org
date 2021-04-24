@@ -298,6 +298,7 @@ Rails.application.routes.draw do
     get :contact
     get :contributors, path: "about/contributors"
     get :datasharing, path: "about/data-sharing-language"
+    get :data_security, path: "about/data-security"
     get :demo
     get :fair, path: "about/fair-data-principles"
     get :landing

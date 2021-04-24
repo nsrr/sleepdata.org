@@ -66,6 +66,11 @@ class ExternalControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should get data security" do
+    get data_security_url
+    assert_response :success
+  end
+
   test "should get demo for public user" do
     get demo_url
     assert_response :success

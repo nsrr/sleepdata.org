@@ -28,6 +28,11 @@ class ExternalController < ApplicationController
     render layout: "layouts/full_page"
   end
 
+  # GET /about/data-security
+  def data_security
+    render layout: "layouts/full_page"
+  end
+
   # # GET /demo
   # def demo
   # end
