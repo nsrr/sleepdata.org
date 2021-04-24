@@ -1,4 +1,4 @@
-## 52.0.0
+## 52.0.0 (April 24, 2021)
 
 ### Enhancements
 - **General Changes**
