@@ -2,6 +2,7 @@
 
 ### Bug Fix
 - Fixed a bug that prevented a nested reply from being linked
+- Fixed a bug that caused remote forms from correctly rendering the response
 
 ## 52.0.0 (April 24, 2021)
 
