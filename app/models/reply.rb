@@ -36,7 +36,7 @@ class Reply < ApplicationRecord
   belongs_to :user, counter_cache: true
   belongs_to :broadcast, optional: true, counter_cache: true
   belongs_to :topic, optional: true, counter_cache: true
-  belongs_to :reply, optional: true
+  belongs_to :reply, foreign_key: :reply_id, optional: true
   has_many :reply_users
 
   # Methods
