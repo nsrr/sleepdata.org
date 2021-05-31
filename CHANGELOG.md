@@ -3,6 +3,7 @@
 ### Enhancements
 - **General Changes**
   - Added link to data security overview from Share page
+  - Added twitter link to contact page
 
 ### Bug Fix
 - Fixed a bug that prevented a nested reply from being linked

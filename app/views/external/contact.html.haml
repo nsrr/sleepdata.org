@@ -8,7 +8,14 @@
       %h2.faded-header
         via email
       %p
+        = icon("fas", "envelope")
         = mail_to ENV["support_email"]
+
+      %h2.faded-header
+        via Twitter
+      %p
+        = icon("fab", "twitter")
+        = link_to "@sleepdatansrr", "https://twitter.com/sleepdatansrr"
 
       %h2.faded-header{ style: "margin-top: 40px" }
         our address
