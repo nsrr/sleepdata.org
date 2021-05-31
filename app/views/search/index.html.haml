@@ -37,7 +37,7 @@
   .col-lg-9
     - if @search_documents.present?
       - @search_documents.each do |document|
-        .dashboard-container
+        .dashboard-container.p-3
           - case document.searchable.class.to_s when "Broadcast"
             = render "search/broadcast", broadcast: document.searchable
           - when "Topic"
