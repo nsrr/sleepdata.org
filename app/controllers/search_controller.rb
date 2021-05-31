@@ -3,6 +3,11 @@
 # Provides back search results from across the NSRR.
 class SearchController < ApplicationController
   def index
+    if params[:search].blank?
+      @all_count = 0
+      return
+    end
+
     clean_search = params[:search].to_s.squish.downcase
     @search = clean_search.split(/[^\w]/).reject(&:blank?).uniq.join(" & ")
     scope = PgSearch.multisearch(params[:search])

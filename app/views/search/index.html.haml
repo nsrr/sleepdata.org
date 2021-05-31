@@ -59,7 +59,7 @@
         - else
           Type a search above.
 
-    .center-horizontally= paginate @search_documents, theme: "bootstrap"
+    .center-horizontally= paginate @search_documents, theme: "bootstrap" if params[:search].present?
   .col-lg-3
     - if @all_count.positive?
       .dashboard-container.col-sticky
