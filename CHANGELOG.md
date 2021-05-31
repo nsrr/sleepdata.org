@@ -6,6 +6,7 @@
   - Added twitter link to contact page
 - **Search Changes**
   - Search for datasets is now case-insensitive
+  - Pagination added back to search page
 
 ### Bug Fix
 - Fixed a bug that prevented a nested reply from being linked
