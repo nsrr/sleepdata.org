@@ -7,6 +7,7 @@
 - **Search Changes**
   - Search for datasets is now case-insensitive
   - Pagination added back to search page
+  - Increased number of search results per page to 25
 
 ### Bug Fix
 - Fixed a bug that prevented a nested reply from being linked

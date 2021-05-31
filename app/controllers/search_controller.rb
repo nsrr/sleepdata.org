@@ -24,7 +24,7 @@ class SearchController < ApplicationController
       scope = scope.where(searchable_type: "DatasetPage")
     end
 
-    @search_documents = scope.page(params[:page]).per(10)
+    @search_documents = scope.page(params[:page]).per(25)
     if clean_search.present? && params[:page].blank?
       search = Search.where(search: clean_search).first_or_create
       search.update results_count: @search_documents.total_count
