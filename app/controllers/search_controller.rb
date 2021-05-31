@@ -36,6 +36,6 @@ class SearchController < ApplicationController
                         else
                           Dataset.released
                         end
-    @dataset = viewable_datasets.where("datasets.name = ? or datasets.slug = ?", params[:search], params[:search]).first
+    @dataset = viewable_datasets.where("datasets.name = ? or datasets.slug = ?", clean_search, clean_search).first
   end
 end

@@ -4,6 +4,8 @@
 - **General Changes**
   - Added link to data security overview from Share page
   - Added twitter link to contact page
+- **Search Changes**
+  - Search for datasets is now case-insensitive
 
 ### Bug Fix
 - Fixed a bug that prevented a nested reply from being linked
