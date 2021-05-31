@@ -39,6 +39,7 @@ def index_folder(dataset, folder)
       puts "          #{page_path}"
       search_terms = page_path.split("/")
       search_terms += page_path.split(/[^\w]/)
+      search_terms << dataset.slug
       dataset.dataset_pages.where(page_path: page_path).first_or_create
         .update(contents: contents, search_terms: search_terms.join(" "))
     else
