@@ -1,5 +1,9 @@
 ## 53.0.0
 
+### Enhancements
+- **General Changes**
+  - Added link to data security overview from Share page
+
 ### Bug Fix
 - Fixed a bug that prevented a nested reply from being linked
 - Fixed a bug that caused remote forms from correctly rendering the response
