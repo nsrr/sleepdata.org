@@ -5,3 +5,13 @@
 # Disallow: /
 
 Sitemap: https://sleepdata.org/sitemap.xml.gz
+
+# Disallow robots
+User-agent: Seekport Crawler
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: SemrushBot-SA
+Disallow: /

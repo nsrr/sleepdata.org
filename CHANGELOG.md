@@ -1,5 +1,9 @@
 ## 54.0.0
 
+### Enhancements
+- **General Changes**
+  - Disallowed access for SemrushBot and Seekport Crawler robots
+
 ## 53.0.0 (May 31, 2021)
 
 ### Enhancements
