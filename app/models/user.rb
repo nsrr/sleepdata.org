@@ -194,9 +194,15 @@ class User < ApplicationRecord
     end
   end
 
-  def reviewable_data_requests
+  def review_editors_data_requests
     DataRequest.current.joins(:requests).merge(
-      Request.where(dataset: all_reviewable_datasets)
+      Request.where(dataset: all_review_editors_datasets)
+    ).distinct
+  end
+
+  def review_viewers_data_requests
+    DataRequest.current.joins(:requests).merge(
+      Request.where(dataset: all_review_viewers_datasets)
     ).distinct
   end
 
@@ -207,7 +213,7 @@ class User < ApplicationRecord
   end
 
   def digest_data_requests
-    reviewable_data_requests.joins(:agreement_events).merge(AgreementEvent.digest)
+    review_editors_data_requests.joins(:agreement_events).merge(AgreementEvent.digest)
   end
 
   def digest_data_requests_submitted
@@ -242,8 +248,12 @@ class User < ApplicationRecord
     Dataset.current.with_editor(id)
   end
 
-  def all_reviewable_datasets
-    Dataset.current.with_reviewer(self)
+  def all_review_editors_datasets
+    Dataset.current.with_review_editors(self)
+  end
+
+  def all_review_viewers_datasets
+    Dataset.current.with_review_viewers(self)
   end
 
   def all_viewable_datasets

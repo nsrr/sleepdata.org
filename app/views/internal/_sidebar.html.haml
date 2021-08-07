@@ -7,10 +7,10 @@
           %li= link_to "Dashboard", dashboard_path, class: current_page?(dashboard_path) ? "active" : nil
           - if current_user.data_requests.count.positive? || current_page?(data_requests_path)
             %li= link_to "Data requests", data_requests_path, class: params[:controller] == "data_requests" ? "active" : nil
-          - voting_count = current_user.reviewable_data_requests.without_vote(current_user).count
-          - if current_user.reviewable_data_requests.count.positive?
+          - voting_count = current_user.review_viewers_data_requests.without_vote(current_user).count
+          - if current_user.review_viewers_data_requests.count.positive?
             %li
-              - voting_count = current_user.reviewable_data_requests.without_vote(current_user).count
+              - voting_count = current_user.review_viewers_data_requests.without_vote(current_user).count
               = link_to reviews_path(voted: voting_count > 0 ? 0 : nil), class: params[:controller] == "reviews" ? "active" : nil do
                 Reviews
                 - if voting_count.positive?

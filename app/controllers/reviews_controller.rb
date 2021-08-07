@@ -3,15 +3,18 @@
 # Allows reviewers to view data requests.
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_data_request_or_redirect, only: [
-    :show, :print, :transactions, :vote, :update_tags, :autocomplete,
+  before_action :find_viewable_data_request_or_redirect, only: [
+    :show, :print
+  ]
+  before_action :find_editable_data_request_or_redirect, only: [
+    :transactions, :vote, :update_tags, :autocomplete,
     :signature, :duly_authorized_representative_signature, :reviewer_signature,
     :reset_signature
   ]
 
   # GET /reviews
   def index
-    scope = current_user.reviewable_data_requests.advanced_search(Arel.sql(params[:search].to_s))
+    scope = current_user.review_viewers_data_requests.advanced_search(Arel.sql(params[:search].to_s))
     scope = scope.without_vote(current_user) if params[:voted].to_s == "0"
     scope = scope.with_vote(current_user) if params[:voted].to_s == "1"
     scope = scope.with_tag(params[:tag_id]) if params[:tag_id].present?
@@ -121,8 +124,13 @@ class ReviewsController < ApplicationController
 
   private
 
-  def find_data_request_or_redirect
-    @data_request = current_user.reviewable_data_requests.find_by(id: params[:id])
+  def find_viewable_data_request_or_redirect
+    @data_request = current_user.review_viewers_data_requests.find_by(id: params[:id])
+    empty_response_or_root_path(reviews_path) unless @data_request
+  end
+
+  def find_editable_data_request_or_redirect
+    @data_request = current_user.review_editors_data_requests.find_by(id: params[:id])
     empty_response_or_root_path(reviews_path) unless @data_request
   end
 

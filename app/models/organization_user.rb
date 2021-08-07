@@ -6,6 +6,7 @@ class OrganizationUser < ApplicationRecord
   REVIEW_ROLES = [
     ["Principal Reviewer", "principal"],
     ["Reviewer", "regular"],
+    ["Viewer", "viewer"],
     ["None", "none"]
   ]
 

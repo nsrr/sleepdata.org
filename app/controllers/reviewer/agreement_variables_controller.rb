@@ -3,7 +3,7 @@
 # Allows reviewers to specify agreement variables for resubmission.
 class Reviewer::AgreementVariablesController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_data_request_or_redirect
+  before_action :find_editable_data_request_or_redirect
   before_action :find_agreement_variable_or_redirect, only: [:edit, :update]
 
   def update
@@ -21,8 +21,8 @@ class Reviewer::AgreementVariablesController < ApplicationController
 
   private
 
-  def find_data_request_or_redirect
-    @data_request = current_user.reviewable_data_requests
+  def find_editable_data_request_or_redirect
+    @data_request = current_user.review_editors_data_requests
                                 .where(status: "submitted")
                                 .find_by(id: params[:data_request_id])
     empty_response_or_root_path(reviews_path) unless @data_request

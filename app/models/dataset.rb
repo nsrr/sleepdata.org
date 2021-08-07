@@ -47,14 +47,26 @@ class Dataset < ApplicationRecord
     ).current.distinct
   end
 
-  scope :with_reviewer, ->(arg) do
+  scope :with_review_editors, ->(arg) do
     left_outer_joins(:dataset_users, organization: :organization_users).where(user: arg).or(
       left_outer_joins(:dataset_users, organization: :organization_users).merge(
         DatasetUser.where(role: "reviewer", user: arg)
       )
     ).or(
       left_outer_joins(:dataset_users, organization: :organization_users).merge(
-        OrganizationUser.where(review_role: %w(regular principal), user: arg)
+        OrganizationUser.where(review_role: %w(principal regular), user: arg)
+      )
+    ).current.distinct
+  end
+
+  scope :with_review_viewers, ->(arg) do
+    left_outer_joins(:dataset_users, organization: :organization_users).where(user: arg).or(
+      left_outer_joins(:dataset_users, organization: :organization_users).merge(
+        DatasetUser.where(role: "reviewer", user: arg)
+      )
+    ).or(
+      left_outer_joins(:dataset_users, organization: :organization_users).merge(
+        OrganizationUser.where(review_role: %w(principal regular viewer), user: arg)
       )
     ).current.distinct
   end

@@ -1,10 +1,12 @@
 - @title = @data_request.name
+- @reviewer = current_user.review_editors_data_requests.find_by(id: @data_request.id).present?
 
 - content_for :header do
   .float-right
-    = link_to transactions_review_path(@data_request), class: "btn btn-light btn-sm" do
-      = icon("fas", "th-list")
-      Transactions
+    - if @reviewer
+      = link_to transactions_review_path(@data_request), class: "btn btn-light btn-sm" do
+        = icon("fas", "th-list")
+        Transactions
     &nbsp;
     = link_to "#", class: "btn btn-light btn-sm", data: { object: "show-data-request" } do
       = icon("fas", "file-alt")
@@ -19,9 +21,10 @@
 #agreement_events
   = render "agreement_events/index"
 
-#agreement_events_new_form
-  - @agreement_event = @data_request.agreement_events.where(user_id: current_user.id).new
-  = render "agreement_events/form"
+- if @reviewer
+  #agreement_events_new_form
+    - @agreement_event = @data_request.agreement_events.where(user_id: current_user.id).new
+    = render "agreement_events/form"
 
 - other_data_requests = @data_request.user.data_requests.where.not(id: @data_request.id).where(status: %w(submitted resubmit approved expired))
 - if other_data_requests.count > 0

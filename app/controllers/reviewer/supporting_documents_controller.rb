@@ -3,7 +3,12 @@
 # Allows reviewers to modify data request supporting documents.
 class Reviewer::SupportingDocumentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_data_request_or_redirect
+  before_action :find_viewable_data_request_or_redirect, only: [
+    :index, :show
+  ]
+  before_action :find_editable_data_request_or_redirect, only: [
+    :new, :create, :create_multiple, :destroy
+  ]
   before_action :find_supporting_document_or_redirect, only: [:show, :destroy]
 
   # GET /reviewer/:data_request_id/supporting-documents
@@ -55,8 +60,13 @@ class Reviewer::SupportingDocumentsController < ApplicationController
 
   private
 
-  def find_data_request_or_redirect
-    @data_request = current_user.reviewable_data_requests.find_by(id: params[:data_request_id])
+  def find_viewable_data_request_or_redirect
+    @data_request = current_user.review_viewers_data_requests.find_by(id: params[:data_request_id])
+    empty_response_or_root_path(reviews_path) unless @data_request
+  end
+
+  def find_editable_data_request_or_redirect
+    @data_request = current_user.review_editors_data_requests.find_by(id: params[:data_request_id])
     empty_response_or_root_path(reviews_path) unless @data_request
   end
 

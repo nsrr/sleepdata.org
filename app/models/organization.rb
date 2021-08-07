@@ -26,7 +26,7 @@ class Organization < ApplicationRecord
 
   scope :with_reviewer, ->(arg) do
     joins(:organization_users).merge(
-      OrganizationUser.where(user: arg, review_role: ["regular", "principal"])
+      OrganizationUser.where(user: arg, review_role: %w(principal regular))
     )
   end
 

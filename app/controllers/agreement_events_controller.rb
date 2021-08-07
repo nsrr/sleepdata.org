@@ -3,7 +3,7 @@
 # Allows modification of comments on during data request review process
 class AgreementEventsController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_data_request_or_redirect
+  before_action :find_editable_data_request_or_redirect
   before_action :find_editable_agreement_event_or_redirect, only: [
     :show, :edit, :update, :destroy
   ]
@@ -56,8 +56,13 @@ class AgreementEventsController < ApplicationController
 
   private
 
-  def find_data_request_or_redirect
-    @data_request = current_user.reviewable_data_requests.find_by(id: params[:agreement_id])
+  def find_viewable_data_request_or_redirect
+    @data_request = current_user.review_viewers_data_requests.find_by(id: params[:agreement_id])
+    empty_response_or_root_path(reviews_path) unless @data_request
+  end
+
+  def find_editable_data_request_or_redirect
+    @data_request = current_user.review_editors_data_requests.find_by(id: params[:agreement_id])
     empty_response_or_root_path(reviews_path) unless @data_request
   end
 
