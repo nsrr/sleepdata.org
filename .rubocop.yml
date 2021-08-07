@@ -14,7 +14,7 @@ Metrics/ClassLength:
   Enabled: false
 Metrics/BlockLength:
   Enabled: false
-Metrics/LineLength:
+Layout/LineLength:
   Max: 120
 Metrics/MethodLength:
   Enabled: false
