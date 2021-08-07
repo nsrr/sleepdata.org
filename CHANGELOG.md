@@ -1,4 +1,4 @@
-## 54.0.0
+## 54.0.0 (August 7, 2021)
 
 ### Enhancements
 - **General Changes**
