@@ -29,4 +29,12 @@ class DataRequestMailerTest < ActionMailer::TestCase
       mail.body.encoded
     )
   end
+
+  test "data request submitted" do
+    data_request = data_requests(:submitted)
+    mail = DataRequestMailer.data_request_submitted(data_request)
+    assert_equal [data_request.user.email], mail.to
+    assert_equal "Your data request has been received", mail.subject
+    assert_match(/Your data request has been received\./, mail.body.encoded)
+  end
 end

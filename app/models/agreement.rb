@@ -184,6 +184,7 @@ class Agreement < ApplicationRecord
       auto_approve!
     else
       add_reviewers!
+      data_request_submitted_send_email_in_background
     end
   end
 
@@ -198,6 +199,14 @@ class Agreement < ApplicationRecord
       data_request_reviews.where(user_id: reviewer.id).first_or_create
     end
     data_request_reviews.where.not(approved: nil).update_all(vote_cleared: true)
+  end
+
+  def data_request_submitted_send_email_in_background
+    fork_process(:data_request_submitted_send_email)
+  end
+
+  def data_request_submitted_send_email
+    DataRequestMailer.data_request_submitted(self).deliver_now if EMAILS_ENABLED
   end
 
   def auto_approve!

@@ -23,4 +23,15 @@ class DataRequestMailer < ApplicationMailer
       subject: "Your Duly Authorized Representative Has Signed Your Data Request"
     )
   end
+
+  def data_request_submitted(data_request)
+    setup_email
+    @data_request = data_request
+    @email_to = data_request.user.email
+    mail(
+      to: @email_to,
+      subject: "Your data request has been received"
+    )
+  end
+
 end

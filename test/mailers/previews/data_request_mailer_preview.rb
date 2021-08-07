@@ -10,6 +10,10 @@ class DataRequestMailerPreview < ActionMailer::Preview
     DataRequestMailer.duly_authorized_representative_signature_submitted(data_request)
   end
 
+  def data_request_submitted
+    DataRequestMailer.data_request_submitted(data_request)
+  end
+
   private
 
   def data_request
