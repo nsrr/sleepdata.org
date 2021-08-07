@@ -4,8 +4,8 @@
 - **General Changes**
   - Disallowed access for SemrushBot and Seekport Crawler robots
 - **Dataset Changes**
-  - The nsrr gem download command now includes quotes for atasets with spaces in
-    file download paths
+  - The nsrr gem download command now includes quotes for datasets with spaces
+    in file download paths
 - **Data Request Changes**
   - The dataset selection step is now displayed before going to the proof step
   - Users receive a data request submitted email after submitting their data
