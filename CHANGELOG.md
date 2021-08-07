@@ -14,6 +14,7 @@
   - A new data request viewer role has been added to organizations
 - **Gem Changes**
   - Update to rails 6.1.4
+  - Update to pg_search 2.3.5
 
 ## 53.0.0 (May 31, 2021)
 
