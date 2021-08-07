@@ -3,7 +3,7 @@
 # rubocop:disable Layout/ExtraSpacing
 source "https://rubygems.org"
 
-gem "rails",                      "6.1.3.1"
+gem "rails",                      "6.1.4"
 
 # PostgreSQL as the Active Record database.
 gem "pg",                         "1.2.3"

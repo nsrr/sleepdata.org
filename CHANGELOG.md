@@ -12,6 +12,8 @@
     request
 - **Organization Changes**
   - A new data request viewer role has been added to organizations
+- **Gem Changes**
+  - Update to rails 6.1.4
 
 ## 53.0.0 (May 31, 2021)
 
