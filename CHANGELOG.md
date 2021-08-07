@@ -3,6 +3,8 @@
 ### Enhancements
 - **General Changes**
   - Disallowed access for SemrushBot and Seekport Crawler robots
+- **Data Request Changes**
+  - The dataset selection step is now displayed before going to the proof step
 
 ## 53.0.0 (May 31, 2021)
 

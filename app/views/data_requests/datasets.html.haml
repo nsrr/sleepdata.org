@@ -21,10 +21,9 @@
 
         .p-3.bg-warning.datasets-warning{ style: @data_request.datasets.count <= 2 ? "display:none" : "" }
           = icon("fas", "exclamation-triangle")
-          You may be asked to resubmit if you select
-          %strong.text-white more than two
-          datasets. Additional datasets can be requested in the future, should
-          you find the data useful for your project.
+          To reduce delays in processing your request, please review the
+          contents of each dataset and select only the datasets containing
+          sufficient data relevant to your project.
 
         .mt-5.mb-3.float-right
           = succeed " " do

@@ -43,6 +43,6 @@
               = icon("fas", "save")
               Save Draft
 
-          = link_to data_requests_proof_path(@data_request), class: "btn btn-primary", id: "continue-btn" do
+          = link_to datasets_data_request_path(@data_request), class: "btn btn-primary", id: "continue-btn" do
             = @data_request.supporting_documents.present? ? "Continue" : "Skip"
             = icon("fas", "caret-right")

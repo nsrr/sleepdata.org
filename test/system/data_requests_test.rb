@@ -42,6 +42,9 @@ class DataRequestsTest < ApplicationSystemTestCase
     click_on "Skip"
 
     screenshot("dataset-request-signature")
+    click_on "Add Datasets"
+
+    screenshot("dataset-request-signature")
     click_on "Submit"
 
     screenshot("dataset-request-signature")
@@ -72,6 +75,9 @@ class DataRequestsTest < ApplicationSystemTestCase
 
     screenshot("dataset-request-attestation")
     click_on "Skip"
+
+    screenshot("dataset-request-attestation")
+    click_on "Add Datasets"
 
     screenshot("dataset-request-attestation")
     click_on "Submit"

@@ -23,8 +23,8 @@
 
     - groups << { name: "Addendums", url: addendums.first[:url], docs: addendums } if addendums.present?
     - groups << { name: "Uploads", url: data_request_supporting_documents_path(@data_request), docs: [], count: @data_request.supporting_documents.count }
-    - groups << { name: "Proof", url: data_requests_proof_path(@data_request), docs: [] }
     - groups << { name: "Datasets", url: datasets_data_request_path(@data_request), docs: @data_request.datasets.order(:slug).collect { |d| { name: d.slug.upcase, url: datasets_data_request_path(@data_request), active_class: "", complete?: nil } }}
+    - groups << { name: "Proof", url: data_requests_proof_path(@data_request), docs: [] }
 
     #sidebar-nav-wrapper.sidebar-nav-wrapper.collapse
       %nav.sidebar-nav
