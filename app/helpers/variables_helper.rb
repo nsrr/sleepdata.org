@@ -26,6 +26,6 @@ module VariablesHelper
   end
 
   def description_with_linked_variables(variable)
-    variable.description.gsub(/\:(\w*?)\:/, "[\\1](#{dataset_path(@dataset)}/variables/\\1?v=#{variable.dataset_version.version})")
+    variable.description?.gsub(/\:(\w*?)\:/, "[\\1](#{dataset_path(@dataset)}/variables/\\1?v=#{variable.dataset_version.version})")
   end
 end
