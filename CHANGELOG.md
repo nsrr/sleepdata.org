@@ -10,6 +10,8 @@
 - **Variable Changes**
   - Variables can now link other variables by surrounding the name with colons
     - Example description: "Weight is related to :bmi:"
+- **Admin Changes**
+  - Admins can now create static pages
 
 ## 54.0.0 (August 7, 2021)
 

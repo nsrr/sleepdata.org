@@ -50,6 +50,8 @@
             = render "search/variable", variable: document.searchable
           - when "DatasetPage"
             = render "search/dataset_page", dataset_page: document.searchable
+          - when "Page"
+            = render "search/page", page: document.searchable
     - if @search_documents.blank? && !@highlight_found && @all_count.positive?
       .jumbotron.jumbotron-custom-text
         = icon("far", "clone", class: "mr-1")

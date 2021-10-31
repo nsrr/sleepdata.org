@@ -13,6 +13,9 @@ namespace :search do
     Broadcast.find_each(&:update_pg_search_document)
     puts "DONE".white
     print "Reindexing replies..."
+    Page.find_each(&:update_pg_search_document)
+    puts "DONE".white
+    print "Reindexing topics..."
     Reply.find_each(&:update_pg_search_document)
     puts "DONE".white
     print "Reindexing topics..."

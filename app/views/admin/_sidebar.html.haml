@@ -8,6 +8,7 @@
           %li= link_to "Users", users_path, class: params[:controller] == "users" ? "active" : nil if current_user.admin?
           %li= link_to "Tools", admin_tools_path, class: params[:controller] == "admin/tools" ? "active" : nil if current_user.admin?
           %li= link_to "FAQs", admin_faqs_path, class: params[:controller] == "admin/faqs" ? "active" : nil if current_user.admin?
+          %li= link_to "Pages", admin_pages_path, class: params[:controller] == "admin/pages" ? "active" : nil if current_user.admin?
 
           - if current_user.admin?
             %li.sidebar-menu-header Discussion

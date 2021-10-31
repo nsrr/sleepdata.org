@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     get :agreement_reports, path: "agreement-reports"
     get :searches
     resources :faqs
+    resources :pages
     resources :replies, only: :index
     resources :tools
     root action: :dashboard
@@ -324,6 +325,8 @@ Rails.application.routes.draw do
       patch :mark_all_as_read
     end
   end
+
+  resources :pages, only: :show
 
   scope module: :search do
     get :search, action: "index", as: :search

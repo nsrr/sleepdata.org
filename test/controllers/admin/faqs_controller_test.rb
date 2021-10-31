@@ -1,7 +1,7 @@
 require "test_helper"
 
 # Test that admins can create and edit about page FAQs.
-class FaqsControllerTest < ActionDispatch::IntegrationTest
+class Admin::FaqsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @faq = faqs(:one)
     @admin = users(:admin)

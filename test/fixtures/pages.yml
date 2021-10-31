@@ -1,0 +1,17 @@
+about:
+  title: About
+  slug: about
+  description: This is the about page.
+  deleted: false
+
+publications:
+  title: Publications
+  slug: publications
+  description: This is a list of publications.
+  deleted: false
+
+deleted:
+  title: Deleted
+  slug: deleted
+  description: This is deleted.
+  deleted: true

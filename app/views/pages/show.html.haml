@@ -1,0 +1,6 @@
+- @title = @page.title
+
+- content_for :header, @title
+
+.markdown-container
+  = simple_markdown(@page.description, target_blank: false, table_class: "table table-striped table-hover")

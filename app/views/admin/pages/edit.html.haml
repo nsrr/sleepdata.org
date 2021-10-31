@@ -1,0 +1,12 @@
+- @title = "Edit Page - #{@page.title_was}"
+
+- content_for :header, @page.title_was
+= render "internal/tabs"
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "pages", admin_pages_path
+    %li= link_to @page.title_was.downcase, admin_page_path(@page)
+    %li.breadcrumb-muted edit
+- content_for :sidebar, render("admin/sidebar")
+
+.dashboard-container= render "admin/pages/form", page: @page
