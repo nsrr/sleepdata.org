@@ -18,8 +18,7 @@
 @include media-breakpoint-up(md) {
   .col-form-label {
     .form-label-elegant {
-      @include float-right;
-
+      float: right;
       text-align: right;
     }
   }
