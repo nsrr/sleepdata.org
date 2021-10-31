@@ -78,6 +78,12 @@
         = link_to datasets_path(filtered_params.merge(order: "popular")), style: selected ? "font-weight: bold" : nil, class: "dropdown-item" do
           = simple_check selected
           Popular
+  .text-center{ style: "margin: auto; flex: 1;" }
+    .btn-group
+      = link_to "https://matrix.sleepdata.org", class: "btn btn-sm btn-dark" do
+        = icon("fas", "th")
+        Browse NSRR datasets in the Cohort Matrix
+        &rarr;
 
 - if @datasets.count.zero?
   .lead.text-center{ style: "margin-top: 40px;" }

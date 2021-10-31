@@ -5,6 +5,7 @@
   - Simplify landing page boxes
 - **Dataset Changes**
   - Added schema.org dataset type markup on dataset pages
+  - Datasets index now has a link to the cohort matrix
 
 ## 54.0.0 (August 7, 2021)
 
