@@ -31,7 +31,7 @@
             = variable.display_name
         %td.d-none.d-sm-table-cell
           = variable.display_name
-          %small.text-muted.variable-description= simple_markdown(variable.description, allow_lists: false)
+          %small.text-muted.variable-description= simple_markdown(description_with_linked_variables(variable), allow_lists: false)
         %td.d-none.d-md-table-cell= variable.folder
 - elsif @dataset.variables.count.zero?
   .jumbotron.jumbotron-custom-text

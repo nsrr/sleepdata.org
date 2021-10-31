@@ -7,6 +7,9 @@
 - **Dataset Changes**
   - Added schema.org dataset type markup on dataset pages
   - Datasets index now has a link to the cohort matrix
+- **Variable Changes**
+  - Variables can now link other variables by surrounding the name with colons
+    - Example description: "Weight is related to :bmi:"
 
 ## 54.0.0 (August 7, 2021)
 

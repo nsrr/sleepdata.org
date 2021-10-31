@@ -20,7 +20,7 @@
   .variable-graph
     = render "forms/horizontal/show/generic", title: "Name", content: @variable.name
     = render "forms/horizontal/show/generic", title: "Label", content: @variable.display_name
-    = render "forms/horizontal/show/generic", title: "Description", content: simple_markdown(@variable.description, allow_lists: false) if @variable.description.present?
+    = render "forms/horizontal/show/generic", title: "Description", content: simple_markdown(description_with_linked_variables(@variable), allow_lists: false) if @variable.description.present?
     = render "forms/horizontal/show/generic", title: "Calculation", content: calculation_helper(@variable) if @variable.calculation.present?
     = render "forms/horizontal/show/generic", title: "Units", content: content_tag(:span, @variable.units, class: "badge badge-light") if @variable.units.present?
     = render "forms/horizontal/show/generic", title: "Domain", content: render("variables/domain", domain: @variable.domain) if @variable.domain
