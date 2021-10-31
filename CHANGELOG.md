@@ -3,6 +3,7 @@
 ### Enhancements
 - **General Changes**
   - Simplify landing page boxes
+  - Added subject count to footer of landing page
 - **Dataset Changes**
   - Added schema.org dataset type markup on dataset pages
   - Datasets index now has a link to the cohort matrix

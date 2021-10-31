@@ -46,26 +46,50 @@
 
   .container
     .row
-      .col-md-3
-        .text-center
-          = icon("fas", "hdd", class: "icon-xl")
-      .col-md-3
+      .col-lg-4
+        .d-flex.flex-column.flex-lg-row
+          .mr-3.text-center
+            = icon("fas", "users", class: "icon-xl d-none d-lg-block")
+            = icon("fas", "users", class: "icon-lg d-block d-lg-none")
+          .d-block.d-lg-none
+            .text-center
+              %h1= number_with_delimiter Dataset.released.sum(:subjects)
+              Subjects
+          .d-none.d-lg-block
+            %h1.mt-4= number_with_delimiter Dataset.released.sum(:subjects)
+            Subjects
+      .col-lg-4
         - total_stored = DatasetFile.current.where(is_file: true).sum(:file_size)
-        .text-center.d-block.d-md-none
-          %h1= number_to_human_size total_stored
-          Stored on the Resource
-        .d-none.d-md-block
-          %h1.mt-4= number_to_human_size total_stored
-          Stored on the Resource
-      .col-md-3.d-none.d-md-block
+        .d-flex.flex-column.flex-lg-row
+          .mr-3.text-center
+            = icon("fas", "hdd", class: "icon-xl d-none d-lg-block")
+            = icon("fas", "hdd", class: "icon-lg d-block d-lg-none")
+          .d-block.d-lg-none
+            .text-center
+              %h1= number_to_human_size total_stored
+              Stored on the Resource
+          .d-none.d-lg-block
+            %h1.mt-4= number_to_human_size total_stored
+            Stored on the Resource
+
+      .col-lg-4.d-none.d-lg-block
         - month = QuarterMonth.order(regular_total_file_size: :desc).first
-        .d-none.d-md-block.text-right
-          %h1.mt-4
-            - if month
-              = number_to_human_size month.regular_total_file_size, precision: 0, significant: false
-            - else
-              0 MB
-          Shared with Researchers
-      .col-md-3.d-none.d-md-block
-        .text-center
-          = icon("fas", "globe-americas", class: "icon-xl")
+        .d-flex.flex-column.flex-lg-row
+          .mr-3.text-center
+            = icon("fas", "globe-americas", class: "icon-xl d-none d-lg-block")
+            = icon("fas", "globe-americas", class: "icon-lg d-block d-lg-none")
+          .d-block.d-lg-none
+            .text-center
+              %h1
+                - if month
+                  = number_to_human_size month.regular_total_file_size, precision: 0, significant: false
+                - else
+                  0 MB
+              Shared with Researchers
+          .d-none.d-lg-block
+            %h1.mt-4
+              - if month
+                = number_to_human_size month.regular_total_file_size, precision: 0, significant: false
+              - else
+                0 MB
+            Shared with Researchers
