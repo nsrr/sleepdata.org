@@ -1,0 +1,16 @@
+<!-- https://schema.org/ metadata for discovery -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Dataset",
+  "name": "<%= dataset.name %>",
+  "description": "<%= dataset.description %>",
+  "url": "<%= dataset_url(dataset) %>",
+  "identifier": "https://doi.org/<%= dataset.doi %>",
+  "creator": [],
+  "includedInDataCatalog": {
+    "@type": "DataCatalog",
+    "name": "sleepdata.org"
+  }
+}
+</script>

@@ -1,5 +1,9 @@
 ## 55.0.0
 
+### Enhancements
+- **Dataset Changes**
+  - Added schema.org dataset type markup on dataset pages
+
 ## 54.0.0 (August 7, 2021)
 
 ### Enhancements
