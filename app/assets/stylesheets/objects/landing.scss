@@ -98,16 +98,16 @@
     min-height: 100%;
   }
 
-  @media (hover) {
-    &:hover {
-      .landing-front {
-        transform: rotateY(180deg);
-      }
-      .landing-back {
-        transform: rotateY(0deg);
-      }
-    }
-  }
+  // @media (hover) {
+  //   &:hover {
+  //     .landing-front {
+  //       transform: rotateY(180deg);
+  //     }
+  //     .landing-back {
+  //       transform: rotateY(0deg);
+  //     }
+  //   }
+  // }
 }
 
 .landing-box-header {

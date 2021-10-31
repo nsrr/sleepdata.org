@@ -1,38 +1,39 @@
 .landing-box-container
   .landing-box{ data: { link: share_path } }
     .landing-face.landing-back
-      .landing-box-header= link_to "Sharing Data", share_path
+      .landing-box-header= link_to "Share Your Data", share_path
       %p
         Share your research data on the NSRR.
     .landing-face.landing-front.landing-face-share
-      .landing-box-header= link_to "Sharing Data", share_path
+      .landing-box-header= link_to "Share Your Data", share_path
       %p.text-center
         = icon("fas", "handshake", class: "icon-lg")
   .landing-box{ data: { link: datasets_path } }
     .landing-face.landing-back
-      .landing-box-header= link_to "Datasets", datasets_path
+      .landing-box-header= link_to "Explore Datasets", datasets_path
       %p
         Demographics, anthropometry, questionnaires, outcomes, and more.
     .landing-face.landing-front
-      .landing-box-header= link_to "Datasets", datasets_path
+      .landing-box-header= link_to "Explore Datasets", datasets_path
       %p.text-center
         = icon("fas", "table", class: "icon-lg")
-  .landing-box{ data: { link: datasets_path(data: "actigraphy") } }
-    .landing-face.landing-back
-      .landing-box-header= link_to "Actigraphy", datasets_path(data: "actigraphy")
-      %p
-        Minute-by-minute activity data collected on wearable watches and similar
-        devices.
-    .landing-face.landing-front
-      .landing-box-header= link_to "Actigraphy", datasets_path(data: "actigraphy")
-      %p.text-center
-        = icon("far", "clock", class: "icon-lg")
-  .landing-box{ data: { link: datasets_path(data: "polysomnography") } }
-    .landing-face.landing-back
-      .landing-box-header= link_to "Polysomnography", datasets_path(data: "polysomnography")
-      %p
-        Raw signals comprised of EEGs, ECGs, oxygen, and position channels.
-    .landing-face.landing-front
-      .landing-box-header= link_to "Polysomnography", datasets_path(data: "polysomnography")
-      %p.text-center
-        = icon("fas", "heartbeat", class: "icon-lg")
+  - if false
+    .landing-box{ data: { link: datasets_path(data: "actigraphy") } }
+      .landing-face.landing-back
+        .landing-box-header= link_to "Actigraphy", datasets_path(data: "actigraphy")
+        %p
+          Minute-by-minute activity data collected on wearable watches and similar
+          devices.
+      .landing-face.landing-front
+        .landing-box-header= link_to "Actigraphy", datasets_path(data: "actigraphy")
+        %p.text-center
+          = icon("far", "clock", class: "icon-lg")
+    .landing-box{ data: { link: datasets_path(data: "polysomnography") } }
+      .landing-face.landing-back
+        .landing-box-header= link_to "Polysomnography", datasets_path(data: "polysomnography")
+        %p
+          Raw signals comprised of EEGs, ECGs, oxygen, and position channels.
+      .landing-face.landing-front
+        .landing-box-header= link_to "Polysomnography", datasets_path(data: "polysomnography")
+        %p.text-center
+          = icon("fas", "heartbeat", class: "icon-lg")

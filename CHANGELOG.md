@@ -1,6 +1,8 @@
 ## 55.0.0
 
 ### Enhancements
+- **General Changes**
+  - Simplify landing page boxes
 - **Dataset Changes**
   - Added schema.org dataset type markup on dataset pages
 
