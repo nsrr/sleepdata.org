@@ -6,8 +6,9 @@
   = render "menu/item", title: "Blog", path: blog_path, active: params[:controller] == "blog"
   = render "menu/item", title: "Share data", path: share_path
 
-  - Page.current.each do |page|
-    = render "menu/item", title: page.title, path: page
+  - if false
+    - Page.current.each do |page|
+      = render "menu/item", title: page.title, path: page
 
 %ul.navbar-nav
   %li.nav-item{ class: current_page?(search_path) ? "active" : nil }
