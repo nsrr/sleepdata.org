@@ -54,10 +54,10 @@
           .d-block.d-lg-none
             .text-center
               %h1= number_with_delimiter Dataset.released.sum(:subjects)
-              Subjects
+              Individuals Represented
           .d-none.d-lg-block
             %h1.mt-4= number_with_delimiter Dataset.released.sum(:subjects)
-            Subjects
+            Individuals Represented
       .col-lg-4
         - total_stored = DatasetFile.current.where(is_file: true).sum(:file_size)
         .d-flex.flex-column.flex-lg-row
