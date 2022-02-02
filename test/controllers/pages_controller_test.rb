@@ -1,10 +1,15 @@
 require "test_helper"
 
-# Test that admins can create and edit pages.
+# Test that users can view pages.
 class PagesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @page = pages(:about)
     @deleted = pages(:deleted)
+  end
+
+  test "should redirect index to root url" do
+    get pages_url
+    assert_redirected_to root_url
   end
 
   test "should show page" do

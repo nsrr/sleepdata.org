@@ -4,6 +4,11 @@
 class PagesController < ApplicationController
   before_action :find_page_or_redirect, only: [:show]
 
+  # GET /pages
+  def index
+    redirect_to root_path
+  end
+
   # # GET /pages/:slug
   # def show
   # end
