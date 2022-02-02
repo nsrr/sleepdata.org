@@ -3,6 +3,7 @@
 ### Enhancements
 - **Gem Changes**
   - Update to ruby 3.0.2
+  - Update to rails 6.1.4.4
 
 ## 55.0.0 (November 7, 2021)
 
