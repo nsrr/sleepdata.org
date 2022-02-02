@@ -326,7 +326,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :pages, only: :show
+  resources :pages, only: [:show, :index]
 
   scope module: :search do
     get :search, action: "index", as: :search
