@@ -1,5 +1,9 @@
 ## 56.0.0
 
+### Enhancements
+- **Gem Changes**
+  - Update to ruby 3.0.2
+
 ## 55.0.0 (November 7, 2021)
 
 ### Enhancements
