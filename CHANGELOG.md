@@ -1,6 +1,8 @@
 ## 56.0.0
 
 ### Enhancements
+- **Dataset Changes**
+  - Default ordering on the datasets index is now "Alphabetical"
 - **Gem Changes**
   - Update to ruby 3.0.2
   - Update to rails 6.1.4.4

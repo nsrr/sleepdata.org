@@ -62,18 +62,24 @@
             Newest
           - when "popular"
             Popular
+          - when "oldest"
+            Oldest
           - else
-            Publish Date
+            Alphabetical
         %span.caret
       .dropdown-menu.dropdown-menu-right
         - selected = params[:order].blank?
         = link_to datasets_path(filtered_params.merge(order: nil)), style: selected ? "font-weight: bold" : nil, class: "dropdown-item" do
           = simple_check selected
-          Publish Date
+          Alphabetical
         - selected = params[:order] == "newest"
         = link_to datasets_path(filtered_params.merge(order: "newest")), style: selected ? "font-weight: bold" : nil, class: "dropdown-item" do
           = simple_check selected
           Newest
+        - selected = params[:order] == "oldest"
+        = link_to datasets_path(filtered_params.merge(order: "oldest")), style: selected ? "font-weight: bold" : nil, class: "dropdown-item" do
+          = simple_check selected
+          Oldest
         - selected = params[:order] == "popular"
         = link_to datasets_path(filtered_params.merge(order: "popular")), style: selected ? "font-weight: bold" : nil, class: "dropdown-item" do
           = simple_check selected
