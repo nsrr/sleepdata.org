@@ -1,0 +1,11 @@
+- @title = "New Folder"
+
+- content_for :header, @title
+= render "internal/tabs"
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "Folders", admin_folders_path
+    %li.breadcrumb-muted new
+- content_for :sidebar, render("admin/sidebar")
+
+.dashboard-container= render "admin/folders/form", folder: @folder

@@ -36,6 +36,7 @@ Rails.application.routes.draw do
     get :agreement_reports, path: "agreement-reports"
     get :searches
     resources :faqs
+    resources :folders
     resources :pages
     resources :replies, only: :index
     resources :tools

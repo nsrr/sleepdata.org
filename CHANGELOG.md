@@ -3,6 +3,9 @@
 ### Enhancements
 - **General Changes**
   - Custom pages are now displayed in the navigation bar
+- **Admin Changes**
+  - Admins can now group pages under folders
+  - Folders can be positioned in the navigation bar
 - **Dataset Changes**
   - Default ordering on the datasets index updated to "Featured"
 

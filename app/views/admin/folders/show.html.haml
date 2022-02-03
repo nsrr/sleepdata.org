@@ -1,0 +1,17 @@
+- @title = @folder.name
+
+- content_for :header, @title
+= render "internal/tabs"
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "Folders", admin_folders_path
+    %li= @folder.name
+    %li= render "layouts/breadcrumb_edit_delete_dropdown", edit_url: edit_admin_folder_path(@folder), delete_url: admin_folder_path(@folder), delete_confirmation: "Delete #{@folder.name}?"
+- content_for :sidebar, render("admin/sidebar")
+
+.dashboard-container
+  = render "forms/horizontal/show/text", object: @folder, key: :name
+  = render "forms/horizontal/show/text", object: @folder, key: :slug
+  = render "forms/horizontal/show/text", object: @folder, key: :position
+  = render "forms/horizontal/show/check_box", object: @folder, key: :displayed
+  = render "forms/horizontal/show/generic", title: "Pages", content: render("admin/folders/pages", folder: @folder)

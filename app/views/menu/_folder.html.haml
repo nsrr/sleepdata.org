@@ -1,0 +1,12 @@
+- if folder.pages.count == 1
+  = render "menu/item", title: folder.name, path: folder.pages.first
+- elsif folder.pages.count > 1
+  %li.nav-item.dropdown.d-none.d-lg-block
+    .btn-group.nav-item
+      = link_to "#", class: "nav-link dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do
+        = folder.name
+      .dropdown-menu.dropdown-menu-custom
+        .dropdown-menu-custom-inner
+          - folder.pages.each do |page|
+            = link_to page, class: "dropdown-item" do
+              = page.title

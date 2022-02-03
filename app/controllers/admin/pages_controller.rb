@@ -66,7 +66,7 @@ class Admin::PagesController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def page_params
-    params.require(:page).permit(:slug, :title, :description)
+    params.require(:page).permit(:folder_id, :slug, :title, :description)
   end
 
   def scope_order(scope)

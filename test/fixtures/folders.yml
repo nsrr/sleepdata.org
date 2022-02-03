@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+about:
+  name: About
+  slug: about
+  displayed: true
+  deleted: false
+
+other:
+  name: Other
+  slug: other
+  displayed: false
+  deleted: false

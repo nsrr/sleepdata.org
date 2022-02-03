@@ -1,5 +1,6 @@
 - url = page.new_record? ? admin_pages_path : admin_page_path(page)
 = form_with model: page, url: url, local: true do |form|
+  = render "forms/horizontal/select", form: form, object: page, key: :folder_id, options: Folder.current.order(:name).pluck(:name, :id), include_blank: true
   = render "forms/horizontal/text_field", form: form, object: page, key: :title, slug: "slug"
   = render "forms/horizontal/slug_field", form: form, object: page, key: :slug
   = render "forms/horizontal/text_area", form: form, object: page, key: :description, rows: 7, help_text: "Markdown enabled."

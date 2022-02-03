@@ -21,6 +21,9 @@ class Page < ApplicationRecord
                    exclusion: { in: %w(new edit create update destroy) },
                    allow_nil: true
 
+  # Relationships
+  belongs_to :folder, optional: true
+
   # Methods
   def self.searchable_attributes
     %w(slug title description)

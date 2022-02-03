@@ -1,0 +1,12 @@
+- @title = "Edit Folder: #{@folder.name_was}"
+
+- content_for :header, @folder.name_was
+= render "internal/tabs"
+- content_for :breadcrumbs do
+  %ol
+    %li= link_to "Folders", admin_folders_path
+    %li= link_to @folder.name_was, admin_folder_path(@folder)
+    %li.breadcrumb-muted edit
+- content_for :sidebar, render("admin/sidebar")
+
+.dashboard-container= render "admin/folders/form", folder: @folder
