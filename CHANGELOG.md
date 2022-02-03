@@ -1,4 +1,6 @@
 ## 57.0.0
+- **General Changes**
+  - Custom pages are now displayed in the navigation bar
 
 ## 56.0.0 (February 2, 2022)
 
