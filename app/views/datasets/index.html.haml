@@ -58,6 +58,8 @@
           = icon("fas", "cog")
         .d-none.d-sm-inline-block
           - case params[:order]
+          - when "alphabetical"
+            Alphabetical
           - when "newest"
             Newest
           - when "popular"
@@ -65,11 +67,15 @@
           - when "oldest"
             Oldest
           - else
-            Alphabetical
+            Featured
         %span.caret
       .dropdown-menu.dropdown-menu-right
         - selected = params[:order].blank?
         = link_to datasets_path(filtered_params.merge(order: nil)), style: selected ? "font-weight: bold" : nil, class: "dropdown-item" do
+          = simple_check selected
+          Featured
+        - selected = params[:order] == "alphabetical"
+        = link_to datasets_path(filtered_params.merge(order: "alphabetical")), style: selected ? "font-weight: bold" : nil, class: "dropdown-item" do
           = simple_check selected
           Alphabetical
         - selected = params[:order] == "newest"
@@ -100,6 +106,9 @@
   - @datasets.each do |dataset|
     .dataset-card{ id: "dataset-card-#{dataset.id}" }
       .dataset-card-body
+        - if dataset.featured?
+          %div{ style: "background-color: #2196f3;text-align: center; color: #fff; font-size: .5rem" }
+            Featured
         .not-flipped
           .dataset-card-logo
             = link_to image_tag(logo_dataset_path(dataset), alt: ""), dataset

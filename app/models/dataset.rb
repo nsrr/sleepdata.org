@@ -4,6 +4,7 @@
 # single study.
 class Dataset < ApplicationRecord
   ORDERS = {
+    "alphabetical" => "datasets.name",
     "name desc" => "datasets.name desc",
     "name" => "datasets.name",
     "newest" => "datasets.release_date desc, datasets.name desc",
@@ -11,7 +12,7 @@ class Dataset < ApplicationRecord
     "popular" => "datasets.popularity desc",
     "unpopular" => "datasets.popularity"
   }
-  DEFAULT_ORDER = "datasets.name"
+  DEFAULT_ORDER = "datasets.featured desc, datasets.name"
 
   FILES_PER_PAGE = 100
 

@@ -1,6 +1,10 @@
 ## 57.0.0
+
+### Enhancements
 - **General Changes**
   - Custom pages are now displayed in the navigation bar
+- **Dataset Changes**
+  - Default ordering on the datasets index updated to "Featured"
 
 ## 56.0.0 (February 2, 2022)
 
