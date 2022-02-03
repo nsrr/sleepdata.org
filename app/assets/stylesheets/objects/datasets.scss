@@ -61,6 +61,11 @@
   overflow: hidden;
 }
 
+.dataset-card-featured {
+  box-shadow: 0 1px 5px $p900-blue;
+  border: 2px solid $p900-blue;
+}
+
 .dataset-card-header {
   background-color: $p50-grey;
   border-bottom: 1px solid $p200-grey;

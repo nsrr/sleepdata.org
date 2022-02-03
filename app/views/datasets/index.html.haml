@@ -104,11 +104,8 @@
       = link_to "Back to index", datasets_path
 - else
   - @datasets.each do |dataset|
-    .dataset-card{ id: "dataset-card-#{dataset.id}" }
+    .dataset-card{ id: "dataset-card-#{dataset.id}", class: dataset.featured? ? "dataset-card-featured" : nil }
       .dataset-card-body
-        - if dataset.featured?
-          %div{ style: "background-color: #2196f3;text-align: center; color: #fff; font-size: .5rem" }
-            Featured
         .not-flipped
           .dataset-card-logo
             = link_to image_tag(logo_dataset_path(dataset), alt: ""), dataset
