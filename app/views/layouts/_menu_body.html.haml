@@ -12,10 +12,6 @@
   - Folder.displayed.menu_right.includes(:pages).each do |folder|
     = render "menu/folder", folder: folder
 
-  - if false
-    - Page.current.each do |page|
-      = render "menu/item", title: page.title, path: page
-
 %ul.navbar-nav
   %li.nav-item{ class: current_page?(search_path) ? "active" : nil }
     = link_to search_path, class: "nav-link" do

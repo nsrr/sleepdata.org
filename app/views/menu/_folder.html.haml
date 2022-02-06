@@ -10,3 +10,12 @@
           - folder.pages.each do |page|
             = link_to page, class: "dropdown-item" do
               = page.title
+
+  .d-block.d-lg-none
+    %li.nav-item
+      %a.nav-link.disabled{ href: "#" }= folder.name
+      - folder.pages.each do |page|
+        %li.nav-item.pl-3{ class: current_page?(page) ? "active" : nil }
+          = link_to page.title, page, class: "nav-link"
+          - if current_page?(page)
+            %span.sr-only (current)
