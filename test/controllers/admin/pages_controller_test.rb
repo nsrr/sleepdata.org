@@ -11,7 +11,8 @@ class Admin::PagesControllerTest < ActionDispatch::IntegrationTest
     {
       title: "Home",
       slug: "home",
-      description: "Home page."
+      description: "Home page.",
+      position: "3"
     }
   end
 

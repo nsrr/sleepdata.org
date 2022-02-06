@@ -18,14 +18,12 @@
       %col
       %col{ width: "1px" }
       %col{ width: "1px" }
-      %col{ width: "1px" }
       %thead
         %tr
           %th Folder
           %th.py-2
             = form_with url: admin_pages_path, method: :get, local: true do |form|
               = form.text_field :search, value: params[:search], placeholder: "Search pages", autocomplete: "off", class: "table-cell-search-input border rounded"
-          %th.text-center= order_to "Displayed", primary: "displayed"
           %th.text-center= order_to "Position", primary: "position"
           %th.text-center
             .d-none.d-sm-inline-block Actions
@@ -34,8 +32,7 @@
           %tr
             %td= link_to page.folder.name, admin_folder_path(page.folder) if page.folder
             %td= link_to page.title, admin_page_path(page)
-            %td.text-center= 1
-            %td.text-center= 1
+            %td.text-center= page.position || icon("fas", "infinity")
             %td.text-center
               = render "layouts/edit_delete_dropdown", edit_url: edit_admin_page_path(page), delete_url: admin_page_path(page), delete_confirmation: "Delete \"#{page.title}\"?"
 

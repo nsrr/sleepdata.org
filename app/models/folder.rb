@@ -27,7 +27,7 @@ class Folder < ApplicationRecord
   scope :menu_right, -> { where("position >= 0").order(:position) }
 
   # Relationships
-  has_many :pages, -> { current }
+  has_many :pages, -> { current.order("position nulls last") }
 
   # Methods
   def self.searchable_attributes

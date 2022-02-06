@@ -6,6 +6,7 @@
 - **Admin Changes**
   - Admins can now group pages under folders
   - Folders can be positioned in the navigation bar
+  - Pages can be ordered by position in folders
 - **Dataset Changes**
   - Default ordering on the datasets index updated to "Featured"
 

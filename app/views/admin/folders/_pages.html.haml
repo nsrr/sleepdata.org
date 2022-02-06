@@ -1,4 +1,6 @@
 - if folder.pages.present?
   %ul.list-unstyled
     - folder.pages.each do |page|
-      %li= link_to page.title, admin_page_path(page)
+      %li
+        %span.text-muted= page.position || icon("fas", "infinity")
+        = link_to page.title, admin_page_path(page)

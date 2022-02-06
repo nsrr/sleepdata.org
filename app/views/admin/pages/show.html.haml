@@ -15,3 +15,4 @@
   = render "forms/horizontal/show/generic", title: "Folder", content: link_to(@page.folder.name, admin_folder_path(@page.folder)) if @page.folder
   = render "forms/horizontal/show/text", object: @page, key: :title
   = render "forms/horizontal/show/markdown", object: @page, key: :description
+  = render "forms/horizontal/show/text", object: @page, key: :position
