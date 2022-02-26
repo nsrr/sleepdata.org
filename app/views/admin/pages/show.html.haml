@@ -16,3 +16,4 @@
   = render "forms/horizontal/show/text", object: @page, key: :title
   = render "forms/horizontal/show/markdown", object: @page, key: :description
   = render "forms/horizontal/show/text", object: @page, key: :position
+  = render "forms/horizontal/show/generic", title: "Published", content: render("published", page: @page)

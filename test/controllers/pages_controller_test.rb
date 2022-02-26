@@ -4,6 +4,7 @@ require "test_helper"
 class PagesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @page = pages(:about)
+    @draft = pages(:draft)
     @deleted = pages(:deleted)
   end
 
@@ -15,6 +16,11 @@ class PagesControllerTest < ActionDispatch::IntegrationTest
   test "should show page" do
     get page_url(@page)
     assert_response :success
+  end
+
+  test "should not show unpublished page" do
+    get page_url(@draft)
+    assert_redirected_to root_url
   end
 
   test "should not show deleted page" do

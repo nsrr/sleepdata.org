@@ -2,16 +2,26 @@ about:
   title: About
   slug: about
   description: This is the about page.
+  published: true
   deleted: false
 
 publications:
   title: Publications
   slug: publications
   description: This is a list of publications.
+  published: true
+  deleted: false
+
+draft:
+  title: Work in Progress
+  slug: draft
+  description: Draft page.
+  published: false
   deleted: false
 
 deleted:
   title: Deleted
   slug: deleted
   description: This is deleted.
+  published: true
   deleted: true

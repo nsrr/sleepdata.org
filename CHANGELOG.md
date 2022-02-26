@@ -6,7 +6,9 @@
 - **Admin Changes**
   - Admins can now group pages under folders
   - Folders can be positioned in the navigation bar
+    - Folders are only displayed if they have one or more published pages
   - Pages can be ordered by position in folders
+    - Pages are only publicly visible if they're published
 - **Dataset Changes**
   - Default ordering on the datasets index updated to "Featured"
 

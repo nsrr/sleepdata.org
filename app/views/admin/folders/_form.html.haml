@@ -3,5 +3,5 @@
   = render "forms/horizontal/text_field", form: form, object: folder, key: :name, slug: "slug"
   = render "forms/horizontal/slug_field", form: form, object: folder, key: :slug
   = render "forms/horizontal/text_field", form: form, object: folder, key: :position, help_text: "Set a negative position to place the folder to the left of existing menu items, and a positive number to place it to the right of the existing menu items."
-  = render "forms/horizontal/check_box", form: form, object: folder, key: :displayed, help_text: "Displayed folders will show in the menu bar. Note that a folder will only be displayed if it has pages."
+  = render "forms/horizontal/check_box", form: form, object: folder, key: :displayed, help_text: "Displayed folders will show in the menu bar. Note that a folder will only be displayed if it has published pages."
   = render "forms/horizontal/submit", form: form, object: folder, cancel: url

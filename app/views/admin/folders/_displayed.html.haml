@@ -1,0 +1,8 @@
+- if folder.displayed? && folder.pages.published.count == 0
+  %div
+    %span.text-primary
+      = icon("fas", "exclamation-circle")
+    This folder will not be displayed in the menu until it has one or more
+    published pages.
+- else
+  = simple_check folder.displayed

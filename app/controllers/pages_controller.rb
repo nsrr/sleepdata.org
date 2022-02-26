@@ -16,7 +16,7 @@ class PagesController < ApplicationController
   private
 
   def find_page_or_redirect
-    @page = Page.current.find_by_slug(params[:id])
+    @page = Page.published.find_by_slug(params[:id])
     redirect_without_page
   end
 

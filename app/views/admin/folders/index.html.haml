@@ -16,7 +16,8 @@
     %table.table.table-striped.table-borderless.table-sticky
       %col
       %col
-      %col
+      %col{ width: "1px" }
+      %col{ width: "1px" }
       %col{ width: "1px" }
       %thead
         %tr
@@ -24,7 +25,8 @@
             = form_with url: admin_folders_path, method: :get, local: true do |form|
               = form.text_field :search, value: params[:search], placeholder: "Search folders", autocomplete: "off", class: "table-cell-search-input border rounded"
           %th= order_to "Slug", primary: "slug"
-          %th= order_to "Position", primary: "position"
+          %th.text-center= order_to "Displayed", primary: "displayed"
+          %th.text-center= order_to "Position", primary: "position"
           %th.text-center
             .d-none.d-sm-inline-block Actions
 
@@ -34,6 +36,7 @@
             %td= link_to folder.name, admin_folder_path(folder)
             %td
               .badge.badge-light= folder.slug
+            %td.text-center= simple_check folder.displayed
             %td= folder.position
             %td.text-center
               = render "layouts/edit_delete_dropdown", edit_url: edit_admin_folder_path(folder), delete_url: admin_folder_path(folder), delete_confirmation: "Delete #{folder.name}?"

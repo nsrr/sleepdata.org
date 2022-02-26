@@ -13,5 +13,5 @@
   = render "forms/horizontal/show/text", object: @folder, key: :name
   = render "forms/horizontal/show/text", object: @folder, key: :slug
   = render "forms/horizontal/show/text", object: @folder, key: :position
-  = render "forms/horizontal/show/check_box", object: @folder, key: :displayed
+  = render "forms/horizontal/show/generic", title: "Displayed", content: render("displayed", folder: @folder)
   = render "forms/horizontal/show/generic", title: "Pages", content: render("admin/folders/pages", folder: @folder)

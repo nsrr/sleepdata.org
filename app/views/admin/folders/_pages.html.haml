@@ -2,5 +2,8 @@
   %ul.list-unstyled
     - folder.pages.each do |page|
       %li
+        - unless page.published?
+          %span.text-muted (Not published)
         %span.text-muted= page.position || icon("fas", "infinity")
         = link_to page.title, admin_page_path(page)
+

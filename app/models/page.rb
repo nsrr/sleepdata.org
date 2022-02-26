@@ -5,16 +5,21 @@ class Page < ApplicationRecord
   # Constants
   ORDERS = {
     "id desc" => "pages.id desc",
-    "id" => "pages.id nulls last"
+    "id" => "pages.id nulls last",
+    "published desc" => "pages.published",
+    "published" => "pages.published desc"
   }
   DEFAULT_ORDER = "pages.id nulls last"
 
   # Concerns
   include PgSearch::Model
-  multisearchable against: [:slug, :title, :description], unless: :deleted?
+  multisearchable against: [:slug, :title, :description], if: :published?
   include Deletable
   include Searchable
   include Sluggable
+
+  # Scopes
+  scope :published, -> { current.where(published: true) }
 
   # Validations
   validates :slug, format: { with: /\A[a-z][a-z0-9\-]*\Z/ },

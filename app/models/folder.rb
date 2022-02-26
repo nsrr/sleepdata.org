@@ -7,7 +7,9 @@ class Folder < ApplicationRecord
     "id desc" => "folders.id desc",
     "id" => "folders.id nulls last",
     "position" => "folders.position",
-    "position desc" => "folders.position desc"
+    "position desc" => "folders.position desc",
+    "displayed desc" => "folders.displayed",
+    "displayed" => "folders.displayed desc"
   }
   DEFAULT_ORDER = "folders.position nulls last"
 

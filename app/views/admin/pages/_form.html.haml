@@ -5,4 +5,5 @@
   = render "forms/horizontal/slug_field", form: form, object: page, key: :slug
   = render "forms/horizontal/text_area", form: form, object: page, key: :description, rows: 7, help_text: "Markdown enabled."
   = render "forms/horizontal/text_field", form: form, object: page, key: :position, help_text: "Pages in a folder can be sorted by position. Lower positions appear first."
+  = render "forms/horizontal/check_box", form: form, object: page, key: :published, help_text: "A page is only publicly viewable and searchable if it has been marked as published."
   = render "forms/horizontal/submit", form: form, object: page, cancel: url
