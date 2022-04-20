@@ -13,6 +13,7 @@
     = favicon_link_tag
     = auto_discovery_link_tag(:rss, "#{ENV["website_url"]}/blog.atom")
     = csrf_meta_tags
+    = render "layouts/fathom_analytics" if Rails.env.production?
     = stylesheet_link_tag "application", media: "all", data: { turbolinks_track: "reload" }
     = javascript_include_tag "application", data: { turbolinks_track: "reload" }
     = javascript_tag "var root_url='#{request.script_name + '/'}';"

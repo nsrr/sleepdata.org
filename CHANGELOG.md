@@ -1,5 +1,9 @@
 ## 57.1.0
 
+### Enhancements
+- **General Changes**
+  - Added Fathom Analytics to website and removed Google Analytics
+
 ## 57.0.0 (February 26, 2022)
 
 ### Enhancements
