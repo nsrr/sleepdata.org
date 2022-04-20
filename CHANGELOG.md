@@ -1,4 +1,4 @@
-## 57.1.0
+## 57.1.0 (April 19, 2022)
 
 ### Enhancements
 - **General Changes**
