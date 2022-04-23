@@ -1,5 +1,9 @@
 ## 57.2.0
 
+### Enhancements
+- **Security Changes**
+  - Fixed a Cross Site Scripting (XSS) issue
+
 ## 57.1.0 (April 19, 2022)
 
 ### Enhancements
