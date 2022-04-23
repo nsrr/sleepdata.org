@@ -4,7 +4,7 @@ National Sleep Research Resource
 [![Build Status](https://travis-ci.com/nsrr/sleepdata.org.svg?branch=master)](https://travis-ci.com/nsrr/sleepdata.org)
 [![Code Climate](https://codeclimate.com/github/nsrr/sleepdata.org/badges/gpa.svg)](https://codeclimate.com/github/nsrr/sleepdata.org)
 
-The application that runs https://sleepdata.org. Using Rails 6.1+ and Ruby 3.0+.
+The application that runs https://sleepdata.org. Using Rails 6.1+ and Ruby 3.1+.
 
 
 ## Setting up Daily Digest Emails
@@ -13,17 +13,17 @@ Edit Cron Jobs `sudo crontab -e` to run the task `lib/tasks/daily_digest.rake`
 
 ```
 SHELL=/bin/bash
-0 0 * * SUN source /etc/profile.d/rvm.sh && cd /var/www/sleepdata.org && rvm 3.0.2 && rails search:reset RAILS_ENV=production
-0 1 * * 3 source /etc/profile.d/rvm.sh && cd /var/www/sleepdata.org && rvm 3.0.2 && rails weekly_reviewer_digest RAILS_ENV=production
-0 1 * * * source /etc/profile.d/rvm.sh && cd /var/www/sleepdata.org && rvm 3.0.2 && rails reviewer_digest RAILS_ENV=production
-0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/sleepdata.org && rvm 3.0.2 && rails search:index_dataset_pages RAILS_ENV=production
+0 0 * * SUN source /etc/profile.d/rvm.sh && cd /var/www/sleepdata.org && rvm 3.1.2 && rails search:reset RAILS_ENV=production
+0 1 * * 3 source /etc/profile.d/rvm.sh && cd /var/www/sleepdata.org && rvm 3.1.2 && rails weekly_reviewer_digest RAILS_ENV=production
+0 1 * * * source /etc/profile.d/rvm.sh && cd /var/www/sleepdata.org && rvm 3.1.2 && rails reviewer_digest RAILS_ENV=production
+0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/sleepdata.org && rvm 3.1.2 && rails search:index_dataset_pages RAILS_ENV=production
 ```
 
 Refreshing Sitemap
 
 ```
 SHELL=/bin/bash
-0 1 * * * source /etc/profile.d/rvm.sh && cd /var/www/sleepdata.org && rvm 3.0.2 && rails sitemap:refresh RAILS_ENV=production
+0 1 * * * source /etc/profile.d/rvm.sh && cd /var/www/sleepdata.org && rvm 3.1.2 && rails sitemap:refresh RAILS_ENV=production
 ```
 
 ## Installing Mini Magick - Image Upload Resizing
