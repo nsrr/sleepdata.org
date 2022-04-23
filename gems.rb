@@ -20,6 +20,8 @@ gem "haml",                       "~> 5.2.1"
 gem "hashids",                    "~> 1.0.5"
 gem "kaminari",                   "~> 1.2.1"
 gem "mini_magick",                "~> 4.10.1"
+gem "net-imap",                   require: false
+gem "net-pop",                    require: false
 gem "net-smtp",                   require: false
 gem "pg_search",                  "~> 2.3.5"
 gem "redcarpet",                  "~> 3.5.1"
