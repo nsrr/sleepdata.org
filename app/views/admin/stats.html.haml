@@ -38,12 +38,8 @@
         %td.text-center= number_with_delimiter Agreement.current.regular_members.where(status: ["submitted", "approved", "resubmit", "expired"]).count
         %td.text-center= number_with_delimiter Agreement.current.regular_members.where(status: ["approved", "expired"]).count
 
-- regular_members_files = DatasetFileAudit.regular_members.group(:dataset_id).count
-- regular_members_file_sizes = DatasetFileAudit.regular_members.group(:dataset_id).sum(:file_size)
-- aug_or_core_members_files = DatasetFileAudit.aug_or_core_members.group(:dataset_id).count
-- aug_or_core_members_file_sizes = DatasetFileAudit.aug_or_core_members.group(:dataset_id).sum(:file_size)
-- public_downloads_files = DatasetFileAudit.public_downloads.group(:dataset_id).count
-- public_downloads_file_sizes = DatasetFileAudit.public_downloads.group(:dataset_id).sum(:file_size)
+- all_downloads_files = DatasetFileAudit.group(:dataset_id).count
+- all_downloads_file_sizes = DatasetFileAudit.group(:dataset_id).sum(:file_size)
 
 .dashboard-container
   .dashboard-title
@@ -51,38 +47,25 @@
 
   .table-responsive
     %table.table.table-striped.table-borderless.table-hover
-      %col{ width: "1%" }
+      %col
+      %col{ width: "1px" }
+      %col{ width: "1px" }
       %thead
-        %tr
-          %th
-          %th.text-center{ colspan: 2 } Regular Members
-          %th.text-center{ colspan: 2 } AUG + Core Members
-          %th.text-center{ colspan: 2 } Total
         %tr
           %th Dataset
           %th.text-center{ colspan: 2 } Files Downloaded
-          %th.text-center{ colspan: 2 } Files Downloaded
-          %th.text-center{ colspan: 2 } Files Downloaded
       - Dataset.current.order(:release_date, :name).each do |dataset|
-        - public_downloads_files[dataset.id] ||= 0
-        - public_downloads_file_sizes[dataset.id] ||= 0
+        - all_downloads_files[dataset.id] ||= 0
+        - all_downloads_file_sizes[dataset.id] ||= 0
         %tr
           %td.nowrap= link_to dataset.slug, audits_dataset_path(dataset)
-          %td.text-center.nowrap= pluralize number_with_delimiter(regular_members_files[dataset.id] ||= 0), "file"
-          %td.text-center.nowrap= number_to_human_size(regular_members_file_sizes[dataset.id] ||= 0)
-          %td.text-center.nowrap= pluralize number_with_delimiter(aug_or_core_members_files[dataset.id] ||= 0), "file"
-          %td.text-center.nowrap= number_to_human_size(aug_or_core_members_file_sizes[dataset.id] ||= 0)
-          %td.text-center.nowrap= pluralize number_with_delimiter(regular_members_files[dataset.id] + aug_or_core_members_files[dataset.id] + public_downloads_files[dataset.id]), "file"
-          %td.text-center.nowrap= number_to_human_size regular_members_file_sizes[dataset.id] + aug_or_core_members_file_sizes[dataset.id] + public_downloads_file_sizes[dataset.id]
+          %td.text-right.nowrap= pluralize number_with_delimiter(all_downloads_files[dataset.id]), "file"
+          %td.nowrap= number_to_human_size all_downloads_file_sizes[dataset.id]
       %tfoot
         %tr
           %th Total
-          %th.text-center.nowrap= pluralize number_with_delimiter(regular_members_files.values.sum), "file"
-          %th.text-center.nowrap.bg-success.text-white= number_to_human_size regular_members_file_sizes.values.sum
-          %th.text-center.nowrap= pluralize number_with_delimiter(aug_or_core_members_files.values.sum), "file"
-          %th.text-center.nowrap= number_to_human_size aug_or_core_members_file_sizes.values.sum
-          %th.text-center.nowrap= pluralize number_with_delimiter(regular_members_files.values.sum + aug_or_core_members_files.values.sum + public_downloads_files.values.sum), "file"
-          %th.text-center.nowrap= number_to_human_size regular_members_file_sizes.values.sum + aug_or_core_members_file_sizes.values.sum + public_downloads_file_sizes.values.sum
+          %th.text-right.nowrap= pluralize number_with_delimiter(all_downloads_files.values.sum), "file"
+          %th.nowrap= number_to_human_size all_downloads_file_sizes.values.sum
 
 .dashboard-container
   .dashboard-title

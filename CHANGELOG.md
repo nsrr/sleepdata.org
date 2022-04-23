@@ -1,5 +1,9 @@
 ## 57.2.1
 
+### Enhancements
+- **Admin Report Changes**
+  - Reduced number of statistics computed to improve page load on overall stats
+
 ### Bug Fix
 - Fixed an issue using Ruby 3.1.2
 
