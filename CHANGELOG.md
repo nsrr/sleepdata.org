@@ -1,5 +1,8 @@
 ## 57.2.1
 
+### Bug Fix
+- Fixed an issue using Ruby 3.1.2
+
 ## 57.2.0 (April 23, 2022)
 
 ### Enhancements
