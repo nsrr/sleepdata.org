@@ -39,6 +39,7 @@ class DataRequestsController < ApplicationController
       save_data_request_user
     else
       @user = User.new
+      @user.textcaptcha
       render :about_me
     end
   end
@@ -355,7 +356,7 @@ class DataRequestsController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:username, :email, :password)
+    params.require(:user).permit(:username, :email, :password, :textcaptcha_answer, :textcaptcha_key)
   end
 
   def resume_url(data_request)
