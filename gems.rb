@@ -10,6 +10,7 @@ gem "pg",                         "1.2.3"
 
 # Gems used by project.
 gem "autoprefixer-rails"
+gem "acts_as_textcaptcha",        "~> 4.6.0"
 gem "bootstrap",                  "~> 4.4.1"
 gem "carrierwave",                "~> 2.2.1"
 gem "devise",                     "~> 4.8.0"

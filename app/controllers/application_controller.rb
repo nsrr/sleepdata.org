@@ -35,7 +35,7 @@ class ApplicationController < ActionController::Base
       :sign_up,
       keys: [
         :username, :email, :password, :password_confirmation, :emails_enabled,
-        :orcidid
+        :orcidid, :textcaptcha_answer, :textcaptcha_key
       ]
     )
   end

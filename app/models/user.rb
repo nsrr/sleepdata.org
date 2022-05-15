@@ -38,6 +38,11 @@ class User < ApplicationRecord
   include Forkable
   include Searchable
   include UsernameGenerator
+  acts_as_textcaptcha api_key: ENV["support_email"]
+
+  def perform_textcaptcha?
+    super && !Rails.env.test?
+  end
 
   include Squishable
   squish :full_name

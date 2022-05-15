@@ -10,5 +10,10 @@
 
 = render "forms/vertical/password_field", form: form, object: user, key: :password, placeholder: "Create a password", autocomplete: "new-password"
 
+= textcaptcha_fields(form) do
+  .form-group
+    = form.label :textcaptcha_answer, user.textcaptcha_question
+    = form.text_field :textcaptcha_answer, value: "", class: "form-control", autocomplete: "off", autocorrect: "off", autocapitalize: "none", spellcheck: "false"
+
 .form-group.submit-btn-container
   = form.submit "Next step", class: "btn btn-primary btn-block btn-shadow"

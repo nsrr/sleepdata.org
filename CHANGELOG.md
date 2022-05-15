@@ -3,6 +3,7 @@
 ### Enhancements
 - **General Changes**
   - Added task that purges unconfirmed accounts on a weekly basis
+  - Added a text captcha to the registration page
 
 ## 57.2.1 (April 23, 2022)
 
