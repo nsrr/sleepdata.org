@@ -30,6 +30,6 @@ namespace :users do
 
   desc "Purge unconfirmed accounts that are older than one year old."
   task purge_unconfirmed_accounts: :environment do
-    User.where("created_at < ?", Time.zone.now - 1.year).where(confirmed_at: nil).destroy_all
+    User.current.where("created_at < ?", Time.zone.now - 1.year).where(confirmed_at: nil).destroy_all
   end
 end
