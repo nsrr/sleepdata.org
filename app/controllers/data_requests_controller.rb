@@ -56,6 +56,7 @@ class DataRequestsController < ApplicationController
         @user.send_welcome_email_in_background!(data_request_id: @data_request.id)
         render :data_request_confirm_email
       else
+        @user.textcaptcha
         render :about_me
       end
     end
