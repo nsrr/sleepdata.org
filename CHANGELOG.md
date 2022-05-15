@@ -1,5 +1,9 @@
 ## 58.0.0
 
+### Enhancements
+- **General Changes**
+  - Added task that purges unconfirmed accounts on a weekly basis
+
 ## 57.2.1 (April 23, 2022)
 
 ### Enhancements

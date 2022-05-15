@@ -17,6 +17,7 @@ SHELL=/bin/bash
 0 1 * * 3 source /etc/profile.d/rvm.sh && cd /var/www/sleepdata.org && rvm 3.1.2 && rails weekly_reviewer_digest RAILS_ENV=production
 0 1 * * * source /etc/profile.d/rvm.sh && cd /var/www/sleepdata.org && rvm 3.1.2 && rails reviewer_digest RAILS_ENV=production
 0 2 * * * source /etc/profile.d/rvm.sh && cd /var/www/sleepdata.org && rvm 3.1.2 && rails search:index_dataset_pages RAILS_ENV=production
+0 1 * * SUN source /etc/profile.d/rvm.sh && cd /var/www/sleepdata.org && rvm 3.1.2 && rails users:purge_unconfirmed_accounts RAILS_ENV=production
 ```
 
 Refreshing Sitemap
