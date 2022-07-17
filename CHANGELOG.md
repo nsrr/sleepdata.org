@@ -1,4 +1,4 @@
-## 58.0.0
+## 58.0.0 (July 17, 2022)
 
 ### Enhancements
 - **General Changes**
