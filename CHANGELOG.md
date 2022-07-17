@@ -8,6 +8,10 @@
 - **Dataset Changes**
   - Editors can now disable requesting new data requests on existing datasets
 
+### Bug Fixes
+- Fixed dataset request counts being slightly off due to requests getting
+  approved multiple times
+
 ## 57.2.1 (April 23, 2022)
 
 ### Enhancements

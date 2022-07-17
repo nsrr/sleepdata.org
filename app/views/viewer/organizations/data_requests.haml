@@ -15,7 +15,7 @@
 
 - users_count = User.current.no_spammer_or_shadow_banned.count
 - data_requests_submitted_count = @organization.data_request_events.where(event_type: "user_submitted").distinct(:agreement_id).count
-- data_requests_approved_count = @organization.data_request_events.where(event_type: "user_submitted").merge(DataRequest.where(status: "approved")).count
+- data_requests_approved_count = @organization.data_requests.where(status: "approved").count
 - percent_approved = data_requests_submitted_count.zero? ? nil : data_requests_approved_count * 100.0 / data_requests_submitted_count
 
 .row

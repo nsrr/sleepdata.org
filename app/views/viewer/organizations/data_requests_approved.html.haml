@@ -13,9 +13,8 @@
 
 - content_for :sidebar, render("viewer/organizations/sidebar")
 
-- approved_agreement_events = @organization.data_request_events.where(event_type: ["principal_reviewer_approved"]).distinct(:agreement_id) # .regular_members
-- agreement_events = approved_agreement_events
-- data_requests_count = agreement_events.count
+- agreement_events =  @organization.data_request_events.where(event_type: ["principal_reviewer_approved"]).joins(:agreement).merge(@organization.data_requests.where(status: "approved"))
+- data_requests_count = agreement_events.pluck(:agreement_id).count
 - data_request = @organization.data_requests.order(:created_at).first
 - first_date = data_request&.created_at&.to_date
 - months = (Time.zone.today - first_date).to_f / 30 if first_date
