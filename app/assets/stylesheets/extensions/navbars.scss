@@ -30,6 +30,11 @@
       margin-bottom: -2px;
     }
   }
+
+  .nav-item-signup {
+    border: 2px solid transparent;
+    border-radius: .25rem;
+  }
 }
 
 @each $name, $theme in $themes {
@@ -39,7 +44,8 @@
     }
 
     @include media-breakpoint-up(lg) {
-      .nav-item {
+      .nav-item,
+      .nav-item-signup {
         &:focus,
         &:hover,
         &.active {
@@ -47,6 +53,10 @@
           background-color: rgba($black, .2);
           border-color: map-get($theme, p200);
         }
+      }
+
+      .nav-item-signup {
+        border-color: rgba($white, .9);
       }
     }
   }
