@@ -378,6 +378,10 @@ Rails.application.routes.draw do
     end
   end
 
+  devise_scope :user do
+    post :join, to: "registrations#create"
+  end
+
   devise_for :users,
              controllers: {
                confirmations: "confirmations",
