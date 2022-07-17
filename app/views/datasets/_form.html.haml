@@ -14,6 +14,7 @@
   = render "forms/horizontal/text_area", form: form, object: dataset, key: :info_citation, key_name: "Citation"
   = render "forms/horizontal/text_field", form: form, object: dataset, key: :git_repository, key_name: "Documentation repository", help_text: "Ex: https://github.com/<repository-name>.git"
   = render "forms/horizontal/check_box", form: form, object: dataset, key: :released
+  = render "forms/horizontal/check_box", form: form, object: dataset, key: :disable_data_requests, help_text: "Selecting this disables new dataset requests."
   = render "forms/horizontal/date_field", form: form, object: dataset, key: :release_date
   = render "forms/horizontal/text_field", form: form, object: dataset, key: :doi, key_name: "DOI", help_text: "Ex: 10.25822/1dzj-qh55"
   %hr

@@ -14,6 +14,11 @@ module DatasetsHelper
       url = files_dataset_path(dataset)
       icon = content_tag(:i, nil, class: "fas fa-check-circle #{"text-success" if color}") # fa-check-circle fa-check-square
       arrow = false
+    elsif dataset.disable_data_requests?
+      text = "Dataset Unavailable for New Requests"
+      url = dataset
+      icon = content_tag(:i, nil, class: "fas fa-exclamation-triangle #{"text-warning" if color}")
+      arrow = false
     elsif data_request_by_status(dataset, "submitted")
       status = "submitted"
       data_request = data_request_by_status(dataset, "submitted")

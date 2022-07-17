@@ -128,7 +128,7 @@ class Editor::DatasetsController < ApplicationController
       :git_repository, :release_date, :info_what, :info_who,
       :info_when, :info_funded_by, :info_citation, :subjects,
       :age_min, :age_max, :time_frame, :polysomnography, :actigraphy, :doi,
-      :featured
+      :featured, :disable_data_requests
     )
   end
 

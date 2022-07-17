@@ -1,4 +1,4 @@
-- datasets = data_request.final_legal_document.legal_document.datasets.current.order(:release_date, :name)
+- datasets = data_request.final_legal_document.legal_document.datasets.where(disable_data_requests: false).current.order(:release_date, :name)
 - only_released_datasets ||= false
 - show_all_datasets = !only_released_datasets
 .card-deck.mb-3

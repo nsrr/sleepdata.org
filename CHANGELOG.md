@@ -5,6 +5,8 @@
   - Added task that purges unconfirmed accounts on a weekly basis
   - Added a text captcha to the registration page
   - Increased emphasis on sign up button
+- **Dataset Changes**
+  - Editors can now disable requesting new data requests on existing datasets
 
 ## 57.2.1 (April 23, 2022)
 
