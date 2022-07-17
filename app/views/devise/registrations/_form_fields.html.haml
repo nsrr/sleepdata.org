@@ -13,8 +13,8 @@
 = textcaptcha_fields(form) do
   .form-group
     = form.label :textcaptcha_answer, user.textcaptcha_question
-    = form.text_field :textcaptcha_answer, value: "", class: "form-control#{" is-invalid" if resource.errors[:textcaptcha_answer].present?}", autocomplete: "off", autocorrect: "off", autocapitalize: "none", spellcheck: "false"
-    = render "forms/invalid_feedback", object: resource, key: :textcaptcha_answer
+    = form.text_field :textcaptcha_answer, value: "", class: "form-control#{" is-invalid" if user.errors[:textcaptcha_answer].present?}", autocomplete: "off", autocorrect: "off", autocapitalize: "none", spellcheck: "false"
+    = render "forms/invalid_feedback", object: user, key: :textcaptcha_answer
 
 .form-group.submit-btn-container
   = form.submit "Next step", class: "btn btn-primary btn-block btn-shadow"
