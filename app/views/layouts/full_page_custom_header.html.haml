@@ -17,6 +17,7 @@
     = stylesheet_link_tag "application", media: "all", data: { turbolinks_track: "reload" }
     = javascript_include_tag "application", data: { turbolinks_track: "reload" }
     = javascript_tag "var root_url='#{request.script_name + '/'}';"
+    = render "layouts/constant_contact"
   %body#top.full-page.theme-bg{ class: @theme ? "theme-#{@theme}-bg" : nil, data: { theme: @theme } }
     = render "layouts/staging_server" if STAGING_SERVER
     = render "layouts/service_announcement", container: yield(:container_class)

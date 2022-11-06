@@ -7,6 +7,7 @@
     page redirects to the published about page and is hidden from the menu
 - **General Changes**
   - Fixed alignment and styling of menu items
+  - Added constant contact signup form to landing page
 
 ## 58.0.0 (July 17, 2022)
 
