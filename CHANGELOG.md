@@ -1,5 +1,9 @@
 ## 59.0.0
 
+### Enhancements
+- **Admin Changes**
+  - Users export now includes join date and last login date
+
 ## 58.0.0 (July 17, 2022)
 
 ### Enhancements
