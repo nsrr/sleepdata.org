@@ -23,16 +23,19 @@
 
 @include media-breakpoint-up(lg) {
   .nav-item {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+
     &:focus,
     &:hover,
     &.active {
       border-bottom: 2px solid transparent;
-      margin-bottom: -2px;
+      margin-bottom: -1px;
     }
   }
 
   .nav-item-signup {
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     border-radius: .25rem;
   }
 }
@@ -51,7 +54,7 @@
         &.active {
           color: rgba($white, .9);
           background-color: rgba($black, .2);
-          border-color: map-get($theme, p200);
+          border-bottom-color: map-get($theme, p200);
         }
       }
 
