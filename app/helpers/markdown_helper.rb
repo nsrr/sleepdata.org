@@ -28,7 +28,7 @@ module MarkdownHelper
     result = text.to_s.gsub(/<a href="(?:\:datasets\_path\:)(.*?)">/, "<a href=\"#{full_path}/datasets\\1\">")
     result = result.gsub(/<img src="(?:\:datasets\_path\:)(.*?)">/, "<img src=\"#{full_path}/datasets\\1\">")
     if @dataset
-      %w(pages files images).each do |word|
+      %w(pages files images variables).each do |word|
         result = result.gsub(
           /<a href="(?:\:#{word}\_path\:)(.*?)">/,
           "<a href=\"#{full_path}/datasets/#{@dataset.slug}/#{word}\\1\">"

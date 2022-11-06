@@ -9,6 +9,10 @@
 - **General Changes**
   - Fixed alignment and styling of menu items
   - Added constant contact signup form to landing page
+- **Dataset Changes**
+  - Added :variables_path: shortcode for dataset documentation
+    - `:variables_path:` => `/datasets/SLUG/variables`
+    - `:variables_path:/bmi` => `/datasets/SLUG/variables/bmi`
 
 ## 58.0.0 (July 17, 2022)
 
