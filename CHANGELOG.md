@@ -3,6 +3,8 @@
 ### Enhancements
 - **Admin Changes**
   - Users export now includes join date and last login date
+  - If a page with the slug "about" has been published, then the static about
+    page redirects to the published about page and is hidden from the menu
 
 ## 58.0.0 (July 17, 2022)
 

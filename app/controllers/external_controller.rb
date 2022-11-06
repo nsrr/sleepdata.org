@@ -4,8 +4,14 @@
 class ExternalController < ApplicationController
   # GET /about
   def about
-    @faqs = Faq.displayed.order(Arel.sql("position nulls last"))
-    render layout: "layouts/full_page"
+    @page = Page.published.find_by(slug: "about")
+
+    if @page
+      render "pages/show"
+    else
+      @faqs = Faq.displayed.order(Arel.sql("position nulls last"))
+      render layout: "layouts/full_page"
+    end
   end
 
   # GET /about/academic-user-group
