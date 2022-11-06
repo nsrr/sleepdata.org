@@ -3,7 +3,23 @@
   = render "forms/horizontal/select", form: form, object: page, key: :folder_id, options: Folder.current.order(:name).pluck(:name, :id), include_blank: true
   = render "forms/horizontal/text_field", form: form, object: page, key: :title, slug: "slug"
   = render "forms/horizontal/slug_field", form: form, object: page, key: :slug
-  = render "forms/horizontal/text_area", form: form, object: page, key: :description, rows: 7, help_text: "Markdown enabled."
+
+  .form-group.row
+    = form.label :description, class: "col-md-2 col-form-label"
+    .col-md-10
+      .preview-container
+        .preview-header
+          .float-right
+            = render "replies/rich_text_editor_buttons", target: "#page_description"
+          = link_to "Write", "#", data: { object: "view-content-markdown" }, class: "preview-tab active", tabindex: "-1"
+          = link_to "Preview", "#", data: { object: "view-content-preview", content: "#page_description" }, class: "preview-tab", tabindex: "-1"
+        .preview-body
+          #content_markdown
+            = form.text_area :description, rows: [[15, page.description.to_s.count("\n") + 1].max, 25].min, class: "preview-control filedrag-container", data: { object: "expandable-text-area dropfile", default_rows: 15, upload_url: upload_images_path(update: "#page_description", format: "js"), fallback_url: new_image_path, log_id: "#log_new" }, id: "page_description"
+            #log_new.filedrag
+              Drag images above to insert into post.
+          #content_preview.broadcast{ style: "display: none;" }
+
   = render "forms/horizontal/text_field", form: form, object: page, key: :position, help_text: "Pages in a folder can be sorted by position. Lower positions appear first."
   = render "forms/horizontal/check_box", form: form, object: page, key: :published, help_text: "A page is only publicly viewable and searchable if it has been marked as published."
   = render "forms/horizontal/submit", form: form, object: page, cancel: url
