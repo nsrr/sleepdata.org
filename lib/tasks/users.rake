@@ -7,7 +7,7 @@ namespace :users do
     FileUtils.mkdir_p tmp_folder
     csv_file = File.join(tmp_folder, "users-#{Time.zone.today.strftime("%F")}.csv")
     CSV.open(csv_file, "wb") do |csv|
-      csv << ["NSRR ID", "Full Name", "ORCID iD", "Email", "Email Confirmed", "Emails Enabled", "Username", "Login Count"]
+      csv << ["NSRR ID", "Full Name", "ORCID iD", "Email", "Email Confirmed", "Emails Enabled", "Username", "Login Count", "Join Date", "Last Login Date"]
       users = User.current.order(:id)
       user_count = users.count
       users.each_with_index do |user, index|
@@ -20,7 +20,9 @@ namespace :users do
           user.confirmed?,
           user.emails_enabled?,
           user.username,
-          user.sign_in_count
+          user.sign_in_count,
+          user.created_at&.strftime("%F"),
+          user.current_sign_in_at&.strftime("%F")
         ]
       end
       puts "\n...DONE"

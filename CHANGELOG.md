@@ -1,3 +1,19 @@
+## 59.0.0 (December 11, 2022)
+
+### Enhancements
+- **Admin Changes**
+  - Users export now includes join date and last login date
+  - If a page with the slug "about" has been published, then the static about
+    page redirects to the published about page and is hidden from the menu
+  - Images can be drag-and-dropped into page descriptions
+- **General Changes**
+  - Fixed alignment and styling of menu items
+  - Added constant contact signup form to landing page
+- **Dataset Changes**
+  - Added :variables_path: shortcode for dataset documentation
+    - `:variables_path:` => `/datasets/SLUG/variables`
+    - `:variables_path:/bmi` => `/datasets/SLUG/variables/bmi`
+
 ## 58.0.0 (July 17, 2022)
 
 ### Enhancements

@@ -4,7 +4,7 @@
   = render "menu/item", title: folder.name, path: pages.first
 - elsif pages.count > 1
   %li.nav-item.dropdown.d-none.d-lg-block
-    .btn-group.nav-item
+    .btn-group
       = link_to "#", class: "nav-link dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do
         = folder.name
       .dropdown-menu.dropdown-menu-custom

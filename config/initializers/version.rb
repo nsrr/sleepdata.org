@@ -2,7 +2,7 @@
 
 module SleepData
   module VERSION #:nodoc:
-    MAJOR = 58
+    MAJOR = 59
     MINOR = 0
     TINY = 0
     BUILD = nil # "pre", "beta1", "beta2", "rc", "rc2", nil
