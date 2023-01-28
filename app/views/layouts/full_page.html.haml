@@ -22,7 +22,7 @@
     = render "layouts/staging_server" if STAGING_SERVER
     = render "layouts/service_announcement", container: yield(:container_class)
     = render "layouts/flash_bar"
-    #top-menu.top-menu= render "layouts/menu", container: yield(:container_class)
+    #top-menu.top-menu= render "layouts/menu", menu: @theme ? "menu-#{@theme}" : nil, container: yield(:container_class)
     = yield :header
     = yield
     = yield :footer

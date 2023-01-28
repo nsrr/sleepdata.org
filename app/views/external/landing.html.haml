@@ -17,7 +17,7 @@
     .landing-text
       .animated-letter-grey.animation-delay-10 Advancing science globally through data sharing.
 
-#top-menu.top-menu= render "layouts/menu"
+#top-menu.top-menu= render "layouts/menu", menu: @theme ? "menu-#{@theme}" : nil
 
 .page-box
   - if @announcements.present?

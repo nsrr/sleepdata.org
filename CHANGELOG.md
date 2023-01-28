@@ -1,5 +1,9 @@
 ## 60.0.0
 
+### Enhancements
+- **General Changes**
+ - Added a new navy theme for the website
+
 ## 59.0.0 (December 11, 2022)
 
 ### Enhancements

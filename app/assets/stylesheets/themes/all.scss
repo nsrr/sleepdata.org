@@ -2,7 +2,9 @@
 
 @import 'themes/colors';
 @import 'themes/default';
+@import 'themes/navy';
 
 $themes: (
-  default: $default
+  default: $default,
+  navy: $navy
 );

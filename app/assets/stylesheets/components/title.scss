@@ -16,7 +16,7 @@
   }
 
   .bar {
-    border-bottom: 2px solid $p300-green;
+    border-bottom: 2px solid transparent;
     height: calc(2rem - 2px);
     width: 0;
 
@@ -45,6 +45,16 @@
     .bar {
       border-bottom: 1px solid $p300-green;
       height: calc(1.875rem - 1px);
+    }
+  }
+}
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .title-container {
+      .bar {
+        border-bottom-color: map-get($theme, p300);
+      }
     }
   }
 }

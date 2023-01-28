@@ -28,18 +28,24 @@
 }
 
 .footer-container-dark {
-  background-color: $p900-green;
-  color: $brand-white;
-
   a {
-    color: $brand-white;
-
     &:hover,
     &:focus,
     &:active,
     &.active,
     &.disabled,
     &[disabled] {
+    }
+  }
+}
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg.footer-container-dark {
+    background-color: map-get($theme, p900);
+    color: map-get($theme, brand-white);
+
+    a {
+      color: map-get($theme, brand-white);
     }
   }
 }

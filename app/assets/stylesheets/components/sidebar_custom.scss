@@ -20,28 +20,11 @@
     .active,
     a:hover,
     a:focus {
-      background-color: $p600-green;
-      border-color: $p800-green;
-      color: $brand-white;
       text-decoration: none;
-
-      > .badge-sidebar {
-        background-color: $brand-white;
-        color: $p800-green;
-      }
     }
 
     .link-disabled {
-      background-color: $brand-white;
-      color: $text-muted;
       text-decoration: none;
-
-      &:hover,
-      &:focus {
-        border-color: $p50-grey;
-        background-color: $p50-grey;
-        color: $text-muted;
-      }
     }
 
     &.sidebar-menu-header {
@@ -62,13 +45,58 @@
   }
 
   &.sidebar-menu-shadow {
-    background-color: $brand-white;
     border-radius: 3px;
-    box-shadow: 0 1px 5px $box-shadow-color;
+    box-shadow: 0 1px 5px transparent;
   }
 }
 
 .badge-sidebar {
   background-color: map-get($theme-colors, primary);
   color: $brand-white;
+}
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .bg-landing {
+      background-image: linear-gradient(180deg, map-get($theme, footer-bg), map-get($theme, body-focus) 40%, map-get($theme, footer-bg));
+      background-color: map-get($theme, p900);
+      color: map-get($theme, brand-white);
+    }
+
+
+    .sidebar-menu {
+      li {
+        .active,
+        a:hover,
+        a:focus {
+          background-color: map-get($theme, p600);
+          border-color: map-get($theme, p800);
+          color: map-get($theme, brand-white);
+
+          > .badge-sidebar {
+            background-color: map-get($theme, brand-white);
+            color: map-get($theme, p800);
+          }
+        }
+
+        .link-disabled {
+          background-color: map-get($theme, brand-white);
+          color: $text-muted;
+
+          &:hover,
+          &:focus {
+            border-color: $p50-grey;
+            background-color: $p50-grey;
+            color: $text-muted;
+          }
+        }
+      }
+
+      &.sidebar-menu-shadow {
+        background-color: map-get($theme, brand-white);
+        box-shadow: 0 1px 5px map-get($theme, box-shadow-color);
+      }
+    }
+
+  }
 }
