@@ -16,6 +16,7 @@ module MarkdownHelper
       result = remove_images(result)
     end
     result = remove_tables(result) unless allow_tables
+    result = add_anchors(result)
     result = target_link_as_blank(result) if target_blank
     result.html_safe
   end
@@ -72,6 +73,14 @@ module MarkdownHelper
 
   def ascii_number(number)
     "&##{(number.to_i + 48).to_s};"
+  end
+
+  def add_anchors(text)
+    text.to_s.gsub(%r{<h2>(.*?)</h2>}m) do
+      anchor = Regexp.last_match[1]
+      anchor_link = anchor.gsub(/[^a-zA-Z\d\s]/, "").squish.gsub(" ", "-").downcase
+      "<h2>#{anchor}</h2><a class=\"anchor-bottom\" name=\"#{anchor_link}\"></a>"
+    end
   end
 
   def redcarpet_markdown

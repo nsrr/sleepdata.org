@@ -8,3 +8,12 @@
   width: 0;
   visibility: hidden;
 }
+
+.anchor-bottom {
+  display: block;
+  height: 0;
+  position: relative;
+  top: -($header-height) - 60px;
+  width: 0;
+  visibility: hidden;
+}

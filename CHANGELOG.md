@@ -6,6 +6,7 @@
  - Added new logo to landing page and corresponding favicon
 - **Dataset Changes**
   - Added "Questionnaires Only" option for datasets
+  - Datasets with a single file now automatically generate a table of contents
 
 ### Bug Fixes
 - Adjust menu navbar to prevent elements from moving when hovering on windows

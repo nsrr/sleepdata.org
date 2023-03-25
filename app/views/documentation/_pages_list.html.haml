@@ -15,7 +15,12 @@
 
     - pages = @object.pages(@path)[0..(page * 100 + 100 - 1)]
 
-    - if pages.present?
+    - if pages.size == 1 && File.file?(pages[0][1]) && @path.blank?
+      - anchors = File.read(pages[0][1]).to_s.split("\n").select { |row| row =~ /^##\s/ }.collect { |row| row.gsub(/^##\s/, "") }
+      - anchors.each do |anchor|
+        - anchor_link = anchor.gsub(/[^a-zA-Z\d\s]/, "").squish.gsub(" ", "-").downcase
+        %li.nowrap= link_to anchor, "##{anchor_link}", class: "overflow-hidden"
+    - elsif pages.present?
       - @object.pages(@path)[0..(page * 100 + 100 - 1)].each do |page_name, page|
         - is_file = File.file?(page)
         - folder = @object.page_path(page)
