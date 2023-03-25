@@ -23,14 +23,13 @@
 
 @include media-breakpoint-up(lg) {
   .nav-item {
-    border-bottom: 1px solid transparent;
+    border-bottom: 2px solid transparent;
     border-top: 1px solid transparent;
 
     &:focus,
     &:hover,
     &.active {
       border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
     }
   }
 

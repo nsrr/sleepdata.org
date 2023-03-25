@@ -4,6 +4,9 @@
 - **General Changes**
  - Added a new navy theme for the website
 
+### Bug Fixes
+- Adjust menu navbar to prevent elements from moving when hovering on windows
+
 ## 59.0.0 (December 11, 2022)
 
 ### Enhancements
