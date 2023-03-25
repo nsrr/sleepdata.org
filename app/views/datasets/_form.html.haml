@@ -37,4 +37,5 @@
   = render "forms/horizontal/text_field", form: form, object: dataset, key: :time_frame, help_text: "Ex: 2000 - 2005"
   = render "forms/horizontal/check_box", form: form, object: dataset, key: :polysomnography
   = render "forms/horizontal/check_box", form: form, object: dataset, key: :actigraphy
+  = render "forms/horizontal/check_box", form: form, object: dataset, key: :questionnaires_only
   = render "forms/horizontal/submit", form: form, object: dataset, cancel: dataset.new_record? ? datasets_path : settings_dataset_path(dataset)
