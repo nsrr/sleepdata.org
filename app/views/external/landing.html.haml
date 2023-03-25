@@ -1,21 +1,19 @@
 - render "themes/theme"
 
 .d-flex.align-items-center.bg-landing
-  .container.text-center
-    %h1.landing-title.mb-3
-      .animated-letter.animation-delay-1> N
-      .animated-letter-grey.animation-delay-6 ational
-      %span
-      .animated-letter.animation-delay-2> S
-      .animated-letter-grey.animation-delay-6 leep
-      %br.d-block.d-sm-none
-      .animated-letter.animation-delay-3>R
-      .animated-letter-grey.animation-delay-6 esearch
-      %span
-      .animated-letter.animation-delay-4>R
-      .animated-letter-grey.animation-delay-6 esource
-    .landing-text
-      .animated-letter-grey.animation-delay-10 Advancing science globally through data sharing.
+  .container.d-flex.flex-row.align-items-center
+    %div= image_tag "nsrr-signal-logo-transparent-square.png", width: "140px"
+    %div.ml-3.pl-3{ style: "border-left: 1px solid #2b9dbc;" }
+      %h1.landing-logo
+        National
+        %br
+        Sleep Research
+        %br
+        Resource
+      .landing-tagline
+        Advancing science globally
+        %br
+        through data sharing
 
 #top-menu.top-menu= render "layouts/menu", menu: @theme ? "menu-#{@theme}" : nil
 

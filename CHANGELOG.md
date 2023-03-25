@@ -3,6 +3,7 @@
 ### Enhancements
 - **General Changes**
  - Added a new navy theme for the website
+ - Added new logo to landing page and corresponding favicon
 
 ### Bug Fixes
 - Adjust menu navbar to prevent elements from moving when hovering on windows
