@@ -1,4 +1,4 @@
-## 60.0.0
+## 60.0.0 (April 29, 2023)
 
 ### Enhancements
 - **General Changes**
