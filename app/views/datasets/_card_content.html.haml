@@ -23,6 +23,9 @@
         - if dataset.actigraphy?
           Actigraphy
           %br
+        - if dataset.questionnaires_only?
+          Questionnaires Only
+          %br
   - else
     .dataset-info-item.text-muted
       Update in progress.

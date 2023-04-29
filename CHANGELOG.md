@@ -1,3 +1,17 @@
+## 60.0.0 (April 29, 2023)
+
+### Enhancements
+- **General Changes**
+ - Added a new navy theme for the website
+ - Added new logo to landing page and corresponding favicon
+- **Dataset Changes**
+  - Added "Questionnaires Only" option for datasets
+  - Datasets with a single file now automatically generate a table of contents
+
+### Bug Fixes
+- Adjust menu navbar to prevent elements from moving when hovering on windows
+- Allow ORCIDs to include an X as the last character
+
 ## 59.0.0 (December 11, 2022)
 
 ### Enhancements

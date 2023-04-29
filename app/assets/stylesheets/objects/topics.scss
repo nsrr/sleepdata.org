@@ -37,3 +37,13 @@
     color: darken($p500-blue, 15%);
   }
 }
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .topic-line-mark {
+      &.topic-line-unread {
+        background-color: map-get($theme, p100);
+      }
+    }
+  }
+}

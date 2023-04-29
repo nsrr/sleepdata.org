@@ -20,9 +20,6 @@
     .active,
     a:hover,
     a:focus {
-      background-color: $p600-green;
-      border-color: $p800-green;
-      color: $brand-white;
       text-decoration: none;
     }
 
@@ -40,6 +37,20 @@
     // preceding it
     + .blog-menu-header {
       margin-top: 20px;
+    }
+  }
+}
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .blog-menu {
+      .active,
+      a:hover,
+      a:focus {
+        background-color: map-get($theme, p600);
+        border-color: map-get($theme, p800);
+        color: map-get($theme, brand-white);
+      }
     }
   }
 }

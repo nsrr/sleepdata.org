@@ -1,4 +1,8 @@
-.footer-container{ class: @footer.present? ? "footer-container-#{@footer}" : nil }
+- div_classes = []
+- div_classes << "footer-container-#{@footer}" if @footer.present?
+- div_classes << "theme-#{@theme}-bg" if @theme.present?
+
+.footer-container{ class: div_classes.join(" ") }
   %div{ class: defined?(container) && container.present? ? container : "container" }
     .footer
       .nowrap.row

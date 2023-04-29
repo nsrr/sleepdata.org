@@ -16,7 +16,6 @@
     .breadcrumb-container
       .container
         = render "documentation/toggle_menu"
-
         - pages_path = pages_dataset_path(@dataset)
         %ol
           %li= link_to @dataset.breadcrumb_slug, @dataset

@@ -6,7 +6,6 @@
 }
 
 .broadcast-by {
-  background-color: $p50-green;
   border-radius: 0 0 4px 4px;
   bottom: 0;
   left: 0;
@@ -21,6 +20,14 @@
     font-weight: 300;
     overflow: hidden;
     text-overflow: ellipsis;
+  }
+}
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .broadcast-by {
+      background-color: map-get($theme, p50);
+    }
   }
 }
 

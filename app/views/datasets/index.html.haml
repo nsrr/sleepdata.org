@@ -43,6 +43,8 @@
             Actigraphy
           - when "polysomnography"
             Polysomnography
+          - when "questionnaires-only"
+            Questionnaires Only
           - else
             All Data
 
@@ -51,6 +53,7 @@
         = link_to "All Data", datasets_path(filtered_params.merge(data: nil)), style: params[:data].blank? ? "font-weight: bold" : nil, class: "dropdown-item"
         = link_to "Actigraphy", datasets_path(filtered_params.merge(data: "actigraphy")), style: params[:data] == "actigraphy" ? "font-weight: bold" : nil, class: "dropdown-item"
         = link_to "Polysomnography", datasets_path(filtered_params.merge(data: "polysomnography")), style: params[:data] == "polysomnography" ? "font-weight: bold" : nil, class: "dropdown-item"
+        = link_to "Questionnaires Only", datasets_path(filtered_params.merge(data: "questionnaires-only")), style: params[:data] == "questionnaires-only" ? "font-weight: bold" : nil, class: "dropdown-item"
   .text-center{ style: "margin: auto; flex: 1;" }
     .btn-group
       = link_to "#", class: "btn btn-sm btn-light dropdown-toggle", data: { toggle: "dropdown" }, aria: { haspopup: "true", expanded: "false" } do

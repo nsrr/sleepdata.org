@@ -60,8 +60,7 @@
     @include scale-images;
 
     backface-visibility: hidden;
-    background-color: $brand-white;
-    box-shadow: 0 1px 5px $box-shadow-color;
+    box-shadow: 0 1px 5px transparent;
     border-radius: 4px;
     padding: 10px;
     position: absolute;
@@ -69,18 +68,6 @@
     height: 100%;
     transition: transform 1s;
     transform-style: preserve-3d;
-
-    &.landing-face-share {
-      background-color: $brand-success;
-
-      a {
-        color: $brand-white;
-      }
-
-      i {
-        color: $brand-white;
-      }
-    }
   }
 
   .landing-face-unstyled {
@@ -109,6 +96,30 @@
   //   }
   // }
 }
+
+@each $name, $theme in $themes {
+  .theme-#{$name}-bg {
+    .landing-box {
+      .landing-face {
+        background-color: map-get($theme, brand-white);
+        box-shadow: 0 1px 5px map-get($theme, box-shadow-color);
+
+        &.landing-face-share {
+          background-color: map-get($theme, p900);
+
+          a {
+            color: map-get($theme, brand-white);
+          }
+
+          i {
+            color: map-get($theme, brand-white);
+          }
+        }
+      }
+    }
+  }
+}
+
 
 .landing-box-header {
   font-size: 18px;
@@ -174,4 +185,23 @@
 .landing-news-container {
   background-color: $p50-green;
   margin-bottom: 20px;
+}
+
+
+.landing-logo {
+  font-family: Lato;
+  font-size: 1.75rem;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.landing-tagline {
+  color: #2b9dbc;
+  font-family: Lato;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
 }

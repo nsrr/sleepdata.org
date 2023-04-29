@@ -1,0 +1,46 @@
+$navy: (
+  brand-white: #fff,
+  brand-black: $p900-grey,
+
+  p50: $p50-navy,
+  p100: $p100-navy,
+  p200: $p200-navy,
+  p300: $p300-navy,
+  p400: $p400-navy,
+  p500: $p500-navy,
+  p600: $p600-navy,
+  p700: $p700-navy,
+  p800: $p800-navy,
+  p900: $p900-navy,
+
+  primary: $p500-navy,
+  accent: $a400-amber,
+  success: null, // $p500-green
+
+  menu-bg: null, // $p600-COLOR
+  menu-color: null, // brand-white
+
+  body-bg: $p50-grey,
+  body-color: $p900-grey,
+  body-focus: $p800-navy,
+
+  footer-bg: $p900-navy, // $p100-grey
+  footer-color: null, // $p900-grey
+
+  dashboard-bg: #fff,
+  form-title-bg: $p500-navy, // $p500-COLOR
+  form-bg: $p50-grey,
+
+  input-bg: null, // $white
+  input-color: null, // $p800-grey
+
+  box-shadow-color: rgba(0, 0, 0, .15),
+  shadow-color: rgba(0, 0, 0, .3),
+
+  blockquote-border: null, // $p200-grey
+  blockquote-color: null, // $p500-grey
+
+  calendar-border: null, // $p200-grey,
+  calendar-today-bg: null, // $p100-grey,
+  calendar-window-bg: null, // $p400-COLOR,
+);
