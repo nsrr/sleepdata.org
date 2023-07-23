@@ -190,7 +190,7 @@
 
 .landing-logo {
   font-family: Lato;
-  font-size: 1.75rem;
+  font-size: 1.25rem;
   font-style: normal;
   font-weight: 400;
   letter-spacing: 1px;
@@ -200,8 +200,19 @@
 .landing-tagline {
   color: #2b9dbc;
   font-family: Lato;
+  font-size: 0.75rem;
   font-style: normal;
   font-weight: 400;
   letter-spacing: 3px;
   text-transform: uppercase;
+}
+
+@include media-breakpoint-up(lg) {
+  .landing-logo {
+    font-size: 1.75rem;
+  }
+
+  .landing-tagline {
+    font-size: 1rem;
+  }
 }

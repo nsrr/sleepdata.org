@@ -4,6 +4,9 @@
 - **General Changes**
   - Upgrade to jquery-rails 4.4.0
 
+### Bug Fix
+- Adjusted logo name and tagline size to properly display on mobile
+
 ## 60.0.0 (April 29, 2023)
 
 ### Enhancements
