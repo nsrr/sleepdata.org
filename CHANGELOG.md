@@ -1,5 +1,9 @@
 ## 60.0.1
 
+### Enhancements
+- **General Changes**
+  - Upgrade to jquery-rails 4.4.0
+
 ## 60.0.0 (April 29, 2023)
 
 ### Enhancements
