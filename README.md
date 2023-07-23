@@ -1,7 +1,7 @@
 National Sleep Research Resource
 ================================
 
-[![Build Status](https://travis-ci.com/nsrr/sleepdata.org.svg?branch=master)](https://travis-ci.com/nsrr/sleepdata.org)
+[![Build Status](https://app.travis-ci.com/nsrr/sleepdata.org.svg?branch=main)](https://app.travis-ci.com/github/nsrr/sleepdata.org)
 [![Code Climate](https://codeclimate.com/github/nsrr/sleepdata.org/badges/gpa.svg)](https://codeclimate.com/github/nsrr/sleepdata.org)
 
 The application that runs https://sleepdata.org. Using Rails 6.1+ and Ruby 3.1+.

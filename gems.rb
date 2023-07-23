@@ -32,7 +32,7 @@ gem "sitemap_generator",          "~> 6.0.1"
 # Rails defaults.
 gem "coffee-rails",               "~> 5.0"
 gem "jbuilder",                   "~> 2.9"
-gem "jquery-rails",               "~> 4.3.5"
+gem "jquery-rails",               ">= 4.4.0"
 gem "sass-rails",                 ">= 6"
 gem "turbolinks",                 "~> 5"
 gem "uglifier",                   ">= 1.3.0"
