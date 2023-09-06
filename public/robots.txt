@@ -27,3 +27,18 @@ Disallow: /
 
 User-agent: dotbot
 Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: DataForSEO
+Disallow: /
+
+User-agent: MJ12Bot
+Disallow: /
+
+User-agent: BLEXBot
+Disallow: /
