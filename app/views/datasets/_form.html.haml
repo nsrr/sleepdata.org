@@ -12,6 +12,7 @@
   = render "forms/horizontal/text_area", form: form, object: dataset, key: :description
   = render "forms/horizontal/file_field", form: form, object: dataset, key: :logo, help_text: "JPG, GIF, PNG"
   = render "forms/horizontal/text_area", form: form, object: dataset, key: :info_citation, key_name: "Citation"
+  = render "forms/horizontal/text_area", form: form, object: dataset, key: :request_warning, help_text: "When present, this text provides an additional warning message when selecting the dataset."
   = render "forms/horizontal/text_field", form: form, object: dataset, key: :git_repository, key_name: "Documentation repository", help_text: "Ex: https://github.com/<repository-name>.git"
   = render "forms/horizontal/check_box", form: form, object: dataset, key: :released
   = render "forms/horizontal/check_box", form: form, object: dataset, key: :disable_data_requests, help_text: "Selecting this disables new dataset requests."

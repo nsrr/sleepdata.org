@@ -2,6 +2,8 @@
 - **Dataset Changes**
   - Increased pagination of datasets page to 30
   - Added slug to datasets index to improve finding a dataset on the page
+  - Datasets can now specify a request warning that shows up when selecting the
+    dataset
 
 ## Bug Fix
 - Fixed a bug that calculated the incorrect offset for data request helpers

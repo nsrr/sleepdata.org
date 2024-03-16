@@ -22,6 +22,18 @@
         %strong submit
         when ready!
 
+      - if @dataset.request_warning.present?
+        .mt-5.mb-0.p-3.bg-warning.text-left.rounded
+          .d-flex.flex-row.align-items-center
+            .p-3= icon "fas", "exclamation-triangle", class: "icon-child-md"
+            %div
+              %p
+                %strong
+                  = @dataset.name
+                  = surround "(", ")" do
+                    = @dataset.slug.upcase
+              = simple_markdown(@dataset.request_warning)
+
       .my-5
         = link_to data_requests_start_path(@dataset), method: :post, class: "btn btn-lg btn-primary btn-shadow" do
           Click to start

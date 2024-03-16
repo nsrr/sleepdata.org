@@ -25,6 +25,22 @@
           contents of each dataset and select only the datasets containing
           sufficient data relevant to your project.
 
+        - datasets = @data_request.final_legal_document.legal_document.datasets.where(disable_data_requests: false).current.order(:release_date, :name)
+        - datasets.order(:release_date, :name).each do |dataset|
+          - dataset_included = @data_request.datasets.pluck(:id).include?(dataset.id)
+
+          - if dataset.request_warning.present?
+            .mt-3.mb-0.p-3.bg-warning.text-left.rounded{ id: "dataset_request_warning_#{dataset.id}", style: dataset_included ? "" : "display:none" }
+              .d-flex.flex-row.align-items-center
+                .p-3= icon "fas", "exclamation-triangle", class: "icon-child-md"
+                %div
+                  %p
+                    %strong
+                      = dataset.name
+                      = surround "(", ")" do
+                        = dataset.slug.upcase
+                  = simple_markdown(dataset.request_warning)
+
         .mt-5.mb-3.float-right
           = succeed " " do
             = link_to "#", class: "btn btn-light", tabindex: "-1", data: { object: "submit-draft-and-disable", target: "#data-request-form" } do
