@@ -13,7 +13,7 @@ class Topic < ApplicationRecord
   }
   DEFAULT_ORDER = "topics.pinned desc, topics.last_reply_at desc, topics.id desc"
 
-  AUTO_LOCK_IN = 2.months
+  AUTO_LOCK_IN = 100.years
 
   attr_accessor :description
 
