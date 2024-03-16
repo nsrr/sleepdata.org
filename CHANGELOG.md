@@ -3,6 +3,10 @@
   - Increased pagination of datasets page to 30
   - Added slug to datasets index to improve finding a dataset on the page
 
+## Bug Fix
+- Fixed a bug that calculated the incorrect offset for data request helpers
+  from lining up when a service announcement popup was open
+
 ## 60.0.1 (July 23, 2023)
 
 ### Enhancements
