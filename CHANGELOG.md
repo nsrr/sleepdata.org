@@ -8,8 +8,6 @@
     dataset
 - **Forum Changes**
   - Old topics are now auto-locked after 100 years (and not 2 months)
-- **Gem Changes**
-  - Update to pg 1.5.6
 
 ## Bug Fix
 - Fixed a bug that calculated the incorrect offset for data request helpers

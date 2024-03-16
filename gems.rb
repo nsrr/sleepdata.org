@@ -6,7 +6,7 @@ source "https://rubygems.org"
 gem "rails",                      "6.1.4.4"
 
 # PostgreSQL as the Active Record database.
-gem "pg",                         "1.5.6"
+gem "pg",                         "1.2.3"
 
 # Gems used by project.
 gem "autoprefixer-rails"
