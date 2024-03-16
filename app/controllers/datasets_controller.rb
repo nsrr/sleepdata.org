@@ -74,7 +74,7 @@ class DatasetsController < ApplicationController
     scope = scope.where(polysomnography: true) if params[:data] == "polysomnography"
     scope = scope.where(actigraphy: true) if params[:data] == "actigraphy"
     scope = scope.where(questionnaires_only: true) if params[:data] == "questionnaires-only"
-    @datasets = scope_order(scope).page(params[:page]).per(25)
+    @datasets = scope_order(scope).page(params[:page]).per(30)
   end
 
   # GET /datasets/1
