@@ -45,7 +45,8 @@
     $help_element.addClass("agreement-helper-highlight")
   offset = $("#top-menu").height()
   offset = offset - ($(element).height() / 2) if $(element).hasClass("signature-pad-body")
-  $help_element.css("top", $(element).offset().top - offset)
+  service_announcement_height = $("#service-announcement").height() || 0
+  $help_element.css("top", $(element).offset().top - offset - service_announcement_height)
   $help_element.fadeIn()
 
 @agreementHelpers = ->
