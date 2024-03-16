@@ -121,7 +121,9 @@
           .dataset-card-footer-entry.pl-0
             = link_to dataset, class: "no-underline" do
               %small
-                .d-none.d-lg-inline-block= dataset.name
+                .d-none.d-lg-inline-block
+                  = "#{dataset.slug.upcase}:"
+                  = dataset.name
                 .d-inline-block.d-lg-none= dataset.slug.upcase
           - unless dataset.dataset_files.current.where(is_file: true).count.zero?
             .dataset-card-footer-spacer|

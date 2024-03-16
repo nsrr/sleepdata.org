@@ -1,6 +1,7 @@
 ## 61.0.0
 - **Dataset Changes**
   - Increased pagination of datasets page to 30
+  - Added slug to datasets index to improve finding a dataset on the page
 
 ## 60.0.1 (July 23, 2023)
 
