@@ -20,11 +20,13 @@ $(document)
       $(this).find(".card-header").addClass("bg-primary text-white")
       $(this).find("[data-object~=dataset-check-icon]").removeClass("far fa-square")
       $(this).find("[data-object~=dataset-check-icon]").addClass("fas fa-check-square")
+      $($(this).data("request-warning-target")).show()
     else
       $(this).find(".card-header").removeClass("bg-primary text-white")
       $(this).find(".card-header").addClass("bg-light")
       $(this).find("[data-object~=dataset-check-icon]").removeClass("fas fa-check-square")
       $(this).find("[data-object~=dataset-check-icon]").addClass("far fa-square")
+      $($(this).data("request-warning-target")).hide()
     if $("[name='data_request[dataset_ids][]']:checked").length <= 2
       $(".datasets-warning").hide()
     else
