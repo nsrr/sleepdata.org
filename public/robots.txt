@@ -45,3 +45,12 @@ Disallow: /
 
 User-agent: YandexBot
 Disallow: /
+
+User-agent: claudebot
+Disallow: /
+
+User-agent: SeekportBot
+Disallow: /
+
+User-agent: bingbot
+Crawl-delay: 5
