@@ -45,3 +45,15 @@ Disallow: /
 
 User-agent: YandexBot
 Disallow: /
+
+User-agent: claudebot
+Disallow: /
+
+User-agent: SeekportBot
+Disallow: /
+
+User-agent: bingbot
+Disallow: /
+
+User-agent: facebookexternalhit
+Disallow: /
