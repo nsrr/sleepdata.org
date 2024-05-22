@@ -53,7 +53,7 @@ User-agent: SeekportBot
 Disallow: /
 
 User-agent: bingbot
-Crawl-delay: 5
+Disallow: /
 
 User-agent: facebookexternalhit
 Disallow: /
