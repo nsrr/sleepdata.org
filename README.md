@@ -104,6 +104,12 @@ identify -list format
 The list should include JPEG and PNG
 
 
+## Installing PG
+
+```
+gem install pg -v=1.5.6 -- --with-pg-config=/usr/pgsql-9.5/bin/pg_config
+```
+
 ## License
 
 The NSRR is released under the
