@@ -38,3 +38,8 @@ $(document)
     createCookie($(this).data("cookie"), "1", 180)
     $("#service-announcement").remove()
   )
+  .on("click", "[data-object~=under-review]", ->
+    createCookie($(this).data("cookie"), "1", $(this).data("days"))
+    $("#under-review").remove()
+    false
+  )

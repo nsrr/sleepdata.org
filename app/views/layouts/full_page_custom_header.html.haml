@@ -20,6 +20,7 @@
     = render "layouts/constant_contact"
   %body#top.full-page.theme-bg{ class: @theme ? "theme-#{@theme}-bg" : nil, data: { theme: @theme } }
     = render "layouts/staging_server" if STAGING_SERVER
+    = render "layouts/under_review", container: yield(:container_class)
     = render "layouts/service_announcement", container: yield(:container_class)
     = render "layouts/flash_bar"
     = yield :header

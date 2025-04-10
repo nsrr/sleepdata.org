@@ -1,4 +1,6 @@
 ## 61.0.0
+- **General Changes**
+  - Added "Repository under review" notification
 - **Blog Changes**
   - The first header in a blog is now automatically removed from the preview
 - **Dataset Changes**

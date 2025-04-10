@@ -1,0 +1,10 @@
+.under-review {
+  background-color: $p100-red;
+  border-bottom: .25rem solid $p300-red;
+  left: 0;
+  padding: .5rem;
+
+  a {
+    color: $brand-black;
+  }
+}
