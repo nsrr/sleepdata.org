@@ -1,9 +1,9 @@
-- if cookies[:under_review_closed] != "1"
+- if cookies[:under_review_closed] != "1" || true
   #under-review.under-review
     .d-flex.align-items-center{ class: defined?(container) && container.present? ? container : "container" }
       .text-center.flex-fill
         This repository is under review for potential modification
         in compliance with Administration directives.
-
-      .float-right
-        = link_to icon("fas", "times"), "#", data: { object: "under-review", cookie: "under_review_closed", days: 14 }, class: "no-underline"
+      - if false
+        .float-right
+          = link_to icon("fas", "times"), "#", data: { object: "under-review", cookie: "under_review_closed", days: 14 }, class: "no-underline"
