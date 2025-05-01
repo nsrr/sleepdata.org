@@ -41,7 +41,7 @@ class User < ApplicationRecord
   acts_as_textcaptcha api_key: ENV["support_email"]
 
   def perform_textcaptcha?
-    super && !Rails.env.test?
+    super && !Rails.env.test? && TEXTCAPTCHA_ENABLED
   end
 
   include Squishable

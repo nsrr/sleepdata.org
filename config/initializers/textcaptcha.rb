@@ -1,0 +1,1 @@
+TEXTCAPTCHA_ENABLED = false
