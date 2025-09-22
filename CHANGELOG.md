@@ -8,6 +8,8 @@
   - Added slug to datasets index to improve finding a dataset on the page
   - Datasets can now specify a request warning that shows up when selecting the
     dataset
+- **Dataset Request Changes**
+  - Added link to Dataset Discovery on Datasets selection page
 - **Review Changes**
   - Display submitter's email address on data request review page
 - **Forum Changes**

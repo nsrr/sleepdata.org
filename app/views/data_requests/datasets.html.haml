@@ -11,7 +11,12 @@
       .page-box.last-box
         .agreement-heading= @title
         %p
-          Select only those datasets needed for your project.
+          Select only those datasets needed for your project. Review the
+          = link_to "https://matrix.sleepdata.org", target: "_blank" do
+            NSRR Dataset Discovery tool
+            = icon("fas", "external-link-alt")
+          to learn more about the contents of each dataset and ensure the selections are
+          appropriate for this data request.
         - if @datasets_empty
           .p-3.mb-3.bg-danger.text-white You must select at least one dataset.
 
