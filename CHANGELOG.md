@@ -4,7 +4,7 @@
 - **Blog Changes**
   - The first header in a blog is now automatically removed from the preview
 - **Dataset Changes**
-  - Increased pagination of datasets page to 30
+  - Increased pagination of datasets page to 35
   - Added slug to datasets index to improve finding a dataset on the page
   - Datasets can now specify a request warning that shows up when selecting the
     dataset
