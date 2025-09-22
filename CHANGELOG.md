@@ -8,6 +8,7 @@
   - Added slug to datasets index to improve finding a dataset on the page
   - Datasets can now specify a request warning that shows up when selecting the
     dataset
+  - Hide variables tab if the dataset has no data dictionary
 - **Dataset Request Changes**
   - Added link to Dataset Discovery on Datasets selection page
 - **Review Changes**
