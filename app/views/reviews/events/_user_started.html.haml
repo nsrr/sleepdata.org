@@ -1,5 +1,5 @@
 = profile_picture_tag agreement_event.user, size: 18, style: "vertical-align: text-middle;width: 18px;"
-= agreement_event.agreement.user_full_name_or_email
+= agreement_event.agreement.user_full_name_and_email
 %small= link_to "(#{agreement_event.agreement.user.username})", posts_member_path(agreement_event.agreement.user.username)
 %span.badge.badge-warning started
 data request

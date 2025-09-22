@@ -8,6 +8,8 @@
   - Added slug to datasets index to improve finding a dataset on the page
   - Datasets can now specify a request warning that shows up when selecting the
     dataset
+- **Review Changes**
+  - Display submitter's email address on data request review page
 - **Forum Changes**
   - Old topics are now auto-locked after 100 years (and not 2 months)
 

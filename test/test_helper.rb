@@ -2,6 +2,8 @@
 
 require "simplecov"
 require "minitest/pride"
+require "minitest/mock"
+require "ostruct"
 
 ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"

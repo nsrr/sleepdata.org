@@ -6,7 +6,7 @@
 %p{ style: p_style }
   You have been designated as the Duly Authorized Representative for
   = succeed "." do
-    = @data_request.user_full_name_or_email
+    = @data_request.user_full_name_and_email
   You may review the data request here:
 
 - signature_request_url = "#{ENV["website_url"]}/representative/#{@data_request.id_and_representative_token}/signature-requested"
