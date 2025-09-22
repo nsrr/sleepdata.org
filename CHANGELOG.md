@@ -1,4 +1,6 @@
 ## 61.0.0 (September 21, 2025)
+
+### Enhancements
 - **General Changes**
   - Added "Repository under review" notification
 - **Blog Changes**
