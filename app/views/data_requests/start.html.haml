@@ -22,6 +22,21 @@
         %strong submit
         when ready!
 
+      .mt-5.mb-0.p-3.bg-warning.text-left.rounded
+        .d-flex.flex-row.align-items-center
+          .p-3= icon "fas", "exclamation-triangle", class: "icon-child-md"
+          %div
+            %p
+              %strong
+                NOTICE:
+            The US DOJ implemented new regulations that prohibit access to US data by Countries of Concern and Covered Persons as defined by
+            = surround "", "." do
+              = link_to "28 CFR Part 202", "https://www.ecfr.gov/current/title-28/chapter-I/part-202"
+            Countries of Concern are People’s Republic of China (including Hong Kong and Macau), Cuba, Iran, North Korea, Russia, and Venezuela.  In accordance with these regulations, we are required to deny your access to the data contained in the National Sleep Research Resource if you are located in a Country of Concern or are otherwise a Covered Person under the regulations.  If you have any questions, please contact
+            = surround "", "." do
+              = mail_to "support@sleepdata.org", "support@sleepdata.org"
+
+
       - if @dataset.request_warning.present?
         .mt-5.mb-0.p-3.bg-warning.text-left.rounded
           .d-flex.flex-row.align-items-center
