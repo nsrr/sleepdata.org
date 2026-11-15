@@ -27,10 +27,19 @@ class User < ApplicationRecord
     ["Organization", "organization"]
   ]
 
+  ATTESTATION_ERROR_MESSAGE = "must be accepted to access the National Sleep Research Resource."
+
   # Include default devise modules. Others available are:
   # :lockable and :omniauthable
   devise :database_authenticatable, :registerable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
+
+  attr_accessor :not_covered_person_or_located_in_country_of_concern_attestation
+  validates :not_covered_person_or_located_in_country_of_concern_attestation,
+            acceptance: { accept: ["1", 1, true, "true"], allow_nil: false, message: ATTESTATION_ERROR_MESSAGE },
+            on: :create
+
+  before_create :set_attestation
 
   # Concerns
   include Deletable
@@ -334,5 +343,18 @@ class User < ApplicationRecord
     Notification.where(reply: replies).destroy_all
     update(spammer: true)
     destroy
+  end
+
+  # Records the most recent time the user attested to not being a Covered
+  # Person or located in a Country of Concern (login, registration, data request
+  # login). Token based logins intentionally do not call this.
+  def save_attestation!
+    update_column(:not_covered_person_country_of_concern_attestation_at, Time.zone.now)
+  end
+
+  private
+
+  def set_attestation
+    self.not_covered_person_country_of_concern_attestation_at = Time.zone.now
   end
 end

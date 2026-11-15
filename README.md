@@ -6,7 +6,6 @@ National Sleep Research Resource
 
 The application that runs https://sleepdata.org. Using Rails 6.1+ and Ruby 3.1+.
 
-
 ## Setting up Daily Digest Emails
 
 Edit Cron Jobs `sudo crontab -e` to run the task `lib/tasks/daily_digest.rake`

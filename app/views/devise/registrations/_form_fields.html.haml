@@ -16,5 +16,13 @@
     = form.text_field :textcaptcha_answer, value: "", class: "form-control#{" is-invalid" if user.errors[:textcaptcha_answer].present?}", autocomplete: "off", autocorrect: "off", autocapitalize: "none", spellcheck: "false"
     = render "forms/invalid_feedback", object: user, key: :textcaptcha_answer
 
+.card.p-3.secondary{{ style: "background-color: #ededed" }}
+  .form-group
+    .custom-control.custom-checkbox
+      = form.check_box :not_covered_person_or_located_in_country_of_concern_attestation, class: "custom-control-input#{" is-invalid" if user.errors[:not_covered_person_or_located_in_country_of_concern_attestation].present?}", id: :not_covered_person_or_located_in_country_of_concern_attestation
+      = label_tag :not_covered_person_or_located_in_country_of_concern_attestation, class: "custom-control-label" do
+        = render "devise/shared/attestation_text"
+      = render "forms/invalid_feedback", object: user, key: :not_covered_person_or_located_in_country_of_concern_attestation
+
 .form-group.submit-btn-container
   = form.submit "Next step", class: "btn btn-primary btn-block btn-shadow"

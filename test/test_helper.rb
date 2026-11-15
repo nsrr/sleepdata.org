@@ -29,7 +29,11 @@ class ActionDispatch::IntegrationTest
   def sign_in_as(user, password)
     user.update password: password, password_confirmation: password
     post new_user_session_url, params: {
-      user: { email: user.email, password: password }
+      user: {
+        email: user.email,
+        password: password,
+        not_covered_person_or_located_in_country_of_concern_attestation: "1"
+      }
     }
     follow_redirect!
     user

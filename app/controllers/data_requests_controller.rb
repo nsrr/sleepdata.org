@@ -66,11 +66,14 @@ class DataRequestsController < ApplicationController
   def login
     unless current_user
       user = User.find_by(email: params[:email])
-      if user && user.valid_password?(params[:password])
+      attested = params[:not_covered_person_or_located_in_country_of_concern_attestation] == "1"
+      if user && attested && user.valid_password?(params[:password])
         sign_in(:user, user)
+        user.save_attestation!
       else
         @user = User.new
-        @sign_in_errors = []
+        @sign_in_errors = [] if attested
+        @attestation_error = !attested
         @sign_in = true
         render :about_me
         return
@@ -357,7 +360,10 @@ class DataRequestsController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:username, :email, :password, :textcaptcha_answer, :textcaptcha_key)
+    params.require(:user).permit(
+      :username, :email, :password, :textcaptcha_answer, :textcaptcha_key,
+      :not_covered_person_or_located_in_country_of_concern_attestation
+    )
   end
 
   def resume_url(data_request)

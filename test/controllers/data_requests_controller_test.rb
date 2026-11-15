@@ -394,4 +394,56 @@ class DataRequestsControllerTest < ActionDispatch::IntegrationTest
     get resume_data_request_url(data_request)
     assert_redirected_to data_requests_page_url(data_request, 1)
   end
+
+  test "should login during data request with attestation" do
+    @regular.update password: "1234567890", password_confirmation: "1234567890"
+    post data_requests_login_url(@released), params: {
+      email: @regular.email,
+      password: "1234567890",
+      not_covered_person_or_located_in_country_of_concern_attestation: "1"
+    }
+    assert_response :redirect
+    assert_not_nil @regular.reload.not_covered_person_country_of_concern_attestation_at
+  end
+
+  test "should not login during data request without attestation" do
+    @regular.update password: "1234567890", password_confirmation: "1234567890"
+    assert_difference("DataRequest.count", 0) do
+      post data_requests_login_url(@released), params: {
+        email: @regular.email,
+        password: "1234567890",
+        not_covered_person_or_located_in_country_of_concern_attestation: "0"
+      }
+    end
+    assert_response :success
+    assert_nil @regular.reload.not_covered_person_country_of_concern_attestation_at
+  end
+
+  test "should join during data request with attestation" do
+    assert_difference("User.count", 1) do
+      post data_requests_join_url(@released), params: {
+        user: {
+          username: "joinrequester",
+          email: "joinrequester@example.com",
+          password: "joinpassword098765",
+          not_covered_person_or_located_in_country_of_concern_attestation: "1"
+        }
+      }
+    end
+    assert_not_nil User.find_by(email: "joinrequester@example.com").not_covered_person_country_of_concern_attestation_at
+  end
+
+  test "should not join during data request without attestation" do
+    assert_difference("User.count", 0) do
+      post data_requests_join_url(@released), params: {
+        user: {
+          username: "joinrequester",
+          email: "joinrequester@example.com",
+          password: "joinpassword098765"
+        }
+      }
+    end
+    assert_response :success
+  end
+
 end

@@ -1,3 +1,8 @@
+## X.X.X
+
+- **General Changes**
+  - Added Covered Person / Country of Concern attestation at registration and login
+
 ## 61.0.0 (September 21, 2025)
 
 ### Enhancements

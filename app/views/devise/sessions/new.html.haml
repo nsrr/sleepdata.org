@@ -23,6 +23,14 @@
           - if flash[:alert].present?
             .invalid-feedback= flash[:alert].html_safe
 
+        .card.p-3.secondary{{ style: "background-color: #ededed" }}
+          .form-group
+            .custom-control.custom-checkbox
+              = form.check_box :not_covered_person_or_located_in_country_of_concern_attestation, class: "custom-control-input#{" is-invalid" if resource.errors[:not_covered_person_or_located_in_country_of_concern_attestation].present?}", id: :not_covered_person_or_located_in_country_of_concern_attestation
+              = label_tag :not_covered_person_or_located_in_country_of_concern_attestation, class: "custom-control-label" do
+                = render "devise/shared/attestation_text"
+              = render "forms/invalid_feedback", object: resource, key: :not_covered_person_or_located_in_country_of_concern_attestation
+
         .form-group.submit-btn-container
           = form.submit "Sign in", class: "btn btn-primary btn-block btn-shadow"
 
