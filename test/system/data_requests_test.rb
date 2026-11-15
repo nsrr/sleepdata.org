@@ -21,9 +21,7 @@ class DataRequestsTest < ApplicationSystemTestCase
 
     click_on "I already have an account"
 
-    fill_in "email", with: @regular.email
-    fill_in "password", with: @regular.password
-    click_form_submit
+    sign_in_with_attestation @regular
 
     screenshot("dataset-request-signature")
     click_on "Proceed"
@@ -64,9 +62,7 @@ class DataRequestsTest < ApplicationSystemTestCase
 
     click_on "I already have an account"
 
-    fill_in "email", with: @regular.email
-    fill_in "password", with: @regular.password
-    click_form_submit
+    sign_in_with_attestation @regular
 
     screenshot("dataset-request-attestation")
     click_element "#attest"
@@ -99,9 +95,7 @@ class DataRequestsTest < ApplicationSystemTestCase
 
     click_on "I already have an account"
 
-    fill_in "email", with: @regular.email
-    fill_in "password", with: @regular.password
-    click_form_submit
+    sign_in_with_attestation @regular
 
     # screenshot("dataset-request-fast")
     # click_on "Skip"

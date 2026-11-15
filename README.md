@@ -109,6 +109,38 @@ The list should include JPEG and PNG
 gem install pg -v=1.5.6 -- --with-pg-config=/usr/pgsql-9.5/bin/pg_config
 ```
 
+## Testing
+
+Update test database:
+
+```
+rails db:migrate RAILS_ENV=test
+```
+
+Run unit and integration tests:
+
+```
+rails test
+```
+
+Run system tests:
+
+```
+rails test:system
+```
+
+Run individual unit test:
+
+```
+rails test -n test_should_not_login_without_attestation
+```
+
+Run individual system test:
+
+```
+rails test test/system/folders_test.rb -n test_creating_a_folder
+```
+
 ## License
 
 The NSRR is released under the

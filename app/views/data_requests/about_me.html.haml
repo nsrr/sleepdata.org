@@ -37,8 +37,8 @@
           .card.p-3.secondary{ style: "background-color: #ededed" }
             .form-group
               .custom-control.custom-checkbox
-                = check_box_tag :not_covered_person_or_located_in_country_of_concern_attestation, "1", false, class: "custom-control-input#{" is-invalid" if @attestation_error}"
-                = label_tag :not_covered_person_or_located_in_country_of_concern_attestation, class: "custom-control-label" do
+                = check_box_tag :not_covered_person_or_located_in_country_of_concern_attestation, "1", false, id: "login_not_covered_person_or_located_in_country_of_concern_attestation", class: "custom-control-input#{" is-invalid" if @attestation_error}"
+                = label_tag :not_covered_person_or_located_in_country_of_concern_attestation, class: "custom-control-label", for: "login_not_covered_person_or_located_in_country_of_concern_attestation" do
                   = render "devise/shared/attestation_text"
                 - if @attestation_error
                   .invalid-feedback= "Attestation #{User::ATTESTATION_ERROR_MESSAGE}"

@@ -2,48 +2,62 @@ require "application_system_test_case"
 
 class FoldersTest < ApplicationSystemTestCase
   setup do
-    @folder = folders(:one)
+    @folder = folders(:about)
+    @admin = users(:admin)
   end
 
   test "visiting the index" do
-    visit folders_url
+    visit admin_folders_url
+    sign_in_with_attestation_user_form @admin, password: "password"
+
+    visit admin_folders_url
+    screenshot("folders-index")
     assert_selector "h1", text: "Folders"
   end
 
-  test "creating a Folder" do
-    visit folders_url
+  test "creating a folder" do
+    visit admin_folders_url
+    sign_in_with_attestation_user_form @admin, password: "password"
+
+    visit admin_folders_url
     click_on "New Folder"
 
-    check "Deleted" if @folder.deleted
-    check "Displayed" if @folder.displayed
-    fill_in "Name", with: @folder.name
-    fill_in "Slug", with: @folder.slug
+    fill_in "folder[name]", with: "Webinars"
+    fill_in "folder[position]", with: "2"
+    first("#folder_displayed", visible: :all).check
+
     click_on "Create Folder"
 
     assert_text "Folder was successfully created"
-    click_on "Back"
   end
 
-  test "updating a Folder" do
-    visit folders_url
-    click_on "Edit", match: :first
+  test "updating a folder" do
+    visit admin_folders_url
+    sign_in_with_attestation_user_form @admin, password: "password"
 
-    check "Deleted" if @folder.deleted
-    check "Displayed" if @folder.displayed
-    fill_in "Name", with: @folder.name
-    fill_in "Slug", with: @folder.slug
+    visit admin_folders_url
+    click_on "Actions", match: :first
+    click_on "Edit", match: :first
+    
+    fill_in "folder[name]", with: @folder.name
+    fill_in "folder[slug]", with: @folder.slug
+    fill_in "folder[position]", with: @folder.position
+    first("#folder_displayed", visible: :all).check
     click_on "Update Folder"
 
     assert_text "Folder was successfully updated"
-    click_on "Back"
   end
 
-  test "destroying a Folder" do
-    visit folders_url
+  test "destroying a folder" do
+    visit admin_folders_url
+    sign_in_with_attestation_user_form @admin, password: "password"
+    visit admin_folders_url
+
+    click_on "Actions", match: :first
     page.accept_confirm do
-      click_on "Destroy", match: :first
+      click_on "Delete", match: :first
     end
 
-    assert_text "Folder was successfully destroyed"
+    assert_text "Folder was successfully deleted"
   end
 end

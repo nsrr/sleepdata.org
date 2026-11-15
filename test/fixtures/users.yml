@@ -180,7 +180,7 @@ admin:
   admin: true
   email: admin@example.com
   confirmed_at: <%= confirmed_at %>
-  encrypted_password: ""
+  encrypted_password: <%= pw %>
   authentication_token: f84017f13698c6d82459b
 
 admin_two:

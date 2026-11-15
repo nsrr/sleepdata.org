@@ -16,10 +16,7 @@ class OrganizationUsersTest < ApplicationSystemTestCase
     click_on "Members"
     screenshot("organization-visit-team-index")
     click_on "Sign in"
-    fill_in "user[email]", with: @editor.email
-    fill_in "user[password]", with: "password"
-    screenshot("organization-visit-team-index")
-    click_form_submit
+    sign_in_with_attestation_user_form @editor, password: "password"
     assert_selector "h1", text: "Organization One"
     screenshot("organization-visit-team-index")
   end
@@ -27,9 +24,7 @@ class OrganizationUsersTest < ApplicationSystemTestCase
   test "inviting an organization member" do
     visit organization_organization_users_url(@organization)
     click_on "Sign in"
-    fill_in "user[email]", with: @editor.email
-    fill_in "user[password]", with: "password"
-    click_form_submit
+    sign_in_with_attestation_user_form @editor, password: "password"
 
     screenshot("organization-invite-member")
     click_on "Invite member"
@@ -46,9 +41,7 @@ class OrganizationUsersTest < ApplicationSystemTestCase
   test "updating an organization member" do
     visit organization_organization_users_url(@organization)
     click_on "Sign in"
-    fill_in "user[email]", with: @editor.email
-    fill_in "user[password]", with: "password"
-    click_form_submit
+    sign_in_with_attestation_user_form @editor, password: "password"
 
     screenshot("organization-update-member")
 
@@ -64,9 +57,7 @@ class OrganizationUsersTest < ApplicationSystemTestCase
   test "destroying an organization member" do
     visit organization_organization_users_url(@organization)
     click_on "Sign in"
-    fill_in "user[email]", with: @editor.email
-    fill_in "user[password]", with: "password"
-    click_form_submit
+    sign_in_with_attestation_user_form @editor, password: "password"
     screenshot("organization-remove-member")
     # click_on "Actions", match: :second # The following is emulating this.
     page.all(".dropdown-toggle")[2].click

@@ -9,15 +9,10 @@ class OrganizationsTest < ApplicationSystemTestCase
   end
 
   test "visiting the index" do
-    password = "PASSword2"
-    @admin.update(password: password, password_confirmation: password)
     visit root_url
     screenshot("organizations-index")
     click_on "Sign in"
-    screenshot("organizations-index")
-    fill_in "user[email]", with: @admin.email
-    fill_in "user[password]", with: @admin.password
-    click_form_submit
+    sign_in_with_attestation_user_form @admin, password: "password"
     visit organizations_url
     screenshot("organizations-index")
     assert_selector "h1", text: "Organization"

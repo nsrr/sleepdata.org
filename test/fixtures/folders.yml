@@ -3,11 +3,13 @@
 about:
   name: About
   slug: about
+  position: -1
   displayed: true
   deleted: false
 
 other:
   name: Other
   slug: other
+  position: 2
   displayed: false
   deleted: false
