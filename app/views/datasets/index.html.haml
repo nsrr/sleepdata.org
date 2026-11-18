@@ -106,6 +106,7 @@
     = succeed "." do
       = link_to "Back to index", datasets_path
 - else
+  - preload_data_access(@datasets)
   - @datasets.each do |dataset|
     .dataset-card{ id: "dataset-card-#{dataset.id}", class: dataset.featured? ? "dataset-card-featured" : nil }
       .dataset-card-body
