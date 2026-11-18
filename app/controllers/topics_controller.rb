@@ -25,7 +25,7 @@ class TopicsController < ApplicationController
   def index
     scope = Topic.current
     scope = scope.shadow_banned(current_user) unless current_user&.admin?
-    @topics = scope_order(scope).page(params[:page]).per(40)
+    @topics = scope_order(scope).includes(:user).page(params[:page]).per(40)
   end
 
   # GET /forum/my-first-topic
