@@ -14,9 +14,6 @@ Disallow: /search
 
 # Disallow robots
 User-agent: GPTBot
-Disallow: / 
-
-User-agent: Seekport Crawler
 Disallow: /
 
 User-agent: SemrushBot
@@ -59,9 +56,6 @@ User-agent: claudebot
 Disallow: /
 
 User-agent: SeekportBot
-Disallow: /
-
-User-agent: bingbot
 Disallow: /
 
 User-agent: facebookexternalhit
