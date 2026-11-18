@@ -72,24 +72,18 @@ class Dataset < ApplicationRecord
     ).current.distinct
   end
 
+  # Each access path is an id subquery instead of one wide LEFT JOIN across data requests,
+  # dataset users and organization users. The join fanned out to (requests x org members)
+  # rows per dataset and needed DISTINCT plus a large sort; with subqueries each dataset
+  # appears once, so no DISTINCT is needed.
   scope :with_viewer_or_editor_or_approved, ->(arg) do
-    left_outer_joins(:data_requests, :dataset_users, organization: :organization_users).released.or(
-      left_outer_joins(:data_requests, :dataset_users, organization: :organization_users).where(user: arg)
-    ).or(
-      left_outer_joins(:data_requests, :dataset_users, organization: :organization_users).merge(
-        DatasetUser.where(user: arg)
-      )
-    ).or(
-      left_outer_joins(:data_requests, :dataset_users, organization: :organization_users).merge(
-        OrganizationUser.where(user: arg)
-      )
-    ).or(
-      left_outer_joins(:data_requests, :dataset_users, organization: :organization_users).merge(
-        DataRequest.where(expiration_date: nil).or(
-          DataRequest.where("expiration_date >= ?", Time.zone.today)
-        ).current.where(status: "approved", user: arg)
-      )
-    ).current.distinct
+    approved = DataRequest.current.not_expired.where(status: "approved", user_id: arg)
+    base = current
+    base.where(released: true)
+      .or(base.where(user_id: arg))
+      .or(base.where(id: DatasetUser.where(user_id: arg).select(:dataset_id)))
+      .or(base.where(organization_id: OrganizationUser.where(user_id: arg).select(:organization_id)))
+      .or(base.where(id: Request.where(agreement_id: approved.select(:id)).select(:dataset_id)))
   end
 
   # Validations
