@@ -6,7 +6,16 @@
 
 Sitemap: https://sleepdata.org/sitemap.xml.gz
 
+# All crawlers not named below: crawl the site, but stay out of search.
+# Search result pages are endless (every query × every page), duplicate
+# content that's already reachable via the sitemap, and expensive (DB-heavy).
+User-agent: *
+Disallow: /search
+
 # Disallow robots
+User-agent: GPTBot
+Disallow: / 
+
 User-agent: Seekport Crawler
 Disallow: /
 
